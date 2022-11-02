@@ -2,74 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3788E615D11
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Nov 2022 08:40:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5635615D30
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Nov 2022 08:52:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A7D2A3CAD55
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Nov 2022 08:40:16 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0F5613CAD55
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Nov 2022 08:52:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4C16A3CA8A4
- for <ltp@lists.linux.it>; Wed,  2 Nov 2022 08:40:13 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 26CCB3CA8A4
+ for <ltp@lists.linux.it>; Wed,  2 Nov 2022 08:52:42 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A1007600950
- for <ltp@lists.linux.it>; Wed,  2 Nov 2022 08:40:11 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4E4611A00925
+ for <ltp@lists.linux.it>; Wed,  2 Nov 2022 08:52:41 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B3EF01F94C;
- Wed,  2 Nov 2022 07:40:10 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2C4CD33968;
+ Wed,  2 Nov 2022 07:52:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1667374810; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1667375561; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=hFXnwkVZbQRyN93mShNiqoq6qQFCbQEbU5HEkDAEHPM=;
- b=kW/TWQ0iTeOLSCps08I+VIahFG1Ob7DDCCe9Jr9r7+U8wOCPMrfPyOW/5Prez10oNcy6hB
- ZhMmrbT4Z5n6NSxGzX/rEFIPKp/c+DXGkFlYuGf5gho7YpsEZJft9jIxHQ0HW8aB7PsA14
- +MG1BnClSzO/rkteK+UivLP5M9A0y04=
+ bh=1GwLFUTSz7a1rT+Vp98IPaK0jtCSH0RlNIa3YitBi9Y=;
+ b=sLJFgU5Qck70eDrLwAquoPcqFTXZVnPi1nXG1XJ3RpjbCYAm8BdV5g0FEj/3mHVQyya+IV
+ z4j8Sy8q4LlYrBylyqTXuHhaR+7Dhzv5evEcFRuySdtV8OKmu/7gHYeQnDHN++5ik4sIJ0
+ /0tV9LX95A6UypuNE6DWLKY0X6Nkzls=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1667374810;
+ s=susede2_ed25519; t=1667375561;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=hFXnwkVZbQRyN93mShNiqoq6qQFCbQEbU5HEkDAEHPM=;
- b=ZZ4NgVWdf7Z/Jg7SDKhjMhvUthG5MfvldDw+lb9nirH2YuucRhIVdIzugSl9mkjHYhpY6Z
- J2M8x+r87hJHXyCw==
+ bh=1GwLFUTSz7a1rT+Vp98IPaK0jtCSH0RlNIa3YitBi9Y=;
+ b=2cYVHp1+2bA2DytHfZINu1ytOzndGppHuZ/jOc1H//ltjvq5VibHIJXJcZVKAYzHR+ioAh
+ WonXfs7sDG80bhDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A19D61376E;
- Wed,  2 Nov 2022 07:40:09 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1AE801376E;
+ Wed,  2 Nov 2022 07:52:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id DRPHF9keYmP6bgAAMHmgww
- (envelope-from <akumar@suse.de>); Wed, 02 Nov 2022 07:40:09 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id bGODMschYmNQdQAAMHmgww
+ (envelope-from <akumar@suse.de>); Wed, 02 Nov 2022 07:52:39 +0000
 From: Avinesh Kumar <akumar@suse.de>
-To: Martin Doucha <mdoucha@suse.cz>, Petr Vorel <pvorel@suse.cz>
-Date: Wed, 02 Nov 2022 13:10:06 +0530
-Message-ID: <20846440.eidTIuNkkK@localhost>
+To: rpalethorpe@suse.de
+Date: Wed, 02 Nov 2022 13:22:37 +0530
+Message-ID: <4268642.s8uzx1A9P8@localhost>
 Organization: SUSE
-In-Reply-To: <Y2BAiPUPKS3gimLD@pevik>
-References: <20221027140954.4094-1-akumar@suse.de>
- <7c3efc21-229f-5e76-21e4-3e778e7ba140@suse.cz> <Y2BAiPUPKS3gimLD@pevik>
+In-Reply-To: <87tu3j9h64.fsf@suse.de>
+References: <20221027140954.4094-1-akumar@suse.de> <Y2BA6UBSrVQS6HiI@pevik>
+ <87tu3j9h64.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] setfsuid02: using -1 as invalid fsuid for
  setfsuid()
 X-BeenThere: ltp@lists.linux.it
@@ -89,25 +88,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr, Martin,
+Hi Richie,
 
-Thank you for the discussion and fixing the patch for 16-bit.
-I am making a note to always test 16-bit binaries also.
+On Tuesday, November 1, 2022 2:33:00 PM IST Richard Palethorpe wrote:
+> Hello,
+> 
+> Petr Vorel <pvorel@suse.cz> writes:
+> 
+> >> Hello,
+> >
+> >> Avinesh Kumar <akumar@suse.de> writes:
+> >
+> >> > a uid which does not have an entry in the /etc/passwd
+> >> > file is not really an invalid fsuid for setfsuid(), so changing
+> >> > the test to use -1 as an invalid fsuid.
+> >> > And second setfsuid(-1) call is to verify that preceding call has
+> >> > actually failed and there is no change in the fsuid.
+> >
+> >> I think the original test is flawed and testing what using -1 does is
+> >> not very interesting as the kernel uses standard boilerplate to deal
+> >> with this.
+> >
+> >> AFAICT we don't test what happens if a non-root user tries to set the
+> >> fsuid to a uid that is not the euid, ruid or saved uid or 0/-1.
 
-On Tuesday, November 1, 2022 3:09:20 AM IST Petr Vorel wrote:
-> > On 31. 10. 22 15:56, Petr Vorel wrote:
-> > > Ah, sure, I see current_uid is used for checking only. So what is your
-> > > suggestion to fix the problem on 16-bit?
+> >
+> >> Possibly that is something for a new test though.
+I'll post a new patch for this. Thank you for the suggestion.
+
+> >
+> > Ah, sorry, I overlooked this, merged now.
 > 
-> > I guess using UID_T (defined in the LTP compat headers) instead of uid_t is
-> > the solution, then -1 will be cast to the correct bitsize.
+> No problem, I think that is the correct thing to do. I'll leave it to
+> Avinesh or someone else to extend the test (or not).
 > 
-> Thank you, that worked.
-> 
-> Merged, with additional cast to long to keep compiler happy.
-> 
-> Kind regards,
-> Petr
 > 
 
 Regards,
