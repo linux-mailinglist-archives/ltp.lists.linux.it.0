@@ -1,78 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A31B617EDC
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Nov 2022 15:05:33 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B86C66195F8
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Nov 2022 13:12:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7FBA23CADA0
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Nov 2022 15:05:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6F7A43CB346
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Nov 2022 13:12:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4C39D3CA6BA
- for <ltp@lists.linux.it>; Thu,  3 Nov 2022 15:05:28 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C9F5E6011AF
- for <ltp@lists.linux.it>; Thu,  3 Nov 2022 15:05:27 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1DEA61F45F;
- Thu,  3 Nov 2022 14:05:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1667484325;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=j2VwIS7T0MbrcWBeoF/n3T4njCePLHhheTqihEh6Hhw=;
- b=uo777YhYfWCh+48a/ONDqLQwWoX2S4E6cntUD6vZMurnyCAE0NUmW6ZsM9FV+8UOacT13g
- +JOPjCN4Nr+zeHUc8cF3xri33uUH0JRiVjRKjED18JpifKLQzvZb1N2KQt0cvg8TRM/dIL
- dw4wqkOy5xxRefkaxkDVcS0GpB4W+8k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1667484325;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=j2VwIS7T0MbrcWBeoF/n3T4njCePLHhheTqihEh6Hhw=;
- b=rjzTFU2F5oSYVgGEuo4jHZFXitoKK8x9FNycRm3Z6qfz7e0ALh0uhwARjBDi6U6yu+gcvg
- xkmemIQFEOzMarCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D9FAB13480;
- Thu,  3 Nov 2022 14:05:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 5jhcMaTKY2NhcQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 03 Nov 2022 14:05:24 +0000
-Date: Thu, 3 Nov 2022 15:05:22 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Message-ID: <Y2PKoqbsxun3eAVZ@pevik>
-References: <20221102145935.24738-1-andrea.cervesato@suse.com>
- <61b788f9-3b62-d0dd-2679-e21cef89bffe@suse.cz>
- <1af8a502-c736-c31a-8794-c847788c8766@suse.com>
+ by picard.linux.it (Postfix) with ESMTPS id 29B423CB514
+ for <ltp@lists.linux.it>; Fri,  4 Nov 2022 13:06:23 +0100 (CET)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id C29331400526
+ for <ltp@lists.linux.it>; Thu,  3 Nov 2022 17:44:49 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7583623A
+ for <ltp@lists.linux.it>; Thu,  3 Nov 2022 09:44:53 -0700 (PDT)
+Received: from e126380.cambridge.arm.com (e126380.cambridge.arm.com
+ [10.1.32.50])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 99F9A3F5A1
+ for <ltp@lists.linux.it>; Thu,  3 Nov 2022 09:44:46 -0700 (PDT)
+From: Teo Couprie Diaz <teo.coupriediaz@arm.com>
+To: ltp@lists.linux.it
+Date: Thu,  3 Nov 2022 16:44:29 +0000
+Message-Id: <20221103164431.365731-1-teo.coupriediaz@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1af8a502-c736-c31a-8794-c847788c8766@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Correctly check setitimer params in setitimer01
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/2] Change return type of tst_syscall
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,38 +48,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
-
-> > > @@ -64,14 +66,18 @@ static void verify_setitimer(unsigned int i)
-> > > =A0 =A0=A0=A0=A0=A0=A0=A0=A0=A0 tst_no_corefile(0);
-> > > =A0 -=A0=A0=A0=A0=A0=A0=A0 set_setitimer_value(USEC1, 0);
-> > > -=A0=A0=A0=A0=A0=A0=A0 TST_EXP_PASS(sys_setitimer(tc->which, value, N=
-ULL));
-> > > +=A0=A0=A0=A0=A0=A0=A0 set_setitimer_value(usec, 0);
-> > > +=A0=A0=A0=A0=A0=A0=A0 TST_EXP_PASS(sys_setitimer(tc->which, value, 0=
-));
-
-> > Why change the third argument from NULL to 0?
-
-> It's a mistake. I sent patch with 0 because I was tweaking with values
-> during tests.
-
-Good. I put it back and merged with updated copyright and adjusted the comm=
-it
-message and description.
-
-Thanks!
-
-Kind regards,
-Petr
-
--- =
-
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGVsbG8gTFRQIG1haW50YWluZXJzLAoKVGhlIGdvYWwgb2YgdGhpcyBwYXRjaCBpcyB0byBmaXgg
+YSBtaXNtYXRjaCBiZXR3ZWVuIHRoZSByZXR1cm4gdHlwZSB1c2VkIGluIGB0c3Rfc3lzY2FsbGAs
+IGBpbnRgLCBhbmQgdGhlIG9uZSB1c2VkIGJ5IHNvbWUgc3lzY2FsbHMsIGBsb25nYCBvciBgdm9p
+ZCAqYCBmb3IgZXhhbXBsZSwgd2hpY2ggY2FuIGJlIGxhcmdlciB0aGFuIGFuIGludCBhbmQgbGVh
+ZCB0byBhbiBpbmNvcnJlY3QgdGVzdC4KCkFzIEN5cmlsIEhydWJpcycgZmVlZGJhY2sgb24gdGhl
+IFJGQyBJIHNlbnQgZWFybGllciB3YXMgbW9zdGx5IHBvc2l0aXZlLCBJIGFtIG5vdyBzZW5kaW5n
+IGl0IGFzIGEgcGF0Y2ggcHJvcGVyLiBUaGFua3MgYWdhaW4gZm9yIGhhdmluZyBhIGxvb2sgIQoK
+VGhlIG1haW4gY2hhbmdlIHNpbmNlIHRoZSBSRkMgaXMgdGhhdCB0aGUgdGVzdCBzdWl0ZSBJIHVz
+ZWQgZm9yIHRlc3RpbmcgdGhlIGNoYW5nZSwgc3BlY2lmaWMgdG8gdGVzdCB0aGF0IHVzZSB0c3Rf
+c3lzY2FsbCwgaXMgbm93IGluIGEgc3BlYXJhdGUgY29tbWl0IHdoaWNoIGlzIG5vdCB0byBiZSBt
+ZXJnZWQuClRoZSBwb2ludCBpcyB0byBwcm92aWRlIGEgcmVmZXJlbmNlIHRvIHdoYXQgd2FzIHRl
+c3RlZCBhbmQgd2hhdCBjb3VsZCBiZSBpbXBhY3RlZC4KCgpDSSBidWlsZCBvbiBsYXRlc3QgbWFz
+dGVyOgpodHRwczovL2dpdGh1Yi5jb20vVGVvLUNEL2x0cC9hY3Rpb25zL3J1bnMvMzM4NjU2NzQy
+NAoKUkZDIHBhdGNoIG9uIHRoZSBtYWlsaW5nIGxpc3QgYXJjaGl2ZToKaHR0cHM6Ly9sb3JlLmtl
+cm5lbC5vcmcvbHRwLzIwMjIxMDI3MTYzNjU0LjQxNDAxNy0xLXRlby5jb3VwcmllZGlhekBhcm0u
+Y29tL1QvI200M2U2YTEyODAxOWQ5NGEyMTVkZTMzNDMzZjA5ZTA2Zjc3MzRjOWEyCgpUaGFuayB5
+b3UgaW4gYWR2YW5jZSwKVMOpbyBDb3VwcmllIERpYXoKCi0tClRlbyBDb3VwcmllIERpYXogKDIp
+OgogIHJlZ2VuLnNoOiBVc2UgaW50cHRyX3QgZm9yIHRzdF9zeXNjYWxsIHJldHVybgogIFtETyBO
+T1QgTUVSR0VdIHRzdF9zeXNjYWxsIHRlc3Qgc3VpdGUKCiBpbmNsdWRlL2xhcGkvc3lzY2FsbHMv
+cmVnZW4uc2ggfCAgIDIgKy0KIHJ1bnRlc3QvY2hlY2tfdHN0X3N5c2NhbGwgICAgICB8IDE5MCAr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKIDIgZmlsZXMgY2hhbmdlZCwgMTkxIGlu
+c2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKIGNyZWF0ZSBtb2RlIDEwMDY0NCBydW50ZXN0L2No
+ZWNrX3RzdF9zeXNjYWxsCgoKYmFzZS1jb21taXQ6IGI2MDZhN2M3ZGM2MTNiODA0MWY3YjM5NTg2
+OTVmMmNkZGUwNGZiZTUKLS0gCjIuMjUuMQoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6
+Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
