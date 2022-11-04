@@ -2,75 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACC8661976F
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Nov 2022 14:18:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6425E619845
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Nov 2022 14:41:24 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7EE443CA9E1
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Nov 2022 14:18:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D218C3CAE41
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Nov 2022 14:41:23 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BED5F3C93D0
- for <ltp@lists.linux.it>; Fri,  4 Nov 2022 14:18:22 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 0B78A3C9FD6
+ for <ltp@lists.linux.it>; Fri,  4 Nov 2022 14:41:19 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CD2DD2000D9
- for <ltp@lists.linux.it>; Fri,  4 Nov 2022 14:18:21 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id DFB931000403
+ for <ltp@lists.linux.it>; Fri,  4 Nov 2022 14:41:18 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A88371F894;
- Fri,  4 Nov 2022 13:18:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B943B21983;
+ Fri,  4 Nov 2022 13:41:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1667567900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1667569277; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=CfsDY/Sbxbyh7tW7K7GMaJg83cA/beLw1/JvlH9Ij54=;
- b=1N2+8J3kBrg/Z3XX09WAgnXcq9v1qEZC1VdAGAbzGh88nn3Xfe/EfCWroGRiezHWbmRyll
- Ney1pkcZJbI+t4TmaA7hq6jglep9HBK+st0ktxvS8AOd3o/7EEX4/zNStQQ9X3OEDvcXkh
- vAJt3apnOQ3MXbcp/Q0JOMTCdPIOh4k=
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=sJGrOWpqumuQGWpWZsw+Zzzw5WxVF6dt5HEx70W3pJBZbGSW3+RXPCFwi+IRfrigXCrP66
+ wgaKkoY62C2ABT/JziMggvX9iDCzW5YfIvORdGOSZXjm+QvWsOfYG0k4AtTyYM1u/BG97P
+ bhZ+RGgAgPKNzNOibmwi9HJGanPqKMQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1667567900;
+ s=susede2_ed25519; t=1667569277;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=CfsDY/Sbxbyh7tW7K7GMaJg83cA/beLw1/JvlH9Ij54=;
- b=2ZZKA9swepkxBuQ/7dEeyXVc0LRC9OjIwrfZlQrkBu2CSr/zlM49LbVPCcqyI+tz8v9IqB
- izB6WP4TAtCG6lDw==
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=VHOTXs1mMUws9cDtHkBOwR2QgnMoUarqv00YY2cBiHM4RAQHXdniRItFS0wwNYa47pA+50
+ mrj6ngE3nxHTtlBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8DA1013216;
- Fri,  4 Nov 2022 13:18:20 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9A32013216;
+ Fri,  4 Nov 2022 13:41:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id hZN1IRwRZWMBBgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 04 Nov 2022 13:18:20 +0000
-Date: Fri, 4 Nov 2022 14:19:53 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id PmiHJH0WZWPgFAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 04 Nov 2022 13:41:17 +0000
+Date: Fri, 4 Nov 2022 14:42:50 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Tarun Sahu <tsahu@linux.ibm.com>
-Message-ID: <Y2UReVDcsxQctNYu@yuki>
-References: <20221104062716.615021-1-tsahu@linux.ibm.com>
- <20221104062716.615021-4-tsahu@linux.ibm.com>
- <Y2TdNaxOzpaaCaPL@rei> <20221104131615.dac6oo3tt2f56xi3@tarunpc>
+To: Edward Liaw <edliaw@google.com>
+Message-ID: <Y2UW2gyxZ4UuZUtc@yuki>
+References: <20221102212427.2642267-1-edliaw@google.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20221104131615.dac6oo3tt2f56xi3@tarunpc>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20221102212427.2642267-1-edliaw@google.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 3/4] Hugetlb: Migrating libhugetlbfs
- chunk-overcommit
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] tst_tmpdir: add TST_GET_TMPDIR_ROOT() to get
+ the TMPDIR env var
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,30 +80,14 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: sbhat@linux.ibm.com, aneesh.kumar@linux.ibm.com, geetika@linux.ibm.com,
- vaibhav@linux.ibm.com, rpalethorpe@suse.com, ltp@lists.linux.it
+Cc: kernel-team@android.com, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > #define HUGEFILE MNTPOINT "hugefile"
-> > 
-> > ...
-> > 	huge_fd = tst_creat_unlinked(HUGEFILE);
-> > ...
-> > 
-> This function creat a file with random name, so that one test
-> can call this function multiple times to creat multple files
-> whenever required. So it will just take the path inside which it will creat
-> all these files. To keep hugetlb test file with ditinguisable name, the path
-> is sufficient, no need to take hugefile as argument. 
-> 
-> So file is: hugetlbfs/ltp_xxxxxx_<tid>
-
-Sorry, I got somehow confused in the morning, of course the code is
-correct.
+Applied, thanks.
 
 -- 
 Cyril Hrubis
