@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 117976195EF
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Nov 2022 13:11:09 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9710A6195D4
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Nov 2022 13:07:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B6D3E3CB36F
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Nov 2022 13:11:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2A9D43CB316
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Nov 2022 13:07:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
@@ -14,62 +14,62 @@ Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 514193CB505
- for <ltp@lists.linux.it>; Fri,  4 Nov 2022 13:06:18 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id A37F23CB3E6
+ for <ltp@lists.linux.it>; Fri,  4 Nov 2022 13:06:08 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id BFE181000541
- for <ltp@lists.linux.it>; Fri,  4 Nov 2022 10:36:40 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3E8321000EBE
+ for <ltp@lists.linux.it>; Fri,  4 Nov 2022 10:51:43 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A2F88218DF;
- Fri,  4 Nov 2022 09:36:39 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 095141F8C1;
+ Fri,  4 Nov 2022 09:51:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1667554599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1667555503; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=eaOmw5qWJRaaeDKc8YPXpiNLRBYVR2HIiMyNVdeiMnQ=;
- b=UZPisqy20h76IjE//n+UFoDJ+S462hqcBQKdqQ4dr230oNFgi/AxTOU98EMwjhCwvMF3z4
- c5Vzhta/XAJP3+zzuVJt3Hy6C8HhioG2rkDdvonAcUibWKBLT8LIzMc5W6/7jLFzSz2yBN
- yAV243E+f3KQt8VCCY3V8YJeBEFfXbY=
+ bh=fdIHas1MK8r7WtqB6IfLEQ9kD6WFsslZZe1zZ8bETLk=;
+ b=IRGJu8YoBWj7C2Wh7D7wrFZnRwjR1njepqwTyT4k1r4igxLfHIh0ghrGyFmbmsSS3LNi9m
+ ThLy+E/e/lhBm5YliNeUTyxblFkbZVhWcEAqTPZQBYCpFOO27OlSw3cfJLfst97BarPD0I
+ WXUzxN3jC8MNfALpYugW3MXmxU+HnrI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1667554599;
+ s=susede2_ed25519; t=1667555503;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=eaOmw5qWJRaaeDKc8YPXpiNLRBYVR2HIiMyNVdeiMnQ=;
- b=zC7az8BhNQfvM72/QAui4M8gB5x4nfDGL+rDZL26lCY3v24bfXGCjt9Lat1ojFM3/c0ATq
- +YRaQjMxkvxdDuCQ==
+ bh=fdIHas1MK8r7WtqB6IfLEQ9kD6WFsslZZe1zZ8bETLk=;
+ b=XqQhrODiuCP5D2WmlHkZQEXWOgHuveP2aL5wM3hPsqotNwc1Me7iftZVd+SWJM6DChkPtK
+ p4Tq25bzfiBWToBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8EF791346F;
- Fri,  4 Nov 2022 09:36:39 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EB8F71346F;
+ Fri,  4 Nov 2022 09:51:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eEyQISfdZGPJBwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 04 Nov 2022 09:36:39 +0000
-Date: Fri, 4 Nov 2022 10:36:53 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id 5ZnYN67gZGMIEQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 04 Nov 2022 09:51:42 +0000
+Date: Fri, 4 Nov 2022 10:51:57 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Tarun Sahu <tsahu@linux.ibm.com>
-Message-ID: <Y2TdNaxOzpaaCaPL@rei>
+Message-ID: <Y2TgvVtZcKqAKtvU@rei>
 References: <20221104062716.615021-1-tsahu@linux.ibm.com>
- <20221104062716.615021-4-tsahu@linux.ibm.com>
+ <20221104062716.615021-5-tsahu@linux.ibm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20221104062716.615021-4-tsahu@linux.ibm.com>
+In-Reply-To: <20221104062716.615021-5-tsahu@linux.ibm.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 3/4] Hugetlb: Migrating libhugetlbfs
- chunk-overcommit
+Subject: Re: [LTP] [PATCH v7 4/4] Hugetlb: Migrating libhugetlbfs
+ corrupt-by-cow-opt
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,151 +89,14 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap08.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap08.c
-> new file mode 100644
-> index 000000000..3efabc4aa
-> --- /dev/null
-> +++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap08.c
-> @@ -0,0 +1,146 @@
-> +// SPDX-License-Identifier: LGPL-2.1-or-later
-> +/*
-> + * Copyright (C) 2005-2006 David Gibson & Adam Litke, IBM Corporation.
-> + * Author: David Gibson & Adam Litke
-> + */
-> +
-> +/*\
-> + * [Description]
-> + *
-> + * Some kernel versions after hugepage demand allocation was added used a
-> + * dubious heuristic to check if there was enough hugepage space available
-> + * for a given mapping.  The number of not-already-instantiated pages in
-> + * the mapping was compared against the total hugepage free pool. It was
-> + * very easy to confuse this heuristic into overcommitting by allocating
-> + * hugepage memory in chunks, each less than the total available pool size
-> + * but together more than available.  This would generally lead to OOM
-> + * SIGKILLs of one process or another when it tried to instantiate pages
-> + * beyond the available pool.
-> + *
-> + * HISTORY
-
-This looks like a leftover.
-
-> + *
-> + */
-> +
-> +#define _GNU_SOURCE
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <sys/mount.h>
-> +#include <limits.h>
-> +#include <sys/param.h>
-> +#include <sys/types.h>
-> +#include <sys/wait.h>
-> +#include <signal.h>
-> +
-> +#include "hugetlb.h"
-> +
-> +#define MNTPOINT "hugetlbfs/"
-> +#define WITH_OVERCOMMIT 0
-> +#define WITHOUT_OVERCOMMIT 1
-> +
-> +static long hpage_size;
-> +static int huge_fd = -1;
-> +
-> +static void test_chunk_overcommit(void)
-> +{
-> +	unsigned long totpages, chunk1, chunk2;
-> +	void *p, *q;
-> +	pid_t child;
-> +	int status;
-> +
-> +	totpages = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
-> +
-> +	chunk1 = (totpages / 2) + 1;
-> +	chunk2 = totpages - chunk1 + 1;
-> +
-> +	tst_res(TINFO, "Free: %ld hugepages available: "
-> +	       "chunk1=%ld chunk2=%ld", totpages, chunk1, chunk2);
-> +
-> +	p = SAFE_MMAP(NULL, chunk1*hpage_size, PROT_READ|PROT_WRITE, MAP_SHARED,
-> +		 huge_fd, 0);
-> +
-> +	q = mmap(NULL, chunk2*hpage_size, PROT_READ|PROT_WRITE, MAP_SHARED,
-> +		 huge_fd, chunk1*hpage_size);
-> +	if (q == MAP_FAILED) {
-> +		if (errno != ENOMEM) {
-> +			tst_res(TFAIL | TERRNO, "mmap() chunk2");
-> +			goto cleanup1;
-> +		} else {
-> +			tst_res(TPASS, "Successful without overcommit pages");
-> +			goto cleanup1;
-> +		}
-> +	}
-> +
-> +	tst_res(TINFO, "Looks like we've overcommitted, testing...");
-> +	/* Looks like we're overcommited, but we need to confirm that
-> +	 * this is bad.  We touch it all in a child process because an
-> +	 * overcommit will generally lead to a SIGKILL which we can't
-> +	 * handle, of course.
-> +	 */
-> +	child = SAFE_FORK();
-> +
-> +	if (child == 0) {
-> +		memset(p, 0, chunk1*hpage_size);
-> +		memset(q, 0, chunk2*hpage_size);
-> +		exit(0);
-> +	}
-> +
-> +	SAFE_WAITPID(child, &status, 0);
-> +
-> +	if (WIFSIGNALED(status)) {
-> +		tst_res(TFAIL, "Killed by signal '%s' due to overcommit",
-> +		     tst_strsig(WTERMSIG(status)));
-> +		goto cleanup2;
-> +	}
-> +
-> +	tst_res(TPASS, "Successful with overcommit pages");
-> +
-> +cleanup2:
-> +	SAFE_MUNMAP(q, chunk2*hpage_size);
-> +
-> +cleanup1:
-> +	SAFE_MUNMAP(p, chunk1*hpage_size);
-> +	SAFE_FTRUNCATE(huge_fd, 0);
-> +}
-> +
-> +static void run_test(unsigned int test_type)
-> +{
-> +	switch (test_type) {
-> +	case WITHOUT_OVERCOMMIT:
-> +		tst_res(TINFO, "Without overcommit testing...");
-> +		SAFE_FILE_PRINTF(PATH_OC_HPAGES, "%d", 0);
-> +		break;
-> +	case WITH_OVERCOMMIT:
-> +		tst_res(TINFO, "With overcommit testing...");
-> +		SAFE_FILE_PRINTF(PATH_OC_HPAGES, "%d", 2);
-> +		break;
-> +	}
-> +	test_chunk_overcommit();
-> +}
-> +
 > +static void setup(void)
 > +{
 > +	hpage_size = SAFE_READ_MEMINFO(MEMINFO_HPAGE_SIZE)*1024;
 > +	huge_fd = tst_creat_unlinked(MNTPOINT);
 
-Shouldn't we open a file under the MNTPOINT?
+Same here, HUGEFILE instead MNTPOINT?
 
-Something as:
-
-#define HUGEFILE MNTPOINT "hugefile"
-
-...
-	huge_fd = tst_creat_unlinked(HUGEFILE);
-...
-
-
-The rest looks good to me.
+The rest looks good.
 
 -- 
 Cyril Hrubis
