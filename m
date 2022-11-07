@@ -2,60 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AA2761F162
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Nov 2022 12:02:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50A7D61F241
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Nov 2022 12:57:42 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 08B233CD9C5
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Nov 2022 12:02:55 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2205F3CD9CF
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Nov 2022 12:57:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9A3513CA983
- for <ltp@lists.linux.it>; Mon,  7 Nov 2022 12:02:51 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 2678D3C2A67
+ for <ltp@lists.linux.it>; Mon,  7 Nov 2022 12:57:40 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D384F140018A
- for <ltp@lists.linux.it>; Mon,  7 Nov 2022 12:02:50 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 191D0600811
+ for <ltp@lists.linux.it>; Mon,  7 Nov 2022 12:57:39 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 0747C1F891;
+ Mon,  7 Nov 2022 11:57:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1667822259;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KZ+HZPZ/4Pn+5MwGbBPFVBN4383woH/klGCMchTxb7A=;
+ b=uNf4FW+vUwCOcvA+STgQNMpPOaFOtmB8h879zagfObswjRDZSB6CuWdVMv7murcq5JMn7t
+ Yrudk60QTOvcEoG4FhJIb0C4iiOa+8wXFofmHwgqsn+P8hXyyIuLTn/u95ToPY38nlQVFB
+ acXrFYH2u9SdPOcCyfDV3BoTbOBSDQU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1667822259;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KZ+HZPZ/4Pn+5MwGbBPFVBN4383woH/klGCMchTxb7A=;
+ b=teuf9Ymnhunxcwkb200y9rJHhQvx94Yf7EYKbpy584fnRFgwPt97i34vdsvQv4KRyM3Izp
+ EYh1fQT9eNQtJwAA==
+Received: from UNKNOWN (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 878FE2239D;
- Mon,  7 Nov 2022 11:02:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1667818969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=cc9IWVAX5TIvhLJgUHQXnPnTMdHLMBjAzTiAOzlJdGo=;
- b=frK5pb8QD9dxt1+3XlPOfhXlWdUuvZtei79/Vmie+tLIyh0sQv0DX4XIgtimeLvTUm0BHp
- uZnW7KjIeK47Bhqqp6m2INbAKsaLDQivw7TkrnB60tvC0Uc9ddzhQ/KpW15DnSI9aXB5Oz
- 7Dc/cq3emUonEW4e+8N7bXVt8UTDbWM=
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 57CD913494;
- Mon,  7 Nov 2022 11:02:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wtutEtnlaGNPBQAAMHmgww
- (envelope-from <andrea.cervesato@suse.com>); Mon, 07 Nov 2022 11:02:49 +0000
-To: ltp@lists.linux.it
-Date: Mon,  7 Nov 2022 12:01:23 +0100
-Message-Id: <20221107110123.16369-1-andrea.cervesato@suse.com>
-X-Mailer: git-send-email 2.35.3
+ by relay2.suse.de (Postfix) with ESMTPS id 9BA1A2C141;
+ Mon,  7 Nov 2022 11:57:38 +0000 (UTC)
+References: <20221021115333.13725-1-pvorel@suse.cz>
+ <20221021115333.13725-2-pvorel@suse.cz>
+ <82b10e4d-292f-51c2-da70-0c2ad7722a8f@daynix.com>
+User-agent: mu4e 1.8.11; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Akihiko Odaki <akihiko.odaki@daynix.com>
+Date: Mon, 07 Nov 2022 11:41:15 +0000
+Organization: Linux Private Site
+In-reply-to: <82b10e4d-292f-51c2-da70-0c2ad7722a8f@daynix.com>
+Message-ID: <874jvbx9hq.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] Correctly check setitimer params in setitimer01
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/3] Makefile: set LC_ALL and LANG to C
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,114 +75,75 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-We use CLOCK_MONOTONIC_COARSE as our time resolution for checking
-setitimer counter boundaries.
+Hello,
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
-Switching to CLOCK_MONOTONIC_COARSE for setitimer time resolution.
+Akihiko Odaki <akihiko.odaki@daynix.com> writes:
 
- .../kernel/syscalls/setitimer/setitimer01.c   | 33 +++++++++++--------
- 1 file changed, 19 insertions(+), 14 deletions(-)
+> On 2022/10/21 20:53, Petr Vorel wrote:
+>> * have reproducible builds (no locale dependencies)
+>> * English only output - easier to debug problem
+>> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+>> ---
+>> NOTE: if we want to have only reproducible build, but keep localized
+>> messages, we could use kernel approach:
+>> unexport LC_ALL
+>> LC_COLLATE=C
+>> LC_NUMERIC=C
+>> export LC_COLLATE LC_NUMERIC
+>> They deliberately kept LC_CTYPE to have localized messages.
+>> See also
+>> c051346b7db2 ("Makefile: set LC_CTYPE, LC_COLLATE, LC_NUMERIC to C")
+>> 07105202bdeb ("Makefile: do not override LC_CTYPE")
 
-diff --git a/testcases/kernel/syscalls/setitimer/setitimer01.c b/testcases/kernel/syscalls/setitimer/setitimer01.c
-index eb62f02c6..5c880c6ef 100644
---- a/testcases/kernel/syscalls/setitimer/setitimer01.c
-+++ b/testcases/kernel/syscalls/setitimer/setitimer01.c
-@@ -8,7 +8,7 @@
- /*\
-  * [Description]
-  *
-- * Spawn a child and verify that setitimer() syscall passes, and it ends up
-+ * Spawn a child, verify that setitimer() syscall passes and it ends up
-  * counting inside expected boundaries. Then verify from the parent that our
-  * syscall sent the correct signal to the child.
-  */
-@@ -22,7 +22,8 @@
- #include "tst_safe_clocks.h"
- 
- static struct itimerval *value, *ovalue;
--static unsigned long time_step;
-+static long time_step;
-+static long time_count;
- 
- static struct tcase {
- 	int which;
-@@ -56,7 +57,6 @@ static void verify_setitimer(unsigned int i)
- {
- 	pid_t pid;
- 	int status;
--	int usec = 3 * time_step;
- 	struct tcase *tc = &tcases[i];
- 
- 	pid = SAFE_FORK();
-@@ -66,7 +66,7 @@ static void verify_setitimer(unsigned int i)
- 
- 		tst_no_corefile(0);
- 
--		set_setitimer_value(usec, 0);
-+		set_setitimer_value(time_count, 0);
- 		TST_EXP_PASS(sys_setitimer(tc->which, value, NULL));
- 
- 		set_setitimer_value(5 * time_step, 7 * time_step);
-@@ -76,7 +76,7 @@ static void verify_setitimer(unsigned int i)
- 			ovalue->it_value.tv_sec,
- 			ovalue->it_value.tv_usec);
- 
--		if (ovalue->it_value.tv_sec != 0 || ovalue->it_value.tv_usec > usec)
-+		if (ovalue->it_value.tv_sec != 0 || ovalue->it_value.tv_usec > time_count + time_step)
- 			tst_res(TFAIL, "Ending counters are out of range");
- 
- 		for (;;)
-@@ -93,24 +93,29 @@ static void verify_setitimer(unsigned int i)
- 
- static void setup(void)
- {
--	struct timespec res;
-+	struct timespec time_res;
- 
--	SAFE_CLOCK_GETRES(CLOCK_MONOTONIC, &res);
-+	SAFE_CLOCK_GETRES(CLOCK_MONOTONIC_COARSE, &time_res);
- 
--	time_step = res.tv_nsec / 1000;
--	if (time_step < 10000)
--		time_step = 10000;
-+	time_step = time_res.tv_nsec / 1000;
-+	if (time_step <= 0)
-+		time_step = 1000;
- 
--	tst_res(TINFO, "clock resolution: %luns, time step: %luus",
--		res.tv_nsec,
--		time_step);
-+	time_count = 3 * time_step;
-+
-+	tst_res(TINFO, "clock resolution: %luns, "
-+		"time step: %luus, "
-+		"time count: %luus",
-+		time_res.tv_nsec,
-+		time_step,
-+		time_count);
- }
- 
- static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.forks_child = 1,
--	.test = verify_setitimer,
- 	.setup = setup,
-+	.test = verify_setitimer,
- 	.bufs = (struct tst_buffers[]) {
- 		{&value,  .size = sizeof(struct itimerval)},
- 		{&ovalue, .size = sizeof(struct itimerval)},
+I would prefer to copy the kernel. If someone sends us compilation
+messages in a language we don't understand then we can ask them to set
+the locale before compiling.
+
+I think ensuring our build scripts produce the same executable output on
+different locales is nice though.
+
+>>   Makefile | 4 ++++
+>>   1 file changed, 4 insertions(+)
+>> diff --git a/Makefile b/Makefile
+>> index d4399bae6..ea11ac7f3 100644
+>> --- a/Makefile
+>> +++ b/Makefile
+>> @@ -21,6 +21,10 @@
+>>   # Ngie Cooper, July 2009
+>>   #
+>>   +# Avoid funny character set dependencies
+>> +export LANG=C
+>
+> Hi,
+>
+> Setting LANG should not be necessary as long as LC_ALL is set. That is
+> what my patch "tst_test.sh: Normalize the locale" does.
+
+Yes, I don't understand what LANG is doing here. AFAICT it is just sets
+a default for undefined settings and will be overrided by LC_ALL.
+
+>
+> Regards,
+> Akihiko Odaki
+>
+>> +export LC_ALL=C
+>> +
+>>   top_srcdir		?= $(CURDIR)
+>>     include $(top_srcdir)/include/mk/env_pre.mk
+
+Setting to changes-requested in patchwork because of LANG and LC_ALL is
+overkill IMO.
+
 -- 
-2.35.3
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
