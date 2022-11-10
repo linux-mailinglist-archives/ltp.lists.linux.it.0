@@ -2,74 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC0D06248AE
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Nov 2022 18:52:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6374D624926
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Nov 2022 19:14:52 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3EB923CDD72
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Nov 2022 18:52:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8F6953CDD7B
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Nov 2022 19:14:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 664FD3CDA7A
- for <ltp@lists.linux.it>; Thu, 10 Nov 2022 18:52:44 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 3E4823CD756
+ for <ltp@lists.linux.it>; Thu, 10 Nov 2022 19:14:46 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1566010005B4
- for <ltp@lists.linux.it>; Thu, 10 Nov 2022 18:52:43 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 61507600685
+ for <ltp@lists.linux.it>; Thu, 10 Nov 2022 19:14:46 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 054F11FA98;
- Thu, 10 Nov 2022 17:52:43 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D396521F4C;
+ Thu, 10 Nov 2022 18:14:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1668102763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1668104084;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=baLdQRoRc3sHwrjh0eFb2TMYrf7uQKqTJjs46N5GiQU=;
- b=pE2E4wzLxJQpYDQSSZvTYJIkkv2Nu11/8zSQpJY1Drb8C+sCRyRMOApruC5YO97tTjZyQV
- akUtrSsVE+G9OF4RZldF5EdNF5IIng4SLYOnRTOeFvY1jqXSg1flKipkmvyMMjwu22UDxC
- dcxlDsijLWFJ8wzXgyKhzdZJ3ZJjkHo=
+ bh=Fvq3/mnU2FVdPGBHi4geoZyXm8mf3QKuoGJ5AGZe9MU=;
+ b=mWW9iZ2DjEw9mkjv9tAQ4OlnqfjAWOYn5TmvulnAl3VRjKTIdovj+so+4+DVkm2XHS2PLY
+ HXodfw2qQ/W+P1w7AKbVgzhPFJQy6inQLh2RTQxQ4u7RWTiZYlYHFXyjow3a5sygSyBWgh
+ l4i0lSPSDJ07bsJ0Gjob+oudL2iyjTk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1668102763;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1668104084;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=baLdQRoRc3sHwrjh0eFb2TMYrf7uQKqTJjs46N5GiQU=;
- b=fzqIMeWpADi8/a6crzM8VMB89/VD0r26chuNovC6L4UYpiqkHhDXZXR/reNPUybHXnuxXd
- tsEe6UxmMlYU1tBw==
+ bh=Fvq3/mnU2FVdPGBHi4geoZyXm8mf3QKuoGJ5AGZe9MU=;
+ b=essaH1HkS7aC+2HdGJmrh6PLj0F58aW0tQsjbLTOgiFEiNGhfq5MQtyFxmkootQ/I5x9GO
+ sumwhcA12OSPJaDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5324413B58;
- Thu, 10 Nov 2022 17:52:42 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7B3541332F;
+ Thu, 10 Nov 2022 18:14:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kCxlEGo6bWM0GgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 10 Nov 2022 17:52:42 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0AaJHJQ/bWNaJQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 10 Nov 2022 18:14:44 +0000
+Date: Thu, 10 Nov 2022 19:14:41 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu, 10 Nov 2022 18:52:36 +0100
-Message-Id: <20221110175236.32094-3-pvorel@suse.cz>
-X-Mailer: git-send-email 2.38.0
-In-Reply-To: <20221110175236.32094-1-pvorel@suse.cz>
-References: <20221110175236.32094-1-pvorel@suse.cz>
+To: Akihiko Odaki <akihiko.odaki@daynix.com>
+Message-ID: <Y20/kcaTKGxHFIHr@pevik>
+References: <20221107145453.25262-1-pvorel@suse.cz>
+ <aaae3524-1d04-2879-973c-8542cacb1447@daynix.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <aaae3524-1d04-2879-973c-8542cacb1447@daynix.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] doc/c-test-api.txt: Improve
- tst_find_backing_dev() doc
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/1] Makefile: set LC_{COLLATE, NUMERIC}=C,
+ unexport LC_ALL
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,50 +82,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Alessandro Carminati <alessandro.carminati@gmail.com>,
- Yang Xu <xuyang2018.jy@cn.fujitsu.com>,
- Richard Palethorpe <rpalethorpe@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it, Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Doc added in 606903cf8 was too complicated. Also there was repeating
-sentence, typo 'unevent'.
+Hi Akihiko, Richard,
 
-While at it, fix also 'voud' typo from 9343d0486.
+thank you for a review, merged.
 
-Fixes: 606903cf8 ("c-test-api: Documentation updated")
-Fixes: 9343d0486 ("tst_device: Add new api tst_find_backing_dev(path, dev)")
-
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- doc/c-test-api.txt | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/doc/c-test-api.txt b/doc/c-test-api.txt
-index 8844d9f2f..834a342fd 100644
---- a/doc/c-test-api.txt
-+++ b/doc/c-test-api.txt
-@@ -1075,12 +1075,9 @@ is created for that intention.
- void tst_find_backing_dev(const char *path, char *dev);
- -------------------------------------------------------------------------------
- 
--This function finds the block dev that this path belongs to, it uses stat function
--to get the major/minor number of the path.
--This function finds the block dev that this path belongs to, it uses the unevent
--file in sysfs to find the device name. It needs to discriminate between btrfs
--and not btrfs. For non btrfs filesystems it uses the minor, major numbers. For
--btrfs it uses the fs uuid.
-+This function finds the block dev that this path belongs to, using uevent in sysfs.
-+For Btrfs it uses '/sys/fs/btrfs/UUID/devices/DEV_NAME/uevent'; for other
-+filesystems it uses '/sys/dev/block/MAJOR:MINOR/uevent'.
- 
- [source,c]
- -------------------------------------------------------------------------------
--- 
-2.38.0
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
