@@ -1,71 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 086E26279D8
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 11:00:01 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 73E01627963
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 10:48:08 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C752C3CD221
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 11:00:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 43F6D3CD223
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 10:48:08 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3179B3C28F3
- for <ltp@lists.linux.it>; Mon, 14 Nov 2022 10:59:58 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 2D2AA3C28F3
+ for <ltp@lists.linux.it>; Mon, 14 Nov 2022 10:48:06 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 092F66001E9
- for <ltp@lists.linux.it>; Mon, 14 Nov 2022 10:59:57 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 00EA922926;
- Mon, 14 Nov 2022 09:59:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1668419997;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gBelfozj1LxbQloTtYjj8BxnB/cuyhuaOaSJQOKm3Ow=;
- b=jRe/W7oYrCamqXwmjGynQ5vB+3f7P3F0YMNpkgh0EBNwB38bw652caEsTy9sJXmzp6n/rF
- 5HQ60fLud3GUoQZfnZk81AC23601ugCdfLPHME40ypn/KzCkXvIY1okT2lnEcnYVRaVIGY
- /HTPAm8Z4ExZYh0X6pvnzVWTrTo0AGA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1668419997;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gBelfozj1LxbQloTtYjj8BxnB/cuyhuaOaSJQOKm3Ow=;
- b=+NhF0nQuTreLoGuvDbwXv1e8LdJaA/KZlQnpxHdCQ6zFBguOANbrrNjFWfj/kEMrvo+i2d
- 740EBu9HPrCp6rCg==
-Received: from g78 (unknown [10.163.28.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D92541A007F2
+ for <ltp@lists.linux.it>; Mon, 14 Nov 2022 10:48:05 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id AD51D2C141;
- Mon, 14 Nov 2022 09:59:56 +0000 (UTC)
-References: <20221027215808.4126148-1-edliaw@google.com>
- <20221027215808.4126148-2-edliaw@google.com> <8735atww9l.fsf@suse.de>
- <87y1slvgkm.fsf@suse.de> <Y25+IZDZ9/rvSH+E@pevik>
-User-agent: mu4e 1.8.11; emacs 28.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-Date: Mon, 14 Nov 2022 09:44:56 +0000
-Organization: Linux Private Site
-In-reply-to: <Y25+IZDZ9/rvSH+E@pevik>
-Message-ID: <875yfhvotj.fsf@suse.de>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B9B7C1FDC6;
+ Mon, 14 Nov 2022 09:48:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1668419284; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=nGyi0PCtgqjmuRuMqIRYTYtds468EI1B5CZYSkXnUcg=;
+ b=idN40vBZ+nO2H9yJqRqq/iWdCJQlDtSvU47cZ1rvPiW5aDruDmGwexwAdihzulSXSI5iFu
+ 0UHTchDVYO6GzSjZym4BVKPclWLBUAJNl85pZeIv+FsVbsYfyNIslfk3sRlK5r0Yyi1m2o
+ 1BZ7IWCI5HdnRyHOKOG9HBwumqf/1OU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1668419284;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=nGyi0PCtgqjmuRuMqIRYTYtds468EI1B5CZYSkXnUcg=;
+ b=ApgtB0uVxnth5q1uCgO6prrAwRIvAz7eSsEJFPYCng310GGKQ0BCIBm3wwfKq3GSM92CSr
+ VAJ70vupmRnyxLCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A58EC13A92;
+ Mon, 14 Nov 2022 09:48:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id nvWgJtQOcmPrRwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 14 Nov 2022 09:48:04 +0000
+Date: Mon, 14 Nov 2022 10:49:28 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Tarun Sahu <tsahu@linux.ibm.com>
+Message-ID: <Y3IPKK4/RYc4DqF6@yuki>
+References: <20221108195207.232115-1-tsahu@linux.ibm.com>
+ <20221108195207.232115-2-tsahu@linux.ibm.com>
+ <Y2unWTTyFK8DS82w@yuki> <20221109212637.haxocrluexxhvktg@tarunpc>
+ <Y2y0VzfJwFr0wiwC@yuki> <20221113184438.tmcepansvefom5bk@tarunpc>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20221113184438.tmcepansvefom5bk@tarunpc>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 1/1] mmapstress01: refactor to tst_test
- framework
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/5] Hugetlb: Migrating libhugetlbfs counters
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,104 +82,57 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: kernel-team@android.com, ltp@lists.linux.it
+Cc: sbhat@linux.ibm.com, aneesh.kumar@linux.ibm.com, geetika@linux.ibm.com,
+ vaibhav@linux.ibm.com, ltp@lists.linux.it, mike.kravetz@oracle.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi!
+> > I guess that we can also put the map() (touch()) test_counters() unamp()
+> > sequence to a do_test() fuction then call it from the for() loop in
+> > run_test(). That would make the code a bit cleaner.
+> > 
+> Instead, I am thinking of a defining a macro like this, 
+> 
+> #define CHECK_(fun) ({			\
+> 		if (fun) {					\
+> 				break;				\
+> 			}						\
+> 		})
+> 
+> inside test_counters:
+> 
+> do {
+> 	CHECK_(map(...));
+> 	CHECK_(touch(...));
+> 	CHECK_(unmap(...));
+> } while(0)
+> 
+> inside for loop of run_test:
+> 
+> CHECK_(map(...));
+> CHECK_(test_counters(...));
+> CHECK_(unmap(...));
 
-Petr Vorel <pvorel@suse.cz> writes:
+While this is much better than longjmp() it still obscures the codeflow
+a little bit.
 
-> Hi Edward, Richard, all,
->
->> Hello,
->
->> Richard Palethorpe <rpalethorpe@suse.de> writes:
->
->> > Hello,
->
->> > Edward Liaw via ltp <ltp@lists.linux.it> writes:
->
->> >> Use ltp framework and apply make check corrections.  Reorder functions
->> >> and variables.  Use safe macros.
->> >> Drop leavefile option.
->> >> Build tests with FILE_OFFSET_BITS=64 instead of doing LARGE_FILE checks
->> >> to switch between 32 and 64 bit types and syscalls.
->> >> Define fsize bounds by file offset bits.
->> >> Move sighandler to setup and remove sig blocks.
->> >> Add option to specify pattern.
->> >> Set default nprocs to ncpus with min of 1 and max of 20.
->
->> >> Signed-off-by: Edward Liaw <edliaw@google.com>
->
->> > Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
->
->> > Will merge this today if the CI is happy and nobody comments.
->
->> Merged, thanks!
->
-> Thanks for your work! FYI 2 tiny problems sneaked in, see below.
->
-> runtest/mm contained -t 0.20 option, which caused failure. Fixed in:
-> https://github.com/linux-test-project/ltp/commit/36321277a294c0467219f650fd76aa1a8d310c1d
->
->> >> ---
->> >>  testcases/kernel/mem/mmapstress/Makefile      |   2 +
-> ...
->> >> +static struct tst_option options[] = {
->> >> +	{"d", &debug, "Enable debug output"},
->> >> +	{"f:", &opt_filesize, "Initial filesize (default 4096)"},
->> >> +	{"m", &do_sync, "Do random msync/fsyncs as well"},
->> >> +	{"o", &do_offset, "Randomize the offset of file to map"},
->> >> +	{"p:", &opt_nprocs,
->> >> +	 "Number of mapping children to create (default 1 < ncpus < 20)"},
->> >> +	{"P:", &opt_pattern,
->> >> +	 "Use a fixed pattern (default random)"},
->> >> +	{"r", &randloops,
->> >> +	 "Randomize number of pages map children check (random % 500), "
->> >> +	 "otherwise each child checks 500 pages"},
->> >> +	{"S:", &opt_sparseoffset,
->> >> +	 "When non-zero, causes the sparse area to be left before the data, "
->> >> +	 "so that the actual initial filesize is sparseoffset + filesize "
->> >> +	 "(default 0)"},
->> >> +	{},
->> >> +};
-> Using options as non-inline leads to our docparse documentation
-> having the name of the variable (options) i this case instead of listing
-> options.  Fixed in
-> https://github.com/linux-test-project/ltp/commit/72de038ff54496c5ced6ddc2d76713376aababb1
->
-> @Metan: I wonder if this can be fixed in docparser.
-> @Richie: If not, it would be nice to have check for it (I'll add issue with
-> "check" label).
+Also I do not think that we need all the braces in the CHECK() macro, it
+should be enough just to do:
 
-Yeah, the checker could also produce the metadata. I'm not sure I want
-to start down that path though. This is an AST level operation which
-Sparse is pretty bad at.
+#define CHECK(fun) \
+	if (fun) \
+		break;
 
-I think both tools have serious issues. Perhaps using tree-sitter or
-even Arocc would be far more profitable.
+or even:
 
->
-> @Edward FYI to build doc:
-> cd metadata && make # open ../docparse/metadata.html
->
-> Here is stable version:
-> http://linux-test-project.github.io/metadata/metadata.stable.html
->
-> I plan to write hook to put version for master branch, being updated after each
-> commit.
->
-> Kind regards,
-> Petr
-
+#define CHECK(fun) if (fun) break;
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
