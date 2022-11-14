@@ -1,55 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71415627BCE
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 12:13:39 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 88A71627C69
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 12:35:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D813B3CD245
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 12:13:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 008C63CD224
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 12:35:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6DC033C2306
- for <ltp@lists.linux.it>; Mon, 14 Nov 2022 12:13:34 +0100 (CET)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 1B7C93C2306
+ for <ltp@lists.linux.it>; Mon, 14 Nov 2022 12:35:13 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5EBDA2005E7
- for <ltp@lists.linux.it>; Mon, 14 Nov 2022 12:13:33 +0100 (CET)
-Received: from canpemm500006.china.huawei.com (unknown [172.30.72.56])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4N9mnB3Ys4zJnjM
- for <ltp@lists.linux.it>; Mon, 14 Nov 2022 19:10:22 +0800 (CST)
-Received: from canpemm500005.china.huawei.com (7.192.104.229) by
- canpemm500006.china.huawei.com (7.192.105.130) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 14 Nov 2022 19:13:28 +0800
-Received: from canpemm500005.china.huawei.com ([7.192.104.229]) by
- canpemm500005.china.huawei.com ([7.192.104.229]) with mapi id 15.01.2375.031; 
- Mon, 14 Nov 2022 19:13:28 +0800
-To: "rpalethorpe@suse.de" <rpalethorpe@suse.de>
-Thread-Topic: Re[LTP] [PATCH] syscalls/sched_setscheduler04: new test for
- sched_setscheduler()
-Thread-Index: Adj4Gho1BVH8bk7tQ6qY/MBojcV06w==
-Date: Mon, 14 Nov 2022 11:13:28 +0000
-Message-ID: <efc489b0b94a488c9c3c1dbc438da279@huawei.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.110.209]
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3456360004C
+ for <ltp@lists.linux.it>; Mon, 14 Nov 2022 12:35:12 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 710662286B;
+ Mon, 14 Nov 2022 11:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1668425712;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qpNuiAybYuTz/wkmyeHzbLUo+xM9Dq0aMS20HG6fxk8=;
+ b=v3u6Fd6lnPbojRkNaafjchLeUnjqguP6urQsXOj94AcLO049oPh1Gh+jXIVCpZFul/BIEI
+ 9cmJiv0TmwiFKhm8ogJNbdEr8DW6gM90Ww4b9jcgSCIqd8g2ziIOpNqUHjc2xAKXxn7XYb
+ GGEw6R9qUZfm/dbIqC5bKVHuL3fwRk4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1668425712;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qpNuiAybYuTz/wkmyeHzbLUo+xM9Dq0aMS20HG6fxk8=;
+ b=8cbuFtOFOo9EmU/3M4oa7Tx7WnHa8BiDYsKmbPCwfWiQW26zk5Sh4REJVVEPmAzLIZVL3I
+ qXKLK/MUdNCOclCw==
+Received: from g78 (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 3C4D22C141;
+ Mon, 14 Nov 2022 11:35:12 +0000 (UTC)
+References: <20221101112621.20031-1-rpalethorpe@suse.com>
+User-agent: mu4e 1.8.11; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: ltp@lists.linux.it
+Date: Mon, 14 Nov 2022 11:34:22 +0000
+Organization: Linux Private Site
+In-reply-to: <20221101112621.20031-1-rpalethorpe@suse.com>
+Message-ID: <87bkp9u5u8.fsf@suse.de>
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] Re [PATCH] syscalls/sched_setscheduler04: new test for
- sched_setscheduler()
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] pidns12: Avoid write in sig handler
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,89 +74,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: zhaogongyi via ltp <ltp@lists.linux.it>
-Reply-To: zhaogongyi <zhaogongyi@huawei.com>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Reply-To: rpalethorpe@suse.de
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
+Hello,
 
-> > >> > +static void test_sched_setscheduler02(void) {
-> >> > +	pthread_t tid;
-> >> > +
-> >> > +	SAFE_PTHREAD_CREATE(&tid, NULL, thread_func, NULL);
-> >> > +	SAFE_PTHREAD_JOIN(tid, NULL);
-> >> > +}
-> >> > +
-> >> > +
-> >> > +static void run(void)
-> >> > +{
-> >> > +	sched_prio = sched_get_priority_min(SCHED_POLICY);
-> >>
-> >> This can go in the setup function.
-> >
-> > If move it to setup function, we run the test with option "-I 200", it
-> > will fail.
-> 
-> Why?
+Richard Palethorpe <rpalethorpe@suse.com> writes:
 
-sched_prio is a global variable, and it increase in any running loop, thus it will be out of range and report:
+> It is best to avoid doing any kind of unecessary work in a signal
+> handler.
 
-sched_setscheduler04.c:52: TPASS: param.sched_priority == sched_prio (99)
-sched_setscheduler04.c:53: TPASS: new_policy == EXP_POLICY (1)
-sched_setscheduler04.c:34: TINFO: Setting of tid: 70774
-sched_setscheduler04.c:40: TBROK: sched_setscheduler(70774, 1, ...) failed: EINVAL (22)
+No review after 2 weeks. Merged!
 
-Summary:
-passed   196
-failed   0
-broken   1
-skipped  0
-warnings 0
+>
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> Cc: Andrea Cervesato <andrea.cervesato@suse.com>
+> ---
+>  testcases/kernel/containers/pidns/pidns12.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/testcases/kernel/containers/pidns/pidns12.c b/testcases/kernel/containers/pidns/pidns12.c
+> index 65e2a0836..0e6b17142 100644
+> --- a/testcases/kernel/containers/pidns/pidns12.c
+> +++ b/testcases/kernel/containers/pidns/pidns12.c
+> @@ -18,9 +18,11 @@
+>  #include "tst_test.h"
+>  #include "lapi/namespaces_constants.h"
+>  
+> +static volatile pid_t sig_pid = -1;
+> +
+>  static void child_signal_handler(LTP_ATTRIBUTE_UNUSED int sig, siginfo_t *si, LTP_ATTRIBUTE_UNUSED void *unused)
+>  {
+> -	TST_EXP_EQ_LI(si->si_pid, 0);
+> +	sig_pid = si->si_pid;
+>  }
+>  
+>  static int child_func(LTP_ATTRIBUTE_UNUSED void *arg)
+> @@ -38,6 +40,8 @@ static int child_func(LTP_ATTRIBUTE_UNUSED void *arg)
+>  
+>  	TST_CHECKPOINT_WAKE_AND_WAIT(0);
+>  
+> +	TST_EXP_EQ_LI(sig_pid, 0);
+> +
+>  	return 0;
+>  }
 
 
-> >
-> >>
-> >> > +
-> >> > +	test_sched_setscheduler01();
-> >> > +	test_sched_setscheduler02();
-> >>
-> >> This should be replaced with .tcnt = 2 and .test. or else just merge
-> >> them into run.
-> >
-> > Agree, I will fix it int the next version.
-> >
-> >>
-> >> > +}
-> >> > +
-> >> > +static struct tst_test test = {
-> >> > +	.test_all = run,
-> >>
-> >> We probably need to ensure CAP_SYS_NICE. Full details are in 'man 7
-> >> sched'
-> >>
-> >> i.e. .caps = (struct tst_cap[]) {
-> >>   TST_CAP(TST_CAP_REQ, CAP_SYS_NICE),
-> >>    null
-> >> }
-> >>
-> >
-> > In this testcase, we just increase the priority, should we add the checking
-> of capability?
-> 
-> For the test to run we need CAP_SYS_NICE. If you want to test that the
-> priority can only be set when CAP_SYS_NICE is available, then that is a
-> seperate test in my opinion.
-
-Anybody can call nice() to increase the priority, i have test it with normal user and passed.
-
-And if decrease the priority, the test will report EPERM when running with normal user.
-
-Regards,
-Gongyi
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
