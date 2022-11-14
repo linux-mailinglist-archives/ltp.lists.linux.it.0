@@ -1,74 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7391C628354
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 15:58:47 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A12962845A
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 16:52:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3EE2C3CD239
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 15:58:47 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 41D313CD239
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 16:52:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AFFCF3CD232
- for <ltp@lists.linux.it>; Mon, 14 Nov 2022 15:58:45 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id B1E5F3CD20D
+ for <ltp@lists.linux.it>; Mon, 14 Nov 2022 16:52:00 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DFAF91400993
- for <ltp@lists.linux.it>; Mon, 14 Nov 2022 15:58:44 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2423F200A2;
- Mon, 14 Nov 2022 14:58:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1668437924;
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 820891A000BB
+ for <ltp@lists.linux.it>; Mon, 14 Nov 2022 16:51:59 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id CE091200EE;
+ Mon, 14 Nov 2022 15:51:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1668441118;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=1a7hCmLBDtVxMh4neya4IouSNlyfhuKerohVpmI2waE=;
- b=EIOMYqnJ9EJgRRPXuDGbuULmEDARz5LZvwroF+mcoORkoa6P70yq1MC75OZYrq4W4bfXr5
- rVAVH06xtebGu1/jHT6AWV775Um155JqiEqh1g2Oq2tiKAR72/g+WmBW4ANRwAQRwtbmt+
- JswAlhWXYrWpiy87PgzQtBYmk11PH70=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1668437924;
+ bh=vtTaafJFsfKOBi0NVv6PydVEbEj5/Yho0RpFsmJMvVQ=;
+ b=rNZNN8wDLydv//FarBffq1lCIGUv12/LI2zwBw2yehMm6EniWh/NM6KVIM7Md7Z+qCuSwx
+ 3Go0ysU2ys7Im5gDyBztGCKEfL3NfLliR7BNxmbHuEFhB9UtaoA3iV+CiirO7dmmvDaK/y
+ V22QwUwBtMPWVZQ5DlKoKxLD696iZFc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1668441118;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=1a7hCmLBDtVxMh4neya4IouSNlyfhuKerohVpmI2waE=;
- b=DCgXwDRl5+32ulDm7XSJyPmBHINlNpQMpFWFZ8D3zU0bjW3JxUBz7Yo1cszZsckXxll+Xr
- pMZKk/uvhU9/P5Cg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=vtTaafJFsfKOBi0NVv6PydVEbEj5/Yho0RpFsmJMvVQ=;
+ b=Xs8ep815jFv+tJ8f+Ukgg1G/DwY+8zSOH6rAAsxSD7JVcmVgDWYtutHJWhC7Hyy3neBOyw
+ QxaPt+g8c9ABuXCg==
+Received: from g78 (unknown [10.163.17.14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ECF2713A8C;
- Mon, 14 Nov 2022 14:58:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2WqcOKNXcmNkfwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 14 Nov 2022 14:58:43 +0000
-Date: Mon, 14 Nov 2022 15:58:42 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <Y3JXokTXaSbL0ofr@pevik>
-References: <20221110145429.8158-1-pvorel@suse.cz> <8735alu4bp.fsf@suse.de>
- <Y3JGoc2V7VjR0q9Z@pevik> <87tu31sjze.fsf@suse.de>
+ by relay2.suse.de (Postfix) with ESMTPS id 91E3A2C142;
+ Mon, 14 Nov 2022 15:51:58 +0000 (UTC)
+References: <20221112040107.3953862-1-liwang@redhat.com>
+User-agent: mu4e 1.8.11; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Li Wang <liwang@redhat.com>
+Date: Mon, 14 Nov 2022 14:32:48 +0000
+Organization: Linux Private Site
+In-reply-to: <20221112040107.3953862-1-liwang@redhat.com>
+Message-ID: <87pmdpsfdv.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87tu31sjze.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] README.md: Document IRC
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] setitimer01: add interval timer test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,73 +74,141 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Reply-To: rpalethorpe@suse.de
+Cc: Andrea Cervesato <acervesato@suse.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richie,
+Hello,
 
-> Hello,
+Li Wang <liwang@redhat.com> writes:
 
-> Petr Vorel <pvorel@suse.cz> writes:
+> Split checking the return ovalue from testing the signal is
+> delivered, so that we could use two time value for verifying.
+>
+> Also, adding interval timer test by handling the signal at
+> least 10 times. After that recover the signal behavior to
+> default and do deliver-signal checking.
+>
+> Signed-off-by: Li Wang <liwang@redhat.com>
+> ---
+>  .../kernel/syscalls/setitimer/setitimer01.c   | 63 ++++++++++++-------
+>  1 file changed, 39 insertions(+), 24 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/setitimer/setitimer01.c b/testcases/kernel/syscalls/setitimer/setitimer01.c
+> index 1f631d457..260590b0e 100644
+> --- a/testcases/kernel/syscalls/setitimer/setitimer01.c
+> +++ b/testcases/kernel/syscalls/setitimer/setitimer01.c
+> @@ -22,8 +22,10 @@
+>  #include "tst_safe_clocks.h"
+>  
+>  static struct itimerval *value, *ovalue;
+> +static volatile unsigned long sigcnt;
+>  static long time_step;
+> -static long time_count;
+> +static long time_sec;
+> +static long time_usec;
+>  
+>  static struct tcase {
+>  	int which;
+> @@ -40,54 +42,66 @@ static int sys_setitimer(int which, void *new_value, void *old_value)
+>  	return tst_syscall(__NR_setitimer, which, new_value, old_value);
+>  }
+>  
+> -static void set_setitimer_value(int usec, int o_usec)
+> +static void sig_routine(int signo LTP_ATTRIBUTE_UNUSED)
+>  {
+> -	value->it_value.tv_sec = 0;
+> -	value->it_value.tv_usec = usec;
+> -	value->it_interval.tv_sec = 0;
+> -	value->it_interval.tv_usec = 0;
+> +	sigcnt++;
+> +}
+>  
+> -	ovalue->it_value.tv_sec = o_usec;
+> -	ovalue->it_value.tv_usec = o_usec;
+> -	ovalue->it_interval.tv_sec = 0;
+> -	ovalue->it_interval.tv_usec = 0;
+> +static void set_setitimer_value(int sec, int usec)
+> +{
+> +	value->it_value.tv_sec = sec;
+> +	value->it_value.tv_usec = usec;
+> +	value->it_interval.tv_sec = sec;
+> +	value->it_interval.tv_usec = usec;
+>  }
+>  
+>  static void verify_setitimer(unsigned int i)
+>  {
+>  	pid_t pid;
+>  	int status;
+> -	long margin;
+>  	struct tcase *tc = &tcases[i];
+>  
+> +	tst_res(TINFO, "tc->which = %s", tc->des);
+> +
+>  	pid = SAFE_FORK();
+>  
+>  	if (pid == 0) {
+> -		tst_res(TINFO, "tc->which = %s", tc->des);
+> -
+>  		tst_no_corefile(0);
+>  
+> -		set_setitimer_value(time_count, 0);
+> +		set_setitimer_value(time_sec, time_usec);
+>  		TST_EXP_PASS(sys_setitimer(tc->which, value, NULL));
+>  
+> -		set_setitimer_value(5 * time_step, 7 * time_step);
+> +		set_setitimer_value(2 * time_sec, 2 * time_usec);
 
-> > Hi Richie,
+IDK if there was some reason for choosing 5 and 7 in the first place?
 
-> >> Hello,
+Andrea seemed to be going through the prime numbers.
 
-> >> Petr Vorel <pvorel@suse.cz> writes:
+>  		TST_EXP_PASS(sys_setitimer(tc->which, value, ovalue));
+>  
+> -		tst_res(TINFO, "tv_sec=%ld, tv_usec=%ld",
+> -			ovalue->it_value.tv_sec,
+> -			ovalue->it_value.tv_usec);
+> +		TST_EXP_EQ_LI(ovalue->it_interval.tv_sec, time_sec);
+> +		TST_EXP_EQ_LI(ovalue->it_interval.tv_usec, time_usec);
+> +
+> +		tst_res(TINFO, "ovalue->it_value.tv_sec=%ld, ovalue->it_value.tv_usec=%ld",
+> +			ovalue->it_value.tv_sec, ovalue->it_value.tv_usec);
+>  
+>  		/*
+>  		 * ITIMER_VIRTUAL and ITIMER_PROF timers always expire a
+>  		 * time_step afterward the elapsed time to make sure that
+>  		 * at least counters take effect.
+>  		 */
+> -		margin = tc->which == ITIMER_REAL ? 0 : time_step;
+> +		long margin = (tc->which == ITIMER_REAL) ? 0 : time_step;
 
-> >> > Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> >> > ---
-> >> > changes v1->v2
-> >> > * s/on/at/
+Looks like an unecessary change?
 
-> >> > Kind regards,
-> >> > Petr
+>  
+> -		if (ovalue->it_value.tv_sec != 0 || ovalue->it_value.tv_usec > time_count + margin)
+> +		if (ovalue->it_value.tv_sec > time_sec ||
+> +				ovalue->it_value.tv_usec > time_usec + margin)
 
-> >> >  README.md | 3 +++
-> >> >  1 file changed, 3 insertions(+)
+Looking at the man page, technically speaking the valid range for
+ovalue->it_value.tv_sec is 0 to value->it_value.tv_sec when
+ovalue->it_value.tv_usec > 0.
 
-> >> > diff --git a/README.md b/README.md
-> >> > index d45d1ee44..89b2640c1 100644
-> >> > --- a/README.md
-> >> > +++ b/README.md
-> >> > @@ -22,6 +22,9 @@ http://lists.linux.it/listinfo/ltp
-> >> >  LTP mailing list is archived at:
-> >> >  https://lore.kernel.org/ltp/
+Practically speaking we have to assume a large amount of time has passed
+when using ITIMER_REAL. It has to be *much* larger than a VM is likely
+to be paused for and then successfully resumed. Or the amount of time a
+clock may be corrected by (for e.g. with NTP).
 
-> >> > +IRC
-> >> > +#ltp at https://libera.chat/[irc.libera.chat]
+>  			tst_res(TFAIL, "Ending counters are out of range");
 
-> > Hi Richie,
+While we are here; we should make our lives easier when the test fails
+by printing any relevant values.
 
-> >> Won't the # make it a top level heading?
-> > Well, that would be if there was a separate line between those two lines.
-
-> >> https://daringfireball.net/projects/markdown/syntax#header
-
-> > Thus this would work. But I put asciidoc syntax (used in our wiki),
-> > instead of markdown.
-
-> > Therefore the correct syntax for README.md is:
-
-> > IRC #ltp at: [https://libera.chat/](irc.libera.chat)
-Actually URL must be: [irc.libera.chat](https://libera.chat/)
-
-> > Kind regards,
-> > Petr
-
-> Well, either way:
-
-> Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
-
-Thanks a lot, merged.
-
-Kind regards,
-Petr
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
