@@ -1,76 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D2996283D0
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 16:26:48 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A1436284B8
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 17:12:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0CD2C3CD23E
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 16:26:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1D1C03CD23B
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Nov 2022 17:12:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1E8CB3CD220
- for <ltp@lists.linux.it>; Mon, 14 Nov 2022 16:26:46 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id B88783CD214
+ for <ltp@lists.linux.it>; Mon, 14 Nov 2022 17:12:16 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 63339200972
- for <ltp@lists.linux.it>; Mon, 14 Nov 2022 16:26:46 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ACE36200E6;
- Mon, 14 Nov 2022 15:26:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1668439605; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9839160055D
+ for <ltp@lists.linux.it>; Mon, 14 Nov 2022 17:12:14 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 957D120118;
+ Mon, 14 Nov 2022 16:12:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1668442334;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IWzJ4jOz4krz1bZp5ywMI3mm7EpKIn+q93zw1libIp8=;
- b=lWSwWwb+qftKkZFwURzpKusimukExXzqtDQRCXPNYqFL58Og7QvWGWFMPgWRopxcGjXCZD
- yszSHjFaRQEIj8e6nAwARF9egdSBz26oTDNGJim5yLjU1LYLCpBJUBzGuONSPUzuVZO6MR
- bfxxQcYV9EA712m7KUS5FyZPK1vBnLE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1668439605;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ bh=fKwwP2g0gDKEiMHkmSOkkFJRGfaaw6rwqVXQQMyxDgs=;
+ b=g7Rq7jwARMAox0QBnW/ZyAAiqNQrau1Diea7kVpYZ1bLA9YdQAcOYVPaiVl9Id0BnX+pI7
+ d82slgNXVV2hZOJA9E4rKKHkm7gnGA0rWKKIP+Ank2w2IJlfhUnM56R5850e3Fb2v1zTO0
+ HkOJEbvkSViB8pywOuDEDLD+1BENouM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1668442334;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IWzJ4jOz4krz1bZp5ywMI3mm7EpKIn+q93zw1libIp8=;
- b=bdwf1CMNmQfWapH0FQAv2SDpmpAorzQLPSYnpINti72ylX1kSrTQWUYt0wADYDCnzinBRE
- ssazApG+woy7L/Ag==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=fKwwP2g0gDKEiMHkmSOkkFJRGfaaw6rwqVXQQMyxDgs=;
+ b=ByMm3jvMT0+O8mGN6ni0M1mV7T8QWcX2XHdvZFm1UVbXtQ3aio6d0WRdm4jzUdZCETh1df
+ 99GmIBETolXCWSDg==
+Received: from g78 (unknown [10.163.17.14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9974413A8C;
- Mon, 14 Nov 2022 15:26:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UHU7JTVecmN2EQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 14 Nov 2022 15:26:45 +0000
-Date: Mon, 14 Nov 2022 16:28:09 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <Y3JeiXgTqAJbzBtB@yuki>
-References: <20221114093233.4668-1-mdoucha@suse.cz> <Y3JBzeBst/HufYqu@yuki>
- <7d899a16-7b4b-3ee9-8cba-949274610077@suse.cz>
+ by relay2.suse.de (Postfix) with ESMTPS id 549A42C142;
+ Mon, 14 Nov 2022 16:12:14 +0000 (UTC)
+References: <20221112040107.3953862-1-liwang@redhat.com>
+ <20221112040107.3953862-2-liwang@redhat.com>
+User-agent: mu4e 1.8.11; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Li Wang <liwang@redhat.com>
+Date: Mon, 14 Nov 2022 16:02:51 +0000
+Organization: Linux Private Site
+In-reply-to: <20221112040107.3953862-2-liwang@redhat.com>
+Message-ID: <87leodseg2.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7d899a16-7b4b-3ee9-8cba-949274610077@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] save_restore: Introduce new struct field for
- flags
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] getitimer01: add checking for nonzero timer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,23 +75,150 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkhCj4gPiBXb3VsZCB5b3UgY29uc2lkZXIgYWRkaW5nIFRTVF9TUl9UQ09ORl9NSVNTSU5HIGFu
-ZCBUU1RfU1JfVENPTkZfUk8/Cj4gCj4gSSBjb3VsZCBzZXQgYm90aCB0byAwLCBpZiB0aGF0J3Mg
-T0suCgpJIHN1cHBvc2UgdGhhdCB3b3VsZCB3b3JrIGZpbmUuCgo+ID4+ICsqICdUU1RfU1JfRkFJ
-TF9NSVNTSU5HJyDigJMgRW5kIHRlc3Qgd2l0aCAnVEJST0snIGlmIHRoZSBmaWxlIGRvZXMgbm90
-IGV4aXN0Cj4gPiAKPiA+IFRoaXMgRkFJTCBwYXJ0IGluIHRoaXMgbmFtZSBpcyBxdWl0ZSBtaXNs
-ZWFkaW5nIHNpbmNlIHRoZSB0ZXN0IGVuZHMgd2l0aAo+ID4gVEJST0suIEkgd291bGQgc2F5IHRo
-YXQgaXQgd291bGQgYmUgbXVjaCBtb3JlIGNsZWFyIGlmIGl0IHdhcyBuYW1lZAo+ID4gVFNUX1NS
-X1RCUk9LX01JU1NJTkcuCj4gCj4gVGhlbiBJIHNob3VsZCBhbHNvIHJlbmFtZSBUU1RfU1JfUkVR
-VUlSRUQgdG8gVFNUX1NSX1RCUk9LLCByZW5hbWUgCj4gVFNUX1NSX0NPTkRfQUNDRVNTIHRvIFRT
-VF9TUl9TS0lQIGFuZCBhZGQgVFNUX1NSX1RDT05GIGZvciB0aGUgdHdvIG5ldyAKPiBmbGFncy4K
-ClRoYXQgc291bmRzIGdvb2QgdG8gbWUsIGl0J3MgbXVjaCBjbG9zZWx5IG1hcHBlZCB0byB0aGUg
-YWN0dWFsIHRlc3QKcmVzdWx0IHR5cGVzIGFuZCBzaG91bGQgYmUgY2xlYXIgZW5vdWdoLgoKLS0g
-CkN5cmlsIEhydWJpcwpjaHJ1YmlzQHN1c2UuY3oKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0
-cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Hello,
+
+Li Wang <liwang@redhat.com> writes:
+
+> By default a new process disabled the timer and getitimer()
+> returned zero value. But we also need to check if the timer
+> is correct when reset to nonzero.
+>
+> Signed-off-by: Li Wang <liwang@redhat.com>
+> ---
+>
+> Notes:
+>       The reason for using jiffy instead of time_step is that it only
+>       checks the timer is set expectedly but not really expired. So we
+>       use a rough value in the macro definition is enough.
+>
+>  .../kernel/syscalls/getitimer/getitimer01.c   | 84 ++++++++++++++++---
+>  1 file changed, 71 insertions(+), 13 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/getitimer/getitimer01.c b/testcases/kernel/syscalls/getitimer/getitimer01.c
+> index 5ecfac55c..a49f63a85 100644
+> --- a/testcases/kernel/syscalls/getitimer/getitimer01.c
+> +++ b/testcases/kernel/syscalls/getitimer/getitimer01.c
+> @@ -12,25 +12,83 @@
+>   */
+>  
+>  #include "tst_test.h"
+> +#include "tst_safe_clocks.h"
+>  
+> -static int itimer_name[] = {
+> -	ITIMER_REAL,
+> -	ITIMER_VIRTUAL,
+> -	ITIMER_PROF,
+> +#define SEC  100
+> +#define USEC 10000
+> +
+> +static struct itimerval *value;
+> +static long jiffy;
+> +
+> +static struct tcase {
+> +	int which;
+> +	char *des;
+> +} tcases[] = {
+> +	{ITIMER_REAL,    "ITIMER_REAL"},
+> +	{ITIMER_VIRTUAL, "ITIMER_VIRTUAL"},
+> +	{ITIMER_PROF,    "ITIMER_PROF"},
+>  };
+>  
+> -static void run(void)
+> +static void set_setitimer_value(int sec, int usec)
+>  {
+> -	long unsigned int i;
+> -	struct itimerval value;
+> +	value->it_value.tv_sec = sec;
+> +	value->it_value.tv_usec = usec;
+> +	value->it_interval.tv_sec = sec;
+> +	value->it_interval.tv_usec = usec;
+> +}
+>  
+> -	for (i = 0; i < ARRAY_SIZE(itimer_name); i++) {
+> -		TST_EXP_PASS(getitimer(itimer_name[i], &value));
+> -		TST_EXP_EQ_LI(value.it_value.tv_sec, 0);
+> -		TST_EXP_EQ_LI(value.it_value.tv_usec, 0);
+> -	}
+> +static void verify_getitimer(unsigned int i)
+> +{
+> +	struct tcase *tc = &tcases[i];
+> +
+> +	tst_res(TINFO, "tc->which = %s", tc->des);
+> +
+> +	TST_EXP_PASS(getitimer(tc->which, value));
+> +	TST_EXP_EQ_LI(value->it_value.tv_sec, 0);
+> +	TST_EXP_EQ_LI(value->it_value.tv_usec, 0);
+> +	TST_EXP_EQ_LI(value->it_interval.tv_sec, 0);
+> +	TST_EXP_EQ_LI(value->it_interval.tv_usec, 0);
+> +
+> +	set_setitimer_value(SEC, USEC);
+> +	TST_EXP_PASS(setitimer(tc->which, value, NULL));
+> +
+> +	set_setitimer_value(0, 0);
+> +	TST_EXP_PASS(getitimer(tc->which, value));
+> +
+> +	TST_EXP_EQ_LI(value->it_interval.tv_sec, SEC);
+> +	TST_EXP_EQ_LI(value->it_interval.tv_usec, USEC);
+> +
+> +	tst_res(TINFO, "value->it_value.tv_sec=%ld, value->it_value.tv_usec=%ld",
+> +			value->it_value.tv_sec, value->it_value.tv_usec);
+> +
+> +	/*
+> +	 * ITIMER_VIRTUAL and ITIMER_PROF timers always expire a
+> +	 * TICK_NSEC (jiffy) afterward the elapsed time to make
+> +	 * sure that at least time counters take effect.
+> +	 */
+> +	long margin = (tc->which == ITIMER_REAL) ? 0 : jiffy;
+> +
+> +	if (value->it_value.tv_sec > SEC ||
+> +			value->it_value.tv_usec > USEC + margin)
+
+If a second is able to elapse then it_value.tv_usec can be greater than
+USEC + margin. Or is there something I am missing?
+
+I guess again there is the issue with wall clock time jumping around.
+
+> +		tst_res(TFAIL, "timer value is not within the expected range");
+> +	else
+> +		tst_res(TPASS, "timer value is within the expected
+> range");
+
+Also we want to print all the relevant values in case of failure.
+
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	struct timespec time_res;
+> +
+> +	SAFE_CLOCK_GETRES(CLOCK_MONOTONIC_COARSE, &time_res);
+> +	jiffy = (time_res.tv_nsec + 999) / 1000;
+>  }
+>  
+>  static struct tst_test test = {
+> -	.test_all = run
+> +	.tcnt = ARRAY_SIZE(tcases),
+> +	.setup = setup,
+> +	.test = verify_getitimer,
+> +	.bufs = (struct tst_buffers[]) {
+> +		{&value,  .size = sizeof(struct itimerval)},
+> +		{}
+> +	}
+>  };
+> -- 
+> 2.35.3
+
+
+-- 
+Thank you,
+Richard.
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
