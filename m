@@ -2,70 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54E1662974E
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Nov 2022 12:24:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0C656297B4
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Nov 2022 12:46:53 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A26133CD13C
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Nov 2022 12:24:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 52B823CD151
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Nov 2022 12:46:53 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 996203CD12D
- for <ltp@lists.linux.it>; Tue, 15 Nov 2022 12:23:58 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id C127F3CD123
+ for <ltp@lists.linux.it>; Tue, 15 Nov 2022 12:46:49 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1A4F41000772
- for <ltp@lists.linux.it>; Tue, 15 Nov 2022 12:23:57 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D4FEA1F8B5;
- Tue, 15 Nov 2022 11:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1668511436; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E3DD0600846
+ for <ltp@lists.linux.it>; Tue, 15 Nov 2022 12:46:48 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 174EE22D64;
+ Tue, 15 Nov 2022 11:46:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1668512808;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=AJJWB5TfbaHr8O/DQtGmSCYC1bzO5zhGzZG3HIkTWGg=;
- b=QaBSPz9ErunFM9arYChioRUuBhh91BwOeP8ScFzYupz4o31JmNylhtoVKNsTl/cwVcKLuM
- +ChqpKtlZIJEte05RfZ/Dr4WgWHsmHlf58C349V2kdeTCLcimjlPOKVPenZL03VoysePIm
- pTFBFOR35PQfOUeI6xWbtzHOe5qLeCs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1668511436;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ bh=n0gqiztIwJ9NO5TJLqJX3tiBQIKIc/dd+3HTwAwaGPw=;
+ b=FJF32rrCu8fg4mtigeUZFZbVhJBJ5ciIv0N6he4iRxVmhziqrx1WXg3y++p42maCthRYJ6
+ vJRTDBZY/yN+Q0xmnZfgN1+9jaA/+1nFwtvbcHgRNbXxLq8PsCqraIY7fPNkSJodThEkzg
+ Xv/mUHAqEPWjXZXnEvAro5M3gTVuw20=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1668512808;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=AJJWB5TfbaHr8O/DQtGmSCYC1bzO5zhGzZG3HIkTWGg=;
- b=PjrQ/WskB7h30UrqZY7ztOrtcP0aknnniTZruPKtfIFlBKOg/g+TleYydPOuOoqYyVDF5H
- DyeRV0b0TsHxhqDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=n0gqiztIwJ9NO5TJLqJX3tiBQIKIc/dd+3HTwAwaGPw=;
+ b=sz+XoyJ5nlprCCDPdUnXNkl1G3O0gu3wvl/RnBFOQrkuRjiVFfVLnXsWwjIUNmf5FgwHku
+ N8Pt251X0FZRlCCg==
+Received: from g78 (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C297013A91;
- Tue, 15 Nov 2022 11:23:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Uqp0Lsx2c2NoHAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 15 Nov 2022 11:23:56 +0000
-Date: Tue, 15 Nov 2022 12:25:20 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Federico Bonfiglio <federico.bonfiglio@protonmail.ch>
-Message-ID: <Y3N3ICYP+g2Tf6bd@yuki>
+ by relay2.suse.de (Postfix) with ESMTPS id D9DC42C142;
+ Tue, 15 Nov 2022 11:46:47 +0000 (UTC)
 References: <20221114225616.54212-1-federico.bonfiglio@protonmail.ch>
+User-agent: mu4e 1.8.11; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Federico Bonfiglio <federico.bonfiglio@protonmail.ch>
+Date: Tue, 15 Nov 2022 11:43:50 +0000
+Organization: Linux Private Site
+In-reply-to: <20221114225616.54212-1-federico.bonfiglio@protonmail.ch>
+Message-ID: <87v8ngqw2g.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221114225616.54212-1-federico.bonfiglio@protonmail.ch>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2] sched_setscheduler: test SCHED_RESET_ON_FORK
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -78,13 +73,65 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
+Hello,
+
+I still can't apply this. The problem does not seem to be the PGP
+signature though.
+
+Federico Bonfiglio via ltp <ltp@lists.linux.it> writes:
+
+> [[PGP Signed Part:Undecided]]
+> Signed-off-by: Federico Bonfiglio <federico.bonfiglio@protonmail.ch>
+> ---
+>  runtest/syscalls                              |  1 +
+>  .../syscalls/sched_setscheduler/.gitignore    |  1 +
+>  .../sched_setscheduler/sched_setscheduler04.c | 73 +++++++++++++++++++
+>  3 files changed, 75 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/sched_setscheduler/sched_setscheduler04.c
+>
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index 3dc6fa397..ff516af3d 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -1204,6 +1204,7 @@ sched_getscheduler02 sched_getscheduler02
+>  sched_setscheduler01 sched_setscheduler01
+>  sched_setscheduler02 sched_setscheduler02
+>  sched_setscheduler03 sched_setscheduler03
+> +sched_setscheduler04 sched_setscheduler04
+>
+>  sched_yield01 sched_yield01
+>
+> diff --git a/testcases/kernel/syscalls/sched_setscheduler/.gitignore b/testcases/kernel/syscalls/sched_setscheduler/.gitignore
+> index aa8ad9695..1b8860d2c 100644
+> --- a/testcases/kernel/syscalls/sched_sets
+> cheduler/.gitignore
+> +++ b/testcases/kernel/syscalls/sched_setscheduler/.gitignore
+> @@ -1,3 +1,4 @@
+>  /sched_setscheduler01
+>  /sched_setscheduler02
+>  /sched_setscheduler03
+> +/sched_setscheduler04
+
+No new line at end of file or is it missing from the patch?
+
+> diff --git a/testcases/kernel/syscalls/sched_setscheduler/sched_setscheduler04.c b/testcases/kernel/syscalls/sched_setscheduler/sched_setscheduler04.c
+> new file mode 100644
+> index 000000000..4a5d27f5b
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/sched_setscheduler/sched_setscheduler04.c
+> @@ -0,0 +1,73 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2022 Federico Bonfiglio <federico.bonfiglio@protonmail.ch>
+> + */
+> +
 > +/*
 > + * [Description]
 > + *
@@ -105,8 +152,8 @@ Hi!
 > +
 > +struct test_c
 > ase_t {
- ^
- Looks like the patch was mangled by your email client.
+
+Random new line in the patch, stops it from applying.
 
 > +	int policy;
 > +	char *desc;
@@ -130,11 +177,7 @@ Hi!
 > +
 > +	tst_res(TINFO, "Testing %s variant", tv->desc);
 > +	tst_res(TINFO, "Testing %s policy", tc->desc);
-
-Why two messages? Why not just:
-
-tst_res(TINFO, "Testing %s variant %s policy", tv->desc, tc->desc);
-
+> +
 > +	struct sched_param param = { .sched_priority = 1 };
 > +
 > +	tv->sched_setscheduler(getpid(), tc->policy | SCHED_RESET_ON_FORK, &param);
@@ -142,34 +185,23 @@ tst_res(TINFO, "Testing %s variant %s policy", tv->desc, tc->desc);
 > +	pid_t pid = SAFE_FORK();
 > +
 > +	if (!pid == 0) {
-            ^
-	    Uff, please don't.
-
-That's just if (pid)
-
-
 > +		if (sched_getscheduler(pid) == SCHED_NORMAL)
 > +			tst_res(TPASS, "Policy reset to SCHED_NORMAL");
 > +		else
 > +			tst_res(TFAIL, "Policy NOT reset to SCHED_NORMAL");
-
-
-We should check that the priority was reset to DEFAULT_PRIO as well.
-
 > +	}
 > +
 > +	tst_reap_children();
-
-There is no need to call this as long as the child exits normally the
-test library will pick it up.
-
 > +}
 > +
 > +static struct tst_test test = {
 > +	.forks_child = 1,
 > +	.caps = (struct tst_cap[]) {
 > +	    TST_CAP(TST_CAP_REQ, CAP_SYS_NICE)
-> 
+>
+
+Another random new line, cuts off the end of the patch.
+
 > +	},
 > +	.test_variants = ARRAY_SIZE(sched_variants),
 > +	.tcnt = ARRAY_SIZE(cases),
@@ -178,20 +210,15 @@ test library will pick it up.
 > +
 > --
 > 2.38.1
-> 
-
-
-
-
-
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+>
+> [2. application/pgp-keys; publickey - Federico Bonfiglio - e96ee84c.asc]...
+>
+> [[End of PGP Signed Part]]
 
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
