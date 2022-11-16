@@ -2,100 +2,99 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88AEE62BBCE
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Nov 2022 12:27:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3CA862BBDC
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Nov 2022 12:27:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 465DA3CD048
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Nov 2022 12:27:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 783783CD035
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Nov 2022 12:27:31 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 58A653CD049
- for <ltp@lists.linux.it>; Wed, 16 Nov 2022 12:26:36 +0100 (CET)
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ by picard.linux.it (Postfix) with ESMTPS id C1FE23CD034
+ for <ltp@lists.linux.it>; Wed, 16 Nov 2022 12:26:39 +0100 (CET)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 53A1F1400C6B
- for <ltp@lists.linux.it>; Wed, 16 Nov 2022 12:26:34 +0100 (CET)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B2FD210005BD
+ for <ltp@lists.linux.it>; Wed, 16 Nov 2022 12:26:38 +0100 (CET)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AGBLXbL021296; Wed, 16 Nov 2022 11:26:33 GMT
+ 2AGAn4GQ010363; Wed, 16 Nov 2022 11:26:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=nts7f3jfAvZI9IV3ObuihBQCIoZ56vAo7u0fFVGhqwM=;
- b=cHrF8cjcyoLBwSbpXhZ59tm7t9OaXxQZuo8PAJxn6XLYZu3FLNzsjutrUMcCDOqEi+/U
- NshSF3T4m+Orc0j8XsaV/w0Y+IWXh/JlKO88/DReqBMFD0b4emmBeTJ46abzO7Ujd2g+
- BSBfRrqFDMcwkCoyHrQdyybdDQeUui8QSDNqw95KQDA3urC3TcFA4N9pt6qfGgecUgO3
- 2n1zmadx67c2+6nLZr3BbaGjicUxqv/sUZUJb3OGqeL7uzkI1odJMg7da+EtUiYbyd3e
- AyFqNspxhT8nsNEgaJaaZqTEwi+2LqJ5a97dPIXtnMyzN8RFoS5YQwkIfR7gca35ZCu7 5Q== 
+ bh=rj+Yi3fllLCrVDCYzy0K1UM6Ats3OlmPjPgn2+W5O0k=;
+ b=ac8QGAT6u/c95eLA/HouSrNiR/Vt/PxlHn1IxkdXrDOyWx6hCnQrMOCvYl6nyCyupRes
+ AV4fRntbwr0Fr1lqHdZN3mS1qUKH6td8mXe/uMwpYD9aZFSaDdRhm6H36JjA/RcU+69F
+ R6wyUjU3+/MR+JiYw0JplkSNxMtET4L55lazRrWCej7En1fRPcdSMIkOFgjzsmk0wxHf
+ qNnB8w7Phz5leL7oW+AJ55AgkeSWbfDPZmjC0WLYQtPmiihO4kA2eDtlgs/6QU3uwk7O
+ gl5vZBlvpdUZ7HLlz6JT9evycjGRgigteqZafi5T0tc6eoP7V3Df8a1lnpv/An7wLDw7 bQ== 
 Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kvxwrg3gb-1
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kvxeg0x1e-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Nov 2022 11:26:32 +0000
-Received: from m0098421.ppops.net (m0098421.ppops.net [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 2AGBLVbm021254;
- Wed, 16 Nov 2022 11:26:32 GMT
-Received: from ppma06fra.de.ibm.com (48.49.7a9f.ip4.static.sl-reverse.com
- [159.122.73.72])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kvxwrg3fq-1
+ Wed, 16 Nov 2022 11:26:36 +0000
+Received: from m0098409.ppops.net (m0098409.ppops.net [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 2AGAo79D014387;
+ Wed, 16 Nov 2022 11:26:35 GMT
+Received: from ppma06ams.nl.ibm.com (66.31.33a9.ip4.static.sl-reverse.com
+ [169.51.49.102])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kvxeg0x0u-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Nov 2022 11:26:32 +0000
-Received: from pps.filterd (ppma06fra.de.ibm.com [127.0.0.1])
- by ppma06fra.de.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 2AGBKJrx027935;
- Wed, 16 Nov 2022 11:26:30 GMT
-Received: from b06cxnps4074.portsmouth.uk.ibm.com
- (d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
- by ppma06fra.de.ibm.com with ESMTP id 3kt2rj4buk-1
+ Wed, 16 Nov 2022 11:26:35 +0000
+Received: from pps.filterd (ppma06ams.nl.ibm.com [127.0.0.1])
+ by ppma06ams.nl.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 2AGBKeif016555;
+ Wed, 16 Nov 2022 11:26:33 GMT
+Received: from b06cxnps3074.portsmouth.uk.ibm.com
+ (d06relay09.portsmouth.uk.ibm.com [9.149.109.194])
+ by ppma06ams.nl.ibm.com with ESMTP id 3kt2rjdtqr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Nov 2022 11:26:30 +0000
+ Wed, 16 Nov 2022 11:26:33 +0000
 Received: from d06av24.portsmouth.uk.ibm.com (d06av24.portsmouth.uk.ibm.com
  [9.149.105.60])
- by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 2AGBQRvl32243972
+ by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 2AGBQU6g62128430
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 16 Nov 2022 11:26:27 GMT
+ Wed, 16 Nov 2022 11:26:30 GMT
 Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5C75A42041;
+ by IMSVA (Postfix) with ESMTP id 09EFA4203F;
+ Wed, 16 Nov 2022 11:26:30 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BF86642041;
  Wed, 16 Nov 2022 11:26:27 +0000 (GMT)
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1DCB14203F;
- Wed, 16 Nov 2022 11:26:25 +0000 (GMT)
 Received: from tarunpc.in.ibm.com (unknown [9.199.157.25])
  by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Wed, 16 Nov 2022 11:26:24 +0000 (GMT)
+ Wed, 16 Nov 2022 11:26:27 +0000 (GMT)
 From: Tarun Sahu <tsahu@linux.ibm.com>
 To: ltp@lists.linux.it
-Date: Wed, 16 Nov 2022 16:55:14 +0530
-Message-Id: <20221116112516.261535-6-tsahu@linux.ibm.com>
+Date: Wed, 16 Nov 2022 16:55:15 +0530
+Message-Id: <20221116112516.261535-7-tsahu@linux.ibm.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20221116112516.261535-1-tsahu@linux.ibm.com>
 References: <20221116112516.261535-1-tsahu@linux.ibm.com>
 MIME-Version: 1.0
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: -2GJcv6myOziBsRzyBAdZRQiRR_Ud-b6
-X-Proofpoint-ORIG-GUID: _ycn2IKdmD0tbGzQgvL1fiVBg6BXzP0O
+X-Proofpoint-GUID: mc5Xs5CIocp-AUvAqaGYV4SGGdnvv6WG
+X-Proofpoint-ORIG-GUID: 1j91RtOx1gfZU5rNeAXFHrg4bHRjMBph
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-16_02,2022-11-16_01,2022-06-22_01
+ definitions=2022-11-16_01,2022-11-16_01,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 mlxscore=0
- lowpriorityscore=0 suspectscore=0 mlxlogscore=999 adultscore=0
- clxscore=1015 impostorscore=0 spamscore=0 bulkscore=0 malwarescore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ suspectscore=0
+ lowpriorityscore=0 mlxlogscore=999 phishscore=0 spamscore=0 adultscore=0
+ priorityscore=1501 clxscore=1015 mlxscore=0 malwarescore=0 impostorscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2210170000 definitions=main-2211160074
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 5/7] Hugetlb: Migrating libhugetlbfs fadvise_reserve
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 6/7] Hugetlb: Migrating libhugetlbfs fallocate_align
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,68 +113,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Migrating the libhugetlbfs/testcases/fadvise_reserve.c test
+Migrating the libhugetlbfs/testcases/fallocate_align.c test
 
-Test Description: fadvise() on some kernels can cause the reservation
-counter to get corrupted. The problem is that the patches are allocated for
-the reservation but not faulted in at the time of allocation. The counters
-do not get updated and effectively "leak". This test identifies whether the
-kernel is vulnerable to the problem or not. It's fixed in kernel by 'commit
-f2deae9d4e70 ("Remove implementation of readpage from the hugetlbfs_aops")'
+Test Description: It tests alignment of fallocate arguments. fallocate will
+take non-huge page aligned offsets and addresses.  However, operations are
+only performed on huge pages.  This is different that than fallocate
+behavior in "normal" filesystems.
 
 Signed-off-by: Tarun Sahu <tsahu@linux.ibm.com>
 ---
- runtest/hugetlb                               |  1 +
- testcases/kernel/mem/.gitignore               |  1 +
- .../kernel/mem/hugetlb/hugemmap/hugemmap12.c  | 84 +++++++++++++++++++
- 3 files changed, 86 insertions(+)
- create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap12.c
+ runtest/hugetlb                               |   2 +
+ testcases/kernel/mem/.gitignore               |   1 +
+ .../kernel/mem/hugetlb/hugefallocate/Makefile |  10 ++
+ .../hugetlb/hugefallocate/hugefallocate01.c   | 169 ++++++++++++++++++
+ 4 files changed, 182 insertions(+)
+ create mode 100644 testcases/kernel/mem/hugetlb/hugefallocate/Makefile
+ create mode 100644 testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate01.c
 
 diff --git a/runtest/hugetlb b/runtest/hugetlb
-index b9ee7227d..b019c4195 100644
+index b019c4195..ca92dfcff 100644
 --- a/runtest/hugetlb
 +++ b/runtest/hugetlb
-@@ -8,6 +8,7 @@ hugemmap08 hugemmap08
- hugemmap09 hugemmap09
- hugemmap10 hugemmap10
- hugemmap11 hugemmap11
-+hugemmap12 hugemmap12
- hugemmap05_1 hugemmap05 -m
- hugemmap05_2 hugemmap05 -s
- hugemmap05_3 hugemmap05 -s -m
+@@ -1,3 +1,5 @@
++hugefallocate01 hugefallocate01
++
+ hugemmap01 hugemmap01
+ hugemmap02 hugemmap02
+ hugemmap04 hugemmap04
 diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
-index 3e64b67be..ec250592d 100644
+index ec250592d..cafdb5259 100644
 --- a/testcases/kernel/mem/.gitignore
 +++ b/testcases/kernel/mem/.gitignore
-@@ -9,6 +9,7 @@
- /hugetlb/hugemmap/hugemmap09
- /hugetlb/hugemmap/hugemmap10
- /hugetlb/hugemmap/hugemmap11
-+/hugetlb/hugemmap/hugemmap12
- /hugetlb/hugeshmat/hugeshmat01
- /hugetlb/hugeshmat/hugeshmat02
- /hugetlb/hugeshmat/hugeshmat03
-diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap12.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap12.c
+@@ -1,4 +1,5 @@
+ /cpuset/cpuset01
++/hugetlb/hugefallocate/hugefallocate01
+ /hugetlb/hugemmap/hugemmap01
+ /hugetlb/hugemmap/hugemmap02
+ /hugetlb/hugemmap/hugemmap04
+diff --git a/testcases/kernel/mem/hugetlb/hugefallocate/Makefile b/testcases/kernel/mem/hugetlb/hugefallocate/Makefile
 new file mode 100644
-index 000000000..ae132107c
+index 000000000..77ebb0aef
 --- /dev/null
-+++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap12.c
-@@ -0,0 +1,84 @@
++++ b/testcases/kernel/mem/hugetlb/hugefallocate/Makefile
+@@ -0,0 +1,10 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (C) 2009, Cisco Systems Inc.
++# Ngie Cooper, July 2009
++
++top_srcdir		?= ../../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++include $(abs_srcdir)/../Makefile.inc
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
++
+diff --git a/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate01.c b/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate01.c
+new file mode 100644
+index 000000000..1ec0dd000
+--- /dev/null
++++ b/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate01.c
+@@ -0,0 +1,169 @@
 +// SPDX-License-Identifier: LGPL-2.1-or-later
 +/*
-+ * Copyright (C) 2005-2006 IBM Corporation.
-+ * Author: Mel Gorman
++ * Copyright (C) 2015 Oracle Corporation
++ * Author: Mike Kravetz
 + */
 +
 +/*\
 + * [Description]
 + *
-+ * fadvise() on some kernels can cause the reservation counter to get
-+ * corrupted. The problem is that the patches are allocated for the
-+ * reservation but not faulted in at the time of allocation. The counters
-+ * do not get updated and effectively "leak". This test identifies whether
-+ * the kernel is vulnerable to the problem or not. It's fixed in kernel
-+ * by commit f2deae9d4e70793568ef9e85d227abb7bef5b622.
++ * It tests alignment of fallocate arguments. fallocate will take non-huge
++ * page aligned offsets and addresses.  However, operations are only
++ * performed on huge pages.  This is different that than fallocate
++ * behavior in "normal" filesystems.
 + *
 + */
 +
@@ -189,36 +198,126 @@ index 000000000..ae132107c
 +#include "hugetlb.h"
 +
 +#define MNTPOINT "hugetlbfs/"
-+static long hpage_size;
++
 +static int  fd = -1;
++static long hpage_size;
 +
 +static void run_test(void)
 +{
-+	void *p;
-+	unsigned long initial_rsvd, map_rsvd, fadvise_rsvd, end_rsvd;
++	int err;
++	unsigned long free_initial, free_after, free_after_delete;
 +
 +	fd = tst_creat_unlinked(MNTPOINT, 0);
 +
-+	initial_rsvd = SAFE_READ_MEMINFO(MEMINFO_HPAGE_RSVD);
-+	tst_res(TINFO, "Reserve count before map: %lu", initial_rsvd);
++	free_initial = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
 +
-+	p = SAFE_MMAP(NULL, hpage_size, PROT_READ|PROT_WRITE, MAP_SHARED,
-+		 fd, 0);
-+	map_rsvd = SAFE_READ_MEMINFO(MEMINFO_HPAGE_RSVD);
-+	tst_res(TINFO, "Reserve count after map: %lu", map_rsvd);
++	/*
++	 * First preallocate file with just 1 byte.  Allocation sizes
++	 * are rounded up, so we should get an entire huge page.
++	 */
++	err = fallocate(fd, 0, 0, 1);
++	if (err) {
++		if (errno == EOPNOTSUPP)
++			tst_brk(TCONF, "Operation Not Supported");
++		tst_res(TFAIL|TERRNO, "fallocate()");
++		goto cleanup;
++	}
 +
-+	SAFE_POSIX_FADVISE(fd, 0, hpage_size, POSIX_FADV_WILLNEED);
-+	fadvise_rsvd = SAFE_READ_MEMINFO(MEMINFO_HPAGE_RSVD);
-+	tst_res(TINFO, "Reserve count after fadvise: %lu", fadvise_rsvd);
++	free_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
++	if (free_initial - free_after != 1) {
++		tst_res(TFAIL, "fallocate 1 byte did not preallocate entire huge page");
++		goto cleanup;
++	}
 +
-+	memset(p, 1, hpage_size);
++	/*
++	 * Now punch a hole with just 1 byte.  On hole punch, sizes are
++	 * rounded down. So, this operation should not create a hole.
++	 */
++	err = fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
++			0, 1);
++	if (err) {
++		tst_res(TFAIL|TERRNO, "fallocate(FALLOC_FL_PUNCH_HOLE)");
++		goto cleanup;
++	}
 +
-+	SAFE_MUNMAP(p, hpage_size);
++	free_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
++	if (free_after == free_initial) {
++		tst_res(TFAIL, "fallocate hole punch 1 byte free'ed a huge page");
++		goto cleanup;
++	}
++
++	/*
++	 * Now punch a hole with of 2 * hpage_size - 1 byte.  This size
++	 * should be rounded down to a single huge page and the hole created.
++	 */
++	err = fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
++			0, (2 * hpage_size) - 1);
++	if (err) {
++		tst_res(TFAIL|TERRNO, "fallocate(FALLOC_FL_PUNCH_HOLE)");
++		goto cleanup;
++	}
++
++	free_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
++	if (free_after != free_initial) {
++		tst_res(TFAIL, "fallocate hole punch 2 * hpage_size - 1 byte did not"
++				" free huge page");
++		goto cleanup;
++	}
++
++	/*
++	 * Perform a preallocate operation with offset 1 and size of
++	 * hpage_size.  The offset should be rounded down and the
++	 * size rounded up to preallocate two huge pages.
++	 */
++	err = fallocate(fd, 0, 1, hpage_size);
++	if (err) {
++		tst_res(TFAIL, "fallocate()");
++		goto cleanup;
++	}
++
++	free_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
++	if (free_initial - free_after != 2) {
++		tst_res(TFAIL, "fallocate 1 byte offset, huge page size did not"
++				" preallocate two huge pages");
++		goto cleanup;
++	}
++
++	/*
++	 * The hole punch code will only delete 'whole' huge pags that are
++	 * in the specified range.  The offset is rounded up, and (offset
++	 * + size) is rounded down to determine the huge pages to be deleted.
++	 * In this case, after rounding the range is (hpage_size, hpage_size).
++	 * So, no pages should be deleted.
++	 */
++	err = fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
++			1, hpage_size);
++	if (err) {
++		tst_res(TFAIL|TERRNO, "fallocate(FALLOC_FL_PUNCH_HOLE)");
++		goto cleanup;
++	}
++
++	free_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
++	if (free_initial - free_after != 2) {
++		tst_res(TFAIL, "fallocate hole punch 1 byte offset, huge page size"
++				" incorrectly deleted a huge page");
++		goto cleanup;
++	}
++
++	/*
++	 * To delete both huge pages, the range passed to hole punch must
++	 * overlap the allocated pages
++	 */
++	err = fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
++			0, 2 * hpage_size);
++	if (err) {
++		tst_res(TFAIL|TERRNO, "fallocate(FALLOC_FL_PUNCH_HOLE)");
++		goto cleanup;
++	}
++
++	free_after_delete = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
++	TST_EXP_EQ_LU(free_after_delete, free_initial);
++cleanup:
 +	SAFE_CLOSE(fd);
-+	end_rsvd = SAFE_READ_MEMINFO(MEMINFO_HPAGE_RSVD);
-+	tst_res(TINFO, "Reserve count after close: %lu", end_rsvd);
-+
-+	TST_EXP_EQ_LU(end_rsvd, initial_rsvd);
 +}
 +
 +static void setup(void)
@@ -233,17 +332,14 @@ index 000000000..ae132107c
 +}
 +
 +static struct tst_test test = {
-+	.tags = (struct tst_tag[]) {
-+		{"linux-git", "f2deae9d4e70"},
-+		{}
-+	},
 +	.needs_root = 1,
 +	.mntpoint = MNTPOINT,
 +	.needs_hugetlbfs = 1,
++	.needs_tmpdir = 1,
 +	.setup = setup,
 +	.cleanup = cleanup,
 +	.test_all = run_test,
-+	.hugepages = {1, TST_NEEDS},
++	.hugepages = {2, TST_NEEDS},
 +};
 -- 
 2.31.1
