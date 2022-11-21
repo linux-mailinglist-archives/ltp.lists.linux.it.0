@@ -1,74 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31EB3632753
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Nov 2022 16:07:58 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03B496328E8
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Nov 2022 17:01:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EB7ED3CCBBA
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Nov 2022 16:07:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 666D03CCBEF
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Nov 2022 17:01:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8A2503CCBE2
- for <ltp@lists.linux.it>; Mon, 21 Nov 2022 16:07:49 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 749D83C0F12
+ for <ltp@lists.linux.it>; Mon, 21 Nov 2022 17:01:16 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E2D0822CDDF
- for <ltp@lists.linux.it>; Mon, 21 Nov 2022 16:07:48 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4C1A71F8CB;
- Mon, 21 Nov 2022 15:07:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1669043268; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AF7F41D771A7
+ for <ltp@lists.linux.it>; Mon, 21 Nov 2022 17:01:15 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id AF17521ED8;
+ Mon, 21 Nov 2022 16:01:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1669046474;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4nlxMr5D8/9L849kVV9Ev0/iC/h/QJn+Zz2fwzaOFNA=;
- b=rgO4k2PyXq31z3SMC6W99OnuDQGGEBBcvoKvnX4NmbtBHcs1+vin3Ehp0en1M68OYmEkeq
- shHGmwSZdfFmvjHWYEon2/XpL22O4LUr7pIX5W5kwJaSQGnQH/JxAwN3cbMBe4Zcsim5jZ
- +eMi/5cIfWd2Nec1hkBuw0zNs/JZzXA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1669043268;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ bh=EYyMSJDDeJwtDdzhir0UcMUIeArFNwysOXbLBOLWWME=;
+ b=I/IqgTGQfs7lTPbh54LNMtJajCEfFtgDra25eTTAuXtGiHJAMfsrBAMZpbQicIgWptkmak
+ RDcbOHG2/BCOa9oW2hcIJDnaXwSG7FWq3hMRIEo7xhMGsJgFfW9X2rNXxCOCZO/sOMGH8r
+ Tv68Nq/R6KCoZXJaqAbqOFIhq9BWwyw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1669046474;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4nlxMr5D8/9L849kVV9Ev0/iC/h/QJn+Zz2fwzaOFNA=;
- b=1tbt0o7EacOW5ZKcVm4Y/CtzbC8eZlzzWvGd9NrouewXbQN+r6kzpu0JTfzFl9mhG5X8pz
- 4nHU3EJjjdvQ/eDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=EYyMSJDDeJwtDdzhir0UcMUIeArFNwysOXbLBOLWWME=;
+ b=/hrgki+HTCU/p5skRg0ck4lsVKFy6kL4lg5c8K7rY5lynbMYpJunUiBgN5aaopyfHyAy+S
+ SNGJxv+qQA30ssDA==
+Received: from g78 (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 381541376E;
- Mon, 21 Nov 2022 15:07:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ijdoC0SUe2P3MwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 21 Nov 2022 15:07:48 +0000
-Date: Mon, 21 Nov 2022 16:09:11 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Jan Kara <jack@suse.cz>
-Message-ID: <Y3uUl06QCF6vr5IY@yuki>
-References: <20221115123721.12176-1-jack@suse.cz>
- <20221115124741.14400-3-jack@suse.cz>
+ by relay2.suse.de (Postfix) with ESMTPS id 7FA622C146;
+ Mon, 21 Nov 2022 16:01:14 +0000 (UTC)
+References: <20221121144505.1496-1-rpalethorpe@suse.com>
+ <Y3uUk6nKsASeFRf7@yuki>
+User-agent: mu4e 1.8.11; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Mon, 21 Nov 2022 15:14:21 +0000
+Organization: Linux Private Site
+In-reply-to: <Y3uUk6nKsASeFRf7@yuki>
+Message-ID: <87mt8kfgad.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221115124741.14400-3-jack@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/3] fanotify10: Make evictable marks tests more
- reliable
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] config: Explicitly set gnu99
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,174 +77,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it, Jan Kara <jack@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Signed-off-by: Jan Kara <jack@suse.cz>
-> ---
->  .../kernel/syscalls/fanotify/fanotify10.c     | 62 ++++++++++++++++---
->  1 file changed, 52 insertions(+), 10 deletions(-)
-> 
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify10.c b/testcases/kernel/syscalls/fanotify/fanotify10.c
-> index e19bd907470f..cfbf4c31dd08 100644
-> --- a/testcases/kernel/syscalls/fanotify/fanotify10.c
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify10.c
-> @@ -86,7 +86,10 @@ static int ignore_mark_unsupported;
->  #define TEST_APP "fanotify_child"
->  #define TEST_APP2 "fanotify_child2"
->  #define DIR_PATH MOUNT_PATH"/"DIR_NAME
-> +#define DIR_PATH_MULTI DIR_PATH"%d"
->  #define FILE_PATH DIR_PATH"/"FILE_NAME
-> +#define FILE_PATH_MULTI FILE_PATH"%d"
-> +#define FILE_PATH_MULTIDIR DIR_PATH_MULTI"/"FILE_NAME
->  #define FILE2_PATH DIR_PATH"/"FILE2_NAME
->  #define SUBDIR_PATH DIR_PATH"/"SUBDIR_NAME
->  #define FILE_EXEC_PATH MOUNT_PATH"/"TEST_APP
-> @@ -104,6 +107,7 @@ static int old_cache_pressure;
->  static pid_t child_pid;
->  static int bind_mount_created;
->  static unsigned int num_classes = NUM_CLASSES;
-> +static int max_file_multi;
->  
->  enum {
->  	FANOTIFY_INODE,
-> @@ -378,9 +382,11 @@ static struct tcase {
->  		.tname = "don't ignore mount events created on file with evicted ignore mark",
->  		.mark_path_fmt = MOUNT_PATH,
->  		.mark_type = FANOTIFY_MOUNT,
-> -		.ignore_path_fmt = FILE_PATH,
-> +		.ignore_path_cnt = 16,
-> +		.ignore_path_fmt = FILE_PATH_MULTI,
->  		.ignore_mark_type = FANOTIFY_EVICTABLE,
-> -		.event_path_fmt = FILE_PATH,
-> +		.event_path_cnt = 16,
-> +		.event_path_fmt = FILE_PATH_MULTI,
->  		.expected_mask_with_ignore = FAN_OPEN,
->  		.expected_mask_without_ignore = FAN_OPEN
->  	},
-> @@ -388,9 +394,11 @@ static struct tcase {
->  		.tname = "don't ignore fs events created on a file with evicted ignore mark",
->  		.mark_path_fmt = MOUNT_PATH,
->  		.mark_type = FANOTIFY_FILESYSTEM,
-> -		.ignore_path_fmt = FILE_PATH,
-> +		.ignore_path_cnt = 16,
-> +		.ignore_path_fmt = FILE_PATH_MULTI,
->  		.ignore_mark_type = FANOTIFY_EVICTABLE,
-> -		.event_path_fmt = FILE_PATH,
-> +		.event_path_cnt = 16,
-> +		.event_path_fmt = FILE_PATH_MULTI,
->  		.expected_mask_with_ignore = FAN_OPEN,
->  		.expected_mask_without_ignore = FAN_OPEN
->  	},
-> @@ -398,10 +406,12 @@ static struct tcase {
->  		.tname = "don't ignore mount events created inside a parent with evicted ignore mark",
->  		.mark_path_fmt = MOUNT_PATH,
->  		.mark_type = FANOTIFY_MOUNT,
-> -		.ignore_path_fmt = DIR_PATH,
-> +		.ignore_path_cnt = 16,
-> +		.ignore_path_fmt = DIR_PATH_MULTI,
->  		.ignore_mark_type = FANOTIFY_EVICTABLE,
->  		.ignored_flags = FAN_EVENT_ON_CHILD,
-> -		.event_path_fmt = FILE_PATH,
-> +		.event_path_cnt = 16,
-> +		.event_path_fmt = FILE_PATH_MULTIDIR,
->  		.expected_mask_with_ignore = FAN_OPEN,
->  		.expected_mask_without_ignore = FAN_OPEN
->  	},
-> @@ -409,10 +419,12 @@ static struct tcase {
->  		.tname = "don't ignore fs events created inside a parent with evicted ignore mark",
->  		.mark_path_fmt = MOUNT_PATH,
->  		.mark_type = FANOTIFY_FILESYSTEM,
-> -		.ignore_path_fmt = DIR_PATH,
-> +		.ignore_path_cnt = 16,
-> +		.ignore_path_fmt = DIR_PATH_MULTI,
->  		.ignore_mark_type = FANOTIFY_EVICTABLE,
->  		.ignored_flags = FAN_EVENT_ON_CHILD,
-> -		.event_path_fmt = FILE_PATH,
-> +		.event_path_cnt = 16,
-> +		.event_path_fmt = FILE_PATH_MULTIDIR,
->  		.expected_mask_with_ignore = FAN_OPEN,
->  		.expected_mask_without_ignore = FAN_OPEN
->  	},
-> @@ -864,6 +876,8 @@ cleanup:
->  
->  static void setup(void)
->  {
-> +	int i;
-> +
->  	exec_events_unsupported = fanotify_events_supported_by_kernel(FAN_OPEN_EXEC,
->  								      FAN_CLASS_CONTENT, 0);
->  	filesystem_mark_unsupported = fanotify_mark_supported_by_kernel(FAN_MARK_FILESYSTEM);
-> @@ -880,7 +894,24 @@ static void setup(void)
->  	SAFE_MKDIR(DIR_PATH, 0755);
->  	SAFE_MKDIR(SUBDIR_PATH, 0755);
->  	SAFE_FILE_PRINTF(FILE_PATH, "1");
-> -	SAFE_FILE_PRINTF(FILE2_PATH, "1");
-> +	for (i = 0; i < (int)(sizeof(tcases)/sizeof(tcases[0])); i++) {
-                                  ^
-				  We do have the standard ARRAY_SIZE()
-				  macro defined in LTP
-> +		if (tcases[i].mark_path_cnt > max_file_multi)
-> +			max_file_multi = tcases[i].mark_path_cnt;
-> +		if (tcases[i].ignore_path_cnt > max_file_multi)
-> +			max_file_multi = tcases[i].ignore_path_cnt;
-> +		if (tcases[i].event_path_cnt > max_file_multi)
-> +			max_file_multi = tcases[i].event_path_cnt;
-> +	}
-> +	for (i = 0; i < max_file_multi; i++) {
-> +		char path[PATH_MAX];
-> +
-> +		sprintf(path, FILE_PATH_MULTI, i);
-> +		SAFE_FILE_PRINTF(path, "1");
-> +		sprintf(path, DIR_PATH_MULTI, i);
-> +		SAFE_MKDIR(path, 0755);
-> +		sprintf(path, FILE_PATH_MULTIDIR, i);
-> +		SAFE_FILE_PRINTF(path, "1");
-> +	}
->  
->  	SAFE_CP(TEST_APP, FILE_EXEC_PATH);
->  	SAFE_CP(TEST_APP, FILE2_EXEC_PATH);
-> @@ -896,6 +927,8 @@ static void setup(void)
->  
->  static void cleanup(void)
->  {
-> +	int i;
-> +
->  	cleanup_fanotify_groups();
->  
->  	if (bind_mount_created)
-> @@ -903,8 +936,17 @@ static void cleanup(void)
->  
->  	SAFE_FILE_PRINTF(CACHE_PRESSURE_FILE, "%d", old_cache_pressure);
->  
-> +	for (i = 0; i < max_file_multi; i++) {
-> +		char path[PATH_MAX];
-> +
-> +		sprintf(path, FILE_PATH_MULTIDIR, i);
-> +		SAFE_UNLINK(path);
-> +		sprintf(path, DIR_PATH_MULTI, i);
-> +		SAFE_RMDIR(path);
-> +		sprintf(path, FILE_PATH_MULTI, i);
-> +		SAFE_UNLINK(path);
-> +	}
->  	SAFE_UNLINK(FILE_PATH);
-> -	SAFE_UNLINK(FILE2_PATH);
->  	SAFE_RMDIR(SUBDIR_PATH);
->  	SAFE_RMDIR(DIR_PATH);
->  	SAFE_RMDIR(MNT2_PATH);
-
-Do we have to unlink anything at all?
-
-As far as I can tell we create these files on a device that is
-reformatted after the test anyways.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGVsbG8sCgpDeXJpbCBIcnViaXMgPGNocnViaXNAc3VzZS5jej4gd3JpdGVzOgoKPiBIaSEKPj4g
+VXNlIHRoZSBHTlUgdmFyaWFudCBvZiB0aGUgQzk5IGxhbmd1YWdlIHRvIHN0b3AgR0NDIDQuOC41
+IGRlZmF1bHRpbmcKPj4gdG8gQzkwLgo+PiAKPj4gV2UgY2FuJ3QgdXNlIEM5OSBiZWNhdXNlIExU
+UCBpcyBmYXIgZnJvbSBjb21wbGlhbnQuCj4KPiBJIHdvZGVyIGlmIHRoaXMgd291bGQgd29yayB3
+aXRoIGRpZmZlcmVudCBjb21waWxlcnMuIEkgc3VwcG9zZSBjbGFuZwo+IGRvZXMgd29yaywgYnV0
+IHdoYXQgYWJvdXQgaWNjPwoKQ2xhbmcgaXMgZmluZS4gSSBkb3VidCB0aGF0IGljYyBjb21waWxl
+cyBMVFAgYXQgcHJlc2VudCB1bmxlc3MgaXQgZG9lcwpzdXBwb3J0IEdOVSBleHRlbnNpb25zLgoK
+Pgo+IEkgc3Vwb3NlIHRoYXQgd2UgZ2V0IHRvbnMgb2YgJ2Nhbid0IGRvIHBvaW50ZXIgYXJpdGht
+ZXRpY3Mgb24gdm9pZCoKPiBwb2ludGVycyBhbmQgc3R1ZmYnIHdpdGggcGxhaW4gYzk5LiBNYXli
+ZSBpdCB3b3VsZCBiZSBiZXR0ZXIgdG8gY2xlYW4KPiB0aGVzZSBvdXQgaW5zdGVhZC4KCmh0dHBz
+Oi8vZ2l0aHViLmNvbS9yaWNoaWVqcC9sdHAvYWN0aW9ucy9ydW5zLzM1MTUxNjU4MDMvam9icy81
+ODkwMDgxNzM2CgpTb21lIG9mIHRoaXMgaXMgc29sdmVkIGJ5IC1EX1hPUEVOX1NPVVJDRT03MDAg
+b3Igc29tZSBvdGhlciBtYWNybyAod2UKbmVlZCBtdWx0aXBsZSkuIEhvd2V2ZXIgaXQgZG9lc24n
+dCBlbmQgdGhlcmU6CgogbWFrZSBTVERDRkxBR1M9Jy1zdGQ9YzJ4IC1EX1hPUEVOX1NPVVJDRT03
+MDAnCm1ha2UgLUMgImxpYiIgXAoJLWYgIi9ob21lL3JpY2gvcWEvbHRwL2xpYi9NYWtlZmlsZSIg
+YWxsCm1ha2VbMV06IEVudGVyaW5nIGRpcmVjdG9yeSAnL2hvbWUvcmljaC9xYS9sdHAvbGliJwpJ
+biBmaWxlIGluY2x1ZGVkIGZyb20gLi4vaW5jbHVkZS9vbGQvdGVzdC5oOjM3LAogICAgICAgICAg
+ICAgICAgIGZyb20gZ2V0X3BhdGguYzo0MToKZ2V0X3BhdGguYzogSW4gZnVuY3Rpb24g4oCYdHN0
+X2dldF9wYXRo4oCZOgouLi9pbmNsdWRlL3RzdF9taW5tYXguaDoxMDo5OiB3YXJuaW5nOiBpbXBs
+aWNpdCBkZWNsYXJhdGlvbiBvZiBmdW5jdGlvbiDigJh0eXBlb2bigJkgWy1XaW1wbGljaXQtZnVu
+Y3Rpb24tZGVjbGFyYXRpb25dCiAgIDEwIHwgICAgICAgICB0eXBlb2YoYSkgX2EgPSAoYSk7IFwK
+ICAgICAgfCAgICAgICAgIF5+fn5+fgoKV2UgcHJvYmFibHkgYWxzbyB1c2UgJ3ggPzogeScgYW5k
+IHN0dWZmIGxpa2UgdGhhdC4KClNvIHRoaXMgb3BlbnMgdXAgYSByYXRzIG5lc3QgYmFzaWNhbGx5
+LgoKLS0gClRoYW5rIHlvdSwKUmljaGFyZC4KCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6
+Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
