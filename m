@@ -2,84 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC324633684
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Nov 2022 09:02:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4430F63378D
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Nov 2022 09:53:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C18253CCABE
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Nov 2022 09:02:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 089933CCAC2
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Nov 2022 09:53:58 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C689C3CCAB6
- for <ltp@lists.linux.it>; Tue, 22 Nov 2022 09:02:26 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 989503CCABC
+ for <ltp@lists.linux.it>; Tue, 22 Nov 2022 09:53:56 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4DAAB124722E
- for <ltp@lists.linux.it>; Tue, 22 Nov 2022 09:02:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1669104144;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E7F8E20B486
+ for <ltp@lists.linux.it>; Tue, 22 Nov 2022 09:53:55 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 491EE1F8B8;
+ Tue, 22 Nov 2022 08:53:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1669107235;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SdQRfNPNPxcSDRlSbcE0wdQaCvLO8XiKcQPeBtWm4kk=;
- b=G33dneThK3lhB9dWRdS8ZlsBG7ba2PDCB6udFqcBGyUqnG8Wge2faVE2vrxavNYaNvoQL6
- 3YfVVTB3q0uWCmnn8t2q7xUF062gYVuPDatuXifJwjrlCYwy02HApWXLi4K17RwK7FjGdD
- paP2J3jouZHvai4ZLelUUy+Oo/bTDaM=
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
- [209.85.222.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-361-OK2uovD_PL29ssmSaul14Q-1; Tue, 22 Nov 2022 03:02:23 -0500
-X-MC-Unique: OK2uovD_PL29ssmSaul14Q-1
-Received: by mail-ua1-f70.google.com with SMTP id
- q9-20020ab04a09000000b003dfecbdc5cdso6021785uae.15
- for <ltp@lists.linux.it>; Tue, 22 Nov 2022 00:02:20 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SdQRfNPNPxcSDRlSbcE0wdQaCvLO8XiKcQPeBtWm4kk=;
- b=jTndWtla9P7U017VLOkUXUmniK3hPeC19K5uhR6EgADCbRX0fxlPPuC62RWzvhBrtW
- Bwd58pW6H+cddrhzatnmsKSd7hTRUDtXA1Dr3XQtlrnveYukMfieOT+Z3nPy+mYJewP9
- QhQpxaZJT+p/GOFW0cWZulnlJwQOteh13QkrsvI3aYNx1zSvh/capIec5jqdU5CKNBUd
- 6zXTvdTfn/Mh6CiZeaUn0sCHHRdKVyzLyFZs0vvzVwcCtLsEBBFl/fMqDS8YjwizrhNV
- K9Rd+wPeJSCK+UEE71jRD6XQWxRQBDOCBJs0KWV57S6wYAUsNs+ccAKDgtBwm/mZM9aZ
- 5lLw==
-X-Gm-Message-State: ANoB5pmpBAad8ksA5afMo9pMo+3Kf+1DFbF4KHmO9FtkAdps62ynPGa4
- 2lVkbD/rKi9L91m6qeML7Ra/WQAb7bGlryvDY2U/s7/WEtJjTlkYvPRE4tEyeEQV3NIbsMpkUHg
- GvcJA/+B0ReZmyWcUavvUrLdHnbE=
-X-Received: by 2002:a05:6122:990:b0:3bc:721:4fec with SMTP id
- g16-20020a056122099000b003bc07214fecmr11926334vkd.8.1669104139655; 
- Tue, 22 Nov 2022 00:02:19 -0800 (PST)
-X-Google-Smtp-Source: AA0mqf7FWuRuAGXo/pyAJVDMx52qNzXoLprk6Drz8RUa+Y8YDX7yXejhgYRXq6Q61CVvkE87UrqpEIF1UDCsEUyP9vA=
-X-Received: by 2002:a05:6122:990:b0:3bc:721:4fec with SMTP id
- g16-20020a056122099000b003bc07214fecmr11926322vkd.8.1669104139353; Tue, 22
- Nov 2022 00:02:19 -0800 (PST)
+ bh=7JnNJ2b10FhczVQqhuxwgli00kkUVJltI798NVhXMII=;
+ b=ZPigLy5feWqV1QQmUTyDvE8N2S+qHnVcnKWS8rsBtG2WggMpPd3kgVTHkX+QQ8wDMkniFs
+ C2clw17HRY6G9ULCTLJq7d9fDCaFNPTuwVnmfgIJauIIFE4dRopFFkUnSHVDJc45rT0NKJ
+ djrZ7cQEfyFQp4EL3q9hTTPfylOK8OQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1669107235;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7JnNJ2b10FhczVQqhuxwgli00kkUVJltI798NVhXMII=;
+ b=bUsgdklOLmvVy5Ur5vm2tg5+AAMMLGnFZojZbeWgkCd3oViR6VV4M1JSRK8m3Z/bol5aOu
+ qsRveGPzk6GZVuCg==
+Received: from g78 (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 17C882C142;
+ Tue, 22 Nov 2022 08:53:55 +0000 (UTC)
+References: <20221121144505.1496-1-rpalethorpe@suse.com>
+ <Y3uUk6nKsASeFRf7@yuki> <87mt8kfgad.fsf@suse.de> <Y3ukncX84lQTJNe9@rei>
+User-agent: mu4e 1.8.11; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Tue, 22 Nov 2022 08:11:41 +0000
+Organization: Linux Private Site
+In-reply-to: <Y3ukncX84lQTJNe9@rei>
+Message-ID: <87ilj7fjz6.fsf@suse.de>
 MIME-Version: 1.0
-References: <20221116160715.10082-1-mdoucha@suse.cz>
- <CAEemH2dGJ3LzO=OS7hrxxgMJ+T4FguiBFgB3KXirJw-R7zVBBQ@mail.gmail.com>
- <Y3eJNAi81ucutljP@yuki>
-In-Reply-To: <Y3eJNAi81ucutljP@yuki>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Tue, 22 Nov 2022 09:02:02 +0100
-Message-ID: <CAASaF6yaPmG1Q5fdecM7xhE3uqHa_PCMZBGj-hUj9xrVU42Z6A@mail.gmail.com>
-To: Martin Doucha <mdoucha@suse.cz>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5] save_restore: Introduce new struct field for
- flags
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] config: Explicitly set gnu99
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,32 +77,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it, Jan Kara <jack@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, Nov 18, 2022 at 2:30 PM Cyril Hrubis <chrubis@suse.cz> wrote:
->
-> Hi!
-> > > +#define TST_SR_TCONF (TST_SR_TCONF_MISSING | TST_SR_TCONF_RO)
-> > > +#define TST_SR_TBROK (TST_SR_TBROK_MISSING | TST_SR_TBROK_RO)
-> > > +#define TST_SR_SKIP (TST_SR_SKIP_MISSING | TST_SR_SKIP_RO)
-> > >
-> >
-> > I'd suggest using "_TSKIP" to replace "_SKIP' to be consistent.
-> > Then the whole format will look quite perfect and easy to memorize:).
->
-> I think that it makse sense to keep it as _SKIP because that is the
-> option that does not map directly to the test result flags. If we named
-> it TSKIP people will be confused that there is no TSKIP in the test
-> result flags at all.
-
-+1 for SKIP
-
-Feel free to add my Acked-by back.
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGVsbG8sCgpDeXJpbCBIcnViaXMgPGNocnViaXNAc3VzZS5jej4gd3JpdGVzOgoKPiBIaSEKPj4g
+PiBJIHdvZGVyIGlmIHRoaXMgd291bGQgd29yayB3aXRoIGRpZmZlcmVudCBjb21waWxlcnMuIEkg
+c3VwcG9zZSBjbGFuZwo+PiA+IGRvZXMgd29yaywgYnV0IHdoYXQgYWJvdXQgaWNjPwo+PiAKPj4g
+Q2xhbmcgaXMgZmluZS4gSSBkb3VidCB0aGF0IGljYyBjb21waWxlcyBMVFAgYXQgcHJlc2VudCB1
+bmxlc3MgaXQgZG9lcwo+PiBzdXBwb3J0IEdOVSBleHRlbnNpb25zLgo+Cj4gRmFpciBlbm91Z2gu
+Cj4KPj4gPiBJIHN1cG9zZSB0aGF0IHdlIGdldCB0b25zIG9mICdjYW4ndCBkbyBwb2ludGVyIGFy
+aXRobWV0aWNzIG9uIHZvaWQqCj4+ID4gcG9pbnRlcnMgYW5kIHN0dWZmJyB3aXRoIHBsYWluIGM5
+OS4gTWF5YmUgaXQgd291bGQgYmUgYmV0dGVyIHRvIGNsZWFuCj4+ID4gdGhlc2Ugb3V0IGluc3Rl
+YWQuCj4+IAo+PiBodHRwczovL2dpdGh1Yi5jb20vcmljaGllanAvbHRwL2FjdGlvbnMvcnVucy8z
+NTE1MTY1ODAzL2pvYnMvNTg5MDA4MTczNgo+PiAKPj4gU29tZSBvZiB0aGlzIGlzIHNvbHZlZCBi
+eSAtRF9YT1BFTl9TT1VSQ0U9NzAwIG9yIHNvbWUgb3RoZXIgbWFjcm8gKHdlCj4+IG5lZWQgbXVs
+dGlwbGUpLiBIb3dldmVyIGl0IGRvZXNuJ3QgZW5kIHRoZXJlOgo+PiAKPj4gIG1ha2UgU1REQ0ZM
+QUdTPSctc3RkPWMyeCAtRF9YT1BFTl9TT1VSQ0U9NzAwJwo+PiBtYWtlIC1DICJsaWIiIFwKPj4g
+CS1mICIvaG9tZS9yaWNoL3FhL2x0cC9saWIvTWFrZWZpbGUiIGFsbAo+PiBtYWtlWzFdOiBFbnRl
+cmluZyBkaXJlY3RvcnkgJy9ob21lL3JpY2gvcWEvbHRwL2xpYicKPj4gSW4gZmlsZSBpbmNsdWRl
+ZCBmcm9tIC4uL2luY2x1ZGUvb2xkL3Rlc3QuaDozNywKPj4gICAgICAgICAgICAgICAgICBmcm9t
+IGdldF9wYXRoLmM6NDE6Cj4+IGdldF9wYXRoLmM6IEluIGZ1bmN0aW9uIOKAmHRzdF9nZXRfcGF0
+aOKAmToKPj4gLi4vaW5jbHVkZS90c3RfbWlubWF4Lmg6MTA6OTogd2FybmluZzogaW1wbGljaXQg
+ZGVjbGFyYXRpb24gb2YgZnVuY3Rpb24g4oCYdHlwZW9m4oCZIFstV2ltcGxpY2l0LWZ1bmN0aW9u
+LWRlY2xhcmF0aW9uXQo+PiAgICAxMCB8ICAgICAgICAgdHlwZW9mKGEpIF9hID0gKGEpOyBcCj4+
+ICAgICAgIHwgICAgICAgICBefn5+fn4KPgo+Cj4gSG1tIHRoYXQncyBzdHJhbmdlLCBzdXBwb3Nl
+ZGx5IHR5cGVvZigpIGlzIGZpbmFsbHkgc3RhbmRhcnRpemVkIGluIGMyeCwKPiBidXQgaXQgd291
+bGQgYmUgb2J2aW91c2x5IG1pc3NpbmcgZnJvbSBhbnl0aGluZyBvbGRlci4KPgo+PiBXZSBwcm9i
+YWJseSBhbHNvIHVzZSAneCA/OiB5JyBhbmQgc3R1ZmYgbGlrZSB0aGF0Lgo+PiAKPj4gU28gdGhp
+cyBvcGVucyB1cCBhIHJhdHMgbmVzdCBiYXNpY2FsbHkuCj4KPiBTaWdoLCB3ZWxsIExUUCB3YXMg
+bmV2ZXIgYSBuaWNlIGNvZGViYXNlLCBhdCBsZWFzdCBpdCBjb21waWxlcyBtb3N0IG9mCj4gdGhl
+IHRpbWUgdGhlc2UgZGF5cy4KClVzaW5nIHdoYXRldmVyIGxhbmd1YWdlIGZlYXR1cmVzIHNlZW0g
+cmVhc29uYWJsZSBhbmQgYWRkaW5nIGNvbXBpbGF0aW9uCnRhcmdldHMgdG8gdGhlIENJIHNlZW1z
+IGxpa2UgdGhlIGJlc3Qgd2F5IHRvIGdvIElNTy4KCi0tIApUaGFuayB5b3UsClJpY2hhcmQuCgot
+LSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRw
+Cg==
