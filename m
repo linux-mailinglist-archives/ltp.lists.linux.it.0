@@ -2,74 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82C2F633877
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Nov 2022 10:30:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A107633943
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Nov 2022 11:02:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 138493CCAC3
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Nov 2022 10:30:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id F37F33CCAC2
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Nov 2022 11:01:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5D4D83CCAB4
- for <ltp@lists.linux.it>; Tue, 22 Nov 2022 10:30:31 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 16BE83C03AE
+ for <ltp@lists.linux.it>; Tue, 22 Nov 2022 11:01:57 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 46E6E12501F2
- for <ltp@lists.linux.it>; Tue, 22 Nov 2022 10:30:30 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 71D0F21D48;
- Tue, 22 Nov 2022 09:30:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1669109430;
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6E88A14002AB
+ for <ltp@lists.linux.it>; Tue, 22 Nov 2022 11:01:57 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id CFCC021AF4;
+ Tue, 22 Nov 2022 10:01:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1669111316;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=nl38GYd1i1cdJIJbQO6w9m1VdbkixxcItlux4LW7R3A=;
- b=iIZK1rKasWXrRE4UJwJv0LfgSjfwARIk4dJLNqqac+NN9mz42W0E153c/2bHIsSTX3AHXP
- VzB33h3fQ+fuSNX7tj19O/aqM5Ve4EnO3uMMb4IwU+HANfjNfYHu80D+dfGElssIOwoLog
- Oj6YsFkZ78Q4dr41+s45fYuSqrwA/Cc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1669109430;
+ bh=RUV1uw0W1PTbXzXzPe80Zv7T8KOi2keY3i9iVkCkz18=;
+ b=VpAy5riVDWjTiS/SCf2GD1DHDQ91yvxs+pDQi/farvi9kKtYyaveu75AMgIXqP2B/ZtJ2z
+ oP7wD256FRC/kvfa0djbqRRi5fwThSkuUB1DbefG3mxQCORS8pTXgj5hOkkyosrRK4wI7I
+ jUY+gtNx4w/1ABIHeZKT5PmFRBFj4Tw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1669111316;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=nl38GYd1i1cdJIJbQO6w9m1VdbkixxcItlux4LW7R3A=;
- b=D7trkY8zV9ko9/OPlE5PLNQMX8J0RrnuT8wz+1MAeFX/EUOMRo4ywklz0iK9KzH/a8OskR
- BpkbkxIEcvyrUBAg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=RUV1uw0W1PTbXzXzPe80Zv7T8KOi2keY3i9iVkCkz18=;
+ b=kn2yEtHgP7ZUDf7G4+Iw8RX+w4vroPCPuhKklwnbH99hMJm2EIMPj9GJawKzC4Y3LbO9ZU
+ WjEP9LaGb9FRXvAg==
+Received: from g78 (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 477F113AA1;
- Tue, 22 Nov 2022 09:30:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nc4VELaWfGO4OwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 22 Nov 2022 09:30:30 +0000
-Date: Tue, 22 Nov 2022 10:30:26 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <Y3yWsgwJrcsi26Vu@pevik>
+ by relay2.suse.de (Postfix) with ESMTPS id 9187C2C142;
+ Tue, 22 Nov 2022 10:01:56 +0000 (UTC)
 References: <20221121144505.1496-1-rpalethorpe@suse.com>
- <Y3uUk6nKsASeFRf7@yuki> <87mt8kfgad.fsf@suse.de>
- <Y3ukncX84lQTJNe9@rei> <87ilj7fjz6.fsf@suse.de>
+ <Y3uUk6nKsASeFRf7@yuki> <87mt8kfgad.fsf@suse.de> <Y3ukncX84lQTJNe9@rei>
+ <87ilj7fjz6.fsf@suse.de> <Y3yWsgwJrcsi26Vu@pevik>
+User-agent: mu4e 1.8.11; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Petr Vorel <pvorel@suse.cz>
+Date: Tue, 22 Nov 2022 10:00:40 +0000
+Organization: Linux Private Site
+In-reply-to: <Y3yWsgwJrcsi26Vu@pevik>
+Message-ID: <87a64jfgtn.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87ilj7fjz6.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] config: Explicitly set gnu99
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -82,46 +75,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it, Jan Kara <jack@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richie, Cyril,
+Hello,
 
-...
-> >> > I woder if this would work with different compilers. I suppose clang
-> >> > does work, but what about icc?
+Petr Vorel <pvorel@suse.cz> writes:
 
-> >> Clang is fine. I doubt that icc compiles LTP at present unless it does
-> >> support GNU extensions.
+> Hi Richie, Cyril,
+>
+> ...
+>> >> > I woder if this would work with different compilers. I suppose clang
+>> >> > does work, but what about icc?
+>
+>> >> Clang is fine. I doubt that icc compiles LTP at present unless it does
+>> >> support GNU extensions.
+>
+>> > Fair enough.
+>
+>> >> > I supose that we get tons of 'can't do pointer arithmetics on void*
+>> >> > pointers and stuff' with plain c99. Maybe it would be better to clean
+>> >> > these out instead.
+>
+> FYI gnu99 works on our CI
+> https://github.com/pevik/ltp/actions/runs/3521626082
+>
+> and c99 not
+> https://github.com/pevik/ltp/actions/runs/3521624383
+> parse_opts.c:458:35: error: implicit declaration of function 'sbrk' [-Werror=implicit-function-declaration]
+> parse_opts.c:475:27: error: 'CLOCK_MONOTONIC' undeclared (first use in this function)
+> parse_opts.c:208:47: error: 'optarg' undeclared (first use in this function)
+> and many other errors
+>
+> Richie probably found that himself.
+>
+> So that I'm for merging this and Jan's fixes on the top of it.
+> I suppose there is no feature dependency on autotools (i.e. we don't need to add
+> -std=gnu99 to any of macros in m4/.
 
-> > Fair enough.
+Yes, agreed. Just see my comment on the other thread first. Thanks.
 
-> >> > I supose that we get tons of 'can't do pointer arithmetics on void*
-> >> > pointers and stuff' with plain c99. Maybe it would be better to clean
-> >> > these out instead.
+>
+> Kind regards,
+> Petr
 
-FYI gnu99 works on our CI
-https://github.com/pevik/ltp/actions/runs/3521626082
 
-and c99 not
-https://github.com/pevik/ltp/actions/runs/3521624383
-parse_opts.c:458:35: error: implicit declaration of function 'sbrk' [-Werror=implicit-function-declaration]
-parse_opts.c:475:27: error: 'CLOCK_MONOTONIC' undeclared (first use in this function)
-parse_opts.c:208:47: error: 'optarg' undeclared (first use in this function)
-and many other errors
-
-Richie probably found that himself.
-
-So that I'm for merging this and Jan's fixes on the top of it.
-I suppose there is no feature dependency on autotools (i.e. we don't need to add
--std=gnu99 to any of macros in m4/.
-
-Kind regards,
-Petr
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
