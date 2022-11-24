@@ -1,70 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AA776377D3
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Nov 2022 12:42:10 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F2B06378A3
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Nov 2022 13:11:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6AFEF3CC925
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Nov 2022 12:42:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3E4D53CC929
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Nov 2022 13:11:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A7F433C0123
- for <ltp@lists.linux.it>; Thu, 24 Nov 2022 12:42:09 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id A1E213CC907
+ for <ltp@lists.linux.it>; Thu, 24 Nov 2022 13:11:00 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A05AC1A008A3
- for <ltp@lists.linux.it>; Thu, 24 Nov 2022 12:42:08 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9869221AA2
- for <ltp@lists.linux.it>; Thu, 24 Nov 2022 11:42:07 +0000 (UTC)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 09FF1600791
+ for <ltp@lists.linux.it>; Thu, 24 Nov 2022 13:10:59 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 10B3B218F2;
+ Thu, 24 Nov 2022 12:10:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669290127; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=BukxHopfHSSMjuVpx/XQdYmVE9DmN+7rxvQbVnz6Xek=;
- b=O/uEqN7b7qobC3VEJqKvbV0CLcxemzmeeVJSDSxfGyG+k9qeJz9A2KCajCUOSEwAvaj3za
- npXvrijjwH2aZkFswiCLWfbiRUbo8b6sS+ctQAf8T+tBm7Zct7T0tRoy0ZULWDdeL77us7
- HQ7WNwDqz1nIQ+WeBXlWpRxIORPVX/o=
+ t=1669291859;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Jjam6vXQMMItioG/1XSv1KpE0oO1FPgKuv6gQMDdeUs=;
+ b=JsQTbhEAddaJOVPG08NI2Q+56O9yexe+8m201AHEeEWB8WK7sOP+ys6gIFWzfQTuNVWrx7
+ wbmS6XgVXklDZbDJ3MngCvrdjivDoCqXHz2w7P61C3dTrlQckcQPeTHUhq/y/4SiXFCHUa
+ ZWf+gx5dRdVvkOMEYt/2moh6E5x0wF0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669290127;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=BukxHopfHSSMjuVpx/XQdYmVE9DmN+7rxvQbVnz6Xek=;
- b=LSwnDwfLDKJPJD/T89pZfxDu30fQYBzP572RBHHJfrMnDuIQlNShkvLhgcp69aOZc2xkq9
- 4snb11txzUim4iDg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ s=susede2_ed25519; t=1669291859;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Jjam6vXQMMItioG/1XSv1KpE0oO1FPgKuv6gQMDdeUs=;
+ b=f0va5cRts7NIWMWaQ4fADvKG330JbtQp1om4sKbs4oNIv6qtkbiELJX/7uvHVyaSjkeFvY
+ KT1Wc2IzSNDZXbCA==
+Received: from g78 (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1BB2213B4F
- for <ltp@lists.linux.it>; Thu, 24 Nov 2022 11:42:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id tHPfM45Yf2NTaQAAMHmgww
- (envelope-from <akumar@suse.de>)
- for <ltp@lists.linux.it>; Thu, 24 Nov 2022 11:42:06 +0000
-From: Avinesh Kumar <akumar@suse.de>
-To: ltp@lists.linux.it
-Date: Thu, 24 Nov 2022 17:12:04 +0530
-Message-Id: <20221124114204.990-1-akumar@suse.de>
-X-Mailer: git-send-email 2.38.1
+ by relay2.suse.de (Postfix) with ESMTPS id DB7A52C141;
+ Thu, 24 Nov 2022 12:10:58 +0000 (UTC)
+References: <20221028090053.1662-1-andrea.cervesato@suse.com>
+User-agent: mu4e 1.8.11; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Date: Thu, 24 Nov 2022 11:43:47 +0000
+Organization: Linux Private Site
+In-reply-to: <20221028090053.1662-1-andrea.cervesato@suse.com>
+Message-ID: <87k03keenh.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] statvfs01: Convert to new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Add epoll_wait07 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,141 +74,145 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Also I've removed the TINFO statements, I'm not sure if only
-printing the data in logs is helpful in anyway.
+Hello,
 
-Signed-off-by: Avinesh Kumar <akumar@suse.de>
----
- testcases/kernel/syscalls/statvfs/statvfs01.c | 96 +++++--------------
- 1 file changed, 22 insertions(+), 74 deletions(-)
+Andrea Cervesato via ltp <ltp@lists.linux.it> writes:
 
-diff --git a/testcases/kernel/syscalls/statvfs/statvfs01.c b/testcases/kernel/syscalls/statvfs/statvfs01.c
-index e3b356c93..89ca4e960 100644
---- a/testcases/kernel/syscalls/statvfs/statvfs01.c
-+++ b/testcases/kernel/syscalls/statvfs/statvfs01.c
-@@ -1,92 +1,40 @@
-+// SPDX-License-Identifier: GPL-2.0
- /*
-  * Copyright (c) Wipro Technologies Ltd, 2005.  All Rights Reserved.
-  *    AUTHOR: Prashant P Yendigeri <prashant.yendigeri@wipro.com>
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-+ * Copyright (c) 2022 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
-  */
--/*
-- *    DESCRIPTION
-- *      This is a Phase I test for the statvfs(2) system call.
-- *      It is intended to provide a limited exposure of the system call.
-- *	This call behaves similar to statfs.
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that statvfs() executes successfully for all
-+ * available filesystems.
-  */
- 
--#include <stdio.h>
--#include <unistd.h>
--#include <errno.h>
- #include <sys/statvfs.h>
--#include <stdint.h>
--
--#include "test.h"
--
--#define TEST_PATH "/"
-+#include "tst_test.h"
- 
--static void setup(void);
--static void cleanup(void);
-+#define MNT_POINT "mntpoint"
-+#define TEST_PATH MNT_POINT"/testfile"
- 
--char *TCID = "statvfs01";
--int TST_TOTAL = 1;
--
--int main(int ac, char **av)
-+static void run(void)
- {
- 	struct statvfs buf;
--	int lc;
--
--	tst_parse_opts(ac, av, NULL, NULL);
- 
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
--		tst_count = 0;
--
--		TEST(statvfs(TEST_PATH, &buf));
--
--		if (TEST_RETURN == -1) {
--			tst_resm(TFAIL | TTERRNO, "statvfs(%s, ...) failed",
--				 TEST_PATH);
--		} else {
--			tst_resm(TPASS, "statvfs(%s, ...) passed", TEST_PATH);
--		}
--
--	}
--
--	tst_resm(TINFO, "This call is similar to statfs");
--	tst_resm(TINFO, "Extracting info about the '%s' file system",
--		 TEST_PATH);
--	tst_resm(TINFO, "file system block size = %lu bytes", buf.f_bsize);
--	tst_resm(TINFO, "file system fragment size = %lu bytes", buf.f_frsize);
--	tst_resm(TINFO, "file system free blocks = %ju",
--		 (uintmax_t) buf.f_bfree);
--	tst_resm(TINFO, "file system total inodes = %ju",
--		 (uintmax_t) buf.f_files);
--	tst_resm(TINFO, "file system free inodes = %ju",
--		 (uintmax_t) buf.f_ffree);
--	tst_resm(TINFO, "file system id = %lu", buf.f_fsid);
--	tst_resm(TINFO, "file system max filename length = %lu", buf.f_namemax);
--
--	cleanup();
--	tst_exit();
-+	TST_EXP_PASS(statvfs(TEST_PATH, &buf));
- }
- 
- static void setup(void)
- {
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
-+	SAFE_TOUCH(TEST_PATH, 0666, NULL);
- }
- 
--static void cleanup(void)
--{
--}
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.needs_root = 1,
-+	.mount_device = 1,
-+	.mntpoint = MNT_POINT,
-+	.all_filesystems = 1
-+};
+> This test verifies EPOLLONESHOT functionality.
+>
+> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+> ---
+> Make use of SAFE_EPOLL_* macros
+> Listen to EPOLLIN event instead of EPOLLOUT
+>
+>  .../kernel/syscalls/epoll_wait/.gitignore     |  1 +
+>  .../kernel/syscalls/epoll_wait/epoll_wait07.c | 78 +++++++++++++++++++
+>  2 files changed, 79 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/epoll_wait/epoll_wait07.c
+>
+> diff --git a/testcases/kernel/syscalls/epoll_wait/.gitignore b/testcases/kernel/syscalls/epoll_wait/.gitignore
+> index 8c5ed7c5c..66ac18ae2 100644
+> --- a/testcases/kernel/syscalls/epoll_wait/.gitignore
+> +++ b/testcases/kernel/syscalls/epoll_wait/.gitignore
+> @@ -4,3 +4,4 @@ epoll_wait03
+>  epoll_wait04
+>  epoll_wait05
+>  epoll_wait06
+> +epoll_wait07
+> diff --git a/testcases/kernel/syscalls/epoll_wait/epoll_wait07.c b/testcases/kernel/syscalls/epoll_wait/epoll_wait07.c
+> new file mode 100644
+> index 000000000..9a492c148
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/epoll_wait/epoll_wait07.c
+> @@ -0,0 +1,78 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+> + */
+> +
+> +/*\
+> + * [Description]
+> + *
+> + * Verify that EPOLLONESHOT is correctly handled by epoll_wait.
+> + * We open a channel, write in it two times and verify that EPOLLIN has been
+> + * received only once.
+> + */
+> +
+> +#include <poll.h>
+> +#include <sys/epoll.h>
+> +#include "tst_test.h"
+> +#include "tst_epoll.h"
+> +
+> +#define WRITE_SIZE 2048
+> +
+> +static int fds[2];
+> +static int epfd;
+> +
+> +static void cleanup(void)
+> +{
+> +	if (epfd > 0)
+> +		SAFE_CLOSE(epfd);
+> +
+> +	if (fds[0] > 0)
+> +		SAFE_CLOSE(fds[0]);
+> +
+> +	if (fds[1] > 0)
+> +		SAFE_CLOSE(fds[1]);
+> +}
+> +
+> +static void run(void)
+> +{
+> +	char buff[WRITE_SIZE];
+> +	struct epoll_event evt_receive;
+> +	struct epoll_event evt_request;
+> +
+> +	SAFE_PIPE(fds);
+> +
+> +	evt_request.events = EPOLLIN | EPOLLONESHOT;
+> +	evt_request.data.fd = fds[1];
+
+I'm not sure why you set the data?
+
+> +
+> +	epfd = SAFE_EPOLL_CREATE1(0);
+> +
+> +	tst_res(TINFO, "Polling channel with EPOLLONESHOT");
+> +
+> +	SAFE_EPOLL_CTL(epfd, EPOLL_CTL_ADD, fds[0], &evt_request);
+> +
+> +	tst_res(TINFO, "Write on channel multiple times");
+> +
+> +	memset(buff, 'a', WRITE_SIZE);
+> +	SAFE_WRITE(0, fds[1], buff, WRITE_SIZE);
+> +	SAFE_WRITE(0, fds[1], buff, WRITE_SIZE);
+
+Why call write twice?
+
+You don't read the data between waits and it is level triggered not edge
+triggered.
+
+> +
+> +	SAFE_EPOLL_WAIT(epfd, &evt_receive, 1, 2000);
+> +
+> +	if ((evt_receive.events & EPOLLIN) == 0) {
+> +		tst_res(TFAIL, "No data received");
+
+The chances of this failing are very close to zero, but if it does then
+debugging will be difficult.
+
+> +		goto close;
+> +	}
+> +
+> +	tst_res(TINFO, "Received first EPOLLIN event");
+> +
+> +	TST_EXP_EQ_LI(epoll_wait(epfd, &evt_receive, 1, 0), 0);
+> +
+
+The test is valid AFAICT, but there is stuff which confuses it.
+
+> +close:
+> +	SAFE_CLOSE(fds[0]);
+> +	SAFE_CLOSE(fds[1]);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.cleanup = cleanup,
+> +	.test_all = run,
+> +};
+> -- 
+> 2.35.3
+
+
 -- 
-2.38.1
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
