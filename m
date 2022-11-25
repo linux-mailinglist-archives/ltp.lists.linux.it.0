@@ -2,76 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA3F2638C3D
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Nov 2022 15:33:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD069638D87
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Nov 2022 16:35:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7D6733CC8F5
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Nov 2022 15:33:47 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 32C483CDCDD
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Nov 2022 16:35:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E24083CC8E4
- for <ltp@lists.linux.it>; Fri, 25 Nov 2022 15:33:46 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id A6ECA3CC8ED
+ for <ltp@lists.linux.it>; Fri, 25 Nov 2022 16:34:55 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9634C1000F1B
- for <ltp@lists.linux.it>; Fri, 25 Nov 2022 15:33:44 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id DA3A9600F11
+ for <ltp@lists.linux.it>; Fri, 25 Nov 2022 16:34:54 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 81BF81FD68;
- Fri, 25 Nov 2022 14:33:44 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BFBB121B01
+ for <ltp@lists.linux.it>; Fri, 25 Nov 2022 15:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1669386824; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=cob/RWSfRqBKMcXny9P+gASgeTbVcb0UKRaaV7TrSuA=;
- b=vysxQ/Rc2voennmfyWzyw9+kxfk3bzK8CcHF/v7iSjR973iQSDNMyfj9M4bNry6A+L2Uqm
- KBXOkiE2rr1ktVmbQGlKeygdMtVt2LXWnMqvyQi7ZJvaD75jUABszEIngXSw28twCPe5fS
- LSc3vEtn+Zr81a0vPVwyZXkarBZTJjk=
+ t=1669390493; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=3JQ5JAbz/kUYifZo7WDKx+/yPWUvowj85HoUXf1qczc=;
+ b=Ng0OAtapRXuOjmbdAQ1x7S98/PB6GLxtvpe8T8g2/YvbVIXAHhbd4WqQkLOvnzmBa4Femi
+ jnixvmv66oIAplCtm54itP9DAvtmMniJ33z5n32fgm14K3vDoYqD655w/JGtdTnAyBShv/
+ Q6fguXa//W9NNJd7ljB0Qa4Op8h3YIY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1669386824;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=cob/RWSfRqBKMcXny9P+gASgeTbVcb0UKRaaV7TrSuA=;
- b=nB7AOM3hWTNigKKWBgW0mfCsu5THvGaFeULQUXoxJJ5AagX3qQ4hF500Dk+mwo35QzYtJE
- NaVoeCJdNTt5uKDg==
+ s=susede2_ed25519; t=1669390493;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=3JQ5JAbz/kUYifZo7WDKx+/yPWUvowj85HoUXf1qczc=;
+ b=Lji8YE0mgnQBsM1zP1yKyuj2pRQzTm6NnKuaSJ40u7xI3R/uI2qrJq5RfzGGDHoT4FptZ2
+ y1offI6CGkCJ/DDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6B5F41361C;
- Fri, 25 Nov 2022 14:33:44 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AF06013A08
+ for <ltp@lists.linux.it>; Fri, 25 Nov 2022 15:34:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id bvVoGUjSgGPqbQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 25 Nov 2022 14:33:44 +0000
-Date: Fri, 25 Nov 2022 15:35:06 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <Y4DSmk7uY9zUUQsV@yuki>
-References: <20221123103547.54246-1-david@redhat.com>
- <8587b908-a035-a96a-7233-2863b7bc30ca@suse.cz>
- <Y4DPu7c+a939n2D5@yuki>
- <aedafbef-fc19-d552-9459-0878d9a6be8a@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8vXXKZ3ggGNUDgAAMHmgww
+ (envelope-from <mdoucha@suse.cz>)
+ for <ltp@lists.linux.it>; Fri, 25 Nov 2022 15:34:53 +0000
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Fri, 25 Nov 2022 16:34:52 +0100
+Message-Id: <20221125153453.19323-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aedafbef-fc19-d552-9459-0878d9a6be8a@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] security/dirtyc0w_shmem: Add new test for
- CVE-2022-2590
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] Implement tst_setup_netns() helper function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,26 +76,97 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, David Hildenbrand <david@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> I think the point is that there's no guarantee that NULL will actually 
-> be defined as (void*)0. It can be defined as a plain integer instead. 
-> And it *IS* defined as plain integer when the header is #included in C++.
+Namespace setup boilerplate for network tests is getting more complicated
+with the need to check or modify some sysfiles. Move it into LTP library.
 
-NULL is required to be 0 cast to void* in POSIX.
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
 
-https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/stddef.h.html
+Here is the promised .save_restore follow-up patchset which fixes network
+namespace setup without root privileges. Since the exact same boilerplate
+code is repeated in multiple tests, I've decided to introduce a helper
+function to simplify test setup.
 
-So at least on POSIX-like systems in C NULL must be ((void*)0)
+ include/tst_net.h | 16 ++++++++++++++++
+ lib/tst_net.c     | 23 +++++++++++++++++++++++
+ 2 files changed, 39 insertions(+)
 
+diff --git a/include/tst_net.h b/include/tst_net.h
+index daefdd9d9..9d8b842dd 100644
+--- a/include/tst_net.h
++++ b/include/tst_net.h
+@@ -32,4 +32,20 @@ void safe_getaddrinfo(const char *file, const int lineno, const char *src_addr,
+ 					  const char *port, const struct addrinfo *hints,
+ 					  struct addrinfo **addr_info);
+ 
++/*
++ * Create new network namespace for netdevice/socket tests. A test which calls
++ * tst_setup_netns() must declare the following entries in its struct tst_test:
++ *
++ * .needs_kconfigs = (const char *[]) {
++ *	"CONFIG_USER_NS=y",
++ *	"CONFIG_NET_NS=y",
++ *	NULL
++ * },
++ * .save_restore = (const struct tst_path_val[]) {
++ *	{"/proc/sys/user/max_user_namespaces", "1024", TST_SR_SKIP},
++ *	{}
++ * },
++ */
++void tst_setup_netns(void);
++
+ #endif /* TST_NET_H_ */
+diff --git a/lib/tst_net.c b/lib/tst_net.c
+index de343bb39..61fc0ea76 100644
+--- a/lib/tst_net.c
++++ b/lib/tst_net.c
+@@ -8,11 +8,13 @@
+ #include <netdb.h>
+ #include <string.h>
+ #include <stdlib.h>
++#include <unistd.h>
+ 
+ #define TST_NO_DEFAULT_MAIN
+ #include "tst_test.h"
+ #include "tst_net.h"
+ #include "tst_private.h"
++#include "lapi/namespaces_constants.h"
+ 
+ void tst_print_svar(const char *name, const char *val)
+ {
+@@ -220,3 +222,24 @@ void safe_getaddrinfo(const char *file, const int lineno, const char *src_addr,
+ 	if (!*addr_info)
+ 		tst_brk_(file, lineno, TBROK, "failed to get the address");
+ }
++
++void tst_setup_netns(void)
++{
++	int real_uid = getuid();
++	int real_gid = getgid();
++	int nscount = 1;
++
++	if (!access("/proc/sys/user/max_user_namespaces", F_OK)) {
++		SAFE_FILE_SCANF("/proc/sys/user/max_user_namespaces", "%d",
++			&nscount);
++	}
++
++	if (!nscount)
++		tst_brk(TCONF, "User namespaces are disabled");
++
++	SAFE_UNSHARE(CLONE_NEWUSER);
++	SAFE_UNSHARE(CLONE_NEWNET);
++	SAFE_FILE_PRINTF("/proc/self/setgroups", "deny");
++	SAFE_FILE_PRINTF("/proc/self/uid_map", "0 %d 1", real_uid);
++	SAFE_FILE_PRINTF("/proc/self/gid_map", "0 %d 1", real_gid);
++}
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.38.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
