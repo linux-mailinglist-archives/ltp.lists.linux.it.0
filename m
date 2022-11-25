@@ -2,93 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD22563878E
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Nov 2022 11:31:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D10563885B
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Nov 2022 12:12:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7454C3CC8A9
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Nov 2022 11:31:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0EC8B3CC87D
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Nov 2022 12:12:41 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5853E3C67D6
- for <ltp@lists.linux.it>; Fri, 25 Nov 2022 11:31:01 +0100 (CET)
-Received: from mail1.bemta37.messagelabs.com (mail1.bemta37.messagelabs.com
- [85.158.142.2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 183593CC87F
+ for <ltp@lists.linux.it>; Fri, 25 Nov 2022 12:12:38 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B9C26601321
- for <ltp@lists.linux.it>; Fri, 25 Nov 2022 11:30:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1669372258; i=@fujitsu.com;
- bh=zrrDyEO8wDv92iyNskgEsJsIT01tiC4ndpp3BG8wPCk=;
- h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
- MIME-Version:Content-Type;
- b=nvifIfwDKnaEd74sYQAXGONoQjV5FoZ6s7WWFxQKms5d34xQolY/udRIAE3wbo9hy
- kkgEiARaw9pQUoqYWcuQvZi88QEzMR7SL/0HD74a9LQXRlHYR8zuTUE/IVUll/fP9Q
- xLnh5bR3OLHy8ffb8YTfiWUBbAkZ9fXC2lfkHPS2wnoESYLt1Ly4dF3pIjatlO8Xs+
- o7ZYGGdTmNYf9UkaLLAp6yAElBa11VxEJjW8D+ayqsVatVAKda1Bk3Or4S/GWuvthg
- Ob3cMFXaUTG4jFbgnr9a6BkgDLQxMeuxz6w3EytHfQ3FneRDOUGxAQhlUfLBYwom9f
- 4YR1FOnGVwJZw==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrCIsWRWlGSWpSXmKPExsViZ8ORpJs0syH
- ZYMM/XosV33cwOjB67Pu9jjWAMYo1My8pvyKBNeP07F2MBfP4Kq68X8LcwDiBp4uRi0NI4BSj
- xMGPsxghnD1MEh83zWCCchglnp3pZ+li5ORgE9CUeNa5gBnEFhGQkOhoeMsOYjMLqEssn/SLC
- cQWFnCR+PduIVg9i4CqxJkLZxlBbF4BD4nm1S1gcQkBBYkpD9+DzeEU8JQ487IVLC4EVDP32l
- ZmiHpBiZMzn7BAzJeQOPjiBTNEr6LEpY5vjBB2hcSsWW1MELaaxNVzm5gnMArOQtI+C0n7Aka
- mVYzmxalFZalFuoZGeklFmekZJbmJmTl6iVW6iXqppbp5+UUlGbqGeonlxXqpxcV6xZW5yTkp
- enmpJZsYgQGcUpx8dwdj5/I/eocYJTmYlER5b3yvTxbiS8pPqcxILM6ILyrNSS0+xCjDwaEkw
- XtqakOykGBRanpqRVpmDjCaYNISHDxKIrx504DSvMUFibnFmekQqVOMuhyb9nUdYBZiycvPS5
- US5/02HahIAKQoozQPbgQssi8xykoJ8zIyMDAI8RSkFuVmlqDKv2IU52BUEuadDLKKJzOvBG7
- TK6AjmICOeKpTB3JESSJCSqqBacapner/Xr+xPvJWPzf/RPHeKwYvHy7yVH3KHV/lzH/uTbL5
- cpXJPClRQvcKDZmKKxYXp7jv3pXLcrnISlb/8W/bV70nNwQ4sKywNNBd3TKFOcK94wXP6g/BM
- 9lWPdFSL92iaCPnwHSFf+2LkiCOiHi2Hd55Oy4yhq0zvrTpaI7A/VPHW97O4NhS8SGVkfPokS
- TVhNN3evdn60xYpCd0StzK5xOHj+v8i5devNeOTGKa1V31xPxdwAsnqZppU67c6bPZJXq456a
- vhY/avg/n0vX66lIPnWWolXgraPl7aSbrZ4Y3Vkv80yZ+Li/Vn+Cya0JYE5vTup56G/PJ/1iq
- T3/9xH32ZW3KMQ6JZeGflViKMxINtZiLihMB5bFn5WcDAAA=
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-17.tower-745.messagelabs.com!1669372257!120128!1
-X-Originating-IP: [62.60.8.98]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.101.1; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 8421 invoked from network); 25 Nov 2022 10:30:58 -0000
-Received: from unknown (HELO n03ukasimr03.n03.fujitsu.local) (62.60.8.98)
- by server-17.tower-745.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 25 Nov 2022 10:30:58 -0000
-Received: from n03ukasimr03.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr03.n03.fujitsu.local (Postfix) with ESMTP id A9D351AE
- for <ltp@lists.linux.it>; Fri, 25 Nov 2022 10:30:57 +0000 (GMT)
-Received: from R01UKEXCASM126.r01.fujitsu.local (R01UKEXCASM126
- [10.183.43.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7637D601412
+ for <ltp@lists.linux.it>; Fri, 25 Nov 2022 12:12:38 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by n03ukasimr03.n03.fujitsu.local (Postfix) with ESMTPS id 9E6067B
- for <ltp@lists.linux.it>; Fri, 25 Nov 2022 10:30:57 +0000 (GMT)
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.32; Fri, 25 Nov 2022 10:30:55 +0000
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Fri, 25 Nov 2022 19:31:15 +0800
-Message-ID: <1669375875-1943-2-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1669375875-1943-1-git-send-email-xuyang2018.jy@fujitsu.com>
-References: <1669375875-1943-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BFF171F74C;
+ Fri, 25 Nov 2022 11:12:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1669374757;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UqBVbXnqiqIh6UtGhZY5jCoh4El4F/wRRMuYue7aoZk=;
+ b=ja3vLoaEdyjtxVl7u4OKqREI/4tdjGTdF0PXQ70S1Wz3sO7Ui/UpvX4L120qVB++nSK0TY
+ xwVfwBLu0XN9oDtyI3wx8h4QTW6T0euIuXbftn6uPg37lYjHC4HvucrOoKkQOyyWvOQ4hO
+ Vc5w5cdq3z80wkFmCaMSPI7w06UQ5KQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1669374757;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UqBVbXnqiqIh6UtGhZY5jCoh4El4F/wRRMuYue7aoZk=;
+ b=GOY6lalSG6N1fSFD9BhQalbrHdlFAkX+Oeu5ZgdSqD3JAN7oNVpmmkD83syBlz9bnsGmDo
+ j17+Udy0WCCdDxAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8FE8F1361C;
+ Fri, 25 Nov 2022 11:12:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id JN4JISWjgGN8AwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 25 Nov 2022 11:12:37 +0000
+Date: Fri, 25 Nov 2022 12:12:35 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: David Hildenbrand <david@redhat.com>
+Message-ID: <Y4CjI7S/MHnQa7ex@pevik>
+References: <20221125105201.59048-1-david@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+Content-Disposition: inline
+In-Reply-To: <20221125105201.59048-1-david@redhat.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 2/2] syscalls/mount03: Add MS_STRICTATIME subcase
+Subject: Re: [LTP] [PATCH v1] security/dirtyc0w_shmem: Fix remaining cases
+ where UFFD_FEATURE_MINOR_SHMEM is absent
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,71 +81,85 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This case should check MS_NOATIME and MS_RELATIME are
-not inside stat f_flags[1] .
+Hi David,
 
-[1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d0adde57
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- testcases/kernel/syscalls/mount/mount03.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+> When UFFD_FEATURE_MINOR_SHMEM is not defined, we still have to make the
+> checkpoint happy, otherwise our parent process will run into a timeout.
+> Further, we have to test if UFFD_FEATURE_MINOR_SHMEM is really returned by
+> the UFFD_API ioctl: if the kernel knows about the feature but doesn't
+> support it, it will be masked off.
 
-diff --git a/testcases/kernel/syscalls/mount/mount03.c b/testcases/kernel/syscalls/mount/mount03.c
-index 31a858c35..60f9963da 100644
---- a/testcases/kernel/syscalls/mount/mount03.c
-+++ b/testcases/kernel/syscalls/mount/mount03.c
-@@ -19,6 +19,7 @@
-  * - MS_NOSUID - ignore suid and sgid bits
-  * - MS_NOATIME - do not update access times
-  * - MS_NODIRATIME - only update access_time for directory instead of all types
-+ * - MS_STRICTATIME - always update access times
-  */
- 
- #include <stdio.h>
-@@ -164,6 +165,11 @@ static void test_nodiratime(void)
- 	test_file_dir_noatime(1, 0);
- }
- 
-+static void test_strictatime(void)
-+{
-+	test_file_dir_noatime(1, 1);
-+}
-+
- #define FLAG_DESC(x) .flag = x, .flag2 = x, .desc = #x
- #define FLAG_DESC2(x) .flag2 = x, .desc = #x
- static struct tcase {
-@@ -179,6 +185,7 @@ static struct tcase {
- 	{FLAG_DESC(MS_NOSUID), test_nosuid},
- 	{FLAG_DESC(MS_NOATIME), test_noatime},
- 	{FLAG_DESC(MS_NODIRATIME), test_nodiratime},
-+	{FLAG_DESC(MS_STRICTATIME), test_strictatime}
- };
- 
- static void setup(void)
-@@ -215,6 +222,15 @@ static void run(unsigned int n)
- 		tc->test();
- 
- 	SAFE_STATFS(MNTPOINT, &stfs);
-+	if (tc->flag == MS_STRICTATIME) {
-+		if (stfs.f_flags & (MS_NOATIME | MS_RELATIME))
-+			tst_res(TFAIL, "statfs() gets the incorrect mount flag");
-+		else
-+			tst_res(TPASS, "statfs() gets the correct mount flag");
-+		cleanup();
-+		return;
-+	}
-+
- 	if (stfs.f_flags & tc->flag2)
- 		tst_res(TPASS, "statfs() gets the correct mount flag");
- 	else
--- 
-2.23.0
+> Reported-by: Martin Doucha <mdoucha@suse.cz>
+> Cc: Petr Vorel <pvorel@suse.cz>
+> Cc: Cyril Hrubis <chrubis@suse.cz>
+> Signed-off-by: David Hildenbrand <david@redhat.com>
+> ---
+>  .../dirtyc0w_shmem/dirtyc0w_shmem_child.c        | 16 ++++++++++++----
+>  1 file changed, 12 insertions(+), 4 deletions(-)
 
+> diff --git a/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem_child.c b/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem_child.c
+> index cb2e9df0c..c117c6f39 100644
+> --- a/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem_child.c
+> +++ b/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem_child.c
+> @@ -24,12 +24,12 @@
+>  #include <linux/userfaultfd.h>
+>  #endif
+
+> -#ifdef UFFD_FEATURE_MINOR_SHMEM
+Shouldn't be the check and TST_TEST_TCONF() actually be in dirtyc0w_shmem.c?
+I overlooked that, but IMHO test does not make sense at all if
+UFFD_FEATURE_MINOR_SHMEM not defined, right?
+
+Also Martin noted that ("The parent process should not even fork() when
+UFFD_FEATURE_MINOR_SHMEM is not defined in config.h.").
+
+Therefore one fix would be to move the check to parent and second
+(maybe better in separate commit) to add check for uffdio_api.features.
+
+Kind regards,
+Petr
+
+> -
+>  #define TST_NO_DEFAULT_MAIN
+>  #include "tst_test.h"
+>  #include "tst_safe_macros.h"
+>  #include "tst_safe_pthread.h"
+> +
+> +#ifdef UFFD_FEATURE_MINOR_SHMEM
+>  #include "lapi/syscalls.h"
+
+>  #define TMP_DIR "tmp_dirtyc0w_shmem"
+> @@ -162,6 +162,10 @@ retry:
+>  			"Could not create userfault file descriptor");
+>  	}
+
+> +	if (!(uffdio_api.features & UFFD_FEATURE_MINOR_SHMEM))
+> +		tst_brk(TCONF,
+> +			"System does not have userfaultfd minor fault support for shmem");
+> +
+>  	uffdio_register.range.start = (unsigned long) map;
+>  	uffdio_register.range.len = page_size;
+>  	uffdio_register.mode = UFFDIO_REGISTER_MODE_MINOR;
+> @@ -236,6 +240,10 @@ int main(void)
+>  	return 0;
+>  }
+>  #else /* UFFD_FEATURE_MINOR_SHMEM */
+> -#include "tst_test.h"
+> -TST_TEST_TCONF("System does not have userfaultfd minor fault support for shmem");
+> +int main(void)
+> +{
+> +	tst_reinit();
+> +	TST_CHECKPOINT_WAKE(0);
+> +	tst_brk(TCONF, "System does not have userfaultfd minor fault support for shmem");
+> +}
+>  #endif /* UFFD_FEATURE_MINOR_SHMEM */
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
