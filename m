@@ -1,79 +1,78 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AA1163A786
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Nov 2022 13:00:34 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D93963A86F
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Nov 2022 13:29:48 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DEAF93CC65B
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Nov 2022 13:00:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 78E8D3CC673
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Nov 2022 13:29:47 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F00233C714A
- for <ltp@lists.linux.it>; Mon, 28 Nov 2022 13:00:29 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 7DFAD3C288D
+ for <ltp@lists.linux.it>; Mon, 28 Nov 2022 13:29:43 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 21034200056
- for <ltp@lists.linux.it>; Mon, 28 Nov 2022 13:00:28 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D1E5C1A002D7
+ for <ltp@lists.linux.it>; Mon, 28 Nov 2022 13:29:42 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 79B8F1F891;
- Mon, 28 Nov 2022 12:00:28 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 163D821B50;
+ Mon, 28 Nov 2022 12:29:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1669636828; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1669638582; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=2KpuYX8z+Sgk10fE5xhACkiXLrBj2LXMIcbsvLNhYqI=;
- b=mqbmLhJcKvr2rrFbnyl/QZkCgL+AEEdCI52cNO0lmF+PMDzf9HJg11tupDqB557JAYRcj9
- UYV581xAXeSOAcKdesKvOjlajHIVA36pz4gi33OTJ7IgJKu0QO0rpUzuJgQKaHWRDSnwp4
- sk4noEq4nsh5l/R0EQVfNRLWq4PbKEE=
+ bh=VI6L2RUEZ9Q4aDsnNGw0/n2bkmLqZxkmhga07glLC4I=;
+ b=E01Kjplt5ZUNtjDl81MidyEEV4SvbwR4L3eK2Xeoe9qFRSTxes2S03Gog7psnnjHHPL8Wk
+ OXlrX5+fEIckAe9MYD/TVpa1CCwv7l25l8kWnzIBoynllmYiP5aI9LK3q3fXadNq3embxl
+ 8I/0G7v75UUld7muZ4bsr1egC5gu5lk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1669636828;
+ s=susede2_ed25519; t=1669638582;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=2KpuYX8z+Sgk10fE5xhACkiXLrBj2LXMIcbsvLNhYqI=;
- b=tQxTzyNOknQP7BMwPt52i9YQW1k9uoXfsTyxZbW0sZkbk57urHImjaOBekzRHoCF8qHX1b
- A53eB0681GByKaDQ==
+ bh=VI6L2RUEZ9Q4aDsnNGw0/n2bkmLqZxkmhga07glLC4I=;
+ b=OixHkTETWSDkD4P1aikG203MmOA2pQ9rSXwtLa6St4vOfmrBlqI5VDdYlm9XMDZcNeQSIR
+ vvshb8AwdysWpMBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5C66B1326E;
- Mon, 28 Nov 2022 12:00:28 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F3EC41326E;
+ Mon, 28 Nov 2022 12:29:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id M33eFdyihGPvUgAAMHmgww
- (envelope-from <mdoucha@suse.cz>); Mon, 28 Nov 2022 12:00:28 +0000
-Message-ID: <c43283e1-e969-46e0-f933-a18c2a6428f5@suse.cz>
-Date: Mon, 28 Nov 2022 13:00:28 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id /6rEOrWphGPPYgAAMHmgww
+ (envelope-from <mdoucha@suse.cz>); Mon, 28 Nov 2022 12:29:41 +0000
+Message-ID: <7f71a2c3-a66b-b442-3785-3e251ce2f781@suse.cz>
+Date: Mon, 28 Nov 2022 13:29:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
-To: Petr Vorel <pvorel@suse.cz>, Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20221125122546.99144-1-david@redhat.com> <Y4DL5928NpuPI2Q6@pevik>
- <58d046ff-c89c-611c-0607-c2ec8f556526@redhat.com>
- <Y4SXTPBViJiqulow@pevik>
 Content-Language: en-US
+To: Petr Vorel <pvorel@suse.cz>, David Hildenbrand <david@redhat.com>
+References: <20221128111833.98937-1-david@redhat.com> <Y4SiDZXCSqMafjIb@pevik>
 From: Martin Doucha <mdoucha@suse.cz>
-In-Reply-To: <Y4SXTPBViJiqulow@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <Y4SiDZXCSqMafjIb@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.2 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] execl(),
- execlp() and execle() require proper termination of argument list
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 0/3] userfaultfd: Fix and remove compile-time
+ TCONF handling
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,43 +84,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, David Hildenbrand <david@redhat.com>
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 28. 11. 22 12:11, Petr Vorel wrote:
-> Hi Michael,
+On 28. 11. 22 12:57, Petr Vorel wrote:
+> Hi David,
 > 
-> sorry to bother you, could you please comment our discussion about execl{,e,p}()
-> termination of argument list being NULL vs. (char *)NULL vs. (void*)0?
-> 
-> Martin reported [2] that man page suggests (char*)NULL, his view of reason [3]:
-> NULL may be defined as simple integer 0. When int is 32bit and pointers
-> 64bit, this will cause trouble in variadic functions such as execlp().
-> 
-> Cyril pointed out [4]: NULL is required to be 0 cast to void* in POSIX. [5]
-> 
-> Therefore what should be really used?
-> 
-> Kind regards,
-> Petr
-> 
-> [2] https://lore.kernel.org/ltp/8587b908-a035-a96a-7233-2863b7bc30ca@suse.cz/
-> [3] https://lore.kernel.org/ltp/af63ed9a-7108-fd19-fe2c-4b56be85d068@suse.cz/
-> [4] https://lore.kernel.org/ltp/Y4DSmk7uY9zUUQsV@yuki/
-> [5] https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/stddef.h.html
+> If I remember correctly the reason for runtime check was ppc64le
+> missing userfaultfd minor fault support which needs to be check in runtime,
+> right? [1]. At least this is how I understand Martin's suggestion [2] to replace
+> compile time check with lapi. I'd state this reason at first commit message as
+> it's not obvious.
 
-Cyril is correct that we don't need this fix as long as we use C99 or 
-later with POSIX-compliant build system. The explicit type cast is 
-required only in C++ where there's no explicit conversion from void* to 
-other pointer types and therefore NULL must be defined as integer 
-instead of void* pointer constant.
-
-Then again, pedantically following the docs won't break anything either.
-
-Acked-by: Martin Doucha <mdoucha@suse.cz>
+The reason for runtime check is that the presence of the header file 
+does not guarantee that the kernel supports UFFD API. The reason for 
+LAPI is that we only care about actual kernel support, not build-time 
+header files.
 
 -- 
 Martin Doucha   mdoucha@suse.cz
