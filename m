@@ -1,69 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B9A663C1EA
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Nov 2022 15:09:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id EB1D863C192
+	for <lists+linux-ltp@lfdr.de>; Tue, 29 Nov 2022 14:59:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 28CF43CC5B5
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Nov 2022 15:09:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BFBF43CC5B3
+	for <lists+linux-ltp@lfdr.de>; Tue, 29 Nov 2022 14:59:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E2B663C0367
- for <ltp@lists.linux.it>; Tue, 29 Nov 2022 15:08:57 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 442573C85AE
+ for <ltp@lists.linux.it>; Tue, 29 Nov 2022 14:59:15 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 33BCF1400989
- for <ltp@lists.linux.it>; Tue, 29 Nov 2022 15:08:56 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 12FF321B30;
- Tue, 29 Nov 2022 14:08:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669730936;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Dn1pB1lYQ0AUQ0zOkqOxQD3RVU7KSaucgyJG4f9SgcI=;
- b=vElaZJmzTDnj8lqltpSBZ2dSyBf+Fy/0XF8+MaXEks1yS4POGS2tVKm1GHtOBK1jx23ohI
- mJs8KIjJly3yUbWo/YidfxDPchcYAjXAKICMohGWaQaAuk8m2ZNlqzXVxQNH3qxxzVC8+B
- Zy5mOcUIG62qTNaF22uAkQvOKDue5OY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669730936;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Dn1pB1lYQ0AUQ0zOkqOxQD3RVU7KSaucgyJG4f9SgcI=;
- b=hZgIOHN/fjer87gZPExc/4vFGSmA88U/7aMrjfNzpH0wAr5O3+lFm7gmxh46fZGawv9amW
- objsOJqgptGQjgBw==
-Received: from g78 (unknown [10.163.17.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B6B5A140097D
+ for <ltp@lists.linux.it>; Tue, 29 Nov 2022 14:59:14 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id CB2CB2C141;
- Tue, 29 Nov 2022 14:08:55 +0000 (UTC)
-References: <1669375875-1943-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <1669375875-1943-2-git-send-email-xuyang2018.jy@fujitsu.com>
-User-agent: mu4e 1.8.11; emacs 28.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Date: Tue, 29 Nov 2022 13:54:29 +0000
-Organization: Linux Private Site
-In-reply-to: <1669375875-1943-2-git-send-email-xuyang2018.jy@fujitsu.com>
-Message-ID: <875yexua2w.fsf@suse.de>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1728B1FDEC;
+ Tue, 29 Nov 2022 13:59:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1669730354;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fLEYSECuh1NGczs+9KotjXuz7FItTtsTpmBjvEtYpwg=;
+ b=jyzg9D7gZF8RhKctY9bHnj4N2AdB9RFVtdQyvLH1XOf4wraoJmdZeVSdbInNNj7frQTXdO
+ T5UyuGSHvYS0UyZugqvpP4fQCafp0cYFZQyfcLObSBZDqgUrI3uPy46AwNQLVoAZ/pg8/G
+ 7Rz5NeLZtzci13ihETlAP9CC2dyp1t4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1669730354;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fLEYSECuh1NGczs+9KotjXuz7FItTtsTpmBjvEtYpwg=;
+ b=zfzWZXDlPYrNBJQ/yDsDoppCshmMQPB2iaIRmoUkPHNrD5rQMvbxskqpErDrfrJegUoCSk
+ OGIl1zu4f0bnZwBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CEF9313428;
+ Tue, 29 Nov 2022 13:59:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Hnx4MDEQhmNZQQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 29 Nov 2022 13:59:13 +0000
+Date: Tue, 29 Nov 2022 14:59:11 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <Y4YQL2TezOp2dcnD@pevik>
+References: <20221129130350.219082-1-tudor.cretu@arm.com>
+ <87a649ubuq.fsf@suse.de>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <87a649ubuq.fsf@suse.de>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 2/2] syscalls/mount03: Add MS_STRICTATIME
- subcase
+Subject: Re: [LTP] [PATCH v2 0/3] safe_macros: Fix undefined behaviour in
+ vararg handling
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,87 +83,62 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-
-Yang Xu <xuyang2018.jy@fujitsu.com> writes:
-
-> This case should check MS_NOATIME and MS_RELATIME are
-> not inside stat f_flags[1] .
->
-> [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d0adde57
-> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
-> ---
->  testcases/kernel/syscalls/mount/mount03.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
->
-> diff --git a/testcases/kernel/syscalls/mount/mount03.c b/testcases/kernel/syscalls/mount/mount03.c
-> index 31a858c35..60f9963da 100644
-> --- a/testcases/kernel/syscalls/mount/mount03.c
-> +++ b/testcases/kernel/syscalls/mount/mount03.c
-> @@ -19,6 +19,7 @@
->   * - MS_NOSUID - ignore suid and sgid bits
->   * - MS_NOATIME - do not update access times
->   * - MS_NODIRATIME - only update access_time for directory instead of all types
-> + * - MS_STRICTATIME - always update access times
->   */
->  
->  #include <stdio.h>
-> @@ -164,6 +165,11 @@ static void test_nodiratime(void)
->  	test_file_dir_noatime(1, 0);
->  }
->  
-> +static void test_strictatime(void)
-> +{
-> +	test_file_dir_noatime(1, 1);
-> +}
-> +
->  #define FLAG_DESC(x) .flag = x, .flag2 = x, .desc = #x
->  #define FLAG_DESC2(x) .flag2 = x, .desc = #x
->  static struct tcase {
-> @@ -179,6 +185,7 @@ static struct tcase {
->  	{FLAG_DESC(MS_NOSUID), test_nosuid},
->  	{FLAG_DESC(MS_NOATIME), test_noatime},
->  	{FLAG_DESC(MS_NODIRATIME), test_nodiratime},
-> +	{FLAG_DESC(MS_STRICTATIME), test_strictatime}
->  };
->  
->  static void setup(void)
-> @@ -215,6 +222,15 @@ static void run(unsigned int n)
->  		tc->test();
->  
->  	SAFE_STATFS(MNTPOINT, &stfs);
-> +	if (tc->flag == MS_STRICTATIME) {
-> +		if (stfs.f_flags & (MS_NOATIME | MS_RELATIME))
-> +			tst_res(TFAIL, "statfs() gets the incorrect mount flag");
-> +		else
-> +			tst_res(TPASS, "statfs() gets the correct mount flag");
-> +		cleanup();
-> +		return;
-> +	}
-
-We don't need this branch.
-
-> +
->  	if (stfs.f_flags & tc->flag2)
-
-Could change this to something like
-
-if (stfs.f_flags & tc->flag2
-   && !(stfs.f_flags & MS_STRICTATIME && stfs.f_flags & (MS_NOATIME | MS_RELATIME))
-
-Or however you would like to format that.
-
-
--- 
-Thank you,
-Richard.
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgYWxsLAoKPiBIZWxsbywKCj4gU28gSSdtIGhhcHB5IHdpdGggdGhpcywgYnV0IEkgdGhpbmsg
+Q3lyaWwncyBjb21tZW50IGRlc2VydmVzIGEgcmVzcG9uc2U6CisxCgo+ID4gTG9va2luZyBhdCBo
+b3cgZ2xpYmMgaGFuZGxlcyB0aGlzLCB0aGUgY29kZSBsb29rcyBsaWtlOgoKPiA+IAlpbnQgbW9k
+ZSA9IDA7Cgo+ID4gCWlmIChfX09QRU5fTkVFRFNfTU9ERShvZmxhZykpIHsKPiA+IAkJLi4KPiA+
+IAkJbW9kZSA9IHZhX2FyZyhhcmcsIGludCk7Cj4gPiAJCS4uCj4gPiAJfQoKPiA+IFRoYXQgc291
+bmRzIG11Y2ggZWFzaWVyIHRoYW4gbWVzc2luZyB3aXRoIHRoZSBtYWNyb3MgYW5kIHNob3VsZCBh
+dm9pZAo+ID4gdW5kZWZpbmVkIGJlaGF2aW9yLgorMQoKPiBJIGRvbid0IHNlZSB3aHksIF9fT1BF
+Tl9ORUVEU19NT0RFIGlzIGdvaW5nIHRvIGJlIGRpZmZlcmVudCBiZXR3ZWVuCgo+IGZ1bmN0aW9u
+cyBhbmQgbGliYy9rZXJuZWwgdmVyc2lvbnMuCgpMb29raW5nIGF0IGdsaWJjJ3MgX19PUEVOX05F
+RURTX01PREUgZGVmaW5pdGlvbiwgdGhlIGxvZ2ljIGlzIG9idmlvdXNseSB0aGUgc2FtZQphcyBt
+dXNsIGNvZGUgZm9yIG9wZW4gKGl0IGp1c3QgdXNlIE9fVE1QRklMRSBpbnN0ZWFkIG9mIF9fT19U
+TVBGSUxFIHRoZXJlZm9yZSBubwpuZWVkIHRvIGNoZWNrIGZvciAjaWZkZWYgX19PX1RNUEZJTEUp
+LgoKS2luZCByZWdhcmRzLApQZXRyCgo+IFJldmlld2VkLWJ5OiBSaWNoYXJkIFBhbGV0aG9ycGUg
+PHJwYWxldGhvcnBlQHN1c2UuY29tPgoKPiBUdWRvciBDcmV0dSA8dHVkb3IuY3JldHVAYXJtLmNv
+bT4gd3JpdGVzOgoKPiA+IEFjY2Vzc2luZyBlbGVtZW50cyBpbiBhbiBlbXB0eSB2YV9saXN0IHJl
+c3VsdHMgaW4gdW5kZWZpbmVkIGJlaGF2aW91clswXQo+ID4gdGhhdCBjYW4gaW5jbHVkZSBhY2Nl
+c3NpbmcgYXJiaXRyYXJ5IHN0YWNrIG1lbW9yeS4gV2hpbGUgdHlwaWNhbGx5IHRoaXMKPiA+IGRv
+ZXNuJ3QgcmFpc2UgYSBmYXVsdCwgc29tZSBuZXcgbW9yZSBzZWN1cml0eS1vcmllbnRlZCBhcmNo
+aXRlY3R1cmVzCj4gPiAoZS5nLiBDSEVSSVsxXSBvciBNb3JlbGxvWzJdKSBkb24ndCBhbGxvdyBp
+dC4KCj4gPiBUaGVyZWZvcmUsIHJlbW92ZSB0aGUgdmFyaWFkaWNuZXNzIGZyb20gc2FmZV8qIHdy
+YXBwZXJzIHRoYXQgYWx3YXlzIGNhbGwKPiA+IHRoZSBmdW5jdGlvbnMgd2l0aCB0aGUgb3B0aW9u
+YWwgYXJndW1lbnQgaW5jbHVkZWQuCgo+ID4gQWRhcHQgdGhlIHJlc3BlY3RpdmUgU0FGRV8qIG1h
+Y3JvcyB0byBoYW5kbGUgdGhlIGNoYW5nZSBieSBwYXNzaW5nIGEKPiA+IGRlZmF1bHQgYXJndW1l
+bnQgaWYgdGhleSdyZSBvbWl0dGVkLgoKPiA+IFswXTogW0lTTy9JRUMgOTg5OToyMDExXSBQcm9n
+cmFtbWluZyBMYW5ndWFnZXPigJRDLCAzcmQgZWQsIHBhcmFncmFwaCA3LjE2LjEuMQo+ID4gWzFd
+OiBodHRwczovL3d3dy5jbC5jYW0uYWMudWsvcmVzZWFyY2gvc2VjdXJpdHkvY3RzcmQvY2hlcmkv
+Cj4gPiBbMl06IGh0dHBzOi8vd3d3Lm1vcmVsbG8tcHJvamVjdC5vcmcvCgo+ID4gdjIuLnYxOgo+
+ID4gICAtIFBBVENIIDE6IFJlbW92ZSB0aGUgTlVMTCBhcmd1bWVudCBmb3IgbW9kZSBmcm9tIFNB
+RkVfT1BFTiBpbnN0YW5jZXMKPiA+ICAgICB0byBhdm9pZCB0aGUgcG9pbnRlciB0byBpbnQgY29u
+dmVyc2lvbi4KCj4gPiBUdWRvciBDcmV0dSAoMyk6Cj4gPiAgIHNhZmVfb3BlbjogRml4IHVuZGVm
+aW5lZCBiZWhhdmlvdXIgaW4gdmFyYXJnIGhhbmRsaW5nCj4gPiAgIHNhZmVfb3BlbmF0OiBGaXgg
+dW5kZWZpbmVkIGJlaGF2aW91ciBpbiB2YXJhcmcgaGFuZGxpbmcKPiA+ICAgc2FmZV9zZW1jdGw6
+IEZpeCB1bmRlZmluZWQgYmVoYXZpb3VyIGluIHZhcmFyZyBoYW5kbGluZwoKPiA+ICBpbmNsdWRl
+L29sZC9zYWZlX21hY3Jvcy5oICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDYgKysrKy0tCj4g
+PiAgaW5jbHVkZS9zYWZlX21hY3Jvc19mbi5oICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAz
+ICsrLQo+ID4gIGluY2x1ZGUvdHN0X3NhZmVfZmlsZV9hdC5oICAgICAgICAgICAgICAgICAgICAg
+ICAgfCAxMCArKysrKystLS0tCj4gPiAgaW5jbHVkZS90c3Rfc2FmZV9tYWNyb3MuaCAgICAgICAg
+ICAgICAgICAgICAgICAgICB8ICA2ICsrKystLQo+ID4gIGluY2x1ZGUvdHN0X3NhZmVfc3lzdl9p
+cGMuaCAgICAgICAgICAgICAgICAgICAgICAgfCAxNCArKysrKysrKystLS0tLQo+ID4gIGxpYi9z
+YWZlX21hY3Jvcy5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxMyArLS0tLS0t
+LS0tLS0tCj4gPiAgbGliL3RzdF9jZ3JvdXAuYyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICB8ICAyICstCj4gPiAgbGliL3RzdF9zYWZlX2ZpbGVfYXQuYyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICB8IDExICsrKy0tLS0tLS0tCj4gPiAgbGliL3RzdF9zYWZlX3N5c3ZfaXBjLmMg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB8IDEwICstLS0tLS0tLS0KPiA+ICB0ZXN0Y2FzZXMv
+a2VybmVsL3N5c2NhbGxzL2ZnZXR4YXR0ci9mZ2V0eGF0dHIwMS5jIHwgIDIgKy0KPiA+ICB0ZXN0
+Y2FzZXMva2VybmVsL3N5c2NhbGxzL2ZnZXR4YXR0ci9mZ2V0eGF0dHIwMi5jIHwgIDIgKy0KPiA+
+ICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2ZnZXR4YXR0ci9mZ2V0eGF0dHIwMy5jIHwgIDIg
+Ky0KPiA+ICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2ZzZXR4YXR0ci9mc2V0eGF0dHIwMS5j
+IHwgIDIgKy0KPiA+ICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2ZzZXR4YXR0ci9mc2V0eGF0
+dHIwMi5jIHwgIDIgKy0KPiA+ICAxNCBmaWxlcyBjaGFuZ2VkLCAzNiBpbnNlcnRpb25zKCspLCA0
+OSBkZWxldGlvbnMoLSkKCj4gPiAtLSAKPiA+IDIuMjUuMQoKLS0gCk1haWxpbmcgbGlzdCBpbmZv
+OiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
