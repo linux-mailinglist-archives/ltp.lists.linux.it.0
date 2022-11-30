@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CB1663D8C8
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Nov 2022 16:07:52 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 121FA63D8D3
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Nov 2022 16:08:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DF5193CC53D
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Nov 2022 16:07:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6A0BC3CC539
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Nov 2022 16:08:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
@@ -14,22 +14,22 @@ Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0C6EB3CC50E
- for <ltp@lists.linux.it>; Wed, 30 Nov 2022 16:07:46 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id EBBB03CC527
+ for <ltp@lists.linux.it>; Wed, 30 Nov 2022 16:07:48 +0100 (CET)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id BEB58600330
- for <ltp@lists.linux.it>; Wed, 30 Nov 2022 16:07:45 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 3365B60042A
+ for <ltp@lists.linux.it>; Wed, 30 Nov 2022 16:07:47 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A44E01042;
- Wed, 30 Nov 2022 07:07:51 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1A38A12FC;
+ Wed, 30 Nov 2022 07:07:53 -0800 (PST)
 Received: from e129169.arm.com (usa-sjc-imap-foss1.foss.arm.com
  [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 085E13F73D;
- Wed, 30 Nov 2022 07:07:43 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 724503F73D;
+ Wed, 30 Nov 2022 07:07:45 -0800 (PST)
 From: Tudor Cretu <tudor.cretu@arm.com>
 To: ltp@lists.linux.it
-Date: Wed, 30 Nov 2022 15:07:36 +0000
-Message-Id: <20221130150738.745960-2-tudor.cretu@arm.com>
+Date: Wed, 30 Nov 2022 15:07:37 +0000
+Message-Id: <20221130150738.745960-3-tudor.cretu@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221130150738.745960-1-tudor.cretu@arm.com>
 References: <20221130150738.745960-1-tudor.cretu@arm.com>
@@ -39,8 +39,8 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 1/3] syscalls/f{get,
- set}xattr: Don't pass a pointer to mode argument in open
+Subject: [LTP] [PATCH v4 2/3] safe_open,
+ safe_openat: Fix undefined behaviour in vararg handling
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,86 +57,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Passing NULL to open as the mode parameter is undefined behaviour
-as a mode_t is a numerical type, not compatible with a pointer type.
-If neither O_CREAT nor O_TMPFILE is specified in flags, then the mode
-argument is ignored, so just remove it in these cases.
+Accessing elements in an empty va_list is undefined behaviour.
+The open system call expects the mode argument only when O_CREAT or
+O_TMPFILE is specified in flags, otherwise the mode argument is ignored.
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Modify the safe_open and safe_openat wrappers to read the variadic
+argument only when it's expected to be provided.
+
 Signed-off-by: Tudor Cretu <tudor.cretu@arm.com>
 ---
- testcases/kernel/syscalls/fgetxattr/fgetxattr01.c | 2 +-
- testcases/kernel/syscalls/fgetxattr/fgetxattr02.c | 2 +-
- testcases/kernel/syscalls/fgetxattr/fgetxattr03.c | 2 +-
- testcases/kernel/syscalls/fsetxattr/fsetxattr01.c | 2 +-
- testcases/kernel/syscalls/fsetxattr/fsetxattr02.c | 2 +-
- 5 files changed, 5 insertions(+), 5 deletions(-)
+ include/lapi/fcntl.h   |  3 +++
+ lib/safe_macros.c      | 21 ++++++++++++---------
+ lib/tst_safe_file_at.c | 13 ++++++++-----
+ 3 files changed, 23 insertions(+), 14 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c b/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c
-index 35c46a1c3..52e6e44ab 100644
---- a/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c
-+++ b/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c
-@@ -111,7 +111,7 @@ static void setup(void)
- 	size_t i = 0;
+diff --git a/include/lapi/fcntl.h b/include/lapi/fcntl.h
+index 8a0a893f9..f17220737 100644
+--- a/include/lapi/fcntl.h
++++ b/include/lapi/fcntl.h
+@@ -141,6 +141,9 @@
+ # define MAX_HANDLE_SZ	128
+ #endif
  
- 	SAFE_TOUCH(FNAME, 0644, NULL);
--	fd = SAFE_OPEN(FNAME, O_RDONLY, NULL);
-+	fd = SAFE_OPEN(FNAME, O_RDONLY);
++#define TST_OPEN_NEEDS_MODE(oflag) \
++	(((oflag) & O_CREAT) != 0 || ((oflag) & O_TMPFILE) == O_TMPFILE)
++
+ #ifndef HAVE_STRUCT_FILE_HANDLE
+ struct file_handle {
+ 	unsigned int handle_bytes;
+diff --git a/lib/safe_macros.c b/lib/safe_macros.c
+index d8816631f..d34b71fda 100644
+--- a/lib/safe_macros.c
++++ b/lib/safe_macros.c
+@@ -13,7 +13,6 @@
+ #include <sys/xattr.h>
+ #include <sys/sysinfo.h>
+ #include <errno.h>
+-#include <fcntl.h>
+ #include <libgen.h>
+ #include <limits.h>
+ #include <pwd.h>
+@@ -21,6 +20,7 @@
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <malloc.h>
++#include "lapi/fcntl.h"
+ #include "test.h"
+ #include "safe_macros.h"
  
- 	for (i = 0; i < ARRAY_SIZE(tc); i++) {
- 		tc[i].value = SAFE_MALLOC(tc[i].size);
-diff --git a/testcases/kernel/syscalls/fgetxattr/fgetxattr02.c b/testcases/kernel/syscalls/fgetxattr/fgetxattr02.c
-index 82fb676be..c3cff0aab 100644
---- a/testcases/kernel/syscalls/fgetxattr/fgetxattr02.c
-+++ b/testcases/kernel/syscalls/fgetxattr/fgetxattr02.c
-@@ -244,7 +244,7 @@ static void setup(void)
- 			SAFE_BIND(tc[i].fd, (const struct sockaddr *) &sun,
- 					sizeof(struct sockaddr_un));
- 		} else {
--			tc[i].fd = SAFE_OPEN(tc[i].fname, tc[i].fflags, NULL);
-+			tc[i].fd = SAFE_OPEN(tc[i].fname, tc[i].fflags);
- 		}
- 
- 		if (tc[i].exp_ret >= 0) {
-diff --git a/testcases/kernel/syscalls/fgetxattr/fgetxattr03.c b/testcases/kernel/syscalls/fgetxattr/fgetxattr03.c
-index d293ffca9..0581b9670 100644
---- a/testcases/kernel/syscalls/fgetxattr/fgetxattr03.c
-+++ b/testcases/kernel/syscalls/fgetxattr/fgetxattr03.c
-@@ -48,7 +48,7 @@ static void verify_fgetxattr(void)
- static void setup(void)
+@@ -236,18 +236,21 @@ int safe_munmap(const char *file, const int lineno, void (*cleanup_fn) (void),
+ int safe_open(const char *file, const int lineno, void (*cleanup_fn) (void),
+               const char *pathname, int oflags, ...)
  {
- 	SAFE_TOUCH(FILENAME, 0644, NULL);
--	fd = SAFE_OPEN(FILENAME, O_RDONLY, NULL);
-+	fd = SAFE_OPEN(FILENAME, O_RDONLY);
+-	va_list ap;
+ 	int rval;
+-	mode_t mode;
++	mode_t mode = 0;
  
- 	SAFE_FSETXATTR(fd, XATTR_TEST_KEY, XATTR_TEST_VALUE,
- 			XATTR_TEST_VALUE_SIZE, XATTR_CREATE);
-diff --git a/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c b/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-index ffec8104f..d799e477f 100644
---- a/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-+++ b/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-@@ -205,7 +205,7 @@ static void setup(void)
- 	long_value[XATTR_SIZE_MAX + 1] = '\0';
+-	va_start(ap, oflags);
++	if (TST_OPEN_NEEDS_MODE(oflags)) {
++		va_list ap;
  
- 	SAFE_TOUCH(FNAME, 0644, NULL);
--	fd = SAFE_OPEN(FNAME, O_RDONLY, NULL);
-+	fd = SAFE_OPEN(FNAME, O_RDONLY);
+-	/* Android's NDK's mode_t is smaller than an int, which results in
+-	 * SIGILL here when passing the mode_t type.
+-	 */
+-	mode = va_arg(ap, int);
++		va_start(ap, oflags);
++
++		/* Android's NDK's mode_t is smaller than an int, which results in
++		 * SIGILL here when passing the mode_t type.
++		 */
++		mode = va_arg(ap, int);
  
- 	for (i = 0; i < ARRAY_SIZE(tc); i++) {
- 		if (!tc[i].key)
-diff --git a/testcases/kernel/syscalls/fsetxattr/fsetxattr02.c b/testcases/kernel/syscalls/fsetxattr/fsetxattr02.c
-index 3aea4b59e..0336c964a 100644
---- a/testcases/kernel/syscalls/fsetxattr/fsetxattr02.c
-+++ b/testcases/kernel/syscalls/fsetxattr/fsetxattr02.c
-@@ -211,7 +211,7 @@ static void setup(void)
- 	for (i = 0; i < ARRAY_SIZE(tc); i++) {
+-	va_end(ap);
++		va_end(ap);
++	}
  
- 		if (!tc[i].issocket) {
--			tc[i].fd = SAFE_OPEN(tc[i].fname, tc[i].fflags, NULL);
-+			tc[i].fd = SAFE_OPEN(tc[i].fname, tc[i].fflags);
- 			continue;
- 		}
+ 	rval = open(pathname, oflags, mode);
  
+diff --git a/lib/tst_safe_file_at.c b/lib/tst_safe_file_at.c
+index f530dc349..257f70291 100644
+--- a/lib/tst_safe_file_at.c
++++ b/lib/tst_safe_file_at.c
+@@ -35,13 +35,16 @@ const char *tst_decode_fd(const int fd)
+ int safe_openat(const char *const file, const int lineno,
+ 		const int dirfd, const char *const path, const int oflags, ...)
+ {
+-	va_list ap;
+ 	int fd;
+-	mode_t mode;
++	mode_t mode = 0;
+ 
+-	va_start(ap, oflags);
+-	mode = va_arg(ap, int);
+-	va_end(ap);
++	if (TST_OPEN_NEEDS_MODE(oflags)) {
++		va_list ap;
++
++		va_start(ap, oflags);
++		mode = va_arg(ap, int);
++		va_end(ap);
++	}
+ 
+ 	fd = openat(dirfd, path, oflags, mode);
+ 	if (fd > -1)
 -- 
 2.25.1
 
