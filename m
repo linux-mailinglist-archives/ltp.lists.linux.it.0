@@ -1,35 +1,35 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96CEF64231F
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 07:57:42 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E9DA5642322
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 07:58:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DA3553CC1EB
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 07:57:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AF8F63CC1F7
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 07:58:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 60F7F3CC1E6
- for <ltp@lists.linux.it>; Mon,  5 Dec 2022 07:57:38 +0100 (CET)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by picard.linux.it (Postfix) with ESMTPS id 7097B3CC1E6
+ for <ltp@lists.linux.it>; Mon,  5 Dec 2022 07:57:40 +0100 (CET)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7A22F1A0C00D
- for <ltp@lists.linux.it>; Mon,  5 Dec 2022 07:57:37 +0100 (CET)
-Received: from canpemm500005.china.huawei.com (unknown [172.30.72.57])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4NQZ526lkrzqSr6
- for <ltp@lists.linux.it>; Mon,  5 Dec 2022 14:53:26 +0800 (CST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 916E310005FA
+ for <ltp@lists.linux.it>; Mon,  5 Dec 2022 07:57:39 +0100 (CET)
+Received: from canpemm500005.china.huawei.com (unknown [172.30.72.54])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4NQZ8x2lv4z15N5b
+ for <ltp@lists.linux.it>; Mon,  5 Dec 2022 14:56:49 +0800 (CST)
 Received: from ubuntu1804.huawei.com (10.67.174.63) by
  canpemm500005.china.huawei.com (7.192.104.229) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 5 Dec 2022 14:57:34 +0800
+ 15.1.2375.31; Mon, 5 Dec 2022 14:57:35 +0800
 To: <ltp@lists.linux.it>
-Date: Mon, 5 Dec 2022 14:54:31 +0800
-Message-ID: <20221205065432.242539-3-zhaogongyi@huawei.com>
+Date: Mon, 5 Dec 2022 14:54:32 +0800
+Message-ID: <20221205065432.242539-4-zhaogongyi@huawei.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20221205065432.242539-1-zhaogongyi@huawei.com>
 References: <20221205065432.242539-1-zhaogongyi@huawei.com>
@@ -38,13 +38,13 @@ X-Originating-IP: [10.67.174.63]
 X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
  canpemm500005.china.huawei.com (7.192.104.229)
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 2/3] lib: Replace atoi/atof with
- SAFE_STRTOL/SAFE_STRTOF
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 3/3] lib: Adjust the position of the checking of
+ the return value
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,48 +63,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Replace atoi/atof with SAFE_STRTOL/SAFE_STRTOF in parse_opts(),
-it is hoped to deal with the abnormal input.
+we need to check the return value before the checking of the endptr,
+otherwise, it will report out of range when calling of
+SAFE_STRTOUL("a100", 1, 10000000):
 
-Modify the requirement iterations range from '>= 0' to '> 0',
-when iterations' value equal to 0, the test will not run.
+  TBROK: strtoul(a100): 0 is out of range 1 - 10000000
+
+and it is expected that reported as:
+
+  TBROK: Invalid value: 'a100'
 
 Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
 ---
- lib/tst_test.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ lib/safe_macros.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/lib/tst_test.c b/lib/tst_test.c
-index b62559d75..23d21c825 100644
---- a/lib/tst_test.c
-+++ b/lib/tst_test.c
-@@ -14,6 +14,7 @@
- #include <sys/mount.h>
- #include <sys/types.h>
- #include <sys/wait.h>
-+#include <math.h>
+diff --git a/lib/safe_macros.c b/lib/safe_macros.c
+index 0fb5580ac..1ade829aa 100644
+--- a/lib/safe_macros.c
++++ b/lib/safe_macros.c
+@@ -614,16 +614,16 @@ unsigned long safe_strtoul(const char *file, const int lineno,
+ 		return rval;
+ 	}
 
- #define TST_NO_DEFAULT_MAIN
- #include "tst_test.h"
-@@ -677,15 +678,13 @@ static void parse_opts(int argc, char *argv[])
- 			print_test_tags();
- 			exit(0);
- 		case 'i':
--			iterations = atoi(optarg);
--			if (iterations < 0)
--				tst_brk(TBROK, "Number of iterations (-i) must be >= 0");
-+			iterations = SAFE_STRTOL(optarg, 1, INT_MAX);
- 		break;
- 		case 'I':
- 			if (tst_test->max_runtime > 0)
--				tst_test->max_runtime = atoi(optarg);
-+				tst_test->max_runtime = SAFE_STRTOL(optarg, 1, INT_MAX);
- 			else
--				duration = atof(optarg);
-+				duration = SAFE_STRTOF(optarg, 0.1, HUGE_VALF);
- 		break;
- 		case 'C':
- #ifdef UCLINUX
+-	if (rval > max || rval < min) {
++	if (endptr == str || (*endptr != '\0' && *endptr != '\n')) {
+ 		tst_brkm_(file, lineno, TBROK, cleanup_fn,
+-			"strtoul(%s): %lu is out of range %lu - %lu",
+-			str, rval, min, max);
++			"Invalid value: '%s'", str);
+ 		return 0;
+ 	}
+
+-	if (endptr == str || (*endptr != '\0' && *endptr != '\n')) {
++	if (rval > max || rval < min) {
+ 		tst_brkm_(file, lineno, TBROK, cleanup_fn,
+-			"Invalid value: '%s'", str);
++			"strtoul(%s): %lu is out of range %lu - %lu",
++			str, rval, min, max);
+ 		return 0;
+ 	}
+
 --
 2.17.1
 
