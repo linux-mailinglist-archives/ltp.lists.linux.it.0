@@ -2,75 +2,62 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA5D664271F
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 12:04:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 990CC6427C9
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 12:47:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 390953CC209
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 12:04:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C6D593CC216
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 12:47:35 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EDEC73CA93B
- for <ltp@lists.linux.it>; Mon,  5 Dec 2022 12:03:58 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 29B753CAC66
+ for <ltp@lists.linux.it>; Mon,  5 Dec 2022 12:47:31 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4F17814A1E42
- for <ltp@lists.linux.it>; Mon,  5 Dec 2022 12:03:57 +0100 (CET)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 859E961AD9D
+ for <ltp@lists.linux.it>; Mon,  5 Dec 2022 12:47:30 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 5B9EF1FD94
+ for <ltp@lists.linux.it>; Mon,  5 Dec 2022 11:47:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1670240850;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=/ynPACEE8X+9oaprmC8nlzAqbLVI9S4fBbpUFC/0cVQ=;
+ b=XryCBzJlVnjExpy4oKcyjmrEjHwE5aZDe0kXelGYK25oFFj3N5qb+z4TGpHFz0MfmVhovF
+ ztemInXbrQHRGsoCQFzZrwgrAeI7YA7JJyCZcoY0lS51e/Bzn40j3GjkSFoGhx2lttDH/6
+ Xvrup+hKLJ0WoIH0Hm7bURLnRV127Fc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1670240850;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=/ynPACEE8X+9oaprmC8nlzAqbLVI9S4fBbpUFC/0cVQ=;
+ b=/XsjFBjJZ8wsjUIqXnnETxKBvztYTyctctj3j8OcMYfOtDrQHGKfD/5xrL5Z4MZynzxAei
+ oMacJFiZ8G0h90CA==
+Received: from g78 (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0E79222A75;
- Mon,  5 Dec 2022 11:03:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1670238237;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ZjewXIjuyqSfxLRbROJNRMxFCg6skwy3pM5Ov23KwTE=;
- b=zyTkWr+AhDuBTyRc7uXh+kCK3We84Us607EedNSn5C/i8xUFMfAzlhZCLcGFjbGwOoGiby
- TDjZxvZFwjaymS57dHOQJfYLfEWBuHhNI8kiEGntHisEm6ysXPFnlyUGwGmHeGhNauvS4Z
- hgut8nEtyTqYKSZ5WW8nbSAUFEA29tI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1670238237;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ZjewXIjuyqSfxLRbROJNRMxFCg6skwy3pM5Ov23KwTE=;
- b=zhHmAVu0hkxqB21oWvwCRjroRhNBTrEsgwVseuaFQQVsCsXARJisbipEUjxoe+mqilLTPx
- OcE1So/vfevx0ECw==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id DC56513326;
- Mon,  5 Dec 2022 11:03:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id E/MeNBzQjWMuGwAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Mon, 05 Dec 2022 11:03:56 +0000
-Date: Mon, 5 Dec 2022 12:03:55 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Message-ID: <Y43QGymNw5cI2Vfm@pevik>
-References: <20221202103011.12206-1-andrea.cervesato@suse.com>
- <Y4oFOSgPd+2lxVWx@pevik>
- <32dc63af-0d95-31cc-4dcc-9b2d89d74edd@suse.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 38AF12C141
+ for <ltp@lists.linux.it>; Mon,  5 Dec 2022 11:47:30 +0000 (UTC)
+User-agent: mu4e 1.8.11; emacs 28.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: ltp@lists.linux.it <ltp@lists.linux.it>
+Date: Mon, 05 Dec 2022 11:44:30 +0000
+Organization: Linux Private Site
+Message-ID: <87v8mqt6lq.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <32dc63af-0d95-31cc-4dcc-9b2d89d74edd@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Add runltp-ng to upstream
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] text/html mails should now be rejected
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,90 +69,21 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Reply-To: rpalethorpe@suse.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Andrea,
+Hello,
 
-> Hi Petr,
+I have disallowed HTML message attachments in mailman because they are
+not supported by a variety of tooling. Please complain loudly if this
+breaks something.
 
-> On 12/2/22 15:01, Petr Vorel wrote:
-> > Hi Andrea,
-
-> > > runltp-ng is the next generation runner for Linux Testing Project and it
-> > > will replace the current obsolete runltp script in the next future.
-> > > Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
-> > > ---
-> > >   .gitmodules     | 3 +++
-> > >   tools/runltp-ng | 1 +
-> > >   2 files changed, 4 insertions(+)
-> > >   create mode 160000 tools/runltp-ng
-> > > diff --git a/.gitmodules b/.gitmodules
-> > > index a3c34af4b..e85fc6279 100644
-> > > --- a/.gitmodules
-> > > +++ b/.gitmodules
-> > > @@ -4,3 +4,6 @@
-> > >   [submodule "tools/sparse/sparse-src"]
-> > >   	path = tools/sparse/sparse-src
-> > >   	url = git://git.kernel.org/pub/scm/devel/sparse/sparse.git
-> > > +[submodule "tools/runltp-ng"]
-> > > +	path = tools/runltp-ng
-> > > +	url = https://github.com/acerv/runltp-ng
-> > > diff --git a/tools/runltp-ng b/tools/runltp-ng
-> > > new file mode 160000
-> > > index 000000000..b08471158
-> > > --- /dev/null
-> > > +++ b/tools/runltp-ng
-> > > @@ -0,0 +1 @@
-> > > +Subproject commit b0847115891bd3dddbe920a716342917e7088379
-> > Thank you for this submission! Finally we get close to adding runltp-ng :).
-
-> > I've tested runltp-ng separately last few weeks, next week I'll do more testing
-> > of b0847115891bd3dddbe920a716342917e7088379. BTW there are 2 more commits in
-> > your master.
-
-> > The integration: What I can see now is that it requires to run "git submodule
-> > update --init" by user. Looking at tools/sparse/Makefile. sparse is specific
-> > (not needed unless make check is evoked), therefore sparse is not installed if
-> > not needed (make in tools/ does not init the submodule).
-
-> > Maybe we could add in tools/Makefile add:
-> > git submodule update --init runltp-ng/
-> > That would update only runltp-ng submodule.
-
-> Yes, submodules are not intuitive and it would be better to add code inside
-> the LTP upstream.
-
-> > I suppose there is a reason to deliver the tool separately (without LTP),
-> > e.g. separate development or used on systems, which use LTP built into distro
-> > package (we already use it in SUSE this way). In that case I'd be for moving the
-> > repo to LTP github (https://github.com/linux-test-project/runltp-ng).
-
-> > We could also add it directly to LTP git repository (no submodule), because also
-> > for the above case (packaging) is a simple solution using just single
-> > repository: there could be two separated packages: ltp and runltp-ng.
-
-> > Otherwise to be part of LTP git repository
-> > add code directly to tools/runltp-ng/.
-> As far as I know, community wanted runltp-ng to be part of LTP, but at this
-> stage it's probably too early (?).
-
-IMHO it's already mature enough. I'm not sure if there is any important enough
-runltp feature which it miss, but your code is obviously huge improvement over
-legacy runltp.  Also you fixes various things I reported really quickly, thus I
-expect you fixes any major issue in reasonable time.
-
-Kind regards,
-Petr
-
-> > Kind regards,
-> > Petr
-
-> Andrea
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
