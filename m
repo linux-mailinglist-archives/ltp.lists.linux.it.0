@@ -2,39 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86D5A64274C
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 12:13:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA5D664271F
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 12:04:03 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 588CB3CC219
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 12:13:52 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 390953CC209
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Dec 2022 12:04:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D6CFE3CC44E
- for <ltp@lists.linux.it>; Thu,  1 Dec 2022 19:52:59 +0100 (CET)
-Received: from mail.enpas.org (zhong.enpas.org [IPv6:2a03:4000:2:537::1])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 7E6CE644E88
- for <ltp@lists.linux.it>; Thu,  1 Dec 2022 19:52:56 +0100 (CET)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- by mail.enpas.org (Postfix) with ESMTPSA id A3484100AD8;
- Thu,  1 Dec 2022 18:52:49 +0000 (UTC)
-Date: Fri, 2 Dec 2022 03:52:42 +0900
-From: Max Staudt <max@enpas.org>
-To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-Message-ID: <20221202035242.155d54f4.max@enpas.org>
-In-Reply-To: <20221201073426.17328-1-jirislaby@kernel.org>
-References: <20221201073426.17328-1-jirislaby@kernel.org>
+ by picard.linux.it (Postfix) with ESMTPS id EDEC73CA93B
+ for <ltp@lists.linux.it>; Mon,  5 Dec 2022 12:03:58 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4F17814A1E42
+ for <ltp@lists.linux.it>; Mon,  5 Dec 2022 12:03:57 +0100 (CET)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0E79222A75;
+ Mon,  5 Dec 2022 11:03:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1670238237;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZjewXIjuyqSfxLRbROJNRMxFCg6skwy3pM5Ov23KwTE=;
+ b=zyTkWr+AhDuBTyRc7uXh+kCK3We84Us607EedNSn5C/i8xUFMfAzlhZCLcGFjbGwOoGiby
+ TDjZxvZFwjaymS57dHOQJfYLfEWBuHhNI8kiEGntHisEm6ysXPFnlyUGwGmHeGhNauvS4Z
+ hgut8nEtyTqYKSZ5WW8nbSAUFEA29tI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1670238237;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZjewXIjuyqSfxLRbROJNRMxFCg6skwy3pM5Ov23KwTE=;
+ b=zhHmAVu0hkxqB21oWvwCRjroRhNBTrEsgwVseuaFQQVsCsXARJisbipEUjxoe+mqilLTPx
+ OcE1So/vfevx0ECw==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id DC56513326;
+ Mon,  5 Dec 2022 11:03:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id E/MeNBzQjWMuGwAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Mon, 05 Dec 2022 11:03:56 +0000
+Date: Mon, 5 Dec 2022 12:03:55 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <Y43QGymNw5cI2Vfm@pevik>
+References: <20221202103011.12206-1-andrea.cervesato@suse.com>
+ <Y4oFOSgPd+2lxVWx@pevik>
+ <32dc63af-0d95-31cc-4dcc-9b2d89d74edd@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <32dc63af-0d95-31cc-4dcc-9b2d89d74edd@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-X-Mailman-Approved-At: Mon, 05 Dec 2022 12:13:38 +0100
-Subject: Re: [LTP] [PATCH] can: slcan: fix freed work crash
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] Add runltp-ng to upstream
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,57 +82,90 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Petr Vorel <petr.vorel@suse.com>,
- Eric Dumazet <edumazet@google.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
- ltp@lists.linux.it, linux-serial@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, dario.binacchi@amarulasolutions.com,
- "David S. Miller" <davem@davemloft.net>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Richard Palethorpe <richard.palethorpe@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-(CC: ltp@lists.linux.it because Petr did so.)
+Hi Andrea,
 
-Hi Jiry,
+> Hi Petr,
 
-Thanks for finding this!
+> On 12/2/22 15:01, Petr Vorel wrote:
+> > Hi Andrea,
 
+> > > runltp-ng is the next generation runner for Linux Testing Project and it
+> > > will replace the current obsolete runltp script in the next future.
+> > > Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+> > > ---
+> > >   .gitmodules     | 3 +++
+> > >   tools/runltp-ng | 1 +
+> > >   2 files changed, 4 insertions(+)
+> > >   create mode 160000 tools/runltp-ng
+> > > diff --git a/.gitmodules b/.gitmodules
+> > > index a3c34af4b..e85fc6279 100644
+> > > --- a/.gitmodules
+> > > +++ b/.gitmodules
+> > > @@ -4,3 +4,6 @@
+> > >   [submodule "tools/sparse/sparse-src"]
+> > >   	path = tools/sparse/sparse-src
+> > >   	url = git://git.kernel.org/pub/scm/devel/sparse/sparse.git
+> > > +[submodule "tools/runltp-ng"]
+> > > +	path = tools/runltp-ng
+> > > +	url = https://github.com/acerv/runltp-ng
+> > > diff --git a/tools/runltp-ng b/tools/runltp-ng
+> > > new file mode 160000
+> > > index 000000000..b08471158
+> > > --- /dev/null
+> > > +++ b/tools/runltp-ng
+> > > @@ -0,0 +1 @@
+> > > +Subproject commit b0847115891bd3dddbe920a716342917e7088379
+> > Thank you for this submission! Finally we get close to adding runltp-ng :).
 
-Your patch looks correct to me, so please have a
+> > I've tested runltp-ng separately last few weeks, next week I'll do more testing
+> > of b0847115891bd3dddbe920a716342917e7088379. BTW there are 2 more commits in
+> > your master.
 
-  Reviewed-by: Max Staudt <max@enpas.org>
+> > The integration: What I can see now is that it requires to run "git submodule
+> > update --init" by user. Looking at tools/sparse/Makefile. sparse is specific
+> > (not needed unless make check is evoked), therefore sparse is not installed if
+> > not needed (make in tools/ does not init the submodule).
 
-for both this patch to slcan, as well as an 1:1 patch to can327.
+> > Maybe we could add in tools/Makefile add:
+> > git submodule update --init runltp-ng/
+> > That would update only runltp-ng submodule.
 
+> Yes, submodules are not intuitive and it would be better to add code inside
+> the LTP upstream.
 
+> > I suppose there is a reason to deliver the tool separately (without LTP),
+> > e.g. separate development or used on systems, which use LTP built into distro
+> > package (we already use it in SUSE this way). In that case I'd be for moving the
+> > repo to LTP github (https://github.com/linux-test-project/runltp-ng).
 
-Some history:
+> > We could also add it directly to LTP git repository (no submodule), because also
+> > for the above case (packaging) is a simple solution using just single
+> > repository: there could be two separated packages: ltp and runltp-ng.
 
-This is actually my code from can327, which was backported to slcan as
-part of Dario's larger modernisation effort.
+> > Otherwise to be part of LTP git repository
+> > add code directly to tools/runltp-ng/.
+> As far as I know, community wanted runltp-ng to be part of LTP, but at this
+> stage it's probably too early (?).
 
-The rationale for moving it was to flush the UART TX buffer in case of
-ndo_close(), in order to bring the device into a more predictable state
-between ndo_close() and ndo_open(). I guess that's actually
-counterproductive - whatever is in the TX buffer at that time should
-likely be fully sent. For example, can327 sends one last byte to abort
-any running chatty monitoring mode from the adapter. So your patch also
-fixes this as well ;)
+IMHO it's already mature enough. I'm not sure if there is any important enough
+runltp feature which it miss, but your code is obviously huge improvement over
+legacy runltp.  Also you fixes various things I reported really quickly, thus I
+expect you fixes any major issue in reasonable time.
 
-Of course, this resulted in calling flush_worker() in both ndo_stop()
-and ldisc_close(), so I wanted to avoid code duplication, and relied on
-ndo_stop(). Oops.
+Kind regards,
+Petr
 
+> > Kind regards,
+> > Petr
 
-
-Thanks,
-
-Max
+> Andrea
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
