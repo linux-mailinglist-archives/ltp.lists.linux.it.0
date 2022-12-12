@@ -1,69 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00B5E64A487
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 17:03:31 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D431C64A49E
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 17:14:17 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 76AAA3CBE5E
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 17:03:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A1FD43CBE52
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 17:14:17 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7DDC13CBE28
- for <ltp@lists.linux.it>; Mon, 12 Dec 2022 17:03:28 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 0E4E13CBE28
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 17:14:16 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C316F200353
- for <ltp@lists.linux.it>; Mon, 12 Dec 2022 17:03:27 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6511E10005C0
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 17:14:14 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 630B41FDD1
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 16:14:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1670861654;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Y1GyxR85QxDa9+KI7CKNpLzlpoqpFSeiY+W+9qPJ1Eg=;
+ b=Ay53RbvSkR9plo9ZB9VLUOW3RTZRjUV7ZqPuDuaw5ERZweW4FJPTxLlosNhpkH7UiSN7Gt
+ beMEzn+27pzVXHkFeu1eLJhBwEbrBp5dQwRQL1Se1i0px19aPGAFq/8nT0XSoh62G1mGCY
+ ++f9EOQrBxr0+yzyCSUoSjumzizlX6k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1670861654;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Y1GyxR85QxDa9+KI7CKNpLzlpoqpFSeiY+W+9qPJ1Eg=;
+ b=Tq0yK4oonQPr4sKEntbXYnN8C90zOU7cENpiZdcHrUUmgj0TNsMqDx8XSE7Mb6xWHRBXKU
+ s6uJHVixA3xD8mAw==
+Received: from g78 (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AECCB337DC;
- Mon, 12 Dec 2022 16:03:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1670861006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=srX7WiC4O1lw4ZLRjzgDzMsGTTIy05bqASVMhgHPkxs=;
- b=1acm/gnRFHOWGDUOHlPA70xdSzoTO1P4QrQZ5rAeXxQ3F86RdHmnAzr77wTZxFr5jAWCEy
- wDdcITYRbTbHFmon6RiCtHZ5w96WWO1xwrY05eUbWqftXKUpyBlhFZMQR9H5X72gVMA51R
- 3PloKHVtOYeflDczl3eS1bDoptj0xDc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1670861006;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=srX7WiC4O1lw4ZLRjzgDzMsGTTIy05bqASVMhgHPkxs=;
- b=Lf3hpka38O9ymUb1CqjFM43m6FkfM0xtp/L3vcwee1bRELQdVFadfsrTd9ACdECZnfo3ko
- F9sm2oWiuL9DffDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6E173138F3;
- Mon, 12 Dec 2022 16:03:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2o5qGc5Ql2OadwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 12 Dec 2022 16:03:26 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 12 Dec 2022 17:03:22 +0100
-Message-Id: <20221212160322.4600-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.38.1
+ by relay2.suse.de (Postfix) with ESMTPS id 3BC6C2C141;
+ Mon, 12 Dec 2022 16:14:14 +0000 (UTC)
+References: <20221206165840.12107-1-rpalethorpe@suse.com>
+ <Y5dOdWVLPXfgGKGg@rei>
+User-agent: mu4e 1.8.11; emacs 28.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Mon, 12 Dec 2022 16:07:48 +0000
+Organization: Linux Private Site
+In-reply-to: <Y5dOdWVLPXfgGKGg@rei>
+Message-ID: <87sfhksip6.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] aio-stress.c: Use static variable iterations
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] getcpu01: Reinstate node_id test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,57 +75,129 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-local iteration variable in worker() was probably left over from
-previous versions rewrite (maybe -i was not used in previous versions).
+Hello,
 
-Clang correctly reported:
-aio-stress.c:1049:6: warning: variable 'iteration' set but not used [-Wunused-but-set-variable]
-int iteration = 0;
+Cyril Hrubis <chrubis@suse.cz> writes:
 
-Fixes: 054d45390 ("Rewrite aio-stress test using LTP API")
+> Hi!
+>> Presently the node_id is only checked on i386 and it is broken. The
+>> sched_getcpu call was substituted for getcpu when
+>> available. sched_getcpu does not have the node_id parameter and does
+>> not even call SYS_getcpu if it can be completed by vDSO.
+>> 
+>> Also we can at least check the node_id on x86_64 as well.
+>
+> I suppose that the getcpu manual page is a bit confusing, the function
+> is implemented on most of the major achitectures and as VDSO on most of
+> them too. It was only added first to x86 architectures.
 
-Reported-by: Richard Palethorpe <rpalethorpe@suse.com>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Hi,
+I suppose I overlooked that there is a libc implementation of
+getcpu. IDK why sched_getcpu is here at all and my vDSO comment is just
+about how sched_getcpu would not result in a call to getcpu. However I
+agree we should just call the libc version.
 
-reported by Richie [1], I got confused thus merge before this fix.
+>
+>> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+>> ---
+>>  testcases/kernel/syscalls/getcpu/getcpu01.c | 22 +++++++++------------
+>>  1 file changed, 9 insertions(+), 13 deletions(-)
+>> 
+>> diff --git a/testcases/kernel/syscalls/getcpu/getcpu01.c b/testcases/kernel/syscalls/getcpu/getcpu01.c
+>> index fcc273e29..21c67f412 100644
+>> --- a/testcases/kernel/syscalls/getcpu/getcpu01.c
+>> +++ b/testcases/kernel/syscalls/getcpu/getcpu01.c
+>> @@ -15,20 +15,16 @@
+>>  #include <stdio.h>
+>>  #include <stdlib.h>
+>>  #include <sys/types.h>
+>> +#include "tst_test.h"
+>>  #include "lapi/syscalls.h"
+>>  #include "lapi/cpuset.h"
+>> -#include "tst_test.h"
+>>  #include "config.h"
+>>  
+>>  static inline int get_cpu(unsigned *cpu_id,
+>> -			  unsigned *node_id LTP_ATTRIBUTE_UNUSED,
+>> -			  void *cache_struct LTP_ATTRIBUTE_UNUSED)
+>> +			  unsigned *node_id)
+>>  {
+>> -#ifndef HAVE_SCHED_GETCPU
+>> -	return tst_syscall(__NR_getcpu, cpu_id, node_id, cache_struct);
+>> -#else
+>> -	*cpu_id = sched_getcpu();
+>> -#endif
+>> +	return tst_syscall(__NR_getcpu, cpu_id, node_id, NULL);
+>
+> The call is mostly implemneted as VDSO so it would make much more sense
+> to test the libc function instead and test the implementation that is
+> actually used in production.
+>
+>>  	return 0;
+>>  }
+>>  
+>> @@ -78,7 +74,7 @@ realloc:
+>>  	return cpu_max;
+>>  }
+>>  
+>> -#ifdef __i386__
+>> +#if  defined(__i386__) || defined(__x86_64__)
+>>  static unsigned int get_nodeid(unsigned int cpu_id)
+>>  {
+>>  	DIR *directory_parent, *directory_node;
+>> @@ -125,22 +121,22 @@ static void run(void)
+>>  {
+>>  	unsigned int cpu_id, node_id = 0;
+>>  	unsigned int cpu_set;
+>
+>
+> The get_nodeid() just parses sysfs, that should be portable, can't we
+> just get rid of the ifdefs completely instead?
 
-[1] https://lore.kernel.org/ltp/87h6yfifbr.fsf@suse.de/
+That's what I thought too. I Will remove them.
 
- testcases/kernel/io/ltp-aiodio/aio-stress.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+>
+>> -#ifdef __i386__
+>> +#if defined(__i386__) || defined(__x86_64__)
+>>  	unsigned int node_set;
+>>  #endif
+>>  
+>>  	cpu_set = set_cpu_affinity();
+>> -#ifdef __i386__
+>> +#if defined(__i386__) || defined(__x86_64__)
+>>  	node_set = get_nodeid(cpu_set);
+>>  #endif
+>>  
+>> -	TEST(get_cpu(&cpu_id, &node_id, NULL));
+>> +	TEST(get_cpu(&cpu_id, &node_id));
+>>  	if (TST_RET == 0) {
+>>  		if (cpu_id != cpu_set)
+>>  			tst_res(TFAIL, "getcpu() returned wrong value"
+>>  				" expected cpuid:%d, returned value cpuid: %d",
+>>  				cpu_set, cpu_id);
+>> -#ifdef __i386__
+>> +#if defined(__i386__) || defined(__x86_64__)
+>>  		else if (node_id != node_set)
+>>  			tst_res(TFAIL, "getcpu() returned wrong value"
+>>  				" expected  node id:%d returned  node id:%d",
+>> -- 
+>> 2.38.1
+>> 
+>> 
+>> -- 
+>> Mailing list info: https://lists.linux.it/listinfo/ltp
 
-diff --git a/testcases/kernel/io/ltp-aiodio/aio-stress.c b/testcases/kernel/io/ltp-aiodio/aio-stress.c
-index 39db14d65..29e679087 100644
---- a/testcases/kernel/io/ltp-aiodio/aio-stress.c
-+++ b/testcases/kernel/io/ltp-aiodio/aio-stress.c
-@@ -1046,7 +1046,6 @@ static int *worker(struct thread_info *t)
- 	char *this_stage = NULL;
- 	struct timeval stage_time;
- 	int status = 0;
--	int iteration = 0;
- 	int cnt;
- 
- 	aio_setup(&t->io_ctx, 512);
-@@ -1151,7 +1150,7 @@ restart:
- 
- 	/* someone got restarted, go back to the beginning */
- 	if (t->active_opers && cnt < iterations) {
--		iteration++;
-+		iterations++;
- 		goto restart;
- 	}
- 
+Also I guess the kver check for 2.6 can be removed.
+
 -- 
-2.38.1
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
