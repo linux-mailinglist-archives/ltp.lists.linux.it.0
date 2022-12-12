@@ -2,73 +2,89 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1AB9649AB7
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 10:09:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DA42649C54
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 11:39:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8E20E3CBE15
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 10:09:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 06AE73CBE41
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 11:39:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8726B3CB6DC
- for <ltp@lists.linux.it>; Mon, 12 Dec 2022 10:09:05 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 630843CB6DC
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 11:39:29 +0100 (CET)
+Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
+ [195.245.231.3])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C2B576005D7
- for <ltp@lists.linux.it>; Mon, 12 Dec 2022 10:09:03 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2595014001FB
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 11:39:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1670841567; i=@fujitsu.com;
+ bh=AkSgxf27TqJKUi7ACmS2IsqgYkcf7Ttx/ulEFpPxDvo=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=bwN82JGhrWxvgtK4WbH4gR/D8yD6RK2dxubiUH5srUC2DshPRd809i5awLvcX183l
+ 5myxUPe49vXlq1ob5Kt7OQ1wm2WWy86HGCA5bn07dv2pE+Y9t40xdEw+xVOljIMFOm
+ sor57jgRUii5zOlRuWPKzr5oBJq1dwkIWbrWjp6QLKan1Py5W47dIhtizHl+BNlDh9
+ mLqxkcBdku1l/1kF4lzno2bWe0c1L7WDJ3J0MndQcOuGRyklKRYlYslWPjU7ToK1WC
+ VWp7WImQMnQCLIr3J8JntSwTGYaU9XFQqkfINsEarLsmqCv1n7F+Y4BE19PntaSRsk
+ 5ihqUYlgN9wGA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrPIsWRWlGSWpSXmKPExsViZ8ORqHuPZXq
+ ywd4P2hYrvu9gdGD02Pd7HWsAYxRrZl5SfkUCa8bcfbuYCy4LV6w6toSlgfGOQBcjF4eQwFlG
+ iQmPTrFBOAeYJDpfbGOBcPYwSjz4vgwow8nBJqAp8axzATOILSIgIdHR8JYdxGYWUJdYPukXE
+ 4gtLGArMb/pMyuIzSKgKnFt1nEWEJtXwEOi78xfsBoJAQWJKQ/fM0PEBSVOznzCAjFHQuLgix
+ fMEDWKEpc6vjFC2BUSs2a1QfWqSVw9t4l5AiP/LCTts5C0L2BkWsVoVpxaVJZapGtoqZdUlJm
+ eUZKbmJmjl1ilm6iXWqpbnlpcomukl1herJdaXKxXXJmbnJOil5dasokRGI4pxYrrdjBOX/ZH
+ 7xCjJAeTkihv+p9pyUJ8SfkplRmJxRnxRaU5qcWHGGU4OJQkeAO+AOUEi1LTUyvSMnOAsQGTl
+ uDgURLhPcY0PVmIt7ggMbc4Mx0idYpRUUqcV4gZKCEAksgozYNrg8XjJUZZKWFeRgYGBiGegt
+ Si3MwSVPlXjOIcjErCvNtBxvNk5pXATX8FtJgJaHHUy6kgi0sSEVJSDUx2U78/33v/6bMZFwz
+ nvq7zftR4pr/PY1+RsdeX5JuPvdzM7zLG7a/7P8Ppdn2U4swNG3Smiy3byj3jc2e92vQT1rPb
+ NE2P+TzKKsidebZq9dwPdgJThDkmVNW1bH2TdPJVS9/buTtu/biZM9eP9ypjHW9A3lZu/9yy9
+ gmVQevMm6oTOPpCMnalHolzdJFry2Y99P+c6V3D6wITe2V7nnXY/f9ZNNNz7x9//YlP+db8Vt
+ y54VP4iZW3k1q43b5OT2Zk9Eu+0j9Bg7nhlfIahr3dyjs1nmhr1khdPHXZVqZ2d3vNoUu6t1i
+ n/zYwt3vslng46KXucqE/y4/cVHM9fmGrF59Qjs8M0SnifLolBw8osRRnJBpqMRcVJwIA3mty
+ gUIDAAA=
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-5.tower-571.messagelabs.com!1670841566!290753!1
+X-Originating-IP: [62.60.8.97]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.101.2; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 1427 invoked from network); 12 Dec 2022 10:39:26 -0000
+Received: from unknown (HELO n03ukasimr01.n03.fujitsu.local) (62.60.8.97)
+ by server-5.tower-571.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 12 Dec 2022 10:39:26 -0000
+Received: from n03ukasimr01.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTP id 6979C100192
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 10:39:26 +0000 (GMT)
+Received: from R01UKEXCASM126.r01.fujitsu.local (R01UKEXCASM126
+ [10.183.43.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EB1861FE80;
- Mon, 12 Dec 2022 09:09:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1670836142; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XJ2KblaUvcNl6OdwMhBL/QCWNgXvHzx/pGPQS1N93wQ=;
- b=UqZy9DlHfRw9YPXWKN5htl61C8L1LNIJ416Q8+ERU0WB/RStTw5+/p70gzjjrw4oiqhAuy
- tgxzLpMsEgJm7N9MsbV3LjNcP2T5W7IKm3kxZYhcuBH6THZZH7Dpq7wrS7TWMAVxlBiiw7
- BXhdCGT7mcUWkxqQkvknFi15Se/ROlk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1670836142;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XJ2KblaUvcNl6OdwMhBL/QCWNgXvHzx/pGPQS1N93wQ=;
- b=ZqpFMhcxOzkSK4fQ8IK3LwWCgzik/l4qOXRm9tdgt9ptaMxHQpwRx88r7wn3m11vNwA391
- CdsAnI8jDrhFv+Dw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA64113456;
- Mon, 12 Dec 2022 09:09:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id N/yvNK7vlmOVIAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 12 Dec 2022 09:09:02 +0000
-Date: Mon, 12 Dec 2022 10:10:17 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Xinkuan Yan <lucky33newman@gmail.com>
-Message-ID: <Y5bv+X+BnyhKJLWy@yuki>
-References: <CAFQkDyZABHU38_LTvsv1eP8PvK4rHprfZrL45CYqMvav1-O8_A@mail.gmail.com>
+ by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTPS id 5D362100191
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 10:39:26 +0000 (GMT)
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.42; Mon, 12 Dec 2022 10:39:24 +0000
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Mon, 12 Dec 2022 19:40:26 +0800
+Message-ID: <1670845229-1981-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAFQkDyZABHU38_LTvsv1eP8PvK4rHprfZrL45CYqMvav1-O8_A@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] Question about log format.
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 1/4] lib/tst_kvercmp: Remove old distnames
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,39 +96,92 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkhCj4gSSdtIHRyeWluZyB0byBkbyBhIGNvbmNpc2UgcGFyc2luZyBvZiB0aGUgTFRQIHJlcG9y
-dC4KPiAKPiBJIGRvbid0IGhhdmUgbXVjaCBleHBlcmllbmNlIGFuZCBJJ20gbm90IGZhbWlsaWFy
-IHdpdGggTFRQLCBzbyBJJ20gZ29pbmcgdG8KPiB0YWtlICNtYXRoIGFzIGFuIGV4YW1wbGUsIGZv
-ciBpdCBpcyBub3QgY29tcGxleC4KPgo+IFJ1biB0ZXN0IGNvbW1hbmQ6Cj4gCj4gLi9sdHAg4oCT
-ZiBtYXRoIOKAk3EKPiAKPiBJIGhhdmUgdGhyZWUgcXVlc3Rpb25zIG5vdywgIHRha2luZyB0aGUg
-b25lLWxpbmUgb3V0cHV0IHJlc3VsdCBiZWxvdyBhcyBhbgo+IGV4YW1wbGU6Cj4gCj4gZmxvYXRf
-aXBlcmIgMSBUUEFTUzogVGVzdCBwYXNzZWQKPiAKPiAxLCBJdCBpcyBjbGVhciB0aGF0IFRQQVNT
-IG1lYW5zIGl0IHBhc3NlZCwgYnV0IHdoYXQgaXMgdGhlIG51bWJlciAxCj4gc3RhbmRpbmcgZm9y
-Lgo+IAo+IDIsIFdoeSB0aGlzIGxpbmUgc2hvd2VkIHVwIHR3aWNlPyAoIFBTOiBCZXR3ZWVuIHRo
-ZXNlIHR3byBsaW5lcyBhcmUgbWFueQo+IFRJTkZPLikKClRoZSBtYXRoIHRlc3RzIGFyZSBwcmlt
-ZSBleGFtcGxlIGhvdyBub3QgdG8gd3JpdGUgdGVzdHMuIFBsZWFzZSBkbyBub3QKdGFrZSB0aGVt
-IGFzIGFuIGV4YW1wbGUgb2YgYW55dGhpbmcgZWxzZS4gVXN1YWxseSB0aGUgbW9zdCBjbGVhbiBh
-bmQgdXAKdG8gZGF0ZSB0ZXN0cyBhcmUgaW4gc3lzY2FsbHMvIGRpcmVjdG9yeS4KCj4gMywgV2hl
-cmUgdG8gY2hlY2sgdGhvc2Ugb3V0IHB1dCBzdGFuZGFyZHMsIHRha2luZyB5b2N0byBwYWNrYWdl
-IHRlc3QgYXMgYQo+IHNtYWxsIGNvbXByZWhlbnNpb24sIHRoYXQgc3RhbmRhcmQgd2FzICggUEFT
-U3xGQUlMfFNLSVApOiBUZXN0IGluZm8uIEhvdyBpcwo+IGl0IGxpa2UgaW4gTFRQPwoKR2VuZXJh
-bGx5IHRlc3RzIGluIExUUCBjYW4gaGF2ZSBtb3JlIHRoYW4gb25lIHJlc3VsdCBzbyB5b3UgY2Fu
-J3QgcmVhbGx5Cm1hcCBhIHRlc3QgcmVzdWx0IHRvIGEgc2luZ2xlIHZhbHVlLiBJdCdzIGNvbW1v
-biBmb3IgYSB0ZXN0IHRvIHJlcG9ydApzZXZlcmFsIFRQQVNTIGFuZCBvbmUgb3IgdHdvIFRDT05G
-IGZvciBleGFtcGxlLiBUaGF0IG1lYW5zIHRoYXQgbW9zdCBvZgp0aGUgdGVzdCB3YXMgZXhlY3V0
-ZWQgYnV0IHNtYWxsIHBhcnQgd2FzIHNraXBwZWQuCgpUaGUgVElORk8gbWVzc2FnZXMgYXJlIGFk
-ZGl0aW9uYWwgaW5mb3JtYXRpb24gdGhhdCBtYXkgYmUgdXNlZnVsIHdoZW4KdGVzdCBmYWlsLCBu
-b3RoaW5nIG1vcmUuCgpUaGUgb3ZlcmFsbCByZXN1bHQgaXMgcmVwb3J0ZWQgaW4gdGhlIHRlc3Qg
-ZXhpdCB2YWx1ZSBhcyBiaXRmbGFncywgd2hpY2gKaXMgd2hhdCBpcyB1c2VkIGJ5IHRoZSBydW5s
-dHAgc2NyaXB0IHRvIHByb2R1Y2UgdGhlIHJlc3VsdCBmaWxlcy4KCkFuZCBieSB0aGUgd2F5LCB3
-ZSBhcmUgd29ya2luZyBvbiByZXBsYWNlbWVudCBmb3IgdGhlIHJ1bmx0cCBzY3JpcHQKd2hpY2gg
-aXMgY2FsbGVkIHJ1bmx0cC1uZywgbWF5YmUgeW91IHNob3VsZCBoYXZlIGEgbG9vayBhdCB0aGF0
-IGJlZm9yZQp5b3UgdHJ5IHRvIHdyaXRlIHlvdXIgb3duIHNvbHV0aW9uLgoKLS0gCkN5cmlsIEhy
-dWJpcwpjaHJ1YmlzQHN1c2UuY3oKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0
-cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Our travis-ci has dropped or never used them, they are useless.
+So delete.
+
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ lib/tst_kvercmp.c                                   | 12 ------------
+ testcases/kernel/syscalls/inotify/inotify04.c       | 13 +++----------
+ .../kernel/tracing/dynamic_debug/dynamic_debug01.sh |  3 +--
+ 3 files changed, 4 insertions(+), 24 deletions(-)
+
+diff --git a/lib/tst_kvercmp.c b/lib/tst_kvercmp.c
+index dc0daa746..a01b4332b 100644
+--- a/lib/tst_kvercmp.c
++++ b/lib/tst_kvercmp.c
+@@ -134,18 +134,6 @@ const char *tst_kvcmp_distname(const char *kver)
+ 	char *ret = distname;
+ 	char *p = distname;
+ 
+-	if (strstr(kver, ".el5uek"))
+-		return "OL5UEK";
+-
+-	if (strstr(kver, ".el5"))
+-		return "RHEL5";
+-
+-	if (strstr(kver, ".el6uek"))
+-		return "OL6UEK";
+-
+-	if (strstr(kver, ".el6"))
+-		return "RHEL6";
+-
+ 	if (strstr(kver, ".el7"))
+ 		return "RHEL7";
+ 
+diff --git a/testcases/kernel/syscalls/inotify/inotify04.c b/testcases/kernel/syscalls/inotify/inotify04.c
+index fb9f5c293..c4fce399c 100644
+--- a/testcases/kernel/syscalls/inotify/inotify04.c
++++ b/testcases/kernel/syscalls/inotify/inotify04.c
+@@ -50,11 +50,6 @@ char event_buf[EVENT_BUF_LEN];
+ 
+ int fd_notify, reap_wd_file, reap_wd_dir, wd_dir, wd_file;
+ 
+-static struct tst_kern_exv kvers[] = {
+-	{ "RHEL5", "2.6.18-132" },
+-	{ NULL, NULL },
+-};
+-
+ static void cleanup(void)
+ {
+ 	if (reap_wd_dir && myinotify_rm_watch(fd_notify, wd_dir) == -1)
+@@ -110,11 +105,9 @@ void verify_inotify(void)
+ 	 * This isn't well documented in inotify(7), but it's intuitive if you
+ 	 * understand how Unix works.
+ 	 */
+-	if (tst_kvercmp2(2, 6, 25, kvers) >= 0) {
+-		event_set[test_cnt].mask = IN_ATTRIB;
+-		strcpy(event_set[test_cnt].name, "");
+-		test_cnt++;
+-	}
++	event_set[test_cnt].mask = IN_ATTRIB;
++	strcpy(event_set[test_cnt].name, "");
++	test_cnt++;
+ 
+ 	event_set[test_cnt].mask = IN_DELETE_SELF;
+ 	strcpy(event_set[test_cnt].name, TEST_FILE);
+diff --git a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
+index 4b159517b..ca6c840b1 100755
+--- a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
++++ b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
+@@ -59,8 +59,7 @@ setup()
+ 		tst_brk TBROK "Unable to find $DEBUGFS_CONTROL"
+ 	fi
+ 
+-	# Both patches with changes were backported to RHEL6 kernel 2.6.32-547
+-	if tst_kvcmp -ge '3.4 RHEL6:2.6.32-547' ; then
++	if tst_kvcmp -ge 3.4 ; then
+ 		NEW_INTERFACE=1
+ 		EMPTY_FLAG="=_"
+ 	fi
+-- 
+2.27.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
