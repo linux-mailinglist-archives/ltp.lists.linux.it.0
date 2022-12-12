@@ -1,56 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29BBE64A28E
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 14:55:58 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C803D64A2C4
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 15:03:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9D9243CBE5E
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 14:55:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5592C3CBE54
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 15:03:00 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E2AAC3CBE3E
- for <ltp@lists.linux.it>; Mon, 12 Dec 2022 14:55:42 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 48A843CBE07
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 15:02:55 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 501751400432
- for <ltp@lists.linux.it>; Mon, 12 Dec 2022 14:55:41 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B1027600681
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 15:02:54 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 6F9661FEA4;
- Mon, 12 Dec 2022 13:55:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1670853341; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by smtp-out1.suse.de (Postfix) with ESMTP id B81D033764;
+ Mon, 12 Dec 2022 14:02:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1670853773;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=c0ibjmzRSTH+myH5486RV4lXxyu1vYUDDSj4+2UDYMY=;
- b=Fpkni+wuvC3LcQyY6G+Cm8pDRi13hLv/v++3BXzuJLzJxx5umLSzU5GDx8MHHNFQgB/7I+
- CIdgQT6BXD0XgBW9uUFo9A5+qI45hBNnf7UyMERYQeHqvWOvr9V4sy762LwHRoJK0wh08e
- 9/ze7HGxpjDxIjyjUkmZGVxDsJkHKK0=
-Received: from g78.cable.virginm.net (unknown [10.163.28.198])
- by relay2.suse.de (Postfix) with ESMTP id 459E12C142;
- Mon, 12 Dec 2022 13:55:41 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Mon, 12 Dec 2022 13:55:24 +0000
-Message-Id: <20221212135524.1333-3-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221212135524.1333-1-rpalethorpe@suse.com>
-References: <20221212135524.1333-1-rpalethorpe@suse.com>
+ bh=hGPa0whbkt7aTGg5fl65m2JLnO30NN9xmqQQl7MwGFo=;
+ b=YqwF/R5MYJqqJHdN0PWA9lVMhVL0r7PKawbyZsvDu1G9aiOYXTGY7cwm36aMk2PU1WrVSU
+ B/O6qJn82ypvbLwiZ2OWkqmHwGvPwnPHPHbzMg49w+6N48/qPNue7rnDerF7ShJ4Dg3Ch5
+ BvMKmEC7cVfVRPf9w7MkQHuXzHTP/aM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1670853773;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hGPa0whbkt7aTGg5fl65m2JLnO30NN9xmqQQl7MwGFo=;
+ b=uWqXv7Vxgx/6gT87CXBHADmtekKCBE+67A0EqeaaUaGk4aUejHJAe2NzDELyfXanZrK3Cz
+ e7Lw3qjlBH+nk/Bg==
+Received: from g78 (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 8C5792C141;
+ Mon, 12 Dec 2022 14:02:53 +0000 (UTC)
+References: <20221206165840.12107-1-rpalethorpe@suse.com>
+User-agent: mu4e 1.8.11; emacs 28.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Date: Mon, 12 Dec 2022 14:01:23 +0000
+Organization: Linux Private Site
+In-reply-to: <20221206165840.12107-1-rpalethorpe@suse.com>
+Message-ID: <87fsdkvhx0.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 3/3] tst_fill_fs: Add alternate access pattern
- "flat"
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] getcpu01: Reinstate node_id test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,224 +74,103 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Depending on the workload, the way in which a file system is filled
-will be different. The system calls will also be different.
+Hello,
 
-This adds a fill mode which uses writev with uniform batches of
-data. This simulates when the FS is filled by a program which batches
-writes.
+Ping! I will merge soon if there are no comments.
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- include/tst_fs.h                              |  7 ++-
- lib/tst_fill_fs.c                             | 59 ++++++++++++++++++-
- testcases/kernel/fs/fs_fill/fs_fill.c         | 18 ++++--
- .../kernel/syscalls/fallocate/fallocate05.c   |  2 +-
- .../kernel/syscalls/fallocate/fallocate06.c   |  2 +-
- 5 files changed, 78 insertions(+), 10 deletions(-)
+Richard Palethorpe via ltp <ltp@lists.linux.it> writes:
 
-diff --git a/include/tst_fs.h b/include/tst_fs.h
-index cc6d9b547..43ead32a2 100644
---- a/include/tst_fs.h
-+++ b/include/tst_fs.h
-@@ -34,6 +34,11 @@
- #define TST_VFAT_MAGIC     0x4d44 /* AKA MSDOS */
- #define TST_EXFAT_MAGIC    0x2011BAB0UL
- 
-+enum tst_fill_access_pattern {
-+	TST_FILL_FLAT_VEC,
-+	TST_FILL_RANDOM
-+};
-+
- enum {
- 	TST_BYTES = 1,
- 	TST_KB = 1024,
-@@ -201,7 +206,7 @@ int tst_fs_in_skiplist(const char *fs_type, const char *const *skiplist);
- /*
-  * Creates and writes to files on given path until write fails with ENOSPC
-  */
--void tst_fill_fs(const char *path, int verbose);
-+void tst_fill_fs(const char *path, int verbose, enum tst_fill_access_pattern pattern);
- 
- /*
-  * test if FIBMAP ioctl is supported
-diff --git a/lib/tst_fill_fs.c b/lib/tst_fill_fs.c
-index 1d6d76abd..e7d5d73b7 100644
---- a/lib/tst_fill_fs.c
-+++ b/lib/tst_fill_fs.c
-@@ -7,13 +7,16 @@
- #include <stdio.h>
- #include <stdlib.h>
- #include <sys/statvfs.h>
-+#include <sys/uio.h>
- 
- #define TST_NO_DEFAULT_MAIN
- #include "tst_test.h"
-+#include "lapi/fcntl.h"
- #include "tst_fs.h"
- #include "tst_rand_data.h"
-+#include "tst_safe_file_at.h"
- 
--void tst_fill_fs(const char *path, int verbose)
-+void fill_random(const char *path, int verbose)
- {
- 	int i = 0;
- 	char file[PATH_MAX];
-@@ -67,3 +70,57 @@ void tst_fill_fs(const char *path, int verbose)
- 		SAFE_CLOSE(fd);
- 	}
- }
-+
-+void fill_flat_vec(const char *path, int verbose)
-+{
-+	int dir = SAFE_OPEN(path, O_PATH | O_DIRECTORY | O_FSYNC);
-+	int fd = SAFE_OPENAT(dir, "AOF", O_WRONLY | O_CREAT, 0600);
-+	struct iovec iov[512];
-+	int iovcnt = ARRAY_SIZE(iov);
-+	int retries = 3;
-+
-+	SAFE_CLOSE(dir);
-+
-+	for (int i = 0; i < iovcnt; i++) {
-+		iov[i] = (struct iovec) {
-+			(void *)tst_rand_data,
-+			tst_rand_data_len
-+		};
-+	}
-+
-+	while (retries) {
-+		const int ret = writev(fd, iov, iovcnt);
-+
-+		if (!ret)
-+			tst_res(TWARN | TERRNO, "writev returned 0; not sure what this means");
-+
-+		if (ret > -1) {
-+			if (verbose && retries < 3)
-+				tst_res(TINFO, "writev(\"%s/AOF\", iov, %d) = %d", path, iovcnt, ret);
-+
-+			retries = 3;
-+			continue;
-+		}
-+
-+		if (errno != ENOSPC)
-+			tst_brk(TBROK | TERRNO, "writev(\"%s/AOF\", iov, %d)", path, iovcnt);
-+
-+		if (verbose)
-+			tst_res(TINFO, "writev(\"%s/AOF\", iov, %d): ENOSPC", path, iovcnt);
-+
-+		retries--;
-+	}
-+
-+	SAFE_CLOSE(fd);
-+}
-+
-+void tst_fill_fs(const char *path, int verbose, enum tst_fill_access_pattern pattern)
-+{
-+
-+	switch (pattern) {
-+	case TST_FILL_FLAT_VEC:
-+		return fill_flat_vec(path, verbose);
-+	case TST_FILL_RANDOM:
-+		return fill_random(path, verbose);
-+	}
-+}
-diff --git a/testcases/kernel/fs/fs_fill/fs_fill.c b/testcases/kernel/fs/fs_fill/fs_fill.c
-index 95dfc2cb6..2027b6df1 100644
---- a/testcases/kernel/fs/fs_fill/fs_fill.c
-+++ b/testcases/kernel/fs/fs_fill/fs_fill.c
-@@ -25,6 +25,7 @@ static int enospc_cnt;
- static struct worker *workers;
- 
- struct worker {
-+	enum tst_fill_access_pattern pattern;
- 	char dir[PATH_MAX];
- };
- 
-@@ -36,7 +37,7 @@ static void *worker(void *p)
- 	char file[PATH_MAX];
- 
- 	while (run) {
--		tst_fill_fs(w->dir, 0);
-+		tst_fill_fs(w->dir, 1, w->pattern);
- 
- 		tst_atomic_inc(&enospc_cnt);
- 
-@@ -61,22 +62,26 @@ static void *worker(void *p)
- 	return NULL;
- }
- 
--static void testrun(void)
-+static void testrun(unsigned int n)
- {
- 	pthread_t threads[nthreads];
- 	unsigned int i, ms;
- 
-+	tst_atomic_store(0, &enospc_cnt);
-+
- 	run = 1;
--	for (i = 0; i < nthreads; i++)
-+	for (i = 0; i < nthreads; i++) {
-+		workers[i].pattern = n;
- 		SAFE_PTHREAD_CREATE(&threads[i], NULL, worker, &workers[i]);
-+	}
- 
- 	for (ms = 0; ; ms++) {
- 		usleep(1000);
- 
--		if (ms >= 1000 && enospc_cnt)
-+		if (ms >= 1000 && tst_atomic_load(&enospc_cnt))
- 			break;
- 
--		if (enospc_cnt > 100)
-+		if (tst_atomic_load(&enospc_cnt) > 100)
- 			break;
- 	}
- 
-@@ -116,5 +121,6 @@ static struct tst_test test = {
- 	.all_filesystems = 1,
- 	.setup = setup,
- 	.cleanup = cleanup,
--	.test_all = testrun,
-+	.test = testrun,
-+	.tcnt = 2
- };
-diff --git a/testcases/kernel/syscalls/fallocate/fallocate05.c b/testcases/kernel/syscalls/fallocate/fallocate05.c
-index d67c6cf5b..af6bf9e8c 100644
---- a/testcases/kernel/syscalls/fallocate/fallocate05.c
-+++ b/testcases/kernel/syscalls/fallocate/fallocate05.c
-@@ -68,7 +68,7 @@ static void run(void)
- 		tst_brk(TBROK | TTERRNO, "fallocate(fd, 0, 0, %ld)", bufsize);
- 	}
- 
--	tst_fill_fs(MNTPOINT, 1);
-+	tst_fill_fs(MNTPOINT, 1, TST_FILL_RANDOM);
- 
- 	TEST(write(fd, buf, bufsize));
- 
-diff --git a/testcases/kernel/syscalls/fallocate/fallocate06.c b/testcases/kernel/syscalls/fallocate/fallocate06.c
-index 16f9db066..124fb7eae 100644
---- a/testcases/kernel/syscalls/fallocate/fallocate06.c
-+++ b/testcases/kernel/syscalls/fallocate/fallocate06.c
-@@ -202,7 +202,7 @@ static void run(unsigned int n)
- 	}
- 
- 	if (tc->fill_fs)
--		tst_fill_fs(MNTPOINT, 1);
-+		tst_fill_fs(MNTPOINT, 1, TST_FILL_RANDOM);
- 
- 	SAFE_LSEEK(fd, offset, SEEK_SET);
- 	TEST(write(fd, wbuf, size));
+> Presently the node_id is only checked on i386 and it is broken. The
+> sched_getcpu call was substituted for getcpu when
+> available. sched_getcpu does not have the node_id parameter and does
+> not even call SYS_getcpu if it can be completed by vDSO.
+>
+> Also we can at least check the node_id on x86_64 as well.
+>
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> ---
+>  testcases/kernel/syscalls/getcpu/getcpu01.c | 22 +++++++++------------
+>  1 file changed, 9 insertions(+), 13 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/getcpu/getcpu01.c b/testcases/kernel/syscalls/getcpu/getcpu01.c
+> index fcc273e29..21c67f412 100644
+> --- a/testcases/kernel/syscalls/getcpu/getcpu01.c
+> +++ b/testcases/kernel/syscalls/getcpu/getcpu01.c
+> @@ -15,20 +15,16 @@
+>  #include <stdio.h>
+>  #include <stdlib.h>
+>  #include <sys/types.h>
+> +#include "tst_test.h"
+>  #include "lapi/syscalls.h"
+>  #include "lapi/cpuset.h"
+> -#include "tst_test.h"
+>  #include "config.h"
+>  
+>  static inline int get_cpu(unsigned *cpu_id,
+> -			  unsigned *node_id LTP_ATTRIBUTE_UNUSED,
+> -			  void *cache_struct LTP_ATTRIBUTE_UNUSED)
+> +			  unsigned *node_id)
+>  {
+> -#ifndef HAVE_SCHED_GETCPU
+> -	return tst_syscall(__NR_getcpu, cpu_id, node_id, cache_struct);
+> -#else
+> -	*cpu_id = sched_getcpu();
+> -#endif
+> +	return tst_syscall(__NR_getcpu, cpu_id, node_id, NULL);
+> +
+>  	return 0;
+>  }
+>  
+> @@ -78,7 +74,7 @@ realloc:
+>  	return cpu_max;
+>  }
+>  
+> -#ifdef __i386__
+> +#if  defined(__i386__) || defined(__x86_64__)
+>  static unsigned int get_nodeid(unsigned int cpu_id)
+>  {
+>  	DIR *directory_parent, *directory_node;
+> @@ -125,22 +121,22 @@ static void run(void)
+>  {
+>  	unsigned int cpu_id, node_id = 0;
+>  	unsigned int cpu_set;
+> -#ifdef __i386__
+> +#if defined(__i386__) || defined(__x86_64__)
+>  	unsigned int node_set;
+>  #endif
+>  
+>  	cpu_set = set_cpu_affinity();
+> -#ifdef __i386__
+> +#if defined(__i386__) || defined(__x86_64__)
+>  	node_set = get_nodeid(cpu_set);
+>  #endif
+>  
+> -	TEST(get_cpu(&cpu_id, &node_id, NULL));
+> +	TEST(get_cpu(&cpu_id, &node_id));
+>  	if (TST_RET == 0) {
+>  		if (cpu_id != cpu_set)
+>  			tst_res(TFAIL, "getcpu() returned wrong value"
+>  				" expected cpuid:%d, returned value cpuid: %d",
+>  				cpu_set, cpu_id);
+> -#ifdef __i386__
+> +#if defined(__i386__) || defined(__x86_64__)
+>  		else if (node_id != node_set)
+>  			tst_res(TFAIL, "getcpu() returned wrong value"
+>  				" expected  node id:%d returned  node id:%d",
+> -- 
+> 2.38.1
+
+
 -- 
-2.38.1
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
