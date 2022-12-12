@@ -1,76 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A52164A40C
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 16:22:51 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F1A364A425
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 16:30:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CFADA3CBE4E
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 16:22:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7AF0F3CBE1D
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 16:30:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C889A3C2B4D
- for <ltp@lists.linux.it>; Mon, 12 Dec 2022 16:22:49 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 5ABBD3CBE07
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 16:30:23 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 5E867600060
- for <ltp@lists.linux.it>; Mon, 12 Dec 2022 16:22:48 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1DFFA1400142
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 16:30:22 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5872533750;
- Mon, 12 Dec 2022 15:22:48 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 793D333750;
+ Mon, 12 Dec 2022 15:30:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1670858568;
+ t=1670859022;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nmT4VyoEOmRQIrtAWwzqNfO032TwuUEGKyQv/FikBik=;
- b=aKbcv1sL3/xP9BblaD/CrBps3KQhLwc0lMhXstiFFZXA7BywmudXIMoOLjwVZARM+WWCFv
- b80QMKB+oWt+zz5f0pNp6DefkZRJeyd7IXyXX/2cn4ALAQ9QGFcwo0Bu1njIMfh2pGQO3e
- AqjhqhNoF6uPHCZqdhddtUcmOOTx1SY=
+ bh=WjDqbtIacBh3QKb8PSo60sxcEAdfYbi385xqWIqOgAA=;
+ b=LkXqPwEyGjVL96oWJHciS5Pve2QJlKwddBgQw5ee1G8uimx5X5WtoyVTmGUeUMmb41S7Bw
+ nQHTRDesNjEkiYI718WT8Y8BN5EHsSbUK2PmaC8Js8UWmNMfgT8ekq0nHIa4ocSDsLd62f
+ 8JgpGYJyq0IFAhiVtZdvNQI2AXIPPok=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1670858568;
+ s=susede2_ed25519; t=1670859022;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nmT4VyoEOmRQIrtAWwzqNfO032TwuUEGKyQv/FikBik=;
- b=AvwbktssAYz1UdW0z74fGm+6eYGnmCh0OX9apYLDD8Q9euu+/cHjRWObUKPznoyuHSYwfD
- SnuMCbVCC/VXSdDg==
+ bh=WjDqbtIacBh3QKb8PSo60sxcEAdfYbi385xqWIqOgAA=;
+ b=u5GyQcjvBghZOicvuo083ueCGrlWL6F6yNk++XjQSn9rON55W0cK8G9OWeOf/usLprSmCG
+ K/w8sL+QUonBXrBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 094FC13456;
- Mon, 12 Dec 2022 15:22:47 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0A5C013456;
+ Mon, 12 Dec 2022 15:30:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ZTCoOkdHl2PCYQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 12 Dec 2022 15:22:47 +0000
-Date: Mon, 12 Dec 2022 16:22:45 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id A2Q8AQ5Jl2PKZQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 12 Dec 2022 15:30:22 +0000
+Date: Mon, 12 Dec 2022 16:30:20 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <Y5dHRcLD1359Rm3o@pevik>
-References: <20221207092428.11798-1-teo.coupriediaz@arm.com>
- <871qp4u02j.fsf@suse.de>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Message-ID: <Y5dJDFk5DpAhTKDV@pevik>
+References: <1670845229-1981-1-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <871qp4u02j.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <1670845229-1981-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] syscalls/brk: add direct syscall tst_variant
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 1/4] lib/tst_kvercmp: Remove old distnames
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,24 +81,109 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Wanlong Gao <gaowanlong@cn.fujitsu.com>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgUmljaGllLAoKPiBDeXJpbCwgUGV0ciwgV291bGQgeW91IGxpa2UgdG8gYWRkIHlvdXIgcmV2
-aWV3ZWQgYnkgdGFncz8gVGhlbiB3ZSBjYW4KPiBtZXJnZSB0aGlzLgoKQnkgYWNjaWRlbnQgSSBy
-ZXBseSB0byBteSBwb2ludHMgdG8gdjEgWzFdLgpUbyBjb3B5IGl0IGhlcmU6CgoxKSBUaGVyZSBh
-cmUgd2FybmluZ3M6CmJyazAyLmM6IEluIGZ1bmN0aW9uIOKAmGJya192YXJpYW50c+KAmToKYnJr
-MDIuYzoyNjoyODogd2FybmluZzogY2FzdCB0byBwb2ludGVyIGZyb20gaW50ZWdlciBvZiBkaWZm
-ZXJlbnQgc2l6ZQpbLVdpbnQtdG8tcG9pbnRlci1jYXN0XQogICAyNiB8ICAgICAgICAgICAgICAg
-ICBicmtfYWRkciA9ICh2b2lkICopYnJrKGFkZHIpOwogICAgICAgICB8ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIF4KCjIpIG1ha2UgY2hlY2sgcmVwb3J0cyBlcnJvcnMgd2hpY2ggYXJlIGVh
-c2lseSBmaXhlZC4KClRlbyByZXBsaWVkIFsyXSwgdGhhdCBoZSdzIGdvaW5nIHRvIGZpeCBpdC4g
-SSB0aG91Z2h0IEkgaGFkIHNldCBpdAoiQ2hhbmdlcyByZXF1ZXN0ZWQiLCBidXQgbm93IEkgc2Vl
-ICJOZWVkcyBSZXZpZXcgLyBBQ0siLiBTZXR0aW5nIGl0IHRvCiJDaGFuZ2VzIHJlcXVlc3RlZCIu
-CgpLaW5kIHJlZ2FyZHMsClBldHIKClsxXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9sdHAvMjAy
-MjEyMDYxNDA0MjEuR0IyMTgzOUBwZXZpay8KWzJdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2x0
-cC9mZTFjNWJhYy0wZWQxLTkyZWYtM2MyOC1lMzc1OGRjMzQ2NWRAYXJtLmNvbS8KCi0tIApNYWls
-aW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Hi,
+
+> Our travis-ci has dropped or never used them, they are useless.
+> So delete.
+They were here before CI. They were meant for using by tests
+(no CI related at all).
+
+Added by Wanlong Gao ~10 years ago. Agree they can be dropped, but
+Cc Cyril, Li and Jan.
+
+> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+> ---
+>  lib/tst_kvercmp.c                                   | 12 ------------
+>  testcases/kernel/syscalls/inotify/inotify04.c       | 13 +++----------
+>  .../kernel/tracing/dynamic_debug/dynamic_debug01.sh |  3 +--
+>  3 files changed, 4 insertions(+), 24 deletions(-)
+
+> diff --git a/lib/tst_kvercmp.c b/lib/tst_kvercmp.c
+> index dc0daa746..a01b4332b 100644
+> --- a/lib/tst_kvercmp.c
+> +++ b/lib/tst_kvercmp.c
+> @@ -134,18 +134,6 @@ const char *tst_kvcmp_distname(const char *kver)
+>  	char *ret = distname;
+>  	char *p = distname;
+
+> -	if (strstr(kver, ".el5uek"))
+> -		return "OL5UEK";
+> -
+> -	if (strstr(kver, ".el5"))
+> -		return "RHEL5";
+> -
+> -	if (strstr(kver, ".el6uek"))
+> -		return "OL6UEK";
+> -
+> -	if (strstr(kver, ".el6"))
+> -		return "RHEL6";
+> -
+>  	if (strstr(kver, ".el7"))
+>  		return "RHEL7";
+
+> diff --git a/testcases/kernel/syscalls/inotify/inotify04.c b/testcases/kernel/syscalls/inotify/inotify04.c
+> index fb9f5c293..c4fce399c 100644
+> --- a/testcases/kernel/syscalls/inotify/inotify04.c
+> +++ b/testcases/kernel/syscalls/inotify/inotify04.c
+> @@ -50,11 +50,6 @@ char event_buf[EVENT_BUF_LEN];
+
+>  int fd_notify, reap_wd_file, reap_wd_dir, wd_dir, wd_file;
+
+> -static struct tst_kern_exv kvers[] = {
+> -	{ "RHEL5", "2.6.18-132" },
+> -	{ NULL, NULL },
+> -};
+> -
+>  static void cleanup(void)
+>  {
+>  	if (reap_wd_dir && myinotify_rm_watch(fd_notify, wd_dir) == -1)
+> @@ -110,11 +105,9 @@ void verify_inotify(void)
+>  	 * This isn't well documented in inotify(7), but it's intuitive if you
+>  	 * understand how Unix works.
+>  	 */
+> -	if (tst_kvercmp2(2, 6, 25, kvers) >= 0) {
+> -		event_set[test_cnt].mask = IN_ATTRIB;
+> -		strcpy(event_set[test_cnt].name, "");
+> -		test_cnt++;
+> -	}
+> +	event_set[test_cnt].mask = IN_ATTRIB;
+> +	strcpy(event_set[test_cnt].name, "");
+> +	test_cnt++;
+
+Isn't this unrelated change? I guess you remove it as part of cleanup of old
+versions.
+
+>  	event_set[test_cnt].mask = IN_DELETE_SELF;
+>  	strcpy(event_set[test_cnt].name, TEST_FILE);
+> diff --git a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
+> index 4b159517b..ca6c840b1 100755
+> --- a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
+> +++ b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
+> @@ -59,8 +59,7 @@ setup()
+>  		tst_brk TBROK "Unable to find $DEBUGFS_CONTROL"
+>  	fi
+
+> -	# Both patches with changes were backported to RHEL6 kernel 2.6.32-547
+> -	if tst_kvcmp -ge '3.4 RHEL6:2.6.32-547' ; then
+> +	if tst_kvcmp -ge 3.4 ; then
+>  		NEW_INTERFACE=1
+>  		EMPTY_FLAG="=_"
+>  	fi
+
+Maybe first remove it from tests and then from infrastructure?
+But I'm ok to keep it in single patch, but commit message should be
+adjusted to not mention CI (not related to CI at all).
+
+Acked-by: Petr Vorel <pvorel@suse.cz>
+
+Kind regards,
+Petr
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
