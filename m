@@ -2,67 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE8DB64A423
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 16:29:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A52164A40C
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 16:22:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 792813CBE74
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 16:29:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CFADA3CBE4E
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Dec 2022 16:22:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 221803CBE07
- for <ltp@lists.linux.it>; Mon, 12 Dec 2022 16:29:45 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id C889A3C2B4D
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 16:22:49 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 67A2E140035D
- for <ltp@lists.linux.it>; Mon, 12 Dec 2022 16:29:45 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id BD15933750;
- Mon, 12 Dec 2022 15:29:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1670858984;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vFF3HnYf0nKj9VDOP8N8RizbSIPvSqQbVIqOuH1G2Jc=;
- b=VhNXjCHGRL5fveW9HTeh6CU4mQObiNfisF3RM974MctdHpWCoUnaWcJlIqcJx+pe/k8r15
- 1+2nRz5HjVm52mpLE2fC6EeSd2QcpdXgrq/GA4upYpTidzdH9akTItyafIYxFcqCdCaqa8
- 8UFElkJF0RdmoKytrkKplOVMJ+tfogs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1670858984;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vFF3HnYf0nKj9VDOP8N8RizbSIPvSqQbVIqOuH1G2Jc=;
- b=mDfpKIKe7HU8a21WcLZe1J8RsQgdSRSBvxgIQfm/lbdO1d0HRzxIro3Cdo3Oa+r1Mn2sLg
- /t0PY6YZMCB4wYBA==
-Received: from g78 (unknown [10.163.28.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 5E867600060
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 16:22:48 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 93B692C141;
- Mon, 12 Dec 2022 15:29:44 +0000 (UTC)
-References: <1670409376-1951-1-git-send-email-xuyang2018.jy@fujitsu.com>
-User-agent: mu4e 1.8.11; emacs 28.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Date: Mon, 12 Dec 2022 15:20:57 +0000
-Organization: Linux Private Site
-In-reply-to: <1670409376-1951-1-git-send-email-xuyang2018.jy@fujitsu.com>
-Message-ID: <87wn6wskrb.fsf@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5872533750;
+ Mon, 12 Dec 2022 15:22:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1670858568;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=nmT4VyoEOmRQIrtAWwzqNfO032TwuUEGKyQv/FikBik=;
+ b=aKbcv1sL3/xP9BblaD/CrBps3KQhLwc0lMhXstiFFZXA7BywmudXIMoOLjwVZARM+WWCFv
+ b80QMKB+oWt+zz5f0pNp6DefkZRJeyd7IXyXX/2cn4ALAQ9QGFcwo0Bu1njIMfh2pGQO3e
+ AqjhqhNoF6uPHCZqdhddtUcmOOTx1SY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1670858568;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=nmT4VyoEOmRQIrtAWwzqNfO032TwuUEGKyQv/FikBik=;
+ b=AvwbktssAYz1UdW0z74fGm+6eYGnmCh0OX9apYLDD8Q9euu+/cHjRWObUKPznoyuHSYwfD
+ SnuMCbVCC/VXSdDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 094FC13456;
+ Mon, 12 Dec 2022 15:22:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ZTCoOkdHl2PCYQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 12 Dec 2022 15:22:47 +0000
+Date: Mon, 12 Dec 2022 16:22:45 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <Y5dHRcLD1359Rm3o@pevik>
+References: <20221207092428.11798-1-teo.coupriediaz@arm.com>
+ <871qp4u02j.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <871qp4u02j.fsf@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/statx01: Add exit condition when parsing
- /proc/self/mountinfo
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/brk: add direct syscall tst_variant
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,60 +82,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-
-Yang Xu <xuyang2018.jy@fujitsu.com> writes:
-
-> When using user filesystem such as overlayfs, the current parsing way can't
-> work well.
->
-> 63 66 8:3 / /sysroot rw,relatime - ext4 /dev/sda3 rw,seclabel
-> 43 66 8:3 /ostree/deploy/rhivos/var /var rw,relatime shared:3 - ext4 /dev/sda3 rw,seclabel
->
-> So add the exit condition for statx.mnt_id check so it can skip the
-> underflying filesystem and parse the correct user fileystem's mnt_id.
->
-> Fixes: #1001
-> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
-> ---
->  testcases/kernel/syscalls/statx/statx01.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/testcases/kernel/syscalls/statx/statx01.c b/testcases/kernel/syscalls/statx/statx01.c
-> index 60b50958b..931aa60c1 100644
-> --- a/testcases/kernel/syscalls/statx/statx01.c
-> +++ b/testcases/kernel/syscalls/statx/statx01.c
-> @@ -68,7 +68,8 @@ static void test_mnt_id(struct statx *buf)
->  		if (sscanf(line, "%"SCNu64" %*d %d:%d", &mnt_id, &line_mjr, &line_mnr) != 3)
->  			continue;
->  
-> -		if (line_mjr == buf->stx_dev_major && line_mnr == buf->stx_dev_minor)
-> +		if (line_mjr == buf->stx_dev_major && line_mnr == buf->stx_dev_minor &&
-> +				mnt_id == buf->stx_mnt_id)
-
-The fail message after this point doesn't make sense with this change.
-
-	if (buf->stx_mnt_id == mnt_id)
-		tst_res(TPASS,
-			"statx.stx_mnt_id equals to mount_id(%"PRIu64") in /proc/self/mountinfo",
-			mnt_id);
-	else
-		tst_res(TFAIL,
-			"statx.stx_mnt_id(%"PRIu64") is different from mount_id(%"PRIu64") in /proc/self/mountinfo",
-			(uint64_t)buf->stx_mnt_id, mnt_id);
-
-It'll print whatever the last mnt_id is which is probably unrelated.
-
--- 
-Thank you,
-Richard.
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgUmljaGllLAoKPiBDeXJpbCwgUGV0ciwgV291bGQgeW91IGxpa2UgdG8gYWRkIHlvdXIgcmV2
+aWV3ZWQgYnkgdGFncz8gVGhlbiB3ZSBjYW4KPiBtZXJnZSB0aGlzLgoKQnkgYWNjaWRlbnQgSSBy
+ZXBseSB0byBteSBwb2ludHMgdG8gdjEgWzFdLgpUbyBjb3B5IGl0IGhlcmU6CgoxKSBUaGVyZSBh
+cmUgd2FybmluZ3M6CmJyazAyLmM6IEluIGZ1bmN0aW9uIOKAmGJya192YXJpYW50c+KAmToKYnJr
+MDIuYzoyNjoyODogd2FybmluZzogY2FzdCB0byBwb2ludGVyIGZyb20gaW50ZWdlciBvZiBkaWZm
+ZXJlbnQgc2l6ZQpbLVdpbnQtdG8tcG9pbnRlci1jYXN0XQogICAyNiB8ICAgICAgICAgICAgICAg
+ICBicmtfYWRkciA9ICh2b2lkICopYnJrKGFkZHIpOwogICAgICAgICB8ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIF4KCjIpIG1ha2UgY2hlY2sgcmVwb3J0cyBlcnJvcnMgd2hpY2ggYXJlIGVh
+c2lseSBmaXhlZC4KClRlbyByZXBsaWVkIFsyXSwgdGhhdCBoZSdzIGdvaW5nIHRvIGZpeCBpdC4g
+SSB0aG91Z2h0IEkgaGFkIHNldCBpdAoiQ2hhbmdlcyByZXF1ZXN0ZWQiLCBidXQgbm93IEkgc2Vl
+ICJOZWVkcyBSZXZpZXcgLyBBQ0siLiBTZXR0aW5nIGl0IHRvCiJDaGFuZ2VzIHJlcXVlc3RlZCIu
+CgpLaW5kIHJlZ2FyZHMsClBldHIKClsxXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9sdHAvMjAy
+MjEyMDYxNDA0MjEuR0IyMTgzOUBwZXZpay8KWzJdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2x0
+cC9mZTFjNWJhYy0wZWQxLTkyZWYtM2MyOC1lMzc1OGRjMzQ2NWRAYXJtLmNvbS8KCi0tIApNYWls
+aW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
