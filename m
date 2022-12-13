@@ -2,85 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6257E64B199
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Dec 2022 09:56:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAA8F64B325
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Dec 2022 11:22:53 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 33D273CBD95
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Dec 2022 09:56:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5B6083CBDBC
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Dec 2022 11:22:53 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 01A973CBD7E
- for <ltp@lists.linux.it>; Tue, 13 Dec 2022 09:56:10 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by picard.linux.it (Postfix) with ESMTPS id C8ED53CB892
+ for <ltp@lists.linux.it>; Tue, 13 Dec 2022 01:35:56 +0100 (CET)
+Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
+ [IPv6:2607:f8b0:4864:20::b4a])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1587B60015F
- for <ltp@lists.linux.it>; Tue, 13 Dec 2022 09:56:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1670921768;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WDxdthp+JM6mL+nnA79ZYWqQJe7Siug7L2SXnZpO+zk=;
- b=cc4wZCYG6f2IBF7ZeiIrYk7CtF0OFsUd/te6LVtXURCbDFUFGK+Rh83FuHUT+als7sFlKY
- DcSmbTIvhzjEih+KyjjDOjLn46Ap8ct+WisdkGhmCoyMDBIfq7oxMxdHoOMQ+3RUATN9nL
- yv7nj0KnkAb0FTtwYoFKOsoaLXB1muU=
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
- [209.85.222.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-609-lfgumLpLPqqwmEor2GoueQ-1; Tue, 13 Dec 2022 03:56:07 -0500
-X-MC-Unique: lfgumLpLPqqwmEor2GoueQ-1
-Received: by mail-ua1-f71.google.com with SMTP id
- h41-20020ab0136c000000b00419beaab4a3so6430155uae.5
- for <ltp@lists.linux.it>; Tue, 13 Dec 2022 00:56:07 -0800 (PST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 397C010005C3
+ for <ltp@lists.linux.it>; Tue, 13 Dec 2022 01:35:56 +0100 (CET)
+Received: by mail-yb1-xb4a.google.com with SMTP id
+ a5-20020a25af05000000b006e450a5e507so15076711ybh.22
+ for <ltp@lists.linux.it>; Mon, 12 Dec 2022 16:35:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=OZB3tG/HSV0aWHs2qFB93elsIC+SFLLq0VzJyihrXD0=;
+ b=cJerF6xtVm6l1Gst2njJXR73xWXI1YlWj8EqTM2IiUuBtg0DHP/HBCIlIAv1nRrfBe
+ 2JPiX/lraBf1f7A2idtjZLIBi/N9PFKLgeHLM/eiCcuso5GP9z8C6jTUsvcfUR83Voem
+ xXA/eZWnjIgma8FZSlXndmuadx2bsOj+eDZZ/I9HEQNo9FSJ65ZYGMV4NJ+ivmv0oUc5
+ oSZc1/lMQnKpqIGw8SJ3bID6/Z1RBweAC2ZcgZrlMmbpsDw1afqQulwWIjO6fvUdlVxV
+ +rZ4HowNTi1/uA0tpwiou6H+2AzVOJzRsHImZfYEMEJkDIrh4IalKvfhZ6hk+bvc63tv
+ YGEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=WDxdthp+JM6mL+nnA79ZYWqQJe7Siug7L2SXnZpO+zk=;
- b=clNHQjEUPU0vpYfs2J2bNc/RvkSKM8ALhD17AoIe7+L6jpDkOUC2hWeD6xQHdmZm2H
- LzBe/nEMj9giKo13dYGreJfoIq17jC077ehsnDum4gCy7yHpcHVD6SR+aAL5q+4JiZtf
- vSRDTX0bxlm9+ejkAvJ8sbFmmEF4kUKc8k+sYbliFQ95IbjNROYH9h039Y4BBMuSCG0X
- AacPbYA/Lvi3V+g8slQ9eShK1f86AHvkam7PDWpnmlDDQKLWXw+zjWJfs/hwGv/eQ7E5
- b7Nz9S2reV8YnkKUIieTFZnzjhBLk71lQEi/j3kCMyZ1v+W2DofpiwFU+LQBQjL6NJvo
- Te8A==
-X-Gm-Message-State: ANoB5plCujBx1krjFR9ACDztjRc3GVI+rmCumnr85/lmUfnJURwOIEVv
- dbBUYlb7XXiN1KzPSsxd5MOa+Z5pFKRllH1NUvbsDBS47zESstaVSO8n/t/UfcDmj8Vp2E2anpO
- oUBZI1+ylSTeZ6/ayidwZ/A578YA=
-X-Received: by 2002:a1f:f2c9:0:b0:3bd:81b2:a561 with SMTP id
- q192-20020a1ff2c9000000b003bd81b2a561mr13017437vkh.8.1670921766847; 
- Tue, 13 Dec 2022 00:56:06 -0800 (PST)
-X-Google-Smtp-Source: AA0mqf5QWeQuIlKhtnVw/lcu18EWRpUP4BtAJzCDXMu7siYyX+XbhO1eH/SZWieSnAgxXlD10yZeknTxbd2CcIuss2k=
-X-Received: by 2002:a1f:f2c9:0:b0:3bd:81b2:a561 with SMTP id
- q192-20020a1ff2c9000000b003bd81b2a561mr13017430vkh.8.1670921766501; Tue, 13
- Dec 2022 00:56:06 -0800 (PST)
-MIME-Version: 1.0
-References: <1670845229-1981-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <Y5dJDFk5DpAhTKDV@pevik>
- <CAASaF6wrx+0bkVa2_sSViOYHE25O08GbW_Jy2MQBfWKuJWtZkw@mail.gmail.com>
- <b4b93a47-d106-3a65-939d-230fee359f13@fujitsu.com>
-In-Reply-To: <b4b93a47-d106-3a65-939d-230fee359f13@fujitsu.com>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Tue, 13 Dec 2022 09:55:49 +0100
-Message-ID: <CAASaF6wpj3YcJ1gX4g6n7koXL0WnX=9td5RqSjNumrCB+ncmhw@mail.gmail.com>
-To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+ h=to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=OZB3tG/HSV0aWHs2qFB93elsIC+SFLLq0VzJyihrXD0=;
+ b=KX3N6QeOlw55UnDHMWWRU3mk9rLmVd5IjXwKZ07s6ylZgHEJW6g/19hiUF3c8UQuev
+ CvNMpCQBihRpNbFRktWaZYLg8+mbNgDEzwDpAE96PyEok0/V88bK+/eZo0febE9xiLbM
+ PPsPqgln+mGv9gi/kGh+A6ACzjiomfsI1Cv47ZmFLOmAdEvZPx6ctTEoAGUcgB4pP+2S
+ VvUX94yvkyZX+79PaqKSwxbn4D09kY/6SJWMnMR8OArvYavzZs4zC3Jq/rYKsuUCabhL
+ FJ30h5nz5ZZTWPYQMGDsHiSGu18+xjrCwyYGjZJwHEPmgkQjepQ7PBOgzGq/hdc/UrRs
+ w2Hg==
+X-Gm-Message-State: ANoB5pmPEY2b5FevcLZY+i2HZDFYvjNn/Xe53kjbVH7kOjWwbqWfKtU+
+ Dhz1v6v7vGXiKmAlr9YbiT/kp6RqWJNPuWW6f8NfVKSJOfYnIm3UnY997mnYL4q8vu8MiCScoKg
+ iC9bkrze70phUIJkM9ENoSXtfLFhpdfrdR/RbcavIGYzUxgS7J3wVhywP1/da7rkm
+X-Google-Smtp-Source: AA0mqf72jTAGqKbEW5ZA1XhgdtlOfymUpUS8yVhE1pF8sGos7+ibJOAJ9detvSI818v/oYTegRW2zO2SS93Hb48=
+X-Received: from zijunzhao123.c.googlers.com
+ ([fda3:e722:ac3:cc00:2b:7d90:c0a8:b5e])
+ (user=zijunzhao job=sendgmr) by 2002:a25:7782:0:b0:705:fcdb:b10d with SMTP id
+ s124-20020a257782000000b00705fcdbb10dmr10910578ybc.465.1670891754802; Mon, 12
+ Dec 2022 16:35:54 -0800 (PST)
+Date: Tue, 13 Dec 2022 00:35:53 +0000
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.39.0.rc1.256.g54fd8350bd-goog
+Message-ID: <20221213003553.3693243-1-zijunzhao@google.com>
+To: ltp@lists.linux.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 1/4] lib/tst_kvercmp: Remove old distnames
+X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Mailman-Approved-At: Tue, 13 Dec 2022 11:22:49 +0100
+Subject: [LTP] [PATCH] signalfd01.c: put the right round bracket to the
+ right place in tst_resm
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,56 +80,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Wanlong Gao <gaowanlong@cn.fujitsu.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+From: zijunzhao via ltp <ltp@lists.linux.it>
+Reply-To: zijunzhao <zijunzhao@google.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Dec 13, 2022 at 3:31 AM xuyang2018.jy@fujitsu.com
-<xuyang2018.jy@fujitsu.com> wrote:
->
-> Hi Jan, Petr
->
-> > On Mon, Dec 12, 2022 at 4:30 PM Petr Vorel <pvorel@suse.cz> wrote:
-> >>
-> >> Hi,
-> >>
-> >>> Our travis-ci has dropped or never used them, they are useless.
-> >>> So delete.
-> >> They were here before CI. They were meant for using by tests
-> >> (no CI related at all).
-> >
-> > Right, it's not just CI. RHEL5 is EOL, presumably Oracle as well, so
-> > those likely won't be missed.
-> > RHEL6 has 2 more years - Isn't this removal going to break tst_kvercmp2()?
->
-> I have removed tst_kvercmp2 usage for RHEL6 in
-> testcases/kernel/syscalls/inotify/inotify04.c and
-> ../kernel/tracing/dynamic_debug/dynamic_debug01.sh, so it should not
-> break tst_kvercmp2.
+---
+ testcases/kernel/syscalls/signalfd/signalfd01.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-OK, you convinced me it's OK to drop it.
-
->
-> Also, the current lastest ltp can't ensure that can be compile
-> successfully on rhel6 because of lack of ci, so I think we don't need to
-> still maintain the old version check.  If people want to use old kernel
-> ie RHEL6, why not use the old ltp release?
-
-They can, but they also likely want fixes to tests. I know there have been
-some workarounds, such as using pre-configured LTP to workaround
-autotools issue.
-
->
-> ps: @Jan, if you want to keep RHEL6, I will keep it. But two more years,
-> we still need to drop it.
-
-You showed this isn't significant change for those few users that still might
-exist (and EOL is coming), so:
-
-Acked-by: Jan Stancek <jstancek@redhat.com>
+diff --git a/testcases/kernel/syscalls/signalfd/signalfd01.c b/testcases/kernel/syscalls/signalfd/signalfd01.c
+index 3df941785..c6a7c3a58 100644
+--- a/testcases/kernel/syscalls/signalfd/signalfd01.c
++++ b/testcases/kernel/syscalls/signalfd/signalfd01.c
+@@ -249,8 +249,7 @@ void do_test2(int fd, uint32_t sig)
+ 		goto out;
+ 	} else {
+ 		tst_resm(TFAIL, "got unexpected signal: signal=%d : %s",
+-			 fdsi.ssi_signo),
+-			 strsignal(fdsi.ssi_signo);
++			 fdsi.ssi_signo, strsignal(fdsi.ssi_signo));
+ 		goto out;
+ 	}
+ 
+-- 
+2.39.0.rc1.256.g54fd8350bd-goog
 
 
 -- 
