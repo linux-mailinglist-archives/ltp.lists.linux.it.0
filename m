@@ -1,146 +1,92 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E687164ADA5
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Dec 2022 03:34:55 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC42664AD7A
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Dec 2022 03:13:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 815F93CBE7A
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Dec 2022 03:34:55 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 384833CBEDE
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Dec 2022 03:13:28 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4AD243C32DD
- for <ltp@lists.linux.it>; Tue, 13 Dec 2022 03:34:51 +0100 (CET)
-Received: from esa16.fujitsucc.c3s2.iphmx.com (esa16.fujitsucc.c3s2.iphmx.com
- [216.71.158.33])
+ by picard.linux.it (Postfix) with ESMTPS id 0B8693C32DD
+ for <ltp@lists.linux.it>; Tue, 13 Dec 2022 03:13:18 +0100 (CET)
+Received: from mail1.bemta37.messagelabs.com (mail1.bemta37.messagelabs.com
+ [85.158.142.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 89BF6600697
- for <ltp@lists.linux.it>; Tue, 13 Dec 2022 03:34:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
- t=1670898891; x=1702434891;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=N6tRVZ+HDaJB72YJPSn8tPet37LSf55dJ1l4wtYJ95U=;
- b=HR4B4q22vvb9MZnhDjFk9aqpF7Moirg5zhk/FvcF1HuTnqJ8IUQQ90dQ
- O36hUi5Rh5VbP+Rf+C7U/a7MM0Bc5MIb55HoPA0yUptHY78LtTgjAFvL+
- AmGzsCz3BZUdudCjdnEqtDlWlSL3a655HtwqCyqpcZgHVB//Kk2KWtjwX
- +HAdTXE5HEsI+mOLl/Hcqkz1vJ8xwE8qy0i8UDfu/K0ReYyaQ6wsEyYN5
- otthkxrg2FrqFnhV39aJvTU4CoQ6IfgPHom9xG9GC+X3s1JNKmPRl5QuF
- vsKSyF65a4fm9Gl9zBWgYVd9hVsXuKZ1KjMXdUVzCXOBiCNfhGKs5GRzA A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="72179239"
-X-IronPort-AV: E=Sophos;i="5.96,240,1665414000"; d="scan'208";a="72179239"
-Received: from mail-os0jpn01lp2104.outbound.protection.outlook.com (HELO
- JPN01-OS0-obe.outbound.protection.outlook.com) ([104.47.23.104])
- by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Dec 2022 11:34:48 +0900
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=duMD79MP7vwc+2/VrfwC3fD0q3OUxwXI1ZztTk14A1IShalVQAfkfp7faxnpgqjgwwU4zWxsQd92bAyMZJATVuacmAWmVFMdqTDhs2vFb1SjX2yVtOVcyiywknPCBM6GnK33FeWGbUv+QTe9A0GDAQ3AjSzmqkCHeukAlusZauI3abxmkjm4p722mwIDzpN3CRPkZb5KJvLxuH6CicNulRfxj5xuQedRZWqQyUH2gc4OCuedW2amJDznTI+aLGMAizVxM4NUYtJIv+kDrRbSrD+ALQz2R34ckP1e1XQADlZ3tcTcA+riApURqu3pMcvQwYkYn1auBZXEj8vX7IXHJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N6tRVZ+HDaJB72YJPSn8tPet37LSf55dJ1l4wtYJ95U=;
- b=N9NLy9MCez2F0vhurUBBCncCvQ5gHLN1wES81Sn0NbgXjV/Mg4U7AX2Kqzfu69oRLhF8Bl59BtTUJlSGdcf2i9ZmebyMZkBxwoG19sza8D+weLn1CwhvQL5JbWRtAzMGjkT2fYXHUMNqYvx5bINjtN+3B0DoYpnEyvV0IgNEqL1JHdO+o3djmwApXFq0tpdpJcTFCYl8hgbkGWooTVKHY0qSbf/xnUixfV5eNpimfzblZFiyBqUIBLpoOA4hT6NTdOcpwZXJffpsliOIvBa2FDeeRaEcqLjIEPDbXxqU/lfnar8NXDo6T5atsLSnIfDA9iFDIS2vo7ta75fp+7QVhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
-Received: from TYWPR01MB8313.jpnprd01.prod.outlook.com (2603:1096:400:166::9)
- by OSZPR01MB8846.jpnprd01.prod.outlook.com (2603:1096:604:158::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Tue, 13 Dec
- 2022 02:34:44 +0000
-Received: from TYWPR01MB8313.jpnprd01.prod.outlook.com
- ([fe80::46b4:9cb3:b477:46e0]) by TYWPR01MB8313.jpnprd01.prod.outlook.com
- ([fe80::46b4:9cb3:b477:46e0%7]) with mapi id 15.20.5880.019; Tue, 13 Dec 2022
- 02:34:44 +0000
-From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-To: Petr Vorel <pvorel@suse.cz>
-Thread-Topic: [LTP] [PATCH v1 1/4] lib/tst_kvercmp: Remove old distnames
-Thread-Index: AQHZDhYNQlQrgTPXd0SqHAD1TBgbAK5qYR0AgADKvQA=
-Date: Tue, 13 Dec 2022 02:34:44 +0000
-Message-ID: <d12448ef-92b8-c7a5-1012-8bc31fb6e2f8@fujitsu.com>
-References: <1670845229-1981-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <Y5dJDFk5DpAhTKDV@pevik>
-In-Reply-To: <Y5dJDFk5DpAhTKDV@pevik>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=fujitsu.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYWPR01MB8313:EE_|OSZPR01MB8846:EE_
-x-ms-office365-filtering-correlation-id: d5b2efb2-1996-4291-9b2a-08dadcb2984e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 4yu3EBHJJSlVj+Clp6lR7RBu4TQAZBR43PRnt4eu36JQCV14DTcnSwexP8nQogSg+PrjpAvPSZvsGomOGt5gyAbZ2ZzW8hwEtdRfCwuvyn4qypgIjxIcfeRp5XQSQb2DBQer04NlqwpPgV9ydbDt9ylcgEokDBPkZCCVB2DMDFDmGECZ3Oym/8VhjhnwgK5raTc2fRqq9e1UAEkBb6KsM9g1B/leEJo8SJ03NzWU4DUQ3vuGyJ/iz0cMXDA+Vmdby1BDwTwYwZ9o+3FDbdV2EMHai8EpwBh4bIHg/lkh7tnAVp2pllKsl7TpPrXAkLfOhMfdOUIFxPZuwWpSxq5RRoqjfGF8zSwFzQM/CIgSfTqQRuoOK50ADqOlIknUFILgfZmpj4+3+AwN9PoPIw1hNJ570nxZwS/zuLAbv6EIhoOEzoIQal1m1kz4Qf10aP97Bw8i30IIkMZwmaiRaggEp8UIYgj8FYXwZGZfPQnNhu+ZsZ1kr/gqR0mzVcaDcrsKP70Ysg9PyufHhucknOXeoMfAldQtvnnOsPDJy9gSqQ2nu4v92NP5OjPHu7y/hqjCkWWwo11E43Gcl/n50+VCeKctH89YQPJB3Ltmh2kSfhq7dPrZifTF4/+/ui8IgdiG9HxbTERxqnIo7O8p071kYbOyCUUQLKsvySUpEcbHfjItPx+Ktf7jhUPj3lqNjjIE+IhBiUJqf+4Z+HNBWFUCWcZAG5tUjOfjlLrs+VvLmk4iXu7PSwolqAdaUQC2xXFNwdCxEwoKZ3lMHHjFsbfOcA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYWPR01MB8313.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(346002)(366004)(39860400002)(376002)(136003)(1590799012)(451199015)(26005)(6512007)(6506007)(2616005)(186003)(2906002)(478600001)(71200400001)(36756003)(85182001)(107886003)(82960400001)(38070700005)(38100700002)(86362001)(31696002)(122000001)(83380400001)(41300700001)(1580799009)(316002)(91956017)(6916009)(8676002)(4326008)(66476007)(6486002)(66446008)(64756008)(66946007)(66556008)(76116006)(5660300002)(54906003)(8936002)(31686004)(45980500001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YURmeFhOMmVBL0RwSkpscmpONm5xbkQwelJTNktxZ0ozQ2VrMXpNSVQzRmlv?=
- =?utf-8?B?dU9yQlBqZVFvNXIvQjlrVGRycEp4cHc1K0plLzlSL2VBK0Y3SkVrampPOUtn?=
- =?utf-8?B?dFBad1g5SnYyYlRvU2Q0L3Z1WXZPbk9JNE1MK09UMzkxUUtZZ0IwQmpnVmE4?=
- =?utf-8?B?ZWkyRGF2ZDFXZnFTeVJaSWpQTjlxcG1ONW5RdzlBeDI2U0ZVZHRxZFg0M0JM?=
- =?utf-8?B?SmNxZWYvZkNiaXE5RVpCc2xzN2pmazRPMWVFZVZWbmJ2bFg5R0tOOTB6NWV4?=
- =?utf-8?B?bld2Wkw5MkNtNmwyZDJrWlJMeGloOTBycUhjVGprNXFkMThvdEEwTDQvV0ts?=
- =?utf-8?B?b2U4a0F6VlN6Um5hQjdRUkw1OWRVZTJJWnVYaThtZUc2ZTZwMkVWTWNBN2ZP?=
- =?utf-8?B?WUd3aC9jQ0NaenlrdXc5ZERrSW1naVJMOU9aSTlNVFdmM1VCMnpNbk4ySzJl?=
- =?utf-8?B?MWtWa1JJM3J5Y3dJRC9sQmlFNU1VM0dNelNTOFJPM2MwZm54OG4yaVNsNTlS?=
- =?utf-8?B?S1RCUWpLb0htbkNsMTkzSWJydk9KbWx3MjFQQm1rbEpOMHJ6L2JRZmRxMTFl?=
- =?utf-8?B?UGN6ODJ2QmYvV1FXcVF5V3dXa2lnbnVZN1o4cHM5S3Y3djRIR0tNMjJqVDRD?=
- =?utf-8?B?dlJndHpiaDh0eWNLZTFxeStqM2s5R2tKdU90R2lDZmlpc2hvck8ySUpOWnY0?=
- =?utf-8?B?RkhsRnplMDd2bmJMeXBJYUZHd3A3cWlwWnNhWnNRNXRZM0gwZi9uN2lheGF2?=
- =?utf-8?B?Vi9mY24rUTdYRlB5bW5PbnlOQTFxUWREcFFmVmFJRjhLelB1czVZK2FvbzN6?=
- =?utf-8?B?REVkVlB4M2VtSHZWZ0k4VTZvZ21VNHZXUGp3ci9WanVrQnp6bG5nbHlJb2hY?=
- =?utf-8?B?aGl2bG8wd2F3a1hDTk1ER25oV0tZcjVIYW1oMlpyRTkwRStWcXA2ZXFlQ0Vl?=
- =?utf-8?B?OWJ4OWVtT3pmMjdneGh2TFFsODJRR3VqeHVINXlDTmJDK2JMQlY4S1hVU1pi?=
- =?utf-8?B?OVh3RjZ2aUxPanJCazNLSnZaQ1hiQWkzYUM5MUl2VHV0MHpERGJVUHQycitl?=
- =?utf-8?B?VG1CVGl1WExhNHNqdTlvVmpORXk2U3YwckNGVlJWaUV2aCtVVWpTbW50N2xP?=
- =?utf-8?B?YlRXU2pScVJvV3dSK00xVDk1WkczNE40WGZBRVN5aU5OanEzQ1ovcSsxRnNz?=
- =?utf-8?B?Y2JXd3Y3d2RCVDhQNWthY3pGVjUwNzY2RUlQZXczcitnaTZObUFjK3NoRnRK?=
- =?utf-8?B?cTNEa1FhTTU0cHJWVHhJY1R0b1FuQ1VwM05paWlCWDhZR1lLYTZWOVhaSHhT?=
- =?utf-8?B?MnRsYm9GMGt5Y2J4WkhEWTFVUVJ6c20xREg0bGVYMzVURnNnZ3AvWW42emV5?=
- =?utf-8?B?eThLaHdYMjNDdENzR3FhMmVxbEtydUZlRXJWWHRSMFNNSjI2MDF5V2p1cUxk?=
- =?utf-8?B?SnZzM3pTVEZxaTk3TEllay9aWGtMSEp1bmY5ajllVFROQ3lIMTBsTUc0ZUZj?=
- =?utf-8?B?bExNSy9lM29Sc0ZsL081NlJxTS9sZEhXZTFmbUd1NllXNnJvRGpZd3AzL3Iz?=
- =?utf-8?B?dE93bGs0SVIrdU9vS1kyYURacENoMzY2WkJKdFU5ZTFWUDYyVGpJeUNtOUN3?=
- =?utf-8?B?dkJNUW1USWp1QVRrSFBTbkFWWjBDZ3hhU3VxL3V3Z0lMUlNqMzBHdDFwcXlL?=
- =?utf-8?B?WExYa1NTRjdESlE2V2dMeTEyMFdpQW5uQmNDRGlaenBpV1U4bkc1UVhGZ3Fu?=
- =?utf-8?B?N3JzV2FyY2hIZEc5SGtYc0Z2Rk9wUTdNVUJhZkJjMW5CTXh2bDVGSGtSVmsx?=
- =?utf-8?B?UG15QjdKekxlekxKTm9wczRSYXZseUkwbGtvVmNjbGxqbDdNNFNQTXNNWnJY?=
- =?utf-8?B?bmRra3E4bWFTYVBPSFJ1MDk5dHBHVG9xR3JhaVZOT0ZuR04zNFo3NjVCb1c0?=
- =?utf-8?B?Sy9uYWdFYmNXdUZDTktpc0VvSHZtdkgvZDJNYUxmOGh0QnFXb1h1ZHNSbVQ2?=
- =?utf-8?B?SUF5eWpmVmlGOFE3VGE5Y1RROUVnbHlOVXdIUEJFK0F5RENQR1pPRGxGaDFU?=
- =?utf-8?B?TFl2Vys4LzhiNzNuWlRlQ3BpTDUxR3JCTzh4Y0tXTFN6ZTNRZWpMb1YzeUor?=
- =?utf-8?B?czVnaG9pd1MySlJVTEdXc2tWdnQ4TjB3SlZFbUpOcStXREJkOG5pQUR4NGdS?=
- =?utf-8?B?alE9PQ==?=
-Content-ID: <6EBD7A72C8D8D54197740BF9F0736D11@jpnprd01.prod.outlook.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3BE7C10006CA
+ for <ltp@lists.linux.it>; Tue, 13 Dec 2022 03:13:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1670897596; i=@fujitsu.com;
+ bh=Bi0cockvg0/XU7xZrEuGuvfes7yJVpFJ9AmkdAMU4E8=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=p8UJ0u4hfjTsX+WQqkb2bJcuXw7XOT+q6NMeZEa8WUtCBgme9zZ/jM2/VSQKKbmUX
+ MwoUa4dVHDNOF5AcJG/qMw2YOeMYWc72oYbazOPQ0cCdJzM5kYIPAQ2WFkGMQTN05+
+ CXXB3StV2yTW3zZWk+/7GeZhUjw50sAqEzP0qkFM9xqoDAigyCYZGO2klXl9OaMn6/
+ YKtLI/UlvkhJRa8rvgEAlu1+1U8FT4E6Gbb8JvPN2bqqs9HV7AlLkA85SVV2TJZ8Au
+ 8GohNUCWjaazGIK+S21NwoTJD8o3kPI7cr1H/L8RVBa8SmffwU4EifGzvtNTZ77ACQ
+ fFC+mz+/TtFtg==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrLIsWRWlGSWpSXmKPExsViZ8MxSXf3/en
+ JBn/2SVqs+L6D0YHRY9/vdawBjFGsmXlJ+RUJrBn/1p1jLzjKU3Hw1XLGBsb7XF2MnBxCAmcZ
+ Jdbf4+ti5AKyDzBJHFlwjQkisYdR4ldjCYjNJqAp8axzATOILSIgIdHR8JYdxGYWUJdYPukXW
+ L2wQJTE7P4PrCA2i4CqxO7F29hAbF4BD4kH8w+B1UsIKEhMefieGSIuKHFy5hMWiDkSEgdfvG
+ CGqFGUuNTxjRHCrpCYNauNCcJWk7h6bhPzBEb+WUjaZyFpX8DItIrRrDi1qCy1SNdQL6koMz2
+ jJDcxM0cvsUo3US+1VDcvv6gkAyiVWF6sl1pcrFdcmZuck6KXl1qyiREYiinFyew7GN8s+aN3
+ iFGSg0lJlLc4d3qyEF9SfkplRmJxRnxRaU5q8SFGGQ4OJQne73eAcoJFqempFWmZOcC4gElLc
+ PAoifAuvAGU5i0uSMwtzkyHSJ1iVJQS5226B5QQAElklObBtcFi8RKjrJQwLyMDA4MQT0FqUW
+ 5mCar8K0ZxDkYlYd6LIFN4MvNK4Ka/AlrMBLQ46uVUkMUliQgpqQamyU/yl8cs2Loy2uqW1nk
+ Jvg0/Z646dIf9R+fcl75XHySFJtpsNUlsTck/ZtAXsFncbaHfy6oX/7p+V768qPS6Pr9XP5Ot
+ xSTJ7HBy21Gdv1qc3T7PLavkog7wdAv7xy+w8LihHqDQVrf4/LcLjwXeXL86U6Qi9MPTted+N
+ IVk7zv88Bur9NPZ2TteWSx7mf7a9dH39bmL/z14dyD1SMbeOL/EokNyJg+eOJ8suRMU8knEYa
+ uSbZCU4bzalMcrnRsvrdicvmjT/r9vWYLP7p3EX8S+LrDU6o1j/8Q7oZMn6nhWClz5l/lMgHf
+ DRanTb/7ckAxqLdFS9LrQf9Q7Y2c12664bB6PXu26VutNAgYuSizFGYmGWsxFxYkAtXj4QEAD
+ AAA=
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-3.tower-745.messagelabs.com!1670897595!217427!1
+X-Originating-IP: [62.60.8.146]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.101.2; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 10373 invoked from network); 13 Dec 2022 02:13:15 -0000
+Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
+ by server-3.tower-745.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 13 Dec 2022 02:13:15 -0000
+Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id D91CC1000E7
+ for <ltp@lists.linux.it>; Tue, 13 Dec 2022 02:13:14 +0000 (GMT)
+Received: from R01UKEXCASM126.r01.fujitsu.local (R01UKEXCASM126
+ [10.183.43.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id CCF0D1000D2
+ for <ltp@lists.linux.it>; Tue, 13 Dec 2022 02:13:14 +0000 (GMT)
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.42; Tue, 13 Dec 2022 02:13:12 +0000
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Tue, 13 Dec 2022 11:14:18 +0800
+Message-ID: <1670901258-1995-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-X-OriginatorOrg: fujitsu.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYWPR01MB8313.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5b2efb2-1996-4291-9b2a-08dadcb2984e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2022 02:34:44.3768 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4dwtUZd8UZYs+O5nTUDRb1yDXQQhOWkrvee51ODJDttBPdpjBBqdZ2nnmJswHX4xhZWeW78S1HG+AWhHW+jrrbuNE5kfRoUmFkJZG7mZYyg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB8846
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 1/4] lib/tst_kvercmp: Remove old distnames
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] syscalls/statx01: Add exit condition when parsing
+ /proc/self/mountinfo
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,119 +98,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Wanlong Gao <gaowanlong@cn.fujitsu.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr
+When using user filesystem such as overlayfs, the current parsing way can't
+work well.
 
-> Hi,
-> 
->> Our travis-ci has dropped or never used them, they are useless.
->> So delete.
-> They were here before CI. They were meant for using by tests
-> (no CI related at all).
-> 
-> Added by Wanlong Gao ~10 years ago. Agree they can be dropped, but
-> Cc Cyril, Li and Jan.
-> 
->> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
->> ---
->>   lib/tst_kvercmp.c                                   | 12 ------------
->>   testcases/kernel/syscalls/inotify/inotify04.c       | 13 +++----------
->>   .../kernel/tracing/dynamic_debug/dynamic_debug01.sh |  3 +--
->>   3 files changed, 4 insertions(+), 24 deletions(-)
-> 
->> diff --git a/lib/tst_kvercmp.c b/lib/tst_kvercmp.c
->> index dc0daa746..a01b4332b 100644
->> --- a/lib/tst_kvercmp.c
->> +++ b/lib/tst_kvercmp.c
->> @@ -134,18 +134,6 @@ const char *tst_kvcmp_distname(const char *kver)
->>   	char *ret = distname;
->>   	char *p = distname;
-> 
->> -	if (strstr(kver, ".el5uek"))
->> -		return "OL5UEK";
->> -
->> -	if (strstr(kver, ".el5"))
->> -		return "RHEL5";
->> -
->> -	if (strstr(kver, ".el6uek"))
->> -		return "OL6UEK";
->> -
->> -	if (strstr(kver, ".el6"))
->> -		return "RHEL6";
->> -
->>   	if (strstr(kver, ".el7"))
->>   		return "RHEL7";
-> 
->> diff --git a/testcases/kernel/syscalls/inotify/inotify04.c b/testcases/kernel/syscalls/inotify/inotify04.c
->> index fb9f5c293..c4fce399c 100644
->> --- a/testcases/kernel/syscalls/inotify/inotify04.c
->> +++ b/testcases/kernel/syscalls/inotify/inotify04.c
->> @@ -50,11 +50,6 @@ char event_buf[EVENT_BUF_LEN];
-> 
->>   int fd_notify, reap_wd_file, reap_wd_dir, wd_dir, wd_file;
-> 
->> -static struct tst_kern_exv kvers[] = {
->> -	{ "RHEL5", "2.6.18-132" },
->> -	{ NULL, NULL },
->> -};
->> -
->>   static void cleanup(void)
->>   {
->>   	if (reap_wd_dir && myinotify_rm_watch(fd_notify, wd_dir) == -1)
->> @@ -110,11 +105,9 @@ void verify_inotify(void)
->>   	 * This isn't well documented in inotify(7), but it's intuitive if you
->>   	 * understand how Unix works.
->>   	 */
->> -	if (tst_kvercmp2(2, 6, 25, kvers) >= 0) {
->> -		event_set[test_cnt].mask = IN_ATTRIB;
->> -		strcpy(event_set[test_cnt].name, "");
->> -		test_cnt++;
->> -	}
->> +	event_set[test_cnt].mask = IN_ATTRIB;
->> +	strcpy(event_set[test_cnt].name, "");
->> +	test_cnt++;
-> 
-> Isn't this unrelated change? I guess you remove it as part of cleanup of old
-> versions.
+63 66 8:3 / /sysroot rw,relatime - ext4 /dev/sda3 rw,seclabel
+43 66 8:3 /ostree/deploy/rhivos/var /var rw,relatime shared:3 - ext4 /dev/sda3 rw,seclabel
 
-Yes, just remove this useless if statement.
-> 
->>   	event_set[test_cnt].mask = IN_DELETE_SELF;
->>   	strcpy(event_set[test_cnt].name, TEST_FILE);
->> diff --git a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
->> index 4b159517b..ca6c840b1 100755
->> --- a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
->> +++ b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
->> @@ -59,8 +59,7 @@ setup()
->>   		tst_brk TBROK "Unable to find $DEBUGFS_CONTROL"
->>   	fi
-> 
->> -	# Both patches with changes were backported to RHEL6 kernel 2.6.32-547
->> -	if tst_kvcmp -ge '3.4 RHEL6:2.6.32-547' ; then
->> +	if tst_kvcmp -ge 3.4 ; then
->>   		NEW_INTERFACE=1
->>   		EMPTY_FLAG="=_"
->>   	fi
-> 
-> Maybe first remove it from tests and then from infrastructure?
-> But I'm ok to keep it in single patch, but commit message should be
-> adjusted to not mention CI (not related to CI at all).
+So add the exit condition for statx.mnt_id check so it can skip the
+underflying filesystem and parse the correct user fileystem's mnt_id.
 
-Yes.
+Fixes: #1001
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+v1-v2: change the fail message
+ testcases/kernel/syscalls/statx/statx01.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Best Regards
-Yang Xu
-> 
-> Acked-by: Petr Vorel <pvorel@suse.cz>
-> 
-> Kind regards,
-> Petr
+diff --git a/testcases/kernel/syscalls/statx/statx01.c b/testcases/kernel/syscalls/statx/statx01.c
+index 60b50958b..e9677475a 100644
+--- a/testcases/kernel/syscalls/statx/statx01.c
++++ b/testcases/kernel/syscalls/statx/statx01.c
+@@ -68,7 +68,8 @@ static void test_mnt_id(struct statx *buf)
+ 		if (sscanf(line, "%"SCNu64" %*d %d:%d", &mnt_id, &line_mjr, &line_mnr) != 3)
+ 			continue;
+ 
+-		if (line_mjr == buf->stx_dev_major && line_mnr == buf->stx_dev_minor)
++		if (line_mjr == buf->stx_dev_major && line_mnr == buf->stx_dev_minor &&
++				mnt_id == buf->stx_mnt_id)
+ 			break;
+ 	}
+ 
+@@ -80,8 +81,8 @@ static void test_mnt_id(struct statx *buf)
+ 			mnt_id);
+ 	else
+ 		tst_res(TFAIL,
+-			"statx.stx_mnt_id(%"PRIu64") is different from mount_id(%"PRIu64") in /proc/self/mountinfo",
+-			(uint64_t)buf->stx_mnt_id, mnt_id);
++			"statx.stx_mnt_id(%"PRIu64") doesn't exist in /proc/self/mountinfo",
++			(uint64_t)buf->stx_mnt_id);
+ 
+ 	pid = getpid();
+ 	snprintf(line, PATH_MAX, "/proc/%d/fdinfo/%d", pid, file_fd);
+-- 
+2.27.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
