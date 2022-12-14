@@ -1,74 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C644E64D15A
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Dec 2022 21:37:42 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E71DA64D15F
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Dec 2022 21:39:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9B5013CBDA6
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Dec 2022 21:37:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AA2593CBD61
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Dec 2022 21:39:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D6B413CB893
- for <ltp@lists.linux.it>; Wed, 14 Dec 2022 21:37:37 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id B90703CB893
+ for <ltp@lists.linux.it>; Wed, 14 Dec 2022 21:39:35 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 08C5F6008F4
- for <ltp@lists.linux.it>; Wed, 14 Dec 2022 21:37:36 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DA4D52003A6
+ for <ltp@lists.linux.it>; Wed, 14 Dec 2022 21:39:34 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A5CF520329;
- Wed, 14 Dec 2022 20:37:34 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E26C3220D1;
+ Wed, 14 Dec 2022 20:39:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1671050254;
+ t=1671050373;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=joaIVjKlCWkKP0fmCBXMvW2EZaW0rUqxHuXmISqXW8k=;
- b=YfE/ZOYhMeCcNwvlg04vjCrp/1di4dCorVOgNH2a1kSI730z3Z51MkM1I/BmcTFNz8ynyt
- 7h0wNNWTHVKoKpSri0on5SchUif9om6QqpoZUaWsT1M9ap3g9IWCP/bKZo/neS3iaVKFEN
- +dRmDJi0bmS+BzqegJTbdfYjVZh0WzI=
+ bh=8amZlRMIh2ooZ2/P6e8DMNjnMraufJQ3ZuPPQwrcFlA=;
+ b=cw7QFWnZXoh2x2KqcLp43AXOW/fnIpeBj2U73FGPwWw18TskJaZFK9FZglHnISrpznAQvM
+ udTPfJX0QaoEYYXfqqGdzY6C/nCBttI+CPgduDLAHeilqK9scB25xWE4jSv0CyiPy6Dodf
+ D93gPiqnhuioV96MEiojffXO7xoEzsk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1671050254;
+ s=susede2_ed25519; t=1671050373;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=joaIVjKlCWkKP0fmCBXMvW2EZaW0rUqxHuXmISqXW8k=;
- b=03t6oX2KhS3FHdCmzAOYGFfL+0lsoq4yW3l5KXFNDAV+7P14W6z4PH4s5wER7aCURUKjnJ
- moDthTVXa4qF8oDQ==
+ bh=8amZlRMIh2ooZ2/P6e8DMNjnMraufJQ3ZuPPQwrcFlA=;
+ b=X2vUFHYuQjx2ivBt7zNfiULVZOe5baVHUhu0Yu0Njd+vxD0NqLXyffcz5cKImz5W/vxEMl
+ oQsmuMTh3mGOJWBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 67B50138F6;
- Wed, 14 Dec 2022 20:37:34 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5E591138F6;
+ Wed, 14 Dec 2022 20:39:33 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kZvlFg40mmPyYQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 14 Dec 2022 20:37:34 +0000
-Date: Wed, 14 Dec 2022 21:37:32 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id /V1MDoU0mmPHYgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 14 Dec 2022 20:39:33 +0000
+Date: Wed, 14 Dec 2022 21:39:30 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <Y5o0DF5paB5iox5p@pevik>
+To: Zijun Zhao <zijunzhao@google.com>
+Message-ID: <Y5o0gkRnpdWb0oCm@pevik>
 References: <20221213003553.3693243-1-zijunzhao@google.com>
- <87359jshpc.fsf@suse.de>
+ <87359jshpc.fsf@suse.de> <Y5o0DF5paB5iox5p@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <87359jshpc.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <Y5o0DF5paB5iox5p@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] signalfd01.c: put the right round bracket to the
  right place in tst_resm
 X-BeenThere: ltp@lists.linux.it
@@ -83,50 +82,31 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Hi Zijun,
 
-> Hello,
+also, more suggestions:
 
-> The patch is perfect, but you need to add your Signed-off-by git trailer
-> to the commit (or just respond this e-mail with it).
+Add to each patch:
+Signed-off-by: Zijun Zhao <zijunzhao@google.com>
+You can notice all commits have this.
+https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin
+Richie asked you to do this and thus set your pat
+https://patchwork.ozlabs.org/project/ltp/patch/20221213003553.3693243-1-zijunzhao@google.com/
 
-I added Zijun's mail and merged. Thanks for the fix!
+Run 'make check-foo' on target you modify (substitute foo for make target).
+That checks for common code mistakes and code style.
 
-I dared to slightly modify the commit message and added
-Fixes: 3306ad4398 ("m4: clean up ltp-signalfd.m4")
+You can also use this to check your code:
+https://github.com/linux-test-project/ltp/wiki/Maintainer-Patch-Review-Checklist
 
 Kind regards,
 Petr
-
-
-> zijunzhao via ltp <ltp@lists.linux.it> writes:
-
-> > ---
-> >  testcases/kernel/syscalls/signalfd/signalfd01.c | 3 +--
-> >  1 file changed, 1 insertion(+), 2 deletions(-)
-
-> > diff --git a/testcases/kernel/syscalls/signalfd/signalfd01.c b/testcases/kernel/syscalls/signalfd/signalfd01.c
-> > index 3df941785..c6a7c3a58 100644
-> > --- a/testcases/kernel/syscalls/signalfd/signalfd01.c
-> > +++ b/testcases/kernel/syscalls/signalfd/signalfd01.c
-> > @@ -249,8 +249,7 @@ void do_test2(int fd, uint32_t sig)
-> >  		goto out;
-> >  	} else {
-> >  		tst_resm(TFAIL, "got unexpected signal: signal=%d : %s",
-> > -			 fdsi.ssi_signo),
-> > -			 strsignal(fdsi.ssi_signo);
-> > +			 fdsi.ssi_signo, strsignal(fdsi.ssi_signo));
-> >  		goto out;
-> >  	}
-
-> > -- 
-> > 2.39.0.rc1.256.g54fd8350bd-goog
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
