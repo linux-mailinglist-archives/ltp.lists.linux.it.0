@@ -1,93 +1,93 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B69F651ABB
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Dec 2022 07:32:28 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F5F0651AC5
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Dec 2022 07:37:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3D85E3CBA8D
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Dec 2022 07:32:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 314CC3CBA5C
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Dec 2022 07:37:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5CBDD3CBA6B
- for <ltp@lists.linux.it>; Tue, 20 Dec 2022 07:31:54 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id BC37F3CBA52
+ for <ltp@lists.linux.it>; Tue, 20 Dec 2022 07:36:58 +0100 (CET)
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 61088200967
- for <ltp@lists.linux.it>; Tue, 20 Dec 2022 07:31:52 +0100 (CET)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 782FA6002C4
+ for <ltp@lists.linux.it>; Tue, 20 Dec 2022 07:36:56 +0100 (CET)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BK6DU9Z025634; Tue, 20 Dec 2022 06:31:51 GMT
+ 2BK6XUDC001838; Tue, 20 Dec 2022 06:36:55 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=otLR21U7rsJPAClBrPkyaDyBhsgJObVU5JMb1267uXs=;
- b=cQJlxoByc+kDP4J3+VQNc9MAYCGDsuoyDKGeZRAEyD9aDNYAH5bIqUdenhPVDrsY5VAi
- 4GskxS3f1b8xpgEr0tLvyr8NwNGmSjDHPdbZbLznnDwCWljzX9DyTpLV2UeJKgqFMB2V
- WqBiAMYkdgCevdi3/6t12NCTEpYLRBXnbU/WWLvO0yph6/WjStNeh7/Mig0QvPL7oloV
- Iq1i7++UnI4OdzH5eDGszYSldQwLmEgP6iniSPORskpwCMRNNAq+bHYw1YMB+fDgqE3y
- Tkb9aGYkPgEmySHWv2Y64wJLYOfDnHxO4+tF1dVIHipMz99bdbe/GHIencDVHPFfMt6c LQ== 
-Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com
- [169.51.49.99])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3mk7ke0ds5-1
+ bh=xyYb59dUMot3HW8CottvSREdJqFx2khHKBtmis2I97A=;
+ b=nzPFk+JEPfmSmEPP5INOxSAh1fLNAm66NNTbZ4h/Ez6HRm8JVntGUsqu4/kbPS7glxAl
+ Sxjx5a/FSja3up7nujOkdss+hxWzeoot/veAfoTkodqSVJGy8stmwEz0ITU9Du1xBUqD
+ 9smG9Xty4mfsa9D8lh2q8itXkxbx4Lg1y+ZCHDWn7Re1jaaFX4lICEW3jD7te7oa0o3Q
+ wNeR+ucjCnN+KJuqCTWK1tNUYcQ0rrO36+EZl8xsjte+rqpu9RuZ7vUdgCYh3e61pxrH
+ kxIgPt10HVhA+ZoGlnOCuke9xh53ufAaWuZKsaTgO5s6a1SD/c6JuCatuyf5RG1EgUfi Og== 
+Received: from ppma05fra.de.ibm.com (6c.4a.5195.ip4.static.sl-reverse.com
+ [149.81.74.108])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3mk7vvr2jy-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 Dec 2022 06:31:51 +0000
-Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
- by ppma04ams.nl.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 2BK6OZv9024486;
- Tue, 20 Dec 2022 06:31:49 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
- by ppma04ams.nl.ibm.com (PPS) with ESMTPS id 3mh6ywkhr0-1
+ Tue, 20 Dec 2022 06:36:55 +0000
+Received: from pps.filterd (ppma05fra.de.ibm.com [127.0.0.1])
+ by ppma05fra.de.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 2BJG0bfH027745;
+ Tue, 20 Dec 2022 06:31:53 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+ by ppma05fra.de.ibm.com (PPS) with ESMTPS id 3mh6yy2j49-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 Dec 2022 06:31:49 +0000
+ Tue, 20 Dec 2022 06:31:53 +0000
 Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com
  [10.20.54.105])
- by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 2BK6VksE45613478
+ by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 2BK6VnDj16974416
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 20 Dec 2022 06:31:46 GMT
+ Tue, 20 Dec 2022 06:31:49 GMT
 Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E1EB72004B;
- Tue, 20 Dec 2022 06:31:45 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id AB72B2004B;
+ Tue, 20 Dec 2022 06:31:49 +0000 (GMT)
 Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C79F820040;
- Tue, 20 Dec 2022 06:31:42 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 770D220043;
+ Tue, 20 Dec 2022 06:31:46 +0000 (GMT)
 Received: from tarunpc.ibmuc.com (unknown [9.43.119.42])
  by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Tue, 20 Dec 2022 06:31:42 +0000 (GMT)
+ Tue, 20 Dec 2022 06:31:46 +0000 (GMT)
 From: Tarun Sahu <tsahu@linux.ibm.com>
 To: ltp@lists.linux.it
-Date: Tue, 20 Dec 2022 12:01:07 +0530
-Message-Id: <20221220063109.279007-7-tsahu@linux.ibm.com>
+Date: Tue, 20 Dec 2022 12:01:08 +0530
+Message-Id: <20221220063109.279007-8-tsahu@linux.ibm.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20221220063109.279007-1-tsahu@linux.ibm.com>
 References: <20221220063109.279007-1-tsahu@linux.ibm.com>
 MIME-Version: 1.0
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: prs1uIQpldTgoVsn9boLLcxavJKqAfE4
-X-Proofpoint-ORIG-GUID: prs1uIQpldTgoVsn9boLLcxavJKqAfE4
+X-Proofpoint-GUID: _mshodQ_bSh_dfvWtNkUMS469WSwgQyx
+X-Proofpoint-ORIG-GUID: _mshodQ_bSh_dfvWtNkUMS469WSwgQyx
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
  definitions=2022-12-19_05,2022-12-15_02,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- lowpriorityscore=0 mlxscore=0 clxscore=1015 impostorscore=0 spamscore=0
- priorityscore=1501 adultscore=0 mlxlogscore=957 malwarescore=0 bulkscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ clxscore=1015 mlxscore=0
+ impostorscore=0 priorityscore=1501 mlxlogscore=999 phishscore=0
+ bulkscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 adultscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2212070000 definitions=main-2212200051
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 6/8] Hugetlb: Migrating libhugetlbfs
- map_high_truncate_2
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 7/8] Hugetlb: Migrating libhugetlbfs misalign
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,143 +106,193 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Migrating the libhugetlbfs/testcases/map_high_truncate_2.c test
+Migrating the libhugetlbfs/testcases/misalign.c test
 
-Test Description: At one stage, a misconversion of hugetlb_vmtruncate_list
-to a prio_tree meant that on 32-bit machines, certain combinations of
-mapping and truncations could truncate incorrect pages, or
-overwrite pmds from other VMAs, triggering BUG_ON()s or other
-wierdness.
+Test Description: Just as normal mmap()s can't have an address, length or
+offset which is not page aligned, so hugepage mmap()s can't have an
+address, length or offset with is not hugepage aligned.
 
-Test adapted from an example by Kenneth Chen <kenneth.w.chen@intel.com>
+However, from time to time when the various mmap() /
+get_unmapped_area() paths are updated, somebody misses one of the
+necessary checks for the hugepage paths.  This testcase ensures
+that attempted hugepage mappings with parameters which are not
+correctly hugepage aligned are rejected.
 
-WARNING: The offsets and addresses used within are specifically
-calculated to trigger the bug as it existed.  Don't mess with them
-unless you *really* know what you're doing.
-
-The kernel bug in question was fixed with
-'commit 856fc2950555 ("[PATCH] hugetlb: fix prio_tree unit")'.
+However starting with 3.10-rc1, length passed in mmap() doesn't need
+to be aligned because 'commit af73e4d9506d
+("hugetlbfs: fix mmap failure in unaligned size request")' added ALIGN()
+to kernel side, in mmap_pgoff(), when mapping huge page files.
 
 Signed-off-by: Tarun Sahu <tsahu@linux.ibm.com>
 Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
  runtest/hugetlb                               |   1 +
  testcases/kernel/mem/.gitignore               |   1 +
- .../kernel/mem/hugetlb/hugemmap/hugemmap17.c  | 103 ++++++++++++++++++
- 3 files changed, 105 insertions(+)
- create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap17.c
+ .../kernel/mem/hugetlb/hugemmap/hugemmap18.c  | 153 ++++++++++++++++++
+ 3 files changed, 155 insertions(+)
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap18.c
 
 diff --git a/runtest/hugetlb b/runtest/hugetlb
-index 1691ce37d..5fac3481c 100644
+index 5fac3481c..de76cdaf2 100644
 --- a/runtest/hugetlb
 +++ b/runtest/hugetlb
-@@ -18,6 +18,7 @@ hugemmap13 hugemmap13
- hugemmap14 hugemmap14
+@@ -19,6 +19,7 @@ hugemmap14 hugemmap14
  hugemmap15 hugemmap15
  hugemmap16 hugemmap16
-+hugemmap17 hugemmap17
+ hugemmap17 hugemmap17
++hugemmap18 hugemmap18
  hugemmap05_1 hugemmap05 -m
  hugemmap05_2 hugemmap05 -s
  hugemmap05_3 hugemmap05 -s -m
 diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
-index eb8e87c40..6aa54f902 100644
+index 6aa54f902..daee70586 100644
 --- a/testcases/kernel/mem/.gitignore
 +++ b/testcases/kernel/mem/.gitignore
-@@ -17,6 +17,7 @@
- /hugetlb/hugemmap/hugemmap14
+@@ -18,6 +18,7 @@
  /hugetlb/hugemmap/hugemmap15
  /hugetlb/hugemmap/hugemmap16
-+/hugetlb/hugemmap/hugemmap17
+ /hugetlb/hugemmap/hugemmap17
++/hugetlb/hugemmap/hugemmap18
  /hugetlb/hugeshmat/hugeshmat01
  /hugetlb/hugeshmat/hugeshmat02
  /hugetlb/hugeshmat/hugeshmat03
-diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap17.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap17.c
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap18.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap18.c
 new file mode 100644
-index 000000000..b8105bbf3
+index 000000000..607072937
 --- /dev/null
-+++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap17.c
-@@ -0,0 +1,103 @@
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap18.c
+@@ -0,0 +1,153 @@
 +// SPDX-License-Identifier: LGPL-2.1-or-later
 +/*
-+ * Copyright (C) 2005-2006 David Gibson & Adam Litke, IBM Corporation.
++ * Copyright (C) 2005-2007 David Gibson & Adam Litke, IBM Corporation.
 + * Author: David Gibson & Adam Litke
 + */
 +
 +/*\
-+ * [Descriptiom]
++ * [Description]
 + *
-+ * At one stage, a misconversion of hugetlb_vmtruncate_list to a prio_tree
-+ * meant that on 32-bit machines, certain combinations of mapping and
-+ * truncations could truncate incorrect pages, or overwrite pmds from
-+ * other VMAs, triggering BUG_ON()s or other wierdness.
++ * Just as normal mmap()s can't have an address, length or offset which
++ * is not page aligned, so hugepage mmap()s can't have an address, length
++ * or offset with is not hugepage aligned.
 + *
-+ * Test adapted from an example by Kenneth Chen <kenneth.w.chen@intel.com>
++ * However, from time to time when the various mmap() /
++ * get_unmapped_area() paths are updated, somebody misses one of the
++ * necessary checks for the hugepage paths.  This testcase ensures
++ * that attempted hugepage mappings with parameters which are not
++ * correctly hugepage aligned are rejected.
 + *
-+ * WARNING: The offsets and addresses used within are specifically
-+ * calculated to trigger the bug as it existed.  Don't mess with them
-+ * unless you *really* know what you're doing.
-+ *
-+ * The kernel bug in question was fixed with commit
-+ * 856fc2950555.
++ * However starting with 3.10-rc1, length passed in mmap() doesn't need
++ * to be aligned because commit af73e4d9506d3b797509f3c030e7dcd554f7d9c4
++ * added ALIGN() to kernel side, in mmap_pgoff(), when mapping huge page
++ * files.
 + */
 +
 +#define _GNU_SOURCE
 +#include <stdio.h>
-+#include <sys/mount.h>
-+#include <limits.h>
-+#include <sys/param.h>
-+#include <sys/types.h>
++#include <stdlib.h>
++#include <sys/mman.h>
 +
 +#include "hugetlb.h"
 +
 +#define MNTPOINT "hugetlbfs/"
-+#define MAP_LENGTH	(4UL * hpage_size)
-+#if defined(__s390__) && __WORDSIZE == 32
-+#define TRUNCATE_POINT 0x20000000UL
-+#else
-+#define TRUNCATE_POINT 0x60000000UL
-+#endif
-+#define HIGH_ADDR	0xa0000000UL
-+#define FOURGIG		((off64_t)0x100000000ULL)
-+
-+static unsigned long hpage_size;
++static long hpage_size;
 +static int  fd = -1;
++static long page_size;
 +
 +static void run_test(void)
 +{
-+	char *p, *q;
-+	unsigned long i;
++	void *p, *q;
 +
-+	p = SAFE_MMAP(0, MAP_LENGTH + TRUNCATE_POINT, PROT_READ | PROT_WRITE,
-+		 MAP_PRIVATE | MAP_NORESERVE, fd, 0);
++	/*
++	 * First see what an ok mapping looks like, as a basis for our
++	 * bad addresses and so forth
++	 */
++	p = mmap(NULL, hpage_size, PROT_READ|PROT_WRITE, MAP_PRIVATE, fd, 0);
++	if (p == MAP_FAILED) {
++		tst_res(TFAIL|TERRNO, "mmap() without hint failed");
++		return;
++	}
++	if (((unsigned long)p % hpage_size) != 0) {
++		tst_res(TFAIL, "mmap() without hint at misaligned address");
++		goto cleanup1;
++	}
 +
-+	SAFE_MUNMAP(p, MAP_LENGTH + TRUNCATE_POINT);
++	tst_res(TINFO, "Mapped at %p, length 0x%lx", p, hpage_size);
 +
-+	q = SAFE_MMAP((void *)HIGH_ADDR, MAP_LENGTH, PROT_READ | PROT_WRITE,
++	SAFE_MUNMAP(p, hpage_size);
++
++	/* 1) Try a misaligned hint address */
++	q = mmap(p + page_size, hpage_size, PROT_READ|PROT_WRITE,
 +		 MAP_PRIVATE, fd, 0);
-+	tst_res(TINFO, "High map at %p", q);
++	if (q == MAP_FAILED) {
++		/* Bad hint shouldn't fail, just ignore the hint */
++		tst_res(TFAIL|TERRNO, "mmap() with hint failed");
++		return;
++	}
++	if (((unsigned long)q % hpage_size) != 0) {
++		tst_res(TFAIL, "mmap() with hint at misaligned address");
++		goto cleanup2;
++	}
++	SAFE_MUNMAP(q, hpage_size);
 +
-+	for (i = 0; i < MAP_LENGTH; i += hpage_size)
-+		q[i] = 1;
++	/* 2) Try a misaligned address with MAP_FIXED */
++	q = mmap(p + page_size, hpage_size, PROT_READ|PROT_WRITE,
++		 MAP_PRIVATE|MAP_FIXED, fd, 0);
++	if (q != MAP_FAILED) {
++		tst_res(TFAIL, "mmap() MAP_FIXED at misaligned address succeeded");
++		goto cleanup2;
++	}
 +
-+	SAFE_FTRUNCATE(fd, TRUNCATE_POINT);
++	/* 3) Try a misaligned length */
++	q = mmap(NULL, page_size, PROT_READ|PROT_WRITE, MAP_PRIVATE, fd, 0);
++	if (q == MAP_FAILED) {
++		tst_res(TFAIL, "mmap() with misaligned length 0x%lx failed",
++			page_size);
++		return;
++	}
++	SAFE_MUNMAP(q, hpage_size);
 +
-+	if (q[0] != 1)
-+		tst_res(TFAIL, "data mismatch");
-+	else
-+		tst_res(TPASS, "Successful");
++	/* 4) Try a misaligned length with MAP_FIXED */
++	q = mmap(p, page_size, PROT_READ|PROT_WRITE,
++			MAP_PRIVATE|MAP_FIXED, fd, 0);
++	if (q == MAP_FAILED) {
++		tst_res(TFAIL, "mmap() MAP_FIXED with misaligned length 0x%lx "
++			"failed", page_size);
++		return;
++	}
++	SAFE_MUNMAP(q, hpage_size);
 +
-+	SAFE_MUNMAP(q, MAP_LENGTH);
++	/* 5) Try a misaligned offset */
++	q = mmap(NULL, hpage_size, PROT_READ|PROT_WRITE,
++		 MAP_PRIVATE, fd, page_size);
++	if (q != MAP_FAILED) {
++		tst_res(TFAIL, "mmap() with misaligned offset 0x%lx succeeded",
++		     page_size);
++		goto cleanup2;
++	}
++
++	/* 6) Try a misaligned offset with MAP_FIXED*/
++	q = mmap(p, hpage_size, PROT_READ|PROT_WRITE,
++		 MAP_PRIVATE|MAP_FIXED, fd, page_size);
++	if (q != MAP_FAILED) {
++		tst_res(TFAIL, "mmap() MAP_FIXED with misaligned offset 0x%lx succeeded",
++		     page_size);
++		goto cleanup2;
++	}
++
++	tst_res(TPASS, "mmap worked as expected with misaligned addr and length");
++	return;
++cleanup2:
++	SAFE_MUNMAP(q, hpage_size);
++	return;
++cleanup1:
++	SAFE_MUNMAP(p, hpage_size);
 +}
 +
 +static void setup(void)
 +{
 +	hpage_size = SAFE_READ_MEMINFO("Hugepagesize:")*1024;
-+
-+	if (hpage_size > TRUNCATE_POINT)
-+		tst_brk(TCONF, "Huge page size is too large");
-+	if (TRUNCATE_POINT % hpage_size)
-+		tst_brk(TCONF, "Truncation point is not aligned to huge page size");
++	page_size = getpagesize();
 +	fd = tst_creat_unlinked(MNTPOINT, 0);
 +}
 +
@@ -254,7 +304,7 @@ index 000000000..b8105bbf3
 +
 +static struct tst_test test = {
 +	.tags = (struct tst_tag[]) {
-+		{"linux-git", "856fc2950555"},
++		{"linux-git", "af73e4d9506d"},
 +		{}
 +	},
 +	.needs_root = 1,
