@@ -2,72 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 689C965225A
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Dec 2022 15:22:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 663C46522EA
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Dec 2022 15:44:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1EBE63C8C6C
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Dec 2022 15:22:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 060703C94F3
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Dec 2022 15:44:22 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AF9D33C1769
- for <ltp@lists.linux.it>; Tue, 20 Dec 2022 15:22:41 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 6A2AC3C217C
+ for <ltp@lists.linux.it>; Tue, 20 Dec 2022 15:44:17 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3FCE7140074D
- for <ltp@lists.linux.it>; Tue, 20 Dec 2022 15:22:40 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 133F41A008B0
+ for <ltp@lists.linux.it>; Tue, 20 Dec 2022 15:44:15 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7178B7634A;
- Tue, 20 Dec 2022 14:22:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1671546160;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zT1TtLrjc3KqK5JoVUGTRC2s/oG7JDbfJVbd6AWo5c4=;
- b=WvCPZkdZBt3baclFT8kMHmZ5/jZfURFC+tTZtqrMIDgxWIxZUpIAP6i2VHcAANanBawh3B
- HenlZcN4hC4W7gmM5YzFUKsO+ysccZ4RNI9WBlL7FbBnAyDNFWu6izgjbOD6aNs1dpo1hS
- FSktTanjNQ72PUvct8jqKb3hb+qFfO8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1671546160;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zT1TtLrjc3KqK5JoVUGTRC2s/oG7JDbfJVbd6AWo5c4=;
- b=lS2IR+12GUS34mbjSEdMveeg85gtQsvZLmEIahmV9RpMnpnmTySfTStDruztd2xrv6YkvL
- 6Pv6z7SBj8I0S4AQ==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E8FE3763D4;
+ Tue, 20 Dec 2022 14:44:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1671547453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=VNhMpqg1pZ/FkweF57ObCN9tFOM4iuYZdWlEzLBFZnE=;
+ b=lIe0ve1e2+mO5rqYkbh4bvEdC31eKg/v7yUbhkD8WMGt9Pz7Ns2DpRnAadVVreclM6R488
+ Kl5kW6FQs2xabjhxAYPWUCShfJdLrq2jVuLP4UwC3PEsImnX0iEzXzmwjvMp76rvk/I5f3
+ OK0UIOvNXqTY0cCMDggBRD7WZsMn5DI=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3EC391390E;
- Tue, 20 Dec 2022 14:22:40 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9C95C13254;
+ Tue, 20 Dec 2022 14:44:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Mg+nDTDFoWNILgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 20 Dec 2022 14:22:40 +0000
-Date: Tue, 20 Dec 2022 15:22:38 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Message-ID: <Y6HFLu3vkOJVMBwn@pevik>
-References: <20221220124351.5001-1-andrea.cervesato@suse.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id ocBKIz3KoWMROQAAMHmgww
+ (envelope-from <andrea.cervesato@suse.com>); Tue, 20 Dec 2022 14:44:13 +0000
+To: ltp@lists.linux.it
+Date: Tue, 20 Dec 2022 15:42:32 +0100
+Message-Id: <20221220144232.27950-1-andrea.cervesato@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221220124351.5001-1-andrea.cervesato@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Add runltp-ng to upstream
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] Add runltp-ng to upstream
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,61 +66,49 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+runltp-ng is the next generation runner for Linux Testing Project and it
+will replace the current obsolete runltp script in the next future.
 
-> runltp-ng is the next generation runner for Linux Testing Project and it
-> will replace the current obsolete runltp script in the next future.
-
-changes v1->v2
-* repository moved to LTP github namespace
-
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
-> ---
->  .gitmodules     | 3 +++
->  tools/runltp-ng | 1 +
->  2 files changed, 4 insertions(+)
->  create mode 160000 tools/runltp-ng
-
-> diff --git a/.gitmodules b/.gitmodules
-> index a3c34af4b..810eac395 100644
-> --- a/.gitmodules
-> +++ b/.gitmodules
-> @@ -4,3 +4,6 @@
->  [submodule "tools/sparse/sparse-src"]
->  	path = tools/sparse/sparse-src
->  	url = git://git.kernel.org/pub/scm/devel/sparse/sparse.git
-> +[submodule "tools/runltp-ng"]
-> +	path = tools/runltp-ng
-> +	url = git@github.com:linux-test-project/runltp-ng.git
-Wouldn't be better to use https ?
-
--	url = git@github.com:linux-test-project/runltp-ng.git
-+	url = https://github.com/linux-test-project/runltp-ng.git
-
-Or are there problems with certificates? If agree on https,
-we of course should migrate other
-
-Otherwise LGTM
-
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
 Acked-by: Petr Vorel <pvorel@suse.cz>
+---
+Use https protocol
 
-Kind regards,
-Petr
+ .gitmodules     | 3 +++
+ tools/runltp-ng | 1 +
+ 2 files changed, 4 insertions(+)
+ create mode 160000 tools/runltp-ng
 
-> diff --git a/tools/runltp-ng b/tools/runltp-ng
-> new file mode 160000
-> index 000000000..af20a864e
-> --- /dev/null
-> +++ b/tools/runltp-ng
-> @@ -0,0 +1 @@
-> +Subproject commit af20a864ec01674ce4f5a21d3308dc3a76da9303
+diff --git a/.gitmodules b/.gitmodules
+index a3c34af4b..d1d558b9e 100644
+--- a/.gitmodules
++++ b/.gitmodules
+@@ -4,3 +4,6 @@
+ [submodule "tools/sparse/sparse-src"]
+ 	path = tools/sparse/sparse-src
+ 	url = git://git.kernel.org/pub/scm/devel/sparse/sparse.git
++[submodule "tools/runltp-ng"]
++	path = tools/runltp-ng
++	url = https://github.com/linux-test-project/runltp-ng.git
+diff --git a/tools/runltp-ng b/tools/runltp-ng
+new file mode 160000
+index 000000000..39792805b
+--- /dev/null
++++ b/tools/runltp-ng
+@@ -0,0 +1 @@
++Subproject commit 39792805b3c2c30bde665b01550994aeecff6071
+-- 
+2.35.3
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
