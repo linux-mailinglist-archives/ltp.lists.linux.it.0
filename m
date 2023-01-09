@@ -1,68 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B320B6628AF
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jan 2023 15:38:56 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CDB766294B
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jan 2023 16:05:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 57B9B3CCBD1
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jan 2023 15:38:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C54FE3CBF27
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jan 2023 16:05:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 29E153C5802
- for <ltp@lists.linux.it>; Mon,  9 Jan 2023 15:38:51 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id EE2C23C899B
+ for <ltp@lists.linux.it>; Mon,  9 Jan 2023 16:05:12 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 360B360010F
- for <ltp@lists.linux.it>; Mon,  9 Jan 2023 15:38:50 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A0BF71A000A4
+ for <ltp@lists.linux.it>; Mon,  9 Jan 2023 16:05:11 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id BF07737FB9
- for <ltp@lists.linux.it>; Mon,  9 Jan 2023 14:38:49 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 4CF023F161
+ for <ltp@lists.linux.it>; Mon,  9 Jan 2023 15:05:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673275129;
+ t=1673276710;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9lSBSwdQn5a4OBNYsr/wyAxUDEISIbqOu6nammY0VpU=;
- b=e41L2MJX9FXntjSRDeZsX7jHAJ73eh4VuqBfg3FUxY83loP9fIovFNAVnz1uwjGO/uAlYX
- QF9KP1GeqZEDb2YU4gEzoJ9v1gn8wha7Ve+4wMNj1DtnBPZrKY9B0kln6drJ8Pl6X+6pMa
- WlUk9+jUhbF0PRYlDPam1taQG1Lm7sk=
+ bh=UCt21rMPX0aGjOkaL5RlcW8DgegMzkjeyyHOuAxeuEM=;
+ b=ZLK2zpZq+M04X8ibcbrMcF/2twnxgBaDsYUf/OPTZkJfDxPHhziBQhnUnodLlOf8X5eDHb
+ Zb465atbYz+/vu2sPpudks4JJmv6YUjhmRVmumopdZD3dgDRzhV96u0VciVvz0N/Lxo5y1
+ yTKM7JLT0NpsDRJN1OEkMlDg5BPJhe4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673275129;
+ s=susede2_ed25519; t=1673276710;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9lSBSwdQn5a4OBNYsr/wyAxUDEISIbqOu6nammY0VpU=;
- b=lwaIv6qCJJ1N9TpZkYzV3x7Crckx0X5a7wxYn2cCgWBuZM7B7T+ZfkTbAlQ6Fz1GwFxujg
- mI+wFjpf6g80XVAA==
+ bh=UCt21rMPX0aGjOkaL5RlcW8DgegMzkjeyyHOuAxeuEM=;
+ b=Dqeb3/Z7cWWmeSdasgRuxoqRxz9DXy5+iBUnWMOyMO0IFRhntS+3XMr2/zpcNR+Spk2eEo
+ elMKOOxX7EdlTpBA==
 Received: from g78 (unknown [10.163.28.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 9749D2C141;
- Mon,  9 Jan 2023 14:38:49 +0000 (UTC)
-References: <20221223183325.10814-1-pvorel@suse.cz>
+ by relay2.suse.de (Postfix) with ESMTPS id 237FC2C19F;
+ Mon,  9 Jan 2023 15:05:10 +0000 (UTC)
+References: <20221221075220.14353-1-akumar@suse.de>
 User-agent: mu4e 1.8.13; emacs 28.2
 From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-Date: Mon, 09 Jan 2023 14:11:01 +0000
+To: Avinesh Kumar <akumar@suse.de>
+Date: Mon, 09 Jan 2023 14:55:16 +0000
 Organization: Linux Private Site
-In-reply-to: <20221223183325.10814-1-pvorel@suse.cz>
-Message-ID: <87tu0zixhk.fsf@suse.de>
+In-reply-to: <20221221075220.14353-1-akumar@suse.de>
+Message-ID: <87pmbniw9o.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] aio-stress.c: Remove useless iteration
- variable
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] setreuid01.c: Rewrite using new LTP API and use
+ TST_EXP* macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,65 +84,229 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hello,
 
-Petr Vorel <pvorel@suse.cz> writes:
+Avinesh Kumar <akumar@suse.de> writes:
 
-> local iteration variable in worker() was probably left over from
-> previous version before rewrite because clang correctly reported also on
-> this old version:
+> Hi,
+> I changed this simple setreuid() test to new LTP API but I think
+> this is a subset of setreuid03.c test and can be removed altogether.
+> Please share your opinion. If this should be removed, I'll post new
+> patch for that.
 >
->     aio-stress.c:1049:6: warning: variable 'iteration' set but not used [-Wunused-but-set-variable]
->     int iteration = 0;
 >
-> Whole restart label was not used.
->
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> Signed-off-by: Avinesh Kumar <akumar@suse.de>
 > ---
-> Changes v1->v2:
-> * remove whole restart label.
+>  .../kernel/syscalls/setreuid/setreuid01.c     | 188 +++---------------
+>  1 file changed, 25 insertions(+), 163 deletions(-)
 >
->  testcases/kernel/io/ltp-aiodio/aio-stress.c | 8 --------
->  1 file changed, 8 deletions(-)
->
-> diff --git a/testcases/kernel/io/ltp-aiodio/aio-stress.c b/testcases/kernel/io/ltp-aiodio/aio-stress.c
-> index 2fdbb84e87..2946ac1f47 100644
-> --- a/testcases/kernel/io/ltp-aiodio/aio-stress.c
-> +++ b/testcases/kernel/io/ltp-aiodio/aio-stress.c
-> @@ -1039,12 +1039,10 @@ static int *worker(struct thread_info *t)
->  	char *this_stage = NULL;
->  	struct timeval stage_time;
->  	int status = 0;
-> -	int iteration = 0;
->  	int cnt;
+> diff --git a/testcases/kernel/syscalls/setreuid/setreuid01.c b/testcases/kernel/syscalls/setreuid/setreuid01.c
+> index 54ba2d7a8..b0c1e0ab2 100644
+> --- a/testcases/kernel/syscalls/setreuid/setreuid01.c
+> +++ b/testcases/kernel/syscalls/setreuid/setreuid01.c
+> @@ -1,176 +1,38 @@
+> +// SPDX-License-Identifier: GPL-2.0
+>  /*
+>   * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms of version 2 of the GNU General Public License as
+> - * published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope that it would be useful, but
+> - * WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+> - *
+> - * Further, this software is distributed without any warranty that it is
+> - * free of the rightful claim of any third person regarding infringement
+> - * or the like.  Any license provided herein, whether implied or
+> - * otherwise, applies only to this software file.  Patent licenses, if
+> - * any, provided herein do not apply to combinations of this program with
+> - * other software, or any other product whatsoever.
+> - *
+> - * You should have received a copy of the GNU General Public License along
+> - * with this program; if not, write the Free Software Foundation, Inc.,
+> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+> - *
+> - * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+> - * Mountain View, CA  94043, or:
+> - *
+> - * http://www.sgi.com
+> - *
+> - * For further information regarding this notice, see:
+> - *
+> - * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
+> - *
+> - * Author: William Roske
+> - * Co-pilot: Dave Fenner
+> + *	Author: William Roske
+> + *	Co-pilot: Dave Fenner
+> + * Copyright (c) 2022 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
+>   */
 >  
->  	aio_setup(&t->io_ctx, 512);
+> -/*
+> - * Testcase to test the basic functionality of setreuid(2) system call.
+> +/*\
+> + * [Description]
+> + *
+> + * Verify the basic functionality of setreuid(2) system call when executed
+> + * as non-root user.
+>   */
 >  
-> -restart:
->  	if (num_threads > 1) {
->  		if (pthread_barrier_wait(&worker_barrier))
->  			gettimeofday(&global_stage_start_time, NULL);
-> @@ -1115,12 +1113,6 @@ restart:
->  			global_thread_throughput(t, this_stage);
->  	}
+> -#include <errno.h>
+> -#include <string.h>
+> -#include <signal.h>
+> -#include <sys/types.h>
+> +#include "tst_test.h"
+> +#include "compat_tst_16.h"
 >  
-> -	/* someone got restarted, go back to the beginning */
-> -	if (t->active_opers && cnt < iterations) {
-
-In this case, shouldn't we remove all the restart code? It seems
-active_opers can be added to and cnt could be less than iterations. So
-the label could be used.
-
-I think you are safe to remove only the iteration variable.
-
-Personally I would not touch this code except to fix a major issue or
-rewrite it altogether.
-
-> -		iteration++;
-> -		goto restart;
+> -#include "test.h"
+> -#include "compat_16.h"
+> +static uid_t ruid, euid;
+>  
+> -static void setup(void);
+> -static void cleanup(void);
+> -
+> -TCID_DEFINE(setreuid01);
+> -int TST_TOTAL = 5;
+> -
+> -static uid_t ruid, euid;	/* real and effective user ids */
+> -
+> -int main(int ac, char **av)
+> +static void run(void)
+>  {
+> -	int lc;
+> -
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> -
+> -	setup();
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -
+> -		tst_count = 0;
+> -
+> -		/*
+> -		 * TEST CASE:
+> -		 *  Don't change either real or effective uid
+> -		 */
+> -		ruid = getuid();	/* get real uid */
+> -		UID16_CHECK(ruid, setreuid, cleanup);
+> -
+> -		euid = geteuid();	/* get effective uid */
+> -		UID16_CHECK(euid, setreuid, cleanup);
+> -
+> -		TEST(SETREUID(cleanup, -1, -1));
+> +	ruid = getuid();
+> +	UID16_CHECK(ruid, setreuid);
+>  
+> -		if (TEST_RETURN == -1) {
+> -			tst_resm(TFAIL,
+> -				 "setreuid -  Don't change either real or effective uid failed, errno=%d : %s",
+> -				 TEST_ERRNO, strerror(TEST_ERRNO));
+> -		} else {
+> -			tst_resm(TPASS,
+> -				 "setreuid -  Don't change either real or effective uid returned %ld",
+> -				 TEST_RETURN);
+> -		}
+> +	euid = geteuid();
+> +	UID16_CHECK(euid, setreuid);
+>  
+> -		/*
+> -		 * TEST CASE:
+> -		 *  change effective to effective uid
+> -		 */
+> -
+> -		TEST(SETREUID(cleanup, -1, euid));
+> -
+> -		if (TEST_RETURN == -1) {
+> -			tst_resm(TFAIL,
+> -				 "setreuid -  change effective to effective uid failed, errno=%d : %s",
+> -				 TEST_ERRNO, strerror(TEST_ERRNO));
+> -		} else {
+> -			tst_resm(TPASS,
+> -				 "setreuid -  change effective to effective uid returned %ld",
+> -				 TEST_RETURN);
+> -		}
+> -
+> -		/*
+> -		 * TEST CASE:
+> -		 *  change real to real uid
+> -		 */
+> -
+> -		TEST(SETREUID(cleanup, ruid, -1));
+> -
+> -		if (TEST_RETURN == -1) {
+> -			tst_resm(TFAIL,
+> -				 "setreuid -  change real to real uid failed, errno=%d : %s",
+> -				 TEST_ERRNO, strerror(TEST_ERRNO));
+> -		} else {
+> -			tst_resm(TPASS,
+> -				 "setreuid -  change real to real uid returned %ld",
+> -				 TEST_RETURN);
+> -		}
+> -
+> -		/*
+> -		 * TEST CASE:
+> -		 *  change effective to real uid
+> -		 */
+> -
+> -		TEST(SETREUID(cleanup, -1, ruid));
+> -
+> -		if (TEST_RETURN == -1) {
+> -			tst_resm(TFAIL,
+> -				 "setreuid -  change effective to real uid failed, errno=%d : %s",
+> -				 TEST_ERRNO, strerror(TEST_ERRNO));
+> -		} else {
+> -			tst_resm(TPASS,
+> -				 "setreuid -  change effective to real uid returned %ld",
+> -				 TEST_RETURN);
+> -		}
+> -
+> -		/*
+> -		 * TEST CASE:
+> -		 *  try to change real to current real
+> -		 */
+> -
+> -		TEST(SETREUID(cleanup, ruid, ruid));
+> -
+> -		if (TEST_RETURN == -1) {
+> -			tst_resm(TFAIL,
+> -				 "setreuid -  try to change real to current real failed, errno=%d : %s",
+> -				 TEST_ERRNO, strerror(TEST_ERRNO));
+> -		} else {
+> -			tst_resm(TPASS,
+> -				 "setreuid -  try to change real to current real returned %ld",
+> -				 TEST_RETURN);
+> -		}
+> -
 > -	}
 > -
->  	/* finally, free all the ram */
->  	while (t->finished_opers) {
->  		oper = t->finished_opers;
+> -	cleanup();
+> -	tst_exit();
+> -}
+> -
+> -static void setup(void)
+> -{
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> -
+> -	tst_tmpdir();
+> +	TST_EXP_PASS(setreuid(-1, -1));
+> +	TST_EXP_PASS(setreuid(-1, euid));
+> +	TST_EXP_PASS(setreuid(ruid, -1));
+> +	TST_EXP_PASS(setreuid(-1, ruid));
+> +	TST_EXP_PASS(setreuid(euid, -1));
+
+This drops setreuid(ruid, ruid) from the end.
+
+>  }
+>  
+> -static void cleanup(void)
+> -{
+> -	tst_rmdir();
+> -}
+> +static struct tst_test test = {
+> +	.test_all = run
+> +};
 > -- 
 > 2.39.0
 
