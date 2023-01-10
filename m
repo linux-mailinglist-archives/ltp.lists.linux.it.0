@@ -1,68 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ADBB663E56
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jan 2023 11:35:47 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id ACA07663E25
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jan 2023 11:26:42 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1E6783CB587
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jan 2023 11:35:47 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7E28A3CB584
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jan 2023 11:26:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3B7AA3C85F1
- for <ltp@lists.linux.it>; Tue, 10 Jan 2023 11:35:45 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 788613C85F1
+ for <ltp@lists.linux.it>; Tue, 10 Jan 2023 11:26:39 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C7C82200200
- for <ltp@lists.linux.it>; Tue, 10 Jan 2023 11:35:44 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 47D594E6CF;
- Tue, 10 Jan 2023 10:35:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673346943;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Zn67LjGl9hEmRs9wQHOkdlST4ymI8HJYpmI1fMUn7r8=;
- b=xVnW/o7C2I552thddQzt/fcfN4uCtQXza7kofDzgjvZ73CyIEf+zRCLXbWyHeuh5AOM/Uk
- /X+GM516i/7QkdjyXYmSv2B9Dgl+2IHRECOutV8R4se2RLcOMsfxSi2vLq8qp0Zk+YNkHf
- WlqNvbGllycE7vVvJlvNjWnjUH4WvTw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673346943;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Zn67LjGl9hEmRs9wQHOkdlST4ymI8HJYpmI1fMUn7r8=;
- b=jHzNE9pqeD72yvVyDqf2EnebpIph96fDihhpm2+DH59IfQmGxaRWRFVSzFGmF27fNfOVqj
- t+r68x/j4b2kLrAw==
-Received: from g78 (unknown [10.163.17.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B712C1000540
+ for <ltp@lists.linux.it>; Tue, 10 Jan 2023 11:26:38 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 05E9B2C141;
- Tue, 10 Jan 2023 10:35:42 +0000 (UTC)
-References: <20230109032700.7959-1-wegao@suse.com>
-User-agent: mu4e 1.8.13; emacs 28.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: coolgw <coolgw1126@gmail.com>
-Date: Tue, 10 Jan 2023 10:01:25 +0000
-Organization: Linux Private Site
-In-reply-to: <20230109032700.7959-1-wegao@suse.com>
-Message-ID: <87zgaqhe2p.fsf@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7CB0E38B6B;
+ Tue, 10 Jan 2023 10:26:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1673346397;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=n17qoW7dTYzwkGh2pDQJPJN+UxFHLUnq5ZVGlbaD/7I=;
+ b=lz0CPgzh1QPzdHAhfHjBVUMdXrqRymLDZlM7iNvIZOn4v5C4ERA1tEVtG49MaxPiGPa6bw
+ FY6Ar82gUnc899mhUY1d5PSQlK7Ub3LQzK2mPsveWTK7+YmsdujQBX6nr4pRuUoNru68m6
+ VTFkfiTsmMKW381cN0ozu5snyXUciAc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1673346397;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=n17qoW7dTYzwkGh2pDQJPJN+UxFHLUnq5ZVGlbaD/7I=;
+ b=4aobwG/qF8JCR76FW9X633QKQp9dt0aT/3aIET1Xx/0VAel4l9TWhnVq3sStzzUZNX3fKb
+ dZsgANBizBaOpHDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 24B571358A;
+ Tue, 10 Jan 2023 10:26:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id AzeFB109vWOHVQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 10 Jan 2023 10:26:37 +0000
+Date: Tue, 10 Jan 2023 11:26:35 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <Y709W2qjGVFqvnvU@pevik>
+References: <20230104100730.20425-1-pvorel@suse.cz>
+ <2226132.28uSQYClPH@localhost> <874jsyiufl.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <874jsyiufl.fsf@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] readahead02.c fixes: use tst_parse_filesize()
- so that we can pass sizes with units e.g. -s 128M
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] github: Improve pull request template
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,63 +80,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi Richie, Avinesh,
 
-coolgw <coolgw1126@gmail.com> writes:
+thanks for your review.
+> Hello,
 
-> Signed-off-by: WEI GAO <wegao@suse.com>
-> ---
->  testcases/kernel/syscalls/readahead/readahead02.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/readahead/readahead02.c b/testcases/kernel/syscalls/readahead/readahead02.c
-> index 3ed88c005..c282b4d68 100644
-> --- a/testcases/kernel/syscalls/readahead/readahead02.c
-> +++ b/testcases/kernel/syscalls/readahead/readahead02.c
-> @@ -367,8 +367,8 @@ static void setup_readahead_length(void)
->  
->  static void setup(void)
->  {
-> -	if (opt_fsizestr) {
-> -		testfile_size = SAFE_STRTOL(opt_fsizestr, 1, INT_MAX);
-> +        if (tst_parse_filesize(opt_fsizestr, &testfile_size, 1, INT_MAX)) {
-> +		tst_brk(TBROK, "invalid initial filesize '%s'", opt_fsizestr);
+> Please merge.
+Before merge, are you ok with one more change?
 
-So far correct; if parsing fails we call tst_brk which redirects to cleanup.
+Kind regards,
+Petr
 
->  		tst_set_max_runtime(1 + testfile_size / (DEFAULT_FILESIZE/32));
-
-However this will never be called because it is on the error path.
-
-The time which we give the test to execute is proportional to the file
-size (if the size is non-default!). If it were not then large file sizes
-would cause timeouts (possibly at random) which would result in
-regressions.
-
-Also note that in the existing test we only use tst_set_max_runtime when
-the value is non default. This is a mistake, but luckily the
-test.max_runtime = 30 and the calculated runtime for the default size
-would be 33. So you are not likely to cause a regression by changing
-this.
-
-Setting to changes requested in patchwork.
-
->  	}
->  
-> -- 
-> 2.35.3
-
-
--- 
-Thank you,
-Richard.
++++ .github/pull_request_template.md
+@@ -9,6 +9,11 @@ We also have a patchwork instance: https://patchwork.ozlabs.org/project/ltp/list
+ * Commits should be signed: Signed-off-by: Your Name <me@example.org>, see
+ https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin
+ 
++* Commit message should be meaningful, following common style
++https://www.kernel.org/doc/html/latest/process/submitting-patches.html#split-changes
++https://www.kernel.org/doc/html/latest/process/submitting-patches.html#describe-your-changes
++https://chris.beams.io/posts/git-commit/
++
+ * New code should follow Linux kernel coding style, see
+ https://www.kernel.org/doc/html/latest/process/coding-style.html.
+ You can run 'make check' or 'make check-foo' in the folder with modified code to check style and common errors.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
