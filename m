@@ -2,61 +2,61 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 123FB6669E6
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Jan 2023 05:02:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58959666AA2
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Jan 2023 06:05:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 329993CCB02
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Jan 2023 05:01:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2A0803CCAFA
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Jan 2023 06:05:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D3B1C3CCABE
- for <ltp@lists.linux.it>; Thu, 12 Jan 2023 05:01:53 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 3FBF73CB55B
+ for <ltp@lists.linux.it>; Thu, 12 Jan 2023 06:05:49 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 57290100092C
- for <ltp@lists.linux.it>; Thu, 12 Jan 2023 05:01:52 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 50B5A1A007EF
+ for <ltp@lists.linux.it>; Thu, 12 Jan 2023 06:05:48 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B08293F1CE;
- Thu, 12 Jan 2023 04:01:50 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5360737370;
+ Thu, 12 Jan 2023 05:05:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1673496110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1673499948; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=NNF2pPSxW7xVGIyqpC53GX9T7UF9L7gV4qBIkEEZkt8=;
- b=PmAt7//H5sMfCiy5TGjcz65yMNe+A5lJU6ey1p70a6M2yOOnTYeaaIElUAE7nF3zVM8YaD
- iAshUFPeKD6ukIeU5PWa6EnQ2sjPBfuai0sv5pysLy/IEvHxa/WQoTSvr0myD5JV9JkWek
- KeCGqKOqfjJ7g1Nvz8CLwCOa2aMTukA=
+ bh=yZHeyT2aNEM8ycFfh5JB9/rSzMunzkMP5tuur22/z4I=;
+ b=ou3sLBem+YsSZjxOpcLQBVle+JqpZRJdKq8St6ktYJ6tvMplL9FDKH8k9CLryq+6fDPsHY
+ ePuiKtJFvts+ZBofsXLdOo7ymMLl1Bj8D5inmIZ+tLBDW+u9lxENbc9/ADZ2CVd2pYghaV
+ lOxhuspR2p786LpUb0Epzs/epxt9awA=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C3BEB13585;
- Thu, 12 Jan 2023 04:01:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F08C4134AF;
+ Thu, 12 Jan 2023 05:05:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nc8rIi2Gv2OwAwAAMHmgww
- (envelope-from <wegao@suse.com>); Thu, 12 Jan 2023 04:01:49 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id pV4tLSqVv2NzGwAAMHmgww
+ (envelope-from <wegao@suse.com>); Thu, 12 Jan 2023 05:05:46 +0000
 To: ltp@lists.linux.it
-Date: Wed, 11 Jan 2023 12:09:00 -0500
-Message-Id: <20230106113126.5304-1-wegao@suse.com>
+Date: Wed, 11 Jan 2023 13:18:26 -0500
+Message-Id: <20230111181826.9395-1-wegao@suse.com>
 X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=1.2 required=7.0 tests=DATE_IN_PAST_06_12, DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Level: *
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v4] Add PATH to tst_rhost_run.sh
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v1] Fix coding style issue
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,44 +75,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: coolgw <wegao@suse.com>
-
-When run single test case use command such as:
-LTP_SHELL_API_TESTS=shell/net/tst_rhost_run.sh make test-shell
-Error msg such as "ns_create: command not found" will popup, so
-need update PATH before call ns_create etc..
-
-More important:
-1) LTP shell API tests depend on properly compiled LTP.
-Therefore this is just a workaround to make visible that some tool is missing.
-
-2) I wonder if there is way to properly fix this dependency in make.
-I guess test-shell target should depend on (at least): ns_create ns_exec
-ns_ifmove.
-
 Signed-off-by: WEI GAO <wegao@suse.com>
 ---
-v3 -> v4: update base Vorel's latest comments, remove unrelated change
-V2 -> V3: move path to test case itself 
-V1 -> V2: add tst_require_cmds for init_ltp_netspace()
+ testcases/kernel/syscalls/readahead/readahead02.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
- lib/newlib_tests/shell/net/tst_rhost_run.sh | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/lib/newlib_tests/shell/net/tst_rhost_run.sh b/lib/newlib_tests/shell/net/tst_rhost_run.sh
-index 773b8dd33..951551514 100755
---- a/lib/newlib_tests/shell/net/tst_rhost_run.sh
-+++ b/lib/newlib_tests/shell/net/tst_rhost_run.sh
-@@ -3,7 +3,8 @@
- # Copyright (c) 2020 Petr Vorel <pvorel@suse.cz>
+diff --git a/testcases/kernel/syscalls/readahead/readahead02.c b/testcases/kernel/syscalls/readahead/readahead02.c
+index 3ed88c005..4eef353a8 100644
+--- a/testcases/kernel/syscalls/readahead/readahead02.c
++++ b/testcases/kernel/syscalls/readahead/readahead02.c
+@@ -69,7 +69,7 @@ static struct tcase {
+ 	int use_overlay;
+ 	int use_fadvise;
+ 	/* Use either readahead() syscall or POSIX_FADV_WILLNEED */
+-	int (*readahead)(int, off_t, size_t);
++	int (*readahead)(int fd, off_t offset, size_t len);
+ } tcases[] = {
+ 	{ "readahead on file", 0, 0, libc_readahead },
+ 	{ "readahead on overlayfs file", 1, 0, libc_readahead },
+@@ -224,7 +224,7 @@ static void test_readahead(unsigned int n)
  
- TST_TESTFUNC=do_test
--PATH="$(dirname $0)/../../../../testcases/lib/:$PATH"
-+root="$(dirname $0)/../../../../"
-+PATH="$root/testcases/lib/:$root/testcases/kernel/containers/share/:$PATH"
+ 	if (tc->use_overlay && !ovl_mounted) {
+ 		tst_res(TCONF,
+-		        "overlayfs is not configured in this kernel.");
++		"overlayfs is not configured in this kernel.");
+ 		return;
+ 	}
  
- export TST_NET_RHOST_RUN_DEBUG=1
+@@ -252,7 +252,7 @@ static void test_readahead(unsigned int n)
+ 	cached_low = get_cached_size();
+ 	tst_res(TINFO, "read_testfile(1)");
+ 	ret = read_testfile(tc, 1, testfile, testfile_size, &read_bytes_ra,
+-		            &usec_ra, &cached_ra);
++			    &usec_ra, &cached_ra);
  
+ 	if (ret == EINVAL) {
+ 		if (tc->use_fadvise &&
 -- 
 2.35.3
 
