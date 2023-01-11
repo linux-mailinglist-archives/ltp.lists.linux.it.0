@@ -2,69 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F267665D7A
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Jan 2023 15:16:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01FBD66679A
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Jan 2023 01:27:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E40F53CCAD7
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Jan 2023 15:16:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3F0B83CCAF1
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Jan 2023 01:27:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 21A8A3CB560
- for <ltp@lists.linux.it>; Wed, 11 Jan 2023 15:16:21 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 10B673CB560
+ for <ltp@lists.linux.it>; Wed, 11 Jan 2023 15:23:21 +0100 (CET)
+Received: from mail.steuer-voss.de (mail.steuer-voss.de [85.183.69.95])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CC2716005C1
- for <ltp@lists.linux.it>; Wed, 11 Jan 2023 15:16:20 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 04A6B17B91
- for <ltp@lists.linux.it>; Wed, 11 Jan 2023 14:16:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673446580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=0mBhuf0WxA9xC1xNHS+tglhRb0jBJiNdbaEHhRUUETE=;
- b=j0C6zPREkNHZk50PsL0Ajxmd9RuEl/zlfVJlpmXN1x5uZ+1YWVXTOFVqc/mrtRRtaYKemo
- xsfvV0ThXXX0PAGRYe1fDbSs7FqPfKfLD78q48+hLHaKA7tDpgM1BQPh8re2E5MdajSP5P
- kZOrFQ+IdA3eBdShkepFf/GIKUg3E3Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673446580;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=0mBhuf0WxA9xC1xNHS+tglhRb0jBJiNdbaEHhRUUETE=;
- b=g2NgpfR5dFH21WIkDaG3ZQD0e64Xc8apsi82PgMlH4kTwN6FkrEZS3dIMyFZFtF79TiDBk
- edO1J2Q5AYNnxYBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7B1661358A
- for <ltp@lists.linux.it>; Wed, 11 Jan 2023 14:16:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BPykD7PEvmMACgAAMHmgww
- (envelope-from <akumar@suse.de>)
- for <ltp@lists.linux.it>; Wed, 11 Jan 2023 14:16:19 +0000
-From: Avinesh Kumar <akumar@suse.de>
-To: ltp@lists.linux.it
-Date: Wed, 11 Jan 2023 19:46:16 +0530
-Message-Id: <20230111141616.20011-1-akumar@suse.de>
-X-Mailer: git-send-email 2.39.0
-MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0EB5F200A01
+ for <ltp@lists.linux.it>; Wed, 11 Jan 2023 15:23:20 +0100 (CET)
+Received: by mail.steuer-voss.de (Postfix, from userid 1000)
+ id A0DBECA25; Wed, 11 Jan 2023 15:23:16 +0100 (CET)
+From: Nikolaus Voss <nikolaus.voss@haag-streit.com>
+To: Yael Tzur <yaelt@google.com>, Cyril Hrubis <chrubis@suse.cz>,
+ Mimi Zohar <zohar@linux.ibm.com>, Petr Vorel <pvorel@suse.cz>, nv@vosn.de
+Message-Id: <20230111142316.A0DBECA25@mail.steuer-voss.de>
+Date: Wed, 11 Jan 2023 15:23:16 +0100 (CET)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] c-test-tutorial-simple.txt: improve documentation
+X-Spam-Status: No, score=0.3 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Mailman-Approved-At: Thu, 12 Jan 2023 01:27:39 +0100
+Subject: [LTP] [PATCH v2] syscalls/keyctl/keyctl09.c: fix test encrypted key
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,53 +47,75 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Avinesh Kumar <akumar@suse.de>
----
- doc/c-test-tutorial-simple.txt | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+This commit fixes the test for adding encrypted keys with unencrypted data.
+Unencryted data must be provided hex-ascii encoding. Due to a kernel
+bug, the unencypted data was not decoded to binary thus the length of
+the key was only half the specified key size. This patch doubles the key
+size.
 
-diff --git a/doc/c-test-tutorial-simple.txt b/doc/c-test-tutorial-simple.txt
-index 89b0ad4e7..c5861cb36 100644
---- a/doc/c-test-tutorial-simple.txt
-+++ b/doc/c-test-tutorial-simple.txt
-@@ -333,16 +333,16 @@ call in the +*.in+ files (e.g. +x86_64.in+) which are used to generate
- may find the system call number is missing from the +*.in+ files and will need
- to add it (see +include/lapi/syscalls/strip_syscall.awk+).
+Fixes: 342e7a0dd ("syscalls/keyctl09: test encrypted keys with provided decrypted data.")
+Link: https://lore.kernel.org/ltp/20221006081709.92303897@mail.steuer-voss.de/
+Signed-off-by: Nikolaus Voss <nikolaus.voss@haag-streit.com>
+---
+v2: add linux-git tag for kernel fix, only correct test input data
+
+ testcases/kernel/syscalls/keyctl/keyctl09.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/keyctl/keyctl09.c b/testcases/kernel/syscalls/keyctl/keyctl09.c
+index c88c481b9..cfd5f7e5f 100644
+--- a/testcases/kernel/syscalls/keyctl/keyctl09.c
++++ b/testcases/kernel/syscalls/keyctl/keyctl09.c
+@@ -13,8 +13,8 @@
+ #include "tst_test.h"
+ #include "lapi/keyctl.h"
  
--System call numbers vary between architectures, hence why there are multiple
-+System call numbers vary between architectures, hence there are multiple
- +*.in+ files for each architecture. You can find the various values for the
--+statx+ system call across a number of +uinstd.h+ files in the Linux kernel.
-++statx+ system call across a number of +unistd.h+ files in the Linux kernel.
+-#define ENCRYPTED_KEY_VALID_PAYLOAD	"new enc32 user:masterkey 32 abcdefABCDEF1234567890aaaaaaaaaa"
+-#define ENCRYPTED_KEY_INVALID_PAYLOAD	"new enc32 user:masterkey 32 plaintext123@123!123@123!123@123"
++#define ENCRYPTED_KEY_VALID_PAYLOAD	"new enc32 user:masterkey 32 abcdefABCDEF1234567890aaaaaaaaaaabcdefABCDEF1234567890aaaaaaaaaa"
++#define ENCRYPTED_KEY_INVALID_PAYLOAD	"new enc32 user:masterkey 32 plaintext123@123!123@123!123@123plaintext123@123!123@123!123@123"
  
- Note that we don't use the system-call-identifier value available in
--+/usr/include/linux/uinstd.h+ because the kernel might be much newer than the
-++/include/uapi/linux/unistd.h+ because the kernel might be much newer than the
- user land development packages.
+ static void do_test(void)
+ {
+@@ -28,7 +28,8 @@ static void do_test(void)
  
--For +statx+ we had to add +statx 332+ to +testcases/kernel/include/x86_64.in+,
--+statx 383+ to +testcases/kernel/include/powerpc.in+, etc.  Now lets look at
-+For +statx+ we had to add +statx 332+ to +include/lapi/syscalls/x86_64.in+,
-++statx 383+ to +include/lapi/syscalls/powerpc.in+, etc.  Now lets look at
- the code, which I will explain in more detail further down.
+ 	TST_EXP_POSITIVE(add_key("encrypted", "ltptestkey1",
+ 			    ENCRYPTED_KEY_VALID_PAYLOAD,
+-			    60, KEY_SPEC_PROCESS_KEYRING));
++			    strlen(ENCRYPTED_KEY_VALID_PAYLOAD),
++			    KEY_SPEC_PROCESS_KEYRING));
  
- [source,c]
-@@ -1007,7 +1007,7 @@ We can then send this patch with the following command sans +--dry-run+.
- $ git send-email --dry-run output/v2-0001-tutorial-Add-a-step-by-step-C-test-tutorial.patch
- --------------------------------------------------------------------------------
+ 	if (!TST_PASS)
+ 		return;
+@@ -39,7 +40,8 @@ static void do_test(void)
+ 		return;
  
--Git will ask some questions (which you an ignore) and then tell you what it
-+Git will ask some questions (which you can ignore) and then tell you what it
- would do if this weren't a dry-run. In order for this to work you have to have
- a valid SMTP server set in +.gitconfig+ and also be signed up to the LTP
- mailing list under the same e-mail address you have configured in Git. You can
+ 	TST_EXP_FAIL2(add_key("encrypted", "ltptestkey2",
+-			    ENCRYPTED_KEY_INVALID_PAYLOAD, 60,
++			    ENCRYPTED_KEY_INVALID_PAYLOAD,
++			    strlen(ENCRYPTED_KEY_INVALID_PAYLOAD),
+ 			    KEY_SPEC_PROCESS_KEYRING), EINVAL);
+ 
+ 	keyctl(KEYCTL_CLEAR, KEY_SPEC_PROCESS_KEYRING);
+@@ -50,5 +52,9 @@ static struct tst_test test = {
+ 	.needs_kconfigs = (const char *[]) {
+ 		"CONFIG_USER_DECRYPTED_DATA=y",
+ 		NULL
++	},
++	.tags = (const struct tst_tag[]) {
++		{ "linux-git", "5adedd42245af"},
++		{}
+ 	}
+ };
 -- 
-2.39.0
+2.34.1
 
 
 -- 
