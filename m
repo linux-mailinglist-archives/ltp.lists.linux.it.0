@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6FB8666796
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Jan 2023 01:23:27 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4847F6667EE
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Jan 2023 01:39:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A49953CCAFE
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Jan 2023 01:23:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 167523CCAFE
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Jan 2023 01:39:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 62AC13CB55B
- for <ltp@lists.linux.it>; Thu, 12 Jan 2023 01:23:24 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 483F93CB55B
+ for <ltp@lists.linux.it>; Thu, 12 Jan 2023 01:39:44 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A97BC2009D0
- for <ltp@lists.linux.it>; Thu, 12 Jan 2023 01:23:23 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id AF98B100092B
+ for <ltp@lists.linux.it>; Thu, 12 Jan 2023 01:39:43 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4D852573C;
- Thu, 12 Jan 2023 00:23:22 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BC3C3373B9;
+ Thu, 12 Jan 2023 00:39:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1673483002;
+ t=1673483982;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=aJXa4fL4ZNTgysdvAc64ch8s8ysLgeOKtbL8i+MVgFM=;
- b=f7R+N1AP9oSCxo52sV7/CU74e3tft3Q9HnlxY01p+D3UkGIALcDL1GXFb4AXDUmy0Nftds
- yT4OS6MjF9mKGcONO0pQ0dKJo3svoHhaOWSvkCZcnZ8NK+QMVDTXiIoim0hYAInrs9pLkR
- sLBRoBRoaw1OwrbpkjeL8WdOhHHonRU=
+ bh=/vwYvI9eqdxGH7plu5kvO6peWN6u/WGVEZ1YNiyMJXQ=;
+ b=yGW0eq54T0Rz4oPpub5GOiZMir185W8on16zs/i7sipjwcK+M8Ez+rAvsaXx1jh/llV1CG
+ e5zgwtOAYfAMHQcDHY5MLnEcXAyAwcO1iJZtrv9gJ6B9416XOLP7S3Xbv2s0K/gMcKDrQX
+ S/sWKkhQQX6lqZVvkjRLTTB6JXK1mcM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1673483002;
+ s=susede2_ed25519; t=1673483982;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=aJXa4fL4ZNTgysdvAc64ch8s8ysLgeOKtbL8i+MVgFM=;
- b=dA3Seu0HYnaXooebQIuBMT1q7kIXi94teDZF2sAMwdl7UtbtLEIqqdmm8ZEK4Kt2rDrUod
- tjtLrqxERv2UxfBQ==
+ bh=/vwYvI9eqdxGH7plu5kvO6peWN6u/WGVEZ1YNiyMJXQ=;
+ b=/+bUkx0tIjhw1TuFMyGOlfsKNPgas+qOHh7PownAVuREEjkLD0Uw7j/agbBTr1TZESfaD0
+ C8g9EAjztQw46cDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1997E13677;
- Thu, 12 Jan 2023 00:23:22 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8B9A91358A;
+ Thu, 12 Jan 2023 00:39:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id j6OpA/pSv2N9LAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 12 Jan 2023 00:23:22 +0000
-Date: Thu, 12 Jan 2023 01:23:20 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id M8PhIM5Wv2OwMgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 12 Jan 2023 00:39:42 +0000
+Date: Thu, 12 Jan 2023 01:39:36 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Avinesh Kumar <akumar@suse.de>
-Message-ID: <Y79S+OcmLkTP5UfH@pevik>
-References: <20230111132550.15587-1-akumar@suse.de>
+To: Nikolaus Voss <nikolaus.voss@haag-streit.com>
+Message-ID: <Y79WyOooDNfPojIA@pevik>
+References: <20230111142316.A0DBECA25@mail.steuer-voss.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230111132550.15587-1-akumar@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20230111142316.A0DBECA25@mail.steuer-voss.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] setreuid04.c: Rewrite using new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/keyctl/keyctl09.c: fix test encrypted
+ key
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,36 +81,31 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: ltp@lists.linux.it, Yael Tzur <yaelt@google.com>, nv@vosn.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Avinesh,
+Hi Nikolaus,
 
-> -/*
-> - * Test that root can change the real and effective uid to an
-> - * unpriviledged user.
-> +/*\
-> + * [Description]
-> + *
-> + * Verify that root user can change the real and effective uid to an
-> + * unprivileged user.
->   */
+thank you for this update.
 
-> -struct test_data_t {
-> +static struct tcase {
->  	uid_t *real_uid;
->  	uid_t *eff_uid;
-> +	uid_t *exp_real_uid;
-> +	uid_t *exp_eff_uid;
-nit: eff looks really strange. I'd personally use euid and uid or euid and ruid.
-But it's really a detail (no need to change this).
 
-Thanks for a nice cleanup.
+I pushed your patch through mailing list, because you posted unsubscribed.
 
-Reviewed-by: Petr Vorel <akumar@suse.de>
+> Link: https://lore.kernel.org/ltp/20221006081709.92303897@mail.steuer-voss.de/
+
+From a link above you were able to send patch to kernel mailing list, thus you
+managed to subscribed. Why do you expect LTP would work for unsubscribed mails
+addresses?
+
+I also dared to enable this mail for posting to LTP mailing list,
+but better would be if you subscribed before sending patches.
+
+v1 is not in patchwork, but it's in lore:
+https://lore.kernel.org/ltp/d2d2afa4-b031-3455-38dd-c099715319e4@vosn.de/
+
 
 Kind regards,
 Petr
