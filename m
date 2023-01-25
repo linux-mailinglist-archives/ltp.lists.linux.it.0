@@ -2,63 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F85A67AF33
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Jan 2023 11:02:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7013067B590
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Jan 2023 16:11:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 724703CC745
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Jan 2023 11:02:53 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1BD713CC74D
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Jan 2023 16:11:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8C8D43CB37F
- for <ltp@lists.linux.it>; Wed, 25 Jan 2023 11:02:39 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id DAC643CB38E
+ for <ltp@lists.linux.it>; Wed, 25 Jan 2023 16:11:24 +0100 (CET)
+Received: from mail-vs1-xe30.google.com (mail-vs1-xe30.google.com
+ [IPv6:2607:f8b0:4864:20::e30])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3AA251000361
- for <ltp@lists.linux.it>; Wed, 25 Jan 2023 11:02:37 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E9EA221CE9;
- Wed, 25 Jan 2023 10:02:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1674640956; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VLinM7pgRGCrB1B2klEI0xPAUQPGph7onJQjH8xkbuk=;
- b=Nfh5/07HuM002EOQHtqNUtcuawVF1mJn+r6HUUMJUIFJIt7NTcRNqwCaoiiv715S2vLlVd
- /qZhWqpqh5zwN/XwI+qaN+kmYNMqn1M214OG2sp8mZc6rdvMaVbKWIk4zOs1WiaF0JJrd3
- gRjLb9SJrxdpkVxZSwhoGBxlQiSJQeY=
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AB2521358F;
- Wed, 25 Jan 2023 10:02:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 6Oz+Jjz+0GOJLQAAMHmgww
- (envelope-from <andrea.cervesato@suse.com>); Wed, 25 Jan 2023 10:02:36 +0000
-To: ltp@lists.linux.it
-Date: Wed, 25 Jan 2023 11:00:43 +0100
-Message-Id: <20230125100043.32349-3-andrea.cervesato@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230125100043.32349-1-andrea.cervesato@suse.com>
-References: <20230125100043.32349-1-andrea.cervesato@suse.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 20A8D200ADA
+ for <ltp@lists.linux.it>; Wed, 25 Jan 2023 16:11:24 +0100 (CET)
+Received: by mail-vs1-xe30.google.com with SMTP id 3so20034192vsq.7
+ for <ltp@lists.linux.it>; Wed, 25 Jan 2023 07:11:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=sKj8jKaS9qzEpZ/g/OHaJQRuOTXzmq7peLRAuzMOX1c=;
+ b=HDJ5qm0/Fk4IPj4N4/RAkv60QIA3V+CilbE0nwMA00YLr2k7NBBZ2jvVmLUCBqUJ5Y
+ 1Vn4j7M45VC76cKyChHEv5FPahv6UfN+A8UEEobOYmIcDvuu6vDAUrnyZUVImAEvm3bv
+ q8h/YL1qrQg7ci6bwcHv5ivJ88WgYOZjuRp0OBW0JojSnuT00iN6MNgyyyypYNnaIA/0
+ wukD9CzXPDyQ8E0SSq5Y/3Z2k4MTJDYwe2P4YntkE4AqeAZLctrv+tLur+c7EZe3E6ac
+ YR0NqQjq/wnF3xq00pKaCVaR2PwRkN/j11VES34mcVn0E/wPx5UUBPDOKBJPC9yJCU3G
+ q8Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=sKj8jKaS9qzEpZ/g/OHaJQRuOTXzmq7peLRAuzMOX1c=;
+ b=xaJSalLHv2H02faDOUqB3V24Vi6gvebd/uLZXxfEwdzSWYXl7eilgMqz/0GYFPH1lD
+ 2RLtQdRY4ip8DAiUiFWcgCKFvSbbYmhjhLj01wmqNVOgpZv7d2fEmemzDvcLbRcRoOsU
+ 5UAyC528VBePTLIC+P/XLgVI4XIAQUOs+QwrYayZU0qp/PQ2MJ/pajOsKcvyjoVankUg
+ 9E+Pp9bsZhkSbcrQGUxidchK75c8yLPZxSkqi0es4fTdr6VjgjIF7xMzyRnQgam0/puW
+ qLtVPwvlvhW9exEvSlKn2Wzxf+dNRgbMGXGtePDHiQA0puz8+QFelQBojYu+7uVpXQaz
+ Hu6A==
+X-Gm-Message-State: AFqh2kpO9MV7c/7uxoOxaJNsufcxGf4CBiktQJtqxqJJ3NhYrrROgq0E
+ h8Wuk8W8BlDvb2ENLYnH9Tj7t5g5oR26TV8wQtsfPQ==
+X-Google-Smtp-Source: AMrXdXvbcCDG8QypkptU6Y9TFYAuhqUDoQNjsVfOwFzFHgNpOJPmg/3cmhm7ehU3nIxSXrKyvMXo1Wd5UNN/5wxEHtg=
+X-Received: by 2002:a67:f2c2:0:b0:3d3:fdf4:9d30 with SMTP id
+ a2-20020a67f2c2000000b003d3fdf49d30mr3817805vsn.34.1674659482687; Wed, 25 Jan
+ 2023 07:11:22 -0800 (PST)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Wed, 25 Jan 2023 20:41:11 +0530
+Message-ID: <CA+G9fYsoGiJRYeuUpak+5aQ4Ev8s_u0YZKXMQuP7CwQsWo1G6g@mail.gmail.com>
+To: open list <linux-kernel@vger.kernel.org>, LTP List <ltp@lists.linux.it>, 
+ lkft-triage@lists.linaro.org
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 2/2] Rewrite utsname testing suite
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] next-20230124: LTP: shmctl01.c:120: TFAIL: after child
+ shmdt() shm_nattcg=20 expected 0
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,1005 +76,62 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: Vasily Averin <vvs@virtuozzo.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Shakeel Butt <shakeelb@google.com>, Luiz Capitulino <luizcap@amazon.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Deleted utstest.c and created the following new tests:
-- utsname01
-- utsname02
-- utsname03
-- utsname04
+LTP syscalls shmctl01 test failed on Linux next-20230124 tag across all the
+available architectures with following error logs,
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
-removed root requirement from utsname01
-removed default value from -m option in utsname0[34]
+tst_test.c:1524: TINFO: Timeout per run is 0h 05m 00s
+shmctl01.c:256: TINFO: shm_id=9 maps to kernel index=9
+shmctl01.c:220: TINFO: Basic checks
+shmctl01.c:175: TPASS: IPC_STAT: shm_segsz=2048
+shmctl01.c:182: TPASS: IPC_STAT: shm_cpid=103946
+shmctl01.c:189: TPASS: IPC_STAT: shm_ctime=1674621556 in range
+<1674621556,1674621556>
+shmctl01.c:175: TPASS: SHM_STAT: shm_segsz=2048
+shmctl01.c:182: TPASS: SHM_STAT: shm_cpid=103946
+shmctl01.c:189: TPASS: SHM_STAT: shm_ctime=1674621556 in range
+<1674621556,1674621556>
+shmctl01.c:220: TINFO: Children attach SHM
+shmctl01.c:116: TPASS: before child shmat() shm_nattch=0
+shmctl01.c:116: TPASS: after child shmat() shm_nattch=20
+shmctl01.c:120: TFAIL: after child shmdt() shm_nattcg=20 expected 0
+shmctl01.c:220: TINFO: Chidlren inherit SHM
+shmctl01.c:116: TPASS: inherited after fork() shm_nattch=21
+shmctl01.c:120: TFAIL: after child shmdt() shm_nattcg=21 expected 1
+shmctl01.c:120: TFAIL: after parent shmdt() shm_nattcg=21 expected 0
 
- runtest/containers                            |   7 +
- .../kernel/containers/utsname/.gitignore      |   5 +-
- testcases/kernel/containers/utsname/Makefile  |  23 +-
- .../containers/utsname/runutstests_noltp.sh   |  41 --
- testcases/kernel/containers/utsname/utsname.h | 116 ++++++
- .../kernel/containers/utsname/utsname01.c     |  71 ++++
- .../kernel/containers/utsname/utsname02.c     |  96 +++++
- .../kernel/containers/utsname/utsname03.c     | 110 ++++++
- .../kernel/containers/utsname/utsname04.c     |  66 ++++
- testcases/kernel/containers/utsname/utstest.c | 353 ------------------
- 10 files changed, 473 insertions(+), 415 deletions(-)
- delete mode 100755 testcases/kernel/containers/utsname/runutstests_noltp.sh
- create mode 100644 testcases/kernel/containers/utsname/utsname.h
- create mode 100644 testcases/kernel/containers/utsname/utsname01.c
- create mode 100644 testcases/kernel/containers/utsname/utsname02.c
- create mode 100644 testcases/kernel/containers/utsname/utsname03.c
- create mode 100644 testcases/kernel/containers/utsname/utsname04.c
- delete mode 100644 testcases/kernel/containers/utsname/utstest.c
+Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
 
-diff --git a/runtest/containers b/runtest/containers
-index 2637b62fe..36d9378af 100644
---- a/runtest/containers
-+++ b/runtest/containers
-@@ -73,6 +73,13 @@ utstest_clone_3 utstest clone 3
- utstest_clone_4 utstest clone 4
- utstest_clone_5 utstest clone 5
- 
-+utsname01 utsname01
-+utsname02 utsname02
-+utsname03_clone utsname03 -m clone
-+utsname03_unshare utsname03 -m unshare
-+utsname04_clone utsname04 -m clone
-+utsname04_unshare utsname04 -m unshare
-+
- mountns01 mountns01
- mountns02 mountns02
- mountns03 mountns03
-diff --git a/testcases/kernel/containers/utsname/.gitignore b/testcases/kernel/containers/utsname/.gitignore
-index 0e1f41dc8..945ed280e 100644
---- a/testcases/kernel/containers/utsname/.gitignore
-+++ b/testcases/kernel/containers/utsname/.gitignore
-@@ -1 +1,4 @@
--/utstest
-+/utsname01
-+/utsname02
-+/utsname03
-+/utsname04
-diff --git a/testcases/kernel/containers/utsname/Makefile b/testcases/kernel/containers/utsname/Makefile
-index 5efcbf648..9c0158c01 100644
---- a/testcases/kernel/containers/utsname/Makefile
-+++ b/testcases/kernel/containers/utsname/Makefile
-@@ -1,28 +1,11 @@
--################################################################################
--##                                                                            ##
--## Copyright (c) International Business Machines  Corp., 2007                 ##
--##                                                                            ##
--## This program is free software;  you can redistribute it and#or modify      ##
--## it under the terms of the GNU General Public License as published by       ##
--## the Free Software Foundation; either version 2 of the License, or          ##
--## (at your option) any later version.                                        ##
--##                                                                            ##
--## This program is distributed in the hope that it will be useful, but        ##
--## WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY ##
--## or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License   ##
--## for more details.                                                          ##
--##                                                                            ##
--## You should have received a copy of the GNU General Public License          ##
--## along with this program;  if not, write to the Free Software               ##
--## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    ##
--##                                                                            ##
--################################################################################
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
- 
- top_srcdir		?= ../../../..
- 
- include $(top_srcdir)/include/mk/testcases.mk
- include $(abs_srcdir)/../Makefile.inc
- 
--LDLIBS			:= -lclone -lpthread -lrt $(LDLIBS)
-+LDLIBS			:= -lclone $(LDLIBS)
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/containers/utsname/runutstests_noltp.sh b/testcases/kernel/containers/utsname/runutstests_noltp.sh
-deleted file mode 100755
-index 43cb7e26b..000000000
---- a/testcases/kernel/containers/utsname/runutstests_noltp.sh
-+++ /dev/null
-@@ -1,41 +0,0 @@
--#!/bin/sh
--################################################################################
--##                                                                            ##
--## Copyright (c) International Business Machines  Corp., 2007                 ##
--##                                                                            ##
--## This program is free software;  you can redistribute it and#or modify      ##
--## it under the terms of the GNU General Public License as published by       ##
--## the Free Software Foundation; either version 2 of the License, or          ##
--## (at your option) any later version.                                        ##
--##                                                                            ##
--## This program is distributed in the hope that it will be useful, but        ##
--## WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY ##
--## or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License   ##
--## for more details.                                                          ##
--##                                                                            ##
--## You should have received a copy of the GNU General Public License          ##
--## along with this program;  if not, write to the Free Software               ##
--## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    ##
--##                                                                            ##
--################################################################################
--
--oldhostname=`hostname`
--exit_code=0
--echo "unshare tests"
--for i in `seq 1 5`; do
--	echo "test $i (unshare)"
--	./utstest_noltp unshare $i
--	if [ $? -ne 0 ]; then
--		exit_code=$?
--	fi
--done
--echo "clone tests"
--for i in `seq 1 5`; do
--	echo "test $i (clone)"
--	./utstest_noltp clone $i
--	if [ $? -ne 0 ]; then
--		exit_code=$?
--	fi
--done
--hostname "$oldhostname"
--exit $exit_code
-diff --git a/testcases/kernel/containers/utsname/utsname.h b/testcases/kernel/containers/utsname/utsname.h
-new file mode 100644
-index 000000000..74d0ec3ac
---- /dev/null
-+++ b/testcases/kernel/containers/utsname/utsname.h
-@@ -0,0 +1,116 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+#ifndef UTSTEST_H
-+#define UTSTEST_H
-+
-+#include <stdlib.h>
-+#include "tst_test.h"
-+#include "lapi/syscalls.h"
-+#include "lapi/sched.h"
-+
-+enum {
-+	T_CLONE,
-+	T_UNSHARE,
-+	T_NONE,
-+};
-+
-+static int dummy_child(LTP_ATTRIBUTE_UNUSED void *v)
-+{
-+	return 0;
-+}
-+
-+static inline void check_newuts(void)
-+{
-+	int pid, status;
-+
-+	pid = ltp_clone_quick(CLONE_NEWUTS | SIGCHLD, dummy_child, NULL);
-+	if (pid < 0)
-+		tst_brk(TCONF | TERRNO, "CLONE_NEWIPC not supported");
-+
-+	SAFE_WAITPID(pid, &status, 0);
-+}
-+
-+static inline int get_clone_unshare_enum(const char *str_op)
-+{
-+	int use_clone;
-+
-+	use_clone = T_NONE;
-+
-+	if (!str_op || !strcmp(str_op, "none"))
-+		use_clone = T_NONE;
-+	else if (!strcmp(str_op, "clone"))
-+		use_clone = T_CLONE;
-+	else if (!strcmp(str_op, "unshare"))
-+		use_clone = T_UNSHARE;
-+	else
-+		tst_brk(TBROK, "Test execution mode <clone|unshare|none>");
-+
-+	return use_clone;
-+}
-+
-+static inline pid_t clone_test(unsigned long clone_flags, int (*fn1)(void *arg), void *arg1)
-+{
-+	pid_t pid;
-+
-+	pid = ltp_clone_quick(clone_flags | SIGCHLD, fn1, arg1);
-+	if (pid < 0)
-+		tst_brk(TBROK | TERRNO, "ltp_clone_quick error");
-+
-+	return pid;
-+}
-+
-+static inline pid_t unshare_test(unsigned long clone_flags, int (*fn1)(void *arg), void *arg1)
-+{
-+	pid_t pid;
-+
-+	pid = SAFE_FORK();
-+	if (!pid) {
-+		SAFE_UNSHARE(clone_flags);
-+
-+		fn1(arg1);
-+		exit(0);
-+	}
-+
-+	return pid;
-+}
-+
-+static inline pid_t plain_test(int (*fn1)(void *arg), void *arg1)
-+{
-+	pid_t pid;
-+
-+	pid = SAFE_FORK();
-+	if (!pid) {
-+		fn1(arg1);
-+		exit(0);
-+	}
-+
-+	return pid;
-+}
-+
-+static inline pid_t clone_unshare_test(int use_clone, unsigned long clone_flags,
-+			       int (*fn1)(void *arg), void *arg1)
-+{
-+	pid_t pid = -1;
-+
-+	switch (use_clone) {
-+	case T_NONE:
-+		pid = plain_test(fn1, arg1);
-+	break;
-+	case T_CLONE:
-+		pid = clone_test(clone_flags, fn1, arg1);
-+	break;
-+	case T_UNSHARE:
-+		pid = unshare_test(clone_flags, fn1, arg1);
-+	break;
-+	default:
-+		tst_brk(TBROK, "%s: bad use_clone option: %d", __func__, use_clone);
-+	break;
-+	}
-+
-+	return pid;
-+}
-+
-+#endif
-diff --git a/testcases/kernel/containers/utsname/utsname01.c b/testcases/kernel/containers/utsname/utsname01.c
-new file mode 100644
-index 000000000..b5144709a
---- /dev/null
-+++ b/testcases/kernel/containers/utsname/utsname01.c
-@@ -0,0 +1,71 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Clone two plain processes and check if both read the same hostname.
-+ */
-+
-+#define _GNU_SOURCE
-+
-+#include "tst_test.h"
-+#include "utsname.h"
-+
-+static char *hostname1;
-+static char *hostname2;
-+
-+static int child1_run(LTP_ATTRIBUTE_UNUSED void *vtest)
-+{
-+	SAFE_GETHOSTNAME(hostname1, HOST_NAME_MAX);
-+
-+	return 0;
-+}
-+
-+static int child2_run(LTP_ATTRIBUTE_UNUSED void *vtest)
-+{
-+	SAFE_GETHOSTNAME(hostname2, HOST_NAME_MAX);
-+
-+	return 0;
-+}
-+
-+static void run(void)
-+{
-+	int status1, status2;
-+	pid_t pid1, pid2;
-+
-+	memset(hostname1, 0, HOST_NAME_MAX);
-+	memset(hostname2, 0, HOST_NAME_MAX);
-+
-+	pid1 = clone_unshare_test(T_NONE, 0, child1_run, NULL);
-+	pid2 = clone_unshare_test(T_NONE, 0, child2_run, NULL);
-+
-+	SAFE_WAITPID(pid1, &status1, 0);
-+	SAFE_WAITPID(pid2, &status2, 0);
-+
-+	if (WIFSIGNALED(status1) || WIFSIGNALED(status2))
-+		return;
-+
-+	TST_EXP_PASS(strcmp(hostname1, hostname2));
-+}
-+
-+static void setup(void)
-+{
-+	hostname1 = SAFE_MMAP(NULL, sizeof(char) * HOST_NAME_MAX, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+	hostname2 = SAFE_MMAP(NULL, sizeof(char) * HOST_NAME_MAX, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+}
-+
-+static void cleanup(void)
-+{
-+	SAFE_MUNMAP(hostname1, HOST_NAME_MAX);
-+	SAFE_MUNMAP(hostname2, HOST_NAME_MAX);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.forks_child = 1,
-+};
-diff --git a/testcases/kernel/containers/utsname/utsname02.c b/testcases/kernel/containers/utsname/utsname02.c
-new file mode 100644
-index 000000000..5f8bbe836
---- /dev/null
-+++ b/testcases/kernel/containers/utsname/utsname02.c
-@@ -0,0 +1,96 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Clone two plain processes, change hostname in the first one then check if
-+ * hostaname has changed inside the second one as well.
-+ */
-+
-+#define _GNU_SOURCE
-+
-+#include "tst_test.h"
-+#include "utsname.h"
-+
-+#define HOSTNAME "LTP_HOSTNAME"
-+
-+static char *hostname1;
-+static char *hostname2;
-+static char originalhost[HOST_NAME_MAX];
-+
-+static void reset_hostname(void)
-+{
-+	SAFE_SETHOSTNAME(originalhost, strlen(originalhost));
-+}
-+
-+static int child1_run(LTP_ATTRIBUTE_UNUSED void *vtest)
-+{
-+	SAFE_SETHOSTNAME(HOSTNAME, strlen(HOSTNAME));
-+	SAFE_GETHOSTNAME(hostname1, HOST_NAME_MAX);
-+
-+	TST_CHECKPOINT_WAKE(0);
-+
-+	return 0;
-+}
-+
-+static int child2_run(LTP_ATTRIBUTE_UNUSED void *vtest)
-+{
-+	TST_CHECKPOINT_WAIT(0);
-+
-+	SAFE_GETHOSTNAME(hostname2, HOST_NAME_MAX);
-+
-+	return 0;
-+}
-+
-+static void run(void)
-+{
-+	pid_t pid1, pid2;
-+	int status1, status2;
-+
-+	memset(hostname1, 0, HOST_NAME_MAX);
-+	memset(hostname2, 0, HOST_NAME_MAX);
-+
-+	pid1 = clone_unshare_test(T_NONE, 0, child1_run, NULL);
-+	pid2 = clone_unshare_test(T_NONE, 0, child2_run, NULL);
-+
-+	SAFE_WAITPID(pid1, &status1, 0);
-+	SAFE_WAITPID(pid2, &status2, 0);
-+
-+	if (WIFSIGNALED(status1) || WIFSIGNALED(status2))
-+		return;
-+
-+	TST_EXP_PASS(strcmp(hostname1, HOSTNAME));
-+	TST_EXP_PASS(strcmp(hostname2, HOSTNAME));
-+
-+	reset_hostname();
-+}
-+
-+static void setup(void)
-+{
-+	hostname1 = SAFE_MMAP(NULL, sizeof(char) * HOST_NAME_MAX, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+	hostname2 = SAFE_MMAP(NULL, sizeof(char) * HOST_NAME_MAX, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+
-+	memset(originalhost, 0, HOST_NAME_MAX);
-+
-+	SAFE_GETHOSTNAME(originalhost, HOST_NAME_MAX);
-+}
-+
-+static void cleanup(void)
-+{
-+	SAFE_MUNMAP(hostname1, HOST_NAME_MAX);
-+	SAFE_MUNMAP(hostname2, HOST_NAME_MAX);
-+
-+	reset_hostname();
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_root = 1,
-+	.forks_child = 1,
-+	.needs_checkpoints = 1,
-+};
-diff --git a/testcases/kernel/containers/utsname/utsname03.c b/testcases/kernel/containers/utsname/utsname03.c
-new file mode 100644
-index 000000000..b90020c88
---- /dev/null
-+++ b/testcases/kernel/containers/utsname/utsname03.c
-@@ -0,0 +1,110 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) International Business Machines Corp., 2007
-+ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Clone two processes using CLONE_NEWUTS, change hostname from the first
-+ * container and check if hostname didn't change inside the second one.
-+ */
-+
-+#define _GNU_SOURCE
-+
-+#include "tst_test.h"
-+#include "utsname.h"
-+
-+#define HOSTNAME "LTP_HOSTNAME"
-+
-+static char *str_op;
-+static int use_clone;
-+static char *hostname1;
-+static char *hostname2;
-+static char originalhost[HOST_NAME_MAX];
-+
-+static void reset_hostname(void)
-+{
-+	SAFE_SETHOSTNAME(originalhost, strlen(originalhost));
-+}
-+
-+static int child1_run(LTP_ATTRIBUTE_UNUSED void *vtest)
-+{
-+	SAFE_SETHOSTNAME(HOSTNAME, strlen(HOSTNAME));
-+	SAFE_GETHOSTNAME(hostname1, HOST_NAME_MAX);
-+
-+	TST_CHECKPOINT_WAKE(0);
-+
-+	return 0;
-+}
-+
-+static int child2_run(LTP_ATTRIBUTE_UNUSED void *vtest)
-+{
-+	TST_CHECKPOINT_WAIT(0);
-+
-+	SAFE_GETHOSTNAME(hostname2, HOST_NAME_MAX);
-+
-+	return 0;
-+}
-+
-+static void run(void)
-+{
-+	pid_t pid1, pid2;
-+	int status1, status2;
-+
-+	memset(hostname1, 0, HOST_NAME_MAX);
-+	memset(hostname2, 0, HOST_NAME_MAX);
-+
-+	pid1 = clone_unshare_test(use_clone, CLONE_NEWUTS, child1_run, NULL);
-+	pid2 = clone_unshare_test(use_clone, CLONE_NEWUTS, child2_run, NULL);
-+
-+	SAFE_WAITPID(pid1, &status1, 0);
-+	SAFE_WAITPID(pid2, &status2, 0);
-+
-+	if (WIFSIGNALED(status1) || WIFSIGNALED(status2))
-+		return;
-+
-+	TST_EXP_PASS(strcmp(hostname1, HOSTNAME));
-+	TST_EXP_PASS(strcmp(hostname2, originalhost));
-+
-+	reset_hostname();
-+}
-+
-+static void setup(void)
-+{
-+	use_clone = get_clone_unshare_enum(str_op);
-+
-+	if (use_clone != T_CLONE && use_clone != T_UNSHARE)
-+		tst_brk(TCONF, "Only clone and unshare clone are supported");
-+
-+	check_newuts();
-+
-+	hostname1 = SAFE_MMAP(NULL, sizeof(char) * HOST_NAME_MAX, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+	hostname2 = SAFE_MMAP(NULL, sizeof(char) * HOST_NAME_MAX, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+
-+	memset(originalhost, 0, HOST_NAME_MAX);
-+
-+	SAFE_GETHOSTNAME(originalhost, HOST_NAME_MAX);
-+}
-+
-+static void cleanup(void)
-+{
-+	SAFE_MUNMAP(hostname1, HOST_NAME_MAX);
-+	SAFE_MUNMAP(hostname2, HOST_NAME_MAX);
-+
-+	reset_hostname();
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_root = 1,
-+	.forks_child = 1,
-+	.needs_checkpoints = 1,
-+	.options = (struct tst_option[]) {
-+		{ "m:", &str_op, "Test execution mode <clone|unshare>" },
-+		{},
-+	},
-+};
-diff --git a/testcases/kernel/containers/utsname/utsname04.c b/testcases/kernel/containers/utsname/utsname04.c
-new file mode 100644
-index 000000000..42fd65d04
---- /dev/null
-+++ b/testcases/kernel/containers/utsname/utsname04.c
-@@ -0,0 +1,66 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Drop root privileges, create a container with CLONE_NEWUTS and verify that
-+ * we receive a permission error.
-+ */
-+
-+#define _GNU_SOURCE
-+
-+#include "tst_test.h"
-+#include "utsname.h"
-+
-+static char *str_op;
-+static int use_clone;
-+
-+static int child1_run(LTP_ATTRIBUTE_UNUSED void *vtest)
-+{
-+	return 0;
-+}
-+
-+static void run(void)
-+{
-+	void *stack;
-+	size_t stack_size = getpagesize() * 6;
-+
-+	stack = ltp_alloc_stack(stack_size);
-+	if (stack == NULL)
-+		tst_brk(TBROK, "Can't allocate stack");
-+
-+	tst_res(TINFO, "Dropping root privileges");
-+
-+	SAFE_SETRESUID(1000, 1000, 1000);
-+
-+	tst_res(TINFO, "clone() with CLONE_NEWUTS");
-+
-+	ltp_clone(CLONE_NEWUTS, child1_run, NULL, stack_size, stack);
-+
-+	TST_EXP_PASS(errno == EPERM);
-+}
-+
-+static void setup(void)
-+{
-+	use_clone = get_clone_unshare_enum(str_op);
-+
-+	if (use_clone != T_CLONE && use_clone != T_UNSHARE)
-+		tst_brk(TCONF, "Only clone and unshare clone are supported");
-+
-+	check_newuts();
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.needs_root = 1,
-+	.forks_child = 1,
-+	.needs_checkpoints = 1,
-+	.options = (struct tst_option[]) {
-+		{ "m:", &str_op, "Test execution mode <clone|unshare>" },
-+		{},
-+	},
-+};
-diff --git a/testcases/kernel/containers/utsname/utstest.c b/testcases/kernel/containers/utsname/utstest.c
-deleted file mode 100644
-index 9ad19b6b2..000000000
---- a/testcases/kernel/containers/utsname/utstest.c
-+++ /dev/null
-@@ -1,353 +0,0 @@
--/*
--* Copyright (c) International Business Machines Corp., 2007
--* This program is free software; you can redistribute it and/or modify
--* it under the terms of the GNU General Public License as published by
--* the Free Software Foundation; either version 2 of the License, or
--* (at your option) any later version.
--*
--* This program is distributed in the hope that it will be useful,
--* but WITHOUT ANY WARRANTY; without even the implied warranty of
--* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
--* the GNU General Public License for more details.
--* You should have received a copy of the GNU General Public License
--* along with this program; if not, write to the Free Software
--* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
--*
--***************************************************************************
-- * Copyright 2007 IBM
-- * Author: Serge Hallyn <serue@us.ibm.com>
-- *
-- * test1:
--	P1: A=gethostname
--	P2: B=gethostname
--	Ensure(A==B)
--
-- * test2:
--	P1: sethostname(A);
--	P2: (wait); B=gethostname
--	Ensure (A==B)
--
-- * test3:
--	P1: A=gethostname; unshare(utsname); sethostname(newname); C=gethostname
--	P2: B=gethostname; (wait); (wait); D=gethostname
--	Ensure (A==B && A==D && C!=D)
--
-- * test4:
--	P1: A=gethostname; unshare(utsname); (wait); C=gethostname
--	P2: B=gethostname; (wait); sethostname(newname); D=gethostname
--	Ensure (A==B && A==C && C!=D)
--
-- * test5:
--	P1: drop_privs(); unshare(utsname); (wait); C=gethostname
--	P2: (wait); sethostname(B); D=gethostname
--	Ensure (B==C==D) and state is ok.
-- *
-- */
--
--#define _GNU_SOURCE 1
--#include <sys/wait.h>
--#include <assert.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <unistd.h>
--#include <string.h>
--#include <errno.h>
--#include "libclone.h"
--#include "test.h"
--#include "safe_macros.h"
--
--char *TCID = "uts_namespace";
--int TST_TOTAL = 1;
--
--static int dummy_child(void *v)
--{
--	(void) v;
--	return 0;
--}
--
--static void check_newuts(void)
--{
--	int pid, status;
--
--	pid = do_clone_unshare_test(T_CLONE, CLONE_NEWUTS, dummy_child, NULL);
--	if (pid == -1)
--		tst_brkm(TCONF | TERRNO, NULL, "CLONE_NEWUTS not supported");
--
--	SAFE_WAIT(NULL, &status);
--}
--
--int drop_root(void)
--{
--	int ret;
--	ret = setresuid(1000, 1000, 1000);
--	if (ret) {
--		perror("setresuid");
--		exit(4);
--	}
--	return 1;
--}
--
--#define HLEN 100
--#define NAME1 "serge1"
--#define NAME2 "serge2"
--
--int p1fd[2], p2fd[2];
--static char oldhost[HLEN];
--pid_t cpid;
--
--void picknewhostname(char *orig, char *new)
--{
--	memset(new, 0, HLEN);
--	if (strcmp(orig, NAME1) == 0)
--		strcpy(new, NAME2);
--	else
--		strcpy(new, NAME1);
--}
--
--void zeroize(char *s)
--{
--	memset(s, 0, HLEN);
--}
--
--char *tsttype;
--int P1(void *vtest)
--{
--	char hostname[HLEN], newhostname[HLEN], rhostname[HLEN];
--	int err;
--	int len;
--	int testnum;
--
--	testnum = atoi((char *)vtest);
--
--	close(p1fd[1]);
--	close(p2fd[0]);
--
--	switch (testnum) {
--	case 1:
--		gethostname(hostname, HLEN);
--		zeroize(rhostname);
--		len = read(p1fd[0], rhostname, HLEN);
--		if (strcmp(hostname, rhostname) == 0) {
--			tst_resm(TPASS, "test 1 (%s): success", tsttype);
--			tst_exit();
--		}
--		tst_brkm(TFAIL, NULL,
--			 "test 1 (%s): hostname 1 %s, hostname 2 %s",
--			 tsttype, hostname, rhostname);
--	case 2:
--		gethostname(hostname, HLEN);
--		picknewhostname(hostname, newhostname);
--		err = sethostname(newhostname, strlen(newhostname));
--		write(p2fd[1], "1", 1);
--		if (err == -1) {
--			tst_brkm(TFAIL, NULL,
--				 "test 2 (%s): failed to sethostname",
--				 tsttype);
--		}
--		zeroize(rhostname);
--		len = read(p1fd[0], rhostname, HLEN);
--		if (strcmp(newhostname, rhostname) == 0) {
--			tst_resm(TPASS, "test 2 (%s): success", tsttype);
--			tst_exit();
--		}
--		tst_brkm(TFAIL, NULL,
--			 "test 2 (%s) hostname 1 %s, hostname 2 %s",
--			 tsttype, newhostname, rhostname);
--	case 3:
--		gethostname(hostname, HLEN);
--		picknewhostname(hostname, newhostname);
--		err = sethostname(newhostname, strlen(newhostname));
--		write(p2fd[1], "1", 1);
--		if (err == -1) {
--			tst_brkm(TFAIL, NULL,
--				 "test 3 (%s): failed to sethostname",
--				 tsttype);
--		}
--
--		zeroize(rhostname);
--		len = read(p1fd[0], rhostname, HLEN);
--		if (strcmp(newhostname, rhostname) == 0) {
--			tst_brkm(TFAIL,
--				 NULL,
--				 "test 3 (%s): hostname 1 %s, hostname 2 %s, these should have been different",
--				 tsttype, newhostname, rhostname);
--		}
--		if (strcmp(hostname, rhostname) == 0) {
--			tst_resm(TPASS, "test 3 (%s): success", tsttype);
--			tst_exit();
--		}
--		tst_brkm(TFAIL,
--			 NULL,
--			 "test 3 (%s): hostname 1 %s, hostname 2 %s, should have been same",
--			 tsttype, hostname, rhostname);
--
--	case 4:
--		gethostname(hostname, HLEN);
--		write(p2fd[1], "1", 1);	/* tell p2 to go ahead and sethostname */
--		zeroize(rhostname);
--		len = read(p1fd[0], rhostname, HLEN);
--		gethostname(newhostname, HLEN);
--		if (strcmp(hostname, newhostname) != 0) {
--			tst_brkm(TFAIL,
--				 NULL,
--				 "test 4 (%s): hostname 1 %s, hostname 2 %s, should be same",
--				 tsttype, hostname, newhostname);
--		}
--		if (strcmp(hostname, rhostname) == 0) {
--			tst_brkm(TFAIL,
--				 NULL,
--				 "test 4 (%s): hostname 1 %s, hostname 2 %s, should be different",
--				 tsttype, hostname, rhostname);
--		}
--		tst_resm(TPASS, "test 4 (%s): successful", tsttype);
--		tst_exit();
--	case 5:
--		write(p2fd[1], "1", 1);	/* tell p2 to go ahead and sethostname */
--		zeroize(rhostname);
--		len = read(p1fd[0], rhostname, HLEN);
--		gethostname(newhostname, HLEN);
--		if (strcmp(rhostname, newhostname) != 0) {
--			tst_brkm(TFAIL,
--				 NULL,
--				 "test 5 (%s): hostnames %s and %s should be same",
--				 tsttype, rhostname, newhostname);
--		}
--		tst_resm(TPASS, "test 5 (%s): successful", tsttype);
--		tst_exit();
--	default:
--		break;
--	}
--	tst_exit();
--}
--
--int P2(void *vtest)
--{
--	char hostname[HLEN], newhostname[HLEN];
--	int len;
--	int testnum;
--
--	testnum = atoi((char *)vtest);
--
--	close(p1fd[0]);
--	close(p2fd[1]);
--
--	switch (testnum) {
--	case 1:
--		gethostname(hostname, HLEN);
--		write(p1fd[1], hostname, strlen(hostname));
--		break;
--	case 2:
--	case 3:
--		len = 0;
--		while (!len) {
--			len = read(p2fd[0], hostname, 1);
--		}
--		gethostname(hostname, HLEN);
--		write(p1fd[1], hostname, strlen(hostname));
--		break;
--	case 4:
--	case 5:
--		len = 0;
--		while (!len) {
--			len = read(p2fd[0], hostname, 1);
--		}
--		if (hostname[0] == '0') {
--			tst_resm(TPASS, "P2: P1 claims error");
--			return 0;
--		}
--		gethostname(hostname, HLEN);
--		picknewhostname(hostname, newhostname);
--		sethostname(newhostname, strlen(newhostname));
--		write(p1fd[1], newhostname, strlen(newhostname));
--		break;
--	default:
--		tst_resm(TFAIL, "undefined test: %d", testnum);
--		break;
--	}
--	return 0;
--}
--
--static void setup(void)
--{
--	gethostname(oldhost, HLEN);
--	tst_require_root();
--	check_newuts();
--}
--
--static void cleanup(void)
--{
--	sethostname(oldhost, strlen(oldhost));
--}
--
--#define UNSHARESTR "unshare"
--#define CLONESTR "clone"
--int main(int argc, char *argv[])
--{
--	int r, pid, use_clone = T_UNSHARE;
--	int testnum;
--	void *vtest;
--
--	setup();
--	if (argc != 3) {
--		tst_resm(TFAIL, "Usage: %s <clone|unshare> <testnum>",
--			 argv[0]);
--		tst_resm(TFAIL,
--			 " where clone or unshare specifies unshare method,");
--		tst_resm(TFAIL, " and testnum is between 1 and 5 inclusive");
--		exit(2);
--	}
--	if (pipe(p1fd) == -1) {
--		perror("pipe");
--		exit(EXIT_FAILURE);
--	}
--	if (pipe(p2fd) == -1) {
--		perror("pipe");
--		exit(EXIT_FAILURE);
--	}
--
--	tsttype = UNSHARESTR;
--	if (strcmp(argv[1], "clone") == 0) {
--		use_clone = T_CLONE;
--		tsttype = CLONESTR;
--	}
--
--	testnum = atoi(argv[2]);
--
--	vtest = (void *)argv[2];
--	switch (testnum) {
--	case 1:
--	case 2:
--		r = do_clone_unshare_tests(T_NONE, 0, P1, vtest, P2, vtest);
--		break;
--	case 3:
--	case 4:
--		r = do_clone_unshare_tests(use_clone, CLONE_NEWUTS,
--					   P1, vtest, P2, vtest);
--		break;
--	case 5:
--		pid = fork();
--		if (pid == -1) {
--			perror("fork");
--			exit(2);
--		}
--		if (pid == 0) {
--			if (!drop_root()) {
--				tst_brkm(TFAIL, NULL, "failed to drop root.");
--			}
--			r = do_clone_unshare_test(use_clone, CLONE_NEWUTS,
--						  P1, vtest);
--			write(p2fd[1], "0", 1);	/* don't let p2 hang */
--			exit(0);
--		} else {
--			P2(vtest);
--		}
--		break;
--	default:
--		tst_resm(TFAIL,
--			 "testnum should be between 1 and 5 inclusive.");
--		break;
--	}
--
--	cleanup();
--	tst_exit();
--}
--- 
-2.35.3
+Test logs:
+https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20230124/testrun/14344836/suite/ltp-syscalls/test/shmat01/details/
+https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20230125/testrun/14356742/suite/ltp-syscalls/test/shmat01/log
 
+Test history:
+https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20230125/testrun/14356742/suite/ltp-syscalls/test/shmat01/history/
+
+metadata:
+  git_ref: master
+  git_repo: https://gitlab.com/Linaro/lkft/mirrors/next/linux-next
+  git_sha: a54df7622717a40ddec95fd98086aff8ba7839a6
+  git_describe: next-20230124
+  kernel_version: 6.2.0-rc5
+  kernel-config:
+https://storage.tuxsuite.com/public/linaro/lkft/builds/2Kl19cvIBraXOcZpBGCPzCajGAs/config
+  build-url: https://gitlab.com/Linaro/lkft/mirrors/next/linux-next/-/pipelines/755587911
+  artifact-location:
+https://storage.tuxsuite.com/public/linaro/lkft/builds/2Kl19cvIBraXOcZpBGCPzCajGAs/
+  toolchain: gcc-11
+
+--
+Linaro LKFT
+https://lkft.linaro.org
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
