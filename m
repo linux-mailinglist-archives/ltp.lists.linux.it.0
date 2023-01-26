@@ -2,73 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B8E367D808
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Jan 2023 22:55:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39A4367D823
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Jan 2023 23:04:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BF5C63CD358
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Jan 2023 22:55:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 084F23CC794
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Jan 2023 23:04:29 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 226B53CD34F
- for <ltp@lists.linux.it>; Thu, 26 Jan 2023 22:54:10 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 344023CC73C
+ for <ltp@lists.linux.it>; Thu, 26 Jan 2023 23:04:24 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6F4E714010FD
- for <ltp@lists.linux.it>; Thu, 26 Jan 2023 22:54:09 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 69EB71A0036A
+ for <ltp@lists.linux.it>; Thu, 26 Jan 2023 23:04:23 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0FD191F8A8;
- Thu, 26 Jan 2023 21:54:09 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AAB0B21891;
+ Thu, 26 Jan 2023 22:04:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1674770049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1674770662;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MboRKtqf6AKC+lmYv+Xo4yQJWonfND0l9rTA5wy749Y=;
- b=Vf7J6g6bDCkOOIu0b3SV8LJFmq897gPwGNLsoFgpD9kB/J4NPkRdD42iICJ1mzOpUv9/KT
- pHTrEr3Z3j1EI0oLmS4OJVwyBRzt7WEP4RaTLtmHpz/BEsHDoun6w/2YnaC25CCVZcpBhW
- kDyon63z75ra5xtzROwf6kTf1oty/0U=
+ bh=X9Ix9TJLV9KTeCu0ejzNvLJBNLWwY09L8O9Ac704a6Q=;
+ b=TQjhCZd7wYwY1yktLXhaDGCvOOW+UH/HaBNDso98c8gPXlDLfVmmI7LFFd0otAbrbNu4aC
+ A/eiYwbvPVC8KDmMqdTTcLmYA+89A2s5FupRyZlg+AIrPyN3wcE5QAIHu4E/TqsPH6skYX
+ iUgaWVFOtNMZ5JGQS4z4b+X/5UnJekA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1674770049;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1674770662;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MboRKtqf6AKC+lmYv+Xo4yQJWonfND0l9rTA5wy749Y=;
- b=pkClLSsL6FQG0hwutL4yVd7QK5v7jQDRyvco7rRVV+evKziNSIIM+UD2nyJ1JNEsSTZI65
- nrvZXRiN2uyt/yBA==
+ bh=X9Ix9TJLV9KTeCu0ejzNvLJBNLWwY09L8O9Ac704a6Q=;
+ b=up+kWauP3wKzCRvQugKDTO87N/hyulPWP9zfEQAjg3ls6ZBaKch8ZzmFPIeaJ6+4goBHxZ
+ tlMCiZbVSR7ODuBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DBFAC139B3;
- Thu, 26 Jan 2023 21:54:08 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7F46B139B3;
+ Thu, 26 Jan 2023 22:04:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kNEtNID20mOcYgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 26 Jan 2023 21:54:08 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id XVVwHOb40mNdZwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 26 Jan 2023 22:04:22 +0000
+Date: Thu, 26 Jan 2023 23:04:20 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu, 26 Jan 2023 22:54:01 +0100
-Message-Id: <20230126215401.29101-10-pvorel@suse.cz>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230126215401.29101-1-pvorel@suse.cz>
-References: <20230126215401.29101-1-pvorel@suse.cz>
+To: Wei Gao <wegao@suse.com>, ltp@lists.linux.it
+Message-ID: <Y9L45DgVD7g+NYFb@pevik>
+References: <20230117040132.5245-1-wegao@suse.com> <Y8ZdSla1SoyThtBj@pevik>
+ <Y8Zg+PIzLUySx2BI@aa> <Y8pTE3I38qTV2Kez@pevik>
+ <Y8p0jyFVMXe8Y3w9@aa> <Y82xaekaeDtdzK00@pevik>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <Y82xaekaeDtdzK00@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 9/9] tst_net.sh: Move net setup into separate function
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] tst_net.sh: Add more tst_require_cmds check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,166 +81,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Having network setup in separate function helps readability.
-Test environment variables are for readability kept outside.
+Hi Wei,
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/lib/tst_net.sh | 118 ++++++++++++++++++++-------------------
- 1 file changed, 61 insertions(+), 57 deletions(-)
+> ...
+> > > But even if "ip ns_create ns_exec ns_ifmove" are needed to be checked to fix
+> > > tst_rhost_run (not yet convinced), why to check them each time tst_rhost_run is
+> > > called? It should be checked before first tst_rhost_run call to avoid useless
+> > > repeating.
 
-diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
-index 7ee8594a54..490909907a 100644
---- a/testcases/lib/tst_net.sh
-+++ b/testcases/lib/tst_net.sh
-@@ -1006,6 +1006,64 @@ tst_default_max_pkt()
- 	echo "$((mtu + mtu / 10))"
- }
- 
-+# Setup LTP network.
-+# Used tools:
-+# * tst_net_ip_prefix
-+# Strip prefix from IP address and save both If no prefix found sets
-+# default prefix.
-+#
-+# * tst_net_iface_prefix reads prefix and interface from rtnetlink.
-+# If nothing found sets default prefix value.
-+#
-+# * tst_net_vars exports environment variables related to test links and
-+# networks that aren't reachable through the test links.
-+#
-+# For full list of exported environment variables see:
-+# tst_net_ip_prefix -h
-+# tst_net_iface_prefix -h
-+# tst_net_vars -h
-+tst_net_setup_network()
-+{
-+	tst_require_cmds tst_net_iface_prefix tst_net_ip_prefix tst_net_vars
-+
-+	eval $(tst_net_ip_prefix $IPV4_LHOST || echo "exit $?")
-+	eval $(tst_net_ip_prefix -r $IPV4_RHOST || echo "exit $?")
-+
-+	[ "$TST_NET_IPV6_ENABLED" = 1 ] && tst_net_detect_ipv6_cmdline rhost
-+
-+	if [ "$TST_NET_IPV6_ENABLED" = 1 ]; then
-+		eval $(tst_net_ip_prefix $IPV6_LHOST || echo "exit $?")
-+		eval $(tst_net_ip_prefix -r $IPV6_RHOST || echo "exit $?")
-+	fi
-+
-+	tst_net_use_netns && init_ltp_netspace
-+	tst_net_check_ifaces_ipv6
-+
-+	eval $(tst_net_iface_prefix $IPV4_LHOST || echo "exit $?")
-+	eval $(tst_rhost_run -c 'tst_net_iface_prefix -r '$IPV4_RHOST \
-+		|| echo "exit $?")
-+	eval $(tst_net_vars $IPV4_LHOST/$IPV4_LPREFIX \
-+		$IPV4_RHOST/$IPV4_RPREFIX || echo "exit $?")
-+
-+	if [ "$TST_NET_IPV6_ENABLED" = 1 ]; then
-+		eval $(tst_net_iface_prefix $IPV6_LHOST || echo "exit $?")
-+		eval $(tst_rhost_run -c 'tst_net_iface_prefix -r '$IPV6_RHOST \
-+			|| echo "exit $?")
-+		eval $(tst_net_vars $IPV6_LHOST/$IPV6_LPREFIX \
-+			$IPV6_RHOST/$IPV6_RPREFIX || echo "exit $?")
-+	fi
-+
-+	tst_res_ TINFO "Network config (local -- remote):"
-+	tst_res_ TINFO "$LHOST_IFACES -- $RHOST_IFACES"
-+	tst_res_ TINFO "$IPV4_LHOST/$IPV4_LPREFIX -- $IPV4_RHOST/$IPV4_RPREFIX"
-+	tst_res_ TINFO "$IPV6_LHOST/$IPV6_LPREFIX -- $IPV6_RHOST/$IPV6_RPREFIX"
-+
-+	if [ -n "$TST_USE_LEGACY_API" ]; then
-+		tst_net_remote_tmpdir
-+		[ "$TST_IPVER" = 6 ] && tst_net_require_ipv6
-+	fi
-+}
-+
- [ -n "$TST_USE_LEGACY_API" ] && . test.sh || . tst_test.sh
- 
- # detect IPv6 support on lhost for tests which don't use test links
-@@ -1028,56 +1086,10 @@ IPV4_RHOST="${IPV4_RHOST:-10.0.0.1/24}"
- IPV6_LHOST="${IPV6_LHOST:-fd00:1:1:1::2/64}"
- IPV6_RHOST="${IPV6_RHOST:-fd00:1:1:1::1/64}"
- 
--# tst_net_ip_prefix
--# Strip prefix from IP address and save both If no prefix found sets
--# default prefix.
--#
--# tst_net_iface_prefix reads prefix and interface from rtnetlink.
--# If nothing found sets default prefix value.
--#
--# tst_net_vars exports environment variables related to test links and
--# networks that aren't reachable through the test links.
--#
--# For full list of exported environment variables see:
--# tst_net_ip_prefix -h
--# tst_net_iface_prefix -h
--# tst_net_vars -h
--tst_require_cmds tst_net_iface_prefix tst_net_ip_prefix tst_net_vars
--eval $(tst_net_ip_prefix $IPV4_LHOST || echo "exit $?")
--eval $(tst_net_ip_prefix -r $IPV4_RHOST || echo "exit $?")
--
--[ "$TST_NET_IPV6_ENABLED" = 1 ] && tst_net_detect_ipv6_cmdline rhost
--
--if [ "$TST_NET_IPV6_ENABLED" = 1 ]; then
--	eval $(tst_net_ip_prefix $IPV6_LHOST || echo "exit $?")
--	eval $(tst_net_ip_prefix -r $IPV6_RHOST || echo "exit $?")
--fi
--
--tst_net_use_netns && init_ltp_netspace
--tst_net_check_ifaces_ipv6
--
--eval $(tst_net_iface_prefix $IPV4_LHOST || echo "exit $?")
--eval $(tst_rhost_run -c 'tst_net_iface_prefix -r '$IPV4_RHOST \
--	|| echo "exit $?")
--
--if [ "$TST_NET_IPV6_ENABLED" = 1 ]; then
--	eval $(tst_net_iface_prefix $IPV6_LHOST || echo "exit $?")
--	eval $(tst_rhost_run -c 'tst_net_iface_prefix -r '$IPV6_RHOST \
--		|| echo "exit $?")
--fi
--
--eval $(tst_net_vars $IPV4_LHOST/$IPV4_LPREFIX \
--	$IPV4_RHOST/$IPV4_RPREFIX || echo "exit $?")
--
--if [ "$TST_NET_IPV6_ENABLED" = 1 ]; then
--	eval $(tst_net_vars $IPV6_LHOST/$IPV6_LPREFIX \
--		$IPV6_RHOST/$IPV6_RPREFIX || echo "exit $?")
--fi
-+tst_net_setup_network
- 
--tst_res_ TINFO "Network config (local -- remote):"
--tst_res_ TINFO "$LHOST_IFACES -- $RHOST_IFACES"
--tst_res_ TINFO "$IPV4_LHOST/$IPV4_LPREFIX -- $IPV4_RHOST/$IPV4_RPREFIX"
--tst_res_ TINFO "$IPV6_LHOST/$IPV6_LPREFIX -- $IPV6_RHOST/$IPV6_RPREFIX"
-+# More information about network parameters can be found
-+# in the following document: testcases/network/stress/README
- 
- export TST_NET_DATAROOT="$LTPROOT/testcases/bin/datafiles"
- 
-@@ -1123,14 +1135,6 @@ export RHOST_HWADDRS="${RHOST_HWADDRS:-$(tst_get_hwaddrs rhost)}"
- export NS_ICMPV4_SENDER_DATA_MAXSIZE=1472
- export NS_ICMPV6_SENDER_DATA_MAXSIZE=1452
- 
--# More information about network parameters can be found
--# in the following document: testcases/network/stress/README
--
--if [ -n "$TST_USE_LEGACY_API" ]; then
--	[ "$TST_IPVER" = 6 ] && tst_net_require_ipv6
--	tst_net_remote_tmpdir
--fi
--
- if [ -z "$TST_USE_LEGACY_API" ] && ! tst_cmd_available ping6; then
- 	ping6()
- 	{
--- 
-2.39.1
+> > tst_rhost_run already be called everywhere so if you need check before call
+> > tst_rhost_run, means lot of place/cases maybe need review and update. 
 
+> No, the check would be on single place at tst_net.sh.
+
+> > Furthermore, check each time in tst_rhost_run can make this function more robust, the 
+> > old code also do tst_require_cmds if go ssh logic in line 211 for example.
+
+> Well, repeated check for ssh is not ideal either (how likely is that ssh will
+> disappear during testing?), but it's a single command which is used here.
+> And it's definitely less awkward than checking "ip ns_create ns_exec ns_ifmove"
+> which aren't used there. tst_net.sh needs cleanup, not more unneeded code.
+
+> We could document the reason to make this check more obvious, but the code is
+> wrong, because for netns (the default) running "tst_net_detect_ipv6 rhost"
+> before init_ltp_netspace does not make sense, because interfaces aren't defined
+> (probably error code is not detected, I need to recheck that).
+
+> It's actually enough for netns to test IPv6 support only on localhost (it will
+> be the same on rhost), I'll send a patch to fix that.
+
+I'm sorry, I was wrong. tst_net_detect_ipv6() checks [ -f /proc/net/if_inet6 ],
+which is ok even before interfaces are set. It's a question whether this needs
+to be run on netns also on rhost (IMHO the result will be always the same).
+We should investigate that.
+
+FYI I changed your patch to use just check in $_tst_net_parse_variables and put
+it into larger cleanup. I haven't addressed move tools to testcases/lib/ yet,
+nor the case when tools are missing. Instead I fixed few real problems with IPv6
+disabled and did cleanup.
+
+https://lore.kernel.org/ltp/20230126215401.29101-1-pvorel@suse.cz/
+https://patchwork.ozlabs.org/project/ltp/list/?series=338700&state=*
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
