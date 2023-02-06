@@ -2,73 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C8B268C2FD
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Feb 2023 17:20:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E038368C422
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Feb 2023 18:03:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 082043CC255
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Feb 2023 17:20:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B75DD3CC23E
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Feb 2023 18:03:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 22AC63CB174
- for <ltp@lists.linux.it>; Mon,  6 Feb 2023 17:19:58 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 040333C2730
+ for <ltp@lists.linux.it>; Mon,  6 Feb 2023 18:03:31 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7FE2A600564
- for <ltp@lists.linux.it>; Mon,  6 Feb 2023 17:19:56 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5C0152001DB
+ for <ltp@lists.linux.it>; Mon,  6 Feb 2023 18:03:30 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 65B471FDD4;
- Mon,  6 Feb 2023 16:19:56 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 83909606E1;
+ Mon,  6 Feb 2023 17:03:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1675700396;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Mt4iCjjbd7h4nX40B/OcLTEVHQuNamLeAafpJaXrVu0=;
- b=1EyPC4f4z5q2Tlo4qLDT2FaeN44obOVRafFwKvUZIdz+AN6IS4LAINo9LcNDCSkzriVg2+
- KUH5Z3H08PPWUse0OrNhK/KDONiF8MOXzeuK3cqLqd404fcAuXQcbjkytnvihpxYWDyRkq
- AbiI3yuEsQS6xuRq1Xwcf+bhnycTYsI=
+ t=1675703010; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=vqflvKKU5z+Hnugd3McuTk5/fCdSazq3jJ3fvDDzkTY=;
+ b=DhpG6LpdIbceI1bTAVsqofOmMWB3bE2TMV0g/gnIRFJNFMgVfbEcggVP2eUZ4qWAOykl3f
+ +9GTgV/weqeKgjW0913YHV4qIgaOwYOFh03kPproeqTyFZyc+HbrUpLFxLetsLaScS6Fxc
+ QPXbZQkPeI1UUN8dF+Sdb/b12pSIMD4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1675700396;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Mt4iCjjbd7h4nX40B/OcLTEVHQuNamLeAafpJaXrVu0=;
- b=UmORhZqWFP+pKr/Zgt3eFBw/GpYCY2iFYsvgw65J9u4uyawKt1jOnMTjPHTC+OyZdSTo14
- i/JK729OtKfoWqBw==
+ s=susede2_ed25519; t=1675703010;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=vqflvKKU5z+Hnugd3McuTk5/fCdSazq3jJ3fvDDzkTY=;
+ b=XMKIPAV59iBP+SEGlBpfMWpoCn33nvtF4OnZ08RB8vGrA5J08ROhWcFqRb/EFMdGzsl6tj
+ VjKiw4DOii45hcBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EE7BB138E7;
- Mon,  6 Feb 2023 16:19:55 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 36B23138E8;
+ Mon,  6 Feb 2023 17:03:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0hVXNaso4WOeCAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 06 Feb 2023 16:19:55 +0000
-Date: Mon, 6 Feb 2023 17:19:53 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id G9qRCuIy4WP2IgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 06 Feb 2023 17:03:30 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Wei Gao <wegao@suse.com>
-Message-ID: <Y+Eoqd5+bWPxlpXD@pevik>
-References: <20230129115021.25778-1-wegao@suse.com> <Y9pf5075zsuAhznN@pevik>
- <Y+DYmkBnv/NQK8gZ@aa>
+To: ltp@lists.linux.it
+Date: Mon,  6 Feb 2023 18:03:25 +0100
+Message-Id: <20230206170325.19813-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Y+DYmkBnv/NQK8gZ@aa>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] fsconfig: New case cover CVE-2022-0185
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] iptables_lib.sh: Fix for iptables-translate >=
+ v1.8.9
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,34 +76,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: netfilter-devel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Wei,
+iptables-translate <= v1.8.8 didn't use quotes:
+$ iptables-translate -A INPUT -s 127.0.0.1 -p icmp -j DROP
+nft add rule ip filter INPUT ip protocol icmp ip saddr 127.0.0.1 counter drop
 
-...
-> > Hm, there is a kernel fix from 5.17 [1]. But test fails when I run it on 6.2.0-rc5:
+iptables-translate since v1.8.9 started to add quotes:
+$ iptables-translate -A INPUT -s 127.0.0.1 -p icmp -j DROP
+nft 'add rule ip filter INPUT ip protocol icmp ip saddr 127.0.0.1 counter drop'
 
-> > tst_supported_fs_types.c:165: TINFO: Skipping FUSE based ntfs as requested by the test
-> > tst_supported_fs_types.c:157: TINFO: Skipping tmpfs as requested by the test
-> > tst_test.c:1634: TINFO: === Testing on ext3 ===
-> > tst_test.c:1093: TINFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
-> > mke2fs 1.46.5 (30-Dec-2021)
-> > fsconfig03.c:44: TFAIL: fsconfig(FSCONFIG_SET_STRING) failed: EINVAL (22)
+That broke nft01.sh test:
 
-> > Isn't it the opposite: we expect to fail, thus TST_EXP_FAIL() should here be
-> > used?
+Error: syntax error, unexpected junk
+'add rule ip filter INPUT ip protocol icmp ip saddr 127.0.0.1 counter drop'
+^
+nft01 1 TFAIL: nft command failed to append new rule
 
-> I have not test on 6.2.0 kernel, i need reproduce this firstly.
+Therefore filter out also quotes (to existing backslash).
 
-FYI 6.0.6 is also broken, works on 5.10.46.
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/network/iptables/iptables_lib.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Kind regards,
-Petr
+diff --git a/testcases/network/iptables/iptables_lib.sh b/testcases/network/iptables/iptables_lib.sh
+index ab76cbd416..7e138ea33b 100755
+--- a/testcases/network/iptables/iptables_lib.sh
++++ b/testcases/network/iptables/iptables_lib.sh
+@@ -22,7 +22,7 @@ NFRUN()
+ 	if [ "$use_iptables" = 1 ]; then
+ 		ip${TST_IPV6}tables $@
+ 	else
+-		$(ip${TST_IPV6}tables-translate $@ | sed 's,\\,,g')
++		$(ip${TST_IPV6}tables-translate $@ | sed "s/[\']//g")
+ 	fi
+ }
+ 
+-- 
+2.39.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
