@@ -1,83 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AED6F690BF6
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Feb 2023 15:37:23 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00CE0690C10
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Feb 2023 15:40:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7CBF23CC09E
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Feb 2023 15:37:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C3F1D3CC0A1
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Feb 2023 15:40:40 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1AE043C1047
- for <ltp@lists.linux.it>; Thu,  9 Feb 2023 15:37:22 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 4D8323CB132
+ for <ltp@lists.linux.it>; Thu,  9 Feb 2023 15:40:37 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 467381000646
- for <ltp@lists.linux.it>; Thu,  9 Feb 2023 15:37:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1675953439;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0C285140097F
+ for <ltp@lists.linux.it>; Thu,  9 Feb 2023 15:40:36 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B39ED5C7BF;
+ Thu,  9 Feb 2023 14:40:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1675953635;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=V955VpJSOsiH8KvSRrhi1dTiJ/oOPcY+EVNtjIqcNPs=;
- b=QRv6tKxEZ1Vj/QAKEnyBYm4u8thfxht1AjFPgtZpHYPWfBvBEIuVFSyMaheBqNmJRI0DWW
- qYPUX9m/rPuHby9xgQKxn8cppL57uEQcNnn+mZ/ZqoXRFCYlAJMufKUrBcQk+TWN1d/h0U
- 7UxjnAMStRfB24INQhZUR37nypcPqJY=
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com
- [209.85.221.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-38-VRYzV2ztPVqgeslFwnQVPg-1; Thu, 09 Feb 2023 09:37:18 -0500
-X-MC-Unique: VRYzV2ztPVqgeslFwnQVPg-1
-Received: by mail-vk1-f197.google.com with SMTP id
- g6-20020a1f2006000000b0040115ff8783so702864vkg.19
- for <ltp@lists.linux.it>; Thu, 09 Feb 2023 06:37:18 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=V955VpJSOsiH8KvSRrhi1dTiJ/oOPcY+EVNtjIqcNPs=;
- b=cXBUY+rSHmy/uF/zDwY6AR4yyo2pzsEXuTneyLuUqL2KzUdHhe0urdFMgZVisIN/Zz
- /gGJisGk2aTPn3dVYMlEiM+80auxtmllnSLbRZvbeccJFuQQyN4laLCLkNyRgORoDbra
- 1khcCgr6RZ6+DG2yUDOlmEapFUD1gbWe4jnJpklL5KYnzJ32R4hMQ8un08nk/pH7ax2A
- G7uNbtbqco4EgazBHQUhZYFdiSspSJHswM+tXPJfg4e341ukSsIyuHjkCmOSE9+OMQrZ
- BO9ZMMS+bTB7Lp2c+JSGxBE+sVd+to6AZjuDYbgcoBNhyR6h0T975Hptl1waIjaV6F+A
- lOew==
-X-Gm-Message-State: AO0yUKUbMTezj4OGF32dKGq4QCafMAx7hVzkqf8vJ+1+Gx9baxTWR6EM
- 92Euh76ojGgUwap1S+Qn5hW8eA+3xdTxLEAXLbnzm4GouuBtOu+TceVfU8r/HRQzxZf8OFtuUea
- kTt00Bw15P68qL+bbA+hG5LyOpDi7YeY9YLA=
-X-Received: by 2002:ab0:32c3:0:b0:683:8438:b701 with SMTP id
- f3-20020ab032c3000000b006838438b701mr2607658uao.34.1675953438025; 
- Thu, 09 Feb 2023 06:37:18 -0800 (PST)
-X-Google-Smtp-Source: AK7set9WEgrVn0aczjNBJwGptDKKMbCF5JmApMPgibXdXZRh+3Vc+qkBXHzSmjevF3QnSseFb412XNbWxUs+WuHHZKk=
-X-Received: by 2002:ab0:32c3:0:b0:683:8438:b701 with SMTP id
- f3-20020ab032c3000000b006838438b701mr2607654uao.34.1675953437824; Thu, 09 Feb
- 2023 06:37:17 -0800 (PST)
+ bh=XPoqxBKuZ22ZTkRp1/4fM/3sJ/roGTBmsYPj/3AKa6g=;
+ b=s3382lD/2yB8tXEXeOdhhyomJVeb2DL0RKchDOzN11rZfinj3eqX1bo5Kq2OOpF8h4JHgk
+ GDXjGMqL1vedGDbtmy6nR378xQORMMlc5gJDYERcxfoshoByPtrTi0/veE8QwWteUjgH8H
+ gzhQ1aEoxoe12vP9HdQUOspX9lITF8g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1675953635;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=XPoqxBKuZ22ZTkRp1/4fM/3sJ/roGTBmsYPj/3AKa6g=;
+ b=Ri5669+4c4mLQarCT7oRx2m/AFxkRlEjNTTWpXrMZ8Euzc++caJVp8OW+MuPcFoeYKUFLr
+ PfSfFusbKaqtBTDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6C734138E4;
+ Thu,  9 Feb 2023 14:40:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id rR6uGOMF5WMJHQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 09 Feb 2023 14:40:35 +0000
+Date: Thu, 9 Feb 2023 15:40:33 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <Y+UF4eCFAR0jy7P7@pevik>
+References: <20230129115021.25778-1-wegao@suse.com>
+ <20230209131902.12260-1-wegao@suse.com> <Y+UAENJVDUSDPAay@pevik>
+ <Y+UCwJZhgIlP5Sjs@yuki>
 MIME-Version: 1.0
-References: <20230209142016.494090-1-pifang@redhat.com>
-In-Reply-To: <20230209142016.494090-1-pifang@redhat.com>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Thu, 9 Feb 2023 15:37:00 +0100
-Message-ID: <CAASaF6w5BPQOP1RTPLvYh3vN1-1X1b3jFkP-hEV4DyBGOvj-JQ@mail.gmail.com>
-To: Ping Fang <pifang@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <Y+UCwJZhgIlP5Sjs@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] aiocp: remove the check read unnecessary flag
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] fsconfig: New case cover CVE-2022-0185
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,39 +82,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, Feb 9, 2023 at 3:20 PM Ping Fang <pifang@redhat.com> wrote:
->
-> When aiocp executed with -f DIRECT will fail.
->
-> <<<test_start>>>
-> tag=AD049 stime=1675520824
-> cmdline="aiocp -b 8k -n 8 -f DIRECT"
-> contacts=""
-> analysis=exit
-> <<<test_output>>>
-> tst_test.c:1560: TINFO: Timeout per run is 0h 30m 30s
-> aiocp.c:211: TINFO: Maximum AIO blocks: 65536
-> tst_device.c:585: TINFO: Use uevent strategy
-> aiocp.c:250: TINFO: Fill srcfile.bin with random data
-> aiocp.c:279: TINFO: Copy srcfile.bin -> dstfile.bin
-> aiocp.c:291: TINFO: Comparing srcfile.bin with dstfile.bin
-> aiocp.c:306: TBROK: read(3,0x7ffcd743abe0,4096) failed, returned -1: EINVAL (22)
-> ...
->
-> The code which checks that the data has been written correctly
-> may wrong use the O_DIRECT flag, which may cause a failure like the
-> one above.
->
-> Signed-off-by: Ping Fang <pifang@redhat.com>
+> Hi!
+> > > +static void run(void)
+> > > +{
+> > > +	char *val = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+> > > +
+> > > +	for (unsigned int i = 0; i < 5000; i++)
+> > > +		TEST(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0));
 
-Acked-by: Jan Stancek <jstancek@redhat.com>
+> Also as far as I understand the discussion fsconfig() returns EINVAL on
+> new enough kernels here, right? If that is the case we should also check
+> that the call fails properly from the v5.17 and newer.
 
+I'd test all kernels and expect them to return EINVAL.
+Because 722d94847de29 was backported to 5.10.x and 5.4.x stable kernels.
+It'd be worth to check how it behaves on older stable (e.g. 4.19.x) and either
+raise .min_kernel lower than 5.4 if easily modified behavior for older kernels
+or ask for 5.4 otherwise. (I mean .min_kver = "5.17", is too aggressive).
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
