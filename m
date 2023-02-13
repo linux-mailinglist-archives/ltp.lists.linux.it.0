@@ -2,73 +2,76 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77B0A694E1D
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Feb 2023 18:34:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 416F86954B9
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Feb 2023 00:25:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 432843CBF86
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Feb 2023 18:34:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A057C3CBF96
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Feb 2023 00:25:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CC5F33C1047
- for <ltp@lists.linux.it>; Mon, 13 Feb 2023 18:33:58 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 139FD3C03AE
+ for <ltp@lists.linux.it>; Tue, 14 Feb 2023 00:25:41 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D53DC200346
- for <ltp@lists.linux.it>; Mon, 13 Feb 2023 18:33:57 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 27D9C1400441
+ for <ltp@lists.linux.it>; Tue, 14 Feb 2023 00:25:40 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CAE2D1FEC6;
- Mon, 13 Feb 2023 17:33:56 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D07A92062F;
+ Mon, 13 Feb 2023 23:25:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1676309636;
+ t=1676330739;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=26uqpcJpOoMJ32OBgkzaYYLjC5ORFfsiFzb3iRs8BTk=;
- b=3MSgQeXvB2IYBEHotj3fpaTYkciq6+4fRlBnAudPHNyvC1fhVx0famM1NkeunX1hi+KoCm
- ewQRlqWgPe4xZVqKMDKSjiyJ907SoRuPYtvsmFpbcybxrYS06mBzvwXSqGQBfXVh773ZYn
- pwpBqBlNPhNn218qg7TklnIuaDSA47U=
+ bh=vMl2+VJTPwJFftrwwenz4SuP20RVubFuM/OWjrHiNcM=;
+ b=aJvObz2C4nOjdlTub3AZ2KFl2GRB+BZbeSKLU0jy2b0j28jJrLaMD9/BzXcwltowQfQXjU
+ wDDE4tRuu7F6VFO08xWRkF1vAMmvMqWGc1VuRJgqgMRtaNn6VF2wwIlAc9ETUdshlbiDvk
+ bDQq603E1927KET1OyVZcy0xD9Ol4qY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1676309636;
+ s=susede2_ed25519; t=1676330739;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=26uqpcJpOoMJ32OBgkzaYYLjC5ORFfsiFzb3iRs8BTk=;
- b=t1kk5sbdvfymiTGf0Gw/Xz3WvwLzS3ezgHruuE0NwTYBGRcEbFl4NN3ncUXa/2jRo/e7DX
- h6OySx+8e+0hMrDQ==
+ bh=vMl2+VJTPwJFftrwwenz4SuP20RVubFuM/OWjrHiNcM=;
+ b=I2W+scNnB+z0bllzYJldyQqFLYUk2mNUcK9I2x9En4EUe+JFmCJMbido+MzwWEmgTW2D0O
+ x5xFSJwuPBaB5KBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 79DA51391B;
- Mon, 13 Feb 2023 17:33:56 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A49A8138E6;
+ Mon, 13 Feb 2023 23:25:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fGx3GIR06mOdYwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 13 Feb 2023 17:33:56 +0000
-Date: Mon, 13 Feb 2023 18:33:54 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id quLiJfPG6mOsfAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 13 Feb 2023 23:25:39 +0000
+Date: Tue, 14 Feb 2023 00:25:38 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Leo Yu-Chi Liang <ycliang@andestech.com>
-Message-ID: <Y+p0guL0/bQwDf/i@pevik>
-References: <20230213134104.229241-1-ycliang@andestech.com>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <Y+rG8tz20m0Nrr4c@pevik>
+References: <20230207131714.2500-1-pvorel@suse.cz>
+ <20230207131714.2500-2-pvorel@suse.cz>
+ <CAEemH2chcTe263-zqpSF2Gc2CVc8NC+G-KZsFMbwoxEKyjA01w@mail.gmail.com>
+ <20230208135404.GB31469@pevik> <87zg9ho7hg.fsf@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230213134104.229241-1-ycliang@andestech.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <87zg9ho7hg.fsf@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] lib/tst_pid.c: Count used pid by traversing
- /proc
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/3] ioctl01: Add default tty device
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,26 +90,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Leo,
 
-> Use "ps -eT | wc -l" to calculate the number of used pid
-> could have an incorrectly larger result because "ps -eT"
-> may list the same pid multiple times (with different SPID).
+> Petr Vorel <pvorel@suse.cz> writes:
 
-> Instead, we could count used pid by traversing /proc
-> directory and count the subdirectories that have name
-> composed of digits.
+> > Hi Li,
 
-> Increase PIDS_RESERVED to avoid fork failure.
+> >> > +#define        DEFAULT_TTY_DEVICE      "/dev/tty0"
 
-Thank you!
-Waiting little longer before merging to give others change to have look.
+> >> Hidden the device path parameter is a good idea.
 
-Suggested-by: Petr Vorel <pvorel@suse.cz>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> >> But maybe can we add a function to find available char devices
+> >instead
+
+> There is already something like this built into the kernel; you can
+> create a PTY on demand with /dev/ptmx.
+
+> See the kernel/pty tests.
+
+Thanks for a tip! According to man ptmx(4) the file /dev/ptmx creates
+pseudoterminal (PTYs) in /dev/pts directory (e.g. /dev/pts/0).
+
+> >> of using the tty0 as default? In that function, we do the S_ISCHR() check
+> >> and return the valid path of it. Then the rest test (e.g. ioctl02) can make
+> >> use of it but not set the specified device as well. WDYT?
+
+> > FYI I'm using S_ISCHR() in other patches, which check if device can be used.
+> > Implementing search looks like a good idea. Are useful files any /dev/tty*
+> > (including /dev/tty, /dev/ttyACM0, /dev/ttyS0) or should I avoid any file
+> > or include other paths?
+BTW /dev/ttySN are UART serial port TTY (it was familiar to me, although I
+nowadays use /dev/ttyUSB0 :)).
+
+> These are real serial devices except /dev/tty which could be a real
+> device or a pty IIUC. Same goes for /dev/hvc[0-9] and possibly some
+> others.
+
+> I'm going to put the patch set to changes requested because /dev/tty0 is
+> the current virtual console. It seems the test just overwrites the
+> permissions and starts sending ioctls to it.
+
+Sure.
+
+> I don't know if this is safe and probably it's no different from
+> creating a pty.
+
+Kernel doc [1] mentions more about the devices. I suppose it does not
+matter for ioctl01 purpose, which TTY device we use, so I'll use
+your suggestion.
 
 Kind regards,
 Petr
+
+[1] https://www.kernel.org/doc/html/latest/admin-guide/devices.html
+
+> > Kind regards,
+> > Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
