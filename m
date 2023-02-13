@@ -2,91 +2,93 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFE91694B17
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Feb 2023 16:27:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1980E694B2E
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Feb 2023 16:29:55 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B0B8F3CBF82
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Feb 2023 16:27:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C8F5C3CBF82
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Feb 2023 16:29:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8F8133C1D84
- for <ltp@lists.linux.it>; Mon, 13 Feb 2023 16:27:29 +0100 (CET)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ by picard.linux.it (Postfix) with ESMTPS id 2213D3C1D84
+ for <ltp@lists.linux.it>; Mon, 13 Feb 2023 16:29:52 +0100 (CET)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 54CEC600821
- for <ltp@lists.linux.it>; Mon, 13 Feb 2023 16:27:27 +0100 (CET)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0423B600186
+ for <ltp@lists.linux.it>; Mon, 13 Feb 2023 16:29:51 +0100 (CET)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31DFEoiC008236; Mon, 13 Feb 2023 15:27:26 GMT
+ 31DEWS4X022856
+ for <ltp@lists.linux.it>; Mon, 13 Feb 2023 15:29:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=pp1;
- bh=U0O1inOL7gRTv18+desRdnLjBWnbsvrx6LNbFxii/hg=;
- b=Hrt3+T6fChK8rtCwsjKyAt+c3F8AMM0tfEAUQrXkA5n31M0a+tssZPpDcwrG5kGjHKAo
- q6vcz/wyjIwjn6XCPaiol5wlh5QkfTSGNqKXpvl1diKlxkEtlGwXEtrc5dMPO+eKr8rR
- sJJGTMeUrgtx1cxSv3K1MK+S6r/y0RWU/jwzD8I8iPiIqmTXspEzU560/OUJhgol7HFc
- QV9lrOnUjkttsmgsaYNdivw4zJA+2oh6OaIPnRj5cQb3LoTRxQouMDiG7UZn9oVwJwax
- YmDFbWwQSX4VQDP3pmH/2ioDJ7MrWK4bKR2rqyg6ARpbF5DgyJ7uMz7MXFa6aG6aD114 3Q== 
-Received: from ppma03fra.de.ibm.com (6b.4a.5195.ip4.static.sl-reverse.com
- [149.81.74.107])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3nqp5euawq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Feb 2023 15:27:25 +0000
-Received: from pps.filterd (ppma03fra.de.ibm.com [127.0.0.1])
- by ppma03fra.de.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 31D8HkRi009865;
- Mon, 13 Feb 2023 15:27:23 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
- by ppma03fra.de.ibm.com (PPS) with ESMTPS id 3np2n6a3sf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Feb 2023 15:27:23 +0000
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com
- [10.20.54.106])
- by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 31DFRL8x45023742
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 13 Feb 2023 15:27:21 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id ED6522005A;
- Mon, 13 Feb 2023 15:27:20 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C25C820040;
- Mon, 13 Feb 2023 15:27:18 +0000 (GMT)
-Received: from tarunpc.ibmuc.com (unknown [9.43.27.182])
- by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Mon, 13 Feb 2023 15:27:18 +0000 (GMT)
+ h=from : to : subject :
+ in-reply-to : references : date : message-id : content-type :
+ mime-version; s=pp1; bh=BGRt+3WSgeee8GHOpM1cEmCYiwRm97op6PzYPsphUE8=;
+ b=sv+iKVp4Yj48I+4uSYbjz868nCAasFvVz2DWDIRhk7VaI0bwVrt8VUAPx/RUYUeIsGWr
+ bqDaOK7Ykq4bcKtOU+nsOOdqzde0facGprGM+tEY4GRJ9QUjkTSDyH0ColPdpL2fnhMO
+ HgIWhTOFoD6kMbLA9e5i/gf/qrXeosjjjQK+gDU8y8jkqSiDYKqKVyLHJUAMGW4jYGHC
+ t5XbAer2XsPU175ErGHLeapRzpGGoyehavbI4MbOSNOgrb8WZ1TQwGhje5q09q3l7VyF
+ 5yGIHZfV1FtEdOkhp+r9mbiQzit0ShqJfc5NujPed5DdXK5yBgI8lfySBxccxo2qPFAy zw== 
+Received: from ppma06fra.de.ibm.com (48.49.7a9f.ip4.static.sl-reverse.com
+ [159.122.73.72])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3nqq2dhj28-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <ltp@lists.linux.it>; Mon, 13 Feb 2023 15:29:49 +0000
+Received: from pps.filterd (ppma06fra.de.ibm.com [127.0.0.1])
+ by ppma06fra.de.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 31D81W3C007478
+ for <ltp@lists.linux.it>; Mon, 13 Feb 2023 15:29:48 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+ by ppma06fra.de.ibm.com (PPS) with ESMTPS id 3np29fa3wk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <ltp@lists.linux.it>; Mon, 13 Feb 2023 15:29:47 +0000
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
+ [10.20.54.101])
+ by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 31DFTjNI18416008
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <ltp@lists.linux.it>; Mon, 13 Feb 2023 15:29:45 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6D3AE2004F
+ for <ltp@lists.linux.it>; Mon, 13 Feb 2023 15:29:45 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6CA2920040
+ for <ltp@lists.linux.it>; Mon, 13 Feb 2023 15:29:44 +0000 (GMT)
+Received: from tarunpc (unknown [9.43.27.182])
+ by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS
+ for <ltp@lists.linux.it>; Mon, 13 Feb 2023 15:29:44 +0000 (GMT)
 From: Tarun Sahu <tsahu@linux.ibm.com>
 To: ltp@lists.linux.it
-Date: Mon, 13 Feb 2023 20:56:55 +0530
-Message-Id: <20230213152655.64295-1-tsahu@linux.ibm.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20230125222703.19943-2-pvorel@suse.cz>
+In-Reply-To: <20230210223342.240969-1-tsahu@linux.ibm.com>
 References: <20230125222703.19943-2-pvorel@suse.cz>
-MIME-Version: 1.0
+ <20230210223342.240969-1-tsahu@linux.ibm.com>
+Date: Mon, 13 Feb 2023 20:59:40 +0530
+Message-ID: <87r0utinx7.fsf@linux.ibm.com>
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: G3zL6drp_cocqOkd6r_ENgVnxwI7ZTjV
-X-Proofpoint-ORIG-GUID: G3zL6drp_cocqOkd6r_ENgVnxwI7ZTjV
+X-Proofpoint-GUID: DpYnAHKgMUcrzZxsbJKeya1djw0xnK4r
+X-Proofpoint-ORIG-GUID: DpYnAHKgMUcrzZxsbJKeya1djw0xnK4r
+X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
  definitions=2023-02-13_09,2023-02-13_01,2023-02-09_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 impostorscore=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 suspectscore=0
- clxscore=1015 bulkscore=0 adultscore=0 phishscore=0 malwarescore=0
- mlxlogscore=836 classifier=spam adjust=0 reason=mlx scancount=1
+ suspectscore=0 malwarescore=0
+ clxscore=1015 lowpriorityscore=0 spamscore=0 priorityscore=1501
+ mlxlogscore=999 bulkscore=0 mlxscore=0 adultscore=0 impostorscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2212070000 definitions=main-2302130136
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] hugepage15: Resolve compile time warning
+Subject: Re: [LTP] [PATCH] hugepage15: Resolve compile time warning
  generating with -O0
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -104,71 +106,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Instead of turning off the optimizaton with -O0 to resolve unwanted
-behaviour of clang with goto statements, this will make use of clang
-pragma to turn off the optimization for just clang compiler. This way,
-gcc won't throw unwanted warning on turning off optimization:
-"warning: _FORTIFY_SOURCE requires compiling with optimization (-O)".
 
-Also, removed redundant header-includes.
+Thanks for reviewing it, Petr.
+Sent the re-based version.
 
-Reported-by: Petr Vorel <pvorel@suse.cz>
-Suggested-by: Cyril Hrubis <chrubis@suse.cz>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-Signed-off-by: Tarun Sahu <tsahu@linux.ibm.com>
----
-v2:
-	- rebase and added Reviewed-by
+Tarun Sahu <tsahu@linux.ibm.com> writes:
 
- testcases/kernel/mem/hugetlb/hugemmap/Makefile     |  1 -
- testcases/kernel/mem/hugetlb/hugemmap/hugemmap15.c | 13 ++++---------
- 2 files changed, 4 insertions(+), 10 deletions(-)
-
-diff --git a/testcases/kernel/mem/hugetlb/hugemmap/Makefile b/testcases/kernel/mem/hugetlb/hugemmap/Makefile
-index 6f10807cd..2d651b4aa 100644
---- a/testcases/kernel/mem/hugetlb/hugemmap/Makefile
-+++ b/testcases/kernel/mem/hugetlb/hugemmap/Makefile
-@@ -8,5 +8,4 @@ include $(top_srcdir)/include/mk/testcases.mk
- include $(abs_srcdir)/../Makefile.inc
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
- 
--hugemmap15: CFLAGS+=-O0
- hugemmap06: CFLAGS+=-pthread
-diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap15.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap15.c
-index 07e65a160..4d1984070 100644
---- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap15.c
-+++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap15.c
-@@ -19,6 +19,10 @@
-  * remap, or because the icache happens to get flushed in the interim.
-  */
- 
-+#if defined(__clang__)
-+	#pragma clang optimize off
-+#endif
-+
- #define _GNU_SOURCE
- #include "hugetlb.h"
- 
-@@ -27,16 +31,7 @@
- 	defined(__aarch64__) || (defined(__riscv) && __riscv_xlen == 64) || \
- 	defined(__i386__) || defined(__x86_64__) || defined(__arm__)
- 
--#include <stdio.h>
--#include <stdlib.h>
- #include <setjmp.h>
--#include <unistd.h>
--#include <signal.h>
--#include <sys/mman.h>
--#include <ucontext.h>
--#include <limits.h>
--#include <sys/param.h>
--#include <sys/types.h>
- 
- #define SUCC_JMP 1
- #define FAIL_JMP 2
--- 
-2.31.1
-
+> Instead of turning off the optimizaton with -O0 to resolve unwanted
+> behaviour of clang with goto statements, this will make use of clang
+> pragma to turn off the optimization for just clang compiler. This way,
+> gcc won't throw unwanted warning on turning off optimization:
+> "warning: _FORTIFY_SOURCE requires compiling with optimization (-O)".
+>
+> Also, removed redundant header-includes.
+>
+> Reported-by: Petr Vorel <pvorel@suse.cz>
+> Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+> Signed-off-by: Tarun Sahu <tsahu@linux.ibm.com>
+> ---
+>  testcases/kernel/mem/hugetlb/hugemmap/Makefile     |  1 -
+>  testcases/kernel/mem/hugetlb/hugemmap/hugemmap15.c | 12 ++++--------
+>  2 files changed, 4 insertions(+), 9 deletions(-)
+>
+> diff --git a/testcases/kernel/mem/hugetlb/hugemmap/Makefile b/testcases/kernel/mem/hugetlb/hugemmap/Makefile
+> index 6f10807cd..2d651b4aa 100644
+> --- a/testcases/kernel/mem/hugetlb/hugemmap/Makefile
+> +++ b/testcases/kernel/mem/hugetlb/hugemmap/Makefile
+> @@ -8,5 +8,4 @@ include $(top_srcdir)/include/mk/testcases.mk
+>  include $(abs_srcdir)/../Makefile.inc
+>  include $(top_srcdir)/include/mk/generic_leaf_target.mk
+>  
+> -hugemmap15: CFLAGS+=-O0
+>  hugemmap06: CFLAGS+=-pthread
+> diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap15.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap15.c
+> index 4730d8d18..aae234135 100644
+> --- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap15.c
+> +++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap15.c
+> @@ -18,17 +18,13 @@
+>   * remap, or because the icache happens to get flushed in the interim.
+>   */
+>  
+> +#if defined(__clang__)
+> +	#pragma clang optimize off
+> +#endif
+> +
+>  #define _GNU_SOURCE
+> -#include <stdio.h>
+> -#include <stdlib.h>
+>  #include <setjmp.h>
+> -#include <unistd.h>
+>  #include <signal.h>
+> -#include <sys/mman.h>
+> -#include <ucontext.h>
+> -#include <limits.h>
+> -#include <sys/param.h>
+> -#include <sys/types.h>
+>  
+>  #include "hugetlb.h"
+>  
+> -- 
+> 2.31.1
+>
+>
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
