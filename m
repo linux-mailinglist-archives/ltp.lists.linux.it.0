@@ -2,53 +2,53 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04CFE696642
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Feb 2023 15:14:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7413A696665
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Feb 2023 15:18:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 747FF3CC5F8
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Feb 2023 15:14:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D58CE3CC64A
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Feb 2023 15:18:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 81CAB3CB0B8
- for <ltp@lists.linux.it>; Tue, 14 Feb 2023 15:14:45 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id A06483CB0B8
+ for <ltp@lists.linux.it>; Tue, 14 Feb 2023 15:18:01 +0100 (CET)
 Received: from Atcsqr.andestech.com (60-248-80-70.hinet-ip.hinet.net
  [60.248.80.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2EF9B20025A
- for <ltp@lists.linux.it>; Tue, 14 Feb 2023 15:14:41 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A0CDC10009D0
+ for <ltp@lists.linux.it>; Tue, 14 Feb 2023 15:17:59 +0100 (CET)
 Received: from mail.andestech.com (ATCPCS16.andestech.com [10.0.1.222])
- by Atcsqr.andestech.com with ESMTP id 31EEEYCc025526;
- Tue, 14 Feb 2023 22:14:34 +0800 (+08)
+ by Atcsqr.andestech.com with ESMTP id 31EEHqZs026951;
+ Tue, 14 Feb 2023 22:17:52 +0800 (+08)
  (envelope-from ycliang@andestech.com)
 Received: from ubuntu01 (10.0.12.75) by ATCPCS16.andestech.com (10.0.1.222)
- with Microsoft SMTP Server id 14.3.498.0; Tue, 14 Feb 2023 22:14:32 +0800
-Date: Tue, 14 Feb 2023 14:14:17 +0000
+ with Microsoft SMTP Server id 14.3.498.0; Tue, 14 Feb 2023 22:17:51 +0800
+Date: Tue, 14 Feb 2023 14:17:38 +0000
 From: Leo Liang <ycliang@andestech.com>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <Y+uXOX+EA/hOFsh4@ubuntu01>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <Y+uYAn0RyjKBTfj4@ubuntu01>
 References: <20230214122509.2957225-1-ycliang@andestech.com>
  <20230214122509.2957225-2-ycliang@andestech.com>
- <Y+uOimkvJ76Q8diX@pevik>
+ <Y+uOimkvJ76Q8diX@pevik> <Y+uQB1iojD/0oQDY@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Y+uOimkvJ76Q8diX@pevik>
+In-Reply-To: <Y+uQB1iojD/0oQDY@yuki>
 User-Agent: Mutt/2.0.5 (2021-01-21)
 X-Originating-IP: [10.0.12.75]
 X-DNSRBL: 
 X-SPAM-SOURCE-CHECK: pass
-X-MAIL: Atcsqr.andestech.com 31EEEYCc025526
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-MAIL: Atcsqr.andestech.com 31EEHqZs026951
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.4 required=7.0 tests=PDS_RDNS_DYNAMIC_FP,
  RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [v2 2/2] lib/tst_pid.c: Increase PIDS_RESERVED to avoid
  fork failure.
 X-BeenThere: ltp@lists.linux.it
@@ -68,50 +68,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
+Hi Cyril,
 
-On Tue, Feb 14, 2023 at 02:37:14PM +0100, Petr Vorel wrote:
-> Hi Leo,
+On Tue, Feb 14, 2023 at 02:43:35PM +0100, Cyril Hrubis wrote:
+> Hi!
+> > > After Adjusting how we count used pid, we increase
+> > > the number of PIDS_RESERVED to void fork failure.
+> > nit: in this case I'd actually keep changes in single commit
+> > (otherwise first commit alone would break tests),
 > 
-> > After Adjusting how we count used pid, we increase
-> > the number of PIDS_RESERVED to void fork failure.
-> nit: in this case I'd actually keep changes in single commit
-> (otherwise first commit alone would break tests),
-> 
+> Do we get a different result from ps and parsing /proc? That sounds
+> strange...
 
-That makes sense!
-Then we could probably drop this v2 patch
-and stay with the v1?
+I think that's because "ps -eT" would list threads with the same PID
+but with different SPID.
+
+I get the following output on my VM.
+
+ycliang@ubuntu01:~$ ps -eT | wc -l
+170
+ycliang@ubuntu01:~$ ls -d /proc/[0-9]* | xargs -n1 | wc -l
+127
 
 Best regards,
 Leo
 
-> Kind regards,
-> Petr
 > 
-> > Suggested-by: Petr Vorel <pvorel@suse.cz>
-> > Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
-> > Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> > ---
-> > Changes v1 -> v2
-> > * Split into two patches
-> > ---
-> >  lib/tst_pid.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> > diff --git a/lib/tst_pid.c b/lib/tst_pid.c
-> > index a282f8cc9..7582e4828 100644
-> > --- a/lib/tst_pid.c
-> > +++ b/lib/tst_pid.c
-> > @@ -36,7 +36,7 @@
-> >  #define CGROUPS_V1_SLICE_FMT "/sys/fs/cgroup/pids/user.slice/user-%d.slice/pids.max"
-> >  #define CGROUPS_V2_SLICE_FMT "/sys/fs/cgroup/user.slice/user-%d.slice/pids.max"
-> >  /* Leave some available processes for the OS */
-> > -#define PIDS_RESERVE 50
-> > +#define PIDS_RESERVE 200
-> 
-> >  pid_t tst_get_unused_pid_(void (*cleanup_fn) (void))
-> >  {
+> -- 
+> Cyril Hrubis
+> chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
