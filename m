@@ -2,53 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80FDF6979AE
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Feb 2023 11:19:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 082116979AC
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Feb 2023 11:18:49 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1E51A3CBF13
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Feb 2023 11:19:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 082FA3CBF1D
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Feb 2023 11:18:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A31953CBF09
- for <ltp@lists.linux.it>; Wed, 15 Feb 2023 11:18:22 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id C20D43CBEFF
+ for <ltp@lists.linux.it>; Wed, 15 Feb 2023 11:18:21 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0D1D51400B76
- for <ltp@lists.linux.it>; Wed, 15 Feb 2023 11:18:21 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 483CC1400960
+ for <ltp@lists.linux.it>; Wed, 15 Feb 2023 11:18:20 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5AE21227CB;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9C35220572;
  Wed, 15 Feb 2023 10:18:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1676456300; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6NWldUp5yooQkt36WyoVix58rZYbnM87TIo+0RCUggA=;
- b=O+t5jlaSXpX3pFA8rVT/H+nRPXBmGXzJBfwi1VUy8EJrg1Z9NIszIgnnA6JzHpVF9ZvM5o
- 7CphZRVmF3Ocq2uC/3tb8mUMAHA94U04wNhf9Rcd90Eh9ZrT/DR9Is16ykgJnokRw0QBh7
- ERPghG0AD67PdB8R/X331uffNb41QuU=
+ bh=xX/QJ5Ba9sAgm8xdNNNPtqKAC79X1CYv8Tp4oL1MqA4=;
+ b=uenjhrMitMewuvEvKsdVb4x6jJvpsBTE3GzedUApsvz4FVFdYkNhuFPm3jYErm3XrnuNj2
+ 4jpn6tA00oE0I33+ZfAHW3zGzlSBb/f1ShrGFrgm2mB/oumanaIWZ4XDzXTysvhSuoH28d
+ IlkLimQAU124EJWcCy8xmSDElsFcu8g=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2871113483;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6B84413483;
  Wed, 15 Feb 2023 10:18:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YDZxB2yx7GNKDgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6LK7F2yx7GNKDgAAMHmgww
  (envelope-from <andrea.cervesato@suse.com>); Wed, 15 Feb 2023 10:18:20 +0000
 To: ltp@lists.linux.it
-Date: Wed, 15 Feb 2023 11:16:07 +0100
-Message-Id: <20230215101615.27534-3-andrea.cervesato@suse.com>
+Date: Wed, 15 Feb 2023 11:16:08 +0100
+Message-Id: <20230215101615.27534-4-andrea.cervesato@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230215101615.27534-1-andrea.cervesato@suse.com>
 References: <20230215101615.27534-1-andrea.cervesato@suse.com>
@@ -59,7 +58,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 02/10] Refactor userns02 test
+Subject: [LTP] [PATCH v1 03/10] Refactor userns03 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,37 +79,69 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/containers/userns/userns02.c | 31 +++++++------------
- 1 file changed, 11 insertions(+), 20 deletions(-)
+ testcases/kernel/containers/userns/userns03.c | 70 +++++++------------
+ 1 file changed, 24 insertions(+), 46 deletions(-)
 
-diff --git a/testcases/kernel/containers/userns/userns02.c b/testcases/kernel/containers/userns/userns02.c
-index dd784000e..9d445d986 100644
---- a/testcases/kernel/containers/userns/userns02.c
-+++ b/testcases/kernel/containers/userns/userns02.c
-@@ -14,13 +14,10 @@
- #define _GNU_SOURCE
+diff --git a/testcases/kernel/containers/userns/userns03.c b/testcases/kernel/containers/userns/userns03.c
+index b90cc09ba..4dd3f1a73 100644
+--- a/testcases/kernel/containers/userns/userns03.c
++++ b/testcases/kernel/containers/userns/userns03.c
+@@ -32,8 +32,9 @@
  
  #include <stdio.h>
+ #include <stdbool.h>
 -#include "common.h"
  #include "tst_test.h"
 +#include "lapi/sched.h"
++#include "common.h"
  
+ #define CHILD1UID 0
+ #define CHILD1GID 0
+@@ -42,23 +43,12 @@
+ #define UID_MAP 0
+ #define GID_MAP 1
+ 
+-static int cpid1;
+-static int parentuid;
+-static int parentgid;
+-
 -/*
 - * child_fn1() - Inside a new user namespace
 - */
 -static int child_fn1(LTP_ATTRIBUTE_UNUSED void *arg)
 +static void child_fn1(void)
  {
- 	int uid, gid;
+ 	TST_CHECKPOINT_WAIT(0);
+-	return 0;
+ }
  
-@@ -29,29 +26,23 @@ static int child_fn1(LTP_ATTRIBUTE_UNUSED void *arg)
+-/*
+- * child_fn2() - Inside a new user namespace
+- */
+-static int child_fn2(LTP_ATTRIBUTE_UNUSED void *arg)
++static void child_fn2(int cpid1, int parentuid, int parentgid)
+ {
+ 	int uid, gid;
+ 	char cpid1uidpath[BUFSIZ];
+@@ -70,12 +60,8 @@ static int child_fn2(LTP_ATTRIBUTE_UNUSED void *arg)
  	uid = geteuid();
  	gid = getegid();
  
--	if (uid == 100 && gid == 100)
--		tst_res(TPASS, "got expected uid and gid");
+-	tst_res(TINFO, "uid=%d, gid=%d", uid, gid);
+-
+-	if (uid != CHILD2UID || gid != CHILD2GID)
+-		tst_res(TFAIL, "unexpected uid=%d gid=%d", uid, gid);
 -	else
--		tst_res(TFAIL, "got unexpected uid=%d gid=%d", uid, gid);
+-		tst_res(TPASS, "expected uid and gid");
++	TST_EXP_EQ_LI(uid, CHILD2UID);
++	TST_EXP_EQ_LI(gid, CHILD2GID);
+ 
+ 	/* Get the uid parameters of the child_fn2 process */
+ 	SAFE_FILE_SCANF("/proc/self/uid_map", "%d %d %d", &idinsidens, &idoutsidens, &length);
+@@ -127,32 +113,31 @@ static int child_fn2(LTP_ATTRIBUTE_UNUSED void *arg)
+ 
+ 	TST_CHECKPOINT_WAKE(0);
+ 	TST_CHECKPOINT_WAKE(1);
 -
 -	return 0;
 -}
@@ -118,30 +149,66 @@ index dd784000e..9d445d986 100644
 -static void setup(void)
 -{
 -	check_newuser();
-+	TST_EXP_EQ_LI(uid, 100);
-+	TST_EXP_EQ_LI(gid, 100);
  }
  
  static void run(void)
  {
+-	pid_t cpid2;
 +	const struct tst_clone_args args = { CLONE_NEWUSER, SIGCHLD };
- 	int childpid;
- 	int parentuid;
- 	int parentgid;
++	pid_t cpid1, cpid2;
++	uid_t parentuid;
++	gid_t parentgid;
  	char path[BUFSIZ];
+ 	int fd;
+-	int ret;
  
--	childpid = ltp_clone_quick(CLONE_NEWUSER | SIGCHLD, child_fn1, NULL);
--	if (childpid < 0)
--		tst_brk(TBROK | TTERRNO, "clone failed");
-+	childpid = SAFE_CLONE(&args);
-+	if (!childpid) {
+ 	parentuid = geteuid();
+ 	parentgid = getegid();
+ 
+-	cpid1 = ltp_clone_quick(CLONE_NEWUSER | SIGCHLD, child_fn1, NULL);
+-	if (cpid1 < 0)
+-		tst_brk(TBROK | TTERRNO, "cpid1 clone failed");
++	cpid1 = SAFE_CLONE(&args);
++	if (!cpid1) {
 +		child_fn1();
 +		return;
 +	}
  
- 	parentuid = geteuid();
- 	parentgid = getegid();
-@@ -71,9 +62,9 @@ static void run(void)
+-	cpid2 = ltp_clone_quick(CLONE_NEWUSER | SIGCHLD, child_fn2, NULL);
+-	if (cpid2 < 0)
+-		tst_brk(TBROK | TTERRNO, "cpid2 clone failed");
++	cpid2 = SAFE_CLONE(&args);
++	if (!cpid2) {
++		child_fn2(cpid1, parentuid, parentgid);
++		return;
++	}
+ 
+ 	if (access("/proc/self/setgroups", F_OK) == 0) {
+ 		sprintf(path, "/proc/%d/setgroups", cpid1);
+@@ -168,19 +153,12 @@ static void run(void)
+ 		 * do so will fail with the error EPERM.)
+ 		 */
+ 
+-		/* test that setgroups can't be re-enabled */
+-		fd = SAFE_OPEN(path, O_WRONLY, 0644);
+-		ret = write(fd, "allow", 5);
+-
+-		if (ret != -1)
+-			tst_brk(TBROK, "write action should fail");
+-		else if (errno != EPERM)
+-			tst_brk(TBROK | TTERRNO, "unexpected error");
++		tst_res(TINFO, "Check if setgroups can be re-enabled");
+ 
++		fd = SAFE_OPEN(path, O_WRONLY, 0644);
++		TST_EXP_FAIL(write(fd, "allow", 5), EPERM);
+ 		SAFE_CLOSE(fd);
+ 
+-		tst_res(TPASS, "setgroups can't be re-enabled");
+-
+ 		sprintf(path, "/proc/%d/setgroups", cpid2);
+ 
+ 		fd = SAFE_OPEN(path, O_WRONLY, 0644);
+@@ -198,9 +176,9 @@ static void run(void)
  }
  
  static struct tst_test test = {
