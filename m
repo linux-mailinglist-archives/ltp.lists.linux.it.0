@@ -2,67 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54E816990BD
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Feb 2023 11:10:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B836B69903F
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Feb 2023 10:42:47 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 253063CBEC9
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Feb 2023 11:10:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 17BA03CBEF2
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Feb 2023 10:42:47 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 26A2F3CB10B
- for <ltp@lists.linux.it>; Thu, 16 Feb 2023 11:10:57 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 42C6E3CAEE8
+ for <ltp@lists.linux.it>; Thu, 16 Feb 2023 10:42:40 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4BB8A20097F
- for <ltp@lists.linux.it>; Thu, 16 Feb 2023 11:10:56 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A7BD622307
- for <ltp@lists.linux.it>; Thu, 16 Feb 2023 10:10:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1676542255;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=qyhnBjTn5TWtkD8tzWU3w4UPBvRMfduQbFmF3E42hmQ=;
- b=pu0quZCSsifjkVxCVYD9/xv8rWbZyZ5MlporH+8skECAyz2WkyYaW3qexLePoOBY1b6RxQ
- 1eXd/PpEwIVgoZuxxF0buYOoWkW7aZUldiRRardDhXWu2f4RZRiYcW4jtnt3Halv7WoFVh
- jhCHo6mVRNGG2BBMsVrSf0n3wI2UHic=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1676542255;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=qyhnBjTn5TWtkD8tzWU3w4UPBvRMfduQbFmF3E42hmQ=;
- b=IczszSkf6hVRzYtC3g+6bAmEc05qEKh9fosDCi5yC3XQp2Nc2MHKhR7EWIENHTFEK2fr8E
- j1XrWlChJ8vi2eCg==
-Received: from g78 (unknown [10.163.28.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 03362100078C
+ for <ltp@lists.linux.it>; Thu, 16 Feb 2023 10:42:39 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 7A86F2C142;
- Thu, 16 Feb 2023 10:10:55 +0000 (UTC)
-References: <20230215144225.25008-1-mdoucha@suse.cz>
-User-agent: mu4e 1.8.13; emacs 28.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Martin Doucha <mdoucha@suse.cz>
-Date: Thu, 16 Feb 2023 09:24:51 +0000
-Organization: Linux Private Site
-In-reply-to: <20230215144225.25008-1-mdoucha@suse.cz>
-Message-ID: <87pma9rkcx.fsf@suse.de>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 044B520930;
+ Thu, 16 Feb 2023 09:42:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1676540559; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=g4+9J5yMixOxWdAyjN61JFxifIA09Ee7hb3H09YPE5o=;
+ b=ou3zfOkvGKxn2NW0e09Oi16hxOnVvpSdW+xg5VUhT7La6ikwm8Do3mCpc+aOZIYDY5Yt2x
+ vXSFH/Lpje6EpmrvKz1Sm9rz2Y+P2T/yh/u5YvZgE/Il7zSnvaioX1tqokMQD/9Mlp/4rY
+ eOeXpofqZyGaHIlRXRium9N7Z2UQ1Oo=
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 157C8139B5;
+ Thu, 16 Feb 2023 09:42:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id vHz3N4367WNPLwAAMHmgww
+ (envelope-from <wegao@suse.com>); Thu, 16 Feb 2023 09:42:37 +0000
+Date: Thu, 16 Feb 2023 04:42:35 -0500
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <20230216094235.GA29664@localhost>
+References: <20230209131902.12260-1-wegao@suse.com>
+ <20230213010924.12352-1-wegao@suse.com> <87a61go5ro.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <87a61go5ro.fsf@suse.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] cve-2015-3290: Fix tst_syscall() return value
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] fsconfig03: New test CVE-2022-0185
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,58 +72,84 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+On Tue, Feb 14, 2023 at 11:05:24AM +0000, Richard Palethorpe wrote:
+> Hello,
+> 
+> > +static void run(void)
+> > +{
+> > +	char *val = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+> > +	long pagesize;
+> > +
+> > +	pagesize = sysconf(_SC_PAGESIZE);
+> > +	if (pagesize == -1)
+> > +		tst_brk(TBROK, "sysconf(_SC_PAGESIZE) failed");
+> > +
+> > +	for (size_t i = 0; i < 5000; i++) {
+> > +		if (!strcmp(tst_device->fs_type, "btrfs")) {
+> > +			/* use same logic in kernel legacy_parse_param function */
+> > +			if (i * (strlen(val) + 2) + (strlen(val) + 1) + 2 > (size_t)pagesize) {
+> > +				TST_EXP_FAIL_SILENT(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0),
+> > +									EINVAL);
+> > +				if (!TST_PASS)
+> > +					return;
+> > +			} else {
+> > +				TST_EXP_PASS_SILENT(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0));
+> > +				if (TST_ERR)
+> > +					return;
+> 
+> We need to close and reopen the FD inside run() otherwise the test fails
+> on BTRFS with -i2 because we have already filled the buffer.
+Thanks for your feedback, i have some quesiton on this comments:
+The error will happen when buffer is full filled on btrfs(means buffer len > pagesize), this is normal 
+and current logic verfiy this logic for btrfs.
+Are you mean we need create another fd and continue do fsconfig on new fd once first fsconfig fails happen ? Correct 
+me if i have misunderstanding.
 
-Martin Doucha <mdoucha@suse.cz> writes:
-
-> The modify_ldt() syscall returns 32-bit signed integer value. Recent changes
-> in tst_syscall() caused the value to be interpreted as unsigned on older
-> kernels/glibc, which breaks the cve-2015-3290 test. Add explicit type cast
-> to fix it.
-
-This is strange, currently for the test to work the return 32bit return
-value must be sign extended to 64bit so that it equals -EINVAL (right?).
-
-Meanwhile kernel has never changed the return value, it's always 32bit
-("which is a bug"). I can't find any change in glibc either that would
-explain it.
-
-I am missing something or is it a mystery?
-
->
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-> ---
->  testcases/cve/cve-2015-3290.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/testcases/cve/cve-2015-3290.c b/testcases/cve/cve-2015-3290.c
-> index f61d2809b..a2a8fcedd 100644
-> --- a/testcases/cve/cve-2015-3290.c
-> +++ b/testcases/cve/cve-2015-3290.c
-> @@ -195,7 +195,8 @@ static void set_ldt(void)
->  		.useable	 = 0
->  	};
->  
-> -	TEST(tst_syscall(__NR_modify_ldt, 1, &data_desc, sizeof(data_desc)));
-> +	TEST((int)tst_syscall(__NR_modify_ldt, 1, &data_desc,
-> +		sizeof(data_desc)));
->  	if (TST_RET == -EINVAL) {
->  		tst_brk(TCONF | TRERRNO,
->  			"modify_ldt: 16-bit data segments are probably disabled");
+> 
+> > +			}
+> > +		} else {
+> > +			TST_EXP_FAIL_SILENT(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0),
+> > +								EINVAL);
+> > +			if (!TST_PASS)
+> > +				return;
+> > +		}
+> > +	}
+> 
+> This loop can be rewritten so that there are less branches and
+> indentation. This makes it easier to read.
+> 
+> 	for (size_t i = 0; i < 5000; i++) {
+> 		/* use same logic in kernel legacy_parse_param function */
+> 		const size_t len = i * (strlen(val) + 2) + (strlen(val) + 1) + 2;
+> 
+> 		if (!strcmp(tst_device->fs_type, "btrfs") && len <= (size_t)pagesize) {
+> 			TST_EXP_PASS_SILENT(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0));
+> 			if (TST_ERR)
+> 				return;
+> 		} else {
+> 			TST_EXP_FAIL_SILENT(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0),
+> 					    EINVAL);
+> 			if (!TST_PASS)
+> 				return;
+> 		}
+> 	}
+> 
+> 
+> > -- 
+> > 2.35.3
+> 
+> 
 > -- 
-> 2.39.0
-
-
--- 
-Thank you,
-Richard.
+> Thank you,
+> Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
