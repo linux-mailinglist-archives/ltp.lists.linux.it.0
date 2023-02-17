@@ -2,68 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C30869AF1F
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Feb 2023 16:11:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1199B69AF1D
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Feb 2023 16:10:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 290D63CBE85
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Feb 2023 16:11:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 366CF3CBE5E
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Feb 2023 16:10:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 563943CBE0D
- for <ltp@lists.linux.it>; Fri, 17 Feb 2023 16:10:44 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 0F3573CBE0D
+ for <ltp@lists.linux.it>; Fri, 17 Feb 2023 16:10:43 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8F9811000D0D
- for <ltp@lists.linux.it>; Fri, 17 Feb 2023 16:10:42 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7C0DC6011C4
+ for <ltp@lists.linux.it>; Fri, 17 Feb 2023 16:10:43 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 621BE22461;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B56923412F;
  Fri, 17 Feb 2023 15:10:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1676646642; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=+ZLG2hdvjDLe96GWS/U2zoglBW4309W9TUqaRRdKj8Q=;
- b=o9qNdiawzY7gBhz/tK1NcNUFWhF2YwSXwUiAGm2C34umwQ5RimWGYlZzytXvfrN8JraMx/
- yOcB1xH9pyC5QUvFxQRr4AHJOzip9hP0Rw8cjj7iEqA+wDqc4gix8sMe1SWKU1NQALiG9C
- quLGvpEB4JdjwW93GhPrkND09cVFNy0=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=t9D9DqHcG49q9LQby8IGxbnBXvOUHgNfHxlq3yZ1PWs=;
+ b=IkWxyefmh6i8Tg7Z9I3NidUnv8LSZyGXF5BR2BbrV1mx2Z4+MRcBJTauGMLfucqgoHRgtZ
+ WHeugUdn2BTnm3SyKp3ytwKILkJz6hcHstMbF7nJrzLNf8yr02gwcNbLn/39uZRixfEE43
+ fNLCUSzYyZxJfUzHOGuP8Js9WpgbSYk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1676646642;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=+ZLG2hdvjDLe96GWS/U2zoglBW4309W9TUqaRRdKj8Q=;
- b=AZRncG6M1MzE61GfKYWZFIYpzVbZUj50a4f77fCOV6nm+rfz+FE9xZHULAJhI1dtGgSrC+
- ziEHTMj57bG48yCg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=t9D9DqHcG49q9LQby8IGxbnBXvOUHgNfHxlq3yZ1PWs=;
+ b=aV0oC8VsWarvYQVfaf1U9LnUs1sh1uhiLfvNk8mT3WhddYMcc+MNJVg12syAIM+BGfLmeZ
+ oykEGVcXwG97LJBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E6F2D138E3;
- Fri, 17 Feb 2023 15:10:41 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 792BC138E3;
+ Fri, 17 Feb 2023 15:10:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IKL2NfGY72MSMQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 17 Feb 2023 15:10:41 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id wDh5GvKY72MSMQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 17 Feb 2023 15:10:42 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 17 Feb 2023 16:10:34 +0100
-Message-Id: <20230217151036.10295-1-pvorel@suse.cz>
+Date: Fri, 17 Feb 2023 16:10:35 +0100
+Message-Id: <20230217151036.10295-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230217151036.10295-1-pvorel@suse.cz>
+References: <20230217151036.10295-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 0/2] tst_net.sh IPv6 sysctl fixes
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/2] tst_net.sh: Detect IPv6 disabled via sysct
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,21 +86,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-NOTE: previous version:
-[PATCH 8/9] tst_net.sh: Harden on disabled IPv6 via sysctl
-https://lore.kernel.org/ltp/20230126215401.29101-9-pvorel@suse.cz/
+net.ipv6.conf.all.disable_ipv6=1 disables IPv6 on all interfaces
+(including both already created and later created).
 
-Changes v1->v2:
-* add check for net.ipv6.conf.all.disable_ipv6=1 (first commit)
-* add net.ipv6.conf.$iface.disable_ipv6=1 check also to tst_add_ipaddr
+The check prevent failures on IPv6 tests, and error messages on both
+IPv4 and IPv4 tests:
 
-Petr Vorel (2):
-  tst_net.sh: Detect IPv6 disabled via sysct
-  tst_net.sh: Detect IPv6 disabled on interface via sysctl
+    # sysctl -w net.ipv6.conf.all.disable_ipv6=1
+    # ./ping02.sh -6
+    ping02 1 TINFO: tst_rhost_run: cmd: [ -f /proc/net/if_inet6 ]
+    ping02 1 TINFO: NETNS: sh -c " [ -f /proc/net/if_inet6 ] || echo RTERR" 2>&1
+    ping02 1 TINFO: initialize 'lhost' 'ltp_ns_veth2' interface
+    ping02 1 TINFO: add local addr 10.0.0.2/24
+    ping02 1 TINFO: add local addr fd00:1:1:1::2/64
+    RTNETLINK answers: Permission denied
+    ping02 1 TINFO: initialize 'rhost' 'ltp_ns_veth1' interface
+    ...
+    ping02 1 TINFO: timeout per run is 0h 5m 0s
+    ping6: connect: Network is unreachable
+    ping02 1 TFAIL: ping6 -I ltp_ns_veth2 -c 3 -s 8 -f -p 000102030405060708090a0b0c0d0e0f fd00:1:1:1::1 >/dev/null failed unexpectedly
 
- testcases/lib/tst_net.sh | 72 +++++++++++++++++++++++++++++++++++++---
- 1 file changed, 67 insertions(+), 5 deletions(-)
+Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/lib/tst_net.sh | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
+diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+index fc64a588ae..96eed50793 100644
+--- a/testcases/lib/tst_net.sh
++++ b/testcases/lib/tst_net.sh
+@@ -84,25 +84,41 @@ tst_brk_()
+ 	[ -z "$TST_USE_LEGACY_API" ] && tst_brk $@ || tst_brkm $@
+ }
+ 
++# Detect IPv6 disabled via ipv6.disable=1 kernel cmdline parameter
++# or sysctl net.ipv6.conf.all.disable_ipv6=1 (disables IPv6 on all
++# interfaces (including both already created and later created).
++# $TST_NET_IPV6_ENABLED: 1 on IPv6 enabled, 0 on IPv6 disabled.
+ tst_net_detect_ipv6()
+ {
+ 	local type="${1:-lhost}"
+ 	local cmd='[ -f /proc/net/if_inet6 ]'
+-	local ret
++	local disabled iface ret
+ 
+ 	if [ "$type" = "lhost" ]; then
+ 		$cmd
+ 	else
+ 		tst_rhost_run -c "$cmd"
+ 	fi
+-	ret=$?
+ 
+-	if [ $ret -eq 0 ]; then
+-		TST_NET_IPV6_ENABLED=1
++	if [ $? -ne 0 ]; then
++		TST_NET_IPV6_ENABLED=0
++		tst_res_ TINFO "IPv6 disabled on $type via ipv6.disable=1"
++		return
++	fi
++
++	cmd='sysctl -n net.ipv6.conf.all.disable_ipv6'
++	if [ "$type" = "lhost" ]; then
++		disabled=$($cmd)
+ 	else
++		disabled=$(tst_rhost_run -c "$cmd")
++	fi
++	if [ $disabled = 1 ]; then
++		tst_res_ TINFO "IPv6 disabled on $type net.ipv6.conf.all.disable_ipv6=1"
+ 		TST_NET_IPV6_ENABLED=0
+-		tst_res_ TINFO "IPv6 disabled on $type"
++		return
+ 	fi
++
++	TST_NET_IPV6_ENABLED=1
+ }
+ 
+ tst_net_require_ipv6()
 -- 
 2.39.1
 
