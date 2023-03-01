@@ -1,53 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A80636A6F80
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Mar 2023 16:31:09 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54D246A6F77
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Mar 2023 16:30:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 361453CDD56
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Mar 2023 16:31:09 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 13DD43CC766
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Mar 2023 16:30:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 842DA3CB124
- for <ltp@lists.linux.it>; Wed,  1 Mar 2023 16:30:25 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 935613CB124
+ for <ltp@lists.linux.it>; Wed,  1 Mar 2023 16:30:24 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 794B96018CF
- for <ltp@lists.linux.it>; Wed,  1 Mar 2023 16:30:24 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E7623601AE8
+ for <ltp@lists.linux.it>; Wed,  1 Mar 2023 16:30:23 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B83F721AA1;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E958221AA3;
  Wed,  1 Mar 2023 15:30:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1677684622; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FYB3qprJlsSUiRva/7Dl0m2oLr1p9WkSmd1q3p3NZGs=;
- b=szOITWv2V9TXasFaouER91sNSloRhiIdUnc3+QOaj98x99VZ2/yQCeF20aapMFMWIzYuMp
- 4b88W7zmyjk2EuZCXueOAHop9nUx6nObBIFDXkwMyBEeNwdAe5HH+taoYOfg6ZHWgOFnKm
- IDSf/nmxhgs+eej3DnrLAyevOl4D66w=
+ bh=hKp45YzJmIYsh5CZeSlX3r3woHgqd8Igvz5M8KVZY94=;
+ b=acsLKjdJIOd61iNlyNCHYx7cInskJfZaMeq7hZlzL57rhsfpDB0hrQdxkUOyVJRnC52SKq
+ Ag28d6xK0hcvxw+zZOzT90s1FHmi1cSM9DFqDDnnYQTmRa395A6hJ5raEO2PXX2sgfiQnE
+ EbGlDiSVPmKX0E2lfKzeLesklwVJuKs=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9399413A3E;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C535F13A3E;
  Wed,  1 Mar 2023 15:30:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UBEiIo5v/2MjXgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id SKfdLY5v/2MjXgAAMHmgww
  (envelope-from <andrea.cervesato@suse.com>); Wed, 01 Mar 2023 15:30:22 +0000
 To: ltp@lists.linux.it
-Date: Wed,  1 Mar 2023 16:28:13 +0100
-Message-Id: <20230301152818.4427-2-andrea.cervesato@suse.com>
+Date: Wed,  1 Mar 2023 16:28:14 +0100
+Message-Id: <20230301152818.4427-3-andrea.cervesato@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230301152818.4427-1-andrea.cervesato@suse.com>
 References: <20230301152818.4427-1-andrea.cervesato@suse.com>
@@ -58,7 +59,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 1/6] Refactor mqns_01 using new LTP API
+Subject: [LTP] [PATCH v5 2/6] Refactor mqns_02 using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,28 +81,28 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
  runtest/containers                         |   3 +-
- testcases/kernel/containers/mqns/mqns_01.c | 180 +++++++--------------
- 2 files changed, 57 insertions(+), 126 deletions(-)
+ testcases/kernel/containers/mqns/mqns_02.c | 241 +++++++--------------
+ 2 files changed, 86 insertions(+), 158 deletions(-)
 
 diff --git a/runtest/containers b/runtest/containers
-index 23f394579..5e1b53bfa 100644
+index 5e1b53bfa..dbb4c5fa6 100644
 --- a/runtest/containers
 +++ b/runtest/containers
-@@ -16,7 +16,8 @@ pidns31 pidns31
- pidns32 pidns32
- 
- mqns_01 mqns_01
--mqns_01_clone mqns_01 -clone
-+mqns_01_clone mqns_01 -m clone
-+mqns_01_unshare mqns_01 -m unshare
+@@ -19,7 +19,8 @@ mqns_01 mqns_01
+ mqns_01_clone mqns_01 -m clone
+ mqns_01_unshare mqns_01 -m unshare
  mqns_02 mqns_02
- mqns_02_clone mqns_02 -clone
+-mqns_02_clone mqns_02 -clone
++mqns_02_clone mqns_02 -m clone
++mqns_02_unshare mqns_02 -m unshare
  mqns_03 mqns_03
-diff --git a/testcases/kernel/containers/mqns/mqns_01.c b/testcases/kernel/containers/mqns/mqns_01.c
-index 1d109e020..27d134cbe 100644
---- a/testcases/kernel/containers/mqns/mqns_01.c
-+++ b/testcases/kernel/containers/mqns/mqns_01.c
-@@ -1,148 +1,78 @@
+ mqns_03_clone mqns_03 -clone
+ mqns_04 mqns_04
+diff --git a/testcases/kernel/containers/mqns/mqns_02.c b/testcases/kernel/containers/mqns/mqns_02.c
+index d4e785b59..5d37f6cf8 100644
+--- a/testcases/kernel/containers/mqns/mqns_02.c
++++ b/testcases/kernel/containers/mqns/mqns_02.c
+@@ -1,180 +1,107 @@
 +// SPDX-License-Identifier: GPL-2.0
  /*
 -* Copyright (c) International Business Machines Corp., 2009
@@ -121,27 +122,20 @@ index 1d109e020..27d134cbe 100644
 -*
 -* Author: Nadia Derbey <Nadia.Derbey@bull.net>
 -*
--* Check mqns isolation: father mqns cannot be accessed from newinstance
+-* Check mqns isolation: child mqns cannot be accessed from father
 -*
 -* Mount mqueue fs
--* Create a posix mq -->mq1
 -* unshare
 -* In unshared process:
 -*    Mount newinstance mqueuefs
--*    Check that mq1 is not readable from new ns
-+ * Copyright (c) International Business Machines Corp., 2009
-+ * Copyright (c) Nadia Derbey, 2009 <Nadia.Derbey@bull.net>
-+ * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
- 
+-*    Create a posix mq -->mq1
+-* Check that mq1 is not readable from father
+-*
+-* Changelog:
+-*	Dec 16: accomodate new mqns semantics (Serge Hallyn)
+-
 -***************************************************************************/
-+/*\
-+ * [Description]
-+ *
-+ * Create a mqueue inside the parent and check if it can be accessed from
-+ * the isolated/forked child namespace.
-+ */
- 
+-
 -#ifndef _GNU_SOURCE
 -#define _GNU_SOURCE
 -#endif
@@ -153,82 +147,122 @@ index 1d109e020..27d134cbe 100644
 -#include <unistd.h>
 -#include "mqns.h"
 -#include "mqns_helper.h"
+-
+-char *TCID = "posixmq_namespace_02";
+-int TST_TOTAL = 1;
+-
+-int p1[2];
+-int p2[2];
+-
+-int check_mqueue(void *vtest)
+-{
+-	char buf[30];
+-	mqd_t mqd;
++ * Copyright (c) International Business Machines Corp., 2009
++ * Copyright (c) Nadia Derbey, 2009 <Nadia.Derbey@bull.net>
++ * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
+ 
+-	(void) vtest;
++/*\
++ * [Description]
++ *
++ * Create a mqueue with the same name in both parent and isolated/forked child,
++ * then check namespace isolation.
++ */
+ 
+-	close(p1[1]);
+-	close(p2[0]);
 +#include "tst_test.h"
 +#include "lapi/sched.h"
 +#include "tst_safe_posix_ipc.h"
  
--char *TCID = "posixmq_namespace_01";
--int TST_TOTAL = 1;
+-	if (read(p1[0], buf, 3) < 0) {
+-		perror("read(p1[0], ..) failed");
+-		exit(1);
+-	} else {
 +#define MQNAME "/MQ1"
  
--int p1[2];
--int p2[2];
+-		mqd =
+-		    tst_syscall(__NR_mq_open, NOSLASH_MQ1,
+-			    O_RDWR | O_CREAT | O_EXCL, 0777, NULL);
+-		if (mqd == -1) {
+-			if (write(p2[1], "mqfail", strlen("mqfail") + 1) < 0) {
+-				perror("write(p2[1], \"mqfail\", ..) failed");
+-				exit(1);
+-			}
+-		} else {
+-
+-			if (write(p2[1], "mqopen", strlen("mqopen") + 1) < 0) {
+-				perror("write(p2[1], \"mqopen\", ..) failed");
+-				exit(1);
+-			} else {
+-
+-				if (read(p1[0], buf, 5) < 0) {
+-					perror("read(p1[0], ..) failed");
+-					exit(1);
+-				} else {
+-
+-					/* destroy the mqueue */
+-					if (mq_close(mqd) < 0) {
+-						perror("mq_close(mqd) failed");
+-						exit(1);
+-					} else if (tst_syscall(__NR_mq_unlink,
+-							   NOSLASH_MQ1) < 0) {
+-						perror("mq_unlink(" NOSLASH_MQ1
+-						       ") failed");
+-						exit(1);
+-					} else if (write(p2[1], "done",
+-							 strlen("done") + 1)
+-						   < 0) {
+-						perror("write(p2[1], "
+-						       "\"done\", ..) failed");
+-						exit(1);
+-					}
+-
+-				}
+-
+-			}
 +static mqd_t mqd;
 +static char *str_op;
  
--int check_mqueue(void *vtest)
-+static void run(void)
- {
--	char buf[30];
--	mqd_t mqd;
-+	const struct tst_clone_args clone_args = { CLONE_NEWIPC, SIGCHLD };
+-		}
++static int create_message_queue(void)
++{
++	return mq_open(MQNAME, O_RDWR | O_CREAT | O_EXCL, 0777, NULL);
++}
  
--	(void) vtest;
-+	tst_res(TINFO, "Checking namespaces isolation from parent to child");
- 
--	close(p1[1]);
--	close(p2[0]);
-+	if (str_op && !strcmp(str_op, "clone")) {
-+		tst_res(TINFO, "Spawning isolated process");
- 
--	if (read(p1[0], buf, strlen("go") + 1) < 0) {
--		printf("read(p1[0], ...) failed: %s\n", strerror(errno));
--		exit(1);
 -	}
--	mqd = tst_syscall(__NR_mq_open, NOSLASH_MQ1, O_RDONLY);
--	if (mqd == -1) {
--		if (write(p2[1], "notfnd", strlen("notfnd") + 1) < 0) {
--			perror("write(p2[1], ...) failed");
--			exit(1);
-+		if (!SAFE_CLONE(&clone_args)) {
-+			TST_EXP_FAIL(mq_open(MQNAME, O_RDONLY), ENOENT);
-+			return;
-+		}
-+	} else if (str_op && !strcmp(str_op, "unshare")) {
-+		tst_res(TINFO, "Spawning unshared process");
-+
-+		if (!SAFE_FORK()) {
-+			SAFE_UNSHARE(CLONE_NEWIPC);
-+			TST_EXP_FAIL(mq_open(MQNAME, O_RDONLY), ENOENT);
-+			return;
- 		}
- 	} else {
--		if (write(p2[1], "exists", strlen("exists") + 1) < 0) {
--			perror("write(p2[1], \"exists\", 7) failed");
--			exit(1);
--		} else if (mq_close(mqd) < 0) {
--			perror("mq_close(mqd) failed");
--			exit(1);
-+		tst_res(TINFO, "Spawning plain process");
-+
-+		if (!SAFE_FORK()) {
-+			TST_EXP_POSITIVE(mq_open(MQNAME, O_RDONLY));
-+			return;
- 		}
- 	}
--
 -	exit(0);
++static void shared_child(void)
++{
++	mqd_t mqd1 = -1;
+ 
++	TST_EXP_FAIL(mqd1 = create_message_queue(), EEXIST);
++
++	if (mqd1 != -1) {
++		SAFE_MQ_CLOSE(mqd1);
++		SAFE_MQ_UNLINK(MQNAME);
++	}
  }
  
- static void setup(void)
+-static void setup(void)
++static void isolated_child(void)
  {
 -	tst_require_root();
 -	check_mqns();
-+	mqd = SAFE_MQ_OPEN(MQNAME, O_RDWR | O_CREAT | O_EXCL, 0777, NULL);
++	mqd_t mqd1 = -1;
++
++	TST_EXP_POSITIVE(mqd1 = create_message_queue());
++
++	if (mqd1 != -1) {
++		SAFE_MQ_CLOSE(mqd1);
++		SAFE_MQ_UNLINK(MQNAME);
++	}
  }
  
 -int main(int argc, char *argv[])
-+static void cleanup(void)
++static void run(void)
  {
 -	int r;
 -	mqd_t mqd;
@@ -246,53 +280,81 @@ index 1d109e020..27d134cbe 100644
 -			 "Testing posix mq namespaces through unshare(2).");
 -
 -	if (pipe(p1) == -1 || pipe(p2) == -1) {
--		tst_brkm(TBROK | TERRNO, NULL, "pipe failed");
+-		tst_brkm(TBROK | TERRNO, NULL, "pipe");
 -	}
--
--	mqd = tst_syscall(__NR_mq_open, NOSLASH_MQ1, O_RDWR | O_CREAT | O_EXCL,
--		0777, NULL);
--	if (mqd == -1) {
--		perror("mq_open");
--		tst_brkm(TFAIL, NULL, "mq_open failed");
-+	if (mqd != -1) {
-+		SAFE_MQ_CLOSE(mqd);
-+		SAFE_MQ_UNLINK(MQNAME);
- 	}
--
--	tst_resm(TINFO, "Checking namespaces isolation from parent to child");
++	const struct tst_clone_args clone_args = { CLONE_NEWIPC, SIGCHLD };
+ 
 -	/* fire off the test */
 -	r = do_clone_unshare_test(use_clone, CLONE_NEWIPC, check_mqueue, NULL);
 -	if (r < 0) {
--		tst_resm(TFAIL, "failed clone/unshare");
--		mq_close(mqd);
--		tst_syscall(__NR_mq_unlink, NOSLASH_MQ1);
--		tst_exit();
+-		tst_brkm(TFAIL, NULL, "failed clone/unshare");
 -	}
--
++	tst_res(TINFO, "Checking namespaces isolation from parent to child");
+ 
+-	tst_resm(TINFO, "Checking namespaces isolation (child to parent)");
++	if (str_op && !strcmp(str_op, "clone")) {
++		tst_res(TINFO, "Spawning isolated process");
+ 
 -	close(p1[0]);
 -	close(p2[1]);
--	if (write(p1[1], "go", strlen("go") + 1) < 0)
--		tst_resm(TBROK | TERRNO, "write(p1[1], \"go\", ...) failed");
--	else if (read(p2[0], buf, 7) < 0)
--		tst_resm(TBROK | TERRNO, "read(p2[0], buf, ...) failed");
--	else {
--		if (!strcmp(buf, "exists")) {
--			tst_resm(TFAIL, "child process found mqueue");
--		} else if (!strcmp(buf, "notfnd")) {
--			tst_resm(TPASS, "child process didn't find mqueue");
+-	if (write(p1[1], "go", strlen("go") + 1) < 0) {
+-		tst_brkm(TBROK, NULL, "write(p1[1], \"go\", ..) failed");
+-	}
++		if (!SAFE_CLONE(&clone_args)) {
++			isolated_child();
++			return;
++		}
++	} else if (str_op && !strcmp(str_op, "unshare")) {
++		tst_res(TINFO, "Spawning unshared process");
+ 
+-	if (read(p2[0], buf, 7) < 0) {
+-		tst_resm(TBROK | TERRNO, "read(p2[0], ..) failed");
+-	} else if (!strcmp(buf, "mqfail")) {
+-		tst_resm(TFAIL, "child process could not create mqueue");
+-		umount(DEV_MQUEUE);
+-	} else if (strcmp(buf, "mqopen")) {
+-		tst_resm(TFAIL, "child process could not create mqueue");
+-		umount(DEV_MQUEUE);
+-	} else {
+-		mqd = tst_syscall(__NR_mq_open, NOSLASH_MQ1, O_RDONLY);
+-		if (mqd == -1) {
+-			tst_resm(TPASS,
+-				 "Parent process can't see the mqueue");
 -		} else {
--			tst_resm(TFAIL, "UNKNOWN RESULT");
--		}
--	}
--
--	/* destroy the mqueue */
--	if (mq_close(mqd) == -1) {
--		tst_brkm(TBROK | TERRNO, NULL, "mq_close failed");
--	}
--	tst_syscall(__NR_mq_unlink, NOSLASH_MQ1);
--
+-			tst_resm(TFAIL | TERRNO,
+-				 "Parent process found mqueue");
+-			mq_close(mqd);
++		if (!SAFE_FORK()) {
++			SAFE_UNSHARE(CLONE_NEWIPC);
++			isolated_child();
++			return;
+ 		}
+-		if (write(p1[1], "cont", 5) < 0) {
+-			tst_resm(TBROK | TERRNO, "write(p1[1], ..) failed");
++	} else {
++		tst_res(TINFO, "Spawning plain process");
++
++		if (!SAFE_FORK()) {
++			shared_child();
++			return;
+ 		}
+-		read(p2[0], buf, 7);
+ 	}
++}
+ 
 -	tst_exit();
++static void setup(void)
++{
++	mqd = SAFE_MQ_OPEN(MQNAME, O_RDWR | O_CREAT | O_EXCL, 0777, NULL);
  }
++
++static void cleanup(void)
++{
++	if (mqd != -1) {
++		SAFE_MQ_CLOSE(mqd);
++		SAFE_MQ_UNLINK(MQNAME);
++	}
++}
 +
 +static struct tst_test test = {
 +	.test_all = run,
