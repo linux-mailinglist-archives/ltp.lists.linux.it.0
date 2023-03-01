@@ -2,72 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FA1D6A6F6F
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Mar 2023 16:27:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 151AC6A6FF9
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Mar 2023 16:41:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 12FC73CC766
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Mar 2023 16:27:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D94DF3CCE15
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Mar 2023 16:41:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D0F893CB124
- for <ltp@lists.linux.it>; Wed,  1 Mar 2023 16:27:29 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 5E5D53CB124
+ for <ltp@lists.linux.it>; Wed,  1 Mar 2023 16:41:41 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9335F601295
- for <ltp@lists.linux.it>; Wed,  1 Mar 2023 16:27:27 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C5AA51002886
+ for <ltp@lists.linux.it>; Wed,  1 Mar 2023 16:41:40 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D19EC21AA3;
- Wed,  1 Mar 2023 15:27:24 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C60371FE16;
+ Wed,  1 Mar 2023 15:41:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1677684444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1677685299; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2VsOLck5osIpHVrymZFYCQkTH0zaffaT8R0jfxuXu7k=;
- b=tfBdLDFSYB3pgmLWOhchJReH2d9sOsHHXtNWlfjCjjvcn4Q7tWVUl7DuCSjwaVcVIXEXAt
- Hwcrfr2xLRAzxGaROMqypdP1oLeq1+BXLx3yAk1tr9VEojHkid+Kimw7F/UffYkmRsE9oD
- nS4SSbfkdv2ZKwYeicz6jHYUeFslajY=
+ bh=bxVm5+EDjA+vqb6raLn1aI1TVYlAcnIUyMZhLsywrok=;
+ b=DhrekBj51nQl20G2Zw6kXDMl94MPcAb9WyxejXd7GUWYhJZN5BLQZzvKrMmDaGZzPhZk/m
+ H1gzPZ8xm6xBmx86B3bh/rcQywCYfrkGvRq9ZlbsGfmM+TOth/sflupp1e2i5M2jkNSCN1
+ EGk949FROsM+Um2hGQqxhn4wHNkVsQ8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1677684444;
+ s=susede2_ed25519; t=1677685299;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2VsOLck5osIpHVrymZFYCQkTH0zaffaT8R0jfxuXu7k=;
- b=41VKKe3QH7BtFyW9EPuR0w9CRddVQnrjbp3f6SkIhlefavVS9V5/9Su4ts8BmkUHoPkPJf
- xaKB5HQs0qLzo8Dw==
+ bh=bxVm5+EDjA+vqb6raLn1aI1TVYlAcnIUyMZhLsywrok=;
+ b=ijInfNZ5ANHtvJZOn+cIprOL9Z3Dq428Xu/VMaJq1Co//xiqk2JdAOJF2UitZ2qeq0GTgE
+ qQQLZ+YxDPa5JGBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BD80013A3E;
- Wed,  1 Mar 2023 15:27:24 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 95D6013A3E;
+ Wed,  1 Mar 2023 15:41:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ltkPLdxu/2NYXAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 01 Mar 2023 15:27:24 +0000
-Date: Wed, 1 Mar 2023 16:28:47 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id 62zaITNy/2OKZAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 01 Mar 2023 15:41:39 +0000
+Date: Wed, 1 Mar 2023 16:43:01 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: "Liam R. Howlett" <Liam.Howlett@oracle.com>
-Message-ID: <Y/9vL6uW2UxcMzrP@yuki>
-References: <20230301141634.2881117-1-Liam.Howlett@oracle.com>
+To: Avinesh Kumar <akumar@suse.de>
+Message-ID: <Y/9yhYFlxSQMXUnM@yuki>
+References: <20230222034501.11800-1-akumar@suse.de> <Y/jRxug4oBqJeEmy@yuki>
+ <3121397.4e4APuK8be@localhost>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230301141634.2881117-1-Liam.Howlett@oracle.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <3121397.4e4APuK8be@localhost>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] mprotect: Add mprotect05 testcase
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] mknod01: Rewrite the test using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,158 +87,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Add a test that uses mprotect to split and combine VMAs.  Created to
-> ensure the correctness of the VMA iterator after a bug report.
-> 
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=217061
-> Signed-off-by: Liam R. Howlett <Liam.Howlett@oracle.com>
-> ---
->  .../kernel/syscalls/mprotect/mprotect05.c     | 118 ++++++++++++++++++
->  1 file changed, 118 insertions(+)
->  create mode 100644 testcases/kernel/syscalls/mprotect/mprotect05.c
-> 
-> diff --git a/testcases/kernel/syscalls/mprotect/mprotect05.c b/testcases/kernel/syscalls/mprotect/mprotect05.c
-> new file mode 100644
-> index 000000000..36f137544
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/mprotect/mprotect05.c
-> @@ -0,0 +1,118 @@
-> +/*
-> + * Copyright (c) International Business Machines  Corp., 2001
-> + *
-> + * This program is free software;  you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License as published by
-> + * the Free Software Foundation; either version 2 of the License, or
-> + * (at your option) any later version.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY;  without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-> + * the GNU General Public License for more details.
-> + *
-> + * You should have received a copy of the GNU General Public License
-> + * along with this program;  if not, write to the Free Software
-> + * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> + */
-
-We switched to SPDX long time ago, please use that instead.
-
-> +/*
-> + * DESCRIPTION
-> + *	Testcase to check the mprotect(2) system call split/merge
-> + *
-> + * ALGORITHM
-> + *	Create a mapped region using mmap with READ permission.
-> + *	Create different VMAs in stripes with mprotect (exec & write)
-> + *	mprotect over middle & write area, causing vma_merge of prev & next
-> + *	before hitting the limnits.
-> + *
-> + */
-
-This should be asciidoc formatted comment that starts with a special
-header:
-
-/*\
- * [Description]
- *
-
-> +#include <sys/mman.h>
-> +#include <sys/wait.h>
-> +#include <errno.h>
-> +#include <fcntl.h>
-> +#include <limits.h>
-> +#include <stdlib.h>
-> +#include "test.h"
-> +
-> +#include "safe_macros.h"
-> +
-> +static void sighandler(int sig);
-> +static void cleanup(void);
-> +static void setup(void);
-> +
-> +char *TCID = "mprotect05";
-> +int TST_TOTAL = 1;
-> +static int fd;
-> +static char file1[BUFSIZ];
-> +
-> +static char *addr = MAP_FAILED;
-> +static unsigned long fullsize;
-> +
-> +int main(int ac, char **av)
-> +{
-> +	int lc;
-> +	int fd;
-> +	unsigned long pagesize;
-> +
-> +	tst_parse_opts(ac, av, NULL, NULL);
-> +
-> +	setup();
-> +
-> +	pagesize = getpagesize();
-> +	fullsize = 5 * pagesize;
-> +
-> +	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> +		fd = SAFE_OPEN(cleanup, file1, O_RDWR | O_CREAT, 0777);
-> +
-> +		addr = SAFE_MMAP(cleanup, 0, fullsize, PROT_READ,
-> +				MAP_SHARED, fd, 0);
-> +
-> +		TEST(mprotect(addr + pagesize, pagesize*1, PROT_EXEC));
-> +		if (TEST_RETURN)
-> +			tst_resm(TFAIL | TERRNO, "mprotect failed to write");
-> +
-> +		TEST(mprotect(addr + 3*pagesize, pagesize, PROT_WRITE));
-> +		if (TEST_RETURN)
-> +			tst_resm(TFAIL | TERRNO, "mprotect failed to write");
-> +
-> +		TEST(mprotect(addr + pagesize, pagesize*4, PROT_READ));
-> +		if (TEST_RETURN)
-> +			tst_resm(TFAIL | TERRNO, "mprotect failed to write");
-> +
-> +		SAFE_MUNMAP(cleanup, addr, fullsize);
-> +		addr = MAP_FAILED;
-> +		SAFE_CLOSE(cleanup, fd);
-> +		SAFE_UNLINK(cleanup, file1);
-> +	}
-> +
-> +	cleanup();
-> +	tst_exit();
-> +}
-
-Please use the new test library, the old test library is deprecated and
-will be removed. See include/tst_test.h.
-
-> +static void sighandler(int sig)
-> +{
-> +	_exit((sig == SIGSEGV) ? 0 : sig);
-> +}
-> +
-> +static void setup(void)
-> +{
-> +	tst_sig(FORK, sighandler, cleanup);
-> +
-> +	TEST_PAUSE;
-> +
-> +	tst_tmpdir();
-> +
-> +	sprintf(file1, "mprotect05.tmp.%d", getpid());
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +	if (addr != MAP_FAILED) {
-> +		SAFE_MUNMAP(NULL, addr, fullsize);
-> +		SAFE_CLOSE(NULL, fd);
-> +	}
-> +
-> +	tst_rmdir();
-> +}
-> -- 
-> 2.39.0
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+Pushed with the proposed change applied on the top, thanks.
 
 -- 
 Cyril Hrubis
