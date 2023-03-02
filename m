@@ -1,71 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36E516A8000
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Mar 2023 11:36:43 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BDDEF6A8028
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Mar 2023 11:45:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 51F3F3CBB80
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Mar 2023 11:36:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 93BD43CB9FB
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Mar 2023 11:45:35 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BB3F23CB9C9
- for <ltp@lists.linux.it>; Thu,  2 Mar 2023 11:36:36 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 0BE0D3CB9CF
+ for <ltp@lists.linux.it>; Thu,  2 Mar 2023 11:45:34 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4D8D060085E
- for <ltp@lists.linux.it>; Thu,  2 Mar 2023 11:36:35 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D979860091A
+ for <ltp@lists.linux.it>; Thu,  2 Mar 2023 11:45:33 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2F0171FE65
- for <ltp@lists.linux.it>; Thu,  2 Mar 2023 10:36:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1677753395; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=9f7fRcoy++uWfQbtJ29ahHo3uaSY70x73p3VE5tPYGU=;
- b=OGafIo6kEw/++n4x23mhG/Ly1z5vPIocOzFq0tRilQId3PVpxuAud9wKCe796Q44K5QwJd
- nRCdpEiSc5fKDtsucQBfAcOsZCo21O8iA1owlkDuBj5UpocCx5hZ7C7KKXvY1CmpVmRYQ/
- kwMmDQR2XQWYeArai6vH4UwqVoeIt0g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1677753395;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=9f7fRcoy++uWfQbtJ29ahHo3uaSY70x73p3VE5tPYGU=;
- b=bZNeN/M+JwFuxC+6HN+6K28/uvIOrzWGah8Lt6plLXXKLQ9NuneyCiWjJG7g+1GL2NUQXK
- JAHOwhWpnWdYS5Dg==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9E4811FE66;
+ Thu,  2 Mar 2023 10:45:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1677753932; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=pTLEaCQqRKiU+1MP7d2YCyM8Yi2mpzVcShD8ADzsj1s=;
+ b=GxtQJXcHk2WQ+3h3fMbVlUHK9ifbN1McqRUvC6hvHQVPqP+YSpfHubgpKtQimece2Ja9Cx
+ qmMvVkIjf5ZDrf/D1WwcEZYICz0a+iil/RmFOvqrj2H04+URYaq59/P+yOfjtUFROTyqcm
+ z4tthoc8sO5nZ7wn1ZoOZfGm84MkqzY=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2068813349
- for <ltp@lists.linux.it>; Thu,  2 Mar 2023 10:36:35 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 26C1C13349;
+ Thu,  2 Mar 2023 10:45:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ynIxBzN8AGR3YAAAMHmgww
- (envelope-from <mdoucha@suse.cz>)
- for <ltp@lists.linux.it>; Thu, 02 Mar 2023 10:36:35 +0000
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu,  2 Mar 2023 11:35:52 +0100
-Message-Id: <20230302103552.10800-1-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.39.0
+ by imap2.suse-dmz.suse.de with ESMTPSA id ssHcN0p+AGRWZQAAMHmgww
+ (envelope-from <wegao@suse.com>); Thu, 02 Mar 2023 10:45:30 +0000
+Date: Thu, 2 Mar 2023 05:45:27 -0500
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20230302104527.GA17006@localhost>
+References: <20230228032745.16595-1-wegao@suse.com>
+ <20230302014519.31512-1-wegao@suse.com> <ZABzqALt4+Zjqtxq@pevik>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <ZABzqALt4+Zjqtxq@pevik>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] fsconfig03: Fix return value validation on older
- kernels
+Subject: Re: [LTP] [PATCH v7] fsconfig03: SKIP check return value for old
+ kernel
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,75 +73,67 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
+Cc: kernel-qa@suse.de, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On older kernels, Btrfs is not the only filesystem using the legacy
-fsconfig() handlers. Assume that fsconfig() is using legacy_parse_param()
-and allow it to return success regardless of filesystem up until the point
-where the legacy buffer would get full.
-
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
-
-Tested on kernel 5.3 both with and without the CVE fix.
-
- .../kernel/syscalls/fsconfig/fsconfig03.c     | 27 +++++++++++++++----
- 1 file changed, 22 insertions(+), 5 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/fsconfig/fsconfig03.c b/testcases/kernel/syscalls/fsconfig/fsconfig03.c
-index 7ee37f4ae..e891c9f98 100644
---- a/testcases/kernel/syscalls/fsconfig/fsconfig03.c
-+++ b/testcases/kernel/syscalls/fsconfig/fsconfig03.c
-@@ -45,11 +45,21 @@ static void run(void)
- 		/* use same logic in kernel legacy_parse_param function */
- 		const size_t len = i * (strlen(val) + 2) + (strlen(val) + 1) + 2;
- 
--		if (!strcmp(tst_device->fs_type, "btrfs") && len <= (size_t)pagesize)
--			TST_EXP_PASS_SILENT(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0));
--		else
--			TST_EXP_FAIL_SILENT(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0),
--					    EINVAL);
-+		TEST(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0));
-+
-+		/* Legacy fsconfig() just copies arguments to buffer */
-+		if (!TST_RET && len <= (size_t)pagesize)
-+			continue;
-+
-+		if (!TST_RET) {
-+			tst_res(TFAIL, "fsconfig() passed unexpectedly");
-+		} else if (TST_RET != -1) {
-+			tst_brk(TBROK | TTERRNO,
-+				"Invalid fsconfig() return value %ld", TST_RET);
-+		} else if (TST_ERR != EINVAL) {
-+			tst_res(TFAIL | TTERRNO,
-+				"fsconfig() failed with unexpected error");
-+		}
- 	}
- 
- 	if (fd != -1)
-@@ -63,9 +73,16 @@ static void run(void)
- 			tst_device->fs_type);
- }
- 
-+static void cleanup(void)
-+{
-+	if (fd >= 0)
-+		SAFE_CLOSE(fd);
-+}
-+
- static struct tst_test test = {
- 	.test_all = run,
- 	.setup = setup,
-+	.cleanup = cleanup,
- 	.needs_root = 1,
- 	.format_device = 1,
- 	.mntpoint = MNTPOINT,
--- 
-2.39.0
-
+On Thu, Mar 02, 2023 at 11:00:08AM +0100, Petr Vorel wrote:
+> Hi Wei,
+> 
+> > Signed-off-by: Wei Gao <wegao@suse.com>
+> > ---
+> >  .../kernel/syscalls/fsconfig/fsconfig03.c     | 21 ++++++++++++-------
+> >  1 file changed, 13 insertions(+), 8 deletions(-)
+> 
+> > diff --git a/testcases/kernel/syscalls/fsconfig/fsconfig03.c b/testcases/kernel/syscalls/fsconfig/fsconfig03.c
+> > index 7ee37f4ae..9adf06207 100644
+> > --- a/testcases/kernel/syscalls/fsconfig/fsconfig03.c
+> > +++ b/testcases/kernel/syscalls/fsconfig/fsconfig03.c
+> > @@ -41,15 +41,20 @@ static void run(void)
+> >  	if (pagesize == -1)
+> >  		tst_brk(TBROK, "sysconf(_SC_PAGESIZE) failed");
+> 
+> > -	for (size_t i = 0; i < 5000; i++) {
+> > -		/* use same logic in kernel legacy_parse_param function */
+> > -		const size_t len = i * (strlen(val) + 2) + (strlen(val) + 1) + 2;
+> > +	if ((tst_kvercmp(5, 17, 1)) >= 0) {
+> I suppose 722d94847de29 (in .tags) change the old behavior (from v5.17-rc1).
+> Shouldn't be the check against 5.17.0?
+> if ((tst_kvercmp(5, 17, 0)) >= 0) {
+yes, 5.17.0 is better one!
+> 
+> 
+> > +		for (size_t i = 0; i < 5000; i++) {
+> > +			/* use same logic in kernel legacy_parse_param function */
+> > +			const size_t len = i * (strlen(val) + 2) + (strlen(val) + 1) + 2;
+> 
+> > -		if (!strcmp(tst_device->fs_type, "btrfs") && len <= (size_t)pagesize)
+> > -			TST_EXP_PASS_SILENT(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0));
+> > -		else
+> > -			TST_EXP_FAIL_SILENT(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0),
+> > -					    EINVAL);
+> > +			if (!strcmp(tst_device->fs_type, "btrfs") && len <= (size_t)pagesize)
+> > +				TST_EXP_PASS_SILENT(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0));
+> > +			else
+> > +				TST_EXP_FAIL_SILENT(fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0),
+> > +						EINVAL);
+> > +		}
+> > +	} else {
+> > +		for (size_t i = 0; i < 5000; i++)
+> Repeating the loop again. Wouldn't be more readable moving the if clause to
+> separate function and doing if/else inside of for loop?
+> 
+> Also "\x00" might be in #define (used 3 times).
+> 
+> Kind regards,
+> Petr
+> 
+> > +			fsconfig(fd, FSCONFIG_SET_STRING, "\x00", val, 0);
+> >  	}
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
