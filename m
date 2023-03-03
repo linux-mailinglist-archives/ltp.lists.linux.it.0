@@ -2,74 +2,76 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70EEC6A9134
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 07:47:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE1176A91FA
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 08:53:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2ADB13CB9C4
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 07:47:39 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A8F4F3CB97F
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 08:53:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B71363CB8E2
- for <ltp@lists.linux.it>; Fri,  3 Mar 2023 07:47:35 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id DE6273CB976
+ for <ltp@lists.linux.it>; Fri,  3 Mar 2023 08:53:08 +0100 (CET)
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [IPv6:2607:f8b0:4864:20::62b])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DDED1600435
- for <ltp@lists.linux.it>; Fri,  3 Mar 2023 07:47:34 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CA0EF22863;
- Fri,  3 Mar 2023 06:47:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1677826053;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Upc9Fgt+X0scgmZUmFqPrGECKWO7BCtKylecuoQOipk=;
- b=pf2i9OEbnl8M7YIyqtWKPk8y5kWct3cbpz3ViWDgyO8EwnZyKSAn9hbuS8KpdpceAYela9
- dblvnSdwymRw+RA/m4CIaIV/tFkzewnq9ZSfmE05OzEBaO5PjskG6ygZsty0dshdNGHiJq
- JW5j7pNM7Ak6pIzg2k75sJbJaSK8zSI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1677826053;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Upc9Fgt+X0scgmZUmFqPrGECKWO7BCtKylecuoQOipk=;
- b=ONXbfHRDYUx+XkSC8gBzrw59vR+gGzVj97cOFYhRCs2JgHa4lUz55KSZf/MpSErq50szpz
- rD6LErUMF+Y00BBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 982391329E;
- Fri,  3 Mar 2023 06:47:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id GkdxIwWYAWShGQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 03 Mar 2023 06:47:33 +0000
-Date: Fri, 3 Mar 2023 08:46:06 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20230303074606.GA4255@pevik>
-References: <20230301193332.27694-1-Liam.Howlett@oracle.com>
- <20230302141956.GA20234@pevik> <ZAECZhVuBCX2WTl7@yuki>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CAF2D1400432
+ for <ltp@lists.linux.it>; Fri,  3 Mar 2023 08:53:07 +0100 (CET)
+Received: by mail-pl1-x62b.google.com with SMTP id i3so1881042plg.6
+ for <ltp@lists.linux.it>; Thu, 02 Mar 2023 23:53:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance.com; s=google; t=1677829986;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=zeYY0bCTDbWZ7+Uc0eJI0jQ4PNmcE36qUsvpgFfLR/Q=;
+ b=hQ0snW0DFu4sGEDK9Y52DZ1KCOOFVZ9KrnF2bqO7IvMZTeXWWeirbo852OfdWM7B32
+ +BRCWI18V+Qih16HqaRFaLo+mcbsRVd5UboB/TZ6yj/RMiZLqyfAFKX0TJOG2jzm3CTu
+ LwYKLXQB2RiK6DMKBm//3LpqOh/DQUnhxF4rPWQAtxeF42bmjwfAWHjpt9IBi2NcIXS+
+ OhehZSF1delvJ9vFGNHNVHKoIq8ovcR8U0Vm4QfS24qXPgsnDak10uWFYK9WI+zX/I6T
+ rY4Gp4vaF4/dUh/SK1gq1WIRj/e9qHNs78hVqv0TqgEI/jJ4UFVGPNYLx/fveBYYrfd7
+ 8SXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1677829986;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zeYY0bCTDbWZ7+Uc0eJI0jQ4PNmcE36qUsvpgFfLR/Q=;
+ b=rzZsxMx/Zebt5eoTlmFh94AW+EjS+8C/WxLMRPCfhja/C4GYT1c9lLrhEnPzaug3db
+ 0L8kk+htDzY/fs94s+UQotyiJdImKUed9oSREsAYd6KuWSqNCoV4UAoNbczRd0PPENch
+ YNRB0Y6dguEmwZys/DvNYCSDH20dI3viEJUHZKg9v+SS8l8W7q6PyCbkcJbJKni7yo72
+ Ge4b/624q4dE+gqcjGPUEuW2SSySZzMZAKyaezLFKMMAMoJc9rV0yWDoAl5kPE51rE8f
+ o0TTy2bzOBlKOFvi/ryZB7ralFAKwTPM3YUtzuQZiUtbvDll7cd87L12Gmoa0muLcLS2
+ 3pBg==
+X-Gm-Message-State: AO0yUKXbc74Xed3yWJk0nAI74skQHvXqNwq4QDCErGFPCr+UDhGIRmQ5
+ HJs3VxLjhGM4jA11Z6UkdcgbnSC2ESPFaFsqvd8=
+X-Google-Smtp-Source: AK7set+pJ8WMSRB59Q9cqtJwaAKfTaSJsECY+THp2tYZW9kxd6W5gKaRu4RS6v2r5O2nzwJTFdvSzg==
+X-Received: by 2002:a17:902:e80f:b0:19e:747e:813e with SMTP id
+ u15-20020a170902e80f00b0019e747e813emr1331141plg.23.1677829985794; 
+ Thu, 02 Mar 2023 23:53:05 -0800 (PST)
+Received: from C02G876QMD6R.bytedance.net ([139.177.225.250])
+ by smtp.gmail.com with ESMTPSA id
+ ko16-20020a17090307d000b0019472226769sm857728plb.251.2023.03.02.23.53.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Mar 2023 23:53:05 -0800 (PST)
+From: Zhao Gongyi <zhaogongyi@bytedance.com>
+To: ltp@lists.linux.it
+Date: Fri,  3 Mar 2023 15:52:58 +0800
+Message-Id: <20230303075258.1066-1-zhaogongyi@bytedance.com>
+X-Mailer: git-send-email 2.37.1 (Apple Git-137.1)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZAECZhVuBCX2WTl7@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] mprotect: Add mprotect05 testcase
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] ltp-pan: Send SIGKILL instead of SIGALRM to kill the
+ child process
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,29 +83,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it, "Liam R. Howlett" <Liam.Howlett@oracle.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril, Liam,
+From: zhaogongyi <zhaogongyi@bytedance.com>
 
-> Can we also add a git tag to the test? It looks like fix is in mainline
-> in:
+When PAN stop Alarm was received, and the testcase blocked the signal SIGALRM,
+PAN will be hung up until the testcase exit. So it is necessary to send SIGKILL
+instead of SIGALRM to kill the running process.
 
-> commit 2fcd07b7ccd5fd10b2120d298363e4e6c53ccf9c
-> Author: Liam R. Howlett <Liam.Howlett@oracle.com>
-> Date:   Fri Feb 24 16:20:55 2023 -0500
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+---
+ pan/ltp-pan.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->     mm/mprotect: Fix successful vma_merge() of next in do_mprotect_pkey()
+diff --git a/pan/ltp-pan.c b/pan/ltp-pan.c
+index 0bdb51477..b07a7ec50 100644
+--- a/pan/ltp-pan.c
++++ b/pan/ltp-pan.c
+@@ -685,7 +685,7 @@ propagate_signal(struct tag_pgrp *running, int keep_active,
 
-Good catch, thanks!
-Merged with git tag + added .gitignore and runtest/syscalls entry.
+ 	if (rec_signal == SIGALRM) {
+ 		printf("PAN stop Alarm was received\n");
+-		rec_signal = SIGTERM;
++		send_signal = SIGKILL;
+ 	}
 
-Kind regards,
-Petr
+ 	for (i = 0; i < keep_active; ++i) {
+--
+2.37.1 (Apple Git-137.1)
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
