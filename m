@@ -2,71 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 794E56A9919
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 15:07:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E4756A99A7
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 15:38:27 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BF9453CBB52
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 15:07:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CCA183CC4D7
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 15:38:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E8B553C9DD2
- for <ltp@lists.linux.it>; Fri,  3 Mar 2023 15:07:53 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 3C0693CB90E
+ for <ltp@lists.linux.it>; Fri,  3 Mar 2023 15:38:23 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7C3981A0098B
- for <ltp@lists.linux.it>; Fri,  3 Mar 2023 15:07:52 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A9D1C600A75
+ for <ltp@lists.linux.it>; Fri,  3 Mar 2023 15:38:22 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5C675204F6;
- Fri,  3 Mar 2023 14:07:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 07BC922C0C;
+ Fri,  3 Mar 2023 14:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1677852472;
+ t=1677854302;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=EInxP6lfRPCY8YVMErbwDJ8FBu5HVL2d3LPKG+att1s=;
- b=h5oN2PxFzXMAj4hfZBzJSi3gaijbNeqqCzoOKtVvSspNGPF81IohgAmxfDRFtm1yh6c1f3
- UFGLnk4fLgbOjxJAX+3BlFsoko/Nd4ZEIAaeGFZMcG+h5qfh5pbJPABbPrYLYuY20wULRR
- ieuMmJbpn+z/noMTDqRtTCZkr1Z08ws=
+ bh=AiT7SGpAgYSCvw+2Zi2zbM/Z3Q1mE/c6vpHILfeqq/o=;
+ b=P1C7NsTyqY0/CU/ts+1cGG8EwrBrXxAxEZn+Z/UG7cbWcfNjyGPzjsQMdZ61YM5mtgjtsk
+ hjWjeuZ0fQXG4wK3k6feXSG4T0fMKypkoDW0UmNEzxEIjB6iiDja6CvK+IKikYqNsMBALB
+ Hx4NCtX1dDeJwWX0+8sOyM6B4zf6CTQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1677852472;
+ s=susede2_ed25519; t=1677854302;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=EInxP6lfRPCY8YVMErbwDJ8FBu5HVL2d3LPKG+att1s=;
- b=NIM+TjtkzWQCJHtSvC413h0iTkKoUUT8KqMRMwTia0E4a0LyJMN9nQ4isJPF30wAAfi2Bt
- bzPNGZ2MC1sPgHCg==
+ bh=AiT7SGpAgYSCvw+2Zi2zbM/Z3Q1mE/c6vpHILfeqq/o=;
+ b=nUKVC+IzcIOho8E93PsyDmc0r6LhqQEwwS/JGcu3lIVnLR9JUlox7VbzkJO2WD02TJ+LkP
+ dRb9u4D0OFcg5ZCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1198B1329E;
- Fri,  3 Mar 2023 14:07:52 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C9637139D3;
+ Fri,  3 Mar 2023 14:38:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id xWHmADj/AWSrDgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 03 Mar 2023 14:07:52 +0000
-Date: Fri, 3 Mar 2023 15:29:43 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id PKZ3L10GAmSIHwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 03 Mar 2023 14:38:21 +0000
+Date: Fri, 3 Mar 2023 15:38:20 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <20230303142943.GA24485@pevik>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <ZAIGXHd3u1RMn5uZ@pevik>
 References: <20230303094253.20952-1-andrea.cervesato@suse.de>
+ <20230303142943.GA24485@pevik>
+ <72ff2c7a-4054-6a5c-c801-0188af5a3edd@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230303094253.20952-1-andrea.cervesato@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <72ff2c7a-4054-6a5c-c801-0188af5a3edd@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v1] Rewrite ns_exec tool using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -86,15 +88,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Andrea,
+> Hi Petr,
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> On 3/3/23 15:29, Petr Vorel wrote:
+> > Hi Andrea,
 
-I'm going to merge without struct tst_test workarounds.
-IMHO it works without it. Or am I missing something?
+> > Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-Kind regards,
-Petr
+> > I'm going to merge without struct tst_test workarounds.
+> > IMHO it works without it. Or am I missing something?
+> Unfortunately it's needed because of SAFE_CLONE. We can't use it without
+> forcing "forks_child = 1".
+Yes, I read that in the comment. But the problem was somehow hidden.
+It looks like Segmentation fault appear only if run on fresh reboot, that's why
+I got confused it's not needed. Sorry for asking without looking into
+safe_clone() before.
+
+Also we had some discussion in the past whether tools should use the test
+library at all (see below), but in this case I'd be for keeping it
+(we don't want to reimplement tst_clone() and TST_RETRY_FUNC()).
+
+> > Kind regards,
+> > Petr
+
+> Beware that this patch will touch the whole network testing suites since
+> it's used in "tst_net.sh".
+Yes, I know :). That was the reason why I also started to rewrite these tests,
+with intention to move them to testcases/lib/ (although these files are both
+tests and tools, we agreed with Cyril it's better to move them).
+
+> Regards,
+> Andrea
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
