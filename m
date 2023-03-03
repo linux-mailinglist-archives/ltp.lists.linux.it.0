@@ -1,62 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B2E56A93DC
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 10:25:17 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C1BD26A945B
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 10:45:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3B9283CB981
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 10:25:17 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 996913CB981
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 10:45:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EB8CF3CB8F0
- for <ltp@lists.linux.it>; Fri,  3 Mar 2023 10:25:10 +0100 (CET)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 657AC3C9DD2
+ for <ltp@lists.linux.it>; Fri,  3 Mar 2023 10:45:00 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E22CC1000A29
- for <ltp@lists.linux.it>; Fri,  3 Mar 2023 10:25:06 +0100 (CET)
-X-UUID: 8ed66b6e096140e7bd6b207ee86b2093-20230303
-X-CPASD-INFO: 69ae94b2e15b4c949cbd1e992eba1797
- @f4mbhWZmkGKRUXeug6aEblmUkpRhkVmIdJ-
- CkV9nZVeVhH5xTV5nX1V9gnNXZF5dXFV3dnBQYmBhXVJ3i3-XblBgXoZgUZB3hXubhWlikg==
-X-CLOUD-ID: 69ae94b2e15b4c949cbd1e992eba1797
-X-CPASD-SUMMARY: SIP:-1, APTIP:-2.0, KEY:0.0, FROMBLOCK:1, OB:0.0, URL:-5,
- TVAL:169.
- 0, ESV:0.0, ECOM:-5.0, ML:0.0, FD:0.0, CUTS:152.0, IP:-2.0, MAL:-5.0, PHF:-5.0,
- PHC:-5
- .0, SPF:4.0, EDMS:-5, IPLABEL:4480.0, FROMTO:0, AD:0, FFOB:0.0, CFOB:0.0, SPC:0,
- SIG:-
- 5, AUF:3, DUF:17382, ACD:250, DCD:250, SL:0, EISP:0, AG:0, CFC:0.294,
- CFSR:0.056, UAT:0
- , RAF:0, IMG:-5.0, DFA:0, DTA:0, IBL:-2.0, ADI:-5, SBL:0, REDM:0, REIP:0, ESB:0,
- ATTNUM: 0,EAF:0,CID:-5.0,VERSION:2.3.17
-X-CPASD-ID: 8ed66b6e096140e7bd6b207ee86b2093-20230303
-X-CPASD-BLOCK: 1000
-X-CPASD-STAGE: 1
-X-UUID: 8ed66b6e096140e7bd6b207ee86b2093-20230303
-X-User: gehao@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by mailgw
- (envelope-from <gehao@kylinos.cn>) (Generic MTA)
- with ESMTP id 1580110299; Fri, 03 Mar 2023 17:25:00 +0800
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6E14B1000910
+ for <ltp@lists.linux.it>; Fri,  3 Mar 2023 10:44:58 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3DE2C203EC;
+ Fri,  3 Mar 2023 09:44:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1677836698; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=wciEQIU2gRHWfk3PJWUkV7348oANv/4etpJXtNAzCUw=;
+ b=s/L9wmVVVl6flDz0/lRPiluGKKV48CHAQIoGTPT746UOm+37BFGNH0Bk4tzr+xe+DaFhJ1
+ V2skgTidp2+O2IrCDklTt/jFMhizm4B/OXZBh6ZZz2Mm3JkFreLcervoCM8OkU5pKuyQrL
+ jxxHBDh84q9y460qVan+X6yJrf+UvSQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1677836698;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=wciEQIU2gRHWfk3PJWUkV7348oANv/4etpJXtNAzCUw=;
+ b=EjzJztbcUzf9hqPHJt2OmbWhCmuWx4PTr6gl/JiaSAYNlOfv3BdTPJ8ud+CgrvvVmJj+JK
+ 5mAaGUmkSgjaUSCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 16EC81329E;
+ Fri,  3 Mar 2023 09:44:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id kNOkA5rBAWQydQAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Fri, 03 Mar 2023 09:44:58 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Fri,  3 Mar 2023 17:24:29 +0800
-Message-Id: <20230303092429.103190-1-gehao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230301080131.86627-1-gehao@kylinos.cn>
-References: <20230301080131.86627-1-gehao@kylinos.cn>
+Date: Fri,  3 Mar 2023 10:42:53 +0100
+Message-Id: <20230303094253.20952-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] cpuset/cpuset_memory_pressure_test: Fix free
- memory calculate
+Subject: [LTP] [PATCH v1] Rewrite ns_exec tool using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,59 +74,229 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Hao Ge via ltp <ltp@lists.linux.it>
-Reply-To: Hao Ge <gehao@kylinos.cn>
-Cc: Hao Ge <gehao@kylinos.cn>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Currently, free has two output formats,as follows
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-free -m
-        total        used        free      shared  buff/cache   available
-Mem:   128135        3857      120633         158        3644      123219
-Swap:    8191          82        8109
-
-free -m
-        total       used       free     shared    buffers     cached
-Mem:   419694       9464     410230        234        435       6005
--/+ buffers/cache:       3022     416671
-Swap:    2053          0       2053
-
-We need to avoid the error of adding the available item so that py_mem is
-wrong.
-
-Signed-off-by: Hao Ge <gehao@kylinos.cn>
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- .../cpuset_memory_pressure_testset.sh                  | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ testcases/kernel/containers/share/ns_exec.c | 137 +++++++-------------
+ 1 file changed, 47 insertions(+), 90 deletions(-)
 
-diff --git a/testcases/kernel/controllers/cpuset/cpuset_memory_pressure_test/cpuset_memory_pressure_testset.sh b/testcases/kernel/controllers/cpuset/cpuset_memory_pressure_test/cpuset_memory_pressure_testset.sh
-index eddd7f6c5..88db03fd9 100755
---- a/testcases/kernel/controllers/cpuset/cpuset_memory_pressure_test/cpuset_memory_pressure_testset.sh
-+++ b/testcases/kernel/controllers/cpuset/cpuset_memory_pressure_test/cpuset_memory_pressure_testset.sh
-@@ -32,8 +32,16 @@ check
- 
- exit_status=0
- 
-+#read free cmd print layout is buff/cache or buff cache
-+bc_string=$(free -m | awk '{if(NR==1) print $5}')
+diff --git a/testcases/kernel/containers/share/ns_exec.c b/testcases/kernel/containers/share/ns_exec.c
+index 4abd1063b..982979218 100644
+--- a/testcases/kernel/containers/share/ns_exec.c
++++ b/testcases/kernel/containers/share/ns_exec.c
+@@ -1,44 +1,34 @@
+-/* Copyright (c) 2015 Red Hat, Inc.
+- *
+- * This program is free software: you can redistribute it and/or modify
+- * it under the terms of version 2 the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+- *
+- * Written by Matus Marhefka <mmarhefk@redhat.com>
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2015 Red Hat, Inc.
++ *               Matus Marhefka <mmarhefk@redhat.com>
++ * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
 +
- # usable physical memory
--py_mem=$(free -m | awk '{if(NR==2) print $4 + $6 + $7}')
-+if [ "$bc_string" == "buff/cache" ]
-+then
-+        py_mem=$(free -m | awk '{if(NR==2) print $4 + $6}')
-+else
-+        py_mem=$(free -m | awk '{if(NR==2) print $4 + $6 + $7}')
-+fi
++/*\
++ * [Description]
+  *
+- ***********************************************************************
+  * Enters the namespace(s) of a process specified by a PID and then executes
+  * the indicated program inside that namespace(s).
+- *
+  */
  
- # free swap space
- sw_mem=$(free -m | awk '{if(NR==4) print $4}')
+-#define _GNU_SOURCE
+-#include <sys/syscall.h>
+-#include <sys/types.h>
++#define TST_NO_DEFAULT_MAIN
++
++#include <stdio.h>
+ #include <sys/wait.h>
+-#include <fcntl.h>
+-#include <unistd.h>
+-#include <string.h>
+-#include <errno.h>
+-#include "test.h"
+-#include "lapi/syscalls.h"
+-#include "lapi/sched.h"
++#include "tst_test.h"
+ #include "ns_common.h"
+ 
+-char *TCID = "ns_exec";
+-int ns_fd[NS_TOTAL];
+-int ns_fds;
++extern struct tst_test *tst_test;
++
++static struct tst_test test = {
++	.forks_child = 1, /* Needed by SAFE_CLONE */
++};
+ 
++static int ns_fd[NS_TOTAL];
++static int ns_fds;
+ 
+-void print_help(void)
++static void print_help(void)
+ {
+ 	int i;
+ 
+@@ -46,30 +36,24 @@ void print_help(void)
+ 
+ 	for (i = 1; params[i].name; i++)
+ 		printf("|,%s", params[i].name);
++
+ 	printf("> <PROGRAM> [ARGS]\nSecond argument indicates the types"
+-	       " of a namespaces maintained by NS_PID\nand is specified"
+-	       " as a comma separated list.\nExample: ns_exec 1234 net,ipc"
+-	       " ip a\n");
++		" of a namespaces maintained by NS_PID\nand is specified"
++		" as a comma separated list.\nExample: ns_exec 1234 net,ipc"
++		" ip a\n");
+ }
+ 
+-static int open_ns_fd(const char *pid, const char *ns)
++static void open_ns_fd(const char *pid, const char *ns)
+ {
+ 	int fd;
+-	char file_buf[30];
++	char file_buf[64];
+ 
+ 	sprintf(file_buf, "%s/%s/ns/%s", PROC_PATH, pid, ns);
+ 
+-	fd = open(file_buf, O_RDONLY);
+-	if (fd > 0) {
+-		ns_fd[ns_fds] = fd;
+-		++ns_fds;
+-		return 0;
+-	} else if (fd == -1 && errno != ENOENT) {
+-		tst_resm(TINFO | TERRNO, "open");
+-		return -1;
+-	}
++	fd = SAFE_OPEN(file_buf, O_RDONLY);
++	ns_fd[ns_fds] = fd;
+ 
+-	return 0;
++	++ns_fds;
+ }
+ 
+ static void close_ns_fd(void)
+@@ -77,31 +61,16 @@ static void close_ns_fd(void)
+ 	int i;
+ 
+ 	for (i = 0; i < ns_fds; i++)
+-		close(ns_fd[i]);
++		SAFE_CLOSE(ns_fd[i]);
+ }
+ 
+-static int child_fn(void *arg)
+-{
+-	char **args = (char **)arg;
+-
+-	execvp(args[3], args+3);
+-	tst_resm(TINFO | TERRNO, "execvp");
+-	return 1;
+-}
+-
+-/*
+- * ./ns_exec <NS_PID> <ipc,mnt,net,pid,user,uts> <PROGRAM> [ARGS]
+- */
+ int main(int argc, char *argv[])
+ {
+-	int i, rv, pid;
++	struct tst_clone_args args = { 0, SIGCHLD };
++	int i, status, pid;
+ 	char *token;
+ 
+-	rv = syscall(__NR_setns, -1, 0);
+-	if (rv == -1 && errno == ENOSYS) {
+-		tst_resm(TINFO, "setns is not supported in the kernel");
+-		return 1;
+-	}
++	tst_test = &test;
+ 
+ 	if (argc < 4) {
+ 		print_help();
+@@ -109,49 +78,37 @@ int main(int argc, char *argv[])
+ 	}
+ 
+ 	memset(ns_fd, 0, sizeof(ns_fd));
++
+ 	while ((token = strsep(&argv[2], ","))) {
+ 		struct param *p = get_param(token);
+ 
+ 		if (!p) {
+-			tst_resm(TINFO, "Unknown namespace: %s", token);
++			printf("Unknown namespace: %s\n", token);
+ 			print_help();
+ 			return 1;
+ 		}
+ 
+-		if (open_ns_fd(argv[1], token) != 0)
+-			return 1;
++		open_ns_fd(argv[1], token);
+ 	}
+ 
+-	if (ns_fds == 0) {
+-		tst_resm(TINFO, "no namespace entries in /proc/%s/ns/",
+-			 argv[1]);
++	if (!ns_fds) {
++		printf("no namespace entries in /proc/%s/ns/\n", argv[1]);
+ 		return 1;
+ 	}
+ 
+-	for (i = 0; i < ns_fds; i++) {
+-		if (syscall(__NR_setns, ns_fd[i], 0) == -1) {
+-			tst_resm(TINFO | TERRNO, "setns");
+-			close_ns_fd();
+-			return 1;
+-		}
+-	}
++	for (i = 0; i < ns_fds; i++)
++		SAFE_SETNS(ns_fd[i], 0);
+ 
+-	pid = ltp_clone_quick(SIGCHLD, (void *)child_fn, (void *)argv);
+-	if (pid == -1) {
+-		tst_resm(TINFO | TERRNO, "ltp_clone_quick");
+-		close_ns_fd();
+-		return 1;
+-	}
++	pid = SAFE_CLONE(&args);
++	if (!pid)
++		SAFE_EXECVP(argv[3], argv+3);
+ 
+-	if (waitpid(pid, &rv, 0) == -1) {
+-		tst_resm(TINFO | TERRNO, "waitpid");
+-		return 1;
+-	}
++	SAFE_WAITPID(pid, &status, 0);
+ 
+ 	close_ns_fd();
+ 
+-	if (WIFEXITED(rv))
+-		return WEXITSTATUS(rv);
++	if (WIFEXITED(status))
++		return WEXITSTATUS(status);
+ 
+ 	return 0;
+ }
 -- 
-2.25.1
+2.35.3
 
 
 -- 
