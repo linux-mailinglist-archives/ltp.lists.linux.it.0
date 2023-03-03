@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E560F6A99D1
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 15:50:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15B506A9B16
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 16:49:03 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ACAEA3CB98D
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 15:50:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 51BB23CC4E3
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 16:49:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
@@ -14,54 +14,55 @@ Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E5E733CB8D9
- for <ltp@lists.linux.it>; Fri,  3 Mar 2023 15:50:16 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 0F9E23CB97E
+ for <ltp@lists.linux.it>; Fri,  3 Mar 2023 16:48:57 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8060260083F
- for <ltp@lists.linux.it>; Fri,  3 Mar 2023 15:50:16 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E3C8460094B
+ for <ltp@lists.linux.it>; Fri,  3 Mar 2023 16:48:56 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B0266204F6;
- Fri,  3 Mar 2023 14:50:15 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3C82221E41;
+ Fri,  3 Mar 2023 15:48:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1677855015;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ t=1677858536;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=d05kLnBrlF2/NjzdS8Bs8gvLwyN7YRw/SIn5e6Gr63A=;
- b=YHq3tMGfnOUJEj8wms5ihJCOXF+IfcGd/cP0WH1PM6Ta+p0ej1Dushrcf32D4L2rrJXLev
- u4E3wCMgcxqKB8zW7dVo4Ry21/GebD0Q06IOe3aAqdmKtYLKxB9/iwtA/XbKWSY1V2wcRh
- Gw9SaYph0bHbPgHc/WgTESD7jeuT2Mk=
+ bh=S2OfOZN3tlr63/tjOOoYfkc4EJYf3pI1JhWCXU8pt3g=;
+ b=hKyEV4XbKFU3V3IUr0XRF661LloZXmW2TrHRAQMOYD6UsHQhFavhNskeLYW+R8mG4+W4yX
+ Fl/QYaJSXRpJ8rMo9JnmhcRnPwjjt6B7FG1eI4/zwO89qwcB+X2dcLn8PjtJhSBGfCUBYB
+ aNBvdxFnNI75or6ejoXrbGJ5o0TpUkQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1677855015;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1677858536;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=d05kLnBrlF2/NjzdS8Bs8gvLwyN7YRw/SIn5e6Gr63A=;
- b=aDnDBXupLu5S+mBIH13PZoVF5R8WVOhE+Qn9GtSHJixX8NBtMzGhrdJpCQp41PU3gUCVrx
- E4DjysbX3/mWtYAA==
+ bh=S2OfOZN3tlr63/tjOOoYfkc4EJYf3pI1JhWCXU8pt3g=;
+ b=3eqenFUi6IiZy7uQplD63H7vQUTkQ0NAsJBM+ScLahOpUUuSOHrlKG4tOqofq+dNnorl2K
+ 0ArTjPA0edfNXRAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8B642139D3;
- Fri,  3 Mar 2023 14:50:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 065BA1329E;
+ Fri,  3 Mar 2023 15:48:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id L9KGICcJAmQrJgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 03 Mar 2023 14:50:15 +0000
-Date: Fri, 3 Mar 2023 16:08:35 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id PWvgOucWAmT3RQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 03 Mar 2023 15:48:55 +0000
+Date: Fri, 3 Mar 2023 16:48:54 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <20230303150835.GB24485@pevik>
+To: Andrea Cervesato <andrea.cervesato@suse.de>, ltp@lists.linux.it
+Message-ID: <20230303154854.GA5985@pevik>
 References: <20230303094253.20952-1-andrea.cervesato@suse.de>
+ <20230303150835.GB24485@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230303094253.20952-1-andrea.cervesato@suse.de>
+In-Reply-To: <20230303150835.GB24485@pevik>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -81,7 +82,6 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -89,7 +89,7 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Andrea,
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+merged, thank you!
 
 Kind regards,
 Petr
