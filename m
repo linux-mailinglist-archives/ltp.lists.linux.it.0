@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A8AA6A925D
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 09:25:47 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CC4046A92AC
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 09:35:59 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1D8773CB9C6
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 09:25:47 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9CBE23CB981
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Mar 2023 09:35:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3A4043CAC12
- for <ltp@lists.linux.it>; Fri,  3 Mar 2023 09:25:43 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 677153CB005
+ for <ltp@lists.linux.it>; Fri,  3 Mar 2023 09:35:58 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6EC421400C42
- for <ltp@lists.linux.it>; Fri,  3 Mar 2023 09:25:42 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AF9772009CE
+ for <ltp@lists.linux.it>; Fri,  3 Mar 2023 09:35:57 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B69062298D;
- Fri,  3 Mar 2023 08:25:41 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DE038229A1;
+ Fri,  3 Mar 2023 08:35:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1677831941;
+ t=1677832555;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=X0O6bjbTvNVR+55VFT9Q/3iU6zj14iLqIVvMHXkl+kA=;
- b=ztZVETxMB9ms+f7OzCyqHvXkMy3aGyqrds4/g4f256ZICbW5EBSKKAzPu0lYfjdqBzxNfN
- f3a+GvolBPyDiovQjZnpkSlsg/hdSkBr/gppfksv++niGkYkNg94oJ8Vzq37ZtjgnMlwOC
- d2JWZGF54iSKktd62ulqODKuU8xTQ70=
+ bh=GJSFv66c3YE3DlyQW28ZaviUd7YDPAgHQpINLCNc/kw=;
+ b=lM2TQdApHyCmR9aROKvs4jYNEaePBOeD1xG8vTC1+Hf2EhHD9uNNJ3K0EEpyo6i8zi46sx
+ ZweSOXCMQMCpkvscFhKlJsHeLMYGKWtN3tRh6IccQFz5XwWcXpocsEljY8TtaMADOSYwsX
+ j5jHSInEAL2VzfhPYKdxDlgOQyy0Jtc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1677831941;
+ s=susede2_ed25519; t=1677832555;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=X0O6bjbTvNVR+55VFT9Q/3iU6zj14iLqIVvMHXkl+kA=;
- b=1sH1RWAcJ/pbojEqQBnJOA6bC1r2AbMU2odsJROLCZehxYG3jYcXn1mTu+HHy8dnwPhI6K
- TNdSteUBkPyWq4Cw==
+ bh=GJSFv66c3YE3DlyQW28ZaviUd7YDPAgHQpINLCNc/kw=;
+ b=EvqsOiPE5nwPuN0w6qI/u/qExWtLUCCKx8u273GTTghwg/KRwUstMo3jjfa47dp3MUTER6
+ ohNKx8hIHwWgNzAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6F8B2139D3;
- Fri,  3 Mar 2023 08:25:41 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AC74C139D3;
+ Fri,  3 Mar 2023 08:35:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 1rz3FwWvAWQnSgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 03 Mar 2023 08:25:41 +0000
-Date: Fri, 3 Mar 2023 10:16:03 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id xZ3/JmuxAWRfTwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 03 Mar 2023 08:35:55 +0000
+Date: Fri, 3 Mar 2023 10:25:26 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.com>
-Message-ID: <20230303091603.GC4255@pevik>
+Message-ID: <20230303092526.GD4255@pevik>
 References: <20230301152818.4427-1-andrea.cervesato@suse.com>
- <20230301152818.4427-5-andrea.cervesato@suse.com>
+ <20230301152818.4427-4-andrea.cervesato@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230301152818.4427-5-andrea.cervesato@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <20230301152818.4427-4-andrea.cervesato@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 4/6] Refactor mqns_04 using new LTP API
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v5 3/6] Refactor mqns_03 using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,26 +89,53 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Andrea,
 
-+++ b/testcases/kernel/containers/mqns/mqns_04.c
 ...
-> +	tst_res(TINFO, "Try to create %s from parent", mqueue2);
+> +++ b/runtest/containers
+> @@ -22,7 +22,8 @@ mqns_02 mqns_02
+>  mqns_02_clone mqns_02 -m clone
+>  mqns_02_unshare mqns_02 -m unshare
+>  mqns_03 mqns_03
+> -mqns_03_clone mqns_03 -clone
+> +mqns_03_clone mqns_03 -m clone
+> +mqns_03_unshare mqns_03 -m unshare
+Interesting, it was not run with unshare. +1 for adding it.
 
-> -	mkdir(DEV_MQUEUE2, 0755);
-> +	TST_EXP_FAIL(creat(mqueue2, 0755), EACCES);
-OK, you created MQNAME2 (asked by Richie in v4).
+>  mqns_04 mqns_04
+>  mqns_04_clone mqns_04 -clone
 
-> +	if (!TST_PASS)
-> +		tst_atomic_inc(mq_freed2);
+> diff --git a/testcases/kernel/containers/mqns/mqns_03.c b/testcases/kernel/containers/mqns/mqns_03.c
+...
+> +/*\
+> + * [Description]
+> + *
+> + * Test mqueuefs from an isolated/forked process namespace.
+Again, I'd mention supported modes here.
+> + *
+> + * [Algorithm]
+> + *
+> + * - create /MQ1
+> + * - mount mqueue inside the temporary folder
+> + * - check for /MQ1 existance
+> + * - create /MQ2 inside the temporary folder
+> + * - umount
+> + * - mount mqueue inside the temporary folder
+> + * - check /MQ1 existance
+> + * - check /MQ2 existance
+> + * - umount
+> + */
+>  #define _GNU_SOURCE
+I wonder why _GNU_SOURCE was used here and in mqns_04.c. I don't see anything
+in man mq_open(3), both tests are working without it.
 
-> -	tst_resm(TINFO, "Checking mqueue filesystem lifetime");
-> +	SAFE_UMOUNT(devdir);
-> +}
+...
+> +static void cleanup(void)
+> +{
+mqns_04.c checks here:
+	if (!devdir)
+		return;
 
-I suppose it does not make sense to spawn plain process as it's done in
-mqns_03.c, right?
-Maybe it'd be worth to mention clone and unshare modes in [Description].
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Although it's unlikely that SAFE_ASPRINTF(&devdir, "%s/mqueue", tmpdir); in
+setup() would fail, I'd add it also here.
 
 Kind regards,
 Petr
