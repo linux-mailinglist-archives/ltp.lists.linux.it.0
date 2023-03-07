@@ -2,69 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39D556ADF0D
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Mar 2023 13:48:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82E2C6ADF18
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Mar 2023 13:49:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E0B843CB88B
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Mar 2023 13:48:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D4C193CD9E0
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Mar 2023 13:49:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1072B3CB855
- for <ltp@lists.linux.it>; Tue,  7 Mar 2023 13:48:33 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id F281E3CB855
+ for <ltp@lists.linux.it>; Tue,  7 Mar 2023 13:49:16 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6F4B72000D3
- for <ltp@lists.linux.it>; Tue,  7 Mar 2023 13:48:31 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 66378219AA;
- Tue,  7 Mar 2023 12:48:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1678193311;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SZXZLt2vGZJysS02f9Hev4LVO5qqGGTm8oHC4hYy6bI=;
- b=pw6B2lgHuJM2nIuAhwgpYY4G99OQ2aZuxBXPK/uHMY98Cn7271EWxq5TCRae3uRKQqMTph
- irP0A1576vBIjvUXjgAQY8SURpFdlVZ/SpumYBXGO1oK86SzIBMP3kmNKTq4Bo6ld0AiAR
- TZTiaRdqSW21gvbmK+EW/vj0H9wiAW0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1678193311;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SZXZLt2vGZJysS02f9Hev4LVO5qqGGTm8oHC4hYy6bI=;
- b=ZzCgLMZEijHbrov8j3Stx7TPw/BiakvmrZSu5Nfk92pV1+acxqrBNlG6PLRWljkeRfB/+T
- Id8FSjNbbtnVnOBg==
-Received: from g78 (unknown [10.100.204.110])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1BA7D60086E
+ for <ltp@lists.linux.it>; Tue,  7 Mar 2023 13:49:15 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 9066B2C141;
- Tue,  7 Mar 2023 12:48:30 +0000 (UTC)
-References: <20230216114745.2389810-1-andrei.gherzan@canonical.com>
- <Y++c8fBZxmUIR3Lb@pevik>
-User-agent: mu4e 1.8.13; emacs 28.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-Date: Tue, 07 Mar 2023 12:43:14 +0000
-Organization: Linux Private Site
-In-reply-to: <Y++c8fBZxmUIR3Lb@pevik>
-Message-ID: <87ttyw7mn6.fsf@suse.de>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6CAAC1FE18;
+ Tue,  7 Mar 2023 12:49:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1678193355; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=iVptwBfGFfezwkv/9O0CT8AuD2hL1jAcJbPADGfGjgY=;
+ b=pUK9USfLrbxOCVaQMJERDd7aTQx8yhM7gFlWel4p/iey6naCNFcp5V75xXGNNgILWdux9y
+ 1VZjYy53BFueUBj6PdPC9mk2Cv0Cl/loMRP4Ljj+8SXdZABgN6nCXiVNtfPfWA3FCKTKDH
+ s2YY0q1hU0oLpDWiDaSAkPtxGNGHvKE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1678193355;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=iVptwBfGFfezwkv/9O0CT8AuD2hL1jAcJbPADGfGjgY=;
+ b=ESlxzyqnoVo6JLC972rOjAXrc2K+vDfB05EQtA3iUHAWXc1UwzI9dJQCiEVquK9owDYH3S
+ NRUwS2dvD0u1h8Cw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 484E01341F;
+ Tue,  7 Mar 2023 12:49:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 7MaaD8syB2RjPQAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Tue, 07 Mar 2023 12:49:15 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+To: ltp@lists.linux.it
+Date: Tue,  7 Mar 2023 13:47:02 +0100
+Message-Id: <20230307124708.27280-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] fs_fill: Fix test when running on a 256 CPU+
- machine
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v6 0/6] Refactor mqns testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,121 +74,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it, Andrei Gherzan <andrei.gherzan@canonical.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Petr Vorel <pvorel@suse.cz> writes:
+Refactoring mqns testing suite and removing libclone dependency.
 
-> Hi Andrei,
->
->> The fs_fill test runs a fill test on all the supported filesystems. One
->> of them being vfat. This filesystem is configured dynamically or through
->> flags/arguments for its file allocation table type (12/16/32).
->
->> The size of the test device (which is a loop-mounted fs) is 300MB. When not
->> instructed, mkfs will "automatically select between 12, 16 and 32 bit,
->> whatever fits better for the filesystem size"[1]. In the case of a 300Mb that
->> would end up as FAT16.
-> Interesting. BTW we plan to change 300 MB to minimal filesystem which would fit
-> to all existing tests (255 MB was for Btrfs, 300 MB was for XFS, but there might
-> be minimal systems which can use vfat, ext4, ... with smaller resources, e.g.
-> 16 MB for filesystem). Therefore I wonder what is minimal reasonable required
-> size for vfat. i.e. what MB is required for FAT32? (I guess we don't want to
-> check FAT12 or FAT16).
->
->> This is linked with another configuration that is the actual impact on
->> this issue: the maximum number of directories in the root of the
->> filesystem. FAT12 and FAT16 use a special system region: "Root Directory
->> Region". And by default (there is also an argument to configure this at
->> mkfs-time) this ends up being 256 when no custom arguments are provided.
->
->> On the other hand, the test sets up the filesystem with a
->> "tst_ncpus_conf + 2" number of directories in the test filesystem's root
->> which can break the limit explained above on systems with a number of
->> CPUs that would amount above the limit.
->
->> This change addresses this situation by using a subdirectory in the test
->> filesystem which is not subject to this limit.
->
->> Signed-off-by: Andrei Gherzan <andrei.gherzan@canonical.com>
->> ---
->>  testcases/kernel/fs/fs_fill/fs_fill.c | 7 ++++++-
->>  1 file changed, 6 insertions(+), 1 deletion(-)
->
->> diff --git a/testcases/kernel/fs/fs_fill/fs_fill.c b/testcases/kernel/fs/fs_fill/fs_fill.c
->> index 2027b6df1..dd8ad2935 100644
->> --- a/testcases/kernel/fs/fs_fill/fs_fill.c
->> +++ b/testcases/kernel/fs/fs_fill/fs_fill.c
->> @@ -18,6 +18,7 @@
->>  #include "tst_test.h"
->
->>  #define MNTPOINT "mntpoint"
->> +#define THREADS_SUBDIR "subdir"
->
->>  static volatile int run;
->>  static unsigned int nthreads;
->> @@ -99,9 +100,13 @@ static void setup(void)
->>  	nthreads = tst_ncpus_conf() + 2;
->>  	workers = SAFE_MALLOC(sizeof(struct worker) * nthreads);
->
->> +	// Avoid creating the thread directories in the root of the filesystem
->> +	// to not hit the root entries limit on a  FAT16 filesystem.
->> +	SAFE_MKDIR(MNTPOINT "/" THREADS_SUBDIR, 0700);
->> +
->>  	for (i = 0; i < nthreads; i++) {
->>  		snprintf(workers[i].dir, sizeof(workers[i].dir),
->> -			 MNTPOINT "/thread%i", i + 1);
->> +			 MNTPOINT "/" THREADS_SUBDIR "/thread%i", i + 1);
->>  		SAFE_MKDIR(workers[i].dir, 0700);
->>  	}
->
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
->
-> If you don't mind, I suggest to merge slightly changed patch.
->
-> Kind regards,
-> Petr
->
-> +++ testcases/kernel/fs/fs_fill/fs_fill.c
-> @@ -18,6 +18,7 @@
->  #include "tst_test.h"
->  
->  #define MNTPOINT "mntpoint"
-> +#define THREADS_DIR MNTPOINT "/subdir"
->  
->  static volatile int run;
->  static unsigned int nthreads;
-> @@ -99,9 +100,15 @@ static void setup(void)
->  	nthreads = tst_ncpus_conf() + 2;
->  	workers = SAFE_MALLOC(sizeof(struct worker) * nthreads);
->  
-> +	/*
-> +	 * Avoid creating the thread directories in the root of the filesystem
-> +	 * to not hit the root entries limit on a FAT16 filesystem.
-> +	 */
-> +	SAFE_MKDIR(THREADS_DIR, 0700);
-> +
->  	for (i = 0; i < nthreads; i++) {
->  		snprintf(workers[i].dir, sizeof(workers[i].dir),
-> -			 MNTPOINT "/thread%i", i + 1);
-> +			 THREADS_DIR "/thread%i", i + 1);
->  		SAFE_MKDIR(workers[i].dir, 0700);
->  	}
+Andrea Cervesato (6):
+  Refactor mqns_01 using new LTP API
+  Refactor mqns_02 using new LTP API
+  Refactor mqns_03 using new LTP API
+  Refactor mqns_04 using new LTP API
+  Remove deprecated header files from mqns suite
+  Remove libclone dependency from mqns suite
 
-Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
-
-FWIW I think you could have merged this after a few days or even
-straight away.
+ runtest/containers                            |  14 +-
+ testcases/kernel/containers/mqns/Makefile     |  27 +-
+ testcases/kernel/containers/mqns/mqns.h       |  11 -
+ testcases/kernel/containers/mqns/mqns_01.c    | 184 ++++------
+ testcases/kernel/containers/mqns/mqns_02.c    | 245 +++++---------
+ testcases/kernel/containers/mqns/mqns_03.c    | 320 ++++++++----------
+ testcases/kernel/containers/mqns/mqns_04.c    | 291 ++++++++--------
+ .../kernel/containers/mqns/mqns_helper.h      |  53 ---
+ 8 files changed, 440 insertions(+), 705 deletions(-)
+ delete mode 100644 testcases/kernel/containers/mqns/mqns.h
+ delete mode 100644 testcases/kernel/containers/mqns/mqns_helper.h
 
 -- 
-Thank you,
-Richard.
+2.35.3
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
