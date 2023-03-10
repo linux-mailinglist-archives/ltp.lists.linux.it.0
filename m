@@ -2,73 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE04A6B3F8A
-	for <lists+linux-ltp@lfdr.de>; Fri, 10 Mar 2023 13:42:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AA246B3F88
+	for <lists+linux-ltp@lfdr.de>; Fri, 10 Mar 2023 13:41:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 818B23CB9DB
-	for <lists+linux-ltp@lfdr.de>; Fri, 10 Mar 2023 13:42:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D590B3CD80C
+	for <lists+linux-ltp@lfdr.de>; Fri, 10 Mar 2023 13:41:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CA8373C1047
+ by picard.linux.it (Postfix) with ESMTPS id 672613CAD8D
  for <ltp@lists.linux.it>; Fri, 10 Mar 2023 13:41:32 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C5D821401196
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C0F721A011E3
  for <ltp@lists.linux.it>; Fri, 10 Mar 2023 13:41:31 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A9741211E1;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EE273229A7;
  Fri, 10 Mar 2023 12:41:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1678452090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=stgyIHRRDIi2/LxgoyaWtmG/yRT/P8CHrXTjpLTQLnA=;
- b=Z6FJreSWUWU7IWvZOL4BXQfP628VCSB/u6dI0cgNLlhs4maJLS+xrfwyGdA7MqoXBQKIwV
- LyXO9mvzbOK3ffSk8Nna13SJCHa2oUCtDEvL8okakW/aLyzP5atOf9QUiepjbsQDGxwkP+
- p6oh0h5QTmx5n+Mhbsydx+LBHOEDThA=
+ bh=jP/qSsOpW6Z2TiPWwHZEK8ch+J10raHqyKM/R9+3lqE=;
+ b=1YWfpDT40GjJ5QbURJOG8uTSxriaBXv8A/BRP20XruCc2ZBWK0qDWBXpbBTqWr/hbu4WCr
+ Gsyat4a5XaWJTRe1pI9UqDzomDGqonAOsBuxxFt5jv4zoNEoztEMzbk1lGquQ7tYmUsuJg
+ eHDHXETXT657MFVLxxQFBlVFOljv7F4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1678452090;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=stgyIHRRDIi2/LxgoyaWtmG/yRT/P8CHrXTjpLTQLnA=;
- b=PUT2muFF9zDPrqqJ9QLb3AKVZ/c8ctz8EkDaMEsfrPZAAmv6MWVcQjjZJFLKm9h3EcUDBa
- o2aKoHzJpup9ixDQ==
+ bh=jP/qSsOpW6Z2TiPWwHZEK8ch+J10raHqyKM/R9+3lqE=;
+ b=J06nnw8XqEBMGOkJ8mzZb4Mj12aRgxMs9dOpc/5UpLbdoHBPB9N3KluQdJiMSVptCCz2DA
+ NZj9vRjB1YPBDlDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 80D8313592;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BFC7013592;
  Fri, 10 Mar 2023 12:41:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +NmXHXolC2T1JgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id +Bs5K3olC2T1JgAAMHmgww
  (envelope-from <pvorel@suse.cz>); Fri, 10 Mar 2023 12:41:30 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 10 Mar 2023 13:41:23 +0100
-Message-Id: <20230310124125.14279-2-pvorel@suse.cz>
+Date: Fri, 10 Mar 2023 13:41:24 +0100
+Message-Id: <20230310124125.14279-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230310124125.14279-1-pvorel@suse.cz>
 References: <20230310124125.14279-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/3] ns_exec.c: Rename to testcases/lib/tst_ns_exec.c
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/3] ns_create.c: Rename to
+ testcases/lib/tst_ns_create.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,238 +81,182 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SXQncyBub3Qgb25seSBhIHRlc3QsIGJ1dCBhbHNvIHRvb2wgZm9yIHRzdF9uZXQuc2ggdGhlcmVm
-b3JlIGJldHRlciB0bwpiZSBpbiBjb21tb24gdG9vbHMgZGlyZWN0b3J5LgoKQWxzbyBtb3ZlIGFu
-ZCByZW5hbWUgY29tbW9uIGhlYWRlciB0byBpbmNsdWRlL3RzdF9uc19jb21tb24uaC4KClNpZ25l
-ZC1vZmYtYnk6IFBldHIgVm9yZWwgPHB2b3JlbEBzdXNlLmN6PgotLS0KIGRvYy9uYW1lc3BhY2Vz
-LWhlbHBlci10b29scy50eHQgICAgICAgICAgICAgICAgICB8ICA2ICsrKy0tLQogLi4uL3NoYXJl
-L25zX2NvbW1vbi5oID0+IGluY2x1ZGUvdHN0X25zX2NvbW1vbi5oIHwgIDYgKysrLS0tCiB0ZXN0
-Y2FzZXMva2VybmVsL2NvbnRhaW5lcnMvbmV0bnMvbmV0bnNfbGliLnNoICAgfCAxNiArKysrKysr
-Ky0tLS0tLS0tCiB0ZXN0Y2FzZXMva2VybmVsL2NvbnRhaW5lcnMvbmV0bnMvbmV0bnNfc3lzZnMu
-c2ggfCAxMSArKysrKystLS0tLQogdGVzdGNhc2VzL2tlcm5lbC9jb250YWluZXJzL3NoYXJlLy5n
-aXRpZ25vcmUgICAgIHwgIDEgLQogdGVzdGNhc2VzL2tlcm5lbC9jb250YWluZXJzL3NoYXJlL25z
-X2NyZWF0ZS5jICAgIHwgIDIgKy0KIHRlc3RjYXNlcy9rZXJuZWwvZnMvZnNfYmluZC9mc19iaW5k
-X2xpYi5zaCAgICAgICB8ICA1ICsrKy0tCiB0ZXN0Y2FzZXMvbGliLy5naXRpZ25vcmUgICAgICAg
-ICAgICAgICAgICAgICAgICAgfCAgMSArCiB0ZXN0Y2FzZXMvbGliL01ha2VmaWxlICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgfCAgMiArLQogdGVzdGNhc2VzL2xpYi90c3RfbmV0LnNoICAgICAg
-ICAgICAgICAgICAgICAgICAgIHwgMTIgKysrKysrLS0tLS0tCiAuLi4vc2hhcmUvbnNfZXhlYy5j
-ID0+IGxpYi90c3RfbnNfZXhlYy5jfSAgICAgICAgfCAgOCArKysrLS0tLQogMTEgZmlsZXMgY2hh
-bmdlZCwgMzYgaW5zZXJ0aW9ucygrKSwgMzQgZGVsZXRpb25zKC0pCiByZW5hbWUgdGVzdGNhc2Vz
-L2tlcm5lbC9jb250YWluZXJzL3NoYXJlL25zX2NvbW1vbi5oID0+IGluY2x1ZGUvdHN0X25zX2Nv
-bW1vbi5oICg4OSUpCiByZW5hbWUgdGVzdGNhc2VzL3trZXJuZWwvY29udGFpbmVycy9zaGFyZS9u
-c19leGVjLmMgPT4gbGliL3RzdF9uc19leGVjLmN9ICg5MSUpCgpkaWZmIC0tZ2l0IGEvZG9jL25h
-bWVzcGFjZXMtaGVscGVyLXRvb2xzLnR4dCBiL2RvYy9uYW1lc3BhY2VzLWhlbHBlci10b29scy50
-eHQKaW5kZXggODFlZWM0ZDZjLi5lNWEzOTY1N2QgMTAwNjQ0Ci0tLSBhL2RvYy9uYW1lc3BhY2Vz
-LWhlbHBlci10b29scy50eHQKKysrIGIvZG9jL25hbWVzcGFjZXMtaGVscGVyLXRvb2xzLnR4dApA
-QCAtMTQsNyArMTQsNyBAQCBsb2NhdGVkIGluIGx0cC90ZXN0Y2FzZXMva2VybmVsL2NvbnRhaW5l
-cnMvc2hhcmUgZGlyZWN0b3J5IGFuZCBpbmNsdWRlOgogKiogUElEIG9mIHRoZSBkYWVtb25pemVk
-IGNoaWxkIHByb2Nlc3MgaXMgcHJpbnRlZCBvbiB0aGUgc3Rkb3V0CiAqKiB0aGUgbmV3IG5hbWVz
-cGFjZShzKSBpcyhhcmUpIG1haW50YWluZWQgYnkgdGhlIGRhZW1vbml6ZWQgY2hpbGQgcHJvY2Vz
-cwogKiogbmFtZXNwYWNlKHMpIGNhbiBiZSByZW1vdmVkIGJ5IGtpbGxpbmcgdGhlIGRhZW1vbml6
-ZWQgcHJvY2VzcwotKiBuc19leGVjCisqIHRzdF9uc19leGVjCiAqKiBlbnRlcnMgdGhlIG5hbWVz
-cGFjZShzKSBvZiBhIHByb2Nlc3Mgc3BlY2lmaWVkIGJ5IGEgUElECiAqKiB0aGVuIGV4ZWN1dGVz
-IHRoZSBpbmRpY2F0ZWQgcHJvZ3JhbSBpbnNpZGUgdGhhdCBuYW1lc3BhY2UocykKICogbnNfaWZt
-b3ZlCkBAIC0zOSwxMyArMzksMTMgQEAgbXlucz0kKG5zX2NyZWF0ZSBuZXQsaXBjKQogaXAgbGlu
-ayBhZGQgdmV0aDAgdHlwZSB2ZXRoIHBlZXIgbmFtZSB2ZXRoMQogCiAjIEV4ZWN1dGVzIGNvbW1h
-bmQgJ2lwIGEnIGluc2lkZSB0aGUgbmFtZXNwYWNlIHNwZWNpZmllZCBieSBQSUQgaW4gbXlucyB2
-YXJpYWJsZQotbnNfZXhlYyAkbXlucyBuZXQsaXBjIGlwIGEKK3RzdF9uc19leGVjICRteW5zIG5l
-dCxpcGMgaXAgYQogMTogbG86IDxMT09QQkFDSz4gbXR1IDY1NTM2IHFkaXNjIG5vb3Agc3RhdGUg
-RE9XTgogICAgIGxpbmsvbG9vcGJhY2sgMDA6MDA6MDA6MDA6MDA6MDAgYnJkIDAwOjAwOjAwOjAw
-OjAwOjAwCiAKICMgTW92ZXMgaW50ZXJmYWNlIHZldGgxIGludG8gdGhlIG5hbWVzcGFjZSBzcGVj
-aWZpZWQgYnkgUElEIGluIG15bnMgdmFyaWFibGUKIG5zX2lmbW92ZSB2ZXRoMSAkbXlucwotbnNf
-ZXhlYyAkbXlucyBuZXQsaXBjIGlwIGEKK3RzdF9uc19leGVjICRteW5zIG5ldCxpcGMgaXAgYQog
-MTogbG86IDxMT09QQkFDSz4gbXR1IDY1NTM2IHFkaXNjIG5vb3Agc3RhdGUgRE9XTgogICAgIGxp
-bmsvbG9vcGJhY2sgMDA6MDA6MDA6MDA6MDA6MDAgYnJkIDAwOjAwOjAwOjAwOjAwOjAwCiA2OiB2
-ZXRoMTogPEJST0FEQ0FTVD4gbXR1IDE1MDAgcWRpc2Mgbm9vcCBzdGF0ZSBET1dOIHFsZW4gMTAw
-MApkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9jb250YWluZXJzL3NoYXJlL25zX2NvbW1v
-bi5oIGIvaW5jbHVkZS90c3RfbnNfY29tbW9uLmgKc2ltaWxhcml0eSBpbmRleCA4OSUKcmVuYW1l
-IGZyb20gdGVzdGNhc2VzL2tlcm5lbC9jb250YWluZXJzL3NoYXJlL25zX2NvbW1vbi5oCnJlbmFt
-ZSB0byBpbmNsdWRlL3RzdF9uc19jb21tb24uaAppbmRleCA4MTNjZDMzODguLjM1OGRiNTE0MSAx
-MDA2NDQKLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9jb250YWluZXJzL3NoYXJlL25zX2NvbW1vbi5o
-CisrKyBiL2luY2x1ZGUvdHN0X25zX2NvbW1vbi5oCkBAIC0zLDggKzMsOCBAQAogICogQ29weXJp
-Z2h0IChjKSBMaW51eCBUZXN0IFByb2plY3QsIDIwMTUtMjAyMwogICovCiAKLSNpZm5kZWYgX19O
-U19DT01NT05fSF9fCi0jZGVmaW5lIF9fTlNfQ09NTU9OX0hfXworI2lmbmRlZiBUU1RfTlNfQ09N
-TU9OX0hfXworI2RlZmluZSBUU1RfTlNfQ09NTU9OX0hfXwogI2luY2x1ZGUgPHNjaGVkLmg+CiAj
-aW5jbHVkZSAibGFwaS9zY2hlZC5oIgogCkBAIC0zOSw0ICszOSw0IEBAIHN0YXRpYyBzdHJ1Y3Qg
-cGFyYW0gKmdldF9wYXJhbShjb25zdCBjaGFyICpuYW1lKQogCXJldHVybiBOVUxMOwogfQogCi0j
-ZW5kaWYKKyNlbmRpZiAvKiBUU1RfTlNfQ09NTU9OX0hfXyAqLwpkaWZmIC0tZ2l0IGEvdGVzdGNh
-c2VzL2tlcm5lbC9jb250YWluZXJzL25ldG5zL25ldG5zX2xpYi5zaCBiL3Rlc3RjYXNlcy9rZXJu
-ZWwvY29udGFpbmVycy9uZXRucy9uZXRuc19saWIuc2gKaW5kZXggMDM5NjMxZTlmLi5mNWNlM2I1
-ZTMgMTAwNzU1Ci0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvY29udGFpbmVycy9uZXRucy9uZXRuc19s
-aWIuc2gKKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9jb250YWluZXJzL25ldG5zL25ldG5zX2xpYi5z
-aApAQCAtMSw3ICsxLDcgQEAKICMhL2Jpbi9zaAogIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjog
-R1BMLTIuMC1vci1sYXRlcgogIyBDb3B5cmlnaHQgKGMpIDIwMjIgUGV0ciBWb3JlbCA8cHZvcmVs
-QHN1c2UuY3o+Ci0jIENvcHlyaWdodCAoYykgTGludXggVGVzdCBQcm9qZWN0LCAyMDE0LTIwMjEK
-KyMgQ29weXJpZ2h0IChjKSBMaW51eCBUZXN0IFByb2plY3QsIDIwMTQtMjAyMwogIyBDb3B5cmln
-aHQgKGMpIDIwMTUgUmVkIEhhdCwgSW5jLgogCiBUU1RfTkVFRFNfUk9PVD0xCkBAIC0yMCw3ICsy
-MCw3IEBAIFRTVF9ORVRfU0tJUF9WQVJJQUJMRV9JTklUPTEKIElQVjRfTkVUMTZfVU5VU0VEPSIx
-MC4yMyIKIElQVjZfTkVUMzJfVU5VU0VEPSJmZDAwOjIzIgogCi0jIFNldCB0byAibmV0IiBmb3Ig
-bnNfY3JlYXRlL25zX2V4ZWMgYXMgdGhlaXIgb3B0aW9ucyByZXF1aXJlcworIyBTZXQgdG8gIm5l
-dCIgZm9yIG5zX2NyZWF0ZS90c3RfbnNfZXhlYyBhcyB0aGVpciBvcHRpb25zIHJlcXVpcmVzCiAj
-IHRvIHNwZWNpZnkgYSBuYW1lc3BhY2UgdHlwZS4gRW1wdHkgZm9yIGlwIGNvbW1hbmQuCiBOU19U
-WVBFPQogCkBAIC0yOCw3ICsyOCw3IEBAIE5TX1RZUEU9CiB0cGluZz0KIAogIyBOZXR3b3JrIG5h
-bWVzcGFjZXMgaGFuZGxlcyBmb3IgbWFuaXB1bGF0aW5nIGFuZCBleGVjdXRpbmcgY29tbWFuZHMg
-aW5zaWRlCi0jIG5hbWVzcGFjZXMuIEZvciAnbnNfZXhlYycgaGFuZGxlcyBhcmUgUElEcyBvZiBk
-YWVtb25pemVkIHByb2Nlc3NlcyBydW5uaW5nCisjIG5hbWVzcGFjZXMuIEZvciAndHN0X25zX2V4
-ZWMnIGhhbmRsZXMgYXJlIFBJRHMgb2YgZGFlbW9uaXplZCBwcm9jZXNzZXMgcnVubmluZwogIyBp
-biBuYW1lc3BhY2VzLgogTlNfSEFORExFMD0KIE5TX0hBTkRMRTE9CkBAIC00MCw3ICs0MCw3IEBA
-IE5TX0hBTkRMRTE9CiBJRkNPTkZfSU42X0FSRz0KIAogIyBQcm9ncmFtIHdoaWNoIHdpbGwgYmUg
-dXNlZCB0byBlbnRlciBhbmQgcnVuIG90aGVyIGNvbW1hbmRzIGluc2lkZSBhIG5ldHdvcmsgbmFt
-ZXNwYWNlLgotIyAobnNfZXhlY3xpcCkKKyMgKHRzdF9uc19leGVjfGlwKQogTlNfRVhFQz0iaXAi
-CiAKICMgQ29tbXVuaWNhdGlvbiB0eXBlIGJldHdlZW4ga2VybmVsIGFuZCB1c2VyIHNwYWNlIGZv
-ciBiYXNpYyBzZXR1cDogZW5hYmxpbmcgYW5kCkBAIC01NCw3ICs1NCw3IEBAIGRvX2NsZWFudXA9
-CiBuZXRuc19wYXJzZV9hcmdzKCkKIHsKIAljYXNlICQxIGluCi0JZSkgTlNfRVhFQz0ibnNfZXhl
-YyIgOzsKKwllKSBOU19FWEVDPSJ0c3RfbnNfZXhlYyIgOzsKIAlJKSBDT01NX1RZUEU9ImlvY3Rs
-IjsgdHN0X3JlcXVpcmVfY21kcyBpZmNvbmZpZyA7OwogCWVzYWMKIH0KQEAgLTYzLDcgKzYzLDcg
-QEAgbmV0bnNfdXNhZ2UoKQogewogCWVjaG8gInVzYWdlOiAkMCBbIC1lIF0gWyAtSSBdIgogCWVj
-aG8gIk9QVElPTlMiCi0JZWNobyAiLWUgICAgICBVc2UgbnNfZXhlYyBpbnN0ZWFkIG9mIGlwIgor
-CWVjaG8gIi1lICAgICAgVXNlIHRzdF9uc19leGVjIGluc3RlYWQgb2YgaXAiCiAJZWNobyAiLUkg
-ICAgICBUZXN0IGlvY3RsICh3aXRoIGlmY29uZmlnKSBpbnN0ZWFkIG9mIG5ldGxpbmsgKHdpdGgg
-aXApIgogfQogCkBAIC0xMDUsNyArMTA1LDcgQEAgbmV0bnNfY2xlYW51cCgpCiAJZmkKIH0KIAot
-IyBTZXRzIHVwIE5TX0VYRUMgdG8gdXNlICduc19leGVjJywgY3JlYXRlcyB0d28gbmV0d29yayBu
-YW1lc3BhY2VzIGFuZCBzdG9yZXMKKyMgU2V0cyB1cCBOU19FWEVDIHRvIHVzZSAndHN0X25zX2V4
-ZWMnLCBjcmVhdGVzIHR3byBuZXR3b3JrIG5hbWVzcGFjZXMgYW5kIHN0b3JlcwogIyB0aGVpciBo
-YW5kbGVzIGludG8gTlNfSEFORExFMCBhbmQgTlNfSEFORExFMSB2YXJpYWJsZXMgKGluIHRoaXMg
-Y2FzZSBoYW5kbGVzCiAjIGFyZSBQSURzIG9mIGRhZW1vbml6ZWQgcHJvY2Vzc2VzIHJ1bm5pbmcg
-aW4gdGhlc2UgbmFtZXNwYWNlcykuIFZpcnR1YWwKICMgZXRoZXJuZXQgZGV2aWNlIGlzIHRoZW4g
-Y3JlYXRlZCBmb3IgZWFjaCBuYW1lc3BhY2UuCkBAIC0xMTMsNyArMTEzLDcgQEAgbmV0bnNfbnNf
-ZXhlY19zZXR1cCgpCiB7CiAJbG9jYWwgcmV0CiAKLQlOU19FWEVDPSJuc19leGVjIgorCU5TX0VY
-RUM9InRzdF9uc19leGVjIgogCiAJTlNfSEFORExFMD0kKG5zX2NyZWF0ZSAkTlNfVFlQRSkKIAlp
-ZiBbICQ/IC1lcSAxIF07IHRoZW4KZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvY29udGFp
-bmVycy9uZXRucy9uZXRuc19zeXNmcy5zaCBiL3Rlc3RjYXNlcy9rZXJuZWwvY29udGFpbmVycy9u
-ZXRucy9uZXRuc19zeXNmcy5zaAppbmRleCAzNGVmM2I4ZWUuLmFjYTMzOWJiZiAxMDA3NTUKLS0t
-IGEvdGVzdGNhc2VzL2tlcm5lbC9jb250YWluZXJzL25ldG5zL25ldG5zX3N5c2ZzLnNoCisrKyBi
-L3Rlc3RjYXNlcy9rZXJuZWwvY29udGFpbmVycy9uZXRucy9uZXRuc19zeXNmcy5zaApAQCAtMiw2
-ICsyLDcgQEAKICMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKICMg
-Q29weXJpZ2h0IChjKSBLw7ZyeSBNYWluY2VudCA8a29yeS5tYWluY2VudEBib290bGluLmNvbT4g
-MjAyMAogIyBDb3B5cmlnaHQgKGMpIDIwMTUgUmVkIEhhdCwgSW5jLgorIyBDb3B5cmlnaHQgKGMp
-IExpbnV4IFRlc3QgUHJvamVjdCwgMjAxNS0yMDIzCiAjCiAjIFRlc3RzIHRoYXQgYSBzZXBhcmF0
-ZSBuZXR3b3JrIG5hbWVzcGFjZSBjYW5ub3QgYWZmZWN0IHN5c2ZzIGNvbnRlbnRzCiAjIG9mIHRo
-ZSBtYWluIG5hbWVzcGFjZS4KQEAgLTI3LDEwICsyOCwxMCBAQCBkb19zZXR1cCgpCiAJaXAgbGlu
-ayBhZGQgJERVTU1ZREVWX0hPU1QgdHlwZSBkdW1teSB8fCBcCiAJCXRzdF9icmsgVEJST0sgImZh
-aWxlZCB0byBhZGQgYSBuZXcgKGhvc3QpIGR1bW15IGRldmljZSIKIAotCW5zX2V4ZWMgJE5TX0hB
-TkRMRSAkTlNfVFlQRSBtb3VudCAtLW1ha2UtcnByaXZhdGUgL3N5cwotCW5zX2V4ZWMgJE5TX0hB
-TkRMRSAkTlNfVFlQRSBpcCBsaW5rIGFkZCAkRFVNTVlERVYgdHlwZSBkdW1teSB8fCBcCisJdHN0
-X25zX2V4ZWMgJE5TX0hBTkRMRSAkTlNfVFlQRSBtb3VudCAtLW1ha2UtcnByaXZhdGUgL3N5cwor
-CXRzdF9uc19leGVjICROU19IQU5ETEUgJE5TX1RZUEUgaXAgbGluayBhZGQgJERVTU1ZREVWIHR5
-cGUgZHVtbXkgfHwgXAogCQl0c3RfYnJrIFRCUk9LICJmYWlsZWQgdG8gYWRkIGEgbmV3IGR1bW15
-IGRldmljZSIKLQluc19leGVjICROU19IQU5ETEUgJE5TX1RZUEUgbW91bnQgLXQgc3lzZnMgbm9u
-ZSAvc3lzIDI+L2Rldi9udWxsCisJdHN0X25zX2V4ZWMgJE5TX0hBTkRMRSAkTlNfVFlQRSBtb3Vu
-dCAtdCBzeXNmcyBub25lIC9zeXMgMj4vZGV2L251bGwKIH0KIAogZG9fY2xlYW51cCgpCkBAIC00
-Miw4ICs0Myw4IEBAIGRvX2NsZWFudXAoKQogCiBkb190ZXN0KCkKIHsKLQlFWFBFQ1RfUEFTUyBu
-c19leGVjICROU19IQU5ETEUgJE5TX1RZUEUgdGVzdCAtZSAvc3lzL2NsYXNzL25ldC8kRFVNTVlE
-RVYKLQlFWFBFQ1RfRkFJTCBuc19leGVjICROU19IQU5ETEUgJE5TX1RZUEUgdGVzdCAtZSAvc3lz
-L2NsYXNzL25ldC8kRFVNTVlERVZfSE9TVAorCUVYUEVDVF9QQVNTIHRzdF9uc19leGVjICROU19I
-QU5ETEUgJE5TX1RZUEUgdGVzdCAtZSAvc3lzL2NsYXNzL25ldC8kRFVNTVlERVYKKwlFWFBFQ1Rf
-RkFJTCB0c3RfbnNfZXhlYyAkTlNfSEFORExFICROU19UWVBFIHRlc3QgLWUgL3N5cy9jbGFzcy9u
-ZXQvJERVTU1ZREVWX0hPU1QKIAlFWFBFQ1RfRkFJTCB0ZXN0IC1lIC9zeXMvY2xhc3MvbmV0LyRE
-VU1NWURFVgogfQogCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL2NvbnRhaW5lcnMvc2hh
-cmUvLmdpdGlnbm9yZSBiL3Rlc3RjYXNlcy9rZXJuZWwvY29udGFpbmVycy9zaGFyZS8uZ2l0aWdu
-b3JlCmluZGV4IDBkNWVjZjA2OS4uZTQ5MGU4NmE2IDEwMDY0NAotLS0gYS90ZXN0Y2FzZXMva2Vy
-bmVsL2NvbnRhaW5lcnMvc2hhcmUvLmdpdGlnbm9yZQorKysgYi90ZXN0Y2FzZXMva2VybmVsL2Nv
-bnRhaW5lcnMvc2hhcmUvLmdpdGlnbm9yZQpAQCAtMSwzICsxLDIgQEAKIC9uc19pZm1vdmUKIC9u
-c19jcmVhdGUKLS9uc19leGVjCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL2NvbnRhaW5l
-cnMvc2hhcmUvbnNfY3JlYXRlLmMgYi90ZXN0Y2FzZXMva2VybmVsL2NvbnRhaW5lcnMvc2hhcmUv
-bnNfY3JlYXRlLmMKaW5kZXggYzJlMDU2NDBjLi4wOTQxNGIxNjIgMTAwNjQ0Ci0tLSBhL3Rlc3Rj
-YXNlcy9rZXJuZWwvY29udGFpbmVycy9zaGFyZS9uc19jcmVhdGUuYworKysgYi90ZXN0Y2FzZXMv
-a2VybmVsL2NvbnRhaW5lcnMvc2hhcmUvbnNfY3JlYXRlLmMKQEAgLTIwLDcgKzIwLDcgQEAKICNp
-bmNsdWRlIDxzdGRpby5oPgogI2luY2x1ZGUgPHN0cmluZy5oPgogI2luY2x1ZGUgInRzdF90ZXN0
-LmgiCi0jaW5jbHVkZSAibnNfY29tbW9uLmgiCisjaW5jbHVkZSAidHN0X25zX2NvbW1vbi5oIgog
-CiBleHRlcm4gc3RydWN0IHRzdF90ZXN0ICp0c3RfdGVzdDsKIApkaWZmIC0tZ2l0IGEvdGVzdGNh
-c2VzL2tlcm5lbC9mcy9mc19iaW5kL2ZzX2JpbmRfbGliLnNoIGIvdGVzdGNhc2VzL2tlcm5lbC9m
-cy9mc19iaW5kL2ZzX2JpbmRfbGliLnNoCmluZGV4IDJkZDllZjA4Zi4uMjQ5OWNlNjhkIDEwMDY0
-NAotLS0gYS90ZXN0Y2FzZXMva2VybmVsL2ZzL2ZzX2JpbmQvZnNfYmluZF9saWIuc2gKKysrIGIv
-dGVzdGNhc2VzL2tlcm5lbC9mcy9mc19iaW5kL2ZzX2JpbmRfbGliLnNoCkBAIC0yLDYgKzIsNyBA
-QAogIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgogIyBDb3B5cmln
-aHQgKGMpIEludGVybmF0aW9uYWwgQnVzaW5lc3MgTWFjaGluZXMgIENvcnAuLCAyMDA1CiAjIENv
-cHlyaWdodCAoYykgMjAyMSBKb2VyZyBWZWhsb3cgPGpvZXJnLnZlaGxvd0Bhb3gtdGVjaC5kZT4K
-KyMgQ29weXJpZ2h0IChjKSBMaW51eCBUZXN0IFByb2plY3QsIDIwMjItMjAyMwogIyBCYXNlZCBv
-biB3b3JrIGJ5OiBBdmFudGlrYSBNYXRodXIgKG1hdGh1cmF2QHVzLmlibS5jb20pCiAKIFRTVF9O
-RUVEU19UTVBESVI9MQpAQCAtMTA5LDcgKzExMCw3IEBAIGZzX2JpbmRfY2hlY2soKQogCSAgICBm
-aQogCiAJCWlmIFsgJHVzZV9ucyAtZXEgMSBdOyB0aGVuCi0JCQlvdXRwdXQ9IiQobnNfZXhlYyAk
-e0ZTX0JJTkRfTU5UTlNfUElEfSBtbnQgZGlmZiAtciAiJFBXRC8kZGlyMSIgIiRQV0QvJGRpcjIi
-IDI+IC9kZXYvbnVsbCkiCisJCQlvdXRwdXQ9IiQodHN0X25zX2V4ZWMgJHtGU19CSU5EX01OVE5T
-X1BJRH0gbW50IGRpZmYgLXIgIiRQV0QvJGRpcjEiICIkUFdELyRkaXIyIiAyPiAvZGV2L251bGwp
-IgogCQllbHNlCiAJCQlvdXRwdXQ9IiQoZGlmZiAtciAiJGRpcjEiICIkZGlyMiIgMj4gL2Rldi9u
-dWxsKSIKIAkJZmkKQEAgLTIwMyw3ICsyMDQsNyBAQCBmc19iaW5kX2NyZWF0ZV9ucygpCiBmc19i
-aW5kX2V4ZWNfbnMoKQogewogCVsgLXogIiRGU19CSU5EX01OVE5TX1BJRCIgXSAmJiB0c3RfYnJr
-IFRCUk9LICJOYW1lc3BhY2UgZG9lcyBub3QgZXhpc3QiCi0JRVhQRUNUX1BBU1MgbnNfZXhlYyAk
-RlNfQklORF9NTlROU19QSUQgbW50ICIkQCIKKwlFWFBFQ1RfUEFTUyB0c3RfbnNfZXhlYyAkRlNf
-QklORF9NTlROU19QSUQgbW50ICIkQCIKIH0KIAogZnNfYmluZF9kZXN0cm95X25zKCkKZGlmZiAt
-LWdpdCBhL3Rlc3RjYXNlcy9saWIvLmdpdGlnbm9yZSBiL3Rlc3RjYXNlcy9saWIvLmdpdGlnbm9y
-ZQppbmRleCAzNGRlYTI3MmQuLjMxOGFhOWZiNyAxMDA2NDQKLS0tIGEvdGVzdGNhc2VzL2xpYi8u
-Z2l0aWdub3JlCisrKyBiL3Rlc3RjYXNlcy9saWIvLmdpdGlnbm9yZQpAQCAtMTEsNiArMTEsNyBA
-QAogL3RzdF9uZXRfaWZhY2VfcHJlZml4CiAvdHN0X25ldF9pcF9wcmVmaXgKIC90c3RfbmV0X3Zh
-cnMKKy90c3RfbnNfZXhlYwogL3RzdF9yYW5kb20KIC90c3Rfcm9kCiAvdHN0X3NsZWVwCmRpZmYg
-LS1naXQgYS90ZXN0Y2FzZXMvbGliL01ha2VmaWxlIGIvdGVzdGNhc2VzL2xpYi9NYWtlZmlsZQpp
-bmRleCBmNGY4Yzg1MjQuLmUxNmE2N2M3OSAxMDA2NDQKLS0tIGEvdGVzdGNhc2VzL2xpYi9NYWtl
-ZmlsZQorKysgYi90ZXN0Y2FzZXMvbGliL01ha2VmaWxlCkBAIC0xMiw2ICsxMiw2IEBAIE1BS0Vf
-VEFSR0VUUwkJOj0gdHN0X3NsZWVwIHRzdF9yYW5kb20gdHN0X2NoZWNrcG9pbnQgdHN0X3JvZCB0
-c3Rfa3ZjbXBcCiAJCQkgICB0c3RfZGV2aWNlIHRzdF9uZXRfaWZhY2VfcHJlZml4IHRzdF9uZXRf
-aXBfcHJlZml4IHRzdF9uZXRfdmFyc1wKIAkJCSAgIHRzdF9nZXRjb25mIHRzdF9zdXBwb3J0ZWRf
-ZnMgdHN0X2NoZWNrX2RyaXZlcnMgdHN0X2dldF91bnVzZWRfcG9ydFwKIAkJCSAgIHRzdF9nZXRf
-bWVkaWFuIHRzdF9oZXhkdW1wIHRzdF9nZXRfZnJlZV9waWRzIHRzdF90aW1lb3V0X2tpbGxcCi0J
-CQkgICB0c3RfY2hlY2tfa2NvbmZpZ3MgdHN0X2NnY3RsCisJCQkgICB0c3RfY2hlY2tfa2NvbmZp
-Z3MgdHN0X2NnY3RsIHRzdF9uc19leGVjCiAKIGluY2x1ZGUgJCh0b3Bfc3JjZGlyKS9pbmNsdWRl
-L21rL2dlbmVyaWNfbGVhZl90YXJnZXQubWsKZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9saWIvdHN0
-X25ldC5zaCBiL3Rlc3RjYXNlcy9saWIvdHN0X25ldC5zaAppbmRleCBmYzY0YTU4OGEuLjhjOTRk
-MGY3YiAxMDA2NDQKLS0tIGEvdGVzdGNhc2VzL2xpYi90c3RfbmV0LnNoCisrKyBiL3Rlc3RjYXNl
-cy9saWIvdHN0X25ldC5zaApAQCAtMSw3ICsxLDcgQEAKICMhL2Jpbi9zaAogIyBTUERYLUxpY2Vu
-c2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgogIyBDb3B5cmlnaHQgKGMpIDIwMTQtMjAx
-NyBPcmFjbGUgYW5kL29yIGl0cyBhZmZpbGlhdGVzLiBBbGwgUmlnaHRzIFJlc2VydmVkLgotIyBD
-b3B5cmlnaHQgKGMpIDIwMTYtMjAyMiBQZXRyIFZvcmVsIDxwdm9yZWxAc3VzZS5jej4KKyMgQ29w
-eXJpZ2h0IChjKSAyMDE2LTIwMjMgUGV0ciBWb3JlbCA8cHZvcmVsQHN1c2UuY3o+CiAjIEF1dGhv
-cjogQWxleGV5IEtvZGFuZXYgPGFsZXhleS5rb2RhbmV2QG9yYWNsZS5jb20+CiAKIFsgLW4gIiRU
-U1RfTElCX05FVF9MT0FERUQiIF0gJiYgcmV0dXJuIDAKQEAgLTExNSw3ICsxMTUsNyBAQCBpbml0
-X2x0cF9uZXRzcGFjZSgpCiAJbG9jYWwgcGlkCiAKIAlpZiBbICEgLWYgL3Zhci9ydW4vbmV0bnMv
-bHRwX25zIC1hIC16ICIkTFRQX05FVE5TIiBdOyB0aGVuCi0JCXRzdF9yZXF1aXJlX2NtZHMgaXAg
-bnNfY3JlYXRlIG5zX2V4ZWMgbnNfaWZtb3ZlCisJCXRzdF9yZXF1aXJlX2NtZHMgaXAgbnNfY3Jl
-YXRlIHRzdF9uc19leGVjIG5zX2lmbW92ZQogCQl0c3RfcmVxdWlyZV9yb290CiAKIAkJdHN0X3Jl
-cXVpcmVfZHJpdmVycyB2ZXRoCkBAIC0xMjMsMTAgKzEyMywxMCBAQCBpbml0X2x0cF9uZXRzcGFj
-ZSgpCiAJCXBpZD0iJChST0QgbnNfY3JlYXRlIG5ldCxtbnQpIgogCQlta2RpciAtcCAvdmFyL3J1
-bi9uZXRucwogCQlST0QgbG4gLXMgL3Byb2MvJHBpZC9ucy9uZXQgL3Zhci9ydW4vbmV0bnMvbHRw
-X25zCi0JCVJPRCBuc19leGVjICRwaWQgbmV0LG1udCBtb3VudCAtLW1ha2UtcnByaXZhdGUgL3N5
-cwotCQlST0QgbnNfZXhlYyAkcGlkIG5ldCxtbnQgbW91bnQgLXQgc3lzZnMgbm9uZSAvc3lzCisJ
-CVJPRCB0c3RfbnNfZXhlYyAkcGlkIG5ldCxtbnQgbW91bnQgLS1tYWtlLXJwcml2YXRlIC9zeXMK
-KwkJUk9EIHRzdF9uc19leGVjICRwaWQgbmV0LG1udCBtb3VudCAtdCBzeXNmcyBub25lIC9zeXMK
-IAkJUk9EIG5zX2lmbW92ZSBsdHBfbnNfdmV0aDEgJHBpZAotCQlST0QgbnNfZXhlYyAkcGlkIG5l
-dCxtbnQgaXAgbGluayBzZXQgbG8gdXAKKwkJUk9EIHRzdF9uc19leGVjICRwaWQgbmV0LG1udCBp
-cCBsaW5rIHNldCBsbyB1cAogCWVsaWYgWyAtbiAiJExUUF9ORVROUyIgXTsgdGhlbgogCQl0c3Rf
-cmVzXyBUSU5GTyAidXNpbmcgbm90IGRlZmF1bHQgTFRQIG5ldG5zOiAnJExUUF9ORVROUyciCiAJ
-ZmkKQEAgLTEzNSw3ICsxMzUsNyBAQCBpbml0X2x0cF9uZXRzcGFjZSgpCiAJUkhPU1RfSUZBQ0VT
-PSIke1JIT1NUX0lGQUNFUzotbHRwX25zX3ZldGgxfSIKIAogCXBpZD0iJChlY2hvICQocmVhZGxp
-bmsgL3Zhci9ydW4vbmV0bnMvbHRwX25zKSB8IGN1dCAtZjMgLWQnLycpIgotCWV4cG9ydCBMVFBf
-TkVUTlM9IiR7TFRQX05FVE5TOi1uc19leGVjICRwaWQgbmV0LG1udH0iCisJZXhwb3J0IExUUF9O
-RVROUz0iJHtMVFBfTkVUTlM6LXRzdF9uc19leGVjICRwaWQgbmV0LG1udH0iCiAKIAl0c3RfcmVz
-dG9yZV9pcGFkZHIKIAl0c3RfcmVzdG9yZV9pcGFkZHIgcmhvc3QKZGlmZiAtLWdpdCBhL3Rlc3Rj
-YXNlcy9rZXJuZWwvY29udGFpbmVycy9zaGFyZS9uc19leGVjLmMgYi90ZXN0Y2FzZXMvbGliL3Rz
-dF9uc19leGVjLmMKc2ltaWxhcml0eSBpbmRleCA5MSUKcmVuYW1lIGZyb20gdGVzdGNhc2VzL2tl
-cm5lbC9jb250YWluZXJzL3NoYXJlL25zX2V4ZWMuYwpyZW5hbWUgdG8gdGVzdGNhc2VzL2xpYi90
-c3RfbnNfZXhlYy5jCmluZGV4IGI4MDJiZWM5ZC4uNjZhNGU2OWQzIDEwMDY0NAotLS0gYS90ZXN0
-Y2FzZXMva2VybmVsL2NvbnRhaW5lcnMvc2hhcmUvbnNfZXhlYy5jCisrKyBiL3Rlc3RjYXNlcy9s
-aWIvdHN0X25zX2V4ZWMuYwpAQCAtMiw3ICsyLDcgQEAKIC8qCiAgKiBDb3B5cmlnaHQgKGMpIDIw
-MTUgUmVkIEhhdCwgSW5jLgogICogICAgICAgICAgICAgICBNYXR1cyBNYXJoZWZrYSA8bW1hcmhl
-ZmtAcmVkaGF0LmNvbT4KLSAqIENvcHlyaWdodCAoYykgTGludXggVGVzdCBQcm9qZWN0LCAyMDE1
-LTIwMjIKKyAqIENvcHlyaWdodCAoYykgTGludXggVGVzdCBQcm9qZWN0LCAyMDE1LTIwMjMKICAq
-IENvcHlyaWdodCAoQykgMjAyMyBTVVNFIExMQyBBbmRyZWEgQ2VydmVzYXRvIDxhbmRyZWEuY2Vy
-dmVzYXRvQHN1c2UuY29tPgogICovCiAKQEAgLTE4LDcgKzE4LDcgQEAKICNpbmNsdWRlIDxzdGRp
-by5oPgogI2luY2x1ZGUgPHN5cy93YWl0Lmg+CiAjaW5jbHVkZSAidHN0X3Rlc3QuaCIKLSNpbmNs
-dWRlICJuc19jb21tb24uaCIKKyNpbmNsdWRlICJ0c3RfbnNfY29tbW9uLmgiCiAKIGV4dGVybiBz
-dHJ1Y3QgdHN0X3Rlc3QgKnRzdF90ZXN0OwogCkBAIC0zMyw3ICszMyw3IEBAIHN0YXRpYyB2b2lk
-IHByaW50X2hlbHAodm9pZCkKIHsKIAlpbnQgaTsKIAotCXByaW50ZigidXNhZ2U6IG5zX2V4ZWMg
-PE5TX1BJRD4gPCVzIiwgcGFyYW1zWzBdLm5hbWUpOworCXByaW50ZigidXNhZ2U6IHRzdF9uc19l
-eGVjIDxOU19QSUQ+IDwlcyIsIHBhcmFtc1swXS5uYW1lKTsKIAogCWZvciAoaSA9IDE7IHBhcmFt
-c1tpXS5uYW1lOyBpKyspCiAJCXByaW50ZigifCwlcyIsIHBhcmFtc1tpXS5uYW1lKTsKQEAgLTQx
-LDcgKzQxLDcgQEAgc3RhdGljIHZvaWQgcHJpbnRfaGVscCh2b2lkKQogCXByaW50ZigiPiA8UFJP
-R1JBTT4gW0FSR1NdXG5TZWNvbmQgYXJndW1lbnQgaW5kaWNhdGVzIHRoZSB0eXBlcyIKIAkJIiBv
-ZiBhIG5hbWVzcGFjZXMgbWFpbnRhaW5lZCBieSBOU19QSURcbmFuZCBpcyBzcGVjaWZpZWQiCiAJ
-CSIgYXMgYSBjb21tYSBzZXBhcmF0ZWQgbGlzdC5cbiIKLQkJIkV4YW1wbGU6IG5zX2V4ZWMgMTIz
-NCBuZXQsaXBjIGlwIGFcbiIpOworCQkiRXhhbXBsZTogdHN0X25zX2V4ZWMgMTIzNCBuZXQsaXBj
-IGlwIGFcbiIpOwogfQogCiBzdGF0aWMgdm9pZCBvcGVuX25zX2ZkKGNvbnN0IGNoYXIgKnBpZCwg
-Y29uc3QgY2hhciAqbnMpCi0tIAoyLjM5LjIKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBz
-Oi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+It's not only a test, but also tool for tst_net.sh therefore better to
+be in common tools directory.
+
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ doc/namespaces-helper-tools.txt                             | 4 ++--
+ testcases/kernel/containers/netns/netns_lib.sh              | 6 +++---
+ testcases/kernel/containers/netns/netns_sysfs.sh            | 2 +-
+ testcases/kernel/containers/share/.gitignore                | 1 -
+ testcases/kernel/fs/fs_bind/fs_bind_lib.sh                  | 2 +-
+ testcases/lib/.gitignore                                    | 1 +
+ testcases/lib/Makefile                                      | 2 +-
+ testcases/lib/tst_net.sh                                    | 4 ++--
+ .../containers/share/ns_create.c => lib/tst_ns_create.c}    | 3 ++-
+ 9 files changed, 13 insertions(+), 12 deletions(-)
+ rename testcases/{kernel/containers/share/ns_create.c => lib/tst_ns_create.c} (94%)
+
+diff --git a/doc/namespaces-helper-tools.txt b/doc/namespaces-helper-tools.txt
+index e5a39657d..74d22593e 100644
+--- a/doc/namespaces-helper-tools.txt
++++ b/doc/namespaces-helper-tools.txt
+@@ -8,7 +8,7 @@ LTP namespaces helper tools
+ LTP provides helper tools for creating and working with namespaces. These are
+ located in ltp/testcases/kernel/containers/share directory and include:
+ 
+-* ns_create
++* tst_ns_create
+ ** creates a child process in the new specified namespace(s)
+ ** child is then daemonized and is running in the background
+ ** PID of the daemonized child process is printed on the stdout
+@@ -34,7 +34,7 @@ The following code shows how test cases can use the namespaces helper tools:
+ -------------------------------------------------------------------------------
+ # Creates a new network and ipc namespace and stores the PID of the daemonized
+ # process inside that namespace into variable myns
+-myns=$(ns_create net,ipc)
++myns=$(tst_ns_create net,ipc)
+ 
+ ip link add veth0 type veth peer name veth1
+ 
+diff --git a/testcases/kernel/containers/netns/netns_lib.sh b/testcases/kernel/containers/netns/netns_lib.sh
+index f5ce3b5e3..043127309 100755
+--- a/testcases/kernel/containers/netns/netns_lib.sh
++++ b/testcases/kernel/containers/netns/netns_lib.sh
+@@ -20,7 +20,7 @@ TST_NET_SKIP_VARIABLE_INIT=1
+ IPV4_NET16_UNUSED="10.23"
+ IPV6_NET32_UNUSED="fd00:23"
+ 
+-# Set to "net" for ns_create/tst_ns_exec as their options requires
++# Set to "net" for tst_ns_create/tst_ns_exec as their options requires
+ # to specify a namespace type. Empty for ip command.
+ NS_TYPE=
+ 
+@@ -115,13 +115,13 @@ netns_ns_exec_setup()
+ 
+ 	NS_EXEC="tst_ns_exec"
+ 
+-	NS_HANDLE0=$(ns_create $NS_TYPE)
++	NS_HANDLE0=$(tst_ns_create $NS_TYPE)
+ 	if [ $? -eq 1 ]; then
+ 		tst_res TINFO "$NS_HANDLE0"
+ 		tst_brk TBROK "unable to create a new network namespace"
+ 	fi
+ 
+-	NS_HANDLE1=$(ns_create $NS_TYPE)
++	NS_HANDLE1=$(tst_ns_create $NS_TYPE)
+ 	if [ $? -eq 1 ]; then
+ 		tst_res TINFO "$NS_HANDLE1"
+ 		tst_brk TBROK "unable to create a new network namespace"
+diff --git a/testcases/kernel/containers/netns/netns_sysfs.sh b/testcases/kernel/containers/netns/netns_sysfs.sh
+index aca339bbf..814274fd0 100755
+--- a/testcases/kernel/containers/netns/netns_sysfs.sh
++++ b/testcases/kernel/containers/netns/netns_sysfs.sh
+@@ -19,7 +19,7 @@ do_setup()
+ 	DUMMYDEV_HOST="dummy_test0"
+ 	DUMMYDEV="dummy_test1"
+ 
+-	NS_HANDLE=$(ns_create $NS_TYPE)
++	NS_HANDLE=$(tst_ns_create $NS_TYPE)
+ 	if [ $? -eq 1 ]; then
+ 		tst_res TINFO "$NS_HANDLE"
+ 		tst_brk TBROK "unable to create a new network namespace"
+diff --git a/testcases/kernel/containers/share/.gitignore b/testcases/kernel/containers/share/.gitignore
+index e490e86a6..1c5bd4ba7 100644
+--- a/testcases/kernel/containers/share/.gitignore
++++ b/testcases/kernel/containers/share/.gitignore
+@@ -1,2 +1 @@
+ /ns_ifmove
+-/ns_create
+diff --git a/testcases/kernel/fs/fs_bind/fs_bind_lib.sh b/testcases/kernel/fs/fs_bind/fs_bind_lib.sh
+index 2499ce68d..52190a7ca 100644
+--- a/testcases/kernel/fs/fs_bind/fs_bind_lib.sh
++++ b/testcases/kernel/fs/fs_bind/fs_bind_lib.sh
+@@ -198,7 +198,7 @@ _fs_bind_setup_test()
+ fs_bind_create_ns()
+ {
+ 	[ -n "$FS_BIND_MNTNS_PID" ] && tst_brk TBROK "Namespace exist already"
+-	FS_BIND_MNTNS_PID=$(ns_create mnt)
++	FS_BIND_MNTNS_PID=$(tst_ns_create mnt)
+ }
+ 
+ fs_bind_exec_ns()
+diff --git a/testcases/lib/.gitignore b/testcases/lib/.gitignore
+index 318aa9fb7..35c2b93ff 100644
+--- a/testcases/lib/.gitignore
++++ b/testcases/lib/.gitignore
+@@ -11,6 +11,7 @@
+ /tst_net_iface_prefix
+ /tst_net_ip_prefix
+ /tst_net_vars
++/tst_ns_create
+ /tst_ns_exec
+ /tst_random
+ /tst_rod
+diff --git a/testcases/lib/Makefile b/testcases/lib/Makefile
+index e16a67c79..52d17c914 100644
+--- a/testcases/lib/Makefile
++++ b/testcases/lib/Makefile
+@@ -12,6 +12,6 @@ MAKE_TARGETS		:= tst_sleep tst_random tst_checkpoint tst_rod tst_kvcmp\
+ 			   tst_device tst_net_iface_prefix tst_net_ip_prefix tst_net_vars\
+ 			   tst_getconf tst_supported_fs tst_check_drivers tst_get_unused_port\
+ 			   tst_get_median tst_hexdump tst_get_free_pids tst_timeout_kill\
+-			   tst_check_kconfigs tst_cgctl tst_ns_exec
++			   tst_check_kconfigs tst_cgctl tst_ns_create tst_ns_exec
+ 
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+index 8c94d0f7b..f4ec1a11d 100644
+--- a/testcases/lib/tst_net.sh
++++ b/testcases/lib/tst_net.sh
+@@ -115,12 +115,12 @@ init_ltp_netspace()
+ 	local pid
+ 
+ 	if [ ! -f /var/run/netns/ltp_ns -a -z "$LTP_NETNS" ]; then
+-		tst_require_cmds ip ns_create tst_ns_exec ns_ifmove
++		tst_require_cmds ip tst_ns_create tst_ns_exec ns_ifmove
+ 		tst_require_root
+ 
+ 		tst_require_drivers veth
+ 		ROD ip link add name ltp_ns_veth1 type veth peer name ltp_ns_veth2
+-		pid="$(ROD ns_create net,mnt)"
++		pid="$(ROD tst_ns_create net,mnt)"
+ 		mkdir -p /var/run/netns
+ 		ROD ln -s /proc/$pid/ns/net /var/run/netns/ltp_ns
+ 		ROD tst_ns_exec $pid net,mnt mount --make-rprivate /sys
+diff --git a/testcases/kernel/containers/share/ns_create.c b/testcases/lib/tst_ns_create.c
+similarity index 94%
+rename from testcases/kernel/containers/share/ns_create.c
+rename to testcases/lib/tst_ns_create.c
+index 09414b162..1c6258cd1 100644
+--- a/testcases/kernel/containers/share/ns_create.c
++++ b/testcases/lib/tst_ns_create.c
+@@ -3,6 +3,7 @@
+  * Copyright (c) 2015 Red Hat, Inc.
+  *               Matus Marhefka <mmarhefk@redhat.com>
+  * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ * Copyright (c) Linux Test Project, 2020-2023
+  */
+ 
+ /*\
+@@ -32,7 +33,7 @@ static void print_help(void)
+ {
+ 	int i;
+ 
+-	printf("usage: ns_create <%s", params[0].name);
++	printf("usage: tst_ns_create <%s", params[0].name);
+ 
+ 	for (i = 1; params[i].name; i++)
+ 		printf("|,%s", params[i].name);
+-- 
+2.39.2
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
