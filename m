@@ -1,73 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B088C6B73B6
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Mar 2023 11:20:02 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 871026B73D3
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Mar 2023 11:24:23 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 53C353CAE89
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Mar 2023 11:20:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 26DC33CAE83
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Mar 2023 11:24:23 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E73A73CADA6
- for <ltp@lists.linux.it>; Mon, 13 Mar 2023 11:20:00 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 43E863CADA6
+ for <ltp@lists.linux.it>; Mon, 13 Mar 2023 11:24:21 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9DA5E6006D0
- for <ltp@lists.linux.it>; Mon, 13 Mar 2023 11:19:58 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id AC8EC140052C
+ for <ltp@lists.linux.it>; Mon, 13 Mar 2023 11:24:20 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5811422A3D;
- Mon, 13 Mar 2023 10:19:58 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id C1F921FE06;
+ Mon, 13 Mar 2023 10:24:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1678702798;
+ t=1678703059;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=lgSNCWcxZdjhGPYEF4LvMqKBO/QcWL9Yw0P3aBUwOWk=;
- b=a8CwYA5RVNlGEiYfhKTClwuGdX4F6M089dtNIMo6bBZ6vpsxoGrTAn7e5q0AwjhNCpTmoi
- UdLHkD0XXYqLfZj9UIn1eZ5QjXvptvXDrQRr7s8aUK0tgomYrz02bl8caxOdRgPpA67HHp
- OcdVvxciMEbQfrjjZiSYExE7A1ySUxw=
+ bh=aAqElaCI811xkWIT5M3DrcgjxxgHChELthZDhQUnjyU=;
+ b=o+NTNtYVP5rPLaiaYLou3FK+FaPqvVmzPjdVDn+66FIc5WZIJ9Op5FPEhgRxKJ1k0OyW63
+ SYsB+22yeAix1d7WW5MmjDYUQb7evzfD8cB/pofGXCKay3PdXNcIqmWhOwPm+Yb/M/8jzo
+ 6F9tn8EN0DtXvMtHMGgecHmFdYci/bE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1678702798;
+ s=susede2_ed25519; t=1678703059;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=lgSNCWcxZdjhGPYEF4LvMqKBO/QcWL9Yw0P3aBUwOWk=;
- b=FXNLYBQWXFuQy4bpmaJA5rK+ooQLq/fLdQvYF7JUlSjyBUArQIrJOoINgYdJprhkFi+YBH
- f1cBz73UzXwGr+CQ==
+ bh=aAqElaCI811xkWIT5M3DrcgjxxgHChELthZDhQUnjyU=;
+ b=ELlWfEUmlLGeqJHkfmx7NiYAqfPhV0aGkFFt+a+JrfIoUMGWQM0l3byd6aeIQ/ovywTTwV
+ GTiWXj58O+YuGnCw==
 Received: from g78 (unknown [10.163.28.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id B8ED12C141;
- Mon, 13 Mar 2023 10:19:57 +0000 (UTC)
-References: <CAEemH2esqAP+kfEgwXkSkw6V7ubFn+uq2_QdF_Nx1gF2t-WXzA@mail.gmail.com>
- <20230302074123.567654-1-liwang@redhat.com> <20230303083822.GB4255@pevik>
- <CAEemH2ffqNxiOMyGx1m+7RmAcj2OHk2vdCyA2ZVDEnU0PGOytw@mail.gmail.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 400832C141;
+ Mon, 13 Mar 2023 10:24:19 +0000 (UTC)
+References: <20230307133431.6636-1-andrea.cervesato@suse.de>
 User-agent: mu4e 1.8.13; emacs 28.2
 From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Li Wang <liwang@redhat.com>
-Date: Mon, 13 Mar 2023 10:15:30 +0000
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Mon, 13 Mar 2023 10:22:29 +0000
 Organization: Linux Private Site
-In-reply-to: <CAEemH2ffqNxiOMyGx1m+7RmAcj2OHk2vdCyA2ZVDEnU0PGOytw@mail.gmail.com>
-Message-ID: <8735696jhv.fsf@suse.de>
+In-reply-to: <20230307133431.6636-1-andrea.cervesato@suse.de>
+Message-ID: <87y1o154q5.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCh v2] madvise06: stop throwing failure when
- MADV_WILLNEED is ignored
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Remove tomoyo testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,24 +74,33 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: rpalethorpe@suse.de
-Cc: Yongqiang Liu <liuyongqiang13@huawei.com>, Paul Bunyan <pbunyan@redhat.com>,
- Eirik Fuller <efuller@redhat.com>, ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGVsbG8sCgpMaSBXYW5nIDxsaXdhbmdAcmVkaGF0LmNvbT4gd3JpdGVzOgoKPiBIaSwKPgo+IE9u
-IEZyaSwgTWFyIDMsIDIwMjMgYXQgMzo0NOKAr1BNIFBldHIgVm9yZWwgPHB2b3JlbEBzdXNlLmN6
-PiB3cm90ZToKPgo+PiBIaSBMaSwKPj4KPj4gTEdUTS4KPj4gQWNrZWQtYnk6IFBldHIgVm9yZWwg
-PHB2b3JlbEBzdXNlLmN6Pgo+Pgo+Cj4gVGhhbmsgeW91IGZvciB5b3VyIGFjaywgUGV0ci4KPgo+
-IEkgc3RpbGwgd2FudCBSaWNoYXJkIGdpdmVzIG1lIGEgZmluYWwgY2hlY2suCj4KPiBAUmljaGFy
-ZCwgZG8geW91IGFncmVlIHdpdGggcHVzaGluZyBpdCwgb3Igb3RoZXIgdGhvdWdodHM/CgpJIHRo
-aW5rIGl0IG5lZWRzIGF0IGxlYXN0IG9uZSB1bmNvbmRpdGlvbmFsIHRzdF9yZXMoVFBBU1MsIC4u
-LikKb3RoZXJ3aXNlIHRoZSBsaWJyYXJ5IHdpbGwgcmVwb3J0IFRCUk9LIGlmIHRoZXJlIGlzIG5v
-IHBhc3Mgb3IgZmFpbApyZXN1bHQuCgpQb3NzaWJseSBqdXN0IHRzdF9yZXMoVFBBU1MsICJOb3Ro
-aW5nIGJhZCBoYXBwZW5kIHByb2JhYmx5IikgYXQgdGhlIGVuZApvciBjaGVjayBmb3Iga2VybmVs
-IHRhaW50cy4KCldpdGggdGhhdDoKUmV2aWV3ZWQtYnk6IFJpY2hhcmQgUGFsZXRob3JwZSA8cnBh
-bGV0aG9ycGVAc3VzZS5jb20+CgpTb3JyeSBmb3Igc2xvdyByZXNwb25zZS4KCi0tIApUaGFuayB5
-b3UsClJpY2hhcmQuCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXgu
-aXQvbGlzdGluZm8vbHRwCg==
+
+Andrea Cervesato <andrea.cervesato@suse.de> writes:
+
+> From: Andrea Cervesato <andrea.cervesato@suse.com>
+>
+> The tomoyo testing suite is built and installed inside the LTP testcases
+> folder, but it's not used and maintained anymore.
+> This patch removes it, so we get rid of ltp_clone_quick as well and make
+> some space in the installation folder.
+>
+> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+> Acked-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+
+Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
+
+TBH, this might be the best thing to come out of removing
+ltp_clone_quick.
+
+-- 
+Thank you,
+Richard.
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
