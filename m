@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D7A46C506B
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Mar 2023 17:20:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ECCC6C50E0
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Mar 2023 17:35:17 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BD05D3CD2A8
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Mar 2023 17:20:53 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4249D3CD297
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Mar 2023 17:35:17 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
@@ -14,55 +14,56 @@ Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1EBBF3C1BCE
- for <ltp@lists.linux.it>; Wed, 22 Mar 2023 17:20:49 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id D6D653C5624
+ for <ltp@lists.linux.it>; Wed, 22 Mar 2023 17:35:12 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1923860005C
- for <ltp@lists.linux.it>; Wed, 22 Mar 2023 17:20:48 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6ECC46007B9
+ for <ltp@lists.linux.it>; Wed, 22 Mar 2023 17:35:12 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A6F8233CE7;
- Wed, 22 Mar 2023 16:20:47 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A882A33D06;
+ Wed, 22 Mar 2023 16:35:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1679502047;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ t=1679502911;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=wd+C+JWr58CSCDvadg5pc1JKYRFQca7P91v3M2cus30=;
- b=gut6Nw0CGXl6wWatxYPSPYdL3BuIQ7Kl2zGLODwb3eenYxIy+qKOa+GTBRzvXFazwW5Sf9
- OwCQqG8GRJsmjHo7rldayq3+OkqIAxFNzOs11WaXm/soF18j0d7zLWq8QVAabz+6Bz3R1Z
- Ol/GNgO97HQrVhQZrpG+HR0u2ntce4U=
+ bh=D+xSTp32YeB1D08b+4O5mwG7IERtvhBUtx94Lkc+l48=;
+ b=qU1XWgKndMcdE/whG6AhLlgwZGCZZHcKNtWbpRg+l0c0PsXez4Q0nOt35niPjLAxIwgRb5
+ 6UahrHM5D8PZlJUChfIz0qACS7Q+NiRXFlpFFPEj3iN5F2adka1ppW5ir+Scu0xaD/YBhy
+ fsZx++KRZbiAM7eWRUWP7LVoDKK84Y8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1679502047;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1679502911;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=wd+C+JWr58CSCDvadg5pc1JKYRFQca7P91v3M2cus30=;
- b=CswgTOz7Jc4BPbS/jEiLQOlrEE8zsZ10TZnkyA+JYFagHD4aoj22Fzy3/Fmv44JjvBdl/b
- GchbxpYOWHmE/XCA==
+ bh=D+xSTp32YeB1D08b+4O5mwG7IERtvhBUtx94Lkc+l48=;
+ b=s0erNOu+1fBd3mNBq3sFFduc9Dgqe+kNK+u3dFdnRMpi3tXM0Yd+mwUka96gKJ7iqkCLVA
+ tNfF94S6gUAKj7Dw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 877A013416;
- Wed, 22 Mar 2023 16:20:47 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 80FD213416;
+ Wed, 22 Mar 2023 16:35:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id U+joH98qG2TLawAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 22 Mar 2023 16:20:47 +0000
-Date: Wed, 22 Mar 2023 17:20:46 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id nfaaHT8uG2TXcwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 22 Mar 2023 16:35:11 +0000
+Date: Wed, 22 Mar 2023 17:35:09 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20230322162046.GA369840@pevik>
+To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
+Message-ID: <20230322163509.GB369840@pevik>
 References: <20230217151036.10295-1-pvorel@suse.cz>
  <20230217151036.10295-2-pvorel@suse.cz> <ZBr9v2cz6/gmksAW@yuki>
+ <20230322162046.GA369840@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZBr9v2cz6/gmksAW@yuki>
+In-Reply-To: <20230322162046.GA369840@pevik>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -82,7 +83,6 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -90,39 +90,30 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Cyril,
 
-...
-> > +	if [ $? -ne 0 ]; then
-> > +		TST_NET_IPV6_ENABLED=0
-> > +		tst_res_ TINFO "IPv6 disabled on $type via ipv6.disable=1"
+> > > +	cmd='sysctl -n net.ipv6.conf.all.disable_ipv6'
 
-> Doesn't this happen also in the unlikely case that CONFIG_IPV6 is not
-> set?
+> > I'm not sure why we should use sysctl when this the same as doing
 
-> So maybe "IPv6 disabled on kernel commandline or not compiled in"
-Indeed, You're right, I'll use (to show where it was disabled):
+> > cat /proc/sys/net/ipv6/conf/all/disable_ipv6
+> > Or is there any added value from the sysctl command?
 
-tst_res_ TINFO "IPv6 disabled on $type via kernel command line or not compiled in"
+> No, but we already use sysctl in tst_init_iface():
+> sysctl -qw net.ipv6.conf.$iface.accept_dad=0 || return $?
+> tst_rhost_run -c "sysctl -qw net.ipv6.conf.$iface.accept_dad=0" || return $?
 
-> > +		return
-> > +	fi
-> > +
-> > +	cmd='sysctl -n net.ipv6.conf.all.disable_ipv6'
+> and we don't check for sysctl (expecting is everywhere). I'd also allow using
+> sysctl (and then add a check via tst_require_cmds) or change also these with
+> cat for reading and echo ... > for writing. WDYT?
 
-> I'm not sure why we should use sysctl when this the same as doing
-
-> cat /proc/sys/net/ipv6/conf/all/disable_ipv6
-> Or is there any added value from the sysctl command?
-
-No, but we already use sysctl in tst_init_iface():
-sysctl -qw net.ipv6.conf.$iface.accept_dad=0 || return $?
-tst_rhost_run -c "sysctl -qw net.ipv6.conf.$iface.accept_dad=0" || return $?
-
-and we don't check for sysctl (expecting is everywhere). I'd also allow using
-sysctl (and then add a check via tst_require_cmds) or change also these with
-cat for reading and echo ... > for writing. WDYT?
+BTW tst_set_sysctl() and it's use would need to be rewritten to get benefit of
+getting rid of using sysctl. But I can use cat in this case to not extending
+sysctl dependency.
 
 Kind regards,
 Petr
+
+> Kind regards,
+> Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
