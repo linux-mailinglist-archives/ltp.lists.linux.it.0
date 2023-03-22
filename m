@@ -1,87 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 985596C401B
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Mar 2023 03:04:31 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D8C656C4B44
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Mar 2023 14:07:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EDFEB3CE3AD
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Mar 2023 03:04:30 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 525D03CCB68
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Mar 2023 14:07:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BC3FF3CD30C
- for <ltp@lists.linux.it>; Wed, 22 Mar 2023 03:04:25 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by picard.linux.it (Postfix) with ESMTPS id BCF123CA4EB
+ for <ltp@lists.linux.it>; Wed, 22 Mar 2023 14:07:05 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E230310009B6
- for <ltp@lists.linux.it>; Wed, 22 Mar 2023 03:04:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1679450663;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1F0B760022B
+ for <ltp@lists.linux.it>; Wed, 22 Mar 2023 14:07:04 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EC1A920DE4;
+ Wed, 22 Mar 2023 13:07:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1679490423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=1SnDbAgrTbYuqrNF7Th53ghSzeATVrAjAX+pAMG9dnU=;
- b=GMShrgckhRZMn28A4JpLueY4pDLPjChUVV6rf287vR+XcfwaJQVvVqGptHikiuU68UxJa+
- 1euGtV3GxZisJQ2BuHomN5tnPou1QtOrqX7dX63sBxBGtWwob6sa8cDo4uY0la1TCUJxfX
- HPXuzRjOI0y7U3GWO4JCF7HzwfHCt7k=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-635-QW02SEn7PYa5RfCkpf_GsQ-1; Tue, 21 Mar 2023 22:04:21 -0400
-X-MC-Unique: QW02SEn7PYa5RfCkpf_GsQ-1
-Received: by mail-wm1-f72.google.com with SMTP id
- i3-20020a05600c354300b003edfa408811so3719142wmq.1
- for <ltp@lists.linux.it>; Tue, 21 Mar 2023 19:04:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679450660;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1SnDbAgrTbYuqrNF7Th53ghSzeATVrAjAX+pAMG9dnU=;
- b=kWMY7mBQCr6xhVnlxHG3levbBM85d9yvX9o8PS9OSyFq7QYuVElyd22vQPAD4sq7Jn
- iFFtvBC8xsMbTwjn0tfw5royiFrJ4kbrCdhapmP/eNFwaVqdAZafvRsrqlSaNKC4xmf3
- jYL+vE884u/He8J80zyNjR63tu+FXTxqtDRCgkUSneZns57gCdhTMnTiQfPMCzdQPPv1
- 6L2TFTLEsKcpKSTWt/n9l6h30ZBAVdQSVFSXvo3GzjQNgQ1WkYpp69fTi7xsixqODQv4
- vdXyAricPRS7CnO2HZnIO9GkKm6MzWtjW2wHD9t24eUNjIAZAEorm8xWV5k60qn2tBOI
- L0/Q==
-X-Gm-Message-State: AO0yUKV0JVtRzyDsVNKpeDxDzlxyGXLFC8yV5cRRSxPhiWpYxJJaERl1
- QWKWE5Us5ZbFLXKZ9Tf6sElJWkMnbPdPGMXhTZC6G0/ysmhYABSfzu92TlgYQgLV7XMIDEYKecV
- oPifb+9G0+yuhp993gvX/XrEkcEQ=
-X-Received: by 2002:a1c:4c01:0:b0:3ed:4c9e:d5d8 with SMTP id
- z1-20020a1c4c01000000b003ed4c9ed5d8mr126302wmf.1.1679450660856; 
- Tue, 21 Mar 2023 19:04:20 -0700 (PDT)
-X-Google-Smtp-Source: AK7set/vR1umQmwc/hF+Hxa7YZXRJocmOpsfXtUY2TqbN5cs1Go/BsWPR7wOERolBHQZ7zkLaHjko1d07RGCQq/FwX8=
-X-Received: by 2002:a1c:4c01:0:b0:3ed:4c9e:d5d8 with SMTP id
- z1-20020a1c4c01000000b003ed4c9ed5d8mr126300wmf.1.1679450660567; Tue, 21 Mar
- 2023 19:04:20 -0700 (PDT)
+ bh=2nK+csOTfSANb6wmUV0WE42A2kGdOm9XcC3vO64E61w=;
+ b=hiLdbtkT4axBM2hQwQW8wiGVlrz5Z97xUGQWfOFervclZS0/HlFPTSk0ugEDPoOF7BLLKl
+ 1+4DL+Cz98X7ZXlSbQBpU+m0uRZgKikohgaugrmKX1LFZHG90f16kF9ncKjLBYkFtHei66
+ FvtZnbDlvFBhx9gDV6NBBMoFuUI8RcA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1679490423;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2nK+csOTfSANb6wmUV0WE42A2kGdOm9XcC3vO64E61w=;
+ b=kgmDTLu3x6xhZ7stKddmbRsIZdCaHLQFYbMLFZz9uP7S0IMTKmHgewZDsnsyvtWZgx+3ke
+ 3uQ4JxZ5qBKSCxAg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D8985138E9;
+ Wed, 22 Mar 2023 13:07:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ZWZuM3f9GmTicgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 22 Mar 2023 13:07:03 +0000
+Date: Wed, 22 Mar 2023 14:08:15 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <ZBr9v2cz6/gmksAW@yuki>
+References: <20230217151036.10295-1-pvorel@suse.cz>
+ <20230217151036.10295-2-pvorel@suse.cz>
 MIME-Version: 1.0
-References: <20230320092332.36187-1-pifang@redhat.com>
- <CAEemH2edWRT1f=8wb=qQn2=3L0CXD-sQ4qQUSk+DwcRWE8xqqA@mail.gmail.com>
- <CANKfEn7M8X8vKGVAUGRLkYh82vv_xBYg=n-pyU+sA7X=4UuX=g@mail.gmail.com>
- <CAEemH2dRTX4Ru161v4Fosnhy9-bX6jdd4Y=7gqhfGKDqEFq0mQ@mail.gmail.com>
-In-Reply-To: <CAEemH2dRTX4Ru161v4Fosnhy9-bX6jdd4Y=7gqhfGKDqEFq0mQ@mail.gmail.com>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 22 Mar 2023 10:04:09 +0800
-Message-ID: <CAEemH2fGPvEqChw0HanpHXqPm2wTK8tmbo+XX0F8xe_54dnOjg@mail.gmail.com>
-To: Ping Fang <pifang@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20230217151036.10295-2-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH] getcpu01: Fix strtoul incorrectly returns 0
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] tst_net.sh: Detect IPv6 disabled via sysct
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,17 +79,110 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: shichen@redhat.com, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Pushed, thanks!
+Hi!
+> net.ipv6.conf.all.disable_ipv6=1 disables IPv6 on all interfaces
+> (including both already created and later created).
+> 
+> The check prevent failures on IPv6 tests, and error messages on both
+> IPv4 and IPv4 tests:
+> 
+>     # sysctl -w net.ipv6.conf.all.disable_ipv6=1
+>     # ./ping02.sh -6
+>     ping02 1 TINFO: tst_rhost_run: cmd: [ -f /proc/net/if_inet6 ]
+>     ping02 1 TINFO: NETNS: sh -c " [ -f /proc/net/if_inet6 ] || echo RTERR" 2>&1
+>     ping02 1 TINFO: initialize 'lhost' 'ltp_ns_veth2' interface
+>     ping02 1 TINFO: add local addr 10.0.0.2/24
+>     ping02 1 TINFO: add local addr fd00:1:1:1::2/64
+>     RTNETLINK answers: Permission denied
+>     ping02 1 TINFO: initialize 'rhost' 'ltp_ns_veth1' interface
+>     ...
+>     ping02 1 TINFO: timeout per run is 0h 5m 0s
+>     ping6: connect: Network is unreachable
+>     ping02 1 TFAIL: ping6 -I ltp_ns_veth2 -c 3 -s 8 -f -p 000102030405060708090a0b0c0d0e0f fd00:1:1:1::1 >/dev/null failed unexpectedly
+> 
+> Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+>  testcases/lib/tst_net.sh | 26 +++++++++++++++++++++-----
+>  1 file changed, 21 insertions(+), 5 deletions(-)
+> 
+> diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+> index fc64a588ae..96eed50793 100644
+> --- a/testcases/lib/tst_net.sh
+> +++ b/testcases/lib/tst_net.sh
+> @@ -84,25 +84,41 @@ tst_brk_()
+>  	[ -z "$TST_USE_LEGACY_API" ] && tst_brk $@ || tst_brkm $@
+>  }
+>  
+> +# Detect IPv6 disabled via ipv6.disable=1 kernel cmdline parameter
+> +# or sysctl net.ipv6.conf.all.disable_ipv6=1 (disables IPv6 on all
+> +# interfaces (including both already created and later created).
+> +# $TST_NET_IPV6_ENABLED: 1 on IPv6 enabled, 0 on IPv6 disabled.
+>  tst_net_detect_ipv6()
+>  {
+>  	local type="${1:-lhost}"
+>  	local cmd='[ -f /proc/net/if_inet6 ]'
+> -	local ret
+> +	local disabled iface ret
+>  
+>  	if [ "$type" = "lhost" ]; then
+>  		$cmd
+>  	else
+>  		tst_rhost_run -c "$cmd"
+>  	fi
+> -	ret=$?
+>  
+> -	if [ $ret -eq 0 ]; then
+> -		TST_NET_IPV6_ENABLED=1
+> +	if [ $? -ne 0 ]; then
+> +		TST_NET_IPV6_ENABLED=0
+> +		tst_res_ TINFO "IPv6 disabled on $type via ipv6.disable=1"
+
+Doesn't this happen also in the unlikely case that CONFIG_IPV6 is not
+set?
+
+So maybe "IPv6 disabled on kernel commandline or not compiled in"
+
+> +		return
+> +	fi
+> +
+> +	cmd='sysctl -n net.ipv6.conf.all.disable_ipv6'
+
+I'm not sure why we should use sysctl when this the same as doing
+
+cat /proc/sys/net/ipv6/conf/all/disable_ipv6
+
+Or is there any added value from the sysctl command?
+
+> +	if [ "$type" = "lhost" ]; then
+> +		disabled=$($cmd)
+>  	else
+> +		disabled=$(tst_rhost_run -c "$cmd")
+> +	fi
+> +	if [ $disabled = 1 ]; then
+> +		tst_res_ TINFO "IPv6 disabled on $type net.ipv6.conf.all.disable_ipv6=1"
+>  		TST_NET_IPV6_ENABLED=0
+> -		tst_res_ TINFO "IPv6 disabled on $type"
+> +		return
+>  	fi
+> +
+> +	TST_NET_IPV6_ENABLED=1
+>  }
+>  
+>  tst_net_require_ipv6()
+> -- 
+> 2.39.1
+> 
 
 -- 
-Regards,
-Li Wang
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
