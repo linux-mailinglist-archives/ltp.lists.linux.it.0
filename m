@@ -2,74 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EBEE6C6256
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Mar 2023 09:53:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33DE46C6326
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Mar 2023 10:22:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 58B413CAA08
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Mar 2023 09:53:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6D1723CD23B
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Mar 2023 10:22:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DA4D23C0214
- for <ltp@lists.linux.it>; Thu, 23 Mar 2023 09:53:22 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 4DBE23C0277
+ for <ltp@lists.linux.it>; Thu, 23 Mar 2023 10:22:17 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5DF2A1A00CB8
- for <ltp@lists.linux.it>; Thu, 23 Mar 2023 09:53:21 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2B76D1A00CC2
+ for <ltp@lists.linux.it>; Thu, 23 Mar 2023 10:22:15 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9D9EF339C9;
- Thu, 23 Mar 2023 08:53:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C4F301FE54;
+ Thu, 23 Mar 2023 09:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1679561601;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ t=1679563334;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pDVaOrfABh5KQFfaK20rKL+0FDyl14ZfoBpq1QCsBz8=;
- b=WDIaWmyMiVF7ncbj8XLQURP9Nby5/r6MglMUh1pn9iMwlPmPLuOzvzoXYbgj2HmuliLJAY
- 1hoovjdiANN33dgo8EhgdlA0r9EC+mazfZcqrB6heT9okuRZaivpcmkQl6baJXHvjSKiwZ
- u+4a5KGouAIsBn/qzkz1h2ONhXbHcTY=
+ bh=sB9zOMIA94IUIN9yI07ewPY7CiwLHtRsNROsfv2S+pc=;
+ b=aarh/0Wih5VoqEYOcZOy9I+UvAFSgBrKNJVJ39q/P/mllmG9dqrZQr0OWvnTKwUf68IjwO
+ lhtHw7ALYH8LfpIRqgHlfKbeDcrkSWMkh8S7tdxSZrJitVYZzwTDD4Bf9AXfbR1pKOOncz
+ KNH6ore30y3rPmvVgC3Nxb14ONw+Afg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1679561601;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1679563334;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pDVaOrfABh5KQFfaK20rKL+0FDyl14ZfoBpq1QCsBz8=;
- b=Gg/GyBdrcwd+bHWuGBb6Ul2eYYTmJpkQhJO/wJn25loWaLWXnJ3grrBKNxNDh5b12GXGLB
- ojaGdhg3+cc1+OCw==
+ bh=sB9zOMIA94IUIN9yI07ewPY7CiwLHtRsNROsfv2S+pc=;
+ b=3R4sW6FICHbG0GgH9EudDeFeLHOBFV784TxkvrZMgzn2pV1Enehx25507SBgUB6QEgDzdN
+ pWhbHNng/VHW4MAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 720DA13596;
- Thu, 23 Mar 2023 08:53:21 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AB12B13596;
+ Thu, 23 Mar 2023 09:22:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ZOtsGYETHGQAMwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 23 Mar 2023 08:53:21 +0000
-Date: Thu, 23 Mar 2023 09:53:20 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id GIBgKEYaHGSoQwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 23 Mar 2023 09:22:14 +0000
+Date: Thu, 23 Mar 2023 10:22:13 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Edward Liaw <edliaw@google.com>
-Message-ID: <20230323085320.GD405493@pevik>
-References: <20230320235108.2058967-1-edliaw@google.com>
- <20230320235108.2058967-4-edliaw@google.com>
+To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
+Message-ID: <20230323092213.GE405493@pevik>
+References: <20230310124125.14279-1-pvorel@suse.cz> <ZA87677RI2ddqkJm@yuki>
+ <20230313153056.GB10305@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230320235108.2058967-4-edliaw@google.com>
+In-Reply-To: <20230313153056.GB10305@pevik>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 3/3] tst_find_backing_dev: Also check
- /dev/block/ for backing device
+Subject: Re: [LTP] [PATCH 0/3] Move container utils to testcases/lib/
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,23 +81,45 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: kernel-team@android.com, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Edward,
+> > Hi!
+> > > Preparation for https://github.com/linux-test-project/ltp/issues/991.
 
-> On Android, the backing devices are created in /dev/block/ and will not
-> be found using the method added in e1b1ae66b240 ("tst_find_backing_dev:
-> Get dev name from /sys/dev/block/*/uevent").  Adds a check for
-> /dev/block/%s as well as /dev/%s.
+> > > NOTE: this patch conflicts with my other patch [1]
+> > > (touching testcases/lib/{Makefile,.gitignore}).
 
-Fixes: e1b1ae66b240 ("tst_find_backing_dev: Get dev name from /sys/dev/block/*/uevent")
+> > > Kind regards,
+> > > Petr
+
+> > > [1] https://patchwork.ozlabs.org/project/ltp/patch/20230307145517.1359-2-pvorel@suse.cz/
+
+
+> > > Petr Vorel (3):
+> > >   ns_exec.c: Rename to testcases/lib/tst_ns_exec.c
+> > >   ns_create.c: Rename to testcases/lib/tst_ns_create.c
+> > >   ns_ifmove.c: Rename to testcases/lib/tst_ns_ifmove.c
+
+> > >  doc/namespaces-helper-tools.txt               | 14 ++++++------
+> > >  .../ns_common.h => include/tst_ns_common.h    |  6 ++---
+
+> > I'm not sure about moving this header into top level include, it would
+> > probably make more sense to add it next to the C files that include it.
+
+> Sure, I'll put it there before merge (if it's the only thing to change).
+
+BTW having header in testcases/lib/ will require to move ns_create.c together
+with ns_exec.c in single commit (squash these 2 commits). But that should not be
+a big deal.
 
 Kind regards,
 Petr
+
+> Kind regards,
+> Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
