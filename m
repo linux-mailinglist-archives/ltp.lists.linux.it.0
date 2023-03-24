@@ -1,77 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0C556C7442
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Mar 2023 00:47:31 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D20246C748F
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Mar 2023 01:25:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5FD113CE2E2
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Mar 2023 00:47:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5B29B3CE2FF
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Mar 2023 01:25:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 99A593CA56D
- for <ltp@lists.linux.it>; Fri, 24 Mar 2023 00:47:30 +0100 (CET)
-Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
- [IPv6:2607:f8b0:4864:20::b2d])
+ by picard.linux.it (Postfix) with ESMTPS id D2C853CD349
+ for <ltp@lists.linux.it>; Fri, 24 Mar 2023 01:24:46 +0100 (CET)
+Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
+ [IPv6:2607:f8b0:4864:20::1149])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8E8811A00E15
- for <ltp@lists.linux.it>; Fri, 24 Mar 2023 00:47:29 +0100 (CET)
-Received: by mail-yb1-xb2d.google.com with SMTP id i6so311039ybu.8
- for <ltp@lists.linux.it>; Thu, 23 Mar 2023 16:47:29 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C42F36011F7
+ for <ltp@lists.linux.it>; Fri, 24 Mar 2023 01:24:45 +0100 (CET)
+Received: by mail-yw1-x1149.google.com with SMTP id
+ 00721157ae682-5411f21f849so2458407b3.16
+ for <ltp@lists.linux.it>; Thu, 23 Mar 2023 17:24:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20210112; t=1679615248;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UlD1++g6Ae50GIWyjyVSV1nnF7JqCmhll/GxVUvHL8U=;
- b=UH/TL1jqrS9oCIB63In8ntHTTDx27ve/jPMv1L3vlfxh5E4N9cEzg463ByYtrsapJ7
- 8lFK5tQtItsMvpg3Dqwb2kpd3Ue6xWPrflku5G0b6LjGZ9KGt6EBIC2pV7BdlY6k+bxX
- JVX0XvgEfwFiKXcC+Rp2uhPWa2O6uwDEF2srg3u9hUxNT50nKIwKEk9ltzAXeX1SOkcn
- FaJMajCo1klcqQ7XimXq50LcfZOiPZAd+S0WpEZaLTy4zly3PcmdKLZ6Z0ij9Uo6D4Kc
- beGlGRIL+kzPA/QxCYliOEw8t/RJwuzfVShAzc4IetFN8T50poMLNNHdKHKXFPZv/zna
- 1+OQ==
+ d=google.com; s=20210112; t=1679617484;
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=ewIdp5qCcVp99opDBE5UmLI6L/Mnwg9H1xvxgvyIMB4=;
+ b=ZOPy1ZkDSyhTmUzH/VDuVAKP0HDXj95ZRlMXNMK/j0rwVQ8opkZrav7/5W4MiusqJM
+ 6su11PwDD9pTVNRT/PaV5NrMxYUzMFtA1a5cVvRnB3nZIICjE3qI0tAp8CvOG/Io9Of3
+ QvVPKbPAJswvzwhoPMU0GQreaQaI3m8jCIaM4S0GHeZP/XL97HBMaH9BTbF4Kio2wz/M
+ nQfZM5kTgMEdTSfuiio+DRIUVRLX0T+a1CHg6rTtUFDMzj1GMQ7Wx8qLb/NlFCeetYr4
+ 2amjOfbSFELbPf0sN0EyVMr3YLwiSZFIzwvId3psQqqTTXhSUb0I8QneoIAvYjM4dBuh
+ 35jQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679615248;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UlD1++g6Ae50GIWyjyVSV1nnF7JqCmhll/GxVUvHL8U=;
- b=c06WpP445taisna452309cp8XU/ANXpJfLAdF9kOxxpAwYyvEcZ87I4LR0dJjA5Llb
- Qd1saOAKIZfXtfsDIb/BqDA+osZ6QmUQlRJZtErKqt0QOghYu3WUZx4f+O6g/rM6uQoz
- SoWWzSHGzSZ/BItQKF+ntMC/yoMsh7c15tMU+O/C7BX/UKtdhcs5pIegMgJsG7JFVMsY
- Qd0FasBQ25d3tXGQkX8622nGjG7vBJU8KGhTwPOhREwclfOzlzk2igOpZ267VJMhoDGl
- mBY2B3CVPvTo1g13ScZGPRbnqi7FJO2wtZCgF87aOzz7OUUmsEJ3g49ndQBckWzidP71
- 3DGg==
-X-Gm-Message-State: AAQBX9eerGRTZF1RZUDpINzyB4/md92/RamR5vukKTcOzfSF0wq/QInm
- IH3sJ6aSGeRNDmhYtNfFjEP/08CA01Ewp59rz61G1A==
-X-Google-Smtp-Source: AKy350ZPw4+Jgt8IzJdQf+K2b+7RTRD6MZYjKhrHvJ76fQAAgVc2MRWHKjAT6JmRW0c3xc0rW1OnPpCoFifmZVOQPX4=
-X-Received: by 2002:a05:6902:709:b0:ad2:3839:f49 with SMTP id
- k9-20020a056902070900b00ad238390f49mr730068ybt.5.1679615248229; Thu, 23 Mar
- 2023 16:47:28 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230320235108.2058967-1-edliaw@google.com>
- <20230320235108.2058967-3-edliaw@google.com>
- <20230323085216.GC405493@pevik>
-In-Reply-To: <20230323085216.GC405493@pevik>
-Date: Thu, 23 Mar 2023 16:47:02 -0700
-Message-ID: <CAG4es9WSByGyehAh3fvw2W0o-sh974WNBKym-1gMwJUx-V+Bcw@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+ d=1e100.net; s=20210112; t=1679617484;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ewIdp5qCcVp99opDBE5UmLI6L/Mnwg9H1xvxgvyIMB4=;
+ b=27ddU7StatiFI/OeJ5imn5JepXr8PELmsBIcIeS+a2Yudt+p4aKH8JHgQlzt5bCrJQ
+ QvB3Xg4rn/rb1qCbo5imd1a5+xF6DSaWQVgkfTRy7zkNRO6i6MpIIiGAB/9ZSNfIZogr
+ k0AtJ8bt9HeUNuwYCsdhWQ4NNui7RdqXdnPF5Ky736Qu+2IArx86BUJI+Ftm1DfbDzoW
+ f+nvuThctFCdyD7G3XNnQhHGa1Ri/Jv630+NDYCL8c6Cs4Ak2otvTCSE/bxvpCXLVH3m
+ Mojgg51N5Ay1KpchdG2NklCE6toVAq+t7sAuo2NvnuUSmNRtatVi7marr4u/08YEHBMw
+ spMQ==
+X-Gm-Message-State: AAQBX9cfkVouXkqNTpzIJ+LwP0e5xigGSV0pSjz6cF8BnONSVtHmUe/b
+ bJshOjVy+kWFEVpvpGJQd5pozVyVZudMwPi2j5x14ErTyaH0hKr0MLIM31yN3E9H/R3pfL02DTL
+ +JGu97vW4oe9eq/RqloJlr2yKezuTFn6O34klXuRECfAKaKzzw7Z1atRE
+X-Google-Smtp-Source: AKy350ZZVn/BWgibggi3mGeR1WOlOggke09wXn2lxhnEdSUvUQlP2ottKy1UHQRHApBydsSdZJ3EUwdVegw=
+X-Received: from edliaw.c.googlers.com ([fda3:e722:ac3:cc00:24:72f4:c0a8:305d])
+ (user=edliaw job=sendgmr) by 2002:a05:690c:3:b0:541:698b:7bdb with SMTP id
+ bc3-20020a05690c000300b00541698b7bdbmr3296771ywb.2.1679617484366; Thu, 23 Mar
+ 2023 17:24:44 -0700 (PDT)
+Date: Fri, 24 Mar 2023 00:24:37 +0000
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
+Message-ID: <20230324002441.987778-1-edliaw@google.com>
+To: ltp@lists.linux.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,
- SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/3] set_dev_loop_path: Refactor set_dev_path
- and check return value
+X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 0/4] tst_device.c: Handle Android path for backing
+ device
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,29 +81,48 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 From: Edward Liaw via ltp <ltp@lists.linux.it>
 Reply-To: Edward Liaw <edliaw@google.com>
-Cc: kernel-team@android.com,
- Alessandro Carminati <alessandro.carminati@gmail.com>, ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: kernel-team@android.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVGh1LCBNYXIgMjMsIDIwMjMgYXQgMTo1MuKAr0FNIFBldHIgVm9yZWwgPHB2b3JlbEBzdXNl
-LmN6PiB3cm90ZToKPgo+IEhpIEVkd2FyZCwKPgo+ID4gdHN0X2ZpbmRfZnJlZV9sb29wZGV2IGRv
-ZXMgbm90IGNoZWNrIHRoZSByZXR1cm4gdmFsdWUgb2Ygc2V0X2Rldl9wYXRoCj4gPiBhbmQgd2ls
-bCByZXR1cm4gdGhlIGxhc3QgYXR0ZW1wdGVkIHBhdGggZXZlbiBpZiBpdCBkb2VzIG5vdCBwYXNz
-IGEgc3RhdAo+ID4gY2hlY2suICBzZXRfZGV2X3BhdGggYWxzbyBoYXMgYSByZXR1cm4gdmFsdWUg
-dGhhdCBpcyBub3QgY29uc2lzdGVudCB3aXRoCj4gPiB0aGUgb3RoZXIgZnVuY3Rpb25zIGluIHRo
-aXMgZmlsZS4KPgo+IFRoaXMgY2hhbmdlIGFuZCBjaGFuZ2Ugb2YgcmV0dXJuIGlzIGEgYml0IGJ1
-cmRlbiBpbiBsb29wIHJlbmFtZSBjaGFuZ2VzLgo+IEknbSBvayBpdCdzIGluIHNpbmdsZSBwYXRj
-aCwgYnV0IGl0J2QgYmUgbW9yZSByZWFkYWJsZSBpZiBpdCB3ZXJlIHNlcGFyYXRlLgoKTm90IGEg
-cHJvYmxlbSwgSSB3aWxsIHNwbGl0IGl0LgoKPiBzZXRfZGV2X3BhdGgoKSBpcyBnb2luZyB0byBi
-ZSBjYWxsZWQgb25seSBpZiBub24tTlVMTCBwYXRoCj4gKHNlZSBpbmNsdWRlL3RzdF9kZXZpY2Uu
-aCkuIEkgaGF2ZW4ndCBmb3VuZCBhIHRlc3Qgd2hpY2ggdXNlcyBpdCB0aGlzIHdheSwKPiBidXQg
-c2hvdWxkbid0IGl0IGJlIGNoZWNraW5nIHBhdGgsIGluc3RlYWQgb2YgIXBhdGg/Cj4KPiAgICAg
-ICAgIGlmIChwYXRoICYmIHNldF9kZXZfbG9vcF9wYXRoKHJjLCBwYXRoLCBwYXRoX2xlbikgIT0g
-MCkKPgo+IEtpbmQgcmVnYXJkcywKPiBQZXRyCgpPb3BzLCBJIG1pc3NlZCB0aGF0IGluIHRoZSBj
-b21tZW50IGFuZCB0aG91Z2h0IGEgTlVMTCBwYXRoIHNob3VsZCBiZQpjaGVja2VkIGFzIGFuIGVy
-cm9yLiAgWW91IGFyZSByaWdodCwgSSB3aWxsIGNoYW5nZSBpdC4gIEFsc28sIEkgd2Fzbid0CnN1
-cmUgaWYgSSBzaG91bGQgYmUgZXhwbGljaXQgd2l0aCB0aGUgIiE9IDAiLgoKLS0gCk1haWxpbmcg
-bGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+e1b1ae66b240 ("tst_find_backing_dev: Get dev name from
+/sys/dev/block/*/uevent") added a hardcoded path to check for the
+backing device in /dev.  On Android, it needs to check /dev/block.
+
+The set_dev_path function was renamed to set_dev_loop_path and its
+return value was changed from 1 on success to 0 on success to be more
+consistent with other functions.  A check was added to
+tst_find_free_loopdev in the event that the loop device is not ready
+yet, which appears to happen occasionally on Android.
+
+v1->v2:
+Changed the function signature of tst_find_backing_dev to add the length
+of the path string.  Updated all references for this function to include
+the added parameter.
+
+v2->v3:
+Split the function rename, return value change, and the return value
+check into 3 commits.  Fixed logic for non-NULL path check.  Added Fixes
+tag for e1b1ae66b240.
+
+Edward Liaw (4):
+  set_dev_path: Rename to set_dev_loop_path
+  set_dev_loop_path: Change return value to zero on success
+  tst_find_free_loopdev: Check return value of set_dev_loop_path
+  tst_find_backing_dev: Also check /dev/block/ for backing device
+
+ doc/c-test-api.txt                            |  2 +-
+ include/tst_device.h                          |  3 +-
+ lib/newlib_tests/tst_device.c                 |  2 +-
+ lib/tst_device.c                              | 51 ++++++++++++-------
+ .../kernel/syscalls/ioctl/ioctl_loop05.c      |  2 +-
+ 5 files changed, 38 insertions(+), 22 deletions(-)
+
+-- 
+2.40.0.348.gf938b09366-goog
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
