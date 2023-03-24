@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 852136C7D7B
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Mar 2023 12:51:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FDCE6C7D62
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Mar 2023 12:42:03 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4BBF33CCB57
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Mar 2023 12:51:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8A9F13CD1E3
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Mar 2023 12:42:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
@@ -14,60 +14,63 @@ Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E76E63C0204
- for <ltp@lists.linux.it>; Fri, 24 Mar 2023 12:51:29 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 32D993CA503
+ for <ltp@lists.linux.it>; Fri, 24 Mar 2023 12:41:58 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3DB611000D52
- for <ltp@lists.linux.it>; Fri, 24 Mar 2023 12:51:28 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 43F761000DC7
+ for <ltp@lists.linux.it>; Fri, 24 Mar 2023 12:41:57 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6E83E1F898;
- Fri, 24 Mar 2023 11:51:28 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 30B9F21A00;
+ Fri, 24 Mar 2023 11:41:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1679658688; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1679658117;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HM6IJ3Ll+YR5RnoJ1IHGqqowqq2TyuOO5Gi4JtaoXXA=;
- b=NxII+gGEsu9MAV1/4Jt/QDQ3Bfy69BseWIRIDeBy51AVhJaGnMv5PV8CSOX7z4gx0/au2J
- 7xLMQuu27TJxuI6GFP5YJkpQScE6l5hng74S8sRq1VlVgiJsebj7FlgHvQCrYyVfey4omx
- kcKgGNiVpXe7gOKJyq8aLZWLL5YMCSU=
+ bh=FPSFvJZp9MHkytGBR0WkBlkwgkqffzB76WrRQ19lCIo=;
+ b=2skwn1X/H3QETiKHa9tv1K3tn0FI88VnE5ioyUZ8vRjpLdKj9C08L0QpBh+2ekP5/7c2d0
+ maWZqAPMcDK+UK+d3a/VS+IntprQ2N4H7m/MqNRZhmoneGNDGJqt+tSNHvJ0Fa2KE1eOm5
+ NjI40/8U/iDZqXOqoJz8I1FUrfyKKsk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1679658688;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ s=susede2_ed25519; t=1679658117;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HM6IJ3Ll+YR5RnoJ1IHGqqowqq2TyuOO5Gi4JtaoXXA=;
- b=6pQa/bJalJXTrgZ4PmN2mEJ1JdNrfu6WNkOrxUXTUwo89e1QlAm3VAk7KAxZiUX2ocrxLH
- P99ZLAOBVozPq+AQ==
+ bh=FPSFvJZp9MHkytGBR0WkBlkwgkqffzB76WrRQ19lCIo=;
+ b=RCztzyHK/S2KOTHJYcTZkvIc91SaMk6xfz+6PUJqt7o4QXejo5UEeXIM0Cf/lPfzvoCo5X
+ 1108BkxgH+K9GMDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5332D133E5;
- Fri, 24 Mar 2023 11:51:28 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EEBDE133E5;
+ Fri, 24 Mar 2023 11:41:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id y6iRE8COHWSgcQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 24 Mar 2023 11:51:28 +0000
-Date: Fri, 24 Mar 2023 12:52:39 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Teo Couprie Diaz <teo.coupriediaz@arm.com>
-Message-ID: <ZB2PB6adFr+3sYI8@yuki>
-References: <20230323160508.672397-2-teo.coupriediaz@arm.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id PXk4OISMHWTOawAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 24 Mar 2023 11:41:56 +0000
+Date: Fri, 24 Mar 2023 13:09:54 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: "Seth Forshee (DigitalOcean)" <sforshee@kernel.org>, ltp@lists.linux.it
+Message-ID: <20230324120954.GA6872@pevik>
+References: <20230323-override-unpriv-userns-sysctl-v1-1-0b62c71acd43@kernel.org>
+ <20230323162459.GA476022@pevik> <20230323162904.GB476022@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230323160508.672397-2-teo.coupriediaz@arm.com>
+In-Reply-To: <20230323162904.GB476022@pevik>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/sockioctl: Align buffer to struct ifreq
+Subject: Re: [LTP] [PATCH] containers: override
+ kernel.unprivileged_userns_clone sysctl where needed
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,80 +82,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> In setup3, the following line can lead to an undefined behavior:
->   ifr = *(struct ifreq *)ifc.ifc_buf;
-> 
-> Indeed, at this point it can be assumed that ifc.ifc_buf is suitably
-> aligned for struct ifreq.
-> However, ifc.ifc_buf is assigned to buf which has no alignment
-> constraints. This means there exists cases where buf is not suitably
-> aligned to load a struct ifreq, which can generate a SIGBUS.
-> 
-> Force the alignment of buf to that of struct ifreq.
-> 
-> Signed-off-by: Teo Couprie Diaz <teo.coupriediaz@arm.com>
-> ---
-> CI Build: https://github.com/Teo-CD/ltp/actions/runs/4502204132
-> 
->  testcases/kernel/syscalls/sockioctl/sockioctl01.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/testcases/kernel/syscalls/sockioctl/sockioctl01.c b/testcases/kernel/syscalls/sockioctl/sockioctl01.c
-> index 486236af9d6b..e63aa1921877 100644
-> --- a/testcases/kernel/syscalls/sockioctl/sockioctl01.c
-> +++ b/testcases/kernel/syscalls/sockioctl/sockioctl01.c
-> @@ -52,7 +52,13 @@ static struct ifreq ifr;
->  static int sinlen;
->  static int optval;
->  
-> -static char buf[8192];
-> +/*
-> + * buf has no alignment constraints by default. However, it is used to load
-> + * a struct ifreq in setup3, which requires it to have an appropriate alignment
-> + * to prevent a possible undefined behavior.
-> + */
-> +static char buf[8192]
-> +	__attribute__((aligned(__alignof__(struct ifreq))));
->  
->  static void setup(void);
->  static void setup0(void);
+Hi Seth,
 
-Looking at the code, shouldn't we rather than that declare the buffer as
-an struct ifreq array, that would naturally align the buffer without any
-need for tricky __attribute__.
+thanks, merged!
 
-diff --git a/testcases/kernel/syscalls/sockioctl/sockioctl01.c b/testcases/kernel/syscalls/sockioctl/sockioctl01.c
-index 51dac9c16..206a4999e 100644
---- a/testcases/kernel/syscalls/sockioctl/sockioctl01.c
-+++ b/testcases/kernel/syscalls/sockioctl/sockioctl01.c
-@@ -52,7 +52,7 @@ static struct ifreq ifr;
- static int sinlen;
- static int optval;
-
--static char buf[8192];
-+static struct ifreq buf[200];
-
- static void setup(void);
- static void setup0(void);
-@@ -218,7 +218,7 @@ static void setup2(void)
-        s = SAFE_SOCKET(cleanup, tdat[testno].domain, tdat[testno].type,
-                        tdat[testno].proto);
-        ifc.ifc_len = sizeof(buf);
--       ifc.ifc_buf = buf;
-+       ifc.ifc_buf = (void*)buf;
- }
-
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
