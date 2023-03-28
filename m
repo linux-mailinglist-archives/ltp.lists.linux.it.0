@@ -1,76 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDFE86CB92A
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Mar 2023 10:17:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id ECE8C6CB94E
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Mar 2023 10:25:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BDAE93CCAF5
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Mar 2023 10:17:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BD2B13CCAF1
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Mar 2023 10:25:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 712C13CA4EA
- for <ltp@lists.linux.it>; Tue, 28 Mar 2023 10:17:14 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 273263CA486
+ for <ltp@lists.linux.it>; Tue, 28 Mar 2023 10:25:05 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 95A6714004FE
- for <ltp@lists.linux.it>; Tue, 28 Mar 2023 10:17:12 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 246811A001D9
+ for <ltp@lists.linux.it>; Tue, 28 Mar 2023 10:25:04 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5DE861F8A6;
- Tue, 28 Mar 2023 08:17:12 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6009E1F8BA;
+ Tue, 28 Mar 2023 08:25:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1679991432;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ t=1679991904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=uAEk8v9QIxtxhGDUMPdqmKA1BtWL7PqhptkaXd6XItI=;
- b=fZCQ0iNFQGocS8wG8eM07i6rfN+lCJ44CW9g2rs/5T8CgBAytyL75wwt1qeLJOpNee/LL1
- brzX6q5qfT/mTh7RHbWvivv1ATcdvUgwe8J1H9E07oL5hMnuYbzaMsvhejBaROCdSTfi8E
- TmLHREuPfzgk4pgpZhiRY/sukTX4SHI=
+ bh=/K0WWD0ZHDvYRVppdWa2cvApCuJKRGQCAylWzr2dWxE=;
+ b=gtixRskfGMuMzO/hVy9TxGf9rLTBb74UdhjA9eWl/8IH/tnLMkM0CD48qIXnXGX/A4tmRW
+ fs8lSe330te6GM4TyWgyLAQv8qt0GzY3AWuuXZ0Kfjly2XIVwE/5rKTzRIKrpMsCIiraOd
+ Li+8Wq/vSDzYHlvIsmAlN1jRUaYojSw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1679991432;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1679991904;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=uAEk8v9QIxtxhGDUMPdqmKA1BtWL7PqhptkaXd6XItI=;
- b=iDK9pEfGFTurmFKhdyECfNRjVQKDVZNqU8hDHqHPbU0Tu1jrthqKHNC8EQCtyfMU2bxYL8
- 2HLcMySpecUs24Dg==
+ bh=/K0WWD0ZHDvYRVppdWa2cvApCuJKRGQCAylWzr2dWxE=;
+ b=HK7AOjq5Rj2yQM330bF1s2e97dKViFhwURufE693EBpovqpinE1X/jv8IlYQiMZtb2Pe68
+ momfNfUxTu9irFAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3A7B01390D;
- Tue, 28 Mar 2023 08:17:12 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 42B5A1390D;
+ Tue, 28 Mar 2023 08:25:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id GPr9DIiiImTkHAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 28 Mar 2023 08:17:12 +0000
-Date: Tue, 28 Mar 2023 10:17:10 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20230328081710.GB743322@pevik>
-References: <20230323121330.92244-1-paulson@zilogic.com>
- <20230324103334.GA557284@pevik>
- <CA+O3cCRGPfMP2EVigECgJ8c0Uo-yd7JUm64wSgvvgxoRqe7-Jw@mail.gmail.com>
- <CAEemH2e69a5DOq9eqJVau8YCENZchm8miOH3upQY_Pi6SUFyng@mail.gmail.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id SauTD2CkImSfIQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 28 Mar 2023 08:25:04 +0000
+Date: Tue, 28 Mar 2023 10:26:15 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Teo Couprie Diaz <teo.coupriediaz@arm.com>
+Message-ID: <ZCKkp2qvvoc95bSG@yuki>
+References: <20230323160508.672397-1-teo.coupriediaz@arm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2e69a5DOq9eqJVau8YCENZchm8miOH3upQY_Pi6SUFyng@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <20230323160508.672397-1-teo.coupriediaz@arm.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Added test for mmap() with MAP_SHARED_VALIDATE.
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] safe_open: Add missing mode from some calls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,44 +78,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it, Paulson Raja L <lpaulsonraja@gmail.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Hi!
+Good catch, applied, thanks.
 
-> Hi Paulson, Petr,
-
-> Paulson Raja L <lpaulsonraja@gmail.com> wrote:
-
-> > Hi Petr Vorel,
-> >   Thanks for the comments, I have just started contributing to LTP, and
-> > this is my first patch. I agree to merge it as is.
-
-> Good to see a new case for MAP_SHARED_VALIDATE.
-
-> As this is the first test to cover the new flags argument, so I'm
-> wondering can we add the functional verification to check if
-> this works correctly for mapping a valid shared memory which
-> equal to the behavior of MAP_SHARED?
-> (or do this in a separate patch)
-+1
-
-> But anyway, I'd suggest you send a patch V2 for achieving all
-> requested changes.
-
-Li, if you don't mind, I'll merge "v2" I prepared [1] (part of
-paulson/mmap.fixes branch in my fork). Can I add your Reviewed-by tag? As the
-work is already done, I'd prefer to postpone the work you propose to separate
-patch after.
-
-Kind regards,
-Petr
-
-[1] https://github.com/pevik/ltp/blob/36ebc4d8900ea8438dc7839f03b7921f0ed9243a/testcases/kernel/syscalls/mmap/mmap20.c
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
