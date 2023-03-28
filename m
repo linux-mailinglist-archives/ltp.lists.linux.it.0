@@ -1,64 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A8A56CC077
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Mar 2023 15:18:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C6F36CC07A
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Mar 2023 15:19:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 190E63CCB2F
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Mar 2023 15:18:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0BBA83CCB9C
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Mar 2023 15:19:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 01C283CA2F9
+ by picard.linux.it (Postfix) with ESMTPS id 94D3D3CA2F9
  for <ltp@lists.linux.it>; Tue, 28 Mar 2023 15:18:26 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AB3E61A0119D
- for <ltp@lists.linux.it>; Tue, 28 Mar 2023 15:18:25 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3F20A1A01462
+ for <ltp@lists.linux.it>; Tue, 28 Mar 2023 15:18:26 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 35B371FDCF
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E138B1F8B8
  for <ltp@lists.linux.it>; Tue, 28 Mar 2023 13:18:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1680009505; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=9GOGUpvCCIgzJmtv15aP/IzfEgxbyqsJDAP/lXf6yRo=;
- b=19wDWaFrYdy2FZ/SSrgVR410TI5O012/i7d6P5OC4KDdt3bZ/oRYfLNMT2hT77u31TFgHO
- /UlpzAg8LPHkle+qyaacizdtE5D4eboDNUGiH2yFj/u6JSyfN6uYDe6hT+rsa6Jh3icuZE
- yFppeGnsMUpK7SKmwjaGjpLnoG5AYPI=
+ bh=cxDuQ/9iot0mszqA+n0YgEkwNu3FDDqn/msls8fkr7U=;
+ b=NbonL/RtW20j1hMuLcpbXeg03hJ/075o9blmq14vsIoU8h7UgcE45KaY9kxCLLnDjicpQL
+ fAUREUr/TS1grx+BPyJevRzIp9QnZ0owlEVivtdfla65jcupoz2SwoO5BjE5jQHlAfxhU2
+ 9H3oRxrPqjOzF4spi+ff5xmU4gQlT9w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1680009505;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=9GOGUpvCCIgzJmtv15aP/IzfEgxbyqsJDAP/lXf6yRo=;
- b=ce1V7GTVLY/ai6mJ/icEA5qmCukkkzsJ/Q2za/7AF/BXwZv+P4A61v7XQ+eZ8dReG1bBZD
- haSraiJ37t5RoUCg==
+ bh=cxDuQ/9iot0mszqA+n0YgEkwNu3FDDqn/msls8fkr7U=;
+ b=/iksNe7DvE+ShQYl1VJ0llIodTSWPw+30pEgoMkjV89NZk5SyZmpEFmKMIV+EdwwFF40L9
+ /rxLilN0R4U5jNCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2060C1390D
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CAC211390D
  for <ltp@lists.linux.it>; Tue, 28 Mar 2023 13:18:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ytaXBiHpImQWUQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id QLUPMCHpImQaUQAAMHmgww
  (envelope-from <chrubis@suse.cz>)
  for <ltp@lists.linux.it>; Tue, 28 Mar 2023 13:18:25 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 28 Mar 2023 15:19:33 +0200
-Message-Id: <20230328131935.21945-3-chrubis@suse.cz>
+Date: Tue, 28 Mar 2023 15:19:34 +0200
+Message-Id: <20230328131935.21945-4-chrubis@suse.cz>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230328131935.21945-1-chrubis@suse.cz>
 References: <20230328131935.21945-1-chrubis@suse.cz>
@@ -69,7 +70,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/4] lib: tst_device: Make find_stat_file() static
+Subject: [LTP] [PATCH 3/4] lib: tst_device: Switch to SPDX
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,26 +87,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-tst_device.c:486:5: warning: LTP-003: Symbol 'find_stat_file' is a public library function, but is missing the 'tst_' prefix
+Note that the original was GPL-2.0 but that was mistake on my side, I
+should have added GPL-2.0-or-later from the start.
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- lib/tst_device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ lib/tst_device.c | 20 +-------------------
+ 1 file changed, 1 insertion(+), 19 deletions(-)
 
 diff --git a/lib/tst_device.c b/lib/tst_device.c
-index 0cdd8985e..1f5a95eb9 100644
+index 1f5a95eb9..a4dfda5ba 100644
 --- a/lib/tst_device.c
 +++ b/lib/tst_device.c
-@@ -483,7 +483,7 @@ int tst_is_mounted_at_tmpdir(const char *path)
- 	return tst_is_mounted(mpath);
- }
+@@ -1,24 +1,6 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (C) 2014 Cyril Hrubis chrubis@suse.cz
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * Further, this software is distributed without any warranty that it is
+- * free of the rightful claim of any third person regarding infringement
+- * or the like.  Any license provided herein, whether implied or
+- * otherwise, applies only to this software file.  Patent licenses, if
+- * any, provided herein do not apply to combinations of this program with
+- * other software, or any other product whatsoever.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  */
  
--int find_stat_file(const char *dev, char *path, size_t path_len)
-+static int find_stat_file(const char *dev, char *path, size_t path_len)
- {
- 	const char *devname = strrchr(dev, '/') + 1;
- 
+ #include <sys/types.h>
 -- 
 2.39.2
 
