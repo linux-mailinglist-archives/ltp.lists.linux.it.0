@@ -2,66 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9CB66D172B
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 Mar 2023 08:14:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 760446D17B4
+	for <lists+linux-ltp@lfdr.de>; Fri, 31 Mar 2023 08:45:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3ABB33CC975
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 Mar 2023 08:14:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DE0213CC973
+	for <lists+linux-ltp@lfdr.de>; Fri, 31 Mar 2023 08:45:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 313743CC92F
- for <ltp@lists.linux.it>; Fri, 31 Mar 2023 08:14:49 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 5EA633CB7E2
+ for <ltp@lists.linux.it>; Fri, 31 Mar 2023 08:45:11 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 49B6010002BE
- for <ltp@lists.linux.it>; Fri, 31 Mar 2023 08:14:48 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B02AF1000BD4
+ for <ltp@lists.linux.it>; Fri, 31 Mar 2023 08:45:10 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5D43321AE1;
- Fri, 31 Mar 2023 06:14:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1680243288;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 146A31FE3C;
+ Fri, 31 Mar 2023 06:45:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1680245110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cDs3zeuvquE7bSkDGEh+9qzB1BCFaSJpTGCoNYsaV8M=;
- b=sD1O2KIiRikbrbn4V/lw62xLrSicXVN12cyB3VuAYsuQ06roY3lSno6eMeThprL8RgxkWc
- g+u1fFSBjpG0CqQ14XbbkktCg4mH6ok5/IbSb3Tap19Yl/KHHtiNssBIhG9FX+eEXBFMYu
- IfUGNrmWTfZfIvz+vq6ByQDdIdLkpvU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1680243288;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ bh=DANBQpFrQzSIflWH8M0MZmpWJ/aUjL6lcwKfjjHO5Fg=;
+ b=KofNwk6aSs+cMJGGgDvlT59x973lxpM9xS+fyo/RQORUGntM7IapLos3cd0HGazHmZ59gm
+ p8zGGBD0kbheJxYRBzHZY7yjf5Xl5dA815m8RJVvEyUnaRyp8DxLr13cP8k0HfGNrkfIBZ
+ YUN03PEuGtvpg854g+JShe4ECseOTv8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1680245110;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cDs3zeuvquE7bSkDGEh+9qzB1BCFaSJpTGCoNYsaV8M=;
- b=FpTf9T6zURfU3JEmz/46+J4AjHpeYWHYj8fSJxW97PEkPxa0t5yXxDQKAadYZSmDLIvKWz
- uVwFhD7csBYM/ZDQ==
+ bh=DANBQpFrQzSIflWH8M0MZmpWJ/aUjL6lcwKfjjHO5Fg=;
+ b=2e0NaEk91i5fAIZmLDydg5g++RAlI/sA/i/R75axcubTlJaQn0R6d/G7b0BTzPyxjauVgd
+ ko2Hw9libDnYj3Cw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 42837133B6;
- Fri, 31 Mar 2023 06:14:48 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 614FF133B6;
+ Fri, 31 Mar 2023 06:45:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id XAsxD1h6JmTVUgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 31 Mar 2023 06:14:48 +0000
-Date: Fri, 31 Mar 2023 08:14:46 +0200
-From: Petr Vorel <pvorel@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id ceToDXWBJmSGYQAAMHmgww
+ (envelope-from <akumar@suse.de>); Fri, 31 Mar 2023 06:45:09 +0000
+From: Avinesh Kumar <akumar@suse.de>
 To: Edward Liaw <edliaw@google.com>
-Message-ID: <20230331061446.GA1043774@pevik>
+Date: Fri, 31 Mar 2023 12:15:07 +0530
+Message-ID: <12180793.O9o76ZdvQC@localhost>
+Organization: SUSE
+In-Reply-To: <20230331000747.2294390-1-edliaw@google.com>
 References: <20230331000747.2294390-1-edliaw@google.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230331000747.2294390-1-edliaw@google.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -80,7 +80,6 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: kernel-team@android.com, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
@@ -89,18 +88,39 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Edward,
 
+On Friday, March 31, 2023 5:37:47 AM IST Edward Liaw via ltp wrote:
 > On Android, init does not setpgid, so getpgid(1) returns 0 and the third
 > case of setting pgid to a different session's process group does not
 > behave as expected: setpgid treats 0 as setting the pgid to the pid.
-
+> 
 > Instead, replace SAFE_GETPGID(1) with the expected value of 1.
+> 
+> Signed-off-by: Edward Liaw <edliaw@google.com>
+> ---
+>  testcases/kernel/syscalls/setpgid/setpgid02.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/testcases/kernel/syscalls/setpgid/setpgid02.c b/testcases/kernel/syscalls/setpgid/setpgid02.c
+> index 4b63afee8..bf7b3176b 100644
+> --- a/testcases/kernel/syscalls/setpgid/setpgid02.c
+> +++ b/testcases/kernel/syscalls/setpgid/setpgid02.c
+> @@ -44,7 +44,7 @@ static void setup(void)
+>  	 * Getting pgid of init/systemd process to use it as a
+>  	 * process group from a different session for EPERM test
+>  	 */
+> -	init_pgid = SAFE_GETPGID(1);
+> +	init_pgid = 1;
+>  }
+>  
+>  static void run(unsigned int n)
+> 
+This looks fine.
+Reviewed-by: Avinesh Kumar <akumar@suse.de>
 
-Seems to be safe.
+Regards,
+Avinesh
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
