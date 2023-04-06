@@ -2,74 +2,60 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34ACB6D9332
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Apr 2023 11:49:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34D836D93FD
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Apr 2023 12:28:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 200FE3CCFD6
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Apr 2023 11:49:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0368D3CC72C
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Apr 2023 12:28:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3E8893C01AA
- for <ltp@lists.linux.it>; Thu,  6 Apr 2023 11:48:59 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 5CB903CC73C
+ for <ltp@lists.linux.it>; Thu,  6 Apr 2023 11:55:11 +0200 (CEST)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4541B600058
- for <ltp@lists.linux.it>; Thu,  6 Apr 2023 11:48:58 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 67B0222398;
- Thu,  6 Apr 2023 09:48:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1680774538;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=g2l/8xp97JgfmsbE3qOY0gf0lytRsVcBZ6LFjebZ9vI=;
- b=IMs7hbmnr1pWnQVLUkEUAEEsNRmbVCNYbOmIax93qz8+PZMtK4JfqditzeK19Qjc18NMBI
- HpYC49qLLzA4xavfr2GB22NdEo3ocpSgE15MLl2A66vAiLVtf7stMBApMkdg+Uy6h9DYZY
- /JypTl/WweZsn8XujZ4LjUIa3wzjeco=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1680774538;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=g2l/8xp97JgfmsbE3qOY0gf0lytRsVcBZ6LFjebZ9vI=;
- b=8UMgoblTJsS+w799Mk7V2ADtFkL2qTqSTYyyTfH6loy6uND3g9zPn/1sESCuBetDDgWk9U
- +Ddp1Tx7FRsIjcCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 081281351F;
- Thu,  6 Apr 2023 09:48:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id L7lqO4mVLmScEAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 06 Apr 2023 09:48:57 +0000
-Date: Thu, 6 Apr 2023 11:48:53 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20230406094853.GA1545779@pevik>
-References: <20230404112852.1271969-1-pvorel@suse.cz>
- <CAEemH2fNLRxhj7NxRvxOr-XYe+gbXiEsYiKosm855_z+jdO5hA@mail.gmail.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4B8DF1A009BC
+ for <ltp@lists.linux.it>; Thu,  6 Apr 2023 11:55:08 +0200 (CEST)
+X-UUID: 8b7f16d4783c4a0393ae4511e2f55dab-20230406
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.22, REQID:e214aced-16b3-40e3-95c6-24e102bf214a, IP:10,
+ URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+ ON:release,TS:0
+X-CID-INFO: VERSION:1.1.22, REQID:e214aced-16b3-40e3-95c6-24e102bf214a, IP:10,
+ UR
+ L:0,TC:0,Content:-5,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:0
+X-CID-META: VersionHash:120426c, CLOUDID:b9d965b5-beed-4dfc-bd9c-e1b22fa6ccc4,
+ B
+ ulkID:230406173345NPWNH7UZ,BulkQuantity:1,Recheck:0,SF:24|17|19|44|102,TC:
+ nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI
+ :0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-UUID: 8b7f16d4783c4a0393ae4511e2f55dab-20230406
+X-User: mengfanhui@kylinos.cn
+Received: from localhost.localdomain [(210.12.40.82)] by mailgw
+ (envelope-from <mengfanhui@kylinos.cn>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES128-GCM-SHA256 128/128)
+ with ESMTP id 1278158647; Thu, 06 Apr 2023 17:54:58 +0800
+From: mengfanhui <mengfanhui@kylinos.cn>
+To: ltp@lists.linux.it
+Date: Thu,  6 Apr 2023 17:54:04 +0800
+Message-Id: <20230406095404.181012-1-mengfanhui@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2fNLRxhj7NxRvxOr-XYe+gbXiEsYiKosm855_z+jdO5hA@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] mmap20: Fix invalid address
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Mailman-Approved-At: Thu, 06 Apr 2023 12:28:20 +0200
+Subject: [LTP] [PATCH] Bug: Handling hugemmap24 test item failure issues
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,42 +67,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Paulson Raja L <paulson@zilogic.com>, ltp@lists.linux.it
+Cc: mengfanhui@kylinos.cn
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Rootcause:
+mmap function start parameter overstep the boundary
 
-> Hi Petr,
+Solution:
+judge longarch64 macros,execute low start address process
 
-> (1<<9) is also used by another flag on alpha, but it said not
-> linux-specific,
-> so I guess it won't be a problem (at least for now).
->   alpha/include/uapi/asm/mman.h:#define _MAP_HASSEMAPHORE 0x0200
+Signed-off-by: mengfanhui <mengfanhui@kylinos.cn>
+---
+ testcases/kernel/mem/hugetlb/hugemmap/hugemmap24.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Good point! I checked only glibc/musl headers, obviously checking kernel sources
-is better as it contains old archs. It affects alpha, ia64 and sparc
-(well, they might not even compile current LTP, we were dropping ia64 fixes
-anyway).
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap24.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap24.c
+index a465aadec..40e94a331 100644
+--- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap24.c
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap24.c
+@@ -30,7 +30,7 @@ static int init_slice_boundary(int fd)
+ 	unsigned long slice_size;
+ 	void *p, *heap;
+ 	int i;
+-#if defined(__LP64__) && !defined(__aarch64__)
++#if defined(__LP64__) && !defined(__aarch64__) && defined(__longarch64__)
+ 	/* powerpc: 1TB slices starting at 1 TB */
+ 	slice_boundary = 0x10000000000;
+ 	slice_size = 0x10000000000;
+-- 
+2.25.1
 
-$ git grep -w 0x0200 arch/*/include/uapi/asm/mman.h
-arch/alpha/include/uapi/asm/mman.h:#define _MAP_HASSEMAPHORE 0x0200
-arch/ia64/include/uapi/asm/mman.h:#define MAP_GROWSUP   0x0200          /* register stack-like segment */
-arch/sparc/include/uapi/asm/mman.h:#define MAP_GROWSDOWN        0x0200          /* stack-like segment */
-
-But as 0x400 (1 << 10) is not used anywhere, I merged it with this value.
-
-It'd be good to follow Jan's solution (don't map a file, and then add MAP_SYNC
-to flags), but I'll postpone it to later/when needed/never (there are other
-tests which needs to be fixed.
-
-Thanks a lot both!
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
