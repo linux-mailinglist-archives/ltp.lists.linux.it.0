@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4FAF6E8DBD
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Apr 2023 11:14:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 546D96E8E5F
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Apr 2023 11:41:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4D11A3CBF81
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Apr 2023 11:14:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B2C513CBF7F
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Apr 2023 11:41:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
@@ -14,61 +14,61 @@ Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A326A3CB337
- for <ltp@lists.linux.it>; Thu, 20 Apr 2023 11:14:18 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 841003C288D
+ for <ltp@lists.linux.it>; Thu, 20 Apr 2023 11:41:51 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C679260013C
- for <ltp@lists.linux.it>; Thu, 20 Apr 2023 11:14:17 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DE99B6002E8
+ for <ltp@lists.linux.it>; Thu, 20 Apr 2023 11:41:50 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 76E381FDB9;
- Thu, 20 Apr 2023 09:14:15 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3D46F219DB;
+ Thu, 20 Apr 2023 09:41:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1681982055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1681983710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=F/yQPRIX3XrlwWyhrHmwzRf9DVcKspcA7QyJNUDYb0Y=;
- b=IMiuNvAf7bpIBhSF5dsWKyYpLhNLuJ+2FgK8Mio36cUQEiSwbjIrvoNbE6cxmONRiqASIA
- n1I5MCExwyWNjJ5cm5/QXfNqOoNrYbbE3jxMiBlXR2V3D9d/KgPITxXmgJQn2GporMCBRe
- Qh7so9TeDzz+oQkmZ+go+21tTegN+38=
+ bh=9rj52wue4tfeqqiqhf+nScAb7kYaFAWT5lJy9kjCofI=;
+ b=ky6A5/JIdr+qTtJLsrwaqdV3r76KOWorsc/5lsvgSWeFro+cmMYuXqAGCndrZ3gQ7b0foY
+ hUUxF/mPkR17H0CdfpYAFNwvQog0FlTTX+lKCMMMA69/G9xyXbPOXz4YCFjGMwuB6q+cNV
+ mCwXjsZBqr9nX4lFQwxN0/5CLoDPd3k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1681982055;
+ s=susede2_ed25519; t=1681983710;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=F/yQPRIX3XrlwWyhrHmwzRf9DVcKspcA7QyJNUDYb0Y=;
- b=CLe6jIhzLGnITEEjuWU/DRXLvH3q96tgKiHOH2Uh+hF6G2wtSkeWaHro6/QGwfw9n14RmC
- /xG3lJPNMHbdZRDQ==
+ bh=9rj52wue4tfeqqiqhf+nScAb7kYaFAWT5lJy9kjCofI=;
+ b=ZrqoGU/1271p11zU/yRwN7bQ4BQU/6MKarvPR4gL+84C+wzBrsQbrnEbsT1OaJfRHvnZIM
+ wZVwzzg6f91Zl7Bg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 59C8D13584;
- Thu, 20 Apr 2023 09:14:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1EEF113584;
+ Thu, 20 Apr 2023 09:41:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sffxFGcCQWQKCgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 20 Apr 2023 09:14:15 +0000
-Date: Thu, 20 Apr 2023 11:15:18 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id r22nBt4IQWRpGQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 20 Apr 2023 09:41:50 +0000
+Date: Thu, 20 Apr 2023 11:42:53 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Tarun Sahu <tsahu@linux.ibm.com>
-Message-ID: <ZEECphsAzkd3MRrZ@yuki>
-References: <20230419114144.1219505-1-tsahu@linux.ibm.com>
+To: Avinesh Kumar <akumar@suse.de>
+Message-ID: <ZEEJHWcnXLgTGrf6@yuki>
+References: <20230413054952.14607-1-akumar@suse.de> <ZD/P71dlmvBbRhpb@yuki>
+ <6279343.jONZJM60Ip@localhost>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230419114144.1219505-1-tsahu@linux.ibm.com>
+In-Reply-To: <6279343.jONZJM60Ip@localhost>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] Hugetlb: Test to detect bug with freeing
- gigantic hugetlb pages
+Subject: Re: [LTP] [PATCH v2 1/2] getpgid01.c: Rewrite using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,17 +80,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: piyushs@linux.ibm.com, aneesh.kumar@linux.ibm.com, jaypatel@linux.ibm.com,
- geetika@linux.ibm.com, rpalethorpe@suse.com, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-I've added a .gitignore and runtest entry for the test and pushed,
-(please do not forget about that next time)
-thanks.
+> > Actually I did remmmeber that we do have TST_EXP_PID() which should be
+> > more fitting here, since getpgid() returns a PID. Do you agree with
+> > changing these in the two tests before applying?
+> Ah, I missed finding that. Please apply in both tests.
+
+Applied, thanks.
 
 -- 
 Cyril Hrubis
