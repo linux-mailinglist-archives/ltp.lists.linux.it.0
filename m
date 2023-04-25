@@ -2,73 +2,63 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 795266ED690
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Apr 2023 23:08:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84D176EDAA5
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Apr 2023 05:29:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 296623CE588
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Apr 2023 23:08:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3640D3CE57C
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Apr 2023 05:29:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 396933CB304
- for <ltp@lists.linux.it>; Mon, 24 Apr 2023 23:08:14 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 47ACF3CB302
+ for <ltp@lists.linux.it>; Tue, 25 Apr 2023 05:29:04 +0200 (CEST)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B041B14002C6
- for <ltp@lists.linux.it>; Mon, 24 Apr 2023 23:08:13 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 47C3E1FD95;
- Mon, 24 Apr 2023 21:08:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1682370493; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=pWlOVDELT0awlYxBjI0RnsXk6+ecnICOhOidzzdVm/Q=;
- b=ImjkAmTf5Tv3C7ZG51VgEQzbrNt0DlYZkACohF82+G8wG1Ne84toosFe4wdsryHaaW2Ufb
- suJu6HfWobTu/yOZDXN0iC8tyYv2Fjaa/SkOpwj90GPhAp5Fg/TAMfGeY+YhCNcZICgtgT
- IkW52df6uvpuvp6O33Kf+tABGba31M4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1682370493;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=pWlOVDELT0awlYxBjI0RnsXk6+ecnICOhOidzzdVm/Q=;
- b=CqrRsHcfHra/Ct25pn9AmqaVJuQfSu0czspdMMaC21kihRXT0Lld4EEm9pzhB1lKWdJvYS
- R/D5gGP+YtUdYuBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D99AB1390E;
- Mon, 24 Apr 2023 21:08:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EJFdM7zvRmSzIAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 24 Apr 2023 21:08:12 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 24 Apr 2023 23:08:18 +0200
-Message-Id: <20230424210818.2885479-4-pvorel@suse.cz>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230424210818.2885479-1-pvorel@suse.cz>
-References: <20230424210818.2885479-1-pvorel@suse.cz>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 777091400538
+ for <ltp@lists.linux.it>; Tue, 25 Apr 2023 05:29:00 +0200 (CEST)
+X-UUID: b99cefd8e11a46d9a26937e1a1238b14-20230425
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.22, REQID:a6d69fee-2775-4c4d-8c78-7a0b218adf87, IP:10,
+ URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,AC
+ TION:release,TS:-30
+X-CID-INFO: VERSION:1.1.22, REQID:a6d69fee-2775-4c4d-8c78-7a0b218adf87, IP:10,
+ UR
+ L:0,TC:0,Content:-25,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+ ON:release,TS:-30
+X-CID-META: VersionHash:120426c, CLOUDID:ce3466a2-8fcb-430b-954a-ba3f00fa94a5,
+ B
+ ulkID:230425112855GBB3V8OE,BulkQuantity:0,Recheck:0,SF:24|17|19|44|102,TC:
+ nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
+ I:0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-UUID: b99cefd8e11a46d9a26937e1a1238b14-20230425
+Received: from mail.kylinos.cn [(39.156.73.10)] by mailgw
+ (envelope-from <zenghao@kylinos.cn>) (Generic MTA)
+ with ESMTP id 375452005; Tue, 25 Apr 2023 11:28:54 +0800
+Received: from mail.kylinos.cn (localhost [127.0.0.1])
+ by mail.kylinos.cn (NSMail) with SMTP id BBFC9E0084A1;
+ Tue, 25 Apr 2023 11:28:54 +0800 (CST)
+X-ns-mid: postfix-644748F6-66525442
+Received: from zdzh5-QiTianM428-A376.. (unknown [172.20.12.253])
+ by mail.kylinos.cn (NSMail) with ESMTPA id 4291DE0084A1;
+ Tue, 25 Apr 2023 11:28:53 +0800 (CST)
+From: Hao Zeng <zenghao@kylinos.cn>
+To: chrubis@suse.cz
+Date: Tue, 25 Apr 2023 11:28:52 +0800
+Message-Id: <20230425032852.4095325-1-zenghao@kylinos.cn>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 3/3] nfs: Run on all filesystems
+Subject: [LTP] [PATCH v3] fs/doio:Use the snprintf function to prevent buffer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,141 +70,89 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, NeilBrown <neilb@suse.de>,
- Jeff Layton <jlayton@kernel.org>, Steve Dickson <steved@redhat.com>,
- Chuck Lever <chuck.lever@oracle.com>,
- Trond Myklebust <trond.myklebust@hammerspace.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Hao Zeng <zenghao@kylinos.cn>, ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Use variables:
-* TST_ALL_FILESYSTEMS=1 to run on all filesystems
-* TST_FORMAT_DEVICE=1 to get loop device formatted
-* TST_MOUNT_DEVICE=1 to get it mounted
-
-Filesystems (tested the usual LTP way on loop device) are used for
-server side (exportfs), client side (NFS mount) is kept outside of it.
-
-For some reason umounting needs some time before NFS server stops using
-underlying loop device. Also exportfs needs time before files can be
-removed. Otherwise second umounting fails:
-
-nfs07 4 TINFO: Cleaning up testcase
-umount: /var/tmp/LTP_nfs07.FNZ7yCbqZe/mntpoint: target is busy.
-nfs07 4 TINFO: umount(/var/tmp/LTP_nfs07.FNZ7yCbqZe/mntpoint) failed, try 1 ...
-nfs07 4 TINFO: Likely gvfsd-trash is probing newly mounted  fs, kill it to speed up tests.
-umount: /var/tmp/LTP_nfs07.FNZ7yCbqZe/mntpoint: target is busy.
-
-Solved with adding two sleeps for 1 sec (using less is not enough,
-specially for nfs07.sh).
-
-Skipping some problematic filesystems:
-* exfat
-Although it works on some systems (e.g. openSUSE Tumbleweed
-with kernel 6.2.8-1-default, nfs-utils 2.6.2, exfatprogs 1.2.0), it
-fails on other systems (e.g. SLES 15-SP4 with kernel 5.14.21, nfs-utils
-2.1.1, exfatprogs 1.0.4 or Debian 12 bookworm with kernel 6.1.0-6-amd64,
-nfs-utils 2.6.2, exfatprogs 1.2.0)
-
-* tmpfs on nfs-utils < 2
-tmpfs fails on nfs-utils 1.3.3:
-nfs07 1 TINFO: mount.nfs: (linux nfs-utils 1.3.3)
-nfs07 1 TINFO: setup NFSv4.2, socket type tcp
-nfs07 1 TINFO: Mounting NFS: mount -v -t nfs -o proto=tcp,vers=4.2 10.0.0.2:/tmp/LTP_nfs07.cex71Q5bxw/mntpoint/4.2/tcp /tmp/LTP_nfs07.cex71Q5bxw/4.2/0
-mount.nfs: mount(2): No such file or directory
-mount.nfs: mounting 10.0.0.2:/tmp/LTP_nfs07.cex71Q5bxw/mntpoint/4.2/tcp failed, reason given by server: No such file or directory
-mount.nfs: timeout set for Mon Apr 24 21:34:02 2023
-mount.nfs: trying text-based options 'proto=tcp,vers=4.2,addr=10.0.0.2,clientaddr=10.0.0.1'
-nfs07 1 TBROK: mount command failed
-
-But it works on nfs-utils 2.1.1 on SLE15-SP4.
-
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-I'd expect that c5528f40 ("Fix NFSv4 export of tmpfs filesystems")
-from 2.5.4 is needed, but it works in SLE 15-SP4 which is 2.1.1 and this
-patch was not backported.
-
- testcases/network/nfs/nfs_stress/nfs_lib.sh | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
-
-diff --git a/testcases/network/nfs/nfs_stress/nfs_lib.sh b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-index 042fea5e4..1c6657a14 100644
---- a/testcases/network/nfs/nfs_stress/nfs_lib.sh
-+++ b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-@@ -28,7 +28,10 @@ NFS_PARSE_ARGS_CALLER="$TST_PARSE_ARGS"
- TST_OPTS="v:t:$TST_OPTS"
- TST_PARSE_ARGS=nfs_parse_args
- TST_USAGE=nfs_usage
--TST_NEEDS_TMPDIR=1
-+TST_ALL_FILESYSTEMS=1
-+TST_SKIP_FILESYSTEMS="exfat"
-+TST_MOUNT_DEVICE=1
-+TST_FORMAT_DEVICE=1
- TST_NEEDS_ROOT=1
- TST_NEEDS_CMDS="$TST_NEEDS_CMDS mount exportfs mount.nfs"
- TST_SETUP="${TST_SETUP:-nfs_setup}"
-@@ -68,7 +71,7 @@ get_remote_dir()
- 	local v="$1"
- 	local n="$2"
- 
--	echo "$TST_TMPDIR/$v/$n"
-+	echo "$TST_MNTPOINT/$v/$n"
- }
- 
- nfs_get_remote_path()
-@@ -165,6 +168,7 @@ nfs_setup()
- 	local local_dir
- 	local remote_dir
- 	local mount_dir
-+	local util_version
- 
- 	if [ "$(stat -f . | grep "Type: nfs")" ]; then
- 		tst_brk TCONF "Cannot run nfs-stress test on mounted NFS"
-@@ -178,6 +182,14 @@ nfs_setup()
- 
- 	tst_res TINFO "$(mount.nfs -V)"
- 
-+	util_version=$(mount.nfs -V | sed 's/.*nfs-utils \([0-9]\)\..*/\1/')
-+	if ! tst_is_int "$util_version"; then
-+		tst_brk TBROK "Failed to detect mount.nfs major version"
-+	fi
-+	if [ "$TST_FS_TYPE" = "tmpfs" ] && [ "$util_version" -lt 2 ]; then
-+		tst_brk TCONF "Testing tmpfs requires nfs-utils > 1"
-+	fi
-+
- 	for i in $VERSION; do
- 		type=$(get_socket_type $n)
- 		tst_res TINFO "setup NFSv$i, socket type $type"
-@@ -210,6 +222,7 @@ nfs_cleanup()
- 		grep -q "$local_dir" /proc/mounts && umount $local_dir
- 		n=$(( n + 1 ))
- 	done
-+	sleep 1
- 
- 	n=0
- 	for i in $VERSION; do
-@@ -219,12 +232,15 @@ nfs_cleanup()
- 		if tst_net_use_netns; then
- 			if test -d $remote_dir; then
- 				exportfs -u *:$remote_dir
-+				sleep 1
- 				rm -rf $remote_dir
- 			fi
- 		else
- 			tst_rhost_run -c "test -d $remote_dir && exportfs -u *:$remote_dir"
-+			sleep 1
- 			tst_rhost_run -c "test -d $remote_dir && rm -rf $remote_dir"
- 		fi
-+
- 		n=$(( n + 1 ))
- 	done
- }
--- 
-2.40.0
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+VXNlIHRoZSBzbnByaW50ZiBmdW5jdGlvbiBpbnN0ZWFkIG9mIHNwcmludGYgaW4gdGhlIHdyaXRl
+X2xvZy5jIGZpbGUKQ2hhbmdlIHRoZSBXbG9nX0Vycm9yX1N0cmluZyBmcm9tIDI1NiB0byAyMDQ4
+IHRvIHNvbHZlIHRoZSBmb2xsb3dpbmcgY29tcGlsYXRpb24gQWxhcm0gcHJvYmxlbe+8mgp3YXJu
+aW5nOiDigJglc+KAmSBkaXJlY3RpdmUgb3V0cHV0IG1heSBiZSB0cnVuY2F0ZWQgd3JpdGluZyB1
+cCB0byAxMDIzIGJ5dGVzIGludG8gYSByZWdpb24gb2Ygc2l6ZSAyMjgKClNpZ25lZC1vZmYtYnk6
+IEhhbyBaZW5nIDx6ZW5naGFvQGt5bGlub3MuY24+ClN1Z2dlc3RlZC1ieTogQ3lyaWwgSHJ1Ymlz
+IDxjaHJ1YmlzQHN1c2UuY3o+Ci0tLQogdGVzdGNhc2VzL2tlcm5lbC9mcy9kb2lvL3dyaXRlX2xv
+Zy5jIHwgMjIgKysrKysrKysrKystLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDExIGluc2Vy
+dGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwv
+ZnMvZG9pby93cml0ZV9sb2cuYyBiL3Rlc3RjYXNlcy9rZXJuZWwvZnMvZG9pby93cml0ZV9sb2cu
+YwppbmRleCBlOGVmOWM3Y2IuLmMwNjY3N2ZjNiAxMDA2NDQKLS0tIGEvdGVzdGNhc2VzL2tlcm5l
+bC9mcy9kb2lvL3dyaXRlX2xvZy5jCisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvZnMvZG9pby93cml0
+ZV9sb2cuYwpAQCAtODcsNyArODcsNyBAQAogLyojZGVmaW5lIFBBVEhfTUFYIHBhdGhjb25mKCIv
+IiwgX1BDX1BBVEhfTUFYKSovCiAjZW5kaWYKIAotY2hhciBXbG9nX0Vycm9yX1N0cmluZ1syNTZd
+OworY2hhciBXbG9nX0Vycm9yX1N0cmluZ1syMDQ4XTsKIAogI2lmIF9fU1REQ19fCiBzdGF0aWMg
+aW50IHdsb2dfcmVjX3BhY2soc3RydWN0IHdsb2dfcmVjICp3cmVjLCBjaGFyICpidWYsIGludCBm
+bGFnKTsKQEAgLTEyOSw3ICsxMjksNyBAQCBpbnQgd2xvZ19vcGVuKHN0cnVjdCB3bG9nX2ZpbGUg
+KndmaWxlLCBpbnQgdHJ1bmMsIGludCBtb2RlKQogCXVtYXNrKG9tYXNrKTsKIAogCWlmICh3Zmls
+ZS0+d19hZmQgPT0gLTEpIHsKLQkJc3ByaW50ZihXbG9nX0Vycm9yX1N0cmluZywKKwkJc25wcmlu
+dGYoV2xvZ19FcnJvcl9TdHJpbmcsIHNpemVvZihXbG9nX0Vycm9yX1N0cmluZyksCiAJCQkiQ291
+bGQgbm90IG9wZW4gd3JpdGVfbG9nIC0gb3BlbiglcywgJSNvLCAlI28pIGZhaWxlZDogICVzXG4i
+LAogCQkJd2ZpbGUtPndfZmlsZSwgb2ZsYWdzLCBtb2RlLCBzdHJlcnJvcihlcnJubykpOwogCQly
+ZXR1cm4gLTE7CkBAIC0xNDEsNyArMTQxLDcgQEAgaW50IHdsb2dfb3BlbihzdHJ1Y3Qgd2xvZ19m
+aWxlICp3ZmlsZSwgaW50IHRydW5jLCBpbnQgbW9kZSkKIAogCW9mbGFncyA9IE9fUkRXUjsKIAlp
+ZiAoKHdmaWxlLT53X3JmZCA9IG9wZW4od2ZpbGUtPndfZmlsZSwgb2ZsYWdzKSkgPT0gLTEpIHsK
+LQkJc3ByaW50ZihXbG9nX0Vycm9yX1N0cmluZywKKwkJc25wcmludGYoV2xvZ19FcnJvcl9TdHJp
+bmcsIHNpemVvZihXbG9nX0Vycm9yX1N0cmluZyksCiAJCQkiQ291bGQgbm90IG9wZW4gd3JpdGUg
+bG9nIC0gb3BlbiglcywgJSNvKSBmYWlsZWQ6ICAlc1xuIiwKIAkJCXdmaWxlLT53X2ZpbGUsIG9m
+bGFncywgc3RyZXJyb3IoZXJybm8pKTsKIAkJY2xvc2Uod2ZpbGUtPndfYWZkKTsKQEAgLTIxOCwx
+NCArMjE4LDE0IEBAIGludCB3bG9nX3JlY29yZF93cml0ZShzdHJ1Y3Qgd2xvZ19maWxlICp3Zmls
+ZSwgc3RydWN0IHdsb2dfcmVjICp3cmVjLAogCQlyZWNsZW4gKz0gMjsKIAogCQlpZiAod3JpdGUo
+d2ZpbGUtPndfYWZkLCB3YnVmLCByZWNsZW4pID09IC0xKSB7Ci0JCQlzcHJpbnRmKFdsb2dfRXJy
+b3JfU3RyaW5nLAorCQkJc25wcmludGYoV2xvZ19FcnJvcl9TdHJpbmcsIHNpemVvZihXbG9nX0Vy
+cm9yX1N0cmluZyksCiAJCQkJIkNvdWxkIG5vdCB3cml0ZSBsb2cgLSB3cml0ZSglcywgJXMsICVk
+KSBmYWlsZWQ6ICAlc1xuIiwKIAkJCQl3ZmlsZS0+d19maWxlLCB3YnVmLCByZWNsZW4sIHN0cmVy
+cm9yKGVycm5vKSk7CiAJCQlyZXR1cm4gLTE7CiAJCX0gZWxzZSB7CiAJCQlvZmZzZXQgPSBsc2Vl
+ayh3ZmlsZS0+d19hZmQsIDAsIFNFRUtfQ1VSKSAtIHJlY2xlbjsKIAkJCWlmIChvZmZzZXQgPT0g
+LTEpIHsKLQkJCQlzcHJpbnRmKFdsb2dfRXJyb3JfU3RyaW5nLAorCQkJCXNucHJpbnRmKFdsb2df
+RXJyb3JfU3RyaW5nLCBzaXplb2YoV2xvZ19FcnJvcl9TdHJpbmcpLAogCQkJCQkiQ291bGQgbm90
+IHJlcG9zaXRpb24gZmlsZSBwb2ludGVyIC0gbHNlZWsoJXMsIDAsIFNFRUtfQ1VSKSBmYWlsZWQ6
+ICAlc1xuIiwKIAkJCQkJd2ZpbGUtPndfZmlsZSwgc3RyZXJyb3IoZXJybm8pKTsKIAkJCQlyZXR1
+cm4gLTE7CkBAIC0yMzMsMTMgKzIzMywxMyBAQCBpbnQgd2xvZ19yZWNvcmRfd3JpdGUoc3RydWN0
+IHdsb2dfZmlsZSAqd2ZpbGUsIHN0cnVjdCB3bG9nX3JlYyAqd3JlYywKIAkJfQogCX0gZWxzZSB7
+CiAJCWlmICgobHNlZWsod2ZpbGUtPndfcmZkLCBvZmZzZXQsIFNFRUtfU0VUKSkgPT0gLTEpIHsK
+LQkJCXNwcmludGYoV2xvZ19FcnJvcl9TdHJpbmcsCisJCQlzbnByaW50ZihXbG9nX0Vycm9yX1N0
+cmluZywgc2l6ZW9mKFdsb2dfRXJyb3JfU3RyaW5nKSwKIAkJCQkiQ291bGQgbm90IHJlcG9zaXRp
+b24gZmlsZSBwb2ludGVyIC0gbHNlZWsoJXMsICVsZCwgU0VFS19TRVQpIGZhaWxlZDogICVzXG4i
+LAogCQkJCXdmaWxlLT53X2ZpbGUsIG9mZnNldCwgc3RyZXJyb3IoZXJybm8pKTsKIAkJCXJldHVy
+biAtMTsKIAkJfSBlbHNlIHsKIAkJCWlmICgod3JpdGUod2ZpbGUtPndfcmZkLCB3YnVmLCByZWNs
+ZW4pKSA9PSAtMSkgewotCQkJCXNwcmludGYoV2xvZ19FcnJvcl9TdHJpbmcsCisJCQkJc25wcmlu
+dGYoV2xvZ19FcnJvcl9TdHJpbmcsIHNpemVvZihXbG9nX0Vycm9yX1N0cmluZyksCiAJCQkJCSJD
+b3VsZCBub3Qgd3JpdGUgbG9nIC0gd3JpdGUoJXMsICVzLCAlZCkgZmFpbGVkOiAgJXNcbiIsCiAJ
+CQkJCXdmaWxlLT53X2ZpbGUsIHdidWYsIHJlY2xlbiwKIAkJCQkJc3RyZXJyb3IoZXJybm8pKTsK
+QEAgLTI3NCwxNCArMjc0LDE0IEBAIGludCB3bG9nX3NjYW5fYmFja3dhcmQoc3RydWN0IHdsb2df
+ZmlsZSAqd2ZpbGUsIGludCBucmVjcywKIAkgKi8KIAogCWlmICgobHNlZWsoZmQsIDAsIFNFRUtf
+RU5EKSkgPT0gLTEpIHsKLQkJc3ByaW50ZihXbG9nX0Vycm9yX1N0cmluZywKKwkJc25wcmludGYo
+V2xvZ19FcnJvcl9TdHJpbmcsIHNpemVvZihXbG9nX0Vycm9yX1N0cmluZyksCiAJCQkiQ291bGQg
+bm90IHJlcG9zaXRpb24gZmlsZSBwb2ludGVyIC0gbHNlZWsoJXMsIDAsIFNFRUtfRU5EKSBmYWls
+ZWQ6ICAlc1xuIiwKIAkJCXdmaWxlLT53X2ZpbGUsIHN0cmVycm9yKGVycm5vKSk7CiAJCXJldHVy
+biAtMTsKIAl9CiAJb2Zmc2V0ID0gbHNlZWsoZmQsIDAsIFNFRUtfQ1VSKTsKIAlpZiAoKG9mZnNl
+dCA9PSAtMSkpIHsKLQkJc3ByaW50ZihXbG9nX0Vycm9yX1N0cmluZywKKwkJc25wcmludGYoV2xv
+Z19FcnJvcl9TdHJpbmcsIHNpemVvZihXbG9nX0Vycm9yX1N0cmluZyksCiAJCQkiQ291bGQgbm90
+IHJlcG9zaXRpb24gZmlsZSBwb2ludGVyIC0gbHNlZWsoJXMsIDAsIFNFRUtfQ1VSKSBmYWlsZWQ6
+ICAlc1xuIiwKIAkJCXdmaWxlLT53X2ZpbGUsIHN0cmVycm9yKGVycm5vKSk7CiAJCXJldHVybiAt
+MTsKQEAgLTMwOSw3ICszMDksNyBAQCBpbnQgd2xvZ19zY2FuX2JhY2t3YXJkKHN0cnVjdCB3bG9n
+X2ZpbGUgKndmaWxlLCBpbnQgbnJlY3MsCiAJCSAqIE1vdmUgdG8gdGhlIHByb3BlciBmaWxlIG9m
+ZnNldCwgYW5kIHJlYWQgaW50byBidWYKIAkJICovCiAJCWlmICgobHNlZWsoZmQsIG9mZnNldCwg
+U0VFS19TRVQpKSA9PSAtMSkgewotCQkJc3ByaW50ZihXbG9nX0Vycm9yX1N0cmluZywKKwkJCXNu
+cHJpbnRmKFdsb2dfRXJyb3JfU3RyaW5nLCBzaXplb2YoV2xvZ19FcnJvcl9TdHJpbmcpLAogCQkJ
+CSJDb3VsZCBub3QgcmVwb3NpdGlvbiBmaWxlIHBvaW50ZXIgLSBsc2VlayglcywgJWQsIFNFRUtf
+U0VUKSBmYWlsZWQ6ICAlc1xuIiwKIAkJCQl3ZmlsZS0+d19maWxlLCBvZmZzZXQsIHN0cmVycm9y
+KGVycm5vKSk7CiAJCQlyZXR1cm4gLTE7CkBAIC0zMTgsNyArMzE4LDcgQEAgaW50IHdsb2dfc2Nh
+bl9iYWNrd2FyZChzdHJ1Y3Qgd2xvZ19maWxlICp3ZmlsZSwgaW50IG5yZWNzLAogCQluYnl0ZXMg
+PSByZWFkKGZkLCBidWZzdGFydCwgYnVmZW5kIC0gYnVmc3RhcnQgLSBsZWZ0b3Zlcik7CiAKIAkJ
+aWYgKG5ieXRlcyA9PSAtMSkgewotCQkJc3ByaW50ZihXbG9nX0Vycm9yX1N0cmluZywKKwkJCXNu
+cHJpbnRmKFdsb2dfRXJyb3JfU3RyaW5nLCBzaXplb2YoV2xvZ19FcnJvcl9TdHJpbmcpLAogCQkJ
+CSJDb3VsZCBub3QgcmVhZCBoaXN0b3J5IGZpbGUgYXQgb2Zmc2V0ICVkIC0gcmVhZCglZCwgJXAs
+ICVkKSBmYWlsZWQ6ICAlc1xuIiwKIAkJCQlvZmZzZXQsIGZkLCBidWZzdGFydCwKIAkJCQkoaW50
+KShidWZlbmQgLSBidWZzdGFydCAtIGxlZnRvdmVyKSwKLS0gCjIuMzcuMgoKCi0tIApNYWlsaW5n
+IGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
