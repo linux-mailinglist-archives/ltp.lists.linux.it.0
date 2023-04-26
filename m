@@ -2,70 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7EA26EF385
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Apr 2023 13:42:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F60A6EF3E6
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Apr 2023 14:01:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7D1AA3CBB58
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Apr 2023 13:42:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4907C3CBB5B
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Apr 2023 14:01:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 61EFC3CA1D6
- for <ltp@lists.linux.it>; Wed, 26 Apr 2023 13:42:19 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 862DE6007B2
- for <ltp@lists.linux.it>; Wed, 26 Apr 2023 13:42:18 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7D7061FDCD;
- Wed, 26 Apr 2023 11:42:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1682509337; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QWoXzch3iz9gvX2euz7GUK9Qvs7hGLbBXvF5VeB7JvE=;
- b=aUFoPHYevxgKrIE+BJ7W0Q7QwxsHV4s9ag0DCN3kdae/cLUO4ceCD5auSgWN2bTuBQ9IPd
- /jJn7SE0RnXqa7jWZqU28iRo73fve4CQi6wRadKxmpEDtnL47yxhSw6xFFj/YnqtJQnwhn
- iIbEdYlHEL8gtS6K0e14rVD0JgZxLRk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1682509337;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QWoXzch3iz9gvX2euz7GUK9Qvs7hGLbBXvF5VeB7JvE=;
- b=HfRtJdxvloDLLjHi9+SWh6oNCQUDWhczKlLNmu4/6hI051GhT+EmPF1ASyD9dbhcniKbNv
- WMSxyZEHgTE9M7Cw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5D3A9138F0;
- Wed, 26 Apr 2023 11:42:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id zzBAFRkOSWQiBAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 26 Apr 2023 11:42:17 +0000
-Date: Wed, 26 Apr 2023 13:43:21 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Teo Couprie Diaz <teo.coupriediaz@arm.com>
-Message-ID: <ZEkOWeUze71J3x/7@yuki>
-References: <20230420160910.809091-1-teo.coupriediaz@arm.com>
+ by picard.linux.it (Postfix) with ESMTPS id 3B1D73CBB51
+ for <ltp@lists.linux.it>; Wed, 26 Apr 2023 14:01:00 +0200 (CEST)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 22A052009A4
+ for <ltp@lists.linux.it>; Wed, 26 Apr 2023 14:00:58 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E9D3E4B3;
+ Wed, 26 Apr 2023 05:01:40 -0700 (PDT)
+Received: from [10.1.27.36] (e126380.cambridge.arm.com [10.1.27.36])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 674773F5A1;
+ Wed, 26 Apr 2023 05:00:56 -0700 (PDT)
+Message-ID: <e5ee14bc-9f65-877f-38bc-c49896488eac@arm.com>
+Date: Wed, 26 Apr 2023 13:00:26 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230420160910.809091-1-teo.coupriediaz@arm.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20230420160910.809091-1-teo.coupriediaz@arm.com>
+ <ZEkOWeUze71J3x/7@yuki>
+From: Teo Couprie Diaz <teo.coupriediaz@arm.com>
+Organization: Arm Ltd.
+In-Reply-To: <ZEkOWeUze71J3x/7@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Spam-Status: No, score=-1.4 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2 0/2] setpgid: Test EPERM error paths more
  reliably
 X-BeenThere: ltp@lists.linux.it
@@ -80,17 +56,18 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Both pushed, thanks.
+On 26/04/2023 12:43, Cyril Hrubis wrote:
+> Hi!
+> Both pushed, thanks.
+>
+Hi Cyril,
+Thanks a lot !
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
