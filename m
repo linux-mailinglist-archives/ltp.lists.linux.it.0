@@ -1,74 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3DFF6EEFAE
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Apr 2023 09:56:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 02B836EEFF8
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Apr 2023 10:10:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4C76B3CBB5A
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Apr 2023 09:56:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7BE203CBB5F
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Apr 2023 10:10:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 634123C8DAE
- for <ltp@lists.linux.it>; Wed, 26 Apr 2023 09:56:37 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id E6D783CB306
+ for <ltp@lists.linux.it>; Wed, 26 Apr 2023 10:10:41 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 26A4D1A000B0
- for <ltp@lists.linux.it>; Wed, 26 Apr 2023 09:56:36 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8CF23100076B
+ for <ltp@lists.linux.it>; Wed, 26 Apr 2023 10:10:40 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1B49C21A04;
- Wed, 26 Apr 2023 07:56:35 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 56E471FDCC;
+ Wed, 26 Apr 2023 08:10:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1682495795; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1682496640; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GNMCwmw3gEWn3DZdtiSw/tddogfaAIQRHkmCZdadb/o=;
- b=QzagL7ggSMTy0m9zJPYikVXzB+MMjCNm8tiSMe0U/dg2U8IqZEI0OVC5oXcZI1/AVAkhhV
- uO9B0J0eR/7S5OfRzxKS3VjzUp7+BvhrXTF5zOSjVYxcMspeD6yHczQqvCI7NrSGvOq2gz
- kqeZEwZK5Amy4rnbubh1+gWIGaXh7TQ=
+ bh=U9PDi56kwejmppUINP8mIfgHnkBNiFrCpZ0ZawrI904=;
+ b=djP4Y9Sp5HslfcealEYJzd/IHz9x6p/ER/jUnsXOAmaYO+lplkJEysJqQlJ38EpLDLtMnd
+ UU6s4CSSj3Ayd4AGtAIhbqj12DoSjQ0JQfALDjbghAEbaOpfnYt1cyUaVtjgskPFlUKULC
+ vTAB+YeJdG8zh7VsLuc7kVtsvOypg+I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1682495795;
+ s=susede2_ed25519; t=1682496640;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GNMCwmw3gEWn3DZdtiSw/tddogfaAIQRHkmCZdadb/o=;
- b=4d0iBQqBKEFH24J0e+GXEaG5gl5z2KUv9Mp/gfn08eRL/RDTFhTwyKehh7zVqLU8q+DNlj
- fKNuR2X+0J5FgGCg==
+ bh=U9PDi56kwejmppUINP8mIfgHnkBNiFrCpZ0ZawrI904=;
+ b=Lj1t6cilyah3c59Gw6IiLIo3R+e4uPc/RuTOOoZFxbs4e94WuoB21NzTsPVwPZJB+zDONz
+ DGCyWw+E2FLRh/Aw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0885913421;
- Wed, 26 Apr 2023 07:56:35 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3B75A1390E;
+ Wed, 26 Apr 2023 08:10:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OTYJAjPZSGTeBgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 26 Apr 2023 07:56:35 +0000
-Date: Wed, 26 Apr 2023 09:57:38 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id tfUADoDcSGTeDgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 26 Apr 2023 08:10:40 +0000
+Date: Wed, 26 Apr 2023 10:08:53 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <ZEjZcgJMluP0eEie@yuki>
+Message-ID: <ZEjcFS+yZewIinvL@rei>
 References: <20230421145746.5704-1-mdoucha@suse.cz>
- <20230421145746.5704-3-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230421145746.5704-3-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20230421145746.5704-1-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/5] KVM: Fix infinite loop in ptr2hex()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/5] KVM: Add helper functions for accessing
+ GDT/LDT
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,43 +86,12 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Contrary to the C standard, (x >> 64) is equivalent to (x >> 0) on x86.
-
-As far as I can tell right shift larger than the left operand size are
-undefined, at least in C99.
-
-Other than that the patch looks good.
-
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-
-> This can cause infinite loop in ptr2hex() if the highest nibble
-> in the second argument is non-zero. Use temporary variable to avoid
-> bit-shifting by large values.
-> 
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-> ---
->  testcases/kernel/kvm/lib_guest.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/testcases/kernel/kvm/lib_guest.c b/testcases/kernel/kvm/lib_guest.c
-> index d237293fc..d3b2ac3d5 100644
-> --- a/testcases/kernel/kvm/lib_guest.c
-> +++ b/testcases/kernel/kvm/lib_guest.c
-> @@ -82,7 +82,7 @@ char *ptr2hex(char *dest, uintptr_t val)
->  	uintptr_t tmp;
->  	char *ret = dest;
->  
-> -	for (i = 4; val >> i; i += 4)
-> +	for (i = 4, tmp = val >> 4; tmp; i += 4, tmp >>= 4)
->  		;
->  
->  	do {
-> -- 
-> 2.40.0
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+I did have a look at the patchset and I do not see anything wrong, but I
+cannot really review the code without spending a weeks reading the AMD
+CPU manuals. What about sending v2 with the runtest file change and
+CCing the x86@kernel.org mailing list? Hopefully some of the kernel devs
+on that list will have a bit of time to check the actual correctness of
+the code...
 
 -- 
 Cyril Hrubis
