@@ -2,72 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2C6B6F05E4
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Apr 2023 14:35:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80CBC6F062C
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Apr 2023 14:48:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 666513CBF12
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Apr 2023 14:35:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 155B93CDA20
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Apr 2023 14:48:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 33D263CBA98
- for <ltp@lists.linux.it>; Thu, 27 Apr 2023 14:35:48 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id C8F733CBA98
+ for <ltp@lists.linux.it>; Thu, 27 Apr 2023 14:48:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E84B31A00A3A
- for <ltp@lists.linux.it>; Thu, 27 Apr 2023 14:35:47 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E268B21B16;
- Thu, 27 Apr 2023 12:35:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1682598946; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6A9C6600808
+ for <ltp@lists.linux.it>; Thu, 27 Apr 2023 14:48:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1682599680;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2SSFwcf74U7eccN9zzpwJOE762O1+VvU1hD0kV7ssfA=;
- b=qGXqOQMBktdn1n5UJfauIzz4SgjAGnpuOGsVMgg/Y2EuXJfZ5qyN7BahOeWCwT47OrgCn/
- glorhEu1qSDGegUkLFAPoKYXftXgJ8hVxcM8IgZBpc/Olwv98vg0PeNEuCd4o5GHuViuXm
- dU0K9ACOEAibpqMMy906/V8Lq+WL4Ns=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1682598946;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2SSFwcf74U7eccN9zzpwJOE762O1+VvU1hD0kV7ssfA=;
- b=iYHUHW+XCIulXApTTfz5Fg/uOcphaTHFQ1Jo/F/ycBAQB8qa5Puo6NYFhkd8Jo6+PkBKL6
- tNyaf1Z0SqBBS1Cw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CF07313910;
- Thu, 27 Apr 2023 12:35:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4rFNMSJsSmRwWgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 27 Apr 2023 12:35:46 +0000
-Date: Thu, 27 Apr 2023 14:33:59 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <ZEprt3jn04U5EAOL@rei>
+ bh=1C2OCJ7pDbIfVyk9d3Xxqbs+9b89lVbssVp6NPVocFQ=;
+ b=d3deXdAIdMHiMnNaT33mdY2A7KX7PT6+qa24PN2KbQNEI3/HqfoWVXtOTyPGFlKmeLCafy
+ hRwOs2qb1jCoF0xxkGjNJ7BGWMxAT0Tnt5JemWKsM1GXff9WWtWYael6G15YFE/Ho+wrFl
+ uIe/XAat1Dt7lYZjIk5Nq6wtuzCRIbE=
+Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
+ [209.85.208.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-414-rpHQ08NRMX-YH3wXx1gg7Q-1; Thu, 27 Apr 2023 08:47:52 -0400
+X-MC-Unique: rpHQ08NRMX-YH3wXx1gg7Q-1
+Received: by mail-lj1-f199.google.com with SMTP id
+ 38308e7fff4ca-2a8a54fc72cso35525391fa.3
+ for <ltp@lists.linux.it>; Thu, 27 Apr 2023 05:47:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682599670; x=1685191670;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=1C2OCJ7pDbIfVyk9d3Xxqbs+9b89lVbssVp6NPVocFQ=;
+ b=dPO701qw4HuvpZZVaVKfI/IEZOVhbZe2gAXLyon5lofdHvUq2V60MDUwuU6LvByx3Q
+ uL957IYWWjiv8hSyrJwYtrWPQFkSHS9GWktkSA+OTBsa5exTZAQXP3k87/gMReQ2pHBd
+ r3ghDxJZPmG5gIj1hi0cxOm+m61ixHqk+9aK+cJBelQvTRt6RWubUG5x9E8R/I/tCGNt
+ RnOlrseZjOpLA04JL9Th18UaNk7u+GWgqBKk+8CtVWl0nOVOQTlnfwUkxRip2P1cPnOZ
+ 5MbVdeMnTlga4ElZuiWX13MAllfK51uhyZWey7myocdxcAYhJ2bp2q9Xeksq706ij5rh
+ R49w==
+X-Gm-Message-State: AC+VfDyTNnJBt5VssoyFY1/GI7rIq6HJ4kyBjMdnrgjhmehIQ2C4Ik+t
+ isbpewG+uckGtC8GhrTSpbaAqrKcTy5cBtwPNM7flw8OPdCIh5Z+/ktqQ/Gej79DNpr2k9P0soo
+ J0+4VG3aWrU2/CBwei5tLJdFfOmU=
+X-Received: by 2002:a2e:9dda:0:b0:2ab:2940:2662 with SMTP id
+ x26-20020a2e9dda000000b002ab29402662mr572409ljj.37.1682599670743; 
+ Thu, 27 Apr 2023 05:47:50 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ6fQE2xjjlqk3tq/Fu61kJu520698XAvbUiENlzCjHJbdUa913vaca9b4WjyXInxuL6DFJFA00T5xTxcN4BYic=
+X-Received: by 2002:a2e:9dda:0:b0:2ab:2940:2662 with SMTP id
+ x26-20020a2e9dda000000b002ab29402662mr572398ljj.37.1682599670448; Thu, 27 Apr
+ 2023 05:47:50 -0700 (PDT)
+MIME-Version: 1.0
 References: <20230427034039.46512-1-liwang@redhat.com>
  <CAASaF6xujKxK+7Enp5uCk5CZuioc3TjUMjuYe4C6UdWMC6_X+A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAASaF6xujKxK+7Enp5uCk5CZuioc3TjUMjuYe4C6UdWMC6_X+A@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+ <ZEprt3jn04U5EAOL@rei>
+In-Reply-To: <ZEprt3jn04U5EAOL@rei>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 27 Apr 2023 20:47:38 +0800
+Message-ID: <CAEemH2fu4aV45yUx6S5xOf35ak1gRj3WoEKprQpNQihDo-iqkg@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 Subject: Re: [LTP] [PATCH] hugemmap24: increase the baseline of
  slice_boundary according to hpage size
 X-BeenThere: ltp@lists.linux.it
@@ -81,26 +93,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Fanhui Meng <mengfanhui@kylinos.cn>, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it, Fanhui Meng <mengfanhui@kylinos.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> It's an improvement, but the issue of usage of MAP_FIXED remains.
-> No harm taking the patch, but we should likely still rewrite this test.
-> 
-> Acked-by: Jan Stancek <jstancek@redhat.com>
-
-I suppose that this is a band-aid that can go in before the release, but
-as Jan said the test needs to be redesigned.
-
-Acked-by: Cyril Hrubis <chrubis@suse.cz>
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGksCgpPbiBUaHUsIEFwciAyNywgMjAyMyBhdCA4OjM24oCvUE0gQ3lyaWwgSHJ1YmlzIDxjaHJ1
+YmlzQHN1c2UuY3o+IHdyb3RlOgoKPiBIaSEKPiA+IEl0J3MgYW4gaW1wcm92ZW1lbnQsIGJ1dCB0
+aGUgaXNzdWUgb2YgdXNhZ2Ugb2YgTUFQX0ZJWEVEIHJlbWFpbnMuCj4gPiBObyBoYXJtIHRha2lu
+ZyB0aGUgcGF0Y2gsIGJ1dCB3ZSBzaG91bGQgbGlrZWx5IHN0aWxsIHJld3JpdGUgdGhpcyB0ZXN0
+Lgo+ID4KPiA+IEFja2VkLWJ5OiBKYW4gU3RhbmNlayA8anN0YW5jZWtAcmVkaGF0LmNvbT4KPgo+
+IEkgc3VwcG9zZSB0aGF0IHRoaXMgaXMgYSBiYW5kLWFpZCB0aGF0IGNhbiBnbyBpbiBiZWZvcmUg
+dGhlIHJlbGVhc2UsIGJ1dAo+IGFzIEphbiBzYWlkIHRoZSB0ZXN0IG5lZWRzIHRvIGJlIHJlZGVz
+aWduZWQuCj4KClN1cmUsIEkgYWdyZWUgd2l0aCB5b3UgYm90aC4gSSB3aWxsIGJlIHRoaW5raW5n
+IHJlZGVzaWduIHRoZSBzdHJ1Y3R1cmUgb2YKdGhpcyB0ZXN0IHRoZW4uCgpQYXRjaCBhcHBsaWVk
+LiB0aGFua3MhCgoKCj4KPiBBY2tlZC1ieTogQ3lyaWwgSHJ1YmlzIDxjaHJ1YmlzQHN1c2UuY3o+
+Cj4KPiAtLQo+IEN5cmlsIEhydWJpcwo+IGNocnViaXNAc3VzZS5jego+Cj4KCi0tIApSZWdhcmRz
+LApMaSBXYW5nCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQv
+bGlzdGluZm8vbHRwCg==
