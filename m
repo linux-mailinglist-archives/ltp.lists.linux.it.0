@@ -2,73 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2B206F127C
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Apr 2023 09:38:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 184E76F1291
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Apr 2023 09:41:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6B2B03CBA19
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Apr 2023 09:38:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D21CB3CBA19
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Apr 2023 09:41:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0D6233CB36F
- for <ltp@lists.linux.it>; Fri, 28 Apr 2023 09:38:01 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 625223CB36F
+ for <ltp@lists.linux.it>; Fri, 28 Apr 2023 09:41:31 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 449D01400345
- for <ltp@lists.linux.it>; Fri, 28 Apr 2023 09:37:59 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B3A521A00682
+ for <ltp@lists.linux.it>; Fri, 28 Apr 2023 09:41:30 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 98D0220004;
- Fri, 28 Apr 2023 07:37:58 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 04A9C20001;
+ Fri, 28 Apr 2023 07:41:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1682667478;
+ t=1682667690;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pIuVhR3Oue093JcX1pjLFpK3X1aYdqBss2mNDY1KkrI=;
- b=BQT+76K8ZOCWCWCNSDB5PlyA5FF9XjHn4scQMDzLK/RqgDmFssQDu12vLKd7fbZPTqr09H
- BRe3rBe+TLGO36dNoIDSJ22LIZ396mHUdusaRHN5jSgeDX3Q+Gk4VGQJyhCHnMeWgTWgGH
- Gh+8//TGkuH1AEcLg9SPpyCi/qUejig=
+ bh=PK/d5i7/HhL/nspHNYN1YYFpEidMM15yeCTyszmVRQc=;
+ b=Ibaw5ICv+dIedSmBBSXn0NPVRMfOv4jk4VyTWZdEZg/Zw1kb9x52OjhaxxAVvP8/Ysl0S8
+ 6wxY+zConez/v7Jxt5+89PkPecIFUj4gwxGAxXlCz0A8LP5RP6tQjwqi2Qac8NhXU8mItt
+ Y84Na5w8mnLQIcAM3mlHjsLD33PaIxk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1682667478;
+ s=susede2_ed25519; t=1682667690;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pIuVhR3Oue093JcX1pjLFpK3X1aYdqBss2mNDY1KkrI=;
- b=ccply/MIbs5O6vms4h3hC+BJoLybfT8ti0KdclFtQ8Z1VTH1+sixf3xA6Ru5ml5Ka1j+lO
- S0ELkW4Blb02fQAg==
+ bh=PK/d5i7/HhL/nspHNYN1YYFpEidMM15yeCTyszmVRQc=;
+ b=Ug9E0DrtWjE5Uy+coJsuLoeUo6PN1itBRKtH7DS8sDwECRoM9qO1Mnzx+0jsmW96PzYEn4
+ DaFYvyECuvRE42AA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 49A351390E;
- Fri, 28 Apr 2023 07:37:58 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C71DF1390E;
+ Fri, 28 Apr 2023 07:41:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 7hjnD9Z3S2RmWgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 28 Apr 2023 07:37:58 +0000
-Date: Fri, 28 Apr 2023 09:38:08 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id S7oqL6l4S2QcXAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 28 Apr 2023 07:41:29 +0000
+Date: Fri, 28 Apr 2023 09:41:40 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>, ltp@lists.linux.it
-Message-ID: <20230428073808.GB3187054@pevik>
-References: <20230426090803.2928-1-andrea.cervesato@suse.de>
- <20230427184345.GC3146239@pevik>
+To: Edward Liaw <edliaw@google.com>
+Message-ID: <20230428074140.GA3189207@pevik>
+References: <20230427174309.1479093-1-edliaw@google.com>
+ <20230427174309.1479093-3-edliaw@google.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230427184345.GC3146239@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <20230427174309.1479093-3-edliaw@google.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Support return value in TST_* macros
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/2] fcntl{34,
+ 36}: Use arch dependent types for my_flock64
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,14 +82,15 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: kernel-team@android.com, rpalethorpe@suse.com, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Andrea,
+Hi all,
 
-thanks, merged.
+thanks, patchset merged.
 
 Kind regards,
 Petr
