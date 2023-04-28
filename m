@@ -2,74 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 226046F12F5
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Apr 2023 10:04:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0ACF6F1379
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Apr 2023 10:49:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E54883CBA09
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Apr 2023 10:04:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E65693CBA3E
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Apr 2023 10:49:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F10B43C08CE
- for <ltp@lists.linux.it>; Fri, 28 Apr 2023 10:04:45 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id D964A3CBA25
+ for <ltp@lists.linux.it>; Fri, 28 Apr 2023 10:49:30 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5202920090A
- for <ltp@lists.linux.it>; Fri, 28 Apr 2023 10:04:44 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 755B820090A
+ for <ltp@lists.linux.it>; Fri, 28 Apr 2023 10:49:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1682671768;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=f/VGEAaBLoNBFp7OFFqdC3Ido2h1JVStk9UEit+7Gmw=;
+ b=QNAh1WRGZfAN2NspFGo0J+WIz7hCDKf9cGBeHd0XRsSXImPohan6DkvE/HML9xdJAYI/Qo
+ AEBM2Ws7jss7eH64tT0qBudIshGcUHogS9CTWQh2NmX9GwO10tiV3xoFg+ckXIDyzy4ZNO
+ qn+TzMrf7xUi7nzHtdXH1h8B0CkAr5U=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-107-XV0FPD1yMAa2h7Gos77nPA-1; Fri, 28 Apr 2023 04:49:26 -0400
+X-MC-Unique: XV0FPD1yMAa2h7Gos77nPA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8E6F121E70;
- Fri, 28 Apr 2023 08:04:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1682669084;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lIMLh5DqgzzMZfXwB4YQIfSV2uJEZl2AZA4InKCkhxU=;
- b=DNHe1U0fk14evyF93+KTtfS4awfJht7q3180YwoxFsnMHSY37d+YSxVzosV4YE6LIpKimP
- IHVOtG3NfPqtDzGdx/83KX1om5F7Bid+dg9x7KGqUxh/2Fq/AuNSAqjRF2xcKa8SGcowNg
- nELpN/VolGZxP6Fa8lztyAFGGjKxrI8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1682669084;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lIMLh5DqgzzMZfXwB4YQIfSV2uJEZl2AZA4InKCkhxU=;
- b=geqnjrEshRDpPTzqGCWM+I512UQ1TNIE2rWBpqDIislUCzhSVmC82LH4cmo2yNV8GBCfM4
- MYv102O195fo11Dw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 69A611390E;
- Fri, 28 Apr 2023 08:04:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4dENGBx+S2SAaQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 28 Apr 2023 08:04:44 +0000
-Date: Fri, 28 Apr 2023 10:04:54 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Wei Gao <wegao@suse.com>
-Message-ID: <20230428080454.GB3191151@pevik>
-References: <20230422135337.12087-1-wegao@suse.com>
- <20230428001701.31670-1-wegao@suse.com>
- <20230428001701.31670-2-wegao@suse.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9E0D9886063;
+ Fri, 28 Apr 2023 08:49:25 +0000 (UTC)
+Received: from fedora-laptop.nay.redhat.com (unknown [10.66.80.254])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 10E5C1121314;
+ Fri, 28 Apr 2023 08:49:23 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Fri, 28 Apr 2023 16:49:22 +0800
+Message-Id: <20230428084922.9834-1-liwang@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230428001701.31670-2-wegao@suse.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v10 1/2] kill01: New case cgroup kill
+Subject: [LTP] [RFC PATCH] tst_cgroup: Avoid mixing mounts V1 and V2
+ simultaneously
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,31 +73,68 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Wei,
+There is a tiny problem with the test logic of this tst_cgroup library,
+that it potentially mixes Cgroup V1 and V2 together to be mounted at
+the same time. The scenario happens once people just requests CTRL_BASE
+(or a V2 controller not enabled) on a only V1-mounted system.
 
-this commit should be second, after "tst_cgroup.c: Add a cgroup base
-controller". Because it depends on it. With the current (wrong) order,
-it compiles, but it fails in runtime:
+Cgroup community always objected to enabling Cgroup like that (V1&V2),
+which may bring unexpected issues along the way.
 
-$ ./cgroup_core03
-tst_cgroup.c:803: TBROK: 'base' controller is unknown to LTP
+So this patch cancels LTP mount V1&V2 simultaneously even if there is
+no overlap in specific controller files.
 
-We try to have each commit "working": 1) possible to compile
-2) test actually working. This is needed when we try to search for error with
-git bisect.
+Note:
+  This patch is a follow-up on GAO Wei's work about adding CTRL_BASE.
+  So we need to apply after that patchset.
 
-You can mention in "tst_cgroup.c: Add a cgroup base controller",
-that it will be needed in the test added in following commit.
+Signed-off-by: Li Wang <liwang@redhat.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.de>
+Cc: Wei Gao <wegao@suse.com>
+---
+ lib/tst_cgroup.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Kind regards,
-Petr
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+index d08a31651..bceb10d1d 100644
+--- a/lib/tst_cgroup.c
++++ b/lib/tst_cgroup.c
+@@ -786,6 +786,10 @@ static void cgroup_copy_cpuset(const struct cgroup_root *const root)
+  * If we can't mount V2 or the controller is not on V2, then we try
+  * mounting it on its own V1 tree.
+  *
++ * The worth mentioning here is that once there detect V1 mounted,
++ * we skip mounting V2 because LTP doesn't allow V1 and V2 mixes to
++ * be tested in any scenario, and vice versa.
++ *
+  * Once we have mounted the controller somehow, we create a hierarchy
+  * of cgroups. If we are on V2 we first need to enable the controller
+  * for all children of root. Then we create hierarchy described in
+@@ -828,13 +832,14 @@ void tst_cg_require(const char *const ctrl_name,
+ 	if (ctrl->ctrl_root)
+ 		goto mkdirs;
+ 
+-	if (!cgroup_v2_mounted() && options->needs_ver != TST_CG_V1)
++	if (!cgroup_v2_mounted() && options->needs_ver != TST_CG_V1
++			&& !cgroup_v1_mounted())
+ 		cgroup_mount_v2();
+ 
+ 	if (ctrl->ctrl_root)
+ 		goto mkdirs;
+ 
+-	if (options->needs_ver != TST_CG_V2)
++	if (options->needs_ver != TST_CG_V2 && !cgroup_v2_mounted())
+ 		cgroup_mount_v1(ctrl);
+ 
+ 	if (base)
+-- 
+2.40.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
