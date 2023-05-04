@@ -1,75 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F3ED6F6CB5
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 May 2023 15:14:44 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00CD96F6CC3
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 May 2023 15:16:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2F2BC3CB7D6
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 May 2023 15:14:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C44EB3CB7B8
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 May 2023 15:16:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CF9D73CB7BB
- for <ltp@lists.linux.it>; Thu,  4 May 2023 15:14:07 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 687683CB6EA
+ for <ltp@lists.linux.it>; Thu,  4 May 2023 15:16:54 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 420DE200B03
- for <ltp@lists.linux.it>; Thu,  4 May 2023 15:14:06 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 739DF60090E
+ for <ltp@lists.linux.it>; Thu,  4 May 2023 15:16:53 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3F26E1FF73;
- Thu,  4 May 2023 13:14:06 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B2CA31FD79;
+ Thu,  4 May 2023 13:16:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1683206046; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1683206212;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=akIoO/Oc1cHzyjDxWGHLqsPOi6W/co79Mdb3DCW+ZE0=;
- b=toujx3QUynVly1TxHkF2wc25tiQYgJ82ucdSDpMZJqJ3DbSZcChJptO6LQGZJAIMoGubvy
- xwp6lucR4YzYV9UcyEB6DPOet7Q2ZHkVgR3RCDmMQjTyCFH1JQ+r7fubryucDF8N3niKK/
- bRBY1A3NvcOc6BzuUaPtXLWoMgTpiWM=
+ bh=OomMbo0TSJzi8MLQsJ0ESw5ROiDQmK4a0WJEeucduiA=;
+ b=ztKmuBdOVcB9v6XVjsL8xNJ8iRUymtODHmRGf6oSZDNPns0ts9oQPvrj5Aevk2Hj3irMR3
+ /7/FTU2DSTWCm38y5fDH4Vv//DAQnXRN1QTzOJTtzmfbLxAUpk9jDdgXNccpDDWneUQnkw
+ uj+a1arTWKsQ0gY0P/u1ETtzh3Sswgo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1683206046;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1683206212;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=akIoO/Oc1cHzyjDxWGHLqsPOi6W/co79Mdb3DCW+ZE0=;
- b=rXxfh9TujK2VZ8n+y8Q5Ib1tD1VTcnMtibg9lOSsJpEXcbbpF1/25Z3RY1aNdE/zWVs6BU
- RE3SltDt1gNrB7BA==
+ bh=OomMbo0TSJzi8MLQsJ0ESw5ROiDQmK4a0WJEeucduiA=;
+ b=My/pix7x7bpmnyZiIalY1iDkQy7MJUH3r3Nerhz6YCqArv3sc4+sTpm3D6BZzaO83yoBk7
+ ylcsQMfgH0e48fAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E0E9F13444;
- Thu,  4 May 2023 13:14:05 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8491A13444;
+ Thu,  4 May 2023 13:16:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OKyCNJ2vU2TXVgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 04 May 2023 13:14:05 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2IyUEESwU2SFWAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 04 May 2023 13:16:52 +0000
+Date: Thu, 4 May 2023 15:17:06 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu,  4 May 2023 15:14:14 +0200
-Message-Id: <20230504131414.3826283-6-pvorel@suse.cz>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230504131414.3826283-1-pvorel@suse.cz>
-References: <20230504131414.3826283-1-pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20230504131706.GA3826382@pevik>
+References: <ZEjsKC6ESB1+mM0H@rei> <20230502143711.GA3665733@pevik>
+ <ZFIp4Sulcy20GWkc@rei>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <ZFIp4Sulcy20GWkc@rei>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 5/5] nfs: Run on btrfs, ext4, xfs
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] LTP release preparations
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,96 +81,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: NeilBrown <neilb@suse.de>, linux-nfs@vger.kernel.org,
- Jeff Layton <jlayton@kernel.org>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-because there are some problems with at least vfat, exfat and tmpfs (on
-nfs-utils < 2) instead of testing on all available filesystems, test
-just on modern Linux filesystems btrfs, ext4, xfs.
+Hi all,
 
-Use variables:
-* TST_ALL_FILESYSTEMS=1 to run on all filesystems
-* TST_FORMAT_DEVICE=1 to get loop device formatted
-* TST_MOUNT_DEVICE=1 to get it mounted
+> Hi!
+> > * IMHO Martin's KVM patchset should be merged
+> > https://patchwork.ozlabs.org/project/ltp/list/?series=351921&state=*
 
-Filesystems (tested the usual LTP way on loop device) are used for
-server side (exportfs), client side (NFS mount) is kept outside of it.
+> Feel free to merge with my ack as long as it passes basic testsing.
 
-For some reason umounting needs some time before NFS server stops using
-underlying loop device. Also exportfs needs time before files can be
-removed. Otherwise second umounting fails:
+> > * nfslock01.sh: Don't test on NFS v3 on TCP
+> > https://patchwork.ozlabs.org/project/ltp/patch/20230502075921.3614794-1-pvorel@suse.cz/
+> > => IMHO should go in to increase NFS tests stability
 
-nfs07 4 TINFO: Cleaning up testcase
-umount: /var/tmp/LTP_nfs07.FNZ7yCbqZe/mntpoint: target is busy.
-nfs07 4 TINFO: umount(/var/tmp/LTP_nfs07.FNZ7yCbqZe/mntpoint) failed, try 1 ...
-nfs07 4 TINFO: Likely gvfsd-trash is probing newly mounted  fs, kill it to speed up tests.
-umount: /var/tmp/LTP_nfs07.FNZ7yCbqZe/mntpoint: target is busy.
+> The discussion around it sounds like this is a kernel problem after all.
 
-Solved with adding sleep for 2 sec after first umount and sleeps for 1 sec after exportfs.
-Second umount of the loop device in tst_test.sh works without any extra
-sleep.
+I didn't get if we want to keep this *not* merged.
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/network/nfs/nfs_stress/nfs_lib.sh | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+> > * NFS: test on all filesystems
+> > https://patchwork.ozlabs.org/project/ltp/list/?series=352840&state=*
 
-diff --git a/testcases/network/nfs/nfs_stress/nfs_lib.sh b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-index 042fea5e4..abf7ba5a2 100644
---- a/testcases/network/nfs/nfs_stress/nfs_lib.sh
-+++ b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-@@ -28,7 +28,10 @@ NFS_PARSE_ARGS_CALLER="$TST_PARSE_ARGS"
- TST_OPTS="v:t:$TST_OPTS"
- TST_PARSE_ARGS=nfs_parse_args
- TST_USAGE=nfs_usage
--TST_NEEDS_TMPDIR=1
-+TST_ALL_FILESYSTEMS=1
-+TST_SKIP_FILESYSTEMS="exfat,ext2,ext3,fuse,ntfs,vfat,tmpfs"
-+TST_MOUNT_DEVICE=1
-+TST_FORMAT_DEVICE=1
- TST_NEEDS_ROOT=1
- TST_NEEDS_CMDS="$TST_NEEDS_CMDS mount exportfs mount.nfs"
- TST_SETUP="${TST_SETUP:-nfs_setup}"
-@@ -68,7 +71,7 @@ get_remote_dir()
- 	local v="$1"
- 	local n="$2"
- 
--	echo "$TST_TMPDIR/$v/$n"
-+	echo "$TST_MNTPOINT/$v/$n"
- }
- 
- nfs_get_remote_path()
-@@ -210,6 +213,7 @@ nfs_cleanup()
- 		grep -q "$local_dir" /proc/mounts && umount $local_dir
- 		n=$(( n + 1 ))
- 	done
-+	sleep 2
- 
- 	n=0
- 	for i in $VERSION; do
-@@ -219,12 +223,15 @@ nfs_cleanup()
- 		if tst_net_use_netns; then
- 			if test -d $remote_dir; then
- 				exportfs -u *:$remote_dir
-+				sleep 1
- 				rm -rf $remote_dir
- 			fi
- 		else
- 			tst_rhost_run -c "test -d $remote_dir && exportfs -u *:$remote_dir"
-+			sleep 1
- 			tst_rhost_run -c "test -d $remote_dir && rm -rf $remote_dir"
- 		fi
-+
- 		n=$(( n + 1 ))
- 	done
- }
--- 
-2.40.0
+> This is rather big change, is this important enough to get it in just
+> before the git freeze?
 
+There is v5 which tests only btrfs, ext4 and xfs. That should be safe to merge.
+https://patchwork.ozlabs.org/project/ltp/list/?series=353495
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
