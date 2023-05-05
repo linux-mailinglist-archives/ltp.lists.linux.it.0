@@ -1,76 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F15996F851F
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 May 2023 16:56:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B44926F851D
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 May 2023 16:56:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 890343CB6D0
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 May 2023 16:56:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B409E3CB689
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 May 2023 16:56:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E90BB3CB37F
+ by picard.linux.it (Postfix) with ESMTPS id 982EB3CB37F
  for <ltp@lists.linux.it>; Fri,  5 May 2023 16:56:28 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0739F1A00ECD
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1723C200DAC
  for <ltp@lists.linux.it>; Fri,  5 May 2023 16:56:27 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D6B54229CF
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F3B1E20091
  for <ltp@lists.linux.it>; Fri,  5 May 2023 14:56:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1683298586; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=F5JIZ8vaLJ7X1hk6NcV5ZEK+nW7WLpVgA9cmwnC/6V0=;
- b=Q0hXornaRy6tweodz0Ql3pyxacoPVU8TKMedkCB+AWL9ZgZzRgx6y9XFGP2qUK+NBX3nfD
- U9tsYSFHMwGj19xcrcOp7BRQSlZOuvOHJcDvJ/CvqyfqNOjMTWrR7UILNAGMdkNqpv1KMz
- sClcYVeTWX1NFAuVpO1uRCKkNL26YM4=
+ bh=PHrW94uUtoT8ieHteAvIGnXqdicepY9HqmKmJz1b4sc=;
+ b=BR5tHIrFRGF8nPuDjwu6so2nebFjWNPHSYpl91tKqLWCj1nOgUPZKIesYg/BGTtpqDH/C2
+ 3I8KA2sSxX5JpAZWn0/yL/2B7dSMaGA4wWReUhXNujQTWXk+vzSyesH0gakI0vAH7wMOc9
+ KcvcEcqomOH0vZPrWt8UmKGHVG/1nAg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1683298586;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=F5JIZ8vaLJ7X1hk6NcV5ZEK+nW7WLpVgA9cmwnC/6V0=;
- b=FYgB91wvqDdRDzuutosSC9Y6qjBtiRXx8uuJk0q7kEAkZoEWmp28YqdDXGfCgZ6A3qP4X3
- 20npdb5CYuis3QCA==
+ bh=PHrW94uUtoT8ieHteAvIGnXqdicepY9HqmKmJz1b4sc=;
+ b=uKaKyD/g1F4iesH6kZopmH4Pto0DZIYgnO1e19DHJxbjKGaGDZ0/Qf0dE/MCIEG1C/iVN2
+ 0ancmwncK3gxmrDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C805C139F8
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DAD0913513
  for <ltp@lists.linux.it>; Fri,  5 May 2023 14:56:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QEATMBoZVWTXAQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id kPujNBoZVWTXAQAAMHmgww
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Fri, 05 May 2023 14:56:26 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri,  5 May 2023 16:56:25 +0200
-Message-Id: <20230505145626.2537-2-mdoucha@suse.cz>
+Date: Fri,  5 May 2023 16:56:26 +0200
+Message-Id: <20230505145626.2537-3-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230505145626.2537-1-mdoucha@suse.cz>
 References: <20230505145626.2537-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] ipc/semget05: Set dynamic run time
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/3] doc: Fix typo in max_runtime docs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,34 +86,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The semget() syscall can be slow on some archs so too high default
-system limit may cause timeouts. Set dynamic run time based on
-semaphore limit.
-
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
+ doc/c-test-api.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I've originally tried to create an IPC namespace and set low custom limit
-but IPC namespaces don't allow unprivileged users to reconfigure them
-like the network namespaces do. This is the second best solution.
-
- testcases/kernel/syscalls/ipc/semget/semget05.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/testcases/kernel/syscalls/ipc/semget/semget05.c b/testcases/kernel/syscalls/ipc/semget/semget05.c
-index d6810c11b..dd9a6285d 100644
---- a/testcases/kernel/syscalls/ipc/semget/semget05.c
-+++ b/testcases/kernel/syscalls/ipc/semget/semget05.c
-@@ -42,6 +42,9 @@ static void setup(void)
- 		used_cnt);
- 	SAFE_FILE_SCANF("/proc/sys/kernel/sem", "%*d %*d %*d %d", &maxsems);
+diff --git a/doc/c-test-api.txt b/doc/c-test-api.txt
+index bd9ec72b9..dcb6e1ba8 100644
+--- a/doc/c-test-api.txt
++++ b/doc/c-test-api.txt
+@@ -102,7 +102,7 @@ that should cover the duration of test setup and cleanup plus some safety.
+ Any test that runs for more than a second or two has to make sure to:
  
-+	/* Prevent timeout due to high semaphore array limit */
-+	tst_set_max_runtime(maxsems / 200);
-+
- 	sem_id_arr = SAFE_MALLOC((maxsems - used_cnt) * sizeof(int));
- 	for (num = 0; num < maxsems - used_cnt; num++) {
- 		res = semget(semkey + num, PSEMS, IPC_CREAT | IPC_EXCL | SEM_RA);
+ - set the runtime either by setting the '.max_runtime' in tst_test or by
+-  calling 'tst_set_runtime()' in the test setup
++  calling 'tst_set_max_runtime()' in the test setup
+ 
+ - monitor remaning runtime by regular calls to 'tst_remaining_runtime()' and
+   exit when runtime has been used up
 -- 
 2.40.0
 
