@@ -1,75 +1,87 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8461B6FBEE8
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 May 2023 07:53:03 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CFD46FC22C
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 May 2023 10:59:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 552633CB531
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 May 2023 07:53:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id ABC7F3CB54C
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 May 2023 10:59:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 129A73C25BE
- for <ltp@lists.linux.it>; Tue,  9 May 2023 07:53:01 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 8FE943C0238
+ for <ltp@lists.linux.it>; Mon,  8 May 2023 04:50:34 +0200 (CEST)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id F188860070D
- for <ltp@lists.linux.it>; Tue,  9 May 2023 07:53:00 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 69DBD21A6D;
- Tue,  9 May 2023 05:52:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1683611578;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Yt/0ZE7GGTqI6gECQ2dHVLUjeBS5apTMxiBd6Riikb8=;
- b=e/v+mTTWBJIy62Jb5EJicqYuSE34L/ZdGvJ/ItT/HceYDAoco1gtKeLlwCCBDJOf7QNvY1
- MV1CCtpBf23HfDkAmUcXzt71jUzyrullfCkU2/HbIJKZ6WwzJjXQ+DvUvVjAsigjReQLJr
- /sMQdaM7XsxHFGk79U2Y1IAb9IBVw/M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1683611578;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Yt/0ZE7GGTqI6gECQ2dHVLUjeBS5apTMxiBd6Riikb8=;
- b=V/veJRziWRDLzNSZGWW6WVKs/2xyE4jL5MeCyn1o2d6Vsk884xTmYh1bk+rEik2tJQxCPA
- FMpX4QzW0/pXdpCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 535FB1346B;
- Tue,  9 May 2023 05:52:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3DJFE7rfWWSIegAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 09 May 2023 05:52:58 +0000
-Date: Tue, 9 May 2023 07:52:56 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Wei Gao <wegao@suse.com>
-Message-ID: <20230509055256.GB128837@pevik>
-References: <20230321110337.22970-1-wegao@suse.com>
- <20230505173137.GB31348@pevik> <ZFe1VgRXMggwVwV3@localhost>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 82C1D2001D7
+ for <ltp@lists.linux.it>; Mon,  8 May 2023 04:50:33 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4f139de8cefso25377355e87.0
+ for <ltp@lists.linux.it>; Sun, 07 May 2023 19:50:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cogentembedded-com.20221208.gappssmtp.com; s=20221208; t=1683514233;
+ x=1686106233; 
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=omFhmpWfBFJG0jkrfHOXVs2//eYJEOe02UXxq4pKYA8=;
+ b=uDJ+sjSb0CuQi5GnnrqUR9h9rKMW7xJMfg4kMFpcSToQBlkhFiTQOhvMaKjB/P9szY
+ ac+Fad1fu7JszhAUD3SRsDHnVa+jn/Bd7A/DNYYpsC7QRQbeh5LI/zDmAYPZOjbILEqF
+ Ucz29HJ0/axngV41J5sCWyUYZJY4Ake4ENlTRAcvhZunK+axdR/FRG5WMudrvjLHGzHP
+ eVdkGJWKeDTTeLyes/ZBBtV/exVPgSjv7GIMb7AZv0pdL0Hp0Q9MrswEcF+PXax2BQqD
+ m8eIcjGmyRyphyaczMG/jU+axi+zgV9xxY9Wy5Oc6iBYNpk992WHHgPGbdj7cCnucWm+
+ wKCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683514233; x=1686106233;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=omFhmpWfBFJG0jkrfHOXVs2//eYJEOe02UXxq4pKYA8=;
+ b=AHyNf+Q7bpaoOqMa2ItmKnhfNZzWMyWyOsQoP92dVfdUAGhE1XAbvaUo+pKnbeCRRM
+ xkifgAf3b+LfFq6DT+bCq5IFfa+VuxhG4ecz8CmKRg6SzEXYir54bOnnc2Fbx38EjeWj
+ Gf7J5uAM+9gsFSFmhWhjp86TnSLF2VUosANQTCMDklighnGEKMLqUikK0UmP1wuFjU82
+ TxAEtoDjZ1928vCkhz0+n7y+76VVBWK0Ad+Jr1gsXIEYDIUUTQAoXep5q/pg0bHf6iKM
+ TLZS/4Uj3wVWIAGI9MC2usoE2s2FwXFGLLHRCYyZAmqWp9u5Oey6jw+LK9LYlFSWZuhN
+ mDvQ==
+X-Gm-Message-State: AC+VfDx6rBsv/PODVqaCfBkhER2KaLdFvqI3rSiDx6qOOguETBleMMIj
+ qsT10G7P7UZbSsocE1lotQa+Jg==
+X-Google-Smtp-Source: ACHHUZ7/7LsA1qi8V7FDWQkIqlJeKKgdJSpCGRN0J3H9cSrGKPBKWdcRg9t16DSKLshSMqYqm3qM0w==
+X-Received: by 2002:a2e:8ed2:0:b0:2a7:80d5:a43c with SMTP id
+ e18-20020a2e8ed2000000b002a780d5a43cmr2166694ljl.5.1683514232751; 
+ Sun, 07 May 2023 19:50:32 -0700 (PDT)
+Received: from [192.168.8.148] ([85.193.100.38])
+ by smtp.gmail.com with ESMTPSA id
+ d18-20020a2e3612000000b002a8c4a26960sm1013180lja.75.2023.05.07.19.50.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 07 May 2023 19:50:32 -0700 (PDT)
+Message-ID: <81826e4f-aa4c-1213-8b2e-28ef57caf1a3@cogentembedded.com>
+Date: Mon, 8 May 2023 08:50:29 +0600
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZFe1VgRXMggwVwV3@localhost>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-US
+To: Petr Vorel <pvorel@suse.cz>, Jeff Layton <jlayton@kernel.org>
+References: <20230502075921.3614794-1-pvorel@suse.cz>
+ <d441b9f9dfcbb4719d97c7b3b5950dfeeb8913d2.camel@kernel.org>
+ <20230502134146.GA3654451@pevik>
+From: Nikita Yushchenko <nikita.yoush@cogentembedded.com>
+In-Reply-To: <20230502134146.GA3654451@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] starvation.c: New case for sched starvation
+X-Spam-Status: No, score=-4.2 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Mailman-Approved-At: Tue, 09 May 2023 10:59:37 +0200
+Subject: Re: [LTP] [PATCH 1/1] nfslock01.sh: Don't test on NFS v3 on TCP
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,66 +93,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
+Cc: linux-nfs@vger.kernel.org, NeilBrown <neilb@suse.de>,
+ Steve Dickson <steved@redhat.com>, ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> On Fri, May 05, 2023 at 07:31:37PM +0200, Petr Vorel wrote:
-> > Hi Wei,
+>> rpcbind was obviously written in a time before namespaces were even a
+>> thought to anyone. I wonder if there is something we can do in rpcbind
+>> itself to guard against these sorts of shenanigans? Probably not, I
+>> guess...
+> 
+> Maybe Steve or Neil have some idea.
+> 
+>> Is /var shared between namespaces in this test for some particular
+>> reason?
+> 
+> I hope I got , we talk about /var/run/netns/ltp_ns, which is symlink to
+> /proc/$pid/ns/net. Or is it really about /run/rpcbind.sock vs
+> /var/run/rpcbind.sock?
 
-> > > +static struct tst_test test = {
-> > > +	.test_all = do_test,
-> > > +	.setup = setup,
-> > > +	.forks_child = 1,
-> > > +	.needs_checkpoints = 1,
-> > > +	.max_runtime = 120,
-> > Are you sure 2 min is enough? Maybe we need to use tst_remaining_runtime() to
-> > check if we're not running out of time.
+The overall picture is:
 
-> Seems difficult to check with tst_remaining_runtime since i can use code such as:
-> while(tst_remaining_runtime()) 
-> 	wait_for_pid();
+- by design, filesystem namespaces and network namespaces are independent, it is pretty ok for two 
+processes to share filesystem namespace and be in different network namespaces, or vice versa.
 
-If you don't know how to use tst_remaining_runtime() how about getting
-inspiration from lib/newlib_tests/test_runtime01.c ?
+- the code in question, while being in the kernel for ages, is breaking this basic design, by using 
+filesystem path to contact a network service,
 
-static void run(void)
-{
-	int runtime;
+- thus the fix is: just not do that.
 
-	tst_res(TINFO, "...");
+I consider kernel contacting rpcbind via AF_UNIX being a bug in the kernel namespace implementation. So 
+this is a rare case when a test suite (LTP) helped to find a non-obvious kernel bug. Just need to fix 
+that bug, if not yet.
 
-	do {
-		runtime = tst_remaining_runtime();
-		tst_res(TINFO, "Remaining runtime %d", runtime);
-		sleep(1);
-	} while (runtime);
+Rpcbind listens both via AF_INET and via AP_UNIX, and did so for ages.
+It is even not possible to disable AF_INET listening without patching code. By stopping contacting it 
+via AF_UNIX, it is virtually impossible to break anything.
 
-	tst_res(TPASS, "Test passed");
-}
-
-static struct tst_test test = {
-	.test_all = run,
-	.max_runtime = 120,
-};
-
-=> Also, it's a question, how long should the test be running.
-Is it worth to be running for 2 mins? It's kind of stress test, right?
-But even that wouldn't be 30 sec enough?
-
-Kind regards,
-Petr
-
-> > Also, if we set getopt to choose number of options, we'd need to adjust it by
-> > tst_set_max_runtime().
-
-> > Kind regards,
-> > Petr
-
-> > > +};
+Nikita
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
