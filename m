@@ -2,73 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2F316FDE47
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 May 2023 15:14:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7BB66FDE51
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 May 2023 15:17:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 727BF3CD679
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 May 2023 15:14:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8E46D3CD679
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 May 2023 15:17:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4765C3CD62F
- for <ltp@lists.linux.it>; Wed, 10 May 2023 15:14:55 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 566C43CD62F
+ for <ltp@lists.linux.it>; Wed, 10 May 2023 15:17:15 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A28832009A2
- for <ltp@lists.linux.it>; Wed, 10 May 2023 15:14:54 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CF68A600807
+ for <ltp@lists.linux.it>; Wed, 10 May 2023 15:17:14 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E647B21A0D;
- Wed, 10 May 2023 13:14:53 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CCABE1F45E;
+ Wed, 10 May 2023 13:17:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1683724493; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1683724633; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
- b=PctWMhgkjToSUFeaLiKLRs1y/XPRIbtpj+fKhU0BVGmeq7aAK42EwIY3JZZMTLsGGCCSu1
- I0+G6tZaBsCOvf/6mF811SR4jB1QnwodkBXSpxHnPnQPZiyyhrxKQ3WuQFFYcUHrXARKtz
- 3iQQ4j1ZhAt63nl1JYtxI5as+V/XP4Y=
+ bh=UwifN/UEMAV6wQz9BFPiOnVdrL4qni+QDbmQtDA2VpU=;
+ b=Sv1G8QtSvNHEV/htrQIdETmMneG7TzTPR456ZBw4Vcw7GB+FS0dSCNj6D6M7kwlEQV66MU
+ ZO1Rh1xQspVu0w0AG7QfXDX3lj5+OvY3TLxGBdmOZ9UFnXYXfJjHQ55cSA8XuF5GAnsI07
+ bYb+1+awmXWdKD+iE0oJ3BW/mQnhndw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1683724493;
+ s=susede2_ed25519; t=1683724633;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
- b=RdWRHh7EdTMKuPfT3hhxeX+ZstAWvgMyAGuzX/KPyp8GyMtKT3I1fEKGEBryzAohYjt1sq
- 4ZKXOLxc0r5FzpAg==
+ bh=UwifN/UEMAV6wQz9BFPiOnVdrL4qni+QDbmQtDA2VpU=;
+ b=EcFzy7aw8PXHoKnKfEMSAnFy2QX5/L5YO9STAOI0lAom9tALpWS7NMMaAYWfWZYy4lix6Q
+ NhebHWOn+n1zC0Ag==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D381013519;
- Wed, 10 May 2023 13:14:53 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B6C0F13519;
+ Wed, 10 May 2023 13:17:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fTwhM82YW2ShCgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 10 May 2023 13:14:53 +0000
-Date: Wed, 10 May 2023 15:15:52 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id mBu+KlmZW2TiCwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 10 May 2023 13:17:13 +0000
+Date: Wed, 10 May 2023 15:18:11 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <ZFuZCFs3m3yxVvu0@yuki>
-References: <ZEjsKC6ESB1+mM0H@rei>
- <4f65c4c5-3278-8e64-5263-43b160547c6b@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <ZFuZk0on2bAzLxpJ@yuki>
+References: <20230508134903.83591-1-liwang@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <4f65c4c5-3278-8e64-5263-43b160547c6b@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20230508134903.83591-1-liwang@redhat.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] LTP release preparations
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] hugemmap32: guarantee enough memory for gigantic
+ hugepage
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,7 +86,28 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Pushed, thanks.
+> diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap32.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap32.c
+> index 34b322bfa..7ff23b236 100644
+> --- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap32.c
+> +++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap32.c
+> @@ -60,6 +60,12 @@ static void setup(void)
+>  		tst_brk(TCONF, "Gigantic hugepages not supported");
+>  
+>  	SAFE_CLOSEDIR(dir);
+> +
+> +	if (tst_available_mem() < (long long)hpage_size) {
+> +		g_hpage_path[0] = '\0';
+> +		tst_brk(TCONF, "No enough memory for gigantic hugepage reserving");
+                                                                       ^
+								       reservation
+> +	}
+> +
+>  	SAFE_FILE_LINES_SCANF(g_hpage_path, "%d", &org_g_hpages);
+>  }
+
+Otherwise it looks good:
+
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
