@@ -1,75 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A505705AB9
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 00:43:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A43B6705ABB
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 00:45:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 16CEC3CDD45
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 00:43:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 303973CDD33
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 00:45:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1BAF73CA0BA
- for <ltp@lists.linux.it>; Wed, 17 May 2023 00:43:10 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id B82DD3CA0BA
+ for <ltp@lists.linux.it>; Wed, 17 May 2023 00:45:12 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DB86820092D
- for <ltp@lists.linux.it>; Wed, 17 May 2023 00:43:09 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 524AA10005A7
+ for <ltp@lists.linux.it>; Wed, 17 May 2023 00:45:11 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 976B2201C2;
- Tue, 16 May 2023 22:43:06 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3666322273;
+ Tue, 16 May 2023 22:45:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1684276986;
+ t=1684277111;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OdpkNfysNwCLKQESnmaLwBpFid22RUI9jIg/tmrAg7s=;
- b=x6Mibu5N83CF/ie3pwHdda49tNslrso0wsTpzvUd2SEypm6jctFN6TquIcLVEEajO1QyQC
- p7y44thU9d4CN4T2isYWyT2XSNlChFxBWLa9Uh7pygoAtSlaQCHKNj5Z+uazcSFJtRfdt1
- HGyKvotWb+5RVnfUp8MEiQVTQx3baas=
+ bh=7e41j7xeGo+hibhkRM1kD0lbj2JgocFmyxwuoCRMO9o=;
+ b=tyJEjpGkkgL7/dkIHBRGU5UKOobWIZHZcFSVBS5c4JxMdhFiZojj1u3ypHpBW6oZpbFVGw
+ ZaMLs9zhlncYhAzSgBcdkAFYIOfnFkPjqEXNAxm5TZapRskrbUuWhFfUHyCqEHfWJUPStH
+ f9KTDuRU68nIMLEp1KesGdT/LKuYH+s=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1684276986;
+ s=susede2_ed25519; t=1684277111;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OdpkNfysNwCLKQESnmaLwBpFid22RUI9jIg/tmrAg7s=;
- b=dhpjmdxJR0jO4rLFiTx5ygiwNJ97PlBVnSzu1PUcv3icGWfjKnLWzfCIlRlsXcxG3S3HlO
- 4/V4llnROrQ30XCQ==
+ bh=7e41j7xeGo+hibhkRM1kD0lbj2JgocFmyxwuoCRMO9o=;
+ b=7DmxOWQTBCjWv22dESJGJRVOMAkv9VjUQAmeW00kkRtwXdT6y4IxF73rU+uuZxiRQS1GlL
+ mArDTR/+UB2qs2CA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 14C4D138F5;
- Tue, 16 May 2023 22:43:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 15DB6138F5;
+ Tue, 16 May 2023 22:45:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id j+YXAvoGZGRXOwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 16 May 2023 22:43:06 +0000
-Date: Wed, 17 May 2023 02:23:02 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id E1YtBHcHZGRRPAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 16 May 2023 22:45:11 +0000
+Date: Wed, 17 May 2023 02:24:56 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Konstantin Khorenko <khorenko@virtuozzo.com>
-Message-ID: <20230517002302.GA9395@pevik>
+Message-ID: <20230517002456.GB9395@pevik>
 References: <20230516165929.1343864-1-khorenko@virtuozzo.com>
+ <20230516165929.1343864-2-khorenko@virtuozzo.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230516165929.1343864-1-khorenko@virtuozzo.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20230516165929.1343864-2-khorenko@virtuozzo.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] scsi_debug/tlibio/lio_write_buffer: Always
- return total amount of written bytes
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] scsi_debug/tlibio/lio_read_buffer: Always
+ return total amount of read bytes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,26 +89,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Konstantin,
+> This issue behind this patch is noticed while fixing the
+> lio_write_buffer().
 
-> Sometimes we got failures like:
->  growfiles(gf217): 65884 growfiles.c/2262: 104203 tlibio.c/744 write(3, buf, 5000) returned=2288
->  growfiles(gf217): 65884 growfiles.c/1765: 104203 Hit max errors value of 1
->  gf217       1  TFAIL  :  growfiles.c:134: Test failed
-
-I wonder on which circumstances do you get this error. Running on container?
-
-> Which looked strange as partial write is something usual and valid.
-> It turned out that lio_write_buffer() has the code cycle writes in case
-> of a partial write happens, but it anyway returns the amount of bytes
-> written by the LAST write.
-
-> And upper growfile() consider the returned amount from
-> lio_write_buffer() to be less than it tried to write and fails the
-> testcase.
-
-> Fix lio_write_buffer() to always return total bytes written, even in
-> case partial writes.
+> Here in lio_read_buffer() we have similar situation: in case of a
+> partial read, we cycle, but lio_read_buffer() returns back the amount of
+> bytes read during the last read() call while it's expected to return the
+> whole amount of read bytes.
 
 > Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 > ---
@@ -115,51 +103,46 @@ I wonder on which circumstances do you get this error. Running on container?
 >  1 file changed, 4 insertions(+), 1 deletion(-)
 
 > diff --git a/lib/tlibio.c b/lib/tlibio.c
-> index cc110d1c9..8298e2de9 100644
+> index 8298e2de9..604663307 100644
 > --- a/lib/tlibio.c
 > +++ b/lib/tlibio.c
-> @@ -539,6 +539,8 @@ int lio_write_buffer(int fd,		/* open file descriptor */
+> @@ -1112,6 +1112,8 @@ int lio_read_buffer(int fd,	/* open file descriptor */
 >  		long wrd)	/* to allow future features, use zero for now */
 >  {
 >  	int ret = 0;		/* syscall return or used to get random method */
-> +	int totally_written = 0;/* as we cycle writes in case of partial writes, */
-> +				/* we have to report up total bytes written */
+> +	int totally_read = 0;	/* as we cycle reads in case of partial reads, */
+> +				/* we have to report up total bytes read */
 
-Nit: I'd do multiline comment (much more readable):
+Again, multiline comment would be more readable:
 
-	/* as we cycle writes in case of partial writes,
-	 * we have to report up total bytes written */
-	int totally_written = 0;
-
-Otherwise LGTM.
+	/* as we cycle reads in case of partial reads,
+	 * we have to report up total bytes read */
+	int totally_read = 0;
 
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
->  	char *io_type;		/* Holds string of type of io */
->  	int omethod = method;
->  	int listio_cmd;		/* Holds the listio/lio_listio cmd */
-> @@ -745,13 +747,14 @@ int lio_write_buffer(int fd,		/* open file descriptor */
->  						fd, size, ret);
->  					size -= ret;
->  					buffer += ret;
-> +					totally_written += ret;
->  				} else {
->  					if (Debug_level > 1)
->  						printf
->  						    ("DEBUG %s/%d: write completed without error (ret %d)\n",
->  						     __FILE__, __LINE__, ret);
-
-BTW growfiles.c and other files based on tlibio.c would deserve big cleanup and
-rewrite into new API.
 
 Kind regards,
 Petr
 
+>  	char *io_type;		/* Holds string of type of io */
+>  	int listio_cmd;		/* Holds the listio/lio_listio cmd */
+>  	int omethod = method;
+> @@ -1323,13 +1325,14 @@ int lio_read_buffer(int fd,	/* open file descriptor */
+>  						fd, size, ret);
+>  					size -= ret;
+>  					buffer += ret;
+> +					totally_read += ret;
+>  				} else {
+>  					if (Debug_level > 1)
+>  						printf
+>  						    ("DEBUG %s/%d: read completed without error (ret %d)\n",
+>  						     __FILE__, __LINE__, ret);
+
 > -					return ret;
-> +					return totally_written + ret;
+> +					return totally_read + ret;
 >  				}
 >  			}
->  			wait4sync_io(fd, 0);
+>  			wait4sync_io(fd, 1);
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
