@@ -2,64 +2,63 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C834B706CFC
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 17:37:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 602B7706CF8
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 17:37:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7320A3CEE27
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 17:37:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2F2073CF266
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 17:37:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E44233CB8F3
+ by picard.linux.it (Postfix) with ESMTPS id A00033CB8F3
  for <ltp@lists.linux.it>; Wed, 17 May 2023 17:36:44 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EB7441400191
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0FDDD1400255
  for <ltp@lists.linux.it>; Wed, 17 May 2023 17:36:43 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1F024226C6;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3E5611FFAC;
  Wed, 17 May 2023 15:36:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1684337803; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bIgVv4QqSF7zeCwlX26+h1ASwgAlafZ+x/m4Q5Q06qQ=;
- b=y+XVt3TVeJcgF9UswzoyUG/UHDgfE1aa8Xshc8HeNhv5ctBMvVD3HEFzs/OSiNovSjVBgt
- ou64OQZ+1uaOaxbCTNX/ix+iLRmlXm9NPX8S/dY8Uv7Oiz/n8QBtKjK5vagDkvewZEyDeD
- xR3dsJfd2YSWvcVkpUphXIV174bK59U=
+ bh=uojooJ5umkG3K/XTcXlEEd0rOP7pRjmeSfhQGyI5O7U=;
+ b=DvWARpWQwSGGKxzBQXDbvhNtktE2Q2vyulcucGXEJSE89VAneNP99rIn3+Y0fEwd0pvcx8
+ gnVHPg2c2Gk1CGwXRIdk6bvzfIP54wCfMho/XnHxiqZWcLZWbFqmat6i8wlNH4dh8NCkmx
+ Mjy1kI9lF8/kNrSp+X42fRTm6d+cbxQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1684337803;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bIgVv4QqSF7zeCwlX26+h1ASwgAlafZ+x/m4Q5Q06qQ=;
- b=EalHLbo1blft6S989k9pqrB0L7W1QV9Vz8i+yTqUEFDRcxS2S40DmMpC9OaV31CYY7rJ77
- hjiD0kO6+huOPICA==
+ bh=uojooJ5umkG3K/XTcXlEEd0rOP7pRjmeSfhQGyI5O7U=;
+ b=Qo/cdg+A4Ixjr9xf0Co1nLQwmuzAso79wz7Y03tHViMKmCYAKDScrRCbcFBejAsdwKqO4m
+ KzYrW6zLajpwnnBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0AEC4139F5;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 221C413478;
  Wed, 17 May 2023 15:36:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id uF77AYv0ZGSTCgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8JSHB4v0ZGSTCgAAMHmgww
  (envelope-from <mdoucha@suse.cz>); Wed, 17 May 2023 15:36:43 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: Nicolai Stange <nstange@suse.de>,
 	ltp@lists.linux.it
-Date: Wed, 17 May 2023 17:36:37 +0200
-Message-Id: <20230517153642.26919-3-mdoucha@suse.cz>
+Date: Wed, 17 May 2023 17:36:38 +0200
+Message-Id: <20230517153642.26919-4-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230517153642.26919-1-mdoucha@suse.cz>
 References: <20230517153642.26919-1-mdoucha@suse.cz>
@@ -70,7 +69,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/7] Add test for CVE 2021-3656
+Subject: [LTP] [PATCH 3/7] lib: Add safe functions for pthread_kill() and
+ mutexes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,196 +89,240 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
+ include/tst_safe_pthread.h |  52 ++++++++++++
+ lib/safe_pthread.c         | 161 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 213 insertions(+)
 
-The reproducer was verified on vulnerable SLE kernels.
-
- runtest/kvm                      |   1 +
- testcases/kernel/kvm/.gitignore  |   1 +
- testcases/kernel/kvm/kvm_svm02.c | 159 +++++++++++++++++++++++++++++++
- 3 files changed, 161 insertions(+)
- create mode 100644 testcases/kernel/kvm/kvm_svm02.c
-
-diff --git a/runtest/kvm b/runtest/kvm
-index 726d72f0a..59e410beb 100644
---- a/runtest/kvm
-+++ b/runtest/kvm
-@@ -1,2 +1,3 @@
- kvm_pagefault01 kvm_pagefault01
- kvm_svm01 kvm_svm01
-+kvm_svm02 kvm_svm02
-diff --git a/testcases/kernel/kvm/.gitignore b/testcases/kernel/kvm/.gitignore
-index b284b9528..c757cd3f4 100644
---- a/testcases/kernel/kvm/.gitignore
-+++ b/testcases/kernel/kvm/.gitignore
-@@ -1,2 +1,3 @@
- /kvm_pagefault01
- /kvm_svm01
-+/kvm_svm02
-diff --git a/testcases/kernel/kvm/kvm_svm02.c b/testcases/kernel/kvm/kvm_svm02.c
-new file mode 100644
-index 000000000..b89622f47
---- /dev/null
-+++ b/testcases/kernel/kvm/kvm_svm02.c
-@@ -0,0 +1,159 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2023 SUSE LLC
-+ * Author: Nicolai Stange <nstange@suse.de>
-+ * LTP port: Martin Doucha <mdoucha@suse.cz>
-+ */
+diff --git a/include/tst_safe_pthread.h b/include/tst_safe_pthread.h
+index 8fb553929..360b561b6 100644
+--- a/include/tst_safe_pthread.h
++++ b/include/tst_safe_pthread.h
+@@ -52,4 +52,56 @@ int safe_pthread_cancel(const char *file, const int lineno,
+ #define SAFE_PTHREAD_CANCEL(thread_id) \
+ 	safe_pthread_cancel(__FILE__, __LINE__, thread_id);
+ 
++int safe_pthread_mutexattr_init(const char *file, const int lineno,
++	pthread_mutexattr_t *attr);
++#define SAFE_PTHREAD_MUTEXATTR_INIT(attr) \
++	safe_pthread_mutexattr_init(__FILE__, __LINE__, (attr))
 +
-+/*\
-+ * CVE 2021-3656
-+ *
-+ * Check that KVM correctly intercepts VMSAVE and VMLOAD instructions
-+ * in a nested virtual machine even when the parent guest disables
-+ * intercepting either instruction. If KVM does not override the disabled
-+ * intercepts, it'll give the nested VM read/write access to a few bytes
-+ * of an arbitrary physical memory page. Unauthorized memory access fixed in:
-+ *
-+ *  commit c7dfa4009965a9b2d7b329ee970eb8da0d32f0bc
-+ *  Author: Maxim Levitsky <mlevitsk@redhat.com>
-+ *  Date:   Mon Jul 19 16:05:00 2021 +0300
-+ *
-+ *  KVM: nSVM: always intercept VMLOAD/VMSAVE when nested (CVE-2021-3656)
-+ */
++int safe_pthread_mutexattr_destroy(const char *file, const int lineno,
++	pthread_mutexattr_t *attr);
++#define SAFE_PTHREAD_MUTEXATTR_DESTROY(attr) \
++	safe_pthread_mutexattr_destroy(__FILE__, __LINE__, (attr))
 +
-+#include "kvm_test.h"
++int safe_pthread_mutexattr_settype(const char *file, const int lineno,
++	pthread_mutexattr_t *attr, int type);
++#define SAFE_PTHREAD_MUTEXATTR_SETTYPE(attr, type) \
++	safe_pthread_mutexattr_settype(__FILE__, __LINE__, (attr), (type))
 +
-+#ifdef COMPILE_PAYLOAD
-+#if defined(__i386__) || defined(__x86_64__)
++int safe_pthread_mutex_init(const char *file, const int lineno,
++	pthread_mutex_t *mutex, const pthread_mutexattr_t *attr);
++#define SAFE_PTHREAD_MUTEX_INIT(mutex, attr) \
++	safe_pthread_mutex_init(__FILE__, __LINE__, (mutex), (attr))
 +
-+#include "kvm_x86_svm.h"
++int safe_pthread_mutex_destroy(const char *file, const int lineno,
++	pthread_mutex_t *mutex);
++#define SAFE_PTHREAD_MUTEX_DESTROY(mutex) \
++	safe_pthread_mutex_destroy(__FILE__, __LINE__, (mutex))
 +
-+#define AVIC_REG_ADDR 0x280
-+#define AVIC_TEST_VAL 0xec
-+#define AVIC_READ_FAIL 0x12ead
++int safe_pthread_mutex_lock(const char *file, const int lineno,
++	pthread_mutex_t *mutex);
++#define SAFE_PTHREAD_MUTEX_LOCK(mutex) \
++	safe_pthread_mutex_lock(__FILE__, __LINE__, (mutex))
 +
-+#define AVIC_INFO_MASK ((1ULL << 32) | 0xff0)
-+#define AVIC_INFO_EXP ((1ULL << 32) | AVIC_REG_ADDR)
++/* Terminates the test on any error other than EBUSY */
++int safe_pthread_mutex_trylock(const char *file, const int lineno,
++	pthread_mutex_t *mutex);
++#define SAFE_PTHREAD_MUTEX_TRYLOCK(mutex) \
++	safe_pthread_mutex_trylock(__FILE__, __LINE__, (mutex))
 +
-+static void *vmsave_buf;
++/* Terminates the test on any error other than ETIMEDOUT */
++int safe_pthread_mutex_timedlock(const char *file, const int lineno,
++	pthread_mutex_t *mutex, const struct timespec *abstime);
++#define SAFE_PTHREAD_MUTEX_TIMEDLOCK(mutex, abstime) \
++	safe_pthread_mutex_timedlock(__FILE__, __LINE__, (mutex), (abstime))
 +
-+/* Load FS, GS, TR and LDTR state from vmsave_buf */
-+static int guest_vmload(void)
-+{
-+	asm (
-+		"vmload\n"
-+		:
-+		: "a" (vmsave_buf)
-+	);
-+	return 0;
-+}
++int safe_pthread_mutex_unlock(const char *file, const int lineno,
++	pthread_mutex_t *mutex);
++#define SAFE_PTHREAD_MUTEX_UNLOCK(mutex) \
++	safe_pthread_mutex_unlock(__FILE__, __LINE__, (mutex))
 +
-+/* Save current FS, GS, TR and LDTR state to vmsave_buf */
-+static int guest_vmsave(void)
-+{
-+	asm (
-+		"vmsave\n"
-+		:
-+		: "a" (vmsave_buf)
-+	);
-+	return 0;
-+}
++int safe_pthread_kill(const char *file, const int lineno,
++	pthread_t thread, int sig);
++#define SAFE_PTHREAD_KILL(thread, sig) \
++	safe_pthread_kill(__FILE__, __LINE__, (thread), (sig))
 +
-+static int cmp_descriptor(const struct kvm_vmcb_descriptor *a,
-+	const struct kvm_vmcb_descriptor *b)
+ #endif /* TST_SAFE_PTHREAD_H__ */
+diff --git a/lib/safe_pthread.c b/lib/safe_pthread.c
+index d70bb8707..aeafe014c 100644
+--- a/lib/safe_pthread.c
++++ b/lib/safe_pthread.c
+@@ -106,3 +106,164 @@ int safe_pthread_barrier_init(const char *file, const int lineno,
+ 
+ 	return rval;
+ }
++
++int safe_pthread_mutexattr_init(const char *file, const int lineno,
++	pthread_mutexattr_t *attr)
 +{
 +	int ret;
 +
-+	ret = a->selector != b->selector;
-+	ret = ret || a->attrib != b->attrib;
-+	ret = ret || a->limit != b->limit;
-+	ret = ret || a->base != b->base;
++	ret = pthread_mutexattr_init(attr);
++
++	if (ret) {
++		tst_brk_(file, lineno, TBROK,
++			"pthread_mutexattr_init(%p) failed: %s",
++			attr, tst_strerrno(ret));
++	}
++
 +	return ret;
 +}
 +
-+/* Return non-zero if the VMCB fields touched by vmsave/vmload differ */
-+static int cmp_vmcb(const struct kvm_vmcb *a, const struct kvm_vmcb *b)
++int safe_pthread_mutexattr_destroy(const char *file, const int lineno,
++	pthread_mutexattr_t *attr)
 +{
 +	int ret;
 +
-+	ret = cmp_descriptor(&a->fs, &b->fs);
-+	ret = ret || cmp_descriptor(&a->gs, &b->gs);
-+	ret = ret || cmp_descriptor(&a->tr, &b->tr);
-+	ret = ret || cmp_descriptor(&a->ldtr, &b->ldtr);
-+	ret = ret || a->kernel_gs_base != b->kernel_gs_base;
-+	ret = ret || a->star != b->star;
-+	ret = ret || a->lstar != b->lstar;
-+	ret = ret || a->cstar != b->cstar;
-+	ret = ret || a->sfmask != b->sfmask;
-+	ret = ret || a->sysenter_cs != b->sysenter_cs;
-+	ret = ret || a->sysenter_esp != b->sysenter_esp;
-+	ret = ret || a->sysenter_eip != b->sysenter_eip;
++	ret = pthread_mutexattr_destroy(attr);
++
++	if (ret) {
++		tst_brk_(file, lineno, TBROK,
++			"pthread_mutexattr_destroy(%p) failed: %s",
++			attr, tst_strerrno(ret));
++	}
++
 +	return ret;
 +}
 +
-+void main(void)
++int safe_pthread_mutexattr_settype(const char *file, const int lineno,
++	pthread_mutexattr_t *attr, int type)
 +{
-+	uint16_t ss;
-+	uint64_t rsp;
-+	struct kvm_svm_vcpu *vcpu;
++	int ret;
 +
-+	kvm_init_svm();
-+	vcpu = kvm_create_svm_vcpu(guest_vmload, 1);
-+	kvm_vmcb_set_intercept(vcpu->vmcb, SVM_INTERCEPT_VMLOAD, 0);
-+	vmsave_buf = kvm_alloc_vmcb();
++	ret = pthread_mutexattr_settype(attr, type);
 +
-+	/* Save allocated stack for later VM reinit */
-+	ss = vcpu->vmcb->ss.selector;
-+	rsp = vcpu->vmcb->rsp;
-+
-+	/* Load partial state from vmsave_buf and save it to vcpu->vmcb */
-+	kvm_svm_vmrun(vcpu);
-+
-+	if (vcpu->vmcb->exitcode != SVM_EXIT_HLT)
-+		tst_brk(TBROK, "Nested VM exited unexpectedly");
-+
-+	if (cmp_vmcb(vcpu->vmcb, vmsave_buf)) {
-+		tst_res(TFAIL, "Nested VM can read host memory");
-+		return;
++	if (ret) {
++		tst_brk_(file, lineno, TBROK,
++			"pthread_mutexattr_settype(%p, %d) failed: %s",
++			attr, type, tst_strerrno(ret));
 +	}
 +
-+	/* Load state from vcpu->vmcb and save it to vmsave_buf */
-+	memset(vmsave_buf, 0xaa, sizeof(struct kvm_vmcb));
-+	kvm_init_guest_vmcb(vcpu->vmcb, 1, ss, (void *)rsp, guest_vmsave);
-+	kvm_vmcb_set_intercept(vcpu->vmcb, SVM_INTERCEPT_VMSAVE, 0);
-+	kvm_svm_vmrun(vcpu);
-+
-+	if (vcpu->vmcb->exitcode != SVM_EXIT_HLT)
-+		tst_brk(TBROK, "Nested VM exited unexpectedly");
-+
-+	if (cmp_vmcb(vcpu->vmcb, vmsave_buf)) {
-+		tst_res(TFAIL, "Nested VM can overwrite host memory");
-+		return;
-+	}
-+
-+	tst_res(TPASS, "VMLOAD and VMSAVE were intercepted by kernel");
++	return ret;
 +}
 +
-+#else /* defined(__i386__) || defined(__x86_64__) */
-+TST_TEST_TCONF("Test supported only on x86");
-+#endif /* defined(__i386__) || defined(__x86_64__) */
++int safe_pthread_mutex_init(const char *file, const int lineno,
++	pthread_mutex_t *mutex, const pthread_mutexattr_t *attr)
++{
++	int ret;
 +
-+#else /* COMPILE_PAYLOAD */
++	ret = pthread_mutex_init(mutex, attr);
 +
-+static struct tst_test test = {
-+	.test_all = tst_kvm_run,
-+	.setup = tst_kvm_setup,
-+	.cleanup = tst_kvm_cleanup,
-+	.supported_archs = (const char *const []) {
-+		"x86_64",
-+		"x86",
-+		NULL
-+	},
-+	.tags = (struct tst_tag[]){
-+		{"linux-git", "c7dfa4009965"},
-+		{"CVE", "2021-3656"},
-+		{}
++	if (ret) {
++		tst_brk_(file, lineno, TBROK,
++			"pthread_mutex_init(%p, %p) failed: %s",
++			mutex, attr, tst_strerrno(ret));
 +	}
-+};
 +
-+#endif /* COMPILE_PAYLOAD */
++	return ret;
++}
++
++int safe_pthread_mutex_destroy(const char *file, const int lineno,
++	pthread_mutex_t *mutex)
++{
++	int ret;
++
++	ret = pthread_mutex_destroy(mutex);
++
++	if (ret) {
++		tst_brk_(file, lineno, TBROK,
++			"pthread_mutex_destroy(%p) failed: %s",
++			mutex, tst_strerrno(ret));
++	}
++
++	return ret;
++}
++
++int safe_pthread_mutex_lock(const char *file, const int lineno,
++	pthread_mutex_t *mutex)
++{
++	int ret;
++
++	ret = pthread_mutex_lock(mutex);
++
++	if (ret) {
++		tst_brk_(file, lineno, TBROK,
++			"pthread_mutex_lock(%p) failed: %s",
++			mutex, tst_strerrno(ret));
++	}
++
++	return ret;
++}
++
++int safe_pthread_mutex_trylock(const char *file, const int lineno,
++	pthread_mutex_t *mutex)
++{
++	int ret;
++
++	ret = pthread_mutex_trylock(mutex);
++
++	if (ret && ret != EBUSY) {
++		tst_brk_(file, lineno, TBROK,
++			"pthread_mutex_trylock(%p) failed: %s",
++			mutex, tst_strerrno(ret));
++	}
++
++	return ret;
++}
++
++int safe_pthread_mutex_timedlock(const char *file, const int lineno,
++	pthread_mutex_t *mutex, const struct timespec *abstime)
++{
++	int ret;
++
++	ret = pthread_mutex_timedlock(mutex, abstime);
++
++	if (ret && ret != ETIMEDOUT) {
++		tst_brk_(file, lineno, TBROK,
++			"pthread_mutex_timedlock(%p, {%lld, %ld}) failed: %s",
++			mutex, (long long)abstime->tv_sec, abstime->tv_nsec,
++			tst_strerrno(ret));
++	}
++
++	return ret;
++}
++
++int safe_pthread_mutex_unlock(const char *file, const int lineno,
++	pthread_mutex_t *mutex)
++{
++	int ret;
++
++	ret = pthread_mutex_unlock(mutex);
++
++	if (ret) {
++		tst_brk_(file, lineno, TBROK,
++			"pthread_mutex_unlock(%p) failed: %s",
++			mutex, tst_strerrno(ret));
++	}
++
++	return ret;
++}
++
++int safe_pthread_kill(const char *file, const int lineno,
++	pthread_t thread, int sig)
++{
++	int ret;
++
++	ret = pthread_kill(thread, sig);
++
++	if (ret) {
++		tst_brk_(file, lineno, TBROK,
++			"pthread_kill(..., %d) failed: %s",
++			sig, tst_strerrno(ret));
++	}
++
++	return ret;
++}
 -- 
 2.40.0
 
