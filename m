@@ -1,75 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A37E4706C36
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 17:07:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 927C4706CF0
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 17:36:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 508163CDCE5
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 17:07:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CBD903CDCE9
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 May 2023 17:36:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0F95A3CB2B9
- for <ltp@lists.linux.it>; Wed, 17 May 2023 17:07:27 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 605983CB8F3
+ for <ltp@lists.linux.it>; Wed, 17 May 2023 17:36:44 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2F8DB10009F7
- for <ltp@lists.linux.it>; Wed, 17 May 2023 17:07:26 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C73FD600A4C
+ for <ltp@lists.linux.it>; Wed, 17 May 2023 17:36:43 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 240161FE51;
- Wed, 17 May 2023 15:07:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1684336045; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1TGlrb0cFe9EhUMCnm8yQmxfvmOmNVAPE1Yz8wmHm1k=;
- b=K6kg3dmPTVdMXVyCROLUuQLZZL1SzoxxRRCLykSHlvGnT6QCY5jUp4rEz9AHW71VhzdSHi
- zCymQZEPOwGZTMRVfsnUMZKoiQfllOZg655YysNbRn0kbPJ31XLX+V6YKyqs+popGxzueK
- UgeDP00tNj/70722eF8EOj8HGTjryVs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1684336045;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1TGlrb0cFe9EhUMCnm8yQmxfvmOmNVAPE1Yz8wmHm1k=;
- b=3b1u6gcBlimIyvAoc7l+5AOXxdjgj83seDpY+M0yI3i+/pH9ogr5G27OGGL8UOGiQDBDob
- +BOT4PjhrkDQE/Ag==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E920A1FF9F;
+ Wed, 17 May 2023 15:36:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1684337802; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=eyUv3n7bHSswH66CIcKc3OdYaR1eWVTGUe47L/U2G/c=;
+ b=Eyd2B4vszRvtZco+Gm2s5Ws4dG8/AlB5t+gF1yd5Rwm8MRbzOhjccz7xzQf/KDG2QuNx+F
+ 9zp4Vlk3atLyNFod6CAt/v/o5yuZZPjcA6E/MJelwzr12Sy0+XUHZr6XJFUJorD102qJeE
+ zE33Dya5ciKV/jwQ3sS+/S6qepFIviI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1684337802;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=eyUv3n7bHSswH66CIcKc3OdYaR1eWVTGUe47L/U2G/c=;
+ b=gCf6BCEXTDGryfNwiUM6yV0MJVbKkHKL9Md16205SjUsDyhYrqYnQCdpZ+Z8jCae4FGkmB
+ rgJ9Ps4Qs+8HOOAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3338313358;
- Wed, 17 May 2023 15:07:23 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D8EDE13478;
+ Wed, 17 May 2023 15:36:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0kqEOqvtZGRUegAAMHmgww
- (envelope-from <akumar@suse.de>); Wed, 17 May 2023 15:07:23 +0000
-From: Avinesh Kumar <akumar@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-Date: Wed, 17 May 2023 20:37:21 +0530
-Message-ID: <5961201.lOV4Wx5bFT@localhost>
-Organization: SUSE
-In-Reply-To: <20230516115841.GA7742@pevik>
-References: <20230315155650.12469-1-akumar@suse.de>
- <20230516115841.GA7742@pevik>
+ by imap2.suse-dmz.suse.de with ESMTPSA id lBlBNIr0ZGSTCgAAMHmgww
+ (envelope-from <mdoucha@suse.cz>); Wed, 17 May 2023 15:36:42 +0000
+From: Martin Doucha <mdoucha@suse.cz>
+To: Nicolai Stange <nstange@suse.de>,
+	ltp@lists.linux.it
+Date: Wed, 17 May 2023 17:36:35 +0200
+Message-Id: <20230517153642.26919-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] mknod02.c: Simplify and convert to new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/7] Two AMD SVM vulnerability tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,152 +76,64 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
+Here are two more kernel vulnerability tests for AMD SVM:
 
-On Tuesday, May 16, 2023 5:28:41 PM IST Petr Vorel wrote:
-> Hi Avinesh,
-> 
-> > Simply test when parent directory does not have set-group-ID bit set,
-> > new node gets GID from effective GID of the process and does not inherit
-> > the group ownership from its parent directory.
-> 
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> 
-> Few comments below.
-> 
-> >  testcases/kernel/syscalls/mknod/mknod02.c | 316 +++-------------------
-> >  1 file changed, 36 insertions(+), 280 deletions(-)
-> 
-> ...
-> 
-> > +/*\
-> > + * [Description]
-> > 
-> >   *
-> > 
-> > + * Verify that if mknod(2) creates a filesystem node in a directory which
-> > + * does not have the set-group-ID bit set, new node will not inherit the
-> > + * group ownership from its parent directory and its group ID will be the
-> > + * effective group ID of the process.
-> 
-> @Cyril I wonder if it'd be good to test this on all_filesystems. Are we
-> trying to use use all_filesystems = 1 when subject of testing is using VFS
-> or the opposite? (kernel docs mentions "VFS system calls open(2), stat(2),
-> read(2), write(2), chmod(2)". It also mentions locking [2]).
-> 
-> BTW looking what has mknod in vfs, it's just nfsd and 9p (none of them are
-> used in all_filesystems):
-> 
-> $ git grep  mknod $(git ls-files fs/|grep -i vfs)
-> fs/9p/vfs_inode.c: * for mknod(2).
-> fs/9p/vfs_inode.c: * v9fs_vfs_mknod - create a special file
-> fs/9p/vfs_inode.c:v9fs_vfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
-> fs/9p/vfs_inode.c:      .mknod = v9fs_vfs_mknod,
-> fs/9p/vfs_inode.c:      .mknod = v9fs_vfs_mknod,
-> fs/9p/vfs_inode_dotl.c:v9fs_vfs_mknod_dotl(struct mnt_idmap *idmap, struct
-> inode *dir, fs/9p/vfs_inode_dotl.c: return v9fs_vfs_mknod_dotl(idmap, dir,
-> dentry, omode, 0); fs/9p/vfs_inode_dotl.c: * v9fs_vfs_mknod_dotl - create a
-> special file fs/9p/vfs_inode_dotl.c:v9fs_vfs_mknod_dotl(struct mnt_idmap
-> *idmap, struct inode *dir, fs/9p/vfs_inode_dotl.c:        
-> p9_debug(P9_DEBUG_VFS, "Failed to get acl values in mknod %d\n",
-> fs/9p/vfs_inode_dotl.c: err = p9_client_mknod_dotl(dfid, name, mode, rdev,
-> gid, &qid); fs/9p/vfs_inode_dotl.c: .mknod = v9fs_vfs_mknod_dotl,
-> fs/nfsd/vfs.c:          host_err = vfs_mknod(&nop_mnt_idmap, dirp, dchild,
-> 
-> >   */
-> 
-> ...
-> 
-> > +static void run(void)
-> > 
-> >  {
-> 
-> ...
-> 
-> > +	SAFE_CHDIR(TEMP_DIR);
-> > +	TST_EXP_PASS(mknod(TEMP_NODE, MODE1, 0), "mknod(%s, %o, 0)", 
-TEMP_NODE,
-> > MODE1);
-> IMHO this simple form will print the same info, I suggest to use it.
-> 	TST_EXP_PASS(mknod(TEMP_NODE, MODE1, 0));
-> 
-> > -	/*
-> > -	 * Create a test directory under temporary directory with the
-> > -	 * specified mode permissions, with uid/gid set to that of guest
-> > -	 * user and the test process.
-> > -	 */
-> > -	SAFE_MKDIR(cleanup, DIR_TEMP, MODE_RWX);
-> > -	SAFE_CHOWN(cleanup, DIR_TEMP, user1_uid, group2_gid);
-> > +	SAFE_STAT(TEMP_NODE, &buf);
-> > +	TST_EXP_EQ_LI(buf.st_gid, 0);
-> 
-> ...
-> 
-> Diff for using all_filesystems (I'm not sure myself).
-> 
-> Kind regards,
-> Petr
+kvm_svm02 checks that the host kernel intercepts VMLOAD and VMSAVE
+instructions in nested VMs and translates guest addresses to the correct
+physical address. Without the translation, nested SVM guest can read and
+write part of an arbitrary physical memory page chosen by the parent VM.
 
-Thanks for reviewing, I agree with your proposed changes if we are going to 
-enable if for all filesystems, test executes fine with all_filesystems=1 in my 
-setup.
+The test tries to detect the CVE bug harmlessly at first by using VMLOAD
+to read a buffer full of zeroes. If it finds any non-zero bytes in the VMCB
+fields accessed by VMLOAD/VMSAVE, it'll fail because they must have come
+from host memory due to missing address translation.
 
-> 
-> [1] https://www.kernel.org/doc/html/next/filesystems/vfs.html
-> [2] https://www.kernel.org/doc/html/next/filesystems/locking.html
-> 
-> +++ testcases/kernel/syscalls/mknod/mknod02.c
-> @@ -24,6 +24,8 @@
->  #define TEMP_DIR "testdir"
->  #define TEMP_NODE "testnode"
-> 
-> +#define MNTPOINT	"mntpoint"
-> +
->  static struct stat buf;
->  static struct passwd *user_nobody;
->  static gid_t gid_nobody;
-> @@ -40,18 +42,28 @@ static void setup(void)
->  static void run(void)
->  {
->  	SAFE_CHDIR(TEMP_DIR);
-> -	TST_EXP_PASS(mknod(TEMP_NODE, MODE1, 0), "mknod(%s, %o, 0)", 
-TEMP_NODE,
-> MODE1); +	TST_EXP_PASS(mknod(TEMP_NODE, MODE1, 0));
-> 
->  	SAFE_STAT(TEMP_NODE, &buf);
->  	TST_EXP_EQ_LI(buf.st_gid, 0);
-> 
->  	SAFE_UNLINK(TEMP_NODE);
->  	SAFE_CHDIR("..");
-> +
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +	SAFE_RMDIR(TEMP_DIR);
->  }
-> 
->  static struct tst_test test = {
->  	.setup = setup,
-> +	.cleanup = cleanup,
->  	.test_all = run,
->  	.needs_root = 1,
-> -	.needs_tmpdir = 1
-> +	.needs_tmpdir = 1,
-> +	.mount_device = 1,
-> +	.mntpoint = MNTPOINT,
-> +	.all_filesystems = 1,
->  };
+Since the harmless approach can produce false negatives, it'll also try
+a destructive approach and write into memory using VMSAVE. If the bug
+is present, the byte pattern in the destination buffer will not change
+and the test will reliably fail.
 
-Regards,
-Avinesh
+kvm_svm03 checks that the host kernel correctly handles global interrupt
+flag in nested VMs. Otherwise a malicious VM could lock up all CPUs
+assigned to it, causing a limited denial of service attack.
 
+The test needs synchronization between the VM and another host thread so
+the patchset includes the necessary helper functions.
+
+Martin Doucha (7):
+  KVM: Add VMSAVE/VMLOAD intercept constants
+  Add test for CVE 2021-3656
+  lib: Add safe functions for pthread_kill() and mutexes
+  KVM: Add async communication helper functions
+  KVM: Allow expected KVM_RUN errors in tst_kvm_run_instance()
+  KVM: Add STGI/CLGI intercept constants
+  Add KVM test for CPU lockup through malicous SVM guest
+
+ doc/kvm-test-api.txt                       |   9 +-
+ include/tst_safe_pthread.h                 |  52 +++++++
+ lib/safe_pthread.c                         | 161 ++++++++++++++++++++
+ runtest/kvm                                |   2 +
+ testcases/kernel/kvm/.gitignore            |   2 +
+ testcases/kernel/kvm/Makefile              |   3 +
+ testcases/kernel/kvm/include/kvm_common.h  |   8 +
+ testcases/kernel/kvm/include/kvm_guest.h   |  14 ++
+ testcases/kernel/kvm/include/kvm_host.h    |  21 ++-
+ testcases/kernel/kvm/include/kvm_x86_svm.h |   7 +
+ testcases/kernel/kvm/kvm_svm02.c           | 159 ++++++++++++++++++++
+ testcases/kernel/kvm/kvm_svm03.c           | 164 +++++++++++++++++++++
+ testcases/kernel/kvm/lib_guest.c           |  16 ++
+ testcases/kernel/kvm/lib_host.c            |  46 +++++-
+ 14 files changed, 656 insertions(+), 8 deletions(-)
+ create mode 100644 testcases/kernel/kvm/kvm_svm02.c
+ create mode 100644 testcases/kernel/kvm/kvm_svm03.c
+
+-- 
+2.40.0
 
 
 -- 
