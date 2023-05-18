@@ -2,76 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DEC0707CA8
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 May 2023 11:19:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBB57707CCB
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 May 2023 11:27:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C4BD53CD430
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 May 2023 11:19:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 53DC03CB727
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 May 2023 11:27:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D555D3CB28B
- for <ltp@lists.linux.it>; Thu, 18 May 2023 11:19:13 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 082123CB28B
+ for <ltp@lists.linux.it>; Thu, 18 May 2023 11:27:42 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2B6FC600071
- for <ltp@lists.linux.it>; Thu, 18 May 2023 11:19:12 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 615AD1A00A36
+ for <ltp@lists.linux.it>; Thu, 18 May 2023 11:27:41 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6A0F11F8C2;
- Thu, 18 May 2023 09:19:12 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 753091FD68;
+ Thu, 18 May 2023 09:27:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1684401552;
+ t=1684402061;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=N+0SJWYSVafVtS8HBeTiu2g7mpjGQgMWj3qPUF2ze/c=;
- b=LC9EUuayNBt5bPp6/pWLoskgqb62ool4EV2nACpDLuZzz+9TCuHd+kbfeyxkvN/ghtZ1Ds
- JCjlCX+b2Qsj1tC5SAcKYJZUem7oIxXCjBdMJFeOS57cUrbjsiwepz/dcbDOMNtpGGq56Y
- F0XNNUDKlw8pvXZoxvFRxKy2VxOMH8k=
+ bh=2hjQr+lAJe0xBUlC8YJRFY2BKHqq5SRdtLoZWKSU7no=;
+ b=XetxkEv7rYG0aSmQpnt/GkYtFVUuWMcWhljQrPthHDLL0JVZjBqsiZceU5KY/G1nvxtNCN
+ 6AoYPkl+Ku6W6b8VQjksIRZaUWlG4Fg/9vuGY2+gL4dy+DqfZJtV4VAtu3BUv1ssiVW6yZ
+ 9Cdg8Mo99aN280wYMjIdAYNay5+896g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1684401552;
+ s=susede2_ed25519; t=1684402061;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=N+0SJWYSVafVtS8HBeTiu2g7mpjGQgMWj3qPUF2ze/c=;
- b=D0k2DxsIRl1wA+sXoXdtrBp7w8IfnpIzYAjAPMUUpiUeRmwXtYMcopGEtLNOlGutnFsvfc
- 3JiinF0vuhhTq5AA==
+ bh=2hjQr+lAJe0xBUlC8YJRFY2BKHqq5SRdtLoZWKSU7no=;
+ b=cw+cc9OenlaDM9qkATE3ds3tJyLSGq+SlWY9jDL33MkUXa+ceUrxJwhozvm/fZuVd+ORE/
+ SfQFnbnb5cSe0cDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4C9D4138F5;
- Thu, 18 May 2023 09:19:12 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 57CD2138F5;
+ Thu, 18 May 2023 09:27:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ziGSEZDtZWSiUQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 18 May 2023 09:19:12 +0000
-Date: Thu, 18 May 2023 11:56:02 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id b+YbFI3vZWSxVQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 18 May 2023 09:27:41 +0000
+Date: Thu, 18 May 2023 12:03:48 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20230518095602.GD6467@pevik>
+Message-ID: <20230518100348.GE6467@pevik>
 References: <20230517153642.26919-1-mdoucha@suse.cz>
- <20230517153642.26919-3-mdoucha@suse.cz>
- <20230517223238.GB8914@pevik>
- <c2b0aa7c-8cca-e6a7-38aa-a96e65d9a7c0@suse.cz>
+ <20230517153642.26919-6-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <c2b0aa7c-8cca-e6a7-38aa-a96e65d9a7c0@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20230517153642.26919-6-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/7] Add test for CVE 2021-3656
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 5/7] KVM: Allow expected KVM_RUN errors in
+ tst_kvm_run_instance()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,31 +88,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> On 18. 05. 23 0:32, Petr Vorel wrote:
-> > Hi Martin,
+Hi Martin,
 
-> > > +++ b/testcases/kernel/kvm/kvm_svm02.c
-> > ...
-> > > +
-> > > +#ifdef COMPILE_PAYLOAD
-> > > +#if defined(__i386__) || defined(__x86_64__)
-> > > +
-> > > +#include "kvm_x86_svm.h"
-> > > +
-> > > +#define AVIC_REG_ADDR 0x280
-> > > +#define AVIC_TEST_VAL 0xec
-> > > +#define AVIC_READ_FAIL 0x12ead
-> > > +
-> > > +#define AVIC_INFO_MASK ((1ULL << 32) | 0xff0)
-> > > +#define AVIC_INFO_EXP ((1ULL << 32) | AVIC_REG_ADDR)
+> Add a new parameter to tst_kvm_run_instance() for expected errno value,
+> e.g. EINTR for testing the possiblity to kill running guest. When
+> ioctl(KVM_RUN) fails with the expected errno, tst_kvm_run_instance()
+> will return -1 without terminating the test.
 
-> > These five constants aren't used at all.
-> > Maybe copy paste from kvm_svm01.c ?
+> Default tst_kvm_run() function expects no KVM_RUN errors.
 
-> Yes, the AVIC constants are leftovers from copying kvm_svm01.c, sorry about
-> that. Should I send a v2 after other patches get merged?
-
-It'd be trivial to remove it, but if you send v2, please fix it there.
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
 Kind regards,
 Petr
