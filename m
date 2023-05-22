@@ -1,73 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DE7270C14D
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 May 2023 16:41:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6957970C180
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 May 2023 16:52:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3BC8A3CD385
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 May 2023 16:41:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 236633CD383
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 May 2023 16:52:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 21CBD3CD384
- for <ltp@lists.linux.it>; Mon, 22 May 2023 16:41:12 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id A57453CB0C9
+ for <ltp@lists.linux.it>; Mon, 22 May 2023 16:52:54 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 920231A00245
- for <ltp@lists.linux.it>; Mon, 22 May 2023 16:41:11 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 990BE200766
+ for <ltp@lists.linux.it>; Mon, 22 May 2023 16:52:52 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E466E21D20;
- Mon, 22 May 2023 14:41:10 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 72F8921D53;
+ Mon, 22 May 2023 14:52:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1684766470; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1684767172; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
- b=1LyN5ZuCPDRs4UscAFyuE3ZrB3Q8BBhXWWTZMzu+LP4itQEM3gtArZX43Rqi2GsuB8sGdQ
- D8mN2kJQhtSA5LXNep3XGB0m337YEvjHvNTpvgmS5rd0osmHj2DT+8+c6WgX4PJNR/iMVK
- PovcDRMK/NbPmcBVRzERsX06TpzNQak=
+ bh=9FWmaD+cC7ecNmrx536Ah72f6w7UT4onJZRaEJkPZnc=;
+ b=GXP6GKOdYmV6+hEUHJOocK7SGO8OPe15kgsi4q0jIiH+RZqBO0TOwOclXgpgiHR5TuJmGC
+ iBPVWzKygK8UaInjqp/emcglZtY6P0CTnhrBIK/vtaCYNYbz573Lq7OA4OhPUcI6XkrWH/
+ D6FojSjy5FMuHesMxOj/npw1MmjAxmo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1684766470;
+ s=susede2_ed25519; t=1684767172;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
- b=jg1pz9fD6vzXemWugm1Jn3k4nq8P6q75FqMFwN+r74tnCg7lUcaqxT02aZsPgX6UcXF5YR
- TNrU4KFTkZxw0BBw==
+ bh=9FWmaD+cC7ecNmrx536Ah72f6w7UT4onJZRaEJkPZnc=;
+ b=LPWMo0USIWd81lE93glGnWKfFTKbkpickSCJ12rhXKcrUjhLliFsudlsTl/7CMOMqD+IuD
+ qYKwj6v1Rtluz9DQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C816913776;
- Mon, 22 May 2023 14:41:10 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 520C013776;
+ Mon, 22 May 2023 14:52:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id xPZRLwZ/a2QqJwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 22 May 2023 14:41:10 +0000
-Date: Mon, 22 May 2023 16:42:19 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id +SSQEsSBa2TPLQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 22 May 2023 14:52:52 +0000
+Date: Mon, 22 May 2023 16:54:01 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <ZGt_S6M9MQ1xYqz5@yuki>
+Message-ID: <ZGuCCa5ljqaXLeXo@yuki>
 References: <20230510124206.19627-1-andrea.cervesato@suse.de>
- <20230510124206.19627-3-andrea.cervesato@suse.de>
+ <20230510124206.19627-5-andrea.cervesato@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230510124206.19627-3-andrea.cervesato@suse.de>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+In-Reply-To: <20230510124206.19627-5-andrea.cervesato@suse.de>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 2/6] Refactor mqns_02 using new LTP API
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v7 4/6] Refactor mqns_04 using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,7 +86,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Pushed, thanks.
+The same comments as for mqns_03 apply here as well.
 
 -- 
 Cyril Hrubis
