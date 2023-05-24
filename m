@@ -2,72 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 061D470F09B
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 May 2023 10:26:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CA5270F14F
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 May 2023 10:45:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B58C53CD29B
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 May 2023 10:26:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 597A03CD29B
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 May 2023 10:45:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BEF5B3C9956
- for <ltp@lists.linux.it>; Wed, 24 May 2023 10:26:56 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 9BD263C9956
+ for <ltp@lists.linux.it>; Wed, 24 May 2023 10:45:00 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 00B316008F9
- for <ltp@lists.linux.it>; Wed, 24 May 2023 10:26:55 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id ADB6F200224
+ for <ltp@lists.linux.it>; Wed, 24 May 2023 10:44:59 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8C9D1223B6;
- Wed, 24 May 2023 08:26:53 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CA6561FD6F;
+ Wed, 24 May 2023 08:44:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1684916813; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1684917898; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IvJjaGH95K4LBrNd9oCcXpl0PSXHUafxCmRq+Dazue0=;
- b=bRK4vPiOjGMESdqLN766B76xv4GAkzhXrFB2bDIa68/4XmHIp/AwsEPC7BDGXw9/bJGEkj
- h8c7NqEllr6XaG89YjXVK+XDD2DNDzclHcwdpCe68EBkUHoyKpejV2AI3HjvFMy7LaggTg
- UgpagKOgX4sPNcc3FgIZ3IQ4hSXFwtY=
+ bh=0UD6Y90E/kL0CEZ76rxV+TU72nTGTqLUHdXWaYwv1gY=;
+ b=Xy2rWjm1CcAs7cf0zn5ezfXoWCunraTMN5dQZk+p330vxQCXIA1CUh1LUwH/jVkUpLRJy2
+ T2FgHupMVj2bHwrMjFtyn0/+srbr+Mu88ALSZrggKtrHUZs/eVrGV4MjtVwWfJQwmhuiNQ
+ 760pw3uBzy2LgtFLd85pWv2dDcuAaig=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1684916813;
+ s=susede2_ed25519; t=1684917898;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IvJjaGH95K4LBrNd9oCcXpl0PSXHUafxCmRq+Dazue0=;
- b=T5B/tsHDpgdxrgtUY8fCBu0lRC4REfAdXwR9dCDe09EDnXangZwN++U6RWIx88r8yXumXv
- YNC44VAM4FWvENDw==
+ bh=0UD6Y90E/kL0CEZ76rxV+TU72nTGTqLUHdXWaYwv1gY=;
+ b=MMnNjVlMZFExhpmMNobR/sPCreAApbsQUvT2T4r4R2Swn4gdNA0CwtoQjwRd3TlnvYgKpx
+ +H6gW+/nRBDe9pDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 76CF7133E6;
- Wed, 24 May 2023 08:26:53 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B60E6133E6;
+ Wed, 24 May 2023 08:44:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lMneG03KbWTLXAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 24 May 2023 08:26:53 +0000
-Date: Wed, 24 May 2023 10:28:03 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4ugeLYrObWToZQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 24 May 2023 08:44:58 +0000
+Date: Wed, 24 May 2023 10:46:08 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <ZG3Kk5KbhtRdktYL@yuki>
-References: <20230508084616.21322-1-andrea.cervesato@suse.de>
+To: Jeff Layton <jlayton@kernel.org>
+Message-ID: <ZG3O0Oe2zlezT0ew@yuki>
+References: <20230518113216.126233-1-jlayton@kernel.org>
+ <68340cb2-87e1-ff17-2db8-5610beba761b@fujitsu.com>
+ <c6c0ae90df044b883ed65ba1896db8b51dfa70d4.camel@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230508084616.21322-1-andrea.cervesato@suse.de>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+In-Reply-To: <c6c0ae90df044b883ed65ba1896db8b51dfa70d4.camel@kernel.org>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Remove libclone dependency from pidns05 test
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/statx06: use a fine-grained timestamp
+ for the second time fetch
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,239 +82,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +// SPDX-License-Identifier: GPL-2.0
+> > Now, it is not a right time to review this patch,  I prefer to review 
+> > this when your kernel patchset is merged into linux master or 
+> > linux-next. Then we can add a comment or a kernel commit id to explain 
+> > this..
+> > 
+> > 
+> 
+> Fair enough. I don't think there is any issue with taking this patch in
+> earlier however.
+> 
+> The problem with this test is that it makes the assumption that coarse-
+> grained timestamps are sufficient to bracket a filesystem operation.
+> While that has largely been true in the past, it's certainly not
+> specified by any standard.
 
-The original test was GPL-2.0-or-later, please pay a bit more attention
-on the licenses, it's tedious and boring but it helps us avoid a trouble
-in the long term.
+Do we have any API to ask the kernel what the granularity of filesystem
+the timestamps is? Would that make sense to be added if it's not
+present?
 
-> -	/* The loop breaks, when the loop counter reaches the parentpid value */
-> -	for (i = parentpid + 1; i != parentpid; i++) {
-> -		if (i > pid_max)
-> -			i = 2;
-> -
-> +	for (i = parentpid + 1; i < pid_max; i++) {
->  		pgid2 = getpgid(i);
+Apart from that I think that this patch is fine, since the
+CLOCK_REALTIME value would be between CLOCK_REALTIME_COARSE and
+CLOCK_REALTIME_COARSE + one tick. So the change is backward compatible
+and we will not loose any precision in the assertions either.
 
-I do not think that this change is correct. The difference is that if
-parentpid is close to pid_max the child pids would "overflow".
-
-I suppose the easiest solution is to scan everything from 2 to pid_max
-instead of depending on signed overflow, which I think is undefined to
-begin with.
-
->  		if (pgid2 == pgid) {
->  			pids[next] = i;
->  			next++;
->  		}
->  	}
-> +
->  	return next;
->  }
->  
-> -/*
-> -* create_nested_container() Recursively create MAX_DEPTH nested containers
-> -*/
-> -int create_nested_container(void *vtest)
-> +static void setup(void)
->  {
-> -	int exit_val;
-> -	int ret, count, *level;
-> -	pid_t cpid, ppid;
-> -	cpid = getpid();
-> -	ppid = getppid();
-> -	char mesg[] = "Nested Containers are created";
-> -
-> -	level = (int *)vtest;
-> -	count = *level;
-> -
-> -	/* Child process closes up read side of pipe */
-> -	close(fd[0]);
-> -
-> -	/* Comparing the values to make sure pidns is created correctly */
-> -	if (cpid != CINIT_PID || ppid != PARENT_PID) {
-> -		printf("Got unexpected cpid and/or ppid (cpid=%d ppid=%d)\n",
-> -		       cpid, ppid);
-> -		exit_val = 1;
-> -	}
-> -	if (count > 1) {
-> -		count--;
-> -		ret = do_clone_unshare_test(T_CLONE, CLONE_NEWPID,
-> -					    create_nested_container,
-> -					    (void *)&count);
-> -		if (ret == -1) {
-> -			printf("clone failed; errno = %d : %s\n",
-> -			       ret, strerror(ret));
-> -			exit_val = 1;
-> -		} else
-> -			exit_val = 0;
-> -	} else {
-> -		/* Sending mesg, 'Nested containers created' through the pipe */
-> -		write(fd[1], mesg, (strlen(mesg) + 1));
-> -		exit_val = 0;
-> -	}
-> -
-> -	close(fd[1]);
-> -	pause();
-> -
-> -	return exit_val;
-> +	SAFE_FILE_SCANF("/proc/sys/kernel/pid_max", "%d\n", &pid_max);
->  }
->  
-> -void kill_nested_containers()
-> +static void run(void)
->  {
-> -	int orig_count, new_count, status = 0, i;
-> -	pid_t pids[MAX_DEPTH];
-> +	int i, status, children;
-> +	int level = 0;
->  	pid_t pids_new[MAX_DEPTH];
-> +	pid_t pids[MAX_DEPTH];
-> +	pid_t pid;
->  
-> -	orig_count = find_cinit_pids(pids);
-> -	kill(pids[MAX_DEPTH - 3], SIGKILL);
-> -	sleep(1);
-> -
-> -	/* After killing child container, getting the New PID list */
-> -	new_count = find_cinit_pids(pids_new);
-> -
-> -	/* Verifying that the child containers were destroyed when parent is killed */
-> -	if (orig_count - 2 != new_count)
-> -		status = -1;
-> -
-> -	for (i = 0; i < new_count; i++) {
-> -		if (pids[i] != pids_new[i])
-> -			status = -1;
-> +	pid = SAFE_CLONE(&clone_args);
-> +	if (!pid) {
-> +		child_func(&level);
-> +		return;
->  	}
->  
-> -	if (status == 0)
-> -		tst_resm(TPASS, "The number of containers killed are %d",
-> -			 orig_count - new_count);
-> -	else
-> -		tst_resm(TFAIL, "Failed to kill the sub-containers of "
-> -			 "the container %d", pids[MAX_DEPTH - 3]);
-> -
-> -	/* Loops through the containers created to exit from sleep() */
-> -	for (i = 0; i < MAX_DEPTH; i++) {
-> -		kill(pids[i], SIGKILL);
-> -		waitpid(pids[i], &status, 0);
-> -	}
-> -}
-> +	TST_CHECKPOINT_WAIT(0);
->  
-> -static void setup(void)
-> -{
-> -	tst_require_root();
-> -	check_newpid();
-> -}
-> +	find_cinit_pids(pids);
->  
-> -int main(void)
-> -{
-> -	int ret, nbytes, status;
-> -	char readbuffer[80];
-> -	pid_t pid, pgid;
-> -	int count = MAX_DEPTH;
-> +	SAFE_KILL(pids[0], SIGKILL);
-
-Why do we do the find_cinit_pids() here and kill(pids[0], ...) shouldn't
-we just use the pid from the clone above?
-
-> -	setup();
-> +	TST_RETRY_FUNC(waitpid(0, &status, WNOHANG), TST_RETVAL_NOTNULL);
-
-Why are we wrapping WNOHANG call to waitpid into RETRY_FUNC? Just do
-SAFE_WAITPID() without the WNOHANG.
-
-Are you trying to collect all children here? That will not work at all
-with the retry func, as it will exit on first succesful waitpid.
-
-The original code did waitpid() for the top level child only here if you
-want to wait all of them, you have to loop with WNOHANG and you can
-count them in the loop as well...
-
-> -	/*
-> -	 * XXX (garrcoop): why in the hell is this fork-wait written this way?
-> -	 * This doesn't add up with the pattern used for the rest of the tests,
-> -	 * so I'm pretty damn sure this test is written incorrectly.
-> -	 */
-> -	pid = fork();
-> -	if (pid == -1) {
-> -		tst_brkm(TBROK | TERRNO, NULL, "fork failed");
-> -	} else if (pid != 0) {
-> -		/*
-> -		 * NOTE: use waitpid so that we know we're waiting for the
-> -		 * _top-level_ child instead of a spawned subcontainer.
-> -		 *
-> -		 * XXX (garrcoop): Might want to mask SIGCHLD in the top-level
-> -		 * child too, or not *shrugs*.
-> -		 */
-> -		if (waitpid(pid, &status, 0) == -1) {
-> -			perror("wait failed");
-> -		}
-> -		if (WIFEXITED(status))
-> -			exit(WEXITSTATUS(status));
-> -		else
-> -			exit(status);
-> -	}
-> +	children = find_cinit_pids(pids_new);
->  
-> -	/* To make all the containers share the same PGID as its parent */
-> -	setpgid(0, 0);
-> +	if (children > 0) {
-> +		tst_res(TFAIL, "%d children left after sending SIGKILL", children);
->  
-> -	pid = getpid();
-> -	pgid = getpgid(pid);
-> -	SAFE_PIPE(NULL, fd);
-> +		for (i = 0; i < MAX_DEPTH; i++) {
-> +			kill(pids[i], SIGKILL);
-> +			waitpid(pids[i], &status, 0);
-> +		}
->  
-> -	TEST(do_clone_unshare_test(T_CLONE, CLONE_NEWPID,
-> -				   create_nested_container, (void *)&count));
-> -	if (TEST_RETURN == -1) {
-> -		tst_brkm(TFAIL | TTERRNO, NULL, "clone failed");
-> +		return;
->  	}
->  
-> -	close(fd[1]);
-> -	/* Waiting for the MAX_DEPTH number of containers to be created */
-> -	nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
-> -	close(fd[0]);
-> -	if (nbytes > 0)
-> -		tst_resm(TINFO, " %d %s", MAX_DEPTH, readbuffer);
-> -	else
-> -		tst_brkm(TFAIL, NULL, "unable to create %d containers",
-> -			 MAX_DEPTH);
-> -
-> -	/* Kill the container created */
-> -	kill_nested_containers();
-> -
-> -	tst_exit();
-> +	tst_res(TPASS, "No children left after sending SIGKILL to the first child");
->  }
-> +
-> +static struct tst_test test = {
-> +	.test_all = run,
-> +	.setup = setup,
-> +	.needs_root = 1,
-> +	.needs_checkpoints = 1,
-> +	.forks_child = 1,
-> +};
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
