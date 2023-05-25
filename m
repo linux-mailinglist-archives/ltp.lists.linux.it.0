@@ -2,79 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E76571052F
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 May 2023 07:13:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 953507106E5
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 May 2023 10:09:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B194C3CB92C
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 May 2023 07:13:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 278813CD1A6
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 May 2023 10:09:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 363733CA6BC
- for <ltp@lists.linux.it>; Thu, 25 May 2023 07:13:34 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 4BE183CAFCE
+ for <ltp@lists.linux.it>; Thu, 25 May 2023 10:09:41 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 657626009EE
- for <ltp@lists.linux.it>; Thu, 25 May 2023 07:13:33 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 36482600A96
+ for <ltp@lists.linux.it>; Thu, 25 May 2023 10:09:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1685002178;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=1d2gmuyHGk4lIiyG+HAy7Q78S5IXj2pNdzgKkQkEEdk=;
+ b=bf3gezoXVn/uONy/Ve7PI2ACweyUoDjCyF+Viovh+oQGV/RBBsSMYjDgdf1Jge7n7OMDSM
+ H3vJ3zhKBoIJTbO4eN/cLTu6UB8wUO1EIKv7RQb/eCkksxVe8JJSSF4bVamjHtMtOaYda6
+ l/HBHpp30Carv/3v248yWR+so7wlzgE=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-457-gevAnKMlO7GiwqW9i90Rkg-1; Thu, 25 May 2023 04:09:37 -0400
+X-MC-Unique: gevAnKMlO7GiwqW9i90Rkg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7502321D8C;
- Thu, 25 May 2023 05:13:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1684991613;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=B0SIlV10f9etJ/hVWqX1RnakiGtEfXbpNiiYLqES+h8=;
- b=E9ctFZ3LGbiis1bWpruz85+5XZeWUaU+OG8h7Vhub3j0qe2MsxPY2BzMyIeQZYzs8kgwoD
- dP/EDs/HX2zsmlCi0ltrEY6C+A7rr2zcgXggi+E5IAwwM+YIjVGg0uaO7vtjvXe4mTELx1
- tOs8+2Inwgz8XR6HTsQau8O2ev9Rtq4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1684991613;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=B0SIlV10f9etJ/hVWqX1RnakiGtEfXbpNiiYLqES+h8=;
- b=q1K15xFPyCpyUPpcF7VZLzMLMXlUxpY6aW4DFoI7osR4co0coZAUH4LylSPuvLom4F/4Y/
- +ey9yO+bsrjbGlCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 497B813776;
- Thu, 25 May 2023 05:13:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id jVWXEH3ubmR0ZAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 25 May 2023 05:13:33 +0000
-Date: Thu, 25 May 2023 07:13:31 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: "Yang Xu (Fujitsu)" <xuyang2018.jy@fujitsu.com>
-Message-ID: <20230525051331.GA709187@pevik>
-References: <20230518113216.126233-1-jlayton@kernel.org>
- <68340cb2-87e1-ff17-2db8-5610beba761b@fujitsu.com>
- <c6c0ae90df044b883ed65ba1896db8b51dfa70d4.camel@kernel.org>
- <ZG3O0Oe2zlezT0ew@yuki>
- <b35f343590352d0c669a017428e815e54e49a9ca.camel@kernel.org>
- <20230524122818.GA691716@pevik>
- <b3eb4e95-b7b0-71d6-2929-e9321e1cbabe@fujitsu.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CAB9C1C12F89
+ for <ltp@lists.linux.it>; Thu, 25 May 2023 08:09:36 +0000 (UTC)
+Received: from liwang-workstation.lab.eng.nay.redhat.com (unknown
+ [10.66.145.229])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id DC7241121314
+ for <ltp@lists.linux.it>; Thu, 25 May 2023 08:09:35 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Thu, 25 May 2023 16:09:33 +0800
+Message-Id: <20230525080934.54793-1-liwang@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b3eb4e95-b7b0-71d6-2929-e9321e1cbabe@fujitsu.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/statx06: use a fine-grained timestamp
- for the second time fetch
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] FILE_PRINTF|SCANF: changing TWARN to TINFO
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,24 +72,105 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Jeff Layton <jlayton@kernel.org>, "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+There is no necessity to generate TWARN in unsafe marcos.
+As we do have SAFE_FILE_PRINTF to break test on TBROK when
+needed, so we should unify the behavior for LTP macro.
 
-I merged the patchset, linking the original RFC patchset in kernel and
-explaining that we merged it because the change is backward compatible anyway.
+Signed-off-by: Li Wang <liwang@redhat.com>
+---
+ lib/safe_file_ops.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-Thanks to all!
+diff --git a/lib/safe_file_ops.c b/lib/safe_file_ops.c
+index f803691d8..63ae2dbbe 100644
+--- a/lib/safe_file_ops.c
++++ b/lib/safe_file_ops.c
+@@ -76,7 +76,7 @@ int file_scanf(const char *file, const int lineno,
+ 	f = fopen(path, "r");
+ 
+ 	if (f == NULL) {
+-		tst_resm_(file, lineno, TWARN, "Failed to open FILE '%s'",
++		tst_resm_(file, lineno, TINFO, "Failed to open FILE '%s'",
+ 			path);
+ 		return 1;
+ 	}
+@@ -88,20 +88,20 @@ int file_scanf(const char *file, const int lineno,
+ 	va_end(va);
+ 
+ 	if (ret == EOF) {
+-		tst_resm_(file, lineno, TWARN,
++		tst_resm_(file, lineno, TINFO,
+ 			"The FILE '%s' ended prematurely", path);
+ 		goto err;
+ 	}
+ 
+ 	if (ret != exp_convs) {
+-		tst_resm_(file, lineno, TWARN,
++		tst_resm_(file, lineno, TINFO,
+ 			"Expected %i conversions got %i FILE '%s'",
+ 			exp_convs, ret, path);
+ 		goto err;
+ 	}
+ 
+ 	if (fclose(f)) {
+-		tst_resm_(file, lineno, TWARN, "Failed to close FILE '%s'",
++		tst_resm_(file, lineno, TINFO, "Failed to close FILE '%s'",
+ 			path);
+ 		return 1;
+ 	}
+@@ -110,7 +110,7 @@ int file_scanf(const char *file, const int lineno,
+ 
+ err:
+ 	if (fclose(f)) {
+-		tst_resm_(file, lineno, TWARN, "Failed to close FILE '%s'",
++		tst_resm_(file, lineno, TINFO, "Failed to close FILE '%s'",
+ 			path);
+ 	}
+ 
+@@ -218,7 +218,7 @@ int file_printf(const char *file, const int lineno,
+ 	f = fopen(path, "w");
+ 
+ 	if (f == NULL) {
+-		tst_resm_(file, lineno, TWARN, "Failed to open FILE '%s'",
++		tst_resm_(file, lineno, TINFO, "Failed to open FILE '%s'",
+ 			path);
+ 		return 1;
+ 	}
+@@ -226,7 +226,7 @@ int file_printf(const char *file, const int lineno,
+ 	va_start(va, fmt);
+ 
+ 	if (vfprintf(f, fmt, va) < 0) {
+-		tst_resm_(file, lineno, TWARN, "Failed to print to FILE '%s'",
++		tst_resm_(file, lineno, TINFO, "Failed to print to FILE '%s'",
+ 			path);
+ 		goto err;
+ 	}
+@@ -234,7 +234,7 @@ int file_printf(const char *file, const int lineno,
+ 	va_end(va);
+ 
+ 	if (fclose(f)) {
+-		tst_resm_(file, lineno, TWARN, "Failed to close FILE '%s'",
++		tst_resm_(file, lineno, TINFO, "Failed to close FILE '%s'",
+ 			path);
+ 		return 1;
+ 	}
+@@ -243,7 +243,7 @@ int file_printf(const char *file, const int lineno,
+ 
+ err:
+ 	if (fclose(f)) {
+-		tst_resm_(file, lineno, TWARN, "Failed to close FILE '%s'",
++		tst_resm_(file, lineno, TINFO, "Failed to close FILE '%s'",
+ 			path);
+ 	}
+ 
+-- 
+2.40.0
 
-Kind regards,
-Petr
-
-[1] https://lore.kernel.org/lkml/20230411143702.64495-1-jlayton@kernel.org/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
