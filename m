@@ -2,75 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C16607127A6
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 May 2023 15:35:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9066D7127A3
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 May 2023 15:34:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 907783CE7A8
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 May 2023 15:35:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 38A033CD180
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 May 2023 15:34:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7D1E33CA154
+ by picard.linux.it (Postfix) with ESMTPS id 268843CA154
  for <ltp@lists.linux.it>; Fri, 26 May 2023 15:34:38 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 764AD600D2B
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 82522600EAE
  for <ltp@lists.linux.it>; Fri, 26 May 2023 15:34:37 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9CE0C1FD83;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B33DE21A11;
  Fri, 26 May 2023 13:34:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1685108076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CDaks+grywRwNRZ6k/HosXNLBYLuURUcNQxvJZj9Dt4=;
- b=vSQgeUZTdAWYBBzaGzvK+FLVKOCWymn/azD0Xqr+HRYGGIVsEsFQExs/V+xie8zgtw3hCn
- 8hNaKDheQZPCyvGBmuklot6WgpRMkDzuYmuTL9r5AoKryEMQjfXP2nuMY+8Zc+rA+RiWxb
- lG7g5eYc6fX3deV6kTaTa2ujcYsRiKc=
+ bh=h2yI3uvS5l26VwzMblSIzInBfRRMG22ICASSGFJej+I=;
+ b=AZGricbTR0rrmqHWVLnjIlWdpywsF4tNWSw2doBQayGobVK56I+bVJmxYjjFuGxiA3eXYL
+ 4fzpd+rcMxPaRYie5PQbWAAvtcYUYLwn6dxt8xEfDnZU3yn+o96uCWaUnKNyOGOvfvUurI
+ aouCG/fogAFgSs88A9VMpajCAr0kvFo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1685108076;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CDaks+grywRwNRZ6k/HosXNLBYLuURUcNQxvJZj9Dt4=;
- b=Td0D0L29YId1ID60atFuLw9bzXU5ECw4VxrmkDYXMo7ie4/iGD0TUUAg+rqwZuA6BMLlXl
- gLPODks1NtexTqCA==
+ bh=h2yI3uvS5l26VwzMblSIzInBfRRMG22ICASSGFJej+I=;
+ b=CUto91GwsKaIbZTqGQUAfAcqqPUnHbaBkh8PBtQNgkPGSSbSVYd7qZQqwiT63ff323qT2c
+ MLKNdDqoHyk5MCBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7D6C513A89;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9F8BF138E6;
  Fri, 26 May 2023 13:34:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OBnmHWy1cGTMZQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id KJJCJmy1cGTMZQAAMHmgww
  (envelope-from <mdoucha@suse.cz>); Fri, 26 May 2023 13:34:36 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 26 May 2023 15:34:31 +0200
-Message-Id: <20230526133435.7369-4-mdoucha@suse.cz>
+Date: Fri, 26 May 2023 15:34:32 +0200
+Message-Id: <20230526133435.7369-5-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230526133435.7369-1-mdoucha@suse.cz>
 References: <20230526133435.7369-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 3/7] lib: Add safe functions for pthread_kill() and
- mutexes
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 4/7] KVM: Add async communication helper functions
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,247 +86,185 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Some KVM tests need to communicate with VM controller program
+without stopping guest execution. Add guest helper functions
+for sending asynchronous guest signal to host and waiting for host
+to acknowledge the signal. Add host helper functions for waiting
+for guest signal and acknowledging it.
+
+Test programs using these functions must have at least two host threads.
+
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 ---
 
-Changes since v1: None
+Changes since v1:
+- Use tst_clock_gettime() to measure timeout
 
- include/tst_safe_pthread.h |  52 ++++++++++++
- lib/safe_pthread.c         | 161 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 213 insertions(+)
+ testcases/kernel/kvm/Makefile             |  1 +
+ testcases/kernel/kvm/include/kvm_common.h |  8 ++++++
+ testcases/kernel/kvm/include/kvm_guest.h  | 14 ++++++++++
+ testcases/kernel/kvm/include/kvm_host.h   | 14 ++++++++++
+ testcases/kernel/kvm/lib_guest.c          | 16 +++++++++++
+ testcases/kernel/kvm/lib_host.c           | 33 +++++++++++++++++++++++
+ 6 files changed, 86 insertions(+)
 
-diff --git a/include/tst_safe_pthread.h b/include/tst_safe_pthread.h
-index 8fb553929..360b561b6 100644
---- a/include/tst_safe_pthread.h
-+++ b/include/tst_safe_pthread.h
-@@ -52,4 +52,56 @@ int safe_pthread_cancel(const char *file, const int lineno,
- #define SAFE_PTHREAD_CANCEL(thread_id) \
- 	safe_pthread_cancel(__FILE__, __LINE__, thread_id);
+diff --git a/testcases/kernel/kvm/Makefile b/testcases/kernel/kvm/Makefile
+index e12cb4e98..501bb5a09 100644
+--- a/testcases/kernel/kvm/Makefile
++++ b/testcases/kernel/kvm/Makefile
+@@ -7,6 +7,7 @@ include $(top_srcdir)/include/mk/testcases.mk
  
-+int safe_pthread_mutexattr_init(const char *file, const int lineno,
-+	pthread_mutexattr_t *attr);
-+#define SAFE_PTHREAD_MUTEXATTR_INIT(attr) \
-+	safe_pthread_mutexattr_init(__FILE__, __LINE__, (attr))
-+
-+int safe_pthread_mutexattr_destroy(const char *file, const int lineno,
-+	pthread_mutexattr_t *attr);
-+#define SAFE_PTHREAD_MUTEXATTR_DESTROY(attr) \
-+	safe_pthread_mutexattr_destroy(__FILE__, __LINE__, (attr))
-+
-+int safe_pthread_mutexattr_settype(const char *file, const int lineno,
-+	pthread_mutexattr_t *attr, int type);
-+#define SAFE_PTHREAD_MUTEXATTR_SETTYPE(attr, type) \
-+	safe_pthread_mutexattr_settype(__FILE__, __LINE__, (attr), (type))
-+
-+int safe_pthread_mutex_init(const char *file, const int lineno,
-+	pthread_mutex_t *mutex, const pthread_mutexattr_t *attr);
-+#define SAFE_PTHREAD_MUTEX_INIT(mutex, attr) \
-+	safe_pthread_mutex_init(__FILE__, __LINE__, (mutex), (attr))
-+
-+int safe_pthread_mutex_destroy(const char *file, const int lineno,
-+	pthread_mutex_t *mutex);
-+#define SAFE_PTHREAD_MUTEX_DESTROY(mutex) \
-+	safe_pthread_mutex_destroy(__FILE__, __LINE__, (mutex))
-+
-+int safe_pthread_mutex_lock(const char *file, const int lineno,
-+	pthread_mutex_t *mutex);
-+#define SAFE_PTHREAD_MUTEX_LOCK(mutex) \
-+	safe_pthread_mutex_lock(__FILE__, __LINE__, (mutex))
-+
-+/* Terminates the test on any error other than EBUSY */
-+int safe_pthread_mutex_trylock(const char *file, const int lineno,
-+	pthread_mutex_t *mutex);
-+#define SAFE_PTHREAD_MUTEX_TRYLOCK(mutex) \
-+	safe_pthread_mutex_trylock(__FILE__, __LINE__, (mutex))
-+
-+/* Terminates the test on any error other than ETIMEDOUT */
-+int safe_pthread_mutex_timedlock(const char *file, const int lineno,
-+	pthread_mutex_t *mutex, const struct timespec *abstime);
-+#define SAFE_PTHREAD_MUTEX_TIMEDLOCK(mutex, abstime) \
-+	safe_pthread_mutex_timedlock(__FILE__, __LINE__, (mutex), (abstime))
-+
-+int safe_pthread_mutex_unlock(const char *file, const int lineno,
-+	pthread_mutex_t *mutex);
-+#define SAFE_PTHREAD_MUTEX_UNLOCK(mutex) \
-+	safe_pthread_mutex_unlock(__FILE__, __LINE__, (mutex))
-+
-+int safe_pthread_kill(const char *file, const int lineno,
-+	pthread_t thread, int sig);
-+#define SAFE_PTHREAD_KILL(thread, sig) \
-+	safe_pthread_kill(__FILE__, __LINE__, (thread), (sig))
-+
- #endif /* TST_SAFE_PTHREAD_H__ */
-diff --git a/lib/safe_pthread.c b/lib/safe_pthread.c
-index d70bb8707..aeafe014c 100644
---- a/lib/safe_pthread.c
-+++ b/lib/safe_pthread.c
-@@ -106,3 +106,164 @@ int safe_pthread_barrier_init(const char *file, const int lineno,
+ ASFLAGS =
+ CPPFLAGS += -I$(abs_srcdir)/include
++LDLIBS += -lrt
+ GUEST_CPPFLAGS = $(CPPFLAGS) -DCOMPILE_PAYLOAD
+ GUEST_CFLAGS = -ffreestanding -O2 -Wall -fno-asynchronous-unwind-tables -mno-mmx -mno-sse
+ GUEST_LDFLAGS = -nostdlib -Wl,--build-id=none -fno-stack-protector -z noexecstack
+diff --git a/testcases/kernel/kvm/include/kvm_common.h b/testcases/kernel/kvm/include/kvm_common.h
+index 4e81d8302..377e3f6aa 100644
+--- a/testcases/kernel/kvm/include/kvm_common.h
++++ b/testcases/kernel/kvm/include/kvm_common.h
+@@ -10,6 +10,14 @@
  
- 	return rval;
+ #define KVM_TNONE	-1	/* "No result" status value */
+ 
++/*
++ * Result value for asynchronous notifications between guest and host.
++ * Do not use this value directly. Call tst_signal_host() or tst_wait_host()
++ * in guest code. The notification must be handled by another host thread
++ * and then the result value must be reset to KVM_TNONE.
++ */
++#define KVM_TSYNC	0xfe
++
+ /*
+  * Result value indicating end of test. If the test program exits using
+  * the HLT instruction with any valid result value other than KVM_TEXIT or
+diff --git a/testcases/kernel/kvm/include/kvm_guest.h b/testcases/kernel/kvm/include/kvm_guest.h
+index ec13c5845..96f246155 100644
+--- a/testcases/kernel/kvm/include/kvm_guest.h
++++ b/testcases/kernel/kvm/include/kvm_guest.h
+@@ -64,6 +64,20 @@ void tst_brk_(const char *file, const int lineno, int result,
+ 	const char *message) __attribute__((noreturn));
+ #define tst_brk(result, msg) tst_brk_(__FILE__, __LINE__, (result), (msg))
+ 
++/*
++ * Send asynchronous notification to host without stopping VM execution and
++ * return immediately. The notification must be handled by another host thread.
++ * The data argument will be passed to host in test_result->file_addr and
++ * can be used to send additional data both ways.
++ */
++void tst_signal_host(void *data);
++
++/*
++ * Call tst_signal_host(data) and wait for host to call
++ * tst_kvm_clear_guest_signal().
++ */
++void tst_wait_host(void *data);
++
+ void *tst_heap_alloc_aligned(size_t size, size_t align);
+ void *tst_heap_alloc(size_t size);
+ 
+diff --git a/testcases/kernel/kvm/include/kvm_host.h b/testcases/kernel/kvm/include/kvm_host.h
+index 2359944fd..3949dd040 100644
+--- a/testcases/kernel/kvm/include/kvm_host.h
++++ b/testcases/kernel/kvm/include/kvm_host.h
+@@ -134,4 +134,18 @@ void tst_kvm_run_instance(struct tst_kvm_instance *inst);
+  */
+ void tst_kvm_destroy_instance(struct tst_kvm_instance *inst);
+ 
++/*
++ * Wait for given VM to call tst_signal_host() or tst_wait_host(). Timeout
++ * value is in milliseconds. Zero means no wait, negative value means wait
++ * forever. Returns 0 if signal was received, KVM_TEXIT if the VM exited
++ * without sending a signal, or -1 if timeout was reached.
++ */
++int tst_kvm_wait_guest(struct tst_kvm_instance *inst, int timeout_ms);
++
++/*
++ * Clear VM signal sent by tst_signal_host(). If the VM is waiting
++ * in tst_wait_host(), this function will signal the VM to resume execution.
++ */
++void tst_kvm_clear_guest_signal(struct tst_kvm_instance *inst);
++
+ #endif /* KVM_HOST_H_ */
+diff --git a/testcases/kernel/kvm/lib_guest.c b/testcases/kernel/kvm/lib_guest.c
+index d3b2ac3d5..f3e21d3d6 100644
+--- a/testcases/kernel/kvm/lib_guest.c
++++ b/testcases/kernel/kvm/lib_guest.c
+@@ -155,6 +155,22 @@ void tst_brk_(const char *file, const int lineno, int result,
+ 	kvm_exit();
  }
-+
-+int safe_pthread_mutexattr_init(const char *file, const int lineno,
-+	pthread_mutexattr_t *attr)
+ 
++void tst_signal_host(void *data)
 +{
-+	int ret;
-+
-+	ret = pthread_mutexattr_init(attr);
-+
-+	if (ret) {
-+		tst_brk_(file, lineno, TBROK,
-+			"pthread_mutexattr_init(%p) failed: %s",
-+			attr, tst_strerrno(ret));
-+	}
-+
-+	return ret;
++	test_result->file_addr = (uintptr_t)data;
++	test_result->result = KVM_TSYNC;
 +}
 +
-+int safe_pthread_mutexattr_destroy(const char *file, const int lineno,
-+	pthread_mutexattr_t *attr)
++void tst_wait_host(void *data)
 +{
-+	int ret;
++	volatile int32_t *vres = &test_result->result;
 +
-+	ret = pthread_mutexattr_destroy(attr);
++	tst_signal_host(data);
 +
-+	if (ret) {
-+		tst_brk_(file, lineno, TBROK,
-+			"pthread_mutexattr_destroy(%p) failed: %s",
-+			attr, tst_strerrno(ret));
-+	}
-+
-+	return ret;
++	while (*vres != KVM_TNONE)
++		;
 +}
 +
-+int safe_pthread_mutexattr_settype(const char *file, const int lineno,
-+	pthread_mutexattr_t *attr, int type)
+ void tst_handle_interrupt(struct kvm_interrupt_frame *ifrm, long vector,
+ 	unsigned long errcode)
+ {
+diff --git a/testcases/kernel/kvm/lib_host.c b/testcases/kernel/kvm/lib_host.c
+index 2782e68b0..2f524e3ce 100644
+--- a/testcases/kernel/kvm/lib_host.c
++++ b/testcases/kernel/kvm/lib_host.c
+@@ -10,6 +10,8 @@
+ 
+ #define TST_NO_DEFAULT_MAIN
+ #include "tst_test.h"
++#include "tst_clocks.h"
++#include "tst_timer.h"
+ #include "kvm_host.h"
+ 
+ static struct tst_kvm_instance test_vm = { .vm_fd = -1 };
+@@ -272,6 +274,37 @@ void tst_kvm_destroy_instance(struct tst_kvm_instance *inst)
+ 	memset(inst->ram, 0, sizeof(inst->ram));
+ }
+ 
++int tst_kvm_wait_guest(struct tst_kvm_instance *inst, int timeout_ms)
 +{
-+	int ret;
++	volatile struct tst_kvm_result *result = inst->result;
++	int32_t res;
++	struct timespec start, now;
 +
-+	ret = pthread_mutexattr_settype(attr, type);
++	if (timeout_ms >= 0)
++		tst_clock_gettime(CLOCK_MONOTONIC, &start);
 +
-+	if (ret) {
-+		tst_brk_(file, lineno, TBROK,
-+			"pthread_mutexattr_settype(%p, %d) failed: %s",
-+			attr, type, tst_strerrno(ret));
++	while ((res = result->result) != KVM_TSYNC) {
++		if (res == KVM_TEXIT)
++			return res;
++
++		if (timeout_ms >= 0) {
++			tst_clock_gettime(CLOCK_MONOTONIC, &now);
++
++			if (tst_timespec_diff_ms(now, start) >= timeout_ms)
++				return -1;
++		}
++
++		usleep(1000);
 +	}
 +
-+	return ret;
++	return 0;
 +}
 +
-+int safe_pthread_mutex_init(const char *file, const int lineno,
-+	pthread_mutex_t *mutex, const pthread_mutexattr_t *attr)
++void tst_kvm_clear_guest_signal(struct tst_kvm_instance *inst)
 +{
-+	int ret;
-+
-+	ret = pthread_mutex_init(mutex, attr);
-+
-+	if (ret) {
-+		tst_brk_(file, lineno, TBROK,
-+			"pthread_mutex_init(%p, %p) failed: %s",
-+			mutex, attr, tst_strerrno(ret));
-+	}
-+
-+	return ret;
++	inst->result->result = KVM_TNONE;
 +}
 +
-+int safe_pthread_mutex_destroy(const char *file, const int lineno,
-+	pthread_mutex_t *mutex)
-+{
-+	int ret;
-+
-+	ret = pthread_mutex_destroy(mutex);
-+
-+	if (ret) {
-+		tst_brk_(file, lineno, TBROK,
-+			"pthread_mutex_destroy(%p) failed: %s",
-+			mutex, tst_strerrno(ret));
-+	}
-+
-+	return ret;
-+}
-+
-+int safe_pthread_mutex_lock(const char *file, const int lineno,
-+	pthread_mutex_t *mutex)
-+{
-+	int ret;
-+
-+	ret = pthread_mutex_lock(mutex);
-+
-+	if (ret) {
-+		tst_brk_(file, lineno, TBROK,
-+			"pthread_mutex_lock(%p) failed: %s",
-+			mutex, tst_strerrno(ret));
-+	}
-+
-+	return ret;
-+}
-+
-+int safe_pthread_mutex_trylock(const char *file, const int lineno,
-+	pthread_mutex_t *mutex)
-+{
-+	int ret;
-+
-+	ret = pthread_mutex_trylock(mutex);
-+
-+	if (ret && ret != EBUSY) {
-+		tst_brk_(file, lineno, TBROK,
-+			"pthread_mutex_trylock(%p) failed: %s",
-+			mutex, tst_strerrno(ret));
-+	}
-+
-+	return ret;
-+}
-+
-+int safe_pthread_mutex_timedlock(const char *file, const int lineno,
-+	pthread_mutex_t *mutex, const struct timespec *abstime)
-+{
-+	int ret;
-+
-+	ret = pthread_mutex_timedlock(mutex, abstime);
-+
-+	if (ret && ret != ETIMEDOUT) {
-+		tst_brk_(file, lineno, TBROK,
-+			"pthread_mutex_timedlock(%p, {%lld, %ld}) failed: %s",
-+			mutex, (long long)abstime->tv_sec, abstime->tv_nsec,
-+			tst_strerrno(ret));
-+	}
-+
-+	return ret;
-+}
-+
-+int safe_pthread_mutex_unlock(const char *file, const int lineno,
-+	pthread_mutex_t *mutex)
-+{
-+	int ret;
-+
-+	ret = pthread_mutex_unlock(mutex);
-+
-+	if (ret) {
-+		tst_brk_(file, lineno, TBROK,
-+			"pthread_mutex_unlock(%p) failed: %s",
-+			mutex, tst_strerrno(ret));
-+	}
-+
-+	return ret;
-+}
-+
-+int safe_pthread_kill(const char *file, const int lineno,
-+	pthread_t thread, int sig)
-+{
-+	int ret;
-+
-+	ret = pthread_kill(thread, sig);
-+
-+	if (ret) {
-+		tst_brk_(file, lineno, TBROK,
-+			"pthread_kill(..., %d) failed: %s",
-+			sig, tst_strerrno(ret));
-+	}
-+
-+	return ret;
-+}
+ void tst_kvm_setup(void)
+ {
+ 
 -- 
 2.40.0
 
