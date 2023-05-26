@@ -2,68 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C42167127A9
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 May 2023 15:35:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6B9B7127A5
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 May 2023 15:34:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 817603CEF0B
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 May 2023 15:35:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3B3F03CE78D
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 May 2023 15:34:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CA7B23CA154
- for <ltp@lists.linux.it>; Fri, 26 May 2023 15:34:38 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 4D5743CB059
+ for <ltp@lists.linux.it>; Fri, 26 May 2023 15:34:37 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 482A21A00646
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7A5DC200B91
  for <ltp@lists.linux.it>; Fri, 26 May 2023 15:34:37 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 49C341F74A;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6140E1F86C;
  Fri, 26 May 2023 13:34:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1685108076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Gi28/tVvZ8ZqmuQDDolxO12HLcMnjVD11atwuX+hFkw=;
- b=OYHHy47gQj0B10GmwNkiwpacQNT6RLVhspEqH4I89/QR6vshRtGtLuhmsWxPdjNCEmyTbH
- mUW56dKvGXEIvb4yuLtLa9MkGufcnsNeXf/Wc098P3fiuh9CKAdfHgSG5bcFVM9/v09Uec
- f5ZMHmaM904tX0YWvJ1regqD8M5KUZ8=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WlrwmwIpuJrWjQl0RRKh1sNre1DeS5wNs00FlGUq5gM=;
+ b=ZFfx1VGoGiU8X92mK1BIQ71Km7DJ9A4L/L77eI9ilfWJpjXKzkahmrDT5AughBb2gqGu1T
+ gMpmxyUWvTGJ8Qk6fCCy3AQJiQOiUESg8ZfOPl/zqjwPiCMosz/zuv2fPa19Yhl3fJ5Aww
+ FnBvw6P/aDiIgGQCJLV2P1eUpkfKfPw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1685108076;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Gi28/tVvZ8ZqmuQDDolxO12HLcMnjVD11atwuX+hFkw=;
- b=h2ALE8LxZ02dHkSzHe1wkmCFUOK4paqH8DDgSo1BlM+HnW+koFdtsv+2VoB1RHRMsFxfag
- AIZXUPV8ASrBtGAw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WlrwmwIpuJrWjQl0RRKh1sNre1DeS5wNs00FlGUq5gM=;
+ b=cKF+kJ5NYi00vgavX3akcVovDEXwEUiHvsaoqrNem56+O64ZtRcoTPQ/K5xW23uhODaMb4
+ X726Vgp+jE8IgLBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 35FCF138E6;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4BC6E13A89;
  Fri, 26 May 2023 13:34:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CxVEDGy1cGTMZQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id UIvHEWy1cGTMZQAAMHmgww
  (envelope-from <mdoucha@suse.cz>); Fri, 26 May 2023 13:34:36 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 26 May 2023 15:34:28 +0200
-Message-Id: <20230526133435.7369-1-mdoucha@suse.cz>
+Date: Fri, 26 May 2023 15:34:29 +0200
+Message-Id: <20230526133435.7369-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.40.0
+In-Reply-To: <20230526133435.7369-1-mdoucha@suse.cz>
+References: <20230526133435.7369-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 0/7] Two AMD SVM vulnerability tests
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/7] KVM: Add VMSAVE/VMLOAD intercept constants
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,57 +86,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Here are two more kernel vulnerability tests for AMD SVM:
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+Acked-by: Petr Vorel <pvorel@suse.cz>
+---
 
-kvm_svm02 checks that the host kernel intercepts VMLOAD and VMSAVE
-instructions in nested VMs and translates guest addresses to the correct
-physical address. Without the translation, nested SVM guest can read and
-write part of an arbitrary physical memory page chosen by the parent VM.
+Changes since v1: None
 
-The test tries to detect the CVE bug harmlessly at first by using VMLOAD
-to read a buffer full of zeroes. If it finds any non-zero bytes in the VMCB
-fields accessed by VMLOAD/VMSAVE, it'll fail because they must have come
-from host memory due to missing address translation.
+ testcases/kernel/kvm/include/kvm_x86_svm.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Since the harmless approach can produce false negatives, it'll also try
-a destructive approach and write into memory using VMSAVE. If the bug
-is present, the byte pattern in the destination buffer will not change
-and the test will reliably fail.
-
-kvm_svm03 checks that the host kernel correctly handles global interrupt
-flag in nested VMs. Otherwise a malicious VM could lock up all CPUs
-assigned to it, causing a limited denial of service attack.
-
-The test needs synchronization between the VM and another host thread so
-the patchset includes the necessary helper functions.
-
-Martin Doucha (7):
-  KVM: Add VMSAVE/VMLOAD intercept constants
-  Add test for CVE 2021-3656
-  lib: Add safe functions for pthread_kill() and mutexes
-  KVM: Add async communication helper functions
-  KVM: Allow expected KVM_RUN errors in tst_kvm_run_instance()
-  KVM: Add STGI/CLGI intercept constants
-  Add KVM test for CPU lockup through malicous SVM guest
-
- doc/kvm-test-api.txt                       |   9 +-
- include/tst_safe_pthread.h                 |  52 +++++++
- lib/safe_pthread.c                         | 161 ++++++++++++++++++++
- runtest/kvm                                |   2 +
- testcases/kernel/kvm/.gitignore            |   2 +
- testcases/kernel/kvm/Makefile              |   4 +
- testcases/kernel/kvm/include/kvm_common.h  |   8 +
- testcases/kernel/kvm/include/kvm_guest.h   |  14 ++
- testcases/kernel/kvm/include/kvm_host.h    |  20 ++-
- testcases/kernel/kvm/include/kvm_x86_svm.h |   9 ++
- testcases/kernel/kvm/kvm_svm02.c           | 152 ++++++++++++++++++
- testcases/kernel/kvm/kvm_svm03.c           | 169 +++++++++++++++++++++
- testcases/kernel/kvm/lib_guest.c           |  16 ++
- testcases/kernel/kvm/lib_host.c            |  55 ++++++-
- 14 files changed, 665 insertions(+), 8 deletions(-)
- create mode 100644 testcases/kernel/kvm/kvm_svm02.c
- create mode 100644 testcases/kernel/kvm/kvm_svm03.c
-
+diff --git a/testcases/kernel/kvm/include/kvm_x86_svm.h b/testcases/kernel/kvm/include/kvm_x86_svm.h
+index 965d1e716..3eb832849 100644
+--- a/testcases/kernel/kvm/include/kvm_x86_svm.h
++++ b/testcases/kernel/kvm/include/kvm_x86_svm.h
+@@ -37,10 +37,15 @@
+ /* SVM event intercept IDs */
+ #define SVM_INTERCEPT_HLT 0x78
+ #define SVM_INTERCEPT_VMRUN 0x80
++#define SVM_INTERCEPT_VMLOAD 0x82
++#define SVM_INTERCEPT_VMSAVE 0x83
+ #define SVM_INTERCEPT_MAX 0x95
+ 
+ /* SVM vmrun exit codes */
+ #define SVM_EXIT_HLT 0x78
++#define SVM_EXIT_VMRUN 0x80
++#define SVM_EXIT_VMLOAD 0x82
++#define SVM_EXIT_VMSAVE 0x83
+ #define SVM_EXIT_AVIC_NOACCEL 0x402
+ #define SVM_EXIT_INVALID ((uint64_t)-1)
+ 
 -- 
 2.40.0
 
