@@ -1,71 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13824716EF7
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:38:19 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A6B9716EEF
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:37:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 674853CEB3C
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:38:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BAE913CE715
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:37:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D92F53CCFA1
+ by picard.linux.it (Postfix) with ESMTPS id 766CC3CCFAE
  for <ltp@lists.linux.it>; Tue, 30 May 2023 22:37:23 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7A3A11000BD9
- for <ltp@lists.linux.it>; Tue, 30 May 2023 22:37:21 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 91D47600D93
+ for <ltp@lists.linux.it>; Tue, 30 May 2023 22:37:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1685479040;
+ s=mimecast20190719; t=1685479041;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=DjN6dg59V0TBoYTUAid/o9q8l4IMeFbDiTYtOBeabOM=;
- b=CYt6SbEo7n0yQcY6Ruj+bNZiiqQYlc61TfJwk42YfXAIDfgnqfvmFKYiVFk5DLRJtDuxnQ
- zQ0Mmvvy/xT0LX3BRm65lsjP8ohrCAmMo13mLyVQlG3IjMklLyc2UaGSLGtD5Z7VpXmSF4
- NDid5y5DYgDjMGIRK2TwfETrL9H9n2w=
+ bh=UclEeytSxBtMCAJA0FHvD2BTmOAl4543G4hHGOceilM=;
+ b=X2khfxdb5yJ2+ZZPtiPMX0ukg7A3PpbCYWYKhQxWwF5Lw9eeJtIGuZN5yYM8K/MlpHr4JB
+ SuXs9H3cjAaX46EfALmeNLuBZjtZsqJAIZkyFSupBqEM3jY6CYFrr6ddK68ch+gnQxzPAW
+ 9XLXkllzzu9CupmpArCUwm78nis4UBI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-46-S2jGaPTTNbC4ekTG1wJi8g-1; Tue, 30 May 2023 16:37:19 -0400
-X-MC-Unique: S2jGaPTTNbC4ekTG1wJi8g-1
+ us-mta-505-5wZKzjcBPyyCU5Itl0XYtw-1; Tue, 30 May 2023 16:37:19 -0400
+X-MC-Unique: 5wZKzjcBPyyCU5Itl0XYtw-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
  [10.11.54.4])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3B95A8007D9
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A4BF85A5BA
  for <ltp@lists.linux.it>; Tue, 30 May 2023 20:37:19 +0000 (UTC)
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 22A8020296C6;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4332420296C6;
  Tue, 30 May 2023 20:37:19 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: ltp@lists.linux.it
-Date: Tue, 30 May 2023 16:37:03 -0400
-Message-Id: <20230530203707.2965684-2-aahringo@redhat.com>
+Date: Tue, 30 May 2023 16:37:04 -0400
+Message-Id: <20230530203707.2965684-3-aahringo@redhat.com>
 In-Reply-To: <20230530203707.2965684-1-aahringo@redhat.com>
 References: <20230530203707.2965684-1-aahringo@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/5] fcntl40: test for owner values on classic posix
- lock
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/5] fcntl41: test for owner values on OFD posix locks
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,48 +80,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch adds fcntl40 to test similar owner values for classical owner
-locks. There was an issue been found in the gfs2 filesystem because
-there can be collisions with identical owner values.
+This patch adds fcntl41 to test similar owner values for OFD locks.
+There was an issue been found in the gfs2 filesystem because there
+can be collisions with identical owner values.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
  testcases/kernel/syscalls/fcntl/.gitignore |   2 +
- testcases/kernel/syscalls/fcntl/Makefile   |   3 +
- testcases/kernel/syscalls/fcntl/fcntl40.c  | 188 +++++++++++++++++++++
- 3 files changed, 193 insertions(+)
- create mode 100644 testcases/kernel/syscalls/fcntl/fcntl40.c
+ testcases/kernel/syscalls/fcntl/fcntl41.c  | 178 +++++++++++++++++++++
+ 2 files changed, 180 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/fcntl/fcntl41.c
 
 diff --git a/testcases/kernel/syscalls/fcntl/.gitignore b/testcases/kernel/syscalls/fcntl/.gitignore
-index 10cb0995f..e558cfe83 100644
+index e558cfe83..4bdae1a22 100644
 --- a/testcases/kernel/syscalls/fcntl/.gitignore
 +++ b/testcases/kernel/syscalls/fcntl/.gitignore
-@@ -74,3 +74,5 @@
- /fcntl38_64
- /fcntl39
+@@ -76,3 +76,5 @@
  /fcntl39_64
-+/fcntl40
-+/fcntl40_64
-diff --git a/testcases/kernel/syscalls/fcntl/Makefile b/testcases/kernel/syscalls/fcntl/Makefile
-index df663a50a..c3196a527 100644
---- a/testcases/kernel/syscalls/fcntl/Makefile
-+++ b/testcases/kernel/syscalls/fcntl/Makefile
-@@ -12,6 +12,9 @@ fcntl34_64: LDLIBS += -lpthread
- fcntl36: LDLIBS += -lpthread
- fcntl36_64: LDLIBS += -lpthread
- 
-+fcntl40: LDLIBS += -lpthread
-+fcntl40_64: LDLIBS += -lpthread
-+
- include $(top_srcdir)/include/mk/testcases.mk
- include $(abs_srcdir)/../utils/newer_64.mk
- 
-diff --git a/testcases/kernel/syscalls/fcntl/fcntl40.c b/testcases/kernel/syscalls/fcntl/fcntl40.c
+ /fcntl40
+ /fcntl40_64
++/fcntl41
++/fcntl41_64
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl41.c b/testcases/kernel/syscalls/fcntl/fcntl41.c
 new file mode 100644
-index 000000000..829685436
+index 000000000..40d14ff02
 --- /dev/null
-+++ b/testcases/kernel/syscalls/fcntl/fcntl40.c
-@@ -0,0 +1,188 @@
++++ b/testcases/kernel/syscalls/fcntl/fcntl41.c
+@@ -0,0 +1,178 @@
 +/*
 + * [Description]
 + * Tests gfs2 dlm posix op queue handling in the kernel.
@@ -131,7 +114,7 @@ index 000000000..829685436
 + * aside to monitor dlm plock handling.
 + *
 + * [How to use it]
-+ * Call it with TMPDIR=/mnt ./fcntl40 where TMPDIR is a gfs2 mountpoint.
++ * Call it with TMPDIR=/mnt ./fcntl41 where TMPDIR is a gfs2 mountpoint.
 + * Try it on other filesystems to compare results.
 + *
 + * [What's it doing]
@@ -176,14 +159,12 @@ index 000000000..829685436
 + */
 +
 +#include <sys/wait.h>
-+#include <pthread.h>
 +
-+#include "tst_safe_pthread.h"
 +#include "tst_test.h"
 +
-+static int fd;
++static int fd, fd2;
 +
-+static void *do_thread1(void *arg)
++void do_child1(void)
 +{
 +	const struct flock fl_0_0 = {
 +		.l_type = F_WRLCK,
@@ -191,19 +172,18 @@ index 000000000..829685436
 +		.l_start = 0L,
 +		.l_len = 1L,
 +	};
-+	(void)arg;
 +
 +	tst_res(TINFO, "thread1 waits for thread2 to lock 1-1");
 +	TST_CHECKPOINT_WAIT(1);
 +
 +	tst_res(TINFO, "thread1 lock region 0-0 - It should block");
-+	SAFE_FCNTL(fd, F_SETLKW, &fl_0_0);
++	SAFE_FCNTL(fd2, F_OFD_SETLKW, &fl_0_0);
 +	tst_res(TINFO, "lock region 0-0 acquired");
 +
-+	return NULL;
++	tst_res(TPASS, "Child1 passed!");
 +}
 +
-+static void *do_thread2(void *arg)
++void do_child2(void)
 +{
 +	const struct flock fl_1_1 = {
 +		.l_type = F_WRLCK,
@@ -211,28 +191,13 @@ index 000000000..829685436
 +		.l_start = 1L,
 +		.l_len = 1L,
 +	};
-+	(void)arg;
 +
 +	tst_res(TINFO, "thread1 lock region 1-1 - It should block");
-+	SAFE_FCNTL(fd, F_SETLKW, &fl_1_1);
++	SAFE_FCNTL(fd2, F_OFD_SETLKW, &fl_1_1);
 +	tst_res(TINFO, "lock region 1-1 acquired");
 +
 +	TST_CHECKPOINT_WAKE(2);
-+
-+	return NULL;
-+}
-+
-+void do_child(void)
-+{
-+	pthread_t t1, t2;
-+
-+	SAFE_PTHREAD_CREATE(&t1, NULL, do_thread1, NULL);
-+	SAFE_PTHREAD_CREATE(&t2, NULL, do_thread2, NULL);
-+
-+	SAFE_PTHREAD_JOIN(t1, NULL);
-+	SAFE_PTHREAD_JOIN(t2, NULL);
-+
-+	tst_res(TPASS, "Child passed!");
++	tst_res(TPASS, "Child2 passed!");
 +}
 +
 +void do_parent(void)
@@ -256,7 +221,7 @@ index 000000000..829685436
 +	fl.l_start = 1;
 +	fl.l_len = 1;
 +	tst_res(TINFO, "unlock region 1-1 thread2");
-+	SAFE_FCNTL(fd, F_SETLK, &fl);
++	SAFE_FCNTL(fd, F_OFD_SETLK, &fl);
 +
 +	/* wait until thread 2 got acquired and leave waiting */
 +	TST_CHECKPOINT_WAIT(2);
@@ -265,7 +230,7 @@ index 000000000..829685436
 +	fl.l_len = 1;
 +	fl.l_type = F_UNLCK;
 +	tst_res(TINFO, "unlock region 0-0 thread2");
-+	SAFE_FCNTL(fd, F_SETLK, &fl);
++	SAFE_FCNTL(fd, F_OFD_SETLK, &fl);
 +}
 +
 +static void fcntl40_test(void)
@@ -279,16 +244,23 @@ index 000000000..829685436
 +	pid_t pid;
 +
 +	tst_res(TINFO, "parent lock region 0-1 - should be successful");
-+	SAFE_FCNTL(fd, F_SETLK, &fl);
++	SAFE_FCNTL(fd, F_OFD_SETLK, &fl);
 +	tst_res(TINFO, "parent region 0-1 locked");
 +
 +	pid = SAFE_FORK();
 +	if (pid == 0) {
-+		do_child();
++		do_child1();
++		return;
++	}
++
++	pid = SAFE_FORK();
++	if (pid == 0) {
++		do_child2();
 +		return;
 +	}
 +
 +	do_parent();
++	wait(NULL);
 +	wait(NULL);
 +
 +	tst_res(TPASS, "Parent passed!");
@@ -297,6 +269,7 @@ index 000000000..829685436
 +static void setup(void)
 +{
 +	fd = SAFE_OPEN("filename", O_RDWR | O_CREAT, 0700);
++	fd2 = SAFE_OPEN("filename", O_RDWR | O_CREAT, 0700);
 +}
 +
 +static void cleanup(void)
