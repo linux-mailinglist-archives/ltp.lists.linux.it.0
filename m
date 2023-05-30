@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D9C5716EEC
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:37:36 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42A77716EF6
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:38:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2CAA33CD03F
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:37:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DB2963CEB45
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:38:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
@@ -14,14 +14,14 @@ Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 611183CCFA1
+ by picard.linux.it (Postfix) with ESMTPS id BDBC03CB939
  for <ltp@lists.linux.it>; Tue, 30 May 2023 22:37:23 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 789E0200BB8
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E9D26200BCD
  for <ltp@lists.linux.it>; Tue, 30 May 2023 22:37:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  s=mimecast20190719; t=1685479041;
@@ -29,29 +29,29 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=OZS0eCB9R6/tJQfBcZJnUjXwLzZRrY8gN2CVq/Q5kXs=;
- b=KBsSlsGmnv/7mDHP7325LV38Z9LIuTtJd1XgkAovqcUydpDf4DRvYeF3+O0g2hY845U9lW
- 6JKQ4V21CxJ2JkjbVA3ZeQ6uh8uVc8CrmOiuVT2uWDhpS/GsmZOf3vJn9yE2uqyPl5kB+w
- FEuWOLhzqLrFtZvfelWFuMf91CEZEZs=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=OJFtseW1TKoHdAEDJ73boji0oZHmTNEr1dRP6ec14QQ=;
+ b=g7fEAujBvlaz2zZLK5wGsV7JHiS7VyRmvflOpVKFgjqBmwncMWBdgHJ7EQHIzlT96Sz8Ev
+ 9dpAJsnKJOz5TyTQu01pwSe0MqD1uoLOKKk/z8H7Ck9x9McPDZIQx8Tkwm07W9uS7aVpFv
+ euvLbZfm5DlJXJavzgEKdRz5B19a0dc=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-22-XPRMW97uMxC9I4__iuXf0Q-1; Tue, 30 May 2023 16:37:19 -0400
-X-MC-Unique: XPRMW97uMxC9I4__iuXf0Q-1
+ us-mta-461-M_4D8P5WNcuONl1DdMGRDQ-1; Tue, 30 May 2023 16:37:20 -0400
+X-MC-Unique: M_4D8P5WNcuONl1DdMGRDQ-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
  [10.11.54.4])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9A0F1811E85
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B97821C01505
  for <ltp@lists.linux.it>; Tue, 30 May 2023 20:37:19 +0000 (UTC)
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 81D4D200AE6F;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A1F3720296C6;
  Tue, 30 May 2023 20:37:19 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: ltp@lists.linux.it
-Date: Tue, 30 May 2023 16:37:06 -0400
-Message-Id: <20230530203707.2965684-5-aahringo@redhat.com>
+Date: Tue, 30 May 2023 16:37:07 -0400
+Message-Id: <20230530203707.2965684-6-aahringo@redhat.com>
 In-Reply-To: <20230530203707.2965684-1-aahringo@redhat.com>
 References: <20230530203707.2965684-1-aahringo@redhat.com>
 MIME-Version: 1.0
@@ -64,7 +64,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 4/5] fcntl43: test for identical F_SETLKW lock requests
+Subject: [LTP] [PATCH 5/5] fcntl44: test for kill child while others waiting
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,70 +81,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch adds fcntl43 to test two identical lock requests at the same
-time. They are identical as they will be granted at the same time.
+This patch adds fcntl44 to kill a forked child blocking for get a lock
+granted and another child waiting for the same lock context. This test
+checks on cleanup issues when the forked child gets killed.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
  testcases/kernel/syscalls/fcntl/.gitignore |   2 +
- testcases/kernel/syscalls/fcntl/Makefile   |   3 +
- testcases/kernel/syscalls/fcntl/fcntl43.c  | 140 +++++++++++++++++++++
- 3 files changed, 145 insertions(+)
- create mode 100644 testcases/kernel/syscalls/fcntl/fcntl43.c
+ testcases/kernel/syscalls/fcntl/fcntl44.c  | 128 +++++++++++++++++++++
+ 2 files changed, 130 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/fcntl/fcntl44.c
 
 diff --git a/testcases/kernel/syscalls/fcntl/.gitignore b/testcases/kernel/syscalls/fcntl/.gitignore
-index abffa2967..6622aedbc 100644
+index 6622aedbc..0ee00ce1f 100644
 --- a/testcases/kernel/syscalls/fcntl/.gitignore
 +++ b/testcases/kernel/syscalls/fcntl/.gitignore
-@@ -80,3 +80,5 @@
- /fcntl41_64
- /fcntl42
+@@ -82,3 +82,5 @@
  /fcntl42_64
-+/fcntl43
-+/fcntl43_64
-diff --git a/testcases/kernel/syscalls/fcntl/Makefile b/testcases/kernel/syscalls/fcntl/Makefile
-index c3196a527..7478b87ec 100644
---- a/testcases/kernel/syscalls/fcntl/Makefile
-+++ b/testcases/kernel/syscalls/fcntl/Makefile
-@@ -15,6 +15,9 @@ fcntl36_64: LDLIBS += -lpthread
- fcntl40: LDLIBS += -lpthread
- fcntl40_64: LDLIBS += -lpthread
- 
-+fcntl43: LDLIBS += -lpthread
-+fcntl43_64: LDLIBS += -lpthread
-+
- include $(top_srcdir)/include/mk/testcases.mk
- include $(abs_srcdir)/../utils/newer_64.mk
- 
-diff --git a/testcases/kernel/syscalls/fcntl/fcntl43.c b/testcases/kernel/syscalls/fcntl/fcntl43.c
+ /fcntl43
+ /fcntl43_64
++/fcntl44_64
++/fcntl44
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl44.c b/testcases/kernel/syscalls/fcntl/fcntl44.c
 new file mode 100644
-index 000000000..0a69396a4
+index 000000000..364916634
 --- /dev/null
-+++ b/testcases/kernel/syscalls/fcntl/fcntl43.c
-@@ -0,0 +1,140 @@
++++ b/testcases/kernel/syscalls/fcntl/fcntl44.c
+@@ -0,0 +1,128 @@
 +/*
 + * [Description]
-+ * Tests gfs2 dlm posix op queue handling in the kernel.
++ * Tests killing a child while several other processes using different OFD
++ * lock contexts are blocking. When the child is killed there is a cleanup
++ * routine going on. The parent will check if there were any unexpected
++ * side-effects, e.g. unlock all previous acquired locks, happened.
++ *
 + * It is recommended to run watch -n 0.1 "dlm_tool plocks $LS"
 + * aside to monitor dlm plock handling.
 + *
-+ * This testcase creates two lock requests which looks identical and should
-+ * be granted at the same time.
-+ *
 + * [How to use it]
-+ * Call it with TMPDIR=/mnt ./fcntl43 where TMPDIR is a gfs2 mountpoint.
++ * Call it with TMPDIR=/mnt ./fcntl44 where TMPDIR is a gfs2 mountpoint.
 + * Try it on other filesystems to compare results.
++ *
++ * [0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/fs/dlm/plock.c?h=v6.3#n432
 + */
 +
 +#include <sys/wait.h>
-+#include <pthread.h>
 +
-+#include "tst_safe_pthread.h"
 +#include "tst_test.h"
 +
-+static int fd;
++static int fd, fd2;
 +
-+static void *do_thread1(void *arg)
++void do_child1(void)
 +{
 +	const struct flock fl = {
 +		.l_type = F_WRLCK,
@@ -152,70 +139,25 @@ index 000000000..0a69396a4
 +		.l_start = 0L,
 +		.l_len = 1L,
 +	};
-+	(void)arg;
 +
-+	tst_res(TINFO, "thread1 waits for thread2 to lock 0-0");
++	SAFE_FCNTL(fd2, F_OFD_SETLKW, &fl);
++	tst_res(TINFO, "child1 lock region 0-0 acquired");
++
 +	TST_CHECKPOINT_WAIT(1);
 +
-+	tst_res(TINFO, "thread1 lock region 0-0 - It should block");
-+	SAFE_FCNTL(fd, F_SETLKW, &fl);
-+	tst_res(TINFO, "lock region 0-0 acquired");
-+
-+	return NULL;
++	tst_res(TPASS, "Child1 passed!");
 +}
 +
-+static void *do_thread2(void *arg)
++void do_child2(void)
 +{
 +	const struct flock fl = {
 +		.l_type = F_WRLCK,
 +		.l_whence = SEEK_SET,
-+		.l_start = 0L,
++		.l_start = 1L,
 +		.l_len = 1L,
 +	};
-+	(void)arg;
 +
-+	tst_res(TINFO, "thread1 lock region 0-0 - It should block");
-+	SAFE_FCNTL(fd, F_SETLKW, &fl);
-+	tst_res(TINFO, "lock region 0-0 acquired");
-+
-+	return NULL;
-+}
-+
-+void do_child(void)
-+{
-+	pthread_t t1, t2;
-+
-+	SAFE_PTHREAD_CREATE(&t1, NULL, do_thread1, NULL);
-+	SAFE_PTHREAD_CREATE(&t2, NULL, do_thread2, NULL);
-+
-+	SAFE_PTHREAD_JOIN(t1, NULL);
-+	SAFE_PTHREAD_JOIN(t2, NULL);
-+
-+	tst_res(TPASS, "Child passed!");
-+}
-+
-+void do_parent(void)
-+{
-+	struct flock fl = {
-+		.l_whence = SEEK_SET,
-+	};
-+
-+	/* wait for 1 seconds so thread2 lock 0-0 tries to acquires at first
-+	 * than thread1 lock 0-0 tries to acquired to have a specific waiting
-+	 * order in dlm posix handling.
-+	 */
-+	sleep(1);
-+	/* tell thread2 to call SETLKW for lock 0-0 */
-+	TST_CHECKPOINT_WAKE(1);
-+	/* wait 3 seconds for thread 1 and 2 being in waiting state */
-+	sleep(3);
-+
-+	/* unlock 0-0, should be successful */
-+	fl.l_type = F_UNLCK;
-+	fl.l_start = 0;
-+	fl.l_len = 1;
-+	tst_res(TINFO, "unlock region 0-0 thread2");
-+	SAFE_FCNTL(fd, F_SETLK, &fl);
++	SAFE_FCNTL(fd2, F_OFD_SETLKW, &fl);
 +}
 +
 +static void fcntl40_test(void)
@@ -226,19 +168,50 @@ index 000000000..0a69396a4
 +		.l_start = 0L,
 +		.l_len = 2L,
 +	};
-+	pid_t pid;
++	pid_t pid, pid2;
++	int rv;
 +
-+	tst_res(TINFO, "parent lock region 0-1 - should be successful");
 +	SAFE_FCNTL(fd, F_SETLK, &fl);
-+	tst_res(TINFO, "parent region 0-1 locked");
++	tst_res(TINFO, "parent lock 0-1");
 +
 +	pid = SAFE_FORK();
 +	if (pid == 0) {
-+		do_child();
++		do_child1();
 +		return;
 +	}
 +
-+	do_parent();
++	pid2 = SAFE_FORK();
++	if (pid2 == 0) {
++		do_child2();
++		return;
++	}
++
++	/* wait until childs wait to acquire */
++	sleep(2);
++
++	kill(pid2, SIGKILL);
++	/* wait until linux killed the process */
++	sleep(3);
++	tst_res(TPASS, "Child2 killed!");
++
++	fl.l_type = F_UNLCK;
++	SAFE_FCNTL(fd, F_SETLK, &fl);
++
++	/* let child1 acquire 0-0 */
++	sleep(2);
++
++	fl.l_type = F_WRLCK;
++	fl.l_start = 0;
++	fl.l_len = 1;
++	rv = fcntl(fd, F_OFD_SETLK, &fl);
++	if (rv == -1 && errno == EAGAIN)
++		tst_res(TPASS, "region 1-1 was locked");
++	else
++		tst_res(TFAIL, "region 1-1 was unlocked");
++
++	TST_CHECKPOINT_WAKE(1);
++
++	/* due bug child1 does not return because child2 killing removed waiters */
 +	wait(NULL);
 +
 +	tst_res(TPASS, "Parent passed!");
@@ -247,6 +220,7 @@ index 000000000..0a69396a4
 +static void setup(void)
 +{
 +	fd = SAFE_OPEN("filename", O_RDWR | O_CREAT, 0700);
++	fd2 = SAFE_OPEN("filename", O_RDWR | O_CREAT, 0700);
 +}
 +
 +static void cleanup(void)
