@@ -1,26 +1,26 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A6B9716EEF
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:37:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E36B5716EEE
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:37:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BAE913CE715
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:37:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9BE123CCFBA
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 May 2023 22:37:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 766CC3CCFAE
+ by picard.linux.it (Postfix) with ESMTPS id 6FC173CCFAA
  for <ltp@lists.linux.it>; Tue, 30 May 2023 22:37:23 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 91D47600D93
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8B64D600878
  for <ltp@lists.linux.it>; Tue, 30 May 2023 22:37:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  s=mimecast20190719; t=1685479041;
@@ -28,29 +28,29 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=UclEeytSxBtMCAJA0FHvD2BTmOAl4543G4hHGOceilM=;
- b=X2khfxdb5yJ2+ZZPtiPMX0ukg7A3PpbCYWYKhQxWwF5Lw9eeJtIGuZN5yYM8K/MlpHr4JB
- SuXs9H3cjAaX46EfALmeNLuBZjtZsqJAIZkyFSupBqEM3jY6CYFrr6ddK68ch+gnQxzPAW
- 9XLXkllzzu9CupmpArCUwm78nis4UBI=
+ bh=foAiNe7XydzU2kWqvjALQh0K4VYmVs3JeIGk4008Mls=;
+ b=ZRVmz/ChzsLSOlaQlPez6UREiFQXuEBuviQ1L6SBMGS+wBKyzmnrvnRLcgdI8eLtuQISrA
+ /rmiJAbE0U2u/ajcNyuPLRfquVM4gDA7wgfVGGbdYkq2oU5hjPYzBEq+JWGiESAuohySe4
+ PXrejusilcpTgsc4NXOzre3LClRO/2o=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-505-5wZKzjcBPyyCU5Itl0XYtw-1; Tue, 30 May 2023 16:37:19 -0400
-X-MC-Unique: 5wZKzjcBPyyCU5Itl0XYtw-1
+ us-mta-427--akcnarkP_yhAL0l7kdpMQ-1; Tue, 30 May 2023 16:37:19 -0400
+X-MC-Unique: -akcnarkP_yhAL0l7kdpMQ-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
  [10.11.54.4])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A4BF85A5BA
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7984C811E7C
  for <ltp@lists.linux.it>; Tue, 30 May 2023 20:37:19 +0000 (UTC)
 Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com
  (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4332420296C6;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 62634202696C;
  Tue, 30 May 2023 20:37:19 +0000 (UTC)
 From: Alexander Aring <aahringo@redhat.com>
 To: ltp@lists.linux.it
-Date: Tue, 30 May 2023 16:37:04 -0400
-Message-Id: <20230530203707.2965684-3-aahringo@redhat.com>
+Date: Tue, 30 May 2023 16:37:05 -0400
+Message-Id: <20230530203707.2965684-4-aahringo@redhat.com>
 In-Reply-To: <20230530203707.2965684-1-aahringo@redhat.com>
 References: <20230530203707.2965684-1-aahringo@redhat.com>
 MIME-Version: 1.0
@@ -63,7 +63,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/5] fcntl41: test for owner values on OFD posix locks
+Subject: [LTP] [PATCH 3/5] fcntl42: test for F_SETLKW interruption case
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,157 +80,122 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch adds fcntl41 to test similar owner values for OFD locks.
-There was an issue been found in the gfs2 filesystem because there
-can be collisions with identical owner values.
+This patch adds fcntl42 testcase to test on side effects, e.g. unlock
+all acquired locks, when a lock request was interrupted by a signal.
 
 Signed-off-by: Alexander Aring <aahringo@redhat.com>
 ---
  testcases/kernel/syscalls/fcntl/.gitignore |   2 +
- testcases/kernel/syscalls/fcntl/fcntl41.c  | 178 +++++++++++++++++++++
- 2 files changed, 180 insertions(+)
- create mode 100644 testcases/kernel/syscalls/fcntl/fcntl41.c
+ testcases/kernel/syscalls/fcntl/fcntl42.c  | 153 +++++++++++++++++++++
+ 2 files changed, 155 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/fcntl/fcntl42.c
 
 diff --git a/testcases/kernel/syscalls/fcntl/.gitignore b/testcases/kernel/syscalls/fcntl/.gitignore
-index e558cfe83..4bdae1a22 100644
+index 4bdae1a22..abffa2967 100644
 --- a/testcases/kernel/syscalls/fcntl/.gitignore
 +++ b/testcases/kernel/syscalls/fcntl/.gitignore
-@@ -76,3 +76,5 @@
- /fcntl39_64
- /fcntl40
+@@ -78,3 +78,5 @@
  /fcntl40_64
-+/fcntl41
-+/fcntl41_64
-diff --git a/testcases/kernel/syscalls/fcntl/fcntl41.c b/testcases/kernel/syscalls/fcntl/fcntl41.c
+ /fcntl41
+ /fcntl41_64
++/fcntl42
++/fcntl42_64
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl42.c b/testcases/kernel/syscalls/fcntl/fcntl42.c
 new file mode 100644
-index 000000000..40d14ff02
+index 000000000..4d66568fd
 --- /dev/null
-+++ b/testcases/kernel/syscalls/fcntl/fcntl41.c
-@@ -0,0 +1,178 @@
++++ b/testcases/kernel/syscalls/fcntl/fcntl42.c
+@@ -0,0 +1,153 @@
 +/*
 + * [Description]
-+ * Tests gfs2 dlm posix op queue handling in the kernel.
-+ * It is recommended to run watch -n 0.1 "dlm_tool plocks $LS"
-+ * aside to monitor dlm plock handling.
++ * This test confirms that DLM posix locking has problems when a posix lock
++ * got interrupted every lock gets unlocked.
++ *
++ * man fcntl:
++ *
++ * F_SETLKW (struct flock *)
++ *  As for F_SETLK, but if a conflicting lock is held on  the  file,
++ *  then  wait  for that lock to be released.  If a signal is caught
++ *  while waiting, then the call is interrupted and (after the  signal
++ *  handler has returned) returns immediately (with return value -1 and
++ *  errno set to EINTR; see signal(7)).
++ *
++ * The above quote of the man page of fcntl() is what this testcase tests.
++ * particulary if it has side-effects of previously acquired locks.
 + *
 + * [How to use it]
-+ * Call it with TMPDIR=/mnt ./fcntl41 where TMPDIR is a gfs2 mountpoint.
++ * Call it with TMPDIR=/mnt ./fcntl42 where TMPDIR is a gfs2 mountpoint.
 + * Try it on other filesystems to compare results.
 + *
 + * [What's it doing]
-+ *
-+ * The test shows that we currently have problems with the operation lookup
-+ * functionality [0] when we using threads. The owner value is the same for two
-+ * locks being in WAITING state. dlm_controld "dlm_tool plocks $LS" will show
-+ * it correctly that the specific lock is not in waiting anymore. The issue
-+ * begins matching the right iter->done in the kernel at dev_write() see [0].
 + *
 + * What this test does is (using dlm_controld interval range interpretation):
 + *
 + * parent:
 + *
-+ * 1. lock[0-1]
++ * 1. lock[0-0]
 + *
 + * child:
 + *
-+ * thread1:
-+ *
-+ * 2. lockw[1-1] - important 1-1 at first because the order of WAITING state
-+ *                 locks matters
-+ *
-+ * thread2:
-+ *
-+ * 3. lockw[0-0]
++ * 2. lock[1-1]
++ * 3. lockw[0-0] - should block (see 1. parent), but we get interrupted by SIGALRM
 + *
 + * parent:
 + *
-+ * 4. unlock[1-1] - will give a iter->done = 1 in [0] for lock at 3. and the
-+ *                  application results in a deadlock
-+ * 5. unlock[0-0]
++ * 4. trylock[1-1] - should return -1 and errno -EAGAIN because the child
++ *                   should still have lock[1-1] acuired and this is what
++ *                   the child thinks to have. If it's successful the child
++ *                   wrongly assumes it has the lock[1-1] still acquired and
++ *                   the child process is still alive.
 + *
-+ * We have this issue also with SETLK, GETLK - it's easier to reproduce
-+ * with SETLKW because dev_write() is more controlable by doing unlocks.
-+ *
-+ * OFD (open filedescriptor locks) are also affected and should be able
-+ * to reproduce with fork() only and not threads. The owner value of [0]
-+ * depends on "struct file *" pointer in this case.
-+ *
-+ * [0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/fs/dlm/plock.c?h=v6.3#n432
 + */
 +
 +#include <sys/wait.h>
 +
 +#include "tst_test.h"
 +
-+static int fd, fd2;
++static int fd;
++
++static void catch_alarm(int num)
++{
++	(void)num;
++
++	tst_res(TINFO, "catch alarm");
++}
 +
 +void do_child1(void)
 +{
-+	const struct flock fl_0_0 = {
-+		.l_type = F_WRLCK,
-+		.l_whence = SEEK_SET,
-+		.l_start = 0L,
-+		.l_len = 1L,
-+	};
-+
-+	tst_res(TINFO, "thread1 waits for thread2 to lock 1-1");
-+	TST_CHECKPOINT_WAIT(1);
-+
-+	tst_res(TINFO, "thread1 lock region 0-0 - It should block");
-+	SAFE_FCNTL(fd2, F_OFD_SETLKW, &fl_0_0);
-+	tst_res(TINFO, "lock region 0-0 acquired");
-+
-+	tst_res(TPASS, "Child1 passed!");
-+}
-+
-+void do_child2(void)
-+{
-+	const struct flock fl_1_1 = {
++	struct flock fl = {
 +		.l_type = F_WRLCK,
 +		.l_whence = SEEK_SET,
 +		.l_start = 1L,
 +		.l_len = 1L,
 +	};
++	struct sigaction act;
++	int rv;
 +
-+	tst_res(TINFO, "thread1 lock region 1-1 - It should block");
-+	SAFE_FCNTL(fd2, F_OFD_SETLKW, &fl_1_1);
-+	tst_res(TINFO, "lock region 1-1 acquired");
++	SAFE_FCNTL(fd, F_SETLK, &fl);
++	tst_res(TINFO, "child locked lock 1-1");
 +
-+	TST_CHECKPOINT_WAKE(2);
-+	tst_res(TPASS, "Child2 passed!");
-+}
-+
-+void do_parent(void)
-+{
-+	struct flock fl = {
-+		.l_whence = SEEK_SET,
-+	};
-+
-+	/* wait for 1 seconds so thread2 lock 1-1 tries to acquires at first
-+	 * than thread1 lock 0-0 tries to acquired to have a specific waiting
-+	 * order in dlm posix handling.
-+	 */
-+	sleep(1);
-+	/* tell thread2 to call SETLKW for lock 0-0 */
-+	TST_CHECKPOINT_WAKE(1);
-+	/* wait 3 seconds for thread 1 and 2 being in waiting state */
-+	sleep(3);
-+
-+	/* unlock 0-1, should be successful */
-+	fl.l_type = F_UNLCK;
-+	fl.l_start = 1;
-+	fl.l_len = 1;
-+	tst_res(TINFO, "unlock region 1-1 thread2");
-+	SAFE_FCNTL(fd, F_OFD_SETLK, &fl);
-+
-+	/* wait until thread 2 got acquired and leave waiting */
-+	TST_CHECKPOINT_WAIT(2);
-+
++	fl.l_type = F_WRLCK;
 +	fl.l_start = 0;
 +	fl.l_len = 1;
-+	fl.l_type = F_UNLCK;
-+	tst_res(TINFO, "unlock region 0-0 thread2");
-+	SAFE_FCNTL(fd, F_OFD_SETLK, &fl);
++
++	memset(&act, 0, sizeof(act));
++	act.sa_handler = catch_alarm;
++	sigemptyset(&act.sa_mask);
++	sigaddset(&act.sa_mask, SIGALRM);
++	sigaction(SIGALRM, &act, NULL);
++
++	/* interrupt SETLKW by signal in 3 secs */
++	alarm(3);
++	rv = fcntl(fd, F_SETLKW, &fl);
++	if (rv == -1 && errno == EINTR)
++		tst_res(TPASS, "Child1 interrupted 0-0");
++
++	TST_CHECKPOINT_WAKE(1);
++	/* keep child alive until parent check region */
++	TST_CHECKPOINT_WAIT(2);
 +}
 +
 +static void fcntl40_test(void)
@@ -239,37 +204,46 @@ index 000000000..40d14ff02
 +		.l_type = F_WRLCK,
 +		.l_whence = SEEK_SET,
 +		.l_start = 0L,
-+		.l_len = 2L,
++		.l_len = 1L,
 +	};
 +	pid_t pid;
++	int rv;
 +
-+	tst_res(TINFO, "parent lock region 0-1 - should be successful");
-+	SAFE_FCNTL(fd, F_OFD_SETLK, &fl);
-+	tst_res(TINFO, "parent region 0-1 locked");
++	SAFE_FCNTL(fd, F_SETLK, &fl);
++	tst_res(TINFO, "parent lock 0-0");
 +
 +	pid = SAFE_FORK();
 +	if (pid == 0) {
 +		do_child1();
++		tst_res(TINFO, "childs exits");
 +		return;
 +	}
 +
-+	pid = SAFE_FORK();
-+	if (pid == 0) {
-+		do_child2();
-+		return;
-+	}
++	TST_CHECKPOINT_WAIT(1);
 +
-+	do_parent();
-+	wait(NULL);
-+	wait(NULL);
++	fl.l_type = F_WRLCK;
++	fl.l_start = 1;
++	fl.l_len = 1;
++	rv = fcntl(fd, F_SETLK, &fl);
++	/* parent testing childs region, the child will think
++	 * it has region 1-1 locked because it was interrupted
++	 * by region 0-0. Due bugs the interruption also unlocked
++	 * region 1-1.
++	 */
++	if (rv == -1 && errno == EAGAIN)
++		tst_res(TPASS, "region 1-1 locked");
++	else
++		tst_res(TFAIL, "region 1-1 unlocked");
 +
-+	tst_res(TPASS, "Parent passed!");
++	TST_CHECKPOINT_WAKE(2);
++
++	wait(NULL);
++	tst_res(TINFO, "parent exits");
 +}
 +
 +static void setup(void)
 +{
 +	fd = SAFE_OPEN("filename", O_RDWR | O_CREAT, 0700);
-+	fd2 = SAFE_OPEN("filename", O_RDWR | O_CREAT, 0700);
 +}
 +
 +static void cleanup(void)
