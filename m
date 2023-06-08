@@ -1,58 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E98A7273DF
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jun 2023 02:53:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E553E7273E4
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jun 2023 02:55:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4D0863CC9DC
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jun 2023 02:53:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 156A83CC9DB
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jun 2023 02:55:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DD8833CC9C8
- for <ltp@lists.linux.it>; Thu,  8 Jun 2023 02:53:20 +0200 (CEST)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by picard.linux.it (Postfix) with ESMTPS id 1E1D33CC9C8
+ for <ltp@lists.linux.it>; Thu,  8 Jun 2023 02:55:03 +0200 (CEST)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2492A600BCB
- for <ltp@lists.linux.it>; Thu,  8 Jun 2023 02:53:20 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6FD0C60070C
+ for <ltp@lists.linux.it>; Thu,  8 Jun 2023 02:55:03 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D3F7C64331;
- Thu,  8 Jun 2023 00:53:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4B75C4339B;
- Thu,  8 Jun 2023 00:53:17 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9C6E16117E;
+ Thu,  8 Jun 2023 00:55:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE4FEC4339B;
+ Thu,  8 Jun 2023 00:55:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686185598;
- bh=ckZUQJ4k9bHV93Lbybprr2a1+wwU3UqcaDZ1z0K/q4Q=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gSps5DnJ5zmCNOhTCkm93Jwg4xz2cCLGmh896eafl10pjyiVpNVbLaHZ5nCjuuo38
- Ro55QSx8LFELY90ffn9NciF2wPHNbNHOCb7wHXx0roAoPbt9h5e4TCjLUsPhLBMRcA
- 3mWdYaarRT0MDVpTvxAvNbJQkmdmnoaJJJg2TdDU6NxLvjtdM0xEHioX/iZZiTsZu6
- 5XtErj1Mqd8IDfZS2Zv2RPr0gtJEwrWYXilWQhDbfafT1myZ9l4wkfdrVQiPlPgEt8
- XwwksKlwLMjeoXmFLaBLEB1szh4Fe3bLME279C3Urg5r+XEJ3dfw3Z3fE22dM66Ehm
- e4dH3yCLXxLzQ==
-From: Damien Le Moal <dlemoal@kernel.org>
-To: ltp <ltp@lists.linux.it>,
-	Linus Walleij <linus.walleij@linaro.org>
-Date: Thu,  8 Jun 2023 09:53:15 +0900
-Message-Id: <20230608005315.3703446-3-dlemoal@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230608005315.3703446-1-dlemoal@kernel.org>
-References: <20230608005315.3703446-1-dlemoal@kernel.org>
+ s=k20201202; t=1686185701;
+ bh=W7b3q9WsOk2hTRlrweoWCUg7OK54/BI2hX077AHKHQA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=eYJeYrQdJFy/BXrSJv9F5uFbAnhMUwvlM5m0NZzXV5T7FNfVWVk1o9d12oTsE3hVH
+ BI3aS9NFngX+9a8XEvmCV9IX4VpcPejld31i8RG1wtMRsbLrRNCrJWrTiZSol+c9ln
+ HRYXkC9fdWfJsWKedlbujilKS0G31jli4Ea9aCxrqL94M7HtdMNzsrOB0BIH7OZKvf
+ TaNfj14/8ftHWkVM0JIxNQft0Nsn9vIrxmP3JE92qJsqFZQoT6eQd5XGEE8F9bIUMm
+ COZBQj5kovQy8CDJVcDFnuoZQajx/2c3oUAbFVyXTaokW3Jd8wVbe+EKO3I5Hx/43q
+ r5zEtaFmVktLQ==
+Message-ID: <0347361d-1676-3fb3-da73-da54657ad8f9@kernel.org>
+Date: Thu, 8 Jun 2023 09:54:59 +0900
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+To: Linus Walleij <linus.walleij@linaro.org>
+References: <20230605044131.798383-1-dlemoal@kernel.org>
+ <20230605044131.798383-3-dlemoal@kernel.org>
+ <CACRpkdaBinsAofvQgLZ5u8ScR0+yWPnQCf6E7CPtn598PN0eoQ@mail.gmail.com>
+Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <CACRpkdaBinsAofvQgLZ5u8ScR0+yWPnQCf6E7CPtn598PN0eoQ@mail.gmail.com>
 X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] ioprio: Use IOPRIO_PRIO_NUM to check prio range
+Subject: Re: [LTP] [PATCH 2/2] ioprio: Use IOPRIO_PRIO_NUM to check prio
+ range
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,57 +71,24 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Niklas Cassel <niklas.cassel@wdc.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Niklas Cassel <niklas.cassel@wdc.com>, ltp <ltp@lists.linux.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Use the macro IOPRIO_PRIO_NUM in prio_in_range() to check the upper
-bound of the valid range for priority levels. Similarly, in the test
-case ioprio_set03, use this macro to check for failures when the user
-attempts using a priority level out of range.
-
-Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
----
- testcases/kernel/syscalls/ioprio/ioprio.h       | 4 ++--
- testcases/kernel/syscalls/ioprio/ioprio_set03.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/ioprio/ioprio.h b/testcases/kernel/syscalls/ioprio/ioprio.h
-index 6ca134a54..c2115bf20 100644
---- a/testcases/kernel/syscalls/ioprio/ioprio.h
-+++ b/testcases/kernel/syscalls/ioprio/ioprio.h
-@@ -61,10 +61,10 @@ static inline int sys_ioprio_set(int which, int who, int ioprio)
- 	return tst_syscall(__NR_ioprio_set, which, who, ioprio);
- }
- 
--/* Priority range from 0 (highest) to 7 (lowest) */
-+/* Priority range from 0 (highest) to IOPRIO_PRIO_NUM (lowest) */
- static inline int prio_in_range(int prio)
- {
--	if ((prio < 0) || (prio > 7))
-+	if ((prio < 0) || (prio >= IOPRIO_PRIO_NUM))
- 		return 0;
- 	return 1;
- }
-diff --git a/testcases/kernel/syscalls/ioprio/ioprio_set03.c b/testcases/kernel/syscalls/ioprio/ioprio_set03.c
-index b2c962a6f..d6b44df85 100644
---- a/testcases/kernel/syscalls/ioprio/ioprio_set03.c
-+++ b/testcases/kernel/syscalls/ioprio/ioprio_set03.c
-@@ -27,7 +27,7 @@ static void run(void)
- 	sys_ioprio_set(IOPRIO_WHO_PROCESS, 0,
- 		       IOPRIO_PRIO_VALUE(class, 4));
- 	TEST(sys_ioprio_set(IOPRIO_WHO_PROCESS, 0,
--			    IOPRIO_PRIO_VALUE(class, 8)));
-+			    IOPRIO_PRIO_VALUE(class, IOPRIO_PRIO_NUM)));
- 	if (TST_RET == -1) {
- 		ioprio_check_setting(class, 4, 1);
- 		if (errno == EINVAL)
--- 
-2.40.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gNi83LzIzIDE1OjQ0LCBMaW51cyBXYWxsZWlqIHdyb3RlOgo+IE9uIE1vbiwgSnVuIDUsIDIw
+MjMgYXQgNjo0MeKAr0FNIERhbWllbiBMZSBNb2FsIDxkbGVtb2FsQGtlcm5lbC5vcmc+IHdyb3Rl
+Ogo+IAo+PiBVc2UgdGhlIG1hY3JvIElPUFJJT19QUklPX05VTSBpbiBwcmlvX2luX3JhbmdlKCkg
+dG8gY2hlY2sgdGhlIHVwcGVyCj4+IGJvdW5kIG9mIHRoZSB2YWxpZCByYW5nZSBmb3IgcHJpb3Jp
+dHkgbGV2ZWxzLiBTaW1pbGFybHksIGluIHRoZSB0ZXN0Cj4+IGNhc2UgaW9wcmlvX3NldDAzLCB1
+c2UgdGhpcyBtYWNybyB0byBjaGVjayBmb3IgZmFpbHVyZXMgd2hlbiB0aGUgdXNlcgo+PiBhdHRl
+bXB0cyB1c2luZyBhIHByaW9yaXR5IGxldmVsIG91dCBvZiByYW5nZS4KPj4KPj4gU2lnbmVkLW9m
+Zi1ieTogRGFtaWVuIExlIE1vYWwgPGRsZW1vYWxAa2VybmVsLm9yZz4KPiAKPiBSZXZpZXdlZC1i
+eTogTGludXMgV2FsbGVpaiA8bGludXMud2FsbGVpakBsaW5hcm8ub3JnPgoKVGhhbmtzIExpbnVz
+ICEKCk1heSBJIGFsc28gYXNrIGZvciB5b3VyIHJldmlldyBvZiB0aGUga2VybmVsIGlvcHJpbyBB
+UEkgcGF0Y2ggPwpJdCBpcyBoZXJlOgoKaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtYmxv
+Y2svMjAyMzA1MzAwNjEzMDcuNTI1NjQ0LTEtZGxlbW9hbEBrZXJuZWwub3JnLwoKPiAKPiBZb3Vy
+cywKPiBMaW51cyBXYWxsZWlqCgotLSAKRGFtaWVuIExlIE1vYWwKV2VzdGVybiBEaWdpdGFsIFJl
+c2VhcmNoCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xp
+c3RpbmZvL2x0cAo=
