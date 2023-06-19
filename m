@@ -1,71 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25BE0735257
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jun 2023 12:33:53 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EA607355D4
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jun 2023 13:29:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BB6ED3CD3FF
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jun 2023 12:33:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C490B3CE200
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jun 2023 13:29:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D30683C0973
- for <ltp@lists.linux.it>; Mon, 19 Jun 2023 12:33:48 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 089083C9C7B
+ for <ltp@lists.linux.it>; Mon, 19 Jun 2023 13:29:50 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1BE0B10007E3
- for <ltp@lists.linux.it>; Mon, 19 Jun 2023 12:33:47 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 43B03600740
+ for <ltp@lists.linux.it>; Mon, 19 Jun 2023 13:29:49 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 82AAD21891;
- Mon, 19 Jun 2023 10:33:47 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D135D218B5;
+ Mon, 19 Jun 2023 11:29:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1687170827; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1687174187;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IGmH5+H/g6Q94HGJzkMnOBlPBxUTubBN7SiPhVaWcgc=;
- b=wiShYLk7krfvSkt3IFYZDYAr3H6Oh8m7A7hXKmeAxiI04fsZzVJ3aFsWSn6k+jw6q42lbe
- UtPBo8KuLz5UVptoK5mpejWKDEUKvqfQpM4Uvb4vZzWw6hGUr0IIsj7MNhe5RXjWjnfzys
- /GrkrLElspWj5THdljuh9xph2DA8kUA=
+ bh=Jb0+DzszBr4ZHz0fqxCF0u123sMQnMtYJ3+W5XWbjhE=;
+ b=gFrZPT9UwHzn4Z9vbSlUbOY2cQ3cwu0c1aldgbx6wpbUfrq/Oojhn6t4yCHqdFGiYdm7Br
+ hpyYrUcP2Tn8tfDszWt9nqD16R/KxP6GlKeqnwDMKOO8uoEIrBxxm1jDRPdcb4HQCs28P8
+ N3sWPEUKKkCEe2MVpiSslG1KrVERR4A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1687170827;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1687174187;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IGmH5+H/g6Q94HGJzkMnOBlPBxUTubBN7SiPhVaWcgc=;
- b=/UZHsC8dROYZxolD9mqYM23gzYqb4BtmVKwaOHoYo4fgjXUPBVLwDXK0WQJ0PIQ+NsaUz+
- sCnI+IfGs7hFgYDw==
+ bh=Jb0+DzszBr4ZHz0fqxCF0u123sMQnMtYJ3+W5XWbjhE=;
+ b=yO2TwE5+MrDW7kGmKQ5KOjOxHFLFxo8Fh2CgTvzCj9Jz7ufUzUhwualioe7ECF48Vvu4d5
+ OgwhZkMijep1q2DQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2B0C5139C2;
- Mon, 19 Jun 2023 10:33:47 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9D225138E8;
+ Mon, 19 Jun 2023 11:29:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OcrfBwsvkGSBRQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 19 Jun 2023 10:33:47 +0000
-Date: Mon, 19 Jun 2023 12:34:50 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <ZJAvSrRXyng7dqd5@yuki>
+ by imap2.suse-dmz.suse.de with ESMTPSA id PZ0HIys8kGT/WQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 19 Jun 2023 11:29:47 +0000
+Date: Mon, 19 Jun 2023 13:29:38 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20230619112938.GA129463@pevik>
 References: <20230619103140.13925-1-pvorel@suse.cz>
+ <ZJAvSrRXyng7dqd5@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230619103140.13925-1-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+In-Reply-To: <ZJAvSrRXyng7dqd5@yuki>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [COMMITTED][PATCH 1/1] ci/debian.minimal.sh: Keep libcap2
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -78,60 +80,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Trying to remove libcap2 for minimal environment no longer works for
-> Debian 12 bookworm (the new Debian stable release). It looks like
-> libcap2 is required by apt itself:
-> 
-> apt remove -y libcap2
-> The following packages have unmet dependencies:
->  apt : Depends: libapt-pkg6.0 (>= 2.6.1) but it is not going to be installed
->        Depends: libsystemd0
->  bsdutils : PreDepends: libsystemd0
->  util-linux : PreDepends: libsystemd0
-> E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+> Hi!
+> > Trying to remove libcap2 for minimal environment no longer works for
+> > Debian 12 bookworm (the new Debian stable release). It looks like
+> > libcap2 is required by apt itself:
 
-Shouldn't be removal of libcap-dev enough for us not to compile LTP
-against it? Why do we remove libcap2 in the first place?
+> > apt remove -y libcap2
+> > The following packages have unmet dependencies:
+> >  apt : Depends: libapt-pkg6.0 (>= 2.6.1) but it is not going to be installed
+> >        Depends: libsystemd0
+> >  bsdutils : PreDepends: libsystemd0
+> >  util-linux : PreDepends: libsystemd0
+> > E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
 
-> Reported-by: Li Wang <liwang@redhat.com>
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
->  ci/debian.minimal.sh | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/ci/debian.minimal.sh b/ci/debian.minimal.sh
-> index c314d93fe..b51154b05 100755
-> --- a/ci/debian.minimal.sh
-> +++ b/ci/debian.minimal.sh
-> @@ -1,5 +1,5 @@
->  #!/bin/sh
-> -# Copyright (c) 2018-2020 Petr Vorel <pvorel@suse.cz>
-> +# Copyright (c) 2018-2023 Petr Vorel <pvorel@suse.cz>
->  set -ex
->  
->  apt="apt remove -y"
-> @@ -11,7 +11,6 @@ $apt \
->  	libaio-dev \
->  	libaio1 \
->  	libcap-dev \
-> -	libcap2 \
->  	libkeyutils-dev \
->  	libnuma-dev \
->  	libnuma1 \
-> -- 
-> 2.41.0
-> 
+> Shouldn't be removal of libcap-dev enough for us not to compile LTP
+> against it? Why do we remove libcap2 in the first place?
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Yes, you're right. I'm not sure now, but removing libcap-dev was probably enough
+even back then.
+
+NOTE: the other error (on debian stable) is metadata generation with asciidoc,
+where it miss docbook2x package. I'll send a patch instead of directly fixing
+it.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
