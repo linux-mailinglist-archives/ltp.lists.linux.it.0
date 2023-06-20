@@ -2,75 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 173A17368F3
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jun 2023 12:14:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FCB2736978
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jun 2023 12:39:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DFB773CAFF8
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jun 2023 12:14:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 706393CB0D6
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jun 2023 12:39:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2ABA73C9C7B
- for <ltp@lists.linux.it>; Tue, 20 Jun 2023 12:14:42 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id C4A923C9C7B
+ for <ltp@lists.linux.it>; Tue, 20 Jun 2023 12:39:00 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7416D10005FE
- for <ltp@lists.linux.it>; Tue, 20 Jun 2023 12:14:40 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9ED1260004C
+ for <ltp@lists.linux.it>; Tue, 20 Jun 2023 12:38:58 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 651121F37E;
- Tue, 20 Jun 2023 10:14:39 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 79D18218A2;
+ Tue, 20 Jun 2023 10:38:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1687256079;
+ t=1687257538;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=yNtShpL8QvRlVlIuqFWBv8Bvd+qxDGh8wdzyodAmx8Y=;
- b=bFU/4tvwKWpe2qEf/+3vSeED8nFEjYAJokKDtKzS5rE6yUZl/qEGvdhK7PeCJipp8C9KAq
- tZ8r6xdKkGC7yXgdAafLTmLPC3V6Y8CQFO/K6grdBSUHwy5I2jQ98c9k6CwfCRMmOoVY1l
- coetCx0zqKW1xLB2TFhR+idwGy82rVs=
+ bh=C0ygOsPPGoWXR1bXotcvTDtCCW7lxdvaUXargFxx1Co=;
+ b=oFmbD9xH8He3TYd8Nx0WKwtREru8lmLXNNkpEzQyAI54cep2kbbr2E8BQqbyzbZ0Fmambh
+ edb1H87ZfqGLriwVEItKUtkXUYLU1hQ5geQl9eUkCBdyWVmLF+DjAXnNme8gsrjm7BJbE6
+ JRBBqfn1dLe9GBO3Lgs5tCKk+MvIQnk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1687256079;
+ s=susede2_ed25519; t=1687257538;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=yNtShpL8QvRlVlIuqFWBv8Bvd+qxDGh8wdzyodAmx8Y=;
- b=tFQqbh/qPhyJCUwFzl3yxzVgSGEe8YOp+SZ6UNop5ezd9arIuD0mzzbRGSUvPk43xZEcIq
- qzuRn0MQ6W/Es8Cw==
+ bh=C0ygOsPPGoWXR1bXotcvTDtCCW7lxdvaUXargFxx1Co=;
+ b=7mKlm05sgg/7d5NXe8DZVaQr3JS1LERJQYRblWILwsMrtjOtcJQK+SDvfLcsevtJU0jrkE
+ x/t+0xCl9cFY9JCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 44D461346D;
- Tue, 20 Jun 2023 10:14:39 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3A9991346D;
+ Tue, 20 Jun 2023 10:38:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2xaZDw98kWTUUwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 20 Jun 2023 10:14:39 +0000
-Date: Tue, 20 Jun 2023 12:14:29 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id /yC1DMKBkWT8XwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 20 Jun 2023 10:38:58 +0000
+Date: Tue, 20 Jun 2023 12:38:48 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Damien Le Moal <dlemoal@kernel.org>
-Message-ID: <20230620101429.GC275381@pevik>
-References: <20230608005315.3703446-1-dlemoal@kernel.org>
- <20230608005315.3703446-2-dlemoal@kernel.org>
+To: Niklas Cassel <Niklas.Cassel@wdc.com>
+Message-ID: <20230620103848.GA281987@pevik>
+References: <20230605044131.798383-1-dlemoal@kernel.org>
+ <20230620091316.GB275381@pevik> <ZJFugRCzFlZYL934@x1-carbon>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230608005315.3703446-2-dlemoal@kernel.org>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+In-Reply-To: <ZJFugRCzFlZYL934@x1-carbon>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] ioprio: use ioprio.h kernel header if it
- exists
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 0/2] Improve ioprio tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,93 +82,68 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Niklas Cassel <niklas.cassel@wdc.com>, ltp <ltp@lists.linux.it>
+Cc: ltp <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Damien,
+Hi all,
 
-thanks for this effort!
+> On Tue, Jun 20, 2023 at 11:13:16AM +0200, Petr Vorel wrote:
+> > Hi Damien,
 
-> For the ioprio system call test cases, avoid blindly defining the
-> IOPRIO_XXX macro internally and instead use the kernel user API header
-> file if it exists. Given that the definitions in this header file have
-> changed over time, make sure to test for the existence of the macro
-> IOPRIO_PRIO_LEVEL macro and define it if it does not exist. Similarly,
-> use IOPRIO_NR_LEVELS to define IOPRIO_PRIO_NUM if that macro exists.
+> > > The ioprio syscall tests rely on ltp internal definitions of the
+> > > IOPRIO_XXX() macro defining priority classes and levels. With changes
+> > > to the ioprio API to support command duration limits, these internal
+> > > definitions are incomplete, causing test case ioprio_set03 to fail.
 
-> Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
-> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+> > > Avoid this issue by having the iprio tests use the kernel header file
+> > > definitions if that header exists. This enables additional checks in
+> > > the header file [1] which restores the expected results with test
+> > > ioprio_set03.
 
-If I'm correct, the only change in v2 is added Linus Walleij's RBT.
-nit: it'd be better if he sent it himself.
+> > > [1] https://lore.kernel.org/linux-block/20230530061307.525644-1-dlemoal@kernel.org/
 
-> ---
->  configure.ac                              |  1 +
->  testcases/kernel/syscalls/ioprio/ioprio.h | 29 +++++++++++++++++------
->  2 files changed, 23 insertions(+), 7 deletions(-)
+> > > Note: a review of this patch on the kernel block mailing list would be
+> > > very appreciated.
 
-> diff --git a/configure.ac b/configure.ac
-> index 548288310..e4aa2cadf 100644
-> --- a/configure.ac
-> +++ b/configure.ac
-> @@ -56,6 +56,7 @@ AC_CHECK_HEADERS_ONCE([ \
->      linux/if_ether.h \
->      linux/if_packet.h \
->      linux/io_uring.h \
-> +    linux/ioprio.h \
->      linux/keyctl.h \
->      linux/mempolicy.h \
->      linux/module.h \
-> diff --git a/testcases/kernel/syscalls/ioprio/ioprio.h b/testcases/kernel/syscalls/ioprio/ioprio.h
-> index c74380475..6ca134a54 100644
-> --- a/testcases/kernel/syscalls/ioprio/ioprio.h
-> +++ b/testcases/kernel/syscalls/ioprio/ioprio.h
-FYI the header should be moved to include/lapi/,
-but that can be done as a separate effort afterwards (by us LTP developers).
+I'm sorry, I overlooked Linus' review [2], because it's not visible in
+patchwork [3].
 
-> @@ -6,6 +6,12 @@
->  #ifndef LTP_IOPRIO_H
->  #define LTP_IOPRIO_H
+@Damien, @Linus, @Niklas FYI you need to be subscribed to post to LTP ML (unlike
+vger), otherwise the message is held (and we don't check for held messages very often).
+@Niklas I had to push your message due this.
 
-There needs to be
-#include "config.h"
+> > I haven't found this patchset on https://lore.kernel.org/linux-block/,
+> > did you send it there?
 
-(Otherwise header will be never included.)
+> Hello Petr,
 
-With this change
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> The patch series for LTP can be found here:
+> https://lore.kernel.org/ltp/20230608005315.3703446-1-dlemoal@kernel.org/T/#t
 
-> +#ifdef HAVE_LINUX_IOPRIO_H
-> +
-> +# include <linux/ioprio.h>
-> +
-> +#else
+Yes, it's in our LTP mailing list, thus on LTP on lore. But I expected that
+linux-block ML would be in Cc (that's why Linus Walleij didn't get it in his
+mailbox [4] => @Damien, do not hesitate to Cc relevant kernel (or other mailing
+lists), if you expect kernel maintainers to do the review.
 
-NOTE: yes, we have policy to include kernel (or libc) headers in LTP LAPI
-headers [1], but we usually instead of #else part always check for constants like
-this:
+> I just checked LTP master, and it hasn't been applied by the
+> LTP maintainers yet.
 
-#ifdef HAVE_LINUX_IOPRIO_H
-# include <linux/ioprio.h>
-#endif
+Yes, but do not worry, I'll merge it soon (likely today).
 
-#ifndef IOPRIO_CLASS_SHIFT
-# define IOPRIO_CLASS_SHIFT	(13)
-#endif
-...
-(Exactly the same way you do for e.g. IOPRIO_NR_LEVELS or IOPRIO_PRIO_LEVEL.)
-
-I'm ok with this variant, because it's simpler (the header was added in
-v5.15-rc1) and we can check for enum. But once some constant or enum gets
-changed we'd need to handle this.
+Thank to all for your time.
 
 Kind regards,
 Petr
 
-[1] https://github.com/linux-test-project/ltp/wiki/C-Test-API#lapi-headers
+[2] https://lore.kernel.org/ltp/CACRpkdaBinsAofvQgLZ5u8ScR0+yWPnQCf6E7CPtn598PN0eoQ@mail.gmail.com/
+[3] https://patchwork.ozlabs.org/project/ltp/patch/20230605044131.798383-2-dlemoal@kernel.org/
+[4] https://lore.kernel.org/ltp/CACRpkdaD3xM=Z0xTzHa+yH-wZ+LyhrSb3ZzGzkGdnboCaHw_+A@mail.gmail.com/
+
+> Kind regards,
+> Niklas
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
