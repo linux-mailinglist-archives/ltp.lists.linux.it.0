@@ -2,74 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59922736B7B
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jun 2023 14:02:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5DF7736B7D
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jun 2023 14:02:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 14B283CE102
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jun 2023 14:02:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5C6BF3CC4A8
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jun 2023 14:02:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 439B93CACDF
+ by picard.linux.it (Postfix) with ESMTPS id 54CDC3CB041
  for <ltp@lists.linux.it>; Tue, 20 Jun 2023 14:02:04 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 43AFC600858
- for <ltp@lists.linux.it>; Tue, 20 Jun 2023 14:02:04 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id AEC1A60064D
+ for <ltp@lists.linux.it>; Tue, 20 Jun 2023 14:02:03 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AA4921F88C;
- Tue, 20 Jun 2023 12:02:03 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F3A6D1F37E;
+ Tue, 20 Jun 2023 12:02:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1687262523; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gUH9QcONMBimCFf4RaLsOOC9KoV/LFG4lNx33z7Zohk=;
- b=awd6CW88dB+3jb/9v1CE+bmUil0gFwuMF1N1D4OGpzoB0tx4wdkBNoy7I/3qeGPmTOwptC
- cEuLxdwqyS9w3VoiLIydGV9bBGDZvIKe1zaMPTkY2NRfMt3fQRk0Q3RBGBHaDT5F97LhG2
- Lrg2qgXU463r/NuBlzFhNVy3rGMqa3Y=
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=D3E2KRe0L2LRcH4u5mGONwLmRr0V+FQm5RbAKj4EtiY=;
+ b=enJ06JR4UxAUA+jYNCK+/LY2BN/XpDuVV2ljwEalqVGmCK7Fv257sSRTa0JXPz5/7XmAxk
+ FBVYgK7JGRZmcsxjqbFsbMZd5gzyIAhhA6+0mzUTawWBZndzS/sSiYnUevdx0aoOksLAGp
+ KVfotHI2tQGZOl3yxQdHA01n44KC9IA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1687262523;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gUH9QcONMBimCFf4RaLsOOC9KoV/LFG4lNx33z7Zohk=;
- b=yR5l5fqyYQ4xP1WcbPoR/d+PETrTvYHCPVk1M7EWbNCR8YNkivs15XhgiVwb5f+GeQXFow
- co4KVz4cPHW3b7AQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=D3E2KRe0L2LRcH4u5mGONwLmRr0V+FQm5RbAKj4EtiY=;
+ b=bcjBfENaITQnJvDn0w6Yk6veEoS2yU/WkFZ64lXdf6eYACN5HX21GHb+gc6nbDxrW+C6ED
+ POtGn4jpxZN3DNCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7732F139C7;
- Tue, 20 Jun 2023 12:02:03 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C1712133A9;
+ Tue, 20 Jun 2023 12:02:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4NgMHDuVkWSQDAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 20 Jun 2023 12:02:03 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id vVrKLTqVkWSQDAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 20 Jun 2023 12:02:02 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 20 Jun 2023 14:01:59 +0200
-Message-Id: <20230620120159.320052-4-pvorel@suse.cz>
+Date: Tue, 20 Jun 2023 14:01:56 +0200
+Message-Id: <20230620120159.320052-1-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230620120159.320052-1-pvorel@suse.cz>
-References: <20230620120159.320052-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] utils: Remove unused ioprio.h
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/3] ioprio minor cleanup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,66 +81,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-It was added in 0a1e45f09 (in 2009), but even then it was not needed.
+Further minor ioprio cleanup. NOTE, docparse markers /*\ [Description]
+in the second commit allow test to be included in our automatically
+generated documentation [1].
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/kernel/syscalls/utils/ioprio.h | 46 ------------------------
- 1 file changed, 46 deletions(-)
+Kind regards,
+Petr
+
+[1] https://github.com/linux-test-project/ltp/releases/download/20230516/metadata.20230516.html
+
+Petr Vorel (3):
+  ioprio: Move fallback constants and structs to LAPI header
+  ioprio: Add docparse markers
+  utils: Remove unused ioprio.h
+
+ include/lapi/ioprio.h                         | 47 +++++++++++++++++++
+ testcases/kernel/syscalls/ioprio/ioprio.h     | 42 ++---------------
+ .../kernel/syscalls/ioprio/ioprio_get01.c     |  9 ++--
+ .../kernel/syscalls/ioprio/ioprio_set01.c     |  9 ++--
+ .../kernel/syscalls/ioprio/ioprio_set02.c     |  9 ++--
+ .../kernel/syscalls/ioprio/ioprio_set03.c     |  9 ++--
+ testcases/kernel/syscalls/utils/ioprio.h      | 46 ------------------
+ 7 files changed, 71 insertions(+), 100 deletions(-)
+ create mode 100644 include/lapi/ioprio.h
  delete mode 100644 testcases/kernel/syscalls/utils/ioprio.h
 
-diff --git a/testcases/kernel/syscalls/utils/ioprio.h b/testcases/kernel/syscalls/utils/ioprio.h
-deleted file mode 100644
-index 07220945c..000000000
---- a/testcases/kernel/syscalls/utils/ioprio.h
-+++ /dev/null
-@@ -1,46 +0,0 @@
--#ifndef __IOPRIO_H__
--#define	__IOPRIO_H__
--
--//----------------------------------------------------------------------------
--// Copy of the 2.6.18 kernel header (linux/ioprio.h)
--//
--
--/*
-- * Gives us 8 prio classes with 13-bits of data for each class
-- */
--#define IOPRIO_BITS		(16)
--#define IOPRIO_CLASS_SHIFT	(13)
--#define IOPRIO_PRIO_MASK	((1UL << IOPRIO_CLASS_SHIFT) - 1)
--
--#define IOPRIO_PRIO_CLASS(mask)	((mask) >> IOPRIO_CLASS_SHIFT)
--#define IOPRIO_PRIO_DATA(mask)	((mask) & IOPRIO_PRIO_MASK)
--#define IOPRIO_PRIO_VALUE(class, data)	(((class) << IOPRIO_CLASS_SHIFT) | data)
--
--#define ioprio_valid(mask)	(IOPRIO_PRIO_CLASS((mask)) != IOPRIO_CLASS_NONE)
--
--/*
-- * These are the io priority groups as implemented by CFQ. RT is the realtime
-- * class, it always gets premium service. BE is the best-effort scheduling
-- * class, the default for any process. IDLE is the idle scheduling class, it
-- * is only served when no one else is using the disk.
-- */
--enum {
--	IOPRIO_CLASS_NONE,
--	IOPRIO_CLASS_RT,
--	IOPRIO_CLASS_BE,
--	IOPRIO_CLASS_IDLE,
--};
--
--/*
-- * 8 best effort priority levels are supported
-- */
--#define IOPRIO_BE_NR	(8)
--
--enum {
--	IOPRIO_WHO_PROCESS = 1,
--	IOPRIO_WHO_PGRP,
--	IOPRIO_WHO_USER,
--};
--//-----------------------------------------------------------------------------
--
--#endif /* __IOPRIO_H__ */
 -- 
 2.40.1
 
