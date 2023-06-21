@@ -1,79 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55994737D30
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Jun 2023 10:17:17 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E1C8737D36
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Jun 2023 10:19:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CD47C3CA861
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Jun 2023 10:17:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 107BB3CAE91
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Jun 2023 10:19:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 074B23C9212
- for <ltp@lists.linux.it>; Wed, 21 Jun 2023 10:17:14 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id F1E563C9E39
+ for <ltp@lists.linux.it>; Wed, 21 Jun 2023 10:19:55 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id F2F1D1A00922
- for <ltp@lists.linux.it>; Wed, 21 Jun 2023 10:17:13 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5F322100049C
+ for <ltp@lists.linux.it>; Wed, 21 Jun 2023 10:19:54 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BFC6F1F8BA;
- Wed, 21 Jun 2023 08:17:12 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DF8BE219C4;
+ Wed, 21 Jun 2023 08:19:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1687335432;
+ t=1687335592;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=9kdKAfCI7BAwIr6xRk7g/2dNUDoHlca9jmdMvNW6G6M=;
- b=ofqGDGurV3wRWXjybA3iHKdxwiV2h6cpMUaJycbrP89FGAA4lcgh4pbHU/+4a/P8BeIaIl
- /YfLOQU2UoS+nCX1qNf15zKmPMRkpkUqRz6uST62qItaiXYhb2Swv1uM9zvkhD2UnLLAwT
- QCUphYZhxDvfb9a0OBehzTLd0cOjR3Q=
+ bh=K3xElEwi73S04ZiydtzCrLS3cosW8zkVfayYptrkOEU=;
+ b=i8Dco0ieY5e05jN8ZRp+T3nHxZcve1Cb9V7mQdTCmXPXrdI11fAn+HmM1nQzKGUMPieMru
+ OdNxJQFWdCqB1J8WPFoYmQnSl8hiQE1yk02/IWMj668YYxOkHgtWnWvsRozFzIdwdQcI6m
+ HrsysJPD/ZXr79DNuZTfTuO7N6ZWApo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1687335432;
+ s=susede2_ed25519; t=1687335592;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=9kdKAfCI7BAwIr6xRk7g/2dNUDoHlca9jmdMvNW6G6M=;
- b=o4ArFA4LftsicY48t1/lqWmlAIib3gclHR3hiOsGXLMySmv5+7cQISQyR2XOYjv+eAv78L
- GzX+IeCOVZpdiZCA==
+ bh=K3xElEwi73S04ZiydtzCrLS3cosW8zkVfayYptrkOEU=;
+ b=wqPjqQ3EEAN7sWYArKf4pG1ROk5Ya7aQELHDFC8ks+x+LmR1uLptfjvk9KclZaUA+gLm/C
+ 5cjn1xi/zaoUtrCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9C2DA133E6;
- Wed, 21 Jun 2023 08:17:12 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BDF09133E6;
+ Wed, 21 Jun 2023 08:19:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id dKLSJAiykmQATwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 21 Jun 2023 08:17:12 +0000
-Date: Wed, 21 Jun 2023 10:17:11 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id L29tLaiykmQoUAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 21 Jun 2023 08:19:52 +0000
+Date: Wed, 21 Jun 2023 10:19:51 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Ashwin Dayanand Kamat <kashwindayan@vmware.com>
-Message-ID: <20230621081711.GA361973@pevik>
-References: <1687280634-5906-1-git-send-email-kashwindayan@vmware.com>
- <20230620222603.GB340710@pevik>
- <01C96D39-2B2E-44EB-A5D7-41BF26D2C2AC@vmware.com>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20230621081951.GB361973@pevik>
+References: <20230601085422.52874-1-liwang@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <01C96D39-2B2E-44EB-A5D7-41BF26D2C2AC@vmware.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+In-Reply-To: <20230601085422.52874-1-liwang@redhat.com>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] sctp_big_chunk: Do not use md5 hmac algo if fips
- is enabled
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] include: remove outdated ipcshm.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,33 +80,22 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Tapas Kundu <tkundu@vmware.com>, Ajay Kaher <akaher@vmware.com>,
- Vasavi Sirnapalli <vsirnapalli@vmware.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgQXNod2luLAoKPiA+IE91dCBvZiBjdXJpb3NpdHksIHdoaWNoIGVycm5vIGlzIHJlcG9ydGVk
-IG9uIGxpc3Rlbj8KCj4gPiBJbiBvdXIgY2FzZSBpbiBGSVBTIEVOT1NZUyBpcyByZXR1cm5lZCwg
-dGh1cyBoYW5kbGVkIGFzIFRDT05GLgoKPiBJIGFtIHNlZWluZyB0aGUgRU5PU1lTICgzOCkgZXJy
-b3IgYW5kIGl04oCZcyB0cnVlIHRoYXQgaXQgaXMgaGFuZGxlZCBhcyBUQ09ORi4gVGhlIGludGVu
-dGlvbiBvZiB0aGUgcGF0Y2ggaXMgdG8gZml4IHRoZSBzYW1lLgoKVENPTkYgbWVhbnMgc2tpcHBl
-ZCwgaS5lLiBPSy4gSSBzdXBwb3NlIHlvdXIgcGF0Y2ggYWxsb3dzIHRvIGRvIHRlc3RpbmcsIHdo
-aWNoCmlzIGFuIGVuaGFuY2VtZW50LiBCdXQsIGF0IGxlYXN0IG9uIG9uZSBGSVBTIHN5c3RlbSBJ
-IGdldCBmYWlsdXJlIGR1ZSBtaXNzaW5nCnByb2MgZmlsZToKCnRzdF9maXBzLmM6MjI6IFRJTkZP
-OiBGSVBTOiBvbgpzY3RwX2JpZ19jaHVuay5jOjE1MzogVEJST0s6IEZhaWxlZCB0byBvcGVuIEZJ
-TEUgJy9wcm9jL3N5cy9uZXQvc2N0cC9jb29raWVfaG1hY19hbGcnIGZvciByZWFkaW5nOiBFTk9F
-TlQgKDIpCgpUaGUgc3lzdGVtIGhhcyBDT05GSUdfSVBfU0NUUD1tLCBJIGRvbid0IGtub3cgd2h5
-IG1vZHVsZSBpcyBub3QgbG9hZGVkLgpNYXliZSBpdCdzIG5vdCBpbnN0YWxsZWQgb24gdGhlIHN5
-c3RlbSAod291bGQgcmVxdWlyZSBwYWNrYWdlIHdpdGggZXh0cmEKbW9kdWxlcyksIGJ1dCBzdGls
-bCB0aGlzIHdvdWxkIGJlIGEgcmVncmVzc2lvbiwgd2Ugc2hvdWxkIGNoZWNrIGZvciBwcmVzZW5j
-ZSBvZgp0aGUgZmlsZS4KCk5PVEUgV2UgaGF2ZSAuc2F2ZV9yZXN0b3JlIFsxXSBoZWxwZXIsIGdl
-bmVyYWxseSB3ZSdkIHVzZSBpdCB3aXRoClRTVF9TUl9UQ09ORl9NSVNTSU5HLCBidXQgaW4gdGhp
-cyBjYXNlIEknZCB1c2UgYWNjZXNzKCkgdG8gY2hlY2ssCmJlY2F1c2Ugd2hvbGUgU0FGRV9GSUxF
-X1NDQU5GKCkgc2hvdWxkIGJlIGFwcGxpZWQgb25seSB3aGVuIG5lZWRlZAooaW4gdHN0X2ZpcHNf
-ZW5hYmxlZCgpKS4KCktpbmQgcmVnYXJkcywKUGV0cgoKWzFdIGh0dHBzOi8vZ2l0aHViLmNvbS9s
-aW51eC10ZXN0LXByb2plY3QvbHRwL3dpa2kvQy1UZXN0LUFQSSMxMjctc2F2aW5nLS1yZXN0b3Jp
-bmctcHJvY3N5cy12YWx1ZXMKCj4gVGhhbmtzLAo+IEFzaHdpbiAKCi0tIApNYWlsaW5nIGxpc3Qg
-aW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Hi Li,
+
+> Since it has been replaced by libnewipc.h header file, and
+> there has no inclusion in any LTP tests, so let's remove it.
+
+Good catch!
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+Kind regards,
+Petr
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
