@@ -1,76 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE36273FF3A
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jun 2023 17:05:18 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CA510740334
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jun 2023 20:26:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 74F5F3CD835
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jun 2023 17:05:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2AB833CD811
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jun 2023 20:26:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E442F3C99BA
- for <ltp@lists.linux.it>; Tue, 27 Jun 2023 17:05:13 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 3CA143C99AD
+ for <ltp@lists.linux.it>; Tue, 27 Jun 2023 20:26:39 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BAE9C1A00924
- for <ltp@lists.linux.it>; Tue, 27 Jun 2023 17:05:12 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B16856000FB
+ for <ltp@lists.linux.it>; Tue, 27 Jun 2023 20:26:38 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8E7391F459;
- Tue, 27 Jun 2023 15:05:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 754E51F8BE;
+ Tue, 27 Jun 2023 18:26:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1687878311; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1687890397;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=kWiy0zX8Txg50YMmXQpyW6IUxB+jCUDKAT1jqIyutRY=;
- b=rGTsM5lqJiqpXLXkFCrAEoyUgQmitC+VROz704jeqXmZG+YoCaThmqxt5LyYiatDlEk01o
- PvASFgWfdwJNGdhBYkpLTShOUCAKUqPVok/DVL+9AEGynHCvRATSJnxbss7FWXAP8jJap8
- CkPOOHKDRUBJ6Ryd6HrzNp3/1Gz740c=
+ bh=+Tr1Z9brkcRIgMH8fVvuwPZICQhHEKpcjevS0/dFO24=;
+ b=P0I10vqO9XNhlZ9xvuh2EGmRvMwtD5NzP+j/FWuL86JWaBOjI9gbKpblkJSUKUSmZFfWkG
+ 5hTHW75PFH6FvtDlYUBUWTDDlYHK9Wb0oevHTBpNXwRx0xoae7cWXYbPOmyiQUFTr2ojYW
+ GsuGZuKK+i91UkKkgviTlCihRJPG62w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1687878311;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1687890397;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=kWiy0zX8Txg50YMmXQpyW6IUxB+jCUDKAT1jqIyutRY=;
- b=PJKf2CFcSgw4VenZB7VBbGBKjwLYVA778meeTCi9QFsmEkdGC6iKielc+iekGgyRNSS1/x
- +zXDuG4Bzvnzc+Bg==
+ bh=+Tr1Z9brkcRIgMH8fVvuwPZICQhHEKpcjevS0/dFO24=;
+ b=I+EMbGCDDOV8GmuFzVlKTnajgLwUS9sfu0jX4p5VsSS0+uUz+uxtBuHqTJW9c6GVJA6cg3
+ ybwoeG2BonC5+nAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 640B213276;
- Tue, 27 Jun 2023 15:05:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3D1DF13276;
+ Tue, 27 Jun 2023 18:26:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id F5J4Faf6mmSfIAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 27 Jun 2023 15:05:11 +0000
-Date: Tue, 27 Jun 2023 17:06:18 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <ZJr66taHPoyDthnz@yuki>
+ by imap2.suse-dmz.suse.de with ESMTPSA id bBl1Dd0pm2SSAQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 27 Jun 2023 18:26:37 +0000
+Date: Tue, 27 Jun 2023 20:26:35 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20230627182635.GA85230@pevik>
 References: <20230615093933.3185297-1-dylan@andestech.com>
  <CAEemH2e-PPPNHNX6_3Kj86hh3z-5o2i4XxD2GP-+Fh4Pe=B3TA@mail.gmail.com>
  <ZJlZD2fVXaVM3X5i@yuki>
  <CAEemH2d=Mf=WsSXFGwUPeL3dqSOR2kf-eJr+C8HFTMMhAEynKg@mail.gmail.com>
- <20230627135004.GA58180@pevik>
+ <20230627135004.GA58180@pevik> <ZJr66taHPoyDthnz@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230627135004.GA58180@pevik>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+In-Reply-To: <ZJr66taHPoyDthnz@yuki>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] hugeshmctl02: Skipped EFAULT tests for libc
  variant
 X-BeenThere: ltp@lists.linux.it
@@ -84,6 +85,7 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: minachou@andestech.com, tim609@andestech.com, ltp@lists.linux.it,
  x5710999x@gmail.com
 Content-Type: text/plain; charset="us-ascii"
@@ -91,20 +93,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > Okay, sounds reasonable. I agree with this.
-> 
-> BTW I also get ENOMEM on my laptop (currently 1G free space):
-> hugeshmctl02.c:119: TBROK: shmget #1: ENOMEM (12)
-> 
-> Should we handle it somehow?
+Hi All,
 
-The line 119 looks suspicions, in latest git the hugeshmctl02.c does not
-even have 119 lines.
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+LGTM.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> Hi!
+> > > Okay, sounds reasonable. I agree with this.
+
+> > BTW I also get ENOMEM on my laptop (currently 1G free space):
+> > hugeshmctl02.c:119: TBROK: shmget #1: ENOMEM (12)
+
+> > Should we handle it somehow?
+
+> The line 119 looks suspicions, in latest git the hugeshmctl02.c does not
+> even have 119 lines.
+Well, it occurred with this patch (file has with it 147 lines). Previously the
+version from master worked, but now it also reports ENOMEM even on master:
+hugeshmctl02.c:87: TBROK: shmget #1: ENOMEM (12)
+(therefore not this patch specific). Should we use .min_mem_avail? (not sure
+which value).
+
+nit: The patch subject is "hugeshmctl02: Skipped EFAULT tests for libc variant".
+"Skipped" => "Skip" (we use imperative mood).
+IMHO more important is the fact, that test variant was added, that's what I'd
+mention in the subject. Of course, I'd keep in the commit message body that
+libc variant was skipped.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
