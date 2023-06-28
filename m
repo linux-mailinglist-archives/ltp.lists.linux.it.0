@@ -2,74 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CB07740B01
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jun 2023 10:19:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABDB0740AFC
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jun 2023 10:18:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AE65B3CC825
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jun 2023 10:19:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7ACC33CC6FA
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jun 2023 10:18:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A60063C99BA
- for <ltp@lists.linux.it>; Wed, 28 Jun 2023 10:18:37 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 7CF5A3C99BA
+ for <ltp@lists.linux.it>; Wed, 28 Jun 2023 10:18:36 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 50B5B1A0099D
- for <ltp@lists.linux.it>; Wed, 28 Jun 2023 10:18:35 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5AA311400B86
+ for <ltp@lists.linux.it>; Wed, 28 Jun 2023 10:18:36 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 91F4C2188D;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DA63F2188E;
  Wed, 28 Jun 2023 08:18:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1687940315; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=et5DZvvnl0dBbloNdZZ9gmb+M1LwSBpY3QxC5Kf2cQA=;
- b=GRQwhEPePDOv3yObOOEiRPiH+6yx7W90LanNlog/l1FQ+srIq6tdP64mc95VzxCKQ/OjRG
- 1NFnptmpmlpgEohpZYXomIqnptwiI9zQNS/yEN62yGujTtFfzUTw9jr+wK+cux4AUM/Spp
- VMniQ5se25jw/YUKZIeq6HdGyu0rmp0=
+ bh=3i1PkT8JD2OJGFphOMrUu65Qtg1I5AkPSS9asZTgmyA=;
+ b=ajM+5vdWT+mCRgS2VeJuMWMdNbaLcj7jENknjJT+CEyJi6OesxGjy9xdR36wXLrghCe+S2
+ Ey1moWLfXPWGTNfMmVDSVCEzU0ltqGJTN+I3dQ+xMkG2/Oiieg2mfCOkPZwR4L1zTDev1E
+ rpcp1fAXudui3mTrTArPYhYjpFlqjk4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1687940315;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=et5DZvvnl0dBbloNdZZ9gmb+M1LwSBpY3QxC5Kf2cQA=;
- b=cMgdQ4itzLkQCI2SIqiw80Pds+e7rdIz2MZeSt/i3ftqOnmWY7HU5joetdNKkNctwnRUSe
- j4YsZ/n5wU3CW+Dg==
+ bh=3i1PkT8JD2OJGFphOMrUu65Qtg1I5AkPSS9asZTgmyA=;
+ b=tecZZwEmQEFVC3ERgsGTqtrK3BNitsNE3Ml+O3mjs0+JYRgiAKO62NvLHkVTUcGt/4y3EP
+ s4Z4cHJQMWzTBYCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 570B2138E8;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9F114138E8;
  Wed, 28 Jun 2023 08:18:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oC2DE9vsm2QhVAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id cN37JNvsm2QhVAAAMHmgww
  (envelope-from <pvorel@suse.cz>); Wed, 28 Jun 2023 08:18:35 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 28 Jun 2023 10:18:30 +0200
-Message-Id: <20230628081831.123189-3-pvorel@suse.cz>
+Date: Wed, 28 Jun 2023 10:18:31 +0200
+Message-Id: <20230628081831.123189-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230628081831.123189-1-pvorel@suse.cz>
 References: <20230628081831.123189-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] fsstress/global.h: Include lapi/fcntl.h
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/3] ltpscsi/scsimain.c: Remove O_DIRECT fallback
+ definition
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,33 +88,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-To avoid potential problems with different O_DIRECT values across archs.
+To avoid potential problems with different O_DIRECT values across archs,
+just replace the fallback definition with _GNU_SOURCE definition.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/fs/fsstress/global.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ testcases/kernel/fs/scsi/ltpscsi/scsimain.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/testcases/kernel/fs/fsstress/global.h b/testcases/kernel/fs/fsstress/global.h
-index 4ec382426..863fff263 100644
---- a/testcases/kernel/fs/fsstress/global.h
-+++ b/testcases/kernel/fs/fsstress/global.h
-@@ -50,7 +50,6 @@
- #include <sys/ioctl.h>
- #include <sys/wait.h>
- #include <sys/types.h>
--#include <fcntl.h>
- #include <stdlib.h>
- #include <dirent.h>
- #include <errno.h>
-@@ -58,6 +57,7 @@
- #include <stdlib.h>
- #include <stdio.h>
- #include <unistd.h>
-+#include "lapi/fcntl.h"
+diff --git a/testcases/kernel/fs/scsi/ltpscsi/scsimain.c b/testcases/kernel/fs/scsi/ltpscsi/scsimain.c
+index ae484e0f1..ce23ae1e7 100644
+--- a/testcases/kernel/fs/scsi/ltpscsi/scsimain.c
++++ b/testcases/kernel/fs/scsi/ltpscsi/scsimain.c
+@@ -28,6 +28,7 @@
+ [0x12][   |lu][pg cde][res   ][al len][cntrl ]
+ */
  
- #ifndef O_DIRECT
- #define O_DIRECT 040000
++#define _GNU_SOURCE
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <stdio.h>
+@@ -53,10 +54,6 @@
+ 
+ #define ME "scsimain: "
+ 
+-#ifndef O_DIRECT
+-#define O_DIRECT 040000
+-#endif
+-
+ #define NUMERIC_SCAN_DEF 1	/* change to 0 to make alpha scan default */
+ //static char * version_str = "0.21 20030513";
+ 
 -- 
 2.40.1
 
