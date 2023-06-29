@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 558AD741F38
-	for <lists+linux-ltp@lfdr.de>; Thu, 29 Jun 2023 06:24:23 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4490E7420DB
+	for <lists+linux-ltp@lfdr.de>; Thu, 29 Jun 2023 09:18:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AEB4A3CE180
-	for <lists+linux-ltp@lfdr.de>; Thu, 29 Jun 2023 06:24:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8B3333CC2F7
+	for <lists+linux-ltp@lfdr.de>; Thu, 29 Jun 2023 09:18:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 961C33CCFE7
- for <ltp@lists.linux.it>; Thu, 29 Jun 2023 06:24:21 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 754673CB956
+ for <ltp@lists.linux.it>; Thu, 29 Jun 2023 09:18:46 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 79751600131
- for <ltp@lists.linux.it>; Thu, 29 Jun 2023 06:24:20 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AF3DE200BBA
+ for <ltp@lists.linux.it>; Thu, 29 Jun 2023 09:18:45 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 23F2D1F8AF;
- Thu, 29 Jun 2023 04:24:19 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E6D602188D;
+ Thu, 29 Jun 2023 07:18:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1688012659; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1688023124; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G3g6X/m0AgcGyKvhwjw/KSs8Ci1RvFsyrEnGo0KZoNc=;
- b=q3X/3TLej1NsIw9zv7EYXG+7jstqMCs4rlaHXjoMnMx5JWsmzpheAL8MNIX7eF/D7tDg93
- MXkDTJprLIUnydCmrrBqj7LhFTL0H+GfC3VpSRgjPDAnctVlRhdv9lsF31ZcGUXS8e0DOU
- 6E+TVtqCWrEgIQMJf0i+D+uF4Wcz3tQ=
+ bh=/0SU0Xdt5/aTEPneg/OdhJhLZTfqOolqIuqG33Y68nA=;
+ b=STifhgLA0ZnFRIAXJZBYY/GZmyXTprOS+mzsj1WRChgDDkAIpKm1KxQ/BtN7wH45yS9Amt
+ Dw9aiRCxQ8OYTeSnuDopEI7qN9YayC6WU2RVeG4REWQb36Wfb6UsN9otCcr8/JM+8o9B5U
+ QobiRwW3P4U5C8yB4FEI88sXMNWKAV4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1688012659;
+ s=susede2_ed25519; t=1688023124;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G3g6X/m0AgcGyKvhwjw/KSs8Ci1RvFsyrEnGo0KZoNc=;
- b=JrRcyTYFsIM5vwGHkdytx9QNpYNGPvzUN9RGswSKoM53z3r+Ju0lJbr0SipmSCTRxtkn2Y
- EA4ZMQO7cIk0ZtDQ==
+ bh=/0SU0Xdt5/aTEPneg/OdhJhLZTfqOolqIuqG33Y68nA=;
+ b=wFVQOw4ox1695ZEGvQXyXTyCb+X1BPGvLNnkvfyiTlrE4Dmy3QXNBTU+HCre0eXHrARDkG
+ zPNDOewqtNVDtUAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 652BB1348C;
- Thu, 29 Jun 2023 04:24:18 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3841613905;
+ Thu, 29 Jun 2023 07:18:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fPe3CnIHnWRScQAAMHmgww
- (envelope-from <akumar@suse.de>); Thu, 29 Jun 2023 04:24:18 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id vSIMAFQwnWTnOwAAMHmgww
+ (envelope-from <akumar@suse.de>); Thu, 29 Jun 2023 07:18:43 +0000
 From: Avinesh Kumar <akumar@suse.de>
 To: ltp@lists.linux.it
-Date: Thu, 29 Jun 2023 09:54:08 +0530
-Message-ID: <2692871.mvXUDI8C0e@localhost>
+Date: Thu, 29 Jun 2023 12:48:41 +0530
+Message-ID: <5692806.DvuYhMxLoT@localhost>
 Organization: SUSE
-In-Reply-To: <20230627183114.89536-1-pvorel@suse.cz>
-References: <20230627183114.89536-1-pvorel@suse.cz>
+In-Reply-To: <20230621125553.466801-1-pvorel@suse.cz>
+References: <20230621125553.466801-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] doc/C-API: Move .min_mem_avail below .min_cpus
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] doc/c-API: Update module detection dependency
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,59 +87,32 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Reviewed-by: Avinesh Kumar <akumar@suse.de>
 
-On Wednesday, June 28, 2023 12:01:14 AM IST Petr Vorel wrote:
+On Wednesday, June 21, 2023 6:25:53 PM IST Petr Vorel wrote:
 > From: Petr Vorel <petr.vorel@gmail.com>
 > 
-> Required minimum of CPU and RAM are related topics,
-> it's better to have together.
+> 8f7013ba6 removed modprobe dependency, it was replaced by parsing files
+> generated by kmod.
 > 
 > Signed-off-by: Petr Vorel <pvorel@suse.cz>
 > ---
->  doc/c-test-api.txt | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
+>  doc/c-test-api.txt | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
 > diff --git a/doc/c-test-api.txt b/doc/c-test-api.txt
-> index dcb6e1ba8..9106758d7 100644
+> index dcb6e1ba8..be63aa8cf 100644
 > --- a/doc/c-test-api.txt
 > +++ b/doc/c-test-api.txt
-> @@ -2328,7 +2328,13 @@ both V1 and V2 feasible.
->  Some tests require more than specific number of CPU. It can be defined with
-> `.min_cpus = N`.
+> @@ -1606,8 +1606,8 @@ as a module. If '.needs_drivers' points to a 'NULL'
+> terminated array of kernel module names these are all checked and the test
+> exits with 'TCONF' on the first missing driver.
 > 
-> -1.38 Test tags
-> +1.38 Require minimum size of MemAvailable for a testcase
-> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> +
-> +Some tests require more than specific size(MB) of MemAvailable. It can be
-> defined +with `.min_mem_avail = N`.
-> +
-> +1.39 Test tags
->  ~~~~~~~~~~~~~~
+> -Since it relies on modprobe command, the check will be skipped if the
+> command -itself is not available on the system.
+> +The detection is based on reading 'modules.dep' and 'modules.builtin' files
+> +generated by kmod. The check is skipped on Android.
 > 
->  Test tags are name-value pairs that can hold any test metadata.
-> @@ -2370,7 +2376,7 @@ struct tst_test test = {
->  };
->  ---------------------------------------------------------------------------
-> ----
-> 
-> -1.39 Testing on the specific architecture
-> +1.40 Testing on the specific architecture
->  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->  Testcases for specific arch should be limited on that only being supported
->  platform to run, we now involve a .supported_archs to achieve this feature
-> @@ -2406,12 +2412,6 @@ static struct tst_test test = {
->  };
->  ---------------------------------------------------------------------------
-> ----
-> 
-> -1.40 Require minimum size of MemAvailable for a testcase
-> -~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> -
-> -Some tests require more than specific size(MB) of MemAvailable. It can be
-> defined -with `.min_mem_avail = N`.
-> -
->  2. Common problems
->  ------------------
+>  1.27 Saving & restoring /proc|sys values
+>  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
