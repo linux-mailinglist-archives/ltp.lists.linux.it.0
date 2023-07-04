@@ -2,73 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07637746D0B
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jul 2023 11:19:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BB2A746D3F
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jul 2023 11:24:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AABE73CC03F
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jul 2023 11:19:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D484B3CF047
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jul 2023 11:24:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2DF6A3C9983
- for <ltp@lists.linux.it>; Tue,  4 Jul 2023 11:19:48 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 38F693CC040
+ for <ltp@lists.linux.it>; Tue,  4 Jul 2023 11:24:33 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 66D5B1A00814
- for <ltp@lists.linux.it>; Tue,  4 Jul 2023 11:19:48 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8EBBE1A00814
+ for <ltp@lists.linux.it>; Tue,  4 Jul 2023 11:24:32 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 080DB2045D;
- Tue,  4 Jul 2023 09:19:48 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9D46A22664;
+ Tue,  4 Jul 2023 09:24:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1688462388; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=apVsjnglWU6Ma0XklSV+/ZrryEU9YtLoq7seiWm31Wo=;
- b=OmiVa5rza9VYRFT8uzSAyMtbhZip1nEoDsVyIa7Uos4q02t8MdAIejXpaiLdVa1z6DL+E/
- nfE4a9BJR17Hl92EANwdlYLe13vgwiKUiwnQSlbgp39bb+T/CqCTfkTIQUX4TKj+O6UCRp
- sAVwIUVtduyb3gC3LaXb4rp28w9weio=
+ t=1688462671; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=NImZjySR+eOvulujmy1NrpU6iXw3/Wge1Fwffw19Cf4=;
+ b=FPG61jPeOQieRc0SBxcsE9I3vXW9rXs/Sx9O9fnqJehxgnwVL/HUyqCE98UPo77fxkwap2
+ ZUCS/yOzN5hqtWp1andpZ/1q1X7j6YjDwPEAYslnbLBUtrQ1Apym8WvMQF9Bd3MwBJUZl9
+ BhDwHWt+0287fZWrNTzoqAfxCIldJpg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1688462388;
+ s=susede2_ed25519; t=1688462671;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=apVsjnglWU6Ma0XklSV+/ZrryEU9YtLoq7seiWm31Wo=;
- b=Q++ZncTQ/eJ7iiHJhQZg6tdh69wpSpYx37cvHF4q213mDX/adlkskdBIiYoUTBNKcEpDgV
- sGrVAJUBhlGqZ1Bw==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=NImZjySR+eOvulujmy1NrpU6iXw3/Wge1Fwffw19Cf4=;
+ b=q2TbcgmBHhcGuz/ba+8/8D3gBUZAn+z9ASaAIbuqrsG5f1jf9oQ+aR99l9kP8KdzN5yjJG
+ KdPEnHq+giaBx2Dw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D2D1D133F7;
- Tue,  4 Jul 2023 09:19:47 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6AFBD133F7;
+ Tue,  4 Jul 2023 09:24:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QF9qMjPko2SLSQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 04 Jul 2023 09:19:47 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id heDaGE/lo2TvSwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 04 Jul 2023 09:24:31 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  4 Jul 2023 11:19:33 +0200
-Message-Id: <20230704091933.496989-4-pvorel@suse.cz>
+Date: Tue,  4 Jul 2023 11:24:24 +0200
+Message-Id: <20230704092424.497903-1-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230704091933.496989-1-pvorel@suse.cz>
-References: <20230704091933.496989-1-pvorel@suse.cz>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 3/3] lib/C-API: Print LTP version at test start
+Subject: [LTP] [RFC PATCH 0/3] C API: print LTP version
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,28 +79,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Although -V option for printing version was added in previous commit,
-having a way to always print LTP version at the beginning of the test
-(makes debugging of troubleshooting reported issues even easier).
+NOTE this is a correct cover letter (I'm sorry for the confusion).
+RFC is mainly due first patch.
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- lib/tst_test.c | 2 ++
- 1 file changed, 2 insertions(+)
+Kind regards,
+Petr
 
-diff --git a/lib/tst_test.c b/lib/tst_test.c
-index e81a3d036..c93ef6aac 100644
---- a/lib/tst_test.c
-+++ b/lib/tst_test.c
-@@ -1677,6 +1677,8 @@ void tst_run_tcases(int argc, char *argv[], struct tst_test *self)
- 	SAFE_SIGNAL(SIGALRM, alarm_handler);
- 	SAFE_SIGNAL(SIGUSR1, heartbeat_handler);
- 
-+	tst_res(TINFO, LTP_VERSION);
-+
- 	if (tst_test->max_runtime)
- 		results->max_runtime = multiply_runtime(tst_test->max_runtime);
- 
+Petr Vorel (3):
+  Makefile: Add C header with generated LTP version
+  lib/C-API: Add option -V to print LTP version
+  lib/C-API: Print LTP version at test start
+
+ .gitignore     | 1 +
+ lib/Makefile   | 4 ++++
+ lib/tst_test.c | 8 ++++++++
+ 3 files changed, 13 insertions(+)
+
 -- 
 2.40.1
 
