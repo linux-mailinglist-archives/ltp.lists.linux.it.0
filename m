@@ -2,74 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E715D7485C6
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jul 2023 16:15:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F8E47485C9
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jul 2023 16:16:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 53BE53CE067
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jul 2023 16:15:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 23FCA3CE068
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jul 2023 16:16:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 579F33C9A15
+ by picard.linux.it (Postfix) with ESMTPS id B6D633C9A15
  for <ltp@lists.linux.it>; Wed,  5 Jul 2023 16:15:10 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 88B4F1000994
- for <ltp@lists.linux.it>; Wed,  5 Jul 2023 16:15:09 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 115BF1400996
+ for <ltp@lists.linux.it>; Wed,  5 Jul 2023 16:15:10 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2CD2E21E94;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AAE4721E95;
  Wed,  5 Jul 2023 14:15:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1688566509; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=V4UqNzOAar56wS6eBeDG1FqLjlIMzfY9Do0lazBGFV0=;
- b=uUGGMgJHOMMdU4vGHYPluEEfa0wCziY8IsUlALrLUfJX69SGoCI4J+rENJJZQ+irzkrt5C
- sEc1MPoLM+SplACMitkSPcGY7pWt3tReJ87bP/RXMRiT1sNyMNr+muyeqo5RK0Ljfd4JKV
- GFyaRb6qAMoRRRI562jZrL+0VpAGEm8=
+ bh=cpRaRaCa5USar1crot1rQ+Dou5i+DnNRNXVqA6vP4Cc=;
+ b=EFtiAB7R+Wm/vZd6iCy9/S4f1AaF6EfMJ+LxQ87jiIdr6kgbN4WodFGrzayS2Y6vC0x/8S
+ I7XaV1CGQ5Fgd0Z2PYTweozmGkAUTNlC1Eh9zWviJuri7CPiFHRWWljuSahwyzGBJHcoXu
+ oygEhk6OW2iXuPOwL9fCYhgOeoAjutg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1688566509;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=V4UqNzOAar56wS6eBeDG1FqLjlIMzfY9Do0lazBGFV0=;
- b=1Fmtu3K1o4a2L0DrcE7K43HoeH9lgSY1GPKUEsxdqJ8V+wwDFyi6PDaFhpZwccty2SNePn
- vsttfZFAX510cMDA==
+ bh=cpRaRaCa5USar1crot1rQ+Dou5i+DnNRNXVqA6vP4Cc=;
+ b=ypZtptMnqM3mZLozZdb+heGh+y0dgbixh7kxyvNuWg5+HZxysea2sqQQIq/rvLaUsWFxiq
+ x3f2oKx3GOheYyAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D084C134F3;
- Wed,  5 Jul 2023 14:15:08 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 592E5134F3;
+ Wed,  5 Jul 2023 14:15:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mCPbLOx6pWQFBwAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Wed, 05 Jul 2023 14:15:08 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id WK7GD+16pWQFBwAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Wed, 05 Jul 2023 14:15:09 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Wed,  5 Jul 2023 16:12:22 +0200
-Message-Id: <20230705141223.31468-4-andrea.cervesato@suse.de>
+Date: Wed,  5 Jul 2023 16:12:23 +0200
+Message-Id: <20230705141223.31468-5-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230705141223.31468-1-andrea.cervesato@suse.de>
 References: <20230705141223.31468-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v8 3/4] Remove deprecated header files from mqns suite
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v8 4/4] Remove libclone dependency from mqns suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,88 +89,48 @@ From: Andrea Cervesato <andrea.cervesato@suse.com>
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/containers/mqns/mqns.h       | 11 ----
- .../kernel/containers/mqns/mqns_helper.h      | 53 -------------------
- 2 files changed, 64 deletions(-)
- delete mode 100644 testcases/kernel/containers/mqns/mqns.h
- delete mode 100644 testcases/kernel/containers/mqns/mqns_helper.h
+ testcases/kernel/containers/mqns/Makefile | 27 +++++------------------
+ 1 file changed, 5 insertions(+), 22 deletions(-)
 
-diff --git a/testcases/kernel/containers/mqns/mqns.h b/testcases/kernel/containers/mqns/mqns.h
-deleted file mode 100644
-index 5a9056838..000000000
---- a/testcases/kernel/containers/mqns/mqns.h
-+++ /dev/null
-@@ -1,11 +0,0 @@
--#ifndef __MQNS_H
--#define __MQNS_H
--
--#define DEV_MQUEUE "/dev/mqueue"
--#define DEV_MQUEUE2 "/dev/mqueue2"
--#define SLASH_MQ1 "/MQ1"
--#define NOSLASH_MQ1 "MQ1"
--#define SLASH_MQ2 "/MQ2"
--#define NOSLASH_MQ2 "MQ2"
--
--#endif /* __MQNS_H */
-diff --git a/testcases/kernel/containers/mqns/mqns_helper.h b/testcases/kernel/containers/mqns/mqns_helper.h
-deleted file mode 100644
-index 03f50aa36..000000000
---- a/testcases/kernel/containers/mqns/mqns_helper.h
-+++ /dev/null
-@@ -1,53 +0,0 @@
--/*
-- * Copyright (c) International Business Machines Corp., 2009
-- * Copyright (c) Nadia Derbey, 2009
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
-- * the GNU General Public License for more details.
-- * You should have received a copy of the GNU General Public License
-- * along with this program; if not, write to the Free Software
-- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-- *
-- * Author: Serge Hallyn <serue@us.ibm.com>
-- ***************************************************************************/
--#include <sys/mount.h>
--#include <sys/stat.h>
--#include <sys/types.h>
--#include <mqueue.h>
--#include "../libclone/libclone.h"
--#include "lapi/syscalls.h"
--#include "safe_macros.h"
--#include "test.h"
--
--static int dummy_child(void *v)
--{
--	(void) v;
--	return 0;
--}
--
--static void check_mqns(void)
--{
--	int pid, status;
--	mqd_t mqd;
--
--	mq_unlink("/checkmqnsenabled");
--	mqd =
--	    mq_open("/checkmqnsenabled", O_RDWR | O_CREAT | O_EXCL, 0777, NULL);
--	if (mqd == -1)
--		tst_brkm(TCONF, NULL, "mq_open check failed");
--
--	mq_close(mqd);
--	mq_unlink("/checkmqnsenabled");
--
--	pid = do_clone_unshare_test(T_CLONE, CLONE_NEWIPC, dummy_child, NULL);
--	if (pid == -1)
--		tst_brkm(TCONF | TERRNO, NULL, "CLONE_NEWIPC not supported");
--
--	SAFE_WAIT(NULL, &status);
--}
+diff --git a/testcases/kernel/containers/mqns/Makefile b/testcases/kernel/containers/mqns/Makefile
+index 64c3763ee..eb0f97c2b 100644
+--- a/testcases/kernel/containers/mqns/Makefile
++++ b/testcases/kernel/containers/mqns/Makefile
+@@ -1,29 +1,12 @@
+-################################################################################
+-##                                                                            ##
+-## Copyright (c) International Business Machines  Corp., 2009                 ##
+-## Copyright (c) Nadia Derbey, 2009                                           ##
+-##                                                                            ##
+-## This program is free software;  you can redistribute it and#or modify      ##
+-## it under the terms of the GNU General Public License as published by       ##
+-## the Free Software Foundation; either version 2 of the License, or          ##
+-## (at your option) any later version.                                        ##
+-##                                                                            ##
+-## This program is distributed in the hope that it will be useful, but        ##
+-## WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY ##
+-## or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License   ##
+-## for more details.                                                          ##
+-##                                                                            ##
+-## You should have received a copy of the GNU General Public License          ##
+-## along with this program;  if not, write to the Free Software               ##
+-## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    ##
+-##                                                                            ##
+-################################################################################
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) International Business Machines  Corp., 2009
++# Copyright (c) Nadia Derbey, 2009 
++# Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+ 
+ top_srcdir		?= ../../../..
+ 
+ include $(top_srcdir)/include/mk/testcases.mk
+-include $(abs_srcdir)/../Makefile.inc
+ 
+-LDLIBS			:= -lpthread -lrt -lclone $(LDLIBS)
++LDLIBS			:= -lpthread -lrt $(LDLIBS)
+ 
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
 -- 
 2.35.3
 
