@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 876637485C8
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jul 2023 16:15:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3EAD7485C5
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jul 2023 16:15:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D4E423CEF29
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jul 2023 16:15:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4EE763CE065
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jul 2023 16:15:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
@@ -14,51 +14,51 @@ Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 77DF43CBFD2
- for <ltp@lists.linux.it>; Wed,  5 Jul 2023 16:15:10 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 591073CBFB4
+ for <ltp@lists.linux.it>; Wed,  5 Jul 2023 16:15:09 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2419F200982
- for <ltp@lists.linux.it>; Wed,  5 Jul 2023 16:15:08 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5AA96200989
+ for <ltp@lists.linux.it>; Wed,  5 Jul 2023 16:15:09 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 238D921E38;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B56E921E93;
  Wed,  5 Jul 2023 14:15:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1688566508; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZaGeB+3Ed/dKLcXwpgRLjQ4FYZJVNyWh3BcPwi/DK+0=;
- b=F6CqqfCUD3HB6yN3IRnZOE+cSzvrkXoA5ga++0pw2QqNzkwEU6pTpZPd0HKFhW/A6seEVI
- 9VE8l0O17yf3y5++/4ppj8EtSI/uK/TGkLvtShpbcFRPxWDgVk0r1F4ZewDHw+jIf0B4b8
- fXOP5SBRl5x44xyDMB86zTqgGfOsEGc=
+ bh=tYQFAjHLW6anb/a7FQN+zv41hn+wXfhS7+xICMvSQaU=;
+ b=A2I85EvRwPP2HwTdAi0Zy7cytPMWnMaNBq9PDI9nbRpcR+2ljvwsWXpj6QWDqp1DdafwCA
+ HqT20Mk7IdDuXkxKNJ3AeD1t9s7k5S3p9vdfMCQJVty0UgEgY7bAErufsZubsqsi/0hzNL
+ aQBzRo5R3umAPZZwo+1yvmEWSiwvcRw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1688566508;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZaGeB+3Ed/dKLcXwpgRLjQ4FYZJVNyWh3BcPwi/DK+0=;
- b=nkiPzYO66lvyzfkmYLcjCKjDF7X+wsBzF49E5a964XdBeQGoWRLZHd5jjQnYUmSu8NtjPA
- MTekEvr6/jBSphCA==
+ bh=tYQFAjHLW6anb/a7FQN+zv41hn+wXfhS7+xICMvSQaU=;
+ b=jDNULW4DFpTD5UB7QrMFXqbm0OXKhtxqAv8og8QnS0l9hRj6j9t4ZuDB3REBRGCYOkpoch
+ I0ZzxcwFCcJxQPDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B50FE134F3;
- Wed,  5 Jul 2023 14:15:07 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 597A0134F3;
+ Wed,  5 Jul 2023 14:15:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gId4Jet6pWQFBwAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Wed, 05 Jul 2023 14:15:07 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id SGwzCex6pWQFBwAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Wed, 05 Jul 2023 14:15:08 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Wed,  5 Jul 2023 16:12:20 +0200
-Message-Id: <20230705141223.31468-2-andrea.cervesato@suse.de>
+Date: Wed,  5 Jul 2023 16:12:21 +0200
+Message-Id: <20230705141223.31468-3-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230705141223.31468-1-andrea.cervesato@suse.de>
 References: <20230705141223.31468-1-andrea.cervesato@suse.de>
@@ -69,7 +69,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v8 1/4] Refactor mqns_03 using new LTP API
+Subject: [LTP] [PATCH v8 2/4] Refactor mqns_04 using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,14 +94,14 @@ Use a single mq_freed volatile variable to know mqueues status
 Better parameters handling
 Check and umount mqueue(s)
 
- testcases/kernel/containers/mqns/mqns_03.c | 317 +++++++++------------
- 1 file changed, 140 insertions(+), 177 deletions(-)
+ testcases/kernel/containers/mqns/mqns_04.c | 288 ++++++++++-----------
+ 1 file changed, 134 insertions(+), 154 deletions(-)
 
-diff --git a/testcases/kernel/containers/mqns/mqns_03.c b/testcases/kernel/containers/mqns/mqns_03.c
-index a7452b970..ff7571880 100644
---- a/testcases/kernel/containers/mqns/mqns_03.c
-+++ b/testcases/kernel/containers/mqns/mqns_03.c
-@@ -1,207 +1,170 @@
+diff --git a/testcases/kernel/containers/mqns/mqns_04.c b/testcases/kernel/containers/mqns/mqns_04.c
+index d07a85c04..27ac0a868 100644
+--- a/testcases/kernel/containers/mqns/mqns_04.c
++++ b/testcases/kernel/containers/mqns/mqns_04.c
+@@ -1,187 +1,167 @@
 +// SPDX-License-Identifier: GPL-2.0
  /*
 -* Copyright (c) International Business Machines Corp., 2009
@@ -120,18 +120,15 @@ index a7452b970..ff7571880 100644
 -*
 -* Author: Serge Hallyn <serue@us.ibm.com>
 -*
--* Check ipcns+sb longevity
--*
--* Mount mqueue fs
--* unshare
--* In unshared process:
--*    Create "/mq1" with mq_open()
--*    Mount mqueuefs
--*    Check that /mq1 exists
--*    Create /dev/mqueue/mq2 through vfs (create(2))
--*    Umount /dev/mqueue
--*    Remount /dev/mqueue
--*    Check that both /mq1 and /mq2 exist
+-* Check mqueuefs lifetime
+-* . parent creates /dev/mqueue2
+-* . child mounts mqueue there
+-* . child does mq_open("/ab")
+-* . parent checks for /dev/mqueue2
+-* . child exits
+-* . parent checks for /dev/mqueue2
+-* . parent tries 'touch /dev/mqueue2/dd' -> should fail
+-* . parent umounts /dev/mqueue2
 -
 -***************************************************************************/
 -
@@ -140,26 +137,6 @@ index a7452b970..ff7571880 100644
 -#endif
 -#include <sys/types.h>
 -#include <sys/stat.h>
--#include <sys/wait.h>
--#include <assert.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <unistd.h>
--#include <string.h>
--#include <errno.h>
--#include "mqns.h"
--#include "mqns_helper.h"
--
--char *TCID = "posixmq_namespace_03";
--int TST_TOTAL = 1;
--
--int p1[2];
--int p2[2];
--
--#define FNAM1 DEV_MQUEUE2 SLASH_MQ1
--#define FNAM2 DEV_MQUEUE2 SLASH_MQ2
--
--int check_mqueue(void *vtest)
 + * Copyright (c) International Business Machines Corp., 2009
 + * Copyright (c) Serge Hallyn <serue@us.ibm.com>
 + * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
@@ -168,45 +145,58 @@ index a7452b970..ff7571880 100644
 +/*\
 + * [Description]
 + *
-+ * Test mqueuefs from an isolated/forked process namespace.
++ * Test mqueuefs manipulation from child/parent namespaces.
 + *
 + * [Algorithm]
 + *
-+ * - create /MQ1
-+ * - mount mqueue inside the temporary folder
-+ * - check for /MQ1 existance
-+ * - create /MQ2 inside the temporary folder
-+ * - umount
-+ * - mount mqueue inside the temporary folder
-+ * - check /MQ1 existance
-+ * - check /MQ2 existance
-+ * - umount
++ * - parent creates mqueue folder in <tmpdir>
++ * - child mounts mqueue there
++ * - child creates /MQ1 mqueue
++ * - parent checks for <tmpdir>/mqueue/MQ1 existence
++ * - child exits
++ * - parent checks for <tmpdir>/mqueue/MQ1 existence
++ * - parent tries 'touch <tmpdir>/mqueue/MQ2' -> should fail
++ * - parent umount mqueuefs
 + */
 +
+ #include <sys/wait.h>
+-#include <assert.h>
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <unistd.h>
+-#include <string.h>
+-#include <errno.h>
+-#include "mqns.h"
+-#include "mqns_helper.h"
 +#include "tst_test.h"
 +#include "lapi/sched.h"
 +#include "tst_safe_posix_ipc.h"
 +#include "tst_safe_stdio.h"
 +#include "tst_safe_macros.h"
-+
+ 
+-char *TCID = "posixmq_namespace_04";
+-int TST_TOTAL = 1;
 +#define CHECK_MQ_OPEN_RET(x) ((x) >= 0 || ((x) == -1 && errno != EMFILE))
-+
+ 
+-int p1[2];
+-int p2[2];
 +#define MQNAME1 "/MQ1"
 +#define MQNAME2 "/MQ2"
-+
+ 
+-#define FNAM1 DEV_MQUEUE2 SLASH_MQ1
+-#define FNAM2 DEV_MQUEUE2 SLASH_MQ2
 +static char *str_op;
 +static char *devdir;
 +static char *mqueue1;
 +static char *mqueue2;
 +static volatile int *mq_freed;
-+
+ 
+-int check_mqueue(void *vtest)
 +static void check_mqueue(void)
  {
 -	char buf[30];
--	mqd_t mqd;
- 	int rc;
-+	mqd_t mqd;
- 	struct stat statbuf;
+ 	mqd_t mqd;
+-	int rc;
  
 -	(void) vtest;
 +	tst_res(TINFO, "Creating %s mqueue from within child process", MQNAME1);
@@ -214,15 +204,12 @@ index a7452b970..ff7571880 100644
 -	close(p1[1]);
 -	close(p2[0]);
 +	mqd = TST_RETRY_FUNC(
-+		mq_open(MQNAME1, O_RDWR | O_CREAT | O_EXCL, 0777, NULL),
++		mq_open(MQNAME1, O_RDWR | O_CREAT | O_EXCL, 0755, NULL),
 +		CHECK_MQ_OPEN_RET);
 +	if (mqd == -1)
 +		tst_brk(TBROK | TERRNO, "mq_open failed");
  
--	if (read(p1[0], buf, 3) != 3) {	/* go */
--		perror("read failed");
--		exit(1);
--	}
+-	read(p1[0], buf, 3);	/* go */
 +	SAFE_MQ_CLOSE(mqd);
 +	mq_freed[0] = 1;
  
@@ -230,84 +217,26 @@ index a7452b970..ff7571880 100644
 -		0755, NULL);
 -	if (mqd == -1) {
 -		write(p2[1], "mqfail", 7);
--		exit(1);
+-		tst_exit();
 -	}
 +	tst_res(TINFO, "Mount %s from within child process", devdir);
- 
--	mq_close(mqd);
-+	SAFE_MOUNT("mqueue", devdir, "mqueue", 0, NULL);
- 
--	rc = mount("mqueue", DEV_MQUEUE2, "mqueue", 0, NULL);
--	if (rc == -1) {
--		write(p2[1], "mount1", 7);
--		exit(1);
--	}
-+	SAFE_STAT(mqueue1, &statbuf);
-+	tst_res(TPASS, "%s exists at first mount", mqueue1);
- 
--	rc = stat(FNAM1, &statbuf);
--	if (rc == -1) {
--		write(p2[1], "stat1", 6);
--		exit(1);
--	}
-+	tst_res(TINFO, "Creating %s from within child process", mqueue2);
- 
--	rc = creat(FNAM2, 0755);
--	if (rc == -1) {
--		write(p2[1], "creat", 6);
--		exit(1);
--	}
-+	rc = SAFE_CREAT(mqueue2, 0755);
-+	SAFE_CLOSE(rc);
-+	mq_freed[1] = 1;
- 
--	close(rc);
-+	tst_res(TINFO, "Mount %s from within child process a second time", devdir);
- 
--	rc = umount(DEV_MQUEUE2);
--	if (rc == -1) {
--		write(p2[1], "umount", 7);
--		exit(1);
--	}
-+	SAFE_UMOUNT(devdir);
-+	SAFE_MOUNT("mqueue", devdir, "mqueue", 0, NULL);
- 
--	rc = mount("mqueue", DEV_MQUEUE2, "mqueue", 0, NULL);
--	if (rc == -1) {
--		write(p2[1], "mount2", 7);
--		exit(1);
--	}
-+	SAFE_STAT(mqueue1, &statbuf);
-+	tst_res(TPASS, "%s exists at second mount", mqueue1);
- 
--	rc = stat(FNAM1, &statbuf);
--	if (rc == -1) {
--		write(p2[1], "stat2", 7);
--		exit(1);
--	}
-+	SAFE_STAT(mqueue2, &statbuf);
-+	tst_res(TPASS, "%s exists at second mount", mqueue2);
- 
--	rc = stat(FNAM2, &statbuf);
--	if (rc == -1) {
--		write(p2[1], "stat3", 7);
--		exit(1);
--	}
-+	SAFE_UMOUNT(devdir);
 +
-+	SAFE_MQ_UNLINK(MQNAME1);
-+	mq_freed[0] = 0;
- 
--	write(p2[1], "done", 5);
-+	SAFE_MQ_UNLINK(MQNAME2);
-+	mq_freed[1] = 0;
++	SAFE_MOUNT("mqueue", devdir, "mqueue", 0, NULL);
++
++	TST_CHECKPOINT_WAKE_AND_WAIT(0);
 +}
  
--	exit(0);
+-	mq_close(mqd);
 +static void run(void)
 +{
 +	const struct tst_clone_args clone_args = { CLONE_NEWIPC, SIGCHLD };
-+
++	struct stat statbuf;
+ 
+-	rc = mount("mqueue", DEV_MQUEUE2, "mqueue", 0, NULL);
+-	if (rc == -1) {
+-		perror("mount");
+-		write(p2[1], "mount", 6);
+-		tst_exit();
 +	if (str_op && !strcmp(str_op, "clone")) {
 +		tst_res(TINFO, "Spawning isolated process");
 +
@@ -323,23 +252,127 @@ index a7452b970..ff7571880 100644
 +			check_mqueue();
 +			return;
 +		}
-+	}
- }
+ 	}
  
- static void setup(void)
- {
+-	write(p2[1], "go", 3);
+-	read(p1[0], buf, 3);
++	TST_CHECKPOINT_WAIT(0);
+ 
+-	tst_exit();
+-}
++	SAFE_STAT(mqueue1, &statbuf);
++	tst_res(TPASS, "%s child's mqueue can be accessed from parent", mqueue1);
+ 
+-static void setup(void)
+-{
 -	tst_require_root();
 -	check_mqns();
+-}
++	TST_CHECKPOINT_WAKE(0);
+ 
+-int main(int argc, char *argv[])
+-{
+-	int rc;
+-	int status;
+-	char buf[30];
+-	struct stat statbuf;
+-	int use_clone = T_UNSHARE;
++	tst_res(TINFO, "Waiting child to exit");
+ 
+-	setup();
++	tst_reap_children();
++	mq_freed[0] = 0;
+ 
+-	if (argc == 2 && strcmp(argv[1], "-clone") == 0) {
+-		tst_resm(TINFO,
+-			 "Testing posix mq namespaces through clone(2).");
+-		use_clone = T_CLONE;
+-	} else
+-		tst_resm(TINFO,
+-			 "Testing posix mq namespaces through unshare(2).");
++	SAFE_STAT(mqueue1, &statbuf);
++	tst_res(TPASS, "%s child's mqueue can be accessed from parent after child's dead", mqueue1);
+ 
+-	if (pipe(p1) == -1) {
+-		perror("pipe");
+-		exit(EXIT_FAILURE);
+-	}
+-	if (pipe(p2) == -1) {
+-		perror("pipe");
+-		exit(EXIT_FAILURE);
+-	}
++	tst_res(TINFO, "Try to create %s from parent", mqueue2);
+ 
+-	mkdir(DEV_MQUEUE2, 0755);
++	TST_EXP_FAIL(creat(mqueue2, 0755), EACCES);
++	if (!TST_PASS)
++		mq_freed[1] = 1;
+ 
+-	tst_resm(TINFO, "Checking mqueue filesystem lifetime");
++	SAFE_UMOUNT(devdir);
++}
+ 
+-	/* fire off the test */
+-	rc = do_clone_unshare_test(use_clone, CLONE_NEWIPC, check_mqueue, NULL);
+-	if (rc < 0) {
+-		tst_resm(TFAIL, "failed clone/unshare");
+-		goto fail;
+-	}
++static void setup(void)
++{
 +	char *tmpdir;
-+
+ 
+-	close(p1[0]);
+-	close(p2[1]);
+-	write(p1[1], "go", 3);
+-
+-	read(p2[0], buf, 7);
+-	if (!strcmp(buf, "mqfail")) {
+-		tst_resm(TFAIL, "child process could not create mqueue");
+-		goto fail;
+-	} else if (!strcmp(buf, "mount")) {
+-		tst_resm(TFAIL, "child process could not mount mqueue");
+-		goto fail;
+-	}
 +	if (!str_op || (strcmp(str_op, "clone") && strcmp(str_op, "unshare")))
 +		tst_brk(TCONF, "Please specify clone|unshare child isolation");
-+
+ 
+-	rc = stat(FNAM1, &statbuf);
+-	if (rc == -1) {
+-		perror("stat");
+-		write(p1[1], "go", 3);
+-		tst_resm(TFAIL, "parent could not see child's created mq");
+-		goto fail;
+-	}
+-	write(p1[1], "go", 3);
 +	tmpdir = tst_get_tmpdir();
-+
+ 
+-	rc = wait(&status);
+-	if (rc == -1) {
+-		perror("wait");
+-		tst_resm(TFAIL, "error while parent waited on child to exit");
+-		goto fail;
+-	}
+-	if (!WIFEXITED(status)) {
+-		tst_resm(TFAIL, "Child did not exit normally (status %d)",
+-			 status);
+-		goto fail;
+-	}
+-	rc = stat(FNAM1, &statbuf);
+-	if (rc == -1) {
+-		tst_resm(TFAIL,
+-			 "parent's view of child's mq died with child");
+-		goto fail;
+-	}
 +	SAFE_ASPRINTF(&devdir, "%s/mqueue", tmpdir);
 +	SAFE_MKDIR(devdir, 0755);
-+
+ 
+-	rc = creat(FNAM2, 0755);
+-	if (rc != -1) {
+-		tst_resm(TFAIL,
+-			 "parent was able to create a file in dead child's mqfs");
+-		goto fail;
+-	}
 +	SAFE_ASPRINTF(&mqueue1, "%s" MQNAME1, devdir);
 +	SAFE_ASPRINTF(&mqueue2, "%s" MQNAME2, devdir);
 +
@@ -348,87 +381,27 @@ index a7452b970..ff7571880 100644
 +		PROT_READ | PROT_WRITE,
 +		MAP_SHARED | MAP_ANONYMOUS,
 +		-1, 0);
- }
++}
  
--int main(int argc, char *argv[])
+-	tst_resm(TPASS, "Child mqueue fs still visible for parent");
 +static void cleanup(void)
- {
--	int r;
--	char buf[30];
--	int use_clone = T_UNSHARE;
--
--	setup();
--
--	if (argc == 2 && strcmp(argv[1], "-clone") == 0) {
--		tst_resm(TINFO, "Testing posix mq namespaces through clone(2)");
--		use_clone = T_CLONE;
--	} else
--		tst_resm(TINFO,
--			 "Testing posix mq namespaces through unshare(2)");
--
--	if (pipe(p1) == -1 || pipe(p2) == -1)
--		tst_brkm(TBROK | TERRNO, NULL, "pipe failed");
--
--	/* fire off the test */
--	r = do_clone_unshare_test(use_clone, CLONE_NEWIPC, check_mqueue, NULL);
--	if (r < 0) {
--		tst_brkm(TBROK | TERRNO, NULL, "failed clone/unshare");
--	}
++{
 +	if (!devdir)
 +		return;
  
--	tst_resm(TINFO, "Checking correct umount+remount of mqueuefs");
--
--	mkdir(DEV_MQUEUE2, 0755);
--
--	close(p1[0]);
--	close(p2[1]);
--	write(p1[1], "go", 3);
--
--	read(p2[0], buf, 7);
--	r = TFAIL;
--	if (!strcmp(buf, "mqfail")) {
--		tst_resm(TFAIL, "child process could not create mqueue");
--		goto fail;
--	} else if (!strcmp(buf, "mount1")) {
--		tst_resm(TFAIL, "child process could not mount mqueue");
--		goto fail;
--	} else if (!strcmp(buf, "stat1x")) {
--		tst_resm(TFAIL, "mq created by child is not in mqueuefs");
--		goto fail;
--	} else if (!strcmp(buf, "creat")) {
--		tst_resm(TFAIL, "child couldn't creat mq through mqueuefs");
--		goto fail;
--	} else if (!strcmp(buf, "umount")) {
--		tst_resm(TFAIL, "child couldn't umount mqueuefs");
--		goto fail;
--	} else if (!strcmp(buf, "mount2")) {
--		tst_resm(TFAIL, "child couldn't remount mqueuefs");
--		goto fail;
--	} else if (!strcmp(buf, "stat2")) {
--		tst_resm(TFAIL,
--			 "mq_open()d file gone after remount of mqueuefs");
--		goto fail;
--	} else if (!strcmp(buf, "stat3")) {
--		tst_resm(TFAIL,
--			 "creat(2)'d file gone after remount of mqueuefs");
--		goto fail;
--	}
-+	if (!access(mqueue1, F_OK))
-+		SAFE_MQ_UNLINK(MQNAME1);
-+
-+	if (!access(mqueue2, F_OK))
-+		SAFE_MQ_UNLINK(MQNAME2);
- 
--	tst_resm(TPASS, "umount+remount of mqueuefs remounted the right fs");
-+	if (tst_is_mounted(devdir))
-+		SAFE_UMOUNT(devdir);
- 
--	r = 0;
 -fail:
 -	umount(DEV_MQUEUE2);
 -	rmdir(DEV_MQUEUE2);
++	if (!access(mqueue1, F_OK))
++		SAFE_MQ_UNLINK(MQNAME1);
+ 
 -	tst_exit();
++	if (!access(mqueue2, F_OK))
++		SAFE_MQ_UNLINK(MQNAME2);
++
++	if (tst_is_mounted(devdir))
++		SAFE_UMOUNT(devdir);
++
 +	if (*mq_freed)
 +		SAFE_MUNMAP((void *)mq_freed, 2 * sizeof(int));
  }
@@ -440,6 +413,7 @@ index a7452b970..ff7571880 100644
 +	.needs_root = 1,
 +	.forks_child = 1,
 +	.needs_tmpdir = 1,
++	.needs_checkpoints = 1,
 +	.options = (struct tst_option[]) {
 +		{ "m:", &str_op, "Child process isolation <clone|unshare>" },
 +		{},
