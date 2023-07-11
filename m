@@ -1,78 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58A5574EC4D
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Jul 2023 13:09:41 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 040E874EC74
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Jul 2023 13:13:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E163D3CB91B
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Jul 2023 13:09:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C69493CDEC5
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Jul 2023 13:13:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 02CB73C99FC
- for <ltp@lists.linux.it>; Tue, 11 Jul 2023 13:09:38 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 72F9B3C99FC
+ for <ltp@lists.linux.it>; Tue, 11 Jul 2023 13:13:31 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 364EF10007C1
- for <ltp@lists.linux.it>; Tue, 11 Jul 2023 13:09:35 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BD4C1200773
+ for <ltp@lists.linux.it>; Tue, 11 Jul 2023 13:13:30 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C54D51FD70;
- Tue, 11 Jul 2023 11:09:33 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 29F781FE81;
+ Tue, 11 Jul 2023 11:13:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689073773;
+ t=1689074010;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=qP8iJoEwrM9nE3xg2GFqORLU+GRDpdupi033QOUfm6A=;
- b=bLGZlk6gyYoBr1cjmsnjBW/s2M1icDS9mYcFQ/GQ1TF5f8uU7vD6ufO7WbWoWCu9Y8z498
- tzxoV2gllZOPyzDoKrbgIr2hVJsUSAFXZWBqAg1daolUF7lmNht77UUL5vn9nEu7xyL0Db
- 1VGXf7VC6rRi2sTng6Bc3jGTJQThfN0=
+ bh=49qg+oG2jCl5QWiTHlgBpPGdpqMXv9epRDdbbRQmdw0=;
+ b=QTsRO0aYuzpP442VIA/l1XlQEfomcsDTrmhkeiUseMA/ObMAEl0YnhLbVMeuS4aAfdvuSE
+ RLeiiWXwCy7Ftj7nyhdNBZsX5CVSrdPxxT8/v5wxk+SX1OtEm7Cbg+MH6mLj1rBmo8fZOr
+ czCCld4snauJtuW16KQn4E4xK9HyAVQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689073773;
+ s=susede2_ed25519; t=1689074010;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=qP8iJoEwrM9nE3xg2GFqORLU+GRDpdupi033QOUfm6A=;
- b=gyWEDkGPcs9CVAJQ31frl2m/0Cx0lnjlemGY1BLbLNRYtvGgZOZXXF7ZYo7WObzZiGCvLA
- PpM0MpLqP1NvpJCA==
+ bh=49qg+oG2jCl5QWiTHlgBpPGdpqMXv9epRDdbbRQmdw0=;
+ b=pHHSBfNeYUvmOpQYyL2Dk+lJlN/SCUwTQU2L9DG0co2fZ9oK5FZDSzysGRGTEWYMDVlCbc
+ mhb76U0zlGc6HlCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9E8C61390F;
- Tue, 11 Jul 2023 11:09:33 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BCEE21390F;
+ Tue, 11 Jul 2023 11:13:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 5yd0JW04rWRrEgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 11 Jul 2023 11:09:33 +0000
-Date: Tue, 11 Jul 2023 13:09:27 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id TI8iKlk5rWSUFAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 11 Jul 2023 11:13:29 +0000
+Date: Tue, 11 Jul 2023 13:13:22 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20230711110927.GA722516@pevik>
-References: <20230510124206.19627-1-andrea.cervesato@suse.de>
- <20230510124206.19627-4-andrea.cervesato@suse.de>
- <ZGt_GrwbwPJChf6P@yuki>
- <ead18659-fb0a-cef1-2514-b344e12d8b40@suse.com>
- <ZKvpXS_nPNsco63i@rei>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Message-ID: <20230711111322.GA722759@pevik>
+References: <20230705141223.31468-1-andrea.cervesato@suse.de>
+ <20230705141223.31468-2-andrea.cervesato@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZKvpXS_nPNsco63i@rei>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+In-Reply-To: <20230705141223.31468-2-andrea.cervesato@suse.de>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 3/6] Refactor mqns_03 using new LTP API
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v8 1/4] Refactor mqns_03 using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,28 +87,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi!
-> > > I do not think that we need atomicity here, the cleanup code does not
-> > > run concurently at all as the cleanup in the parent is triggered after
-> > > the child did exit. I suppose that instead we need to set the mq_freed
-> > > to be volatile because it's shared memory which may change at any
-> > > change, so we need to tell that to the compiler.
-> > That's fine, but I followed suggestions in the reviews. I think that 
-> > having 3 people reviewing the same patch doesn't help the development 
-> > process. Now I'm not sure who I should follow :-)
+Hi Andrea,
 
-> It's actually the other way around, the more people look at the code the
-> better, at least that way we have potential to catch more problems
-> earlier. And if the reviewers disagree, let them fight for the right
-> answer.
+...
+> +++ b/testcases/kernel/containers/mqns/mqns_03.c
+> @@ -1,207 +1,170 @@
+> +// SPDX-License-Identifier: GPL-2.0
+>  /*
+> -* Copyright (c) International Business Machines Corp., 2009
+> -* This program is free software; you can redistribute it and/or modify
+> -* it under the terms of the GNU General Public License as published by
+> -* the Free Software Foundation; either version 2 of the License, or
+> -* (at your option) any later version.
+or (at your option) any later version => SPDX-License-Identifier: GPL-2.0-or-later
 
-+1
+The same applies to mqns_04. If it's the only change, it can be fixed by person
+who merges the patchset.
 
 Kind regards,
 Petr
-
-> I think that in this case this all can be actually simplified and we can
-> get rid of the mq_freed flag as I tried to outline below.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
