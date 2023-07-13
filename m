@@ -2,75 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D074F753A1C
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jul 2023 13:49:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D816B753B9E
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jul 2023 15:16:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 497053CDE81
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jul 2023 13:49:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8109E3CDE84
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jul 2023 15:16:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E88843C036A
- for <ltp@lists.linux.it>; Fri, 14 Jul 2023 13:49:48 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 980A13CDE9C
+ for <ltp@lists.linux.it>; Thu, 13 Jul 2023 17:56:35 +0200 (CEST)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 66AB3200392
- for <ltp@lists.linux.it>; Fri, 14 Jul 2023 13:49:47 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 365E122124;
- Fri, 14 Jul 2023 11:49:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689335387;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=d3Q2Ahol9o7JjeGxLVNcxmcRWP3KK/YlwtL2iXOEwNc=;
- b=rrziVxDpfBavmCn3WkW3Tio5nsHvqbNqZPCHa1oT/Dea6/fBlk2Cz0k8/yVybDkcnPuQ64
- k0z6Lu2qoMXSJ0o69w4z5DBIlw4+RhO+aVoq3PeZNQ5huZyAtwCB+VWN01m35blUdxZRHQ
- oQXIt003Xni7NGqpjAccqySrRKyTaAE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689335387;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=d3Q2Ahol9o7JjeGxLVNcxmcRWP3KK/YlwtL2iXOEwNc=;
- b=xD1Qeyk1AJcHd1Lx/aunJuobqT/uG6ofMcXinR73mh+qBUllsxbR3ffulmSpC0vM+02YnM
- GcMHH9ND8eBy62Cg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 104FD138F8;
- Fri, 14 Jul 2023 11:49:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id P5GIAls2sWQoPgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 14 Jul 2023 11:49:47 +0000
-Date: Fri, 14 Jul 2023 13:49:45 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Eric Biggers <ebiggers@kernel.org>, ltp@lists.linux.it
-Message-ID: <20230714114945.GC958548@pevik>
-References: <20230713132901.28660-1-mdoucha@suse.cz>
- <20230714034048.GA913@sol.localdomain>
- <20230714114719.GB958548@pevik>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 29FCF600A4D
+ for <ltp@lists.linux.it>; Thu, 13 Jul 2023 17:56:34 +0200 (CEST)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id AC4A86732D; Thu, 13 Jul 2023 17:56:31 +0200 (CEST)
+Date: Thu, 13 Jul 2023 17:56:31 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20230713155631.GA29281@lst.de>
+References: <202307132107.2ce4ea2f-oliver.sang@intel.com>
+ <20230713150923.GA28246@lst.de> <ZLAZn_SBmoIFG5F5@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230714114719.GB958548@pevik>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+In-Reply-To: <ZLAZn_SBmoIFG5F5@yuki>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] statx09: Reduce fs-verity blocksize to 1024
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Mailman-Approved-At: Fri, 14 Jul 2023 15:16:55 +0200
+Subject: Re: [LTP] [linus:master] [iomap]  219580eea1: ltp.writev07.fail
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,24 +50,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: "Darrick J. Wong" <djwong@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Andreas Gruenbacher <agruenba@redhat.com>, Miklos Szeredi <miklos@szeredi.hu>,
+ Matthew Wilcox <willy@infradead.org>, cluster-devel@redhat.com,
+ Ilya Dryomov <idryomov@gmail.com>, Miklos Szeredi <mszeredi@redhat.com>,
+ Chao Yu <chao@kernel.org>, oe-lkp@lists.linux.dev,
+ Al Viro <viro@zeniv.linux.org.uk>, Jaegeuk Kim <jaegeuk@kernel.org>,
+ Xiubo Li <xiubli@redhat.com>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>, ltp@lists.linux.it,
+ lkp@intel.com, Jens Axboe <axboe@kernel.dk>,
+ Christian Brauner <brauner@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, kernel test robot <oliver.sang@intel.com>,
+ Anna Schumaker <anna@kernel.org>, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Hannes Reinecke <hare@suse.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Eric, Martin,
+On Thu, Jul 13, 2023 at 05:34:55PM +0200, Cyril Hrubis wrote:
+>                 iter.processed = iomap_write_iter(&iter, i);
+> 
+> +       iocb->ki_pos += iter.pos - iocb->ki_pos;
+> +
+>         if (unlikely(ret < 0))
+>                 return ret;
+> -       ret = iter.pos - iocb->ki_pos;
+> -       iocb->ki_pos += ret;
+> -       return ret;
+> +
+> +       return iter.pos - iocb->ki_pos;
 
-> Yes kernels < 6.3 TCONF on current master:
-> statx09.c:124: TCONF: fs-verity not supported on loopdev
-I forget to write the behavior is the same on older kernels with Martin's
-patch.
+I don't think this works, as iocb->ki_pos has been updated above.
+What you want is probably the version below.  But so far I can't
+reproduce anything yet..
 
-Kind regards,
-Petr
-
-> And 6.3 fails:
-> statx09.c:109: TBROK: ioctl(3, FS_IOC_ENABLE_VERITY) failed: EINVAL (22)
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index adb92cdb24b009..02aea0174ddbcf 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -872,7 +872,7 @@ iomap_file_buffered_write(struct kiocb *iocb, struct iov_iter *i,
+ 	while ((ret = iomap_iter(&iter, ops)) > 0)
+ 		iter.processed = iomap_write_iter(&iter, i);
+ 
+-	if (unlikely(ret < 0))
++	if (iter.pos == iocb->ki_pos)
+ 		return ret;
+ 	ret = iter.pos - iocb->ki_pos;
+ 	iocb->ki_pos += ret;
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
