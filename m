@@ -1,74 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55F00753B9B
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jul 2023 15:16:08 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D74A753F44
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jul 2023 17:48:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F2C783CBA6C
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jul 2023 15:16:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6FBD23CDE87
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jul 2023 17:48:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 584A63C036A
- for <ltp@lists.linux.it>; Fri, 14 Jul 2023 15:16:03 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 650463CB5A1
+ for <ltp@lists.linux.it>; Fri, 14 Jul 2023 17:48:07 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 51B8A600F33
- for <ltp@lists.linux.it>; Fri, 14 Jul 2023 15:16:01 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 89FAB60132F
+ for <ltp@lists.linux.it>; Fri, 14 Jul 2023 17:48:05 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5A78E1FDD3;
- Fri, 14 Jul 2023 13:16:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689340561;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=b19fPAzhbPUQK5rO+cTyys7DEmODBBfZFyK1RZ4h9ng=;
- b=tN1fTM3F0soUz3TYJnmZrj/IrK7oG1rLKMXSODJPwfZ4fGAKTu6euWguJ0IsWw+rPkF1hS
- iO3dqKt94M+r9p0jVuHCMoPN3HJLaNWNUlq9rMxM0Psepo3uAbt3yES3oLG8HPSK/Xk3rA
- 5VDKlFj0d4KYG5gkAYYwsojhFUHdn+4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689340561;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=b19fPAzhbPUQK5rO+cTyys7DEmODBBfZFyK1RZ4h9ng=;
- b=3ZatBNi1KDRgcmEuUomyba5E3VUMXrcphnE+wQc/qX1C1JqSaVyXgqSw4HUmbK5IryDNxx
- ckZvd2NPxXxAhyDA==
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5B8A522087
+ for <ltp@lists.linux.it>; Fri, 14 Jul 2023 15:48:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1689349685; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Oq0kGCc4xK8AxBRzLluzn7x6Cg3SYU0lE0GK5QA04tU=;
+ b=SHnyRGpzU7TFg2dmmUhFB67FJx4P9igJfS2TVcTmgwax8V0IuqBVlmTHL6uvEV5UE8oJR+
+ et2LX/odpCgWQs+DcT1aEhcoX329yfIM2TEi2L+RMBtBMENiBbosZrGY5igd2W2fGn8Mg0
+ f/jwTcWHNkzom3BJ+hnFFffHKdihQK8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1689349685;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Oq0kGCc4xK8AxBRzLluzn7x6Cg3SYU0lE0GK5QA04tU=;
+ b=am1oRg5WhJU67YTgO9P4a7fiPLWtx/3CJV3MmddWNwVJWGNhhDFKgpOzvFB9uikoDGfNxi
+ t0DKE8bqD48tjoDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2ADEA138F8;
- Fri, 14 Jul 2023 13:16:01 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 01343138F8
+ for <ltp@lists.linux.it>; Fri, 14 Jul 2023 15:48:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id bE/kB5FKsWQJbgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 14 Jul 2023 13:16:01 +0000
-Date: Fri, 14 Jul 2023 15:15:59 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20230714131559.GB965391@pevik>
-References: <20230714114244.32109-1-mdoucha@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id dLstMzRusWTzQwAAMHmgww
+ (envelope-from <akumar@suse.de>)
+ for <ltp@lists.linux.it>; Fri, 14 Jul 2023 15:48:04 +0000
+From: Avinesh Kumar <akumar@suse.de>
+To: ltp@lists.linux.it
+Date: Fri, 14 Jul 2023 21:18:01 +0530
+Message-ID: <20230714154802.27819-1-akumar@suse.de>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230714114244.32109-1-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] statx09: Set fs-verity blocksize to FS
- blocksize
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/pipe03: Simplify test using TST_ macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,34 +75,99 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
++ docparse comment and reword
++ updated copyright
 
-> The kernel requires that fs-verity blocksize must be at most equal
-> to the filesystem blocksize. Testing on small loop device means that
-> mkfs.ext4 will very likely default to blocksize of 1024. Set fs-verity
-> blocksize to the filesystem blocksize to avoid errors.
+Signed-off-by: Avinesh Kumar <akumar@suse.de>
+---
+ testcases/kernel/syscalls/pipe/pipe03.c | 51 ++++++++++---------------
+ 1 file changed, 21 insertions(+), 30 deletions(-)
 
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-> ---
+diff --git a/testcases/kernel/syscalls/pipe/pipe03.c b/testcases/kernel/syscalls/pipe/pipe03.c
+index 89c0911c1..b786a618e 100644
+--- a/testcases/kernel/syscalls/pipe/pipe03.c
++++ b/testcases/kernel/syscalls/pipe/pipe03.c
+@@ -1,51 +1,42 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) International Business Machines Corp., 2002
++ * Copyright (c) 2023 Linux Test Project
+  */
+ 
+-/*
+- * Make sure that writing to the read end of a pipe and reading from
+- * the write end of a pipe both fail.
++/*\
++ * [Description]
++ *
++ * Verify that, an attempt to write to the read end of a pipe fails with EBADF
++ * and an attempt to read from the write end of a pipe also fails with EBADF.
+  */
+ 
+-#include <unistd.h>
+-#include <errno.h>
+ #include "tst_test.h"
+ 
+ static int fd[2];
+ 
+ static void verify_pipe(void)
+ {
+-	char buf[2];
+-
+-	TEST(pipe(fd));
+-	if (TST_RET == -1) {
+-		tst_res(TFAIL | TTERRNO, "pipe() failed unexpectedly");
+-		return;
+-	}
+-
+-	TEST(write(fd[0], "A", 1));
+-	if (TST_RET == -1 && errno == EBADF) {
+-		tst_res(TPASS | TTERRNO, "expected failure writing "
+-			"to read end of pipe");
+-	} else {
+-		tst_res(TFAIL | TTERRNO, "unexpected failure writing "
+-			"to read end of pipe");
+-	}
+-
+-	TEST(read(fd[1], buf, 1));
+-	if (TST_RET == -1 && errno == EBADF) {
+-		tst_res(TPASS | TTERRNO, "expected failure reading "
+-			"from write end of pipe");
+-	} else {
+-		tst_res(TFAIL | TTERRNO, "unexpected failure reading "
+-			"from write end of pipe");
+-	}
++	char buf[] = "abcdef";
++
++	SAFE_PIPE(fd);
++
++	TST_EXP_FAIL2(write(fd[0], "A", 1), EBADF);
++	TST_EXP_FAIL2(read(fd[1], buf, 1), EBADF);
+ 
+ 	SAFE_CLOSE(fd[0]);
+ 	SAFE_CLOSE(fd[1]);
+ }
+ 
++static void cleanup(void)
++{
++	if (fd[0] > 0)
++		SAFE_CLOSE(fd[0]);
++	if (fd[1] > 0)
++		SAFE_CLOSE(fd[1]);
++}
++
+ static struct tst_test test = {
+ 	.test_all = verify_pipe,
++	.cleanup = cleanup
+ };
+-- 
+2.41.0
 
-> Setting filesystem blocksize to pagesize would require moving the mkfs
-> command to setup(). We can do that later to fix support for kernels
-> before v6.3 but let's fix the failure on latest kernel version first.
-
-Makes sense.
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-Tested-by: Petr Vorel <pvorel@suse.cz>
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
