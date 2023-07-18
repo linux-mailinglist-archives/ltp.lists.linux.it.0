@@ -1,76 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B26077578C2
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jul 2023 12:02:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 32D307578F6
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jul 2023 12:09:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6F6C63CDD4F
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jul 2023 12:02:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A9B8F3CDD53
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jul 2023 12:09:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1F1023C98FB
- for <ltp@lists.linux.it>; Tue, 18 Jul 2023 12:02:11 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id C75043C99AE
+ for <ltp@lists.linux.it>; Tue, 18 Jul 2023 12:09:00 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 06E581400967
- for <ltp@lists.linux.it>; Tue, 18 Jul 2023 12:02:07 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1BDB1600BCB
+ for <ltp@lists.linux.it>; Tue, 18 Jul 2023 12:08:59 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5ABD521980;
- Tue, 18 Jul 2023 10:02:07 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 582461FDA9;
+ Tue, 18 Jul 2023 10:08:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689674527;
+ t=1689674939;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=R0ywIlxKmAuxSGUY6WyqCMbfkwE99zVtDgLe4ij98Tg=;
- b=A7so3LC5zFOkJ/NeHX8uYz29VoTx0ybhfon5O0IvlwZ7lzUb1jln7m2RvZw7pV/dkAdc4z
- 41bbRYu7cNGEY4sNTYS98OjyOL7ITAI2bdKHfjtjGLqirTuBQN5dRCKP3BrqU5GIE1g2I4
- nl3+r7zSgPlLi+4u3p3VAL+HpXJwFL8=
+ bh=FgLzqD/Rm5S4DDHvxhSNlj5YpzeaL0pxg3ZZy9jiZ4g=;
+ b=PqzLQm4XpiRtmeoIiLZLGOiX3d1nxG6YFqSp3+/kh23ti1j2H93q44dxCBUUPJgEFAQSQA
+ AcJ8RUQra6zbwXLspITDL5XArzSLU3otfPlADD5bCEZyrbXE/UuSV1McKY/sFb1M8khiAV
+ kP0owZybLob1ycriAIoDrSy1kpbDhBQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689674527;
+ s=susede2_ed25519; t=1689674939;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=R0ywIlxKmAuxSGUY6WyqCMbfkwE99zVtDgLe4ij98Tg=;
- b=1nl4Jl0hLxZZiYoXjzwjTenpVXxp8GuWhFqBkN0RxmB232FAAVxO7FRSoakr7kGiEtxpOQ
- 0q1iGhw4MKRNZNBw==
+ bh=FgLzqD/Rm5S4DDHvxhSNlj5YpzeaL0pxg3ZZy9jiZ4g=;
+ b=z7tudD42TaqKlDp15NiFB0wr8tWOsag3RoI3CSDA8VBHmG6LQO0AL1WzFC6nLJMkB8mjAn
+ cqdp9Oph5OCJ+OCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 188D3134B0;
- Tue, 18 Jul 2023 10:02:07 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 31279134B0;
+ Tue, 18 Jul 2023 10:08:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id o09ZAx9jtmSUdQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 18 Jul 2023 10:02:07 +0000
-Date: Tue, 18 Jul 2023 12:02:05 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id os21CrtktmQLeQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 18 Jul 2023 10:08:59 +0000
+Date: Tue, 18 Jul 2023 12:08:57 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: "Yang Xu (Fujitsu)" <xuyang2018.jy@fujitsu.com>
-Message-ID: <20230718100205.GA1153123@pevik>
-References: <1688637954-17765-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <20230710134604.GA645484@pevik>
- <934a1afb-c157-326f-21f1-776563373f13@fujitsu.com>
+To: Avinesh Kumar <akumar@suse.de>
+Message-ID: <20230718100857.GB1153123@pevik>
+References: <20230718092550.11611-1-akumar@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <934a1afb-c157-326f-21f1-776563373f13@fujitsu.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+In-Reply-To: <20230718092550.11611-1-akumar@suse.de>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] syscalls/geteuid01: Convert into new api
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/pipe06: Rewrite the test using new
+ LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,50 +82,18 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Xu,
+Hi Avinesh,
 
-> Hi Petr
-
-> > Hi Xu,
-
-> >> + * Copyright (c) Linux Test Project, 2003-2023
-> >> + * AUTHOR: William Roske, Dave Fenne
-> > Very very nit: s/AUTHOR/Author/
-
-> > Also, in the subject in both commits: s/api/API/
-
-> > Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
-> Thanks for your review.
-
-> I merged this patch set and modified getuid01 to origin gpl-2.0-only.
-
-> But  It seems all of uid/gid case miss to use COMPAT_TST_16_H:= 1 in 
-> Makefile except syscalls/setuid.
-
-> I search the history, it seems related to  a bugfix[1] when 
-> touch/modify/create fiel in syscall/utils.
-
-> [1]https://github.com/linux-test-project/ltp/commit/631d16671d876524588320ee71fd23fe22750307
-
-Good point. I send a patch which switches the logic (old tests have variable):
-
-https://patchwork.ozlabs.org/project/ltp/patch/20230718100050.1162482-1-pvorel@suse.cz/
+thanks, merged!
 
 Kind regards,
 Petr
-
-> Best Regards
-> Yang Xu
-
-> > Kind regards,
-> > Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
