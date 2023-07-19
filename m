@@ -2,73 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 049E27592E1
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 12:26:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1763A75932B
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 12:37:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C95683C98ED
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 12:26:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 73D1F3C98F1
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 12:37:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B83483C02C7
- for <ltp@lists.linux.it>; Wed, 19 Jul 2023 12:26:20 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 3C5B53C98BC
+ for <ltp@lists.linux.it>; Wed, 19 Jul 2023 12:36:48 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1F857601225
- for <ltp@lists.linux.it>; Wed, 19 Jul 2023 12:26:19 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8B4E9600325
+ for <ltp@lists.linux.it>; Wed, 19 Jul 2023 12:36:48 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E46C61FE41;
- Wed, 19 Jul 2023 10:26:18 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1A3E821AE0;
+ Wed, 19 Jul 2023 10:36:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689762378;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ghE+fFDEVL85Kt0a2BxNCcha658vHYAJdYiCJSgP3Cs=;
- b=KBvP2ppAA/jYH6Q5QX1tHwi4iN43eQ/YKpb3BckAH7fu+IPttQqIfKzVmcbLPTiSkVGwdk
- 3+RB8pgThvXiCFNBahRJCGOhonXVbGaCz1ins/b4uwrHR/MyxiJ+ojwbIWks2oGtv1Ty9I
- zPHwDYjytU0XdpsNQm0ZOzCqbkNenQA=
+ t=1689763006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=xKzzx9laG0zc9aEyQVV7mOZk+pe8KwSsh7VnlWOtmKA=;
+ b=p+iTSG3dntqxUTvDhfNKgy74M4bthsIeJ4IFVvxfaJ+4mGA4ZxgVj3BiSEZiIKt03epJe4
+ zmzKSbR2GBbKouDzqDkUj1AQtOOo5gplv+l5lpX0eTQuFC0bZvJ2tIq6fXtOIVJKbn14tx
+ 1SlZMALDV/HrOZuErA836z2/K5+0tsE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689762378;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ghE+fFDEVL85Kt0a2BxNCcha658vHYAJdYiCJSgP3Cs=;
- b=GSe4LENi9E5Xc2P02EIBqfulYROVbrHQsukfYZGiFJUqJ9VXXqCU9D2y8v2EHY78vJ/8Zp
- Cm4cb3vClx5mN1AA==
+ s=susede2_ed25519; t=1689763006;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=xKzzx9laG0zc9aEyQVV7mOZk+pe8KwSsh7VnlWOtmKA=;
+ b=ZLn/RpCVVASMvYwMeDWg69gvYbOfGnQgtEyeVf8lFOSx+uidrofXQGzyyvv2KE56WY9Wu+
+ kLe+QEnuSwUFT6Aw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AC87913460;
- Wed, 19 Jul 2023 10:26:18 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EE7D41361C;
+ Wed, 19 Jul 2023 10:36:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id L3LvJ0q6t2R2PwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 19 Jul 2023 10:26:18 +0000
-Date: Wed, 19 Jul 2023 12:26:17 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20230719102617.GC1221211@pevik>
-References: <20230717125413.1123587-1-pvorel@suse.cz>
- <23241907-fdfa-f1c0-7979-4680aae40252@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id leFXOb28t2RLRQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 19 Jul 2023 10:36:45 +0000
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>,
+ Daniel Bristot de Oliveira <bristot@redhat.com>,
+ Valentin Schneider <vschneid@redhat.com>, linux-kernel@vger.kernel.org
+Date: Wed, 19 Jul 2023 12:37:41 +0200
+Message-ID: <20230719103743.4775-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <23241907-fdfa-f1c0-7979-4680aae40252@suse.cz>
 X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] statx09: Format filesystem with page size
+Subject: [LTP] [PATCH 0/2] Two fixes for sysctl_sched_rr_timeslice
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,19 +82,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
+- Fixes rounding error for initial value with CONFIG_HZ_300
 
-thanks for your review, merged!
+- Fixes read from the file after reset to default (by writing val <= 0)
 
-Kind regards,
-Petr
+Cyril Hrubis (2):
+  sched/rt: Fix sysctl_sched_rr_timeslice intial value
+  sched/rt: sysctl_sched_rr_timeslice show default timeslice after reset
+
+ kernel/sched/rt.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+-- 
+2.41.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
