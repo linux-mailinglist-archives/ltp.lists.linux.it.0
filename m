@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 440EA7593A0
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:01:13 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EC0875939E
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:00:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0C0F33CE9C8
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:01:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0E4293C999C
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:00:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9F5883C9733
+ by picard.linux.it (Postfix) with ESMTPS id 9F5F43C98EA
  for <ltp@lists.linux.it>; Wed, 19 Jul 2023 13:00:57 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BC79F200A09
- for <ltp@lists.linux.it>; Wed, 19 Jul 2023 13:00:56 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1224460111D
+ for <ltp@lists.linux.it>; Wed, 19 Jul 2023 13:00:57 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6B65B1FE7E;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CFE5B1FE7F;
  Wed, 19 Jul 2023 11:00:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1689764456; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=LNvEMaWKLoZIWsKGbjfTkwd/O5SjtfLcIBx7eRmTXo0=;
- b=rWzq1lmUZGkb1gp8HYTgvQEL6X0eYCQW9plKmp0hWsri5qSYY34yRJ4BtjuZCNgPHUYfXC
- pTmYOr7LrItyhDo0YpvOujU//8PuMbEWP8IRwE81sKSJx0QGMnQgNfcHLXd+QrzDCszH5g
- QJJi+HKKQYoxy22RpncsWebadip3Dko=
+ bh=avOfeVM6WCVZLKfZM4BMfvTDiAXy/vbHR8d+IMD0IMg=;
+ b=HpZ7MM3k89q2WtltPZQoJ+NDmBmulqcihg18kxida9uc0PQRenVYLyqzYcwXMHX4a2iQuY
+ Fl3/vLG7h0O/F4Cvx4ii3qo+jt1TV3YxBPugMdTkqYNpo6LEvPj+Qp+RaUWtf5za2sVip7
+ 5tovgAt8Aj5Zl1GPu+6sYZoq8ivbLeM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1689764456;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=LNvEMaWKLoZIWsKGbjfTkwd/O5SjtfLcIBx7eRmTXo0=;
- b=n5dVZNJt+zfTNFm43keQXHmATm5DaxquCOcYPAK8XFN6jiGUtf8KwJeyNdMc8Czl2zSe5O
- 4Wk6XpJ5P/kB8HBg==
+ bh=avOfeVM6WCVZLKfZM4BMfvTDiAXy/vbHR8d+IMD0IMg=;
+ b=HI8PnSQpdGLI5Gk4wTiquXCf/grFZZTLAACbMQx9vQdCPY34Lm/GzGbXdcnKUC2iXoAmcF
+ UptNgzMn61izScBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1F1321361C;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8200F1361C;
  Wed, 19 Jul 2023 11:00:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mLdfBWjCt2RtUgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id IOPRG2jCt2RtUgAAMHmgww
  (envelope-from <pvorel@suse.cz>); Wed, 19 Jul 2023 11:00:56 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 19 Jul 2023 13:00:49 +0200
-Message-Id: <20230719110051.1237775-3-pvorel@suse.cz>
+Date: Wed, 19 Jul 2023 13:00:50 +0200
+Message-Id: <20230719110051.1237775-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230719110051.1237775-1-pvorel@suse.cz>
 References: <20230719110051.1237775-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/4] lib/C-API: Add option -V to print LTP version
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 3/4] lib/C-API: Print LTP version at test start
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,44 +85,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-It can be useful for troubleshooting reported issues.
+Although -V option for printing version was added in previous commit,
+having a way to always print LTP version at the beginning of the test
+(makes debugging of troubleshooting reported issues even easier).
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- lib/tst_test.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ lib/tst_test.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/lib/tst_test.c b/lib/tst_test.c
-index 04da456c6..456d3d1e6 100644
+index 456d3d1e6..0fcb43809 100644
 --- a/lib/tst_test.c
 +++ b/lib/tst_test.c
-@@ -34,6 +34,7 @@
- #include "old_resource.h"
- #include "old_device.h"
- #include "old_tmpdir.h"
-+#include "ltp-version.h"
+@@ -1677,6 +1677,8 @@ void tst_run_tcases(int argc, char *argv[], struct tst_test *self)
+ 	SAFE_SIGNAL(SIGALRM, alarm_handler);
+ 	SAFE_SIGNAL(SIGUSR1, heartbeat_handler);
  
- /*
-  * Hack to get TCID defined in newlib tests
-@@ -509,6 +510,7 @@ static struct option {
- 	{"h",  "-h       Prints this help"},
- 	{"i:", "-i n     Execute test n times"},
- 	{"I:", "-I x     Execute test for n seconds"},
-+	{"V",  "-V       Prints LTP version"},
- 	{"C:", "-C ARG   Run child process with ARG arguments (used internally)"},
- };
++	tst_res(TINFO, "LTP version: "LTP_VERSION);
++
+ 	if (tst_test->max_runtime)
+ 		results->max_runtime = multiply_runtime(tst_test->max_runtime);
  
-@@ -686,6 +688,10 @@ static void parse_opts(int argc, char *argv[])
- 			else
- 				duration = SAFE_STRTOF(optarg, 0.1, HUGE_VALF);
- 		break;
-+		case 'V':
-+			fprintf(stderr, "LTP version: " LTP_VERSION "\n");
-+			exit(0);
-+		break;
- 		case 'C':
- #ifdef UCLINUX
- 			child_args = optarg;
 -- 
 2.40.1
 
