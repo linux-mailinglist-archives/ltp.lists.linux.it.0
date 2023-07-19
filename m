@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EC0875939E
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:00:59 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 652B97593A1
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:01:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0E4293C999C
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:00:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C5B703CDCDF
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:01:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9F5F43C98EA
+ by picard.linux.it (Postfix) with ESMTPS id 115ED3C9733
  for <ltp@lists.linux.it>; Wed, 19 Jul 2023 13:00:57 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1224460111D
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7977E1400451
  for <ltp@lists.linux.it>; Wed, 19 Jul 2023 13:00:57 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CFE5B1FE7F;
- Wed, 19 Jul 2023 11:00:56 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1B1E521B27;
+ Wed, 19 Jul 2023 11:00:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689764456; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1689764457; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=avOfeVM6WCVZLKfZM4BMfvTDiAXy/vbHR8d+IMD0IMg=;
- b=HpZ7MM3k89q2WtltPZQoJ+NDmBmulqcihg18kxida9uc0PQRenVYLyqzYcwXMHX4a2iQuY
- Fl3/vLG7h0O/F4Cvx4ii3qo+jt1TV3YxBPugMdTkqYNpo6LEvPj+Qp+RaUWtf5za2sVip7
- 5tovgAt8Aj5Zl1GPu+6sYZoq8ivbLeM=
+ bh=f2qfkxP5Yykfg1tSV2XqfZsrWXK1B97QjCzbwsJgO74=;
+ b=avYkrTlFp3E0kg7rzj+fcxgmyin8I3TDlDUAgXhA2XeKYaefy6QLXNlxBf6K5UR28163ba
+ cv23sQlN6E63dvvtf2buGc90ng+LY0z/oB3AfLGr/Cta9dN/2gPyAC6bvFQv7TNWHVTVVM
+ fQgpzrwN81Q8CUmTKZ/O8BOcUGQUL38=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689764456;
+ s=susede2_ed25519; t=1689764457;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=avOfeVM6WCVZLKfZM4BMfvTDiAXy/vbHR8d+IMD0IMg=;
- b=HI8PnSQpdGLI5Gk4wTiquXCf/grFZZTLAACbMQx9vQdCPY34Lm/GzGbXdcnKUC2iXoAmcF
- UptNgzMn61izScBA==
+ bh=f2qfkxP5Yykfg1tSV2XqfZsrWXK1B97QjCzbwsJgO74=;
+ b=xJg7lf7PO39xyy88V9vINCf14aVqN0uE27lIn4YjYYY1omZkL4eRK4y+My12Eg77YEAeoV
+ ijWtrBLrwlQIE7CA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8200F1361C;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DB3311361C;
  Wed, 19 Jul 2023 11:00:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IOPRG2jCt2RtUgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id yNfrMmjCt2RtUgAAMHmgww
  (envelope-from <pvorel@suse.cz>); Wed, 19 Jul 2023 11:00:56 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 19 Jul 2023 13:00:50 +0200
-Message-Id: <20230719110051.1237775-4-pvorel@suse.cz>
+Date: Wed, 19 Jul 2023 13:00:51 +0200
+Message-Id: <20230719110051.1237775-5-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230719110051.1237775-1-pvorel@suse.cz>
 References: <20230719110051.1237775-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 3/4] lib/C-API: Print LTP version at test start
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 4/4] lib: Move gitignore entries to their directory
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,28 +85,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Although -V option for printing version was added in previous commit,
-having a way to always print LTP version at the beginning of the test
-(makes debugging of troubleshooting reported issues even easier).
-
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- lib/tst_test.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .gitignore           | 18 ------------------
+ lib/.gitignore       |  1 +
+ lib/tests/.gitignore | 17 +++++++++++++++++
+ 3 files changed, 18 insertions(+), 18 deletions(-)
+ create mode 100644 lib/tests/.gitignore
 
-diff --git a/lib/tst_test.c b/lib/tst_test.c
-index 456d3d1e6..0fcb43809 100644
---- a/lib/tst_test.c
-+++ b/lib/tst_test.c
-@@ -1677,6 +1677,8 @@ void tst_run_tcases(int argc, char *argv[], struct tst_test *self)
- 	SAFE_SIGNAL(SIGALRM, alarm_handler);
- 	SAFE_SIGNAL(SIGUSR1, heartbeat_handler);
+diff --git a/.gitignore b/.gitignore
+index 915d22104..85bcf052b 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -41,7 +41,6 @@ autom4te.cache
+ /include/mk/config-openposix.mk
+ /include/mk/features.mk
+ /m4/ltp-version.m4
+-/lib/ltp.pc
+ /pan/ltp-bump
+ /pan/ltp-pan
  
-+	tst_res(TINFO, "LTP version: "LTP_VERSION);
-+
- 	if (tst_test->max_runtime)
- 		results->max_runtime = multiply_runtime(tst_test->max_runtime);
+@@ -63,20 +62,3 @@ patches/
+ logfile.*
  
+ /utils/benchmark/ebizzy-0.3/ebizzy
+-/lib/tests/tst_tmpdir_test
+-/lib/tests/tst_checkpoint
+-/lib/tests/tst_checkpoint_wait_timeout
+-/lib/tests/tst_checkpoint_wake_timeout
+-/lib/tests/tst_process_state
+-/lib/tests/tst_cleanup_once
+-/lib/tests/tst_safe_macros
+-/lib/tests/tst_strsig
+-/lib/tests/tst_strerrno
+-/lib/tests/tst_fs_fill_subdirs
+-/lib/tests/tst_fs_fill_hardlinks
+-/lib/tests/tst_device
+-/lib/tests/tst_record_childstatus
+-/lib/tests/trerrno
+-/lib/tests/tst_dataroot01
+-/lib/tests/tst_dataroot02
+-/lib/tests/tst_dataroot03
+diff --git a/lib/.gitignore b/lib/.gitignore
+index 1bd967e2f..eb9901169 100644
+--- a/lib/.gitignore
++++ b/lib/.gitignore
+@@ -1,2 +1,3 @@
+ /ltp-version.h
+ /cached-version
++/ltp.pc
+diff --git a/lib/tests/.gitignore b/lib/tests/.gitignore
+new file mode 100644
+index 000000000..1d880c1b7
+--- /dev/null
++++ b/lib/tests/.gitignore
+@@ -0,0 +1,17 @@
++/tst_tmpdir_test
++/tst_checkpoint
++/tst_checkpoint_wait_timeout
++/tst_checkpoint_wake_timeout
++/tst_process_state
++/tst_cleanup_once
++/tst_safe_macros
++/tst_strsig
++/tst_strerrno
++/tst_fs_fill_subdirs
++/tst_fs_fill_hardlinks
++/tst_device
++/tst_record_childstatus
++/trerrno
++/tst_dataroot01
++/tst_dataroot02
++/tst_dataroot03
 -- 
 2.40.1
 
