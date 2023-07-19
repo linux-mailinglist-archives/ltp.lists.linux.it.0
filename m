@@ -2,82 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCD3075932C
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 12:37:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3C8F7593A4
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:01:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 77AB53CA74F
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 12:37:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9079A3CE9D0
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:01:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 39D5C3C02F7
- for <ltp@lists.linux.it>; Wed, 19 Jul 2023 12:36:48 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 3671A3C98F1
+ for <ltp@lists.linux.it>; Wed, 19 Jul 2023 13:00:57 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6C3A2140051C
- for <ltp@lists.linux.it>; Wed, 19 Jul 2023 12:36:48 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8DA0D200A0F
+ for <ltp@lists.linux.it>; Wed, 19 Jul 2023 13:00:55 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 15DB121AE3;
- Wed, 19 Jul 2023 10:36:48 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7E0AC21B20;
+ Wed, 19 Jul 2023 11:00:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689763008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=jeqTF0YThoc6mySM1WR7JjWXpTYufoMRK6i5Rw90wcY=;
- b=bHa6PSD898Hbg0W0+FEy3dbxmyWtP3I+4oj79RWuCVxbm0Y8YnMTba9xTLZugZJ9HmsfQG
- 7JtFq4cb5TXn4nF3ArUzUyNW4ZYt/Y/dcTKjDCmlbpJrS0N9wLagkE3RBOnOVOP5VzQmIR
- 6/z3Hcel2zsGNTE6jVs0W2CoMXL3Utw=
+ t=1689764455; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=E7osXWPx0QZgLxfmTeJsr28G2oUGLckSWzkemBMH1ow=;
+ b=I5l2rrFlW6r7tNdf9dYGd4FM0CYAgL6H/DVE8uslSXL+eg0XApM70p6aBZOz5jw/zIueWt
+ FPC+YjPy9OOqngjwiR3dxyQedd3FtdXDvt/aQTj9M3z3FEMLv50jXvxMHNX73HbquPLyti
+ WUmBISb94NWrpIQ75Kn0Po/8dgqUw5I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689763008;
+ s=susede2_ed25519; t=1689764455;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=jeqTF0YThoc6mySM1WR7JjWXpTYufoMRK6i5Rw90wcY=;
- b=FeNscAHc/E6rXodGnW7Oa0a7sT88xE7n0hua9hqIbzros8Kwhmi5q6hL8esyvRiZgpzDRN
- cqERqVE1SXnyw+Dg==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=E7osXWPx0QZgLxfmTeJsr28G2oUGLckSWzkemBMH1ow=;
+ b=ITHwtkivDB0k9ZRZzV/y6fDtLDs4FcK8gkG3poNOTNxONRFR+za54QjOkrPL7LOdl6zUKp
+ TLUK4slT15yhAcBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 01D331361C;
- Wed, 19 Jul 2023 10:36:47 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 08CAC1361C;
+ Wed, 19 Jul 2023 11:00:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id d1+9Or+8t2RQRQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 19 Jul 2023 10:36:47 +0000
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>,
- Daniel Bristot de Oliveira <bristot@redhat.com>,
- Valentin Schneider <vschneid@redhat.com>, linux-kernel@vger.kernel.org
-Date: Wed, 19 Jul 2023 12:37:43 +0200
-Message-ID: <20230719103743.4775-3-chrubis@suse.cz>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230719103743.4775-1-chrubis@suse.cz>
-References: <20230719103743.4775-1-chrubis@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id aTKhAGfCt2RtUgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 19 Jul 2023 11:00:55 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Wed, 19 Jul 2023 13:00:47 +0200
+Message-Id: <20230719110051.1237775-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] sched/rt: sysctl_sched_rr_timeslice show default
- timeslice after reset
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/4] Makefile: Add C header with generated LTP
+ version
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,45 +76,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jiri Bohac <jbohac@suse.cz>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The sched_rr_timeslice can be reset to default by writing value that is
-<= 0. However after reading from this file we always got the last value
-written, which is not useful at all.
+Hi,
 
-$ echo -1 > /proc/sys/kernel/sched_rr_timeslice_ms
-$ cat /proc/sys/kernel/sched_rr_timeslice_ms
--1
+changes v1->v2:
+* proper make solution from Cyril, slightly modified (first commit)
+ltp-version.h gets regenerated only when make requires to run in lib/,
+but I'm ok with that.
+* .gitignore cleanup (last commit)
 
-Fix this by setting the variable that holds the sysctl file value to the
-jiffies_to_msecs(RR_TIMESLICE) in case that <= 0 value was written.
+I wonder how about shell API? Do we want to create tst_version binary in
+testcases/lib/ ?
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-CC: Jiri Bohac <jbohac@suse.cz>
----
- kernel/sched/rt.c | 3 +++
- 1 file changed, 3 insertions(+)
+Kind regards,
+Petr
 
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 185d3d749f6b..0597ba0f85ff 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -3062,6 +3062,9 @@ static int sched_rr_handler(struct ctl_table *table, int write, void *buffer,
- 		sched_rr_timeslice =
- 			sysctl_sched_rr_timeslice <= 0 ? RR_TIMESLICE :
- 			msecs_to_jiffies(sysctl_sched_rr_timeslice);
-+
-+		if (sysctl_sched_rr_timeslice <= 0)
-+			sysctl_sched_rr_timeslice = jiffies_to_msecs(RR_TIMESLICE);
- 	}
- 	mutex_unlock(&mutex);
- 
+Cyril Hrubis (1):
+  Makefile: Add C header with generated LTP version
+
+Petr Vorel (3):
+  lib/C-API: Add option -V to print LTP version
+  lib/C-API: Print LTP version at test start
+  lib: Move gitignore entries to their directory
+
+ .gitignore           | 18 ------------------
+ lib/.gitignore       |  3 +++
+ lib/Makefile         | 13 +++++++++++++
+ lib/gen_version.sh   | 16 ++++++++++++++++
+ lib/tests/.gitignore | 17 +++++++++++++++++
+ lib/tst_test.c       |  8 ++++++++
+ 6 files changed, 57 insertions(+), 18 deletions(-)
+ create mode 100644 lib/.gitignore
+ create mode 100755 lib/gen_version.sh
+ create mode 100644 lib/tests/.gitignore
+
 -- 
-2.41.0
+2.40.1
 
 
 -- 
