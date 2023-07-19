@@ -2,73 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 652B97593A1
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:01:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABF1A759412
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:21:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C5B703CDCDF
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:01:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7ADFC3CA6C2
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jul 2023 13:21:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 115ED3C9733
- for <ltp@lists.linux.it>; Wed, 19 Jul 2023 13:00:57 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 800803C9753
+ for <ltp@lists.linux.it>; Wed, 19 Jul 2023 13:21:40 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7977E1400451
- for <ltp@lists.linux.it>; Wed, 19 Jul 2023 13:00:57 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C366C60081B
+ for <ltp@lists.linux.it>; Wed, 19 Jul 2023 13:21:39 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1B1E521B27;
- Wed, 19 Jul 2023 11:00:57 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1D0B71FE99;
+ Wed, 19 Jul 2023 11:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689764457; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1689765699;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=f2qfkxP5Yykfg1tSV2XqfZsrWXK1B97QjCzbwsJgO74=;
- b=avYkrTlFp3E0kg7rzj+fcxgmyin8I3TDlDUAgXhA2XeKYaefy6QLXNlxBf6K5UR28163ba
- cv23sQlN6E63dvvtf2buGc90ng+LY0z/oB3AfLGr/Cta9dN/2gPyAC6bvFQv7TNWHVTVVM
- fQgpzrwN81Q8CUmTKZ/O8BOcUGQUL38=
+ bh=CL6zWa7lw7sIuV2Jg643OeYAj2G6p2CpNAc2SRUEpQ8=;
+ b=1CeUjh5s3vg1cFto/9ZDbGCTVdszTdb/M+tyhGlUQxwvsrB8AHvVrFT7t5WkeyxY0hQwDH
+ 1t/iQvOl8+shHCgyHbeepkTM2rThTHED33laTdjpendMjC6DxEp+xbkf41s6Y6Q6Nh2Mkw
+ Dd7sOfIysAdyMYEDZ0iiP/Nz4l7wUI8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689764457;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1689765699;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=f2qfkxP5Yykfg1tSV2XqfZsrWXK1B97QjCzbwsJgO74=;
- b=xJg7lf7PO39xyy88V9vINCf14aVqN0uE27lIn4YjYYY1omZkL4eRK4y+My12Eg77YEAeoV
- ijWtrBLrwlQIE7CA==
+ bh=CL6zWa7lw7sIuV2Jg643OeYAj2G6p2CpNAc2SRUEpQ8=;
+ b=rTA7yFELXf0R91FljTJmH6Wj2AJV4CnHYHQSVTpuCNovMynOp3/G7Zc75oY9bS3RdzAJMa
+ qwhG8RM+wOWSBKCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DB3311361C;
- Wed, 19 Jul 2023 11:00:56 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 51B331361C;
+ Wed, 19 Jul 2023 11:21:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id yNfrMmjCt2RtUgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 19 Jul 2023 11:00:56 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2mJvEkLHt2S8XQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 19 Jul 2023 11:21:38 +0000
+Date: Wed, 19 Jul 2023 13:21:36 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 19 Jul 2023 13:00:51 +0200
-Message-Id: <20230719110051.1237775-5-pvorel@suse.cz>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230719110051.1237775-1-pvorel@suse.cz>
-References: <20230719110051.1237775-1-pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20230719112136.GA1239020@pevik>
+References: <20230719103743.4775-1-chrubis@suse.cz>
+ <20230719103743.4775-2-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20230719103743.4775-2-chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 4/4] lib: Move gitignore entries to their directory
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] sched/rt: Fix sysctl_sched_rr_timeslice
+ intial value
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,86 +82,93 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Juri Lelli <juri.lelli@redhat.com>, Shile Zhang <shile.zhang@nokia.com>,
+ Valentin Schneider <vschneid@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>, Jiri Bohac <jbohac@suse.cz>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Shile Zhang <shile.zhang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Ingo Molnar <mingo@redhat.com>, Mel Gorman <mgorman@suse.de>,
+ Daniel Bristot de Oliveira <bristot@redhat.com>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- .gitignore           | 18 ------------------
- lib/.gitignore       |  1 +
- lib/tests/.gitignore | 17 +++++++++++++++++
- 3 files changed, 18 insertions(+), 18 deletions(-)
- create mode 100644 lib/tests/.gitignore
+Hi,
 
-diff --git a/.gitignore b/.gitignore
-index 915d22104..85bcf052b 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -41,7 +41,6 @@ autom4te.cache
- /include/mk/config-openposix.mk
- /include/mk/features.mk
- /m4/ltp-version.m4
--/lib/ltp.pc
- /pan/ltp-bump
- /pan/ltp-pan
- 
-@@ -63,20 +62,3 @@ patches/
- logfile.*
- 
- /utils/benchmark/ebizzy-0.3/ebizzy
--/lib/tests/tst_tmpdir_test
--/lib/tests/tst_checkpoint
--/lib/tests/tst_checkpoint_wait_timeout
--/lib/tests/tst_checkpoint_wake_timeout
--/lib/tests/tst_process_state
--/lib/tests/tst_cleanup_once
--/lib/tests/tst_safe_macros
--/lib/tests/tst_strsig
--/lib/tests/tst_strerrno
--/lib/tests/tst_fs_fill_subdirs
--/lib/tests/tst_fs_fill_hardlinks
--/lib/tests/tst_device
--/lib/tests/tst_record_childstatus
--/lib/tests/trerrno
--/lib/tests/tst_dataroot01
--/lib/tests/tst_dataroot02
--/lib/tests/tst_dataroot03
-diff --git a/lib/.gitignore b/lib/.gitignore
-index 1bd967e2f..eb9901169 100644
---- a/lib/.gitignore
-+++ b/lib/.gitignore
-@@ -1,2 +1,3 @@
- /ltp-version.h
- /cached-version
-+/ltp.pc
-diff --git a/lib/tests/.gitignore b/lib/tests/.gitignore
-new file mode 100644
-index 000000000..1d880c1b7
---- /dev/null
-+++ b/lib/tests/.gitignore
-@@ -0,0 +1,17 @@
-+/tst_tmpdir_test
-+/tst_checkpoint
-+/tst_checkpoint_wait_timeout
-+/tst_checkpoint_wake_timeout
-+/tst_process_state
-+/tst_cleanup_once
-+/tst_safe_macros
-+/tst_strsig
-+/tst_strerrno
-+/tst_fs_fill_subdirs
-+/tst_fs_fill_hardlinks
-+/tst_device
-+/tst_record_childstatus
-+/trerrno
-+/tst_dataroot01
-+/tst_dataroot02
-+/tst_dataroot03
--- 
-2.40.1
+[ Cc Shile Zhang ]
 
+> Thre is 10% rounding error in the intial value of the
+> sysctl_sched_rr_timeslice with  CONFIG_HZ_300=y.
+
+> This was found with LTP test sched_rr_get_interval01:
+
+> sched_rr_get_interval01.c:57: TPASS: sched_rr_get_interval() passed
+> sched_rr_get_interval01.c:64: TPASS: Time quantum 0s 99999990ns
+> sched_rr_get_interval01.c:72: TFAIL: /proc/sys/kernel/sched_rr_timeslice_ms != 100 got 90
+> sched_rr_get_interval01.c:57: TPASS: sched_rr_get_interval() passed
+> sched_rr_get_interval01.c:64: TPASS: Time quantum 0s 99999990ns
+> sched_rr_get_interval01.c:72: TFAIL: /proc/sys/kernel/sched_rr_timeslice_ms != 100 got 90
+
+> What this test does is to compare the return value from the
+> sched_rr_get_interval() and the sched_rr_timeslice_ms sysctl file and
+> fails if they do not match.
+
+> The prolem it found is the intial sysctl file value which was computed as:
+
+> static int sysctl_sched_rr_timeslice = (MSEC_PER_SEC / HZ) * RR_TIMESLICE;
+
+> which works fine as long as MSEC_PER_SEC is multiple of HZ, however it
+> introduces 10% rounding error for CONFIG_HZ_300:
+
+> (MSEC_PER_SEC / HZ) * (100 * HZ / 1000)
+
+> (1000 / 300) * (100 * 300 / 1000)
+
+> 3 * 30 = 90
+
+> This can be easily fixed by reversing the order of the multiplication
+> and division. After this fix we get:
+
+> (MSEC_PER_SEC * (100 * HZ / 1000)) / HZ
+
+> (1000 * (100 * 300 / 1000)) / 300
+
+> (1000 * 30) / 300 = 100
+
+> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+> CC: Jiri Bohac <jbohac@suse.cz>
+> ---
+>  kernel/sched/rt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+
+> diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+> index 00e0e5074115..185d3d749f6b 100644
+> --- a/kernel/sched/rt.c
+> +++ b/kernel/sched/rt.c
+> @@ -25,7 +25,7 @@ unsigned int sysctl_sched_rt_period = 1000000;
+>  int sysctl_sched_rt_runtime = 950000;
+
+>  #ifdef CONFIG_SYSCTL
+> -static int sysctl_sched_rr_timeslice = (MSEC_PER_SEC / HZ) * RR_TIMESLICE;
+> +static int sysctl_sched_rr_timeslice = (MSEC_PER_SEC * RR_TIMESLICE) / HZ;
+
+It looks like very old bug, from v4.11-rc1. I guess this should go to all stable
+and LTS kernels.
+
+Fixes: 975e155ed873 ("sched/rt: Show the 'sched_rr_timeslice' SCHED_RR timeslice tuning knob in milliseconds")
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+Kind regards,
+Petr
+
+>  static int sched_rt_handler(struct ctl_table *table, int write, void *buffer,
+>  		size_t *lenp, loff_t *ppos);
+>  static int sched_rr_handler(struct ctl_table *table, int write, void *buffer,
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
