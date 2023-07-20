@@ -2,73 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F11E75B1E7
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:02:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00C9D75B1EE
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:02:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E44D63CA0AE
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:02:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8BEF73CE97F
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:02:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2F02A3CDC92
- for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:02:15 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 565B33CDC8A
+ for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:02:16 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 88B3E600BFF
- for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:02:14 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 367C81400353
+ for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:02:15 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2F51E22C83;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CD4E022C84;
  Thu, 20 Jul 2023 15:02:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1689865334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=zu/syvDoB2RLTyTi1rJcHcaz6JsOwC5/RVKFqoF/09Q=;
- b=Cryv6So6qEVS7NKxrutPZdjnBJW4iiLla8xx8mduzVqBoii+IVzhEX4G5jHNUv8nBJFDmc
- 0ycj80sVEHj1osthsoLK1nOg1C2WVnRS9fnzloG9xEXcFUiXGU8pEK7tbCZGQp7OUsl5Yx
- 0BOYZRsh/3Wqi68q40gsPVNYbeLN8XE=
+ bh=olRBDsN7TLix9CfvHIIf9oq8hHeg9xQbSPHbKhAB2Hg=;
+ b=hn3qOua2nvLpNZIw0Z3gDkwSXjTo3rdMG6FdN/Rf6kfv7bmQL6x9WMoP+SetnUvFkuswko
+ XDZVvdSc3k0gS+QT6Nz2Yr9xzooxNRosXg8FI5rZuqrrS0Tlx+Drp/TMtXGmfojjcjJmwe
+ TIvgssLmcDmeTGqvUpKiGwHXIrdj0lI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1689865334;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=zu/syvDoB2RLTyTi1rJcHcaz6JsOwC5/RVKFqoF/09Q=;
- b=Eu3bEZEYLON7EWSMU+1ETHJ7gZX6jYKqI4AEuAzouEOOoW8WtY4gKv6DdGjzdQse+nRTAk
- P+OmBftDEswnm5CQ==
+ bh=olRBDsN7TLix9CfvHIIf9oq8hHeg9xQbSPHbKhAB2Hg=;
+ b=vx1+aFRkxcu+M1J7SWy/rgdn5j1ipSZRIlU7vE3pCPMDxT4Jz14CEHwVuAE3Gsb5pXTVJu
+ Nv7g4jspbRwdZ0Ag==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E89C8138EC;
- Thu, 20 Jul 2023 15:02:13 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 782C3138EC;
+ Thu, 20 Jul 2023 15:02:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IAErNnVMuWR6CQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 20 Jul 2023 15:02:13 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8AO5G3ZMuWR6CQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 20 Jul 2023 15:02:14 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 20 Jul 2023 17:02:04 +0200
-Message-Id: <20230720150206.1338520-3-pvorel@suse.cz>
+Date: Thu, 20 Jul 2023 17:02:05 +0200
+Message-Id: <20230720150206.1338520-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230720150206.1338520-1-pvorel@suse.cz>
 References: <20230720150206.1338520-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/4] lib: Add .skip_in_secureboot flag
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/4] {delete, finit,
+ init}_module0[1-3]: Skip on SecureBoot
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,44 +82,157 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-VGhpcyB3aWxsIGJlIHVzZWQgaW4gbW9kdWxlIHJlbGF0ZWQgdGVzdHMuCgpTaWduZWQtb2ZmLWJ5
-OiBQZXRyIFZvcmVsIDxwdm9yZWxAc3VzZS5jej4KLS0tCiBkb2MvdGVzdC13cml0aW5nLWd1aWRl
-bGluZXMudHh0IHwgMSArCiBpbmNsdWRlL3RzdF90ZXN0LmggICAgICAgICAgICAgIHwgNCArKysr
-CiBsaWIvdHN0X3Rlc3QuYyAgICAgICAgICAgICAgICAgIHwgMyArKysKIDMgZmlsZXMgY2hhbmdl
-ZCwgOCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZG9jL3Rlc3Qtd3JpdGluZy1ndWlkZWxp
-bmVzLnR4dCBiL2RvYy90ZXN0LXdyaXRpbmctZ3VpZGVsaW5lcy50eHQKaW5kZXggYjgzYTZmZGI2
-Li42ZDFhNjkxNjUgMTAwNjQ0Ci0tLSBhL2RvYy90ZXN0LXdyaXRpbmctZ3VpZGVsaW5lcy50eHQK
-KysrIGIvZG9jL3Rlc3Qtd3JpdGluZy1ndWlkZWxpbmVzLnR4dApAQCAtMzkzLDYgKzM5Myw3IEBA
-IGh0dHBzOi8vZ2l0aHViLmNvbS9saW51eC10ZXN0LXByb2plY3QvbHRwL3dpa2kvU2hlbGwtVGVz
-dC1BUElbU2hlbGwgVGVzdCBBUEldLgogfCAnLnNraXBfZmlsZXN5c3RlbXMnIHwgJ1RTVF9TS0lQ
-X0ZJTEVTWVNURU1TJwogfCAnLnNraXBfaW5fY29tcGF0JyB8IOKAkwogfCAnLnNraXBfaW5fbG9j
-a2Rvd24nIHwg4oCTCit8ICcuc2tpcF9pbl9zZWN1cmVib290JyB8IOKAkwogfCAnLnN1cHBvcnRl
-ZF9hcmNocycgfCBub3QgYXBwbGljYWJsZQogfCAnLnRhZ3MnIHwg4oCTCiB8ICcudGFpbnRfY2hl
-Y2snIHwg4oCTCmRpZmYgLS1naXQgYS9pbmNsdWRlL3RzdF90ZXN0LmggYi9pbmNsdWRlL3RzdF90
-ZXN0LmgKaW5kZXggMjJhY2ZiYTU5Li4wYWM0OTJhODAgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvdHN0
-X3Rlc3QuaAorKysgYi9pbmNsdWRlL3RzdF90ZXN0LmgKQEAgLTE3Nyw2ICsxNzcsNyBAQCBzdHJ1
-Y3QgdHN0X3Rlc3QgewogCWludCBjaGlsZF9uZWVkc19yZWluaXQ6MTsKIAlpbnQgbmVlZHNfZGV2
-ZnM6MTsKIAlpbnQgcmVzdG9yZV93YWxsY2xvY2s6MTsKKwogCS8qCiAJICogSWYgc2V0IHRoZSB0
-ZXN0IGZ1bmN0aW9uIHdpbGwgYmUgZXhlY3V0ZWQgZm9yIGFsbCBhdmFpbGFibGUKIAkgKiBmaWxl
-c3lzdGVtcyBhbmQgdGhlIGN1cnJlbnQgZmlsZXN5c3RlbSB0eXBlIHdvdWxkIGJlIHNldCBpbiB0
-aGUKQEAgLTE4Niw4ICsxODcsMTEgQEAgc3RydWN0IHRzdF90ZXN0IHsKIAkgKiB0byB0aGUgdGVz
-dCBmdW5jdGlvbi4KIAkgKi8KIAlpbnQgYWxsX2ZpbGVzeXN0ZW1zOjE7CisKIAlpbnQgc2tpcF9p
-bl9sb2NrZG93bjoxOworCWludCBza2lwX2luX3NlY3VyZWJvb3Q6MTsKIAlpbnQgc2tpcF9pbl9j
-b21wYXQ6MTsKKwogCS8qCiAJICogSWYgc2V0LCB0aGUgaHVnZXRsYmZzIHdpbGwgYmUgbW91bnRl
-ZCBhdCAubW50cG9pbnQuCiAJICovCmRpZmYgLS1naXQgYS9saWIvdHN0X3Rlc3QuYyBiL2xpYi90
-c3RfdGVzdC5jCmluZGV4IDA0ZGE0NTZjNi4uOGY3MjIzYjBlIDEwMDY0NAotLS0gYS9saWIvdHN0
-X3Rlc3QuYworKysgYi9saWIvdHN0X3Rlc3QuYwpAQCAtMTE2MCw2ICsxMTYwLDkgQEAgc3RhdGlj
-IHZvaWQgZG9fc2V0dXAoaW50IGFyZ2MsIGNoYXIgKmFyZ3ZbXSkKIAlpZiAodHN0X3Rlc3QtPnNr
-aXBfaW5fbG9ja2Rvd24gJiYgdHN0X2xvY2tkb3duX2VuYWJsZWQoKSkKIAkJdHN0X2JyayhUQ09O
-RiwgIktlcm5lbCBpcyBsb2NrZWQgZG93biwgc2tpcHBpbmcgdGVzdCIpOwogCisJaWYgKHRzdF90
-ZXN0LT5za2lwX2luX3NlY3VyZWJvb3QgJiYgdHN0X3NlY3VyZWJvb3RfZW5hYmxlZCgpKQorCQl0
-c3RfYnJrKFRDT05GLCAiU2VjdXJlQm9vdCBlbmFibGVkLCBza2lwcGluZyB0ZXN0Iik7CisKIAlp
-ZiAodHN0X3Rlc3QtPnNraXBfaW5fY29tcGF0ICYmIFRTVF9BQkkgIT0gdHN0X2tlcm5lbF9iaXRz
-KCkpCiAJCXRzdF9icmsoVENPTkYsICJOb3Qgc3VwcG9ydGVkIGluIDMyLWJpdCBjb21wYXQgbW9k
-ZSIpOwogCi0tIAoyLjQwLjEKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMu
-bGludXguaXQvbGlzdGluZm8vbHRwCg==
+Enabled SecureBoot requires signed modules (regardless lockdown state).
+
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ .../syscalls/delete_module/delete_module01.c    |  2 ++
+ .../syscalls/delete_module/delete_module03.c    |  2 ++
+ .../syscalls/finit_module/finit_module01.c      |  2 ++
+ .../syscalls/finit_module/finit_module02.c      | 17 +++++++++++++----
+ .../kernel/syscalls/init_module/init_module01.c |  2 ++
+ .../kernel/syscalls/init_module/init_module02.c | 16 ++++++++++++----
+ 6 files changed, 33 insertions(+), 8 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/delete_module/delete_module01.c b/testcases/kernel/syscalls/delete_module/delete_module01.c
+index 6ecd2cad1..08597cfd6 100644
+--- a/testcases/kernel/syscalls/delete_module/delete_module01.c
++++ b/testcases/kernel/syscalls/delete_module/delete_module01.c
+@@ -52,6 +52,8 @@ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	/* lockdown requires signed modules */
+ 	.skip_in_lockdown = 1,
++	/* SecureBoot requires signed modules */
++	.skip_in_secureboot = 1,
+ 	.cleanup = cleanup,
+ 	.test_all = do_delete_module,
+ };
+diff --git a/testcases/kernel/syscalls/delete_module/delete_module03.c b/testcases/kernel/syscalls/delete_module/delete_module03.c
+index 863d36188..a4b5108f0 100644
+--- a/testcases/kernel/syscalls/delete_module/delete_module03.c
++++ b/testcases/kernel/syscalls/delete_module/delete_module03.c
+@@ -74,6 +74,8 @@ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	/* lockdown requires signed modules */
+ 	.skip_in_lockdown = 1,
++	/* SecureBoot requires signed modules */
++	.skip_in_secureboot = 1,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = do_delete_module,
+diff --git a/testcases/kernel/syscalls/finit_module/finit_module01.c b/testcases/kernel/syscalls/finit_module/finit_module01.c
+index f960b2e40..660b567f5 100644
+--- a/testcases/kernel/syscalls/finit_module/finit_module01.c
++++ b/testcases/kernel/syscalls/finit_module/finit_module01.c
+@@ -51,4 +51,6 @@ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	/* lockdown requires signed modules */
+ 	.skip_in_lockdown = 1,
++	/* SecureBoot requires signed modules */
++	.skip_in_secureboot = 1,
+ };
+diff --git a/testcases/kernel/syscalls/finit_module/finit_module02.c b/testcases/kernel/syscalls/finit_module/finit_module02.c
+index a7434de7d..4f5962829 100644
+--- a/testcases/kernel/syscalls/finit_module/finit_module02.c
++++ b/testcases/kernel/syscalls/finit_module/finit_module02.c
+@@ -25,7 +25,7 @@
+ static char *mod_path;
+ 
+ static int fd, fd_zero, fd_invalid = -1, fd_dir;
+-static int kernel_lockdown;
++static int kernel_lockdown, secure_boot;
+ 
+ static struct tst_cap cap_req = TST_CAP(TST_CAP_REQ, CAP_SYS_MODULE);
+ static struct tst_cap cap_drop = TST_CAP(TST_CAP_DROP, CAP_SYS_MODULE);
+@@ -84,6 +84,8 @@ static void setup(void)
+ 	tst_module_exists(MODULE_NAME, &mod_path);
+ 
+ 	kernel_lockdown = tst_lockdown_enabled();
++	secure_boot = tst_secureboot_enabled();
++
+ 	SAFE_MKDIR(TEST_DIR, 0700);
+ 	fd_dir = SAFE_OPEN(TEST_DIR, O_DIRECTORY);
+ 
+@@ -102,9 +104,16 @@ static void run(unsigned int n)
+ {
+ 	struct tcase *tc = &tcases[n];
+ 
+-	if (tc->skip_in_lockdown && kernel_lockdown) {
+-		tst_res(TCONF, "Kernel is locked down, skipping %s", tc->name);
+-		return;
++	if (tc->skip_in_lockdown) {
++		if (secure_boot) {
++			tst_res(TCONF, "SecureBoot enabled, skipping %s", tc->name);
++			return;
++		}
++
++		if (kernel_lockdown) {
++			tst_res(TCONF, "Kernel is locked down, skipping %s", tc->name);
++			return;
++		}
+ 	}
+ 
+ 	fd = SAFE_OPEN(mod_path, tc->open_flags);
+diff --git a/testcases/kernel/syscalls/init_module/init_module01.c b/testcases/kernel/syscalls/init_module/init_module01.c
+index 79e567cd6..80b2b77cc 100644
+--- a/testcases/kernel/syscalls/init_module/init_module01.c
++++ b/testcases/kernel/syscalls/init_module/init_module01.c
+@@ -55,4 +55,6 @@ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	/* lockdown requires signed modules */
+ 	.skip_in_lockdown = 1,
++	/* SecureBoot requires signed modules */
++	.skip_in_secureboot = 1,
+ };
+diff --git a/testcases/kernel/syscalls/init_module/init_module02.c b/testcases/kernel/syscalls/init_module/init_module02.c
+index ad6569a06..4acbfbcd1 100644
+--- a/testcases/kernel/syscalls/init_module/init_module02.c
++++ b/testcases/kernel/syscalls/init_module/init_module02.c
+@@ -22,7 +22,7 @@
+ #define MODULE_NAME	"init_module.ko"
+ 
+ static unsigned long size, zero_size;
+-static int kernel_lockdown;
++static int kernel_lockdown, secure_boot;
+ static void *buf, *faulty_buf, *null_buf;
+ 
+ static struct tst_cap cap_req = TST_CAP(TST_CAP_REQ, CAP_SYS_MODULE);
+@@ -54,6 +54,7 @@ static void setup(void)
+ 	tst_module_exists(MODULE_NAME, NULL);
+ 
+ 	kernel_lockdown = tst_lockdown_enabled();
++	secure_boot = tst_secureboot_enabled();
+ 	fd = SAFE_OPEN(MODULE_NAME, O_RDONLY|O_CLOEXEC);
+ 	SAFE_FSTAT(fd, &sb);
+ 	size = sb.st_size;
+@@ -67,9 +68,16 @@ static void run(unsigned int n)
+ {
+ 	struct tcase *tc = &tcases[n];
+ 
+-	if (tc->skip_in_lockdown && kernel_lockdown) {
+-		tst_res(TCONF, "Kernel is locked down, skipping %s", tc->name);
+-		return;
++	if (tc->skip_in_lockdown) {
++		if (secure_boot) {
++			tst_res(TCONF, "SecureBoot enabled, skipping %s", tc->name);
++			return;
++		}
++
++		if (kernel_lockdown) {
++			tst_res(TCONF, "Kernel is locked down, skipping %s", tc->name);
++			return;
++		}
+ 	}
+ 
+ 	if (tc->cap)
+-- 
+2.40.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
