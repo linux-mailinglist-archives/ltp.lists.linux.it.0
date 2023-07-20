@@ -2,60 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3498775B1E6
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:02:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA1A575B1E8
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:02:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EA1703CAF84
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:02:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 683643CE973
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:02:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6F4923C9549
- for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:02:12 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 037DD3CE974
+ for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:02:15 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9F0631001263
- for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:02:10 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id DA3A510011DB
+ for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:02:14 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CDFC82069F;
- Thu, 20 Jul 2023 15:02:09 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D80EC21CE2;
+ Thu, 20 Jul 2023 15:02:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689865329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=bx3TiSjYIqH4bXr69TyFvD1qmF2SYKB2N+gVW6MDo0s=;
- b=jQvfLcFm03l7PDPb01IFfB595P4rANAMry7oJU0duD0o/ndpl3ScVjwJAL93KZevmhmYXm
- VrbXzp4l/wmPy3oq8Hgoq4bJAlEnycrWnWLeOeoDa1NwTo1cGRWr9eV8fPvc2ckY9TpvCK
- nJFpIeuCwOzIVAS27CD9WQt1g6iHZK8=
+ t=1689865333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EVSitUF3n+H7SVlGIBc2/8ex23puKYes0SLZPr2RsTs=;
+ b=C/RB20mAWG6K/gUhIPaCpmE4/QqRzBa8cab5wAOF+bKfMWHWDYAuLMdY7PSCgzFccxYVJL
+ jDqwda+iX5uyV9s+5pstLDoOOBFS4YXb98Zw3MwuYGHd23vGgTjxq/EocezSQxIJq04onX
+ 0WRegEPNeqAYixRNMw7WbkFZ2FDMxwc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689865329;
+ s=susede2_ed25519; t=1689865333;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=bx3TiSjYIqH4bXr69TyFvD1qmF2SYKB2N+gVW6MDo0s=;
- b=Ezdkjqk74J9v03f22Vl8ydhuD3piecBlw8AOyg5iRITFmc009n20M0LPS8Gy1NXWs6F9Nv
- G4h1a5UlHL7aC4BA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EVSitUF3n+H7SVlGIBc2/8ex23puKYes0SLZPr2RsTs=;
+ b=tJP+/ffCHrZGi0wLWAbaWeVDBJIDXaFHoy1ER3UKOqdTjGpPMrF5eDOxU9LpyrSL1mQVd0
+ yUIoFrvuLENY2YDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9B92A138EC;
- Thu, 20 Jul 2023 15:02:09 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B335C138EC;
+ Thu, 20 Jul 2023 15:02:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id o6dGJHFMuWR6CQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 20 Jul 2023 15:02:09 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id mK8vKXVMuWR6CQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 20 Jul 2023 15:02:13 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 20 Jul 2023 17:02:02 +0200
-Message-Id: <20230720150206.1338520-1-pvorel@suse.cz>
+Date: Thu, 20 Jul 2023 17:02:03 +0200
+Message-Id: <20230720150206.1338520-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230720150206.1338520-1-pvorel@suse.cz>
+References: <20230720150206.1338520-1-pvorel@suse.cz>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -63,7 +68,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/4] Add .skip_in_secureboot flag
+Subject: [LTP] [PATCH 1/4] tst_lockdown: Check other lockdown configuration
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,25 +85,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Petr Vorel (4):
-  tst_lockdown: Check other lockdown configuration
-  lib: Add .skip_in_secureboot flag
-  {delete,finit,init}_module0[1-3]: Skip on SecureBoot
-  doc/c-api: Document .skip_in_* flags
+Originally we checked only CONFIG_EFI_SECURE_BOOT_LOCK_DOWN=y
+(non-mainline patch from 2017 [1]. Various distros (older releases) use
+other newer non-mainline patch [2] (originally from Fedora 32), which with
+CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT=y forces lockdown, when in secure boot.
 
- doc/c-test-api.txt                              |  6 ++++++
- doc/test-writing-guidelines.txt                 |  1 +
- include/tst_test.h                              |  4 ++++
- lib/tst_lockdown.c                              | 11 +++++++----
- lib/tst_test.c                                  |  3 +++
- .../syscalls/delete_module/delete_module01.c    |  2 ++
- .../syscalls/delete_module/delete_module03.c    |  2 ++
- .../syscalls/finit_module/finit_module01.c      |  2 ++
- .../syscalls/finit_module/finit_module02.c      | 17 +++++++++++++----
- .../kernel/syscalls/init_module/init_module01.c |  2 ++
- .../kernel/syscalls/init_module/init_module02.c | 16 ++++++++++++----
- 11 files changed, 54 insertions(+), 12 deletions(-)
+[1] https://lore.kernel.org/lkml/149141204578.30815.1929675368430800975.stgit@warthog.procyon.org.uk/
+[2] https://lore.kernel.org/lkml/150842483945.7923.12778302394414653081.stgit@warthog.procyon.org.uk/
 
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ lib/tst_lockdown.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/lib/tst_lockdown.c b/lib/tst_lockdown.c
+index 26a57b6a1..f91bc919d 100644
+--- a/lib/tst_lockdown.c
++++ b/lib/tst_lockdown.c
+@@ -47,18 +47,21 @@ int tst_lockdown_enabled(void)
+ {
+ 	char line[BUFSIZ];
+ 	FILE *file;
++	char flag;
+ 
+ 	if (access(PATH_LOCKDOWN, F_OK) != 0) {
+-		char flag;
+-
++		/* SecureBoot enabled could mean integrity lockdown (non-mainline version) */
+ 		flag = tst_kconfig_get("CONFIG_EFI_SECURE_BOOT_LOCK_DOWN");
+-
+-		/* SecureBoot enabled could mean integrity lockdown */
+ 		if (flag == 'y' && tst_secureboot_enabled() > 0)
+ 			return 1;
+ 
+ 		tst_res(TINFO, "Unable to determine system lockdown state");
+ 		return 0;
++	} else {
++		/* SecureBoot forces lockdown (non-mainline version) */
++		flag = tst_kconfig_get("CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT");
++		if (flag == 'y' && tst_secureboot_enabled() > 0)
++			return 1;
+ 	}
+ 
+ 	file = SAFE_FOPEN(PATH_LOCKDOWN, "r");
 -- 
 2.40.1
 
