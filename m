@@ -1,78 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FC1A75B283
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:27:50 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C92FA75B31A
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:39:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 064F73CA74F
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:27:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9A9E73CAE7B
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:39:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 24C513C0123
- for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:27:49 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id B8B293C01D0
+ for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:39:42 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 915862005DD
- for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:27:48 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8F7F510006CD
+ for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:39:41 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 02CCB2069F;
- Thu, 20 Jul 2023 15:27:48 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E01CD1F8CD;
+ Thu, 20 Jul 2023 15:39:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689866868; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1689867580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JBmE9PF3222vj5FduKKvT5uhKp281PbkSLf2bBl44AA=;
- b=i9oGQcjc7ZeCedbN4Jq2PBupFwDAC1jkyxRmf7jWBQ2JuPKgialSMz43+2tg0SzeADKwhJ
- kbCmRGuu28vx5cTj7/jLgzohrt350X2hxlsxzNk0ARW1DGkms5IffAxTrpAOVIRktPfYBb
- CN5j/GhbHvPk4saOyBkhmdv5woKVUSo=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=T1M2HhSk3zbUaru3y7Va2prxwy3QYGRKXXl4goZJDSlzH65xitwZlH/j8WgMsznJezEOWg
+ x4+u4ZDFA21bFx/t10SGwwvTY9D2o2Ug5k4j+ujbj+9V/UbTI0qSPNvcfs1OAGf27ygvMH
+ hJTlOb6RFKJpf76VG/4VUROULfdFdXY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689866868;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ s=susede2_ed25519; t=1689867580;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JBmE9PF3222vj5FduKKvT5uhKp281PbkSLf2bBl44AA=;
- b=aEK9xeRSghnu/INBM12X0/3R9k98L/lMN93QiD/t666BVGAC4XGs7mHPKbDG2riCenyPRO
- FyHg81P60ny2tpAA==
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=zKTH7hsu82r9wUgCEHs+hGSGh6eZEfc8ct6EdfjocTX/xPSG6StSa6vpTvID4/+KLHNjV9
+ NDd53gQASrazuBDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E129B133DD;
- Thu, 20 Jul 2023 15:27:47 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B8A3B133DD;
+ Thu, 20 Jul 2023 15:39:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id WJAYNnNSuWQxFwAAMHmgww
- (envelope-from <mdoucha@suse.cz>); Thu, 20 Jul 2023 15:27:47 +0000
-Message-ID: <9e9d23c0-31f8-610c-99b0-7e4863eca02d@suse.cz>
-Date: Thu, 20 Jul 2023 17:27:47 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id MczHKzxVuWTvHQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 20 Jul 2023 15:39:40 +0000
+Date: Thu, 20 Jul 2023 17:40:43 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Message-ID: <ZLlVe4KB8D9XLspn@yuki>
+References: <20230711170335.13142-1-rick.p.edgecombe@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
-References: <20230720150206.1338520-1-pvorel@suse.cz>
- <20230720150206.1338520-5-pvorel@suse.cz>
-From: Martin Doucha <mdoucha@suse.cz>
-In-Reply-To: <20230720150206.1338520-5-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20230711170335.13142-1-rick.p.edgecombe@intel.com>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 4/4] doc/c-api: Document .skip_in_* flags
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] security/stack_clash: Add test for mmap()
+ minding gap
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,47 +79,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Liam.Howlett@oracle.com, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
-Reviewed-by: Martin Doucha <mdoucha@suse.cz>
-
-On 20. 07. 23 17:02, Petr Vorel wrote:
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
->   doc/c-test-api.txt | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/doc/c-test-api.txt b/doc/c-test-api.txt
-> index 07c069ced..74871e6c8 100644
-> --- a/doc/c-test-api.txt
-> +++ b/doc/c-test-api.txt
-> @@ -2412,6 +2412,12 @@ static struct tst_test test = {
->   };
->   -------------------------------------------------------------------------------
->   
-> +1.41 Skipping test based on system state
-> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> +Test can be skipped on various conditions: on enabled SecureBoot
-> +('.skip_in_secureboot = 1'), lockdown ('.skip_in_lockdown = 1') or in 32-bit
-> +compat mode ('.skip_in_compat = 1').
-> +
->   2. Common problems
->   ------------------
->   
+Hi!
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
-Martin Doucha   mdoucha@suse.cz
-SW Quality Engineer
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
