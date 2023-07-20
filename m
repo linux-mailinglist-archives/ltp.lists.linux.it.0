@@ -1,69 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25F5075B1FF
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:06:08 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3498775B1E6
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:02:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E23623CE9B0
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:06:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EA1703CAF84
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jul 2023 17:02:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3D0963C954B
- for <ltp@lists.linux.it>; Thu, 20 Jul 2023 12:00:08 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 6F4923C9549
+ for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:02:12 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6A3CE1A000F2
- for <ltp@lists.linux.it>; Thu, 20 Jul 2023 12:00:07 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 528AB22B58;
- Thu, 20 Jul 2023 10:00:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1689847207; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=r79tnlOtDHR7by6b49/n8KfLuYC93z1qpLSo+YCupbI=;
- b=LptwLFcWcnatSFJtxVy5x+3RHOlxDXXrM2dFPtbVWkJXaQlGXAKIBssq9IfwIvgEkWnc88
- VOOzzx2xTz/3VDMdsQoeiEruaeGohwfn0dna/khKC878vVedmQBCi63/LJyal6tkb2cjQH
- ACfTQywy+nD4o2s2x6chZ+xTYPN8uS0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1689847207;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=r79tnlOtDHR7by6b49/n8KfLuYC93z1qpLSo+YCupbI=;
- b=LP20h7HggkF6ko4HO0b91i+hdxc2azG90KqDBVdx3vLLNsdjEY2PPEZ5h32bZY55qbzSB7
- azmFIAHUsLj11LDQ==
-Received: from suse.de (unknown [10.163.43.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9F0631001263
+ for <ltp@lists.linux.it>; Thu, 20 Jul 2023 17:02:10 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id EBEAC2C142;
- Thu, 20 Jul 2023 10:00:04 +0000 (UTC)
-Date: Thu, 20 Jul 2023 11:00:02 +0100
-From: Mel Gorman <mgorman@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20230720100002.yk7lef3fsvtohlhg@suse.de>
-References: <20230719103743.4775-1-chrubis@suse.cz>
- <20230719103743.4775-3-chrubis@suse.cz>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CDFC82069F;
+ Thu, 20 Jul 2023 15:02:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1689865329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=bx3TiSjYIqH4bXr69TyFvD1qmF2SYKB2N+gVW6MDo0s=;
+ b=jQvfLcFm03l7PDPb01IFfB595P4rANAMry7oJU0duD0o/ndpl3ScVjwJAL93KZevmhmYXm
+ VrbXzp4l/wmPy3oq8Hgoq4bJAlEnycrWnWLeOeoDa1NwTo1cGRWr9eV8fPvc2ckY9TpvCK
+ nJFpIeuCwOzIVAS27CD9WQt1g6iHZK8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1689865329;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=bx3TiSjYIqH4bXr69TyFvD1qmF2SYKB2N+gVW6MDo0s=;
+ b=Ezdkjqk74J9v03f22Vl8ydhuD3piecBlw8AOyg5iRITFmc009n20M0LPS8Gy1NXWs6F9Nv
+ G4h1a5UlHL7aC4BA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9B92A138EC;
+ Thu, 20 Jul 2023 15:02:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id o6dGJHFMuWR6CQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 20 Jul 2023 15:02:09 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu, 20 Jul 2023 17:02:02 +0200
+Message-Id: <20230720150206.1338520-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230719103743.4775-3-chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Mailman-Approved-At: Thu, 20 Jul 2023 17:05:53 +0200
-Subject: Re: [LTP] [PATCH 2/2] sched/rt: sysctl_sched_rr_timeslice show
- default timeslice after reset
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/4] Add .skip_in_secureboot flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,39 +75,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>,
- Valentin Schneider <vschneid@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>, Jiri Bohac <jbohac@suse.cz>,
- Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Ingo Molnar <mingo@redhat.com>,
- Daniel Bristot de Oliveira <bristot@redhat.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, Jul 19, 2023 at 12:37:43PM +0200, Cyril Hrubis wrote:
-> The sched_rr_timeslice can be reset to default by writing value that is
-> <= 0. However after reading from this file we always got the last value
-> written, which is not useful at all.
-> 
-> $ echo -1 > /proc/sys/kernel/sched_rr_timeslice_ms
-> $ cat /proc/sys/kernel/sched_rr_timeslice_ms
-> -1
-> 
-> Fix this by setting the variable that holds the sysctl file value to the
-> jiffies_to_msecs(RR_TIMESLICE) in case that <= 0 value was written.
-> 
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-> CC: Jiri Bohac <jbohac@suse.cz>
+Petr Vorel (4):
+  tst_lockdown: Check other lockdown configuration
+  lib: Add .skip_in_secureboot flag
+  {delete,finit,init}_module0[1-3]: Skip on SecureBoot
+  doc/c-api: Document .skip_in_* flags
 
-Acked-by: Mel Gorman <mgorman@suse.de>
+ doc/c-test-api.txt                              |  6 ++++++
+ doc/test-writing-guidelines.txt                 |  1 +
+ include/tst_test.h                              |  4 ++++
+ lib/tst_lockdown.c                              | 11 +++++++----
+ lib/tst_test.c                                  |  3 +++
+ .../syscalls/delete_module/delete_module01.c    |  2 ++
+ .../syscalls/delete_module/delete_module03.c    |  2 ++
+ .../syscalls/finit_module/finit_module01.c      |  2 ++
+ .../syscalls/finit_module/finit_module02.c      | 17 +++++++++++++----
+ .../kernel/syscalls/init_module/init_module01.c |  2 ++
+ .../kernel/syscalls/init_module/init_module02.c | 16 ++++++++++++----
+ 11 files changed, 54 insertions(+), 12 deletions(-)
 
 -- 
-Mel Gorman
-SUSE Labs
+2.40.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
