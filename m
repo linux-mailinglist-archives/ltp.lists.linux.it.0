@@ -2,73 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 300E875CA0D
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jul 2023 16:32:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA6A475CA20
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jul 2023 16:36:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D5BFD3CDC6F
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jul 2023 16:31:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9CC463CDC76
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jul 2023 16:36:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 118C73C8524
- for <ltp@lists.linux.it>; Fri, 21 Jul 2023 16:31:55 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 751413C93EE
+ for <ltp@lists.linux.it>; Fri, 21 Jul 2023 16:36:04 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 60B081A02389
- for <ltp@lists.linux.it>; Fri, 21 Jul 2023 16:31:54 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EFDBC1A00CDC
+ for <ltp@lists.linux.it>; Fri, 21 Jul 2023 16:36:03 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7EB70218B0;
- Fri, 21 Jul 2023 14:31:54 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 73FC82189D;
+ Fri, 21 Jul 2023 14:36:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689949914;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0rqP9n3VS3RsCzIZjPvnUt4F474+MJcnuHvY6er+8gE=;
- b=KihW/0rI80E/mjwV2huLo7a2fMu9pUZeFq0RVdBQfwUqQQDkWAActT5/RyeWwC5C4soZI1
- M9LpF0bmYTHovLic+Kl9XVNn3FSLk8yPOcArkB6vWMTb9Jzc8b4TzRikiCVzn6BQPMidnX
- 04kinyk8+jXpbPcPgdJk4LtozDEsINE=
+ t=1689950163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=CXW4GaAAoDWYkMVdhxvPEyCjXDixkFoiOxpF5EJWSwk=;
+ b=goxwm17IbjYbpbe4MCZ+zw6dBFr3ZmQEo8tDNFD2AUehU6LBspOVubTB1vy6y9bCirgGD7
+ 5sT5hUnWv1xy4yoi9Ri8CSopXUFXL1nN1LF9RHWhUEmreQxerbnakPP04h/glrOTEY28cS
+ HvIWZC1zK0PZgNjgQFgAENd2X59+DFc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689949914;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0rqP9n3VS3RsCzIZjPvnUt4F474+MJcnuHvY6er+8gE=;
- b=bdb9lI1ClZB56tnNLTx50HUjZ5npFxSrvXhf4hMyGtgzl9ur2LHFlXf+GO1Q0wWnYFBCpy
- enJZmJyFx5mWgwDA==
+ s=susede2_ed25519; t=1689950163;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=CXW4GaAAoDWYkMVdhxvPEyCjXDixkFoiOxpF5EJWSwk=;
+ b=h87KrCoN96IVjz0eQdB8A4I7QcXgLEXQrfNswoxNFL09gtgmFIq7P3UJx8uoJTYQd89S6e
+ jRUo/Wao3rM/rlBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 57A8F134BA;
- Fri, 21 Jul 2023 14:31:54 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9A2DF134BA;
+ Fri, 21 Jul 2023 14:36:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ati7EdqWumR9DwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 21 Jul 2023 14:31:54 +0000
-Date: Fri, 21 Jul 2023 16:31:52 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id pRpKEdGXumSdEQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 21 Jul 2023 14:36:01 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Avinesh Kumar <akumar@suse.de>
-Message-ID: <20230721143152.GA1428451@pevik>
-References: <20230721100330.1366932-1-pvorel@suse.cz>
- <4864592.31r3eYUQgx@localhost>
+To: ltp@lists.linux.it
+Date: Fri, 21 Jul 2023 16:35:54 +0200
+Message-Id: <20230721143555.1433034-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4864592.31r3eYUQgx@localhost>
 X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] write05: Simplify test using TST_ macros
+Subject: [LTP] [PATCH 1/2] write04: Use correct macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,66 +74,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi Petr,
+TST_EXP_FAIL2() must be used for write(), as not only 0 would be a
+failure, but also >= 0 (the number of written bytes).
 
-> On Friday, July 21, 2023 3:33:30 PM IST Petr Vorel wrote:
-> > Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> > ---
-> >  testcases/kernel/syscalls/write/write05.c | 20 +++-----------------
-> >  1 file changed, 3 insertions(+), 17 deletions(-)
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/kernel/syscalls/write/write04.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> > diff --git a/testcases/kernel/syscalls/write/write05.c
-> > b/testcases/kernel/syscalls/write/write05.c index c1e48f1df..1e85cce6d
-> > 100644
-> > --- a/testcases/kernel/syscalls/write/write05.c
-> > +++ b/testcases/kernel/syscalls/write/write05.c
-> > @@ -59,26 +59,12 @@ static void verify_write(unsigned int i)
-
-> >  	sigpipe_cnt = 0;
-
-> > -	TEST(write(*tc->fd, *tc->buf, tc->size));
-> > -
-> > -	if (TST_RET != -1) {
-> > -		tst_res(TFAIL, "write() succeeded unexpectedly");
-> > -		return;
-> > -	}
-> > -
-> > -	if (TST_ERR != tc->exp_errno) {
-> > -		tst_res(TFAIL | TTERRNO,
-> > -			"write() failed unexpectedly, expected %s",
-> > -			tst_strerrno(tc->exp_errno));
-> > +	TST_EXP_FAIL(write(*tc->fd, *tc->buf, tc->size), tc->exp_errno);
-> Should we use TST_EXP_FAIL2 instead?
-
-Good catch, write() requires TST_EXP_FAIL2(). Thanks!
-Merged with this fix.
-
-> Maybe we can also do the ascii doc changes and headers cleanup, but I'm fine if 
-> we do that in a separate patch.
-
-I dared to merge this before without a review as it's simple (bad habit).
-Generally, the best approach (which I not always follow) is to separate changes.
-That's why I usually add docparse change as a separate commit. But I usually
-update copyright with other changes (that's really minor change).
-
-> Reviewed-by: Avinesh Kumar <akumar@suse.de>
-
-
-Kind regards,
-Petr
-
-
-> Regards,
-> Avinesh
-
-
+diff --git a/testcases/kernel/syscalls/write/write04.c b/testcases/kernel/syscalls/write/write04.c
+index afbac0f09..a5d62e0f5 100644
+--- a/testcases/kernel/syscalls/write/write04.c
++++ b/testcases/kernel/syscalls/write/write04.c
+@@ -28,7 +28,7 @@ static void verify_write(void)
+ {
+ 	char wbuf[8 * page_size];
+ 
+-	TST_EXP_FAIL(write(wfd, wbuf, sizeof(wbuf)), EAGAIN);
++	TST_EXP_FAIL2(write(wfd, wbuf, sizeof(wbuf)), EAGAIN);
+ }
+ 
+ static void setup(void)
+-- 
+2.40.1
 
 
 -- 
