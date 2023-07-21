@@ -2,67 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA6A475CA20
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jul 2023 16:36:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C805175CA1B
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jul 2023 16:36:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9CC463CDC76
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jul 2023 16:36:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2D8103CE8EA
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jul 2023 16:36:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 751413C93EE
- for <ltp@lists.linux.it>; Fri, 21 Jul 2023 16:36:04 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 0654B3C01A5
+ for <ltp@lists.linux.it>; Fri, 21 Jul 2023 16:36:05 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EFDBC1A00CDC
- for <ltp@lists.linux.it>; Fri, 21 Jul 2023 16:36:03 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8F4811000BD6
+ for <ltp@lists.linux.it>; Fri, 21 Jul 2023 16:36:04 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 73FC82189D;
- Fri, 21 Jul 2023 14:36:03 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1F18A1F74C;
+ Fri, 21 Jul 2023 14:36:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1689950163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=CXW4GaAAoDWYkMVdhxvPEyCjXDixkFoiOxpF5EJWSwk=;
- b=goxwm17IbjYbpbe4MCZ+zw6dBFr3ZmQEo8tDNFD2AUehU6LBspOVubTB1vy6y9bCirgGD7
- 5sT5hUnWv1xy4yoi9Ri8CSopXUFXL1nN1LF9RHWhUEmreQxerbnakPP04h/glrOTEY28cS
- HvIWZC1zK0PZgNjgQFgAENd2X59+DFc=
+ t=1689950164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kE+uhjl2fF2+O5VwVtsyHJTinfZaGnDBueBI/2XnVXc=;
+ b=LlIdmRLVZ1ENwY8/+J4lgNk0w7GQKH4owvU0OtH7RbPz//1dJrd2qNc902ElclO685jkKw
+ mcVBPmTgxdL4uA/Jq4T8G58nh4kE9YNN75zEk+UP2nP8DqNX7uvhQtgxM7SlzOgx//4C5Y
+ R6goWCliIl+AelC1pnUt4N1DJM0rfTw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1689950163;
+ s=susede2_ed25519; t=1689950164;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=CXW4GaAAoDWYkMVdhxvPEyCjXDixkFoiOxpF5EJWSwk=;
- b=h87KrCoN96IVjz0eQdB8A4I7QcXgLEXQrfNswoxNFL09gtgmFIq7P3UJx8uoJTYQd89S6e
- jRUo/Wao3rM/rlBA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kE+uhjl2fF2+O5VwVtsyHJTinfZaGnDBueBI/2XnVXc=;
+ b=dYCvJZON6bJXpWXz2L5ujtvXVYfpMSvhrxV7GoN0SShIKgpslsrRpGSdw/SYBLgEh/zuQW
+ gBPc5r72OlYeEdDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9A2DF134BA;
- Fri, 21 Jul 2023 14:36:01 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 94939134BA;
+ Fri, 21 Jul 2023 14:36:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id pRpKEdGXumSdEQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 21 Jul 2023 14:36:01 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id gHyDINOXumSdEQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 21 Jul 2023 14:36:03 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 21 Jul 2023 16:35:54 +0200
-Message-Id: <20230721143555.1433034-1-pvorel@suse.cz>
+Date: Fri, 21 Jul 2023 16:35:55 +0200
+Message-Id: <20230721143555.1433034-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230721143555.1433034-1-pvorel@suse.cz>
+References: <20230721143555.1433034-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] write04: Use correct macro
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] userns03: Use correct macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,22 +91,22 @@ failure, but also >= 0 (the number of written bytes).
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/syscalls/write/write04.c | 2 +-
+ testcases/kernel/containers/userns/userns03.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/syscalls/write/write04.c b/testcases/kernel/syscalls/write/write04.c
-index afbac0f09..a5d62e0f5 100644
---- a/testcases/kernel/syscalls/write/write04.c
-+++ b/testcases/kernel/syscalls/write/write04.c
-@@ -28,7 +28,7 @@ static void verify_write(void)
- {
- 	char wbuf[8 * page_size];
+diff --git a/testcases/kernel/containers/userns/userns03.c b/testcases/kernel/containers/userns/userns03.c
+index 4dd3f1a73..a7f12e3d9 100644
+--- a/testcases/kernel/containers/userns/userns03.c
++++ b/testcases/kernel/containers/userns/userns03.c
+@@ -156,7 +156,7 @@ static void run(void)
+ 		tst_res(TINFO, "Check if setgroups can be re-enabled");
  
--	TST_EXP_FAIL(write(wfd, wbuf, sizeof(wbuf)), EAGAIN);
-+	TST_EXP_FAIL2(write(wfd, wbuf, sizeof(wbuf)), EAGAIN);
- }
+ 		fd = SAFE_OPEN(path, O_WRONLY, 0644);
+-		TST_EXP_FAIL(write(fd, "allow", 5), EPERM);
++		TST_EXP_FAIL2(write(fd, "allow", 5), EPERM);
+ 		SAFE_CLOSE(fd);
  
- static void setup(void)
+ 		sprintf(path, "/proc/%d/setgroups", cpid2);
 -- 
 2.40.1
 
