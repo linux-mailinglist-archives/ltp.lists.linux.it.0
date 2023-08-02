@@ -1,73 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28BFB76CA33
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Aug 2023 11:59:53 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F58676D1A2
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Aug 2023 17:18:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1D31F3CDAE4
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Aug 2023 11:59:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 14C653CDAD4
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Aug 2023 17:18:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BDF693CC888
- for <ltp@lists.linux.it>; Wed,  2 Aug 2023 11:59:47 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 8B3673CD512
+ for <ltp@lists.linux.it>; Wed,  2 Aug 2023 17:18:12 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1AE301A0239F
- for <ltp@lists.linux.it>; Wed,  2 Aug 2023 11:59:46 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DBDC82001CE
+ for <ltp@lists.linux.it>; Wed,  2 Aug 2023 17:18:11 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 61F981F37F;
- Wed,  2 Aug 2023 09:59:46 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EF07E1F898;
+ Wed,  2 Aug 2023 15:18:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1690970386; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=hBx3ndg4hQriIn4NT7u25ZkthJot+sJh+D2Cn35Kx2Q=;
- b=AfD9zkx7n/7p1YlYdA4BPo2KPNxFcscf9QhEUd97WUGTNvGMPMI9ZlGowPemokhuN+o2PK
- Flp1XOAQFcHaD5WXevVMj4LUP0LLOzEvljERBRqKRBQeCaDOcZt+h0N5aMy5rKrKhenfV3
- epY7xnj8ir5vMgi0If2YbT/gOmaSfzc=
+ t=1690989490; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=xKzzx9laG0zc9aEyQVV7mOZk+pe8KwSsh7VnlWOtmKA=;
+ b=p8QmNGhCagiQYjFyB/Gq5mZ1txo2aIxNY66EGJ3Yq+Ru6KBZwQ5N8orZNAfzLys7kDsWEy
+ Uut0CQS+fIORIYCpMmIDMdlL0tC1Iw0d8+MD0lFFRgG+VNRCueLcyGKANMJoM0FY8K49er
+ SLMwuUh5TBQwtymxQnaHmsLTrk5Xn0A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1690970386;
+ s=susede2_ed25519; t=1690989490;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=hBx3ndg4hQriIn4NT7u25ZkthJot+sJh+D2Cn35Kx2Q=;
- b=u25yBi+Kd1qEBnVEVOfmPunsJfixHhg6ZlB8s46Q24k5d03jYMi7Obc2Ct/VI4Jz0te/qT
- V/qfSAI3YTG3YBDQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=xKzzx9laG0zc9aEyQVV7mOZk+pe8KwSsh7VnlWOtmKA=;
+ b=/2pkviycf1gZDlvqyCiOuA0gv5v2DgFV6FLPGgKWYmAJYNkIFNg//M5ei9yxT+r/6rz+3O
+ /+IHEGYhez8KGiBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4FE6613909;
- Wed,  2 Aug 2023 09:59:46 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CE5CD13919;
+ Wed,  2 Aug 2023 15:18:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id FW0OEhIpymRndgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 02 Aug 2023 09:59:46 +0000
-Date: Wed, 2 Aug 2023 12:00:43 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id jb2IMLJzymRdKAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 02 Aug 2023 15:18:10 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Avinesh Kumar <akumar@suse.de>
-Message-ID: <ZMopSzK0MpPIj3p4@yuki>
-References: <20230719113906.22317-1-akumar@suse.de> <ZL-mb1nXfwpAklYr@yuki>
- <422745784.q2UjYaihZW@localhost>
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>,
+ Daniel Bristot de Oliveira <bristot@redhat.com>,
+ Valentin Schneider <vschneid@redhat.com>, linux-kernel@vger.kernel.org
+Date: Wed,  2 Aug 2023 17:19:04 +0200
+Message-ID: <20230802151906.25258-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <422745784.q2UjYaihZW@localhost>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/pipe08: Remove the test
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/2 RESEND] Two fixes for sysctl_sched_rr_timeslice
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,26 +87,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > Hmm, this one is actually hard to figure out. Indeed the write test
-> > implmenents the SIGPIPE case, however it would make more sense to have
-> > the SIGPIPE test in syscalls/pipe/ directory instead. I guess that any
-> > kernel developer that would like to use LTP for testing changes in
-> > pipe() implementation would rather want to have the test under pipe/
-> > directory.
-> > 
-> > Maybe we should keep the pipe08 test and remove the case from the
-> > write05 test instead? Or should we keep both?
-> 
-> Thank you for your feedback. Now I too think we can keep both, but you guys 
-> can decide. Please let me know, I can send the patch for pipe08 to convert to 
-> new API if we decide to keep it.
+- Fixes rounding error for initial value with CONFIG_HZ_300
 
-I would wote for converting the test into the new API.
+- Fixes read from the file after reset to default (by writing val <= 0)
+
+Cyril Hrubis (2):
+  sched/rt: Fix sysctl_sched_rr_timeslice intial value
+  sched/rt: sysctl_sched_rr_timeslice show default timeslice after reset
+
+ kernel/sched/rt.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.41.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
