@@ -2,72 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3E9B773A63
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Aug 2023 15:17:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AA14773B01
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Aug 2023 17:36:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4F0C13CD1C8
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Aug 2023 15:17:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A5DAC3CD187
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Aug 2023 17:36:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F14F73CADC9
- for <ltp@lists.linux.it>; Tue,  8 Aug 2023 15:17:42 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id 8F5B03CD0F9
+ for <ltp@lists.linux.it>; Tue,  8 Aug 2023 17:35:55 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B5BAC1A00FCD
- for <ltp@lists.linux.it>; Tue,  8 Aug 2023 15:17:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1691500659;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+z5qYq0nLomicICUtBCJgWc77ciAkgHw7F7QEboTK3c=;
- b=aab3//qTsRTSEyDSLnNvL/fqp24zFauj1a93CkBqM8x/qzUH6KSQ2m5qmALdOmPwUFD7R5
- pF+YcnnpgBbSNQvW71rIqtNOXY0GrCBuqtohqlclJyhBfI/vbxMtPl9ElCzxqRY5YrJHwO
- yQkD0bqjXFXrH3On88lqSemDRzjVipw=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-616-dVKj7JzDPEioR2xlV5Ezeg-1; Tue, 08 Aug 2023 09:17:38 -0400
-X-MC-Unique: dVKj7JzDPEioR2xlV5Ezeg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 651FD10009BA
+ for <ltp@lists.linux.it>; Tue,  8 Aug 2023 17:35:53 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8106F29AB3FD
- for <ltp@lists.linux.it>; Tue,  8 Aug 2023 13:17:37 +0000 (UTC)
-Received: from segfault.boston.devel.redhat.com
- (segfault.boston.devel.redhat.com [10.19.60.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5EAEA140EBD7;
- Tue,  8 Aug 2023 13:17:37 +0000 (UTC)
-From: Jeff Moyer <jmoyer@redhat.com>
-To: Li Wang <liwang@redhat.com>
-References: <20230808124445.980419-1-liwang@redhat.com>
-X-PGP-KeyID: 1F78E1B4
-X-PGP-CertKey: F6FE 280D 8293 F72C 65FD  5A58 1FF8 A7CA 1F78 E1B4
-Date: Tue, 08 Aug 2023 09:23:25 -0400
-In-Reply-To: <20230808124445.980419-1-liwang@redhat.com> (Li Wang's message of
- "Tue, 8 Aug 2023 20:44:45 +0800")
-Message-ID: <x49edkd4qia.fsf@segfault.boston.devel.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8C00520321
+ for <ltp@lists.linux.it>; Tue,  8 Aug 2023 15:35:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1691508951; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=aUcgWuESnd4//ZzLMdGN2JaQOz9TYPfuUw5iKCInUiI=;
+ b=Tmjdz4ArpzYTYwezJSTF3E9ILQFn6B7H6nKEwdD/fzb2FQpqxxYBjZBEQ/3RRmsrZ1N/x6
+ 8hISiZS7TLJpQ7XUTJwB0Y0TykuQ9cEymqb7IzPxVBSJZdHvHibfaUawNHKWEo0Xv3T6Ve
+ OmsoaUcgG/tiYRhXHttfBGnTK6VeoMs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1691508951;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=aUcgWuESnd4//ZzLMdGN2JaQOz9TYPfuUw5iKCInUiI=;
+ b=M2FvwONxInwdTWY0fZA1NBqs4tbvju5Qeoe9vx+nSBdxI1f+91HiNUFo3hfc0RLIhyBRmo
+ nuJWH993O9qpaTBA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 381AE139D1
+ for <ltp@lists.linux.it>; Tue,  8 Aug 2023 15:35:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id LrVQBNdg0mSWVgAAMHmgww
+ (envelope-from <akumar@suse.de>)
+ for <ltp@lists.linux.it>; Tue, 08 Aug 2023 15:35:51 +0000
+From: Avinesh Kumar <akumar@suse.de>
+To: ltp@lists.linux.it
+Date: Tue,  8 Aug 2023 21:05:46 +0530
+Message-ID: <20230808153549.22777-1-akumar@suse.de>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] io_uring: enable I/O Uring before testing
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] sbrk01: Refactor the test using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,75 +75,160 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Li Wang <liwang@redhat.com> writes:
+Signed-off-by: Avinesh Kumar <akumar@suse.de>
+---
+ testcases/kernel/syscalls/sbrk/sbrk01.c | 121 +++++-------------------
+ 1 file changed, 26 insertions(+), 95 deletions(-)
 
-> Given that the upstream kernel is going to introduce io_uring_disabled
-> knob which disables the creation of new io_uring instances system-wide.
->
-> The new sysctl is designed to let a user with root on the machine
-> enable and disable io_uring system-wide at runtime without requiring
-> a kernel recompilation or a reboot.
->
-> See: https://patchwork.kernel.org/project/io-uring/patch/20230630151003.3622786-2-matteorizzo@google.com/
->
-> Without this patch, LTP/io_uring test complains:
->
->   io_uring01.c:82: TFAIL: io_uring_setup() failed: EPERM (1)
->   io_uring02.c:213: TBROK: io_uring_setup() failed: EPERM (1)
-
-Just to be clear, with the above kernel patch applied io_uring is
-enabled by default.  You shouldn't need to set the sysctl parameter
-unless io_uring is explicitly disabled by the administrator (that can be
-accomplished via the kernel command line, sysfs, or via sysctl.conf).
-
-Cheers,
-Jeff
-
->
-> Reproted-by: Jeff Moyer <jmoyer@redhat.com>
-> Signed-off-by: Li Wang <liwang@redhat.com>
-> ---
->  testcases/kernel/syscalls/io_uring/io_uring01.c | 5 +++++
->  testcases/kernel/syscalls/io_uring/io_uring02.c | 5 +++++
->  2 files changed, 10 insertions(+)
->
-> diff --git a/testcases/kernel/syscalls/io_uring/io_uring01.c b/testcases/kernel/syscalls/io_uring/io_uring01.c
-> index 70151bb85..ab1ec00d6 100644
-> --- a/testcases/kernel/syscalls/io_uring/io_uring01.c
-> +++ b/testcases/kernel/syscalls/io_uring/io_uring01.c
-> @@ -264,5 +264,10 @@ static struct tst_test test = {
->  	.bufs = (struct tst_buffers []) {
->  		{&iov, .iov_sizes = (int[]){BLOCK_SZ, -1}},
->  		{}
-> +	},
-> +	.save_restore = (const struct tst_path_val[]) {
-> +		{"/proc/sys/kernel/io_uring_disabled", "0",
-> +			TST_SR_SKIP_MISSING | TST_SR_TCONF_RO},
-> +		{}
->  	}
->  };
-> diff --git a/testcases/kernel/syscalls/io_uring/io_uring02.c b/testcases/kernel/syscalls/io_uring/io_uring02.c
-> index c5c770074..c9d4bbcb1 100644
-> --- a/testcases/kernel/syscalls/io_uring/io_uring02.c
-> +++ b/testcases/kernel/syscalls/io_uring/io_uring02.c
-> @@ -255,6 +255,11 @@ static struct tst_test test = {
->  		TST_CAP(TST_CAP_REQ, CAP_SYS_CHROOT),
->  		{}
->  	},
-> +	.save_restore = (const struct tst_path_val[]) {
-> +		{"/proc/sys/kernel/io_uring_disabled", "0",
-> +			TST_SR_SKIP_MISSING | TST_SR_TCONF_RO},
-> +		{}
-> +	},
->  	.tags = (const struct tst_tag[]) {
->  		{"linux-git", "9392a27d88b9"},
->  		{"linux-git", "ff002b30181d"},
+diff --git a/testcases/kernel/syscalls/sbrk/sbrk01.c b/testcases/kernel/syscalls/sbrk/sbrk01.c
+index ce26b1503..109b1d125 100644
+--- a/testcases/kernel/syscalls/sbrk/sbrk01.c
++++ b/testcases/kernel/syscalls/sbrk/sbrk01.c
+@@ -1,111 +1,42 @@
++// SPDX-License-Identifier: GPL-2.0
+ /*
+  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
+- *  AUTHOR		: William Roske
+- *  CO-PILOT		: Dave Fenner
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * Further, this software is distributed without any warranty that it is
+- * free of the rightful claim of any third person regarding infringement
+- * or the like.  Any license provided herein, whether implied or
+- * otherwise, applies only to this software file.  Patent licenses, if
+- * any, provided herein do not apply to combinations of this program with
+- * other software, or any other product whatsoever.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
+- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+- * Mountain View, CA  94043, or:
+- *
+- * http://www.sgi.com
+- *
+- * For further information regarding this notice, see:
+- *
+- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
+- *
+- */
+-/*
+- * DESCRIPTION
+- *	1.) test sbrk(8192) should return successfully.
+- *	2.) test sbrk(-8192) should return successfully.
++ *  AUTHOR : William Roske, CO-PILOT : Dave Fenner
++ * Copyright (c) 2023 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
+  */
+ 
+-#include <unistd.h>
+-#include <errno.h>
+-#include <string.h>
+-#include <signal.h>
+-#include <sys/types.h>
+-
+-#include "test.h"
++/*\
++ * [Description]
++ *
++ * Verify that sbrk() successfully increments or decrements the program's
++ * data break.
++ */
+ 
+-char *TCID = "sbrk01";
++#include "tst_test.h"
+ 
+-static struct test_case_t {
++static struct tcase {
+ 	long increment;
+-} test_cases[] = {
++} tcases[] = {
++	{0},
+ 	{8192},
+-	{-8192},
++	{-8192}
+ };
+ 
+-static void setup(void);
+-static void sbrk_verify(const struct test_case_t *);
+-static void cleanup(void);
+-
+-int TST_TOTAL = ARRAY_SIZE(test_cases);
+-
+-int main(int ac, char **av)
+-{
+-	int lc;
+-	int i;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		for (i = 0; i < TST_TOTAL; i++)
+-			sbrk_verify(&test_cases[i]);
+-	}
+-
+-	cleanup();
+-	tst_exit();
+-
+-}
+-
+-static void setup(void)
+-{
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-}
+-
+-static void sbrk_verify(const struct test_case_t *test)
++static void run(unsigned int i)
+ {
+ 	void *tret;
++	struct tcase *tc = &tcases[i];
+ 
+-	tret = sbrk(test->increment);
+-	TEST_ERRNO = errno;
++	tret = sbrk(tc->increment);
++	TST_ERR = errno;
+ 
+-	if (tret == (void *)-1) {
+-		tst_resm(TFAIL | TTERRNO, "sbrk - Increase by %ld bytes failed",
+-			 test->increment);
+-	} else {
+-		tst_resm(TPASS, "sbrk - Increase by %ld bytes returned %p",
+-			 test->increment, tret);
+-	}
++	if (tret == (void *) -1)
++		tst_res(TFAIL | TTERRNO, "sbrk(%ld) failed", tc->increment);
++	else
++		tst_res(TPASS, "sbrk(%ld) returned %p", tc->increment, tret);
+ }
+ 
+-static void cleanup(void)
+-{
+-}
++static struct tst_test test = {
++	.test = run,
++	.tcnt = ARRAY_SIZE(tcases)
++};
+-- 
+2.41.0
 
 
 -- 
