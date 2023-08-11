@@ -1,76 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5907D778E53
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:56:02 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ED9E778E59
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:56:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BF2653CD0CF
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:55:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CF70B3CD069
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:56:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A790E3C89B6
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:48 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id EEDD43C89B6
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:49 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1C9421400452
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:48 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 61D7E1A006B7
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:49 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DC4A81F459
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:47 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9DC981F459
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1691754947; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1691754948; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KQS8Uzww3HQ0/XobznIZGyRe79qMWJo2hX3T+geqwY4=;
- b=VnOI96o1FmpWezyTgDn7yGuYpBzX3fLjwi46a3aVN4xKpows413c8qzjmZFrhUDDH8XV9R
- s3fYTsoqo+MiYwQ99yf8dEM2RIRVffwM+X14tncbGA/EBTRUaDnDBem8u1I9lB5FFhYkxq
- Ja1prbFsIWgqWWITGSxjWEASAjNdX68=
+ bh=N61fDO53vtww7oFpWb5zcjRXI3K5Mf7PJi69nM/vqIU=;
+ b=ibiLFM7q06MBii+z9QoJOMtMHg/VDSm7rjFBmXuUgmFXydtyiWcnkeYEk97yg5LGZdLwHl
+ ZHWiOh8KXf8VbraojYH3LOlzcQcFm9JWw9MzuHl2llMe/tHtIL3fUTnuuXCnry5kbsIJ1W
+ qH+T3vY7lsgkW/29160v50sr+MR6pQ8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1691754947;
+ s=susede2_ed25519; t=1691754948;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KQS8Uzww3HQ0/XobznIZGyRe79qMWJo2hX3T+geqwY4=;
- b=w15TK23G0p8ab063qTujGzme31RYmjTzNosRTdiinroYyOn8/oCRksXVy1LPegaRgpTQaf
- 3MlL5jAI+delryBA==
+ bh=N61fDO53vtww7oFpWb5zcjRXI3K5Mf7PJi69nM/vqIU=;
+ b=fhtm3Gz2B9/LQfJ5ZoguDDO5V9ZPefhR01xqyB3TWnol3N/jTdfFS3H8TaxspM8t9D8XdC
+ UbSzvGjd7HJl0aDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C8179138E2
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:47 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7ED81138E2
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NaOeL8Mh1mQFWwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id qP24HcQh1mQHWwAAMHmgww
  (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:47 +0000
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:48 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 11 Aug 2023 13:56:43 +0200
-Message-ID: <20230811115647.32387-4-chrubis@suse.cz>
+Date: Fri, 11 Aug 2023 13:56:44 +0200
+Message-ID: <20230811115647.32387-5-chrubis@suse.cz>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230811115647.32387-1-chrubis@suse.cz>
 References: <20230811115647.32387-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/6] syscalls/access04: Make use of guarded buffers
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/6] syscalls/acct01: Make use of guarded buffers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,76 +88,150 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/kernel/syscalls/access/access04.c | 36 +++++++++++++++------
- 1 file changed, 26 insertions(+), 10 deletions(-)
+ testcases/kernel/syscalls/acct/acct01.c | 84 +++++++++++++------------
+ 1 file changed, 45 insertions(+), 39 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/access/access04.c b/testcases/kernel/syscalls/access/access04.c
-index 424fe6f10..b5764a5dd 100644
---- a/testcases/kernel/syscalls/access/access04.c
-+++ b/testcases/kernel/syscalls/access/access04.c
-@@ -40,26 +40,32 @@
- #define SNAME1	"symlink1"
- #define SNAME2	"symlink2"
- #define MNT_POINT	"mntpoint"
-+#define LONGPATHSIZE (PATH_MAX + 2)
+diff --git a/testcases/kernel/syscalls/acct/acct01.c b/testcases/kernel/syscalls/acct/acct01.c
+index 254d7b503..52c4d41da 100644
+--- a/testcases/kernel/syscalls/acct/acct01.c
++++ b/testcases/kernel/syscalls/acct/acct01.c
+@@ -27,17 +27,25 @@
+ #define DIR_MODE	(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP| \
+ 			 S_IXGRP|S_IROTH|S_IXOTH)
+ #define FILE_EISDIR		"."
+-#define FILE_EACCES		"/dev/null"
++#define FILE_EACCESS		"/dev/null"
+ #define FILE_ENOENT		"/tmp/does/not/exist"
+ #define FILE_ENOTDIR		"./tmpfile/"
+-#define TEST_TMPFILE		"./tmpfile"
+-#define TEST_ELOOP		"test_file_eloop1"
+-#define TEST_ENAMETOOLONG	nametoolong
+-#define TEST_EROFS		"mntpoint/file"
++#define FILE_TMPFILE		"./tmpfile"
++#define FILE_ELOOP		"test_file_eloop1"
++#define FILE_EROFS		"ro_mntpoint/file"
  
- static uid_t uid;
--static char longpathname[PATH_MAX + 2];
-+static char *longpathname;
-+static char *fname1;
-+static char *fname2;
-+static char *sname1;
-+static char *empty_fname;
-+static char *mnt_point;
+-static char nametoolong[PATH_MAX+2];
+ static struct passwd *ltpuser;
  
- static struct tcase {
--	const char *pathname;
-+	char **pathname;
- 	int mode;
- 	int exp_errno;
- } tcases[] = {
--	{FNAME1, -1, EINVAL},
--	{"", W_OK, ENOENT},
--	{longpathname, R_OK, ENAMETOOLONG},
--	{FNAME2, R_OK, ENOTDIR},
--	{SNAME1, R_OK, ELOOP},
--	{MNT_POINT, W_OK, EROFS}
-+	{&fname1, -1, EINVAL},
-+	{&empty_fname, W_OK, ENOENT},
-+	{&longpathname, R_OK, ENAMETOOLONG},
-+	{&fname2, R_OK, ENOTDIR},
-+	{&sname1, R_OK, ELOOP},
-+	{&mnt_point, W_OK, EROFS}
- };
- 
- static void access_test(struct tcase *tc, const char *user)
++static char *file_eisdir;
++static char *file_eaccess;
++static char *file_enoent;
++static char *file_enotdir;
++static char *file_tmpfile;
++static char *file_eloop;
++static char *file_enametoolong;
++static char *file_erofs;
++static char *file_null;
++
+ static void setup_euid(void)
  {
--	TST_EXP_FAIL(access(tc->pathname, tc->mode), tc->exp_errno,
-+	TST_EXP_FAIL(access(*tc->pathname, tc->mode), tc->exp_errno,
- 	             "access as %s", user);
+ 	SAFE_SETEUID(ltpuser->pw_uid);
+@@ -49,21 +57,21 @@ static void cleanup_euid(void)
  }
  
-@@ -87,7 +93,8 @@ static void setup(void)
+ static struct test_case {
+-	char *filename;
+-	char *exp_errval;
++	char **filename;
++	char *desc;
+ 	int exp_errno;
+ 	void (*setupfunc) ();
+ 	void (*cleanfunc) ();
+ } tcases[] = {
+-	{FILE_EISDIR, "EISDIR",  EISDIR,  NULL,   NULL},
+-	{FILE_EACCES, "EACCES",  EACCES,  NULL,   NULL},
+-	{FILE_ENOENT, "ENOENT",  ENOENT,  NULL,   NULL},
+-	{FILE_ENOTDIR, "ENOTDIR", ENOTDIR, NULL,   NULL},
+-	{TEST_TMPFILE, "EPERM",   EPERM,   setup_euid, cleanup_euid},
+-	{NULL,       "EPERM",   EPERM,   setup_euid, cleanup_euid},
+-	{TEST_ELOOP, "ELOOP",        ELOOP,        NULL, NULL},
+-	{TEST_ENAMETOOLONG, "ENAMETOOLONG", ENAMETOOLONG, NULL, NULL},
+-	{TEST_EROFS, "EROFS",        EROFS,        NULL, NULL},
++	{&file_eisdir,  FILE_EISDIR,  EISDIR,  NULL,   NULL},
++	{&file_eaccess, FILE_EACCESS, EACCES,  NULL,   NULL},
++	{&file_enoent,  FILE_ENOENT,  ENOENT,  NULL,   NULL},
++	{&file_enotdir, FILE_ENOTDIR, ENOTDIR, NULL,   NULL},
++	{&file_tmpfile, FILE_TMPFILE, EPERM,   setup_euid, cleanup_euid},
++	{&file_null,    "NULL",       EPERM,   setup_euid, cleanup_euid},
++	{&file_eloop,   FILE_ELOOP,   ELOOP,        NULL, NULL},
++	{&file_enametoolong, "aaaa...", ENAMETOOLONG, NULL, NULL},
++	{&file_erofs,   FILE_EROFS,   EROFS,        NULL, NULL},
+ };
  
- 	uid = pw->pw_uid;
+ static void setup(void)
+@@ -76,10 +84,10 @@ static void setup(void)
  
--	memset(longpathname, 'a', sizeof(longpathname) - 1);
-+	memset(longpathname, 'a', LONGPATHSIZE - 1);
-+	longpathname[LONGPATHSIZE-1] = 0;
+ 	ltpuser = SAFE_GETPWNAM("nobody");
  
- 	SAFE_TOUCH(FNAME1, 0333, NULL);
- 	SAFE_TOUCH(DNAME, 0644, NULL);
-@@ -104,4 +111,13 @@ static struct tst_test test = {
- 	.mntpoint = MNT_POINT,
+-	fd = SAFE_CREAT(TEST_TMPFILE, 0777);
++	fd = SAFE_CREAT(FILE_TMPFILE, 0777);
+ 	SAFE_CLOSE(fd);
+ 
+-	TEST(acct(TEST_TMPFILE));
++	TEST(acct(FILE_TMPFILE));
+ 	if (TST_RET == -1)
+ 		tst_brk(TBROK | TTERRNO, "acct failed unexpectedly");
+ 
+@@ -89,11 +97,11 @@ static void setup(void)
+ 		tst_brk(TBROK | TTERRNO, "acct(NULL) failed");
+ 
+ 	/* ELOOP SETTING */
+-	SAFE_SYMLINK(TEST_ELOOP, "test_file_eloop2");
+-	SAFE_SYMLINK("test_file_eloop2", TEST_ELOOP);
++	SAFE_SYMLINK(FILE_ELOOP, "test_file_eloop2");
++	SAFE_SYMLINK("test_file_eloop2", FILE_ELOOP);
+ 
+-	/* ENAMETOOLONG SETTING */
+-	memset(nametoolong, 'a', PATH_MAX+1);
++	memset(file_enametoolong, 'a', PATH_MAX+1);
++	file_enametoolong[PATH_MAX+1] = 0;
+ }
+ 
+ static void verify_acct(unsigned int nr)
+@@ -103,31 +111,29 @@ static void verify_acct(unsigned int nr)
+ 	if (tcase->setupfunc)
+ 		tcase->setupfunc();
+ 
+-	TEST(acct(tcase->filename));
++	TST_EXP_FAIL(acct(*tcase->filename), tcase->exp_errno,
++	             "acct(%s)", tcase->desc);
+ 
+ 	if (tcase->cleanfunc)
+ 		tcase->cleanfunc();
+-
+-	if (TST_RET != -1) {
+-		tst_res(TFAIL, "acct(%s) succeeded unexpectedly",
+-				tcase->filename);
+-		return;
+-	}
+-
+-	if (TST_ERR == tcase->exp_errno) {
+-		tst_res(TPASS | TTERRNO, "acct() failed as expected");
+-	} else {
+-		tst_res(TFAIL | TTERRNO,
+-				"acct() failed, expected: %s",
+-				tst_strerrno(tcase->exp_errno));
+-	}
+ }
+ 
+ static struct tst_test test = {
+ 	.needs_root = 1,
+-	.mntpoint = "mntpoint",
++	.mntpoint = "ro_mntpoint",
+ 	.needs_rofs = 1,
+ 	.tcnt = ARRAY_SIZE(tcases),
  	.setup = setup,
- 	.test = verify_access,
+ 	.test = verify_acct,
 +	.bufs = (struct tst_buffers []) {
-+		{&fname1, .str = FNAME1},
-+		{&fname2, .str = FNAME2},
-+		{&sname1, .str = SNAME1},
-+		{&empty_fname, .str = ""},
-+		{&longpathname, .size = LONGPATHSIZE},
-+		{&mnt_point, .str = MNT_POINT},
++		{&file_eisdir, .str = FILE_EISDIR},
++		{&file_eaccess, .str = FILE_EACCESS},
++		{&file_enoent, .str = FILE_ENOENT},
++		{&file_enotdir, .str = FILE_ENOTDIR},
++		{&file_tmpfile, .str = FILE_TMPFILE},
++		{&file_eloop, .str = FILE_ELOOP},
++		{&file_enametoolong, .size = PATH_MAX+2},
++		{&file_erofs, .str = FILE_EROFS},
 +		{}
 +	}
  };
