@@ -1,75 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 536EA778E5E
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:56:53 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5907D778E53
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:56:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D23113CD080
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:56:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BF2653CD0CF
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:55:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B308A3CD06E
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:49 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id A790E3C89B6
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:48 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 69CB910001B7
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1C9421400452
  for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:48 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5EDE721875
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DC4A81F459
  for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1691754947; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=EcnkJcVZ7awYt0eaJouCrcrHhWdyxEhyjzbZ5sRu3qU=;
- b=jzUMHKns5MOsDKly6ItcdsAVXLABY8OkZkH3/7AnARqCcgCU/50leJKQEGd016yJPvDpBM
- Rk4Uq1nCHcme4tvQX9/tra+P8y0hXMJKHl6JRbu98FF5ZcLd83S+W3ouJdzpH25jJj0dg8
- O0eT6TVPocRmNRM7pksKnThSQPLjtJ4=
+ bh=KQS8Uzww3HQ0/XobznIZGyRe79qMWJo2hX3T+geqwY4=;
+ b=VnOI96o1FmpWezyTgDn7yGuYpBzX3fLjwi46a3aVN4xKpows413c8qzjmZFrhUDDH8XV9R
+ s3fYTsoqo+MiYwQ99yf8dEM2RIRVffwM+X14tncbGA/EBTRUaDnDBem8u1I9lB5FFhYkxq
+ Ja1prbFsIWgqWWITGSxjWEASAjNdX68=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1691754947;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=EcnkJcVZ7awYt0eaJouCrcrHhWdyxEhyjzbZ5sRu3qU=;
- b=0codm1NQcH5EJcAO1dQgsITDjj1uMukCgyjIcFAl4yuSBfCGlGxutCle9h5QsL6xLTQJL1
- wKPySVlDfSg2CuBw==
+ bh=KQS8Uzww3HQ0/XobznIZGyRe79qMWJo2hX3T+geqwY4=;
+ b=w15TK23G0p8ab063qTujGzme31RYmjTzNosRTdiinroYyOn8/oCRksXVy1LPegaRgpTQaf
+ 3MlL5jAI+delryBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4D4F7138E2
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C8179138E2
  for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id zuqYEcMh1mQCWwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id NaOeL8Mh1mQFWwAAMHmgww
  (envelope-from <chrubis@suse.cz>)
  for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:47 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 11 Aug 2023 13:56:42 +0200
-Message-ID: <20230811115647.32387-3-chrubis@suse.cz>
+Date: Fri, 11 Aug 2023 13:56:43 +0200
+Message-ID: <20230811115647.32387-4-chrubis@suse.cz>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230811115647.32387-1-chrubis@suse.cz>
 References: <20230811115647.32387-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/6] lib: tst_buffers: Add bufs .str and tst_aprintf()
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/6] syscalls/access04: Make use of guarded buffers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,98 +89,79 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- include/tst_buffers.h | 11 +++++++++++
- lib/tst_buffers.c     | 28 +++++++++++++++++++++++++---
- 2 files changed, 36 insertions(+), 3 deletions(-)
+ testcases/kernel/syscalls/access/access04.c | 36 +++++++++++++++------
+ 1 file changed, 26 insertions(+), 10 deletions(-)
 
-diff --git a/include/tst_buffers.h b/include/tst_buffers.h
-index d19ac8cf0..b5f355f0f 100644
---- a/include/tst_buffers.h
-+++ b/include/tst_buffers.h
-@@ -25,6 +25,11 @@ struct tst_buffers {
- 	 * Array of iov buffer sizes terminated by -1.
- 	 */
- 	int *iov_sizes;
-+	/*
-+	 * If size and iov_sizes is NULL this is the string we want to strdup()
-+	 * into the buffer.
-+	 */
-+	char *str;
+diff --git a/testcases/kernel/syscalls/access/access04.c b/testcases/kernel/syscalls/access/access04.c
+index 424fe6f10..b5764a5dd 100644
+--- a/testcases/kernel/syscalls/access/access04.c
++++ b/testcases/kernel/syscalls/access/access04.c
+@@ -40,26 +40,32 @@
+ #define SNAME1	"symlink1"
+ #define SNAME2	"symlink2"
+ #define MNT_POINT	"mntpoint"
++#define LONGPATHSIZE (PATH_MAX + 2)
+ 
+ static uid_t uid;
+-static char longpathname[PATH_MAX + 2];
++static char *longpathname;
++static char *fname1;
++static char *fname2;
++static char *sname1;
++static char *empty_fname;
++static char *mnt_point;
+ 
+ static struct tcase {
+-	const char *pathname;
++	char **pathname;
+ 	int mode;
+ 	int exp_errno;
+ } tcases[] = {
+-	{FNAME1, -1, EINVAL},
+-	{"", W_OK, ENOENT},
+-	{longpathname, R_OK, ENAMETOOLONG},
+-	{FNAME2, R_OK, ENOTDIR},
+-	{SNAME1, R_OK, ELOOP},
+-	{MNT_POINT, W_OK, EROFS}
++	{&fname1, -1, EINVAL},
++	{&empty_fname, W_OK, ENOENT},
++	{&longpathname, R_OK, ENAMETOOLONG},
++	{&fname2, R_OK, ENOTDIR},
++	{&sname1, R_OK, ELOOP},
++	{&mnt_point, W_OK, EROFS}
  };
  
- /*
-@@ -46,6 +51,12 @@ char *tst_strdup(const char *str);
-  */
- void *tst_alloc(size_t size);
- 
-+/*
-+ * Printf into a guarded buffer.
-+ */
-+char *tst_aprintf(const char *fmt, ...)
-+      __attribute__((format (printf, 1, 2)));
-+
- /*
-  * Allocates iovec structure including the buffers.
-  *
-diff --git a/lib/tst_buffers.c b/lib/tst_buffers.c
-index b8b597a12..b0bd359eb 100644
---- a/lib/tst_buffers.c
-+++ b/lib/tst_buffers.c
-@@ -5,6 +5,7 @@
- 
- #include <sys/mman.h>
- #include <stdlib.h>
-+#include <stdio.h>
- #define TST_NO_DEFAULT_MAIN
- #include "tst_test.h"
- 
-@@ -76,6 +77,25 @@ void *tst_alloc(size_t size)
- 	return ret + map->buf_shift;
- }
- 
-+char *tst_aprintf(const char *fmt, ...)
-+{
-+	va_list va;
-+	int len;
-+	char *ret;
-+
-+        va_start(va, fmt);
-+        len = vsnprintf(NULL, 0, fmt, va)+1;
-+        va_end(va);
-+
-+	ret = tst_alloc(len);
-+
-+	va_start(va, fmt);
-+        vsprintf(ret, fmt, va);
-+        va_end(va);
-+
-+	return ret;
-+}
-+
- static int count_iovec(int *sizes)
+ static void access_test(struct tcase *tc, const char *user)
  {
- 	int ret = 0;
-@@ -115,15 +135,17 @@ void tst_buffers_alloc(struct tst_buffers bufs[])
- 	for (i = 0; bufs[i].ptr; i++) {
- 		if (bufs[i].size)
- 			*((void**)bufs[i].ptr) = tst_alloc(bufs[i].size);
--		else
-+		else if (bufs[i].iov_sizes)
- 			*((void**)bufs[i].ptr) = tst_iovec_alloc(bufs[i].iov_sizes);
-+		else
-+			*((void**)bufs[i].ptr) = tst_strdup(bufs[i].str);
- 	}
+-	TST_EXP_FAIL(access(tc->pathname, tc->mode), tc->exp_errno,
++	TST_EXP_FAIL(access(*tc->pathname, tc->mode), tc->exp_errno,
+ 	             "access as %s", user);
  }
  
- char *tst_strdup(const char *str)
- {
--	size_t len = strlen(str);
--	char *ret = tst_alloc(len + 1);
-+	char *ret = tst_alloc(strlen(str) + 1);
-+
- 	return strcpy(ret, str);
- }
+@@ -87,7 +93,8 @@ static void setup(void)
  
+ 	uid = pw->pw_uid;
+ 
+-	memset(longpathname, 'a', sizeof(longpathname) - 1);
++	memset(longpathname, 'a', LONGPATHSIZE - 1);
++	longpathname[LONGPATHSIZE-1] = 0;
+ 
+ 	SAFE_TOUCH(FNAME1, 0333, NULL);
+ 	SAFE_TOUCH(DNAME, 0644, NULL);
+@@ -104,4 +111,13 @@ static struct tst_test test = {
+ 	.mntpoint = MNT_POINT,
+ 	.setup = setup,
+ 	.test = verify_access,
++	.bufs = (struct tst_buffers []) {
++		{&fname1, .str = FNAME1},
++		{&fname2, .str = FNAME2},
++		{&sname1, .str = SNAME1},
++		{&empty_fname, .str = ""},
++		{&longpathname, .size = LONGPATHSIZE},
++		{&mnt_point, .str = MNT_POINT},
++		{}
++	}
+ };
 -- 
 2.41.0
 
