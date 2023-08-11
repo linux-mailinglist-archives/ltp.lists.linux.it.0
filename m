@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07810778E54
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:56:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 165CC778E5B
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:56:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 186D73CD034
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:56:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A06F63CD061
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:56:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
@@ -14,57 +14,63 @@ Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D08933C89B6
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:48 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 09C853CC82C
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:50 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E3B5A1400153
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:47 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7D3E7140096C
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:48 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6BD561F889
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DA49021857
  for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1691754946; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=lkTYn43T2JEl3k6KKkwbOemNgHWFRKNO/Ormq/wxb2Y=;
- b=nyFKX65fmQQw1L4GmDXqDjUHx7Xo0i9EjX6oFuoGG/AW67jbMeGmRMsrldGZ6LDVffxCPQ
- 2va3ZEN1rYnEuHgGHmLZ/t68AtagtmQzYC3KvDBw5DaMT1kTR9g6g2LY7auHNkYvcdzWAI
- X2HJFHvVr5frjcE9O2nAixTkuuHQfvw=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EcnkJcVZ7awYt0eaJouCrcrHhWdyxEhyjzbZ5sRu3qU=;
+ b=W+zCoZcvvIrAx996e8L1Q2F6Wl5mRHD22hyybyLa7F3jN3p66YF55kW5Bn1JitJCjdLI6n
+ unnTD4Z1BIhb2Hh7UarWFJa4WPT2xvA4BYBXIJ2fkWT7ozslK5kvb7RpFUkrb+XeTro0q2
+ nR9dO0VDAIC+zs5vxT7PH4LavUB9arw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1691754946;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=lkTYn43T2JEl3k6KKkwbOemNgHWFRKNO/Ormq/wxb2Y=;
- b=VqxnAe0pYRpIax1hvM8V7/stS3Q8E2nq1WMVjVh6EKpxWIZNgxsYWidHgDx6EqrTp2/lwY
- 0saAgFph0BXbyBAA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EcnkJcVZ7awYt0eaJouCrcrHhWdyxEhyjzbZ5sRu3qU=;
+ b=2Stua3QBnPluI8B4fAQdWqf6hC9u0zBPFM1OE1Su5bKpBf515sRVEVKU3wvOil0+Wka7yR
+ Q3LA5lYH7sCeYYBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 50D43138E2
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C83BB138E2
  for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ekAZE8Ih1mT0WgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id IRvBL8Ih1mT9WgAAMHmgww
  (envelope-from <chrubis@suse.cz>)
  for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:46 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 11 Aug 2023 13:56:40 +0200
-Message-ID: <20230811115647.32387-1-chrubis@suse.cz>
+Date: Fri, 11 Aug 2023 13:56:41 +0200
+Message-ID: <20230811115647.32387-2-chrubis@suse.cz>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230811115647.32387-1-chrubis@suse.cz>
+References: <20230811115647.32387-1-chrubis@suse.cz>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/6] Utility functions for string in guarded buffers
+Subject: [LTP] [PATCH 1/6] lib: tst_buffers: Add bufs .str and tst_aprintf()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,26 +87,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-First patch adds utilitilty functions for strings in guarded buffers,
-which is followed by a few test conversions to the newly introduced API.
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ include/tst_buffers.h | 11 +++++++++++
+ lib/tst_buffers.c     | 28 +++++++++++++++++++++++++---
+ 2 files changed, 36 insertions(+), 3 deletions(-)
 
-Cyril Hrubis (6):
-  lib: tst_buffers: Add bufs .str and tst_aprintf()
-  syscalls/access04: Make use of guarded buffers
-  syscalls/acct01: Make use of guarded buffers
-  syscalls/chdir01: Make use use of guarded buffers
-  syscalls/chmod01: Make use of guarded buffers
-  syscalls/chroot03: Make use of guarded buffers
-
- include/tst_buffers.h                       | 11 +++
- lib/tst_buffers.c                           | 28 ++++++-
- testcases/kernel/syscalls/access/access04.c | 36 ++++++---
- testcases/kernel/syscalls/acct/acct01.c     | 84 +++++++++++----------
- testcases/kernel/syscalls/chdir/chdir01.c   | 55 +++++++++-----
- testcases/kernel/syscalls/chmod/chmod01.c   | 28 ++++---
- testcases/kernel/syscalls/chroot/chroot03.c | 46 ++++++-----
- 7 files changed, 188 insertions(+), 100 deletions(-)
-
+diff --git a/include/tst_buffers.h b/include/tst_buffers.h
+index d19ac8cf0..b5f355f0f 100644
+--- a/include/tst_buffers.h
++++ b/include/tst_buffers.h
+@@ -25,6 +25,11 @@ struct tst_buffers {
+ 	 * Array of iov buffer sizes terminated by -1.
+ 	 */
+ 	int *iov_sizes;
++	/*
++	 * If size and iov_sizes is NULL this is the string we want to strdup()
++	 * into the buffer.
++	 */
++	char *str;
+ };
+ 
+ /*
+@@ -46,6 +51,12 @@ char *tst_strdup(const char *str);
+  */
+ void *tst_alloc(size_t size);
+ 
++/*
++ * Printf into a guarded buffer.
++ */
++char *tst_aprintf(const char *fmt, ...)
++      __attribute__((format (printf, 1, 2)));
++
+ /*
+  * Allocates iovec structure including the buffers.
+  *
+diff --git a/lib/tst_buffers.c b/lib/tst_buffers.c
+index b8b597a12..b0bd359eb 100644
+--- a/lib/tst_buffers.c
++++ b/lib/tst_buffers.c
+@@ -5,6 +5,7 @@
+ 
+ #include <sys/mman.h>
+ #include <stdlib.h>
++#include <stdio.h>
+ #define TST_NO_DEFAULT_MAIN
+ #include "tst_test.h"
+ 
+@@ -76,6 +77,25 @@ void *tst_alloc(size_t size)
+ 	return ret + map->buf_shift;
+ }
+ 
++char *tst_aprintf(const char *fmt, ...)
++{
++	va_list va;
++	int len;
++	char *ret;
++
++        va_start(va, fmt);
++        len = vsnprintf(NULL, 0, fmt, va)+1;
++        va_end(va);
++
++	ret = tst_alloc(len);
++
++	va_start(va, fmt);
++        vsprintf(ret, fmt, va);
++        va_end(va);
++
++	return ret;
++}
++
+ static int count_iovec(int *sizes)
+ {
+ 	int ret = 0;
+@@ -115,15 +135,17 @@ void tst_buffers_alloc(struct tst_buffers bufs[])
+ 	for (i = 0; bufs[i].ptr; i++) {
+ 		if (bufs[i].size)
+ 			*((void**)bufs[i].ptr) = tst_alloc(bufs[i].size);
+-		else
++		else if (bufs[i].iov_sizes)
+ 			*((void**)bufs[i].ptr) = tst_iovec_alloc(bufs[i].iov_sizes);
++		else
++			*((void**)bufs[i].ptr) = tst_strdup(bufs[i].str);
+ 	}
+ }
+ 
+ char *tst_strdup(const char *str)
+ {
+-	size_t len = strlen(str);
+-	char *ret = tst_alloc(len + 1);
++	char *ret = tst_alloc(strlen(str) + 1);
++
+ 	return strcpy(ret, str);
+ }
+ 
 -- 
 2.41.0
 
