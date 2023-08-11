@@ -1,76 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 077E3778E66
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:57:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id EBF99778E61
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:57:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8A6603CD0D0
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:57:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B49C43CD072
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Aug 2023 13:57:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EC54D3CD065
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:50 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 58D303CD0C4
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:52 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E78126008DD
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:49 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4A2D01A00691
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 13:55:51 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9268D2187C
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:49 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B9ADF21857
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1691754949; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1691754950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=wyb3sqYfC6xXJfBB6KvyeVubd/PSZvqJjM4R7KcdSPA=;
- b=oL7ZbsxXnwQR3ya4zCObKSoBr5KNxFKFW7kJdFuUbT6tOHuDqq9cIE1WqIqbELeUGzib0j
- FUa1RASF4wn0DWbW1O2SyAydGHbMmD1OBDjmWTEGs3yTt1K7wBJHKhjsiBjW70qkWKriKd
- TF3i43ViQQ8vf4NPV1xq8B05dEiuKag=
+ bh=wC3ZUdZh0vVGXLdWguBL5fCPThnlVJF06DZ1YqPjWX4=;
+ b=IyWhZHCx0yO22pTQCyKkGAMNSUebdASN2n+Q8yYpSCsACxH2RomUwlGo3zDRVUuLJNCDfr
+ c10IRjuJxITZaJeTuR92Mgqo9mDukfUGqfwDjeszi1R2jxPdaVpzXb1s43p6HRko2obZx9
+ kEv6EjHTBc0QFhNkGjdHbQgQ0ZtOj48=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1691754949;
+ s=susede2_ed25519; t=1691754950;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=wyb3sqYfC6xXJfBB6KvyeVubd/PSZvqJjM4R7KcdSPA=;
- b=vw5LOE+U2ALUIFLgFQJt5dlrPwNHIyf/N7xpvzg/iFAfNjffq6bw1x/B+LiBO3NVpQE7IF
- F2PEPlWno44JNoAQ==
+ bh=wC3ZUdZh0vVGXLdWguBL5fCPThnlVJF06DZ1YqPjWX4=;
+ b=Uax4m9MLgpBobzLR3k4vfV8vMAcXDMHPDTKwUk9rh5IilkfftEufNXzecAGfFgk+IxCuys
+ Kmc+0EFGhcut3AAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7BC9E138E2
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 55024138E2
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ASPzHMUh1mQNWwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id NoNjCcYh1mQRWwAAMHmgww
  (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:49 +0000
+ for <ltp@lists.linux.it>; Fri, 11 Aug 2023 11:55:50 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 11 Aug 2023 13:56:46 +0200
-Message-ID: <20230811115647.32387-7-chrubis@suse.cz>
+Date: Fri, 11 Aug 2023 13:56:47 +0200
+Message-ID: <20230811115647.32387-8-chrubis@suse.cz>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230811115647.32387-1-chrubis@suse.cz>
 References: <20230811115647.32387-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 5/6] syscalls/chmod01: Make use of guarded buffers
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 6/6] syscalls/chroot03: Make use of guarded buffers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,79 +89,84 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/kernel/syscalls/chmod/chmod01.c | 28 +++++++++++++++--------
- 1 file changed, 18 insertions(+), 10 deletions(-)
+ testcases/kernel/syscalls/chroot/chroot03.c | 46 ++++++++++++---------
+ 1 file changed, 27 insertions(+), 19 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/chmod/chmod01.c b/testcases/kernel/syscalls/chmod/chmod01.c
-index 9f5ec4c67..b3b828ac3 100644
---- a/testcases/kernel/syscalls/chmod/chmod01.c
-+++ b/testcases/kernel/syscalls/chmod/chmod01.c
-@@ -19,13 +19,16 @@
+diff --git a/testcases/kernel/syscalls/chroot/chroot03.c b/testcases/kernel/syscalls/chroot/chroot03.c
+index ba8c1e9ac..87faec316 100644
+--- a/testcases/kernel/syscalls/chroot/chroot03.c
++++ b/testcases/kernel/syscalls/chroot/chroot03.c
+@@ -25,41 +25,42 @@
+ #include <stdio.h>
+ #include "tst_test.h"
  
- static int modes[] = {0, 07, 070, 0700, 0777, 02777, 04777, 06777};
- 
-+static char *test_dir;
-+static char *test_file;
+-static char fname[255];
+-static char nonexistent_dir[100] = "testdir";
+-static char bad_dir[] = "abcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyz";
+-static char symbolic_dir[] = "sym_dir1";
++#define FILE_NAME "test_file"
++#define LOOP_DIR "sym_dir1"
++#define NONEXISTENT_DIR "does_not_exist"
 +
- static struct variant {
--	char *name;
-+	char **name;
- 	unsigned int mode_mask;
++static char *longname_dir;
++static char *file_name;
++static char *nonexistent_dir;
++static char *bad_ptr;
++static char *loop_dir;
+ 
+ static struct tcase {
+-	char *dir;
++	char **dir;
+ 	int error;
  	char *desc;
- } variants[] = {
--	{TESTFILE, S_IFREG, "verify permissions of file"},
--	{TESTDIR, S_IFDIR, "verify permissions of directory"},
-+	{&test_file, S_IFREG, "verify permissions of file"},
-+	{&test_dir, S_IFDIR, "verify permissions of directory"},
+ } tcases[] = {
+-	{bad_dir, ENAMETOOLONG, "chroot(longer than VFS_MAXNAMELEN)"},
+-	{fname, ENOTDIR, "chroot(not a directory)"},
+-	{nonexistent_dir, ENOENT, "chroot(does not exists)"},
+-	{(char *)-1, EFAULT, "chroot(an invalid address)"},
+-	{symbolic_dir, ELOOP, "chroot(symlink loop)"}
++	{&longname_dir, ENAMETOOLONG, "chroot(longer than VFS_MAXNAMELEN)"},
++	{&file_name, ENOTDIR, "chroot(not a directory)"},
++	{&nonexistent_dir, ENOENT, "chroot(does not exists)"},
++	{&bad_ptr, EFAULT, "chroot(an invalid address)"},
++	{&loop_dir, ELOOP, "chroot(symlink loop)"}
  };
  
- static void verify_chmod(unsigned int n)
-@@ -34,21 +37,21 @@ static void verify_chmod(unsigned int n)
- 	int mode = modes[n];
- 	struct variant *tc = &variants[tst_variant];
+ static void verify_chroot(unsigned int n)
+ {
+ 	struct tcase *tc = &tcases[n];
  
--	TST_EXP_PASS(chmod(tc->name, mode), "chmod(%s, %04o)",
--	             tc->name, mode);
-+	TST_EXP_PASS(chmod(*tc->name, mode), "chmod(%s, %04o)",
-+	             *tc->name, mode);
- 
- 	if (!TST_PASS)
- 		return;
- 
--	SAFE_STAT(tc->name, &stat_buf);
-+	SAFE_STAT(*tc->name, &stat_buf);
- 	stat_buf.st_mode &= ~tc->mode_mask;
- 
- 	if (stat_buf.st_mode == (unsigned int)mode) {
- 		tst_res(TPASS, "stat(%s) mode=%04o",
--				tc->name, stat_buf.st_mode);
-+				*tc->name, stat_buf.st_mode);
- 	} else {
- 		tst_res(TFAIL, "stat(%s) mode=%04o",
--				tc->name, stat_buf.st_mode);
-+				*tc->name, stat_buf.st_mode);
- 	}
+-	TST_EXP_FAIL(chroot(tc->dir), tc->error, "%s", tc->desc);
++	TST_EXP_FAIL(chroot(*tc->dir), tc->error, "%s", tc->desc);
  }
  
-@@ -57,9 +60,9 @@ static void setup(void)
- 	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
+ static void setup(void)
+ {
+-	unsigned int i;
+-
+-	(void)sprintf(fname, "tfile_%d", getpid());
+-	SAFE_TOUCH(fname, 0666, NULL);
++	SAFE_TOUCH(FILE_NAME, 0666, NULL);
++	bad_ptr = tst_get_bad_addr(NULL);
  
- 	if (tst_variant)
--		SAFE_MKDIR(variants[tst_variant].name, MODE);
-+		SAFE_MKDIR(*variants[tst_variant].name, MODE);
- 	else
--		SAFE_TOUCH(variants[tst_variant].name, MODE, NULL);
-+		SAFE_TOUCH(*variants[tst_variant].name, MODE, NULL);
- }
+-	for (i = 0; i < ARRAY_SIZE(tcases); i++) {
+-		if (tcases[i].error == EFAULT)
+-			tcases[3].dir = tst_get_bad_addr(NULL);
+-	}
++	memset(longname_dir, 'a', PATH_MAX + 1);
++	longname_dir[PATH_MAX+1] = 0;
  
- static struct tst_test test = {
-@@ -68,4 +71,9 @@ static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(modes),
- 	.test = verify_chmod,
+ 	SAFE_SYMLINK("sym_dir1/", "sym_dir2");
+ 	SAFE_SYMLINK("sym_dir2/", "sym_dir1");
+@@ -70,4 +71,11 @@ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tcases),
+ 	.test = verify_chroot,
  	.needs_tmpdir = 1,
 +	.bufs = (struct tst_buffers []) {
-+		{&test_file, .str = TESTFILE},
-+		{&test_dir, .str = TESTDIR},
++		{&file_name, .str = FILE_NAME},
++		{&nonexistent_dir, .str = NONEXISTENT_DIR},
++		{&loop_dir, .str = LOOP_DIR},
++		{&longname_dir, .size = PATH_MAX+2},
 +		{}
 +	}
  };
