@@ -1,100 +1,102 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A3A577B17E
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Aug 2023 08:22:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E28A77B180
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Aug 2023 08:23:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 086C83CD4D0
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Aug 2023 08:22:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 28B643CCDD8
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Aug 2023 08:23:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8285F3C88DB
- for <ltp@lists.linux.it>; Mon, 14 Aug 2023 08:22:38 +0200 (CEST)
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ by picard.linux.it (Postfix) with ESMTPS id 4F17B3CBC69
+ for <ltp@lists.linux.it>; Mon, 14 Aug 2023 08:23:16 +0200 (CEST)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BAE6D6006DE
- for <ltp@lists.linux.it>; Mon, 14 Aug 2023 08:22:35 +0200 (CEST)
-Received: from pps.filterd (m0353722.ppops.net [127.0.0.1])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 54CC92001B6
+ for <ltp@lists.linux.it>; Mon, 14 Aug 2023 08:23:14 +0200 (CEST)
+Received: from pps.filterd (m0353728.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37E63LEx005564; Mon, 14 Aug 2023 06:18:32 GMT
+ 37E67ZSo025984; Mon, 14 Aug 2023 06:19:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : subject :
- date : message-id : mime-version : content-transfer-encoding; s=pp1;
- bh=FhKGQft4qjyZP36I6TwOsNS2bp4/eWa7V5+CDbaiZ+Y=;
- b=ASnWVOZziO4dQA2Y+E5908/ZyPyYSsl6VxEiAU5m6Brr+hi7xU3gAjzOm3y61hErpeQh
- a/DVHKXp37HyTu9S4cPmEGCAGaYtFlncreilBnnpq71ki/+ECY6vE4FveSPu9YFdZNGj
- K64m+G1ggmCWyY16uFateCNKQO5GZqJklsgtI2S0Ng9gNThWh4qmehc1xEP5ceBI/v2M
- go1CXE3toaYsYLS+31yxWeDliTY4AEd96CCOiGPn2rc43kyqAZ7ZhX21oZAilZ9vmoPh
- uKlFneVqPwj3nE1O+FgZtLd5BdHpEXVV3L1r7hyh7DPniW//qJebuclpXp0T5s5ZGUmb 3g== 
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=HEvAdum8H/fat4ADoWiazNqPS0qd+rElQl2w2tP1pxw=;
+ b=FmGbGpqEJIKC4RvCPq8psYusTvCRcYNVWjeVo+5WjULSLANdedVYmLxvd6nRflkLKpO3
+ JoWiFwhXl92Lhr99BnY5DmLs7JLy/o7nbixfvV/xQZKakJfyqjTXbP6cL699RurB6xjs
+ rM0Lt714zTE/+/lLFhkzuG1S/TZg2Xla0hpzoi2rxFbTX0/iY81bNfopCLTCyKcwCpZB
+ +KDIzgHweC28RUVVLw8zp1cSlVim3Bo9UCb+2Vye7QmwRRmaaq8/XcfuVuce+7+mMZtJ
+ W4sWh8MiuqhVmECdlJ5hDlc3yanUKFZx0wd6e2jZu/+SysLmnFieGemEj3E8UJl69YOR 2A== 
 Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3sfenqrqny-1
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3sfeej8k4n-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Aug 2023 06:18:31 +0000
-Received: from m0353722.ppops.net (m0353722.ppops.net [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 37E648pi008902;
- Mon, 14 Aug 2023 06:18:31 GMT
-Received: from ppma21.wdc07v.mail.ibm.com
- (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3sfenqrqnp-1
+ Mon, 14 Aug 2023 06:19:11 +0000
+Received: from m0353728.ppops.net (m0353728.ppops.net [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 37E68Xsl030118;
+ Mon, 14 Aug 2023 06:19:10 GMT
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3sfeej8k44-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Aug 2023 06:18:31 +0000
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma21.wdc07v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37E6AS53002427; Mon, 14 Aug 2023 06:18:30 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
- by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 3sendmsrmr-1
+ Mon, 14 Aug 2023 06:19:10 +0000
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 37E59bOP001073; Mon, 14 Aug 2023 06:18:38 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 3semsxt2vh-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Aug 2023 06:18:30 +0000
+ Mon, 14 Aug 2023 06:18:38 +0000
 Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
  [10.20.54.100])
- by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 37E6ISEG24052388
+ by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 37E6Iatj42664514
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 14 Aug 2023 06:18:28 GMT
+ Mon, 14 Aug 2023 06:18:36 GMT
 Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7F61020043;
- Mon, 14 Aug 2023 06:18:28 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 238CD2004B;
+ Mon, 14 Aug 2023 06:18:36 +0000 (GMT)
 Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AC95920040;
- Mon, 14 Aug 2023 06:18:26 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id F042B20040;
+ Mon, 14 Aug 2023 06:18:33 +0000 (GMT)
 Received: from li-05afa54c-330e-11b2-a85c-e3f3aa0db1e9.ibm.com.com (unknown
  [9.171.10.33]) by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Mon, 14 Aug 2023 06:18:26 +0000 (GMT)
+ Mon, 14 Aug 2023 06:18:33 +0000 (GMT)
 From: Vishal Chourasia <vishalc@linux.ibm.com>
 To: ltp@lists.linux.it, chris@mips.com, chrubis@suse.cz,
  gaowanlong@cn.fujitsu.com, pvorel@suse.cz, raj.khem@gmail.com,
  tdavies@darkphysics.net, vishalc@linux.ibm.com
-Date: Mon, 14 Aug 2023 11:48:08 +0530
-Message-Id: <20230814061810.2297146-1-vishalc@linux.ibm.com>
+Date: Mon, 14 Aug 2023 11:48:09 +0530
+Message-Id: <20230814061810.2297146-2-vishalc@linux.ibm.com>
 X-Mailer: git-send-email 2.39.3
+In-Reply-To: <20230814061810.2297146-1-vishalc@linux.ibm.com>
+References: <20230814061810.2297146-1-vishalc@linux.ibm.com>
 MIME-Version: 1.0
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: kXiBCXMztiXjjkQoEfBi4kqpUj6imekL
-X-Proofpoint-ORIG-GUID: XOL4n6WVka91b462SUvyvEUp0KZS6at1
+X-Proofpoint-ORIG-GUID: CjHDIQxNGlUmguIxQ5rvrsSVftScsWiH
+X-Proofpoint-GUID: Q6hf9cxS1fqla1Ra9aaGlOEqYpUGNT_Q
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
  definitions=2023-08-13_24,2023-08-10_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0
- mlxscore=0 malwarescore=0 mlxlogscore=617 spamscore=0 phishscore=0
- clxscore=1015 suspectscore=0 adultscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2308140055
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+ clxscore=1015 phishscore=0
+ adultscore=0 mlxlogscore=999 spamscore=0 malwarescore=0 priorityscore=1501
+ mlxscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2306200000
+ definitions=main-2308140055
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/2] Ebizzy Benchmark Tool: Enhancements for Thread
- Safety and Record Count Handling
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] Enhanced thread safety in ebizzy benchmark tool
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,46 +108,68 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Shrikanth Hegde <sshegde@linux.vnet.ibm.com>,
+ Srikar Dronamraju <srikar@linux.vnet.ibm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Patch 1: Enhancing Thread Safety in Ebizzy Benchmark Tool
+Modified ebizzy.c to improve thread safety by introducing a mutex for
+'records_read' shared variable.
 
-This patch is aimed at improving the thread safety in the ebizzy benchmarking
-tool. A potential issue was identified where the shared variable 'records_read'
-was susceptible to race conditions when concurrently updated by multiple
-threads. This behavior could lead to skewing of the benchmark results. To
-mitigate this issue, a mutex for 'records_read' is introduced in this patch. The
-mutex ensures thread-safe updates and consequently improves the reliability of
-the benchmark. 
+Reviewed-by: Srikar Dronamraju <srikar@linux.vnet.ibm.com>
+Reviewed-by: Shrikanth Hegde <sshegde@linux.vnet.ibm.com>
+Signed-off-by: Vishal Chourasia <vishalc@linux.ibm.com>
+---
+ utils/benchmark/ebizzy-0.3/ebizzy.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Patch 2: Enhanced Record Count Handling
-
-This patch modifies `ebizzy.c` to handle situations with high record counts more
-effectively, especially when the count exceeds `UINT_MAX`. It includes adjusting
-the `records_read` variable type from `unsigned int` to `unsigned long
-long`. This adjustment allows the benchmark tool to handle a broader range of
-record counts accurately. Additionally, the patch introduces error checking for
-integer overflow during the summation of `local_records_read` to
-`records_read`. Upon detecting an overflow, an appropriate error message is
-displayed, and the program exits.
-
-These improvements cater to scenarios where `ebizzy` is run with a large number
-of threads over a substantial period. For example, when `ebizzy` is run for 60
-seconds with 96 threads, and each thread processes between 5 to 6 million
-records, the total record count can easily surpass `UINT_MAX`. This would lead
-to an overflow. With these modifications, such situations are properly handled
-and reported.
-
-Vishal Chourasia (2):
-  Enhanced thread safety in ebizzy benchmark tool
-  Handle high record counts and prevent integer overflow
-
- utils/benchmark/ebizzy-0.3/ebizzy.c | 36 ++++++++++++++++++++++++-----
- 1 file changed, 30 insertions(+), 6 deletions(-)
-
+diff --git a/utils/benchmark/ebizzy-0.3/ebizzy.c b/utils/benchmark/ebizzy-0.3/ebizzy.c
+index 54b047130..1af004d9d 100644
+--- a/utils/benchmark/ebizzy-0.3/ebizzy.c
++++ b/utils/benchmark/ebizzy-0.3/ebizzy.c
+@@ -85,6 +85,8 @@ static time_t start_time;
+ static volatile int threads_go;
+ static unsigned int records_read;
+ 
++pthread_mutex_t records_read_lock;
++
+ static void usage(void)
+ {
+ 	fprintf(stderr, "Usage: %s [options]\n"
+@@ -430,7 +432,9 @@ static void *thread_run(void *arg __attribute__((unused)))
+ 
+ 	while (threads_go == 0) ;
+ 
++	pthread_mutex_lock(&records_read_lock);
+ 	records_read += search_mem();
++	pthread_mutex_unlock(&records_read_lock);
+ 
+ 	if (verbose > 1)
+ 		printf("Thread finished, %f seconds\n",
+@@ -456,6 +460,12 @@ static void start_threads(void)
+ 	struct timeval usr_time, sys_time;
+ 	int err;
+ 
++	/* Initialize the mutex before starting the threads */
++	if (pthread_mutex_init(&records_read_lock, NULL) != 0) {
++		fprintf(stderr, "Failed to initialize mutex\n");
++		exit(1);
++	}
++
+ 	if (verbose)
+ 		printf("Threads starting\n");
+ 
+@@ -491,6 +501,8 @@ static void start_threads(void)
+ 		}
+ 	}
+ 
++	pthread_mutex_destroy(&records_read_lock);
++
+ 	if (verbose)
+ 		printf("Threads finished\n");
+ 
 -- 
 2.39.3
 
