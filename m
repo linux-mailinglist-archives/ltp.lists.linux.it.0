@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53EBB77BAE1
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Aug 2023 16:04:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2A1177BB4D
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Aug 2023 16:14:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B7DA83CCE1F
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Aug 2023 16:04:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C12003CCE1B
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Aug 2023 16:14:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
@@ -14,60 +14,61 @@ Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A6E363C8946
- for <ltp@lists.linux.it>; Mon, 14 Aug 2023 16:04:54 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id F2C0E3CBBE8
+ for <ltp@lists.linux.it>; Mon, 14 Aug 2023 16:14:51 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F1489200042
- for <ltp@lists.linux.it>; Mon, 14 Aug 2023 16:04:53 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1209C2005F3
+ for <ltp@lists.linux.it>; Mon, 14 Aug 2023 16:14:50 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B3E221F383;
- Mon, 14 Aug 2023 14:04:50 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EEEDF1F383;
+ Mon, 14 Aug 2023 14:14:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1692021890; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1692022489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ZbbYWFPOg43Tedeq7OrFf5gQSAXl7ANuO7BP+5Qd88c=;
- b=k6pI4lYbWSvvX/5fqtO4rksjGRmJKiCMHXrYzSB16wPMKw4cU9T1KV1dqnDvrhdLbF7PrK
- pjhLBuwTmABOHSJttnvcJSwEYONvMb5UfVpxg28C87YB3dNFffRQDJIabXR0qFrzHr5J/Y
- jw6D/BHyPx+PnGHw59sjwGocPMihQ7w=
+ bh=4NddCNJG+9xKI/oXFJO71dCKRRpQhNl7aAoco2zNp+M=;
+ b=2T1t1gSl6jESANSgiWivG2SPNjdMG4O/2duFkhfk8AguWl+E7DPiZdsOymY5I5CNIm27ax
+ 3JbF+g88Uo6Mm8iW/gdJMi/3NnaATuviyIjbcYKNcv4Ap8fP7ls3qvDNYomh4s9qjRgVb3
+ OdiH6n9RWjhhcVuMkyrB4l0pHgS9i/c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1692021890;
+ s=susede2_ed25519; t=1692022489;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ZbbYWFPOg43Tedeq7OrFf5gQSAXl7ANuO7BP+5Qd88c=;
- b=0dJckBQqZuAk8/AhvouSDOH/KBzZ+cmhCxH7eyfZtii8ks4h9wi6KHIkkqF0UJD+MeU9tS
- /o+jfNp7KHfS+cDQ==
+ bh=4NddCNJG+9xKI/oXFJO71dCKRRpQhNl7aAoco2zNp+M=;
+ b=HqCb9I0Hj+dqhLkNlM4y688m1XY1+21QlrHnzZfWi9YJnExd5Rr3WB5Du+2xSf654uHXo3
+ nM5v2oFNys/ZoDBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A06EE138EE;
- Mon, 14 Aug 2023 14:04:50 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D3A6B138EE;
+ Mon, 14 Aug 2023 14:14:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 79phJYI02mQVbwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 14 Aug 2023 14:04:50 +0000
-Date: Mon, 14 Aug 2023 16:05:49 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id fwSlMdk22mTzcwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 14 Aug 2023 14:14:49 +0000
+Date: Mon, 14 Aug 2023 16:15:48 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Message-ID: <ZNo0vT2TwzqZYmZ3@yuki>
+Message-ID: <ZNo3FAQdrc0oiW5J@yuki>
 References: <1692012648-1970-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ <1692012648-1970-2-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1692012648-1970-1-git-send-email-xuyang2018.jy@fujitsu.com>
+In-Reply-To: <1692012648-1970-2-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/3] syscalls/setgroups01: Convert to new API
+Subject: Re: [LTP] [PATCH v3 2/3] syscalls/setgroups02: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,24 +87,8 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-The original test used the getgroups syscall to get the list of groups
-and its size. I've changed the code to match the behavior and pushed,
-thanks.
-
-Diff:
-diff --git a/testcases/kernel/syscalls/setgroups/setgroups01.c b/testcases/kernel/syscalls/setgroups/setgroups01.c
-index ca01997ae..9a5b77e93 100644
---- a/testcases/kernel/syscalls/setgroups/setgroups01.c
-+++ b/testcases/kernel/syscalls/setgroups/setgroups01.c
-@@ -27,7 +27,8 @@ static void verify_setgroups(void)
- 
- static void setup(void)
- {
--       if (GETGROUPS(len, list) < 0)
-+       len = GETGROUPS(NGROUPS, list);
-+       if (len < 0)
-                tst_brk(TBROK | TERRNO, "getgroups() Failed");
- }
+I've rewrote the test description to be shorted and more to the point
+and pushed, thanks.
 
 -- 
 Cyril Hrubis
