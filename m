@@ -2,72 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8148782909
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Aug 2023 14:30:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7479782A65
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Aug 2023 15:23:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1E9713CC864
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Aug 2023 14:30:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1AE7D3CC841
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Aug 2023 15:23:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F112B3CC7C6
- for <ltp@lists.linux.it>; Mon, 21 Aug 2023 14:30:00 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 118383CB53B
+ for <ltp@lists.linux.it>; Mon, 21 Aug 2023 15:23:16 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4080E1A004EE
- for <ltp@lists.linux.it>; Mon, 21 Aug 2023 14:29:59 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 313C3140076F
+ for <ltp@lists.linux.it>; Mon, 21 Aug 2023 15:23:15 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 614CD206B9;
- Mon, 21 Aug 2023 12:29:58 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D990122C37;
+ Mon, 21 Aug 2023 13:23:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1692620998; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1692624194; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
- b=Wm8J7g+7COPLP+WYuhQKaj6B6nPVNaNEC/3/Fs6zcBrUrWQImEBXwzrbLW0eXAADU+C+6T
- QqGFFrmK3xQ3+rfiQPQ8mEiwpjt/BG3B3xq5BTB1NVcqI7C2xTmtxaBqYYJ5Sf5msa99jU
- yLt9tsjrnz4lJk9XKbxjwNejCEhGrnE=
+ bh=EmizXjI+infr9n6Q/QTzyqfjN7cb98zipKBUpJJXOkc=;
+ b=w0fmu2EW1pIJ/5BozukHyhYJuQhwptGVvQlgwIpUcYowWOQcW/nTVIDrhBKg5BA11kB/jC
+ P9kTJJr+NJKsMTnLZEiBZllS/xioNT1f/F07yR5npdEUEaeXxAyxjo1TJIi9WgL4h8dwry
+ 0eTfPRtZxXInOMFaN2KirccVMSPKDv8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1692620998;
+ s=susede2_ed25519; t=1692624194;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
- b=qJ/p96IE2tTZBY7BXvIvmOIoIpeoFCHvrwOejQhURKaINoogYHcPiGGndO/JZ6dDKGKQea
- M2sPWF0dNfgNNvCg==
+ bh=EmizXjI+infr9n6Q/QTzyqfjN7cb98zipKBUpJJXOkc=;
+ b=SjriENCLb+4z/UQahSkCaeCIQmUU7rlpdaMtpusKBHAEbhJq87RrUt3i2j2Twi87y1WZ//
+ tCOY+FREull00qDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4224C1330D;
- Mon, 21 Aug 2023 12:29:58 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B74C113421;
+ Mon, 21 Aug 2023 13:23:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id O88xD8ZY42TTPQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 21 Aug 2023 12:29:58 +0000
-Date: Mon, 21 Aug 2023 14:30:50 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id xgK+KkJl42TEWwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 21 Aug 2023 13:23:14 +0000
+Date: Mon, 21 Aug 2023 15:24:05 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Vishal Chourasia <vishalc@linux.ibm.com>
-Message-ID: <ZONY-qnPbjHBifhD@yuki>
+Message-ID: <ZONldbUOjaFGbr_L@yuki>
 References: <20230815093048.1155501-1-vishalc@linux.ibm.com>
- <20230815093048.1155501-2-vishalc@linux.ibm.com>
+ <20230815093048.1155501-3-vishalc@linux.ibm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230815093048.1155501-2-vishalc@linux.ibm.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+In-Reply-To: <20230815093048.1155501-3-vishalc@linux.ibm.com>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] Enhance Thread Safety in Record Counting
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/2] ebizzy: prevent integer overflow in 64-bit
+ systems
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,7 +91,57 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Applied, thanks.
+> Signed-off-by: Vishal Chourasia <vishalc@linux.ibm.com>
+> Reviewed-by: Srikar Dronamraju <srikar@linux.vnet.ibm.com>
+> Reviewed-by: Shrikanth Hegde <sshegde@linux.vnet.ibm.com>
+> ---
+>  utils/benchmark/ebizzy-0.3/ebizzy.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+> 
+> diff --git a/utils/benchmark/ebizzy-0.3/ebizzy.c b/utils/benchmark/ebizzy-0.3/ebizzy.c
+> index ae0981fbd..c3eac1133 100644
+> --- a/utils/benchmark/ebizzy-0.3/ebizzy.c
+> +++ b/utils/benchmark/ebizzy-0.3/ebizzy.c
+> @@ -456,7 +456,7 @@ static void start_threads(void)
+>  	unsigned int i;
+>  	struct rusage start_ru, end_ru;
+>  	struct timeval usr_time, sys_time;
+> -	uintptr_t records_read = 0;
+> +	uintptr_t records_per_sec = 0;
+>  	int err;
+>  
+>  	if (verbose)
+> @@ -493,14 +493,13 @@ static void start_threads(void)
+>  			fprintf(stderr, "Error joining thread %d\n", i);
+>  			exit(1);
+>  		}
+> -		records_read += record_thread;
+> +		records_per_sec += (record_thread / elapsed);
+
+This actually introduces quite a bit rounding errors. Note that even
+with 10 second runtime we effectively throw away the last digit for each
+thread records and it's even worse for larger runtime. This kind of
+naive summing can easily add up to quite large differencies.
+
+E.g. for a machine with 256 CPUs and 10 seconds the value would be on
+average smaller by:
+
+	512 (number of threads) * 5 (average last digit) / 10 (runtime)
+
+So on average the result printed would be smaller by 256 units.
+
+Either we have to switch the records_per_sec to double and compute the
+number in floating point, which should add up fine as long as the work
+done by a threads is more or less the same.
+
+Or use uint64_t as a fixed point and use one or two bits for a fraction,
+which may be a bit safer than double and should work fine as long as
+we round properly.
+
+This should be easy to debug as well, just print the number computed by
+the method that sum first and then divide and compare it with the number
+that sums the already divided values. These two shouldn't differ much,
+ideally the should be the same.
 
 -- 
 Cyril Hrubis
