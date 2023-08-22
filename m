@@ -1,52 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B153A783DB7
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Aug 2023 12:13:48 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 20D64783E18
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Aug 2023 12:42:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 50ADA3CC728
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Aug 2023 12:13:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9AEFF3CC793
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Aug 2023 12:42:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 975353C88DB
- for <ltp@lists.linux.it>; Tue, 22 Aug 2023 12:13:43 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id C0C783CC6D2
+ for <ltp@lists.linux.it>; Tue, 22 Aug 2023 12:42:16 +0200 (CEST)
+Received: from esa8.hc1455-7.c3s2.iphmx.com (esa8.hc1455-7.c3s2.iphmx.com
+ [139.138.61.253])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8E22A600A44
- for <ltp@lists.linux.it>; Tue, 22 Aug 2023 12:13:41 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D484B22C0E;
- Tue, 22 Aug 2023 10:13:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1692699220; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=NPK3tji8EVQOUnlJ7aH+jvOOUsx7ilectpYoumxPgYs=;
- b=LIX4ZvCMP/hVPXG2GCKPKOhByylElARscI++XGB1Wka9w1vxUNNXcheFhxETEJp6h/R0RT
- hAi5OmD5w45VupyaXVvLTKfEAOi1cN/bEtaGwqv3ofHD7IY8oOJDZxaKaOW8F0WZ9idWOi
- xjSvutR4rkl84TOLy99VjA/BSZ056s4=
-Received: from g78.cable.virginm.net (unknown [10.163.28.198])
- by relay2.suse.de (Postfix) with ESMTP id 0C9AA2C143;
- Tue, 22 Aug 2023 10:13:39 +0000 (UTC)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 84AD5200B98
+ for <ltp@lists.linux.it>; Tue, 22 Aug 2023 12:42:14 +0200 (CEST)
+X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="117086216"
+X-IronPort-AV: E=Sophos;i="6.01,192,1684767600"; d="scan'208";a="117086216"
+Received: from unknown (HELO yto-r3.gw.nic.fujitsu.com) ([218.44.52.219])
+ by esa8.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Aug 2023 19:42:12 +0900
+Received: from yto-m3.gw.nic.fujitsu.com (yto-nat-yto-m3.gw.nic.fujitsu.com
+ [192.168.83.66])
+ by yto-r3.gw.nic.fujitsu.com (Postfix) with ESMTP id 1526CE428A
+ for <ltp@lists.linux.it>; Tue, 22 Aug 2023 19:42:10 +0900 (JST)
+Received: from aks-ab2.gw.nic.fujitsu.com (aks-ab2.gw.nic.fujitsu.com
+ [192.51.207.12])
+ by yto-m3.gw.nic.fujitsu.com (Postfix) with ESMTP id 541ECD21AF
+ for <ltp@lists.linux.it>; Tue, 22 Aug 2023 19:42:09 +0900 (JST)
+Received: from localhost.localdomain (unknown [10.167.215.131])
+ by aks-ab2.gw.nic.fujitsu.com (Postfix) with ESMTP id 7017E87899;
+ Tue, 22 Aug 2023 19:42:08 +0900 (JST)
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
 To: ltp@lists.linux.it
-Date: Tue, 22 Aug 2023 11:13:33 +0100
-Message-ID: <20230822101333.16993-1-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.41.0
-MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+Date: Tue, 22 Aug 2023 18:41:39 +0800
+Message-Id: <1692700900-13521-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1408-9.0.0.1002-27828.006
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1408-9.0.1002-27828.006
+X-TMASE-Result: 10--11.132000-10.000000
+X-TMASE-MatchedRID: NGDYxnKYxb3IY6JevWs4vgPZZctd3P4B9LMB0hXFSeg6FHRWx2FGsI3c
+ eRXYSJoDIvrftAIhWmJU1CACweeL4NbNQByfRPHgSs47mbT7SATzWEMQjooUzShjD8kfQ8yyuJE
+ UmdYPGSUgRqs658XN41OWqZ+cVy7s8PB/0vDHqZc2aDVyTGx/pwGZ/+APXW9kr2Pto2emO2UG6E
+ w0t87pQEEtPSJifonDyYyeAPTbBZYpcZda/ugaiN9JA2lmQRNUHhysWPN3OzibKItl61J/yZ+in
+ TK0bC9eKrauXd3MZDXaU0BzsrbL7cGuZvewCr0K/HLlZA8T7EofsctTTvxpC2lj74733u09
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] Add goals of patch review and tips
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/2] syscalls/faccessat201: Add new testcase
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,136 +71,382 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-I see two options for patch review. Either we have a single senior
-maintainer who does most of or it is distributed.
+Check the basic functionality of faccessat2().
 
-For now I think it needs to be distributed which is beyond the scope
-of this commit.
-
-In order to distribute it we need new contributors to review each
-others' work at least for the first few revisions.
-
-I think that anyone can review a patch if they put the work in to test
-it and try to break it. Then understand why it is broken.
-
-This commit states some ideas about how to do that, plus some tips for
-more advanced patch review.
-
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Cyril Hrubis <chrubis@suse.cz>
-
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
+ configure.ac                                  |  1 +
+ include/lapi/faccessat.h                      | 21 +++++
+ include/lapi/syscalls/aarch64.in              |  1 +
+ include/lapi/syscalls/arc.in                  |  1 +
+ include/lapi/syscalls/arm.in                  |  1 +
+ include/lapi/syscalls/hppa.in                 |  1 +
+ include/lapi/syscalls/i386.in                 |  1 +
+ include/lapi/syscalls/ia64.in                 |  1 +
+ include/lapi/syscalls/powerpc.in              |  1 +
+ include/lapi/syscalls/powerpc64.in            |  1 +
+ include/lapi/syscalls/s390.in                 |  1 +
+ include/lapi/syscalls/s390x.in                |  1 +
+ include/lapi/syscalls/sh.in                   |  1 +
+ include/lapi/syscalls/sparc.in                |  1 +
+ include/lapi/syscalls/sparc64.in              |  1 +
+ include/lapi/syscalls/x86_64.in               |  1 +
+ runtest/syscalls                              |  3 +
+ .../kernel/syscalls/faccessat2/.gitignore     |  1 +
+ testcases/kernel/syscalls/faccessat2/Makefile |  9 ++
+ .../kernel/syscalls/faccessat2/faccessat201.c | 89 +++++++++++++++++++
+ 20 files changed, 138 insertions(+)
+ create mode 100644 include/lapi/faccessat.h
+ create mode 100644 testcases/kernel/syscalls/faccessat2/.gitignore
+ create mode 100644 testcases/kernel/syscalls/faccessat2/Makefile
+ create mode 100644 testcases/kernel/syscalls/faccessat2/faccessat201.c
 
-I'd like to clear this off the queue now.
-
-V2:
-* Correct typo
-* Use Einstein quote
-* Mention Tested-by
-
- doc/maintainer-patch-review-checklist.txt | 82 ++++++++++++++++++++++-
- 1 file changed, 81 insertions(+), 1 deletion(-)
-
-diff --git a/doc/maintainer-patch-review-checklist.txt b/doc/maintainer-patch-review-checklist.txt
-index 61eb06c5f..b11c7b546 100644
---- a/doc/maintainer-patch-review-checklist.txt
-+++ b/doc/maintainer-patch-review-checklist.txt
-@@ -1,4 +1,84 @@
--# Maintainer Patch Review Checklist
-+# Patch Review
+diff --git a/configure.ac b/configure.ac
+index e4aa2cadf..662c4c058 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -92,6 +92,7 @@ AC_CHECK_FUNCS_ONCE([ \
+     epoll_pwait \
+     epoll_pwait2 \
+     execveat \
++    faccessat2 \
+     fallocate \
+     fchownat \
+     fsconfig \
+diff --git a/include/lapi/faccessat.h b/include/lapi/faccessat.h
+new file mode 100644
+index 000000000..5b42014d2
+--- /dev/null
++++ b/include/lapi/faccessat.h
+@@ -0,0 +1,21 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2023 FUJITSU LIMITED. All rights reserved.
++ * Copyright (c) Linux Test Project, 2003-2023
++ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
++ */
 +
-+Anyone can and should review patches. It's the only way to get good at
-+patch review and for the project to scale.
++#ifndef FACCESSAT2_H
++#define FACCESSAT2_H
 +
-+## Goals of patch review
++#include "tst_test.h"
++#include "lapi/syscalls.h"
 +
-+1. Prevent false positive test results
-+2. Prevent false negative test results
-+3. Keep the code as simple as possible, but no simpler
++#ifndef HAVE_FACCESSAT2
++int faccessat2(int dirfd, const char *pathname, int mode, int flags)
++{
++	return tst_syscall(__NR_faccessat2, dirfd, pathname, mode, flags);
++}
++#endif
 +
-+## How to find clear errors
-+
-+A clear error is one where there is unlikely to be any argument if you
-+provide evidence of it. Evidence being an error trace or logical proof
-+that an error will occur in a common situation.
-+
-+The following are examples and may not be appropriate for all tests.
-+
-+* Merge the patch. It should apply cleanly to master.
-+* Compile the patch with default and non-default configurations.
-+  - Use sanitizers e.g. undefined behaviour, address.
-+  - Compile on non-x86
-+  - Compile on x86 with -m32
-+* Use `make check`
-+* Run effected tests in a VM
-+  - Use single vCPU
-+  - Use many vCPUs and enable NUMA
-+  - Restrict RAM to < 1GB.
-+* Run effected tests on an embedded device
-+* Run effected tests on non-x86 machine in general
-+* Run reproducers on a kernel where the bug is present
-+* Run tests with "-i0"
-+* Compare usage of system calls with man page descriptions
-+* Compare usage of system calls with kernel code
-+* Search the LTP library for existing helper functions
-+
-+## How to find subtle errors
-+
-+A subtle error is one where you can expect some argument because you
-+do not have clear evidence of an error. It is best to state these as
-+questions and not make assertions if possible.
-+
-+Although if it is a matter of style or "taste" then senior maintainers
-+can assert what is correct to avoid bike shedding.
-+
-+* Ask what happens if there is an error, could it be debugged just
-+  with the test output?
-+* Are we testing undefined behavior?
-+  - Could future kernel behaviour change without "breaking userland"?
-+  - Does the kernel behave differently depending on hardware?
-+  - Does it behave differently depending kernel on configuration?
-+  - Does it behave differently depending on the compiler?
-+* Will it scale to tiny and huge systems?
-+  - What happens if there are 100+ CPUs?
-+  - What happens if each CPU core is very slow?
-+  - What happens if there are 2TB or RAM?
-+* Are we repeating a pattern that can be turned into a library function?
-+* Is a single test trying to do too much?
-+* Could multiple similar tests be merged?
-+* Race conditions
-+  - What happens if a process gets preempted?
-+  - Could checkpoints or fuzzsync by used instead?
-+  - Note, usually you can insert a sleep to prove a race condition
-+    exists however finding them is hard
-+* Is there a simpler way to achieve the same kernel coverage?
-+
-+## How to get patches merged
-+
-+Once you think a patch is good enough you should add your Reviewed-by
-+and/or Tested-by tags. This means you will get some credit for getting
-+the patch merged. Also some blame if there are problems.
-+
-+If you ran the test you can add the Tested-by tag. If you read the
-+code or used static analysis tools on it, you can add the Reviewed-by
-+tag.
-+
-+In addition you can expect others to review your patches and add their
-+tags. This will speed up the process of getting your patches merged.
-+
-+## Maintainers Checklist
++#endif /* FACCESSAT2_H */
+diff --git a/include/lapi/syscalls/aarch64.in b/include/lapi/syscalls/aarch64.in
+index de4ed5fb1..2cb6c2d87 100644
+--- a/include/lapi/syscalls/aarch64.in
++++ b/include/lapi/syscalls/aarch64.in
+@@ -293,6 +293,7 @@ clone3 435
+ close_range 436
+ openat2 437
+ pidfd_getfd 438
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/include/lapi/syscalls/arc.in b/include/lapi/syscalls/arc.in
+index 9f11381db..3e2ee9061 100644
+--- a/include/lapi/syscalls/arc.in
++++ b/include/lapi/syscalls/arc.in
+@@ -313,6 +313,7 @@ clone3 435
+ close_range 436
+ openat2 437
+ pidfd_getfd 438
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/include/lapi/syscalls/arm.in b/include/lapi/syscalls/arm.in
+index 4b0f63a28..7bdbca533 100644
+--- a/include/lapi/syscalls/arm.in
++++ b/include/lapi/syscalls/arm.in
+@@ -391,6 +391,7 @@ clone3 (__NR_SYSCALL_BASE+435)
+ close_range (__NR_SYSCALL_BASE+436)
+ openat2 (__NR_SYSCALL_BASE+437)
+ pidfd_getfd (__NR_SYSCALL_BASE+438)
++faccessat2 (__NR_SYSCALL_BASE+439)
+ epoll_pwait2 (__NR_SYSCALL_BASE+441)
+ quotactl_fd (__NR_SYSCALL_BASE+443)
+ futex_waitv (__NR_SYSCALL_BASE+449)
+diff --git a/include/lapi/syscalls/hppa.in b/include/lapi/syscalls/hppa.in
+index b6d32d386..8ebdafafb 100644
+--- a/include/lapi/syscalls/hppa.in
++++ b/include/lapi/syscalls/hppa.in
+@@ -40,6 +40,7 @@ fsmount 432
+ fspick 433
+ pidfd_open 434
+ close_range 436
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/include/lapi/syscalls/i386.in b/include/lapi/syscalls/i386.in
+index d0e6e9a4b..1472631c4 100644
+--- a/include/lapi/syscalls/i386.in
++++ b/include/lapi/syscalls/i386.in
+@@ -427,6 +427,7 @@ clone3 435
+ close_range 436
+ openat2 437
+ pidfd_getfd 438
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/include/lapi/syscalls/ia64.in b/include/lapi/syscalls/ia64.in
+index 123200624..0ea6e9722 100644
+--- a/include/lapi/syscalls/ia64.in
++++ b/include/lapi/syscalls/ia64.in
+@@ -340,6 +340,7 @@ pidfd_open 1458
+ close_range 1460
+ openat2 1461
+ pidfd_getfd 1462
++faccessat2 1463
+ epoll_pwait2 1465
+ quotactl_fd 1467
+ futex_waitv 1473
+diff --git a/include/lapi/syscalls/powerpc.in b/include/lapi/syscalls/powerpc.in
+index d5de621e1..545d9d3d6 100644
+--- a/include/lapi/syscalls/powerpc.in
++++ b/include/lapi/syscalls/powerpc.in
+@@ -420,6 +420,7 @@ clone3 435
+ close_range 436
+ openat2 437
+ pidfd_getfd 438
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
+index d5de621e1..545d9d3d6 100644
+--- a/include/lapi/syscalls/powerpc64.in
++++ b/include/lapi/syscalls/powerpc64.in
+@@ -420,6 +420,7 @@ clone3 435
+ close_range 436
+ openat2 437
+ pidfd_getfd 438
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/include/lapi/syscalls/s390.in b/include/lapi/syscalls/s390.in
+index 6505f3822..7213ac5f8 100644
+--- a/include/lapi/syscalls/s390.in
++++ b/include/lapi/syscalls/s390.in
+@@ -407,6 +407,7 @@ clone3 435
+ close_range 436
+ openat2 437
+ pidfd_getfd 438
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/include/lapi/syscalls/s390x.in b/include/lapi/syscalls/s390x.in
+index bc5d2b34c..879012e2b 100644
+--- a/include/lapi/syscalls/s390x.in
++++ b/include/lapi/syscalls/s390x.in
+@@ -355,6 +355,7 @@ clone3 435
+ close_range 436
+ openat2 437
+ pidfd_getfd 438
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/include/lapi/syscalls/sh.in b/include/lapi/syscalls/sh.in
+index 316ffe5f1..7d5192a27 100644
+--- a/include/lapi/syscalls/sh.in
++++ b/include/lapi/syscalls/sh.in
+@@ -401,6 +401,7 @@ pidfd_open 434
+ close_range 436
+ openat2 437
+ pidfd_getfd 438
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/include/lapi/syscalls/sparc.in b/include/lapi/syscalls/sparc.in
+index e0c60a360..91d2fb1c2 100644
+--- a/include/lapi/syscalls/sparc.in
++++ b/include/lapi/syscalls/sparc.in
+@@ -406,6 +406,7 @@ pidfd_open 434
+ close_range 436
+ openat2 437
+ pidfd_getfd 438
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/include/lapi/syscalls/sparc64.in b/include/lapi/syscalls/sparc64.in
+index 0acde6856..1f2fc59b7 100644
+--- a/include/lapi/syscalls/sparc64.in
++++ b/include/lapi/syscalls/sparc64.in
+@@ -371,6 +371,7 @@ pidfd_open 434
+ close_range 436
+ openat2 437
+ pidfd_getfd 438
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/include/lapi/syscalls/x86_64.in b/include/lapi/syscalls/x86_64.in
+index 1863e1df7..dc61aa56e 100644
+--- a/include/lapi/syscalls/x86_64.in
++++ b/include/lapi/syscalls/x86_64.in
+@@ -348,6 +348,7 @@ clone3 435
+ close_range 436
+ openat2 437
+ pidfd_getfd 438
++faccessat2 439
+ epoll_pwait2 441
+ quotactl_fd 443
+ futex_waitv 449
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 119710d63..02768c236 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -216,6 +216,9 @@ exit_group01 exit_group01
+ #faccessat test cases
+ faccessat01 faccessat01
  
- Patchset should be tested locally and ideally also in maintainer's fork in
- GitHub Actions on GitHub.
++#faccessat2 test cases
++faccessat201 faccessat201
++
+ #fallocate test cases
+ fallocate01 fallocate01
+ fallocate02 fallocate02
+diff --git a/testcases/kernel/syscalls/faccessat2/.gitignore b/testcases/kernel/syscalls/faccessat2/.gitignore
+new file mode 100644
+index 000000000..53f700bac
+--- /dev/null
++++ b/testcases/kernel/syscalls/faccessat2/.gitignore
+@@ -0,0 +1 @@
++/faccessat201
+diff --git a/testcases/kernel/syscalls/faccessat2/Makefile b/testcases/kernel/syscalls/faccessat2/Makefile
+new file mode 100644
+index 000000000..aaac6b703
+--- /dev/null
++++ b/testcases/kernel/syscalls/faccessat2/Makefile
+@@ -0,0 +1,9 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2023 FUJITSU LIMITED. All rights reserved.
++# Author: Yang Xu <xuyang2018.jy@fujitsu.com>
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/faccessat2/faccessat201.c b/testcases/kernel/syscalls/faccessat2/faccessat201.c
+new file mode 100644
+index 000000000..88ee21522
+--- /dev/null
++++ b/testcases/kernel/syscalls/faccessat2/faccessat201.c
+@@ -0,0 +1,89 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2023 FUJITSU LIMITED. All rights reserved.
++ * Copyright (c) Linux Test Project, 2003-2023
++ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Check the basic functionality of faccessat2().
++ *
++ * Minimum Linux version required is v5.8.
++ */
++
++#include <stdlib.h>
++
++#include "tst_test.h"
++#include "lapi/syscalls.h"
++#include "lapi/faccessat.h"
++
++#define TESTDIR         "faccessat2dir"
++#define TESTFILE        "faccessat2file"
++#define RELPATH         "faccessat2dir/faccessat2file"
++#define TESTSYMLINK     "faccessat2symlink"
++
++static int dir_fd, bad_fd = -1;
++static int atcwd_fd = AT_FDCWD;
++static char *testfile;
++static char *abs_path;
++static char *rel_path;
++static char *sym_path;
++
++static struct tcase {
++	int *fd;
++	char **filename;
++	int flags;
++} tcases[] = {
++	{&dir_fd, &testfile, 0},
++	{&bad_fd, &abs_path, 0},
++	{&atcwd_fd, &rel_path, 0},
++	{&dir_fd, &testfile, AT_EACCESS},
++	{&bad_fd, &abs_path, AT_EACCESS},
++	{&atcwd_fd, &rel_path, AT_EACCESS},
++	{&atcwd_fd, &sym_path, AT_SYMLINK_NOFOLLOW},
++};
++
++static void verify_faccessat2(unsigned int i)
++{
++	struct tcase *tc = &tcases[i];
++
++	TST_EXP_PASS(faccessat2(*tc->fd, *tc->filename, R_OK, tc->flags),
++		     "faccessat2(%d, %s, R_OK, %d)",
++		     *tc->fd, *tc->filename, tc->flags);
++}
++
++static void setup(void)
++{
++	char *tmpdir_path = tst_get_tmpdir();
++
++	abs_path = tst_aprintf("%s/%s", tmpdir_path, RELPATH);
++	free(tmpdir_path);
++
++	SAFE_MKDIR(TESTDIR, 0666);
++	dir_fd = SAFE_OPEN(TESTDIR, O_DIRECTORY);
++	SAFE_TOUCH(abs_path, 0444, NULL);
++	SAFE_SYMLINK(abs_path, TESTSYMLINK);
++}
++
++static void cleanup(void)
++{
++	if (dir_fd > -1)
++		SAFE_CLOSE(dir_fd);
++}
++
++static struct tst_test test = {
++	.test = verify_faccessat2,
++	.tcnt = ARRAY_SIZE(tcases),
++	.setup = setup,
++	.cleanup = cleanup,
++	.bufs = (struct tst_buffers []) {
++		{&testfile, .str = TESTFILE},
++		{&abs_path, .size = sizeof(char)},
++		{&rel_path, .str = RELPATH},
++		{&sym_path, .str = TESTSYMLINK},
++		{},
++	},
++	.needs_tmpdir = 1,
++};
 -- 
-2.41.0
+2.39.1
 
 
 -- 
