@@ -1,76 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14AA7868D5
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Aug 2023 09:44:20 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1683C7868D8
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Aug 2023 09:44:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 038A23CC4A2
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Aug 2023 09:44:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7F3213CC4BA
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Aug 2023 09:44:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1FE323C2A04
- for <ltp@lists.linux.it>; Thu, 24 Aug 2023 09:44:13 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 948D23CC4C0
+ for <ltp@lists.linux.it>; Thu, 24 Aug 2023 09:44:16 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C13CB1400B76
- for <ltp@lists.linux.it>; Thu, 24 Aug 2023 09:44:12 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0C51B1000947
+ for <ltp@lists.linux.it>; Thu, 24 Aug 2023 09:44:15 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6595D22CAF
- for <ltp@lists.linux.it>; Thu, 24 Aug 2023 07:44:12 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8E6F020EB1
+ for <ltp@lists.linux.it>; Thu, 24 Aug 2023 07:44:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1692863052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1692863055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0v6qxTVDqZBWagSgW9Qsogb/8kZwDFUhxvNnQFEHqIw=;
- b=t4JG4pZXm6LNHkrCvUxR/WZZeftGjJshQFT7Me4PFOcmfc8GH43AWIWLPTtGmA9FX68hde
- 7Z0uvJaV40yO7OKSQhSGVhRhmT88l+Lsj92cmBpxQQcms7vv8Esz1S5RdrsCdfSDHAiots
- 8VSYtfw1jOzA7TSkBQEZVdy52Nr7g1M=
+ bh=dKW9wJ4aq6THeSRN/kLZgAU8zioMu14gO2M/dWaPjHM=;
+ b=o3pKKSF1dNPix67mqgjpQqhACjTOfhni4qby7dZtpyD0NvX9N/oQOxL6MakHmjVkt1PT5L
+ odoRDiaigXG1sj3q1GDm+SSmGCdbwACT5He18N3bK3oq9llJIeXW6hO0obM6KtqfkM/ng1
+ 6qxhOBOrckuRhVPS5XUD5gHOGR7C0HU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1692863052;
+ s=susede2_ed25519; t=1692863055;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0v6qxTVDqZBWagSgW9Qsogb/8kZwDFUhxvNnQFEHqIw=;
- b=S8n+OaROSjKXPSXN5D9nFG8VozLnDrEcIMH/lCySZkN022XX3yXlMGHx8Y3vtkX/etRkcx
- +9gXoDUwMIGY+XBg==
+ bh=dKW9wJ4aq6THeSRN/kLZgAU8zioMu14gO2M/dWaPjHM=;
+ b=tMHkh6CsHiAEEHNTSG/Vyr92QdqdHrZgpcRbK0XGM84u8h4NqdhBkbzHru8HNCm7cjyMks
+ 2k0aQ4DWNpLUk3Ag==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F0C47139BC
- for <ltp@lists.linux.it>; Thu, 24 Aug 2023 07:44:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2A549139BC
+ for <ltp@lists.linux.it>; Thu, 24 Aug 2023 07:44:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id cTgUL0sK52TxKQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id SFeqOk4K52T4KQAAMHmgww
  (envelope-from <akumar@suse.de>)
- for <ltp@lists.linux.it>; Thu, 24 Aug 2023 07:44:11 +0000
+ for <ltp@lists.linux.it>; Thu, 24 Aug 2023 07:44:14 +0000
 From: Avinesh Kumar <akumar@suse.de>
 To: ltp@lists.linux.it
-Date: Thu, 24 Aug 2023 13:08:42 +0530
-Message-ID: <20230824074406.1129-2-akumar@suse.de>
+Date: Thu, 24 Aug 2023 13:08:43 +0530
+Message-ID: <20230824074406.1129-3-akumar@suse.de>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230824074406.1129-1-akumar@suse.de>
 References: <20230824074406.1129-1-akumar@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] syscalls/mmap06: Refactor and add scenarios for
- EACCES test
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/3] syscalls/mmap07: Remove the test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,24 +87,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-As mmap() should always result in EACCES when a file mapping is
-requested but the file descriptor is not open for reading, I've added
-few possible combinations for prot and flags arguments to test for
-EACCES.
+As we are testing for EACCES in this test also when file descriptor is
+not open for reading, I have moved this scenario to mmap06.c along with
+other EACCES tests, so I guess it's safe to remove this one.
 
 Signed-off-by: Avinesh Kumar <akumar@suse.de>
 ---
- testcases/kernel/syscalls/mmap/mmap06.c | 171 +++++++-----------------
- 1 file changed, 51 insertions(+), 120 deletions(-)
+ runtest/syscalls                          |   1 -
+ testcases/kernel/syscalls/mmap/.gitignore |   1 -
+ testcases/kernel/syscalls/mmap/mmap07.c   | 146 ----------------------
+ 3 files changed, 148 deletions(-)
+ delete mode 100644 testcases/kernel/syscalls/mmap/mmap07.c
 
-diff --git a/testcases/kernel/syscalls/mmap/mmap06.c b/testcases/kernel/syscalls/mmap/mmap06.c
-index fb7c49257..05e0ffc69 100644
---- a/testcases/kernel/syscalls/mmap/mmap06.c
-+++ b/testcases/kernel/syscalls/mmap/mmap06.c
-@@ -1,143 +1,74 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) International Business Machines  Corp., 2001
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 1028e45fc..4bacb4017 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -785,7 +785,6 @@ mmap03 mmap03
+ mmap04 mmap04
+ mmap05 mmap05
+ mmap06 mmap06
+-mmap07 mmap07
+ mmap08 mmap08
+ mmap09 mmap09
+ mmap12 mmap12
+diff --git a/testcases/kernel/syscalls/mmap/.gitignore b/testcases/kernel/syscalls/mmap/.gitignore
+index 569a76ac1..4591fdbb9 100644
+--- a/testcases/kernel/syscalls/mmap/.gitignore
++++ b/testcases/kernel/syscalls/mmap/.gitignore
+@@ -5,7 +5,6 @@
+ /mmap04
+ /mmap05
+ /mmap06
+-/mmap07
+ /mmap08
+ /mmap09
+ /mmap10
+diff --git a/testcases/kernel/syscalls/mmap/mmap07.c b/testcases/kernel/syscalls/mmap/mmap07.c
+deleted file mode 100644
+index 682e527aa..000000000
+--- a/testcases/kernel/syscalls/mmap/mmap07.c
++++ /dev/null
+@@ -1,146 +0,0 @@
+-/*
+- * Copyright (c) International Business Machines  Corp., 2001
 - *
 - * This program is free software;  you can redistribute it and/or modify
 - * it under the terms of the GNU General Public License as published by
@@ -119,19 +145,16 @@ index fb7c49257..05e0ffc69 100644
 - * You should have received a copy of the GNU General Public License
 - * along with this program;  if not, write to the Free Software
 - * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ *  07/2001 Ported by Wayne Boyer
-+ * Copyright (c) 2023 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
-  */
- 
+- */
+-
 -/*
 - * Test Description:
 - *  Call mmap() to map a file creating a mapped region with read access
 - *  under the following conditions -
-- *	- The prot parameter is set to PROT_READ
+- *	- The prot parameter is set to PROT_WRITE
 - *	- The file descriptor is open for writing.
-+/*\
-+ * [Description]
-  *
+- *	- The flags parameter has MAP_PRIVATE set.
+- *
 - *  The call should fail to map the file.
 - *
 - * Expected Result:
@@ -139,9 +162,7 @@ index fb7c49257..05e0ffc69 100644
 - *
 - * HISTORY
 - *	07/2001 Ported by Wayne Boyer
-+ * Verify that, mmap() call fails when a file mapping is requested but the
-+ * file descriptor is not open for reading, and errno is set to EACCES.
-  */
+- */
 -#include <stdio.h>
 -#include <stdlib.h>
 -#include <sys/types.h>
@@ -152,18 +173,15 @@ index fb7c49257..05e0ffc69 100644
 -#include <signal.h>
 -#include <sys/stat.h>
 -#include <sys/mman.h>
- 
+-
 -#include "test.h"
 -
 -#define TEMPFILE	"mmapfile"
 -
--char *TCID = "mmap06";
+-char *TCID = "mmap07";
 -int TST_TOTAL = 1;
-+#include <stdlib.h>
-+#include "tst_test.h"
- 
-+#define TEMPFILE "mmapfile"
- static size_t page_sz;
+-
+-static size_t page_sz;
 -static char *addr;
 -static int fildes;
 -
@@ -184,11 +202,11 @@ index fb7c49257..05e0ffc69 100644
 -
 -		/*
 -		 * Call mmap to map the temporary file 'TEMPFILE'
--		 * with read access.
+-		 * with write access.
 -		 */
 -		errno = 0;
--		addr = mmap(0, page_sz, PROT_READ,
--			    MAP_FILE | MAP_SHARED, fildes, 0);
+-		addr = mmap(0, page_sz, PROT_WRITE,
+-			    MAP_FILE | MAP_PRIVATE, fildes, 0);
 -		TEST_ERRNO = errno;
 -
 -		/* Check for the return value of mmap() */
@@ -209,93 +227,54 @@ index fb7c49257..05e0ffc69 100644
 -			tst_resm(TFAIL | TERRNO,
 -				 "mmap failed with unexpected errno");
 -		}
+-
 -	}
 -	cleanup();
 -	tst_exit();
 -
 -}
-+static int fd;
-+
-+static struct tcase {
-+	int prot;
-+	int flags;
-+} tcases[] = {
-+	{PROT_WRITE, MAP_FILE | MAP_PRIVATE},
-+	{PROT_WRITE, MAP_FILE | MAP_SHARED},
-+	{PROT_READ, MAP_FILE | MAP_PRIVATE},
-+	{PROT_READ, MAP_FILE | MAP_SHARED},
-+	{PROT_READ | PROT_WRITE, MAP_FILE | MAP_PRIVATE},
-+	{PROT_READ | PROT_WRITE, MAP_FILE | MAP_SHARED}
-+};
- 
- static void setup(void)
- {
+-
+-static void setup(void)
+-{
 -	char *tst_buff;
 -
 -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
 -
 -	TEST_PAUSE;
-+	char *buf;
- 
- 	page_sz = getpagesize();
-+	buf = SAFE_CALLOC(page_sz, sizeof(char));
-+	memset(buf, 'A', page_sz);
- 
+-
+-	page_sz = getpagesize();
+-
 -	/* Allocate space for the test buffer */
 -	if ((tst_buff = calloc(page_sz, sizeof(char))) == NULL) {
--		tst_brkm(TFAIL, NULL, "calloc() failed (tst_buff)");
+-		tst_brkm(TFAIL, NULL,
+-			 "calloc() failed to allocate space for tst_buff");
 -	}
 -
 -	/* Fill the test buffer with the known data */
 -	memset(tst_buff, 'A', page_sz);
 -
 -	tst_tmpdir();
-+	fd = SAFE_OPEN(TEMPFILE, O_WRONLY | O_CREAT, 0666);
-+	SAFE_WRITE(SAFE_WRITE_ALL, fd, buf, page_sz);
-+	free(buf);
-+}
- 
+-
 -	/* Creat a temporary file used for mapping */
 -	if ((fildes = open(TEMPFILE, O_WRONLY | O_CREAT, 0666)) < 0) {
 -		free(tst_buff);
--		tst_brkm(TFAIL, cleanup, "opening %s failed", TEMPFILE);
+-		tst_brkm(TFAIL, cleanup, "open() on %s failed", TEMPFILE);
 -	}
-+static void run(unsigned int i)
-+{
-+	struct tcase *tc = &tcases[i];
- 
+-
 -	/* Write test buffer contents into temporary file */
--	if (write(fildes, tst_buff, page_sz) < (ssize_t)page_sz) {
+-	if (write(fildes, tst_buff, page_sz) < (int)page_sz) {
 -		free(tst_buff);
 -		tst_brkm(TFAIL, cleanup, "writing to %s failed", TEMPFILE);
 -	}
-+	TESTPTR(mmap(0, page_sz, tc->prot, tc->flags, fd, 0));
- 
+-
 -	free(tst_buff);
-+	if (TST_RET_PTR != MAP_FAILED) {
-+		tst_res(TFAIL | TERRNO, "mmap() was successful unexpectedly");
-+		SAFE_MUNMAP(TST_RET_PTR, page_sz);
-+	} else if (TST_ERR == EACCES)
-+		tst_res(TPASS, "mmap() failed with errno EACCES");
-+	else
-+		tst_res(TFAIL | TERRNO, "mmap() failed but unexpected errno");
- }
- 
- static void cleanup(void)
- {
+-}
+-
+-static void cleanup(void)
+-{
 -	close(fildes);
 -	tst_rmdir();
-+	if (fd > 0)
-+		SAFE_CLOSE(fd);
- }
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.needs_tmpdir = 1
-+};
+-}
 -- 
 2.41.0
 
