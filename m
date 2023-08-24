@@ -1,73 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C892E785A78
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Aug 2023 16:28:07 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DB2FE7864BF
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Aug 2023 03:43:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 725B43CC69C
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Aug 2023 16:28:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 744ED3CC669
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Aug 2023 03:43:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 937F83CC5B4
- for <ltp@lists.linux.it>; Wed, 23 Aug 2023 16:28:01 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 0B6F33CC5B3
+ for <ltp@lists.linux.it>; Thu, 24 Aug 2023 03:43:12 +0200 (CEST)
+Received: from smtp.priv.miraclelinux.com
+ (202x210x215x66.ap202.ftth.ucom.ne.jp [202.210.215.66])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AD2631A010F4
- for <ltp@lists.linux.it>; Wed, 23 Aug 2023 16:28:00 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9369821D6F;
- Wed, 23 Aug 2023 14:27:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1692800879; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=wJ6n58j5fgAZXzcirrgE8RkvvmDm9VPoKbC0Pa0UEeA=;
- b=2X/4+CrHTSWldVZDVYviqM81YD5LKMTEPgko+U9YWGcVCbrag8uOzd39UTFu/AeDDJOKAH
- xhWuhDBIuxLy719PntP4U3IR4fUnk0J7A2y9WX0dC4ZF7pC/gKngSwTXIgrm5MPcrTITfv
- F8yJxSAj3NkAElgFoCcIXceTrSq4J5s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1692800879;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=wJ6n58j5fgAZXzcirrgE8RkvvmDm9VPoKbC0Pa0UEeA=;
- b=p15qNztOdjQ/PXwe5NFIfDPQV0hg5Na4sCETDydqw8thWfVRs6yW4tfnDExsp2Gc+9LQv0
- cQhNF+GL56dSS+DQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 80BAC1351F;
- Wed, 23 Aug 2023 14:27:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id pjcDH28X5mQqDgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 23 Aug 2023 14:27:59 +0000
-Date: Wed, 23 Aug 2023 16:28:32 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Message-ID: <ZOYXkEahxyqfGNQd@yuki>
-References: <1692617755-32627-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9264720116E
+ for <ltp@lists.linux.it>; Thu, 24 Aug 2023 03:43:10 +0200 (CEST)
+Received: from localhost.localdomain (21A0035i-SL7B460.priv.miraclelinux.com
+ [10.2.1.161])
+ by smtp.priv.miraclelinux.com (Postfix) with ESMTP id 2EEEC140052;
+ Thu, 24 Aug 2023 10:43:03 +0900 (JST)
+From: Souta Kawahara <souta.kawahara@miraclelinux.com>
+To: ltp@lists.linux.it
+Date: Thu, 24 Aug 2023 10:33:08 +0900
+Message-Id: <f8c3549f405479aa521dd654c105a2ba8d4d6f36.1692839061.git.souta.kawahara@miraclelinux.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1692617755-32627-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] syscalls/faccessat01: Convert to new API
+X-Spam-Status: No, score=0.4 required=7.0 tests=PDS_RDNS_DYNAMIC_FP,
+ RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled
+ version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 1/1] doc/c-test-api.txt: fix broken example code
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,41 +50,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> +static struct tst_test test = {
-> +	.test = verify_faccessat,
-> +	.tcnt = ARRAY_SIZE(tcases),
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.bufs = (struct tst_buffers []) {
-> +		{&test_file, .str = TESTFILE},
-> +		{&abs_path, .size = sizeof(char)},
-                   ^
-		   I've removed this line, since we allocate the
-		   abs_path dynamically in the test setup and pushed
-		   both patches, thanks.
+There is double definition of 'test'.
+Fixed it.
 
-> +		{&file_path, .str = FILEPATH},
-> +		{},
-> +	},
-> +	.needs_tmpdir = 1,
-> +};
-> -- 
-> 2.39.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+Signed-off-by: Souta Kawahara <souta.kawahara@miraclelinux.com>
+---
+ doc/c-test-api.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/doc/c-test-api.txt b/doc/c-test-api.txt
+index e4e88edec..560a1a203 100644
+--- a/doc/c-test-api.txt
++++ b/doc/c-test-api.txt
+@@ -36,7 +36,7 @@ static void setup(void)
+ 		tst_brk(TBROK | TERRNO, "setenv() failed");
+ }
+ 
+-static void test(void)
++static void run(void)
+ {
+ 	char *ret;
+ 
+@@ -64,7 +64,7 @@ next:
+ }
+ 
+ static struct tst_test test = {
+-	.test_all = test,
++	.test_all = run,
+ 	.setup = setup,
+ };
+ -------------------------------------------------------------------------------
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.25.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
