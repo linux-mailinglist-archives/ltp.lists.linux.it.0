@@ -2,64 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78A4D786D79
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Aug 2023 13:11:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B96B786D7B
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Aug 2023 13:12:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3F4043CC4BE
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Aug 2023 13:11:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E01643CC4BE
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Aug 2023 13:12:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E931C3CB9B3
- for <ltp@lists.linux.it>; Thu, 24 Aug 2023 13:11:32 +0200 (CEST)
-Received: from esa12.hc1455-7.c3s2.iphmx.com (esa12.hc1455-7.c3s2.iphmx.com
- [139.138.37.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 48FB23CB9B3
+ for <ltp@lists.linux.it>; Thu, 24 Aug 2023 13:12:08 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5824A1A00E06
- for <ltp@lists.linux.it>; Thu, 24 Aug 2023 13:11:31 +0200 (CEST)
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="108759574"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684767600"; d="scan'208";a="108759574"
-Received: from unknown (HELO yto-r4.gw.nic.fujitsu.com) ([218.44.52.220])
- by esa12.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2023 20:11:30 +0900
-Received: from yto-m1.gw.nic.fujitsu.com (yto-nat-yto-m1.gw.nic.fujitsu.com
- [192.168.83.64])
- by yto-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id F144BC9442
- for <ltp@lists.linux.it>; Thu, 24 Aug 2023 20:11:27 +0900 (JST)
-Received: from aks-ab2.gw.nic.fujitsu.com (aks-ab2.gw.nic.fujitsu.com
- [192.51.207.12])
- by yto-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 423D0CF7D6
- for <ltp@lists.linux.it>; Thu, 24 Aug 2023 20:11:27 +0900 (JST)
-Received: from localhost.localdomain (unknown [10.167.215.131])
- by aks-ab2.gw.nic.fujitsu.com (Postfix) with ESMTP id 6AD8487038;
- Thu, 24 Aug 2023 20:11:26 +0900 (JST)
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: ltp@lists.linux.it
-Date: Thu, 24 Aug 2023 19:11:20 +0800
-Message-Id: <1692875480-22494-2-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1692875480-22494-1-git-send-email-xuyang2018.jy@fujitsu.com>
-References: <1692875480-22494-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1408-9.0.0.1002-27832.006
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1408-9.0.1002-27832.006
-X-TMASE-Result: 10--3.517500-10.000000
-X-TMASE-MatchedRID: 53L3gibb0joKK0r2G9VU7k7nLUqYrlslFIuBIWrdOeOjEIt+uIPPOBUl
- FfwzsqyWj/os4F7akNn0SV7CRnVQRDcpdZ3fQiLdFEUknJ/kEl5q8/xv2Um1avoLR4+zsDTtB00
- /kkeBTwBYxPdn7vfkRt0RrKuj0zhaATt3Dopl1AMRTtzWDagGnw/tmJ7blzYOnNMe5DmGdOlF8u
- cRiMf+cwNQosDE6LmkUSRo4gE5q0byDBYNCJzj6s+YAJ5mo7zlOKgonZY9TFMtLgAQ4uO3AA==
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6FE1A200B28
+ for <ltp@lists.linux.it>; Thu, 24 Aug 2023 13:12:08 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B0AC521DF4;
+ Thu, 24 Aug 2023 11:12:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1692875527; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=3gUW1rkWEgOrCN+ZdJkebpk538W5XGgzm6pO480PXa0=;
+ b=CAbh/wPiBNJTgXq/NAMkSkHFJYYfWTvPYQUU18DwOt1YVmHOOIl9dGZMOW68mi0gVRu+XG
+ RmqmdwLszBbZ7+tevhuRTfET5abDunT6Sxbsv/KYTgcPN7zlKQd63WOuwKO2rmyJAzWC7n
+ u+ZP7RlxNSK5v1P5824Wt/bxLZVI41Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1692875527;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=3gUW1rkWEgOrCN+ZdJkebpk538W5XGgzm6pO480PXa0=;
+ b=moSzCHKZBD7dqYY5njP2rL/ugqWfbcJKO0tT9//i3uPKYoLxGJ5qgM46gqA/JrWD8xPDxy
+ AmyrOX6dQ+N8RHDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 91AF31336F;
+ Thu, 24 Aug 2023 11:12:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id oXEKIgc752SIRgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 24 Aug 2023 11:12:07 +0000
+Date: Thu, 24 Aug 2023 13:12:41 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Message-ID: <ZOc7KXhQGDh-0w04@yuki>
+References: <1692617910-32684-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ <1692617910-32684-2-git-send-email-xuyang2018.jy@fujitsu.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1692617910-32684-2-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] hugeshmctl03: Mark struct tcase as static
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/2] syscalls/readlinkat02: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,53 +79,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-To follow LTP conventions.
+Hi!
+I've addeds ENOENT case to the test and pushed, thanks.
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
-index 21ec6bf78..61e9704bb 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
-@@ -44,7 +44,7 @@ static struct shmid_ds buf;
- static uid_t ltp_uid;
- static char *ltp_user = "nobody";
- 
--struct tcase {
-+static struct tcase {
- 	int *shmid;
- 	int cmd;
- 	struct shmid_ds *sbuf;
-@@ -97,7 +97,7 @@ static void do_child(void)
- 	}
- }
- 
--void setup(void)
-+static void setup(void)
- {
- 	long hpage_size;
- 
-@@ -118,7 +118,7 @@ void setup(void)
- 	ltp_uid = getuserid(ltp_user);
- }
- 
--void cleanup(void)
-+static void cleanup(void)
- {
- 	rm_shm(shm_id_1);
- }
 -- 
-2.39.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
