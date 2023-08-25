@@ -2,66 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66DA27885D8
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Aug 2023 13:35:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03019788737
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Aug 2023 14:28:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1945C3CC3FA
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Aug 2023 13:35:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 838153CC40F
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Aug 2023 14:28:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6D6F03C8930
- for <ltp@lists.linux.it>; Fri, 25 Aug 2023 13:35:54 +0200 (CEST)
-Received: from esa4.hc1455-7.c3s2.iphmx.com (esa4.hc1455-7.c3s2.iphmx.com
- [68.232.139.117])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 2A56A3CC347
+ for <ltp@lists.linux.it>; Fri, 25 Aug 2023 14:28:05 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id AD86C1000D9B
- for <ltp@lists.linux.it>; Fri, 25 Aug 2023 13:35:53 +0200 (CEST)
-X-IronPort-AV: E=McAfee;i="6600,9927,10812"; a="129571091"
-X-IronPort-AV: E=Sophos;i="6.02,195,1688396400"; d="scan'208";a="129571091"
-Received: from unknown (HELO oym-r3.gw.nic.fujitsu.com) ([210.162.30.91])
- by esa4.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2023 20:35:51 +0900
-Received: from oym-m3.gw.nic.fujitsu.com (oym-nat-oym-m3.gw.nic.fujitsu.com
- [192.168.87.60])
- by oym-r3.gw.nic.fujitsu.com (Postfix) with ESMTP id A02DBCA1E6
- for <ltp@lists.linux.it>; Fri, 25 Aug 2023 20:35:48 +0900 (JST)
-Received: from aks-ab2.gw.nic.fujitsu.com (aks-ab2.gw.nic.fujitsu.com
- [192.51.207.12])
- by oym-m3.gw.nic.fujitsu.com (Postfix) with ESMTP id D2633D9463
- for <ltp@lists.linux.it>; Fri, 25 Aug 2023 20:35:47 +0900 (JST)
-Received: from localhost.localdomain (unknown [10.167.215.131])
- by aks-ab2.gw.nic.fujitsu.com (Postfix) with ESMTP id 0594488FD5;
- Fri, 25 Aug 2023 20:35:46 +0900 (JST)
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 30CB41000668
+ for <ltp@lists.linux.it>; Fri, 25 Aug 2023 14:28:04 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B144322482;
+ Fri, 25 Aug 2023 12:28:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1692966483; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=MBETTRdM2PSUdzslqTeyZvX6o8ebzRKN3wgiPGoM1ao=;
+ b=cdvVrxVB7Rk5GlVjoS6tuTGBpfddSDOjI566bp9uJMssemjDb7cZwOj9bfOxucHS3D18nL
+ eHxPL/4Bo0WxSpiegq1VrePn7ZifodgyS9fRWX7kM6m7824w8Qclr15SrxD0KebN0nEEiS
+ Gc2bGaRX3c8H96a9NbdTRhS23SbcdpU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1692966483;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=MBETTRdM2PSUdzslqTeyZvX6o8ebzRKN3wgiPGoM1ao=;
+ b=XT+EfJ5PpIhJHRRdQxkAaRRU2Tb1qeyYhEu8UOBOn8ygMTqs+zXV8978UtmbgBNMHNKymF
+ bNvJ7Wq1Y85FeSAg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A49981340A;
+ Fri, 25 Aug 2023 12:28:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 5UkiKFOe6GTGWQAAMHmgww
+ (envelope-from <jack@suse.cz>); Fri, 25 Aug 2023 12:28:03 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 343FFA0774; Fri, 25 Aug 2023 14:28:03 +0200 (CEST)
+From: Jan Kara <jack@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 25 Aug 2023 19:35:36 +0800
-Message-Id: <1692963336-4007-2-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1692963336-4007-1-git-send-email-xuyang2018.jy@fujitsu.com>
-References: <1692963336-4007-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1408-9.0.0.1002-27834.007
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1408-9.0.1002-27834.007
-X-TMASE-Result: 10--3.517500-10.000000
-X-TMASE-MatchedRID: 53L3gibb0joKK0r2G9VU7k7nLUqYrlslFIuBIWrdOeOjEIt+uIPPOBUl
- FfwzsqyWj/os4F7akNn0SV7CRnVQRDcpdZ3fQiLdFEUknJ/kEl6YwzE9E8g5OfoLR4+zsDTt8fx
- dFDBKE7uovgWDUk5pbNbC+Ni79n7WuKc9894SVfP9t8W3FsJNEVQu1JJ/BkryaHtMiC+yc2AVuF
- OZanU8erOWCQCk2bXc723RGbqO3ZjyDBYNCJzj6s+YAJ5mo7zlOKgonZY9TFMtLgAQ4uO3AA==
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+Date: Fri, 25 Aug 2023 14:27:53 +0200
+Message-Id: <20230825122753.4721-1-jack@suse.cz>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] hugeshmctl03: Mark struct tcase and several
- functions as static
+Subject: [LTP] [PATCH] fanotify22: Make tests not depend on behavior of
+ shutdown filesystem
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,53 +77,99 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
+Cc: Jan Kara <jack@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-To follow LTP conventions.
+The tests in fanotify22 implicitely depended on the fact that filesystem
+shutdown with 'abort' mount option keeps reporting further errors and
+further mounts with 'abort' option. This is however too strict (mostly a
+bug in ext4 implementation) and in principle reporting errors after the
+filesystem is shutdown is just a pointless noise. Ext4 recently modified
+the behavior of 'abort' mount option to behave the same as filesystem
+shutdown and thus also stop reporting further filesystem errors. Modify
+the tests to unmount and mount the filesystem after each test to get it
+out of the shutdown state for the following tests and also replace a
+test testing behavior after mounting with 'abort' mount option with a
+test testing two different filesystem corruption errors.
 
-Reviewed-by: Xiao Yang <yangx.jy@fujitsu.com>
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+Signed-off-by: Jan Kara <jack@suse.cz>
 ---
- testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../kernel/syscalls/fanotify/fanotify22.c     | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
-index 21ec6bf78..61e9704bb 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
-@@ -44,7 +44,7 @@ static struct shmid_ds buf;
- static uid_t ltp_uid;
- static char *ltp_user = "nobody";
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify22.c b/testcases/kernel/syscalls/fanotify/fanotify22.c
+index 1105172bb269..475155b9f58a 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify22.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify22.c
+@@ -42,6 +42,7 @@
+ #define MOUNT_PATH "test_mnt"
+ #define BASE_DIR "internal_dir"
+ #define BAD_DIR BASE_DIR"/bad_dir"
++#define BAD_LINK BASE_DIR"/bad_link"
  
--struct tcase {
-+static struct tcase {
- 	int *shmid;
- 	int cmd;
- 	struct shmid_ds *sbuf;
-@@ -97,7 +97,7 @@ static void do_child(void)
- 	}
- }
+ #ifdef HAVE_NAME_TO_HANDLE_AT
  
--void setup(void)
-+static void setup(void)
+@@ -51,6 +52,7 @@ static int fd_notify;
+ /* These expected FIDs are common to multiple tests */
+ static struct fanotify_fid_t null_fid;
+ static struct fanotify_fid_t bad_file_fid;
++static struct fanotify_fid_t bad_link_fid;
+ 
+ static void trigger_fs_abort(void)
  {
- 	long hpage_size;
+@@ -78,7 +80,13 @@ static void tcase2_trigger_lookup(void)
  
-@@ -118,7 +118,7 @@ void setup(void)
- 	ltp_uid = getuserid(ltp_user);
- }
- 
--void cleanup(void)
-+static void cleanup(void)
+ static void tcase3_trigger(void)
  {
- 	rm_shm(shm_id_1);
+-	trigger_fs_abort();
++	int ret;
++
++	/* SAFE_OPEN cannot be used here because we expect it to fail. */
++	ret = open(MOUNT_PATH"/"BAD_LINK, O_RDONLY, 0);
++	if (ret != -1 && errno != EUCLEAN)
++		tst_res(TFAIL, "Unexpected open result(%d) of %s (%d!=%d)",
++			ret, BAD_LINK, errno, EUCLEAN);
+ 	tcase2_trigger_lookup();
  }
+ 
+@@ -113,8 +121,8 @@ static struct test_case {
+ 		.name = "Multiple error submission",
+ 		.trigger_error = &tcase3_trigger,
+ 		.error_count = 2,
+-		.error = ESHUTDOWN,
+-		.fid = &null_fid,
++		.error = EFSCORRUPTED,
++		.fid = &bad_link_fid,
+ 	},
+ 	{
+ 		.name = "Multiple error submission 2",
+@@ -248,6 +256,9 @@ static void do_test(unsigned int i)
+ 			   FAN_FS_ERROR, AT_FDCWD, MOUNT_PATH);
+ 
+ 	check_event(event_buf, read_len, tcase);
++	/* Unmount and mount the filesystem to get it out of the error state */
++	SAFE_UMOUNT(MOUNT_PATH);
++	SAFE_MOUNT(tst_device->dev, MOUNT_PATH, tst_device->fs_type, 0, NULL);
+ }
+ 
+ static void pre_corrupt_fs(void)
+@@ -256,9 +267,11 @@ static void pre_corrupt_fs(void)
+ 	SAFE_MKDIR(MOUNT_PATH"/"BAD_DIR, 0777);
+ 
+ 	fanotify_save_fid(MOUNT_PATH"/"BAD_DIR, &bad_file_fid);
++	fanotify_save_fid(MOUNT_PATH"/"BASE_DIR, &bad_link_fid);
+ 
+ 	SAFE_UMOUNT(MOUNT_PATH);
+ 	do_debugfs_request(tst_device->dev, "sif " BAD_DIR " mode 0xff");
++	do_debugfs_request(tst_device->dev, "ln <1> " BAD_LINK);
+ 	SAFE_MOUNT(tst_device->dev, MOUNT_PATH, tst_device->fs_type, 0, NULL);
+ }
+ 
 -- 
-2.39.1
+2.35.3
 
 
 -- 
