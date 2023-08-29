@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 809FB78C1E9
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Aug 2023 12:04:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AAE278C1F5
+	for <lists+linux-ltp@lfdr.de>; Tue, 29 Aug 2023 12:07:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F3B023CC0ED
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Aug 2023 12:04:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B46483CC0EE
+	for <lists+linux-ltp@lfdr.de>; Tue, 29 Aug 2023 12:07:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3730F3CA99A
- for <ltp@lists.linux.it>; Tue, 29 Aug 2023 12:04:09 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id BCCAF3CA99A
+ for <ltp@lists.linux.it>; Tue, 29 Aug 2023 12:07:22 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id CB088600EB2
- for <ltp@lists.linux.it>; Tue, 29 Aug 2023 12:04:08 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 39013600F2C
+ for <ltp@lists.linux.it>; Tue, 29 Aug 2023 12:07:21 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DD48F1F45F;
- Tue, 29 Aug 2023 10:04:07 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A75BF1F45F;
+ Tue, 29 Aug 2023 10:07:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1693303447; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1693303641; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=XuHEqfDzZogzv2q2esKNKIYoVI1IE8SplxGzd3ld7h0=;
- b=df2tVTEdGYkZKzaWgm9PikyTVROINy4MXPsDWSL57NyerTB+jG1e8TBqlchpmgJDu/vy2M
- 4IwkCOu++PjjnolCumfZOuu5I/E9k9WdBDK7cvQShJtqj66ImRAU/95Sm+aGG6yIjbmVQF
- 5q5yuym7lfHfK7O/F1mLLrSbgY2UfvY=
+ bh=OoU33+eVzYN7Eu01LFVt9xi9/He+lwoKiJHV+wgHj+0=;
+ b=p8FapDvFis/7zEhCdHHGuFaXciaIwho71wCBU8tW6BlPJXhyNhFSXPaiFlqnPxhnYsqp/h
+ F0xH+eo7Cs3vGcBzUBy826Dy6UYvEWwrxz2k8rT5ixU/w0ShctrtIcLbO+2SumVE3JD3mv
+ W6rTFbcpVxi4Siz9XTznboBBOS0F8g0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1693303447;
+ s=susede2_ed25519; t=1693303641;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=XuHEqfDzZogzv2q2esKNKIYoVI1IE8SplxGzd3ld7h0=;
- b=tUvYJPBREjsKXb+idFvJinDqvZ9USDJ+3/L1qe6zcID1OCgTAxacpGd5GnjNoeJFVnc4IX
- KzMLK9hY7K8Jt2Dg==
+ bh=OoU33+eVzYN7Eu01LFVt9xi9/He+lwoKiJHV+wgHj+0=;
+ b=oC5BkGCcxX7u+pUdZGrG6KX20dmsU7uZA9+AoD9vZTMLlPAuPDqHannGaQyTpoN4Mk8nYw
+ bB61NkHrg2l95lBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 62B8E138E2;
- Tue, 29 Aug 2023 10:04:07 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2C2A8138E2;
+ Tue, 29 Aug 2023 10:07:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Bu/yC5fC7WSRbQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 29 Aug 2023 10:04:07 +0000
-Date: Tue, 29 Aug 2023 12:03:46 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id d/PpLljD7WQmbwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 29 Aug 2023 10:07:20 +0000
+Date: Tue, 29 Aug 2023 12:07:01 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Avinesh Kumar <akumar@suse.de>
-Message-ID: <ZO3CghC11RzXJjuq@rei>
-References: <20230818112023.18159-1-akumar@suse.de>
- <20230818112023.18159-4-akumar@suse.de>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <ZO3DRdzCOeU0J-kP@rei>
+References: <20230823130904.26051-1-andrea.cervesato@suse.de>
+ <ZO2dfwOM0pK8xz1j@rei>
+ <1717e228-1556-4ba0-8f91-4cb7160c3908@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230818112023.18159-4-akumar@suse.de>
+In-Reply-To: <1717e228-1556-4ba0-8f91-4cb7160c3908@suse.com>
 X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 4/4] syscalls/mmap04: Rewrite the test using new
- LTP API
+Subject: Re: [LTP] [PATCH v4] Add epoll_wait05 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,14 +87,9 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-This is nearly identical to the mmap02.c and the same comments apply
-here.
+> If patch is fine, is it possible to push it removing the reference?
 
-Also the test does not check the PROT_EXEC part at all. If we wanted to
-properly test PROT_EXEC we would have to copy a function code to the
-file first then execute it, something that mprotect04 does, but since
-that flag is already tested in mprotect04 it does not make that much
-sense to have it here as well.
+Sure, will do.
 
 -- 
 Cyril Hrubis
