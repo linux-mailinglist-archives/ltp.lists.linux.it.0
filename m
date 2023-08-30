@@ -1,74 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6717F78D5D9
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Aug 2023 14:21:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9776378D5EB
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Aug 2023 14:36:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ED2363CE042
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Aug 2023 14:21:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E72723CC006
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Aug 2023 14:36:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6B19E3C5DFD
- for <ltp@lists.linux.it>; Wed, 30 Aug 2023 14:21:53 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 2D7203C5DFD
+ for <ltp@lists.linux.it>; Wed, 30 Aug 2023 14:36:36 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D54FB1000987
- for <ltp@lists.linux.it>; Wed, 30 Aug 2023 14:21:52 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 757221400F3A
+ for <ltp@lists.linux.it>; Wed, 30 Aug 2023 14:36:35 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 599DB2185F;
- Wed, 30 Aug 2023 12:21:52 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0C1AF1F74B;
+ Wed, 30 Aug 2023 12:36:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1693398112; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1693398995; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=zsf4PC0cUJvONnTVszq1fYS8gURhBK3QVDiAnwMWMJk=;
- b=eqjsZ73bKPGvgC3FcHaYwKsokc+DuVJ8ZN1v4K4OwkvD2juFZt8SQDxZyqRleAaFcwOWE+
- ELUszsexr9h26efRbP0fo3cNwPxd/XoVrlWI12j0HfqUo/84jhc45txKEJptv2nV4g46Z9
- XdOaKsncI+YbRrXvNhX6Ra2/ADYFRDg=
+ bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
+ b=Qq4Q7MrHR6fqTqT4Ffb23HtB0wYFH7y8uBMaJlf1yyyDfVclmvM8g8W8YCK3wfW9j0/kQd
+ 7UkWPEAS78wV93AkkCRizSIO42lTftg297468mWXGwpTHAmG15TGNIWQf5+AUy4Fhf1pvR
+ 7LWw9E4BNEw1rS0ki1Se/CqUUFm/Qk0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1693398112;
+ s=susede2_ed25519; t=1693398995;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=zsf4PC0cUJvONnTVszq1fYS8gURhBK3QVDiAnwMWMJk=;
- b=PER9rdtmjj5QkvIDIgjyK95gtkshBcLJOGcJ2fSaSVJGNnCxxgpMbN5r1PCpPQsmdeRXl5
- laSstHZq3AeZkRBQ==
+ bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
+ b=TEITKKpoeknqXTA8mqFCmb+1lzquzOEQol4r0sQLfc45B6N4NNArtghLUd/Yjhm2o7VeqC
+ rHvdRRhpHyEp2eDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4FFB11353E;
- Wed, 30 Aug 2023 12:21:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6DA161353E;
+ Wed, 30 Aug 2023 12:36:33 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NG5tBl8072T2QgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 30 Aug 2023 12:21:51 +0000
-Date: Wed, 30 Aug 2023 14:21:30 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id Sa/HOdE372TCSwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 30 Aug 2023 12:36:33 +0000
+Date: Wed, 30 Aug 2023 14:36:13 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Avinesh Kumar <akumar@suse.de>
-Message-ID: <ZO80SpyyoMYQT0Ik@rei>
+Message-ID: <ZO83vRYMgt2Fzxsj@rei>
 References: <20230824074406.1129-1-akumar@suse.de>
- <20230824074406.1129-2-akumar@suse.de>
+ <20230824074406.1129-3-akumar@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230824074406.1129-2-akumar@suse.de>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+In-Reply-To: <20230824074406.1129-3-akumar@suse.de>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/3] syscalls/mmap06: Refactor and add scenarios
- for EACCES test
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/3] syscalls/mmap07: Remove the test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,48 +86,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Pushed with minor changes, thanks.
-
-- sizeof(char) == 1 again
-- first mmap() parameter is pointer, hence should be NULL
-- there is no point in printing the TERRNO if mmap() succeeded
-- LKML coding style prefers curly braces around else block if they are
-  around the if block
-
-diff --git a/testcases/kernel/syscalls/mmap/mmap06.c b/testcases/kernel/syscalls/mmap/mmap06.c
-index 05e0ffc69..012e7de41 100644
---- a/testcases/kernel/syscalls/mmap/mmap06.c
-+++ b/testcases/kernel/syscalls/mmap/mmap06.c
-@@ -36,7 +36,7 @@ static void setup(void)
- 	char *buf;
- 
- 	page_sz = getpagesize();
--	buf = SAFE_CALLOC(page_sz, sizeof(char));
-+	buf = SAFE_MALLOC(page_sz);
- 	memset(buf, 'A', page_sz);
- 
- 	fd = SAFE_OPEN(TEMPFILE, O_WRONLY | O_CREAT, 0666);
-@@ -48,15 +48,16 @@ static void run(unsigned int i)
- {
- 	struct tcase *tc = &tcases[i];
- 
--	TESTPTR(mmap(0, page_sz, tc->prot, tc->flags, fd, 0));
-+	TESTPTR(mmap(NULL, page_sz, tc->prot, tc->flags, fd, 0));
- 
- 	if (TST_RET_PTR != MAP_FAILED) {
--		tst_res(TFAIL | TERRNO, "mmap() was successful unexpectedly");
-+		tst_res(TFAIL, "mmap() was successful unexpectedly");
- 		SAFE_MUNMAP(TST_RET_PTR, page_sz);
--	} else if (TST_ERR == EACCES)
-+	} else if (TST_ERR == EACCES) {
- 		tst_res(TPASS, "mmap() failed with errno EACCES");
--	else
-+	} else {
- 		tst_res(TFAIL | TERRNO, "mmap() failed but unexpected errno");
-+	}
- }
- 
- static void cleanup(void)
+Pushed, thanks.
 
 -- 
 Cyril Hrubis
