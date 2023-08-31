@@ -2,74 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 866ED78EA60
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Aug 2023 12:43:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26BBC78EBF1
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Aug 2023 13:26:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1889C3CE041
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Aug 2023 12:43:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CD6683CBE8A
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Aug 2023 13:26:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4395A3CBF43
- for <ltp@lists.linux.it>; Thu, 31 Aug 2023 12:42:45 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 1B8523CB6FB
+ for <ltp@lists.linux.it>; Thu, 31 Aug 2023 13:26:33 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 84367140042B
- for <ltp@lists.linux.it>; Thu, 31 Aug 2023 12:42:44 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6F5326096BE
+ for <ltp@lists.linux.it>; Thu, 31 Aug 2023 13:26:33 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C45921F854;
- Thu, 31 Aug 2023 10:42:43 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B30D51F853
+ for <ltp@lists.linux.it>; Thu, 31 Aug 2023 11:26:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1693478563; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0NdYM86YsxycvyImygfa7Alq47I9Ickaz886pdKZzA8=;
- b=CZMcvtF36+MpQ46nks6aghIKsYnnC7QlkyFtLZUeGEeIgp4FRFKqbw92GOO9ADOAKzXdBH
- L7UBL/dEzfun6VijgCOxi5JPUU5jwyJMiQ6h4xCzxXBRYoxnNUepOshO9xP4/8eeZaCX76
- ICdvanB3JQDBoZmPGGcron2e7BG0+Ok=
+ t=1693481192; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Inyhj5OZneYlbgjZQ35AlUQc8Z8fCLksW583ahQ6gag=;
+ b=put5gkddUtbkKKc+E+SArxbagyYcDdrWCEKA9QKvJgOSlh3/9I3yNlb6PU4dG2s0UOIlWb
+ 4yGLJp40cUShctrxOOAzNgW7jfdzwWvx6vql8F+TF/7DRCF5rdhwILb8sqsG/h42JUgbXN
+ lD+uwdpjd5In+Wx+tFG2tB0nXezp4P4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1693478563;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0NdYM86YsxycvyImygfa7Alq47I9Ickaz886pdKZzA8=;
- b=vWmtB0+BAEq+els0Bh14axss6V9/vezZTaOVRrwLAvCEFll5mrPPqBWUBl26VZZwh9Ei86
- jcaD1i3P+ZqcWgCw==
+ s=susede2_ed25519; t=1693481192;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Inyhj5OZneYlbgjZQ35AlUQc8Z8fCLksW583ahQ6gag=;
+ b=/5LXrm0jzl/Xh1bPMZkAIs/TTCWaZEBfr/HyqFJ58ZyU8U9rvBoIWByR4yWA4DwHI5D+i4
+ 3aqSxI0yfwsMl5AQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ABD3413587;
- Thu, 31 Aug 2023 10:42:43 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA41B13583
+ for <ltp@lists.linux.it>; Thu, 31 Aug 2023 11:26:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QKrYKKNu8GQIQgAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Thu, 31 Aug 2023 10:42:43 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6708Kud48GQgWgAAMHmgww
+ (envelope-from <akumar@suse.de>)
+ for <ltp@lists.linux.it>; Thu, 31 Aug 2023 11:26:31 +0000
+From: Avinesh Kumar <akumar@suse.de>
 To: ltp@lists.linux.it
-Date: Thu, 31 Aug 2023 12:42:42 +0200
-Message-Id: <20230831104242.27156-3-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230831104242.27156-1-andrea.cervesato@suse.de>
-References: <20230831104242.27156-1-andrea.cervesato@suse.de>
+Date: Thu, 31 Aug 2023 16:49:33 +0530
+Message-ID: <20230831112629.21510-1-akumar@suse.de>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 2/2] Refactor getegid02 using new LTP API
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/mmap21: Add new test for mmap's ENOMEM case
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,131 +80,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+To be more precise in this test and checking for ENOMEM on exact mapping
+when limit is crossed, I could only think of counting the existing
+mappings from /proc/$pid/maps and counting the remaining possible
+mappings. Is there any better approach if we want to test this for exact
+case?
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+Signed-off-by: Avinesh Kumar <akumar@suse.de>
 ---
- testcases/kernel/syscalls/getegid/getegid02.c | 93 +++++--------------
- 1 file changed, 21 insertions(+), 72 deletions(-)
+ testcases/kernel/syscalls/mmap/mmap21.c | 70 +++++++++++++++++++++++++
+ 1 file changed, 70 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/mmap/mmap21.c
 
-diff --git a/testcases/kernel/syscalls/getegid/getegid02.c b/testcases/kernel/syscalls/getegid/getegid02.c
-index 60f09501e..2f64bd869 100644
---- a/testcases/kernel/syscalls/getegid/getegid02.c
-+++ b/testcases/kernel/syscalls/getegid/getegid02.c
-@@ -1,90 +1,39 @@
+diff --git a/testcases/kernel/syscalls/mmap/mmap21.c b/testcases/kernel/syscalls/mmap/mmap21.c
+new file mode 100644
+index 000000000..76002edb3
+--- /dev/null
++++ b/testcases/kernel/syscalls/mmap/mmap21.c
+@@ -0,0 +1,70 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- * Copyright (c) International Business Machines  Corp., 2001
-- *  Ported by Wayne Boyer
-- *
-- * This program is free software;  you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- * the GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program;  if not, write to the Free Software
-- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-+ *   William Roske, Dave Fenner
-+ * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-  */
- 
--/*
-- * Testcase to check the basic functionality of getegid().
++/*
++ * Copyright (c) 2023 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
++ */
++
 +/*\
 + * [Description]
-  *
-- * For functionality test the return value from getegid() is compared to passwd
-- * entry.
-+ * This test checks if getegid() returns the same effective group given by
-+ * passwd entry via getpwuid().
-  */
- 
- #include <pwd.h>
--#include <errno.h>
--
--#include "test.h"
--#include "compat_16.h"
- 
--static void cleanup(void);
--static void setup(void);
++ *
++ * Verify that, mmap(2) fails with errno ENOMEM when process's
++ * maximum number of mappings would have been exceeded.
++ */
++
++#include <stdio.h>
 +#include "tst_test.h"
-+#include "compat_tst_16.h"
- 
--TCID_DEFINE(getegid02);
--int TST_TOTAL = 1;
--
--int main(int ac, char **av)
++
++#define TEMPFILE "mmapfile"
++static int fd;
++static size_t page_sz;
++static int max_map;
++
++static void setup(void)
++{
++	page_sz = getpagesize();
++
++	fd = SAFE_OPEN(TEMPFILE, O_RDWR | O_CREAT, 0666);
++
++	SAFE_FILE_SCANF("/proc/sys/vm/max_map_count", "%d   ", &max_map);
++	tst_res(TINFO, "max_map_count: %d", max_map);
++}
++
 +static void run(void)
- {
--	int lc;
- 	uid_t euid;
-+	gid_t egid;
- 	struct passwd *pwent;
- 
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--
--		TEST(GETEGID(cleanup));
-+	UID16_CHECK((euid = geteuid()), "geteuid");
- 
--		if (TEST_RETURN < 0) {
--			tst_brkm(TBROK, cleanup, "This should never happen");
--		}
-+	pwent = getpwuid(euid);
-+	if (!pwent)
-+		tst_brk(TBROK | TERRNO, "getpwuid() error");
- 
--		euid = geteuid();
--		pwent = getpwuid(euid);
-+	GID16_CHECK((egid = getegid()), "getegid");
- 
--		if (pwent == NULL)
--			tst_brkm(TBROK, cleanup, "geteuid() returned "
--				 "unexpected value %d", euid);
--
--		GID16_CHECK(pwent->pw_gid, getegid, cleanup);
--
--		if (pwent->pw_gid != TEST_RETURN) {
--			tst_resm(TFAIL, "getegid() return value"
--				 " %ld unexpected - expected %d",
--				 TEST_RETURN, pwent->pw_gid);
--		} else {
--			tst_resm(TPASS,
--				 "effective group id %ld "
--				 "is correct", TEST_RETURN);
--		}
--	}
--
--	cleanup();
--	tst_exit();
--}
--
--static void setup(void)
--{
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--	TEST_PAUSE;
-+	TST_EXP_EQ_LI(pwent->pw_gid, egid);
- }
- 
--static void cleanup(void)
--{
--}
++{
++	int i;
++	char *addr[max_map];
++
++	for (i = 0; i < max_map; i++) {
++		TESTPTR(mmap(0, page_sz, PROT_READ | PROT_WRITE, MAP_FILE | MAP_SHARED, fd, 0));
++		if (TST_RET_PTR != MAP_FAILED) {
++			addr[i] = TST_RET_PTR;
++		} else {
++			if (TST_ERR == ENOMEM) {
++				tst_res(TINFO, "New successful mappings before exhausting the limit: %d", i);
++				tst_res(TPASS, "mmap() failed with ENOMEM");
++			} else {
++				tst_res(TINFO, "New successful mappings before mmap() failed: %d", i);
++				tst_res(TFAIL | TERRNO, "mmap() failed with unexpected errno");
++			}
++			break;
++		}
++	}
++
++	if (i == max_map)
++		tst_res(TFAIL, "mmap() crossed max_map_count limit, no of new mmapings: %d", i);
++
++	while (--i >= 0)
++		SAFE_MUNMAP(addr[i], page_sz);
++}
++
++static void cleanup(void)
++{
++	if (fd > 0)
++		SAFE_CLOSE(fd);
++}
++
 +static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
 +	.test_all = run,
++	.needs_tmpdir = 1
 +};
 -- 
-2.35.3
+2.41.0
 
 
 -- 
