@@ -1,69 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 652AB78E949
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Aug 2023 11:20:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EEDE78E9C3
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Aug 2023 11:47:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 410323CBF43
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Aug 2023 11:20:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3DA0D3CED7A
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Aug 2023 11:47:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5FAF93C99CF
- for <ltp@lists.linux.it>; Thu, 31 Aug 2023 11:20:35 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id ADB5F3CBEAD
+ for <ltp@lists.linux.it>; Thu, 31 Aug 2023 11:47:47 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4217D600942
- for <ltp@lists.linux.it>; Thu, 31 Aug 2023 11:20:33 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DCB97602A1E
+ for <ltp@lists.linux.it>; Thu, 31 Aug 2023 11:47:46 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 356981F854;
- Thu, 31 Aug 2023 09:20:33 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id B2ADD1F854;
+ Thu, 31 Aug 2023 09:47:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1693473633;
+ t=1693475265;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/qCsoAMC72USMwhBiFAKnsVfRWFocQCxkZsb/cyH/X4=;
- b=hUG3BCprdrb9wlnjJ/322KzPxHoDsvkmtPe3rVJpPo1we8VEdN2XThLcQae2xTH5j+TIub
- aedWtpTwadLosANAkIAvIZd77zfn2oVL6psBzKgdVQf7KlaoFSy7P12V5epXPNZMkuTfAJ
- 2+uxj4imMxM6NVU/z2JzpAPA0ZoHe6g=
+ bh=uWoM2+iaTmfSRo0jrl7Pfh85XnlnmUOZsTF1GA3goH4=;
+ b=qlQpYN0mCW2k4bVzCmU15YI7hfxAQsba3S2jgM4uJtqiVPzYApTimEcjaqpbNpfRrMfDW9
+ vcMRK+5iaFjnBouar1I8fzC37ydUfU0XpUj162ekR4+Vs2f2oJ8BsSiG6LJ8I+2v/uXoXd
+ rlxgOV5kgmdeXLcE4+m+N2pKgCmFFks=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1693473633;
+ s=susede2_ed25519; t=1693475265;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/qCsoAMC72USMwhBiFAKnsVfRWFocQCxkZsb/cyH/X4=;
- b=1BUjscW8mF8652oLB2Z/AFZuqPBbg7DUgf6i9UjmIyhfMe19lMqcjeESPDy1Q32xe0rLCw
- zt9aJW8m4AeCZoBA==
+ bh=uWoM2+iaTmfSRo0jrl7Pfh85XnlnmUOZsTF1GA3goH4=;
+ b=v3RbILfedQfZdfckqnlkPSjgOt16RuvtuB58mIbbSnqmO+qt3T9UoFw5Fs2M/aEiOJCwBI
+ csnoKDd8HX1rPZAg==
 Received: from g78 (rpalethorpe.udp.ovpn1.nue.suse.de [10.163.28.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 880202C142;
- Thu, 31 Aug 2023 09:20:32 +0000 (UTC)
-References: <20230829231845.25866-1-wegao@suse.com>
- <20230831064727.5790-1-wegao@suse.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 125FB2C142;
+ Thu, 31 Aug 2023 09:47:44 +0000 (UTC)
+References: <20230830132528.26521-1-andrea.cervesato@suse.de>
+ <20230830132528.26521-2-andrea.cervesato@suse.de>
 User-agent: mu4e 1.10.6; emacs 29.1
 From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Wei Gao <wegao@suse.com>
-Date: Thu, 31 Aug 2023 10:19:33 +0100
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Thu, 31 Aug 2023 10:47:22 +0100
 Organization: Linux Private Site
-In-reply-to: <20230831064727.5790-1-wegao@suse.com>
-Message-ID: <87wmxbh8kh.fsf@suse.de>
+In-reply-to: <20230830132528.26521-2-andrea.cervesato@suse.de>
+Message-ID: <87sf7zh7b5.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7] clone3: Add clone3's clone_args cgroup
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 1/2] Refactor personality01 using new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,17 +83,7 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hello,
 
-Wei Gao via ltp <ltp@lists.linux.it> writes:
-
-> +
-> +static struct tst_test test = {
-> +	.test_all = run,
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.forks_child = 1,
-> +	.max_runtime = 20,
-
-I removed this and merged!
+Pushed!
 
 -- 
 Thank you,
