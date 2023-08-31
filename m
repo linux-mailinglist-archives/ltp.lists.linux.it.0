@@ -2,71 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2E617917DB
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Sep 2023 15:13:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A8407919F6
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Sep 2023 16:46:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9DB663CBDA0
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Sep 2023 15:13:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7AEF13CDF7F
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Sep 2023 16:46:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 155803CB871
- for <ltp@lists.linux.it>; Mon,  4 Sep 2023 15:13:21 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 78A133C62DB
+ for <ltp@lists.linux.it>; Thu, 31 Aug 2023 08:11:24 +0200 (CEST)
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 010DB600C60
- for <ltp@lists.linux.it>; Mon,  4 Sep 2023 15:13:20 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DF727210E3;
- Mon,  4 Sep 2023 13:13:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1693833199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=B9mdR169KD5pkP0ZQPWAyLyZSfm0uFu14mFg5AkBxxQ=;
- b=IB2P8y9pniDXmV4Q+oAXIFwOAV8MzGZPZ3o09GtTqumpxg6F8I+plnQB4SHuB3c7yjqopt
- UCQcvNNQzC1P5g3JUwZgAusDhm4kbTwsoy3w/oijDI8xt/wEFY2V+5WpgVRKEVN5pzGuGs
- OOkRF9/nSywMgzhYuWuVrT6mVcvu//w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1693833199;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=B9mdR169KD5pkP0ZQPWAyLyZSfm0uFu14mFg5AkBxxQ=;
- b=cWs3qChqtQgp4mwyCJFmz25Qj3Xr8z/zI1sWeCz29FooHEsD0SLb26z/Zh+pw2TnANp5yk
- WnCUCJMeIwjGPHBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C327013585;
- Mon,  4 Sep 2023 13:13:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id taVvLu/X9WRXBAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 04 Sep 2023 13:13:19 +0000
-Date: Mon, 4 Sep 2023 15:13:58 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <ZPXYFqtjb9LkvPPf@yuki>
-References: <20230904125424.4011-1-andrea.cervesato@suse.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230904125424.4011-1-andrea.cervesato@suse.de>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 67660605649
+ for <ltp@lists.linux.it>; Thu, 31 Aug 2023 08:10:42 +0200 (CEST)
+X-QQ-mid: bizesmtp75t1693462227tl23kkf4
+Received: from alvin ( [221.123.136.170])
+ by bizesmtp.qq.com (ESMTP) with SMTP id 0
+ for <ltp@lists.linux.it.>; Thu, 31 Aug 2023 14:09:34 +0800 (CST)
+X-QQ-SSF: 00400000000000Z0Z000000A0000000
+X-QQ-FEAT: +ynUkgUhZJm4xz8GeQKCm0shyfN5rQNXmNRgHcRgaAROSnajGLkuPjw7EnKKq
+ Cig67LKaz3bFaW2Z4kWYWqPdwUi17gBrTJXg5/o3Khy7XvXg2Wg0bMrShkryA3ju0JigzqX
+ HBQwW/z/03McBZw5Or/ilQjb9S5Hr1cO8kBd7OunglQittE6qf8l7NWBW7NuUIJRfEBcHPn
+ jBJzdOiEcx+x/Dc3wqthgKtaTq46aKbp7QLXihyFYvOylLMT6tARLekqukUu0DU/sdSQuPK
+ 2KarU3ePzgU3q1q89PClmnTtNLr0TlHURkZOk4BBmtpsMg5FgNaTuG4XfYZUuMkACAy62lZ
+ eLyntJTi3yLmFGuJ81hA12vhRsusDWzRA+DDrqQay0AbbJO9M5nRleeW73/9JIKI0wjM1dZ
+ BYz21Th1ODvrKAzSs/65jljKxMRviSSa
+X-QQ-GoodBg: 2
+X-BIZMAIL-ID: 1971478944658686317
+Date: Thu, 31 Aug 2023 14:09:35 +0800
+From: =?GB2312?B?wO7VvM7k?= <lizw@chinasupercloud.com>
+To: ltp <ltp@lists.linux.it>
+X-Priority: 3
+X-GUID: 29D3E938-035E-4EB5-AB9D-1ECB6639D279
+X-Has-Attach: yes
+X-Mailer: Foxmail 7.2.23.121[cn]
+Mime-Version: 1.0
+Message-ID: <927B643AA2DE0DEB+2023083114093400166120@chinasupercloud.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:chinasupercloud.com:qybglogicsvrgz:qybglogicsvrgz6a-1
 X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Check swap availability in process_madvise01
+X-Mailman-Approved-At: Mon, 04 Sep 2023 16:46:38 +0200
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: [LTP] Seeking help with LTP testing issues.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,19 +62,12 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Pushed along with the patch that adds the library support for
-.min_swap_avail, thanks.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+V2UgYXJlIGEgc2VydmVyIG1hbnVmYWN0dXJlciB1c2luZyBMVFAgdGVzdGluZy4gVGhlIGF0dGFj
+aG1lbnQgaXMgYW4gZXJyb3IgbG9nLiBQbGVhc2UgaGVscCB1cy4NCg0KDQpLZW4gLkxpIMDu1bzO
+5CANCg0KCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0
+aW5mby9sdHAK
