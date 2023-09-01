@@ -1,68 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E264278FDE7
-	for <lists+linux-ltp@lfdr.de>; Fri,  1 Sep 2023 14:58:59 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F2F878FF67
+	for <lists+linux-ltp@lfdr.de>; Fri,  1 Sep 2023 16:44:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9BF2B3CBD17
-	for <lists+linux-ltp@lfdr.de>; Fri,  1 Sep 2023 14:58:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C61183CEE86
+	for <lists+linux-ltp@lfdr.de>; Fri,  1 Sep 2023 16:44:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9D3FD3CB66E
- for <ltp@lists.linux.it>; Fri,  1 Sep 2023 14:58:54 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 36DB03CED3D
+ for <ltp@lists.linux.it>; Fri,  1 Sep 2023 16:44:13 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C1CD91A010D4
- for <ltp@lists.linux.it>; Fri,  1 Sep 2023 14:58:53 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5EC9C1A00939
+ for <ltp@lists.linux.it>; Fri,  1 Sep 2023 16:44:12 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 20F1F1F853;
- Fri,  1 Sep 2023 12:58:53 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 848251F45F;
+ Fri,  1 Sep 2023 14:44:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1693573133; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1693579452; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=uolqaM6CQ2GCQa1Q9R/pN7b80AdBnAioFK7iCBkHDts=;
- b=xJPH6xDMr8tBmyUrga5gWpXbxwWBwJUbeULqUOmnKYCxCnsjkqRrp2eya/SaFLhanOGN/k
- CPJXGPrRC2Ny8vqyJh38YXGFlgk0clW0nw2oWevcIGyFMEYSTjUOO0wJKTVI9FkhUZIx38
- YvBv4vCwTjhXFgVdE5FjLKzd6JMwpiE=
+ bh=KH1FDe5h2eEyeoE0eiM2AqZd/VhG/kMqL7SKBG7Unpw=;
+ b=2jPODAPpoKbV0vFVhR1r9O2ZVRBNIeq34pw+urfUL0HrGqcW62aHRp1VTTpRMwdfymyBdb
+ 9uQYtFJFwCPnYxVsc3skfesrOnsBWRaciLydBhchGG6PLcamfV6w+DvtHNHmr5sCd0O9eP
+ YZgVfkTFusuFynKxsvsGYPb2Vb2MmtE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1693573133;
+ s=susede2_ed25519; t=1693579452;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=uolqaM6CQ2GCQa1Q9R/pN7b80AdBnAioFK7iCBkHDts=;
- b=FXf50CfZ0AedvKoGY/xFm539hPiHYx5g8UDDBWdVYmhAKOzEYGrpKvVHesVbLhJaB+Sa2t
- 6YawRm0sWW3xEZCg==
+ bh=KH1FDe5h2eEyeoE0eiM2AqZd/VhG/kMqL7SKBG7Unpw=;
+ b=ljHvtbPYDgRkQMHgZRlc7aZ3lkUQ3VaaHOHhi6XqrZMOIeni5yxfTcmDXJTj6iQfJjwtRH
+ WmKeJ1EcV/N6wCCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F0AFB1358B;
- Fri,  1 Sep 2023 12:58:52 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 525DB1358B;
+ Fri,  1 Sep 2023 14:44:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id P748OQzg8WRKMwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 01 Sep 2023 12:58:52 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id MciOErz48WTdaAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 01 Sep 2023 14:44:12 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri,  1 Sep 2023 14:58:44 +0200
-Message-Id: <20230901125844.351042-1-pvorel@suse.cz>
+Date: Fri,  1 Sep 2023 16:44:07 +0200
+Message-Id: <20230901144407.364630-1-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] ver_linux: Add /proc/meminfo
+Subject: [LTP] [PATCH 1/1] clone302: Fix short size test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,42 +79,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-We have free, which shows basic memory info.
+Test uses sizeof(struct clone_args)-1 as invalid size. Original struct
+size 64 was suitable (because > 64 results in EINVAL), but unrelated
+change in 45f6916ba increased the size to 88, thus test failed to due
+unexpected clone3() pass.
 
-But printing /proc/meminfo can be useful to get detailed info or
-get any info on embedded systems which might not have procps installed.
+Depending on struct clone_args size is not good idea, let's use
+arbitrary value 1.
 
-+ move free output, to have all memory info after CPU info.
-
+Fixes: 1b0e8dd71 ("syscalls/clone3: New tests")
+Suggested-by: Martin Doucha <mdoucha@suse.cz>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- ver_linux | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Value is really arbitrary, any hint for better value.
+Or should we delete the test?
 
-diff --git a/ver_linux b/ver_linux
-index 2df1c7b69..7dd0fe176 100755
---- a/ver_linux
-+++ b/ver_linux
-@@ -130,13 +130,17 @@ if [ -e /proc/modules ]; then
-     echo "Modules Loaded         "$X
- fi
- 
-+echo
-+echo 'cpuinfo:'
-+tst_cmd_run lscpu || cat /proc/cpuinfo
-+
- echo
- echo 'free reports:'
- free
- 
- echo
--echo 'cpuinfo:'
--tst_cmd_run lscpu || cat /proc/cpuinfo
-+echo 'memory (/proc/meminfo):'
-+cat /proc/meminfo
- 
- echo
- echo 'available filesystems:'
+NOTE: tested only on x86_64.
+
+Kind regards,
+Petr
+
+ testcases/kernel/syscalls/clone3/clone302.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/testcases/kernel/syscalls/clone3/clone302.c b/testcases/kernel/syscalls/clone3/clone302.c
+index b1b4ccebb..98848e4bc 100644
+--- a/testcases/kernel/syscalls/clone3/clone302.c
++++ b/testcases/kernel/syscalls/clone3/clone302.c
+@@ -34,7 +34,7 @@ static struct tcase {
+ } tcases[] = {
+ 	{"invalid args", &invalid_args, sizeof(*valid_args), 0, NULL, SIGCHLD, 0, 0, 0, EFAULT},
+ 	{"zero size", &valid_args, 0, 0, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+-	{"short size", &valid_args, sizeof(*valid_args) - 1, 0, NULL, SIGCHLD, 0, 0, 0, EINVAL},
++	{"short size", &valid_args, 1, 0, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+ 	{"extra size", &valid_args, sizeof(*valid_args) + 1, 0, NULL, SIGCHLD, 0, 0, 0, EFAULT},
+ 	{"sighand-no-VM", &valid_args, sizeof(*valid_args), CLONE_SIGHAND, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+ 	{"thread-no-sighand", &valid_args, sizeof(*valid_args), CLONE_THREAD, NULL, SIGCHLD, 0, 0, 0, EINVAL},
 -- 
 2.40.1
 
