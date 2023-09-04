@@ -1,69 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50D22791958
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Sep 2023 16:04:31 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 492EC791A05
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Sep 2023 16:50:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BBD4D3CBFC9
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Sep 2023 16:04:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D03C83CB939
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Sep 2023 16:50:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8BDB83CB887
- for <ltp@lists.linux.it>; Mon,  4 Sep 2023 16:04:27 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id BE66A3CB8C0
+ for <ltp@lists.linux.it>; Mon,  4 Sep 2023 16:50:50 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2355F601167
- for <ltp@lists.linux.it>; Mon,  4 Sep 2023 16:04:25 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C623E1A00918
+ for <ltp@lists.linux.it>; Mon,  4 Sep 2023 16:50:49 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 895E52184F;
- Mon,  4 Sep 2023 14:04:25 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3157F1F74B;
+ Mon,  4 Sep 2023 14:50:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1693836265; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1693839049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=3NujNPRNaJUd1hgEvCqFe5Ggb+Gu7rgkKAE3LiUrOBA=;
- b=SRakgBiK8aBa3goa06tRhFWyzJ/8LI0XnpSnXcZVSnB84gC8fuhZ2leVcvBwQDJmwG4UK7
- xBw+g/TBfpBbe682kwganbdg14ktlgUgTUsqmJP3vwb/Veo0mdMnvmWVW/QZQDaHmEE11u
- eV9MB0hEqG2dvGf4+6YKsrbUCYVm4Vg=
+ bh=AXfVkCL07TBhx75HrT6gdTzYpeNGHL8cs1fPOCJ4nWY=;
+ b=qthcxQlt0dRGKdPf7bjxK1P87+p5iuHBTOzSVD0nXnDydWSMrKxFXhvchaYjPOq9Z0yUX9
+ 2xLuPGDORIn6Bm7z16AmKM/LCSmWejADKeDQIqxZixmLfuRVzNx4/eq94EuZQw+E7KpIIJ
+ WebBnNNATD71PyaX2FS1e4NDf/nKob8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1693836265;
+ s=susede2_ed25519; t=1693839049;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=3NujNPRNaJUd1hgEvCqFe5Ggb+Gu7rgkKAE3LiUrOBA=;
- b=WhJK03t0ylcIxptdCAX3rZJ4LlHk0aTVdgB0/ItY73DRhROHkBNzYmC75KNb14plOLmKkh
- 8Ys33oI42kuthHCg==
+ bh=AXfVkCL07TBhx75HrT6gdTzYpeNGHL8cs1fPOCJ4nWY=;
+ b=YiMOw54O0q5JSsgsg2A5YNO/CHIkvjqFIRtm27vSjH6ZPVlmOZIuzyVwoouduH6vftO8wd
+ umufrc7iaVDr/LDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6E8AE13425;
- Mon,  4 Sep 2023 14:04:25 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1C4F213425;
+ Mon,  4 Sep 2023 14:50:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wLC2Genj9WQnIQAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Mon, 04 Sep 2023 14:04:25 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id kGL0Bcnu9WTNOgAAMHmgww
+ (envelope-from <mkittler@suse.de>); Mon, 04 Sep 2023 14:50:49 +0000
+From: Marius Kittler <mkittler@suse.de>
 To: ltp@lists.linux.it
-Date: Mon,  4 Sep 2023 16:04:24 +0200
-Message-Id: <20230904140424.9971-1-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.35.3
+Date: Mon,  4 Sep 2023 16:50:35 +0200
+Message-ID: <20230904145035.22939-1-mkittler@suse.de>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v1] Refactor timerfd_create01 using new LTP API
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH] Use correct ioctl request for termios
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,137 +80,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+With the termios struct one is supposed to use TCGETS instead of TCGETA,
+see `man ioctl_tty`.
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+Related issue: https://github.com/linux-test-project/ltp/issues/637#issuecomment-1705334874
 ---
- .../syscalls/timerfd/timerfd_create01.c       | 99 +++++--------------
- 1 file changed, 22 insertions(+), 77 deletions(-)
+ testcases/kernel/syscalls/ioctl/ioctl01.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/timerfd/timerfd_create01.c b/testcases/kernel/syscalls/timerfd/timerfd_create01.c
-index 3d70b84f0..18a233586 100644
---- a/testcases/kernel/syscalls/timerfd/timerfd_create01.c
-+++ b/testcases/kernel/syscalls/timerfd/timerfd_create01.c
-@@ -1,95 +1,40 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2014 Fujitsu Ltd.
-- * Author: Zeng Linggang <zenglg.jy@cn.fujitsu.com>
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-+ *         Zeng Linggang <zenglg.jy@cn.fujitsu.com>
-+ * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-  */
--/*
-- * DESCRIPTION
-- *  Verify that,
-- *   1. The clockid argument is neither CLOCK_MONOTONIC nor CLOCK_REALTIME,
-- *	EINVAL would return.
-- *   2. flags is invalid, EINVAL would return.
-+/*\
-+ * [Description]
-+ *
-+ * This test verifies that:
-+ * - clockid argument is neither CLOCK_MONOTONIC nor CLOCK_REALTIME,
-+ * EINVAL would return.
-+ * - flags is invalid, EINVAL would return.
-  */
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl01.c b/testcases/kernel/syscalls/ioctl/ioctl01.c
+index 1be38e79d..983208925 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl01.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl01.c
+@@ -36,34 +36,35 @@ static struct termios termios;
  
--#define _GNU_SOURCE
--
- #include <errno.h>
- 
--#include "test.h"
--#include "lapi/timerfd.h"
--
--char *TCID = "timerfd_create01";
-+#include "tst_test.h"
-+#include "tst_safe_timerfd.h"
- 
- static struct test_case_t {
- 	int clockid;
- 	int flags;
- 	int exp_errno;
--} test_cases[] = {
--	{-1, 0, EINVAL},
--	{0, -1, EINVAL},
-+} tcases[] = {
-+	{ -1,  0, EINVAL },
-+	{  0, -1, EINVAL },
+ static struct tcase {
+ 	int *fd;
+-	int request;
++	int request_tio;
++	int request_tios;
+ 	struct termio *s_tio;
+ 	struct termios *s_tios;
+ 	int error;
+ } tcases[] = {
+ 	/* file descriptor is invalid */
+-	{&bfd, TCGETA, &termio, &termios, EBADF},
++	{&bfd, TCGETA, TCGETS, &termio, &termios, EBADF},
+ 	/* termio address is invalid */
+-	{&fd, TCGETA, (struct termio *)-1, (struct termios *)-1, EFAULT},
+-	/* command is invalid */
++	{&fd, TCGETA, TCGETS, (struct termio *)-1, (struct termios *)-1, EFAULT},
++	// /* command is invalid */
+ 	/* This errno value was changed from EINVAL to ENOTTY
+ 	 * by kernel commit 07d106d0 and bbb63c51
+ 	 */
+-	{&fd, INVAL_IOCTL, &termio, &termios, ENOTTY},
++	{&fd, INVAL_IOCTL, INVAL_IOCTL, &termio, &termios, ENOTTY},
+ 	/* file descriptor is for a regular file */
+-	{&fd_file, TCGETA, &termio, &termios, ENOTTY},
++	{&fd_file, TCGETA, TCGETS, &termio, &termios, ENOTTY},
+ 	/* termio is NULL */
+-	{&fd, TCGETA, NULL, NULL, EFAULT}
++	{&fd, TCGETA, TCGETS, NULL, NULL, EFAULT}
  };
  
--int TST_TOTAL = ARRAY_SIZE(test_cases);
--static void setup(void);
--static void timerfd_create_verify(const struct test_case_t *);
--static void cleanup(void);
--
--int main(int argc, char *argv[])
-+static void run(unsigned int i)
- {
--	int lc;
--	int i;
--
--	tst_parse_opts(argc, argv, NULL, NULL);
-+	struct test_case_t *test = &tcases[i];
+ static char *device;
  
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--		for (i = 0; i < TST_TOTAL; i++)
--			timerfd_create_verify(&test_cases[i]);
--	}
--
--	cleanup();
--	tst_exit();
-+	TST_EXP_FAIL(timerfd_create(test->clockid, test->flags), test->exp_errno);
+ static void verify_ioctl(unsigned int i)
+ {
+-	TST_EXP_FAIL(ioctl(*(tcases[i].fd), tcases[i].request, tcases[i].s_tio),
++	TST_EXP_FAIL(ioctl(*(tcases[i].fd), tcases[i].request_tio, tcases[i].s_tio),
+ 		     tcases[i].error);
+ 
+-	TST_EXP_FAIL(ioctl(*(tcases[i].fd), tcases[i].request, tcases[i].s_tios),
++	TST_EXP_FAIL(ioctl(*(tcases[i].fd), tcases[i].request_tios, tcases[i].s_tios),
+ 		     tcases[i].error);
  }
  
--static void setup(void)
--{
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--}
--
--static void timerfd_create_verify(const struct test_case_t *test)
--{
--	TEST(timerfd_create(test->clockid, test->flags));
--
--	if (TEST_RETURN != -1) {
--		tst_resm(TFAIL, "timerfd_create() succeeded unexpectedly");
--		return;
--	}
--
--	if (TEST_ERRNO == test->exp_errno) {
--		tst_resm(TPASS | TTERRNO,
--			 "timerfd_create() failed as expected");
--	} else {
--		tst_resm(TFAIL | TTERRNO,
--			 "timerfd_create() failed unexpectedly; expected: "
--			 "%d - %s", test->exp_errno, strerror(test->exp_errno));
--	}
--}
--
--static void cleanup(void)
--{
--}
-+static struct tst_test test = {
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(tcases),
-+};
 -- 
-2.35.3
+2.41.0
 
 
 -- 
