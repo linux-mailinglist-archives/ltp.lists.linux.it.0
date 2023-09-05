@@ -2,52 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD4D1792111
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 10:37:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40FA0792123
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 10:48:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D55353CB810
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 10:37:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B8F313CB7C2
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 10:48:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 88F553CB798
- for <ltp@lists.linux.it>; Tue,  5 Sep 2023 10:37:26 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 7C7833CB794
+ for <ltp@lists.linux.it>; Tue,  5 Sep 2023 10:48:44 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B354B601103
- for <ltp@lists.linux.it>; Tue,  5 Sep 2023 10:37:25 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 81336600A33
+ for <ltp@lists.linux.it>; Tue,  5 Sep 2023 10:48:42 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id DA19C1F750;
- Tue,  5 Sep 2023 08:37:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1693903044; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=8YfwdMxvRSnb29I/ctpyw76IPgHtlzaF+yfjDUvdDSM=;
- b=gc/RhSQzrBf2frZqpoUN46lXDiP0Outgec30KaTOblsTRLcsRpjnfqNj3DCWD9Rr5ekYNZ
- wpUJrx3ek4EC4USDnuyQIhmGrEL4xXO18UhiiLb56iXCnpiY5o9NUT713kFxAp0FNvXMYb
- 1AGch4g/67SubLiRivFhcDKCJv3P/7c=
-Received: from g78.cable.virginm.net (rpalethorpe.udp.ovpn1.nue.suse.de
- [10.163.28.198])
- by relay2.suse.de (Postfix) with ESMTP id E03862C142;
- Tue,  5 Sep 2023 08:37:23 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Tue,  5 Sep 2023 09:37:13 +0100
-Message-ID: <20230905083713.12312-1-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.41.0
+ by smtp-out2.suse.de (Postfix) with ESMTP id 819031F750;
+ Tue,  5 Sep 2023 08:48:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1693903722;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Hvdw0aOzw8MA8Z1JK4zUNSoqCr7Kbr3imdHsrSX4WZs=;
+ b=NQTL7o7DgIpX4kS8/ANAqN+SF5z93R+FylbuYmy2pWSTnSNMu3ujLbXBd5ErUeDOr/X5nr
+ xqaNyg6jX3zU8Lod5Fya4emzInFuZIbWHKY7f16tAJMrg0VtolydTQrjzEM4/P8BrxmbFt
+ nUuNW/kKcyBgcjoTRaLkYts9GtPfVGg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1693903722;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Hvdw0aOzw8MA8Z1JK4zUNSoqCr7Kbr3imdHsrSX4WZs=;
+ b=SHrtFhGaJ6oIU9p8dvUrWyPtnkM2NDHmMtaatWJJlW/IHA6AueFvoZKPnhPUq/D10/CBCY
+ r8nAUwcMFFTcoVDw==
+Received: from g78 (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id D3EB92C142;
+ Tue,  5 Sep 2023 08:48:41 +0000 (UTC)
+References: <20230902074726.9837-1-wegao@suse.com>
+ <20230904085239.18462-1-wegao@suse.com>
+User-agent: mu4e 1.10.6; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Wei Gao <wegao@suse.com>
+Date: Tue, 05 Sep 2023 09:40:32 +0100
+Organization: Linux Private Site
+In-reply-to: <20230904085239.18462-1-wegao@suse.com>
+Message-ID: <87ledlf1jt.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] cve-2016-10044: Check sscanf matches and syntax fixups
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] clone302: Fix short size test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,58 +75,72 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The test appears to work, but we were not checking that sscanf fills
-the expected number of fields. Also the trailing 7 probably had no
-effect, but is a confusing typo.
+Hello,
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-Reported-by: Avinesh Kumar <akumar@suse.de>
----
- testcases/cve/cve-2016-10044.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Wei Gao via ltp <ltp@lists.linux.it> writes:
 
-diff --git a/testcases/cve/cve-2016-10044.c b/testcases/cve/cve-2016-10044.c
-index 9ac644fc2..6a8c77f3e 100644
---- a/testcases/cve/cve-2016-10044.c
-+++ b/testcases/cve/cve-2016-10044.c
-@@ -19,7 +19,7 @@
- #include "tst_safe_stdio.h"
- #include "lapi/syscalls.h"
- 
--static FILE *f;
-+static FILE * f;
- 
- static void cleanup(void)
- {
-@@ -29,7 +29,7 @@ static void cleanup(void)
- 
- static void run(void)
- {
--	void* ctx = 0;
-+	void *ctx = 0;
- 	char perms[8], line[BUFSIZ];
- 
- 	SAFE_PERSONALITY(READ_IMPLIES_EXEC);
-@@ -44,7 +44,7 @@ static void run(void)
- 	tst_brk(TCONF, "Could not find mapping in /proc/self/maps");
- 
- found_mapping:
--	if (sscanf(line, "%*x-%*x %s7", perms) < 0)
-+	if (sscanf(line, "%*x-%*x %s", perms) != 1)
- 		tst_brk(TBROK, "failed to find permission string in %s", line);
- 	if (strchr(perms, (int)'x'))
- 		tst_res(TFAIL, "AIO mapping is executable: %s!", perms);
+> Signed-off-by: Wei Gao <wegao@suse.com>
+> ---
+>  include/lapi/sched.h                        | 11 +++++++++++
+>  testcases/kernel/syscalls/clone3/clone302.c |  2 +-
+>  2 files changed, 12 insertions(+), 1 deletion(-)
+>
+> diff --git a/include/lapi/sched.h b/include/lapi/sched.h
+> index ac766efc5..f42b8969f 100644
+> --- a/include/lapi/sched.h
+> +++ b/include/lapi/sched.h
+> @@ -60,6 +60,17 @@ struct clone_args {
+>  	uint64_t __attribute__((aligned(8))) cgroup;
+>  };
+>  
+> +struct clone_args_minimal {
+> +	__aligned_u64 flags;
+> +	__aligned_u64 pidfd;
+> +	__aligned_u64 child_tid;
+> +	__aligned_u64 parent_tid;
+> +	__aligned_u64 exit_signal;
+> +	__aligned_u64 stack;
+> +	__aligned_u64 stack_size;
+> +	__aligned_u64 tls;
+> +};
+
+These look like kernel types. We have to write uint64_t
+__attribute__((aligned(8))) or do our own type def of that.
+
+Also I did say to assert during setup that clone_args_minimal is 64
+bytes as expected.
+
+> +
+>  static inline int clone3(struct clone_args *args, size_t size)
+>  {
+>  	return tst_syscall(__NR_clone3, args, size);
+> diff --git a/testcases/kernel/syscalls/clone3/clone302.c b/testcases/kernel/syscalls/clone3/clone302.c
+> index b1b4ccebb..bd1038319 100644
+> --- a/testcases/kernel/syscalls/clone3/clone302.c
+> +++ b/testcases/kernel/syscalls/clone3/clone302.c
+> @@ -34,7 +34,7 @@ static struct tcase {
+>  } tcases[] = {
+>  	{"invalid args", &invalid_args, sizeof(*valid_args), 0, NULL, SIGCHLD, 0, 0, 0, EFAULT},
+>  	{"zero size", &valid_args, 0, 0, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+> -	{"short size", &valid_args, sizeof(*valid_args) - 1, 0, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+> +	{"short size", &valid_args, sizeof(struct clone_args_minimal) - 1, 0, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+>  	{"extra size", &valid_args, sizeof(*valid_args) + 1, 0, NULL, SIGCHLD, 0, 0, 0, EFAULT},
+>  	{"sighand-no-VM", &valid_args, sizeof(*valid_args), CLONE_SIGHAND, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+>  	{"thread-no-sighand", &valid_args, sizeof(*valid_args), CLONE_THREAD, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+> -- 
+> 2.35.3
+
+
 -- 
-2.40.1
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
