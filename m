@@ -2,68 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B587C792174
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 11:30:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 775DC792171
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 11:30:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5C9193CB841
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 11:30:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 224793CDF4C
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 11:30:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AF7443CB7AE
+ by picard.linux.it (Postfix) with ESMTPS id 6F63C3CB78F
  for <ltp@lists.linux.it>; Tue,  5 Sep 2023 11:30:25 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A668C1A010F6
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A700E1400E6D
  for <ltp@lists.linux.it>; Tue,  5 Sep 2023 11:30:24 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A89671F853;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BFDBB21850;
  Tue,  5 Sep 2023 09:30:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1693906223; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=F1kEvmpdg1n3KPW1sqSJBQtIHrBY7AYdUgNQYpBgDao=;
- b=pDOSAieT4F/WIdYAZBf7WcM1tyvj7FGU+wHSxkNERVNeglCKiJe1smsiZ8lYHVk9ObHg7H
- HhvzZwKOe8jsSfyyTst+o/Yz2JNJawTaqPPK76dsvF8TQ1koMYs9G2sEeF514EktOZo+y8
- z1gScpBC7wslRRed4PUdNU5qrzy4bMM=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=AXfVkCL07TBhx75HrT6gdTzYpeNGHL8cs1fPOCJ4nWY=;
+ b=UmemlCAjs4jRyiWMtsSg/TaMmZ0iQcweK2uHYNFpiknrw2zmP9dd2oaQOCA1jBHqqYJWvn
+ oa84PlgKQSXS6lVFALvaYWuW2Aj44G7uBZWAIaLFE7PLNwwd+E5llbHh3OWkDJ81n2Qmhr
+ FWrXd1ZBQ1Fabf2n0xIj00Rzi7AYqy0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1693906223;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=F1kEvmpdg1n3KPW1sqSJBQtIHrBY7AYdUgNQYpBgDao=;
- b=6d5P8oZmD1zIr4zOHrWo7uw9LpeVNyE+Tk7RuYmJiLkwBTF86zLqag420zZsFun3imkfHZ
- 9gYlDzVMElyBW+AQ==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=AXfVkCL07TBhx75HrT6gdTzYpeNGHL8cs1fPOCJ4nWY=;
+ b=P7JJxKW9dCbj2emzd7DHGLpJajeUdQmw32GO5pgy9/tdZg84B2+fj8sFV5WPGQ2NiZkMJn
+ xldW1uV01V7rmdDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8898913911;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ABBA913A1B;
  Tue,  5 Sep 2023 09:30:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SjlDIC/19mSIMAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id EAXgKC/19mSIMAAAMHmgww
  (envelope-from <mkittler@suse.de>); Tue, 05 Sep 2023 09:30:23 +0000
 From: Marius Kittler <mkittler@suse.de>
 To: ltp@lists.linux.it
-Date: Tue,  5 Sep 2023 11:30:17 +0200
-Message-ID: <20230905093019.13881-1-mkittler@suse.de>
+Date: Tue,  5 Sep 2023 11:30:18 +0200
+Message-ID: <20230905093019.13881-2-mkittler@suse.de>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230905093019.13881-1-mkittler@suse.de>
+References: <20230905093019.13881-1-mkittler@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 0/2] Fix test for termios
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/2] Use correct ioctl request for termios
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,15 +86,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fix test for termios
+With the termios struct one is supposed to use TCGETS instead of TCGETA,
+see `man ioctl_tty`.
 
-Marius Kittler (2):
-  Use correct ioctl request for termios
-  Detangle test cases for termio and termios
+Related issue: https://github.com/linux-test-project/ltp/issues/637#issuecomment-1705334874
+---
+ testcases/kernel/syscalls/ioctl/ioctl01.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
- testcases/kernel/syscalls/ioctl/ioctl01.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
-
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl01.c b/testcases/kernel/syscalls/ioctl/ioctl01.c
+index 1be38e79d..983208925 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl01.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl01.c
+@@ -36,34 +36,35 @@ static struct termios termios;
+ 
+ static struct tcase {
+ 	int *fd;
+-	int request;
++	int request_tio;
++	int request_tios;
+ 	struct termio *s_tio;
+ 	struct termios *s_tios;
+ 	int error;
+ } tcases[] = {
+ 	/* file descriptor is invalid */
+-	{&bfd, TCGETA, &termio, &termios, EBADF},
++	{&bfd, TCGETA, TCGETS, &termio, &termios, EBADF},
+ 	/* termio address is invalid */
+-	{&fd, TCGETA, (struct termio *)-1, (struct termios *)-1, EFAULT},
+-	/* command is invalid */
++	{&fd, TCGETA, TCGETS, (struct termio *)-1, (struct termios *)-1, EFAULT},
++	// /* command is invalid */
+ 	/* This errno value was changed from EINVAL to ENOTTY
+ 	 * by kernel commit 07d106d0 and bbb63c51
+ 	 */
+-	{&fd, INVAL_IOCTL, &termio, &termios, ENOTTY},
++	{&fd, INVAL_IOCTL, INVAL_IOCTL, &termio, &termios, ENOTTY},
+ 	/* file descriptor is for a regular file */
+-	{&fd_file, TCGETA, &termio, &termios, ENOTTY},
++	{&fd_file, TCGETA, TCGETS, &termio, &termios, ENOTTY},
+ 	/* termio is NULL */
+-	{&fd, TCGETA, NULL, NULL, EFAULT}
++	{&fd, TCGETA, TCGETS, NULL, NULL, EFAULT}
+ };
+ 
+ static char *device;
+ 
+ static void verify_ioctl(unsigned int i)
+ {
+-	TST_EXP_FAIL(ioctl(*(tcases[i].fd), tcases[i].request, tcases[i].s_tio),
++	TST_EXP_FAIL(ioctl(*(tcases[i].fd), tcases[i].request_tio, tcases[i].s_tio),
+ 		     tcases[i].error);
+ 
+-	TST_EXP_FAIL(ioctl(*(tcases[i].fd), tcases[i].request, tcases[i].s_tios),
++	TST_EXP_FAIL(ioctl(*(tcases[i].fd), tcases[i].request_tios, tcases[i].s_tios),
+ 		     tcases[i].error);
+ }
+ 
 -- 
 2.41.0
 
