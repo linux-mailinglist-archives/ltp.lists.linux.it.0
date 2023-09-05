@@ -1,77 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC887792168
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 11:23:17 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B587C792174
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 11:30:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 30D653CB841
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 11:23:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5C9193CB841
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Sep 2023 11:30:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 353B43CB78F
- for <ltp@lists.linux.it>; Tue,  5 Sep 2023 11:23:13 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id AF7443CB7AE
+ for <ltp@lists.linux.it>; Tue,  5 Sep 2023 11:30:25 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 724A2100047A
- for <ltp@lists.linux.it>; Tue,  5 Sep 2023 11:23:12 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A668C1A010F6
+ for <ltp@lists.linux.it>; Tue,  5 Sep 2023 11:30:24 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CAE59210DD;
- Tue,  5 Sep 2023 09:23:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1693905791; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BzPnC4ryBhIYRm4BIwsvdvOw4pYPFlfoRE0WoeqGw1Y=;
- b=iEtOj1/oHrxCq5uVnVXZ8/Pbml1vNpQ2EiLTYYxq3ZhPb9nqVfRvr/0/KlAiVLBqX0nXgQ
- rQHw3pZ0xuUct5aa6XsWVXBzexel8gA+4WaYDE9j4vyN8Ogh+Qgpur0Szch7IWUTQSW+9A
- ByBc8cUSbGR+ODPvCL14hji0vpXbW5M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1693905791;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BzPnC4ryBhIYRm4BIwsvdvOw4pYPFlfoRE0WoeqGw1Y=;
- b=D7VvEAiX40NOXMTGqfeE3utSbfQ21PT2glcHFXAMOSs5oLxxOW2eFyHdap7Tzghxt3AK0D
- nlF751WynIx127Cg==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A89671F853;
+ Tue,  5 Sep 2023 09:30:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1693906223; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=F1kEvmpdg1n3KPW1sqSJBQtIHrBY7AYdUgNQYpBgDao=;
+ b=pDOSAieT4F/WIdYAZBf7WcM1tyvj7FGU+wHSxkNERVNeglCKiJe1smsiZ8lYHVk9ObHg7H
+ HhvzZwKOe8jsSfyyTst+o/Yz2JNJawTaqPPK76dsvF8TQ1koMYs9G2sEeF514EktOZo+y8
+ z1gScpBC7wslRRed4PUdNU5qrzy4bMM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1693906223;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=F1kEvmpdg1n3KPW1sqSJBQtIHrBY7AYdUgNQYpBgDao=;
+ b=6d5P8oZmD1zIr4zOHrWo7uw9LpeVNyE+Tk7RuYmJiLkwBTF86zLqag420zZsFun3imkfHZ
+ 9gYlDzVMElyBW+AQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B8A6513911;
- Tue,  5 Sep 2023 09:23:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8898913911;
+ Tue,  5 Sep 2023 09:30:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NsP0K3/z9mSNLAAAMHmgww
- (envelope-from <mdoucha@suse.cz>); Tue, 05 Sep 2023 09:23:11 +0000
-Message-ID: <62549924-8590-c85f-5693-129168bdb9f5@suse.cz>
-Date: Tue, 5 Sep 2023 11:23:11 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id SjlDIC/19mSIMAAAMHmgww
+ (envelope-from <mkittler@suse.de>); Tue, 05 Sep 2023 09:30:23 +0000
+From: Marius Kittler <mkittler@suse.de>
+To: ltp@lists.linux.it
+Date: Tue,  5 Sep 2023 11:30:17 +0200
+Message-ID: <20230905093019.13881-1-mkittler@suse.de>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-To: Nageswara R Sastry <rnsastry@linux.ibm.com>, ltp@lists.linux.it
-References: <20230905060410.45560-1-rnsastry@linux.ibm.com>
-Content-Language: en-US
-From: Martin Doucha <mdoucha@suse.cz>
-In-Reply-To: <20230905060410.45560-1-rnsastry@linux.ibm.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-1.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V2] lib/tst_lockdown.c: Add PPC64 architecture
- support
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/2] Fix test for termios
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,114 +75,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Fix test for termios
 
-On 05. 09. 23 8:04, Nageswara R Sastry wrote:
-> Add PPC64 architecture support to the lockdown library.
-> 
-> Signed-off-by: Nageswara R Sastry <rnsastry@linux.ibm.com>
-> ---
-> v2:
->   - Group all the constant definitions together (Cyril Hrubis)
->   - Reduce the number of variables (Martin Doucha)
-> ---
->   lib/tst_lockdown.c | 35 +++++++++++++++++++++++------------
->   1 file changed, 23 insertions(+), 12 deletions(-)
-> 
-> diff --git a/lib/tst_lockdown.c b/lib/tst_lockdown.c
-> index 9086eba36..ea71f6753 100644
-> --- a/lib/tst_lockdown.c
-> +++ b/lib/tst_lockdown.c
-> @@ -14,33 +14,42 @@
->   #include "tst_lockdown.h"
->   #include "tst_private.h"
->   
-> -#define EFIVAR_SECUREBOOT "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"
-> -
-> +#if defined(__powerpc64__) || defined(__ppc64__)
-> +# define KERNEL_CONFIG1 "CONFIG_SECURITY_LOCKDOWN_LSM"
-> +# define KERNEL_CONFIG2 "CONFIG_SECURITY_LOCKDOWN_LSM_EARLY"
-> +# define SECUREBOOT_VAR "/proc/device-tree/ibm,secure-boot"
-> +# define VAR_DATA_SIZE 4
-> +#else
-> +# define KERNEL_CONFIG1 "CONFIG_EFI_SECURE_BOOT_LOCK_DOWN"
-> +# define KERNEL_CONFIG2 "CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT"
-> +# define SECUREBOOT_VAR "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"
-> +# define VAR_DATA_SIZE 5
-> +#endif
->   int tst_secureboot_enabled(void)
->   {
->   	int fd;
->   	char data[5];
->   
-> -	if (access(EFIVAR_SECUREBOOT, F_OK)) {
-> -		tst_res(TINFO, "Efivar FS not available");
-> +	if (access(SECUREBOOT_VAR, F_OK)) {
-> +		tst_res(TINFO, "SecureBoot sysfs file not available");
->   		return -1;
->   	}
->   
-> -	fd = open(EFIVAR_SECUREBOOT, O_RDONLY);
-> +	fd = open(SECUREBOOT_VAR, O_RDONLY);
->   
->   	if (fd == -1) {
->   		tst_res(TINFO | TERRNO,
-> -			"Cannot open SecureBoot Efivar sysfile");
-> +			"Cannot open SecureBoot file");
->   		return -1;
->   	} else if (fd < 0) {
->   		tst_brk(TBROK | TERRNO, "Invalid open() return value %d", fd);
->   		return -1;
->   	}
-> -
-> -	SAFE_READ(1, fd, data, 5);
-> +	SAFE_READ(1, fd, data, VAR_DATA_SIZE);
->   	SAFE_CLOSE(fd);
-> -	tst_res(TINFO, "SecureBoot: %s", data[4] ? "on" : "off");
-> -	return data[4];
-> +
-> +	tst_res(TINFO, "SecureBoot: %s", data[VAR_DATA_SIZE - 1] ? "on" : "off");
-> +	return data[VAR_DATA_SIZE - 1];
->   }
->   
->   int tst_lockdown_enabled(void)
-> @@ -51,9 +60,11 @@ int tst_lockdown_enabled(void)
->   
->   	if (access(PATH_LOCKDOWN, F_OK) != 0) {
->   		char flag;
-> +
->   		/* SecureBoot enabled could mean integrity lockdown (non-mainline version) */
-> -		flag = tst_kconfig_get("CONFIG_EFI_SECURE_BOOT_LOCK_DOWN") == 'y';
-> -		flag |= tst_kconfig_get("CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT") == 'y';
-> +		flag = tst_kconfig_get(KERNEL_CONFIG1) == 'y';
-> +		flag |= tst_kconfig_get(KERNEL_CONFIG2) == 'y';
+Marius Kittler (2):
+  Use correct ioctl request for termios
+  Detangle test cases for termio and termios
 
-I don't think that defining two constant macros for the kernel config 
-options makes sense here. It's just a coincidence that both PPC and x86 
-currently have two possible config keys. When we add special support for 
-a third arch that has only one (or e.g. a third option for x86), this 
-code will need to be reworked back to what was in v1. Or you could check 
-all 4 option regardless of arch, the worst thing that'll happen is that 
-the test setup will be slightly slower.
-
-> +
->   		if (flag && tst_secureboot_enabled() > 0)
->   			return 1;
->   
+ testcases/kernel/syscalls/ioctl/ioctl01.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
 -- 
-Martin Doucha   mdoucha@suse.cz
-SW Quality Engineer
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+2.41.0
 
 
 -- 
