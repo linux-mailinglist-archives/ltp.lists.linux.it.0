@@ -1,128 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CBFD7938C0
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Sep 2023 11:47:19 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C4D0A793A0B
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Sep 2023 12:38:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 442CA3CEA0A
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Sep 2023 11:47:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 92C583CB76C
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Sep 2023 12:38:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CDD233CB740
- for <ltp@lists.linux.it>; Wed,  6 Sep 2023 11:47:13 +0200 (CEST)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on0609.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe0d::609])
+ by picard.linux.it (Postfix) with ESMTPS id 95A8D3C89B6
+ for <ltp@lists.linux.it>; Wed,  6 Sep 2023 12:38:32 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7036A20A6B7
+ for <ltp@lists.linux.it>; Wed,  6 Sep 2023 12:38:31 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id BB3D520292;
+ Wed,  6 Sep 2023 10:38:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1693996710;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=az2nz7wHht997EQwGL/3nHnCUdPvLY/y2roKYwxCDUM=;
+ b=grEPPIcfCg7XPpLNR15Aib4FVHarFi8Bxp87ncWcUVaXv5B4gttfDvQrqjW4TswH7KrBet
+ gn9RrAMhdWep2SmTv+FGAshgddYTVUr22Q7E1iasRD0he4Dvf2Z324EB8/QxvVMneMDOsA
+ 7BoVAtes2SLM5VLKBeDLdpd0bScOob0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1693996710;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=az2nz7wHht997EQwGL/3nHnCUdPvLY/y2roKYwxCDUM=;
+ b=7cY4XRQAwuFhxhDPAj0vlBOCk616pod2x2Wir1uvHy1Yemka80tLnd4KjXvF1lWHsQ2rg7
+ SI821Et7WBVG9zAw==
+Received: from g78 (unknown [10.163.28.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6A47810011DA
- for <ltp@lists.linux.it>; Wed,  6 Sep 2023 11:47:12 +0200 (CEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Az+YvLF2gX+k+cnDHg5VsTImcxskRQobFyD/2shkIHqMzcMQB+mJRz+/BB5Y7+l1j0Bicp/m/FiMAmTa3JQPfio+P3xXx8QPHwGryz3KILLTW7qTTCOEu030QWNaKTdE/mxFgjz0+bi9gQbqG/GkQ7PJrexCbwpmi2GA9/2+ixqrX4XIP/ciYsspLly9feQq/g4oqEfCZWQHjp08vQDjCKJAGQBsrZ6NID4C0ASuDrlCYKP68m1EoSth3pBS6+O1m8GWEczp48wH+idhRaKrdVELysU6Dl49Ga1P3A32sntSWcW8krrqddlZhStbMfDRTpP7el+4Sf/h8H1pgVnmaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MJnz/xpg5IHoU2iAs1LEhSc41NGaB2nEJNYoa6qQgQo=;
- b=BfL0XqnkpeK+prKOwHZGcnBEViX8i28iFJXM9+dz9JqkR8gwSzD7PJMmWu5hmURZ7VS38hVOECG91hMn3xd+PznbPbejlEy0NfD4N76CCSQLhVlcsgxmWCSd3+M+fW4udv2Q4lB8zF61dpgS70rONQxBCDylzoYltByeDkwwiAu/iTI9EGproSldekUzyI1/wiAxOHwK+jMO7OCa4gGcH/H42Dkl73qWqFsplynLp4Kjr0a0Oszc8/yAccJQFNWW+dY9hIz1voz0PcIQ+UALJTgGaXxiEdRgZfighzkYQnc58jnx+88bKqp3l4i9OrSOAgD6dzFxcHticNYryOI2mQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MJnz/xpg5IHoU2iAs1LEhSc41NGaB2nEJNYoa6qQgQo=;
- b=XTa8uK/AvVwyWI9lAZMREKKSZfEAvQfQrQ8/XCbX0jQHweUKuGFylZmjHUdul2Mm3FVMMb0bqFsHioXufURiSWdB0qu5Xnr7rGZeM9mWeVSPm3nsBd2kV23d/lViSvCkm+hNvDMz6AVgsQHaUoKiY11AJT2O1ODQPI3HLVx1g6I5xV6VXHFpRd9sd82wYHyzLgxd/0VlwnDw9Kls0KmioUWgfL3y+Gfop7Gi5zpiI7yxEp1C0qW2d9nec6V9NUzWcMt3ygAos6g47FNBO+yj6lnVGc2jmhpC90qxixmx/WRfxIMQizSVtOTj7p1CKyFEhoQ8qLZywQY61ruqCTYwyw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Received: from VI1PR04MB6797.eurprd04.prod.outlook.com (2603:10a6:803:13e::13)
- by AS8PR04MB7685.eurprd04.prod.outlook.com (2603:10a6:20b:29c::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.32; Wed, 6 Sep
- 2023 09:47:07 +0000
-Received: from VI1PR04MB6797.eurprd04.prod.outlook.com
- ([fe80::c33:be0b:88be:b96e]) by VI1PR04MB6797.eurprd04.prod.outlook.com
- ([fe80::c33:be0b:88be:b96e%4]) with mapi id 15.20.6745.030; Wed, 6 Sep 2023
- 09:47:07 +0000
-Message-ID: <8ebe4638-fda2-43f0-98d6-8d49b9b5a1b5@suse.com>
-Date: Wed, 6 Sep 2023 11:47:05 +0200
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-X-ClientProxiedBy: FR2P281CA0119.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::15) To VI1PR04MB6797.eurprd04.prod.outlook.com
- (2603:10a6:803:13e::13)
+ by relay2.suse.de (Postfix) with ESMTPS id 906B22C142;
+ Wed,  6 Sep 2023 10:38:30 +0000 (UTC)
+References: <20230830155548.9402-1-andrea.cervesato@suse.de>
+User-agent: mu4e 1.10.6; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Wed, 06 Sep 2023 10:02:35 +0100
+Organization: Linux Private Site
+In-reply-to: <20230830155548.9402-1-andrea.cervesato@suse.de>
+Message-ID: <87v8cnegd7.fsf@suse.de>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6797:EE_|AS8PR04MB7685:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffac54b1-f6ba-450e-d608-08dbaebe3bdd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: F15b3M7QyleGeV5xf5PVLzYwg4CgkUYMDatzn43/0/Vg/+xlUnvq1DK7qfkcekdz+a6Y9H/CobQ8L4ioGsTTA9qz/OCD22QztpFCqlt+RUe7x6I3GGBbCss0pQbMFSUVMoNxxZZZ4J7j4yc3sGWJ1SFK8jYaBNhwnUIrhon0i8ClbWs6oo/fQT8KxNWAat80eIcnLvDTMuKOyZq7boi7U20l2qdv0FCTC3WX2MoACdIzCdnYXtVWcqaZDHP/GxSMH3ge2qcyf7uECxb0iijheeiBrV3S3NC45CGCOZIkKJqvycyKZxfH2IFLVqchfPvHuw8g0hptZtXZEsbnjT7V1hUBqse/hixOzzWnAPsOK3jBQx1eWZgFibyMBWMNbUOOApB5qWtqqz2qbYNRr8qTmSaEMs7hpbvTQvnvan5xZRUW9UNsCyHuPz0noKIm3ZRcQKJYdvl/WvGtrtR7UCLJkmeB1gTrcDkWyErL9WTvQb3ngvIaoeu/Y2xeMT+PnMoB8sfND8Gu451FGq95OCHrx4OP4zJxd75eg3SOMazGtr4MNwcQE4k09mhVyXB9RjKc8GE4I1p33QRaPjiulc2lFuvThujCwQI7kh31Ow9HYbz+fo6Rb5YHYqi3C4Rfx7ZcBGOQEwSPrEsN9xbldA92wQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB6797.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(396003)(39860400002)(366004)(136003)(376002)(186009)(1800799009)(451199024)(41300700001)(38100700002)(26005)(86362001)(31696002)(83380400001)(478600001)(966005)(2616005)(6506007)(6486002)(3480700007)(6512007)(66946007)(66476007)(316002)(6916009)(2906002)(66556008)(36756003)(8676002)(8936002)(5660300002)(31686004)(44832011)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnI3TXNUM3BockltYnJRODhaU3hOdDlyTU15SWEzWEdkTHRFa1RkQWkrd0dU?=
- =?utf-8?B?UG8rY1ZWbzZKQW1JMXYvekxWUEZveXRsTEJzWCtVMEdwV09lbVAvcFBsL3hm?=
- =?utf-8?B?UEFqRmU0cFZNM1VoZmZSRVNUZ3BYcW5KVTgvTGNMbG8yaWduZmNzYlE0QnQ1?=
- =?utf-8?B?RTNOYU1yeTNNc2N0OTZ1T1VLcXRjeUtQZ3ZOMGN1REJVaThtRm5BQi9ISW1O?=
- =?utf-8?B?MjlrRjE0bnQrcHg1eDNtb25yQU4zN2gwdVJrWlo5b2I2YThrN2loL1ZHMDhG?=
- =?utf-8?B?RDkyUjVNN1JPUW1vUW5TcTBTLzdURlhBckpzRzdwUEJMM1lVV1F0K2RXaXZ1?=
- =?utf-8?B?dmYzQVNVdlVkLzZJU2tVQVZQS1U3N1lZbUFmbEJoaGlDcVlZVEhNMzZBVUZX?=
- =?utf-8?B?ZWQzOGlLMCtKUE5ta0puL1BIeFVqT1lXanVBSWdMeTFJMDNhZ3U0L1RPaGU4?=
- =?utf-8?B?eTBtN1JmL001akRtTmYwOGU5b3Y1RGMzZEVPQm5NOFZUZDB5RXY5VlREQUM3?=
- =?utf-8?B?Z2l2MGFNNzczYXh5NXBzVHVMT0xxZXlDTi8xdFdFSW1yT2RWcWFEd2habEhM?=
- =?utf-8?B?Q3JaZE1sWE5FNE5LU0xGZDNxWDcxb3hub2cvVjN4SWFiYlgrZ2tKN0FTb1Z4?=
- =?utf-8?B?V2E0c2RwMWRJVkwzUzJkbENLRUc5bHp4bDNKZTEzSXlReFF1WWJHcExGZHAx?=
- =?utf-8?B?MFZBZkdVbjdiRWMyK0hxZkxpTDNibnk5YUZyT1JFR0VrV05BM0ZSZGttYWh0?=
- =?utf-8?B?UWRTL0xBRFNwM0NXNStsdUV0L2FpMUxvcEhYMUh3OEhJTWowMEpyQlI0YWw5?=
- =?utf-8?B?bWNScGU4UWxac2NRSEZXQmthT3NTNjl4aHAraVdxL3BTYUsvV1prWG1sWks5?=
- =?utf-8?B?N1pyYWNEaHVJMzUyMGt6MWw4am9RbmhLVUxxamhTMDVtTG1pd1FsVFBNZy8z?=
- =?utf-8?B?NFgvd1ZZRHhEeXJidjlZa09aaFNwczFLTVJucHZSdHVHTFNuaGRXQkhTVjZv?=
- =?utf-8?B?d1NiT1lEUjMxWjAvL093bmljTjNkSFU2OHlEcmVIcSt5MnpNRUxtM0VjY0k2?=
- =?utf-8?B?WkFubVpEU2JOZHdYUUdZNVBxWEl4eWcrcmFWNXFqT1hWS0tOSldCTWc2TW4z?=
- =?utf-8?B?aXFoUTlXYmcvYis1dVBzQ3R4SnR4ZCtlZHltc3Q1ZytOMEpuTTF1Yyt6QmhG?=
- =?utf-8?B?QXN4OFNVK3dWTTI3MElYMUlnVFRXczB4dlAyVTNpdVRGM1VLTWwxN1BNV1hL?=
- =?utf-8?B?ZzI1OFpiMFk3UkRBczZpbi9SaUFpVlV1UUdtbHVCbVhrdFk5alNmb29RMUpT?=
- =?utf-8?B?M1ltMExPM0xyb0l3ZWdqQ2h5TTlkZERyd1BiNU1oNEJGZ0MwU0hXUTFYL0tm?=
- =?utf-8?B?YWVKbnJsQko5NEdWRkpxd2haYklhTnhScjdiMWZWcEVjNEhwNTh2ZVlNZCtH?=
- =?utf-8?B?OXcraW5WS0dFeGZ4WTl1ME5uaGM2N21BK1B1d2pQYURFS1A2NkN4aXlwQnhG?=
- =?utf-8?B?ZWZuUUNCb1lWVHJZc2c5ZS9WVERZd2grQmRaTG5jWjdKaEY4eUJpZXR6RnhL?=
- =?utf-8?B?YzBzdXl0YmdYSHJDNCt0SnJkMjdLbFhYSU9NZy9kRHA5N2NQTFF4bGRhY1Nw?=
- =?utf-8?B?Tm52ZjV0dE50TG5PVHhQbm5DcE5VRGxIRnpIdnZ3VC9acThvSFJmeFNXV240?=
- =?utf-8?B?Ri94bkoyUlVlbWJ3dXcvZ2VFbFc3TlJwSlovZ0FKdWlnNTVaMTlEajJRejli?=
- =?utf-8?B?YzFkL3c1SFI2RlphZER3UkNodzBtcVZVM2p6QmwyaHIrRTg1NStXTVBObE9G?=
- =?utf-8?B?TjdzRUYrMU5uQlR4S0NZMGhjb3Y1SVdJang2OHk5R3BTbk9ENFlTKzE3RnJU?=
- =?utf-8?B?UjdTakIrVWk2clhGcFNXdDNaSm9rNERKalN4cmxNdFF3RndPSnl3alhoUDBx?=
- =?utf-8?B?RWN0VXRnRktrTlNaWUk2MFNIWFV5YlpCSzFVWXN2b29rTU5ZZXZXSUdhSnZS?=
- =?utf-8?B?NUE5KzVReG8xWTBjKzRRSjlUdWMySnNQbjB3SzlDTC9mMitoUXdqdnBSVzdS?=
- =?utf-8?B?RzliMHJIMmcvS3k1RlBtbk1Sbks4S1RrbXgvdmc2QXNvMEdlVHlUV2J3T1or?=
- =?utf-8?B?RTl0UWRPcEZrVkJjTE9abC94V3R5OHZvNWRwb0haQ3Q0eFFnUkxsazJuVmo1?=
- =?utf-8?B?T1E9PQ==?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffac54b1-f6ba-450e-d608-08dbaebe3bdd
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB6797.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 09:47:07.6730 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v9clwnD8SOQ89RewWgEPmF/El65nAnkZg9QKRJZbl9BO3BjEo2UBpYEvGEpunf+gp/GznRFTZ2/7Yrv+v7LZPt/NUxST053umobDtzndJe0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7685
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=ARC_SIGNED,ARC_VALID,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: [LTP] Replacing runltp-ng with kirk
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] Refactor exit_group01 using new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,48 +73,223 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello everyone,
+Hello,
 
-in the past months I've been involved into a new version of runltp-ng. 
-This new version has been completely rewritten using asyncio, providing 
-the possibility to execute tests in parallel, as well as keeping the 
-code base more stable and easier to maintain.
+Andrea Cervesato <andrea.cervesato@suse.de> writes:
 
-After this first stage, I recognized that runltp-ng could have been 
-extended not only to LTP, but to all the other Linux testing frameworks 
-available nowadays, since the code base was solid enough to be 
-abstracted and used to run other binaries/scripts inside Qemu/SSH/LTX 
-sessions.
+> From: Andrea Cervesato <andrea.cervesato@suse.com>
+>
+> We provided a different approach to exit_group() testing, spawning
+> multiple threads inside the child and checking if they get killed with
+> the parent process.
+>
+> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+> ---
+>  testcases/kernel/syscalls/exit_group/Makefile |   2 +
+>  .../kernel/syscalls/exit_group/exit_group01.c | 137 +++++++++++-------
+>  2 files changed, 85 insertions(+), 54 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/exit_group/Makefile b/testcases/kernel/syscalls/exit_group/Makefile
+> index 1273a4e9c..adbac3c51 100644
+> --- a/testcases/kernel/syscalls/exit_group/Makefile
+> +++ b/testcases/kernel/syscalls/exit_group/Makefile
+> @@ -3,6 +3,8 @@
+>  
+>  top_srcdir		?= ../../../..
+>  
+> +exit_group01: CFLAGS+=-pthread
+> +
+>  include $(top_srcdir)/include/mk/testcases.mk
+>  
+>  include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> diff --git a/testcases/kernel/syscalls/exit_group/exit_group01.c b/testcases/kernel/syscalls/exit_group/exit_group01.c
+> index 5bf5b0218..0ed008115 100644
+> --- a/testcases/kernel/syscalls/exit_group/exit_group01.c
+> +++ b/testcases/kernel/syscalls/exit_group/exit_group01.c
+> @@ -1,68 +1,97 @@
+> -/******************************************************************************
+> - * Copyright (c) Crackerjack Project., 2007                                   *
+> - * Ported to LTP by Manas Kumar Nayak <maknayak@in.ibm.com>                   *
+> - * Copyright (C) 2015 Cyril Hrubis <chrubis@suse.cz>                          *
+> - *                                                                            *
+> - * This program is free software;  you can redistribute it and/or modify      *
+> - * it under the terms of the GNU General Public License as published by       *
+> - * the Free Software Foundation; either version 2 of the License, or          *
+> - * (at your option) any later version.                                        *
+> - *                                                                            *
+> - * This program is distributed in the hope that it will be useful,            *
+> - * but WITHOUT ANY WARRANTY;  without even the implied warranty of            *
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See                  *
+> - * the GNU General Public License for more details.                           *
+> - *                                                                            *
+> - * You should have received a copy of the GNU General Public License          *
+> - * along with this program;  if not, write to the Free Software Foundation,   *
+> - * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA           *
+> - *                                                                            *
+> - ******************************************************************************/
+> -
+> -#include <stdio.h>
+> -#include <errno.h>
+> -#include <linux/unistd.h>
+> -#include <sys/wait.h>
+> -
+> -#include "test.h"
+> -#include "safe_macros.h"
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) Crackerjack Project., 2007
+> + * Ported to LTP by Manas Kumar Nayak <maknayak@in.ibm.com>
+> + * Copyright (c) 2015 Linux Test Project
+> + * Copyright (C) 2015 Cyril Hrubis <chrubis@suse.cz>
+> + * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+> + */
+> +
+> +/*\
+> + * [Description]
+> + *
+> + * This test checks if exit_group() correctly ends a spawned child and all its
+> + * running threads.
+> + */
+> +
+> +#include <stdlib.h>
+> +#include "tst_safe_pthread.h"
+> +#include "tst_test.h"
+>  #include "lapi/syscalls.h"
+>  
+> -char *TCID = "exit_group01";
+> -int testno;
+> -int TST_TOTAL = 1;
+> +/* gittid is not defined by glibc */
+> +#define gettid() syscall(SYS_gettid)
+> +
+> +#define THREADS_NUM 10
+>  
+> -static void verify_exit_group(void)
+> +static pid_t *tids;
+> +
+> +static void *worker(void *arg)
+>  {
+> -	pid_t cpid, w;
+> -	int status;
+> +	int i = *((int *)arg);
+>  
+> -	cpid = fork();
+> -	if (cpid == -1)
+> -		tst_brkm(TFAIL | TERRNO, NULL, "fork failed");
+> +	tids[i] = gettid();
+>  
+> -	if (cpid == 0) {
+> -		TEST(tst_syscall(__NR_exit_group, 4));
+> -	} else {
+> -		w = SAFE_WAIT(NULL, &status);
+> -
+> -		if (WIFEXITED(status) && (WEXITSTATUS(status) == 4)) {
+> -			tst_resm(TPASS, "exit_group() succeeded");
+> -		} else {
+> -			tst_resm(TFAIL | TERRNO,
+> -				 "exit_group() failed (wait status = %d)", w);
+> -		}
+> +	TST_CHECKPOINT_WAKE(0);
+> +	pause();
+> +
+> +	return arg;
+> +}
+> +
+> +static void spawn_threads(void)
+> +{
+> +	pthread_t threads[THREADS_NUM];
+> +
+> +	for (int i = 0; i < THREADS_NUM; i++) {
+> +		SAFE_PTHREAD_CREATE(&threads[i], NULL, worker, (void *)&i);
+> +		TST_CHECKPOINT_WAIT(0);
+>  	}
+>  }
+>  
+> -int main(int ac, char **av)
+> +static void run(void)
+>  {
+> -	int lc;
+> +	pid_t pid;
+> +	int status;
+>  
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> +	pid = SAFE_FORK();
+> +	if (!pid) {
+> +		spawn_threads();
+>  
+> -	for (lc = 0; TEST_LOOPING(lc); lc++)
+> -		verify_exit_group();
+> +		TEST(tst_syscall(__NR_exit_group, 4));
+> +		if (TST_RET == -1)
+> +			tst_brk(TBROK | TERRNO, "exit_group() error");
+> +
+> +		return;
+> +	}
+> +
+> +	SAFE_WAITPID(pid, &status, 0);
+> +
+> +	TST_EXP_EXPR(WIFEXITED(status) && WEXITSTATUS(status) == 4,
+> +		"exit_group() succeeded");
+> +
+> +	for (int i = 0; i < THREADS_NUM; i++)
+> +		TST_EXP_FAIL(kill(tids[i], 0), ESRCH);
 
-I integrated a new plugins system into runltp-ng, giving the possibility 
-to implement a Framework class, which is dynamically loaded at runtime 
-and it provides a layer between SUT and new testing frameworks.
+I'm not sure if there is a race condition here because
 
-As you might guess, project started to diverge from the original runltp. 
-For this reason, the new project has now a new name: kirk. Its code can 
-be found here: https://github.com/acerv/kirk
-First supported frameworks are kselftests, liburing and, of course, LTP 
-(that is our default framework).
+1. I can't find a synchronisation mechanism when the kernel sends the
+   kill signal to the children. It just sets the signal then schedules
+   them.
+2. I can't see a clear way that wait{pid,id} would wait for a process
+   and its children.
 
-The idea, now, is to replace runltp-ng, since it's not maintained 
-anymore, and replace it with kirk in the LTP official release.
+In fact I'm not sure if all the children of the thread group leader need
+(or can be) to be waited on (you may need __WALL in options).
 
-Do you have any question, suggestion, idea? Your feedback is really 
-important for the community, so don't hesitate to ask :-)
+Could you try waiting on the idividual tids[] and then the pid?
+
+I haven't seen the test fail, but the main test task (sleeping in
+waitpid) probably gets scheduled after the child thread tasks. However
+this doesn't seem like behaviour we can rely on.
+
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	tids = SAFE_MMAP(
+> +		NULL,
+> +		sizeof(pid_t) * THREADS_NUM,
+> +		PROT_READ | PROT_WRITE,
+> +		MAP_SHARED | MAP_ANONYMOUS,
+> +		-1, 0);
+> +}
+>  
+> -	tst_exit();
+> +static void cleanup(void)
+> +{
+> +	SAFE_MUNMAP(tids, sizeof(pid_t) * THREADS_NUM);
+>  }
+> +
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.test_all = run,
+> +	.forks_child = 1,
+> +	.needs_checkpoints = 1,
+> +};
+> -- 
+> 2.35.3
 
 
-Best regards,
-Andrea Cervesato
-
-Kernel QE Engineer, SUSE software Solutions GmbH
-
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
