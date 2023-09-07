@@ -2,69 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EBE4797101
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 10:48:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4281B797131
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 11:23:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DD4503CE9B0
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 10:48:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BB2A03CE9A9
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 11:23:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 83D573C9274
- for <ltp@lists.linux.it>; Thu,  7 Sep 2023 10:48:26 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id B36713CB89B
+ for <ltp@lists.linux.it>; Thu,  7 Sep 2023 11:22:47 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 68D35600736
- for <ltp@lists.linux.it>; Thu,  7 Sep 2023 10:48:24 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C4DCB1002024
+ for <ltp@lists.linux.it>; Thu,  7 Sep 2023 11:22:46 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CD1F42185D
- for <ltp@lists.linux.it>; Thu,  7 Sep 2023 08:48:23 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 00CCE1F8A6;
+ Thu,  7 Sep 2023 09:22:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1694076503; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1694078566; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=833N7nPyPm+vM/0rqm5FCg/zEBdxDsiNQb4h/i+91C4=;
- b=nYT8NzTGkbGsffhgw6HxwdQHj/5NGa1i7Iq20z6qfaaDQ14KNAWL1s6nvs6XWZ+E56t21S
- YsUua3CNgGE+aUQDZ4LZT7Myjt6jOngI2n70v3fE9xkYUYa79YHz1CqZtQa0t1SMiXsd5w
- yuMh0cIa27CcdZQ5ydSSMP0tHpMj0rY=
+ bh=S9AYAbnV2ICPa/SFPT8yztx+Vqd+4aVK6+XdhEdXBZw=;
+ b=f4IOSRioigntqNQaPpxNWrHKEssF2AwEzsK6vQMbnxIYdMsZgQ/NtU65RjBb08Y10SQr2u
+ 7MfNkHT8uLPHKEc8FUqp+eZKwW3D91mUZF239hwatUaHi1xTcjlW3XsSHu4N46JhTbw3qF
+ zT/s/A1J1Ua5Guenb6gAQ7tSXgLUI88=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1694076503;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ s=susede2_ed25519; t=1694078566;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=833N7nPyPm+vM/0rqm5FCg/zEBdxDsiNQb4h/i+91C4=;
- b=piBoMcn6pB1CRIEVLKSnrSeAjhbam+qLH+/87kf0kuP0dzSf4SYykSzJyI+zxPLdL47YlJ
- LFcCcVH34ugEeKDw==
+ bh=S9AYAbnV2ICPa/SFPT8yztx+Vqd+4aVK6+XdhEdXBZw=;
+ b=Bulak5JjcXvpWvDc0aO19pCc08YNxvdufSnuODm9hXAHFZG+noE9OeLmci79+r4lPjvkSK
+ zInnZtg/dbA9aaAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6AAB9138FA
- for <ltp@lists.linux.it>; Thu,  7 Sep 2023 08:48:23 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D601B138F9;
+ Thu,  7 Sep 2023 09:22:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +E80D1eO+WShIwAAMHmgww
- (envelope-from <akumar@suse.de>)
- for <ltp@lists.linux.it>; Thu, 07 Sep 2023 08:48:23 +0000
-From: Avinesh Kumar <akumar@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id +iU3M2WW+WSINgAAMHmgww
+ (envelope-from <mkittler@suse.de>); Thu, 07 Sep 2023 09:22:45 +0000
+From: Marius Kittler <mkittler@suse.de>
 To: ltp@lists.linux.it
-Date: Thu,  7 Sep 2023 14:18:19 +0530
-Message-ID: <20230907084821.32624-1-akumar@suse.de>
-X-Mailer: git-send-email 2.42.0
+Date: Thu,  7 Sep 2023 11:22:36 +0200
+Message-ID: <20230907092239.15253-1-mkittler@suse.de>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/paging: Remove empty directory
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/3] Improve ioctl02.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,31 +80,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This seems to hold madvise test initially which were moved to different
-directory. Should be safe to get rid of this.
+Improve ioctl02.c
 
-Signed-off-by: Avinesh Kumar <akumar@suse.de>
----
- testcases/kernel/syscalls/paging/Makefile | 8 --------
- 1 file changed, 8 deletions(-)
- delete mode 100644 testcases/kernel/syscalls/paging/Makefile
+Marius Kittler (3):
+  Refactor ioctl02.c to use the new test API
+  Use correct binary operand in ioctl02.c
+  Make checks for termio flags more strict
 
-diff --git a/testcases/kernel/syscalls/paging/Makefile b/testcases/kernel/syscalls/paging/Makefile
-deleted file mode 100644
-index 044619fb8..000000000
---- a/testcases/kernel/syscalls/paging/Makefile
-+++ /dev/null
-@@ -1,8 +0,0 @@
--# SPDX-License-Identifier: GPL-2.0-or-later
--# Copyright (c) International Business Machines  Corp., 2001
--
--top_srcdir		?= ../../../..
--
--include $(top_srcdir)/include/mk/testcases.mk
--
--include $(top_srcdir)/include/mk/generic_leaf_target.mk
+ testcases/kernel/syscalls/ioctl/ioctl02.c | 293 +++++++---------------
+ 1 file changed, 95 insertions(+), 198 deletions(-)
+
 -- 
-2.42.0
+2.41.0
 
 
 -- 
