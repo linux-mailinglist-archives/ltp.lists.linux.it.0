@@ -1,58 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 823EE7970A4
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 10:11:29 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 92AE179715C
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 11:58:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 428FF3CB8D4
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 10:11:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 309B53CC28B
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 11:58:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CDB113C89B6
- for <ltp@lists.linux.it>; Thu,  7 Sep 2023 05:09:24 +0200 (CEST)
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
+ by picard.linux.it (Postfix) with ESMTPS id 8B90B3CB65C
+ for <ltp@lists.linux.it>; Thu,  7 Sep 2023 11:58:00 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CE4DC1001F27
+ for <ltp@lists.linux.it>; Thu,  7 Sep 2023 11:57:59 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 57CA421863;
+ Thu,  7 Sep 2023 09:57:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1694080679;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qcSS+4jyLrOM1xU2cRfmtWN7bF6FyirmHNOHJ52ZoIc=;
+ b=LkykX21cuMs/LpGcl5mnl/hCK4J02IYsjqx6KCf6vgpMhZbhd5xrHLBDX5j7/n3VsRvDsK
+ MPx1OAWrk//y0qvQnfuTBzAiZAsOLZgB01MEjqW2g/vZsgqmhz6a3onVvatOOQez32xBxT
+ vPH3rZh2J8p0zLx0zjqNPxalQPLEYg0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1694080679;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qcSS+4jyLrOM1xU2cRfmtWN7bF6FyirmHNOHJ52ZoIc=;
+ b=NlrkjAU+fHREPUZ/XauerueuqbImUBkRO1nRg0OmguN52EFkxaJXHTMrtFGBk3J4xroMUW
+ doXL1ahutSCp0DCg==
+Received: from g78 (unknown [10.163.28.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 931E91002035
- for <ltp@lists.linux.it>; Thu,  7 Sep 2023 05:09:16 +0200 (CEST)
-X-QQ-mid: bizesmtp66t1694056067t68lbcgv
-Received: from alvin ( [221.123.136.170]) by bizesmtp.qq.com (ESMTP) with 
- id ; Thu, 07 Sep 2023 11:06:43 +0800 (CST)
-X-QQ-SSF: 00400000000000Z0Z000000A0000000
-X-QQ-FEAT: g1rbK8vEaOppnOK4dQ1jjGB9s58dlZdQb65Q9ypan0GJEf0RFvZxDRqzm9Y++
- JhzULr12I+sqUvW9sejtzjD9/BPUq0k7RKfXst28UEXXM31a5oWVoijL+eqrLzQ9AiSiQv5
- MPbGCB82o6h/TLmV+dJRrQBvJWHD580BW/jb0JmFkTWaIWy09wwgW7Ljs2ghFHO207S0DKS
- HQUPWLszokbCXrByd3w4659M2VBU898GYeaTYMxR92l2uzsJea/JUNxdIybHM9IcKtmRIvq
- csM35kR0BVGlFAEWzMm4o4nNWaxJb6AWSTar3RH5M7wT3D6IyV1lezcFmfM5AMenRd2/XOS
- KaH0FuTDRL7LT86brLK6OqSG1BtilS7ANEpJ6FrYlnqTYLtXTC+F763SBvA1ulkeZGTlvou
- rtOPbJ+sL8W8fzSk+nchphGskOo4NVOOdlkllKCNdxsWUON2DJ5CQtJGyfM1RS4f
-X-QQ-GoodBg: 2
-X-BIZMAIL-ID: 542788317696206224
-Date: Thu, 7 Sep 2023 11:06:44 +0800
-From: =?UTF-8?B?5p2O5Y2g5q2m?= <lizw@chinasupercloud.com>
-To: "Li Wang" <liwang@redhat.com>
-References: <927B643AA2DE0DEB+2023083114093400166120@chinasupercloud.com>, 
- <CAEemH2d=nhMThDZH3PsBNE9toXPjr5eQ+q52Sd_1iM48KB3AOw@mail.gmail.com>, 
- <202309071102186333789@chinasupercloud.com>
-X-Priority: 3
-X-GUID: 05B0D72A-C47A-4DF3-8D21-8C84481F177D
-X-Has-Attach: yes
-X-Mailer: Foxmail 7.2.23.121[cn]
-Mime-Version: 1.0
-Message-ID: <051BD971F24442CE+2023090711064291937510@chinasupercloud.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:chinasupercloud.com:qybglogicsvrgz:qybglogicsvrgz6a-1
+ by relay2.suse.de (Postfix) with ESMTPS id A8D202C142;
+ Thu,  7 Sep 2023 09:57:58 +0000 (UTC)
+References: <20230803015149.69906-1-iwienand@redhat.com>
+ <20230808035641.364676-2-iwienand@redhat.com> <87il8xhr05.fsf@suse.de>
+ <ZPlxtKUwOta4GYh2@fedora19.localdomain>
+User-agent: mu4e 1.10.6; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Ian Wienand <iwienand@redhat.com>
+Date: Thu, 07 Sep 2023 09:26:29 +0100
+Organization: Linux Private Site
+In-reply-to: <ZPlxtKUwOta4GYh2@fedora19.localdomain>
+Message-ID: <87r0nae259.fsf@suse.de>
+MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Thu, 07 Sep 2023 10:11:10 +0200
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: [LTP] =?utf-8?b?5Zue5aSNOiDlm57lpI06ICBTZWVraW5nIGhlbHAgd2l0aCBM?=
- =?utf-8?q?TP_testing_issues=2E?=
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] kernel/device-drivers/zram/zram01.sh : don't
+ fill from /dev/zero
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,36 +76,95 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGnvvIxMaSBXYW5nDQoNCuWPr+S7peeci+eci+mZhOS7tuS/oeaBr+WQlw0KDQoNCg0KS2VuIC5M
-aSDmnY7ljaDmraYgfCDmmbrnrpfkuqflk4HkuovkuJrpg6gNCueUteivne+8mjE4NTE0NTI4ODU2
-DQrpgq7nrrHvvJpsaXp3QGNoaW5hc3VwZXJjbG91ZC5jb20gDQrlrpjnvZHvvJpodHRwOi8vd3d3
-LmNoaW5hc3VwZXJjbG91ZC5jb20NCui2heS6keaAu+mDqO+8muWMl+S6rOW4guaYjOW5s+WMuumy
-geeWg+i3rzXlj7dB5bqnNOWxgg0K56CU5Y+R5Lit5b+D77ya5YyX5Lqs5biC5Lqm5bqE57uP5rWO
-5oqA5pyv5byA5Y+R5Yy656eR5Yib5Y2B5Zub6KGXNuWPt+mZojLlj7fmpbwz5bGCDQogDQrlj5Hk
-u7bkurrvvJog5p2O5Y2g5q2mDQrlj5HpgIHml7bpl7TvvJogMjAyMy0wOS0wNyAxMTowMg0K5pS2
-5Lu25Lq677yaIExpIFdhbmcNCuaKhOmAge+8miBsdHANCuS4u+mimO+8miDlm57lpI06IFJlOiBb
-TFRQXSBTZWVraW5nIGhlbHAgd2l0aCBMVFAgdGVzdGluZyBpc3N1ZXMuDQpIae+8jExpIHdhbmcN
-Cg0K5oiR55qEbWVzc2FnZeavlOi+g+Wkp++8jOWmguaenOe6r+aWh+acrOS4jeaYr+W+iOWlveWI
-huaekA0KDQoNCg0KS2VuIC5MaSDmnY7ljaDmraYgfCDmmbrnrpfkuqflk4HkuovkuJrpg6gNCueU
-teivne+8mjE4NTE0NTI4ODU2DQrpgq7nrrHvvJpsaXp3QGNoaW5hc3VwZXJjbG91ZC5jb20gDQrl
-rpjnvZHvvJpodHRwOi8vd3d3LmNoaW5hc3VwZXJjbG91ZC5jb20NCui2heS6keaAu+mDqO+8muWM
-l+S6rOW4guaYjOW5s+WMuumygeeWg+i3rzXlj7dB5bqnNOWxgg0K56CU5Y+R5Lit5b+D77ya5YyX
-5Lqs5biC5Lqm5bqE57uP5rWO5oqA5pyv5byA5Y+R5Yy656eR5Yib5Y2B5Zub6KGXNuWPt+mZojLl
-j7fmpbwz5bGCDQogDQpGcm9tOiBMaSBXYW5nDQpEYXRlOiAyMDIzLTA5LTA1IDA5OjA4DQpUbzog
-5p2O5Y2g5q2mDQpDQzogbHRwDQpTdWJqZWN0OiBSZTogW0xUUF0gU2Vla2luZyBoZWxwIHdpdGgg
-TFRQIHRlc3RpbmcgaXNzdWVzLg0KSGkgWmhhbnd1LA0KDQpJIGRpZG4ndCBmaW5kIGFueSBhdHRh
-Y2htZW50cyBoZXJlLCBjYW4geW91IHBsZWFzZSByZWNoZWNrIGlmIHRoZSBlcnJvciBsb2cgdXBs
-b2FkIHdhcyBzdWNjZXNzZnVsPw0KQlRXLCB3ZSB0eXBpY2FsbHkgcmVjb21tZW5kIHBvc3Rpbmcg
-dGhlIGVycm9ycyBpbiBwbGFpbiB0ZXh0Lg0KDQoNCk9uIE1vbiwgU2VwIDQsIDIwMjMgYXQgMTA6
-NDbigK9QTSDmnY7ljaDmraYgPGxpendAY2hpbmFzdXBlcmNsb3VkLmNvbT4gd3JvdGU6DQpXZSBh
-cmUgYSBzZXJ2ZXIgbWFudWZhY3R1cmVyIHVzaW5nIExUUCB0ZXN0aW5nLiBUaGUgYXR0YWNobWVu
-dCBpcyBhbiBlcnJvciBsb2cuIFBsZWFzZSBoZWxwIHVzLg0KDQoNCktlbiAuTGkg5p2O5Y2g5q2m
-IA0KDQoNCi0tIA0KTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlz
-dGluZm8vbHRwDQoNCg0KLS0gDQpSZWdhcmRzLA0KTGkgV2FuZw0KCi0tIApNYWlsaW5nIGxpc3Qg
-aW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Hello Ian,
+
+Ian Wienand <iwienand@redhat.com> writes:
+
+> On Wed, Aug 30, 2023 at 09:20:44AM +0100, Richard Palethorpe wrote:
+>> > This is visible in the occasional divide-by-zero error, but in the
+>> > bigger picture means this test is not exercising the compression path
+>> > as desired.
+>
+>> Do zram{02,03} already do something similar?
+>
+> Let's go backwards and try to find a path forward...
+>
+> In Jan 19 2011, ecd667ecb5118a6a2805caca30823f18a355bbe2 added
+> testcases/kernel/mem/zram/zram01.c to test r/w compressed block
+> devices.
+>
+> In Apr 23 2015, 433445f6beeaa38f5ffbd723a8f392a6880b7e11 created two
+> more tests
+>   zram01.sh creates general purpose ram disks with different filesystems
+>   zram02.sh creates block device for swap
+>
+> In Jun 2015, af0470f65abc62090ad22583b40c27923c48b038 moved the
+> original testcases/kernel/mem/zram/zram01.c ->
+> kernel/device-drivers/zram/zram03.c
+>
+> zram02.sh creates and adds/removes swap devices; I think this is
+> sufficiently different to stand alone (I mean, maybe it could be given
+> some intrinsic documentation by being called something descriptive
+> like 'zram-swap-test.sh' but anyway).
+>
+> zram03.c (the original zram test, renamed) makes a device and fills it
+> with the character 'a'.  It reads it back but doens't validate any
+> statistics from the stats.
+>
+> zram01.sh is in concept fairly similar, but instead it makes various
+> file-systems on the device and (as-is) writes zeros.  It reads back
+> the stats and tries to infer correct operation from that.
+>
+> zram01.sh has been suspect from the start, because since the original
+> upstream zram commit (8e19d540d107ee897eb9a874844060c94e2376c0)
+> zero-pages have been de-duplicated and not compressed.  I think the
+> reason it minimally works is because there's some non-zero file-system
+> metadata; but it's unreliable (hence it randomly failing, and this
+> email) and not really stressing what it wants to stress, which is the
+> actual compression paths.
+
+Maybe it's not testing what was orginally intended, but filling the FS
+with all zero's is an important corner case. We don't want to remove
+that coverage. We at least want to check that the kernel doesn't
+crash.
+
+>
+> zram03.c always filled with a non-zero value -- presumably to avoid
+> the zero-page deduplication -- but I think what this missed is that
+> when same-page detection was added in ~2017 (kernel
+> 8e19d540d107ee897eb9a874844060c94e2376c0).  Since this time, it is
+> really not stressing any of the compression paths either, since every
+> page is the same.
+
+So it is testing deduplication of non-zero pages. In general these are
+testing a degenerate case.
+
+>
+>> In any case I'd prefer to see a zram04 written in C if some coverage is
+>> missing.
+>
+> I don't think adding another test really helps.
+>
+> I think the best course here is to fix zram01.sh to write enough
+> random data to stress the compression paths and further sync to make
+> it reliable.  This is what the patch proposes.
+>
+> If there's some agreement that the investigation above is valid, we
+> could probably remove zram03.c.  It's not really doing anything
+> zram01.sh doesn't do and it is not really stressing anything either.
+>
+> -i
+
+-- 
+Thank you,
+Richard.
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
