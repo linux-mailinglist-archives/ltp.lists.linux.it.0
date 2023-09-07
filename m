@@ -1,73 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 348A9797135
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 11:25:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B66F797163
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 12:00:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F39CB3CC0FC
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 11:25:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 312453CD1BF
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 12:00:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7E0233CB65C
- for <ltp@lists.linux.it>; Thu,  7 Sep 2023 11:25:37 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 4C1DE3CB589
+ for <ltp@lists.linux.it>; Thu,  7 Sep 2023 12:00:43 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C1797206C4C
- for <ltp@lists.linux.it>; Thu,  7 Sep 2023 11:25:35 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id F29706013D4
+ for <ltp@lists.linux.it>; Thu,  7 Sep 2023 12:00:42 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7C62A21850;
- Thu,  7 Sep 2023 09:25:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1694078735; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3kWrv5LlCxO1G8/6q2o/5Qt6WjpwZxZKNMgwhPMvzkQ=;
- b=TntA5hFEjYbjaTbhgfIa8YWHNBNPGmFUxDO5SMEWa8zL1LzzyBaDPpzFos6vxhuRNYOYOH
- 3CI+Cz6yAA/xGnLTj8eKhKfqK+5WjdVZqMTPwx+EvLgSPsW5TCy8iBD8UkuucbVyEYvqF3
- UGEVU3I43CiPTwzBriE0VxnHm1omTU0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1694078735;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 048DA1F8AA;
+ Thu,  7 Sep 2023 10:00:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1694080842; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=zAp9XATHc16H0cdePZ6gmf4f72zKNi8BpQhUF1PFhkQ=;
+ b=iNHJOo+6sgCYP9cb6Ne3/yYmGSI7b4r47a1rmLmADg/LJGzw6UcSnxszCPyeFtPzwfoafL
+ 7ofkuJeu9fazXrz2T8Q+ZDAgh27HHVg6Ca9Ndt2AG1kPRwozWuv0zjF+5TqpbOg5UYWSmd
+ u5SS7RuDy7L9izaCPbK7qFBfq8TmMPg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1694080842;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3kWrv5LlCxO1G8/6q2o/5Qt6WjpwZxZKNMgwhPMvzkQ=;
- b=ijqVSPbiiJ4mENAJIoI9NjesVMV7F21dh5ybZZag5dzIP0PiU+yujedSwg3kBgS7TF9frd
- bbQ0tNUWAqmMh5Cg==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=zAp9XATHc16H0cdePZ6gmf4f72zKNi8BpQhUF1PFhkQ=;
+ b=kR3ExJULKHEsjsW/ZcuLPh8Qq+qIrpsowanqXmpO2w+B5ybpDGf6qtAKCwAbK49zQP5v5P
+ 2m/xW3jOSCGuGUCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5D3C3138F9;
- Thu,  7 Sep 2023 09:25:35 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D8F2D138F9;
+ Thu,  7 Sep 2023 10:00:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id qVSMFQ+X+WTSNwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 07 Sep 2023 09:25:35 +0000
-Date: Thu, 7 Sep 2023 11:26:15 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <ZPmXN9GyrhLC3aw5@yuki>
-References: <20230524093930.43971-1-liwang@redhat.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id +KWJM0mf+WTLSgAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Thu, 07 Sep 2023 10:00:41 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+To: ltp@lists.linux.it
+Date: Thu,  7 Sep 2023 12:00:41 +0200
+Message-Id: <20230907100041.22406-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230524093930.43971-1-liwang@redhat.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 1/2] lib: add support for kinds of hpsize
- reservation
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v1] Refactor fork05 using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,207 +75,204 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Typically when we make use of huge page via LTP library, .hugepages choose
-> the default hugepage size, but this can not satisfy all scenarios.
-> 
-> So this patch introduces applying a specified hpsize huge page for user.
-> 
-> There is nothing that needs to change for the existing test cases which
-> already using .hugepages, it only needs to fill one more field in the
-> structure of .hugepages if a different hpsize is required.
-> 
-> e.g.
-> 
->     static struct tst_test test = {
-> 	.needs_root = 1,
-> 	...
-> 	.hugepages = {2, TST_NEEDS, 1048576},
->     };
-> 
-> Signed-off-by: Li Wang <liwang@redhat.com>
-> ---
->  doc/c-test-api.txt     | 37 +++++++++++++++++++++++++++++++++++--
->  include/tst_hugepage.h |  1 +
->  lib/tst_hugepage.c     | 23 +++++++++++++++++------
->  3 files changed, 53 insertions(+), 8 deletions(-)
-> 
-> diff --git a/doc/c-test-api.txt b/doc/c-test-api.txt
-> index dcb6e1ba8..45610474c 100644
-> --- a/doc/c-test-api.txt
-> +++ b/doc/c-test-api.txt
-> @@ -2034,9 +2034,15 @@ For full documentation see the comments in 'include/tst_fuzzy_sync.h'.
->  ~~~~~~~~~~~~~~~~~~~~~~~~
->  
->  Many of the LTP tests need to use hugepage in their testing, this allows the
-> -test can reserve hugepages from system via '.hugepages = {xx, TST_REQUEST}'.
-> +test can reserve specify size of hugepages from system via:
-> +  '.hugepages = {xx, TST_REQUEST, yy}'.
->  
-> -We achieved two policies for reserving hugepages:
-> +xx: This is used to set how many pages we wanted.
-> +
-> +yy: This is used to specify the size of the hugepage.
-> +    (If not set it will use the default hugepage size)
-> +
-> +Two policies for reserving hugepages:
->  
->  TST_REQUEST:
->    It will try the best to reserve available huge pages and return the number
-> @@ -2103,6 +2109,33 @@ struct tst_test test = {
->  };
->  -------------------------------------------------------------------------------
->  
-> +or,
-> +
-> +[source,c]
-> +-------------------------------------------------------------------------------
-> +#include "tst_test.h"
-> +
-> +static void run(void)
-> +{
-> +	...
-> +}
-> +
-> +static void setup(void)
-> +{
-> +	/*
-> +	 * Specify hpsize reserved automatically in the library
-> +	 * $ echo 2 > /sys/kernel/mm//hugepages/hugepages-1048576kB/nr_hugepages
-> +	 * Do check if 2 hpages are reserved correctly in there
-> +	 */
-> +}
-> +
-> +struct tst_test test = {
-> +	.test_all = run,
-> +	.hugepages = {2, TST_NEEDS, 1048576},
-> +	...
-> +};
-> +-------------------------------------------------------------------------------
-> +
->  1.35 Checking for required commands
->  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->  
-> diff --git a/include/tst_hugepage.h b/include/tst_hugepage.h
-> index 46327c79a..e96bfbe53 100644
-> --- a/include/tst_hugepage.h
-> +++ b/include/tst_hugepage.h
-> @@ -27,6 +27,7 @@ enum tst_hp_policy {
->  struct tst_hugepage {
->  	const unsigned long number;
->  	enum  tst_hp_policy policy;
-> +	const unsigned long hpsize;
->  };
->  
->  /*
-> diff --git a/lib/tst_hugepage.c b/lib/tst_hugepage.c
-> index 728a8c3ec..b6706d412 100644
-> --- a/lib/tst_hugepage.c
-> +++ b/lib/tst_hugepage.c
-> @@ -5,6 +5,7 @@
->  
->  #define TST_NO_DEFAULT_MAIN
->  
-> +#include <stdio.h>
->  #include "tst_test.h"
->  #include "tst_hugepage.h"
->  
-> @@ -22,9 +23,10 @@ size_t tst_get_hugepage_size(void)
->  
->  unsigned long tst_reserve_hugepages(struct tst_hugepage *hp)
->  {
-> -	unsigned long val, max_hpages;
-> +	unsigned long val, max_hpages, hpsize;
-> +	char hugepage_path[PATH_MAX];
->  	struct tst_path_val pvl = {
-> -		.path = PATH_NR_HPAGES,
-> +		.path = hugepage_path,
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-This pointer (hugepage_path) is on stack and is passed to a function
-that stores the structure into a list and then uses it to restore the
-value at the end of the testrun, which will probably crash the test
-since there will be random leftovers on the stack.
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+ testcases/kernel/syscalls/fork/fork05.c | 133 +++++-------------------
+ 1 file changed, 28 insertions(+), 105 deletions(-)
 
-The array has to be static to have unlimited lifetime.
-
->  		.val = NULL,
->  		.flags = TST_SR_SKIP_MISSING | TST_SR_TCONF_RO
->  	};
->
-> @@ -41,6 +43,13 @@ unsigned long tst_reserve_hugepages(struct tst_hugepage *hp)
->  	else
->  		tst_hugepages = hp->number;
->  
-> +	if (hp->hpsize)
-> +		hpsize = hp->hpsize;
-> +	else
-> +		hpsize = SAFE_READ_MEMINFO(MEMINFO_HPAGE_SIZE);
-> +
-> +	sprintf(hugepage_path, PATH_HUGEPAGES"/hugepages-%lukB/nr_hugepages", hpsize);
-
-Do we check anywhere here if the path actually exists? There is no
-guarantee that specific hugepage size will exist on the system, so I
-suppose that we have to do:
-
-	if (access(hugepage_path, F_OK)) {
-		if (hp->policy == TST_NEEDS)
-			tst_brk(TCONF, "Hugepage size %lu not supported", hpsize);
-		tst_hugepages = 0;
-		goto out;
-	}
-
->  	if (hp->number == TST_NO_HUGEPAGES) {
->  		tst_hugepages = 0;
->  		goto set_hugepages;
-> @@ -52,7 +61,7 @@ unsigned long tst_reserve_hugepages(struct tst_hugepage *hp)
->  		goto set_hugepages;
->  	}
->  
-> -	max_hpages = SAFE_READ_MEMINFO("MemFree:") / SAFE_READ_MEMINFO("Hugepagesize:");
-> +	max_hpages = SAFE_READ_MEMINFO("MemFree:") / hpsize;
->  	if (tst_hugepages > max_hpages) {
->  		tst_res(TINFO, "Requested number(%lu) of hugepages is too large, "
->  				"limiting to 80%% of the max hugepage count %lu",
-> @@ -65,14 +74,16 @@ unsigned long tst_reserve_hugepages(struct tst_hugepage *hp)
->  
->  set_hugepages:
->  	tst_sys_conf_save(&pvl);
-> -	SAFE_FILE_PRINTF(PATH_NR_HPAGES, "%lu", tst_hugepages);
-> -	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%lu", &val);
-> +
-> +	SAFE_FILE_PRINTF(hugepage_path, "%lu", tst_hugepages);
-> +	SAFE_FILE_SCANF(hugepage_path, "%lu", &val);
-> +
->  	if (val != tst_hugepages)
->  		tst_brk(TCONF, "nr_hugepages = %lu, but expect %lu. "
->  				"Not enough hugepages for testing.",
->  				val, tst_hugepages);
->  
-> -	if (hp->policy == TST_NEEDS) {
-> +	if ((hp->policy == TST_NEEDS) && (!hp->hpsize)) {
-
-This branch shouldn't be disabled for TST_NEEDS case, shouldn't there be
-HugePages_Free-$(size)kB ?
-
->  		unsigned long free_hpages = SAFE_READ_MEMINFO("HugePages_Free:");
->  		if (hp->number > free_hpages)
->  			tst_brk(TCONF, "free_hpages = %lu, but expect %lu. "
-> -- 
-> 2.40.0
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
-
+diff --git a/testcases/kernel/syscalls/fork/fork05.c b/testcases/kernel/syscalls/fork/fork05.c
+index 9a99cff1d..bf146d32a 100644
+--- a/testcases/kernel/syscalls/fork/fork05.c
++++ b/testcases/kernel/syscalls/fork/fork05.c
+@@ -1,44 +1,15 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
+- * Portions Copyright (c) 2000 Ulrich Drepper
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * Further, this software is distributed without any warranty that it is
+- * free of the rightful claim of any third person regarding infringement
+- * or the like.  Any license provided herein, whether implied or
+- * otherwise, applies only to this software file.  Patent licenses, if
+- * any, provided herein do not apply to combinations of this program with
+- * other software, or any other product whatsoever.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
+- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+- * Mountain View, CA  94043, or:
+- *
+- * http://www.sgi.com$
+- *
+- * For further information regarding this notice, see:$
+- *
+- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
+- *
++ * Author: Ulrich Drepper / Nate Straz , Red Hat
++ * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/*\
++ * [Description]
+  *
+- *    Linux Test Project - Silicon Graphics, Inc.
+- *    TEST IDENTIFIER	: fork05
+- *    EXECUTED BY	: anyone
+- *    TEST TITLE	: Make sure LDT is propagated correctly
+- *    TEST CASE TOTAL	: 1
+- *    CPU TYPES		: i386
+- *    AUTHORS		: Ulrich Drepper
+- *			  Nate Straz
++ * This test verifies that LDT is propagated correctly from parent process to
++ * the child process.
+  *
+  *On Friday, May 2, 2003 at 09:47:00AM MST, Ulrich Drepper wrote:
+  *>Robert Williamson wrote:
+@@ -96,55 +67,22 @@
+  *> Red Hat          `--' drepper at redhat.com   `------------------------
+  *>
+  *> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+  */
+ 
+-#include <stdio.h>
+-#include <fcntl.h>
+-#include <unistd.h>
+-#include <stdlib.h>
+-#include <sys/wait.h>
++#include <asm/ldt.h>
+ #include "lapi/syscalls.h"
+-#include "test.h"
+-
+-char *TCID = "fork05";
+-
+-static char *environ_list[] = { "TERM", "NoTSetzWq", "TESTPROG" };
+-
+-#define NUMBER_OF_ENVIRON (sizeof(environ_list)/sizeof(char *))
+-int TST_TOTAL = NUMBER_OF_ENVIRON;
++#include "tst_test.h"
+ 
+ #if defined(linux) && defined(__i386__)
+ 
+-struct modify_ldt_ldt_s {
+-	unsigned int entry_number;
+-	unsigned long int base_addr;
+-	unsigned int limit;
+-	unsigned int seg_32bit:1;
+-	unsigned int contents:2;
+-	unsigned int read_exec_only:1;
+-	unsigned int limit_in_pages:1;
+-	unsigned int seg_not_present:1;
+-	unsigned int useable:1;
+-	unsigned int empty:25;
+-};
+-
+-static int a = 42;
+-
+-static void modify_ldt(int func, struct modify_ldt_ldt_s *ptr, int bytecount)
+-{
+-	tst_syscall(__NR_modify_ldt, func, ptr, bytecount);
+-}
+-
+-int main(void)
++static void run(void)
+ {
+ 	struct modify_ldt_ldt_s ldt0;
++	int base_addr = 42;
+ 	int lo;
+-	pid_t pid;
+-	int res;
+ 
+ 	ldt0.entry_number = 0;
+-	ldt0.base_addr = (long)&a;
++	ldt0.base_addr = (long)&base_addr;
+ 	ldt0.limit = 4;
+ 	ldt0.seg_32bit = 1;
+ 	ldt0.contents = 0;
+@@ -154,49 +92,34 @@ int main(void)
+ 	ldt0.useable = 1;
+ 	ldt0.empty = 0;
+ 
+-	modify_ldt(1, &ldt0, sizeof(ldt0));
++	tst_syscall(__NR_modify_ldt, 1, &ldt0, sizeof(ldt0));
+ 
+ 	asm volatile ("movw %w0, %%fs"::"q" (7));
+-
+ 	asm volatile ("movl %%fs:0, %0":"=r" (lo));
+-	tst_resm(TINFO, "a = %d", lo);
++	tst_res(TINFO, "a = %d", lo);
+ 
+ 	asm volatile ("pushl %%fs; popl %0":"=q" (lo));
+-	tst_resm(TINFO, "%%fs = %#06hx", lo);
++	tst_res(TINFO, "%%fs = %#06hx", lo);
+ 
+ 	asm volatile ("movl %0, %%fs:0"::"r" (99));
+ 
+-	pid = fork();
+-
+-	if (pid == 0) {
++	if (!SAFE_FORK()) {
+ 		asm volatile ("pushl %%fs; popl %0":"=q" (lo));
+-		tst_resm(TINFO, "%%fs = %#06hx", lo);
++		tst_res(TINFO, "%%fs = %#06hx", lo);
+ 
+ 		asm volatile ("movl %%fs:0, %0":"=r" (lo));
+-		tst_resm(TINFO, "a = %d", lo);
++		tst_res(TINFO, "a = %d", lo);
++
++		TST_EXP_EQ_LI(lo, 99);
+ 
+-		if (lo != 99)
+-			tst_resm(TFAIL, "Test failed");
+-		else
+-			tst_resm(TPASS, "Test passed");
+ 		exit(lo != 99);
+-	} else {
+-		waitpid(pid, &res, 0);
+ 	}
+-
+-	return WIFSIGNALED(res);
+ }
+ 
+-#else /* if defined(linux) && defined(__i386__) */
+-
+-int main(void)
+-{
+-	tst_resm(TINFO, "%%fs test only for ix86");
+-
+-	/*
+-	 * should be successful on all non-ix86 platforms.
+-	 */
+-	tst_exit();
+-}
++static struct tst_test test = {
++	.run_all = run
++};
+ 
+-#endif /* if defined(linux) && defined(__i386__) */
++#else /* defined(linux) && defined(__i386__) */
++	TST_TEST_TCONF("Test only supports linux 32 bits");
++#endif
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.35.3
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
