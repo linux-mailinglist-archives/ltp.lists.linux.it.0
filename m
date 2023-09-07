@@ -2,69 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92AE179715C
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 11:58:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EBE4797101
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 10:48:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 309B53CC28B
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 11:58:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DD4503CE9B0
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Sep 2023 10:48:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8B90B3CB65C
- for <ltp@lists.linux.it>; Thu,  7 Sep 2023 11:58:00 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 83D573C9274
+ for <ltp@lists.linux.it>; Thu,  7 Sep 2023 10:48:26 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CE4DC1001F27
- for <ltp@lists.linux.it>; Thu,  7 Sep 2023 11:57:59 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 57CA421863;
- Thu,  7 Sep 2023 09:57:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1694080679;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=qcSS+4jyLrOM1xU2cRfmtWN7bF6FyirmHNOHJ52ZoIc=;
- b=LkykX21cuMs/LpGcl5mnl/hCK4J02IYsjqx6KCf6vgpMhZbhd5xrHLBDX5j7/n3VsRvDsK
- MPx1OAWrk//y0qvQnfuTBzAiZAsOLZgB01MEjqW2g/vZsgqmhz6a3onVvatOOQez32xBxT
- vPH3rZh2J8p0zLx0zjqNPxalQPLEYg0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1694080679;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=qcSS+4jyLrOM1xU2cRfmtWN7bF6FyirmHNOHJ52ZoIc=;
- b=NlrkjAU+fHREPUZ/XauerueuqbImUBkRO1nRg0OmguN52EFkxaJXHTMrtFGBk3J4xroMUW
- doXL1ahutSCp0DCg==
-Received: from g78 (unknown [10.163.28.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 68D35600736
+ for <ltp@lists.linux.it>; Thu,  7 Sep 2023 10:48:24 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id A8D202C142;
- Thu,  7 Sep 2023 09:57:58 +0000 (UTC)
-References: <20230803015149.69906-1-iwienand@redhat.com>
- <20230808035641.364676-2-iwienand@redhat.com> <87il8xhr05.fsf@suse.de>
- <ZPlxtKUwOta4GYh2@fedora19.localdomain>
-User-agent: mu4e 1.10.6; emacs 29.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Ian Wienand <iwienand@redhat.com>
-Date: Thu, 07 Sep 2023 09:26:29 +0100
-Organization: Linux Private Site
-In-reply-to: <ZPlxtKUwOta4GYh2@fedora19.localdomain>
-Message-ID: <87r0nae259.fsf@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CD1F42185D
+ for <ltp@lists.linux.it>; Thu,  7 Sep 2023 08:48:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1694076503; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=833N7nPyPm+vM/0rqm5FCg/zEBdxDsiNQb4h/i+91C4=;
+ b=nYT8NzTGkbGsffhgw6HxwdQHj/5NGa1i7Iq20z6qfaaDQ14KNAWL1s6nvs6XWZ+E56t21S
+ YsUua3CNgGE+aUQDZ4LZT7Myjt6jOngI2n70v3fE9xkYUYa79YHz1CqZtQa0t1SMiXsd5w
+ yuMh0cIa27CcdZQ5ydSSMP0tHpMj0rY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1694076503;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=833N7nPyPm+vM/0rqm5FCg/zEBdxDsiNQb4h/i+91C4=;
+ b=piBoMcn6pB1CRIEVLKSnrSeAjhbam+qLH+/87kf0kuP0dzSf4SYykSzJyI+zxPLdL47YlJ
+ LFcCcVH34ugEeKDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6AAB9138FA
+ for <ltp@lists.linux.it>; Thu,  7 Sep 2023 08:48:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id +E80D1eO+WShIwAAMHmgww
+ (envelope-from <akumar@suse.de>)
+ for <ltp@lists.linux.it>; Thu, 07 Sep 2023 08:48:23 +0000
+From: Avinesh Kumar <akumar@suse.de>
+To: ltp@lists.linux.it
+Date: Thu,  7 Sep 2023 14:18:19 +0530
+Message-ID: <20230907084821.32624-1-akumar@suse.de>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] kernel/device-drivers/zram/zram01.sh : don't
- fill from /dev/zero
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/paging: Remove empty directory
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,95 +76,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Ian,
+This seems to hold madvise test initially which were moved to different
+directory. Should be safe to get rid of this.
 
-Ian Wienand <iwienand@redhat.com> writes:
+Signed-off-by: Avinesh Kumar <akumar@suse.de>
+---
+ testcases/kernel/syscalls/paging/Makefile | 8 --------
+ 1 file changed, 8 deletions(-)
+ delete mode 100644 testcases/kernel/syscalls/paging/Makefile
 
-> On Wed, Aug 30, 2023 at 09:20:44AM +0100, Richard Palethorpe wrote:
->> > This is visible in the occasional divide-by-zero error, but in the
->> > bigger picture means this test is not exercising the compression path
->> > as desired.
->
->> Do zram{02,03} already do something similar?
->
-> Let's go backwards and try to find a path forward...
->
-> In Jan 19 2011, ecd667ecb5118a6a2805caca30823f18a355bbe2 added
-> testcases/kernel/mem/zram/zram01.c to test r/w compressed block
-> devices.
->
-> In Apr 23 2015, 433445f6beeaa38f5ffbd723a8f392a6880b7e11 created two
-> more tests
->   zram01.sh creates general purpose ram disks with different filesystems
->   zram02.sh creates block device for swap
->
-> In Jun 2015, af0470f65abc62090ad22583b40c27923c48b038 moved the
-> original testcases/kernel/mem/zram/zram01.c ->
-> kernel/device-drivers/zram/zram03.c
->
-> zram02.sh creates and adds/removes swap devices; I think this is
-> sufficiently different to stand alone (I mean, maybe it could be given
-> some intrinsic documentation by being called something descriptive
-> like 'zram-swap-test.sh' but anyway).
->
-> zram03.c (the original zram test, renamed) makes a device and fills it
-> with the character 'a'.  It reads it back but doens't validate any
-> statistics from the stats.
->
-> zram01.sh is in concept fairly similar, but instead it makes various
-> file-systems on the device and (as-is) writes zeros.  It reads back
-> the stats and tries to infer correct operation from that.
->
-> zram01.sh has been suspect from the start, because since the original
-> upstream zram commit (8e19d540d107ee897eb9a874844060c94e2376c0)
-> zero-pages have been de-duplicated and not compressed.  I think the
-> reason it minimally works is because there's some non-zero file-system
-> metadata; but it's unreliable (hence it randomly failing, and this
-> email) and not really stressing what it wants to stress, which is the
-> actual compression paths.
-
-Maybe it's not testing what was orginally intended, but filling the FS
-with all zero's is an important corner case. We don't want to remove
-that coverage. We at least want to check that the kernel doesn't
-crash.
-
->
-> zram03.c always filled with a non-zero value -- presumably to avoid
-> the zero-page deduplication -- but I think what this missed is that
-> when same-page detection was added in ~2017 (kernel
-> 8e19d540d107ee897eb9a874844060c94e2376c0).  Since this time, it is
-> really not stressing any of the compression paths either, since every
-> page is the same.
-
-So it is testing deduplication of non-zero pages. In general these are
-testing a degenerate case.
-
->
->> In any case I'd prefer to see a zram04 written in C if some coverage is
->> missing.
->
-> I don't think adding another test really helps.
->
-> I think the best course here is to fix zram01.sh to write enough
-> random data to stress the compression paths and further sync to make
-> it reliable.  This is what the patch proposes.
->
-> If there's some agreement that the investigation above is valid, we
-> could probably remove zram03.c.  It's not really doing anything
-> zram01.sh doesn't do and it is not really stressing anything either.
->
-> -i
-
+diff --git a/testcases/kernel/syscalls/paging/Makefile b/testcases/kernel/syscalls/paging/Makefile
+deleted file mode 100644
+index 044619fb8..000000000
+--- a/testcases/kernel/syscalls/paging/Makefile
++++ /dev/null
+@@ -1,8 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-or-later
+-# Copyright (c) International Business Machines  Corp., 2001
+-
+-top_srcdir		?= ../../../..
+-
+-include $(top_srcdir)/include/mk/testcases.mk
+-
+-include $(top_srcdir)/include/mk/generic_leaf_target.mk
 -- 
-Thank you,
-Richard.
+2.42.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
