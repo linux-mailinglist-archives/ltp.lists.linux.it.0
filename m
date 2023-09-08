@@ -1,74 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5CCA7986E8
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 14:15:04 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E475A7986F3
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 14:21:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 42FAB3CB5B9
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 14:15:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9CCED3CB8F4
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 14:21:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 216663CB536
- for <ltp@lists.linux.it>; Fri,  8 Sep 2023 14:15:01 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id F27E83CB570
+ for <ltp@lists.linux.it>; Fri,  8 Sep 2023 14:21:37 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EB08F1A00A33
- for <ltp@lists.linux.it>; Fri,  8 Sep 2023 14:15:00 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D6FDD600684
+ for <ltp@lists.linux.it>; Fri,  8 Sep 2023 14:21:36 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CED9221B78;
- Fri,  8 Sep 2023 12:14:59 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DBF081FE2E;
+ Fri,  8 Sep 2023 12:21:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1694175299; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1694175695; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=M//Ncr5l5G1rYQCbH3U5pRoY7VzZ+QGJr02CvO04FOE=;
- b=3cZF0kxynCOiO5asdhbSfUEzjsRwZSeHcPyy8tt5HSy+COw+Bz3udLF3Zc/AnEqqewzwCV
- M9Ybaps/KLJ2PCadG6FCQwJVYSXJ+JFuEoXuWs3rcVUUZIickowliAV/8ttba/Mc4EYRQ6
- /P7gvGJ8JYegOqFLLuOYJvYsvMoyB0E=
+ bh=hCL7sg1WQoIReuGX1eF9ssbFvlNfFgefF+1Kf+HPnDk=;
+ b=o6ub2b8juv3zE57vd3Z4e5y9Ukh4Kql2erNzLchiS/Bnqh8rvD8dJ/IifnaEousDYiVAn1
+ LZlx31PivWtUVVPntzCch+PP+e8BaCruL2WuYxGxn2qA1HbURaqqLyCygEccznZruP/zPG
+ MCdpV7uw0APC+RfnaonlB1cISKv/v94=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1694175299;
+ s=susede2_ed25519; t=1694175695;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=M//Ncr5l5G1rYQCbH3U5pRoY7VzZ+QGJr02CvO04FOE=;
- b=hnoStugtYAxMEt0cuNggB6aBCOQ9V/Jzi2jNbqM+NDm7dgupIz8nQxq+0g25uv3N/mr+zN
- xpRUUAsFd9gzKwBg==
+ bh=hCL7sg1WQoIReuGX1eF9ssbFvlNfFgefF+1Kf+HPnDk=;
+ b=DY2FNl+tsbNRwjtlOygj3pSA0ExJDom5zhBJImFAaBNmZUhtMaY4ziPRK/YmSkGY0MtMns
+ 1SpkeBIXbMgJ7hDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B5847132F2;
- Fri,  8 Sep 2023 12:14:59 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CA08F132F2;
+ Fri,  8 Sep 2023 12:21:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id jOFCK0MQ+2QBMwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 08 Sep 2023 12:14:59 +0000
-Date: Fri, 8 Sep 2023 14:15:41 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id Oh77L88R+2SnNgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 08 Sep 2023 12:21:35 +0000
+Date: Fri, 8 Sep 2023 14:22:17 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Shirisha G <shirisha@linux.ibm.com>
-Message-ID: <ZPsQbSsR1Y-zJBVd@yuki>
-References: <20230908103921.511595-1-shirisha@linux.ibm.com>
+To: Samir Mulani <samir@linux.vnet.ibm.com>
+Message-ID: <ZPsR-fYtg70dC-Tc@yuki>
+References: <20230908110530.14990-1-samir@linux.vnet.ibm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230908103921.511595-1-shirisha@linux.ibm.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+In-Reply-To: <20230908110530.14990-1-samir@linux.vnet.ibm.com>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Migrating the
- libhugetlbfs/testcases/truncate.c test
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] Migrating the
+ libhugetlbfs/testcases/stack_grow_into_huge.c test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,109 +86,117 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +/*\
-> + * [Description]
-> + *
-> + * Test Name: truncate
-> + * Test case is used to verify the correct functionality
-> + * and compatibility of the library with the "truncate" system call when
-> + * operating on files residing in a mounted huge page filesystem.
-> + */
-> +
-> +#include "hugetlb.h"
-> +
-> +#define RANDOM_CONSTANT	0x1234ABCD
-             ^
-	     THis is not used at all.
+First of all the whitespaces in the test are messed up, please make sure
+to run 'make check' and fix all the reported problems.
 
-> +#define MNTPOINT "hugetlbfs/"
-> +long hpage_size;
-> +int fd;
-
-These two should be static.
-
-> +
-> +
-> +static void sigbus_handler(int signum LTP_ATTRIBUTE_UNUSED)
+> +void do_child(void *stop_address)
 > +{
-> +	tst_res(TPASS, "Test Passed");
-> +	exit(0);
-
-It's not safe to call exit(0) from a signal handler.
-
-What should be done instead is to:
-
-- add global static volatile int variable
-- reset it before we attempt to access the truncated memory
-- set it in the signal handler
-- print TPASS/TFAIL based on the value of the variable in the run_test()
-  function
-
+> +	struct rlimit r;
+> +	volatile int *x;
+> +
+> +	/* corefile from this process is not interesting and limiting
+> +	 * its size can save a lot of time. '1' is a special value,
+> +	 * that will also abort dumping via pipe, which by default
+> +	 * sets limit to RLIM_INFINITY. */
+> +	r.rlim_cur = 1;
+> +	r.rlim_max = 1;
+> +	SAFE_SETRLIMIT(RLIMIT_CORE, &r);
+> +
+> +	do {
+> +		x = alloca(STACK_ALLOCATION_SIZE);
+> +		*x = 1;
+> +	} while ((void *)x >= stop_address);
 > +}
 > +
 > +static void run_test(void)
 > +{
-> +	void *p;
-> +	volatile unsigned int *q;
-         ^
-	I do not think that this has to be volatile.
+> +	int pid, status, sig;
+> +    	char *b;
+> +	void *stack_address, *mmap_address, *heap_address;
+> +        stack_address = alloca(0);
+> +        heap_address = sbrk(0);
+> +        /*
+> +         * paranoia: start mapping two hugepages below the start of the stack,
+> +         * in case the alignment would cause us to map over something if we
+> +         * only used a gap of one hugepage.
+> +         */
+> +        mmap_address = PALIGN(stack_address - 2 * hpage_size, hpage_size);
+> +        do {
+> +		b = SAFE_MMAP(mmap_address, hpage_size, PROT_READ|PROT_WRITE,
+> +						MAP_FIXED|MAP_SHARED, fd, 0);
+> +		mmap_address -= hpage_size;
+> +		/*
+> +		 * if we get all the way down to the heap, stop trying
+> +		 */
+> +		if (mmap_address <= heap_address)
+> +			break;
+> + 	   } while (b == MAP_FAILED);
 
-	All in all this can be just:
+This definitelly wouldn't work as expected, SAFE_MMAP() cannot fail, it
+does exit the test if it fails.
 
-	unsigned int *p;
+> +        if (b == MAP_FAILED)
+> +		tst_res(TFAIL, "mmap() at unexpected address %p instead of %p\n", b,
+> +	    		 mmap_address);
+> +    
+> +    	pid = SAFE_FORK();
+> +		if (pid == 0) {
+> +			do_child(mmap_address);
+> +			exit(0);
+> +		}
+> +   	SAFE_WAITPID(pid, &status, 0);
+> +
+> +	if (WIFSIGNALED(status)) {
+> +		sig = WTERMSIG(status);
+> +
+> +		if (sig == SIGSEGV) {
+> +			 tst_res(TPASS, "Test Passed");
+> +			 exit(0);
+> +		} else {
+> +			tst_res(TFAIL, "Got unexpected signal: %s", strsignal(sig));
+> +			exit(1);
 
-	...
+No calls to exit(1) in the test, the tst_res() is used to report test
+results.
 
-	p = SAFE_MMAP();
+> +		}
+> +	}
+> +	tst_res(TFAIL, "Child not signalled");
 
-	...
-
-	*p = 0;
-
-> +	struct sigaction my_sigaction;
-> +	my_sigaction.sa_handler = sigbus_handler;
-> +	p = SAFE_MMAP(NULL, hpage_size, PROT_READ|PROT_WRITE, MAP_SHARED,
-> +			fd, 0);
-> +	if (p == MAP_FAILED)
-> +		tst_res(TFAIL, "mmap failed..!!");
-
-SAFE_MMAP() cannot fail, it does exit the test with a failure if the it
-fails to map the memory.
-
-> +	q = p;
-> +	*q = 0;
-> +	SAFE_SIGACTION(SIGBUS, &my_sigaction, NULL);
-
-I guess that we can set up the handler in the setup instead.
-
-> +	SAFE_FTRUNCATE(fd, 0);
-> +	*q;
-> +        tst_res(TFAIL, "Didn't SIGBUS");
-
-And we should SAFE_UNMAP() the memory here.
-
-Also does the test work with -i 2 ?
+This should use tst_strstatus() to print what has happened to the child.
+Have a look at syscalls/mmap/mmap18.c how it's done.
 
 > +}
 > +
-> +
 > +void setup(void)
 > +{
+> +    	struct rlimit r;
+> +	page_size = getpagesize();
 > +	hpage_size = tst_get_hugepage_size();
-> +    	fd = tst_creat_unlinked(MNTPOINT, 0);
-   ^
-   Wrong indentation, please make sure to run 'make check' and fix all
-   the reported problems.
-
+> +	/*
+> +	 * Setting the stack size to unlimited.
+> +	 */
+> +	r.rlim_cur = RLIM_INFINITY;
+> +        r.rlim_max = RLIM_INFINITY;
+> +        SAFE_SETRLIMIT(RLIMIT_STACK, &r);
+> +
+> +        SAFE_GETRLIMIT(RLIMIT_STACK, &r);
+> +        if (r.rlim_cur != RLIM_INFINITY)
+> +		tst_brk(TCONF, "Stack rlimit must be 'unlimited'");
+> +	fd = tst_creat_unlinked(MNTPOINT, 0);
 > +}
 > +
 > +void cleanup(void)
 > +{
 > +    	if (fd > 0)
-> +	    SAFE_CLOSE(fd);
+> +		SAFE_CLOSE(fd);
 > +}
 > +
 > +static struct tst_test test = {
+> +	.tags = (struct tst_tag[]) {
+> +                {"linux-git", "0d59a01bc461"},
+> +                {}
+> +	},
 > +	.needs_root = 1,
 > +	.mntpoint = MNTPOINT,
 > +	.needs_hugetlbfs = 1,
@@ -197,7 +204,8 @@ Also does the test work with -i 2 ?
 > +	.setup = setup,
 > +	.cleanup = cleanup,
 > +	.test_all = run_test,
-> +	.hugepages = {1, TST_NEEDS},
+> +	.hugepages = {2, TST_NEEDS},
+> +	.forks_child = 1,
 > +};
 > -- 
 > 2.39.3
