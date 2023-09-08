@@ -2,74 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56A467985B9
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 12:23:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 797C27985C0
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 12:23:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 113813CB564
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 12:23:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D2C3E3CE96D
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 12:23:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2F4DF3CB4FF
- for <ltp@lists.linux.it>; Fri,  8 Sep 2023 12:23:17 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 7F9BD3CB542
+ for <ltp@lists.linux.it>; Fri,  8 Sep 2023 12:23:18 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 723FB602986
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 331291000406
  for <ltp@lists.linux.it>; Fri,  8 Sep 2023 12:23:16 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 84E6D1FD7D;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AC85321A1A;
  Fri,  8 Sep 2023 10:23:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1694168596; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uWpWyN/u87HICjd86hfJXPgKxiIL053ojRdMTssnEdc=;
- b=WWxUfqCmBqtNqSSkyUBWMaL6w98plDzvkW+pLATkHmUkocAuQ4V4rzFyN1/pZddB7KNcJn
- QrOXexsPteQo325ORWApDbUkbg68ZFOupWTFgdMyTQxWBkpBzzT8szdfVAZo/TLyltTm6Y
- d8QTuIqUB+I3UNul1QJdaW35jZoJTwI=
+ bh=wLjFQTKOBQbisoLD5QdmGoXhnsV2xrWL3QFPMPz61Z4=;
+ b=Ue6rl1uIUzGXclza0+p+q14E4XIkufLoa8sZRbh+gJoYxJewx1Dkz5UFkb5uc8yXPdVjw1
+ vQBJFqgdDpWrPzs/J7WKKH80VgM4UVN7pOWGlHYcKFqVSs1x568O2BQQlb1+pl+kenRoNO
+ 58rknkJwJGns9k0KRqGv/1HQHlM2kaQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1694168596;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uWpWyN/u87HICjd86hfJXPgKxiIL053ojRdMTssnEdc=;
- b=KC2UxDLORdtgX3nQ31lMftknjqxt6xNksMrBl/KbGDP2v47OegcOG/InzmbxsG8SylAdH2
- fxPptvFbS4mfp5AA==
+ bh=wLjFQTKOBQbisoLD5QdmGoXhnsV2xrWL3QFPMPz61Z4=;
+ b=J6kt2NWXptUhuYp99bntjeEYylv7/suWHNU4qPE6x0b74HyTzV6GzUA2R7e9mLspM9zFnL
+ YEdw5/VKwikkTZAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 64F4F131FD;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8D6C9131FD;
  Fri,  8 Sep 2023 10:23:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 8JsRFxT2+mRFcwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2Fb2IBT2+mRFcwAAMHmgww
  (envelope-from <andrea.cervesato@suse.de>); Fri, 08 Sep 2023 10:23:16 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Fri,  8 Sep 2023 12:23:14 +0200
-Message-Id: <20230908102315.8163-2-andrea.cervesato@suse.de>
+Date: Fri,  8 Sep 2023 12:23:15 +0200
+Message-Id: <20230908102315.8163-3-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230908102315.8163-1-andrea.cervesato@suse.de>
 References: <20230908102315.8163-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/2] Add tst_gettid wrapper around gettid syscall
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 2/2] Refactor exit_group01 using new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,42 +88,215 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
+We provided a different approach to exit_group() testing, spawning
+multiple threads inside the child and checking if they get killed with
+the parent process.
+
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- include/tst_pid.h | 8 ++++++++
- lib/tst_pid.c     | 5 +++++
- 2 files changed, 13 insertions(+)
+Added thread_alive() function that checks existance of running threads, instead
+of using kill(tid, 0) method.
+tst_gettid() usage
 
-diff --git a/include/tst_pid.h b/include/tst_pid.h
-index 774c845ce..6958d5d23 100644
---- a/include/tst_pid.h
-+++ b/include/tst_pid.h
-@@ -50,4 +50,12 @@ static inline int tst_get_free_pids(void (*cleanup_fn)(void))
-  */
- pid_t tst_getpid(void);
+ testcases/kernel/syscalls/exit_group/Makefile |   2 +
+ .../kernel/syscalls/exit_group/exit_group01.c | 160 ++++++++++++------
+ 2 files changed, 111 insertions(+), 51 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/exit_group/Makefile b/testcases/kernel/syscalls/exit_group/Makefile
+index 1273a4e9c..adbac3c51 100644
+--- a/testcases/kernel/syscalls/exit_group/Makefile
++++ b/testcases/kernel/syscalls/exit_group/Makefile
+@@ -3,6 +3,8 @@
  
-+/*
-+ * Direct gettid() syscall. Some glibc versions cache gettid() return value
-+ * which can cause confusing issues for example in processes created by
-+ * direct clone() syscall (without using the glibc wrapper). Use this function
-+ * whenever the current process may be a child of the main test process.
-+ */
-+pid_t tst_gettid(void);
+ top_srcdir		?= ../../../..
+ 
++exit_group01: CFLAGS+=-pthread
 +
- #endif /* TST_PID_H__ */
-diff --git a/lib/tst_pid.c b/lib/tst_pid.c
-index cfaa5db36..4e9dc7a52 100644
---- a/lib/tst_pid.c
-+++ b/lib/tst_pid.c
-@@ -166,3 +166,8 @@ pid_t tst_getpid(void)
+ include $(top_srcdir)/include/mk/testcases.mk
+ 
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/exit_group/exit_group01.c b/testcases/kernel/syscalls/exit_group/exit_group01.c
+index 5bf5b0218..2fcfff2f2 100644
+--- a/testcases/kernel/syscalls/exit_group/exit_group01.c
++++ b/testcases/kernel/syscalls/exit_group/exit_group01.c
+@@ -1,68 +1,126 @@
+-/******************************************************************************
+- * Copyright (c) Crackerjack Project., 2007                                   *
+- * Ported to LTP by Manas Kumar Nayak <maknayak@in.ibm.com>                   *
+- * Copyright (C) 2015 Cyril Hrubis <chrubis@suse.cz>                          *
+- *                                                                            *
+- * This program is free software;  you can redistribute it and/or modify      *
+- * it under the terms of the GNU General Public License as published by       *
+- * the Free Software Foundation; either version 2 of the License, or          *
+- * (at your option) any later version.                                        *
+- *                                                                            *
+- * This program is distributed in the hope that it will be useful,            *
+- * but WITHOUT ANY WARRANTY;  without even the implied warranty of            *
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See                  *
+- * the GNU General Public License for more details.                           *
+- *                                                                            *
+- * You should have received a copy of the GNU General Public License          *
+- * along with this program;  if not, write to the Free Software Foundation,   *
+- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA           *
+- *                                                                            *
+- ******************************************************************************/
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) Crackerjack Project., 2007
++ * Ported to LTP by Manas Kumar Nayak <maknayak@in.ibm.com>
++ * Copyright (c) 2015 Linux Test Project
++ * Copyright (C) 2015 Cyril Hrubis <chrubis@suse.cz>
++ * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
+ 
+-#include <stdio.h>
+-#include <errno.h>
+-#include <linux/unistd.h>
+-#include <sys/wait.h>
++/*\
++ * [Description]
++ *
++ * This test checks if exit_group() correctly ends a spawned child and all its
++ * running threads.
++ */
+ 
+-#include "test.h"
+-#include "safe_macros.h"
++#include <stdio.h>
++#include <stdlib.h>
++#include "tst_safe_pthread.h"
++#include "tst_test.h"
+ #include "lapi/syscalls.h"
+ 
+-char *TCID = "exit_group01";
+-int testno;
+-int TST_TOTAL = 1;
++#define THREADS_NUM 10
++
++static pid_t *tids;
+ 
+-static void verify_exit_group(void)
++static void thread_alive(const int tid)
  {
- 	return syscall(SYS_getpid);
+-	pid_t cpid, w;
+-	int status;
++	char folder[128];
++    struct stat sb;
++	char state;
+ 
+-	cpid = fork();
+-	if (cpid == -1)
+-		tst_brkm(TFAIL | TERRNO, NULL, "fork failed");
++	snprintf(folder, sizeof(folder), "/proc/%i/stat", tid);
+ 
+-	if (cpid == 0) {
+-		TEST(tst_syscall(__NR_exit_group, 4));
+-	} else {
+-		w = SAFE_WAIT(NULL, &status);
+-
+-		if (WIFEXITED(status) && (WEXITSTATUS(status) == 4)) {
+-			tst_resm(TPASS, "exit_group() succeeded");
+-		} else {
+-			tst_resm(TFAIL | TERRNO,
+-				 "exit_group() failed (wait status = %d)", w);
++	for (;;) {
++		if (stat(folder, &sb) == -1) {
++			if (errno != ENOENT)
++				tst_brk(TBROK | TERRNO, "stat() error");
++
++			break;
++		}
++
++		SAFE_FILE_SCANF(folder, "%*i %*s %c", &state);
++
++		if (state != 'S') {
++			tst_brk(TBROK,
++				"Thread %d is supposed to sleep but it's in '%c' state",
++				tid, state);
+ 		}
++
++		usleep(1000);
+ 	}
+ }
+ 
+-int main(int ac, char **av)
++static void *worker(void *arg)
+ {
+-	int lc;
++	int i = *((int *)arg);
+ 
+-	tst_parse_opts(ac, av, NULL, NULL);
++	tids[i] = tst_gettid();
+ 
+-	for (lc = 0; TEST_LOOPING(lc); lc++)
+-		verify_exit_group();
++	TST_CHECKPOINT_WAKE(0);
++	pause();
+ 
+-	tst_exit();
++	return arg;
  }
 +
-+pid_t tst_gettid(void)
++static void spawn_threads(void)
 +{
-+	return syscall(SYS_gettid);
++	pthread_t threads[THREADS_NUM];
++
++	for (int i = 0; i < THREADS_NUM; i++) {
++		SAFE_PTHREAD_CREATE(&threads[i], NULL, worker, (void *)&i);
++		TST_CHECKPOINT_WAIT(0);
++
++		/* wait for paused thread */
++		TST_PROCESS_STATE_WAIT(tids[i], 'S', 0);
++	}
 +}
++
++static void run(void)
++{
++	pid_t pid;
++	int status;
++
++	pid = SAFE_FORK();
++	if (!pid) {
++		spawn_threads();
++
++		TEST(tst_syscall(__NR_exit_group, 4));
++		if (TST_RET == -1)
++			tst_brk(TBROK | TERRNO, "exit_group() error");
++
++		return;
++	}
++
++	SAFE_WAITPID(pid, &status, 0);
++
++	for (int i = 0; i < THREADS_NUM; i++)
++		thread_alive(tids[i]);
++
++	TST_EXP_EXPR(WIFEXITED(status) && WEXITSTATUS(status) == 4,
++		"exit_group() succeeded");
++}
++
++static void setup(void)
++{
++	tids = SAFE_MMAP(
++		NULL,
++		sizeof(pid_t) * THREADS_NUM,
++		PROT_READ | PROT_WRITE,
++		MAP_SHARED | MAP_ANONYMOUS,
++		-1, 0);
++}
++
++static void cleanup(void)
++{
++	SAFE_MUNMAP(tids, sizeof(pid_t) * THREADS_NUM);
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = run,
++	.forks_child = 1,
++	.needs_checkpoints = 1,
++};
 -- 
 2.35.3
 
