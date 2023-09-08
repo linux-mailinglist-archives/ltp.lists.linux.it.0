@@ -1,69 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50660798517
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 11:54:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BEA697985BF
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 12:23:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AE1CF3CC64B
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 11:54:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 151973CC74D
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Sep 2023 12:23:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D1C5B3CB4F9
- for <ltp@lists.linux.it>; Fri,  8 Sep 2023 11:54:37 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 32A7C3CB536
+ for <ltp@lists.linux.it>; Fri,  8 Sep 2023 12:23:17 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D422F1A000A7
- for <ltp@lists.linux.it>; Fri,  8 Sep 2023 11:54:33 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 255401F8BE
- for <ltp@lists.linux.it>; Fri,  8 Sep 2023 09:54:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1694166873;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xF9XnpoWiuPwTvm0ss05pjZI2zrrRS+mYEuZkfCOZTs=;
- b=Yo2NzdccdMIelVW+wo9tZuSVkTfCmv201ptGDsvknyGAupeFMuOz8pD12TrbW88q934tGU
- qAQflY6Xavt1lk0wzKCEcJ4C6ZrvaHegcBnWikcHkDAF6fPBLJlBd8JyGiIZoIWUfBkHVW
- cV1qcxKwlFOm1rlUYl+XZF3bVj09D1c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1694166873;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xF9XnpoWiuPwTvm0ss05pjZI2zrrRS+mYEuZkfCOZTs=;
- b=vh+/idaZTsRgANA+IsaCl0O8lb0QJiq1cNjGm60QbwueYjl6UEU6N5KH8L4cMbzv0DNm5m
- ax4Nbhi263QJljBw==
-Received: from g78 (unknown [10.163.28.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5E1F72064F9
+ for <ltp@lists.linux.it>; Fri,  8 Sep 2023 12:23:16 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 4DD432C143;
- Fri,  8 Sep 2023 09:54:32 +0000 (UTC)
-References: <20230831112629.21510-1-akumar@suse.de> <ZPCKzdDjSKzFayv_@yuki>
-User-agent: mu4e 1.10.7; emacs 29.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>
-Date: Fri, 08 Sep 2023 10:45:20 +0100
-Organization: Linux Private Site
-In-reply-to: <ZPCKzdDjSKzFayv_@yuki>
-Message-ID: <87v8clgfcb.fsf@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5BD6C21A19;
+ Fri,  8 Sep 2023 10:23:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1694168596; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Ew9JIeu1RL4KJt+8sHhr/NhRPJIvZeIV44nCE1MRo7w=;
+ b=pHPfueOhQKI6/u4ziAOoRwadI8xuZq0fD48U8j0O6fxESF3l4IBQEExlVMwyHs/j8mxUP6
+ 3ekoHLJEVrdCXIKFhL8K/u8aUZ3p/plSuqHZZBJj60TnATQ/0M52dDqN8lx/J4hS+qlBkM
+ 31d+cMfQhFoX5je2qXybH4H+tC4+F8g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1694168596;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Ew9JIeu1RL4KJt+8sHhr/NhRPJIvZeIV44nCE1MRo7w=;
+ b=7Wc1ztNUU99Fh6Rf1uK+QEDX+F5MAzpMFu9Ru053I4rfZQAapfgVMRbViWfYN0AshMcoij
+ Qt5v3HmwWfyTELAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 329A2131FD;
+ Fri,  8 Sep 2023 10:23:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id hZaMChT2+mRFcwAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Fri, 08 Sep 2023 10:23:16 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+To: ltp@lists.linux.it
+Date: Fri,  8 Sep 2023 12:23:13 +0200
+Message-Id: <20230908102315.8163-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/mmap21: Add new test for mmap's ENOMEM
- case
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 0/2] Rewrite exit_group01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,54 +75,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Cyril Hrubis <chrubis@suse.cz> writes:
+exit_group01 test has been completely rewritten and tst_gettid() has been added
+to support missing gettid() syscall from GLIBC
 
-> Hi!
->> To be more precise in this test and checking for ENOMEM on exact mapping
->> when limit is crossed, I could only think of counting the existing
->> mappings from /proc/$pid/maps and counting the remaining possible
->> mappings. Is there any better approach if we want to test this for exact
->> case?
->
-> If you want to check that we managed to create exactly the amount of
-> mappings in this limit, this would be a sensible way to do that.
->
-> However beware that this also depends on the overcommit settings. If
+Andrea Cervesato (2):
+  Add tst_gettid wrapper around gettid syscall
+  Refactor exit_group01 using new API
 
-yes, and perhaps this can be effected by CGroups and resource limit
-settings as well. I would assume there are lots of limits that could
-effect the test.
-
-> kernel is not set to overcommit and if the size of the memory needed to
-> cross the maximal number of mappings would exceed available memory you
-> would get ENOMEM before you manage to hit the limit. With overcommit
-> enabled you can create mappings as long as the kernel has enough memory
-> to hold the vma structures.
->
-> At my system the limit is set to 65530 which on 4k page size would
-> consume around 300MB, which does not seem to be much, but may still fail
-> on small embedded boards with disabled overcommit. So either we try to
-> set the limit to a lower value for the duration of the test, or allow
-> the mmap() to fail sooner if we find that available memory is close to
-> or smaller than number of mappings multiplied by page size.
-
-That seems like the safest option without enumerating all of the
-possible limits.
-
-Setting to changes requested.
+ include/tst_pid.h                             |   8 +
+ lib/tst_pid.c                                 |   5 +
+ testcases/kernel/syscalls/exit_group/Makefile |   2 +
+ .../kernel/syscalls/exit_group/exit_group01.c | 160 ++++++++++++------
+ 4 files changed, 124 insertions(+), 51 deletions(-)
 
 -- 
-Thank you,
-Richard.
+2.35.3
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
