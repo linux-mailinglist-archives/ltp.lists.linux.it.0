@@ -1,75 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3852C79D3F4
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Sep 2023 16:44:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0799D79D5E1
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Sep 2023 18:12:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 954193CE80F
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Sep 2023 16:44:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CD4A43CE7DD
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Sep 2023 18:12:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E91323CB33E
- for <ltp@lists.linux.it>; Tue, 12 Sep 2023 16:43:56 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 70C8D3CB4CD
+ for <ltp@lists.linux.it>; Tue, 12 Sep 2023 18:12:32 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4D0771401332
- for <ltp@lists.linux.it>; Tue, 12 Sep 2023 16:43:55 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C4EC7200C14
+ for <ltp@lists.linux.it>; Tue, 12 Sep 2023 18:12:31 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D54E51F74A;
- Tue, 12 Sep 2023 14:43:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1694529834; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hOUd3TIIPkRbnBhsu5My2OMsdiQu55nXnkVNBSNyjbg=;
- b=C/73QHrc5pyvI7p7r02Nw+3JcD7bltwJ7mxvsPNEXaTt67CXxxEfr4hZN5yuiacXIcRYe6
- 9N1vRJ22eWf7oj2V8Nj+ob6I64j9Lues1ioeWjtSTjIEzWdIH1czd6hBvjKM5cSzPu43aI
- Ipe3vw6GLbOPsV+Simez5LOXVw+n+rE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1694529834;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hOUd3TIIPkRbnBhsu5My2OMsdiQu55nXnkVNBSNyjbg=;
- b=NUBD6uCb8Envoh+sbVp0QJrDbb6KDp9rlCAdUWRJs6ZraWvJA7xGd0ciOS3W1tItH4txvb
- kNWNOyK9dlGfaeAg==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0A8F21F45F
+ for <ltp@lists.linux.it>; Tue, 12 Sep 2023 16:12:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1694535151; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=3/4YFUsckc0FRHTb/NWmlXrGwOCT5s4rEIJZARE9o/A=;
+ b=XuRJsLBTLknZqsDoUU/nJaVPH1QZywpmSQC6HzmEX8AMoFW8VRWW9K23EVy3etUofYidny
+ rZB7MnYq1nL9HufqFC5ZsfqcQkXcJCJ0JO6aihnAWFNT4wxZkj7KJifrPhL9Kbca1RIEDa
+ aINOR+toGGLwD+7SZllhmuPQHcx20Vo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1694535151;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=3/4YFUsckc0FRHTb/NWmlXrGwOCT5s4rEIJZARE9o/A=;
+ b=j8kRzgx5OooYQlbuzqZydDE494BP5Z1PDLS0HxIps74JKjunmdJPzgiPZR5gaHSuGUTmjn
+ EqUbVc+K/AP8GUDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ABB1713A3B;
- Tue, 12 Sep 2023 14:43:54 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DF82A139DB
+ for <ltp@lists.linux.it>; Tue, 12 Sep 2023 16:12:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eNXyKCp5AGUXYAAAMHmgww
- (envelope-from <mkittler@suse.de>); Tue, 12 Sep 2023 14:43:54 +0000
-From: Marius Kittler <mkittler@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id tgbvM+6NAGUlDwAAMHmgww
+ (envelope-from <mdoucha@suse.cz>)
+ for <ltp@lists.linux.it>; Tue, 12 Sep 2023 16:12:30 +0000
+From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 12 Sep 2023 16:43:51 +0200
-Message-ID: <20230912144351.13494-3-mkittler@suse.de>
+Date: Tue, 12 Sep 2023 18:12:25 +0200
+Message-ID: <20230912161230.31983-1-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230912144351.13494-1-mkittler@suse.de>
-References: <20230912144351.13494-1-mkittler@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 2/2] Prevent segmentation fault when negative task
- count specified
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] tcindex01: Simplify test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,28 +81,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Marius Kittler <mkittler@suse.de>
----
- testcases/realtime/func/rt-migrate/rt-migrate.c | 4 ++++
- 1 file changed, 4 insertions(+)
+The bug can be reproduced simply by adding, removing and adding again
+the same tcindex traffic filter. If the bug is present, the attempt
+to add the removed filter again will fail with EEXIST error.
 
-diff --git a/testcases/realtime/func/rt-migrate/rt-migrate.c b/testcases/realtime/func/rt-migrate/rt-migrate.c
-index 2554f63e2..252e77e6a 100644
---- a/testcases/realtime/func/rt-migrate/rt-migrate.c
-+++ b/testcases/realtime/func/rt-migrate/rt-migrate.c
-@@ -419,6 +419,10 @@ int main(int argc, char **argv)
- 		numcpus = sysconf(_SC_NPROCESSORS_ONLN);
- 		nr_tasks = numcpus + 1;
- 	}
-+	if (nr_tasks < 0) {
-+		printf("The number of tasks must not be negative.\n");
-+		exit(EXIT_FAILURE);
-+	}
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+
+This change makes the test much faster by removing usleep() call and also
+allows reliably reproducing the bug on kernels v4.x.
+
+ testcases/cve/tcindex01.c | 37 ++++++++++++-------------------------
+ 1 file changed, 12 insertions(+), 25 deletions(-)
+
+diff --git a/testcases/cve/tcindex01.c b/testcases/cve/tcindex01.c
+index 9bd7de9dd..eb1f01109 100644
+--- a/testcases/cve/tcindex01.c
++++ b/testcases/cve/tcindex01.c
+@@ -84,31 +84,18 @@ static void setup(void)
  
- 	intervals = malloc(sizeof(stats_container_t) * nr_tasks);
- 	if (!intervals)
+ static void run(void)
+ {
+-	unsigned int i;
+-
+-	for (i = 0; i < 100; i++) {
+-		NETDEV_ADD_QDISC(DEVNAME, AF_UNSPEC, TC_H_ROOT, qd_handle,
+-			"htb", qd_config);
+-		NETDEV_ADD_TRAFFIC_CLASS(DEVNAME, qd_handle, clsid, "htb",
+-			cls_config);
+-		NETDEV_ADD_TRAFFIC_FILTER(DEVNAME, qd_handle, 10, ETH_P_IP, 1,
+-			"tcindex", f_config);
+-		NETDEV_REMOVE_TRAFFIC_FILTER(DEVNAME, qd_handle, 10, ETH_P_IP,
+-			1, "tcindex");
+-
+-		/* Wait at least one jiffy for use-after-free */
+-		usleep(10000);
+-
+-		NETDEV_REMOVE_QDISC(DEVNAME, AF_UNSPEC, TC_H_ROOT, qd_handle,
+-			"htb");
+-	}
+-
+-	if (tst_taint_check()) {
+-		tst_res(TFAIL, "Kernel is vulnerable");
+-		return;
+-	}
+-
+-	tst_res(TPASS, "Nothing bad happened (yet)");
++	NETDEV_ADD_QDISC(DEVNAME, AF_UNSPEC, TC_H_ROOT, qd_handle, "htb",
++		qd_config);
++	NETDEV_ADD_TRAFFIC_CLASS(DEVNAME, qd_handle, clsid, "htb", cls_config);
++	NETDEV_ADD_TRAFFIC_FILTER(DEVNAME, qd_handle, 10, ETH_P_IP, 1,
++		"tcindex", f_config);
++	NETDEV_REMOVE_TRAFFIC_FILTER(DEVNAME, qd_handle, 10, ETH_P_IP,
++		1, "tcindex");
++	tst_res(TINFO, "Trying to add removed tcindex filter again...");
++	NETDEV_ADD_TRAFFIC_FILTER(DEVNAME, qd_handle, 10, ETH_P_IP, 1,
++		"tcindex", f_config);
++	NETDEV_REMOVE_QDISC(DEVNAME, AF_UNSPEC, TC_H_ROOT, qd_handle, "htb");
++	tst_res(TPASS, "Removing tcindex filter works correctly");
+ }
+ 
+ static void cleanup(void)
 -- 
-2.42.0
+2.41.0
 
 
 -- 
