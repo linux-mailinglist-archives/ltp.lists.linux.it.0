@@ -2,68 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B3E179D3F6
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Sep 2023 16:44:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 705BB79D3F5
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Sep 2023 16:44:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D774C3CDEDF
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Sep 2023 16:44:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AFAB83CE80C
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Sep 2023 16:44:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F0E973CB34B
+ by picard.linux.it (Postfix) with ESMTPS id F1A673CC062
  for <ltp@lists.linux.it>; Tue, 12 Sep 2023 16:43:56 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4CFFD601E9A
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 894386002B4
  for <ltp@lists.linux.it>; Tue, 12 Sep 2023 16:43:55 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8D0EC1F45F;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A85AC211F0;
  Tue, 12 Sep 2023 14:43:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1694529834; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=JgLB4fBpjHdjYz1sRC8ZAwfIvVf3uRf8uPiGdmW2Nrk=;
- b=KsqCgidCIV40gaQB+AMDugnZ+Jd0C2CYduWPCpiGlbGlzGVuLIgzQVbrFjQ3n2Wl9OiKz4
- YRRu0RxnMpXuezXf6CqQFAYLRmXFmomoUkCdIxCZcnvI2wG+NyfcDI2m2ijwl/FkE/I0GI
- J2kUaBNNbAYM7eoyGgAg6/lsGKPaSzk=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bDzEzkcWXytZbRBVRv80i3CSLIsjPumBVmz+QwcsvKs=;
+ b=jWzwm+w9AdBQqnZA6E4XTO9hYST+uwGyNoQnTOjTunCyySqsN1XYL1e+sniJCJu+EVECRI
+ 98PmZhUvSXGxCNRe3ZX20PrmaBspyTViDQaLxIJoH5rsBSW3DM2Tjm5qIEIjO/Blyv5Wzi
+ 4kFV1wblKcsY8cdyfwwvJkoukjlkoIM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1694529834;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=JgLB4fBpjHdjYz1sRC8ZAwfIvVf3uRf8uPiGdmW2Nrk=;
- b=x/3XfZZGyZ/tPt6gSxI/eaVlVPPX6gh50aJoLL5D6GzZhetxQFTfBzWTZ8UCMJWG2AmXby
- WVEANSDulMvBgtBw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bDzEzkcWXytZbRBVRv80i3CSLIsjPumBVmz+QwcsvKs=;
+ b=sK4NJ2LdSIw6OhCyDirlh1ky1Vf3o/NN3VtLqn37O7F82QjvZPO8PKLfEqgdcVO+U9+9DQ
+ YMC7DWJj7zkuc/Ag==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6CC5113A39;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9196F13A39;
  Tue, 12 Sep 2023 14:43:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ThF4GSp5AGUXYAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id +DRWIip5AGUXYAAAMHmgww
  (envelope-from <mkittler@suse.de>); Tue, 12 Sep 2023 14:43:54 +0000
 From: Marius Kittler <mkittler@suse.de>
 To: ltp@lists.linux.it
-Date: Tue, 12 Sep 2023 16:43:49 +0200
-Message-ID: <20230912144351.13494-1-mkittler@suse.de>
+Date: Tue, 12 Sep 2023 16:43:50 +0200
+Message-ID: <20230912144351.13494-2-mkittler@suse.de>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20230912144351.13494-1-mkittler@suse.de>
+References: <20230912144351.13494-1-mkittler@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 0/2] Fix most severe problems with `rt-migrate.c`
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 1/2] Ensure prio is within valid range in
+ `rt-migrate.c`
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,17 +87,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This set of patches fixes the most severe problems with
-`rt-migrate.c`. I can do further improvements and refactorings if
-that is wanted.
+* According to the documentation the value param->sched_priority
+  must lie within the range given by sched_get_priority_min(2) and
+  sched_get_priority_max(2). This change ensures that this is the
+  case without completely restructuring the test yet.
+* See https://github.com/linux-test-project/ltp/issues/812
 
-Marius Kittler (2):
-  Ensure prio is within valid range in `rt-migrate.c`
-  Prevent segmentation fault when negative task count specified
+Signed-off-by: Marius Kittler <mkittler@suse.de>
+---
+ .../realtime/func/rt-migrate/rt-migrate.c     | 21 ++++++++++++++-----
+ 1 file changed, 16 insertions(+), 5 deletions(-)
 
- .../realtime/func/rt-migrate/rt-migrate.c     | 25 +++++++++++++++----
- 1 file changed, 20 insertions(+), 5 deletions(-)
-
+diff --git a/testcases/realtime/func/rt-migrate/rt-migrate.c b/testcases/realtime/func/rt-migrate/rt-migrate.c
+index 97ab604c7..2554f63e2 100644
+--- a/testcases/realtime/func/rt-migrate/rt-migrate.c
++++ b/testcases/realtime/func/rt-migrate/rt-migrate.c
+@@ -74,6 +74,9 @@
+ 
+ #define VERSION_STRING "V 0.4LTP"
+ 
++#define CLAMP(x, lower, upper) (MIN(upper, MAX(x, lower)))
++#define CLAMP_PRIO(prio) CLAMP(prio, prio_min, prio_max)
++
+ int nr_tasks;
+ int lfd;
+ 
+@@ -137,7 +140,7 @@ static unsigned long long interval = INTERVAL;
+ static unsigned long long run_interval = RUN_INTERVAL;
+ static unsigned long long max_err = MAX_ERR;
+ static int nr_runs = NR_RUNS;
+-static int prio_start = PRIO_START;
++static int prio_start = PRIO_START, prio_min, prio_max;
+ static int check = 1;
+ static int stop;
+ 
+@@ -284,8 +287,8 @@ static void print_results(void)
+ 	printf("Parent pid: %d\n", getpid());
+ 
+ 	for (t = 0; t < nr_tasks; t++) {
+-		printf(" Task %d (prio %d) (pid %ld):\n", t, t + prio_start,
+-		       thread_pids[t]);
++		printf(" Task %d (prio %d) (pid %ld):\n", t,
++			   CLAMP_PRIO(t + prio_start), thread_pids[t]);
+ 		printf("   Max: %lld us\n", tasks_max[t]);
+ 		printf("   Min: %lld us\n", tasks_min[t]);
+ 		printf("   Tot: %lld us\n", tasks_avg[t] * nr_runs);
+@@ -394,6 +397,13 @@ static void stop_log(int sig)
+ 
+ int main(int argc, char **argv)
+ {
++	/*
++	 * Determine the valid priority range; subtracting one from the
++	 * maximum to reserve the highest prio for main thread.
++	 */
++	prio_min = sched_get_priority_min(SCHED_FIFO);
++	prio_max = sched_get_priority_max(SCHED_FIFO) - 1;
++
+ 	int *threads;
+ 	long i;
+ 	int ret;
+@@ -448,7 +458,7 @@ int main(int argc, char **argv)
+ 
+ 	for (i = 0; i < nr_tasks; i++) {
+ 		threads[i] = create_fifo_thread(start_task, (void *)i,
+-						prio_start + i);
++						CLAMP_PRIO(prio_start + i));
+ 	}
+ 
+ 	/*
+@@ -460,7 +470,8 @@ int main(int argc, char **argv)
+ 
+ 	/* up our prio above all tasks */
+ 	memset(&param, 0, sizeof(param));
+-	param.sched_priority = nr_tasks + prio_start;
++	param.sched_priority = CLAMP(nr_tasks + prio_start, prio_min,
++								 prio_max + 1);
+ 	if (sched_setscheduler(0, SCHED_FIFO, &param))
+ 		debug(DBG_WARN, "Warning, can't set priority of main thread!\n");
+ 	intv.tv_sec = INTERVAL / NS_PER_SEC;
 -- 
 2.42.0
 
