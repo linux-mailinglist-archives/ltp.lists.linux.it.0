@@ -1,75 +1,85 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F1157A08C0
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Sep 2023 17:13:36 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 017747A17DB
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Sep 2023 09:56:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 409EA3CE74E
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Sep 2023 17:13:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 24FCA3CE67E
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Sep 2023 09:56:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 94EBD3CE70C
- for <ltp@lists.linux.it>; Thu, 14 Sep 2023 17:13:31 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 6DB673CE70C
+ for <ltp@lists.linux.it>; Thu, 14 Sep 2023 17:20:00 +0200 (CEST)
+Received: from mail-vs1-xe2e.google.com (mail-vs1-xe2e.google.com
+ [IPv6:2607:f8b0:4864:20::e2e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7601E20EB44
- for <ltp@lists.linux.it>; Thu, 14 Sep 2023 17:13:29 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 43BB52185F;
- Thu, 14 Sep 2023 15:13:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1694704409; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xnmpqAE13FIdWllXn/BcpT+XciRXwYk63Zh9VnWclQE=;
- b=XtQ+bWPzco8+lujx+Z7kK3kIwAdMJo6SCHeEKzuBGOAi9HmzQZqMZMGDL12LrEAAswf2L+
- S0+onDaefUYqMnzSDMto++7QPvx2hZpl+qXWhi5vCCybPUnsCbXOvsb9ntApdl+O96Wl5p
- YwSf/AzAtm11DyKxu8YEU52laQnK9K8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1694704409;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xnmpqAE13FIdWllXn/BcpT+XciRXwYk63Zh9VnWclQE=;
- b=eYGVI2a8JIkJcBlgI7E8k+MSKy/6nazF6n56/1k/JnAvlInWH5K2tQN9tpXZePmk6w3KF0
- wIVSu5vlmQAmlwDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 303E113580;
- Thu, 14 Sep 2023 15:13:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 5GwNCxkjA2XLDAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 14 Sep 2023 15:13:29 +0000
-Date: Thu, 14 Sep 2023 17:14:15 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Avinesh Kumar <akumar@suse.de>
-Message-ID: <ZQMjRzonu8ECGhpe@yuki>
-References: <ZPHY1CtYogkqUHzQ@yuki>
- <20230905095411.6704-1-akumar@suse.de>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B9B6A617621
+ for <ltp@lists.linux.it>; Thu, 14 Sep 2023 17:19:59 +0200 (CEST)
+Received: by mail-vs1-xe2e.google.com with SMTP id
+ ada2fe7eead31-44ee1123667so1433312137.0
+ for <ltp@lists.linux.it>; Thu, 14 Sep 2023 08:19:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1694704798; x=1695309598; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pgA7PcwmgwXejCiJKRlHdUH5uK+0JkyppZjxMRcSh+s=;
+ b=b0ZE9d996qOqaWngkiMMdnq2AjMoIEuiMy2u0vqXna4FHNl6hz7prlbepkLme4J8rT
+ C/9cbLGPYN3DGeyKp5cQZnjivuv6C9IWMrV88rv1j+YRxrDtDcCcLlfdxWncigdpEq5H
+ CWOQ4gvh2mMK5ywv7CAZxZwDtqNJv1KOOn0xdnNEY0DKHV7xPM0g823MTkNBZOmxfmhC
+ KtFQiQeEkgOu273bPrwtubP/1PdzdM6tcJgmnVGPwCIuS7gkbxGt65iNz0/cXnfgSrPB
+ yNJh3ORawGv7XgvdjEhS8DarC4XGU71Ovn1cwVdNbe9mW2kzrRVQbqF4iWW/KRwOQ+AQ
+ VRgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694704798; x=1695309598;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pgA7PcwmgwXejCiJKRlHdUH5uK+0JkyppZjxMRcSh+s=;
+ b=kkbK9kzXeYkfYM3R8Va9GZYI+Ew2swetv4wY0eB+7HGnA/2YWuqINUhdoVUPbR13Hc
+ w9yCf84kfyfiTBilmKqNuPOmXp1nqCpgr8bjiKYfxPPkXAs1AbnoMs8jGBsbmMkSvwD9
+ wLHtBAWbaG2TaacFCpGn8sLPge1j6nK5XwiSavbFi6n4KYLA43IiUFUqvo7LSqzmH5ZM
+ 3QdZNVOcuuPKqgEeinORFcioG5xOKLLet6jh+aG5s4hhq8zzX7j5U0acyIa0DYx9iRXd
+ EB4O2ZEx9OtckwpoH08lgCo5bn81mB6Cnuc1SwSFpfQ4Ix/RG0QTqoxwY0s3Me5Sbg9F
+ EYFg==
+X-Gm-Message-State: AOJu0YyQp45W/VSXBxCmzbJgRZgEcl732VzNI6NjNdWmZwzoz42yggFU
+ E4zKjDWJycjJbxTZfhX1Yio=
+X-Google-Smtp-Source: AGHT+IGSlm6UqcoGzTxdPnKwkOkMH2W7gTDRm/2Fmh7Lspov7kgxMbOYMHyDV8LJCq8qMOfoh9EVsw==
+X-Received: by 2002:a67:ee50:0:b0:44e:837a:25e with SMTP id
+ g16-20020a67ee50000000b0044e837a025emr1010521vsp.11.1694704798503; 
+ Thu, 14 Sep 2023 08:19:58 -0700 (PDT)
+Received: from localhost.localdomain (vps-035beda1.vps.ovh.us. [51.81.85.161])
+ by smtp.gmail.com with ESMTPSA id
+ g2-20020ab016c2000000b0079b44af2af8sm193838uaf.30.2023.09.14.08.19.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Sep 2023 08:19:57 -0700 (PDT)
+From: Yong Wang <yongw.pur@gmail.com>
+X-Google-Original-From: Yong Wang <wang.yong12@zte.com.cn>
+To: chrubis@suse.cz,
+	naresh.kamboju@linaro.org
+Date: Thu, 14 Sep 2023 23:18:39 +0800
+Message-Id: <20230914151839.3635-1-wang.yong12@zte.com.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CA+G9fYvHhiiGKhNd=L9+xYFVwv0Q8k6gUBeFQGWCWw1cWhb50Q@mail.gmail.com>
+References: <CA+G9fYvHhiiGKhNd=L9+xYFVwv0Q8k6gUBeFQGWCWw1cWhb50Q@mail.gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230905095411.6704-1-akumar@suse.de>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/mmap04: Validate mapping perms in
- /proc/self/maps
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Mailman-Approved-At: Fri, 15 Sep 2023 09:56:43 +0200
+Subject: [LTP] LTP: cfs_bandwidth01: Unable to handle kernel NULL pointer
+ dereference
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,128 +91,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: ran.xiaokai@zte.com.cn, arnd@arndb.de, linux-pm@vger.kernel.org,
+ peterz@infradead.org, wang.yong12@zte.com.cn, linux-kernel@vger.kernel.org,
+ yang.yang29@zte.com.cn, vincent.guittot@linaro.org, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) International Business Machines  Corp., 2001
-> + *  07/2001 Ported by Wayne Boyer
-> + * Copyright (c) 2023 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
-> + */
-> +
-> +/*\
-> + * [Description]
-> + *
-> + * Verify that, after a successful mmap() call, permission bits of the new
-> + * mapping in /proc/pid/maps file matches the prot and flags arguments in
-> + * mmap() call.
-> + */
-> +
-> +#include "tst_test.h"
-> +#include "tst_safe_stdio.h"
-> +
-> +#define MMAPSIZE 1024
-> +static char *addr;
-> +
-> +static struct tcase {
-> +	int prot;
-> +	int flags;
-> +	char *exp_perms;
-> +} tcases[] = {
-> +	{PROT_NONE, MAP_ANONYMOUS | MAP_PRIVATE, "---p"},
-> +	{PROT_NONE, MAP_ANONYMOUS | MAP_SHARED, "---s"},
-> +	{PROT_READ, MAP_ANONYMOUS | MAP_PRIVATE, "r--p"},
-> +	{PROT_READ, MAP_ANONYMOUS | MAP_SHARED, "r--s"},
-> +	{PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, "-w-p"},
-> +	{PROT_WRITE, MAP_ANONYMOUS | MAP_SHARED, "-w-s"},
-> +	{PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, "rw-p"},
-> +	{PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_SHARED, "rw-s"},
-> +	{PROT_READ | PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE, "r-xp"},
-> +	{PROT_READ | PROT_EXEC, MAP_ANONYMOUS | MAP_SHARED, "r-xs"},
-> +	{PROT_WRITE | PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE, "-wxp"},
-> +	{PROT_WRITE | PROT_EXEC, MAP_ANONYMOUS | MAP_SHARED, "-wxs"},
-> +	{PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE, "rwxp"},
-> +	{PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANONYMOUS | MAP_SHARED, "rwxs"}
-> +};
-> +
-> +static void get_map_perms(char *addr_str, char *perms)
-> +{
-> +	FILE *file;
-> +	char line[BUFSIZ];
-> +
-> +	file = SAFE_FOPEN("/proc/self/maps", "r");
-> +
-> +	while (fgets(line, sizeof(line), file)) {
-> +		if (strstr(line, addr_str) != NULL) {
-> +			if (sscanf(line, "%*x-%*x %s", perms) != 1)
-> +				tst_brk(TBROK, "failed to find permission string in %s", line);
-> +			break;
-> +		}
-> +	}
-> +
-> +	SAFE_FCLOSE(file);
-> +	file = NULL;
+Hello!
+>Following kernel crash noticed on Linux stable-rc 6.5.3-rc1 on qemu-arm64 while
+>running LTP sched tests cases.
+>
+>This is not always reproducible.
+I also encountered this problem on linux 5.10 on arm64 environment.
+The prompt information is as follows:
+[ 2893.003795] ================================================================== 
+[ 2893.003822] BUG: KASAN: null-ptr-deref in pick_next_task_fair+0x130/0x4e0 
+[ 2893.003880] Read of size 8 at addr 0000000000000080 by task ksoftirqd/0/12 
+[ 2893.003901]  
+[ 2893.003914] CPU: 0 PID: 12 Comm: ksoftirqd/0 Tainted: P           O      5.10.59-rt52#1 
+[ 2893.003959] Call trace: 
+[ 2893.003968]  dump_backtrace+0x0/0x2e8 
+[ 2893.004009]  show_stack+0x18/0x28 
+[ 2893.004032]  dump_stack+0x104/0x174 
+[ 2893.004067]  kasan_report+0x1d0/0x258 
+[ 2893.004098]  __asan_load8+0x94/0xd0 
+[ 2893.004126]  pick_next_task_fair+0x130/0x4e0 
+[ 2893.004164]  __schedule+0x220/0xbd0 
+[ 2893.004192]  schedule+0xec/0x1a0 
+[ 2893.004216]  smpboot_thread_fn+0x124/0x548 
+[ 2893.004246]  kthread+0x24c/0x278 
+[ 2893.004277]  ret_from_fork+0x10/0x34 
+[ 2893.004306] ================================================================== 
+[ 2893.004325] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000080 
+[ 2893.152267] Mem abort info: 
+[ 2893.152639]   ESR = 0x96000004 
+[ 2893.153045]   EC = 0x25: DABT (current EL), IL = 32 bits 
+[ 2893.153739]   SET = 0, FnV = 0 
+[ 2893.154143]   EA = 0, S1PTW = 0 
+[ 2893.154560] Data abort info: 
+[ 2893.154940]   ISV = 0, ISS = 0x00000004 
+[ 2893.155443]   CM = 0, WnR = 0 
+[ 2893.155838] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000188edb000 
 
-No need to set the file to NULL here, it's on stack and will perish once
-we leave this function.
+The source code where the problem occurs corresponds to:
+  se = pick_next_entity(cfs_rq, curr);		
+  cfs_rq = group_cfs_rq(se); //se is NULL!
 
-Rather than that we should check that the perms was actually set at this
-point. It's unlikely that it will be missing, but we are writing kernel
-tests so we should really make sure we actually found it.
+It is found that pick_next_entity returns null, so null-ptr-dere appears when accessing the members of se later.
+But it is not clear under what circumstances pick_next_entity returns null.
 
-Also I do wonder if we can use SAFE_FILE_LINES_SCANF() here that would
-sove the the problem since it will TBROK if the line wasn't found. For
-that we would have to snprintf() the fmt string with the address so that
-we pass something as "5560620ce000-%-x %s" to the scanf.
+In addition, in my environment, the following operations often recur:
+  stress-ng -c 8 --cpu-load 100 --sched fifo --sched-prio 1 --cpu-method pi -t 900 &
+  runltp -s cfs_bandwidth01
 
-> +}
-> +
-> +static void run(unsigned int i)
-> +{
-> +	struct tcase *tc = &tcases[i];
-> +	char addr_str[20];
-> +	char perms[8];
-> +
-> +	addr = SAFE_MMAP(NULL, MMAPSIZE, tc->prot, tc->flags, -1, 0);
-> +
-> +	sprintf(addr_str, "%p", addr);
-> +	if (sscanf(addr_str, "0x%s", addr_str) != 1)
-> +		tst_brk(TBROK, "failed to find address string");
-
-I guess that casting the address to (uintptr_t) and printing it with
-"%"PRIxPTR is cleaner solution.
-
-> +	get_map_perms(addr_str, perms);
-> +
-> +	if (!strcmp(perms, tc->exp_perms))
-> +		tst_res(TPASS, "mapping permissions in /proc matched: %s", perms);
-> +	else
-> +		tst_res(TFAIL, "mapping permissions in /proc mismatched,"
-> +						" expected: %s, found: %s",
-> +						tc->exp_perms, perms);
-> +
-> +	SAFE_MUNMAP(addr, MMAPSIZE);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test = run,
-> +	.tcnt = ARRAY_SIZE(tcases),
-> +};
-> -- 
-> 2.41.0
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Hope it helps to solve the problem.
+Thanks.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
