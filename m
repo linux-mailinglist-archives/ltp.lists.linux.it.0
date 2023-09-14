@@ -2,52 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABCD97A03A3
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Sep 2023 14:20:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D22857A037A
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Sep 2023 14:13:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B7DC23CE72F
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Sep 2023 14:20:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A05863CE713
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Sep 2023 14:13:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F017D3CB268
- for <ltp@lists.linux.it>; Thu, 14 Sep 2023 07:53:21 +0200 (CEST)
-Received: from r3-23.sinamail.sina.com.cn (r3-23.sinamail.sina.com.cn
- [202.108.3.23])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 3D5C53CB247
+ for <ltp@lists.linux.it>; Thu, 14 Sep 2023 14:13:16 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 20C56140053B
- for <ltp@lists.linux.it>; Thu, 14 Sep 2023 07:53:18 +0200 (CEST)
-X-SMAIL-HELO: pek-lxu-l1.wrs.com
-Received: from unknown (HELO pek-lxu-l1.wrs.com)([111.198.228.56])
- by sina.com (172.16.97.23) with ESMTP
- id 65029FC9000216F9; Thu, 14 Sep 2023 13:53:14 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com; spf=none smtp.mailfrom=eadavis@sina.com;
- dkim=none header.i=none;
- dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 59030431458597
-X-SMAIL-UIID: 6CA756EA4A77410D88DFC3554C509A18-20230914-135314-1
-From: Edward AD <eadavis@sina.com>
-To: oliver.sang@intel.com
-Date: Thu, 14 Sep 2023 13:53:13 +0800
-Message-ID: <20230914055313.151192-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <202309121302.8864096c-oliver.sang@intel.com>
-References: <202309121302.8864096c-oliver.sang@intel.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5A7F014011A6
+ for <ltp@lists.linux.it>; Thu, 14 Sep 2023 14:13:15 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3E8C61F74A;
+ Thu, 14 Sep 2023 12:13:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1694693595; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tdYb9ZiQyvR1AHGx69dTDtwesCYmrAfLFmQxZnVZ1Pw=;
+ b=RF9u2vYjkqBYoIf5+sF4HGzhq3Hax+CRNFDBmweuXKS4GLlCO9m1e/dvE+4s7zVqBv9WOT
+ 9AshNW0ByXFROQhDy6HUo8qgVcF91Z9e3jh0/wPwzZOsy2LkKJ9RJm0/dUkPSsDfE0Xg/f
+ 15TY8mnaZBKhrAI/Zr8luOxw7XspmQg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1694693595;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tdYb9ZiQyvR1AHGx69dTDtwesCYmrAfLFmQxZnVZ1Pw=;
+ b=R4wbXkKresLbnVD5KZeNrzXrtWTgIoqUyS34nxYC7y1NaoNbzTczPoafx6LiHwQRX488ky
+ VmDLj1+vOnt4k/DQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 235C9139DB;
+ Thu, 14 Sep 2023 12:13:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id DEN1B9v4AmX3KAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 14 Sep 2023 12:13:15 +0000
+Date: Thu, 14 Sep 2023 14:14:01 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Message-ID: <ZQL5CVlPD0j-AUPq@yuki>
+References: <20230913144706.7126-1-andrea.cervesato@suse.de>
+ <20230913144706.7126-4-andrea.cervesato@suse.de>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20230913144706.7126-4-andrea.cervesato@suse.de>
 X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=FREEMAIL_FROM,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Mailman-Approved-At: Thu, 14 Sep 2023 14:20:23 +0200
-Subject: [LTP] [PATCH] mm: extpand queue_pages_range() to find and lock the
- vma range
+Subject: Re: [LTP] [PATCH v9 3/4] Remove deprecated header files from mqns
+ suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,71 +80,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: syzbot+b591856e0f0139f83023@syzkaller.appspotmail.com, lkp@intel.com,
- syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, oe-lkp@lists.linux.dev, akpm@linux-foundation.org,
- ltp@lists.linux.it, eadavis@sina.com
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Using for_each_vma_range to find vmas, and not only inside locking, but also 
-outside locking to ensure that vma_start_write are performed.
+Hi!
+And the two removal patches are pushed as well, thanks.
 
-Reported-and-tested-by: syzbot+b591856e0f0139f83023@syzkaller.appspotmail.com
-Signed-off-by: Edward AD <eadavis@sina.com>
----
- mm/pagewalk.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/mm/pagewalk.c b/mm/pagewalk.c
-index b7d7e4fcfad7..b31d59a27f57 100644
---- a/mm/pagewalk.c
-+++ b/mm/pagewalk.c
-@@ -479,6 +479,7 @@ int walk_page_range(struct mm_struct *mm, unsigned long start,
- 		.mm		= mm,
- 		.private	= private,
- 	};
-+	struct vma_iterator vmi;
- 
- 	if (start >= end)
- 		return -EINVAL;
-@@ -488,8 +489,9 @@ int walk_page_range(struct mm_struct *mm, unsigned long start,
- 
- 	process_mm_walk_lock(walk.mm, ops->walk_lock);
- 
--	vma = find_vma(walk.mm, start);
--	do {
-+	vma_iter_init(&vmi, walk.mm, start);
-+	for_each_vma_range(vmi, vma, end) {
-+		process_vma_walk_lock(vma, ops->walk_lock);
- 		if (!vma) { /* after the last vma */
- 			walk.vma = NULL;
- 			next = end;
-@@ -501,10 +503,8 @@ int walk_page_range(struct mm_struct *mm, unsigned long start,
- 			if (ops->pte_hole)
- 				err = ops->pte_hole(start, next, -1, &walk);
- 		} else { /* inside vma */
--			process_vma_walk_lock(vma, ops->walk_lock);
- 			walk.vma = vma;
- 			next = min(end, vma->vm_end);
--			vma = find_vma(mm, vma->vm_end);
- 
- 			err = walk_page_test(start, next, &walk);
- 			if (err > 0) {
-@@ -522,7 +522,7 @@ int walk_page_range(struct mm_struct *mm, unsigned long start,
- 		}
- 		if (err)
- 			break;
--	} while (start = next, start < end);
-+	};
- 	return err;
- }
- 
 -- 
-2.25.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
