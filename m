@@ -2,63 +2,63 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D78A7A1AA8
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Sep 2023 11:36:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15DCD7A1AB9
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Sep 2023 11:37:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 17F5A3CE69F
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Sep 2023 11:36:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C7EE63CB5CE
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Sep 2023 11:37:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0440B3C91D7
- for <ltp@lists.linux.it>; Fri, 15 Sep 2023 11:36:52 +0200 (CEST)
-Received: from esa9.hc1455-7.c3s2.iphmx.com (esa9.hc1455-7.c3s2.iphmx.com
- [139.138.36.223])
+ by picard.linux.it (Postfix) with ESMTPS id CB7933C91D7
+ for <ltp@lists.linux.it>; Fri, 15 Sep 2023 11:37:35 +0200 (CEST)
+Received: from esa10.hc1455-7.c3s2.iphmx.com (esa10.hc1455-7.c3s2.iphmx.com
+ [139.138.36.225])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3916E200ACB
- for <ltp@lists.linux.it>; Fri, 15 Sep 2023 11:36:51 +0200 (CEST)
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="120584212"
-X-IronPort-AV: E=Sophos;i="6.02,148,1688396400"; d="scan'208";a="120584212"
-Received: from unknown (HELO yto-r4.gw.nic.fujitsu.com) ([218.44.52.220])
- by esa9.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 18:36:49 +0900
-Received: from yto-m3.gw.nic.fujitsu.com (yto-nat-yto-m3.gw.nic.fujitsu.com
- [192.168.83.66])
- by yto-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id B7AB3CD6E0
- for <ltp@lists.linux.it>; Fri, 15 Sep 2023 18:36:47 +0900 (JST)
-Received: from aks-ab2.gw.nic.fujitsu.com (aks-ab2.gw.nic.fujitsu.com
- [192.51.207.12])
- by yto-m3.gw.nic.fujitsu.com (Postfix) with ESMTP id 0620FD2168
- for <ltp@lists.linux.it>; Fri, 15 Sep 2023 18:36:47 +0900 (JST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0DC7F14088C1
+ for <ltp@lists.linux.it>; Fri, 15 Sep 2023 11:37:34 +0200 (CEST)
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="120062081"
+X-IronPort-AV: E=Sophos;i="6.02,148,1688396400"; d="scan'208";a="120062081"
+Received: from unknown (HELO yto-r3.gw.nic.fujitsu.com) ([218.44.52.219])
+ by esa10.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2023 18:37:32 +0900
+Received: from yto-m2.gw.nic.fujitsu.com (yto-nat-yto-m2.gw.nic.fujitsu.com
+ [192.168.83.65])
+ by yto-r3.gw.nic.fujitsu.com (Postfix) with ESMTP id 86697E8520
+ for <ltp@lists.linux.it>; Fri, 15 Sep 2023 18:37:30 +0900 (JST)
+Received: from aks-ab1.gw.nic.fujitsu.com (aks-ab1.gw.nic.fujitsu.com
+ [192.51.207.11])
+ by yto-m2.gw.nic.fujitsu.com (Postfix) with ESMTP id C7A57D67BF
+ for <ltp@lists.linux.it>; Fri, 15 Sep 2023 18:37:29 +0900 (JST)
 Received: from localhost.localdomain (unknown [10.167.215.131])
- by aks-ab2.gw.nic.fujitsu.com (Postfix) with ESMTP id 35E638715F;
- Fri, 15 Sep 2023 18:36:46 +0900 (JST)
+ by aks-ab1.gw.nic.fujitsu.com (Postfix) with ESMTP id CD8322FC84EB;
+ Fri, 15 Sep 2023 18:37:28 +0900 (JST)
 From: Yang Xu <xuyang2018.jy@fujitsu.com>
 To: ltp@lists.linux.it
-Date: Fri, 15 Sep 2023 17:36:27 +0800
-Message-Id: <1694770587-9502-1-git-send-email-xuyang2018.jy@fujitsu.com>
+Date: Fri, 15 Sep 2023 17:37:08 +0800
+Message-Id: <1694770631-9547-1-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 X-TM-AS-GCONF: 00
 X-TM-AS-Product-Ver: IMSS-9.1.0.1408-9.0.0.1002-27876.006
 X-TM-AS-User-Approved-Sender: Yes
 X-TMASE-Version: IMSS-9.1.0.1408-9.0.1002-27876.006
-X-TMASE-Result: 10--6.845200-10.000000
-X-TMASE-MatchedRID: oZ2BGVt09n3lWiNI/3lAD6k29rFswht+TJDl9FKHbrmY5nVpihxiw5Uh
- t+myr0XMUh5maKIJAx/mn3xyPJAJogMWCgdCzp+aGYJhRh6ssesfimmlcABuN8SiwizsgluQZFs
- e88ecrojiLXraR1F7boad3d4g0e7YkfRhdidsajMURSScn+QSXt0H8LFZNFG7bkV4e2xSge6x5X
- O8Er77ZfMsr3dTdCwLBXkebNmVXbH2ApC7AaTInh/BXqwE9HSW
+X-TMASE-Result: 10--3.997200-10.000000
+X-TMASE-MatchedRID: zB9INLamWmDlWiNI/3lAD6k29rFswht+CZa9cSpBObmkob0Y35+HFI3c
+ eRXYSJoDIvrftAIhWmLy9zcRSkKatQ719kpOO37PGYJhRh6ssesfimmlcABuN8SiwizsgluQ3Ff
+ 7+xvoE8E0Ud/DTXbN04Ay6p60ZV62yA7duzCw6dLdB/CxWTRRu+rAZ8KTspSzFRAwrM8g3Wc6Ay
+ UgKhBXazpCWadpbaSQWNBhTCVa2BwI39QJ5zTPKFgzF9RetWxsrYp896LkFBdguBiRRzeQeoSmP
+ B/BHMjhiB6mlDKe1V7S/yytHeCN9GXv4CQeNUk7G6qTOwq/n71+3BndfXUhXQ==
 X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/renameat: Remove renameat fallback
- definition
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/4] readlinkat: Remove readlinkat fallback definition
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,72 +76,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Looking at man renameat, it was added into kernel 2.6.16 and since the
+Looking at man readlinkat, it was added into kernel 2.6.16 and since the
 oldest kernel we support is 3.10 (see doc/supported-kernel-libc-versions
 .txt) we can as well completely drop this fallback definition.
 
-Reviewed-by: Xiao Yang <yangx.jy@fujitsu.com>
 Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- configure.ac                                  |  1 -
- include/lapi/renameat.h                       | 23 -------------------
- .../kernel/syscalls/renameat/renameat01.c     |  1 -
- 3 files changed, 25 deletions(-)
- delete mode 100644 include/lapi/renameat.h
+ configure.ac              |  1 -
+ include/lapi/readlinkat.h | 21 ---------------------
+ 2 files changed, 22 deletions(-)
+ delete mode 100644 include/lapi/readlinkat.h
 
 diff --git a/configure.ac b/configure.ac
-index 662c4c058..30a6f56e6 100644
+index 662c4c058..80943bdea 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -135,7 +135,6 @@ AC_CHECK_FUNCS_ONCE([ \
+@@ -133,7 +133,6 @@ AC_CHECK_FUNCS_ONCE([ \
+     pwritev2 \
+     quotactl_fd \
      rand_r \
-     readlinkat \
+-    readlinkat \
      recvmmsg \
--    renameat \
+     renameat \
      renameat2 \
-     sched_getcpu \
-     sendmmsg \
-diff --git a/include/lapi/renameat.h b/include/lapi/renameat.h
+diff --git a/include/lapi/readlinkat.h b/include/lapi/readlinkat.h
 deleted file mode 100644
-index abf4c1d6e..000000000
---- a/include/lapi/renameat.h
+index a680deeec..000000000
+--- a/include/lapi/readlinkat.h
 +++ /dev/null
-@@ -1,23 +0,0 @@
+@@ -1,21 +0,0 @@
 -// SPDX-License-Identifier: GPL-2.0-or-later
 -/*
-- * Copyright (c) International Business Machines  Corp., 2007
-- * Copyright (c) 2014 Fujitsu Ltd.
+- * Copyright (c) 2014 Cyril Hrubis <chrubis@suse.cz>
 - */
 -
--#ifndef LAPI_RENAMEAT_H__
--#define LAPI_RENAMEAT_H__
+-#ifndef LAPI_READLINKAT_H__
+-#define LAPI_READLINKAT_H__
 -
--#include <sys/types.h>
 -#include "config.h"
 -#include "lapi/syscalls.h"
+-#include "lapi/fcntl.h"
 -
--#if !defined(HAVE_RENAMEAT)
--static inline int renameat(int olddirfd, const char *oldpath, int newdirfd,
--                           const char *newpath)
+-#ifndef HAVE_READLINKAT
+-static inline int readlinkat(int dirfd, const char *pathname,
+-                             char *buf, size_t bufsiz)
 -{
--	return tst_syscall(__NR_renameat, olddirfd, oldpath, newdirfd,
--					newpath);
+-	return tst_syscall(__NR_readlinkat, dirfd, pathname, buf, bufsiz);
 -}
 -#endif
 -
--#endif /* LAPI_RENAMEAT_H__ */
-diff --git a/testcases/kernel/syscalls/renameat/renameat01.c b/testcases/kernel/syscalls/renameat/renameat01.c
-index 3de103563..c318a7971 100644
---- a/testcases/kernel/syscalls/renameat/renameat01.c
-+++ b/testcases/kernel/syscalls/renameat/renameat01.c
-@@ -50,7 +50,6 @@
- #include "test.h"
- #include "safe_macros.h"
- #include "lapi/fcntl.h"
--#include "lapi/renameat.h"
- 
- #define MNTPOINT "mntpoint"
- #define TESTDIR "testdir"
+-#endif /* LAPI_READLINKAT_H__ */
 -- 
 2.39.1
 
