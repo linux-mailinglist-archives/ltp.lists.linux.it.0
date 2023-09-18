@@ -1,59 +1,59 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 540697A4AA6
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 15:38:26 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 04A2F7A4ADC
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 15:53:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0F6863CE4CE
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 15:38:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C4C353CE4CA
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 15:53:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 05AC23C99CF
- for <ltp@lists.linux.it>; Mon, 18 Sep 2023 15:38:23 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id D51ED3CAB4E
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 15:53:21 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 571D4142CDE4
- for <ltp@lists.linux.it>; Mon, 18 Sep 2023 15:38:22 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D6C70141658C
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 15:53:20 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B1DEB21C9D;
- Mon, 18 Sep 2023 13:38:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 34A1A1FF10;
+ Mon, 18 Sep 2023 13:53:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1695044301; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1695045200; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=AmonkNwov/iaUo/NZB04fbNzEvECFs0iwCbcDeEkjFk=;
- b=VhnjM2ZepFmPl6O9JMoaAi5B7ewUpBruKBH/B+MM8iH7fbTqyVPbdqp3qEJCI+P0QrljTt
- Af7IgInXtN+EOHOFoZorINgkXHkyXUj0ukKtsE95JgNovNT8G0rd4Jl3o9lV6BXoOr3PFE
- PMPo7jC/kzb4nF27RTtnoUG30kMx2jU=
+ bh=fMLx1AFmILEggekuVIPtcnBgJ2wUr153nMAmuliLIh8=;
+ b=CVWvjpW+PlYlBo1KGLzw9lurawFNYwsnwh+RWHRyQpYUES4/jmUebiAaJgcwXyhp4ovpNo
+ m/rh3KTo+yA6fdhxF+2l7IpCg87ecVoFsLGqHa0xUntVZmAvmnZAvK9nL8f12AblzgMebn
+ 4Ck5e+hYVGPLtfgxvRhO8Gf28UsJXMo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1695044301;
+ s=susede2_ed25519; t=1695045200;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=AmonkNwov/iaUo/NZB04fbNzEvECFs0iwCbcDeEkjFk=;
- b=fh05mul1aAThe8i+ujV63RPskVZzLV03W8yaTsFOVrkXWE5x+QbU/N4c6uHrAJ87U1bHQ6
- brnSuNlQw3UcGABw==
+ bh=fMLx1AFmILEggekuVIPtcnBgJ2wUr153nMAmuliLIh8=;
+ b=98x4yz6+XnXH0LnzbkfMNK8mCgBNfCGXU7KpQjzEdFM1zOD/uDwz67oCqjVRMvB2MKEXyt
+ lv8N6S9MCJF9NQDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9C66513480;
- Mon, 18 Sep 2023 13:38:21 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1D0A313480;
+ Mon, 18 Sep 2023 13:53:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Oxr4JM1SCGU8HQAAMHmgww
- (envelope-from <mkittler@suse.de>); Mon, 18 Sep 2023 13:38:21 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id gvP/BVBWCGXIJAAAMHmgww
+ (envelope-from <mkittler@suse.de>); Mon, 18 Sep 2023 13:53:20 +0000
 From: Marius Kittler <mkittler@suse.de>
 To: ltp@lists.linux.it
-Date: Mon, 18 Sep 2023 15:38:19 +0200
-Message-ID: <20230918133819.16387-1-mkittler@suse.de>
+Date: Mon, 18 Sep 2023 15:53:18 +0200
+Message-ID: <20230918135318.20793-1-mkittler@suse.de>
 X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
@@ -62,7 +62,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] Port getxattr01.c to new test API
+Subject: [LTP] [PATCH v3] Port getxattr01.c to new test API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,18 +85,18 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
   tmpfs)
 * Improve error handling
 * Simplify code and description
-* Related issue: https://github.com/linux-test-project/ltp/issues/583
+* Implements: #583
 
 Signed-off-by: Marius Kittler <mkittler@suse.de>
 ---
- .../kernel/syscalls/getxattr/getxattr01.c     | 214 +++++++-----------
- 1 file changed, 81 insertions(+), 133 deletions(-)
+ .../kernel/syscalls/getxattr/getxattr01.c     | 210 ++++++------------
+ 1 file changed, 71 insertions(+), 139 deletions(-)
 
 diff --git a/testcases/kernel/syscalls/getxattr/getxattr01.c b/testcases/kernel/syscalls/getxattr/getxattr01.c
-index cec802a33..105b15343 100644
+index cec802a33..ec3ddcaee 100644
 --- a/testcases/kernel/syscalls/getxattr/getxattr01.c
 +++ b/testcases/kernel/syscalls/getxattr/getxattr01.c
-@@ -1,184 +1,132 @@
+@@ -1,184 +1,116 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
 - * Copyright (C) 2011  Red Hat, Inc.
@@ -168,6 +168,7 @@ index cec802a33..105b15343 100644
 +#include "tst_test_macros.h"
 +
 +#define MNTPOINT "mntpoint"
++#define FNAME MNTPOINT"/getxattr01testfile"
  #define XATTR_TEST_KEY "user.testkey"
  #define XATTR_TEST_VALUE "this is a test value"
  #define XATTR_TEST_VALUE_SIZE 20
@@ -175,14 +176,12 @@ index cec802a33..105b15343 100644
  
 -static void setup(void);
 -static void cleanup(void);
-+static char filename[BUFSIZ];
-+static char *workdir;
- 
+-
 -char filename[BUFSIZ];
 -
 -struct test_case {
+-	char *fname;
 +static struct test_case {
- 	char *fname;
  	char *key;
 -	char *value;
 +	char value[BUFFSIZE];
@@ -191,9 +190,9 @@ index cec802a33..105b15343 100644
 -};
 -struct test_case tc[] = {
 -	{			/* case 00, get non-existing attribute */
+-	 .fname = filename,
 +} tcases[] = {
 +	{ /* case 00, get non-existing attribute */
- 	 .fname = filename,
  	 .key = "user.nosuchkey",
 -	 .value = NULL,
 +	 .value = {0},
@@ -201,9 +200,9 @@ index cec802a33..105b15343 100644
  	 .exp_err = ENODATA,
 -	 },
 -	{			/* case 01, small value buffer */
+-	 .fname = filename,
 +	},
 +	{ /* case 01, small value buffer */
- 	 .fname = filename,
  	 .key = XATTR_TEST_KEY,
 -	 .value = NULL,
 +	 .value = {0},
@@ -211,9 +210,9 @@ index cec802a33..105b15343 100644
  	 .exp_err = ERANGE,
 -	 },
 -	{			/* case 02, get existing attribute */
+-	 .fname = filename,
 +	},
 +	{ /* case 02, get existing attribute */
- 	 .fname = filename,
  	 .key = XATTR_TEST_KEY,
 -	 .value = NULL,
 +	 .value = {0},
@@ -265,16 +264,8 @@ index cec802a33..105b15343 100644
 -			tst_resm(TPASS, "Got the right value");
 +	struct test_case *tc = &tcases[i];
 +
-+	SAFE_CHDIR(workdir);
-+
-+	/* create test file and set xattr */
-+	snprintf(tc->fname, BUFSIZ, "getxattr01testfile-%u", i);
-+	SAFE_TOUCH(tc->fname, 0644, NULL);
-+	SAFE_SETXATTR(tc->fname, XATTR_TEST_KEY, XATTR_TEST_VALUE,
-+				  strlen(XATTR_TEST_VALUE), XATTR_CREATE);
-+
 +	/* read xattr back */
-+	TEST(getxattr(tc->fname, tc->key, tc->value, tc->size));
++	TEST(getxattr(FNAME, tc->key, tc->value, tc->size));
 +	if (TST_ERR == tc->exp_err) {
 +		tst_res(TPASS | TTERRNO, "expected getxattr() return code");
 +	} else {
@@ -315,8 +306,7 @@ index cec802a33..105b15343 100644
 -				 "mount without user_xattr option");
 -		}
 -	}
-+	char *cwd = SAFE_GETCWD(NULL, 0);
- 
+-
 -	/* Prepare test cases */
 -	for (i = 0; i < ARRAY_SIZE(tc); i++) {
 -		tc[i].value = malloc(BUFFSIZE);
@@ -327,9 +317,9 @@ index cec802a33..105b15343 100644
 -	}
 -
 -	TEST_PAUSE;
-+	workdir = SAFE_MALLOC(strlen(cwd) + strlen(MNTPOINT) + 2);
-+	sprintf(workdir, "%s/%s", cwd, MNTPOINT);
-+	free(cwd);
++	SAFE_TOUCH(FNAME, 0644, NULL);
++	SAFE_SETXATTR(FNAME, XATTR_TEST_KEY, XATTR_TEST_VALUE,
++				  strlen(XATTR_TEST_VALUE), 0);
  }
  
 -static void cleanup(void)
