@@ -1,92 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67EA07A3636
-	for <lists+linux-ltp@lfdr.de>; Sun, 17 Sep 2023 17:30:47 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E4037A45CE
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 11:24:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1AD1B3CE595
-	for <lists+linux-ltp@lfdr.de>; Sun, 17 Sep 2023 17:30:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 13D3C3CE4E8
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 11:24:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9B96A3CAC9B
- for <ltp@lists.linux.it>; Sun, 17 Sep 2023 17:30:41 +0200 (CEST)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ by picard.linux.it (Postfix) with ESMTPS id 5D5943CAA0F
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 11:24:31 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BF5B560B2D8
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 11:24:30 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 4CAC21F892;
+ Mon, 18 Sep 2023 09:24:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1695029070;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZPp/Fjd7bD8yNQ7DUsIEbnpxuFRqB6rqdQAwf4ejX+U=;
+ b=O53o1JlcUJaQgzPllbrq2rg1CPv0oNGHss6T9nn/uiyK4OPSduYSIsEhxGo8PWa3C7/Ujp
+ SRIWN/FHDJ+3I7wDyqXdUgoImFOeyS4hEELp0V0i1ELfq1qERi1NT+NhXWrja/dDCLeVZE
+ rjGyBP3oTZSpNx8BqHTy8KmB+iVh/uA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1695029070;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZPp/Fjd7bD8yNQ7DUsIEbnpxuFRqB6rqdQAwf4ejX+U=;
+ b=r0WA8pMTUfzdKdj3+2mqUri5xyPKVVq/XBnmou4i+hlwScwK7QioPF3xinhRKnil4jg0Wj
+ +tx69J3usGkgm0BQ==
+Received: from g78 (rpalethorpe.tcp.ovpn1.nue.suse.de [10.163.17.14])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CF47B60070D
- for <ltp@lists.linux.it>; Sun, 17 Sep 2023 17:30:38 +0200 (CEST)
-Received: from pps.filterd (m0353728.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38HF7FMp014059
- for <ltp@lists.linux.it>; Sun, 17 Sep 2023 15:30:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-transfer-encoding; s=pp1;
- bh=UtsPR1xjT9bbGar9theOK9zjT6iE34FUxKk1IxJ9ADw=;
- b=iY8XDdWSw1eRdu8CHHw0CLATixiRpKeJMDXG1rXo80WcwMpIX+D3iCAmIQtEO88Xq/Kc
- 6xIuLX/47GInjAbjLOo40xvQjzb8fSIT7AInENigqQivbHB/JCwrp+tq/RWATx8aUwG2
- Siktd9B6xQMgLS7P5DOKbvT4oSruSrBfll6jba1bLLopfisAupzT4ADsWKrMl5fwPwAx
- UwlRIDNRNiFeoj/8YntPmRJaelIzP/5W3rt3gYqwLvmlbuo5goLSIlRFVTGovqlUZwxH
- et74eWsiIs/9oJpyHyQPNxaXxu6bR4BZZqAYORNdbKUA0eYVvtz07zv9qSWnWzjlK5L5 yQ== 
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3t53cgkr09-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <ltp@lists.linux.it>; Sun, 17 Sep 2023 15:30:36 +0000
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38HFKqJp010371
- for <ltp@lists.linux.it>; Sun, 17 Sep 2023 15:30:35 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 3t5rwjkhqm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <ltp@lists.linux.it>; Sun, 17 Sep 2023 15:30:35 +0000
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
- [10.20.54.101])
- by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 38HFUWHL45155058
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sun, 17 Sep 2023 15:30:32 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 91A5E20043;
- Sun, 17 Sep 2023 15:30:32 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AF4EF20040;
- Sun, 17 Sep 2023 15:30:31 +0000 (GMT)
-Received: from ltcever7x1-lp6.aus.stglabs.ibm.com (unknown [9.53.168.26])
- by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Sun, 17 Sep 2023 15:30:31 +0000 (GMT)
-From: Samir Mulani <samir@linux.vnet.ibm.com>
-To: ltp@lists.linux.it
-Date: Sun, 17 Sep 2023 10:30:28 -0500
-Message-Id: <20230917153028.90324-1-samir@linux.vnet.ibm.com>
-X-Mailer: git-send-email 2.39.3
+ by relay2.suse.de (Postfix) with ESMTPS id E59802C142;
+ Mon, 18 Sep 2023 09:24:29 +0000 (UTC)
+References: <20230808035641.364676-2-iwienand@redhat.com>
+ <87il8xhr05.fsf@suse.de> <ZPlxtKUwOta4GYh2@fedora19.localdomain>
+ <65af05ae-bfd1-8153-4662-1bf61be855f3@suse.cz>
+ <ZPpOuK9lyWr2wZWI@fedora19.localdomain>
+ <845ca8fe-1ae2-13ba-c9e0-a53cf953c0ff@suse.cz>
+ <ZP+4xTgAuTBepQge@fedora19.localdomain> <87r0n2gip5.fsf@suse.de>
+ <ZQI14xCNkc4wjpC2@fedora19.localdomain> <87msxpgmf4.fsf@suse.de>
+ <ZQLowDHRBq8QhQwu@fedora19.localdomain>
+User-agent: mu4e 1.10.7; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Ian Wienand <iwienand@redhat.com>
+Date: Mon, 18 Sep 2023 09:24:47 +0100
+Organization: Linux Private Site
+In-reply-to: <ZQLowDHRBq8QhQwu@fedora19.localdomain>
+Message-ID: <87edivhm0i.fsf@suse.de>
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: RP7lLZER8fGcRt4dm4rfIzfHk0y2E3Rv
-X-Proofpoint-ORIG-GUID: RP7lLZER8fGcRt4dm4rfIzfHk0y2E3Rv
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-15_20,2023-09-15_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=569 spamscore=0
- suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- bulkscore=0 mlxscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2308100000 definitions=main-2309170137
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] Migrating the
- libhugetlbfs/testcases/truncate_sigbus_versus_oom.c test
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] kernel/device-drivers/zram/zram01.sh : don't
+ fill from /dev/zero
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,125 +81,51 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Samir Mulani <samir@linux.vnet.ibm.com>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-In this test case, we are verifying the bug fix commit that is attached as
-a part of the test case structure,
+Hello,
 
-Some kernel have a bug in the positioning of the test against
-i_size.  This bug means that attempting to instantiate a page
-beyond the end of a hugepage file can result in an OOM and SIGKILL
-instead of the correct SIGBUS.
+Ian Wienand <iwienand@redhat.com> writes:
 
-Signed-off-by: Samir Mulani <samir@linux.vnet.ibm.com>
----
- .../kernel/mem/hugetlb/hugemmap/hugemmap37.c  | 90 +++++++++++++++++++
- 1 file changed, 90 insertions(+)
- create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap37.c
+> On Thu, Sep 14, 2023 at 08:37:46AM +0100, Richard Palethorpe wrote:
+>> We don't want to remove coverage of ZRAM_SAME! A bug in ZRAM_SAME is a
+>> potential expoit or data-corruption.
+>>
+>> If you want to change the test you have to show where ZRAM_SAME is being
+>> covered instead.
+>
+> The patch v2 has always had the comment and intent
+>
+> +	# To make sure we are actually testing both the same-page and
+> +	# compression paths, we first pad with zeros but then fill
+> +	# with a compressible series of alternatiting 0x00 and 0xFF.
+> +	# This should assure we stress the compression path and can
+> +	# calculate the compression level reliabily.
+>
+> I believe this tests both paths, and in a more rigorous manner than the
+> extant test.
+>
+> -i
 
-diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap37.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap37.c
-new file mode 100644
-index 000000000..8bd5327b8
---- /dev/null
-+++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap37.c
-@@ -0,0 +1,90 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2005-2006 David Gibson & Adam Litke, IBM Corporation.
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Test Name: Truncate_sigbus_versus_oom
-+ *
-+ * Some kernel have a bug in the positioning of the test against
-+ * i_size.  This bug means that attempting to instantiate a page
-+ * beyond the end of a hugepage file can result in an OOM and SIGKILL
-+ * instead of the correct SIGBUS.
-+ */
-+
-+#include "hugetlb.h"
-+
-+#define MNTPOINT "hugetlbfs/"
-+#define PTS_PASS 0
-+static int  fd = -1, fdx = -1;
-+
-+static unsigned long long hpage_size;
-+static unsigned long totpages;
-+
-+static void sigbus_handler(int signum)
-+{
-+	if (signum == SIGBUS) {
-+		tst_res(TPASS, "Test PASSED\n");
-+		_exit(PTS_PASS);
-+	}
-+}
-+
-+struct sigaction sa = {
-+	.sa_sigaction = sigbus_handler,
-+	.sa_flags = SA_SIGINFO,
-+};
-+
-+static void run_test(void)
-+{
-+	void *p, *q;
-+	int i;
-+
-+	fd = tst_creat_unlinked(MNTPOINT, 0);
-+	p = SAFE_MMAP(NULL, hpage_size, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
-+	SAFE_FTRUNCATE(fd, 0);
-+
-+	fdx = tst_creat_unlinked(MNTPOINT, 0);
-+	q = SAFE_MMAP(NULL, totpages * hpage_size, PROT_READ|PROT_WRITE, MAP_SHARED, fdx, 0);
-+	/* Touch the pages to ensure they're removed from the pool */
-+	for (i = 0; i < totpages; i++) {
-+		volatile char *x = (volatile char *)q + i*hpage_size;
-+		*x = 0;
-+	}
-+	/* SIGBUS is what *should* happen */
-+	SAFE_FTRUNCATE(fdx, 0);
-+	*((volatile unsigned int *)p);
-+	tst_res(TPASS, "Didn't SIGBUS or OOM");
-+}
-+
-+void setup(void)
-+{
-+	SAFE_SIGACTION(SIGBUS, &sa, NULL);
-+	totpages = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
-+	hpage_size = tst_get_hugepage_size();
-+}
-+
-+void cleanup(void)
-+{
-+	if (fd > 0)
-+		SAFE_CLOSE(fd);
-+	if (fdx > 0)
-+		SAFE_CLOSE(fdx);
-+}
-+
-+
-+static struct tst_test test = {
-+	.tags = (struct tst_tag[]) {
-+		{"linux-git", "0d59a01bc461"},
-+		{}
-+	},
-+	.needs_root = 1,
-+	.mntpoint = MNTPOINT,
-+	.needs_hugetlbfs = 1,
-+	.needs_tmpdir = 1,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = run_test,
-+	.hugepages = {2, TST_NEEDS},
-+};
+I did miss that, however it's actually more rigorous (read "complete")
+to test these things seperately. Or even better to test them seperately
+then together. Because if only writing out same-page's and a single page
+with some meta-data in results in a bug, then your method would not find
+that.
+
+You're still swapping one type of coverage for another.
+
+So I'm still in favor of accepting Petr's original patch and of course I
+would welcome what you are proposing as additional coverage.
+
 -- 
-2.39.3
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
