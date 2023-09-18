@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC32F7A4491
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 10:25:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 36FC37A448E
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 10:25:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 385783CE4E4
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 10:25:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8FD1C3CE4DF
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 10:25:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D48293CAEBC
+ by picard.linux.it (Postfix) with ESMTPS id B1CD33CA907
  for <ltp@lists.linux.it>; Mon, 18 Sep 2023 10:25:10 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C964C618FE8
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BD6571B6226A
  for <ltp@lists.linux.it>; Mon, 18 Sep 2023 10:25:09 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B749E1F8C1;
- Mon, 18 Sep 2023 08:25:08 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 04F641F37F;
+ Mon, 18 Sep 2023 08:25:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1695025508; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1695025509; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=sfPCa1VIDMAhvoMEqYwJWHP1E8r7eRbXxjDzFuNsLW8=;
- b=WluL/BLRWWdihD0a5P8jnJuahJ4dlVKk6U4xMLeY06DfZItDvbGXirzcDUEBDYpyWYIdML
- MVhMIRY0Jx5hjEE7R9/VYaAa5FxX5ZZs61sZsgZ3Fwo0fHfOhAUivl4ldLwVN6cBtD8oH8
- 5X6lTsafiNnF0MX4r2H129JDYhTdKXg=
+ bh=E6WWlxhkQog/UAmlRjB1l/w2V8qbcf97ziiT3NtN+3I=;
+ b=fRMZPI2bAvWGLD4yHbIC+z/jFBpfh6DCu+yQKHzqnkvYTPAOELBKoKgavv7ZereQ4foAKJ
+ Kw+MA5O8vjEssxQFXgg+pdE0cReAz1HsNuOD50U3AOFwhbWM38EcnVweL9w72cQ0Y8FTsh
+ L3xoxvLMRY+NS9m10jn/j7rTMcoSZic=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1695025508;
+ s=susede2_ed25519; t=1695025509;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=sfPCa1VIDMAhvoMEqYwJWHP1E8r7eRbXxjDzFuNsLW8=;
- b=m2gR0eGKWn2lFle150qPgJXscK3LOFW7zDNXzyf4YP1Jd/Kg6ivb8tdIgFWXSWpeShRzXd
- iNSu7j0YcaKdolBg==
+ bh=E6WWlxhkQog/UAmlRjB1l/w2V8qbcf97ziiT3NtN+3I=;
+ b=gQSEiHzWI3kwJR/FD5FrQxhm1Q63P5JaomFY+SWhLJzIXk+v83JPiAFL05q3pjpKfQ49z1
+ 5U5T+uxixpjboTBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8E8311358A;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C69A01358A;
  Mon, 18 Sep 2023 08:25:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mBOLHmQJCGWZdAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2MchL2QJCGWZdAAAMHmgww
  (envelope-from <andrea.cervesato@suse.de>); Mon, 18 Sep 2023 08:25:08 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Mon, 18 Sep 2023 10:25:05 +0200
-Message-Id: <20230918082506.17464-2-andrea.cervesato@suse.de>
+Date: Mon, 18 Sep 2023 10:25:06 +0200
+Message-Id: <20230918082506.17464-3-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230918082506.17464-1-andrea.cervesato@suse.de>
 References: <20230918082506.17464-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/2] Replace runltp-ng with kirk framework
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 2/2] Add Linux Test eXecutor inside tools
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,39 +87,74 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Kirk application is the runltp-ng successor and it aims to merge
-multiple Linux testing frameworks in one tool, providing support
-for remote testing via Qemu, SSH, LTX, parallel execution and much
-more.
-
-This patch deprecates runltp-ng, which is not replaced by kirk. All
-runltp-ng features are present in kirk and even more.
+The ltx program runs on the system under test (SUT). It's primary
+purpose is to run test executables in parallel and serialise the
+results.
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- .gitmodules | 3 +++
- tools/kirk  | 1 +
- 2 files changed, 4 insertions(+)
- create mode 160000 tools/kirk
+ .gitmodules        |  3 +++
+ tools/ltx/Makefile | 31 +++++++++++++++++++++++++++++++
+ tools/ltx/ltx-src  |  1 +
+ 3 files changed, 35 insertions(+)
+ create mode 100644 tools/ltx/Makefile
+ create mode 160000 tools/ltx/ltx-src
 
 diff --git a/.gitmodules b/.gitmodules
-index d1d558b9e..c389186c9 100644
+index c389186c9..2a8b7a399 100644
 --- a/.gitmodules
 +++ b/.gitmodules
-@@ -7,3 +7,6 @@
- [submodule "tools/runltp-ng"]
- 	path = tools/runltp-ng
- 	url = https://github.com/linux-test-project/runltp-ng.git
-+[submodule "tools/kirk"]
-+	path = tools/kirk
-+	url = https://github.com/linux-test-project/kirk.git
-diff --git a/tools/kirk b/tools/kirk
-new file mode 160000
-index 000000000..c7419dd6f
+@@ -10,3 +10,6 @@
+ [submodule "tools/kirk"]
+ 	path = tools/kirk
+ 	url = https://github.com/linux-test-project/kirk.git
++[submodule "tools/ltx/ltx-src"]
++	path = tools/ltx/ltx-src
++	url = https://github.com/linux-test-project/ltx.git
+diff --git a/tools/ltx/Makefile b/tools/ltx/Makefile
+new file mode 100644
+index 000000000..4810ec8df
 --- /dev/null
-+++ b/tools/kirk
++++ b/tools/ltx/Makefile
+@@ -0,0 +1,31 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2023 Cyril Hrubis <chrubis@suse.cz>
++# Copyright (c) 2023 Andrea Cervesato <andrea.cervesato@suse.com>
++#
++# Install script for Linux Test eXecutor
++
++top_srcdir		?= ../..
++
++include $(top_srcdir)/include/mk/env_pre.mk
++
++ifneq ($(wildcard $(abs_srcdir)/ltx-src/*),)
++
++BINARY=ltx
++
++MAKE_TARGETS := $(BINARY)
++
++CFLAGS+=-I$(abs_srcdir)/ltx-src/ -I$(abs_srcdir)/ltx-src/msgpack/
++
++$(BINARY): $(wildcard $(abs_srcdir)/ltx-src/*.c $(abs_srcdir)/ltx-src/msgpack/*.c)
++ifdef VERBOSE
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@
++else
++	@echo CC $@
++	@$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@
++endif
++
++INSTALL_DIR := $(prefix)
++
++endif
++
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/tools/ltx/ltx-src b/tools/ltx/ltx-src
+new file mode 160000
+index 000000000..d6d150947
+--- /dev/null
++++ b/tools/ltx/ltx-src
 @@ -0,0 +1 @@
-+Subproject commit c7419dd6f73d90f3f02aa17d30270e895e30c88e
++Subproject commit d6d1509479537f4fdfa9b5adcb67eb6312714999
 -- 
 2.35.3
 
