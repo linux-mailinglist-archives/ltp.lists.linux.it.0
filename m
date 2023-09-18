@@ -2,73 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFB267A4633
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 11:41:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B80367A46A4
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 12:07:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4BCFA3CE4E9
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 11:41:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 885AD3CB722
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 12:07:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C49E23C9D45
- for <ltp@lists.linux.it>; Mon, 18 Sep 2023 11:41:23 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 04FE63CA3D7
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 12:07:52 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 25326601563
- for <ltp@lists.linux.it>; Mon, 18 Sep 2023 11:41:22 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1F22C1A00617
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 12:07:51 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 749101F8C1;
- Mon, 18 Sep 2023 09:41:22 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 160C01FDA1;
+ Mon, 18 Sep 2023 10:07:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1695030082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1695031671;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=N2TSFICm8QwEGsb+ALO801LMLIDFos4SwO5yOvJCZo4=;
- b=UtplMVAdyhNmIhONoRXw/WVqUcY/I0L+MkKb0Xia8KPPhLi8Y1qEwHhI/Cn4m8EWH6IRXA
- CNMn3KAZ3bqBma+8EkMoas2cyOFw5qz9D3vVVuSWcUT5RtCH5YtwYjONWEA4A0Vz6mQ8sV
- N/sl5IWkqD3v/rhXh4QlWbmCs9n7rlk=
+ bh=EupYHCBp/MVH5uD6m5w1p9BJhLrIlSB1T2auBBEXh08=;
+ b=E/8BAid5GFWeqTT5gvAuCidSkj9jubfKoiYmzaZa4dwV1PQG4iVmPOPA9H0+HRxzeYMG0+
+ Cek2PYrO99vnAZdf+0Y51HzfV4lkpaVkD6b5ZzMExhm7MUi0p+x2IXUPnPatCaGZklRKHA
+ qNqe8SxymewFL+l+X7X42KNk6da5YQU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1695030082;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1695031671;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=N2TSFICm8QwEGsb+ALO801LMLIDFos4SwO5yOvJCZo4=;
- b=66GWqgsI8j15pc1chjquVQlRWdx+rUuSs0SMoRxR/6w5IqpBCB4xoi/bKZZhtTy9UX9RLC
- tEdlkVKVMpq5jqCA==
+ bh=EupYHCBp/MVH5uD6m5w1p9BJhLrIlSB1T2auBBEXh08=;
+ b=NY8CjvbecyfhPaDYkUiALdr+RJwOfJZHscgchNrNbSUmW59bjbbyCNJfe/ntxCzWcSsyQZ
+ pFZt522jV3u8vJBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 62D1013480;
- Mon, 18 Sep 2023 09:41:22 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EE7FC1358A;
+ Mon, 18 Sep 2023 10:07:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id dz7WFkIbCGUQHwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 18 Sep 2023 09:41:22 +0000
-Date: Mon, 18 Sep 2023 11:42:07 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <ZQgbbx2MEsJaKWwR@yuki>
-References: <20230918082506.17464-1-andrea.cervesato@suse.de>
- <20230918082506.17464-3-andrea.cervesato@suse.de>
- <20230918091756.GB30304@pevik> <ZQgarkBUEyDd4lxF@yuki>
+ by imap2.suse-dmz.suse.de with ESMTPSA id fGz0OHYhCGXcLQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 18 Sep 2023 10:07:50 +0000
+Date: Mon, 18 Sep 2023 12:07:49 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Marius Kittler <mkittler@suse.de>
+Message-ID: <20230918100749.GC30304@pevik>
+References: <20230918085502.17091-1-mkittler@suse.de>
+ <20230918085502.17091-2-mkittler@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZQgarkBUEyDd4lxF@yuki>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+In-Reply-To: <20230918085502.17091-2-mkittler@suse.de>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 2/2] Add Linux Test eXecutor inside tools
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 1/2] Refactor ioctl02.c to use the new test API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,34 +80,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Unfortunately this does not work well either because the ltx does not
-> have install targed and trying to install a file from a subdirectory is
-> not possible with the LTP build system. I've tried that and it didn't
-> work.
-> 
-> Let's merge this version that works, we can try to do make things better
-> later on.
+Hi Marius,
 
-Also one more point $(MAKE) -C ltx-src does not support out-of-tree
-build and while it's probably fine for 'make check' not to support it,
-since that is a developer tooling, it should work fine for ltx that is
-going to be packaged/installed on the SUT.
+Could you please fix formatting and other common errors?
+$ make check-getxattr01
+CHECK testcases/kernel/syscalls/getxattr/getxattr01.c
+getxattr01.c:81: WARNING: Missing a blank line after declarations
+getxattr01.c:83: WARNING: Missing a blank line after declarations
+getxattr01.c:106: WARNING: braces {} are not necessary for single statement
+blocks
+getxattr01.c:127: WARNING: Missing a blank line after declarations
+make: [../../../../include/mk/rules.mk:56: check-getxattr01] Error 1 (ignored)
+getxattr01.c:50:3: warning: Symbol 'tcases' has no prototype or library ('tst_')
+prefix. Should it be static?
 
-So I suppose that we are stuck with the LTP ltx Makefile unless we:
+Also (very nit), backticks (`) are good for github formatting, but they look
+strange in git commits. Could you avoid using it in git subject?
+(e.g. "Port `getxattr01.c` to new test API" should be "Port getxattr01.c to
+new test API").
 
-- add support for out-of-tree build to ltx/Makefile
-- drop out-of-tree build support from LTP
+> Related issue: https://github.com/linux-test-project/ltp/issues/583
+We use:
+Fixes: #583
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
