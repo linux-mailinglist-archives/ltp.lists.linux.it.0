@@ -2,74 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E4037A45CE
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 11:24:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23FE77A448F
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 10:25:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 13D3C3CE4E8
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 11:24:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5A50C3CE4DB
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 10:25:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5D5943CAA0F
- for <ltp@lists.linux.it>; Mon, 18 Sep 2023 11:24:31 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id B31F53CAE7E
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 10:25:10 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BF5B560B2D8
- for <ltp@lists.linux.it>; Mon, 18 Sep 2023 11:24:30 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4CAC21F892;
- Mon, 18 Sep 2023 09:24:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1695029070;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ZPp/Fjd7bD8yNQ7DUsIEbnpxuFRqB6rqdQAwf4ejX+U=;
- b=O53o1JlcUJaQgzPllbrq2rg1CPv0oNGHss6T9nn/uiyK4OPSduYSIsEhxGo8PWa3C7/Ujp
- SRIWN/FHDJ+3I7wDyqXdUgoImFOeyS4hEELp0V0i1ELfq1qERi1NT+NhXWrja/dDCLeVZE
- rjGyBP3oTZSpNx8BqHTy8KmB+iVh/uA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1695029070;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ZPp/Fjd7bD8yNQ7DUsIEbnpxuFRqB6rqdQAwf4ejX+U=;
- b=r0WA8pMTUfzdKdj3+2mqUri5xyPKVVq/XBnmou4i+hlwScwK7QioPF3xinhRKnil4jg0Wj
- +tx69J3usGkgm0BQ==
-Received: from g78 (rpalethorpe.tcp.ovpn1.nue.suse.de [10.163.17.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 078931001F24
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 10:25:09 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id E59802C142;
- Mon, 18 Sep 2023 09:24:29 +0000 (UTC)
-References: <20230808035641.364676-2-iwienand@redhat.com>
- <87il8xhr05.fsf@suse.de> <ZPlxtKUwOta4GYh2@fedora19.localdomain>
- <65af05ae-bfd1-8153-4662-1bf61be855f3@suse.cz>
- <ZPpOuK9lyWr2wZWI@fedora19.localdomain>
- <845ca8fe-1ae2-13ba-c9e0-a53cf953c0ff@suse.cz>
- <ZP+4xTgAuTBepQge@fedora19.localdomain> <87r0n2gip5.fsf@suse.de>
- <ZQI14xCNkc4wjpC2@fedora19.localdomain> <87msxpgmf4.fsf@suse.de>
- <ZQLowDHRBq8QhQwu@fedora19.localdomain>
-User-agent: mu4e 1.10.7; emacs 29.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Ian Wienand <iwienand@redhat.com>
-Date: Mon, 18 Sep 2023 09:24:47 +0100
-Organization: Linux Private Site
-In-reply-to: <ZQLowDHRBq8QhQwu@fedora19.localdomain>
-Message-ID: <87edivhm0i.fsf@suse.de>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7A7631F88D;
+ Mon, 18 Sep 2023 08:25:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1695025508; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=PBkGApJ6T4MAMQAHyxdIrdqUhnsTjAXqiahVVrg85gY=;
+ b=VMuAsSdREKbwS3nysPoT7f45FlC3k5aXE4FYSMNR7gx7ORcpWZxtTreSaOygVSWJYyhPSU
+ mp++OsxkPsOOqoBtAlJzhkyRto1CcisLuun6F3WFZX2yDKyZZmI7gejVvN2IzoCDWViCu2
+ dDiu9WHDO125dmXCH3u+Qf+ZGLfyjZs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1695025508;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=PBkGApJ6T4MAMQAHyxdIrdqUhnsTjAXqiahVVrg85gY=;
+ b=j90Se82MGLe7bquKaQhb573uIIZ+5inrU1xRid+3EDbbB+BHO41AJv3UfeGel7G7HnE1oD
+ KUKUs0/wFg0nUMBw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4435F1358A;
+ Mon, 18 Sep 2023 08:25:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id pA9mDGQJCGWZdAAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Mon, 18 Sep 2023 08:25:08 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+To: ltp@lists.linux.it
+Date: Mon, 18 Sep 2023 10:25:04 +0200
+Message-Id: <20230918082506.17464-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] kernel/device-drivers/zram/zram01.sh : don't
- fill from /dev/zero
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 0/2] Add kirk & ltx tools
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,51 +75,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Ian Wienand <iwienand@redhat.com> writes:
+Replaced runltp-ng with kirk and added ltx tool for parallel execution.
 
-> On Thu, Sep 14, 2023 at 08:37:46AM +0100, Richard Palethorpe wrote:
->> We don't want to remove coverage of ZRAM_SAME! A bug in ZRAM_SAME is a
->> potential expoit or data-corruption.
->>
->> If you want to change the test you have to show where ZRAM_SAME is being
->> covered instead.
->
-> The patch v2 has always had the comment and intent
->
-> +	# To make sure we are actually testing both the same-page and
-> +	# compression paths, we first pad with zeros but then fill
-> +	# with a compressible series of alternatiting 0x00 and 0xFF.
-> +	# This should assure we stress the compression path and can
-> +	# calculate the compression level reliabily.
->
-> I believe this tests both paths, and in a more rigorous manner than the
-> extant test.
->
-> -i
+Andrea Cervesato (2):
+  Replace runltp-ng with kirk framework
+  Add Linux Test eXecutor inside tools
 
-I did miss that, however it's actually more rigorous (read "complete")
-to test these things seperately. Or even better to test them seperately
-then together. Because if only writing out same-page's and a single page
-with some meta-data in results in a bug, then your method would not find
-that.
-
-You're still swapping one type of coverage for another.
-
-So I'm still in favor of accepting Petr's original patch and of course I
-would welcome what you are proposing as additional coverage.
+ .gitmodules        |  6 ++++++
+ tools/kirk         |  1 +
+ tools/ltx/Makefile | 31 +++++++++++++++++++++++++++++++
+ tools/ltx/ltx-src  |  1 +
+ 4 files changed, 39 insertions(+)
+ create mode 160000 tools/kirk
+ create mode 100644 tools/ltx/Makefile
+ create mode 160000 tools/ltx/ltx-src
 
 -- 
-Thank you,
-Richard.
+2.35.3
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
