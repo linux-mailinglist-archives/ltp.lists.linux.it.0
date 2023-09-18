@@ -2,78 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B6C7A48BA
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 13:49:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E92347A48EF
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 13:56:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 470A43CB20B
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 13:49:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B7AA43CE4E4
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 13:56:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E6FA63CA983
- for <ltp@lists.linux.it>; Mon, 18 Sep 2023 13:49:33 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 1C98F3CA983
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 13:56:10 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EB16C1A027B5
- for <ltp@lists.linux.it>; Mon, 18 Sep 2023 13:49:32 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4B26D200D12
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 13:56:09 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9CFB221B2A;
- Mon, 18 Sep 2023 11:49:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1695037771; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ADI9Z0yIjA31BPbbDpRaivz1RYyBMb28wGEj+22WD68=;
- b=HAl0yjOpFxEE/IcXFiJbZSGkGgB38+SIrv78QvfwCf/RK5U4QRoDAyNTHojI9EedX/rhgr
- dfH2sEoq9iBRcuGlT8clCBjWEcZdc80PX5BdYMJZAIQwfrUX/AOOye6b7vdh5dzuSmgtiW
- I6Orf9vzpExgSr+W/Fcjdtm6NwuGCGY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1695037771;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 469DA21B44;
+ Mon, 18 Sep 2023 11:56:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1695038169; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=GOwJYmT+Q3KMKoN+bpVq/x3B2zVoCPYH8EPz8y5NBrA=;
+ b=EgNgLLCNrfxHLdK7xZZK2Y42M/YlULecK8hSXapHj5S5eQam2bpu47DylEtFgbm4n3wxBQ
+ ut/h5bSwuGa71Sd7Cnyez78y5DB0IrrWQBt9dQk48JcxAwcigIH6os6zE1rx3vMQtrmit9
+ 9y7KUutHqriwhRBSkqguXfgor4It4zA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1695038169;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ADI9Z0yIjA31BPbbDpRaivz1RYyBMb28wGEj+22WD68=;
- b=r/BNkyTh2Let/wgmIXqWVQwDSBG5XIidTyt1STP5SfstnLvpFrtNZXY69XpR7Bjs+oOTd7
- IIcAuw36dQwQrEDA==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=GOwJYmT+Q3KMKoN+bpVq/x3B2zVoCPYH8EPz8y5NBrA=;
+ b=hKoqrnptwfkO4RdWI8TY5gw3uomnzCNaypLhfqFm5knVTIU6NBarn1b601OrWAa1K95RTF
+ vxBIbAu+jsz3aGBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7636C13480;
- Mon, 18 Sep 2023 11:49:31 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 204D113480;
+ Mon, 18 Sep 2023 11:56:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UYyzG0s5CGVxYgAAMHmgww
- (envelope-from <mdoucha@suse.cz>); Mon, 18 Sep 2023 11:49:31 +0000
-Message-ID: <d85fc0df-2e44-2cec-83d8-a7d6b7828e96@suse.cz>
-Date: Mon, 18 Sep 2023 13:49:31 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id LpWKBtk6CGXpZQAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Mon, 18 Sep 2023 11:56:09 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+To: ltp@lists.linux.it
+Date: Mon, 18 Sep 2023 13:56:06 +0200
+Message-Id: <20230918115608.5630-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-To: Cyril Hrubis <chrubis@suse.cz>, Richard Palethorpe <rpalethorpe@suse.com>
-References: <20230918112358.25858-1-rpalethorpe@suse.com>
- <ZQg4EN2EYZnjP5Sr@yuki>
-Content-Language: en-US
-From: Martin Doucha <mdoucha@suse.cz>
-In-Reply-To: <ZQg4EN2EYZnjP5Sr@yuki>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-1.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_SOFTFAIL
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH] kvm: Fix Nix build failure by specifying
- -fno-stack-protector again
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v6 0/2] Add kirk & ltx tools
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,30 +75,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: mdoucha@suse.com, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 18. 09. 23 13:44, Cyril Hrubis wrote:
-> Hi!
->> I found that adding the GUEST_LDFLAGS to the lib_*.o compilations
->> fixes the issue on Nix.
-> 
-> I suppose that, if nothing else, we should add just -fno-stack-protector
-> to the GUEST_CFLAGS instead.
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-+1
+Replaced runltp-ng with kirk and added ltx tool for parallel execution.
+
+Andrea Cervesato (2):
+  Replace runltp-ng with kirk framework
+  Add Linux Test eXecutor inside tools
+
+ .gitmodules        |  9 ++++++---
+ tools/kirk         |  1 +
+ tools/ltx/Makefile | 31 +++++++++++++++++++++++++++++++
+ tools/runltp-ng    |  1 -
+ 4 files changed, 38 insertions(+), 4 deletions(-)
+ create mode 160000 tools/kirk
+ create mode 100644 tools/ltx/Makefile
+ delete mode 160000 tools/runltp-ng
 
 -- 
-Martin Doucha   mdoucha@suse.cz
-SW Quality Engineer
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+2.35.3
 
 
 -- 
