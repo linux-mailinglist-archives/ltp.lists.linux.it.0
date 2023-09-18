@@ -1,71 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 990307A4649
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 11:45:17 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DEDFE7A4613
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 11:38:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EFD203CE4F2
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 11:45:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 508FE3CE4C8
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Sep 2023 11:38:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8491A3C9D45
- for <ltp@lists.linux.it>; Mon, 18 Sep 2023 11:45:12 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 4846E3CBEE8
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 11:38:11 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B4EAD1002049
- for <ltp@lists.linux.it>; Mon, 18 Sep 2023 11:45:10 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A0D8E219BC;
- Mon, 18 Sep 2023 09:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1695030309;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=jL0iHTXCunHYvZlTo6TT+c2y92a1Cvy8GBIa12NU+iU=;
- b=wSmNtelqxzlGD0BLRKAQmm+jQEkG6vTST5rfieps5dNM0WUP427dWgGAU07an2mS9RxlAa
- GLEoUyfGGS1CF09dDV4nBayZKJbCqbb8dGNJG26fX7Q1LtP9AMNSxvMYWOCTf7zCiYPG0R
- onibDql3ImbC5FEc7D7EGhSxmuTU5dU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1695030309;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=jL0iHTXCunHYvZlTo6TT+c2y92a1Cvy8GBIa12NU+iU=;
- b=5NZU11UxT0+mXkJg4D3BqrN3yIXXV7ePKSk6rLcz0sMo5wi5wViiCNc42IbFl+4w4PMG+h
- iT0t/tX+u29VLPBg==
-Received: from g78 (rpalethorpe.tcp.ovpn1.nue.suse.de [10.163.17.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DC683140E759
+ for <ltp@lists.linux.it>; Mon, 18 Sep 2023 11:38:10 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 4B5722C14B;
- Mon, 18 Sep 2023 09:45:09 +0000 (UTC)
-References: <20221107191136.18048-1-pvorel@suse.cz>
- <20221107191136.18048-2-pvorel@suse.cz>
- <CAEemH2fYv_=9UWdWB7VDiFOd8EC89qdCbxnPcTPAtGnkwLOYFg@mail.gmail.com>
- <Y3s+Czg8sBsGYO+1@pevik>
-User-agent: mu4e 1.10.7; emacs 29.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3E58D1F892;
+ Mon, 18 Sep 2023 09:38:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1695029890; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=haZgY0AEDkiKrh5ei34rlXAypbjF9zvGMpJr11x6m5w=;
+ b=w+pfzLQLUbETebVg4VUD98nJGuZr/sLFDI2Jg1Uddl7n+rurrCNy1svfvN3x7Oc0HChUeM
+ KLCQRyW/JJQCUQ6pkK/2T3rItdvLnvF5WqHYt21vazp5EgwAvvjYbRSfnqhL/IVP8VExuG
+ HlntBpRW/R7ursHe1wCPsT+uKGwJ7po=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1695029890;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=haZgY0AEDkiKrh5ei34rlXAypbjF9zvGMpJr11x6m5w=;
+ b=1s/R+lnGsam1h0O3Bk2mZNjj3JBi5mbEGaDSQZ7bAMW0tOxx1BLjpUmcTMBJlhYU1g0aq2
+ MaStEovCmM/+6iDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2D1AC13480;
+ Mon, 18 Sep 2023 09:38:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id /TkKCoIaCGVwHQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 18 Sep 2023 09:38:10 +0000
+Date: Mon, 18 Sep 2023 11:38:54 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Date: Mon, 18 Sep 2023 10:38:45 +0100
-Organization: Linux Private Site
-In-reply-to: <Y3s+Czg8sBsGYO+1@pevik>
-Message-ID: <87a5tjhl24.fsf@suse.de>
+Message-ID: <ZQgarkBUEyDd4lxF@yuki>
+References: <20230918082506.17464-1-andrea.cervesato@suse.de>
+ <20230918082506.17464-3-andrea.cervesato@suse.de>
+ <20230918091756.GB30304@pevik>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20230918091756.GB30304@pevik>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] zram01.sh: Workaround division by 0 on vfat
- on ppc64le
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 2/2] Add Linux Test eXecutor inside tools
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,119 +81,49 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi!
+> This works, but why we don't use approach used for sparc, i.e.
+> 
+> $(MAKE) -C ltx-src
+> 
+> That way we would not have to redefine the default rules.
 
-Petr Vorel <pvorel@suse.cz> writes:
+Unfortunately this does not work well either because the ltx does not
+have install targed and trying to install a file from a subdirectory is
+not possible with the LTP build system. I've tried that and it didn't
+work.
 
-> Hi Li,
->
->> Hi Petr,
->
->> On Tue, Nov 8, 2022 at 3:12 AM Petr Vorel <pvorel@suse.cz> wrote:
->
->> > Repeatedly read /sys/block/zram*/mm_stat for 1 sec. This should fix bug
->> > on ppc64le on stable kernels, where mem_used_total is often 0.
->
->> > Signed-off-by: Petr Vorel <pvorel@suse.cz>
->> > ---
->> >  .../kernel/device-drivers/zram/zram01.sh      | 27 +++++++++++++++++--
->> >  1 file changed, 25 insertions(+), 2 deletions(-)
->
->> > diff --git a/testcases/kernel/device-drivers/zram/zram01.sh
->> > b/testcases/kernel/device-drivers/zram/zram01.sh
->> > index 58d233f91..76a8ccab4 100755
->> > --- a/testcases/kernel/device-drivers/zram/zram01.sh
->> > +++ b/testcases/kernel/device-drivers/zram/zram01.sh
->> > @@ -105,6 +105,26 @@ zram_mount()
->> >         tst_res TPASS "mount of zram device(s) succeeded"
->> >  }
->
->> > +read_mem_used_total()
->> > +{
->> > +       echo $(awk '{print $3}' $1)
->> > +}
->> > +
->> > +# Reads /sys/block/zram*/mm_stat until mem_used_total is not 0.
->> > +loop_read_mem_used_total()
->
->
->> This is not a looping function to check if mem_used_total is equal to zero,
->> the loop part is by means of the TST_RETRY_FUNC macro.
-> Thanks for your review!
->
->> So, I'd suggest renaming it to check_read_mem_used_total().
-> Agree. Unfortunately even this didn't help on ppc64le system where I was able to
-> reproduce it, thus probably not worth to merge.
->
-> Unfortunately later I was not able to reproduce the problem any more, I'll try
-> it more this week.
+Let's merge this version that works, we can try to do make things better
+later on.
 
-I'd like to get this merged and if anyone still see's a failure, then
-perhaps there really is a kernel bug or else we have to accept it is
-zero sometimes.
+> Also it detects missing git clone and runs
+> git submodule update --init if needed.
+>
+> I'm asking for a same approach, not only because later we can unify and reuse
+> the code in some make helper, but also because it'd be more user friendly if our
+> new git submodules work the same way.
 
-Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
+Now this needs to be discussed first. Currently the submodule is
+installed when user writes make check. That means that it's not
+triggered in default build and the default build works without network
+connection. I do not think that we should attempt to download additional
+repositories on default build.
 
->
-> Kind regards,
-> Petr
->
->> Reviewed-by: Li Wang <liwang@redhat.com>
->
->
->
->> > +{
->> > +       local file="$1"
->> > +       local mem_used_total
->> > +
->> > +       tst_res TINFO "$file"
->> > +       cat $file >&2
->> > +
->> > +       mem_used_total=$(read_mem_used_total $file)
->> > +       [ "$mem_used_total" -eq 0 ] && return 1
->> > +
->> > +       return 0
->> > +}
->> > +
->> >  zram_fill_fs()
->> >  {
->> >         local mem_used_total
->> > @@ -133,9 +153,12 @@ zram_fill_fs()
->> >                         continue
->> >                 fi
->
->> > -               mem_used_total=`awk '{print $3}'
->> > "/sys/block/zram$i/mm_stat"`
->> > +               TST_RETRY_FUNC "loop_read_mem_used_total
->> > /sys/block/zram$i/mm_stat" 0
->> > +               mem_used_total=$(read_mem_used_total
->> > /sys/block/zram$i/mm_stat)
->> > +               tst_res TINFO "mem_used_total: $mem_used_total"
->> > +
->> >                 v=$((100 * 1024 * $b / $mem_used_total))
->> > -               r=`echo "scale=2; $v / 100 " | bc`
->> > +               r=$(echo "scale=2; $v / 100 " | bc)
->
->> >                 if [ "$v" -lt 100 ]; then
->> >                         tst_res TFAIL "compression ratio: $r:1"
->> > --
->> > 2.38.0
->
->
->> > --
->> > Mailing list info: https://lists.linux.it/listinfo/ltp
+> But if there is not enough time before release I would not be against this.
 
+I'm would say that there is not enough time for a proper discussion, so
+I would really keep things as they are in the latest patchset and leave
+the discussion for later.
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
