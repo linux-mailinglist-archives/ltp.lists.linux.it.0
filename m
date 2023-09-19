@@ -2,75 +2,76 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97E5B7A61A3
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Sep 2023 13:47:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0A897A63C8
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Sep 2023 14:51:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1A31A3CE458
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Sep 2023 13:47:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7DB003CE451
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Sep 2023 14:51:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 106143CBED4
- for <ltp@lists.linux.it>; Tue, 19 Sep 2023 13:47:04 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 4D5883C997A
+ for <ltp@lists.linux.it>; Tue, 19 Sep 2023 14:51:53 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9F77B1400B9A
- for <ltp@lists.linux.it>; Tue, 19 Sep 2023 13:47:03 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8ADCF100185C
+ for <ltp@lists.linux.it>; Tue, 19 Sep 2023 14:51:52 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EFE991FE8B
- for <ltp@lists.linux.it>; Tue, 19 Sep 2023 11:47:02 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CA95321A5D;
+ Tue, 19 Sep 2023 12:51:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1695124022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
+ t=1695127911; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7vqScj5J5uhy2KuyvPNr2fRdgfkfOUnvgxFlbtc3MNA=;
- b=195K7C9LnL9/iATUkLcfIPWZCg7ifDMylqF3XJ+dCGq3sEVIBA2uHXSsnVz65ebchmGjH+
- FB7JLkhYxBsYWQ0QlcuLaltQ8lWnyvCh8IkxXz9z4TdIMVnGa/PMGElbSRdXr+wouly8nS
- 5JmwgLhfP2+AKtyS8XvT4E/8XBDBSSo=
+ bh=Ogj0DAEXedWLD7Q/8PERFhHszQPfmEJmK6wzIVaATyY=;
+ b=e6FwIypxghEW8EkdW46YnmgDYr59Ycph4tksk26V65OdEkulUXjrEfb6Lp980o22LMP0YE
+ joiqX+H/FgQUI6pKfEJa6uyM4lqT68y/tGxK/vAMHdPDBq40XBMqjntQhdOnTcH4UkGkjI
+ B6qhuRQbqz4/jPwaJAs2+YXl3az+rxg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1695124022;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
+ s=susede2_ed25519; t=1695127911;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7vqScj5J5uhy2KuyvPNr2fRdgfkfOUnvgxFlbtc3MNA=;
- b=eG2xQ8IM/+kydodIFx1Hk1gHfA3+CcpfFWE00tYO7R+dPh/rrd0x2aE07iTduJMfKT+cZx
- p/3HN3U1fKNPzLCw==
+ bh=Ogj0DAEXedWLD7Q/8PERFhHszQPfmEJmK6wzIVaATyY=;
+ b=FZN56uvD3O8hxrCb1kH0TGMOtVX+bcKRwgsTbvyOJK87bvmgPTwx+3OXI+DPmdccJLCNi5
+ ZQ65QBDVsb/eIPAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D4D2013A49
- for <ltp@lists.linux.it>; Tue, 19 Sep 2023 11:47:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B494313458;
+ Tue, 19 Sep 2023 12:51:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id WEAqMzaKCWX8eAAAMHmgww
- (envelope-from <mdoucha@suse.cz>)
- for <ltp@lists.linux.it>; Tue, 19 Sep 2023 11:47:02 +0000
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 19 Sep 2023 13:46:59 +0200
-Message-ID: <20230919114701.15327-4-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230919114701.15327-1-mdoucha@suse.cz>
-References: <20230919114701.15327-1-mdoucha@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id jhArK2eZCWUXIAAAMHmgww
+ (envelope-from <mdoucha@suse.cz>); Tue, 19 Sep 2023 12:51:51 +0000
+Message-ID: <a2aa6bf8-2299-daad-2291-750c7db6e143@suse.cz>
+Date: Tue, 19 Sep 2023 14:51:51 +0200
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+To: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
+References: <20230919083827.8423-1-rpalethorpe@suse.com>
+Content-Language: en-US
+From: Martin Doucha <mdoucha@suse.cz>
+In-Reply-To: <20230919083827.8423-1-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] nfs_lib.sh: Fail the test if NFS unmount fails
+X-Spam-Status: No, score=-1.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] kvm: Fix Nix build failure by moving
+ -fno-stack-protector to CFLAGS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,31 +83,71 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
- testcases/network/nfs/nfs_stress/nfs_lib.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi,
+pvorel should have a look whether it doesn't break the other systems 
+where -fno-stack-protector is needed, but otherwise:
 
-diff --git a/testcases/network/nfs/nfs_stress/nfs_lib.sh b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-index a996f7cc8..099c78759 100644
---- a/testcases/network/nfs/nfs_stress/nfs_lib.sh
-+++ b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-@@ -214,7 +214,7 @@ nfs_cleanup()
- 		local_dir="$(get_local_dir $i $n)"
- 		if grep -q "$local_dir" /proc/mounts; then
- 			tst_res TINFO "Unmounting $local_dir"
--			umount $local_dir
-+			umount $local_dir || tst_res TFAIL "Unmount failed"
- 		fi
- 		n=$(( n + 1 ))
- 	done
+Reviewed-by: Martin Doucha <mdoucha@suse.cz>
+
+On 19. 09. 23 10:38, Richard Palethorpe wrote:
+> Nix (and by extension NixOS) uses a binutils wrapper of some sort to
+> allow switching between toolchains. This seems to be causing a problem
+> for the KVM tests although it may not be unique to Nix.
+> 
+> gcc -I/home/rich/kernel/ltp/testcases/kernel/kvm/include -DCOMPILE_PAYLOAD -ffreestanding -O2 -Wall -fno-asynchronous-unwind-tables -mno-mmx\
+>   -mno-sse -fno-pie -c -o lib_guest.o lib_guest.c
+> as  -c -o bootstrap_x86_64.o bootstrap_x86_64.S
+> gcc -I/home/rich/kernel/ltp/testcases/kernel/kvm/include -DCOMPILE_PAYLOAD -ffreestanding -O2 -Wall -fno-asynchronous-unwind-tables -mno-mmx\
+>   -mno-sse -fno-pie -c -o lib_x86.o lib_x86.c
+> gcc -I/home/rich/kernel/ltp/testcases/kernel/kvm/include -I../../../include -I../../../include -I../../../include/old/ -DCOMPILE_PAYLOAD -ff\
+> reestanding -O2 -Wall -fno-asynchronous-unwind-tables -mno-mmx -mno-sse -fno-pie -nostdlib -Wl,--build-id=none -fno-stack-protector -z noexe\
+> cstack -no-pie -Wl,-T/home/rich/kernel/ltp/testcases/kernel/kvm/linker/x86_64.lds -o kvm_pagefault01-payload.elf kvm_pagefault01.c lib_guest\
+> .o bootstrap_x86_64.o lib_x86.o
+> /nix/store/inq79dwl8sz1ygmfbgsmg77i5cwmdjpz-binutils-2.40/bin/ld: lib_x86.o: in function `kvm_init_guest_vmcb':
+> lib_x86.c:(.text+0x7b3): undefined reference to `__stack_chk_fail'
+> collect2: error: ld returned 1 exit status
+> make: *** [Makefile:58: kvm_pagefault01-payload.o] Error 1
+> 
+> __stack_chk_fail is added to lib_x86.o which means that
+> -fstack-protector somehow gets added to the compilation of lib_x86.o.
+> 
+> Swapping -fno-stack-protector from the LD flags to the C flags ensures
+> it is disabled when compiling lib_x86.o.
+> 
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> ---
+>   testcases/kernel/kvm/Makefile | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/testcases/kernel/kvm/Makefile b/testcases/kernel/kvm/Makefile
+> index d9eb10728..ce4a5ede2 100644
+> --- a/testcases/kernel/kvm/Makefile
+> +++ b/testcases/kernel/kvm/Makefile
+> @@ -8,8 +8,8 @@ include $(top_srcdir)/include/mk/testcases.mk
+>   ASFLAGS =
+>   CPPFLAGS += -I$(abs_srcdir)/include
+>   GUEST_CPPFLAGS = $(CPPFLAGS) -DCOMPILE_PAYLOAD
+> -GUEST_CFLAGS = -ffreestanding -O2 -Wall -fno-asynchronous-unwind-tables -mno-mmx -mno-sse
+> -GUEST_LDFLAGS = -nostdlib -Wl,--build-id=none -fno-stack-protector -z noexecstack
+> +GUEST_CFLAGS = -ffreestanding -O2 -Wall -fno-asynchronous-unwind-tables -fno-stack-protector -mno-mmx -mno-sse
+> +GUEST_LDFLAGS = -nostdlib -Wl,--build-id=none -z noexecstack
+>   GUEST_LDLIBS =
+>   KVM_LD ?= $(LD)
+>   
+
 -- 
-2.42.0
+Martin Doucha   mdoucha@suse.cz
+SW Quality Engineer
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 
 -- 
