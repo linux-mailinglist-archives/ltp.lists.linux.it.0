@@ -1,74 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58AAE7A60BD
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Sep 2023 13:10:20 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 337167A60C0
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Sep 2023 13:10:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D9B863CE484
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Sep 2023 13:10:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E52C63CE4BA
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Sep 2023 13:10:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E1F8D3CA6D1
+ by picard.linux.it (Postfix) with ESMTPS id 4FB533CA6D1
  for <ltp@lists.linux.it>; Tue, 19 Sep 2023 13:09:54 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 751241400BD7
- for <ltp@lists.linux.it>; Tue, 19 Sep 2023 13:09:54 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 07310208E10
+ for <ltp@lists.linux.it>; Tue, 19 Sep 2023 13:09:53 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8D3A01FE39;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A68092296E;
  Tue, 19 Sep 2023 11:09:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1695121793; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GTG3sFXuuMuOuQXrK4x3oHQHs5HJYwKxJVMRXxRxOPU=;
- b=k5bM5+y373XB5yrepgi1axzobJ//+yIrgX29hy0zyo396hD3KQzvk1mlxlb0IbH8YPWjWx
- uThZkj4hLgIYrFvjI6D0epNGDwARQxBXXsTyHEVPapAq4jTFEcLNKKjqPPiuedEPw56hLh
- Qd5/UGwWKBEky5/5ETJG+WnJbzXzyjM=
+ bh=zjj6qBK/6d9SDXdWBKclfpg/Oa1L9lcQB8DnOsf2e2I=;
+ b=cGB/8xTScnhKLKzSoEvqL4jSt9J7YqSsrWRggKVD0XduS5/x9EW2AwrYeYoT3Dl+S/4HEf
+ EyMdoNuYgThrpnUJwxVhiebtO9h1zI1uz8ryj1zhaBKulM+0wqCTTMusutHUCLoKMDSwom
+ u49CHI1rb+Q7tvq0BFbhf7KDtu+pZEo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1695121793;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GTG3sFXuuMuOuQXrK4x3oHQHs5HJYwKxJVMRXxRxOPU=;
- b=CnNPsu3P5XmdJ8mPGyskNIKtGLFUJAGwDFzoNkdZRMh1HUwwKYflIFMFznRh5U8USa3yNY
- Z11BGdLKxPOwehAw==
+ bh=zjj6qBK/6d9SDXdWBKclfpg/Oa1L9lcQB8DnOsf2e2I=;
+ b=pJBk72FyrfkWi4lnE9leCcJdLJ1bdkqIVpHuRcuk7hGKHq79/sduxyS5ALP7Q968n8iePa
+ +T+2G1QB/2pnK5AA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 763C5134F3;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 91894134F3;
  Tue, 19 Sep 2023 11:09:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oEThG4GBCWVVYwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id mNF9IoGBCWVVYwAAMHmgww
  (envelope-from <mkittler@suse.de>); Tue, 19 Sep 2023 11:09:53 +0000
 From: Marius Kittler <mkittler@suse.de>
 To: ltp@lists.linux.it
-Date: Tue, 19 Sep 2023 13:09:49 +0200
-Message-ID: <20230919110951.31500-3-mkittler@suse.de>
+Date: Tue, 19 Sep 2023 13:09:50 +0200
+Message-ID: <20230919110951.31500-4-mkittler@suse.de>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230919110951.31500-1-mkittler@suse.de>
 References: <20230919110951.31500-1-mkittler@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v6 2/4] Make checks for termio flags more strict
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v6 3/4] Remove disabled code in ioctl02.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,48 +86,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The checks for termio flags can actually use a `!=` check to
-also fail when any unexpected flags are present.
-
 Signed-off-by: Marius Kittler <mkittler@suse.de>
 ---
- testcases/kernel/syscalls/ioctl/ioctl02.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ testcases/kernel/syscalls/ioctl/ioctl02.c | 14 --------------
+ 1 file changed, 14 deletions(-)
 
 diff --git a/testcases/kernel/syscalls/ioctl/ioctl02.c b/testcases/kernel/syscalls/ioctl/ioctl02.c
-index 26ba342fa..d2f46cd1a 100644
+index d2f46cd1a..f049d4e9c 100644
 --- a/testcases/kernel/syscalls/ioctl/ioctl02.c
 +++ b/testcases/kernel/syscalls/ioctl/ioctl02.c
-@@ -183,24 +183,21 @@ static int chk_tty_parms(void)
- 		}
- 	}
- 
--	if (!
--	    (termio.c_lflag
--	     && (ISIG | ICANON | XCASE | ECHO | ECHOE | NOFLSH))) {
-+	if (termio.c_lflag != (ISIG | ICANON | XCASE | ECHO | ECHOE
-+		 | NOFLSH)) {
- 		tst_res(TINFO, "lflag has incorrect value. %o",
- 			 termio.c_lflag);
+@@ -149,20 +149,6 @@ static int chk_tty_parms(void)
+ 			 termio.c_line);
  		flag++;
  	}
+-	/*
+-	 * The following Code Sniffet is disabled to check the value of c_cflag
+-	 * as it seems that due to some changes from 2.6.24 onwards, this
+-	 * setting is not done properly for either of (B50|CS7|CREAD|PARENB|
+-	 * PARODD|CLOCAL|(CREAD|HUPCL|CLOCAL).
+-	 * However, it has been observed that other flags are properly set.
+-	 */
+-#if 0
+-	if (termio.c_cflag != (B50 | CS7 | CREAD | PARENB | PARODD | CLOCAL)) {
+-		tst_res(TINFO, "cflag has incorrect value. %o",
+-			 termio.c_cflag);
+-		flag++;
+-	}
+-#endif
  
--	if (!
--	    (termio.c_iflag
--	     && (BRKINT | IGNPAR | INPCK | ISTRIP | ICRNL | IUCLC | IXON | IXANY
--		 | IXOFF))) {
-+	if (termio.c_iflag != (BRKINT | IGNPAR | INPCK | ISTRIP
-+		 | ICRNL | IUCLC | IXON | IXANY | IXOFF)) {
- 		tst_res(TINFO, "iflag has incorrect value. %o",
- 			 termio.c_iflag);
- 		flag++;
- 	}
- 
--	if (!(termio.c_oflag && (OPOST | OLCUC | ONLCR | ONOCR))) {
-+	if (termio.c_oflag != (OPOST | OLCUC | ONLCR | ONOCR)) {
- 		tst_res(TINFO, "oflag has incorrect value. %o",
- 			 termio.c_oflag);
- 		flag++;
+ 	for (i = 0; i < NCC; i++) {
+ 		if (i == VEOL2) {
 -- 
 2.42.0
 
