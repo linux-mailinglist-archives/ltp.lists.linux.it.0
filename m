@@ -2,63 +2,62 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DA887A7803
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Sep 2023 11:53:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22BCA7A77F9
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Sep 2023 11:53:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D73B93CE3D2
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Sep 2023 11:53:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D47F43CDEC3
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Sep 2023 11:53:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C9AF23CDEB9
+ by picard.linux.it (Postfix) with ESMTPS id A84163CDEB5
  for <ltp@lists.linux.it>; Wed, 20 Sep 2023 11:53:23 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6005721E106
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 16B0721E107
  for <ltp@lists.linux.it>; Wed, 20 Sep 2023 11:53:22 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 73E1B220E7;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B114E220F8;
  Wed, 20 Sep 2023 09:53:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1695203602; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WhlGV6TuuVQcMt1cXzh7Ia303BmPPLqBp6/YFtrjTrY=;
- b=C0aCi0OGl7VmmMwhRwNhqgZigqzSoRNKyUTAIo6zRIeJ0p/uG5IIM+QGnvYBNVbVdyi/j/
- 5khAVQZi2MibyEZlFMLdGEQT5nK60flvxP4F3eim+o9Bhj2tLRtr6GHfUtkgJQbaKjo3OD
- ynaSgQE+qsUw0Y3Zz4MApgvxTYMM9SU=
+ bh=OEUMQv6VbJ7owAlYcZI46PiBSITaUQZgsf72FkHDG0Y=;
+ b=yfP4TlOxuS+7dsRua1ABshZlTvktBTHy/IpHji5qBZwgK0tLEJci4aTxL24a85I5f8koNe
+ v/Uo3n8+tgiu6Rk7zLvRxBXLOdvPqO3oUe7nG6fqxQnOPNamWofsjGDp477QwnqpoEj3XQ
+ Ur/JmsNYaDSS81nRYAsE2lDqixgNao8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1695203602;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WhlGV6TuuVQcMt1cXzh7Ia303BmPPLqBp6/YFtrjTrY=;
- b=PL5JYNoZ9dlvmTlOxOolT/g5QBqdl8Wfj58vMyueiiGQ7JjmX7+cZunoKCx2TlfzhI7GGj
- LbiG7XcaPLGP+MAA==
+ bh=OEUMQv6VbJ7owAlYcZI46PiBSITaUQZgsf72FkHDG0Y=;
+ b=A3f2HGfJAq6k50TF1QdyllyGYOa/KGj+FAxvwx0By4OjqfAGHXP8Wl+JKQwBEvy4P1LAKk
+ dNmzNdYU95ysiXCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 34E991333E;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7983E1333E;
  Wed, 20 Sep 2023 09:53:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eJOxCxLBCmVpBQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id eE2qHBLBCmVpBQAAMHmgww
  (envelope-from <pvorel@suse.cz>); Wed, 20 Sep 2023 09:53:22 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 20 Sep 2023 11:53:15 +0200
-Message-Id: <20230920095318.340582-3-pvorel@suse.cz>
+Date: Wed, 20 Sep 2023 11:53:16 +0200
+Message-Id: <20230920095318.340582-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230920095318.340582-1-pvorel@suse.cz>
 References: <20230920095318.340582-1-pvorel@suse.cz>
@@ -66,11 +65,10 @@ MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/5] tools: Add script for creating tarballs and
- metadata
+Subject: [LTP] [PATCH 3/5] doc: Rename files to names from ltp.wiki.git
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,72 +87,109 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-A helper for new releases.
+Keeping the original extension from LTP wiki git brings:
+* add syntax highlight for editors
+* no need to add new file (only new extension)
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- tools/create-tarballs-metadata.sh | 52 +++++++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
- create mode 100755 tools/create-tarballs-metadata.sh
+ .github/workflows/wiki-mirror.yml                | 16 +++-------------
+ ...{build-system-guide.txt => Build-System.rest} |  0
+ doc/{c-test-api.txt => C-Test-API.asciidoc}      |  0
+ ...-simple.txt => C-Test-Case-Tutorial.asciidoc} |  0
+ ...ork-c-api.txt => C-Test-Network-API.asciidoc} |  0
+ doc/{kvm-test-api.txt => KVM-Test-API.asciidoc}  |  0
+ ... LTP-Library-API-Writing-Guidelines.asciidoc} |  0
+ ...> Maintainer-Patch-Review-Checklist.asciidoc} |  0
+ ...hell-test-api.txt => Shell-Test-API.asciidoc} |  0
+ ...ed-kernel,-libc,-toolchain-versions.asciidoc} |  0
+ ...ines.txt => Test-Writing-Guidelines.asciidoc} |  0
+ doc/{user-guide.txt => User-Guidelines.asciidoc} |  0
+ 12 files changed, 3 insertions(+), 13 deletions(-)
+ rename doc/{build-system-guide.txt => Build-System.rest} (100%)
+ rename doc/{c-test-api.txt => C-Test-API.asciidoc} (100%)
+ rename doc/{c-test-tutorial-simple.txt => C-Test-Case-Tutorial.asciidoc} (100%)
+ rename doc/{network-c-api.txt => C-Test-Network-API.asciidoc} (100%)
+ rename doc/{kvm-test-api.txt => KVM-Test-API.asciidoc} (100%)
+ rename doc/{library-api-writing-guidelines.txt => LTP-Library-API-Writing-Guidelines.asciidoc} (100%)
+ rename doc/{maintainer-patch-review-checklist.txt => Maintainer-Patch-Review-Checklist.asciidoc} (100%)
+ rename doc/{shell-test-api.txt => Shell-Test-API.asciidoc} (100%)
+ rename doc/{supported-kernel-libc-versions.txt => Supported-kernel,-libc,-toolchain-versions.asciidoc} (100%)
+ rename doc/{test-writing-guidelines.txt => Test-Writing-Guidelines.asciidoc} (100%)
+ rename doc/{user-guide.txt => User-Guidelines.asciidoc} (100%)
 
-diff --git a/tools/create-tarballs-metadata.sh b/tools/create-tarballs-metadata.sh
-new file mode 100755
-index 000000000..4736c9d36
---- /dev/null
-+++ b/tools/create-tarballs-metadata.sh
-@@ -0,0 +1,52 @@
-+#!/bin/sh
-+# Copyright (c) 2023 Petr Vorel <pvorel@suse.cz>
-+# Create tarballs and metadata for uploading after tagging release.
-+# https://github.com/linux-test-project/ltp/wiki/LTP-Release-Procedure
-+set -e
+diff --git a/.github/workflows/wiki-mirror.yml b/.github/workflows/wiki-mirror.yml
+index 883892bf5..2ac0caf74 100644
+--- a/.github/workflows/wiki-mirror.yml
++++ b/.github/workflows/wiki-mirror.yml
+@@ -38,20 +38,10 @@ jobs:
+           commit=$(git log --pretty=format:"%h (\"%s\")" -1 .)
+ 
+           cd $GITHUB_WORKSPACE/ltp.wiki
+-
+-          # Don't forget to update this list, keep it sorted
+-          cp -v $dir/c-test-api.txt C-Test-API.asciidoc
+-          cp -v $dir/c-test-tutorial-simple.txt C-Test-Case-Tutorial.asciidoc
+-          cp -v $dir/library-api-writing-guidelines.txt LTP-Library-API-Writing-Guidelines.asciidoc
+-          cp -v $dir/maintainer-patch-review-checklist.txt Maintainer-Patch-Review-Checklist.asciidoc
+-          cp -v $dir/network-c-api.txt C-Test-Network-API.asciidoc
+-          cp -v $dir/shell-test-api.txt Shell-Test-API.asciidoc
+-          cp -v $dir/supported-kernel-libc-versions.txt Supported-kernel,-libc,-toolchain-versions.asciidoc
+-          cp -v $dir/test-writing-guidelines.txt Test-Writing-Guidelines.asciidoc
+-          cp -v $dir/user-guide.txt User-Guidelines.asciidoc
+-          cp -v $dir/kvm-test-api.txt KVM-Test-API.asciidoc
+-
++          # don't forget to add new extensions
++          cp -v $dir/*.asciidoc $dir/*.rest .
+           git add .
 +
-+tag="$(date +%Y%m%d)"
-+tarball_dir="ltp-full-$tag"
-+extensions="bz2 xz"
-+checksums="md5 sha1 sha256"
-+git_dir=$(cd $(dirname "$0")/..; pwd)
-+dir="$(cd $git_dir/../; pwd)/ltp-release-$tag"
-+
-+. $(dirname "$0")/lib.sh
-+
-+if [ -d $dir ]; then
-+	ask "Directory '$dir' exists, will be deleted"
-+	rm -rf $dir
-+fi
-+rod mkdir $dir
-+cd $dir
-+dir=$PWD
-+
-+# git clone (local)
-+title "git clone"
-+rod git clone $git_dir $tarball_dir
-+rod cd $tarball_dir
-+rod git submodule update --init
-+rod make autotools
-+
-+# tarballs, checksums
-+title "Creating tarballs"
-+cd ..
-+rod tar --exclude .git -cjf $tarball_dir.tar.bz2 $tarball_dir
-+rod tar --exclude .git -cJf $tarball_dir.tar.xz $tarball_dir
-+
-+title "Creating checksums"
-+for alg in $checksums; do
-+	for ext in $extensions; do
-+		file="$tarball_dir.tar.$ext"
-+		${alg}sum $file > "$file.$alg"
-+	done
-+done
-+
-+# metadata documentation
-+title "Creating metadata documentation"
-+cd $tarball_dir
-+rod ./configure --with-metadata-generator=asciidoctor
-+rod make -C metadata
-+cp -v docparse/metadata.html $dir/metadata.$tag.html
-+
-+echo "Generated files are in '$dir', upload them to github"
+           # only commit if there are changes
+           git diff-index --quiet HEAD -- || git commit -m "Update to $commit" .
+           git push
+diff --git a/doc/build-system-guide.txt b/doc/Build-System.rest
+similarity index 100%
+rename from doc/build-system-guide.txt
+rename to doc/Build-System.rest
+diff --git a/doc/c-test-api.txt b/doc/C-Test-API.asciidoc
+similarity index 100%
+rename from doc/c-test-api.txt
+rename to doc/C-Test-API.asciidoc
+diff --git a/doc/c-test-tutorial-simple.txt b/doc/C-Test-Case-Tutorial.asciidoc
+similarity index 100%
+rename from doc/c-test-tutorial-simple.txt
+rename to doc/C-Test-Case-Tutorial.asciidoc
+diff --git a/doc/network-c-api.txt b/doc/C-Test-Network-API.asciidoc
+similarity index 100%
+rename from doc/network-c-api.txt
+rename to doc/C-Test-Network-API.asciidoc
+diff --git a/doc/kvm-test-api.txt b/doc/KVM-Test-API.asciidoc
+similarity index 100%
+rename from doc/kvm-test-api.txt
+rename to doc/KVM-Test-API.asciidoc
+diff --git a/doc/library-api-writing-guidelines.txt b/doc/LTP-Library-API-Writing-Guidelines.asciidoc
+similarity index 100%
+rename from doc/library-api-writing-guidelines.txt
+rename to doc/LTP-Library-API-Writing-Guidelines.asciidoc
+diff --git a/doc/maintainer-patch-review-checklist.txt b/doc/Maintainer-Patch-Review-Checklist.asciidoc
+similarity index 100%
+rename from doc/maintainer-patch-review-checklist.txt
+rename to doc/Maintainer-Patch-Review-Checklist.asciidoc
+diff --git a/doc/shell-test-api.txt b/doc/Shell-Test-API.asciidoc
+similarity index 100%
+rename from doc/shell-test-api.txt
+rename to doc/Shell-Test-API.asciidoc
+diff --git a/doc/supported-kernel-libc-versions.txt b/doc/Supported-kernel,-libc,-toolchain-versions.asciidoc
+similarity index 100%
+rename from doc/supported-kernel-libc-versions.txt
+rename to doc/Supported-kernel,-libc,-toolchain-versions.asciidoc
+diff --git a/doc/test-writing-guidelines.txt b/doc/Test-Writing-Guidelines.asciidoc
+similarity index 100%
+rename from doc/test-writing-guidelines.txt
+rename to doc/Test-Writing-Guidelines.asciidoc
+diff --git a/doc/user-guide.txt b/doc/User-Guidelines.asciidoc
+similarity index 100%
+rename from doc/user-guide.txt
+rename to doc/User-Guidelines.asciidoc
 -- 
 2.40.1
 
