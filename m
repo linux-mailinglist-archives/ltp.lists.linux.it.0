@@ -1,69 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97D2E7A7807
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Sep 2023 11:54:20 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0DD87A77FF
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Sep 2023 11:53:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 27EF93CDECC
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Sep 2023 11:54:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 20E193CE317
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Sep 2023 11:53:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B2ED73CE3D4
+ by picard.linux.it (Postfix) with ESMTPS id BD89A3CDEB8
  for <ltp@lists.linux.it>; Wed, 20 Sep 2023 11:53:23 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1FC801401136
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C978F1A02361
  for <ltp@lists.linux.it>; Wed, 20 Sep 2023 11:53:22 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DDA1D1FE94;
- Wed, 20 Sep 2023 09:53:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2BA5A1FE96;
+ Wed, 20 Sep 2023 09:53:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1695203601; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=xAfN0p3znBk7YCkHFPHv5DZz3o1om8lz0RWtUrg1ohk=;
- b=234+boBaoONVvdyZMApUIoXGXMqQ2GxPv3osSG5Ld18iLUXHoi34YhjcMglWAXZhcuKVjH
- q4Sp/V277NyDx8LSaNmPIo4EhR3yTwVYbVD0uMv2uU+v9yZnoXZCTbQafxYPFycRNz1qBK
- oHJfm8+LK5ht3FBjOaw2gvDtfU0hT64=
+ t=1695203602; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=M0KyA/j52QNnt2UOvkM9p5AbrL0OhvAS4eKBSepPhzM=;
+ b=i50kMEVArCku/fy3jU+cH8CDiB0V4A/7SL7fYonrOABOeg0ji23S7/4zBXTry/1GRuaLxP
+ xchuminG/QvHAUqqZsqjml4+xrzV5RZ2iJsOf4ZKvsGvpsspmRfsdh4z041v//EZuImPU+
+ TdY+dP+F8X1bBEaG5kRaoB12JdQzc0Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1695203601;
+ s=susede2_ed25519; t=1695203602;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=xAfN0p3znBk7YCkHFPHv5DZz3o1om8lz0RWtUrg1ohk=;
- b=p0hqraq69Uu+l5TniwfrjfcsT7N6bIrAtc2RLeb6ShiHxnsTmDd00CWI8T8G0pD96HBvHr
- T3rZbElW8AGKlBCA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=M0KyA/j52QNnt2UOvkM9p5AbrL0OhvAS4eKBSepPhzM=;
+ b=hcvxTrBcLx2TJikCRPYvdCwYB5KD8pp8sganPgsqtou+TrCbynAy0ZAU7tz1UoFC3GI8cc
+ It56Nc+wneisXzBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 94D631333E;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E49131333E;
  Wed, 20 Sep 2023 09:53:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ll4cIhHBCmVpBQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id QFS8NhHBCmVpBQAAMHmgww
  (envelope-from <pvorel@suse.cz>); Wed, 20 Sep 2023 09:53:21 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 20 Sep 2023 11:53:13 +0200
-Message-Id: <20230920095318.340582-1-pvorel@suse.cz>
+Date: Wed, 20 Sep 2023 11:53:14 +0200
+Message-Id: <20230920095318.340582-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230920095318.340582-1-pvorel@suse.cz>
+References: <20230920095318.340582-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/5] Release scripts and docs
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/5] tools: Add a script for tagging the release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,57 +87,141 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+A helper for new releases.
 
-copy pasting release is error prone, thus I wrote release scripts.
-Any change you would have look on it before release?
+Functions will be reused in another script (next commit).
 
-2 commits were already posted before, Li had some notes about the
-procedure, thus I updated it.
-
-Kind regards,
-Petr
-
-Petr Vorel (5):
-  tools: Add a script for tagging the release
-  tools: Add script for creating tarballs and metadata
-  doc: Rename files to names from ltp.wiki.git
-  doc: Add Release procedure
-  doc: Update release procedure
-
- .github/workflows/wiki-mirror.yml             |  16 +--
- ...ild-system-guide.txt => Build-System.rest} |   0
- doc/{c-test-api.txt => C-Test-API.asciidoc}   |   0
- ...mple.txt => C-Test-Case-Tutorial.asciidoc} |   0
- ...-c-api.txt => C-Test-Network-API.asciidoc} |   0
- ...kvm-test-api.txt => KVM-Test-API.asciidoc} |   0
- ...P-Library-API-Writing-Guidelines.asciidoc} |   0
- doc/LTP-Release-Procedure.asciidoc            | 116 ++++++++++++++++++
- ...aintainer-Patch-Review-Checklist.asciidoc} |   0
- ...l-test-api.txt => Shell-Test-API.asciidoc} |   0
- ...kernel,-libc,-toolchain-versions.asciidoc} |   0
- ...s.txt => Test-Writing-Guidelines.asciidoc} |   0
- ...ser-guide.txt => User-Guidelines.asciidoc} |   0
- tools/create-tarballs-metadata.sh             |  52 ++++++++
- tools/lib.sh                                  |  31 +++++
- tools/tag-release.sh                          |  80 ++++++++++++
- 16 files changed, 282 insertions(+), 13 deletions(-)
- rename doc/{build-system-guide.txt => Build-System.rest} (100%)
- rename doc/{c-test-api.txt => C-Test-API.asciidoc} (100%)
- rename doc/{c-test-tutorial-simple.txt => C-Test-Case-Tutorial.asciidoc} (100%)
- rename doc/{network-c-api.txt => C-Test-Network-API.asciidoc} (100%)
- rename doc/{kvm-test-api.txt => KVM-Test-API.asciidoc} (100%)
- rename doc/{library-api-writing-guidelines.txt => LTP-Library-API-Writing-Guidelines.asciidoc} (100%)
- create mode 100644 doc/LTP-Release-Procedure.asciidoc
- rename doc/{maintainer-patch-review-checklist.txt => Maintainer-Patch-Review-Checklist.asciidoc} (100%)
- rename doc/{shell-test-api.txt => Shell-Test-API.asciidoc} (100%)
- rename doc/{supported-kernel-libc-versions.txt => Supported-kernel,-libc,-toolchain-versions.asciidoc} (100%)
- rename doc/{test-writing-guidelines.txt => Test-Writing-Guidelines.asciidoc} (100%)
- rename doc/{user-guide.txt => User-Guidelines.asciidoc} (100%)
- create mode 100755 tools/create-tarballs-metadata.sh
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ tools/lib.sh         | 31 +++++++++++++++++
+ tools/tag-release.sh | 80 ++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 111 insertions(+)
  create mode 100755 tools/lib.sh
  create mode 100755 tools/tag-release.sh
 
+diff --git a/tools/lib.sh b/tools/lib.sh
+new file mode 100755
+index 000000000..c96433d28
+--- /dev/null
++++ b/tools/lib.sh
+@@ -0,0 +1,31 @@
++#!/bin/sh
++# Copyright (c) 2023 Petr Vorel <pvorel@suse.cz>
++
++ask()
++{
++	local msg="$1"
++	local answer
++
++	printf "\n$msg. Proceed? [N/y]: "
++	read answer
++	case "$answer" in
++		[Yy]*) : ;;
++		*) exit 2
++	esac
++}
++
++quit()
++{
++	printf "\n$@\n" >&2
++	exit 1
++}
++
++rod()
++{
++	eval "$@" || quit "$@ failed"
++}
++
++title()
++{
++	echo "===== $1 ====="
++}
+diff --git a/tools/tag-release.sh b/tools/tag-release.sh
+new file mode 100755
+index 000000000..18bef4b17
+--- /dev/null
++++ b/tools/tag-release.sh
+@@ -0,0 +1,80 @@
++#!/bin/sh
++# Copyright (c) 2023 Petr Vorel <pvorel@suse.cz>
++# Tag LTP release.
++# https://github.com/linux-test-project/ltp/wiki/LTP-Release-Procedure
++set -e
++
++upstream_git="linux-test-project/ltp"
++tag="$(date +%Y%m%d)"
++old_tag="$(git describe --abbrev=0)"
++tag_msg="LTP $tag"
++relnotes="/tmp/$(basename $upstream_git)-release-$tag"
++
++. $(dirname "$0")/lib.sh
++
++cd $(dirname "$0")/..
++
++if ! git ls-remote --get-url origin | grep -q $upstream_git; then
++	quit "Not an upstream project"
++fi
++
++if ! git --no-pager diff --exit-code; then
++	quit "Please commit your changes before making new release"
++fi
++
++if git show $tag 2> /dev/null; then
++	quit "Tag '$tag' already exists"
++fi
++
++if grep -q "$tag" VERSION; then
++	quit "Tag '$tag' already in VERSION file"
++fi
++
++title "git tag"
++echo "new tag: '$tag', previous tag: '$old_tag'"
++echo "$tag" > VERSION
++git add VERSION
++rod git commit -S --signoff --message \"$tag_msg\" VERSION
++rod git tag --sign --annotate $tag --message \"$tag_msg\"
++git --no-pager show $tag --show-signature
++
++ask "Please check tag and signature"
++
++title "Creating skeleton file for release notes"
++cat > $relnotes <<EOF
++TODO: Add changelog
++
++## credit
++Many thanks to the people contributing to this release:
++\`\`\`
++    $ git shortlog -sen $old_tag..
++EOF
++git shortlog -s -n $old_tag.. >> $relnotes
++
++cat >> $relnotes <<EOF
++\`\`\`
++
++Also thanks to patch reviewers:
++
++$ git log $old_tag.. | grep -Ei '(reviewed|acked)-by:' | sed 's/.*by: //' | sort | uniq -c | sort -n -r
++\`\`\`
++EOF
++
++git log $old_tag.. | grep -Ei '(reviewed|acked)-by:' | sed 's/.*by: //' | sort | uniq -c | sort -n -r >> $relnotes
++
++cat >> $relnotes <<EOF
++\`\`\`
++
++and testers:
++$ git log $old_tag.. | grep -Ei 'tested-by:' | sed 's/.*by: //' | sort | uniq -c | sort -n -r
++\`\`\`
++EOF
++git log $old_tag.. | grep -Ei 'tested-by:' | sed 's/.*by: //' | sort | uniq -c | sort -n -r >> $relnotes
++echo '```'  >> $relnotes
++
++echo "Skeleton file for release notes: $relnotes"
++
++title "git push"
++ask "Pushing changes to upstream git"
++rod git push origin master:master
++git push origin $tag
 -- 
 2.40.1
 
