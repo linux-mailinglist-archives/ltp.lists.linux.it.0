@@ -1,71 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B8337AAA7D
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Sep 2023 09:42:25 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0545C7AAA80
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Sep 2023 09:42:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CF71D3CB576
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Sep 2023 09:42:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 42C903CBE02
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Sep 2023 09:42:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A1F2D3CA094
+ by picard.linux.it (Postfix) with ESMTPS id AB5CF3CA0FF
  for <ltp@lists.linux.it>; Fri, 22 Sep 2023 09:42:23 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E35DB1A00927
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0693914010F8
  for <ltp@lists.linux.it>; Fri, 22 Sep 2023 09:42:22 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C625A21878
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DD4541F390
  for <ltp@lists.linux.it>; Fri, 22 Sep 2023 07:42:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1695368541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=iP8bQCZzHCA3GFqr72SK54LHczN8ArEQ2zfo0HNhg2c=;
- b=evfP4eLJNPEmkVmhUkWJqonr/qSjY4V+X2Luoo2pUBcJgII1ZtIGBaGT7NyAZg+VaTRnh2
- EBxIRwSTml3KBnvvAZNgNnFLbFl7UayfUyLVhlaR6CFCmmh8FZXYHkb9upwIrj8Y5Y1ncg
- NDX1QQ8QYRHPWzDZ9GPORDIMKPNRY8U=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=AlNR/OYkQA7jIcM4peEbCVfDd86DB/uE76nFTQ8i3h8=;
+ b=2eUnJ86n51HjhfwH2V0sY1Ub39SC0L9EA8aYySUcD5WV40NQy6rfbUWk5gU3fzqGz8OK2q
+ FdsyJWLJrag0ga4ByjvSS4JHNs7VmFN7RQWdqQesZddbWN+0MAjDBW5s+7QCRFpQTxQ00C
+ E4PFtHAMZ4sm/IEWoqthlVoZ/r7j38c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1695368541;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=iP8bQCZzHCA3GFqr72SK54LHczN8ArEQ2zfo0HNhg2c=;
- b=UBN3n26CFpS0Y4q2lEhon24hPOPxoDDQo3Vj2Ft4Zr/+gJjL8NyeNhpyKGXYEjFOBciahH
- mZFR4+Miyfn29dAg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=AlNR/OYkQA7jIcM4peEbCVfDd86DB/uE76nFTQ8i3h8=;
+ b=QFpv+mTeTkVdrVR9+IIHCcijx7XFZSIHSp3GInTM203M4MaPsnl0KyTYeAL/aYZ6Ygmanv
+ WI0HNZ7dy/w8PWBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B4A6113478
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CACA813A64
  for <ltp@lists.linux.it>; Fri, 22 Sep 2023 07:42:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QtToKl1FDWWHJQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id KBWDMF1FDWWHJQAAMHmgww
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Fri, 22 Sep 2023 07:42:21 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 22 Sep 2023 09:42:14 +0200
-Message-ID: <20230922074220.12913-1-mdoucha@suse.cz>
+Date: Fri, 22 Sep 2023 09:42:15 +0200
+Message-ID: <20230922074220.12913-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20230922074220.12913-1-mdoucha@suse.cz>
+References: <20230922074220.12913-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/3] Fix lockdown and secureboot check in init_module
- tests
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/3] madvise11: Fix lockdown check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,40 +93,22 @@ is active.
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- testcases/kernel/syscalls/finit_module/finit_module02.c | 4 ++--
- testcases/kernel/syscalls/init_module/init_module02.c   | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ testcases/kernel/syscalls/madvise/madvise11.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/syscalls/finit_module/finit_module02.c b/testcases/kernel/syscalls/finit_module/finit_module02.c
-index af4feb76b..223d9b388 100644
---- a/testcases/kernel/syscalls/finit_module/finit_module02.c
-+++ b/testcases/kernel/syscalls/finit_module/finit_module02.c
-@@ -83,8 +83,8 @@ static void setup(void)
+diff --git a/testcases/kernel/syscalls/madvise/madvise11.c b/testcases/kernel/syscalls/madvise/madvise11.c
+index 4c960dd35..3cde85ef5 100644
+--- a/testcases/kernel/syscalls/madvise/madvise11.c
++++ b/testcases/kernel/syscalls/madvise/madvise11.c
+@@ -325,7 +325,7 @@ static int open_unpoison_pfn(void)
  
- 	tst_module_exists(MODULE_NAME, &mod_path);
+ 	TEST(open(debugfs_fp, O_WRONLY));
  
--	kernel_lockdown = tst_lockdown_enabled();
--	secure_boot = tst_secureboot_enabled();
-+	kernel_lockdown = tst_lockdown_enabled() > 0;
-+	secure_boot = tst_secureboot_enabled() > 0;
- 
- 	SAFE_MKDIR(TEST_DIR, 0700);
- 	fd_dir = SAFE_OPEN(TEST_DIR, O_DIRECTORY);
-diff --git a/testcases/kernel/syscalls/init_module/init_module02.c b/testcases/kernel/syscalls/init_module/init_module02.c
-index 15a482664..e6730e21c 100644
---- a/testcases/kernel/syscalls/init_module/init_module02.c
-+++ b/testcases/kernel/syscalls/init_module/init_module02.c
-@@ -53,8 +53,8 @@ static void setup(void)
- 
- 	tst_module_exists(MODULE_NAME, NULL);
- 
--	kernel_lockdown = tst_lockdown_enabled();
--	secure_boot = tst_secureboot_enabled();
-+	kernel_lockdown = tst_lockdown_enabled() > 0;
-+	secure_boot = tst_secureboot_enabled() > 0;
- 	fd = SAFE_OPEN(MODULE_NAME, O_RDONLY|O_CLOEXEC);
- 	SAFE_FSTAT(fd, &sb);
- 	size = sb.st_size;
+-	if (TST_RET == -1 && TST_ERR == EPERM && tst_lockdown_enabled()) {
++	if (TST_RET == -1 && TST_ERR == EPERM && tst_lockdown_enabled() > 0) {
+ 		tst_res(TINFO,
+ 			"Cannot restore soft-offlined memory due to lockdown");
+ 		return TST_RET;
 -- 
 2.42.0
 
