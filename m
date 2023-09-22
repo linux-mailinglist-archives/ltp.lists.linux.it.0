@@ -2,75 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 666787AB115
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Sep 2023 13:42:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6CC97AB190
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Sep 2023 14:01:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 92C713CBDFA
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Sep 2023 13:42:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A9F5D3CDE48
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Sep 2023 14:01:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2C6F13C9EAE
- for <ltp@lists.linux.it>; Fri, 22 Sep 2023 13:42:43 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 953AC3CA2AB
+ for <ltp@lists.linux.it>; Fri, 22 Sep 2023 14:01:45 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id F2B9A1001F27
- for <ltp@lists.linux.it>; Fri, 22 Sep 2023 13:42:42 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id AD71210163BD
+ for <ltp@lists.linux.it>; Fri, 22 Sep 2023 14:01:44 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EC2E621A9E;
- Fri, 22 Sep 2023 11:42:41 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 204D021AE4;
+ Fri, 22 Sep 2023 12:01:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1695382961; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1695384104; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=65+lm7d+dGRTiOMAyApVmU/Xt+Gy4JHwF9IUeIK1m1Q=;
- b=yJPzw4jKA78/KuVPeDtJPzXDAGBL5vPvSoxnuXVCM8RAh2RYriDdPP+yZAKS1CutJLntVi
- FFh4Iud6erKaiL6VZAjIt13auEAuC/Ru/cFgGCnz0KDuU75TY/uTVxI288PcND9Fv3aST4
- gkCLkcAXbu43vZ1RiVGQ5jRQknt5Ec0=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=HJnTZAWZfuYGGbor1dPlu0Rik+F3oAS+O89qPC+ANPSwDWJaRaZeIO6Xm64q2r9hv+xJnI
+ FjfDw0xsoxgYNB2MVdjMkAmeP1XW3DZWie5lD4jZI19DUIdN6D52pBNNgmA5GCGkAR3CV0
+ 3XCpHlvNKuzyxoRc6zw6DoTLMIKyh48=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1695382961;
+ s=susede2_ed25519; t=1695384104;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=65+lm7d+dGRTiOMAyApVmU/Xt+Gy4JHwF9IUeIK1m1Q=;
- b=fLpi/29qParzWJqJjq1VQuYRYSpCWpAK2Bu9U9mzTnpOu+5h7/MOI5YeDEWFf+l3OCP1Wd
- cS4+u8sAD88kp2DQ==
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=9hY1z3pBrna1R313SSHFtsBHGDdNcMsR71a38yVdoTWz4k3i7r+mNKmy7XGRikHZy2qRfB
+ Lg2GZC6scqBTsrCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D311113478;
- Fri, 22 Sep 2023 11:42:41 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EEF8113478;
+ Fri, 22 Sep 2023 12:01:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id w6kLL7F9DWXnJAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 22 Sep 2023 11:42:41 +0000
-Date: Fri, 22 Sep 2023 13:43:26 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id 43ZsNyeCDWVjLwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 22 Sep 2023 12:01:43 +0000
+Date: Fri, 22 Sep 2023 14:02:28 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Ingo Molnar <mingo@kernel.org>
-Message-ID: <ZQ193uwifmWWbqSP@yuki>
-References: <20230901154355.5351-1-chrubis@suse.cz>
- <20230901174529.GB364687@pevik> <ZPIqsmTbJh7z-LcO@yuki>
- <ZQ1iabFEs93OZMSE@gmail.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <ZQ2CVC2kPj_Qc4hO@yuki>
+References: <20230919114701.15327-1-mdoucha@suse.cz>
+ <20230919114701.15327-2-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZQ1iabFEs93OZMSE@gmail.com>
+In-Reply-To: <20230919114701.15327-2-mdoucha@suse.cz>
 X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] sched/rt: Disallow writing invalid values to
- sched_rt_period_us
+Subject: Re: [LTP] [PATCH 1/3] nfs_lib.sh: Log NFS mount and unmount
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,41 +79,14 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>,
- Valentin Schneider <vschneid@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Ingo Molnar <mingo@redhat.com>, Mel Gorman <mgorman@suse.de>,
- Daniel Bristot de Oliveira <bristot@redhat.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > > Documentation/scheduller/sched-rt-group.rst [1] specifies this as values from -1 to
-> > > (INT_MAX - 1), I guess due int range. Looking into proc_dointvec_minmax() [2]
-> > > even INT_MAX would pass the check. I suppose we can do nothing about that,
-> > > because there is no value in sysctl_vals[] which would represent INT_MAX - 1.
-> > > 
-> > > And you specify in LTP test range: from -1 to INT_MAX.
-> > > 
-> > > But even much shorter value than INT_MAX fails:
-> > > 
-> > > $ echo 1234567 > /proc/sys/kernel/sched_rt_runtime_us
-> > > sh: echo: write error: Invalid argument
-> > 
-> > That is because runtime_us must be < period_us by definition, since
-> > runtime_us defines how much time is allocated from the period_us. I
-> > guess that this is not described good enough in the kernel docs.
-> 
-> Mind adding a second patch to your series, clarifying 
-> Documentation/scheduler/sched-rt-group.rst?
-
-Yes, that is the plan. I've been working on LTP release for past two
-weeks so this has been postponed. I will get to it hopefully next week.
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
