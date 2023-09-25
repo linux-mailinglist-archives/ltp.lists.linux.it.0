@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5158F7ADB19
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Sep 2023 17:13:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ACB47ADB2C
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Sep 2023 17:17:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E179F3CE25C
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Sep 2023 17:13:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 930E53CF2B9
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Sep 2023 17:17:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3BB443CE247
- for <ltp@lists.linux.it>; Mon, 25 Sep 2023 17:13:26 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id BE1403CE234
+ for <ltp@lists.linux.it>; Mon, 25 Sep 2023 17:17:31 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 46F751400F50
- for <ltp@lists.linux.it>; Mon, 25 Sep 2023 17:13:25 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0C832603446
+ for <ltp@lists.linux.it>; Mon, 25 Sep 2023 17:17:30 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id F217021858;
- Mon, 25 Sep 2023 15:13:24 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6A4001F45F;
+ Mon, 25 Sep 2023 15:17:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1695654804; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1695655050;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=aU1WKHfsjZLxi5TDJFegII4GmH1t6GQYcwfPrK4qpLc=;
- b=tN3nHxW2vj0kN7Ol5jtDuDTZPf2cEauMI9Llxmd1rG61VGk25kcyFu1UqiiV/OmmVS2Ebq
- k5vq+T5sUN+Shlrjm/mGYz2W0Il0XAuTBjeVFE0BUE1nKUgvxenv+ZT9vNq6h6p3TLhDnC
- Li9HTfIWWcAHEPq2XPEf/H1JVH6jcAQ=
+ bh=wSrt011W6FftyMqRuiQhFxLX+QRAslo64dH0VpnqonM=;
+ b=mJAbhZ2et7lUmtd+eV6h3CWYVYd+E1Ysc0vLEei06AbytznDP/8/fwaNTWolv7QBnof874
+ NzvWe8qwtG+Ph0phq45ZIip9jMVdoDNUhoNVR6em/oDvax0ai+MSZvaFs+c4WDpUWXfEhH
+ 4ePvPcLmSQdo4R1EPkCAXpyzjlIR/IA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1695654804;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1695655050;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=aU1WKHfsjZLxi5TDJFegII4GmH1t6GQYcwfPrK4qpLc=;
- b=wGxVGMTkSL42PPK8/4Gszo07zC1RDRTu2xmioGKn08iYqTbWMkoxY/ut3z5ocNwX4/ASqL
- qoY6G8ofVwDDGoDA==
+ bh=wSrt011W6FftyMqRuiQhFxLX+QRAslo64dH0VpnqonM=;
+ b=KRITBiYHpWgYRNL15EwwIJvXrGdBuioewMjAMhigFPgoUZDwDLqEVSyiIAKWj0TwWxiWB4
+ YRxsOks3Nl+7exAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B981A13580;
- Mon, 25 Sep 2023 15:13:24 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 27F5B13580;
+ Mon, 25 Sep 2023 15:17:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UHqWK5SjEWXHTgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 25 Sep 2023 15:13:24 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 5hI/CIqkEWUrUQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 25 Sep 2023 15:17:30 +0000
+Date: Mon, 25 Sep 2023 17:17:28 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 25 Sep 2023 17:13:19 +0200
-Message-Id: <20230925151319.87688-4-pvorel@suse.cz>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230925151319.87688-1-pvorel@suse.cz>
-References: <20230925151319.87688-1-pvorel@suse.cz>
+To: Marius Kittler <mkittler@suse.de>
+Message-ID: <20230925151728.GE60471@pevik>
+References: <20230925144206.16895-1-mkittler@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20230925144206.16895-1-mkittler@suse.de>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [RFC][PATCH 3/3] lib/tst_test.c: Print failure hints also for
- TBROK
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] Skip cgroup-related tests if `/sys/fs/cgroup`
+ readonly
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,40 +80,45 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Some kernel/libc bugs are not causing TFAIL, but also TBROK,
-e.g. clone04 failure on musl, which does:
-tst_test.c:1632: TBROK: Test killed by SIGSEGV!
+Hi all,
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- lib/tst_test.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> Otherwise clone303 fails with TBROK when `/sys/fs/cgroup` is mounted as
+> read-only which is normal in a container. The test result should better
+> be TCONF like it is already done in case of a permission error.
 
-diff --git a/lib/tst_test.c b/lib/tst_test.c
-index 179f697b7..0dec00be4 100644
---- a/lib/tst_test.c
-+++ b/lib/tst_test.c
-@@ -880,8 +880,10 @@ static void do_exit(int ret)
- 		if (results->warnings)
- 			ret |= TWARN;
- 
--		if (results->broken)
-+		if (results->broken) {
- 			ret |= TBROK;
-+			print_failure_hints();
-+		}
- 
- 		fprintf(stderr, "\nSummary:\n");
- 		fprintf(stderr, "passed   %d\n", results->passed);
--- 
-2.40.1
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
+IMHO another candidate for merging before release.
+
+Kind regards,
+Petr
+
+> Signed-off-by: Marius Kittler <mkittler@suse.de>
+> ---
+>  lib/tst_cgroup.c | 3 +++
+>  1 file changed, 3 insertions(+)
+
+> diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+> index fdeac6059..5240aadaa 100644
+> --- a/lib/tst_cgroup.c
+> +++ b/lib/tst_cgroup.c
+> @@ -383,6 +383,9 @@ static void cgroup_dir_mk(const struct cgroup_dir *const parent,
+>  		tst_brk(TCONF | TERRNO,
+>  			"Lack permission to make '%s/%s'; premake it or run as root",
+>  			dpath, dir_name);
+> +	} else if (errno == EROFS) {
+> +		tst_brk(TCONF | TERRNO, "'%s/%s' must not be read-only",
+> +			dpath, dir_name);
+>  	} else {
+>  		tst_brk(TBROK | TERRNO,
+>  			"mkdirat(%d<%s>, '%s', 0777)",
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
