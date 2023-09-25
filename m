@@ -2,73 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 792547ADB16
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Sep 2023 17:13:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5158F7ADB19
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Sep 2023 17:13:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 582A13CF2C2
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Sep 2023 17:13:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E179F3CE25C
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Sep 2023 17:13:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 231973CE241
+ by picard.linux.it (Postfix) with ESMTPS id 3BB443CE247
  for <ltp@lists.linux.it>; Mon, 25 Sep 2023 17:13:26 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9EEAC10011B4
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 46F751400F50
  for <ltp@lists.linux.it>; Mon, 25 Sep 2023 17:13:25 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AFE8E1F74A;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F217021858;
  Mon, 25 Sep 2023 15:13:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1695654804; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GAV6CHqE+5Tc3nBp2I5pojeV3Q9G4leHMkLlN/M+8/k=;
- b=mGy31xby5ZGmC59r+/ZaEx5TbFmEpCUWt6WFx6S/o+dSUgsvQzbNpfz+3P8sI2+bJVvxL/
- j6QLblZ3Pu96tnqdoDx/YZwDnG5ZKaaIifcJSYMySlx+awkgnbMRGCJg8bEY3RGz40OyAW
- /GwbV2VAOTrlhO6G2ogycTL0TnCJ5M4=
+ bh=aU1WKHfsjZLxi5TDJFegII4GmH1t6GQYcwfPrK4qpLc=;
+ b=tN3nHxW2vj0kN7Ol5jtDuDTZPf2cEauMI9Llxmd1rG61VGk25kcyFu1UqiiV/OmmVS2Ebq
+ k5vq+T5sUN+Shlrjm/mGYz2W0Il0XAuTBjeVFE0BUE1nKUgvxenv+ZT9vNq6h6p3TLhDnC
+ Li9HTfIWWcAHEPq2XPEf/H1JVH6jcAQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1695654804;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GAV6CHqE+5Tc3nBp2I5pojeV3Q9G4leHMkLlN/M+8/k=;
- b=Wruq6WUaEb7I2XaXp/SNL4yjeHj0fnk9bx7jcPmJFo5KoQ7vbE4jii6VOml34w4iBAzaib
- wAUyY8iohdyHPBAA==
+ bh=aU1WKHfsjZLxi5TDJFegII4GmH1t6GQYcwfPrK4qpLc=;
+ b=wGxVGMTkSL42PPK8/4Gszo07zC1RDRTu2xmioGKn08iYqTbWMkoxY/ut3z5ocNwX4/ASqL
+ qoY6G8ofVwDDGoDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7A3E913580;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B981A13580;
  Mon, 25 Sep 2023 15:13:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wDhtHJSjEWXHTgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id UHqWK5SjEWXHTgAAMHmgww
  (envelope-from <pvorel@suse.cz>); Mon, 25 Sep 2023 15:13:24 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 25 Sep 2023 17:13:18 +0200
-Message-Id: <20230925151319.87688-3-pvorel@suse.cz>
+Date: Mon, 25 Sep 2023 17:13:19 +0200
+Message-Id: <20230925151319.87688-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230925151319.87688-1-pvorel@suse.cz>
 References: <20230925151319.87688-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] clone04: Add musl-git tag
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [RFC][PATCH 3/3] lib/tst_test.c: Print failure hints also for
+ TBROK
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,38 +87,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-clone04 test fails on musl due to producing a child process with
-inconsistent state. The clone() function has been effectively unusable
-since it was added, recently musl got fix. Mark this fix.
+Some kernel/libc bugs are not causing TFAIL, but also TBROK,
+e.g. clone04 failure on musl, which does:
+tst_test.c:1632: TBROK: Test killed by SIGSEGV!
 
-Fixes: #1081
-Reported-by: Richard Palethorpe <rpalethorpe@suse.com>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/syscalls/clone/clone04.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ lib/tst_test.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/syscalls/clone/clone04.c b/testcases/kernel/syscalls/clone/clone04.c
-index 7af4fedd3..74347e2b4 100644
---- a/testcases/kernel/syscalls/clone/clone04.c
-+++ b/testcases/kernel/syscalls/clone/clone04.c
-@@ -2,6 +2,7 @@
- /*
-  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
-  * Copyright (c) 2012 Wanlong Gao <gaowanlong@cn.fujitsu.com>
-+ * Copyright (c) Linux Test Project, 2003-2023
-  */
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index 179f697b7..0dec00be4 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -880,8 +880,10 @@ static void do_exit(int ret)
+ 		if (results->warnings)
+ 			ret |= TWARN;
  
- /*\
-@@ -44,4 +45,8 @@ static void verify_clone(unsigned int nr)
- static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.test = verify_clone,
-+	.tags = (const struct tst_tag[]) {
-+		{"musl-git", "fa4a8abd06a4"},
-+		{}
-+	},
- };
+-		if (results->broken)
++		if (results->broken) {
+ 			ret |= TBROK;
++			print_failure_hints();
++		}
+ 
+ 		fprintf(stderr, "\nSummary:\n");
+ 		fprintf(stderr, "passed   %d\n", results->passed);
 -- 
 2.40.1
 
