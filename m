@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84F7B7AED28
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Sep 2023 14:47:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E3DE7AEE09
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Sep 2023 15:39:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C31BA3CDC88
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Sep 2023 14:47:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 079CE3CDC84
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Sep 2023 15:39:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
@@ -14,62 +14,62 @@ Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 662793CE1C8
- for <ltp@lists.linux.it>; Tue, 26 Sep 2023 14:46:58 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 859283CDC7D
+ for <ltp@lists.linux.it>; Tue, 26 Sep 2023 15:39:34 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A399120175A
- for <ltp@lists.linux.it>; Tue, 26 Sep 2023 14:46:57 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E59732001CE
+ for <ltp@lists.linux.it>; Tue, 26 Sep 2023 15:39:33 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 04BE31F86C;
- Tue, 26 Sep 2023 12:46:57 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4A1AA1F86A;
+ Tue, 26 Sep 2023 13:39:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1695732417; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1695735573;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=CevMjABn4ph+qULrqktbBjIx4OK2sdQTOZLzHwN7CfA=;
- b=fAeDLuCoo4EiE7UMSXx5bOC6Z/D3rBD+GWzBEY+tbsf1vQchadefo8L0ZgJoBLrjS0XZyo
- FHzVsElJpg0mbwuFTHUorYouVGdEUzZf976IwMjPXimPXSRy3aZY15zMeJgiuoZ9CS+M/f
- BkyWfeGkP23Tpu8Hn/cr2JakmBCQCv0=
+ bh=smedKZlhgb0ZmswfoL33gAWSGmkTalVkUqC8OwjYr+U=;
+ b=naSFDxMfzD9YVXSPjbL7tQwgj7K35JcDsyUS2c1bm1x+ckqw7wEnzaSd8mQR8fkR6RNaJE
+ n8NrhiMpoeKi6kAvUna6eqAsj03p9aygV6g1tKYQfmOsAEPMLMIj1gZXj3aTsMt742CheR
+ HIIdiTDuWRaKUQxhbCs8ZYjzDhM6CRY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1695732417;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1695735573;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=CevMjABn4ph+qULrqktbBjIx4OK2sdQTOZLzHwN7CfA=;
- b=4ZXP17nKt4S4PY+6Az0LnpSJffmTjq79KhYepfiGCUkkonS6I7548cXli1EblIJ8T4nXdl
- jMSTfyX24fvfiZBg==
+ bh=smedKZlhgb0ZmswfoL33gAWSGmkTalVkUqC8OwjYr+U=;
+ b=VY0QGAaCMJ89nGyeMf2wQu6VXU33PgTOQxLM0+It0VaUaYi4Yyqqn5XAYLXI5l5svcZQnT
+ mq7pd/V/F1yucwBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C85FE13A6A;
- Tue, 26 Sep 2023 12:46:56 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0E80F1390B;
+ Tue, 26 Sep 2023 13:39:33 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eNeeL8DSEmXxHgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 26 Sep 2023 12:46:56 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0gATAhXfEmUbPgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 26 Sep 2023 13:39:33 +0000
+Date: Tue, 26 Sep 2023 15:39:31 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 26 Sep 2023 14:46:47 +0200
-Message-Id: <20230926124647.152972-3-pvorel@suse.cz>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230926124647.152972-1-pvorel@suse.cz>
-References: <20230926124647.152972-1-pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20230926133931.GA159673@pevik>
+References: <20230920095318.340582-1-pvorel@suse.cz>
+ <20230920095318.340582-5-pvorel@suse.cz> <ZRLEmWtn8zaz9dL0@yuki>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <ZRLEmWtn8zaz9dL0@yuki>
 X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [RFC][PATCH 2/2] vma05.sh: Add check for core file presence
+Subject: Re: [LTP] [PATCH 4/5] doc: Add Release procedure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,41 +81,72 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Xiao Yang <yangx.jy@cn.fujitsu.com>,
+ Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Because we redirect gdb output, add sanity check for core file being
-created.
+Hi Cyril,
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Maybe this sanity check is useless. WDYT?
+> Hi!
+> > This slightly outdated document exists in LTP wiki, start versioning it
+> > in the original repository. The only unversioned file in the wiki is
+> > now Home.rest.
+
+NOTE: "slightly outdated"
+
+...
+> > +3. Prepare tarballs
+> > +-------------------
+> > +[source,sh]
+> > +--------------------------------------------------------------------
+> > +cd ..
+> > +git clone ltp ltp-full-YYYYMMDD
+> > +cd ltp-full-YYYYMMDD
+> > +# Update mce-inject submodule
+>        ^
+> We do have a couple of submodules now, so this should be updated
+
+I wanted to put my changes into separate commit, that's why I here just added
+the original content. But if it makes more sense, I'll squash my change (next
+commit) into this one.
+
+> > +git submodule init
+> > +git submodule update
+> > +# Generate configure script
+> > +make autotools
+> > +# Prepare the archives
+> > +cd ..
+> > +tar -cjf ltp-full-YYYYMMDD.tar.bz2 ltp-full-YYYYMMDD --exclude .git
+> > +tar -cJf ltp-full-YYYYMMDD.tar.xz ltp-full-YYYYMMDD --exclude .git
+> > +--------------------------------------------------------------------
+> > +
+> > +4. Upload the tarballs to GitHub
+> > +--------------------------------
+> > +
+> > +Click on 'releases' then switch to 'tags' then click on 'Add release notes' there should be 'Attach binaries ...' link at the bottom of the page.
+> > +
+> > +Don't forget to upload md5 and sha-1 sums for the tarballs as well.
+> > +
+> > +5. Send release announcement
+> > +----------------------------
+> > +
+> > +Have a look at http://sourceforge.net/p/ltp/mailman/message/34429656/ to get the idea how it should look.
+>                         ^
+> 			This is now outdated, I guess that we should
+> 			include a template rather than this?
+
+I updated this in next commit to
+https://lore.kernel.org/ltp/ZGNiQ1sMGvPU_ETp@yuki/
+
+NOTE: I trust lore more than to our LTP ML - maybe we leave it one day, but I can use
+link to our ML if you want. Or should I paste some text instead/with the link?
 
 Kind regards,
 Petr
-
- testcases/kernel/mem/vma/vma05.sh | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/testcases/kernel/mem/vma/vma05.sh b/testcases/kernel/mem/vma/vma05.sh
-index c9e4becdb..30b1d689a 100755
---- a/testcases/kernel/mem/vma/vma05.sh
-+++ b/testcases/kernel/mem/vma/vma05.sh
-@@ -54,6 +54,8 @@ vma_report_check()
- 
- 	rm -rf core*
- 	{ vma05_vdso; } > /dev/null 2>&1
-+	[ -f core ] || tst_brk TCONF "missing core file"
-+
- 	TRACE=$(gdb -silent -ex="thread apply all backtrace" -ex="quit"\
- 		vma05_vdso ./core* 2> /dev/null)
- 	if echo "$TRACE" | grep -qF "??"; then
--- 
-2.40.1
-
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
