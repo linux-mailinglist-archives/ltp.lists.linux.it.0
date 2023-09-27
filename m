@@ -2,74 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63BDC7AFA12
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 07:28:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D36A07AFA16
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 07:30:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C36BC3CBABD
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 07:28:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 77D483CBAE3
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 07:30:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 996993CB502
- for <ltp@lists.linux.it>; Wed, 27 Sep 2023 07:28:55 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 563C03CB502
+ for <ltp@lists.linux.it>; Wed, 27 Sep 2023 07:30:12 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id DF27A600058
- for <ltp@lists.linux.it>; Wed, 27 Sep 2023 07:28:54 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 8458814016F2
+ for <ltp@lists.linux.it>; Wed, 27 Sep 2023 07:30:10 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 809351F37E;
- Wed, 27 Sep 2023 05:28:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 70BE02185A;
+ Wed, 27 Sep 2023 05:30:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1695792532;
+ t=1695792610;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=I4/nZUozEpVQfble0EqHUtPVfax6iwvm24DhBDmy0UQ=;
- b=rl/0IrC5GZuVdC74cNHxs0aBXOWk19NYtCW5p79Lz4/nCJMLfm+186gCxG9IiBL9Ytk8NS
- qqdjyjQ486XyCfWfV+jub8KPbqz+mnVgG3AfDWlY2fmfFd0d75IxOcLP8LMuj92VzWLvqM
- FBjqHevnHXTOhgug6j8cFK7Um3/zKEE=
+ bh=LwmUvRF7SzaMZPAg6Qeal7ZI4bDtnArD+I/j36XOupc=;
+ b=L1+q0otNqgfCIiGbwbiLu0WE4NddbkdCe81waHhm6rC02kaoPf9GMAeAf6wIV7EaW8UFIV
+ 358SzYDXBC9p/ryS8Xqh4pIFiUpwmxrEvf7o5pXd/XOB7wlfmfIbHkuemuHlOGS7WGYNi8
+ Ca6FI1dn/A+B3Hu6D201e6EpJrEEqIQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1695792532;
+ s=susede2_ed25519; t=1695792610;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=I4/nZUozEpVQfble0EqHUtPVfax6iwvm24DhBDmy0UQ=;
- b=CwYymlzeSn3L8EirCn/V9H4+SWeTQnrmWcwKFxpDokVzQN+YeTYjQj6YzFlTcqjvBCQg6Y
- LNYBv6pD/HLVOYAA==
+ bh=LwmUvRF7SzaMZPAg6Qeal7ZI4bDtnArD+I/j36XOupc=;
+ b=P4usOoNapMeBFlEz2vFksc2nPsjuyaexeffoTvshLpCpS3lmWOMpC7HT5zO9pFdoJKM+H3
+ TGtkwDjM2J5ps+BA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 51F5E1338F;
- Wed, 27 Sep 2023 05:28:52 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 397621338F;
+ Wed, 27 Sep 2023 05:30:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id AluXEpS9E2UcBwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 27 Sep 2023 05:28:52 +0000
-Date: Wed, 27 Sep 2023 07:28:50 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id 97neDOK9E2XJBwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 27 Sep 2023 05:30:10 +0000
+Date: Wed, 27 Sep 2023 07:30:08 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20230927052850.GA205174@pevik>
-References: <20230925151319.87688-1-pvorel@suse.cz>
- <ZRKUpwqzBzQ2McJW@yuki>
+Message-ID: <20230927053008.GB205174@pevik>
+References: <20230925152450.89228-1-pvorel@suse.cz>
+ <ZRKUyUMoXQ6nSRMr@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZRKUpwqzBzQ2McJW@yuki>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+In-Reply-To: <ZRKUyUMoXQ6nSRMr@yuki>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/3] Report clone04 failure on musl
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] doc: Document musl-git
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,9 +88,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Hi,
 
-thanks for your review, merged.
+also this merged, thanks for your review.
 
 Kind regards,
 Petr
