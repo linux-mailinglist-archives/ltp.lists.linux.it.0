@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 083AF7B0D46
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 22:21:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D59C7B0D49
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 22:22:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4819E3CE189
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 22:21:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B761B3CDC75
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 22:22:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DFCA43CDC30
- for <ltp@lists.linux.it>; Wed, 27 Sep 2023 22:21:26 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 305293CBA91
+ for <ltp@lists.linux.it>; Wed, 27 Sep 2023 22:21:27 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3E4C4200906
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E60091400BDD
  for <ltp@lists.linux.it>; Wed, 27 Sep 2023 22:21:26 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 06F601F88F;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7368A1F891;
  Wed, 27 Sep 2023 20:21:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1695846086; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4Fq/gZrXuZkYPH65/GvLpPXN0nU8eWTyaz/Bff20g4M=;
- b=B4EKQvHqdtu9GtWpwz2dymk0piFoaN+Mj97EvgAgKuLuFertDCPQPO+SaKZhqJNaZbs5eB
- +xB0mD+Jj0I5tatkQt/bErpeme+T3VrsnGNkDdQSa2as3SeTdwLAcWOiIF7WkWrxHHlMsJ
- pfKFwqRGy1IZIc4bdnopIvPzOLqL5Xs=
+ bh=gS2WKQwJZLmsZsa2+oX5QLx/ny8DNhL88Dn9i3Gif4E=;
+ b=hZo1ZF3bJ4B+IbRyuNB+IU4FFzh5hGHjtOVWx89O0liLd5KilD2hoqFi5Rt6X/2vLKlHyz
+ 3cHMsL7lcTb2Tu+Os5bS5nITa/Dq4QL/aoSbIF1Ay7CRKGddPl5kawaUVdv4J29w0ZedMs
+ dcDDGpzesXKqS87wyUAKHT63M2FHYOs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1695846086;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4Fq/gZrXuZkYPH65/GvLpPXN0nU8eWTyaz/Bff20g4M=;
- b=zJMIEX7bKthfnRbNAWs0NUIO2QvQSMVl2PdfmCTBGu8O3N4QxFhBWPQIaYRaoYq9OPRKZB
- EBWAP5C8iz6e6ZDg==
+ bh=gS2WKQwJZLmsZsa2+oX5QLx/ny8DNhL88Dn9i3Gif4E=;
+ b=b6Frz2xDqcxjUtFcDhlyYqSC9KjcAttBB3aE0WXdZKzSWAGycAGaGXKv5MKyCCEFNDMsh5
+ O18vdNWvngl1h7CQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8E34413479;
- Wed, 27 Sep 2023 20:21:25 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1181013479;
+ Wed, 27 Sep 2023 20:21:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +IB/IMWOFGWGewAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 27 Sep 2023 20:21:25 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4HMnAsaOFGWGewAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 27 Sep 2023 20:21:26 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 27 Sep 2023 22:21:18 +0200
-Message-Id: <20230927202121.300325-4-pvorel@suse.cz>
+Date: Wed, 27 Sep 2023 22:21:19 +0200
+Message-Id: <20230927202121.300325-5-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230927202121.300325-1-pvorel@suse.cz>
 References: <20230927202121.300325-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 3/6] doc: Rename files to names from ltp.wiki.git
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 4/6] doc: Add Release procedure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,110 +86,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Keeping the original extension from LTP wiki git brings:
-* add syntax highlight for editors
-* no need to add new file (only new extension)
+This slightly outdated document exists in LTP wiki, start versioning it
+in the original repository. The only unversioned file in the wiki is
+now Home.rest.
 
-Reviwed-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- .github/workflows/wiki-mirror.yml                | 16 +++-------------
- ...{build-system-guide.txt => Build-System.rest} |  0
- doc/{c-test-api.txt => C-Test-API.asciidoc}      |  0
- ...-simple.txt => C-Test-Case-Tutorial.asciidoc} |  0
- ...ork-c-api.txt => C-Test-Network-API.asciidoc} |  0
- doc/{kvm-test-api.txt => KVM-Test-API.asciidoc}  |  0
- ... LTP-Library-API-Writing-Guidelines.asciidoc} |  0
- ...> Maintainer-Patch-Review-Checklist.asciidoc} |  0
- ...hell-test-api.txt => Shell-Test-API.asciidoc} |  0
- ...ed-kernel,-libc,-toolchain-versions.asciidoc} |  0
- ...ines.txt => Test-Writing-Guidelines.asciidoc} |  0
- doc/{user-guide.txt => User-Guidelines.asciidoc} |  0
- 12 files changed, 3 insertions(+), 13 deletions(-)
- rename doc/{build-system-guide.txt => Build-System.rest} (100%)
- rename doc/{c-test-api.txt => C-Test-API.asciidoc} (100%)
- rename doc/{c-test-tutorial-simple.txt => C-Test-Case-Tutorial.asciidoc} (100%)
- rename doc/{network-c-api.txt => C-Test-Network-API.asciidoc} (100%)
- rename doc/{kvm-test-api.txt => KVM-Test-API.asciidoc} (100%)
- rename doc/{library-api-writing-guidelines.txt => LTP-Library-API-Writing-Guidelines.asciidoc} (100%)
- rename doc/{maintainer-patch-review-checklist.txt => Maintainer-Patch-Review-Checklist.asciidoc} (100%)
- rename doc/{shell-test-api.txt => Shell-Test-API.asciidoc} (100%)
- rename doc/{supported-kernel-libc-versions.txt => Supported-kernel,-libc,-toolchain-versions.asciidoc} (100%)
- rename doc/{test-writing-guidelines.txt => Test-Writing-Guidelines.asciidoc} (100%)
- rename doc/{user-guide.txt => User-Guidelines.asciidoc} (100%)
+ doc/LTP-Release-Procedure.asciidoc | 67 ++++++++++++++++++++++++++++++
+ 1 file changed, 67 insertions(+)
+ create mode 100644 doc/LTP-Release-Procedure.asciidoc
 
-diff --git a/.github/workflows/wiki-mirror.yml b/.github/workflows/wiki-mirror.yml
-index 883892bf5..2ac0caf74 100644
---- a/.github/workflows/wiki-mirror.yml
-+++ b/.github/workflows/wiki-mirror.yml
-@@ -38,20 +38,10 @@ jobs:
-           commit=$(git log --pretty=format:"%h (\"%s\")" -1 .)
- 
-           cd $GITHUB_WORKSPACE/ltp.wiki
--
--          # Don't forget to update this list, keep it sorted
--          cp -v $dir/c-test-api.txt C-Test-API.asciidoc
--          cp -v $dir/c-test-tutorial-simple.txt C-Test-Case-Tutorial.asciidoc
--          cp -v $dir/library-api-writing-guidelines.txt LTP-Library-API-Writing-Guidelines.asciidoc
--          cp -v $dir/maintainer-patch-review-checklist.txt Maintainer-Patch-Review-Checklist.asciidoc
--          cp -v $dir/network-c-api.txt C-Test-Network-API.asciidoc
--          cp -v $dir/shell-test-api.txt Shell-Test-API.asciidoc
--          cp -v $dir/supported-kernel-libc-versions.txt Supported-kernel,-libc,-toolchain-versions.asciidoc
--          cp -v $dir/test-writing-guidelines.txt Test-Writing-Guidelines.asciidoc
--          cp -v $dir/user-guide.txt User-Guidelines.asciidoc
--          cp -v $dir/kvm-test-api.txt KVM-Test-API.asciidoc
--
-+          # don't forget to add new extensions
-+          cp -v $dir/*.asciidoc $dir/*.rest .
-           git add .
+diff --git a/doc/LTP-Release-Procedure.asciidoc b/doc/LTP-Release-Procedure.asciidoc
+new file mode 100644
+index 000000000..cd7682fb8
+--- /dev/null
++++ b/doc/LTP-Release-Procedure.asciidoc
+@@ -0,0 +1,67 @@
++LTP Release Procedure
++=====================
 +
-           # only commit if there are changes
-           git diff-index --quiet HEAD -- || git commit -m "Update to $commit" .
-           git push
-diff --git a/doc/build-system-guide.txt b/doc/Build-System.rest
-similarity index 100%
-rename from doc/build-system-guide.txt
-rename to doc/Build-System.rest
-diff --git a/doc/c-test-api.txt b/doc/C-Test-API.asciidoc
-similarity index 100%
-rename from doc/c-test-api.txt
-rename to doc/C-Test-API.asciidoc
-diff --git a/doc/c-test-tutorial-simple.txt b/doc/C-Test-Case-Tutorial.asciidoc
-similarity index 100%
-rename from doc/c-test-tutorial-simple.txt
-rename to doc/C-Test-Case-Tutorial.asciidoc
-diff --git a/doc/network-c-api.txt b/doc/C-Test-Network-API.asciidoc
-similarity index 100%
-rename from doc/network-c-api.txt
-rename to doc/C-Test-Network-API.asciidoc
-diff --git a/doc/kvm-test-api.txt b/doc/KVM-Test-API.asciidoc
-similarity index 100%
-rename from doc/kvm-test-api.txt
-rename to doc/KVM-Test-API.asciidoc
-diff --git a/doc/library-api-writing-guidelines.txt b/doc/LTP-Library-API-Writing-Guidelines.asciidoc
-similarity index 100%
-rename from doc/library-api-writing-guidelines.txt
-rename to doc/LTP-Library-API-Writing-Guidelines.asciidoc
-diff --git a/doc/maintainer-patch-review-checklist.txt b/doc/Maintainer-Patch-Review-Checklist.asciidoc
-similarity index 100%
-rename from doc/maintainer-patch-review-checklist.txt
-rename to doc/Maintainer-Patch-Review-Checklist.asciidoc
-diff --git a/doc/shell-test-api.txt b/doc/Shell-Test-API.asciidoc
-similarity index 100%
-rename from doc/shell-test-api.txt
-rename to doc/Shell-Test-API.asciidoc
-diff --git a/doc/supported-kernel-libc-versions.txt b/doc/Supported-kernel,-libc,-toolchain-versions.asciidoc
-similarity index 100%
-rename from doc/supported-kernel-libc-versions.txt
-rename to doc/Supported-kernel,-libc,-toolchain-versions.asciidoc
-diff --git a/doc/test-writing-guidelines.txt b/doc/Test-Writing-Guidelines.asciidoc
-similarity index 100%
-rename from doc/test-writing-guidelines.txt
-rename to doc/Test-Writing-Guidelines.asciidoc
-diff --git a/doc/user-guide.txt b/doc/User-Guidelines.asciidoc
-similarity index 100%
-rename from doc/user-guide.txt
-rename to doc/User-Guidelines.asciidoc
++This page contains quick summary of what needs to be done to do a LTP release. It's expected that LTP git is frozen and git HEAD was properly tested and that LTP git tree is cloned to a directory named 'ltp'.
++
++NOTE: The string YYYYMMDD should be substituted to the current date.
++
++1. Tag the git
++--------------
++
++[source,sh]
++--------------------------------------------------------------------
++cd ltp
++echo YYYYMMDD > VERSION
++git commit -s -m 'LTP YYYYMMDD' VERSION
++git tag -a YYYYMMDD -m 'LTP YYYYMMDD'
++--------------------------------------------------------------------
++
++2. Push changes to github
++-------------------------
++[source,sh]
++--------------------------------------------------------------------
++git push
++git push --tags
++--------------------------------------------------------------------
++
++3. Prepare tarballs
++-------------------
++[source,sh]
++--------------------------------------------------------------------
++cd ..
++git clone ltp ltp-full-YYYYMMDD
++cd ltp-full-YYYYMMDD
++# Update mce-inject submodule
++git submodule init
++git submodule update
++# Generate configure script
++make autotools
++# Prepare the archives
++cd ..
++tar -cjf ltp-full-YYYYMMDD.tar.bz2 ltp-full-YYYYMMDD --exclude .git
++tar -cJf ltp-full-YYYYMMDD.tar.xz ltp-full-YYYYMMDD --exclude .git
++--------------------------------------------------------------------
++
++4. Upload the tarballs to GitHub
++--------------------------------
++
++Click on 'releases' then switch to 'tags' then click on 'Add release notes' there should be 'Attach binaries ...' link at the bottom of the page.
++
++Don't forget to upload md5 and sha-1 sums for the tarballs as well.
++
++5. Send release announcement
++----------------------------
++
++Have a look at http://sourceforge.net/p/ltp/mailman/message/34429656/ to get the idea how it should look.
++
++The announcement is send to:
++
++* ltp at lists.linux.it
++* linux-kernel at vger.kernel.org
++* libc-alpha at sourceware.org
++
++CCed to:
++
++* lwn at lwn.net
++* akpm at linux-foundation.org
++* torvalds at linux-foundation.org.
+\ No newline at end of file
 -- 
 2.40.1
 
