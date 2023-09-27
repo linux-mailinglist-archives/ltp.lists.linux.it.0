@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAC2E7B0D48
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 22:22:07 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 480FA7B0D44
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 22:21:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9A5573CE189
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 22:22:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E3FD83CE183
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Sep 2023 22:21:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
@@ -14,51 +14,51 @@ Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 73AE73CBA91
- for <ltp@lists.linux.it>; Wed, 27 Sep 2023 22:21:27 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id CAE943CBA91
+ for <ltp@lists.linux.it>; Wed, 27 Sep 2023 22:21:26 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C2DF31A00EAC
- for <ltp@lists.linux.it>; Wed, 27 Sep 2023 22:21:26 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 29E471A00E7F
+ for <ltp@lists.linux.it>; Wed, 27 Sep 2023 22:21:25 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 16FB21F37E;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7C1DF1F38C;
  Wed, 27 Sep 2023 20:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1695846085; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=mGPWp2luWhpj9l06v4FAZJwSZaqIT7TiNr2a5BkuQ2E=;
- b=pXnnc9sc391eZZVlTetT7MFT/HS5k7mvEXpxwXBE8g9JqEZtDS0rVHuQwNXt6gcnMZG9Iz
- RAsOfnhD5OZ1dwHlvVXu/KZD+auDdbpACe8dulh6ecFSzU3D1RNPPxIDhieo4cf08Jvob4
- l1WwfXBODR1BZ9sOuKHG05BJhumIQp4=
+ bh=a5PTLAn4fW7dngDLi8DEO9UtdtLyLSLECyt9HmuNdFI=;
+ b=vP7TLqm8S1fXllUA07nHb9wnQ+Z9GZ2SjSr8OvKEtmq59zC8+3HSQY0QeJuN7xW/KVKdeD
+ T16u7lOFa+JrtCUSNSQL1PPUvjUN+S2Ons/GaR7xuYAcebHVqDcQPHgFv6kAxw9GCxEasQ
+ vxAbbVcovG00HwLU5j8BIrveEPlOkaI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1695846085;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=mGPWp2luWhpj9l06v4FAZJwSZaqIT7TiNr2a5BkuQ2E=;
- b=BUfX4O1in6d6jZh0gGKly8dC/QAD0fXd0gOVY6LIG98KEbxy58mbvyE8czJ33sI7fvUj5p
- KqEI0hJljYTrFpDQ==
+ bh=a5PTLAn4fW7dngDLi8DEO9UtdtLyLSLECyt9HmuNdFI=;
+ b=ujdutGQnNSgbQ1abYsYwgwraEfuvIcAHjmDRl2lT6lmw7W12nDhwslyTwwSWlPH2CVxQAu
+ zPVogK9hfA5mWbCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AC90C13479;
- Wed, 27 Sep 2023 20:21:24 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2287513479;
+ Wed, 27 Sep 2023 20:21:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id qLg6KMSOFGWGewAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 27 Sep 2023 20:21:24 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id eJH5BsWOFGWGewAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 27 Sep 2023 20:21:25 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 27 Sep 2023 22:21:16 +0200
-Message-Id: <20230927202121.300325-2-pvorel@suse.cz>
+Date: Wed, 27 Sep 2023 22:21:17 +0200
+Message-Id: <20230927202121.300325-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230927202121.300325-1-pvorel@suse.cz>
 References: <20230927202121.300325-1-pvorel@suse.cz>
@@ -66,10 +66,11 @@ MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/6] tools: Add a script for tagging the release
+Subject: [LTP] [PATCH v2 2/6] tools: Add script for creating tarballs and
+ metadata
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,104 +90,74 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 A helper for new releases.
 
-Functions will be reused in another script (next commit).
-
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- tools/lib.sh         | 31 ++++++++++++++++++++++++++++++
- tools/tag-release.sh | 45 ++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 76 insertions(+)
- create mode 100755 tools/lib.sh
- create mode 100755 tools/tag-release.sh
+ tools/create-tarballs-metadata.sh | 56 +++++++++++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
+ create mode 100755 tools/create-tarballs-metadata.sh
 
-diff --git a/tools/lib.sh b/tools/lib.sh
+diff --git a/tools/create-tarballs-metadata.sh b/tools/create-tarballs-metadata.sh
 new file mode 100755
-index 000000000..c96433d28
+index 000000000..e7f93d5c0
 --- /dev/null
-+++ b/tools/lib.sh
-@@ -0,0 +1,31 @@
++++ b/tools/create-tarballs-metadata.sh
+@@ -0,0 +1,56 @@
 +#!/bin/sh
 +# Copyright (c) 2023 Petr Vorel <pvorel@suse.cz>
-+
-+ask()
-+{
-+	local msg="$1"
-+	local answer
-+
-+	printf "\n$msg. Proceed? [N/y]: "
-+	read answer
-+	case "$answer" in
-+		[Yy]*) : ;;
-+		*) exit 2
-+	esac
-+}
-+
-+quit()
-+{
-+	printf "\n$@\n" >&2
-+	exit 1
-+}
-+
-+rod()
-+{
-+	eval "$@" || quit "$@ failed"
-+}
-+
-+title()
-+{
-+	echo "===== $1 ====="
-+}
-diff --git a/tools/tag-release.sh b/tools/tag-release.sh
-new file mode 100755
-index 000000000..2967c7b4d
---- /dev/null
-+++ b/tools/tag-release.sh
-@@ -0,0 +1,45 @@
-+#!/bin/sh
-+# Copyright (c) 2023 Petr Vorel <pvorel@suse.cz>
-+# Tag LTP release.
++# Create tarballs and metadata for uploading after tagging release.
 +# https://github.com/linux-test-project/ltp/wiki/LTP-Release-Procedure
 +set -e
 +
-+upstream_git="linux-test-project/ltp"
 +tag="$(date +%Y%m%d)"
-+old_tag="$(git describe --abbrev=0)"
-+tag_msg="LTP $tag"
++tarball_dir="ltp-full-$tag"
++extensions="bz2 xz"
++checksums="md5 sha1 sha256"
++git_dir=$(cd $(dirname "$0")/..; pwd)
++dir="$(cd $git_dir/../; pwd)/ltp-release-$tag"
 +
 +. $(dirname "$0")/lib.sh
 +
-+cd $(dirname "$0")/..
-+
-+if ! git ls-remote --get-url origin | grep -q $upstream_git; then
-+	quit "Not an upstream project"
++if [ -d $dir ]; then
++	ask "Directory '$dir' exists, will be deleted"
++	rm -rf $dir
 +fi
++rod mkdir $dir
++cd $dir
++dir=$PWD
 +
-+if ! git --no-pager diff --exit-code; then
-+	quit "Please commit your changes before making new release"
-+fi
++# git clone (local)
++title "git clone"
++rod git clone $git_dir $tarball_dir
++rod cd $tarball_dir
 +
-+if git show $tag 2> /dev/null; then
-+	quit "Tag '$tag' already exists"
-+fi
++title "Update submodules"
++rod git submodule update --init
 +
-+if grep -q "$tag" VERSION; then
-+	quit "Tag '$tag' already in VERSION file"
-+fi
++title "Generate configure script"
++rod make autotools
 +
-+title "git tag"
-+echo "new tag: '$tag', previous tag: '$old_tag'"
-+echo "$tag" > VERSION
-+git add VERSION
-+rod git commit -S --signoff --message \"$tag_msg\" VERSION
-+rod git tag --sign --annotate $tag --message \"$tag_msg\"
-+git --no-pager show $tag --show-signature
++# tarballs, checksums
++title "Generate tarballs"
++cd ..
++rod tar --exclude .git -cjf $tarball_dir.tar.bz2 $tarball_dir
++rod tar --exclude .git -cJf $tarball_dir.tar.xz $tarball_dir
 +
-+ask "Please check tag and signature"
++title "Generate checksums"
++for alg in $checksums; do
++	for ext in $extensions; do
++		file="$tarball_dir.tar.$ext"
++		${alg}sum $file > "$file.$alg"
++	done
++done
 +
-+title "git push"
-+ask "Pushing changes to upstream git"
-+rod git push origin master:master
-+git push origin $tag
++# metadata documentation
++title "Generate metadata documentation"
++cd $tarball_dir
++rod ./configure --with-metadata-generator=asciidoctor
++rod make -C metadata
++cp -v docparse/metadata.html $dir/metadata.$tag.html
++
++echo "Generated files are in '$dir', upload them to github"
 -- 
 2.40.1
 
