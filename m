@@ -2,69 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4B827B2F8E
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Sep 2023 11:51:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFDB07B3026
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Sep 2023 12:28:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 931ED3CE0F8
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Sep 2023 11:51:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 470AC3CE0F8
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Sep 2023 12:28:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 094E23CBA26
- for <ltp@lists.linux.it>; Fri, 29 Sep 2023 11:51:48 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 2D9043C9943
+ for <ltp@lists.linux.it>; Fri, 29 Sep 2023 12:28:54 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 973D41400FA0
- for <ltp@lists.linux.it>; Fri, 29 Sep 2023 11:51:46 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A0932218E6;
- Fri, 29 Sep 2023 09:51:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1695981106;
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0839814060D2
+ for <ltp@lists.linux.it>; Fri, 29 Sep 2023 12:28:52 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 6341A1F390;
+ Fri, 29 Sep 2023 10:28:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1695983332;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type;
- bh=2mSvajXs/u299TQR/vl8udijxVbzNCOW2qMU41hxYb4=;
- b=q50G3asbHmAzxja6JMjQdjtO2wfyPavrJh+sLjDYoAl3s6FzvR7pOLQ1ieptOKA897NJQ0
- EGOmPa+8CXaGj4gKnz36/d4eWBV/ptrcKf/Df9D386W07YHHbsG0Kvl6UEU02D+1jJObwm
- P/oMZH86ZxagOfSnj7XNbokaVVVOSbM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1695981106;
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7hivdhfdbyRwCJ6145MLtql+jtOWGc4sz8qHYdoKALk=;
+ b=oQNgExhbP3ciP68+f1o59YcTEApgDiQbEyZ6m7W4Od6ycywaZY3qJQQh0Ocep6BwM9j5xs
+ RaAvDkZpNmiB9o6c8PwfjCrYOiz2iTKQtAIm915kvBURdAZzqB0S920xGxqsneXbuEbk0j
+ uxOZc+VuOJCl6j1QzRrdG8Dh4l9jHuw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1695983332;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type;
- bh=2mSvajXs/u299TQR/vl8udijxVbzNCOW2qMU41hxYb4=;
- b=tvpkGFUuvM/cGpi/g+GaNsZTzw85e+gKzLu6skn/+c1yVkb8iHr5iaBpxnPPaFsJVwFH7K
- novooDOjzpxWN6CQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7hivdhfdbyRwCJ6145MLtql+jtOWGc4sz8qHYdoKALk=;
+ b=D5/F8SxYl1Ml5imN27cTYamNvTEWvZEIgifEJEOFk1btBMUlUf9yZaEg9/964xFA3nl6Sx
+ 2AZlspLFZEwAvgBA==
+Received: from g78 (unknown [10.163.17.14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 371151390A;
- Fri, 29 Sep 2023 09:51:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id AVg2CzKeFmUaFgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 29 Sep 2023 09:51:46 +0000
-Date: Fri, 29 Sep 2023 11:51:44 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it, linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Message-ID: <20230929095144.GD364346@pevik>
+ by relay2.suse.de (Postfix) with ESMTPS id 1AE7D2C142;
+ Fri, 29 Sep 2023 10:28:52 +0000 (UTC)
+References: <20230902030354.14107-1-wegao@suse.com>
+ <20230904094501.17371-1-wegao@suse.com>
+User-agent: mu4e 1.10.7; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Wei Gao <wegao@suse.com>
+Date: Fri, 29 Sep 2023 11:27:34 +0100
+Organization: Linux Private Site
+In-reply-to: <20230904094501.17371-1-wegao@suse.com>
+Message-ID: <878r8pe0im.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
 X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] The Linux Test Project has been released for SEPTEMBER 2023
+Subject: Re: [LTP] [PATCH v3] splices06.c: Add splice check on proc files
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,192 +74,266 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: lwn@lwn.net, akpm@linux-foundation.org, torvalds@linux-foundation.org
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Good news everyone,
 
-the Linux Test Project test suite stable release for *September 2023* has been
-released.
+nit: still has typo in subject, but that can be fixed at merge.
 
-Since the last release 250 patches by 34 authors were merged, 14 authors were new.
+Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
 
-Patch review is what most of the projects struggle with and LTP is no
-different. If you can spare some effort helping with the patch review is more
-than welcomed.
+Wei Gao via ltp <ltp@lists.linux.it> writes:
 
-The release notes were prepared by Cyril Hrubis.
+> Signed-off-by: Wei Gao <wegao@suse.com>
+> ---
+>  testcases/kernel/syscalls/splice/splice06.c | 227 ++++++++++++++++++++
+>  1 file changed, 227 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/splice/splice06.c
+>
+> diff --git a/testcases/kernel/syscalls/splice/splice06.c b/testcases/kernel/syscalls/splice/splice06.c
+> new file mode 100644
+> index 000000000..3139d16db
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/splice/splice06.c
+> @@ -0,0 +1,227 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2023 SUSE LLC <wegao@suse.com>
+> + */
+> +
+> +/*\
+> + * [Description]
+> + *
+> + * This test is cover splice() on proc files.
+> + *
+> + */
+> +
+> +#define _GNU_SOURCE
+> +
+> +#include <stdio.h>
+> +#include <errno.h>
+> +#include <string.h>
+> +#include <signal.h>
+> +#include <sys/types.h>
+> +#include <fcntl.h>
+> +#include <ctype.h>
+> +
+> +#include "tst_test.h"
+> +#include "lapi/splice.h"
+> +
+> +#define BUF_SIZE 100
+> +#define PIPE_MAX_INIT_SIZE 65536
+> +#define PIPE_MAX_TEST_SIZE 4096
+> +#define DOMAIN_INIT_NAME "LTP_INIT"
+> +#define DOMAIN_TEST_NAME "LTP_TEST"
+> +#define INTEGER_PROCFILE "/proc/sys/fs/pipe-max-size"
+> +#define STRING_PROCFILE "/proc/sys/kernel/domainname"
+> +
+> +static void format_str(char *str)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < BUF_SIZE ; i++) {
+> +		if (!isdigit(str[i])) {
+> +			str[i] = '\0';
+> +			break;
+> +		}
+> +	}
+> +	if (i == BUF_SIZE)
+> +		tst_brk(TBROK, "can not find nonnumeric character from input string");
+> +}
+> +
+> +static int splice_read_num(const char *file)
+> +{
+> +	int pipes[2];
+> +	int fd_in;
+> +	int ret;
+> +	int num;
+> +	char buf[BUF_SIZE];
+> +
+> +	memset(buf, '\0', sizeof(buf));
+> +	fd_in = SAFE_OPEN(file, O_RDONLY);
+> +	SAFE_PIPE(pipes);
+> +
+> +	ret = splice(fd_in, NULL, pipes[1], NULL, BUF_SIZE - 1, 0);
+> +	if (ret < 0)
+> +		tst_brk(TBROK | TERRNO, "splice(fd_in, pipe) failed");
+> +
+> +	SAFE_READ(0, pipes[0], buf, BUF_SIZE);
+> +
+> +	/* Search for the first nonnumeric character and replace it with \0 */
+> +	format_str(buf);
+> +
+> +	if (tst_parse_int(buf, &num, 0, INT_MAX))
+> +		tst_brk(TBROK, "Invalid buffer num %s", buf);
+> +
+> +	SAFE_CLOSE(fd_in);
+> +	SAFE_CLOSE(pipes[0]);
+> +	SAFE_CLOSE(pipes[1]);
+> +
+> +	return num;
+> +}
+> +
+> +static char *splice_read_str(const char *file, char *dest)
+> +{
+> +	int pipes[2];
+> +	int fd_in;
+> +	int ret;
+> +
+> +	fd_in = SAFE_OPEN(file, O_RDONLY);
+> +	SAFE_PIPE(pipes);
+> +
+> +	ret = splice(fd_in, NULL, pipes[1], NULL, BUF_SIZE, 0);
+> +	if (ret < 0)
+> +		tst_brk(TBROK | TERRNO, "splice(fd_in, pipe) failed");
+> +
+> +	SAFE_READ(0, pipes[0], dest, BUF_SIZE);
+> +
+> +	SAFE_CLOSE(fd_in);
+> +	SAFE_CLOSE(pipes[0]);
+> +	SAFE_CLOSE(pipes[1]);
+> +
+> +	return dest;
+> +}
+> +
+> +
+> +static void splice_write_num(const char *file, int num)
+> +{
+> +	int pipes[2];
+> +	int fd_out;
+> +	int ret;
+> +	char buf[BUF_SIZE];
+> +
+> +	memset(buf, '\0', sizeof(buf));
+> +
+> +	fd_out = SAFE_OPEN(file, O_WRONLY, 0777);
+> +	SAFE_PIPE(pipes);
+> +	sprintf(buf, "%d", num);
+> +
+> +	SAFE_WRITE(SAFE_WRITE_ALL, pipes[1], buf, strlen(buf));
+> +
+> +	ret = splice(pipes[0], NULL, fd_out, NULL, BUF_SIZE, 0);
+> +	if (ret < 0)
+> +		tst_brk(TBROK | TERRNO, "splice write failed");
+> +
+> +	SAFE_CLOSE(fd_out);
+> +	SAFE_CLOSE(pipes[0]);
+> +	SAFE_CLOSE(pipes[1]);
+> +}
+> +
+> +static void splice_write_str(const char *file, char *dest)
+> +{
+> +	int pipes[2];
+> +	int fd_out;
+> +	int ret;
+> +
+> +	fd_out = SAFE_OPEN(file, O_WRONLY, 0777);
+> +	SAFE_PIPE(pipes);
+> +
+> +	SAFE_WRITE(SAFE_WRITE_ALL, pipes[1], dest, strlen(dest));
+> +
+> +	ret = splice(pipes[0], NULL, fd_out, NULL, BUF_SIZE, 0);
+> +	if (ret < 0)
+> +		tst_brk(TBROK | TERRNO, "splice write failed");
+> +
+> +	SAFE_CLOSE(fd_out);
+> +	SAFE_CLOSE(pipes[0]);
+> +	SAFE_CLOSE(pipes[1]);
+> +}
+> +
+> +static void file_write_num(const char *file, int num)
+> +{
+> +	SAFE_FILE_PRINTF(file, "%d", num);
+> +}
+> +
+> +static void file_write_str(const char *file, char *dest)
+> +{
+> +	SAFE_FILE_PRINTF(file, "%s", dest);
+> +}
+> +
+> +static int file_read_num(const char *file)
+> +{
+> +	int num;
+> +
+> +	SAFE_FILE_SCANF(file, "%d", &num);
+> +
+> +	return num;
+> +}
+> +
+> +static char *file_read_str(const char *file, char *dest)
+> +{
+> +	SAFE_FILE_SCANF(file, "%s", dest);
+> +	return dest;
+> +}
+> +
+> +static void splice_test(void)
+> +{
+> +
+> +	char buf_file[BUF_SIZE];
+> +	char buf_splice[BUF_SIZE];
+> +
+> +	if (file_read_num(INTEGER_PROCFILE) == splice_read_num(INTEGER_PROCFILE))
+> +		tst_res(TPASS, "Read num through splice correctly");
+> +	else
+> +		tst_brk(TBROK | TERRNO, "Read num through splice failed");
+> +
+> +	splice_write_num(INTEGER_PROCFILE, PIPE_MAX_TEST_SIZE);
+> +
+> +	if (file_read_num(INTEGER_PROCFILE) == PIPE_MAX_TEST_SIZE)
+> +		tst_res(TPASS, "Write num through splice correctly");
+> +	else
+> +		tst_brk(TBROK | TERRNO, "Write num through splice failed");
+> +
+> +	memset(buf_file, '\0', sizeof(buf_file));
+> +	memset(buf_splice, '\0', sizeof(buf_splice));
+> +
+> +	file_read_str(STRING_PROCFILE, buf_file);
+> +	splice_read_str(STRING_PROCFILE, buf_splice);
+> +
+> +	if (!strncmp(buf_file, buf_splice, strlen(buf_file)))
+> +		tst_res(TPASS, "Read string through splice correctly");
+> +	else
+> +		tst_brk(TBROK | TERRNO, "Read string through splice failed");
+> +
+> +	memset(buf_file, '\0', sizeof(buf_file));
+> +
+> +	splice_write_str(STRING_PROCFILE, DOMAIN_TEST_NAME);
+> +	file_read_str(STRING_PROCFILE, buf_file);
+> +
+> +	if (!strncmp(buf_file, DOMAIN_TEST_NAME, strlen(buf_file)))
+> +		tst_res(TPASS, "Write string through splice correctly");
+> +	else
+> +		tst_brk(TBROK | TERRNO, "Write string through splice failed");
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	file_write_str(STRING_PROCFILE, DOMAIN_INIT_NAME);
+> +	file_write_num(STRING_PROCFILE, PIPE_MAX_INIT_SIZE);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.min_kver = "5.11",
+> +	.setup = setup,
+> +	.test_all = splice_test,
+> +	.needs_tmpdir = 1,
+> +	.save_restore = (const struct tst_path_val[]) {
+> +		{INTEGER_PROCFILE, NULL, TST_SR_TCONF},
+> +		{STRING_PROCFILE, NULL, TST_SR_TCONF},
+> +		{}
+> +	},
+> +};
+> -- 
+> 2.35.3
 
-NOTABLE CHANGES
-===============
 
-* New tests
-  - epoll_wait07 for EPOLLONESHOT
-  - epoll_wait06 for EPOLLET
-  - epoll_wait05 for EPOLLRDHUP
-  - process_madvise01 for MADV_PAGEOUT
-  - faccessat201 basic faccessat2() test
-  - faccessat202 checks that the syscall fails correctly
-  - tcindex01 aka CVE-2023-1829
-  - mremap06 reproducer for
-    7e7757876f25 ("mm/mremap: fix vm_pgoff in vma_merge() case 3")
-  - starvation a simple test case for sched starvation
-    https://lwn.net/ml/linux-kernel/9fd2c37a05713c206dcbd5866f67ce779f315e9e.camel@gmx.de/
-  - pipe14 for end-of-file (read() returns 0) in a case the write end is closed
-  - statx12 basic test for STATX_ATTR_MOUNT_ROOT
-  - kvm_svm03 KVM test for CPU lockup through malicous SVM guest
-  - kvm_svm02 test that KVM correctly intercepts VMSAVE and VMLOAD instructions
-              in a nested virtual machine aka CVE-2021-3656
-  - statx11 a basic test for STATX_DIOALIGN on block device
-  - statx10 a basic test for STATX_DIOALIGN on regular file
-
-* Increased coverage
-  - fanotify13 added test variant for overalfs upper fs
-  - mmap05 increased coverage for EINVAL
-  - mmap06 increased coverage for EACCES
-  - bind03 now includes regression test for
-    c0c3b8d380a8 ("unix_bind_bsd(): unlink if we fail after successful mknod")
-  - stack_clash added test for mmap() minding gap
-
-* ebizzy benchmark counter increment races and overflows were fixed
-
-* A few more testcases were converted to guarded buffers
-  that is data passed by pointer to kernel are immediatelly
-  following a PROT_NONE page and followed by canaries
-  to catch off-by-one errors
-
-* Tests that modprobe kernel modules are now skipped when secure boot is
-  enabled on x86 and ppc64le
-
-* ioprio tests now use IOPRIO_PRIO_NUM instead of hardcoded value
-  to check for prio range
-
-* 35 testcases were converted to the new test library
-  - we finally got rid of the old and messy libclone library
-
-+ The usual amount of fixes and cleanups
-
-KIRK (previously RUNLTP-NG)
-===========================
-
-* The new runltp-ng version is now called kirk
-  - The name was changed since kirk now supports different testsuites as well
-  - Apart from the name changes the internals were rewritten and cleaned up
-  - Prototype for parallel testruns is included as well
-  - https://github.com/linux-test-project/kirk/#readme
-
-* There is now experimental LTX support implemented
-  - Beware this is _VERY EXPERIMENTAL_ at the moment
-  - LTX is tiny binary that runs on system under test
-  - LTX communicates with kirk over serial using messages packed in msgpack
-  - LTX is going to be locked in memory and executed with realtime priority
-  - LTX allows advanced features such as running tests in parallel
-  - https://github.com/linux-test-project/ltx
-
-REMOVED TESTS
-=============
-
-* mmap07 (included in mmap06)
-* setgroups04 (included in setgroups03)
-
-DOWNLOAD AND LINKS
-==================
-
-The latest version of the test-suite contains 3000+ tests for the Linux
-and can be downloaded at:
-
-https://github.com/linux-test-project/ltp/releases/tag/YYYYMMDD
-
-The project pages as well as GIT repository are hosted on GitHub:
-
-https://github.com/linux-test-project/ltp
-http://linux-test-project.github.io/
-
-If you ever wondered how to write a LTP testcase, don't miss our developer
-documentation at:
-
-https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines
-
-https://github.com/linux-test-project/ltp/wiki/C-Test-API
-
-https://github.com/linux-test-project/ltp/wiki/C-Test-Network-API
-
-https://github.com/linux-test-project/ltp/wiki/Shell-Test-API
-
-https://github.com/linux-test-project/ltp/wiki/C-Test-Case-Tutorial
-
-https://github.com/linux-test-project/ltp/wiki/Build-System
-
-Patches, new tests, bugs, comments or questions should go to to our mailing
-list at ltp@lists.linux.it.
-
-CREDITS
-=======
-
-Many thanks to the people contributing to this release:
-
-$ git shortlog -s -e -n 20230516..
-    71	Petr Vorel <pvorel@suse.cz>
-    32	Yang Xu <xuyang2018.jy@fujitsu.com>
-    26	Avinesh Kumar <akumar@suse.de>
-    22	Andrea Cervesato <andrea.cervesato@suse.com>
-    22	Martin Doucha <mdoucha@suse.cz>
-    13	Cyril Hrubis <chrubis@suse.cz>
-    13	Li Wang <liwang@redhat.com>
-     6	Wei Gao <wegao@suse.com>
-     5	Souta Kawahara <souta.kawahara@miraclelinux.com>
-     4	Amir Goldstein <amir73il@gmail.com>
-     4	Marius Kittler <mkittler@suse.de>
-     3	Richard Palethorpe <rpalethorpe@suse.com>
-     3	Ci Zhou <zhouci@ruijie.com.cn>
-     2	Damien Le Moal <dlemoal@kernel.org>
-     2	Jan Kara <jack@suse.cz>
-     2	Konstantin Khorenko <khorenko@virtuozzo.com>
-     2	Min Li <limin154@huawei.com>
-     2	Murphy Zhou <jencce.kernel@gmail.com>
-     2	Vishal Chourasia <vishalc@linux.ibm.com>
-     1	Ashwin Dayanand Kamat <kashwindayan@vmware.com>
-     1	Duncan.chu <wqhaicyj@163.com>
-     1	Dylan Jhong <dylan@andestech.com>
-     1	Edward Liaw <edliaw@google.com>
-     1	Hongchen Zhang <zhanghongchen@loongson.cn>
-     1	Jeff Layton <jlayton@kernel.org>
-     1	Leo Yu-Chi Liang <ycliang@andestech.com>
-     1	Nageswara R Sastry <rnsastry@linux.ibm.com>
-     1	Randolph <randolph@andestech.com>
-     1	Rick Edgecombe <rick.p.edgecombe@intel.com>
-     1	Shizhao Chen <shichen@redhat.com>
-     1	Takuya Wakazono <pastalian46@gmail.com>
-     1	Zachary Leaf <zachary.leaf@arm.com>
-     1	Li Qiang <liqiang64@huawei.com>
-     1	Ioannis Bonatakis <ybonatakis@suse.com>
-
-And also thanks to patch reviewers:
-
-$ git log 20230516.. | grep -Ei '(reviewed|acked)-by:' | sed 's/.*by: //' | sort | uniq -c | sort -n -r
-    104 Cyril Hrubis <chrubis@suse.cz>
-     66 Petr Vorel <pvorel@suse.cz>
-     46 Li Wang <liwang@redhat.com>
-     15 Martin Doucha <mdoucha@suse.cz>
-     14 Avinesh Kumar <akumar@suse.de>
-     14 Richard Palethorpe <rpalethorpe@suse.com>
-      8 Xiao Yang <yangx.jy@fujitsu.com>
-      3 Niklas Cassel <niklas.cassel@wdc.com>
-      3 Marius Kittler <mkittler@suse.de>
-      3 Damien Le Moal <dlemoal@kernel.org>
-      2 Srikar Dronamraju <srikar@linux.vnet.ibm.com>
-      2 Shrikanth Hegde <sshegde@linux.vnet.ibm.com>
-      2 Linus Walleij <linus.walleij@linaro.org>
-      2 Amir Goldstein <amir73il@gmail.com>
-      1 Yang Xu <xuyang2018.jy@fujitsu.com>
-      1 Vlastimil Babka <vbabka@suse.cz>
-      1 Murphy Zhou <jencce.kernel@gmail.com>
-      1 Jeff Moyer <jmoyer@redhat.com>
-      1 Andrea Cervesato <andrea.cervesato@suse.com>
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
