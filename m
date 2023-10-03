@@ -1,70 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 589467B6108
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Oct 2023 08:52:45 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C36447B65E7
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Oct 2023 11:51:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 26A8E3CC3B9
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Oct 2023 08:52:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2EDDD3CDC9E
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Oct 2023 11:51:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 07E9C3CB9E8
- for <ltp@lists.linux.it>; Tue,  3 Oct 2023 08:52:42 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 28FFB3CBF23
+ for <ltp@lists.linux.it>; Tue,  3 Oct 2023 11:51:50 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 538B91400E4E
- for <ltp@lists.linux.it>; Tue,  3 Oct 2023 08:52:41 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 495B521891
- for <ltp@lists.linux.it>; Tue,  3 Oct 2023 06:52:41 +0000 (UTC)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 374A51000365
+ for <ltp@lists.linux.it>; Tue,  3 Oct 2023 11:51:49 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 31AB61F45B
+ for <ltp@lists.linux.it>; Tue,  3 Oct 2023 09:51:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1696315961; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=nLKjFHtbk08XB9SIvUuIHXPd3DE5R88ebwY+7bnNWx4=;
- b=jAczsCK+Xda8c9+sPLdKCTKtpltw7/iSi0sKxefNiUwi/PKW4eW38K+auiXnLqxU25kLIB
- cw9CpwNrIbzntr4Oi0P+o/+hnkjGKVqFTX39sL1P9kmsnV3sWwg2Yxc7Y/FcMkk0pZlbgJ
- iAF0YM3akH1YW79pz4iI2OdOi8m/JvI=
+ t=1696326709;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=8q7Pam1GyA9i9xAEAZF9GVgbTRcBxCiLunHm2lLpjwQ=;
+ b=BnLqo6+aBfcGmgu4Ps/TaCQu0V1n5exZbs5iNZ53CXB/X6O/BlVr9gijXE02Y7lefTXv+J
+ MMOa01XZU4/8PCol7k0j2RXT6ru/womdMuYDTGOkFmeSJslMeVEtz4YkPtJRZB51vCKhLX
+ a065s5Bt7dxpojCgshy4QZGSydfmpBY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1696315961;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=nLKjFHtbk08XB9SIvUuIHXPd3DE5R88ebwY+7bnNWx4=;
- b=rNX24aDYazxBjcd8B5BXxkpqnNDreCeCs2BkIlWBto2CxkFHCUHlUV/+mza45q/IM42wxn
- 2zRYXhWxKaRONGDw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ s=susede2_ed25519; t=1696326709;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=8q7Pam1GyA9i9xAEAZF9GVgbTRcBxCiLunHm2lLpjwQ=;
+ b=Hr8+vpVKlD8LL/6SmBBDdmkYe0fY0Owiq7tNtxJ3xMadcXi9m3ot6nwdvoDMws5l1ZiOYF
+ NVkNJ0VVLU0ciWDQ==
+Received: from g78 (rpalethorpe.udp.ovpn2.prg.suse.de [10.100.204.110])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E1414139F9
- for <ltp@lists.linux.it>; Tue,  3 Oct 2023 06:52:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id /9NULDi6G2UICgAAMHmgww
- (envelope-from <akumar@suse.de>)
- for <ltp@lists.linux.it>; Tue, 03 Oct 2023 06:52:40 +0000
-From: Avinesh Kumar <akumar@suse.de>
-To: ltp@lists.linux.it
-Date: Tue,  3 Oct 2023 12:22:37 +0530
-Message-ID: <20231003065238.31896-1-akumar@suse.de>
-X-Mailer: git-send-email 2.42.0
+ by relay2.suse.de (Postfix) with ESMTPS id D1BD92C142;
+ Tue,  3 Oct 2023 09:51:48 +0000 (UTC)
+References: <20230901144433.2526-1-chrubis@suse.cz> <87cyxx2tna.fsf@suse.de>
+ <ZRqk47qqtquBw3XQ@yuki>
+User-agent: mu4e 1.10.7; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Tue, 03 Oct 2023 09:18:01 +0100
+Organization: Linux Private Site
+In-reply-to: <ZRqk47qqtquBw3XQ@yuki>
+Message-ID: <874jj82fuz.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH] doc: Correct the reference to kernel documentation
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] sched: add sched sysctl sanity test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,32 +74,60 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Avinesh Kumar <akumar@suse.de>
----
- doc/build-system-guide.txt | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hello,
 
-diff --git a/doc/build-system-guide.txt b/doc/build-system-guide.txt
-index e078fa7f7..95ba3b70e 100644
---- a/doc/build-system-guide.txt
-+++ b/doc/build-system-guide.txt
-@@ -112,7 +112,7 @@ the module because the file does not exists, the test is skipped.
- 
- Note the 'ifneq($(KERNELRELEASE),)', the reason it's there is that the
- Makefile is executed twice, once by LTP build system and once by kernel
--kbuild, see 'Documentation/kbuild/modules.txt' in the Linux kernel tree for
-+kbuild, see 'Documentation/kbuild/modules.rst' in the Linux kernel tree for
- details on external module build.
- 
- Make Rules and Make Variables
+Cyril Hrubis <chrubis@suse.cz> writes:
+
+> Hi!
+>> > +static void rt_runtime_us_einval(void)
+>> > +{
+>> > +	TST_EXP_FAIL(write(runtime_fd, "-2", 2), EINVAL,
+>> > +	             "echo -2 > "RT_RUNTIME_US);
+>> > +}
+>> 
+>> I would happily add my tags to the test except that as a general
+>> principal, I don't want to deal with tests that fail if an unexpected
+>> error number is returned.
+>> 
+>> Unless something can be done (e.g. with meta-data), so that TST_EXP_FAIL
+>> and similar can be reduced to a TCONF when the wrong errno is returned.
+>> 
+>> For instance, this would allow running the tests with a seccomp BPF
+>> profile, LSM, CGroup or /proc bind mount that blocks the write.
+>> 
+>> Or you could just seperate the tests I guess. Then the reset can be
+>> checked while skipping the errno checks.
+>
+> Hmm, so I guess that with LSM we are able to open these files R/W but we
+> can stil get EPERM from the write() right?
+
+Sorry, I thought there was an LSM hook in read, but AFAICT there is
+not. It's possible that another hook get's called
+(e.g. security_inode_getattr), but it's not immediately clear to me.
+
+This still leaves seccomp bpf, FUSE, kernel module, etc. whatever is
+mounted at /proc doesn't have to be the original file system. Container
+runtimes do something with /proc to filter it. This situation seems to
+get more complicated each year.
+
+> I'm reluctant to add wildcard
+> TCONF on any errno, but I guess that we can add a TST_EXP_FAIL macro
+> version that would have one errno for PASS and one errno for TCONF.
+
+I'm leaning increasingly towards partitioning the test, so that bits can
+be filtered out somehow. Then people can focus on the bits they really
+care about.
+
 -- 
-2.42.0
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
