@@ -1,74 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A5F07B6578
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Oct 2023 11:28:47 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC4337B6A5D
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Oct 2023 15:22:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1862B3CDC9E
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Oct 2023 11:28:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 383CB3CDBD1
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Oct 2023 15:22:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E13533CB9AC
- for <ltp@lists.linux.it>; Tue,  3 Oct 2023 11:28:41 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 6E1693CBA0D
+ for <ltp@lists.linux.it>; Tue,  3 Oct 2023 15:22:28 +0200 (CEST)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 189E4140051C
- for <ltp@lists.linux.it>; Tue,  3 Oct 2023 11:28:39 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 33F4F1F891;
- Tue,  3 Oct 2023 09:28:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1696325318;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yxXiTmTZ2zRheTJ1ptrNyLzUTQTGkXyLIQlQttnDOOE=;
- b=w6IfytFMDT4MGgEAao6Vn19Qqx/iEN5APz/tGbd/tDLj5Qc4jd90M9Xvu1hygVySZtp5R3
- uEbhZuq6WcX2IcGACOFZgQOJMuEx13VB2wsHc1+3FbKW6B10qu6uYPC1va0wKet44hIJOd
- C9h9MdO4zCMY19l5ccy+1ECJvXzO5yI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1696325318;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yxXiTmTZ2zRheTJ1ptrNyLzUTQTGkXyLIQlQttnDOOE=;
- b=HaZ8pmAk3RG/9ivMaGYXXdTQQY49+NjTHpF7CHU+JXPLwPPstqxHtreMA0za3Y1ixze3mB
- II4vcC0ValNJMoBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 01BED139F9;
- Tue,  3 Oct 2023 09:28:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id RRQ3OsXeG2XsTAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 03 Oct 2023 09:28:37 +0000
-Date: Tue, 3 Oct 2023 11:28:36 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20231003092836.GA1377250@pevik>
-References: <20231002174406.1146201-1-pvorel@suse.cz> <ZRvVgTZgwb7lCw6f@yuki>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2DAF4200227
+ for <ltp@lists.linux.it>; Tue,  3 Oct 2023 15:22:26 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id A73EB6121F;
+ Tue,  3 Oct 2023 13:22:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6DC5C433C7;
+ Tue,  3 Oct 2023 13:22:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1696339344;
+ bh=4HJ4lXE/gn+p/GC4BBOANqh3Tq17/zOiY/nqfu3N/6k=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=gYm+00vHtYYsOzjxMEN31pv5biGQGFgdy9kZQ4SIrfILcdj12L49OMRHb65vM0R9K
+ G4IAyXyzOMcB+N8VHE6potlovixV/fXKezOEqf+9kxoJB9N2LelIr+3HXCnaYZiHby
+ N+seD1jPInhKK3f6DpaUx7g+UMQYYEoMzTejIlFGFvcFdx4BFEQRyYuT9rlJdf+JXs
+ UA17Ycft9hXLUmPYFJwZjnt/e02+dsIPUA91GyMF/4ZqMSyPJxQUhpZzdJ88gYguuY
+ klo386RCZAkQVKXpiEBwHD2e0y8KMZ109amfC2/NtAl+F4hlQiSFW0BoIb2QkxCErC
+ eDDeFpiYBlSnQ==
+From: Christian Brauner <brauner@kernel.org>
+To: amir73il@gmail.com,
+	Reuben Hawkins <reubenhwk@gmail.com>
+Date: Tue,  3 Oct 2023 15:22:16 +0200
+Message-Id: <20231003-weglassen-anlassen-e42c8cc2db9a@brauner>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231003015704.2415-1-reubenhwk@gmail.com>
+References: <20231003015704.2415-1-reubenhwk@gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZRvVgTZgwb7lCw6f@yuki>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1220; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=4HJ4lXE/gn+p/GC4BBOANqh3Tq17/zOiY/nqfu3N/6k=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMaTKiDZbBzyNnBxbuIdFoTn7tvbd0O29u9l1Zvy7+E/S6ctp
+ 3+OTOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACbidoCRoeN64Tdt5p/nKzIVT0gG2l
+ maepUw1nVu3XHGassLlbNXDjIyLFitNl8j6JPXs2mPguzf3N3nU2Tn8rFq39fEtHXbas/e5wYA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] tools/kirk: Update to fix symlink for rpm
- packaging
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4] vfs: fix readahead(2) on block devices
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,22 +71,45 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: mszeredi@redhat.com, Christian Brauner <brauner@kernel.org>, lkp@intel.com,
+ willy@infradead.org, oe-lkp@lists.linux.dev, oliver.sang@intel.com,
+ viro@zeniv.linux.org.uk, linux-fsdevel@vger.kernel.org, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+On Mon, 02 Oct 2023 20:57:04 -0500, Reuben Hawkins wrote:
+> Readahead was factored to call generic_fadvise.  That refactor added an
+> S_ISREG restriction which broke readahead on block devices.
+> 
+> In addition to S_ISREG, this change checks S_ISBLK to fix block device
+> readahead.  There is no change in behavior with any file type besides block
+> devices in this change.
+> 
+> [...]
 
-> Sigh, the symlink should have been relative from the start.
-Yep. I'm sorry for introducing a trivial error.
+On vacation so just picking up smaller (hopefully obvious) stuff.
 
-Thanks for your review, merged.
+---
 
-Kind regards,
-Petr
+Applied to the vfs.misc branch of the vfs/vfs.git tree.
+Patches in the vfs.misc branch should appear in linux-next soon.
+
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.misc
+
+[1/1] vfs: fix readahead(2) on block devices
+      https://git.kernel.org/vfs/vfs/c/165bb7140aa4
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
