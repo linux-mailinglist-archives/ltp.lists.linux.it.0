@@ -2,72 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D0087B9BF8
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Oct 2023 11:00:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 412A87B9C3A
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Oct 2023 11:38:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BBA213CEFEC
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Oct 2023 11:00:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 10A503CDA77
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Oct 2023 11:38:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B4B243CB02B
- for <ltp@lists.linux.it>; Thu,  5 Oct 2023 11:00:37 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id B0DBF3CB5BA
+ for <ltp@lists.linux.it>; Thu,  5 Oct 2023 11:38:34 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EC39F14052EE
- for <ltp@lists.linux.it>; Thu,  5 Oct 2023 11:00:36 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id ED07321865;
- Thu,  5 Oct 2023 09:00:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1696496435;
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8389F208E1E
+ for <ltp@lists.linux.it>; Thu,  5 Oct 2023 11:38:33 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 690701F8C4;
+ Thu,  5 Oct 2023 09:38:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1696498712;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=wdNGLzXvqKNkNwiCbqjmtDAG8EiMKdAoGcKAqj4sq4M=;
- b=Zz5mUassrl+/CYnCoBspT085DSuQLpphI1tnxH8XofLpPZROF1WwESEk9zoyyTH5VR3uWl
- YA521WCLynIeq14eWeJ3fOzw2bv8Cd7n/+4gg2pv/R2V3Vry3+uSQgr2hscIKTLkozBSvB
- 9XCtJ5a15sio6IaicjILJvxXYEzX2Eo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1696496435;
+ bh=7UKbDpa6XkI0cO6yqRrlDxI6OUe/pJ/fqMQ5hjXaFrY=;
+ b=TsslkqBtxHVbaQE6YiLQkeurzTkckWz0iFPFyXW1vfCiPW/9poQuMS2DVaAXJgbad8ggGm
+ d8TSBITJAFrPLimtRvniMSd0Wklrlm4Bq5oNxN+W7/C5zfs1xX/2gX11zuDdk76tLIrG31
+ vbY9GtpXqw/ZzoGJnOdvDpgSHi3ngbk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1696498712;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=wdNGLzXvqKNkNwiCbqjmtDAG8EiMKdAoGcKAqj4sq4M=;
- b=SwIl8NgEtdKWQXH6fa+xmIDD3QAAXoKs3NraCir32vMfgtsCTk4Otds+kWMxh59SUMNv+T
- cb4aMejlOA1WIACQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=7UKbDpa6XkI0cO6yqRrlDxI6OUe/pJ/fqMQ5hjXaFrY=;
+ b=rWlIj6jIDiXV4Ggjdc4zOS/67UYF1/5N0i1fMwspa3Da4/GLmfPekWCZ53i73jOUZHd+mw
+ XvAF1KaGORpN46DQ==
+Received: from g78 (unknown [10.163.25.62])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CA063139C2;
- Thu,  5 Oct 2023 09:00:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id pb/JLzN7HmVZbwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 05 Oct 2023 09:00:35 +0000
-Date: Thu, 5 Oct 2023 11:00:34 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <20231005090034.GA102472@pevik>
-References: <20231004121149.30849-1-rpalethorpe@suse.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 241302C142;
+ Thu,  5 Oct 2023 09:38:32 +0000 (UTC)
+References: <20230905114157.4190-1-andrea.cervesato@suse.de>
+ <20230905114157.4190-3-andrea.cervesato@suse.de>
+User-agent: mu4e 1.10.7; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Thu, 05 Oct 2023 10:18:03 +0100
+Organization: Linux Private Site
+In-reply-to: <20230905114157.4190-3-andrea.cervesato@suse.de>
+Message-ID: <87il7l1ka2.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231004121149.30849-1-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] memcg: Account for pages in the per-cpu cache
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 2/2] Add gettid02 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,61 +75,109 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richie,
+Hello,
 
-[ Cc Li ]
+Andrea Cervesato <andrea.cervesato@suse.de> writes:
 
-> PAGESIZES is one greater than the batch size for charging pages from
-> the per CPU cache. So with MEM_TO_ALLOC=2*PAGESIZES we have two pages
-> that are below the threshold for being charged.
-
-> Sometimes something triggers a flush and the pages get charged to the
-> global counter anyway and the test passes. We have seen cases where
-> the test times out waiting for this to happen.
-
-> So this patch sets a lower bound to allow those cases to pass. It'll
-> probably speed the test up as well.
-
-LGTM.
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
-Kind regards,
-Petr
-
-> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> From: Andrea Cervesato <andrea.cervesato@suse.com>
+>
+> This new test is checking if gettid() is properly handling a
+> multi-threaded application, by assigning a different TID for each thread
+> which differs from the parent ID.
+>
+> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 > ---
->  .../controllers/memcg/functional/memcg_subgroup_charge.sh    | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+>  runtest/syscalls                            |  1 +
+>  testcases/kernel/syscalls/gettid/.gitignore |  1 +
+>  testcases/kernel/syscalls/gettid/Makefile   |  4 +-
+>  testcases/kernel/syscalls/gettid/gettid02.c | 68 +++++++++++++++++++++
+>  4 files changed, 73 insertions(+), 1 deletion(-)
+>  create mode 100644 testcases/kernel/syscalls/gettid/gettid02.c
+>
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index 4fb76584f..d50f5a3e9 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -537,6 +537,7 @@ getsockopt01 getsockopt01
+>  getsockopt02 getsockopt02
+>  
+>  gettid01 gettid01
+> +gettid02 gettid02
+>  
+>  gettimeofday01 gettimeofday01
+>  gettimeofday02 gettimeofday02
+> diff --git a/testcases/kernel/syscalls/gettid/.gitignore b/testcases/kernel/syscalls/gettid/.gitignore
+> index 78dce3499..9014f7c3a 100644
+> --- a/testcases/kernel/syscalls/gettid/.gitignore
+> +++ b/testcases/kernel/syscalls/gettid/.gitignore
+> @@ -1 +1,2 @@
+>  /gettid01
+> +/gettid02
+> diff --git a/testcases/kernel/syscalls/gettid/Makefile b/testcases/kernel/syscalls/gettid/Makefile
+> index 4e9982f76..5345eb0f5 100644
+> --- a/testcases/kernel/syscalls/gettid/Makefile
+> +++ b/testcases/kernel/syscalls/gettid/Makefile
+> @@ -10,7 +10,9 @@ top_srcdir		?= ../../../..
+>  include $(top_srcdir)/include/mk/testcases.mk
+>  
+>  ifeq ($(ANDROID), 1)
+> -FILTER_OUT_MAKE_TARGETS	+= gettid01
+> +FILTER_OUT_MAKE_TARGETS	+= gettid01 gettid02
+>  endif
+>  
+> +gettid02: LDLIBS += -lpthread
+> +
+>  include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> diff --git a/testcases/kernel/syscalls/gettid/gettid02.c b/testcases/kernel/syscalls/gettid/gettid02.c
+> new file mode 100644
+> index 000000000..c981d2b79
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/gettid/gettid02.c
+> @@ -0,0 +1,68 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+> + */
+> +/*\
+> + * [Description]
+> + *
+> + * This test spawns multiple threads, then check for each one of them if the
+> + * parent ID is different AND if the thread ID is different from all the other
+> + * spwaned threads.
+> + */
+> +
+> +#include "tst_test.h"
+> +#include "lapi/syscalls.h"
+> +#include "tst_safe_pthread.h"
+> +
+> +#define THREADS_NUM 10
+> +
+> +static pid_t tids[THREADS_NUM];
+> +
+> +static void *threaded(void *arg)
+> +{
+> +	int i = *(int *)arg;
+> +	pid_t pid, tid;
+> +
+> +	pid = getpid();
 
-> diff --git a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-> index 9bcc01258..3b7311422 100755
-> --- a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-> +++ b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-> @@ -33,8 +33,8 @@ test_subgroup()
->  	fi
+Maybe we could call __NR_getpid directly as well and compare it?
 
->  	echo $MEMCG_PROCESS_PID > tasks
-> -	signal_memcg_process $MEM_TO_ALLOC
-> -	check_mem_stat "rss" $MEM_TO_ALLOC
-> +	signal_memcg_process $MIN_CHARGED
-> +	check_mem_stat "rss" $MIN_CHARGED $MEM_TO_ALLOC
+Same reason as with other test; libc's like to be clever and cache this
+value. So maybe we are not testing the kernel here.
 
->  	cd subgroup
->  	echo $MEMCG_PROCESS_PID > tasks
-> @@ -66,5 +66,6 @@ test3()
+Otherwise LGTM.
 
->  # Allocate memory bigger than per-cpu kernel memory
->  MEM_TO_ALLOC=$((PAGESIZES * 2))
-> +MIN_CHARGED=$((2 * (PAGESIZES - 1)))
-
->  tst_run
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
