@@ -1,67 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 275E57BB5AF
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Oct 2023 12:53:07 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 677577BB914
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Oct 2023 15:30:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 68BAE3C894D
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Oct 2023 12:53:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1E2263C8B4E
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Oct 2023 15:30:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A44A13C2DA4
- for <ltp@lists.linux.it>; Fri,  6 Oct 2023 12:53:05 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 8EA0F3C98EB
+ for <ltp@lists.linux.it>; Thu,  5 Oct 2023 18:40:11 +0200 (CEST)
+Received: from mail-vs1-xe35.google.com (mail-vs1-xe35.google.com
+ [IPv6:2607:f8b0:4864:20::e35])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 49E40601BC5
- for <ltp@lists.linux.it>; Fri,  6 Oct 2023 12:53:03 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 03B111F895;
- Fri,  6 Oct 2023 10:53:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1696589583;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tTrmZY65HutMsZ8GrxmabqyZxIknX/HpQjzf9MBvnUI=;
- b=WsJuNWbvcPtuUc/MBNmVPEMp4KY8nT0U6asd306HDw8XhCZZE2Eah8sN5n86qvfOd9FlQu
- ecekK+nDZQjVwv58c7aSpdJTvix11Nn4CF+m8vHUtnVdW9Yu79u+YF9tkRrHHZi7ny+YK4
- rhAIEG/q9g5oZxAyXpWGlvLgEVHvgD4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1696589583;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tTrmZY65HutMsZ8GrxmabqyZxIknX/HpQjzf9MBvnUI=;
- b=vENqNG9qzkjXglPNw8++d5B9NOFUpXCAeeMzhKvD1Jskrdfd3MmB4emFGAbDIec1fMZmhx
- 5xGatQ43Pl6hDxCw==
-Received: from g78 (unknown [10.163.25.62])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id ADBD62C142;
- Fri,  6 Oct 2023 10:53:02 +0000 (UTC)
-References: <20230906080950.23155-1-andrea.cervesato@suse.de>
-User-agent: mu4e 1.10.7; emacs 29.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Fri, 06 Oct 2023 11:14:32 +0100
-Organization: Linux Private Site
-In-reply-to: <20230906080950.23155-1-andrea.cervesato@suse.de>
-Message-ID: <87a5sw10qb.fsf@suse.de>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 23FF620172B
+ for <ltp@lists.linux.it>; Thu,  5 Oct 2023 18:40:10 +0200 (CEST)
+Received: by mail-vs1-xe35.google.com with SMTP id
+ ada2fe7eead31-4528cba7892so592726137.0
+ for <ltp@lists.linux.it>; Thu, 05 Oct 2023 09:40:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1696524009; x=1697128809; darn=lists.linux.it;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2thL5ZLQW73WF1UYkoIC5cbGYf0wYlLtd79y60/Ixhs=;
+ b=juZm+Vml0mQ0Np4zfIZIZJs8RfKW+2sywL57XMfTNY0upOKz7Jj7oZ0I81dJ+UjooT
+ 6ofZNxSfMP8kBfMtwQPLzfd3WN6CoQOTxkXBmsdJ8FdPjKvuQvbJd32QG6AOP60S2Wkn
+ +72QdMdBq2fHUbrZXLkAPndRrv4+8ugtLWc3viOBEEuNwSsagP7Aji5M7OR6w3yDOjjv
+ tHhaRA3UpTV5PgMoA6ruLml6ADURm9vb4jB82ZnZOSTU7tUlI+Beqf8Jr2YBtCs0DzIq
+ d3l39866G8zxn/EnkF51H+YafVOMgU11w6z/VzSag5TDxPLokNULZmIiNeUWh/LlBkkb
+ VMpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696524009; x=1697128809;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2thL5ZLQW73WF1UYkoIC5cbGYf0wYlLtd79y60/Ixhs=;
+ b=Y6+NKzuvOjljE7ntv1oRJgeT7gw4CbyWXSYYWFoEWcK7eyBATev2nkBzm9Wdn0MfcK
+ HSnx5QyxgKgs/2fyNjQp5y2RhL3XfbCFVlHo0hhXaGoZJSzg5utOvnM5dCkWxwGob517
+ WJjyjUbgqx0U/VBnO28kOIHl/3UpJ+Y5mY7FVXdtnpp28I29ibUDdOD/D+zqZs1gf/wE
+ tIQQ+HWnN/xF19H//66QhrGpFzXesUe43UmEtB+iBVy8adS1bXIJ3bHIUt3ZSL81ItUM
+ nAO0MBFWMuPjnkwv5SSrMdGJOJ8rIbFEzS5UQL1BMxUki8w7aQcPOpOPLrL5RtU3zzCp
+ Z70w==
+X-Gm-Message-State: AOJu0YzLtM+wNelQYOJxA58D+zfE5RLHAsZtAkyhMW2daumR/d+4cNYg
+ gFORPLlnZUXmTaFwrD5YHUwNdc3jfWrcSP8jZCb6VQ==
+X-Google-Smtp-Source: AGHT+IGp+XVpQcjXnNjDev251fg85e0y40eaefH6LoORjDhsnCDOKiusiRkHPjF3o1dfGTYNLNGXfSFV1bgrV6Sbzd8=
+X-Received: by 2002:a67:ea4f:0:b0:44d:626b:94da with SMTP id
+ r15-20020a67ea4f000000b0044d626b94damr4990497vso.32.1696524008739; Thu, 05
+ Oct 2023 09:40:08 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+References: <20231004175217.404851126@linuxfoundation.org>
+In-Reply-To: <20231004175217.404851126@linuxfoundation.org>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Thu, 5 Oct 2023 22:09:57 +0530
+Message-ID: <CA+G9fYsqbZhSQnEi-qSc7n+4d7nPap8HWcdbZGWLfo3mTH-L7A@mail.gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-nfs@vger.kernel.org
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Refactor fork12 using new LTP API
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Mailman-Approved-At: Fri, 06 Oct 2023 15:30:10 +0200
+Subject: Re: [LTP] [PATCH 6.1 000/259] 6.1.56-rc1 review
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,260 +82,150 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: lkft-triage@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Olga Kornievskaia <kolga@netapp.com>, stable@vger.kernel.org, shuah@kernel.org,
+ f.fainelli@gmail.com, jonathanh@nvidia.com, patches@kernelci.org,
+ linux@roeck-us.net, srw@sladewatkins.net,
+ Richard Palethorpe <rpalethorpe@suse.com>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>,
+ LTP List <ltp@lists.linux.it>, Eryu Guan <eguan@redhat.com>, rwarsow@gmx.de,
+ pavel@denx.de, patches@lists.linux.dev, conor@kernel.org,
+ sudipm.mukherjee@gmail.com, Benjamin Coddington <bcodding@redhat.com>,
+ akpm@linux-foundation.org, torvalds@linux-foundation.org,
+ Anna Schumaker <Anna.Schumaker@netapp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-
-Andrea Cervesato <andrea.cervesato@suse.de> writes:
-
-> From: Andrea Cervesato <andrea.cervesato@suse.com>
->
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
-> ---
->  testcases/kernel/syscalls/fork/fork12.c | 177 +++++++++---------------
->  1 file changed, 62 insertions(+), 115 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/fork/fork12.c b/testcases/kernel/syscalls/fork/fork12.c
-> index 1c55c0c30..d8767859f 100644
-> --- a/testcases/kernel/syscalls/fork/fork12.c
-> +++ b/testcases/kernel/syscalls/fork/fork12.c
-> @@ -1,137 +1,84 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
->  /*
-> - *   Copyright (c) International Business Machines  Corp., 2001
-> - *
-> - *   This program is free software;  you can redistribute it and/or modify
-> - *   it under the terms of the GNU General Public License as published by
-> - *   the Free Software Foundation; either version 2 of the License, or
-> - *   (at your option) any later version.
-> - *
-> - *   This program is distributed in the hope that it will be useful,
-> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-> - *   the GNU General Public License for more details.
-> - *
-> - *   You should have received a copy of the GNU General Public License
-> - *   along with this program;  if not, write to the Free Software
-> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> - *
-> - *
-> - * NAME
-> - *	fork12.c
-> - *
-> - * DESCRIPTION
-> - *	Check that all children inherit parent's file descriptor
-> - *
-> - * ALGORITHM
-> - *	Parent forks processes until -1 is returned.$
-> - *
-> - * USAGE
-> - *	fork12
-> - *	** CAUTION ** Can hang your machine, esp prior to 2.4.19
-> - *
-> - * HISTORY
-> - *	07/2001 Ported by Wayne Boyer
-> - *	07/2002 Split from fork07 as a test case to exhaust available pids.
-> + * Copyright (c) International Business Machines  Corp., 2001
-> + *     07/2001 Ported by Wayne Boyer
-> + * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-> + */
-> +/*\
-> + *[Description]
->   *
-> - * RESTRICTIONS
-> - *	Should be run as root to avoid resource limits.$
-> - *	Should not be run with other test programs because it tries to
-> - *	  use all available pids.
-> + * This test spawns multiple processes inside a child, until fork() returns -1.
-> + * Then we check if EAGAIN is raised.
->   */
->  
-> -#include <stdio.h>
-> +#include <stdlib.h>
->  #include <sys/wait.h>
-> -#include <errno.h>
-> -#include <string.h>
-> -#include "test.h"
-> -#include "safe_macros.h"
-> -
-> -char *TCID = "fork12";
-> -int TST_TOTAL = 1;
-> +#include "tst_test.h"
->  
-> -static void setup(void);
-> -static void cleanup(void);
-> -static void fork12_sigs(int signum);
-> +static pid_t child_pid;
->  
-> -int main(int ac, char **av)
-> +static void start_forking(void)
->  {
-> -	int forks, pid1, fork_errno, waitstatus;
-> -	int ret, status;
-> -	int lc;
-> -
-> -	tst_parse_opts(ac, av, NULL, NULL);
-> -
-> -	setup();
-> -
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> -		tst_count = 0;
-> -
-> -		tst_resm(TINFO, "Forking as many kids as possible");
-> -		forks = 0;
-> -		while ((pid1 = fork()) != -1) {
-> -			if (pid1 == 0) {	/* child */
-> -				/*
-> -				 * Taunt the OOM killer so that it doesn't
-> -				 * kill system processes
-> -				 */
-> -				SAFE_FILE_PRINTF(NULL,
-> -					"/proc/self/oom_score_adj", "500");
-> -				pause();
-> -				exit(0);
-> -			}
-> -			forks++;
-> -			ret = SAFE_WAITPID(cleanup, -1, &status, WNOHANG);
-> -			if (ret > 0) {
-> -				/* a child may be killed by OOM killer */
-> -				if (WTERMSIG(status) == SIGKILL)
-> -					break;
-> -				tst_brkm(TBROK, cleanup,
-> -					 "child exit with error code %d or signal %d",
-> -					 WEXITSTATUS(status), WTERMSIG(status));
-> -			}
-> +	pid_t pid;
-> +	int status;
-> +	int forks = 1;
-> +
-> +	tst_res(TINFO, "Forking as many children as possible");
-> +
-> +	while (1) {
-> +		TEST(fork());
-> +		pid = TST_RET;
-> +
-> +		if (pid == -1)
-> +			break;
-> +
-> +		if (!pid) {
-> +			/*
-> +			 * Taunt the OOM killer so that it doesn't
-> +			 * kill system processes
-> +			 */
-> +			SAFE_FILE_PRINTF("/proc/self/oom_score_adj", "500");
-> +			pause();
-> +			exit(0);
->  		}
-> -		fork_errno = errno;
-> -
-> -		/* parent */
-> -		tst_resm(TINFO, "Number of processes forked is %d", forks);
-> -		tst_resm(TPASS, "fork() eventually failed with %d: %s",
-> -			 fork_errno, strerror(fork_errno));
-> -		/* collect our kids */
-> -		/*
-> -		 * Introducing a sleep(3) to make sure all children are
-> -		 * at pause() when SIGQUIT is sent to them
-> -		 */
-> -		sleep(3);
-> -		kill(0, SIGQUIT);
-> -		while (wait(&waitstatus) > 0) ;
->  
-> +		forks++;
-> +
-> +		if (SAFE_WAITPID(-1, &status, WNOHANG) > 0) {
-> +			tst_brk(TBROK, "child exit with error code %d or signal %d",
-> +					WEXITSTATUS(status),
-> +					WTERMSIG(status));
-> +		}
->  	}
->  
-> -	cleanup();
-> -	tst_exit();
-> +	tst_res(TINFO, "Number of processes forked is %d", forks);
-> +	TST_EXP_EXPR(TST_ERR == EAGAIN, "last fork() failed with
-> EAGAIN");
-
-I think it should at least accept ENOMEM as well.
-
->  }
->  
-> -static void setup(void)
-> +static void run(void)
->  {
-> -	tst_sig(FORK, fork12_sigs, cleanup);
-> -	TEST_PAUSE;
-> +	int status;
-> +
-> +	child_pid = SAFE_FORK();
-> +	if (!child_pid) {
-
-Maybe here we should start a new process group which we can kill later
-in cleanup.
-
-I guess you would call SAFE_SETPGID(0, 0) here.
-
-> +		start_forking();
-> +		return;
-> +	}
-> +
-> +	SAFE_WAIT(&status);
->  }
->  
->  static void cleanup(void)
->  {
-> -	int waitstatus;
-> +	kill(child_pid, 0);
->  
-> -	/* collect our kids */
-> -	kill(0, SIGQUIT);
-> -	while (wait(&waitstatus) > 0) ;
-> +	if (errno != ESRCH)
-
-Possibly errno is undefined if the call to kill was successful. Also
-there is a race here. You probably should just do an unconditional
-SIGKILL to all the children.
-
-If you have a process group as mentioned above, then you should be able
-to call kill(-child_pid, SIGKILL).
-
-> +		SAFE_KILL(child_pid, SIGKILL);
->  }
->  
-> -static void fork12_sigs(int signum)
-> -{
-> -	if (signum == SIGQUIT) {
-> -		/* Children will continue, parent will ignore */
-> -	} else {
-> -		tst_brkm(TBROK, cleanup,
-> -			 "Unexpected signal %d received.", signum);
-> -	}
-> -}
-> +static struct tst_test test = {
-> +	.test_all = run,
-> +	.cleanup = cleanup,
-> +	.forks_child = 1,
-> +	.max_runtime = 600,
-> +};
-> -- 
-> 2.35.3
-
-BTW, tests like this seem to cause containers to become unresponsive. If
-Kirk or LTX are running in the same container without any further
-isolation then we could use all the resources assigned to a container on
-forking. We can lock LTX in memory, but that still leaves CPU.
-
-Perhaps the test could reduce its own process and memory limit? e.g. with prlimit
-
-
--- 
-Thank you,
-Richard.
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gV2VkLCA0IE9jdCAyMDIzIGF0IDIzOjQxLCBHcmVnIEtyb2FoLUhhcnRtYW4KPGdyZWdraEBs
+aW51eGZvdW5kYXRpb24ub3JnPiB3cm90ZToKPgo+IFRoaXMgaXMgdGhlIHN0YXJ0IG9mIHRoZSBz
+dGFibGUgcmV2aWV3IGN5Y2xlIGZvciB0aGUgNi4xLjU2IHJlbGVhc2UuCj4gVGhlcmUgYXJlIDI1
+OSBwYXRjaGVzIGluIHRoaXMgc2VyaWVzLCBhbGwgd2lsbCBiZSBwb3N0ZWQgYXMgYSByZXNwb25z
+ZQo+IHRvIHRoaXMgb25lLiAgSWYgYW55b25lIGhhcyBhbnkgaXNzdWVzIHdpdGggdGhlc2UgYmVp
+bmcgYXBwbGllZCwgcGxlYXNlCj4gbGV0IG1lIGtub3cuCj4KPiBSZXNwb25zZXMgc2hvdWxkIGJl
+IG1hZGUgYnkgRnJpLCAwNiBPY3QgMjAyMyAxNzo1MToxMiArMDAwMC4KPiBBbnl0aGluZyByZWNl
+aXZlZCBhZnRlciB0aGF0IHRpbWUgbWlnaHQgYmUgdG9vIGxhdGUuCj4KPiBUaGUgd2hvbGUgcGF0
+Y2ggc2VyaWVzIGNhbiBiZSBmb3VuZCBpbiBvbmUgcGF0Y2ggYXQ6Cj4gICAgICAgICBodHRwczov
+L3d3dy5rZXJuZWwub3JnL3B1Yi9saW51eC9rZXJuZWwvdjYueC9zdGFibGUtcmV2aWV3L3BhdGNo
+LTYuMS41Ni1yYzEuZ3oKPiBvciBpbiB0aGUgZ2l0IHRyZWUgYW5kIGJyYW5jaCBhdDoKPiAgICAg
+ICAgIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC9zdGFibGUv
+bGludXgtc3RhYmxlLXJjLmdpdCBsaW51eC02LjEueQo+IGFuZCB0aGUgZGlmZnN0YXQgY2FuIGJl
+IGZvdW5kIGJlbG93Lgo+Cj4gdGhhbmtzLAo+Cj4gZ3JlZyBrLWgKClJlc3VsdHMgZnJvbSBMaW5h
+cm/igJlzIHRlc3QgZmFybS4KUmVncmVzc2lvbnMgb24gYXJtNjQgYmNtMjcxMS1ycGktNC1iIGRl
+dmljZSBydW5uaW5nIExUUCBkaW8gdGVzdHMgb24KTkZTIG1vdW50ZWQgcm9vdGZzLgphbmQgTFRQ
+IGh1Z2V0bGIgaHVnZW1tYXAxMSB0ZXN0IGNhc2UgZmFpbGVkIG9uIHg4NiBhbmQgYXJtNjQgYmNt
+MjcxMS1ycGktNC1iLgoKUmVwb3J0ZWQtYnk6IExpbnV4IEtlcm5lbCBGdW5jdGlvbmFsIFRlc3Rp
+bmcgPGxrZnRAbGluYXJvLm9yZz4KCkxUUCBodWdldGxiIHRlc3RzIGZhaWxlZCBsb2cKICB0c3Rf
+aHVnZXBhZ2UuYzo4MzogVElORk86IDEgaHVnZXBhZ2UocykgcmVzZXJ2ZWQKICB0c3RfdGVzdC5j
+OjE1NTg6IFRJTkZPOiBUaW1lb3V0IHBlciBydW4gaXMgMGggMDVtIDAwcwogIGh1Z2VtbWFwMTEu
+Yzo0NzogVEZBSUw6IE1lbW9yeSBtaXNtYXRjaCBhZnRlciBEaXJlY3QtSU8gd3JpdGUKCkxUUCBk
+aW8gdGVzdHMgZmFpbGVkIGxvZwogIGNvbXBhcmVfZmlsZTogY2hhciBtaXNtYXRjaDogaW5maWxl
+IG9mZnNldCA0MDk2OiAweDAxIC4gICBvdXRmaWxlCm9mZnNldCA0MDk2OiAweDAwIC4KICBkaW90
+ZXN0MDEgICAgMSAgVEZBSUwgIDogIGRpb3Rlc3QxLmM6MTU4OiBmaWxlIGNvbXBhcmUgZmFpbGVk
+IGZvcgppbmZpbGUgYW5kIG91dGZpbGUKCiMjIEJ1aWxkCioga2VybmVsOiA2LjEuNTYtcmMxCiog
+Z2l0OiBodHRwczovL2dpdGxhYi5jb20vTGluYXJvL2xrZnQvbWlycm9ycy9zdGFibGUvbGludXgt
+c3RhYmxlLXJjCiogZ2l0IGJyYW5jaDogbGludXgtNi4xLnkKKiBnaXQgY29tbWl0OiAwMzUzYTdi
+ZmQyYjYwYzVlNDJjODY1MWViM2ZhNGNjNDgxNTlkYjVmCiogZ2l0IGRlc2NyaWJlOiB2Ni4xLjU1
+LTI2MC1nMDM1M2E3YmZkMmI2CiogdGVzdCBkZXRhaWxzOgpodHRwczovL3FhLXJlcG9ydHMubGlu
+YXJvLm9yZy9sa2Z0L2xpbnV4LXN0YWJsZS1yYy1saW51eC02LjEueS9idWlsZC92Ni4xLjU1LTI2
+MC1nMDM1M2E3YmZkMmI2CgojIyBUZXN0IFJlZ3Jlc3Npb25zIChjb21wYXJlZCB0byB2Ni4xLjU1
+KQoqIHg4Nl82NC1jbGFuZywgbHRwLWh1Z2V0bGIKKiBiY20yNzExLXJwaS00LWIsIGx0cC1odWdl
+dGxiCiogYmNtMjcxMS1ycGktNC1iLWNsYW5nLCBsdHAtaHVnZXRsYgoqIGJjbTI3MTEtcnBpLTQt
+Yi02NGtfcGFnZV9zaXplLCBsdHAtaHVnZXRsYgogIC0gaHVnZW1tYXAxMQoKVGVzdCBsb2c6Ci0t
+LS0tLS0tCiAgdHN0X2h1Z2VwYWdlLmM6ODM6IFRJTkZPOiAxIGh1Z2VwYWdlKHMpIHJlc2VydmVk
+CiAgdHN0X3Rlc3QuYzoxNTU4OiBUSU5GTzogVGltZW91dCBwZXIgcnVuIGlzIDBoIDA1bSAwMHMK
+ICBodWdlbW1hcDExLmM6NDc6IFRGQUlMOiBNZW1vcnkgbWlzbWF0Y2ggYWZ0ZXIgRGlyZWN0LUlP
+IHdyaXRlCgpMaW5rczoKICAtIGh0dHBzOi8vcWEtcmVwb3J0cy5saW5hcm8ub3JnL2xrZnQvbGlu
+dXgtc3RhYmxlLXJjLWxpbnV4LTYuMS55L2J1aWxkL3Y2LjEuNTUtMjYwLWcwMzUzYTdiZmQyYjYv
+dGVzdHJ1bi8yMDI1OTYzOS9zdWl0ZS9sdHAtaHVnZXRsYi90ZXN0L2h1Z2VtbWFwMTEvbG9nCiAg
+LSBodHRwczovL3FhLXJlcG9ydHMubGluYXJvLm9yZy9sa2Z0L2xpbnV4LXN0YWJsZS1yYy1saW51
+eC02LjEueS9idWlsZC92Ni4xLjU1LTI2MC1nMDM1M2E3YmZkMmI2L3Rlc3RydW4vMjAyNjA0NTcv
+c3VpdGUvbHRwLWh1Z2V0bGIvdGVzdC9odWdlbW1hcDExL2hpc3RvcnkvCgoqIGJjbTI3MTEtcnBp
+LTQtYiwgbHRwLWRpbwoqIGJjbTI3MTEtcnBpLTQtYi1jbGFuZywgbHRwLWRpbwoqIGJjbTI3MTEt
+cnBpLTQtYi02NGtfcGFnZV9zaXplLCBsdHAtZGlvCiAgLSBkaW8wMQogIC0gZGlvMDIKICAtIGRp
+bzAzCiAgLSBkaW8wNQogIC0gZGlvMDYKICAtIGRpbzA3CiAgLSBkaW8wOAogIC0gZGlvMDkKICAt
+IGRpbzExCgpUZXN0IGxvZzoKLS0tLS0tLS0KICBjb21wYXJlX2ZpbGU6IGNoYXIgbWlzbWF0Y2g6
+IGluZmlsZSBvZmZzZXQgNDA5NjogMHgwMSAuICAgb3V0ZmlsZQpvZmZzZXQgNDA5NjogMHgwMCAu
+CiAgZGlvdGVzdDAxICAgIDEgIFRGQUlMICA6ICBkaW90ZXN0MS5jOjE1ODogZmlsZSBjb21wYXJl
+IGZhaWxlZCBmb3IKaW5maWxlIGFuZCBvdXRmaWxlCiAgYnVmY21wOiBvZmZzZXQgMDogRXhwZWN0
+ZWQ6IDB4MSwgZ290IDB4MAogIGJ1ZmNtcDogb2Zmc2V0IDA6IEV4cGVjdGVkOiAweDEsIGdvdCAw
+eDAKICBkaW90ZXN0MDIgICAgMSAgVFBBU1MgIDogIFJlYWQgd2l0aCBEaXJlY3QgSU8sIFdyaXRl
+IHdpdGhvdXQKICBkaW90ZXN0MDIgICAgMiAgVEZBSUwgIDogIGRpb3Rlc3QyLmM6MTE5OiByZWFk
+L3dyaXRlIGNvbXBhcmlzaW9uIGZhaWxlZAogIGRpb3Rlc3QwMiAgICAzICBURkFJTCAgOiAgZGlv
+dGVzdDIuYzoyMTA6IFdyaXRlIHdpdGggRGlyZWN0IElPLCBSZWFkIHdpdGhvdXQKICBkaW90ZXN0
+MDIgICAgNCAgVEZBSUwgIDogIGRpb3Rlc3QyLmM6MTE5OiByZWFkL3dyaXRlIGNvbXBhcmlzaW9u
+IGZhaWxlZAogIGRpb3Rlc3QwMiAgICA1ICBURkFJTCAgOiAgZGlvdGVzdDIuYzoyMzE6IFJlYWQs
+IFdyaXRlIHdpdGggRGlyZWN0IElPCiAgZGlvdGVzdDAyICAgIDAgIFRJTkZPICA6ICAyLzMgdGVz
+dGJsb2NrcyBmYWlsZWQKICBidWZjbXA6IG9mZnNldCAwOiBFeHBlY3RlZDogMHgxLCBnb3QgMHgw
+CiAgZGlvdGVzdDAzICAgIDEgIFRQQVNTICA6ICBSZWFkIHdpdGggRGlyZWN0IElPLCBXcml0ZSB3
+aXRob3V0CiAgZGlvdGVzdDAzICAgIDIgIFRGQUlMICA6ICBkaW90ZXN0My5jOjEzNjogY29tcGFy
+c2lvbiBmYWlsZWQ7IGNoaWxkPTAgb2Zmc2V0PTAKICBkaW90ZXN0MDMgICAgMyAgVEZBSUwgIDog
+IGRpb3Rlc3QzLmM6MTg5OiBXcml0ZSBEaXJlY3QtY2hpbGQgMCBmYWlsZWQKICBidWZjbXA6IG9m
+ZnNldCAwOiBFeHBlY3RlZDogMHgxLCBnb3QgMHgwCiAgZGlvdGVzdDAzICAgIDEgIFRQQVNTICA6
+ICBSZWFkIHdpdGggRGlyZWN0IElPLCBXcml0ZSB3aXRob3V0CiAgZGlvdGVzdDAzICAgIDIgIFRG
+QUlMICA6ICBkaW90ZXN0My5jOjMwNjogV3JpdGUgd2l0aCBEaXJlY3QgSU8sIFJlYWQgd2l0aG91
+dAogIGRpb3Rlc3QwMyAgICAzICBURkFJTCAgOiAgZGlvdGVzdDMuYzoxMzY6IGNvbXBhcnNpb24g
+ZmFpbGVkOyBjaGlsZD0wIG9mZnNldD0wCiAgZGlvdGVzdDAzICAgIDQgIFRGQUlMICA6ICBkaW90
+ZXN0My5jOjIxMDogUkRXUiBEaXJlY3QtY2hpbGQgMCBmYWlsZWQKICBkaW90ZXN0MDMgICAgMSAg
+VFBBU1MgIDogIFJlYWQgd2l0aCBEaXJlY3QgSU8sIFdyaXRlIHdpdGhvdXQKICBkaW90ZXN0MDMg
+ICAgMiAgVEZBSUwgIDogIGRpb3Rlc3QzLmM6MzA2OiBXcml0ZSB3aXRoIERpcmVjdCBJTywgUmVh
+ZCB3aXRob3V0CiAgZGlvdGVzdDAzICAgIDMgIFRGQUlMICA6ICBkaW90ZXN0My5jOjMyMzogUmVh
+ZCwgV3JpdGUgd2l0aCBEaXJlY3QgSU8KICAuLi4KICBkaW90ZXN0MDUgICAgMSAgVFBBU1MgIDog
+IFJlYWQgd2l0aCBEaXJlY3QgSU8sIFdyaXRlIHdpdGhvdXQKICBkaW90ZXN0MDUgICAgMiAgVEZB
+SUwgIDogIGRpb3Rlc3Q1LmM6MTQxOiByZWFkdi93cml0ZXYgY29tcGFyaXNpb24gZmFpbGVkCiAg
+ZGlvdGVzdDA1ICAgIDMgIFRGQUlMICA6ICBkaW90ZXN0NS5jOjI1MDogV3JpdGUgd2l0aCBEaXJl
+Y3QgSU8sIFJlYWQgd2l0aG91dAogIGRpb3Rlc3QwNSAgICA0ICBURkFJTCAgOiAgZGlvdGVzdDUu
+YzoxNDE6IHJlYWR2L3dyaXRldiBjb21wYXJpc2lvbiBmYWlsZWQKICBkaW90ZXN0MDUgICAgNSAg
+VEZBSUwgIDogIGRpb3Rlc3Q1LmM6MjcxOiBSZWFkLCBXcml0ZSB3aXRoIERpcmVjdCBJTwogIGRp
+b3Rlc3QwNSAgICAwICBUSU5GTyAgOiAgMi8zIHRlc3RibG9ja3MgZmFpbGVkCgpMaW5rczoKICAt
+IGh0dHBzOi8vbGtmdC52YWxpZGF0aW9uLmxpbmFyby5vcmcvc2NoZWR1bGVyL2pvYi82ODQyMTc3
+I0wxNjY2CiAgLSBodHRwczovL3FhLXJlcG9ydHMubGluYXJvLm9yZy9sa2Z0L2xpbnV4LXN0YWJs
+ZS1yYy1saW51eC02LjEueS9idWlsZC92Ni4xLjU1LTI2MC1nMDM1M2E3YmZkMmI2L3Rlc3RydW4v
+MjAyNjAzODkvc3VpdGUvbHRwLWRpby90ZXN0L2RpbzAxL2hpc3RvcnkvCgojIyBNZXRyaWMgUmVn
+cmVzc2lvbnMgKGNvbXBhcmVkIHRvIHY2LjEuNTUpCgojIyBUZXN0IEZpeGVzIChjb21wYXJlZCB0
+byB2Ni4xLjU1KQoKIyMgTWV0cmljIEZpeGVzIChjb21wYXJlZCB0byB2Ni4xLjU1KQoKIyMgVGVz
+dCByZXN1bHQgc3VtbWFyeQp0b3RhbDogMTIxMTY2LCBwYXNzOiAxMDI1ODIsIGZhaWw6IDIyMzQs
+IHNraXA6IDE2MTc3LCB4ZmFpbDogMTczCgojIyBCdWlsZCBTdW1tYXJ5CiogYXJjOiA0IHRvdGFs
+LCA0IHBhc3NlZCwgMCBmYWlsZWQKKiBhcm06IDE0MCB0b3RhbCwgMTQwIHBhc3NlZCwgMCBmYWls
+ZWQKKiBhcm02NDogNDkgdG90YWwsIDQ5IHBhc3NlZCwgMCBmYWlsZWQKKiBpMzg2OiAzMyB0b3Rh
+bCwgMzMgcGFzc2VkLCAwIGZhaWxlZAoqIG1pcHM6IDI0IHRvdGFsLCAyNCBwYXNzZWQsIDAgZmFp
+bGVkCiogcGFyaXNjOiAzIHRvdGFsLCAzIHBhc3NlZCwgMCBmYWlsZWQKKiBwb3dlcnBjOiAzNCB0
+b3RhbCwgMzQgcGFzc2VkLCAwIGZhaWxlZAoqIHJpc2N2OiAxMiB0b3RhbCwgMTIgcGFzc2VkLCAw
+IGZhaWxlZAoqIHMzOTA6IDEyIHRvdGFsLCAxMiBwYXNzZWQsIDAgZmFpbGVkCiogc2g6IDExIHRv
+dGFsLCAxMSBwYXNzZWQsIDAgZmFpbGVkCiogc3BhcmM6IDYgdG90YWwsIDYgcGFzc2VkLCAwIGZh
+aWxlZAoqIHg4Nl82NDogNDAgdG90YWwsIDQwIHBhc3NlZCwgMCBmYWlsZWQKCiMjIFRlc3Qgc3Vp
+dGVzIHN1bW1hcnkKKiBib290Cioga3NlbGZ0ZXN0LWFuZHJvaWQKKiBrc2VsZnRlc3QtYXJtNjQK
+KiBrc2VsZnRlc3QtYnJlYWtwb2ludHMKKiBrc2VsZnRlc3QtY2FwYWJpbGl0aWVzCioga3NlbGZ0
+ZXN0LWNncm91cAoqIGtzZWxmdGVzdC1jbG9uZTMKKiBrc2VsZnRlc3QtY29yZQoqIGtzZWxmdGVz
+dC1jcHUtaG90cGx1ZwoqIGtzZWxmdGVzdC1jcHVmcmVxCioga3NlbGZ0ZXN0LWRyaXZlcnMtZG1h
+LWJ1ZgoqIGtzZWxmdGVzdC1lZml2YXJmcwoqIGtzZWxmdGVzdC1leGVjCioga3NlbGZ0ZXN0LWZp
+bGVzeXN0ZW1zCioga3NlbGZ0ZXN0LWZpbGVzeXN0ZW1zLWJpbmRlcmZzCioga3NlbGZ0ZXN0LWZp
+bGVzeXN0ZW1zLWVwb2xsCioga3NlbGZ0ZXN0LWZpcm13YXJlCioga3NlbGZ0ZXN0LWZwdQoqIGtz
+ZWxmdGVzdC1mdHJhY2UKKiBrc2VsZnRlc3QtZnV0ZXgKKiBrc2VsZnRlc3QtZ3BpbwoqIGtzZWxm
+dGVzdC1pbnRlbF9wc3RhdGUKKiBrc2VsZnRlc3QtaXBjCioga3NlbGZ0ZXN0LWlyCioga3NlbGZ0
+ZXN0LWtjbXAKKiBrc2VsZnRlc3Qta2V4ZWMKKiBrc2VsZnRlc3Qta3ZtCioga3NlbGZ0ZXN0LWxp
+YgoqIGtzZWxmdGVzdC1tZW1iYXJyaWVyCioga3NlbGZ0ZXN0LW1lbWZkCioga3NlbGZ0ZXN0LW1l
+bW9yeS1ob3RwbHVnCioga3NlbGZ0ZXN0LW1pbmNvcmUKKiBrc2VsZnRlc3QtbW91bnQKKiBrc2Vs
+ZnRlc3QtbXF1ZXVlCioga3NlbGZ0ZXN0LW5ldAoqIGtzZWxmdGVzdC1uZXQtZm9yd2FyZGluZwoq
+IGtzZWxmdGVzdC1uZXQtbXB0Y3AKKiBrc2VsZnRlc3QtbmV0ZmlsdGVyCioga3NlbGZ0ZXN0LW5z
+ZnMKKiBrc2VsZnRlc3Qtb3BlbmF0MgoqIGtzZWxmdGVzdC1waWRfbmFtZXNwYWNlCioga3NlbGZ0
+ZXN0LXBpZGZkCioga3NlbGZ0ZXN0LXByb2MKKiBrc2VsZnRlc3QtcHN0b3JlCioga3NlbGZ0ZXN0
+LXB0cmFjZQoqIGtzZWxmdGVzdC1yc2VxCioga3NlbGZ0ZXN0LXJ0YwoqIGtzZWxmdGVzdC1zZWNj
+b21wCioga3NlbGZ0ZXN0LXNpZ2FsdHN0YWNrCioga3NlbGZ0ZXN0LXNpemUKKiBrc2VsZnRlc3Qt
+c3BsaWNlCioga3NlbGZ0ZXN0LXN0YXRpY19rZXlzCioga3NlbGZ0ZXN0LXN5bmMKKiBrc2VsZnRl
+c3Qtc3lzY3RsCioga3NlbGZ0ZXN0LXRjLXRlc3RpbmcKKiBrc2VsZnRlc3QtdGltZW5zCioga3Nl
+bGZ0ZXN0LXRtcGZzCioga3NlbGZ0ZXN0LXRwbTIKKiBrc2VsZnRlc3QtdXNlcgoqIGtzZWxmdGVz
+dC11c2VyX2V2ZW50cwoqIGtzZWxmdGVzdC12RFNPCioga3NlbGZ0ZXN0LXZtCioga3NlbGZ0ZXN0
+LXdhdGNoZG9nCioga3NlbGZ0ZXN0LXg4NgoqIGtzZWxmdGVzdC16cmFtCioga3VuaXQKKiBrdm0t
+dW5pdC10ZXN0cwoqIGxpYmdwaW9kCiogbG9nLXBhcnNlci1ib290CiogbG9nLXBhcnNlci10ZXN0
+CiogbHRwLWNhcF9ib3VuZHMKKiBsdHAtY29tbWFuZHMKKiBsdHAtY29udGFpbmVycwoqIGx0cC1j
+b250cm9sbGVycwoqIGx0cC1jcHVob3RwbHVnCiogbHRwLWNyeXB0bwoqIGx0cC1jdmUKKiBsdHAt
+ZGlvCiogbHRwLWZjbnRsLWxvY2t0ZXN0cwoqIGx0cC1maWxlY2FwcwoqIGx0cC1mcwoqIGx0cC1m
+c19iaW5kCiogbHRwLWZzX3Blcm1zX3NpbXBsZQoqIGx0cC1mc3gKKiBsdHAtaHVnZXRsYgoqIGx0
+cC1pbwoqIGx0cC1pcGMKKiBsdHAtbWF0aAoqIGx0cC1tbQoqIGx0cC1ucHRsCiogbHRwLXB0eQoq
+IGx0cC1zY2hlZAoqIGx0cC1zZWN1cmViaXRzCiogbHRwLXNtb2tlCiogbHRwLXN5c2NhbGxzCiog
+bHRwLXRyYWNpbmcKKiBuZXR3b3JrLWJhc2ljLXRlc3RzCiogcGVyZgoqIHJjdXRvcnR1cmUKKiB2
+NGwyLWNvbXBsaWFuY2UKCi0tCkxpbmFybyBMS0ZUCmh0dHBzOi8vbGtmdC5saW5hcm8ub3JnCgot
+LSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRw
+Cg==
