@@ -1,73 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 983FC7BB908
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Oct 2023 15:25:24 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 317EF7BC2DB
+	for <lists+linux-ltp@lfdr.de>; Sat,  7 Oct 2023 01:17:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7F0373C93A7
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Oct 2023 15:25:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B65313C92B0
+	for <lists+linux-ltp@lfdr.de>; Sat,  7 Oct 2023 01:17:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A8B2F3C65F4
- for <ltp@lists.linux.it>; Fri,  6 Oct 2023 15:25:18 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 7556A3C88B2
+ for <ltp@lists.linux.it>; Sat,  7 Oct 2023 01:17:12 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4CF98204726
- for <ltp@lists.linux.it>; Fri,  6 Oct 2023 15:25:17 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C7A1B603E8B
+ for <ltp@lists.linux.it>; Sat,  7 Oct 2023 01:17:11 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A441D2184D;
- Fri,  6 Oct 2023 13:25:16 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B7C1F21866;
+ Fri,  6 Oct 2023 23:17:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1696598716;
+ t=1696634230;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Fq8rY8FmxU5ooDU3lEIDviVJjgQoFv7tpYB/xAYWrGc=;
- b=3XYxqyYvHE6hIwhdLCkB8m1m4LKtkAwDPjfL5G3g9xB6GFM8v2cEEjvI2PjfTXw2D47suh
- IFQHrIhVeUOq4CPwqkxi2gDqPaxPN3Q7JYqWs1DX5ynb/40jL2KKatBX0SSOHG3WFlUjlD
- qOFRDRWExPtu3/uBApIi6dtltbr/jI8=
+ bh=aO8Wb1OGX0lwyiedJiI+FpuPbXezpiQfQpSrWySGlnU=;
+ b=FY7+VhWSKRwE7UL5HcHgkSUdXsQTqwHhjIf3Q7RmfFfCDKjcrWQAwRzv0YvHaXI8zxEgus
+ XXx4r7Hj1yo0wG6srJGuV7yoUBf4DTdqhs4a7XD2eRsK3Dez8JKqbSFwvSs/XfvunNlZDw
+ 4IRH+0Fc2xRVGuX/9Ly7VIxpGzYpKbo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1696598716;
+ s=susede2_ed25519; t=1696634230;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Fq8rY8FmxU5ooDU3lEIDviVJjgQoFv7tpYB/xAYWrGc=;
- b=Bea3NsBEnrl2uPAKQ3bo6Y688wp7LDy/BAeQ3h0IwuYiSBDwJoCtFmPNeYXx+G/pK68FOj
- U/EqydCveAEt38AQ==
+ bh=aO8Wb1OGX0lwyiedJiI+FpuPbXezpiQfQpSrWySGlnU=;
+ b=38M5FRLEyodLR0nUsH7LE1DeDfFVtxtuFc5E2tEcMWUkEJeY6BQ7R6OFS2aGy0p5qlZUI6
+ UJWfSuFdNCkncnCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6F41A13A2E;
- Fri,  6 Oct 2023 13:25:16 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9EFEA13586;
+ Fri,  6 Oct 2023 23:17:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id v2ReGbwKIGXhOwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 06 Oct 2023 13:25:16 +0000
-Date: Fri, 6 Oct 2023 15:25:14 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id JyP9JXaVIGUoRQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 06 Oct 2023 23:17:10 +0000
+Date: Sat, 7 Oct 2023 01:17:09 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <20231006132514.GA214612@pevik>
-References: <20230906134452.9792-1-andrea.cervesato@suse.de>
+To: ybonatakis <ybonatakis@suse.com>
+Message-ID: <20231006231709.GA254103@pevik>
+References: <20231003174155.25566-1-ybonatakis@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230906134452.9792-1-andrea.cervesato@suse.de>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+In-Reply-To: <20231003174155.25566-1-ybonatakis@suse.com>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Rewrite fork04 test
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] Refactor wait4/wait402.c to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,61 +80,207 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Andrea, Richie,
+Hi Ioannis,
 
-thanks this rewrite. There are small issues with the copyright and license.
+> Not major changes in functionality. Man page says, *wait for process to change
+> state, BSD style*. So i kept the `_USE_BSD` macro, even if test seems to work
+> anyway without it.
+This is certainly wrong. _USE_BSD are glibc specific constants, which we should
+avoid to use. man wait4(2) states for wait4():
 
-...
-> +++ b/testcases/kernel/syscalls/fork/fork04.c
-> @@ -1,328 +1,93 @@
+   Since glibc 2.19:
+	   _DEFAULT_SOURCE
+
+   glibc 2.19 and earlier:
+	   _BSD_SOURCE
+
+_DEFAULT_SOURCE IMHO means it works by default, thus we wouldn't need anything.
+
+musl libc guards it with:
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+
+But at least on Alpine (the most used musl based linux distro) also compiles
+without any definition => let's remove it.
+
+> Signed-off-by: ybonatakis <ybonatakis@suse.com>
+Could you please use your real name?
+Signed-off-by: Ioannis Bonatakis <ybonatakis@suse.com>
+
+https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin
+
+> ---
+>  testcases/kernel/syscalls/wait4/wait402.c | 97 ++++-------------------
+>  1 file changed, 17 insertions(+), 80 deletions(-)
+
+> diff --git a/testcases/kernel/syscalls/wait4/wait402.c b/testcases/kernel/syscalls/wait4/wait402.c
+> index 39b170253..13b2af533 100644
+> --- a/testcases/kernel/syscalls/wait4/wait402.c
+> +++ b/testcases/kernel/syscalls/wait4/wait402.c
+> @@ -1,101 +1,38 @@
 > +// SPDX-License-Identifier: GPL-2.0-or-later
-You relicenced to v2+.
-
 >  /*
-> - * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-Removed valid copyright (although you rewrite the test, we still need to keep
-the original copyright).
+>   *
+>   *   Copyright (c) International Business Machines  Corp., 2001
+>   *   Copyright (c) 2012 Cyril Hrubis <chrubis@suse.cz>
+
+nit: there should be a single space after *. Also I'd
+/*
+ * Copyright (c) International Business Machines  Corp., 2001
+ * Copyright (c) 2012 Cyril Hrubis <chrubis@suse.cz>
+ * Copyright (c) Linux Test Project, 2001-2015
+ * Copyright (c) 2023 Ioannis Bonatakis <ybonatakis@suse.com>
+ */
 
 > - *
-> - * This program is free software; you can redistribute it and/or modify it
-> - * under the terms of version 2 of the GNU General Public License as
-> - * published by the Free Software Foundation.
-=> v2 only.
+> - *   This program is free software;  you can redistribute it and/or modify
+> - *   it under the terms of the GNU General Public License as published by
+> - *   the Free Software Foundation; either version 2 of the License, or
+> - *   (at your option) any later version.
+> - *
+> - *   This program is distributed in the hope that it will be useful,
+> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+> - *   the GNU General Public License for more details.
+> - *
+> - *   You should have received a copy of the GNU General Public License
+> - *   along with this program;  if not, write to the Free Software
+> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+> + *   Copyright (c) 2023 Ioannis Bonatakis <ybonatakis@suse.com>
+>   */
 
-> - *
-> - * This program is distributed in the hope that it would be useful, but
-> - * WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-> - *
-> - * Further, this software is distributed without any warranty that it is
-> - * free of the rightful claim of any third person regarding infringement
-> - * or the like.  Any license provided herein, whether implied or
-> - * otherwise, applies only to this software file.  Patent licenses, if
-> - * any, provided herein do not apply to combinations of this program with
-> - * other software, or any other product whatsoever.
-> - *
-> - * You should have received a copy of the GNU General Public License along
-> - * with this program; if not, write the Free Software Foundation, Inc.,
-> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-> - *
-> - * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
-> - * Mountain View, CA  94043, or:
-> - *
-...
-> + * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+> +/*\
+> + * [Description]
+> + *
+> + * Check for ECHILD errno when using an illegal pid value
+nit: missing dot at the end. Also I reword it a bit:
+ * Check for ECHILD errno when call wait4(2) with an invalid pid value.
 > + */
 
-Because Richie has already merged this, I put back GPL v2 and original SGI
-copyright. While at it, I also added LTP copyright.
+> -#include <errno.h>
+> +#include "tst_test.h"
+>  #define _USE_BSD
+Removed (see above).
+
+> -#include <sys/types.h>
+> -#include <sys/resource.h>
+>  #include <sys/wait.h>
+> -#include <stdlib.h>
+> -#include <string.h>
+...
+
+> +static pid_t pid_max;
+
+> -int main(int ac, char **av)
+> +static void run(void)
+>  {
+> -	int lc;
+> -	pid_t epid = get_pid_max() + 1;
+NOTE: max PID + 1 is invalid.
+> -
+>  	int status = 1;
+There is no need to initialize the variable, it will be set by wait4().
+
+>  	struct rusage rusage;
+
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> -
+> -	setup();
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -		tst_count = 0;
+> -
+> -		TEST(wait4(epid, &status, 0, &rusage));
+> -
+> -		if (TEST_RETURN == 0) {
+> -			tst_brkm(TFAIL, cleanup,
+> -				 "call failed to produce expected error - errno = %d - %s",
+> -				 TEST_ERRNO, strerror(TEST_ERRNO));
+> -		}
+> -
+> -		switch (TEST_ERRNO) {
+> -		case ECHILD:
+> -			tst_resm(TPASS,
+> -				 "received expected failure - errno = %d - %s",
+> -				 TEST_ERRNO, strerror(TEST_ERRNO));
+> -			break;
+> -		default:
+> -			tst_brkm(TFAIL, cleanup,
+> -				 "call failed to produce expected "
+> -				 "error - errno = %d - %s", TEST_ERRNO,
+> -				 strerror(TEST_ERRNO));
+> -		}
+> -	}
+
+> +	TST_EXP_FAIL2(wait4(pid_max, &status, 0, &rusage), ECHILD,
+> +		      "wait4 fails with ECHILD");
+	TST_EXP_FAIL2(wait4(pid_max + 1, &status, 0, &rusage), ECHILD);
+NOTE: use +1, otherwise it would not be test for invalid pid value.
+
+Also no need for "fails with ECHILD".
+
+>  }
+
+>  static void setup(void)
+>  {
+> +	SAFE_FILE_SCANF("/proc/sys/kernel/pid_max", "%d\n", &pid_max);
+>  }
+
+> +static struct tst_test test = {
+> +	.test_all = run,
+> +	.setup = setup,
+> +};
+
+In the end I fixed the issues and merged with the diff below.
+Thanks for your work.
 
 Kind regards,
 Petr
+
++++ testcases/kernel/syscalls/wait4/wait402.c
+@@ -1,30 +1,28 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- *
+- *   Copyright (c) International Business Machines  Corp., 2001
+- *   Copyright (c) 2012 Cyril Hrubis <chrubis@suse.cz>
+- *   Copyright (c) 2023 Ioannis Bonatakis <ybonatakis@suse.com>
++ * Copyright (c) International Business Machines  Corp., 2001
++ * Copyright (c) 2012 Cyril Hrubis <chrubis@suse.cz>
++ * Copyright (c) Linux Test Project, 2001-2015
++ * Copyright (c) 2023 Ioannis Bonatakis <ybonatakis@suse.com>
+  */
+ 
+ /*\
+  * [Description]
+  *
+- * Check for ECHILD errno when using an illegal pid value
++ * Check for ECHILD errno when call wait4(2) with an illegal pid value.
+  */
+ 
+ #include "tst_test.h"
+-#define _USE_BSD
+ #include <sys/wait.h>
+ 
+ static pid_t pid_max;
+ 
+ static void run(void)
+ {
+-	int status = 1;
++	int status;
+ 	struct rusage rusage;
+ 
+-	TST_EXP_FAIL2(wait4(pid_max, &status, 0, &rusage), ECHILD,
+-		      "wait4 fails with ECHILD");
++	TST_EXP_FAIL2(wait4(pid_max + 1, &status, 0, &rusage), ECHILD);
+ }
+ 
+ static void setup(void)
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
