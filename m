@@ -1,80 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 757407BB91A
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Oct 2023 15:30:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 983FC7BB908
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Oct 2023 15:25:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 359653C8AE5
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Oct 2023 15:30:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7F0373C93A7
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Oct 2023 15:25:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5962E3C8B9E
- for <ltp@lists.linux.it>; Fri,  6 Oct 2023 08:41:45 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id A8B2F3C65F4
+ for <ltp@lists.linux.it>; Fri,  6 Oct 2023 15:25:18 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1CE9061761B
- for <ltp@lists.linux.it>; Fri,  6 Oct 2023 08:41:44 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4CF98204726
+ for <ltp@lists.linux.it>; Fri,  6 Oct 2023 15:25:17 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B62D51F45F;
- Fri,  6 Oct 2023 06:41:43 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A441D2184D;
+ Fri,  6 Oct 2023 13:25:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1696574503;
+ t=1696598716;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AHPegFj7wYRBnWo4iJfVnNBssSPMttVzktBNWxsaxJY=;
- b=RPqzfKv4gZGmUZdxYmP2RazsngprG/807/v2Of1+KBo5sUqo9JSFupq8mGvNz6LrSpyLHC
- qoqJVH8IWZF4iVQ7uGKPcp2MOF2HAqeK2AYYUXY0Nn57WS3JfpE/hSCm86/po3CzryejT2
- 7T2n4g1+hMUPCYmGifNU1lOhdwZT6OE=
+ bh=Fq8rY8FmxU5ooDU3lEIDviVJjgQoFv7tpYB/xAYWrGc=;
+ b=3XYxqyYvHE6hIwhdLCkB8m1m4LKtkAwDPjfL5G3g9xB6GFM8v2cEEjvI2PjfTXw2D47suh
+ IFQHrIhVeUOq4CPwqkxi2gDqPaxPN3Q7JYqWs1DX5ynb/40jL2KKatBX0SSOHG3WFlUjlD
+ qOFRDRWExPtu3/uBApIi6dtltbr/jI8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1696574503;
+ s=susede2_ed25519; t=1696598716;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AHPegFj7wYRBnWo4iJfVnNBssSPMttVzktBNWxsaxJY=;
- b=t5N6hNk50AuI+4qPPg4glFprLLTrJyOMPg25eEz33RGUSTueo0on1yxzZmg9dTdscRqq9O
- AZRSUM7ZJwsJjfDg==
+ bh=Fq8rY8FmxU5ooDU3lEIDviVJjgQoFv7tpYB/xAYWrGc=;
+ b=Bea3NsBEnrl2uPAKQ3bo6Y688wp7LDy/BAeQ3h0IwuYiSBDwJoCtFmPNeYXx+G/pK68FOj
+ U/EqydCveAEt38AQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4608913A2E;
- Fri,  6 Oct 2023 06:41:42 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6F41A13A2E;
+ Fri,  6 Oct 2023 13:25:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2t+vCCasH2UZWgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 06 Oct 2023 06:41:42 +0000
-Date: Fri, 6 Oct 2023 08:41:40 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id v2ReGbwKIGXhOwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 06 Oct 2023 13:25:16 +0000
+Date: Fri, 6 Oct 2023 15:25:14 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Naresh Kamboju <naresh.kamboju@linaro.org>
-Message-ID: <20231006064140.GA178316@pevik>
-References: <20231004175217.404851126@linuxfoundation.org>
- <CA+G9fYsqbZhSQnEi-qSc7n+4d7nPap8HWcdbZGWLfo3mTH-L7A@mail.gmail.com>
- <20231005172448.GA161140@pevik>
- <CA+G9fYuyXgWvsRhznP2x2VE5CvSyCCgcvxPz2J=dbvg6YW2iUA@mail.gmail.com>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Message-ID: <20231006132514.GA214612@pevik>
+References: <20230906134452.9792-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CA+G9fYuyXgWvsRhznP2x2VE5CvSyCCgcvxPz2J=dbvg6YW2iUA@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+In-Reply-To: <20230906134452.9792-1-andrea.cervesato@suse.de>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Mailman-Approved-At: Fri, 06 Oct 2023 15:30:10 +0200
-Subject: Re: [LTP] [PATCH 6.1 000/259] 6.1.56-rc1 review
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] Rewrite fork04 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,56 +80,61 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: lkft-triage@lists.linaro.org, linux-kernel@vger.kernel.org,
- Olga Kornievskaia <kolga@netapp.com>, stable@vger.kernel.org, shuah@kernel.org,
- f.fainelli@gmail.com, jonathanh@nvidia.com, patches@kernelci.org,
- linux@roeck-us.net, srw@sladewatkins.net,
- Richard Palethorpe <rpalethorpe@suse.com>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- LTP List <ltp@lists.linux.it>, linux-nfs@vger.kernel.org,
- Eryu Guan <eguan@redhat.com>, rwarsow@gmx.de, pavel@denx.de,
- patches@lists.linux.dev, conor@kernel.org, sudipm.mukherjee@gmail.com,
- Benjamin Coddington <bcodding@redhat.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, akpm@linux-foundation.org,
- torvalds@linux-foundation.org, Anna Schumaker <Anna.Schumaker@netapp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-PiBPbiBUaHUsIDUgT2N0IDIwMjMgYXQgMjI6NTQsIFBldHIgVm9yZWwgPHB2b3JlbEBzdXNlLmN6
-PiB3cm90ZToKCj4gPiBIaSBOYXJlc2gsCgo+ID4gPiBPbiBXZWQsIDQgT2N0IDIwMjMgYXQgMjM6
-NDEsIEdyZWcgS3JvYWgtSGFydG1hbgo+ID4gPiA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+
-IHdyb3RlOgoKPiA+ID4gPiBUaGlzIGlzIHRoZSBzdGFydCBvZiB0aGUgc3RhYmxlIHJldmlldyBj
-eWNsZSBmb3IgdGhlIDYuMS41NiByZWxlYXNlLgo+ID4gPiA+IFRoZXJlIGFyZSAyNTkgcGF0Y2hl
-cyBpbiB0aGlzIHNlcmllcywgYWxsIHdpbGwgYmUgcG9zdGVkIGFzIGEgcmVzcG9uc2UKPiA+ID4g
-PiB0byB0aGlzIG9uZS4gIElmIGFueW9uZSBoYXMgYW55IGlzc3VlcyB3aXRoIHRoZXNlIGJlaW5n
-IGFwcGxpZWQsIHBsZWFzZQo+ID4gPiA+IGxldCBtZSBrbm93LgoKPiA+ID4gPiBSZXNwb25zZXMg
-c2hvdWxkIGJlIG1hZGUgYnkgRnJpLCAwNiBPY3QgMjAyMyAxNzo1MToxMiArMDAwMC4KPiA+ID4g
-PiBBbnl0aGluZyByZWNlaXZlZCBhZnRlciB0aGF0IHRpbWUgbWlnaHQgYmUgdG9vIGxhdGUuCgo+
-ID4gPiA+IFRoZSB3aG9sZSBwYXRjaCBzZXJpZXMgY2FuIGJlIGZvdW5kIGluIG9uZSBwYXRjaCBh
-dDoKPiA+ID4gPiAgICAgICAgIGh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcvcHViL2xpbnV4L2tlcm5l
-bC92Ni54L3N0YWJsZS1yZXZpZXcvcGF0Y2gtNi4xLjU2LXJjMS5nego+ID4gPiA+IG9yIGluIHRo
-ZSBnaXQgdHJlZSBhbmQgYnJhbmNoIGF0Ogo+ID4gPiA+ICAgICAgICAgZ2l0Oi8vZ2l0Lmtlcm5l
-bC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3N0YWJsZS9saW51eC1zdGFibGUtcmMuZ2l0
-IGxpbnV4LTYuMS55Cj4gPiA+ID4gYW5kIHRoZSBkaWZmc3RhdCBjYW4gYmUgZm91bmQgYmVsb3cu
-Cgo+ID4gPiA+IHRoYW5rcywKCj4gPiA+ID4gZ3JlZyBrLWgKCj4gPiA+IFJlc3VsdHMgZnJvbSBM
-aW5hcm/igJlzIHRlc3QgZmFybS4KPiA+ID4gUmVncmVzc2lvbnMgb24gYXJtNjQgYmNtMjcxMS1y
-cGktNC1iIGRldmljZSBydW5uaW5nIExUUCBkaW8gdGVzdHMgb24KPiA+IENvdWxkIHlvdSBwbGVh
-c2Ugbm90ZSBpbiB5b3VyIHJlcG9ydHMgYWxzbyBMVFAgdmVyc2lvbj8KCj4gU3VyZS4KPiBXZSBh
-cmUgcnVubmluZyBMVFAgVmVyc2lvbjogMjAyMzA1MTYgZm9yIG91ciB0ZXN0aW5nLgoKPiBXZSB3
-aWxsIHVwZGF0ZSB0aGUgbGF0ZXN0IExUUCByZWxlYXNlICgyMDIzMDkyOSkgbmV4dCB3ZWVrLgoK
-R3JlYXQsIHRoYW5rIHlvdS4KCj4gPiBGWUkgdGhlIGJlc3QgTFRQIHJlbGVhc2UgaXMgYWx3YXlz
-IHRoZSBsYXRlc3QgcmVsZWFzZSBvciBnaXQgbWFzdGVyIGJyYW5jaC4KCj4gV2UgaGF2ZSB0d28g
-dGhyZWFkcyBoZXJlLgo+IDEpIExUUCByZWxlYXNlIHRhZyB0ZXN0aW5nIG9uIGFsbCBzdGFibGUt
-cmMgYnJhbmNoZXMKPiAyKSBMVFAgbWFzdGVyIHRlc3Rpbmcgb24gYSBnaXZlbiBzcGVjaWZpYyBr
-ZXJuZWwgdmVyc2lvbiBbYV0KCkdyZWF0LCB0aGlzIG1ha2VzIHNlbnNlLgoKQlRXIGZyb20gbG9v
-a2luZyBpbiB0aGUgbG9nIFtiXSAoIklORk86IGx0cC1wYW4gcmVwb3J0ZWQgc29tZSB0ZXN0cyBG
-QUlMIikKSSBzZWUgeW91IHVzZSBydW5sdHAuIFdlIHJlY29tbWVuZCB0byBzd2l0Y2ggdG8ga2ly
-ayBbY10uIEFuZCB3ZSBkZWZpbml0ZWx5CmFwcHJlY2lhdGUgeW91ciBmZWVkYmFjayBmcm9tIGl0
-LgoKS2luZCByZWdhcmRzLApQZXRyCgo+IFthXSBodHRwczovL3FhLXJlcG9ydHMubGluYXJvLm9y
-Zy9sa2Z0L2x0cC1tYXN0ZXIvCltiXSBodHRwczovL3FhLXJlcG9ydHMubGluYXJvLm9yZy9sa2Z0
-L2x0cC1tYXN0ZXIvYnVpbGQvdjYuNS4zXzIwMjMwOTI5LTItZzQ4YTE1MGJmZC90ZXN0cnVuLzIw
-MjIzNzkwL3N1aXRlL2x0cC1jdmUvdGVzdC9jdmUtMjAxNy04ODkwL2xvZwpbY10gaHR0cHM6Ly9n
-aXRodWIuY29tL2xpbnV4LXRlc3QtcHJvamVjdC9raXJrLyNyZWFkbWUKCj4gLSBOYXJlc2gKCi0t
-IApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Hi Andrea, Richie,
+
+thanks this rewrite. There are small issues with the copyright and license.
+
+...
+> +++ b/testcases/kernel/syscalls/fork/fork04.c
+> @@ -1,328 +1,93 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+You relicenced to v2+.
+
+>  /*
+> - * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
+Removed valid copyright (although you rewrite the test, we still need to keep
+the original copyright).
+
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms of version 2 of the GNU General Public License as
+> - * published by the Free Software Foundation.
+=> v2 only.
+
+> - *
+> - * This program is distributed in the hope that it would be useful, but
+> - * WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+> - *
+> - * Further, this software is distributed without any warranty that it is
+> - * free of the rightful claim of any third person regarding infringement
+> - * or the like.  Any license provided herein, whether implied or
+> - * otherwise, applies only to this software file.  Patent licenses, if
+> - * any, provided herein do not apply to combinations of this program with
+> - * other software, or any other product whatsoever.
+> - *
+> - * You should have received a copy of the GNU General Public License along
+> - * with this program; if not, write the Free Software Foundation, Inc.,
+> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+> - *
+> - * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+> - * Mountain View, CA  94043, or:
+> - *
+...
+> + * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+> + */
+
+Because Richie has already merged this, I put back GPL v2 and original SGI
+copyright. While at it, I also added LTP copyright.
+
+Kind regards,
+Petr
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
