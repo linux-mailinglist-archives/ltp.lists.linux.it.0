@@ -1,71 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB6C7BF231
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Oct 2023 07:28:54 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33ADF7BF6B0
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Oct 2023 11:01:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BEEC53C893A
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Oct 2023 07:28:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 758B23CD723
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Oct 2023 11:01:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 22AAE3C2DA4
- for <ltp@lists.linux.it>; Tue, 10 Oct 2023 07:28:48 +0200 (CEST)
-Received: from esa5.hc1455-7.c3s2.iphmx.com (esa5.hc1455-7.c3s2.iphmx.com
- [68.232.139.130])
+ by picard.linux.it (Postfix) with ESMTPS id 563663C8905
+ for <ltp@lists.linux.it>; Tue, 10 Oct 2023 11:01:26 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EF2FF1000929
+ for <ltp@lists.linux.it>; Tue, 10 Oct 2023 11:01:23 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 9ABDC1F45E
+ for <ltp@lists.linux.it>; Tue, 10 Oct 2023 09:01:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1696928482;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=iDGothVHXlOOur2deBkK5f831Zp8/dkKykepQWG4Zs8=;
+ b=mi0f8Wr4SBPap7v4FWEzhp+AncNYKMNGNiypSS0xehzbDHDtXKkggeZos4shzdXw7RXRF1
+ mlVst0FQQCMRKP1zMr+gS2+MU6VnIu6SaPpTm1wNk/ikxMuXVQ9CEpBxWNYTxgNldr9R8F
+ xINTWyGBkRAyvvGsSq2scmMPq2ltAdY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1696928482;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=iDGothVHXlOOur2deBkK5f831Zp8/dkKykepQWG4Zs8=;
+ b=EOpjc5f957dplbaU44mZX3cLUBM4pyKAY32Ry7/Q4SD57PvkUJMX5H7uO1JdXWSoZAggvM
+ NxnD9hDVglgSCpDQ==
+Received: from g78 (unknown [10.163.25.62])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4F39E60024B
- for <ltp@lists.linux.it>; Tue, 10 Oct 2023 07:28:47 +0200 (CEST)
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="134933293"
-X-IronPort-AV: E=Sophos;i="6.03,211,1694703600"; d="scan'208";a="134933293"
-Received: from unknown (HELO yto-r3.gw.nic.fujitsu.com) ([218.44.52.219])
- by esa5.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 14:28:45 +0900
-Received: from yto-m1.gw.nic.fujitsu.com (yto-nat-yto-m1.gw.nic.fujitsu.com
- [192.168.83.64])
- by yto-r3.gw.nic.fujitsu.com (Postfix) with ESMTP id 27BC9C3F81
- for <ltp@lists.linux.it>; Tue, 10 Oct 2023 14:28:43 +0900 (JST)
-Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
- [192.51.206.21])
- by yto-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 6B90CCFBA2
- for <ltp@lists.linux.it>; Tue, 10 Oct 2023 14:28:42 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id 0872120077820
- for <ltp@lists.linux.it>; Tue, 10 Oct 2023 14:28:42 +0900 (JST)
-Received: from localhost.localdomain (unknown [10.167.215.131])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id B8EAA1A0074;
- Tue, 10 Oct 2023 13:28:41 +0800 (CST)
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: ltp@lists.linux.it
-Date: Tue, 10 Oct 2023 13:28:29 +0800
-Message-Id: <1696915709-6304-3-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1696915709-6304-1-git-send-email-xuyang2018.jy@fujitsu.com>
-References: <1696915709-6304-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-27926.005
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-27926.005
-X-TMASE-Result: 10--12.223700-10.000000
-X-TMASE-MatchedRID: P0y1Pz0bU7kKK0r2G9VU7gPZZctd3P4BCZa9cSpBObm+f7ap9DJaDb8F
- Hrw7frluX2TxVGxWCcGSOPRL2u2F4Smyf2R1E4xpGYJhRh6ssesfimmlcABuN8SiwizsgluQTzA
- mqaqCd4B+CxzcGwLNWIkrinmMF3EWCo1+PMDjC96628cXbnOhT5Ry1HDTPOXaR6RHdVK85hXZ/6
- HCEey99eLzNWBegCW2wgn7iDBesS0gBwKKRHe+r1e07U3hxgAEFz9nlPpuzU07Km6u9fWkqL2KQ
- EFlSk8rbZEmn9xbDvw=
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+ by relay2.suse.de (Postfix) with ESMTPS id 4B99F2C390;
+ Tue, 10 Oct 2023 09:01:22 +0000 (UTC)
+References: <20231009102405.26471-1-rpalethorpe@suse.com>
+ <20231009102405.26471-2-rpalethorpe@suse.com>
+ <20231009115843.GA390277@pevik>
+User-agent: mu4e 1.10.7; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Petr Vorel <pvorel@suse.cz>
+Date: Tue, 10 Oct 2023 09:59:42 +0100
+Organization: Linux Private Site
+In-reply-to: <20231009115843.GA390277@pevik>
+Message-ID: <87wmvuzw9s.fsf@suse.de>
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] syscalls/fchownat03: Move errnos check to
- fchownat03
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/2] ci: Check for undefined variables in all
+ scripts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,127 +76,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Check errnos for fchownat().
+Hello,
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- runtest/syscalls                              |  1 +
- testcases/kernel/syscalls/fchownat/.gitignore |  1 +
- .../kernel/syscalls/fchownat/fchownat03.c     | 76 +++++++++++++++++++
- 3 files changed, 78 insertions(+)
- create mode 100644 testcases/kernel/syscalls/fchownat/fchownat03.c
+Updated with suggested changes and pushed, thanks!
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 4f1ee1f34..fbbab829f 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -274,6 +274,7 @@ fchown05_16 fchown05_16
- #fchownat test case
- fchownat01 fchownat01
- fchownat02 fchownat02
-+fchownat03 fchownat03
- 
- fcntl01 fcntl01
- fcntl01_64 fcntl01_64
-diff --git a/testcases/kernel/syscalls/fchownat/.gitignore b/testcases/kernel/syscalls/fchownat/.gitignore
-index 35c00345b..60fac7e69 100644
---- a/testcases/kernel/syscalls/fchownat/.gitignore
-+++ b/testcases/kernel/syscalls/fchownat/.gitignore
-@@ -1,2 +1,3 @@
- /fchownat01
- /fchownat02
-+/fchownat03
-diff --git a/testcases/kernel/syscalls/fchownat/fchownat03.c b/testcases/kernel/syscalls/fchownat/fchownat03.c
-new file mode 100644
-index 000000000..56b090895
---- /dev/null
-+++ b/testcases/kernel/syscalls/fchownat/fchownat03.c
-@@ -0,0 +1,76 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) International Business Machines  Corp., 2006
-+ * Copyright (c) Linux Test Project, 2003-2023
-+ * AUTHOR: Yi Yang <yyangcdl@cn.ibm.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * - fchownat() fails with ENOTDIR  if dir_fd is file descriptor to the file
-+ *   and pathname is relative path of the file.
-+ *
-+ * - fchownat() fails with EBADF if dir_fd is invalid.
-+ *
-+ * - fchownat() fails with EINVAL if flag is invalid.
-+ */
-+
-+#include <stdlib.h>
-+#include "tst_test.h"
-+
-+#define TESTFILE	"testfile"
-+
-+static int dir_fd, fd;
-+static int no_fd = -1;
-+static char *testfile;
-+
-+static struct tcase {
-+	int *fds;
-+	char **filenames;
-+	int flag;
-+	int exp_errno;
-+} tcases[] = {
-+	{&fd, &testfile, 0, ENOTDIR},
-+	{&no_fd, &testfile, 0, EBADF},
-+	{&dir_fd, &testfile, -1, EINVAL},
-+};
-+
-+static void setup(void)
-+{
-+	dir_fd = SAFE_OPEN("./", O_DIRECTORY);
-+
-+	SAFE_TOUCH(TESTFILE, 0600, NULL);
-+
-+	fd = SAFE_OPEN("testfile2", O_CREAT | O_RDWR, 0600);
-+}
-+
-+static void fchownat_verify(unsigned int i)
-+{
-+	struct tcase *tc = &tcases[i];
-+
-+	TST_EXP_FAIL(fchownat(*tc->fds, *tc->filenames, geteuid(), getegid(),
-+	     tc->flag), tc->exp_errno, "fchownat(%d, %s, %d, %d, %d)",
-+	     *tc->fds, *tc->filenames, geteuid(), getegid(), tc->flag);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (fd > -1)
-+		close(fd);
-+
-+	if (dir_fd > -1)
-+		close(dir_fd);
-+}
-+
-+static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = fchownat_verify,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.bufs = (struct tst_buffers []) {
-+		{&testfile, .str = TESTFILE},
-+		{},
-+	},
-+	.needs_tmpdir = 1,
-+};
+Petr Vorel <pvorel@suse.cz> writes:
+
+> Hi Richie,
+>
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+>
+> Thank you!
+>
+> Could you please before you commit also add license to the files:
+> # SPDX-License-Identifier: GPL-2.0-or-later
+>
+> And maybe your/LTP copyright (whatever you prefer) into files you
+> added?
+>
+> Kind regards,
+> Petr
+
+
 -- 
-2.39.1
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
