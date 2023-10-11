@@ -2,86 +2,81 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 008607C5857
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 17:43:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD0D97C58E0
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 18:08:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3CDF33CF65C
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 17:43:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 71A9B3CFABC
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 18:08:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 487833C8B01
- for <ltp@lists.linux.it>; Wed, 11 Oct 2023 17:43:51 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id AFE973CD4E1
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 18:08:27 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 955D51A00CD9
- for <ltp@lists.linux.it>; Wed, 11 Oct 2023 17:43:50 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A0EBD2099E2
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 18:08:26 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5EDB221865;
- Wed, 11 Oct 2023 15:43:49 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C266021885;
+ Wed, 11 Oct 2023 16:08:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1697039029;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9V5DZDbFTd2eug2bDAkvInXnEMxlN/GvAzZ9qKP8ZEo=;
- b=Af3cvUjl3/fAIPJJfxJEBzIm6jFEMglaOEO7rK391K1lRBwPSWjDegi25xpzGnK34ZRHGU
- 3Rn7lXStAHudvzbdVq3zjN9qWjIYQ9egmnGOllw1VoNot1+Qln6QXtT4OTOlw2oxK3tvlK
- bq0eW4F7VtsJy0508LOAst7i/1/WnJo=
+ t=1697040505; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=iS2FENIdDgV4fO1DLVQhaDA6y1RnC0P0DDzBPxI2q/A=;
+ b=m1TNdNySvIFCEZyRzVvzdsnoqzvGOZPnCitxkhKa6BT+H72jiNSy5HzEqGvse23OMqQ3Jm
+ wKL2meut4iEXQOvXL5MxDD9gty2ns+qZcTeLwMwr1OPJcw20W8I9yMjG5+MfeLo+l/B+fk
+ I9Hpjc82+KUIgrVWTxfSNvljSPmJSZg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1697039029;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9V5DZDbFTd2eug2bDAkvInXnEMxlN/GvAzZ9qKP8ZEo=;
- b=3UKSV1kmGdRnEN5OGNsOa6/4/OOkZikSaxPnEKld9s0nLaGdOYm5r2UNlxL7YDEKpbHTB1
- F1aYZLP5baHouXBQ==
+ s=susede2_ed25519; t=1697040505;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=iS2FENIdDgV4fO1DLVQhaDA6y1RnC0P0DDzBPxI2q/A=;
+ b=jjsksC0ae18PkwgbUH7Asezy/Wsoz8zL/Lf2rjh242qFr8M13CtAkahZoGLV40h9V4mS5r
+ XGLRnZgUYmNsPVCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3ACE3134F5;
- Wed, 11 Oct 2023 15:43:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7AEE4134F5;
+ Wed, 11 Oct 2023 16:08:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id e0nyDLXCJmVfFgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 11 Oct 2023 15:43:49 +0000
-Date: Wed, 11 Oct 2023 17:43:47 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id HyJaG3nIJmVVIwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 11 Oct 2023 16:08:25 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Marius Kittler <mkittler@suse.de>
-Message-ID: <20231011154347.GA540626@pevik>
-References: <20231011152900.4274-1-mkittler@suse.de>
+To: ltp@lists.linux.it
+Date: Wed, 11 Oct 2023 18:08:19 +0200
+Message-ID: <20231011160822.578637-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231011152900.4274-1-mkittler@suse.de>
 Authentication-Results: smtp-out1.suse.de;
 	none
-X-Spam-Level: 
-X-Spam-Score: -0.91
-X-Spamd-Result: default: False [-0.91 / 50.00]; ARC_NA(0.00)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+X-Spam-Score: 3.90
+X-Spamd-Result: default: False [3.90 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ R_MISSING_CHARSET(2.50)[]; MIME_GOOD(-0.10)[text/plain];
+ BROKEN_CONTENT_TYPE(1.50)[]; RCPT_COUNT_FIVE(0.00)[5];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-1.00)[-1.000]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
  RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- BAYES_HAM(-0.61)[81.99%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+ BAYES_HAM(-0.00)[26.26%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Avoid swapon01 failing with EPERM
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/3] Cleanup tst_ioctl.c, libswap.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,26 +88,45 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> * Simply require root permissions like the other swapon tests do
-> * Fixes #1091
+Hi,
 
-Reported-by: Richard Palethorpe <rpalethorpe@suse.com>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-Suggested-by: Cyril Hrubis <chrubis@suse.cz>
-Fixes: 23fa0e045 ("syscalls/swapon/swapon01: Convert swapon01 to the new API")
-Fixes: https://github.com/linux-test-project/ltp/issues/1091
+this is somehow related to #1091 [1], but independent on it.
 
-Thanks!
+I also wonder if we should move tst_fibmap() out of lib/tst_ioctl.c
+(it's the only function there) somewhere. include/tst_fs.h is used
+several files, I wonder if there should be lib/tst_fs.c.
+
+Maybe not all C files which use include/tst_fs.h should be merged in it,
+but some of them contain only single function (e.g. lib/tst_fs_has_free.c).
+Is there any benefit to have that separate? Size? In the end we link libltp.a
+to every test binary (unfortunately). I also don't think that for
+readability purposes of the sources we need 5 C files in lib/ which use
+tst_test.h.
 
 Kind regards,
 Petr
+
+[1] https://github.com/linux-test-project/ltp/issues/1091
+
+Petr Vorel (3):
+  tst_ioctl: Cleanup the code
+  tst_fs.h: Improve tst_fibmap() doc
+  libltpswap: TCONF on EPERM
+
+ include/tst_fs.h          |  5 ++++-
+ lib/tst_ioctl.c           | 18 ++++--------------
+ libs/libltpswap/libswap.c | 10 +++++++---
+ 3 files changed, 15 insertions(+), 18 deletions(-)
+
+-- 
+2.42.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
