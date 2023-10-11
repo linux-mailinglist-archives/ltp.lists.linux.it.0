@@ -1,75 +1,89 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 917417C58DF
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 18:08:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BF087C58E2
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 18:09:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E02D53CFFFF
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 18:08:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 79ADB3CFAB6
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 18:09:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D6EC73CD60D
+ by picard.linux.it (Postfix) with ESMTPS id 1DE2B3CD60D
  for <ltp@lists.linux.it>; Wed, 11 Oct 2023 18:08:27 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 086881400BE8
- for <ltp@lists.linux.it>; Wed, 11 Oct 2023 18:08:26 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 89D9410009E5
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 18:08:27 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 135861FEFF;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5B5BB21887;
  Wed, 11 Oct 2023 16:08:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1697040506; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G0oYHexrwi8Xds9QIhall2Ly/pFJQuTl8qKl5nKRl84=;
- b=DEjFDNtqDDNjOtL9Ocy5220N1A8BkTELGx9cB/Ei/JMfHMh2H4277bGqYytHsRWUuIvKoq
- 8u5HIp79Ti2lRbxYj2VDJ6fSFbaPvOzO8FIwaR0pAyPUaq+3rr6mPKzWaGcc0uU8yV6Wxz
- vUadTEw3tefKjYyF1WmmBw+QoYR5LC8=
+ bh=2dzyCX+aKtrKY5bC8E0bpExd8bQJ/jnPFSNr5exqdvg=;
+ b=JRo4Y8CpInBq5/bzIFL6YrEHvgJM4VmwSqH6EfrPY8sltz2cV/FfMf0lrmbip7jyj4j9PV
+ f7HvQA4chvSf1aRnnC5MxMXR7wQTcmbMY2Mi2by4UsXiqxDUdZuTIyZTb7RqHVH3ifzWQL
+ BblOsgPZXFNpn+BSVw8+IRnySOkF9Ro=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1697040506;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G0oYHexrwi8Xds9QIhall2Ly/pFJQuTl8qKl5nKRl84=;
- b=iq77qXoxe7pMN4K4FKbWjkrsCeDyPj0TYhUjI2FFbRieKKtd1kjmrK2IvOTbgebWqpFBOt
- W51nfTf98wbcgqAg==
+ bh=2dzyCX+aKtrKY5bC8E0bpExd8bQJ/jnPFSNr5exqdvg=;
+ b=YOWUJMHgColqrPf5ztNnFO1JB1gApumvNIaJXQ8KpIv9Rirpu1+zYNEuC7LMEXaEjBgXZv
+ 3eTddayTlj5gqlCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CF13913A7A;
- Wed, 11 Oct 2023 16:08:25 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1CB82134F5;
+ Wed, 11 Oct 2023 16:08:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gIrxMHnIJmVVIwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 11 Oct 2023 16:08:25 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id kLNSBXrIJmVVIwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 11 Oct 2023 16:08:26 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 11 Oct 2023 18:08:20 +0200
-Message-ID: <20231011160822.578637-2-pvorel@suse.cz>
+Date: Wed, 11 Oct 2023 18:08:21 +0200
+Message-ID: <20231011160822.578637-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231011160822.578637-1-pvorel@suse.cz>
 References: <20231011160822.578637-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -0.10
+X-Spamd-Result: default: False [-0.10 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ R_MISSING_CHARSET(2.50)[]; MIME_GOOD(-0.10)[text/plain];
+ REPLY(-4.00)[]; BROKEN_CONTENT_TYPE(1.50)[];
+ RCPT_COUNT_FIVE(0.00)[5];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ BAYES_HAM(-0.00)[13.72%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/3] tst_ioctl: Cleanup the code
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/3] tst_fs.h: Improve tst_fibmap() doc
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,63 +101,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Petr Vorel <petr.vorel@gmail.com>
-
-* Use SAFE_{OPEN,CLOSE}() (simplification), -1 return code is removed.
-* Cleanup unused headers.
-* Include tst_fs.h, to keep signature checked during compilation.
-
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- lib/tst_ioctl.c | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
+ include/tst_fs.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/lib/tst_ioctl.c b/lib/tst_ioctl.c
-index 364220bcd..34a056cf4 100644
---- a/lib/tst_ioctl.c
-+++ b/lib/tst_ioctl.c
-@@ -1,37 +1,27 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
+diff --git a/include/tst_fs.h b/include/tst_fs.h
+index 769fac1e5..3dd0d7524 100644
+--- a/include/tst_fs.h
++++ b/include/tst_fs.h
+@@ -209,7 +209,10 @@ int tst_fs_in_skiplist(const char *fs_type, const char *const *skiplist);
+ void tst_fill_fs(const char *path, int verbose, enum tst_fill_access_pattern pattern);
  
--#include <errno.h>
--#include <stdio.h>
--#include <stdlib.h>
- #include <sys/ioctl.h>
- #include <linux/fs.h>
+ /*
+- * test if FIBMAP ioctl is supported
++ * Check if FIBMAP ioctl is supported.
++ * Tests which use tst_fibmap() should use .needs_root = 1 to avoid EPERM.
++ *
++ * @return 0: FIBMAP is supported, 1: FIBMAP is *not* supported.
+  */
+ int tst_fibmap(const char *filename);
  
- #define TST_NO_DEFAULT_MAIN
- 
- #include "tst_test.h"
-+#include "tst_fs.h"
- 
- int tst_fibmap(const char *filename)
- {
--	/* test if FIBMAP ioctl is supported */
- 	int fd, block = 0;
- 
--	fd = open(filename, O_RDWR | O_CREAT, 0666);
--	if (fd < 0) {
--		tst_res(TWARN | TERRNO,
--			 "open(%s, O_RDWR | O_CREAT, 0666) failed", filename);
--		return -1;
--	}
-+	fd = SAFE_OPEN(filename, O_RDWR | O_CREAT, 0666);
- 
- 	if (ioctl(fd, FIBMAP, &block)) {
- 		tst_res(TINFO | TERRNO, "FIBMAP ioctl is NOT supported");
- 		close(fd);
- 		return 1;
- 	}
-+
- 	tst_res(TINFO, "FIBMAP ioctl is supported");
-+	SAFE_CLOSE(fd);
- 
--	if (close(fd)) {
--		tst_res(TWARN | TERRNO, "close(fd) failed");
--		return -1;
--	}
- 	return 0;
- }
 -- 
 2.42.0
 
