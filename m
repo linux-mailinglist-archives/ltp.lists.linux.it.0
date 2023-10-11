@@ -1,67 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 991547C4EEF
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 11:29:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 99B547C50A3
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 12:55:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 519AF3CD4C7
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 11:29:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4D5333CD5B0
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 12:55:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 56AEC3C62DB
- for <ltp@lists.linux.it>; Wed, 11 Oct 2023 11:29:50 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B0BE0206C2C
- for <ltp@lists.linux.it>; Wed, 11 Oct 2023 11:29:49 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 23DB9211C2;
- Wed, 11 Oct 2023 09:29:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1697016589;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=wQkyMDRCDV39lielmBu7dSdw70sXgwk+vQB3IWE8pcc=;
- b=kVe9ORq3M7FeJ7dxjk8kScHKW9k7/PX4/kJWtb/tzmZ+hQjiyIhgePq+ynUPt78DDyr7jG
- j/c1x8zIA1heUyALnVte9J5ZUa4pZBLSrtCKHc6+yWpPDXj5KrKgxZPO/onl+DdnMixxf3
- CCVQ5w1PSFW0J4nBiW1aDpcmIBzRa9I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1697016589;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=wQkyMDRCDV39lielmBu7dSdw70sXgwk+vQB3IWE8pcc=;
- b=KnDGCuiLUFeygNjq7UsuqAXr6AqQ24P2XM49tgxDnclgqtxFj75gpI70G3RUycnSDd60v3
- RiGsK3mNnwZwk+Ag==
-Received: from g78 (rpalethorpe.udp.ovpn1.nue.suse.de [10.163.25.62])
+ by picard.linux.it (Postfix) with ESMTPS id 98D0B3C88F3
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 12:55:23 +0200 (CEST)
+Received: from esa1.hc1455-7.c3s2.iphmx.com (esa1.hc1455-7.c3s2.iphmx.com
+ [207.54.90.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id C92752C665;
- Wed, 11 Oct 2023 09:29:48 +0000 (UTC)
-References: <20230908092822.27085-1-andrea.cervesato@suse.de>
-User-agent: mu4e 1.10.7; emacs 29.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 11 Oct 2023 10:29:31 +0100
-Organization: Linux Private Site
-In-reply-to: <20230908092822.27085-1-andrea.cervesato@suse.de>
-Message-ID: <87bkd5zeur.fsf@suse.de>
-MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1E982600816
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 12:55:21 +0200 (CEST)
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="135512896"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694703600"; d="scan'208";a="135512896"
+Received: from unknown (HELO yto-r3.gw.nic.fujitsu.com) ([218.44.52.219])
+ by esa1.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2023 19:55:20 +0900
+Received: from yto-m3.gw.nic.fujitsu.com (yto-nat-yto-m3.gw.nic.fujitsu.com
+ [192.168.83.66])
+ by yto-r3.gw.nic.fujitsu.com (Postfix) with ESMTP id E6079E428B
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 19:55:17 +0900 (JST)
+Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
+ [192.51.206.21])
+ by yto-m3.gw.nic.fujitsu.com (Postfix) with ESMTP id 26177F9B9
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 19:55:17 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+ by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id 9DC3F200649D6
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 19:55:16 +0900 (JST)
+Received: from localhost.localdomain (unknown [10.167.215.131])
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id 29F3C1A006F;
+ Wed, 11 Oct 2023 18:55:15 +0800 (CST)
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: ltp@lists.linux.it
+Date: Wed, 11 Oct 2023 18:55:07 +0800
+Message-Id: <1697021709-22916-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-27928.006
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-27928.006
+X-TMASE-Result: 10--6.883800-10.000000
+X-TMASE-MatchedRID: 92ZTZZEhhTOhhjsqgSuNbxF4zyLyne+ATJDl9FKHbrkWxRFlzVAvGli5
+ r+TKtIsrAOe0VVRgxtBWTBAeKqaX9Spe4ofkluPsqug9vIA2WODdvovMm13clcPfJfU0tMOF4Xg
+ khF5FTCHzbv3mOafziDQOAygP9Dmd0vsjMZhH6s/aHU/pMDSkG9mhsJODizUsvnhgJqkfm0B9Jp
+ pVNkb1KxeFELRmbzxEY018kD9GAOHBDRN9OhshUUW5la/dMBNIMVVFhl7NwvNlt/se1haCZagN0
+ Z4XHtao8GY7wd3cYT2AMuqetGVetr9k4V4N5ceA3QfwsVk0UbtuRXh7bFKB7qg8bUGxwF466TTy
+ smDEQ0ar3L4GdpF1eG2Cgaq0dTIjH8FerAT0dJY=
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Merge fork06 and fork11 into new test
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/3] link03: Convert docs to docparse
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,32 +74,74 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ testcases/kernel/syscalls/link/link03.c | 41 +++++--------------------
+ 1 file changed, 7 insertions(+), 34 deletions(-)
 
-Andrea Cervesato <andrea.cervesato@suse.de> writes:
-
-> From: Andrea Cervesato <andrea.cervesato@suse.com>
->
-> fork06 and fork11 worked in the same way, spawning multiple processes
-> inside parent and waiting until they complete by checking wait() pid
-> result. fork06 was spawning 1000 children, fork11 was spawning 100
-> children. For this reason, fork_procs now merges both of them,
-> including an option that selects amount of processes we want to spawn.
->
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
-
-Merged, thanks!
-
+diff --git a/testcases/kernel/syscalls/link/link03.c b/testcases/kernel/syscalls/link/link03.c
+index 1f45240ae..27f8a4efe 100644
+--- a/testcases/kernel/syscalls/link/link03.c
++++ b/testcases/kernel/syscalls/link/link03.c
+@@ -1,42 +1,15 @@
+ /*
+  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
+- *  AUTHOR		: Richard Logan
+- *  CO-PILOT		: William Roske
++ * AUTHOR		: Richard Logan
++ * CO-PILOT		: William Roske
+  * Copyright (c) 2014 Cyril Hrubis <chrubis@suse.cz>
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * Further, this software is distributed without any warranty that it is
+- * free of the rightful claim of any third person regarding infringement
+- * or the like.  Any license provided herein, whether implied or
+- * otherwise, applies only to this software file.  Patent licenses, if
+- * any, provided herein do not apply to combinations of this program with
+- * other software, or any other product whatsoever.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
+- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+- * Mountain View, CA  94043, or:
+- *
+- * http://www.sgi.com
+- *
+- * For further information regarding this notice, see:
+- *
+- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
+- *
+  */
+ 
+- /*
+-  * Tests that link(2) succeds with creating n links.
+-  */
++/*\
++ * [Description]
++ *
++ * Tests that link(2) succeds with creating n links.
++ */
+ 
+ #include <sys/types.h>
+ #include <fcntl.h>
 -- 
-Thank you,
-Richard.
+2.39.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
