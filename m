@@ -1,68 +1,87 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 325477C590E
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 18:24:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 360547C5911
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 18:24:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 99B313CFFF2
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 18:24:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D90AA3D0017
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 18:24:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7B8993C8B68
- for <ltp@lists.linux.it>; Wed, 11 Oct 2023 18:24:34 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 644B03C8B68
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 18:24:35 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8400D1BB9C18
- for <ltp@lists.linux.it>; Wed, 11 Oct 2023 18:24:33 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7D6781400C40
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 18:24:34 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AE3E31FF01;
- Wed, 11 Oct 2023 16:24:32 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3284E21865;
+ Wed, 11 Oct 2023 16:24:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1697041472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=oc4wJg/gg/HlfaCOdKXGINkF0d8I9q+JH/EqZTv6ghU=;
- b=i5CdHVWZr2AqVW2VkcHaRIpfz3H7aOUgKEKPBqPMp7+JVDfkNQmnMYtelz7Jy7s6UogsFQ
- Rmne8nkbosEdqr9h64VZPuj6DspuT7TThNnzOkYIRnIg8DyBY7uEwbiamHtLYL3onX7C61
- asFftJyscUncMxP7AJOpIeRnwqICqjk=
+ t=1697041473; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8ob2LIWIgdPv6DvjyUuzU8bQ3hHrsp7LXxh3/GjHCWc=;
+ b=1nLVxdlKFtdorzJkYbWBkYQ0yD/5x1RfAFGaaK9BSta4k5TRbLk8cUrI+jb/6F/USJ60E/
+ ojYSbMkvEIzRI+ZuWR7H3gHMuzZqV1zaL7QWK8TaXdyMUmtpUeQylIhvdl59bqzwRwrNNQ
+ sPIpVMvjhCXGWSXvVIZXmd5TfpQHmZE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1697041472;
+ s=susede2_ed25519; t=1697041473;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=oc4wJg/gg/HlfaCOdKXGINkF0d8I9q+JH/EqZTv6ghU=;
- b=KSGl5Ts9DEMdctqAwDhWamSqYBVei7NIkJvca3T6dLndybYAQozo1b1+QMAAGINsVk4ZQj
- 9sXooqkOyy1QqODw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8ob2LIWIgdPv6DvjyUuzU8bQ3hHrsp7LXxh3/GjHCWc=;
+ b=0xtZOPjjWQrdb9iiJuYmGxfu6RYjLeYZhd5D1rD7iRySZnyiXijHvFbBGNtXc0pJtgkQaz
+ 2Dult1LY7C9ufiDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0A98E134F5;
- Wed, 11 Oct 2023 16:24:31 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B4592134F5;
+ Wed, 11 Oct 2023 16:24:32 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ls7vOj/MJmVIKwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 11 Oct 2023 16:24:31 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id GK9+KEDMJmVIKwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 11 Oct 2023 16:24:32 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 11 Oct 2023 18:24:26 +0200
-Message-ID: <20231011162428.583911-1-pvorel@suse.cz>
+Date: Wed, 11 Oct 2023 18:24:27 +0200
+Message-ID: <20231011162428.583911-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231011162428.583911-1-pvorel@suse.cz>
+References: <20231011162428.583911-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Score: 3.90
+X-Spamd-Result: default: False [3.90 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ R_MISSING_CHARSET(2.50)[]; MIME_GOOD(-0.10)[text/plain];
+ BROKEN_CONTENT_TYPE(1.50)[]; RCPT_COUNT_FIVE(0.00)[5];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/2] swapon01: Test on all filesystems, cleanup
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] swapon01: Test on all filesystems
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,26 +99,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Test on all filesystems to increase coverage.  btrfs and tmpfs
+currently does not support swap file, but keep it in case this get
+changed in the future.
 
-this is based on patch from Marius:
+Testing on all filesystems usually requests root, but we don't require
+it with .needs_root = 1. But using swapon() requires it as well, thus
+keep it defined.
 
-https://patchwork.ozlabs.org/project/ltp/patch/20231011152900.4274-1-mkittler@suse.de/
-https://lore.kernel.org/ltp/20231011152900.4274-1-mkittler@suse.de/
+Also detect the support on the same file as which is being tested.
 
-It's also related to (but independent on it):
-https://patchwork.ozlabs.org/project/ltp/list/?series=377166
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+IMHO it's not a big slowdown thus I keep btrfs and tmpfs.
+They might get support one day.
 
-Kind regards,
-Petr
+ testcases/kernel/syscalls/swapon/swapon01.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-Petr Vorel (2):
-  swapon01: Test on all filesystems
-  swapon01: Simplify code, add copyright
-
- testcases/kernel/syscalls/swapon/swapon01.c | 29 ++++++++++-----------
- 1 file changed, 14 insertions(+), 15 deletions(-)
-
+diff --git a/testcases/kernel/syscalls/swapon/swapon01.c b/testcases/kernel/syscalls/swapon/swapon01.c
+index b5c3f359c..6b7f96cf7 100644
+--- a/testcases/kernel/syscalls/swapon/swapon01.c
++++ b/testcases/kernel/syscalls/swapon/swapon01.c
+@@ -9,6 +9,9 @@
+  * Checks that swapon() succeds with swapfile.
+  */
+ 
++#define MNTPOINT	"mntpoint"
++#define SWAP_FILE	MNTPOINT"/swapfile01"
++
+ #include <unistd.h>
+ #include <errno.h>
+ #include <stdlib.h>
+@@ -18,14 +21,14 @@
+ 
+ static void verify_swapon(void)
+ {
+-	TEST(tst_syscall(__NR_swapon, "./swapfile01", 0));
++	TEST(tst_syscall(__NR_swapon, SWAP_FILE, 0));
+ 
+ 	if (TST_RET == -1) {
+ 		tst_res(TFAIL | TTERRNO, "Failed to turn on swapfile");
+ 	} else {
+ 		tst_res(TPASS, "Succeeded to turn on swapfile");
+ 		/*we need to turn this swap file off for -i option */
+-		if (tst_syscall(__NR_swapoff, "./swapfile01") != 0) {
++		if (tst_syscall(__NR_swapoff, SWAP_FILE) != 0) {
+ 			tst_brk(TBROK | TERRNO, "Failed to turn off swapfile,"
+ 				" system reboot after execution of LTP "
+ 				"test suite is recommended.");
+@@ -35,13 +38,15 @@ static void verify_swapon(void)
+ 
+ static void setup(void)
+ {
+-	is_swap_supported("./tstswap");
+-	make_swapfile("swapfile01", 0);
++	is_swap_supported(SWAP_FILE);
++	make_swapfile(SWAP_FILE, 0);
+ }
+ 
+ static struct tst_test test = {
+-	.needs_root = 1,
+-	.needs_tmpdir = 1,
++	.mntpoint = MNTPOINT,
++	.mount_device = 1,
++	.needs_root = 1, /* for swapon() */
++	.all_filesystems = 1,
+ 	.test_all = verify_swapon,
+ 	.setup = setup
+ };
 -- 
 2.42.0
 
