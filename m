@@ -1,68 +1,87 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3B777C5816
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 17:29:09 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 008607C5857
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 17:43:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2300D3CFABC
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 17:29:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3CDF33CF65C
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Oct 2023 17:43:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6DC153C8B01
- for <ltp@lists.linux.it>; Wed, 11 Oct 2023 17:29:04 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 487833C8B01
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 17:43:51 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C298F1000D06
- for <ltp@lists.linux.it>; Wed, 11 Oct 2023 17:29:03 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 955D51A00CD9
+ for <ltp@lists.linux.it>; Wed, 11 Oct 2023 17:43:50 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8CFA21FEE9;
- Wed, 11 Oct 2023 15:29:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1697038142; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=8byMzWtXGnYA5cKmjri/1VsBC2M1FEzMFM2gqzs5x0M=;
- b=ct+vtCxORWOuCuDacR/Dw+vtACe5RZixH6le8VKwXjQyhvHcYHATuYpnMt/IT9/Td/jR05
- qN0G5yOQ8vCM36QBndB6hVwCCRmzNHqPAYiKD82tsYVlPbz9f1VvGqYmaC/5/5J0LeyOVq
- O/zjhVkAhN+vOL+eh6mS9n+YtbwSSBI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1697038142;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=8byMzWtXGnYA5cKmjri/1VsBC2M1FEzMFM2gqzs5x0M=;
- b=LtdRk7I295oO/8HeyTRPJ++BHBVFWDg22A8M0dTGiAnlejpDCby/MU8qlZhhrXP0uei+7r
- jZu6GkKYlAKk1wBQ==
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5EDB221865;
+ Wed, 11 Oct 2023 15:43:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1697039029;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9V5DZDbFTd2eug2bDAkvInXnEMxlN/GvAzZ9qKP8ZEo=;
+ b=Af3cvUjl3/fAIPJJfxJEBzIm6jFEMglaOEO7rK391K1lRBwPSWjDegi25xpzGnK34ZRHGU
+ 3Rn7lXStAHudvzbdVq3zjN9qWjIYQ9egmnGOllw1VoNot1+Qln6QXtT4OTOlw2oxK3tvlK
+ bq0eW4F7VtsJy0508LOAst7i/1/WnJo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1697039029;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9V5DZDbFTd2eug2bDAkvInXnEMxlN/GvAzZ9qKP8ZEo=;
+ b=3UKSV1kmGdRnEN5OGNsOa6/4/OOkZikSaxPnEKld9s0nLaGdOYm5r2UNlxL7YDEKpbHTB1
+ F1aYZLP5baHouXBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 71561138EF;
- Wed, 11 Oct 2023 15:29:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3ACE3134F5;
+ Wed, 11 Oct 2023 15:43:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Une5Gj6/JmVUDgAAMHmgww
- (envelope-from <mkittler@suse.de>); Wed, 11 Oct 2023 15:29:02 +0000
-From: Marius Kittler <mkittler@suse.de>
-To: ltp@lists.linux.it
-Date: Wed, 11 Oct 2023 17:29:00 +0200
-Message-ID: <20231011152900.4274-1-mkittler@suse.de>
-X-Mailer: git-send-email 2.42.0
+ by imap2.suse-dmz.suse.de with ESMTPSA id e0nyDLXCJmVfFgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 11 Oct 2023 15:43:49 +0000
+Date: Wed, 11 Oct 2023 17:43:47 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Marius Kittler <mkittler@suse.de>
+Message-ID: <20231011154347.GA540626@pevik>
+References: <20231011152900.4274-1-mkittler@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20231011152900.4274-1-mkittler@suse.de>
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -0.91
+X-Spamd-Result: default: False [-0.91 / 50.00]; ARC_NA(0.00)[];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ BAYES_HAM(-0.61)[81.99%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v1] Avoid swapon01 failing with EPERM
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] Avoid swapon01 failing with EPERM
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,34 +93,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-* Simply require root permissions like the other swapon tests do
-* Fixes #1091
+> * Simply require root permissions like the other swapon tests do
+> * Fixes #1091
 
-Signed-off-by: Marius Kittler <mkittler@suse.de>
----
- testcases/kernel/syscalls/swapon/swapon01.c | 1 +
- 1 file changed, 1 insertion(+)
+Reported-by: Richard Palethorpe <rpalethorpe@suse.com>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+Fixes: 23fa0e045 ("syscalls/swapon/swapon01: Convert swapon01 to the new API")
+Fixes: https://github.com/linux-test-project/ltp/issues/1091
 
-diff --git a/testcases/kernel/syscalls/swapon/swapon01.c b/testcases/kernel/syscalls/swapon/swapon01.c
-index c334ae246..b5c3f359c 100644
---- a/testcases/kernel/syscalls/swapon/swapon01.c
-+++ b/testcases/kernel/syscalls/swapon/swapon01.c
-@@ -40,6 +40,7 @@ static void setup(void)
- }
- 
- static struct tst_test test = {
-+	.needs_root = 1,
- 	.needs_tmpdir = 1,
- 	.test_all = verify_swapon,
- 	.setup = setup
--- 
-2.42.0
+Thanks!
 
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
