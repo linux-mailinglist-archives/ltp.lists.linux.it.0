@@ -1,75 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DECF27C69A7
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Oct 2023 11:28:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8502E7C69E2
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Oct 2023 11:43:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6DC923CD444
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Oct 2023 11:28:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BDAD93CD1B7
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Oct 2023 11:43:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 408903C8B68
- for <ltp@lists.linux.it>; Thu, 12 Oct 2023 11:28:53 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id AB56F3C888B
+ for <ltp@lists.linux.it>; Thu, 12 Oct 2023 11:42:59 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8D942100095E
- for <ltp@lists.linux.it>; Thu, 12 Oct 2023 11:28:52 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A5A0114044A2
+ for <ltp@lists.linux.it>; Thu, 12 Oct 2023 11:42:58 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C132A1F74B
- for <ltp@lists.linux.it>; Thu, 12 Oct 2023 09:28:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1697102931; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KrS1D7JMy8b1RZC42zP0pugrd+QlKjN18LPIWTmfRGk=;
- b=fRcZmo1ITPQAIa+dW4BIEeVJOAqIYz2UtsorI96Fc1Sox/4YnC3MoAVEjDkz6DCmfrJmLi
- 2tNmsUYjWKk1zAS358YD747t3LoMrtsnkC+0JOnGzH6QxOvjn9JHh7nywLWIy4+RWdNPu1
- YMTQE5WV/yh7+J2IuygFCUJxD6xxHl0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1697102931;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KrS1D7JMy8b1RZC42zP0pugrd+QlKjN18LPIWTmfRGk=;
- b=Nxu0l6w/xDg82gktxYmm7aT/ZLUi5y8Wz026sec3Gi5k0ZXC9KTL0hpu1XPEZbc3zPv/qK
- wEiKMNjccQeIYfDA==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C0D821F74C;
+ Thu, 12 Oct 2023 09:42:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1697103777; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=J9rlr2EIfbuG/sXnJY+AgT0V1Hw8Z9chkKhEGVgsqNA=;
+ b=nc5MAZ06Aa8fsC5qDhZ9MZ8e0xCY0k7jEh9DS3s4KrdUVUOgie5lkZr1l0VAdqxqxnWKei
+ K9cl6OdbRAbXgXrLon1mjojb+8GrZ0OAfbI10FOwVkJumQ2Wp1a2O2erR18/75zSjyzW3R
+ qa3OMc2Vft94BQ1l1B+dK8KwaeTA4q8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1697103777;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=J9rlr2EIfbuG/sXnJY+AgT0V1Hw8Z9chkKhEGVgsqNA=;
+ b=ckUhJfatffc8fGuWg0u3REVAIZBQ1yRhARMHojzfuo4MnsaAYYrAlkd3yhN1dPfs33SS+Q
+ ZRTNPudXIRonQyCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B32C9139ED
- for <ltp@lists.linux.it>; Thu, 12 Oct 2023 09:28:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 90245139ED;
+ Thu, 12 Oct 2023 09:42:57 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ZH7WKlO8J2WSbQAAMHmgww
- (envelope-from <mkittler@suse.de>)
- for <ltp@lists.linux.it>; Thu, 12 Oct 2023 09:28:51 +0000
-From: Marius Kittler <mkittler@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id pU0PIqG/J2XgdQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 12 Oct 2023 09:42:57 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 12 Oct 2023 11:28:51 +0200
-Message-ID: <4867816.31r3eYUQgx@linux-9lzf>
-In-Reply-To: <20231011162428.583911-1-pvorel@suse.cz>
-References: <20231011162428.583911-1-pvorel@suse.cz>
+Date: Thu, 12 Oct 2023 11:42:54 +0200
+Message-ID: <20231012094254.611488-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/2] swapon01: Test on all filesystems, cleanup
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] README: Document gdb debugging
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,28 +74,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-I guess the code would work and looks generally good to merge. In fact, I 
-tested `.all_filesystems = 1`  myself yesterday. It is just the question 
-whether we actually want it. Is there really coverage to be gained (or does 
-the kernel just the same under the hood anyway regardless of the filesystem)?
+From: Petr Vorel <petr.vorel@gmail.com>
 
-> Test on all filesystems to increase coverage.  btrfs and tmpfs
-> currently does not support swap file, but keep it in case this get
-> changed in the future.
+Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
+---
+ README.md | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Considering btrfs does not support it I guess that means the kernel does 
-indeed different things under the hood so the coverage might be beneficial. (If 
-it was just about tmpfs then I'd say it makes no sense to put a swapfile there 
-in any case and it will therefore likely never be supported.)
-
-Reviewed-by: Marius Kittler <mkittler@suse.de>
-
-
+diff --git a/README.md b/README.md
+index fa9559398..adeac5fdf 100644
+--- a/README.md
++++ b/README.md
+@@ -215,6 +215,12 @@ SUSE also publishes a
+ [smaller LTP container](https://registry.opensuse.org/cgi-bin/cooverview?srch_term=project%3D%5Ebenchmark+container%3D.*)
+ that is not based on the Containerfile.
+ 
++Debugging with gdb
++==================
++
++To get stack trace of a crashing test in gdb it's useful to
++[`set follow-fork-mode child`](https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_25.html).
++
+ Developers corner
+ =================
+ 
+-- 
+2.42.0
 
 
 -- 
