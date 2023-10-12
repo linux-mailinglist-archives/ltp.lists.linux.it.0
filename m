@@ -2,72 +2,87 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2988A7C6A2E
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Oct 2023 11:58:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 541307C6A42
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Oct 2023 12:00:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D26483CD437
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Oct 2023 11:58:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 118D43CC14D
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Oct 2023 12:00:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DA69A3C888B
- for <ltp@lists.linux.it>; Thu, 12 Oct 2023 11:58:25 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 3B3DA3C8882
+ for <ltp@lists.linux.it>; Thu, 12 Oct 2023 12:00:24 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6488E600770
- for <ltp@lists.linux.it>; Thu, 12 Oct 2023 11:58:24 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4A5591A0C24C
+ for <ltp@lists.linux.it>; Thu, 12 Oct 2023 12:00:23 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9BEF51F74C;
- Thu, 12 Oct 2023 09:58:24 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 992012183F;
+ Thu, 12 Oct 2023 10:00:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1697104704;
+ t=1697104823;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=BND5zeG32am+ynETGQTKzwINNGzabQ158jKrDsqG6P4=;
- b=CPRIipo3X2SGUqSX3jgcFmf2U8V49T4m5SW69KDouO8bek5wqENSiYhBn0bcTJ7MoMbV+o
- qX05GKuZR02Qz9AfQEtuWPYg85Hv51FW//QAQTavnlFzRMWuar34luoaXPem1wFPQiYVoK
- Hlq2oV88TOPovrBaN1fY7jcLtenVhhs=
+ bh=DxZRKLYlUhfeOgjAlVgCc8vBcicGky+u8pV6ovWSxpQ=;
+ b=UjoPBEmYeaBiKl/QAMzIODkB900lD+2YvRB0vL4EUHoFTGWPHo3TkLlQU72mPgg3g+UvVS
+ k0Ftro4ASlsvT2N8ZMnBxti+t/46f6dES12KyKDRxwMf46x+ckVsXOYrwc5ccYtuhYJ3aW
+ +Z821QwHHiA+wS6Edr9JbOeHMOA2Vk8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1697104704;
+ s=susede2_ed25519; t=1697104823;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=BND5zeG32am+ynETGQTKzwINNGzabQ158jKrDsqG6P4=;
- b=ml1GNH3ngiWOm/f8ZGpJvvsy32rIe/ohbiSNFURHEXq5nk8zALlcVPZdIpw98noKVKRPIS
- eXDcIPglnmJ7ETAw==
+ bh=DxZRKLYlUhfeOgjAlVgCc8vBcicGky+u8pV6ovWSxpQ=;
+ b=1qw35WN0ynqiW+4+Te9ygwf2mcfMjaovWdjt62aY5MhE/zYNrawk5xbV4DXIrpXPnR5NB0
+ hksysoSdD1xxb0Ag==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 70F6A139ED;
- Thu, 12 Oct 2023 09:58:24 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 80F5D139F9;
+ Thu, 12 Oct 2023 10:00:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id S5fhGUDDJ2UMfwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 12 Oct 2023 09:58:24 +0000
-Date: Thu, 12 Oct 2023 11:58:23 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id qSFHHrfDJ2WKAQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 12 Oct 2023 10:00:23 +0000
+Date: Thu, 12 Oct 2023 12:00:22 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Message-ID: <20231012095823.GB618148@pevik>
+Message-ID: <20231012100022.GC618148@pevik>
 References: <1697021709-22916-1-git-send-email-xuyang2018.jy@fujitsu.com>
  <1697021709-22916-3-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <1697021709-22916-3-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -3.30
+X-Spamd-Result: default: False [-3.30 / 50.00]; ARC_NA(0.00)[];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; NEURAL_HAM_LONG(-3.00)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.00)[39.24%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 3/3] link08: Convert docs to docparse
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -89,59 +104,28 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Xu,
 
+could you please fixes the formating errors and the grammar?
 ...
-> +++ b/testcases/kernel/syscalls/link/link08.c
-> @@ -3,21 +3,23 @@
->   * Copyright (c) 2014 Fujitsu Ltd.
-While you're in it, maybe update the copyright?
+> + * - link() fails with -1 return value and sets errno to EXDEV
+> + *   if oldpath and newpath are not on the same mounted file system( Linux
+    *   if the old path and the new path are not on the same mounted file system (Linux
 
-* Copyright (c) Linux Test Project, 2014-2022
-
->   * Author: Zeng Linggang <zenglg.jy@cn.fujitsu.com>
->   */
-> -/*
-> - * Test Description:
-> - *  Verify that,
-> - *   1. link() fails with -1 return value and sets errno to EPERM
-> - *      if oldpath is a directory.
-> - *   2. link() fails with -1 return value and sets errno to EXDEV
-> - *      if oldpath and newpath are not on the same mounted file system( Linux
-> - *      permits a file system to be mounted at multiple points, but link()
-> - *      does not work across different mount points, even if the same
-> - *      file system is mounted on both. ).
-> - *   3. link() fails with -1 return value and sets errno to EROFS
-> - *      if the file is on a read-only file system.
-> - *   4. link() fails with -1 return value and sets errno to ELOOP
-> - *      if too many symbolic links were encountered in resolving path.
-> +
-> +/*\
-> + * [Description]
-I would keep the sentence:
-"Verify that"" or "Test that:"
-
-Beware, there must be a blank line before the list, otherwise list will not be
-formatted as list, but inline.
-
-With this change:
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> + *   permits a file system to be mounted at multiple points, but link()
+> + *   does not work across different mount points, even if the same
+> + *   file system is mounted on both. ).
+    *   file system is mounted on both).
 
 Kind regards,
 Petr
 
-> + *
-> + * - link() fails with -1 return value and sets errno to EPERM
-> + *   if oldpath is a directory.
-> + * - link() fails with -1 return value and sets errno to EXDEV
-> + *   if oldpath and newpath are not on the same mounted file system( Linux
-> + *   permits a file system to be mounted at multiple points, but link()
-> + *   does not work across different mount points, even if the same
-> + *   file system is mounted on both. ).
 > + * - link() fails with -1 return value and sets errno to EROFS
 > + *   if the file is on a read-only file system.
 > + * - link() fails with -1 return value and sets errno to ELOOP
 > + *   if too many symbolic links were encountered in resolving path.
 >   */
 > +
+>  #include <errno.h>
+>  #include "tst_test.h"
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
