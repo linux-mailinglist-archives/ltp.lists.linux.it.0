@@ -1,67 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E3AF7C7EE7
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Oct 2023 09:48:36 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C51227C7EE0
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Oct 2023 09:48:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 43AA03CE5A4
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Oct 2023 09:48:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D97B23CD3DD
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Oct 2023 09:48:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0E91F3C8767
+ by picard.linux.it (Postfix) with ESMTPS id AC45E3C8767
  for <ltp@lists.linux.it>; Fri, 13 Oct 2023 09:48:11 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 271D0617607
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1C05C1A0237F
  for <ltp@lists.linux.it>; Fri, 13 Oct 2023 09:48:10 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DD9231FD7E;
- Fri, 13 Oct 2023 07:48:08 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 08A07219B3;
+ Fri, 13 Oct 2023 07:48:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1697183288; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=84y154RM7ZCcnCcEIk/Z6rQ0D/W1irvYCiN2954nKHc=;
- b=UBsz1DuRHRVhdn21BQB0pjp1kIi0qFT/MLOfWDG2McFafS6CNfJmNlptg8dObDLb+QI3/F
- NxegOvcknaRz4NFLFQjVDUXxQUdKKipUVWmJEy/ArJ91l+lGJapi3l8Jv5y4OsK/Aj0qaE
- e8wvvg2tp8+6eTxhVBIX1I0+LQAcHFA=
+ t=1697183289; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q17GhFVieFWg1wBEVZOTURESZnAlA7z73tONCbkfgAI=;
+ b=YIoX5nWdslcfDGAOzbt9bOmpnUtn9t9iZRpJIB0t9Hx4EFwIw1Aa7Euk5KHG/okfcdocUE
+ mQRFv9VEmWMRs4j/q61mQdtcljJjZalk78GwhSUToeO6ftGBXsATOVkiwRqP2L163DKo2D
+ wRweRS/9fSNJTozuXQreCyoo0z8dCKQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1697183288;
+ s=susede2_ed25519; t=1697183289;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=84y154RM7ZCcnCcEIk/Z6rQ0D/W1irvYCiN2954nKHc=;
- b=XDBXjPBp8qzsp8wcPONkzKVZth88b6l14eJo+MwwWlsLhQj3DFAsUb+a1zQA1bijRDud11
- 3P1bcj8ZH7C8kCBg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q17GhFVieFWg1wBEVZOTURESZnAlA7z73tONCbkfgAI=;
+ b=LVktR8GrcXPsPB8r6HnrHbk8Xg8dQphyDn7yPFZBg+deHhLrsqT8sLrjsm3b3w4p7AvGUY
+ 25vrvriTdDwMbqCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C611D1358F;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E3861139ED;
  Fri, 13 Oct 2023 07:48:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gSZALzj2KGVqXwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id GDmRNjj2KGVqXwAAMHmgww
  (envelope-from <pvorel@suse.cz>); Fri, 13 Oct 2023 07:48:08 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 13 Oct 2023 09:47:43 +0200
-Message-ID: <20231013074748.702214-1-pvorel@suse.cz>
+Date: Fri, 13 Oct 2023 09:47:44 +0200
+Message-ID: <20231013074748.702214-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231013074748.702214-1-pvorel@suse.cz>
+References: <20231013074748.702214-1-pvorel@suse.cz>
 MIME-Version: 1.0
-Authentication-Results: smtp-out2.suse.de;
+Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
-X-Spam-Score: -2.10
-X-Spamd-Result: default: False [-2.10 / 50.00]; ARC_NA(0.00)[];
+X-Spam-Score: 0.90
+X-Spamd-Result: default: False [0.90 / 50.00]; ARC_NA(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
  TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  R_MISSING_CHARSET(2.50)[]; MIME_GOOD(-0.10)[text/plain];
@@ -70,14 +75,14 @@ X-Spamd-Result: default: False [-2.10 / 50.00]; ARC_NA(0.00)[];
  NEURAL_HAM_SHORT(-1.00)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
  MID_CONTAINS_FROM(1.00)[]; FROM_EQ_ENVFROM(0.00)[];
  MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-3.00)[100.00%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+ RCVD_TLS_ALL(0.00)[]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/4] Add .modprobe (loading modules in C API)
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/4] tst_kernel: Add safe_check_driver()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,63 +99,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+And use it in tst_test.c. It will be more reused in the next commit.
 
-when I started this patch it looked to me that quite a few C tests executes
-modprobe to load kernel module. In the end, so far only can_bcm01.c and
-madvise11.c uses it. But maybe more could be used.
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ include/tst_kernel.h | 9 +++++++++
+ lib/tst_kernel.c     | 6 ++++++
+ lib/tst_test.c       | 3 +--
+ 3 files changed, 16 insertions(+), 2 deletions(-)
 
-If I add support for module parameters (it would be easy to add), it could be
-used also in can_common.h testcases/network/can/filter-tests/.
-
-It could also be used in the old API C tests in testcases/kernel/input (which
-use input_helper.c), of course after we rewrite them to the new API.
-
-Tests which use modprobe but using .modprobe is not usable:
-* kvm_pagefault01.c (more complicated use - it requires checks).
-* zram03.c, zram_lib.sh (too complicated check due /sys/class/zram-control
-  introduced in v4.2-rc1 vs. the old API, but maybe this could be simplified)
-* netstress.c (used only when testing dccp, which is determined by getopts)
-
-But if we move code I put into tst_test.c into separate function, we could be
-unified interface which would be usable for those tests as well.
-
-I haven't added support for parameters (it would be easy to add), atm only
-kvm_pagefault01.c and can_common.h use them.
-
-If is .modprobe (as TST_MODPROBE) supported in shell API, then these could use it:
-* new API shell tests: binfmt_misc_lib.sh, rcu_torture.sh, ip_tests.sh (if we
-  don't delete this test), mpls01.sh, tests which use mpls_lib.sh, tests which
-  use tcp_cc_lib.sh, tc01.sh
-* fou01.sh (new API) needs to load module after getopts, but it could use some
-  unified interface.
-* old API shell tests (after they are rewritten): lock_torture.sh
-
-Few notes on modprobe:
-* Do we even need to remove modules?
-* should we use "modprobe -r" instead of "rmmod" on cleanup? rmmod is a simple
-program which removes (unloads) a module from the Linux kernel. "modprobe -r"
-handles a dependencies (if more modules loded, they are also removed).
-
-* Network tests use -s on remote (log errors into syslog), I guess we probably
-prefer for general use error on stderr.
-
-Petr Vorel (4):
-  tst_kernel: Add safe_check_driver()
-  lib: Add .modprobe
-  madvise11: Replace .needs_drivers with .modprobe
-  can_bcm01: Move vcan to .modprobe
-
- doc/C-Test-API.asciidoc                       |  5 ++
- doc/Test-Writing-Guidelines.asciidoc          |  1 +
- include/tst_kernel.h                          |  9 +++
- include/tst_test.h                            |  5 +-
- lib/tst_kernel.c                              |  6 ++
- lib/tst_test.c                                | 56 ++++++++++++++++++-
- testcases/kernel/syscalls/madvise/madvise11.c | 36 +-----------
- testcases/network/can/cve/can_bcm01.c         | 19 ++++---
- 8 files changed, 90 insertions(+), 47 deletions(-)
-
+diff --git a/include/tst_kernel.h b/include/tst_kernel.h
+index 9d3a8d315..8caf3f733 100644
+--- a/include/tst_kernel.h
++++ b/include/tst_kernel.h
+@@ -30,4 +30,13 @@ int tst_check_builtin_driver(const char *driver);
+  */
+ int tst_check_driver(const char *driver);
+ 
++/*
++ * Checks support for the kernel module (both built-in and loadable)
++ * and exit with TCONF if driver not available.
++ *
++ * @param driver The name of the driver.
++ * On Android it *always* passes (always expect the driver is available).
++ */
++void safe_check_driver(const char *driver);
++
+ #endif	/* TST_KERNEL_H__ */
+diff --git a/lib/tst_kernel.c b/lib/tst_kernel.c
+index 4b75ceadb..de4c28308 100644
+--- a/lib/tst_kernel.c
++++ b/lib/tst_kernel.c
+@@ -198,3 +198,9 @@ int tst_check_driver(const char *driver)
+ 
+ 	return -1;
+ }
++
++void safe_check_driver(const char *driver)
++{
++	if (tst_check_driver(driver))
++		tst_brkm(TCONF, NULL, "%s driver not available", driver);
++}
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index c2f8f503f..087c62a16 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -1191,8 +1191,7 @@ static void do_setup(int argc, char *argv[])
+ 		int i;
+ 
+ 		for (i = 0; (name = tst_test->needs_drivers[i]); ++i)
+-			if (tst_check_driver(name))
+-				tst_brk(TCONF, "%s driver not available", name);
++			safe_check_driver(name);
+ 	}
+ 
+ 	if (tst_test->mount_device)
 -- 
 2.42.0
 
