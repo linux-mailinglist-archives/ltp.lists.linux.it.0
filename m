@@ -1,68 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 404077C7EE4
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Oct 2023 09:48:24 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6993C7C7EEB
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Oct 2023 09:49:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EAE643CD3A4
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Oct 2023 09:48:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 25A4F3CD485
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Oct 2023 09:49:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C22693C8DBE
- for <ltp@lists.linux.it>; Fri, 13 Oct 2023 09:48:11 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id CAF963C8DBE
+ for <ltp@lists.linux.it>; Fri, 13 Oct 2023 09:48:10 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 12C2D14088EC
- for <ltp@lists.linux.it>; Fri, 13 Oct 2023 09:48:10 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 40BA11A02368
+ for <ltp@lists.linux.it>; Fri, 13 Oct 2023 09:48:09 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 46B061FD81;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 64297219C0;
  Fri, 13 Oct 2023 07:48:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1697183289; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=rYrFtcGjDBRzzLXM2dPhmbJGCleL4m974Qcz4pE3tnI=;
- b=ytoCp9huFG2Eyq37HUEC7EDjh0WoLGou4E44nHru5/I9zhQo0SvLexMxl4IgUKCwD7Sc9Q
- JC54BIkYkCueuU7Z2YuNNfWLxa8O3zvWYkHGkY6GucydhkbjxV+pzZlKtKX81HSezqr5xa
- tbxaKzwH16uwyQmanCfRs/YDKMbHx5E=
+ bh=qR/hHNWoqXVpuClSz6a6F1Bnh/g35klcKFUaDRVwv1g=;
+ b=t87b8W595tqs/dhVTqlQGiFaPdlPY4HBOhaRTxMdo+b9/DNNyoPmYEFsffQzCuNUzGcfJy
+ poUtgDBeKRztBZQRnEuyYfisW3pyCyguBLFcB2t7hJPRIeMs+4x9B132kwwDPIiOxh62u2
+ EVqaM+ideu8lA7ziuLG0f3etn1VYf78=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1697183289;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=rYrFtcGjDBRzzLXM2dPhmbJGCleL4m974Qcz4pE3tnI=;
- b=DFfEKPx9HPu8mGXk2VuFh17/NwDWwN7WXsQNZ+jqOvBRuABvS5WpUVkF2sXbY/5LV/v5WR
- kt7U9UfTKbDZBLDg==
+ bh=qR/hHNWoqXVpuClSz6a6F1Bnh/g35klcKFUaDRVwv1g=;
+ b=hgWVZZG0chp/AhUwNjSMJ+Qjk7xBn5lh+1aOGS/r2gE+oMkXyvMQxvmxO5kGUr0QgPydLR
+ jSxNam3ByIpG8gDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 265E113AA5;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 40E4213ADB;
  Fri, 13 Oct 2023 07:48:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id uLBwCDn2KGVqXwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id GEHZDjn2KGVqXwAAMHmgww
  (envelope-from <pvorel@suse.cz>); Fri, 13 Oct 2023 07:48:09 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 13 Oct 2023 09:47:46 +0200
-Message-ID: <20231013074748.702214-4-pvorel@suse.cz>
+Date: Fri, 13 Oct 2023 09:47:47 +0200
+Message-ID: <20231013074748.702214-5-pvorel@suse.cz>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231013074748.702214-1-pvorel@suse.cz>
 References: <20231013074748.702214-1-pvorel@suse.cz>
 MIME-Version: 1.0
-Authentication-Results: smtp-out2.suse.de;
+Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
 X-Spam-Score: 0.90
@@ -75,14 +76,14 @@ X-Spamd-Result: default: False [0.90 / 50.00]; ARC_NA(0.00)[];
  NEURAL_HAM_SHORT(-1.00)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
  MID_CONTAINS_FROM(1.00)[]; FROM_EQ_ENVFROM(0.00)[];
  MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.00)[17.23%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+ RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.00)[42.60%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/4] madvise11: Replace .needs_drivers with .modprobe
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 4/4] can_bcm01: Move vcan to .modprobe
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,98 +102,49 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/syscalls/madvise/madvise11.c | 36 +------------------
- 1 file changed, 1 insertion(+), 35 deletions(-)
+ testcases/network/can/cve/can_bcm01.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/madvise/madvise11.c b/testcases/kernel/syscalls/madvise/madvise11.c
-index 3cde85ef5..68f801610 100644
---- a/testcases/kernel/syscalls/madvise/madvise11.c
-+++ b/testcases/kernel/syscalls/madvise/madvise11.c
-@@ -47,7 +47,6 @@ static pthread_mutex_t sigbus_received_mtx = PTHREAD_MUTEX_INITIALIZER;
- 
- static long pagesize;
- static char beginning_tag[BUFSIZ];
--static int hwpoison_probe;
- 
- static void my_yield(void)
+diff --git a/testcases/network/can/cve/can_bcm01.c b/testcases/network/can/cve/can_bcm01.c
+index d9a835b03..ec98db133 100644
+--- a/testcases/network/can/cve/can_bcm01.c
++++ b/testcases/network/can/cve/can_bcm01.c
+@@ -41,14 +41,6 @@ static void setup(void)
  {
-@@ -266,22 +265,6 @@ static int populate_from_klog(char *begin_tag, unsigned long *pfns, int max)
-  * Read the given file to search for the key.
-  * Return 1 if the key is found.
-  */
--static int find_in_file(char *path, char *key)
--{
--	char line[4096];
--	int found = 0;
--	FILE *file = SAFE_FOPEN(path, "r");
+ 	struct sockaddr_can addr = { .can_family = AF_CAN };
+ 
+-	/*
+-	 * Older kernels require explicit modprobe of vcan. Newer kernels
+-	 * will load the modules automatically and support CAN in network
+-	 * namespace which would eliminate the need for running the test
+-	 * with root privileges.
+-	 */
+-	tst_cmd((const char*[]){"modprobe", "vcan", NULL}, NULL, NULL, 0);
 -
--	while (fgets(line, sizeof(line), file)) {
--		if (strstr(line, key)) {
--			found = 1;
--			break;
--		}
--	}
--	SAFE_FCLOSE(file);
--	return found;
--}
--
- static void unpoison_this_pfn(unsigned long pfn, int fd)
- {
- 	char pfn_str[19];
-@@ -294,18 +277,10 @@ static void unpoison_this_pfn(unsigned long pfn, int fd)
- static int open_unpoison_pfn(void)
- {
- 	char *added_file_path = "/hwpoison/unpoison-pfn";
--	const char *const cmd_modprobe[] = {"modprobe", HW_MODULE, NULL};
- 	char debugfs_fp[4096];
- 	struct mntent *mnt;
- 	FILE *mntf;
- 
--	if (!find_in_file("/proc/modules", HW_MODULE) && tst_check_builtin_driver(HW_MODULE))
--		hwpoison_probe = 1;
--
--	/* probe hwpoison only if it isn't already there */
--	if (hwpoison_probe)
--		SAFE_CMD(cmd_modprobe, NULL, NULL);
--
- 	/* debugfs mount point */
- 	mntf = setmntent("/etc/mtab", "r");
- 	if (!mntf) {
-@@ -349,7 +324,6 @@ static int open_unpoison_pfn(void)
- static void unpoison_pfn(char *begin_tag)
- {
- 	unsigned long *pfns;
--	const char *const cmd_rmmod[] = {"rmmod", HW_MODULE, NULL};
- 	int found_pfns, fd;
- 
- 	pfns = SAFE_MALLOC(sizeof(pfns) * maximum_pfns * run_iterations);
-@@ -365,9 +339,6 @@ static void unpoison_pfn(char *begin_tag)
- 
- 		SAFE_CLOSE(fd);
- 	}
--	/* remove hwpoison only if we probed it */
--	if (hwpoison_probe)
--		SAFE_CMD(cmd_rmmod, NULL, NULL);
- }
- 
- /*
-@@ -417,15 +388,10 @@ static void cleanup(void)
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_drivers = (const char *const []) {
-+	.modprobe = (const char *const []) {
- 		HW_MODULE,
+ 	NETDEV_ADD_DEVICE(LTP_DEVICE, "vcan");
+ 	NETDEV_SET_STATE(LTP_DEVICE, 1);
+ 	addr.can_ifindex = NETDEV_INDEX_BY_NAME(LTP_DEVICE);
+@@ -143,10 +135,19 @@ static struct tst_test test = {
+ 	.skip_in_compat = 1,
+ 	.max_runtime = 30,
+ 	.needs_drivers = (const char *const[]) {
+-		"vcan",
+ 		"can-bcm",
  		NULL
  	},
--	.needs_cmds = (const char *[]) {
--		"modprobe",
--		"rmmod",
--		NULL
--	},
- 	.max_runtime = 30,
- 	.needs_checkpoints = 1,
- 	.setup = setup,
++	/*
++	 * Older kernels require explicit modprobe of vcan. Newer kernels
++	 * will load the modules automatically and support CAN in network
++	 * namespace which would eliminate the need for running the test
++	 * with root privileges.
++	 */
++	.modprobe = (const char *const[]) {
++		"vcan",
++		NULL
++	},
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "d5f9023fa61e"},
+ 		{"CVE", "2021-3609"},
 -- 
 2.42.0
 
