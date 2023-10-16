@@ -1,68 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8811E7CB2E3
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 20:45:49 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 371597CB2EA
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 20:46:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5050F3CFE5D
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 20:45:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E02763CFE58
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 20:46:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1425D3CFD3D
+ by picard.linux.it (Postfix) with ESMTPS id CD7DE3CFE56
  for <ltp@lists.linux.it>; Mon, 16 Oct 2023 20:44:39 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BF5401400BDF
- for <ltp@lists.linux.it>; Mon, 16 Oct 2023 20:44:37 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id AFE4A1400BF2
+ for <ltp@lists.linux.it>; Mon, 16 Oct 2023 20:44:38 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 595901FECD;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D4B7421C63;
  Mon, 16 Oct 2023 18:44:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1697481877; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CBbhhk/nA77J/A7EO8PcTjA3tyRMTk/91gN5USruCE0=;
- b=YEUH9kbX1kvXrp1q8IkdbbAPvTwQKCOl/dN4QpAI5yBXTTkAUuu14I2yrrgAQrqUlUAtIU
- S7QTHJ11FwTH2tMyxFwT1tjcx78wH3wpDLbD6hK/ZfQyytWJcDEWDi3l9xlkMawsggCkT5
- Yi7xA++FuEQnHzl6LwRPoePwuUxJw/U=
+ bh=c7V1U/U0PBYVeSB6eOLCThnUoElrT39xRJLLAgdVm+o=;
+ b=NzLqqGLZQ8mhFxx1UMgP8xC+8kU86ze3PMYI0/efewqSMjQ+oot0IRO3D31sTGnhepEE9I
+ G3ENTeKYJaki4SxSTwcAcsHNyqJCE0C0tBmB5dc0qsWiwcfo1coMUPhRcRz/bZXvIeG0mh
+ ggBFEn11FVFupUhMCUte2BJk53PFGbw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1697481877;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CBbhhk/nA77J/A7EO8PcTjA3tyRMTk/91gN5USruCE0=;
- b=ApQ88Nlu/YjpcefRF3/c1N2ncQMzvf95kf9exIHJNSHy+N7mj/wY0dej1Eh/KMGegjniMW
- HzvlEwPW0WinGmAw==
+ bh=c7V1U/U0PBYVeSB6eOLCThnUoElrT39xRJLLAgdVm+o=;
+ b=iLPTTsvkPsPGhsG35vG5hKPRFPwOL1U3GGkSH+Eh/RJtrfO8LBPuxQO6moa/NRtZO0ZRqd
+ 14d4e6QA9ITwU9CA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 040DD138EF;
- Mon, 16 Oct 2023 18:44:36 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6A5F1139F9;
+ Mon, 16 Oct 2023 18:44:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oL2TNpSELWXAZgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 16 Oct 2023 18:44:36 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id +Ho5F5WELWXAZgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 16 Oct 2023 18:44:37 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 16 Oct 2023 20:44:07 +0200
-Message-ID: <20231016184408.879977-7-pvorel@suse.cz>
+Date: Mon, 16 Oct 2023 20:44:08 +0200
+Message-ID: <20231016184408.879977-8-pvorel@suse.cz>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231016184408.879977-1-pvorel@suse.cz>
 References: <20231016184408.879977-1-pvorel@suse.cz>
 MIME-Version: 1.0
-Authentication-Results: smtp-out2.suse.de;
+Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
 X-Spam-Score: -6.09
@@ -80,10 +81,10 @@ X-Spamd-Result: default: False [-6.09 / 50.00]; ARC_NA(0.00)[];
 X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 6/7] testscripts: Remove sysfs.sh
+Subject: [LTP] [RFC PATCH 7/7] testcases: Remove autofs{1,4}.sh scripts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,21 +102,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Legacy script from 2003, useless nowadays (sysfs is being mounted by
-all linux distros).
+Legacy scripts from 2003, probably not used by anybody.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testscripts/sysfs.sh | 121 -------------------------------------------
- 1 file changed, 121 deletions(-)
- delete mode 100755 testscripts/sysfs.sh
+ testscripts/autofs1.sh | 273 -----------------------------------------
+ testscripts/autofs4.sh | 259 --------------------------------------
+ 2 files changed, 532 deletions(-)
+ delete mode 100755 testscripts/autofs1.sh
+ delete mode 100755 testscripts/autofs4.sh
 
-diff --git a/testscripts/sysfs.sh b/testscripts/sysfs.sh
+diff --git a/testscripts/autofs1.sh b/testscripts/autofs1.sh
 deleted file mode 100755
-index e22f36fa2..000000000
---- a/testscripts/sysfs.sh
+index 324c4db93..000000000
+--- a/testscripts/autofs1.sh
 +++ /dev/null
-@@ -1,121 +0,0 @@
+@@ -1,273 +0,0 @@
 -#!/bin/bash
 -
 -
@@ -137,39 +139,39 @@ index e22f36fa2..000000000
 -#  along with this program;  if not, write to the Free Software
 -#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 -#
--#  FILE        : sysfs.sh
--#  USAGE       : sysfs.sh [ -k <kernel_module> ]
+-#  FILE        : autofs1.sh
+-#  USAGE       : autofs1.sh <disk_partition>
 -#
--#  DESCRIPTION : A script that will test sysfs on Linux system.
--#  REQUIREMENTS: CONFIG_DUMMY must have been used to build kernel, and the
--#		 dummy network module must exist.
+-#  DESCRIPTION : A script that will test autofs on Linux system.
+-#  REQUIREMENTS:
+-#                1) System with a floppy device with a floppy disk in it.
+-#                2) A spare (scratch) disk partition of 100MB or larger.
 -#
 -#  HISTORY     :
--#      06/24/2003 Prakash Narayana (prakashn@us.ibm.com)
+-#      06/11/2003 Prakash Narayana (prakashn@us.ibm.com)
+-#      08/01/2005 Michael Reed (mreed10@us.ibm.com)
+-#      - Added an check to see if a directory exists
+-#      - This prevents unnessary failures
+-#      - Correction to an echo statement
+-#      - Added an additional error message if a floppy disk is not present
 -#
--#  CODE COVERAGE: 31.3% - fs/sysfs (Total Coverage)
--#
--#                  0.0% - fs/sysfs/bin.c
--#                 61.8% - fs/sysfs/dir.c
--#                 27.5% - fs/sysfs/file.c
--#                 40.4% - fs/sysfs/inode.c
--#                 41.2% - fs/sysfs/mount.c
--#                 58.1% - fs/sysfs/symlink.c
+-#  CODE COVERAGE:
+-#                41.46% - fs/autofs/dirhash.c
+-#                33.33% - fs/autofs/init.c
+-#                27.70% - fs/autofs/inode.c
+-#                38.16% - fs/autofs/root.c
+-#                 0.00% - fs/autofs/symlink.c
+-#                43.40% - fs/autofs/waitq.c
 -#
 -##############################################################
--
--
--MNT_POINT="/tmp/sysfs_$$"
--
--KERNEL_NAME=`uname -a | awk ' { print $3 } '`
--KERN_MODULE=/lib/modules/$KERNEL_NAME/kernel/drivers/net/dummy.ko
--USAGE="$0 [ -k <kernel_module> ]"
 -
 -
 -##############################################################
 -#
 -# Make sure that uid=root is running this script.
--# Validate the command line arguments.
+-# Validate the command line argument as a block special device.
+-# Make sure that autofs package has been installed.
+-# Make sure that autofs module is built into the kernel or loaded.
 -#
 -##############################################################
 -
@@ -179,62 +181,479 @@ index e22f36fa2..000000000
 -	exit 1
 -fi
 -
--while getopts k: args
--do
--	case $args in
--	k)	KERN_MODULE=$OPTARG ;;
--	\?)	echo $USAGE ; exit 1 ;;
--	esac
--done
--
--if [ -z "$KERN_MODULE" ]
+-if [ $# != 1 ]
 -then
--	echo $USAGE
--	echo "FAILED: kernel module to insert not specified"
+-	echo "FAILED: Usage $0 <disk_partition>"
+-        echo "Example: $0 /dev/hdc1"
 -	exit 1
+-else
+-	disk_partition=$1
+-	if [ ! -b $disk_partition ]
+-	then
+-		echo "FAILED: Usage $0 <block special disk_partition>"
+-		exit 1
+-	fi
+-	mkfs -t ext2 $disk_partition
 -fi
 -
--# Here is the code coverage for fs/sysfs
--# insmod/rmmod net/dummy.ko creates and deletes a directory
--# under sysfs.
--# In kernel, 2.5.73 or higher, insert/delete base/firmware_class.ko
--
--mkdir -p -m 777 $MNT_POINT
--mount -t sysfs sysfs $MNT_POINT
+-rpm -q -a | grep autofs
 -if [ $? != 0 ]
 -then
--	echo "FAILED: sysfs mount failed"
+-	echo "FAILED: autofs package is not installed"
 -	exit 1
 -fi
 -
--insmod $KERN_MODULE
+-grep autofs /proc/filesystems
 -if [ $? != 0 ]
 -then
--	umount $MNT_POINT
--	rm -rf $MNT_POINT
--	echo "FAILED: insmod failed"
+-	echo "FAILED: autofs module is not built into the kernel or loaded"
 -	exit 1
 -fi
 -
--rmmod $KERN_MODULE
+-
+-##############################################################
+-#
+-# Pick the floppy device name from /etc/fstab
+-# Format (mkfs -t ext2) the floppy to ext2 file system
+-# Create the /etc/auto.master
+-# Create the /etc/auto.media
+-# Create /AUTOFS directory.
+-#
+-##############################################################
+-
+-floppy_dev=`grep floppy /etc/fstab | awk '{print $1}'`
+-
+-echo "Found floppy device:$floppy_dev"
+-
+-if [ $floppy_dev != "" ]
+-then
+-	/sbin/mkfs -t ext2 $floppy_dev
+-	if [ $? != 0 ]
+-	then
+-		echo "FAILED: mkfs -t ext2 $floppy_dev failed"
+-		echo "Insert a disk into the floppy drive"
+-		exit 1
+-	fi
+-fi
+-
+-if [ ! -d /AUTOFS ]
+-then
+-	mkdir -m 777 /AUTOFS
+-fi
+-
+-echo "/AUTOFS/MEDIA	/etc/auto.media" > /etc/auto.master
+-echo "floppy	-fstype=ext2	:$floppy_dev" > /etc/auto.media
+-
+-
+-##############################################################
+-#
+-# Verify that "/etc/init.d/autofs start|restart|stop|status|reload"
+-# command works.
+-#
+-# If fails, cleanup and exit.
+-#
+-##############################################################
+-
+-/etc/init.d/autofs start
 -if [ $? != 0 ]
 -then
--	umount $MNT_POINT
--	rm -rf $MNT_POINT
--	echo "FAILED: rmmod failed"
+-	rm -rf /etc/auto.master /etc/auto.media /AUTOFS
+-	echo "FAILED: "/etc/init.d/autofs start""
 -	exit 1
 -fi
+-echo "Resuming test, please wait..."
+-sleep 15
+-
+-/etc/init.d/autofs stop
+-if [ $? != 0 ]
+-then
+-	rm -rf /etc/auto.master /etc/auto.media /AUTOFS
+-	echo "FAILED: "/etc/init.d/autofs stop""
+-	exit 1
+-else
+-	/etc/init.d/autofs start
+-fi
+-echo "Resuming test, please wait..."
+-sleep 15
+-
+-/etc/init.d/autofs restart
+-if [ $? != 0 ]
+-then
+-	/etc/init.d/autofs stop
+-	rm -rf /etc/auto.master /etc/auto.media /AUTOFS
+-	echo "FAILED: "/etc/init.d/autofs restart""
+-	exit 1
+-fi
+-echo "Resuming test, please wait..."
+-sleep 15
+-
+-/etc/init.d/autofs status
+-if [ $? != 0 ]
+-then
+-	/etc/init.d/autofs stop
+-	rm -rf /etc/auto.master /etc/auto.media /AUTOFS
+-	echo "FAILED: "/etc/init.d/autofs status""
+-	exit 1
+-fi
+-
+-/etc/init.d/autofs reload
+-if [ $? != 0 ]
+-then
+-	/etc/init.d/autofs stop
+-	rm -rf /etc/auto.master /etc/auto.media /AUTOFS
+-	echo "FAILED: "/etc/init.d/autofs reload""
+-	exit 1
+-fi
+-
+-
+-##############################################################
+-#
+-# Tryout some error code paths by:
+-# (1) Write into automount directory
+-# (2) Remove automount parent directory
+-# (3) Automount the floppy disk
+-# (4) Hit automounter timeout by sleep 60; then wakeup with error
+-#     condition.
+-#
+-##############################################################
+-
+-echo "forcing error paths and conditions..."
+-
+-mkdir /AUTOFS/MEDIA/mydir >/dev/null 2>&1
+-rm -rf /AUTOFS >/dev/null 2>&1
+-
+-mkdir /AUTOFS/MEDIA/floppy/test
+-cp /etc/auto.master /etc/auto.media /AUTOFS/MEDIA/floppy/test
+-sync; sync
+-echo "Resuming test, please wait..."
+-sleep 60
+-mkdir /AUTOFS/MEDIA/mydir >/dev/null 2>&1
+-rm -rf /AUTOFS >/dev/null 2>&1
+-
+-
+-##############################################################
+-#
+-# Add an entry to the /etc/auto.master and reload.
+-#
+-##############################################################
+-
+-echo "/AUTOFS/DISK	/etc/auto.disk" >> /etc/auto.master
+-echo "disk		-fstype=auto,rw,sync	:$disk_partition " > /etc/auto.disk
+-/etc/init.d/autofs reload
+-echo "Resuming test, please wait..."
+-sleep 30
+-
+-
+-
+-mkdir /AUTOFS/DISK/disk/test
+-cp /etc/auto.master /etc/auto.media /AUTOFS/DISK/disk/test
+-sync; sync
+-echo "Resuming test, please wait..."
+-sleep 60
+-
+-
+-if [ -e  /AUTOFS/DISK/disk/test ]; then
+-  cd /AUTOFS/DISK/disk/test
+-  umount /AUTOFS/DISK/disk/ >/dev/null 2>&1
+-  if [ $? = 0 ]
+-    then
+-	/etc/init.d/autofs stop
+-	rm -rf /etc/auto.master /etc/auto.media /etc/auto.disk /AUTOFS
+-	echo "FAILED: unmounted a busy file system!"
+-	exit 1
+-  fi
+-  cd
+-  umount /AUTOFS/DISK/disk/
+-if [ $? != 0 ]
+-  then
+-	/etc/init.d/autofs stop
+-	rm -rf /etc/auto.master /etc/auto.media /etc/auto.disk /AUTOFS
+-	echo "FAILED: Could not unmount automounted file system"
+-	exit 1
+-  fi
+-fi
+-#
+-# Mount the disk partition somewhere else and then reference automount
+-# point for disk partition.
+-#
+-mount -t ext2 $disk_partition /mnt/
+-ls -l /AUTOFS/DISK/disk
+-umount /mnt
 -
 -
 -#######################################################
 -#
--# Just before exit, perform the cleanup.
+-# Just before exit, stop autofs and cleanup.
 -#
 -#######################################################
 -
--umount $MNT_POINT
--rm -rf $MNT_POINT
+-/etc/init.d/autofs stop
+-rm -rf /etc/auto.master /etc/auto.media /etc/auto.disk /AUTOFS
+-echo "PASSED: $0 passed!"
+-exit 0
+diff --git a/testscripts/autofs4.sh b/testscripts/autofs4.sh
+deleted file mode 100755
+index 00119a604..000000000
+--- a/testscripts/autofs4.sh
++++ /dev/null
+@@ -1,259 +0,0 @@
+-#!/bin/bash
 -
+-
+-##############################################################
+-#
+-#  Copyright (c) International Business Machines  Corp., 2003
+-#
+-#  This program is free software;  you can redistribute it and/or modify
+-#  it under the terms of the GNU General Public License as published by
+-#  the Free Software Foundation; either version 2 of the License, or
+-#  (at your option) any later version.
+-#
+-#  This program is distributed in the hope that it will be useful,
+-#  but WITHOUT ANY WARRANTY;  without even the implied warranty of
+-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+-#  the GNU General Public License for more details.
+-#
+-#  You should have received a copy of the GNU General Public License
+-#  along with this program;  if not, write to the Free Software
+-#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-#
+-#  FILE        : autofs4.sh
+-#  USAGE       : autofs4.sh <disk_partition>
+-#
+-#  DESCRIPTION : A script that will test autofs on Linux system.
+-#  REQUIREMENTS:
+-#                1) System with a floppy device with a floppy disk in it.
+-#                2) A spare (scratch) disk partition of 100MB or larger.
+-#
+-#  HISTORY     :
+-#      06/11/2003 Prakash Narayana (prakashn@us.ibm.com)
+-#
+-#  CODE COVERAGE: 26.8% - fs/autofs4 (Total Coverage)
+-#
+-#                 24.1% - fs/autofs4/expire.c
+-#                 33.3% - fs/autofs4/init.c
+-#                 24.0% - fs/autofs4/inode.c
+-#                 29.9% - fs/autofs4/root.c
+-#                  0.0% - fs/autofs4/symlink.c
+-#                 29.1% - fs/autofs4/waitq.c
+-#
+-##############################################################
+-
+-
+-##############################################################
+-#
+-# Make sure that uid=root is running this script.
+-# Validate the command line argument as a block special device.
+-# Make sure that autofs package has been installed.
+-# Make sure that autofs module is built into the kernel or loaded.
+-#
+-##############################################################
+-
+-if [ $UID != 0 ]
+-then
+-	echo "FAILED: Must have root access to execute this script"
+-	exit 1
+-fi
+-
+-if [ $# != 1 ]
+-then
+-	echo "FAILED: Usage $0 <disk_partition>"
+-	exit 1
+-else
+-	disk_partition=$1
+-	if [ ! -b $disk_partition ]
+-	then
+-		echo "FAILED: Usage $0 <block special disk_partition>"
+-		exit 1
+-	fi
+-	mkfs -t ext2 $disk_partition >/dev/null 2>&1
+-fi
+-
+-rpm -q -a | grep autofs >/dev/null 2>&1
+-if [ $? != 0 ]
+-then
+-	echo "FAILED: autofs package is not installed"
+-	exit 1
+-fi
+-
+-grep autofs /proc/filesystems >/dev/null 2>&1
+-if [ $? != 0 ]
+-then
+-	echo "FAILED: autofs module is not built into the kernel or loaded"
+-	exit 1
+-fi
+-
+-
+-##############################################################
+-#
+-# Pick the floppy device name from /etc/fstab
+-# Format (mkfs -t ext2) the floppy to ext2 file system
+-# Create the /etc/auto.master
+-# Create the /etc/auto.media
+-# Create /AUTOFS directory.
+-#
+-##############################################################
+-
+-floppy_dev=`grep floppy /etc/fstab | awk '{print $1}'`
+-
+-if [ $floppy_dev != "" ]
+-then
+-	/sbin/mkfs -t ext2 $floppy_dev >/dev/null 2>&1
+-	if [ $? != 0 ]
+-	then
+-		echo "FAILED: mkfs -t ext2 $floppy_dev failed"
+-		exit 1
+-	fi
+-fi
+-
+-if [ ! -d /AUTOFS ]
+-then
+-	mkdir -m 755 /AUTOFS
+-fi
+-
+-echo "/AUTOFS/MEDIA	/etc/auto.media		" > /etc/auto.master
+-echo "floppy	-fstype=ext2					:$floppy_dev" > /etc/auto.media
+-
+-
+-##############################################################
+-#
+-# Verify that "/etc/init.d/autofs start|restart|stop|status|reload"
+-# command works.
+-#
+-# If fails, cleanup and exit.
+-#
+-##############################################################
+-
+-/etc/init.d/autofs start >/dev/null 2>&1
+-if [ $? != 0 ]
+-then
+-	rm -rf /etc/auto.master /etc/auto.media /AUTOFS
+-	echo "FAILED: "/etc/init.d/autofs start""
+-	exit 1
+-fi
+-echo "Resuming test, please wait..."
+-sleep 15
+-
+-/etc/init.d/autofs stop >/dev/null 2>&1
+-if [ $? != 0 ]
+-then
+-	rm -rf /etc/auto.master /etc/auto.media /AUTOFS
+-	echo "FAILED: "/etc/init.d/autofs stop""
+-	exit 1
+-else
+-	/etc/init.d/autofs start >/dev/null 2>&1
+-fi
+-sleep 15
+-
+-/etc/init.d/autofs restart >/dev/null 2>&1
+-if [ $? != 0 ]
+-then
+-	/etc/init.d/autofs stop >/dev/null 2>&1
+-	rm -rf /etc/auto.master /etc/auto.media /AUTOFS
+-	echo "FAILED: "/etc/init.d/autofs restart""
+-	exit 1
+-fi
+-echo "Resuming test, please wait..."
+-sleep 15
+-
+-/etc/init.d/autofs status >/dev/null 2>&1
+-if [ $? != 0 ]
+-then
+-	/etc/init.d/autofs stop >/dev/null 2>&1
+-	rm -rf /etc/auto.master /etc/auto.media /AUTOFS
+-	echo "FAILED: "/etc/init.d/autofs status""
+-	exit 1
+-fi
+-
+-/etc/init.d/autofs reload >/dev/null 2>&1
+-if [ $? != 0 ]
+-then
+-	/etc/init.d/autofs stop >/dev/null 2>&1
+-	rm -rf /etc/auto.master /etc/auto.media /AUTOFS
+-	echo "FAILED: "/etc/init.d/autofs reload""
+-	exit 1
+-fi
+-
+-
+-##############################################################
+-#
+-# Tryout some error code paths by:
+-# (1) Write into automount directory
+-# (2) Remove automount parent directory
+-# (3) Automount the floppy disk
+-# (4) Hit automounter timeout by sleep 60; then wakeup with error
+-#     condition.
+-#
+-##############################################################
+-
+-mkdir /AUTOFS/MEDIA/mydir >/dev/null 2>&1
+-rm -rf /AUTOFS >/dev/null 2>&1
+-
+-mkdir /AUTOFS/MEDIA/floppy/test
+-cp /etc/auto.master /etc/auto.media /AUTOFS/MEDIA/floppy/test
+-sync; sync
+-echo "Resuming test, please wait..."
+-sleep 60
+-mkdir /AUTOFS/MEDIA/mydir >/dev/null 2>&1
+-rm -rf /AUTOFS >/dev/null 2>&1
+-
+-
+-##############################################################
+-#
+-# Add an entry to the /etc/auto.master and reload.
+-#
+-##############################################################
+-
+-echo "/AUTOFS/DISK	/etc/auto.disk		" >> /etc/auto.master
+-echo "disk		-fstype=ext2					:$disk_partition " > /etc/auto.disk
+-/etc/init.d/autofs reload >/dev/null 2>&1
+-echo "Resuming test, please wait..."
+-sleep 30
+-
+-mkdir /AUTOFS/DISK/disk/test
+-cp /etc/auto.master /etc/auto.media /AUTOFS/DISK/disk/test
+-sync; sync
+-echo "Resuming test, please wait..."
+-sleep 60
+-
+-cd /AUTOFS/DISK/disk/test
+-umount /AUTOFS/DISK/disk/ >/dev/null 2>&1
+-if [ $? = 0 ]
+-then
+-	/etc/init.d/autofs stop >/dev/null 2>&1
+-	rm -rf /etc/auto.master /etc/auto.media /etc/auto.disk /AUTOFS
+-	echo "FAILED: unmounted a busy file system!"
+-	exit 1
+-fi
+-cd
+-
+-umount /AUTOFS/DISK/disk/ >/dev/null 2>&1
+-if [ $? != 0 ]
+-then
+-	/etc/init.d/autofs stop >/dev/null 2>&1
+-	rm -rf /etc/auto.master /etc/auto.media /etc/auto.disk /AUTOFS
+-	echo "FAILED: Could not unmount automounted file system"
+-	exit 1
+-fi
+-
+-#
+-# Mount the disk partition somewhere else and then reference automount
+-# point for disk partition.
+-#
+-mount -t ext2 $disk_partition /mnt/
+-ls -l /AUTOFS/DISK/disk
+-umount /mnt
+-
+-
+-#######################################################
+-#
+-# Just before exit, stop autofs and cleanup.
+-#
+-#######################################################
+-
+-/etc/init.d/autofs stop >/dev/null 2>&1
+-rm -rf /etc/auto.master /etc/auto.media /etc/auto.disk /AUTOFS
 -echo "PASSED: $0 passed!"
 -exit 0
 -- 
