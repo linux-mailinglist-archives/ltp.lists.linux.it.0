@@ -2,66 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C61A7CA3FC
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 11:24:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B557F7CA57F
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 12:34:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9DA883CD18C
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 11:24:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1DDC03CEF88
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 12:34:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E235D3C86BA
- for <ltp@lists.linux.it>; Mon, 16 Oct 2023 11:23:55 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id DF5123C8ACD
+ for <ltp@lists.linux.it>; Mon, 16 Oct 2023 12:34:02 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DD949600851
- for <ltp@lists.linux.it>; Mon, 16 Oct 2023 11:23:54 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5EAE4601573
+ for <ltp@lists.linux.it>; Mon, 16 Oct 2023 12:34:02 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 5A1C81F8C1;
- Mon, 16 Oct 2023 09:23:53 +0000 (UTC)
-Received: from g78.cable.virginm.net (unknown [10.163.25.62])
- by relay2.suse.de (Postfix) with ESMTP id 00CB32CB3C;
- Mon, 16 Oct 2023 09:23:52 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Mon, 16 Oct 2023 10:23:46 +0100
-Message-ID: <20231016092346.23805-1-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.42.0
+ by smtp-out1.suse.de (Postfix) with ESMTP id 4428C21C34;
+ Mon, 16 Oct 2023 10:34:01 +0000 (UTC)
+Received: from g78 (unknown [10.163.25.62])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id DF34D2C234;
+ Mon, 16 Oct 2023 10:34:00 +0000 (UTC)
+References: <20230908102315.8163-1-andrea.cervesato@suse.de>
+ <20230908102315.8163-3-andrea.cervesato@suse.de>
+User-agent: mu4e 1.10.7; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Mon, 16 Oct 2023 11:03:25 +0100
+Organization: Linux Private Site
+In-reply-to: <20230908102315.8163-3-andrea.cervesato@suse.de>
+Message-ID: <878r82yhyh.fsf@suse.de>
 MIME-Version: 1.0
-X-Spamd-Bar: +++++++++++++++++
-Authentication-Results: smtp-out2.suse.de; dkim=none;
- dmarc=fail reason="No valid SPF, No valid DKIM" header.from=suse.com
- (policy=quarantine); 
- spf=fail (smtp-out2.suse.de: domain of rpalethorpe@suse.com does not designate
- 149.44.160.134 as permitted sender) smtp.mailfrom=rpalethorpe@suse.com
+X-Spamd-Bar: +++++
+Authentication-Results: smtp-out1.suse.de; dkim=none; dmarc=none;
+ spf=softfail (smtp-out1.suse.de: 149.44.160.134 is neither permitted nor
+ denied by domain of rpalethorpe@suse.de) smtp.mailfrom=rpalethorpe@suse.de
 X-Rspamd-Server: rspamd2
-X-Spamd-Result: default: False [17.50 / 50.00]; ARC_NA(0.00)[];
- R_SPF_FAIL(1.00)[-all]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- R_MISSING_CHARSET(2.50)[]; MIME_GOOD(-0.10)[text/plain];
- BROKEN_CONTENT_TYPE(1.50)[];
+X-Spamd-Result: default: False [5.79 / 50.00]; ARC_NA(0.00)[];
+ HAS_REPLYTO(0.30)[rpalethorpe@suse.de]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[];
  RWL_MAILSPIKE_GOOD(0.00)[149.44.160.134:from];
- DMARC_POLICY_QUARANTINE(1.50)[suse.com : No valid SPF, No valid
- DKIM,quarantine]; VIOLATED_DIRECT_SPF(3.50)[];
- MX_GOOD(-0.01)[]; RCPT_COUNT_TWO(0.00)[2];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_SHORT(-1.00)[-1.000];
- NEURAL_SPAM_LONG(3.00)[1.000]; RCVD_NO_TLS_LAST(0.10)[];
+ MIME_GOOD(-0.10)[text/plain]; REPLYTO_ADDR_EQ_FROM(0.00)[];
+ DMARC_NA(0.20)[suse.de]; R_SPF_SOFTFAIL(0.60)[~all:c];
+ HAS_ORG_HEADER(0.00)[]; TO_MATCH_ENVRCPT_SOME(0.00)[];
+ VIOLATED_DIRECT_SPF(3.50)[]; MX_GOOD(-0.01)[];
+ RCPT_COUNT_TWO(0.00)[2]; NEURAL_SPAM_LONG(3.00)[1.000];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; RCVD_NO_TLS_LAST(0.10)[];
  FROM_EQ_ENVFROM(0.00)[]; R_DKIM_NA(0.20)[];
  MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- BAYES_HAM(-3.00)[100.00%]
-X-Spam-Score: 17.50
-X-Rspamd-Queue-Id: 5A1C81F8C1
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+ MID_RHS_MATCH_FROM(0.00)[]; BAYES_HAM(-3.00)[100.00%];
+ FORGED_RECIPIENTS(2.00)[m:andrea.cervesato@suse.de,
+ s:andrea.cervesato@suse.com]
+X-Spam-Score: 5.79
+X-Rspamd-Queue-Id: 4428C21C34
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] Add setsockopt10 TLS ULP UAF CVE-2023-0461
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 2/2] Refactor exit_group01 using new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,292 +78,262 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
+Hello,
 
-V2:
-* rm taint check, it's done by lib
-* flush before doing double free because I found it was cutting the message in two
-* switch sleep to sched_yield
-* also reap children before concluding we didn't trigger the bug
+Andrea Cervesato <andrea.cervesato@suse.de> writes:
 
-I haven't added needs_drivers. I'd prefer to add that later when
-Petr's patchset is merged.
+> From: Andrea Cervesato <andrea.cervesato@suse.com>
+>
+> We provided a different approach to exit_group() testing, spawning
+> multiple threads inside the child and checking if they get killed with
+> the parent process.
+>
+> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+> ---
+> Added thread_alive() function that checks existance of running threads, instead
+> of using kill(tid, 0) method.
+> tst_gettid() usage
+>
+>  testcases/kernel/syscalls/exit_group/Makefile |   2 +
+>  .../kernel/syscalls/exit_group/exit_group01.c | 160 ++++++++++++------
+>  2 files changed, 111 insertions(+), 51 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/exit_group/Makefile b/testcases/kernel/syscalls/exit_group/Makefile
+> index 1273a4e9c..adbac3c51 100644
+> --- a/testcases/kernel/syscalls/exit_group/Makefile
+> +++ b/testcases/kernel/syscalls/exit_group/Makefile
+> @@ -3,6 +3,8 @@
+>  
+>  top_srcdir		?= ../../../..
+>  
+> +exit_group01: CFLAGS+=-pthread
+> +
+>  include $(top_srcdir)/include/mk/testcases.mk
+>  
+>  include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> diff --git a/testcases/kernel/syscalls/exit_group/exit_group01.c b/testcases/kernel/syscalls/exit_group/exit_group01.c
+> index 5bf5b0218..2fcfff2f2 100644
+> --- a/testcases/kernel/syscalls/exit_group/exit_group01.c
+> +++ b/testcases/kernel/syscalls/exit_group/exit_group01.c
+> @@ -1,68 +1,126 @@
+> -/******************************************************************************
+> - * Copyright (c) Crackerjack Project., 2007                                   *
+> - * Ported to LTP by Manas Kumar Nayak <maknayak@in.ibm.com>                   *
+> - * Copyright (C) 2015 Cyril Hrubis <chrubis@suse.cz>                          *
+> - *                                                                            *
+> - * This program is free software;  you can redistribute it and/or modify      *
+> - * it under the terms of the GNU General Public License as published by       *
+> - * the Free Software Foundation; either version 2 of the License, or          *
+> - * (at your option) any later version.                                        *
+> - *                                                                            *
+> - * This program is distributed in the hope that it will be useful,            *
+> - * but WITHOUT ANY WARRANTY;  without even the implied warranty of            *
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See                  *
+> - * the GNU General Public License for more details.                           *
+> - *                                                                            *
+> - * You should have received a copy of the GNU General Public License          *
+> - * along with this program;  if not, write to the Free Software Foundation,   *
+> - * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA           *
+> - *                                                                            *
+> - ******************************************************************************/
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) Crackerjack Project., 2007
+> + * Ported to LTP by Manas Kumar Nayak <maknayak@in.ibm.com>
+> + * Copyright (c) 2015 Linux Test Project
+> + * Copyright (C) 2015 Cyril Hrubis <chrubis@suse.cz>
+> + * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+> + */
+>  
+> -#include <stdio.h>
+> -#include <errno.h>
+> -#include <linux/unistd.h>
+> -#include <sys/wait.h>
+> +/*\
+> + * [Description]
+> + *
+> + * This test checks if exit_group() correctly ends a spawned child and all its
+> + * running threads.
+> + */
+>  
+> -#include "test.h"
+> -#include "safe_macros.h"
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include "tst_safe_pthread.h"
+> +#include "tst_test.h"
+>  #include "lapi/syscalls.h"
+>  
+> -char *TCID = "exit_group01";
+> -int testno;
+> -int TST_TOTAL = 1;
+> +#define THREADS_NUM 10
+> +
+> +static pid_t *tids;
+>  
+> -static void verify_exit_group(void)
+> +static void thread_alive(const int tid)
+>  {
+> -	pid_t cpid, w;
+> -	int status;
+> +	char folder[128];
+> +    struct stat sb;
+> +	char state;
+>  
+> -	cpid = fork();
+> -	if (cpid == -1)
+> -		tst_brkm(TFAIL | TERRNO, NULL, "fork failed");
+> +	snprintf(folder, sizeof(folder), "/proc/%i/stat", tid);
+>  
+> -	if (cpid == 0) {
+> -		TEST(tst_syscall(__NR_exit_group, 4));
+> -	} else {
+> -		w = SAFE_WAIT(NULL, &status);
+> -
+> -		if (WIFEXITED(status) && (WEXITSTATUS(status) == 4)) {
+> -			tst_resm(TPASS, "exit_group() succeeded");
+> -		} else {
+> -			tst_resm(TFAIL | TERRNO,
+> -				 "exit_group() failed (wait status = %d)", w);
+> +	for (;;) {
+> +		if (stat(folder, &sb) == -1) {
+> +			if (errno != ENOENT)
+> +				tst_brk(TBROK | TERRNO, "stat() error");
+> +
+> +			break;
+> +		}
+> +
+> +		SAFE_FILE_SCANF(folder, "%*i %*s %c", &state);
+> +
+> +		if (state != 'S') {
+> +			tst_brk(TBROK,
+> +				"Thread %d is supposed to sleep but it's in '%c' state",
+> +				tid, state);
+>  		}
 
- configure.ac                                  |   1 +
- runtest/cve                                   |   1 +
- runtest/syscalls                              |   1 +
- .../kernel/syscalls/setsockopt/.gitignore     |   1 +
- .../kernel/syscalls/setsockopt/setsockopt10.c | 204 ++++++++++++++++++
- 5 files changed, 208 insertions(+)
- create mode 100644 testcases/kernel/syscalls/setsockopt/setsockopt10.c
+This could fail due to PID reuse or maybe because state == 'Z'.
 
-diff --git a/configure.ac b/configure.ac
-index 30a6f56e6..e40a18fa0 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -64,6 +64,7 @@ AC_CHECK_HEADERS_ONCE([ \
-     linux/netlink.h \
-     linux/seccomp.h \
-     linux/securebits.h \
-+    linux/tls.h \
-     linux/tty.h \
-     linux/types.h \
-     linux/userfaultfd.h \
-diff --git a/runtest/cve b/runtest/cve
-index f9b36a182..569558af2 100644
---- a/runtest/cve
-+++ b/runtest/cve
-@@ -85,6 +85,7 @@ cve-2022-0847 dirtypipe
- cve-2022-2590 dirtyc0w_shmem
- cve-2022-23222 bpf_prog07
- cve-2023-1829 tcindex01
-+cve-2023-0461 setsockopt10
- # Tests below may cause kernel memory leak
- cve-2020-25704 perf_event_open03
- cve-2022-0185 fsconfig03
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 53e519639..1851752cf 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1425,6 +1425,7 @@ setsockopt06 setsockopt06
- setsockopt07 setsockopt07
- setsockopt08 setsockopt08
- setsockopt09 setsockopt09
-+setsockopt10 setsockopt10
- 
- settimeofday01 settimeofday01
- settimeofday02 settimeofday02
-diff --git a/testcases/kernel/syscalls/setsockopt/.gitignore b/testcases/kernel/syscalls/setsockopt/.gitignore
-index fd3235bb3..5c05290a5 100644
---- a/testcases/kernel/syscalls/setsockopt/.gitignore
-+++ b/testcases/kernel/syscalls/setsockopt/.gitignore
-@@ -7,3 +7,4 @@
- /setsockopt07
- /setsockopt08
- /setsockopt09
-+/setsockopt10
-diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt10.c b/testcases/kernel/syscalls/setsockopt/setsockopt10.c
-new file mode 100644
-index 000000000..afd2c40a1
---- /dev/null
-+++ b/testcases/kernel/syscalls/setsockopt/setsockopt10.c
-@@ -0,0 +1,204 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2023 SUSE LLC Richard Palethorpe <rpalethorpe@suse.com>
-+ */
-+/*\
-+ * [Description]
-+ *
-+ * Reproducer for CVE-2023-0461 which is an exploitable use-after-free
-+ * in a TLS socket. In fact it is exploitable in any User Level
-+ * Protocol (ULP) which does not clone its context when accepting a
-+ * connection.
-+ *
-+ * Because it does not clone the context, the child socket which is
-+ * created on accept has a pointer to the listening socket's
-+ * context. When the child is closed the parent's context is freed
-+ * while it still has a reference to it.
-+ *
-+ * TLS can only be added to a socket which is connected. Not listening
-+ * or disconnected, and a connected socket can not be set to
-+ * listening. So we have to connect the socket, add TLS, then
-+ * disconnect, then set it to listening.
-+ *
-+ * To my knowledge, setting a socket from open to disconnected
-+ * requires a trick; we have to "connect" to an unspecified
-+ * address. This could explain why the bug was not found earlier.
-+ *
-+ * The accepted fix was to disallow listening on sockets with a ULP
-+ * set which does not have a clone function.
-+ *
-+ * The test uses two processes, first the child acts as a server so
-+ * that the parent can create the TLS socket. Then the child connects
-+ * to the parent's TLS socket.
-+ *
-+ * When we try to listen on the parent, the current kernel should
-+ * return EINVAL. However if clone is implemented then this could
-+ * become a valid operation. It is also quite easy to crash the kernel
-+ * if we set some TLS options before doing a double free.
-+ *
-+ * commit 2c02d41d71f90a5168391b6a5f2954112ba2307c
-+ * Author: Paolo Abeni <pabeni@redhat.com>
-+ * Date:   Tue Jan 3 12:19:17 2023 +0100
-+ *
-+ *  net/ulp: prevent ULP without clone op from entering the LISTEN status
-+ */
-+
-+#include "sched.h"
-+#include "tst_test.h"
-+
-+#ifdef HAVE_LINUX_TLS_H
-+
-+#include <linux/tls.h>
-+#include "netinet/in.h"
-+#include "netinet/tcp.h"
-+
-+#include "lapi/sched.h"
-+#include "tst_checkpoint.h"
-+#include "tst_net.h"
-+#include "tst_safe_net.h"
-+#include "tst_taint.h"
-+
-+static struct tls12_crypto_info_aes_gcm_128 opts = {
-+	.info = {
-+		.version = TLS_1_2_VERSION,
-+		.cipher_type = TLS_CIPHER_AES_GCM_128,
-+	},
-+	.iv = { 'i', 'v' },
-+	.key = { 'k', 'e', 'y' },
-+	.salt = { 's', 'a', 'l', 't' },
-+	.rec_seq = { 'r', 'e', 'c', 's' },
-+};
-+
-+static struct sockaddr_in tcp0_addr, tcp1_addr;
-+static const struct sockaddr unspec_addr = {
-+	.sa_family = AF_UNSPEC
-+};
-+
-+static int tcp0_sk, tcp1_sk, tcp2_sk, tcp3_sk;
-+
-+static void setup(void)
-+{
-+	tst_init_sockaddr_inet(&tcp0_addr, "127.0.0.1", 0x7c90);
-+	tst_init_sockaddr_inet(&tcp1_addr, "127.0.0.1", 0x7c91);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (tcp0_sk > 0)
-+		SAFE_CLOSE(tcp0_sk);
-+	if (tcp1_sk > 0)
-+		SAFE_CLOSE(tcp1_sk);
-+	if (tcp2_sk > 0)
-+		SAFE_CLOSE(tcp2_sk);
-+	if (tcp3_sk > 0)
-+		SAFE_CLOSE(tcp3_sk);
-+}
-+
-+static void child(void)
-+{
-+	tst_res(TINFO, "child: Listen for tcp1 connection");
-+	tcp0_sk = SAFE_SOCKET(AF_INET, SOCK_STREAM, 0);
-+	SAFE_BIND(tcp0_sk, (struct sockaddr *)&tcp0_addr, sizeof(tcp0_addr));
-+	SAFE_LISTEN(tcp0_sk, 1);
-+	TST_CHECKPOINT_WAKE(0);
-+
-+	tcp3_sk = SAFE_ACCEPT(tcp0_sk, NULL, 0);
-+	TST_CHECKPOINT_WAIT(1);
-+	SAFE_CLOSE(tcp3_sk);
-+	SAFE_CLOSE(tcp0_sk);
-+
-+	tcp3_sk = SAFE_SOCKET(AF_INET, SOCK_STREAM, 0);
-+	TST_CHECKPOINT_WAIT(2);
-+
-+	tst_res(TINFO, "child: connect for tcp2 connection");
-+	TEST(connect(tcp3_sk, (struct sockaddr *)&tcp1_addr, sizeof(tcp1_addr)));
-+
-+	if (TST_RET == -1) {
-+		tst_res(TINFO | TTERRNO, "child: could not connect to tcp1");
-+		return;
-+	}
-+
-+	TST_CHECKPOINT_WAIT(3);
-+}
-+
-+static void run(void)
-+{
-+	const pid_t child_pid = SAFE_FORK();
-+
-+	if (child_pid == 0) {
-+		child();
-+		return;
-+	}
-+
-+	tcp1_sk = SAFE_SOCKET(AF_INET, SOCK_STREAM, 0);
-+	TST_CHECKPOINT_WAIT(0);
-+
-+	tst_res(TINFO, "parent: Connect for tcp0 connection");
-+	SAFE_CONNECT(tcp1_sk, (struct sockaddr *)&tcp0_addr, sizeof(tcp0_addr));
-+	TEST(setsockopt(tcp1_sk, SOL_TCP, TCP_ULP, "tls", 3));
-+
-+	if (TST_RET == -1 && TST_ERR == ENOENT)
-+		tst_brk(TCONF | TTERRNO, "parent: setsockopt failed: The TLS module is probably not loaded");
-+	else if (TST_RET == -1)
-+		tst_brk(TBROK | TTERRNO, "parent: setsockopt failed");
-+
-+	SAFE_SETSOCKOPT(tcp1_sk, SOL_TLS, TLS_TX, &opts, sizeof(opts));
-+	TST_CHECKPOINT_WAKE(1);
-+
-+	tst_res(TINFO, "parent: Disconnect by setting unspec address");
-+	SAFE_CONNECT(tcp1_sk, &unspec_addr, sizeof(unspec_addr));
-+	SAFE_BIND(tcp1_sk, (struct sockaddr *)&tcp1_addr, sizeof(tcp1_addr));
-+
-+	TEST(listen(tcp1_sk, 1));
-+
-+	if (TST_RET == -1) {
-+		if (TST_ERR == EINVAL)
-+			tst_res(TPASS | TTERRNO, "parent: Can't listen on disconnected TLS socket");
-+		else
-+			tst_res(TCONF | TTERRNO, "parent: Can't listen on disconnected TLS socket, but the errno is not EINVAL as expected");
-+
-+		TST_CHECKPOINT_WAKE(2);
-+		tst_reap_children();
-+		return;
-+	}
-+
-+	tst_res(TINFO, "parent: Can listen on disconnected TLS socket");
-+	TST_CHECKPOINT_WAKE(2);
-+
-+	tcp2_sk = SAFE_ACCEPT(tcp1_sk, NULL, 0);
-+	SAFE_CLOSE(tcp2_sk);
-+
-+	tst_res(TINFO, "parent: Attempting double free, because we set cipher options this should result in an crash");
-+	tst_flush();
-+	SAFE_CLOSE(tcp1_sk);
-+
-+	TST_CHECKPOINT_WAKE(3);
-+	tst_reap_children();
-+	sched_yield();
-+
-+	tst_res(TCONF, "parent: We're still here, maybe the kernel can clone the TLS-ULP context now?");
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = run,
-+	.forks_child = 1,
-+	.needs_checkpoints = 1,
-+	.taint_check = TST_TAINT_W | TST_TAINT_D,
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_TLS",
-+		NULL
-+	},
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "2c02d41d71f90"},
-+		{"CVE", "2023-0461"},
-+		{}
-+	}
-+};
-+
-+#else
-+
-+TST_TEST_TCONF("linux/tls.h missing, we assume your system is too old");
-+
-+#endif
+Perhaps instead we could check the threads are put into the Z state?
+
+I guess that the child threads are reparented to init and it reaps
+them. So you will have to prevent that by setting PR_SET_CHILD_SUBREAPER
+on the main test process with prctl.
+
+The man pages are not clear on this though. I guess this is how it works
+from reading the kernel code.
+
+> +
+> +		usleep(1000);
+
+This probably should be sched_yield. It's hard to know what a sensible
+sleep time would be for any given system.
+
+>  	}
+>  }
+>  
+> -int main(int ac, char **av)
+> +static void *worker(void *arg)
+>  {
+> -	int lc;
+> +	int i = *((int *)arg);
+>  
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> +	tids[i] = tst_gettid();
+>  
+> -	for (lc = 0; TEST_LOOPING(lc); lc++)
+> -		verify_exit_group();
+> +	TST_CHECKPOINT_WAKE(0);
+> +	pause();
+>  
+> -	tst_exit();
+> +	return arg;
+>  }
+> +
+> +static void spawn_threads(void)
+> +{
+> +	pthread_t threads[THREADS_NUM];
+> +
+> +	for (int i = 0; i < THREADS_NUM; i++) {
+> +		SAFE_PTHREAD_CREATE(&threads[i], NULL, worker, (void *)&i);
+> +		TST_CHECKPOINT_WAIT(0);
+> +
+> +		/* wait for paused thread */
+> +		TST_PROCESS_STATE_WAIT(tids[i], 'S', 0);
+> +	}
+> +}
+> +
+> +static void run(void)
+> +{
+> +	pid_t pid;
+> +	int status;
+> +
+> +	pid = SAFE_FORK();
+> +	if (!pid) {
+> +		spawn_threads();
+> +
+> +		TEST(tst_syscall(__NR_exit_group, 4));
+> +		if (TST_RET == -1)
+> +			tst_brk(TBROK | TERRNO, "exit_group() error");
+> +
+> +		return;
+> +	}
+> +
+> +	SAFE_WAITPID(pid, &status, 0);
+
+You could move this after thread_alive and check that the child threads
+all eventually transition to Z.
+
+You maybe need to wait on all the child threads as well if this process
+is set as a sub-reaper. I don't see anything in the kernel to suggest
+waiting on a normal PID will wait for its child threads.
+
+Also exit_group appears to signal all the child threads as we would have
+to do in userland if the syscall didn't exist.
+
+> +
+> +	for (int i = 0; i < THREADS_NUM; i++)
+> +		thread_alive(tids[i]);
+> +
+> +	TST_EXP_EXPR(WIFEXITED(status) && WEXITSTATUS(status) == 4,
+> +		"exit_group() succeeded");
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	tids = SAFE_MMAP(
+> +		NULL,
+> +		sizeof(pid_t) * THREADS_NUM,
+> +		PROT_READ | PROT_WRITE,
+> +		MAP_SHARED | MAP_ANONYMOUS,
+> +		-1, 0);
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	SAFE_MUNMAP(tids, sizeof(pid_t) * THREADS_NUM);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.test_all = run,
+> +	.forks_child = 1,
+> +	.needs_checkpoints = 1,
+> +};
+> -- 
+> 2.35.3
+
+
 -- 
-2.40.1
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
