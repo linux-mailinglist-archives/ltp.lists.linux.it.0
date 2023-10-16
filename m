@@ -2,85 +2,86 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEFA57CA133
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 10:03:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 849FA7CA149
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 10:09:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7E12D3CB235
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 10:03:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 305FA3CD19B
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 10:09:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C40403C869D
- for <ltp@lists.linux.it>; Mon, 16 Oct 2023 10:03:53 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 5BA3B3C869D
+ for <ltp@lists.linux.it>; Mon, 16 Oct 2023 10:09:16 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CA44D1000D8F
- for <ltp@lists.linux.it>; Mon, 16 Oct 2023 10:03:52 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4EA001A010F6
+ for <ltp@lists.linux.it>; Mon, 16 Oct 2023 10:09:15 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CB66121857;
- Mon, 16 Oct 2023 08:03:50 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 25E7F1FEAE;
+ Mon, 16 Oct 2023 08:09:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1697443430;
+ t=1697443755;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=gBrkjGDHzXLe57ButDestDoPwVAV+CJMQvTd1SsPnB4=;
- b=jIG+O9FQ5aghRI6VEIHIsJmQuk4hoVaJNtyagdIx378hppuF3TyO9gUsZuCSdSyCwuZSqR
- 5YnEnunHZSyEcsagPFMOw0e3+IMdwlQQpgZpfX+GRNS5tACjaJkXysW/jbUvN3MVoeVMdD
- ZCwktsIy/A6rFWtvIWpWc+dcYvNY0lE=
+ bh=301AbsXqpArVZFf9LTvnSoanZCKp/ZZsRv5mZvEe8p0=;
+ b=Sb6bxli4Zal7P1YP0wBGLf2aoNhkid0dKVyIdj3+TC2NsOHqWtFgR8xkUdtf2hnNBFGFbh
+ Mzvzda4kDAc5xwujNuFelHnxl6pWjBqODWqFcdZ30jL7iGrVMPjU5Oia9w34N+BS+FMoTz
+ 7Sbrmcg9B5cW+0SqmiypOFu/uVLG0WY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1697443430;
+ s=susede2_ed25519; t=1697443755;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=gBrkjGDHzXLe57ButDestDoPwVAV+CJMQvTd1SsPnB4=;
- b=zhFKgVCnS29YLYIBPs4pDoZi7EjGtNIov6NpwGW0Ux+th8BCSlAbJ/ZOxZt/EBQB6th8cd
- Xt0dcpGfy8cqdvBQ==
+ bh=301AbsXqpArVZFf9LTvnSoanZCKp/ZZsRv5mZvEe8p0=;
+ b=OBdag5aH4jV6RoZfGapsIHjH9I/kJz9LWi7rdytIvSA7KJgwm6B/5olJ/OPknqySkw2ARJ
+ BZP7JDRkecgii3Dg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9CDE1133B7;
- Mon, 16 Oct 2023 08:03:50 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 01FA2133B7;
+ Mon, 16 Oct 2023 08:09:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2dwRJWbuLGXfAQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 16 Oct 2023 08:03:50 +0000
-Date: Mon, 16 Oct 2023 10:03:49 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id C3HcOqrvLGXxBAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 16 Oct 2023 08:09:14 +0000
+Date: Mon, 16 Oct 2023 10:09:13 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Message-ID: <20231016080349.GA844528@pevik>
-References: <1694770587-9502-1-git-send-email-xuyang2018.jy@fujitsu.com>
+Message-ID: <20231016080913.GB840411@pevik>
+References: <1694770631-9547-1-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1694770587-9502-1-git-send-email-xuyang2018.jy@fujitsu.com>
-Authentication-Results: smtp-out1.suse.de;
+In-Reply-To: <1694770631-9547-1-git-send-email-xuyang2018.jy@fujitsu.com>
+Authentication-Results: smtp-out2.suse.de;
 	none
-X-Spam-Score: 2.57
-X-Spamd-Result: default: False [2.57 / 50.00]; ARC_NA(0.00)[];
+X-Spam-Score: 2.55
+X-Spamd-Result: default: False [2.55 / 50.00]; ARC_NA(0.00)[];
  HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
  RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-1.00)[-1.000]; NEURAL_SPAM_LONG(3.00)[1.000];
  FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
  MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.13)[67.37%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+ RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.15)[68.99%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] syscalls/renameat: Remove renameat fallback
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/4] readlinkat: Remove readlinkat fallback
  definition
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -100,23 +101,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Xu,
+Hi Yang,
 
-> Looking at man renameat, it was added into kernel 2.6.16 and since the
+> Looking at man readlinkat, it was added into kernel 2.6.16 and since the
 > oldest kernel we support is 3.10 (see doc/supported-kernel-libc-versions
 > .txt) we can as well completely drop this fallback definition.
 
-BTW although man is correct, the lapi function was IMHO done due missing libc
-support. It was added in glibc 2.4, thus not sure why the support was added in
-2014, probably to support the oldest distros.
+Again, as I mentioned in v2 renameat() patch [1], the real reason for this lapi
+function was IMHO missing glibc wrapper.  The correct git commit message should
+have been glibc wrapper was added in ...
 
-Also, without kernel support the function would not work at all,
-therefore it is irrelevant when readlinkat was added into kernel.
+Also, without kernel support the function would not work at all, therefore it is
+irrelevant when readlinkat was added into kernel. That applies to all git commit
+messages. Due me merged v2 renameat() first, this is not applicable (patch must
+be modified, I'm sorry).
 
-Thus I dared to update the commit message.
+This particular patch would deserve to note that since these 2 commits the lapi
+is not even used (both released in 20230929 - a proof it can be really deleted):
+
+0959b893a ("syscalls/readlinkat01: Convert to new API")
+bcafe2971 ("syscalls/readlinkat02: Convert to new API")
 
 Kind regards,
 Petr
+
+[1] https://lore.kernel.org/ltp/20231016080349.GA844528@pevik/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
