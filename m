@@ -2,87 +2,82 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57E477CAE0F
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 17:49:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F4D97CB2DC
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 20:45:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 974BF3CFD3C
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 17:49:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E476B3CFE5F
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Oct 2023 20:45:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DFA063C8689
- for <ltp@lists.linux.it>; Mon, 16 Oct 2023 17:49:00 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 9DAE93C894B
+ for <ltp@lists.linux.it>; Mon, 16 Oct 2023 20:44:32 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C06BA100096D
- for <ltp@lists.linux.it>; Mon, 16 Oct 2023 17:48:58 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 138EC60086B
+ for <ltp@lists.linux.it>; Mon, 16 Oct 2023 20:44:31 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1BDD821C1E;
- Mon, 16 Oct 2023 15:48:58 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9068A21C63;
+ Mon, 16 Oct 2023 18:44:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1697471338; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NnGmGUs5OKpPyBST+XW4cTXDXY3NGLjW9kceXUH/HTs=;
- b=NggqpFTsydzUi3exB0XDOW8JwR8jQrZ/G6pm4mZ7Uz+TT90r9YbhFKz63CTXw5Dh94MEgH
- hHiCqjvSpANG1jSYGNbn0Kli25+O1W1+0w9wTrMGGzyucF715VvP4+QHACHPQ5U0Inysco
- V64XAri98ltWW0IJlxHkVl5kx1qNeLo=
+ t=1697481869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ANv4OeERr0K7SXsLoUdafx8yzZWUtPvqaWBPbZmBeJg=;
+ b=ZMJCMPRXLx/iimrZ9zVmJAX3Z+WiuudQiEmBlAf55amC2E29EEqNAumxs5N0GkcPZv2XPl
+ dq8muU0hvkZAxVHImA5eDqSrmnLHctHni2Ua0VI5IvdeTtGYVxgdcff3gyQz44RgQOLsID
+ IeFeq3CLV14TSYtfPmUb1h1v/q9JW/s=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1697471338;
+ s=susede2_ed25519; t=1697481869;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NnGmGUs5OKpPyBST+XW4cTXDXY3NGLjW9kceXUH/HTs=;
- b=DXtZJuuoguzYbqId33Gvfh3GNLJ4J1kh3cUJjnj5YVSxK6FuYfkOrUviFsFTKKVckwwB19
- ZPHkyPQaun9B1cAg==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ANv4OeERr0K7SXsLoUdafx8yzZWUtPvqaWBPbZmBeJg=;
+ b=96qkFObbALZPrzLAaOx14NZZ6c+cVOp8bFQjeHTQLR1OS7ahWWoauI/SmvYXXMKKjJiNHp
+ QWUlclNb+vNnVPCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0A4EA138EF;
- Mon, 16 Oct 2023 15:48:58 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4785F138EF;
+ Mon, 16 Oct 2023 18:44:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id bJ10AmpbLWWCDgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 16 Oct 2023 15:48:58 +0000
-Date: Mon, 16 Oct 2023 17:49:34 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Wei Gao <wegao@suse.com>
-Message-ID: <ZS1bjvd84DVj9hUX@yuki>
-References: <20231012111333.32004-1-wegao@suse.com>
- <20231012112548.6887-1-wegao@suse.com> <ZSf9IdW9ciTDjkFm@yuki>
- <ZSoMsDNyf4Y+w8d3@wegao>
+ by imap2.suse-dmz.suse.de with ESMTPSA id Sp4dD42ELWXAZgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 16 Oct 2023 18:44:29 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon, 16 Oct 2023 20:44:01 +0200
+Message-ID: <20231016184408.879977-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZSoMsDNyf4Y+w8d3@wegao>
 Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
-X-Spam-Score: -0.25
-X-Spamd-Result: default: False [-0.25 / 50.00]; ARC_NA(0.00)[];
+X-Spam-Score: -0.15
+X-Spamd-Result: default: False [-0.15 / 50.00]; ARC_NA(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
  TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_GOOD(-0.10)[text/plain];
+ R_MISSING_CHARSET(2.50)[]; MIME_GOOD(-0.10)[text/plain];
+ BROKEN_CONTENT_TYPE(1.50)[]; RCPT_COUNT_FIVE(0.00)[5];
+ NEURAL_HAM_LONG(-2.91)[-0.970];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.65)[-0.654]; RCPT_COUNT_TWO(0.00)[2];
- NEURAL_SPAM_LONG(3.00)[1.000]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
  RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- BAYES_HAM(-3.00)[100.00%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+ BAYES_HAM(-1.14)[88.64%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Add test for UI_GET_NAME ioctl
+X-Spam-Status: No, score=0.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,URI_NOVOWEL
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: [LTP] [RFC PATCH 0/7] Remove scsi testsuite + various testscripts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,62 +89,87 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > > +static int check_ui_get_sysname_ioctl(int fd)
-> > > +{
-> > > +	char name[256];
-> > > +
-> > > +	SAFE_IOCTL(NULL, fd, UI_GET_SYSNAME(sizeof(name)), name, NULL);
-> > > +
-> > > +	DIR *test_dir;
-> > > +
-> > > +	struct dirent *ent;
-> > > +
-> > > +	test_dir = SAFE_OPENDIR(NULL, "/sys/devices/virtual/input/");
-> > > +
-> > > +	while ((ent = SAFE_READDIR(NULL, test_dir))) {
-> > > +		if (!strcmp(ent->d_name, name))
-> > > +			return 1;
-> > > +		else
-> > > +			continue;
-> > > +	}
-> > 
-> > Why do we loop over the directory here? Can't we just directly check
-> > that the path /sys/devices/virtual/input/$name/ exists?
-> > 
-> > I guess that we can as well read the
-> > /sys/devices/virtual/input/$name/dev and match that against fstat() on
-> > the fd.
-> Seems no dev node can be found under /sys/devices/virtual/input/$name/.
-> 
-> ll /sys/devices/virtual/input/input13/
-> total 0
-> drwxr-xr-x 2 root root    0 Oct 13 21:32 capabilities
-> drwxr-xr-x 3 root root    0 Oct 13 21:32 event8
-> drwxr-xr-x 2 root root    0 Oct 13 21:32 id
-> -rw-r--r-- 1 root root 4.0K Oct 13 21:33 inhibited
-> -r--r--r-- 1 root root 4.0K Oct 13 21:33 modalias
-> drwxr-xr-x 3 root root    0 Oct 13 21:32 mouse3
-> -r--r--r-- 1 root root 4.0K Oct 13 21:32 name
-> -r--r--r-- 1 root root 4.0K Oct 13 21:32 phys
-> drwxr-xr-x 2 root root    0 Oct 13 21:33 power
-> -r--r--r-- 1 root root 4.0K Oct 13 21:32 properties
-> lrwxrwxrwx 1 root root    0 Oct 13 21:32 subsystem -> ../../../../class/input
-> -rw-r--r-- 1 root root 4.0K Oct 13 21:32 uevent
-> -r--r--r-- 1 root root 4.0K Oct 13 21:33 uniq
+Hi,
 
-Ah, right, it's under the event8 directory in this case. I guess that we
-can match name againts the VIRTUAL_DEVICE string instead.
+cleanup of 2 old scsi testsuites and some of legacy testscripts.
+IMHO the testsuites are not worth of fixing.
+
+Kind regards,
+Petr
+
+Petr Vorel (7):
+  doc: Remove ltp-run-files.txt
+  fs: Remove scsi/ltpfs testsuite
+  fs: Remove scsi/ltpscsi testsuite
+  testscripts: Remove ltpdmmapper.sh
+  testscripts: Remove ltp-scsi_debug.sh
+  testscripts: Remove sysfs.sh
+  testcases: Remove autofs{1,4}.sh scripts
+
+ doc/Test-Writing-Guidelines.asciidoc          |   12 +
+ doc/ltp-run-files.txt                         |   96 -
+ testcases/kernel/fs/scsi/ltpfs/Ltpfs.h        |   71 -
+ testcases/kernel/fs/scsi/ltpfs/LtpfsCmds.c    |  315 -
+ testcases/kernel/fs/scsi/ltpfs/Makefile       |   30 -
+ testcases/kernel/fs/scsi/ltpfs/ltpfs.part1    |    4 -
+ testcases/kernel/fs/scsi/ltpfs/ltpfs.part2    |    3 -
+ testcases/kernel/fs/scsi/ltpfs/ltpfs.part3    |    3 -
+ testcases/kernel/fs/scsi/ltpfs/ltpfs.part4    |    3 -
+ testcases/kernel/fs/scsi/ltpfs/ltpfs.part5    |    3 -
+ testcases/kernel/fs/scsi/ltpfs/ltpfs.part6    |    3 -
+ testcases/kernel/fs/scsi/ltpfs/ltpfs.part7    |    3 -
+ testcases/kernel/fs/scsi/ltpfs/ltpfsio.sh     |  154 -
+ testcases/kernel/fs/scsi/ltpfs/main.c         |  647 --
+ testcases/kernel/fs/scsi/ltpscsi/Makefile     |   47 -
+ testcases/kernel/fs/scsi/ltpscsi/llseek.c     |  123 -
+ testcases/kernel/fs/scsi/ltpscsi/llseek.h     |   10 -
+ testcases/kernel/fs/scsi/ltpscsi/ltpfsscsi.sh |  111 -
+ testcases/kernel/fs/scsi/ltpscsi/scsimain.c   | 7651 -----------------
+ testcases/kernel/fs/scsi/ltpscsi/sg_err.c     | 1379 ---
+ testcases/kernel/fs/scsi/ltpscsi/sg_err.h     |  162 -
+ testcases/kernel/fs/scsi/ltpscsi/sg_include.h |   42 -
+ testscripts/autofs1.sh                        |  273 -
+ testscripts/autofs4.sh                        |  259 -
+ testscripts/ltp-scsi_debug.sh                 |  218 -
+ testscripts/ltpdmmapper.sh                    |  204 -
+ testscripts/sysfs.sh                          |  121 -
+ 27 files changed, 12 insertions(+), 11935 deletions(-)
+ delete mode 100644 doc/ltp-run-files.txt
+ delete mode 100644 testcases/kernel/fs/scsi/ltpfs/Ltpfs.h
+ delete mode 100644 testcases/kernel/fs/scsi/ltpfs/LtpfsCmds.c
+ delete mode 100644 testcases/kernel/fs/scsi/ltpfs/Makefile
+ delete mode 100644 testcases/kernel/fs/scsi/ltpfs/ltpfs.part1
+ delete mode 100644 testcases/kernel/fs/scsi/ltpfs/ltpfs.part2
+ delete mode 100644 testcases/kernel/fs/scsi/ltpfs/ltpfs.part3
+ delete mode 100644 testcases/kernel/fs/scsi/ltpfs/ltpfs.part4
+ delete mode 100644 testcases/kernel/fs/scsi/ltpfs/ltpfs.part5
+ delete mode 100644 testcases/kernel/fs/scsi/ltpfs/ltpfs.part6
+ delete mode 100644 testcases/kernel/fs/scsi/ltpfs/ltpfs.part7
+ delete mode 100755 testcases/kernel/fs/scsi/ltpfs/ltpfsio.sh
+ delete mode 100644 testcases/kernel/fs/scsi/ltpfs/main.c
+ delete mode 100644 testcases/kernel/fs/scsi/ltpscsi/Makefile
+ delete mode 100644 testcases/kernel/fs/scsi/ltpscsi/llseek.c
+ delete mode 100644 testcases/kernel/fs/scsi/ltpscsi/llseek.h
+ delete mode 100755 testcases/kernel/fs/scsi/ltpscsi/ltpfsscsi.sh
+ delete mode 100644 testcases/kernel/fs/scsi/ltpscsi/scsimain.c
+ delete mode 100644 testcases/kernel/fs/scsi/ltpscsi/sg_err.c
+ delete mode 100644 testcases/kernel/fs/scsi/ltpscsi/sg_err.h
+ delete mode 100644 testcases/kernel/fs/scsi/ltpscsi/sg_include.h
+ delete mode 100755 testscripts/autofs1.sh
+ delete mode 100755 testscripts/autofs4.sh
+ delete mode 100755 testscripts/ltp-scsi_debug.sh
+ delete mode 100755 testscripts/ltpdmmapper.sh
+ delete mode 100755 testscripts/sysfs.sh
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.42.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
