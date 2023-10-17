@@ -2,70 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6D397CBB5A
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Oct 2023 08:35:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ECFC7CBC74
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Oct 2023 09:39:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 75C713CB0B8
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Oct 2023 08:35:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8D0173CD0FF
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Oct 2023 09:39:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 77C7F3C867C
- for <ltp@lists.linux.it>; Tue, 17 Oct 2023 08:35:10 +0200 (CEST)
-Received: from esa7.hc1455-7.c3s2.iphmx.com (esa7.hc1455-7.c3s2.iphmx.com
- [139.138.61.252])
+ by picard.linux.it (Postfix) with ESMTPS id 98E573C8671
+ for <ltp@lists.linux.it>; Tue, 17 Oct 2023 09:39:11 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id AFAEC140124B
+ for <ltp@lists.linux.it>; Tue, 17 Oct 2023 09:39:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1697528348;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=vOBYRuq5MlNcm37xPUGZZBoNBa4teD2UXEJyJ81YuzM=;
+ b=Q4YoYZboSGTuONheslKXzcmzSuAc5pWjm2aOCj3K6ESf2Lig1/5JOQ072OZjqcDdAa3xan
+ qfLSaP9bQGMmKJo98wH8qRhth2aEpe6L932WX+b2o4SMZcxAKhI45ZrIWeRGhU9YkcWwVq
+ UGorPhI3VSQYHw5neCecP0uql24h/tQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-445-h-Hst0BrMhK3twpzL_TcEA-1; Tue, 17 Oct 2023 03:38:46 -0400
+X-MC-Unique: h-Hst0BrMhK3twpzL_TcEA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D046B1001164
- for <ltp@lists.linux.it>; Tue, 17 Oct 2023 08:35:09 +0200 (CEST)
-X-IronPort-AV: E=McAfee;i="6600,9927,10865"; a="115259086"
-X-IronPort-AV: E=Sophos;i="6.03,231,1694703600"; d="scan'208";a="115259086"
-Received: from unknown (HELO oym-r4.gw.nic.fujitsu.com) ([210.162.30.92])
- by esa7.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2023 15:35:07 +0900
-Received: from oym-m3.gw.nic.fujitsu.com (oym-nat-oym-m3.gw.nic.fujitsu.com
- [192.168.87.60])
- by oym-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id 2EBB8DDC70
- for <ltp@lists.linux.it>; Tue, 17 Oct 2023 15:35:05 +0900 (JST)
-Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
- [192.51.206.22])
- by oym-m3.gw.nic.fujitsu.com (Postfix) with ESMTP id 563FED947F
- for <ltp@lists.linux.it>; Tue, 17 Oct 2023 15:35:04 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id E1B4A6BC66
- for <ltp@lists.linux.it>; Tue, 17 Oct 2023 15:35:03 +0900 (JST)
-Received: from localhost.localdomain (unknown [10.167.215.131])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id 9B4B01A0071;
- Tue, 17 Oct 2023 14:35:03 +0800 (CST)
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9087E811726
+ for <ltp@lists.linux.it>; Tue, 17 Oct 2023 07:38:46 +0000 (UTC)
+Received: from t14s.redhat.com (unknown [10.45.225.167])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 29FD11C060AE
+ for <ltp@lists.linux.it>; Tue, 17 Oct 2023 07:38:45 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
 To: ltp@lists.linux.it
-Date: Tue, 17 Oct 2023 14:34:51 +0800
-Message-Id: <1697524491-4749-4-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1697524491-4749-1-git-send-email-xuyang2018.jy@fujitsu.com>
-References: <1697524491-4749-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-27940.005
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-27940.005
-X-TMASE-Result: 10--4.367000-10.000000
-X-TMASE-MatchedRID: fwgrWm+rN+7NHx7Eti3qF3zmmMD/HXF+9LMB0hXFSegbIVTME6y/cG8q
- nFk+BWUX/9FzCWH6Yv2mKaU7uZLa5uBRuAss+FbmEXjPIvKd74BUENBIMyKD0d9zZd3pUn7K09D
- 6Rw2zIrM2xy17I1v5+MLhuxAeSGkvk0XqNqzb6viIf3m0sUfx51n4Ir4HFD2Tbbi1bZH3/tAO6K
- /U9JNWfhBPzZigGafMMVObZjZKQv6MvS6YrcyiVL0dPFETpBAHF2jIWUnlRQxrP69Zr8TY06PFj
- JEFr+olwXCBO/GKkVqOhzOa6g8KrZUnBEgZglCJ423/22SHfMNX4F2lpDGzddXybub+x3sKNEMv
- QvujcOJ1RoGBYhvMYqKJTihUf+uq6MXkNbNMGdiAawnyie7cJB0m4Rm5hspVxSSu8i52URmXTt0
- OuyJi/IIuEVM/dBEMBtjAKW7+qHc=
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+Date: Tue, 17 Oct 2023 09:34:14 +0200
+Message-Id: <3453edcb87b9b0a480c672173df9d4fa848b0d12.1697527976.git.jstancek@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 4/4] mknodat: Remove mknodat fallback definition
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/splice06: minimum pipe-max-size is page size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,106 +71,71 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-According to man mknod(2), glibc wrapper for mknodat() was in glibc
-2.4 (long time ago, the minimal glibc version we support is 2.17, see
-doc/supported-kernel-libc-versions.txt). Therefore removed the fallback.
+Test currently fails on ppc64le/aarch64 with page sizes > 4k, because
+miminum pipe-max-size allowed is page size:
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+  splice06.c:178: TPASS: Read num through splice correctly
+  splice06.c:187: TBROK: Write num through splice failed: SUCCESS (0)
+
+From kernel's fs/pipe.c:
+	unsigned int round_pipe_size(unsigned int size)
+	{
+		if (size > (1U << 31))
+			return 0;
+
+		/* Minimum pipe size, as required by POSIX */
+		if (size < PAGE_SIZE)
+			return PAGE_SIZE;
+
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
 ---
- configure.ac                                  |  1 -
- testcases/kernel/syscalls/mknodat/mknodat.h   | 35 -------------------
- testcases/kernel/syscalls/mknodat/mknodat01.c |  1 -
- testcases/kernel/syscalls/mknodat/mknodat02.c |  2 +-
- 4 files changed, 1 insertion(+), 38 deletions(-)
- delete mode 100644 testcases/kernel/syscalls/mknodat/mknodat.h
+ testcases/kernel/syscalls/splice/splice06.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/configure.ac b/configure.ac
-index 4cada09ed..ee14504bb 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -112,7 +112,6 @@ AC_CHECK_FUNCS_ONCE([ \
-     mallinfo \
-     mallinfo2 \
-     mallopt \
--    mknodat \
-     modify_ldt \
-     mount_setattr \
-     move_mount \
-diff --git a/testcases/kernel/syscalls/mknodat/mknodat.h b/testcases/kernel/syscalls/mknodat/mknodat.h
-deleted file mode 100644
-index 8f3a1f007..000000000
---- a/testcases/kernel/syscalls/mknodat/mknodat.h
-+++ /dev/null
-@@ -1,35 +0,0 @@
--/*
-- * Copyright (c) International Business Machines  Corp., 2007
-- * Copyright (c) 2014 Fujitsu Ltd.
-- *
-- * This program is free software;  you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU Library General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; if not, write to the Free Software
-- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-- *
-- */
--
--#ifndef MKNODAT_H
--#define MKNODAT_H
--
--#include <sys/types.h>
--#include "config.h"
--#include "lapi/syscalls.h"
--
--#if !defined(HAVE_MKNODAT)
--int mknodat(int dirfd, const char *filename, mode_t mode, dev_t dev)
--{
--	return tst_syscall(__NR_mknodat, dirfd, filename, mode, dev);
--}
--#endif
--
--#endif /* MKNODAT_H */
-diff --git a/testcases/kernel/syscalls/mknodat/mknodat01.c b/testcases/kernel/syscalls/mknodat/mknodat01.c
-index 6500ca362..3be0a4f87 100644
---- a/testcases/kernel/syscalls/mknodat/mknodat01.c
-+++ b/testcases/kernel/syscalls/mknodat/mknodat01.c
-@@ -35,7 +35,6 @@
- #include "test.h"
- #include "safe_macros.h"
- #include "lapi/fcntl.h"
--#include "mknodat.h"
+diff --git a/testcases/kernel/syscalls/splice/splice06.c b/testcases/kernel/syscalls/splice/splice06.c
+index 3139d16db84d..0cb5dec29136 100644
+--- a/testcases/kernel/syscalls/splice/splice06.c
++++ b/testcases/kernel/syscalls/splice/splice06.c
+@@ -25,11 +25,11 @@
  
- #define PATHNAME "mknodattestdir"
+ #define BUF_SIZE 100
+ #define PIPE_MAX_INIT_SIZE 65536
+-#define PIPE_MAX_TEST_SIZE 4096
+ #define DOMAIN_INIT_NAME "LTP_INIT"
+ #define DOMAIN_TEST_NAME "LTP_TEST"
+ #define INTEGER_PROCFILE "/proc/sys/fs/pipe-max-size"
+ #define STRING_PROCFILE "/proc/sys/kernel/domainname"
++static int pipe_max_test_size;
  
-diff --git a/testcases/kernel/syscalls/mknodat/mknodat02.c b/testcases/kernel/syscalls/mknodat/mknodat02.c
-index eda247fda..fdac5db15 100644
---- a/testcases/kernel/syscalls/mknodat/mknodat02.c
-+++ b/testcases/kernel/syscalls/mknodat/mknodat02.c
-@@ -37,7 +37,7 @@
- #include "test.h"
- #include "safe_macros.h"
- #include "lapi/fcntl.h"
--#include "mknodat.h"
-+#include "lapi/syscalls.h"
+ static void format_str(char *str)
+ {
+@@ -179,9 +179,9 @@ static void splice_test(void)
+ 	else
+ 		tst_brk(TBROK | TERRNO, "Read num through splice failed");
  
- static void setup(void);
- static void cleanup(void);
+-	splice_write_num(INTEGER_PROCFILE, PIPE_MAX_TEST_SIZE);
++	splice_write_num(INTEGER_PROCFILE, pipe_max_test_size);
+ 
+-	if (file_read_num(INTEGER_PROCFILE) == PIPE_MAX_TEST_SIZE)
++	if (file_read_num(INTEGER_PROCFILE) == pipe_max_test_size)
+ 		tst_res(TPASS, "Write num through splice correctly");
+ 	else
+ 		tst_brk(TBROK | TERRNO, "Write num through splice failed");
+@@ -210,6 +210,7 @@ static void splice_test(void)
+ 
+ static void setup(void)
+ {
++	pipe_max_test_size = getpagesize();
+ 	file_write_str(STRING_PROCFILE, DOMAIN_INIT_NAME);
+ 	file_write_num(STRING_PROCFILE, PIPE_MAX_INIT_SIZE);
+ }
 -- 
-2.39.1
+2.31.1
 
 
 -- 
