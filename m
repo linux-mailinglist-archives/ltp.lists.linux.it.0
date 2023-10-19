@@ -2,43 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 249857CF19D
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 09:47:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5CED7CF275
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 10:24:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7A1E33CD08F
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 09:47:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 69FD33CD080
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 10:24:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 103F93C84BD
- for <ltp@lists.linux.it>; Thu, 19 Oct 2023 09:46:58 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 65E1B3CD06A
+ for <ltp@lists.linux.it>; Thu, 19 Oct 2023 10:24:13 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 40C961BBB469
- for <ltp@lists.linux.it>; Thu, 19 Oct 2023 09:46:57 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3CDAD601E9A
+ for <ltp@lists.linux.it>; Thu, 19 Oct 2023 10:24:11 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id EFE1A21A8C;
- Thu, 19 Oct 2023 07:46:55 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id CADB92185E;
+ Thu, 19 Oct 2023 08:24:10 +0000 (UTC)
 Received: from g78 (unknown [10.163.25.62])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 7B72A2C497;
- Thu, 19 Oct 2023 07:46:55 +0000 (UTC)
-References: <20231016184408.879977-1-pvorel@suse.cz>
- <87r0lswdep.fsf@suse.de> <20231019072208.GB33886@pevik>
+ by relay2.suse.de (Postfix) with ESMTPS id 6DB252C4B6;
+ Thu, 19 Oct 2023 08:24:10 +0000 (UTC)
+References: <20230911094043.25511-1-andrea.cervesato@suse.de>
 User-agent: mu4e 1.10.7; emacs 29.1
 From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-Date: Thu, 19 Oct 2023 08:34:02 +0100
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Thu, 19 Oct 2023 08:53:23 +0100
 Organization: Linux Private Site
-In-reply-to: <20231019072208.GB33886@pevik>
-Message-ID: <87il73vytu.fsf@suse.de>
+In-reply-to: <20230911094043.25511-1-andrea.cervesato@suse.de>
+Message-ID: <87edhrvx3r.fsf@suse.de>
 MIME-Version: 1.0
 X-Spam-Level: 
 X-Spamd-Bar: /
@@ -46,28 +45,29 @@ Authentication-Results: smtp-out1.suse.de; dkim=none; dmarc=none;
  spf=softfail (smtp-out1.suse.de: 149.44.160.134 is neither permitted nor
  denied by domain of rpalethorpe@suse.de) smtp.mailfrom=rpalethorpe@suse.de
 X-Rspamd-Server: rspamd2
-X-Spamd-Result: default: False [0.77 / 50.00]; ARC_NA(0.00)[];
+X-Spamd-Result: default: False [-0.21 / 50.00]; ARC_NA(0.00)[];
  HAS_REPLYTO(0.30)[rpalethorpe@suse.de]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[4]; TO_DN_SOME(0.00)[];
+ TO_DN_SOME(0.00)[];
+ RWL_MAILSPIKE_GOOD(0.00)[149.44.160.134:from];
  NEURAL_HAM_LONG(-3.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
  REPLYTO_ADDR_EQ_FROM(0.00)[]; DMARC_NA(0.20)[suse.de];
  R_SPF_SOFTFAIL(0.60)[~all:c]; HAS_ORG_HEADER(0.00)[];
  TO_MATCH_ENVRCPT_SOME(0.00)[]; VIOLATED_DIRECT_SPF(3.50)[];
- MX_GOOD(-0.01)[]; NEURAL_HAM_SHORT(-1.00)[-1.000];
- RWL_MAILSPIKE_GOOD(0.00)[149.44.160.134:from];
- RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
- R_DKIM_NA(0.20)[]; MIME_TRACE(0.00)[0:+];
- RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[];
- BAYES_HAM(-0.02)[51.99%]
-X-Spam-Score: 0.77
-X-Rspamd-Queue-Id: EFE1A21A8C
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+ MX_GOOD(-0.01)[]; RCPT_COUNT_TWO(0.00)[2];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; RCVD_NO_TLS_LAST(0.10)[];
+ FROM_EQ_ENVFROM(0.00)[]; R_DKIM_NA(0.20)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ MID_RHS_MATCH_FROM(0.00)[]; BAYES_HAM(-3.00)[100.00%];
+ FORGED_RECIPIENTS(2.00)[m:andrea.cervesato@suse.de,
+ s:andrea.cervesato@suse.com]
+X-Spam-Score: -0.21
+X-Rspamd-Queue-Id: CADB92185E
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 0/7] Remove scsi testsuite + various
- testscripts
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] Refactor getdtablesize01 using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,59 +88,218 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hello,
 
-Petr Vorel <pvorel@suse.cz> writes:
+Andrea Cervesato <andrea.cervesato@suse.de> writes:
 
-> Hi Richie, all,
+> From: Andrea Cervesato <andrea.cervesato@suse.com>
 >
-> thanks for your review, merged.
+> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+> ---
+>  .../syscalls/getdtablesize/getdtablesize01.c  | 146 +++++++-----------
+>  1 file changed, 52 insertions(+), 94 deletions(-)
 >
->> Hello,
->
->> Petr Vorel <pvorel@suse.cz> writes:
->
->> > Hi,
->
->> > cleanup of 2 old scsi testsuites and some of legacy testscripts.
->> > IMHO the testsuites are not worth of fixing.
->
->> Very good. My only suggestion is to leave a tombstone in the
->> documentation (or github issues) any time we delete something big and
->> the thing it was supposed to test still should be tested.
->
-> I understand the need of missing coverage, preferably over github issue
-> (we document missing coverage over github issues already).
->
-> I wonder what should be noted in this case. These test scripts attempted to test:
-> * autofs (run other tests on autofs actually)
-> * BIO (we still have testcases/kernel/device-drivers/tbio/)
-> * sysfs (but we have at least some sysfs tests)
-> * SCSI (I suppose these will be better handled elsewhere - xfstests have
->   scsi_debug file, mention scsi in some generic and xfs specific tests)
-> * device mapper tests (there is something ruby based:
-> https://github.com/jthornber/device-mapper-test-suite from Joe Thornber from Red
-> Hat)
->
->> Something like "There was a testsuite called X, it appeared to do
->> Y, but we had to remove it because of Z".
->
->> It could be useful when answering questions about test feasability and
->> for SEO.
->
-> I'm not sure if this 20 years old code deserves this description (but feel free
-> to write it if you think so). But identifying missing coverage is of course
-> important. Maybe we could have a special wiki page which would link missing
-> coverage issues [1], but also highlight the most important ones (big subsystem
-> missing) and also point out what we consider being tested elsewhere or what
-> would be hard to test with LTP thus should be tested elsewhere.
+> diff --git a/testcases/kernel/syscalls/getdtablesize/getdtablesize01.c b/testcases/kernel/syscalls/getdtablesize/getdtablesize01.c
+> index d25cac261..80321e24f 100644
+> --- a/testcases/kernel/syscalls/getdtablesize/getdtablesize01.c
+> +++ b/testcases/kernel/syscalls/getdtablesize/getdtablesize01.c
+> @@ -1,119 +1,77 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+>   * Copyright (c) International Business Machines  Corp., 2005
+>   * Copyright (c) Wipro Technologies Ltd, 2005.  All Rights Reserved.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms of version 2 of the GNU General Public License as
+> - * published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope that it would be useful, but
+> - * WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+> - *
+> - * You should have received a copy of the GNU General Public License along
+> - * with this program; if not, write the Free Software Foundation, Inc.,
+> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+> - *
+> + *     Prashant P Yendigeri <prashant.yendigeri@wipro.com>
+> + *     Robbie Williamson <robbiew@us.ibm.com>
+> + * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+>   */
+> -/**********************************************************
+> - *
+> - *    TEST IDENTIFIER   : getdtablesize01
+> - *
+> - *    EXECUTED BY       : root / superuser
+> - *
+> - *    TEST TITLE        : Basic tests for getdtablesize01(2)
+> - *
+> - *    TEST CASE TOTAL   : 1
+> - *
+> - *    AUTHOR            : Prashant P Yendigeri
+> - *                        <prashant.yendigeri@wipro.com>
+> - *                        Robbie Williamson
+> - *                        <robbiew@us.ibm.com>
+> - *
+> - *    DESCRIPTION
+> - *      This is a Phase I test for the getdtablesize01(2) system call.
+> - *      It is intended to provide a limited exposure of the system
+> call.
 
-I suppose if the test suite did not do anything interesting, then it's
-not useful.
+It seems this test has been broken for a long time unless I am
+mistaken. glibc does not call the actual syscall, it calls
+prlimit. Which has different behaviour (see below).
 
->
-> Kind regards,
-> Petr
->
-> [1] https://github.com/linux-test-project/ltp/labels/missing%20coverage
+> - *
+> - **********************************************************/
+>  
+> -#include <stdio.h>
+> -#include <errno.h>
+> -#include <sys/types.h>
+> -#include <sys/stat.h>
+> -#include <fcntl.h>
+> -#include <sys/time.h>
+> -#include <sys/resource.h>
+> -#include <unistd.h>
+> -#include "test.h"
+> +/*\
+> + * [Description]
+> + *
+> + * This test verifies that getdtablesize() syscall returns the right max number
+> + * of files which can be opened by a process. We test this in 2 ways: firstly by
+> + * comparing its return value with RLIMIT_NOFILE, secondly by opening as many
+> + * files as possible and then checking when open() raises EMFILE.
+> + */
+>  
+> -void setup();
+> -void cleanup();
+> +#include <stdlib.h>
+> +#include "tst_test.h"
+>  
+> -char *TCID = "getdtablesize01";
+> -int TST_TOTAL = 1;
+> +#define FILENAME "rofile"
+>  
+> -int main(void)
+> +static void run(void)
+>  {
+> -	int table_size, fd = 0, count = 0;
+> -	int max_val_opfiles;
+> +	int *fds;
+> +	int overfd;
+> +	int open_files;
+>  	struct rlimit rlp;
+>  
+> -	setup();
+> -	table_size = getdtablesize();
+> -	getrlimit(RLIMIT_NOFILE, &rlp);
+> -	max_val_opfiles = (rlim_t) rlp.rlim_cur;
+> -
+> -	tst_resm(TINFO,
+> -		 "Maximum number of files a process can have opened is %d",
+> -		 table_size);
+> -	tst_resm(TINFO,
+> -		 "Checking with the value returned by getrlimit...RLIMIT_NOFILE");
+> -
+> -	if (table_size == max_val_opfiles)
+> -		tst_resm(TPASS, "got correct dtablesize, value is %d",
+> -			 max_val_opfiles);
+> -	else {
+> -		tst_resm(TFAIL, "got incorrect table size, value is %d",
+> -			 max_val_opfiles);
+> -		cleanup();
+> -	}
+> +	SAFE_GETRLIMIT(RLIMIT_NOFILE, &rlp);
+> +
+> +	TST_EXP_EQ_LI(getdtablesize(), rlp.rlim_cur);
+
+The actual syscall may not be equal to the prlimit AFAICT (this can be
+tested using the prlimit command).
+
+The table size can be set with a system wide sysctl /proc/sys/fs/nr_open
+defined in fs/file_table.c. This is used to set the initial prlimit, but
+can be reduced.
+
+> +
+> +	tst_res(TINFO, "Start opening as many files as possible");
+> +
+> +	overfd = rlp.rlim_cur + 5;
+>  
+> -	tst_resm(TINFO,
+> -		 "Checking Max num of files that can be opened by a process.Should be: RLIMIT_NOFILE - 1");
+> -	for (;;) {
+> -		fd = open("/etc/hosts", O_RDONLY);
+> +	fds = (int *)SAFE_MALLOC(overfd * sizeof(int));
+>  
+> -		if (fd == -1)
+> +	for (open_files = 0; open_files < overfd; open_files++) {
+> +		TEST(open(FILENAME, O_RDONLY));
+> +
+> +		if (TST_RET == -1 && TST_ERR == EMFILE) {
+
+This could also fail with ENOMEM at least. Especially in a memcg and
+arch with large page sizes if there are any page sized allocations.
+
+Perhaps on some FS there would be other limits as well, resulting in a
+different error, but you can ignore that for now if you want.
+
+> +			tst_res(TINFO, "Reached max amount of open files per process");
+>  			break;
+> -		count = fd;
+> +		}
+>  
+> -#ifdef DEBUG
+> -		printf("Opened file num %d\n", fd);
+> -#endif
+> +		fds[open_files] = TST_RET;
+>  	}
+>  
+> -//Now the max files opened should be RLIMIT_NOFILE - 1 , why ? read getdtablesize man page
+> +	--open_files;
+>  
+> -	if (count > 0)
+> -		close(count);
+> -	if (count == (max_val_opfiles - 1))
+> -		tst_resm(TPASS, "%d = %d", count, (max_val_opfiles - 1));
+> -	else if (fd < 0 && errno == ENFILE)
+> -		tst_brkm(TCONF, cleanup, "Reached maximum number of open files for the system");
+> -	else
+> -		tst_resm(TFAIL, "%d != %d", count, (max_val_opfiles - 1));
+> +	tst_res(TINFO, "Opened %d files", open_files);
+>  
+> -	cleanup();
+> -	tst_exit();
+> -}
+> +	for (int i = 0; i <= open_files; i++)
+> +		SAFE_CLOSE(fds[i]);
+>  
+> -void setup(void)
+> -{
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> +	free(fds);
+>  
+> -	TEST_PAUSE;
+> +	TST_EXP_EXPR(getdtablesize() >= open_files,
+> +		"max amount of open files per process hasn't been overflowed");
+>  }
+>  
+> -void cleanup(void)
+> +static void setup(void)
+>  {
+> +	int fd;
+> +
+> +	fd = SAFE_CREAT(FILENAME, 0644);
+> +	SAFE_CLOSE(fd);
+>  }
+> +
+> +static struct tst_test test = {
+> +	.test_all = run,
+> +	.setup = setup,
+> +	.needs_tmpdir = 1,
+
+This tests the underlying file system to some extent, so we should test
+all available file systems.
+
+> +};
+> -- 
+> 2.35.3
 
 
 -- 
