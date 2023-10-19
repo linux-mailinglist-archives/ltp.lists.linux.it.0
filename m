@@ -2,69 +2,82 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1EC17CEE44
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 04:56:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4EDD7CEE64
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 05:19:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A1AA83CEF1B
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 04:56:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9DF973CEF37
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 05:19:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E44F83C02B2
- for <ltp@lists.linux.it>; Thu, 19 Oct 2023 04:56:13 +0200 (CEST)
-Received: from esa1.hc1455-7.c3s2.iphmx.com (esa1.hc1455-7.c3s2.iphmx.com
- [207.54.90.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id AD9883CD444
+ for <ltp@lists.linux.it>; Thu, 19 Oct 2023 05:19:22 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E2CBF60082D
- for <ltp@lists.linux.it>; Thu, 19 Oct 2023 04:56:12 +0200 (CEST)
-X-IronPort-AV: E=McAfee;i="6600,9927,10867"; a="136501927"
-X-IronPort-AV: E=Sophos;i="6.03,236,1694703600"; d="scan'208";a="136501927"
-Received: from unknown (HELO oym-r4.gw.nic.fujitsu.com) ([210.162.30.92])
- by esa1.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2023 11:56:10 +0900
-Received: from oym-m4.gw.nic.fujitsu.com (oym-nat-oym-m4.gw.nic.fujitsu.com
- [192.168.87.61])
- by oym-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id CF60FDDC64
- for <ltp@lists.linux.it>; Thu, 19 Oct 2023 11:56:07 +0900 (JST)
-Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
- [192.51.206.21])
- by oym-m4.gw.nic.fujitsu.com (Postfix) with ESMTP id F3BF9D5B3A
- for <ltp@lists.linux.it>; Thu, 19 Oct 2023 11:56:06 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id 95DDC20074711
- for <ltp@lists.linux.it>; Thu, 19 Oct 2023 11:56:06 +0900 (JST)
-Received: from localhost.localdomain (unknown [10.167.215.131])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id 534741A0073;
- Thu, 19 Oct 2023 10:56:06 +0800 (CST)
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: ltp@lists.linux.it
-Date: Thu, 19 Oct 2023 10:55:52 +0800
-Message-Id: <1697684152-29747-2-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1697684152-29747-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id F114C1007CA6
+ for <ltp@lists.linux.it>; Thu, 19 Oct 2023 05:19:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1697685560;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tEBWPMwMweGGSL+JCT7HX+Ebz0bTBJI2w7zHZAPqAZk=;
+ b=Og55UXJnm19w4e1agrBg6PghkNTojC30n2jMueQ7o2488aI16v19jEyATAGN+8R/NDQTsm
+ psvLTbTKShHmXQ8I3boC7FWAzsWAJOKGCf4yRZitkvuTsjCWIG4c6Tvw90nhcZmrFgjA1r
+ a/R9LydKAGcoRh26bNDwNWgvb/sPh1o=
+Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
+ [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-620-E_evK5_pM--uClBsGNjBnw-1; Wed, 18 Oct 2023 23:19:13 -0400
+X-MC-Unique: E_evK5_pM--uClBsGNjBnw-1
+Received: by mail-lf1-f69.google.com with SMTP id
+ 2adb3069b0e04-507b92b4346so3126336e87.1
+ for <ltp@lists.linux.it>; Wed, 18 Oct 2023 20:19:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1697685551; x=1698290351;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=tEBWPMwMweGGSL+JCT7HX+Ebz0bTBJI2w7zHZAPqAZk=;
+ b=O+WGOf9RrTFi+V5tNEtld78qvVPwSxKwDlctbuspf8nGNvO978gitMU/etljqA4Ael
+ f8v0884SkZjCxog3SlOYm8z76wHHpxFNGrc7MmGI8c7U8bpx1T1Y9MDRZ57lANPVqzML
+ nTb9JiECtX2wsHddgcyLHa4zoNZjDniQFgaIX/pYqbGDAqTld9vPp0YtdpMH9ITSNXwx
+ K8wEIo4jZZGfuA0b12BSeI32THyffXUiTLybpYVmVCf93+2K1QPd3wCW/nGjkAKaEpTR
+ wMRsh41oO6UJfeP6VuF3gSrJ9HVD0LDHawxoWuqEymJgPZvH4XerBNQPAxCQN0JrujRw
+ 7WUg==
+X-Gm-Message-State: AOJu0YzlctR9fneatrA52D1p74ZgTojQW/XMY4WQswS63lHP/tD8hBJn
+ wCSfOiU77Y98JNckK08K6rFI9bfl6Aln+3NOQmfZnTgZLsBYttQ5r68TKraafWiJc98t8uy79g5
+ uxzd0UByD642ru6FckdoioqqxoSM=
+X-Received: by 2002:ac2:5328:0:b0:500:b74b:e53 with SMTP id
+ f8-20020ac25328000000b00500b74b0e53mr495028lfh.46.1697685551610; 
+ Wed, 18 Oct 2023 20:19:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH+xS3c/giOPKsrygo1Y+f+ORHgOF07uKqPVialmHWA68PRdAv8xYh1z7Xc1rYe03xG8unkGZceOAL6Sk2wg+g=
+X-Received: by 2002:ac2:5328:0:b0:500:b74b:e53 with SMTP id
+ f8-20020ac25328000000b00500b74b0e53mr495024lfh.46.1697685551180; Wed, 18 Oct
+ 2023 20:19:11 -0700 (PDT)
+MIME-Version: 1.0
 References: <1697684152-29747-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-27944.004
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-27944.004
-X-TMASE-Result: 10--14.980700-10.000000
-X-TMASE-MatchedRID: iX1jgSPyW0MKK0r2G9VU7gPZZctd3P4BCZa9cSpBObm+f7ap9DJaDb8F
- Hrw7frluX2TxVGxWCcEafQZfvyaD9NbNQByfRPHgSs47mbT7SATzWEMQjooUzQhVq5YmQAlEvmK
- TdxbGqLK3KNQyDMLBzQT09/zQvuDS6qQbIJUDcq2/QNwZdfw3FaTYf9v9flol3m7FRTxl32QWWg
- 76IlE/zJoi4Fk1Ww9PgDLqnrRlXrZ8nn9tnqel2DsAVzN+Ov/sOTc8iexQZlZG6dseshtxyKDjy
- vOwj362RR2rpdl2nCS6Tml5J9ZEGg==
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+In-Reply-To: <1697684152-29747-1-git-send-email-xuyang2018.jy@fujitsu.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 19 Oct 2023 11:18:59 +0800
+Message-ID: <CAEemH2czTb6KvzC7_M8_O-BEsPtbrU7hM-yuW1dZWdpJUJLPng@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] syscalls/fchmodat02: Move errnos check to
- fchmodat02
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: Re: [LTP] [PATCH v2 1/2] syscalls/fchmodat01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,135 +89,17 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Check errnos for fchmodat().
+Reviewed-by: Li Wang <liwang@redhat.com>
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- runtest/syscalls                              |  1 +
- testcases/kernel/syscalls/fchmodat/.gitignore |  1 +
- .../kernel/syscalls/fchmodat/fchmodat02.c     | 85 +++++++++++++++++++
- 3 files changed, 87 insertions(+)
- create mode 100644 testcases/kernel/syscalls/fchmodat/fchmodat02.c
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 1851752cf..8c62dc309 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -259,6 +259,7 @@ fchmod06 fchmod06
- 
- #fchmodat test cases
- fchmodat01 fchmodat01
-+fchmodat02 fchmodat02
- 
- fchown01 fchown01
- fchown01_16 fchown01_16
-diff --git a/testcases/kernel/syscalls/fchmodat/.gitignore b/testcases/kernel/syscalls/fchmodat/.gitignore
-index a9508bc5a..09d5c47d5 100644
---- a/testcases/kernel/syscalls/fchmodat/.gitignore
-+++ b/testcases/kernel/syscalls/fchmodat/.gitignore
-@@ -1 +1,2 @@
- /fchmodat01
-+/fchmodat02
-diff --git a/testcases/kernel/syscalls/fchmodat/fchmodat02.c b/testcases/kernel/syscalls/fchmodat/fchmodat02.c
-new file mode 100644
-index 000000000..3539753b8
---- /dev/null
-+++ b/testcases/kernel/syscalls/fchmodat/fchmodat02.c
-@@ -0,0 +1,85 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) International Business Machines  Corp., 2006
-+ * Copyright (c) Linux Test Project, 2003-2023
-+ * Author: Yi Yang <yyangcdl@cn.ibm.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * - fchmodat() fails with ENOTDIR if dir_fd is file descriptor
-+ *   to the file and pathname is relative path of the file.
-+ * - fchmodat() fails with EBADF if dir_fd is invalid.
-+ * - fchmodat() fails with EFAULT if pathname points outside
-+ *   the accessible address space.
-+ * - fchmodat() fails with ENAMETOOLONG if path is too long.
-+ * - fchmodat() fails with ENOENT if pathname does not exist.
-+ * - fchmodat() fails with EINVAL if flag is invalid.
-+ */
-+
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include "tst_test.h"
-+
-+#define TESTFILE        "fchmodatfile"
-+
-+static int file_fd;
-+static int bad_fd = -1;
-+static char path[PATH_MAX + 2];
-+static char *long_path = path;
-+static int fd_atcwd = AT_FDCWD;
-+static char *bad_path;
-+static char *test_path;
-+static char *empty_path;
-+
-+static struct tcase {
-+	int *fd;
-+	char **filenames;
-+	int flag;
-+	int exp_errno;
-+	const char *desc;
-+} tcases[] = {
-+	{&file_fd, &test_path, 0, ENOTDIR, "fd pointing to file"},
-+	{&bad_fd, &test_path, 0, EBADF, "invalid fd"},
-+	{&file_fd, &bad_path, 0, EFAULT, "invalid address"},
-+	{&file_fd, &long_path, 0, ENAMETOOLONG, "pathname too long"},
-+	{&file_fd, &empty_path, 0, ENOENT, "path is empty"},
-+	{&fd_atcwd, &test_path, -1, EINVAL, "invalid flag"},
-+};
-+
-+static void verify_fchmodat(unsigned int i)
-+{
-+	struct tcase *tc = &tcases[i];
-+
-+	TST_EXP_FAIL(fchmodat(*tc->fd, *tc->filenames, 0600, tc->flag),
-+		     tc->exp_errno, "fchmodat() with %s", tc->desc);
-+}
-+
-+static void setup(void)
-+{
-+	file_fd = SAFE_OPEN(TESTFILE, O_CREAT | O_RDWR, 0600);
-+
-+	bad_path = tst_get_bad_addr(NULL);
-+
-+	memset(path, 'a', PATH_MAX + 2);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (file_fd > -1)
-+		SAFE_CLOSE(file_fd);
-+}
-+
-+static struct tst_test test = {
-+	.test = verify_fchmodat,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.bufs = (struct tst_buffers []) {
-+		{&test_path, .str = TESTFILE},
-+		{&empty_path, .str = ""},
-+		{},
-+	},
-+	.needs_tmpdir = 1,
-+};
 -- 
-2.39.1
-
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
