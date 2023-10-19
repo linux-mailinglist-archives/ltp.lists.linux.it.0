@@ -1,88 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47A6A7CF26A
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 10:22:45 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 929387CF419
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 11:31:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9D22F3CD096
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 10:22:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5BB2E3CD09B
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Oct 2023 11:31:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A5AED3CD06A
- for <ltp@lists.linux.it>; Thu, 19 Oct 2023 10:22:40 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by picard.linux.it (Postfix) with ESMTPS id 7598F3C84AB
+ for <ltp@lists.linux.it>; Thu, 19 Oct 2023 11:30:55 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0FC3B20119D
- for <ltp@lists.linux.it>; Thu, 19 Oct 2023 10:22:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1697703757;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nXu3+FdDRpMluSvxOS/GG3Oxt2VKX5x0vidkw4TJIAw=;
- b=BG5CTiOS8/GTsCg+K+2DHMFXaeeBl/+T4Meid9KXaJ1X7GJPuhLY/4MyfDNwBIr9XIBDI3
- bhAgI9h/OeXJSijzaJuRu/7bJNz00rhnjoZqmqD8GtnsIh6JjcC1vt9DQMVRJNEptLDlOi
- 4wWG/rd8iuUY/QqCVGU7dbDoq9CVSIc=
-Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
- [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-605-5SlOdn-BPQeeC5AghApTiA-1; Thu, 19 Oct 2023 04:22:35 -0400
-X-MC-Unique: 5SlOdn-BPQeeC5AghApTiA-1
-Received: by mail-lj1-f198.google.com with SMTP id
- 38308e7fff4ca-2c50dcd377eso55256051fa.2
- for <ltp@lists.linux.it>; Thu, 19 Oct 2023 01:22:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697703753; x=1698308553;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nXu3+FdDRpMluSvxOS/GG3Oxt2VKX5x0vidkw4TJIAw=;
- b=bb0pirPQE5lnoVfq9zWl0T3cxsRE1TFy+Gd93jiBdi2gp4qpteED2o3qmKBhaUPMpU
- sHPCClPuD3W4b+NMujOMqaIMFvpoho6vQYHx7o5rSdzVdtPiwoXT0xO1XlnJlxfdozYq
- IXbGw2snAjETOeXiwstRVuK1zaLMaE4eZ2A5KH4RyW+FKZrAnfS/Z7Ybfx6ba8K1hQKj
- v8/l3DncONzl944+R8jNgBOgdBkdkvdTiWm/gx2gyMWKTUnAvjhY+zmcKHpkOE0STfog
- 5IWYX2ZkYQQjZ5xPjZ2TCKctv1kYH2zDklOoH+3HATwvgpSKCjhUK9qzN9Ku22MXS6m2
- xIOQ==
-X-Gm-Message-State: AOJu0YxxyYUpCLVprABVYkixxKNGGY2KX9GhQ21yWGAxb1crY/B9xu9y
- E+NcR9nTNsaOT4+nLqmVCVyCteF0z4TKSko8yZbpoUycyuzNG/OETc2VVaXmhsWkvsfF6ZqbXzw
- grTdIgj8C7B16rb+anW2fYOt056/ZDZ+fB0PuMklEu7g=
-X-Received: by 2002:a2e:7411:0:b0:2c0:122a:322b with SMTP id
- p17-20020a2e7411000000b002c0122a322bmr849114ljc.48.1697703752921; 
- Thu, 19 Oct 2023 01:22:32 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFiVwOvtR9VS2bF21lFjzhRNvmBcB1Wk0K1bQ7iNDvsaybzDICWcFAzDRL+iqSMPi7GmtJCQARuCQBTObu8MMU=
-X-Received: by 2002:a2e:7411:0:b0:2c0:122a:322b with SMTP id
- p17-20020a2e7411000000b002c0122a322bmr849104ljc.48.1697703752562; Thu, 19 Oct
- 2023 01:22:32 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B0EFD600967
+ for <ltp@lists.linux.it>; Thu, 19 Oct 2023 11:30:54 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 645351F88B;
+ Thu, 19 Oct 2023 09:30:53 +0000 (UTC)
+Received: from g78 (rpalethorpe.udp.ovpn1.nue.suse.de [10.163.25.62])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 044452C4D6;
+ Thu, 19 Oct 2023 09:30:52 +0000 (UTC)
+References: <20231012033901.95289-1-geetika@linux.ibm.com>
+User-agent: mu4e 1.10.7; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Geetika <geetika@linux.ibm.com>
+Date: Thu, 19 Oct 2023 09:45:14 +0100
+Organization: Linux Private Site
+In-reply-to: <20231012033901.95289-1-geetika@linux.ibm.com>
+Message-ID: <87a5sfvu0k.fsf@suse.de>
 MIME-Version: 1.0
-References: <20230524093930.43971-1-liwang@redhat.com>
- <20230911080233.1305942-1-liwang@redhat.com>
- <CAEemH2ejp3iLbv7fXAr6H3WuC+TQ3O05V0t2HUyYSbsNYixFaQ@mail.gmail.com>
- <87mswgw8bz.fsf@suse.de>
-In-Reply-To: <87mswgw8bz.fsf@suse.de>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 19 Oct 2023 16:22:20 +0800
-Message-ID: <CAEemH2ft5fcyuzGCSY7_B+vTHW7HZKvVDNdanoHE8m29AVD-Ew@mail.gmail.com>
-To: rpalethorpe@suse.de
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Spam-Level: 
+Authentication-Results: smtp-out2.suse.de; dkim=none; dmarc=none;
+ spf=softfail (smtp-out2.suse.de: 149.44.160.134 is neither permitted nor
+ denied by domain of rpalethorpe@suse.de) smtp.mailfrom=rpalethorpe@suse.de
+X-Rspamd-Server: rspamd2
+X-Spamd-Result: default: False [-2.21 / 50.00]; ARC_NA(0.00)[];
+ HAS_REPLYTO(0.30)[rpalethorpe@suse.de]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ NEURAL_HAM_LONG(-3.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ REPLYTO_ADDR_EQ_FROM(0.00)[]; DMARC_NA(0.20)[suse.de];
+ R_SPF_SOFTFAIL(0.60)[~all:c]; HAS_ORG_HEADER(0.00)[];
+ RWL_MAILSPIKE_GOOD(0.00)[149.44.160.134:from];
+ VIOLATED_DIRECT_SPF(3.50)[]; MX_GOOD(-0.01)[];
+ RCPT_COUNT_TWO(0.00)[2]; NEURAL_HAM_SHORT(-1.00)[-1.000];
+ RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
+ R_DKIM_NA(0.20)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[];
+ BAYES_HAM(-3.00)[100.00%]
+X-Spam-Score: -2.21
+X-Rspamd-Queue-Id: 645351F88B
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH v2 1/2] lib: add support for kinds of hpsize
- reservation
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] Migrating the
+ libhugetlbfs/testcases/fallocate_stress.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,114 +77,323 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gV2VkLCBPY3QgMTgsIDIwMjMgYXQgNjowOeKAr1BNIFJpY2hhcmQgUGFsZXRob3JwZSA8cnBh
-bGV0aG9ycGVAc3VzZS5kZT4Kd3JvdGU6Cgo+IEhlbGxvLAo+Cj4gTGkgV2FuZyA8bGl3YW5nQHJl
-ZGhhdC5jb20+IHdyaXRlczoKPgo+ID4gSGkgQ3lyaWwsCj4gPgo+ID4gW1BsZWFzZSBob2xkIG9m
-ZiBvbiBtZXJnaW5nIHRoaXMgcGF0Y2hdCj4gPgo+ID4gVGhlIGhlc2l0YXRpbmcgcGFydCBvZiB0
-aGlzIG1ldGhvZCAoZnJvbSBteXNlbGYpIGlzIHRoZSBuZXcgZmllbGQKPiA+ICdocC0+aHBzaXpl
-Jy4KPiA+IEl0IHNlZW1zIG5vdCB3aXNlIHRvIGxlYXZlIGl0IHRvIHVzZXJzIHRvIGZpbGwgdGhl
-IGdpZ2FudGljIHBhZ2Ugc2l6ZQo+ID4gbWFudWFsbHksCj4gPiBhcyBzb21lIGFyY2hlcyBzdXBw
-b3J0IGRpZmZlcmVudCBodWdlL2dpZ2FudGljIHBhZ2Ugc2l6ZXM6Cj4KPiBZZXMsIGdvb2QgaWRl
-YS4KPgo+ID4KPiA+ICAgIHg4Nl82NCBhbmQgeDg2OiAgMk1CIGFuZCAxR0IuCj4gPiAgICBQb3dl
-clBDOiAgcmFuZ2luZyBmcm9tIDY0S0IgdG8gMTZHQi4KPiA+ICAgIEFSTTY0OiAgMk1CIGFuZCAx
-R0IuCj4gPiAgICBJQS02NCAoSXRhbml1bSk6ICBmcm9tIDRLQiB0byAyNTZNQi4KPiA+Cj4gPiB3
-ZSBwcm9iYWJseSBuZWVkIGEgaW50ZWxlbmdlbnQgd2F5IHRvIGRldGVjdCBhbmQgcmVzZXJ2ZSB3
-aGF0ZXZlcgo+ID4gaHVnZXBhZ2Ugb3IgZ2l0YW50aWMtcGFnZSB0aGF0IGFsbCBhY21wbGlzaCB0
-aGF0IGluIGx0cC1saWJyYXJ5IG9yCj4gc2V0dXAoKS4KPiA+IFRoZW4gcGVvcGxlIGRvbid0IG5l
-ZWQgdG8gZmlsbCBhbnkgYnl0ZSB3aGljaCBhdm9pZGluZyB0eXBvIG9yCj4gPiBzb21ldGhpbmcg
-d3JvbmcuCj4KPiBJdCBzZWVtcyBsaWtlIGEgc3BlY2lhbCBmbGFnIGlzIG5lZWRlZCBpbiBtbWFw
-IGlmIHlvdSB3YW50IHRvIGFsbG9jYXRlIGEKPiBnaWdhbnRpYyBwYWdlIG90aGVyIHRoYW4gMUdC
-Pwo+CgoKUmlnaHQsIE1BUF9IVUdFXzJNQiBvciBNQVBfSFVHRV8xR0IgdXNlZCBpbiBjb25qdW5j
-dGlvbgp3aXRoIE1BUF9IVUdFVExCIHRvIHNlbGVjdCBhbHRlcm5hdGl2ZSBodWdldGxiIHBhZ2Ug
-c2l6ZXMuCgpCdXQgbm8gbWF0dGVyIHdoaWNoIG9uZSB0byB1c2UsIHdlIHNob3VsZCByZXNlcnZl
-IGVub3VnaAptZW1vcnkgc2l6ZSBmb3IgdGhlbSBpbiAiSHVnZVBhZ2VzX0ZyZWU6Ii4gVGhhdCdz
-IHdoYXQKdGhlICIuaHVnZXBhZ2VzIiBhcmUgZG9pbmcgaW4gTFRQIGxpYnJhcnkuCgoKCj4KPiA+
-Cj4gPiBXaGF0IEkgY2FuIHRoaW5rIG9mIHRoZSBpbXByb3ZlZCB3YXkgaXMgdG8gZXh0ZW5kIHRo
-ZSBodWdlcGFnZSBwb2xpY3kKPiA+IHdpdGggIl9HIiBzdWJmaXggdG8gIHNwZWNpZmllZCB0aGUg
-Z2lnYW50aWMgcGFnZXMuCj4gPgo+ID4gSXMgdGhpcyBzb3VuZHMgYmV0dGVyPyAgV2hhdCBkbyB5
-b3UgdGhpbms/Cj4gPgo+ID4gU29tZXRoaW5nIGRyYWZ0ZWQgYmFzZSBvbiBteSBwYXRjaCBWMjoK
-PiA+Cj4gPiAtLS0gYS9pbmNsdWRlL3RzdF9odWdlcGFnZS5oCj4gPiArKysgYi9pbmNsdWRlL3Rz
-dF9odWdlcGFnZS5oCj4gPiBAQCAtMjAsMTQgKzIwLDE1IEBAIGV4dGVybiBjaGFyICpucl9vcHQ7
-IC8qIC1zIG51bSAgIFNldCB0aGUgbnVtYmVyIG9mCj4gdGhlCj4gPiBiZWVuIGFsbG9jYXRlZCBo
-dWdlcGFnZXMKPiA+ICBleHRlcm4gY2hhciAqSG9wdDsgICAvKiAtSCAvLi4gICBMb2NhdGlvbiBv
-ZiBodWdldGxiZnMsIGkuZS4gIC1ICj4gPiAvdmFyL2h1Z2V0bGJmcyAqLwo+ID4KPiA+ICBlbnVt
-IHRzdF9ocF9wb2xpY3kgewo+ID4gLSAgICAgICBUU1RfUkVRVUVTVCwKPiA+IC0gICAgICAgVFNU
-X05FRURTLAo+ID4gKyAgICAgICBUU1RfUkVRVUVTVF9IID0gMHgwLAo+ID4gKyAgICAgICBUU1Rf
-UkVRVUVTVF9HID0gMHgxLAo+ID4gKyAgICAgICBUU1RfTkVFRFNfSCAgID0gMHgyLAo+ID4gKyAg
-ICAgICBUU1RfTkVFRFNfRyAgID0gMHg0LAo+ID4gIH07Cj4gPgo+ID4gIHN0cnVjdCB0c3RfaHVn
-ZXBhZ2Ugewo+ID4gICAgICAgICBjb25zdCB1bnNpZ25lZCBsb25nIG51bWJlcjsKPiA+ICAgICAg
-ICAgZW51bSAgdHN0X2hwX3BvbGljeSBwb2xpY3k7Cj4gPiAtICAgICAgIGNvbnN0IHVuc2lnbmVk
-IGxvbmcgaHBzaXplOwo+ID4gIH07Cj4KPiBXaHkgbm90IGtlZXAgaHBzaXplIGFuZCBhZGQgZW51
-bSB0c3RfaHBfc2l6ZSB7IFRTVF9IVUdFLCBUU1RfR0lHQU5USUMgfT8KPgoKR29vZCBhZHZpY2Uh
-CgpJIHRoaW5rIG1heWJlIHRoZSAnZW51bSB0c3RfaHBfdHlwZScgaXMgYmV0dGVyPyBUaGlzIHNv
-dW5kcyBsaWtlIHRoZQpwcm9wZXIgdHlwZSBvZiBodWdlcGFnZXMgd2UgY2hvb3NlIGZvciB0aGUg
-dGVzdC4KCmVudW0gdHN0X2hwX3BvbGljeSB7CiAgICAgICAgVFNUX1JFUVVFU1QsCiAgICAgICAg
-VFNUX05FRURTLAp9OwoKZW51bSB0c3RfaHBfdHlwZSB7CiAgICAgICAgVFNUX0hVR0VQQUdFLAog
-ICAgICAgIFRTVF9HSUdBTlRJQywKfTsKCiBzdHJ1Y3QgdHN0X2h1Z2VwYWdlIHsKICAgICAgICBj
-b25zdCB1bnNpZ25lZCBsb25nIG51bWJlcjsKICAgICAgICBlbnVtICB0c3RfaHBfcG9saWN5IHBv
-bGljeTsKICAgICAgICBlbnVtICB0c3RfaHBfdHlwZSAgIGhwdHlwZTsKIH07CgouLi4KCnN0YXRp
-YyBzdHJ1Y3QgdHN0X3Rlc3QgdGVzdCA9IHsKICAgICAgICAubmVlZHNfcm9vdCA9IDEsCiAgICAg
-ICAgLi4uCiAgICAgICAgLmh1Z2VwYWdlcyA9IHsyLCBUU1RfTkVFRFMsIFRTVF9HSUdBTlRJQ30s
-Cn07CgoKCj4KPiBJbiB0aGVvcnkgbW9yZSBzaXplcyBjYW4gYmUgYWRkZWQuCj4KPiA+Cj4gPiAg
-LyoKPiA+IEBAIC0zNSw2ICszNiwxMSBAQCBzdHJ1Y3QgdHN0X2h1Z2VwYWdlIHsKPiA+ICAgKi8K
-PiA+ICBzaXplX3QgdHN0X2dldF9odWdlcGFnZV9zaXplKHZvaWQpOwo+ID4KPiA+ICsvKgo+ID4g
-KyAqIEdldCB0aGUgZ2lnYW50aWMgaHVnZXBhZ2Ugc2l6ZS4gUmV0dXJucyAwIGlmIGh1Z2VwYWdl
-cyBhcmUgbm90Cj4gPiBzdXBwb3J0ZWQuCj4gPiArICovCj4gPiArc2l6ZV90IHRzdF9nZXRfZ2ln
-YW50aWNfc2l6ZSh2b2lkKTsKPiA+ICsKPiA+ICAvKgo+ID4gICAqIFRyeSB0aGUgYmVzdCB0byBy
-ZXF1ZXN0IGEgc3BlY2lmaWVkIG51bWJlciBvZiBodWdlIHBhZ2VzIGZyb20gc3lzdGVtLAo+ID4g
-ICAqIGl0IHdpbGwgc3RvcmUgdGhlIHJlc2VydmVkIGhwYWdlIG51bWJlciBpbiB0c3RfaHVnZXBh
-Z2VzLgo+ID4gZGlmZiAtLWdpdCBhL2xpYi90c3RfaHVnZXBhZ2UuYyBiL2xpYi90c3RfaHVnZXBh
-Z2UuYwo+ID4gaW5kZXggZjRiMThiYmJmLi41Njg4ODRmYmIgMTAwNjQ0Cj4gPiAtLS0gYS9saWIv
-dHN0X2h1Z2VwYWdlLmMKPiA+ICsrKyBiL2xpYi90c3RfaHVnZXBhZ2UuYwo+ID4gQEAgLTIxLDYg
-KzIxLDMwIEBAIHNpemVfdCB0c3RfZ2V0X2h1Z2VwYWdlX3NpemUodm9pZCkKPiA+ICAgICAgICAg
-cmV0dXJuIFNBRkVfUkVBRF9NRU1JTkZPKCJIdWdlcGFnZXNpemU6IikgKiAxMDI0Owo+ID4gIH0K
-PiA+Cj4gPiArLyogQ2hlY2sgaWYgaHVnZXRsYiBwYWdlIGlzIGdpZ2FudGljICovCj4gPiArc3Rh
-dGljIGlubGluZSBpbnQgaXNfaHVnZXRsYl9naWdhbnRpYyh1bnNpZ25lZCBsb25nIGhwYWdlX3Np
-emUpCj4gPiArewo+ID4gKyAgICAgICByZXR1cm4gKGhwYWdlX3NpemUgLyBnZXRwYWdlc2l6ZSgp
-KSA+PiAxMTsKPiA+ICt9Cj4KPiBXaGF0IGlzIDExPyBJZiBpdCBpcyB0aGUgb3JkZXIgb3Igc2hp
-ZnQgb2YgaHVnZXBhZ2VzIHRoZW4gdGhhdCBpcyBub3QKPiBjb25zdGFudCAoc2VlIGJlbG93KS4K
-PgoKVGhpcyBmdW5jdGlvbiBpcyBleHRyYWN0ZWQgZnJvbSBtZW0vaHVnZXRsYi9saWIvaHVnZXRs
-Yi5oLgpJIHRoaW5rIHRoYXQgMTEgbWVhbnMsIHRoZSBnaWdhbnRpYy1wZ3NpemUgaXMgbm90IGxl
-c3MgdGhhbiAyMDQ4IGdlbmVyYWwKcGdzaXplLgpCdXQgeW91J3JlIHJpZ2h0IGl0IGNhbid0IGNv
-dmVyIGFsbCBzaXR1YXRpb25zLgoKCgo+Cj4gPiArCj4gPiArc2l6ZV90IHRzdF9nZXRfZ2lnYW50
-aWNfc2l6ZSh2b2lkKQo+ID4gK3sKPiA+ICsgICAgICAgRElSICpkaXI7Cj4gPiArICAgICAgIHN0
-cnVjdCBkaXJlbnQgKmVudDsKPiA+ICsgICAgICAgdW5zaWduZWQgbG9uZyBnX2hwYWdlX3NpemU7
-Cj4gPiArCj4gPiArICAgICAgIGRpciA9IFNBRkVfT1BFTkRJUihQQVRIX0hVR0VQQUdFUyk7Cj4g
-PiArICAgICAgIHdoaWxlICgoZW50ID0gU0FGRV9SRUFERElSKGRpcikpKSB7Cj4gPiArICAgICAg
-ICAgICAgICAgaWYgKChzc2NhbmYoZW50LT5kX25hbWUsICJodWdlcGFnZXMtJWx1a0IiLAo+ICZn
-X2hwYWdlX3NpemUpCj4gPiA9PSAxKSAmJgo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgaXNf
-aHVnZXRsYl9naWdhbnRpYyhnX2hwYWdlX3NpemUgKiAxMDI0KSkgewo+ID4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgYnJlYWs7Cj4gPiArICAgICAgICAgICAgICAgfQo+ID4gKyAgICAgICB9Cj4K
-PiBJIGd1ZXNzIGluIHRoZW9yeSBtb3JlIGdpZ2FudGljIHBhZ2Ugc2l6ZXMgY291bGQgYmUgYWRk
-ZWQuIEknbSBub3Qgc3VyZQo+IHdoYXQgc2l6ZSB3ZSBzaG91bGQgcGljaywgYnV0IHdlIGRvbid0
-IHdhbnQgaXQgdG8gYmUgcmFuZG9tIGJlY2F1c2UgaXQKPiB3b3VsZCBtYWtlIGRlYnVnZ2luZyBt
-b3JlIGRpZmZpY3VsdC4KPgo+IFNvIGNvdWxkIHdlIHNlYXJjaCBmb3IgdGhlIHNtYWxsZXN0IHNp
-emUgKGh1Z2VwYWdlc2l6ZSkgYW5kIHNlY29uZAo+IHNtYWxsZXN0IChzbWFsbGVzdCBnaWdhbnRp
-YyBwYWdlKT8KPgoKWWVzLCB3ZSBjb3VsZCBoYXZlIGEgdHJ5IG9uIHRoaXMgd2F5LiBUbyBpbnRl
-bGxpZ2VudGx5IGp1ZGdlIGFuZCBwaWNrIHRoZQpwcm9wZXIgc2l6ZSBmb3IgZ2lnYW50aWMgb3Ig
-aHVnZSBwYWdlLCB3aGljaCBzaG91bGQgd29yayBmb3IgbW9zdAptYWluc3RyZWFtIHBsYXRmb3Jt
-cyhhbmQgVENPTkYgb24gbm8tc3VwcG9ydGVkIHN5c3RlbXMpLgoKCgo+Cj4gPiArCj4gPiArICAg
-ICAgIFNBRkVfQ0xPU0VESVIoZGlyKTsKPiA+ICsgICAgICAgcmV0dXJuIGdfaHBhZ2Vfc2l6ZSAq
-IDEwMjQ7Cj4gPiArfQo+ID4gKwo+ID4gIHVuc2lnbmVkIGxvbmcgdHN0X3Jlc2VydmVfaHVnZXBh
-Z2VzKHN0cnVjdCB0c3RfaHVnZXBhZ2UgKmhwKQo+ID4gIHsKPiA+ICAgICAgICAgdW5zaWduZWQg
-bG9uZyB2YWwsIG1heF9ocGFnZXMsIGhwc2l6ZTsKPiA+IEBAIC00MywxMCArNjcsMTAgQEAgdW5z
-aWduZWQgbG9uZyB0c3RfcmVzZXJ2ZV9odWdlcGFnZXMoc3RydWN0Cj4gdHN0X2h1Z2VwYWdlCj4g
-PiAqaHApCj4gPiAgICAgICAgIGVsc2UKPiA+ICAgICAgICAgICAgICAgICB0c3RfaHVnZXBhZ2Vz
-ID0gaHAtPm51bWJlcjsKPiA+Cj4gPiAtICAgICAgIGlmIChocC0+aHBzaXplKQo+ID4gLSAgICAg
-ICAgICAgICAgIGhwc2l6ZSA9IGhwLT5ocHNpemU7Cj4gPiArICAgICAgIGlmIChocC0+cG9saWN5
-ICYgKFRTVF9ORUVEU19HIHwgVFNUX1JFUVVFU1RfRykpCj4gPiArICAgICAgICAgICAgICAgaHBz
-aXplID0gdHN0X2dldF9naWdhbnRpY19zaXplKCkgLyAxMDI0Owo+ID4gICAgICAgICBlbHNlCj4g
-PiAtICAgICAgICAgICAgICAgaHBzaXplID0gU0FGRV9SRUFEX01FTUlORk8oTUVNSU5GT19IUEFH
-RV9TSVpFKTsKPiA+ICsgICAgICAgICAgICAgICBocHNpemUgPSB0c3RfZ2V0X2h1Z2VwYWdlX3Np
-emUoKSAvIDEwMjQ7Cj4gPgo+ID4gICAgICAgICBzcHJpbnRmKGh1Z2VwYWdlX3BhdGgsCj4gPiBQ
-QVRIX0hVR0VQQUdFUyIvaHVnZXBhZ2VzLSVsdWtCL25yX2h1Z2VwYWdlcyIsIGhwc2l6ZSk7Cj4g
-PiAgICAgICAgIGlmIChhY2Nlc3MoaHVnZXBhZ2VfcGF0aCwgRl9PSykpIHsKPiA+Cj4gPgo+ID4K
-PiA+Cj4gPiAtLQo+ID4gUmVnYXJkcywKPiA+IExpIFdhbmcKPgo+Cj4gLS0KPiBUaGFuayB5b3Us
-Cj4gUmljaGFyZC4KPgo+CgotLSAKUmVnYXJkcywKTGkgV2FuZwoKLS0gCk1haWxpbmcgbGlzdCBp
-bmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+Hello,
+
+Geetika <geetika@linux.ibm.com> writes:
+
+> This test stress tests fallocate. This test starts three threads.
+> First thread will continually punch/fill holes via falloc.
+> Second thread will continually fault in those same pages.
+> Third thread will continually mmap/munmap that page range.
+>
+> Signed-off-by: Geetika <geetika@linux.ibm.com>
+> ---
+>  runtest/hugetlb                               |   1 +
+>  testcases/kernel/mem/.gitignore               |   1 +
+>  .../hugetlb/hugefallocate/hugefallocate03.c   | 210 ++++++++++++++++++
+>  3 files changed, 212 insertions(+)
+>  create mode 100644 testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c
+>
+> diff --git a/runtest/hugetlb b/runtest/hugetlb
+> index 299c07ac9..eb09c7598 100644
+> --- a/runtest/hugetlb
+> +++ b/runtest/hugetlb
+> @@ -1,5 +1,6 @@
+>  hugefallocate01 hugefallocate01
+>  hugefallocate02 hugefallocate02
+> +hugefallocate03 hugefallocate03
+>  
+>  hugefork01 hugefork01
+>  hugefork02 hugefork02
+> diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
+> index 7258489ed..e9d3562cb 100644
+> --- a/testcases/kernel/mem/.gitignore
+> +++ b/testcases/kernel/mem/.gitignore
+> @@ -1,6 +1,7 @@
+>  /cpuset/cpuset01
+>  /hugetlb/hugefallocate/hugefallocate01
+>  /hugetlb/hugefallocate/hugefallocate02
+> +/hugetlb/hugefallocate/hugefallocate03
+>  /hugetlb/hugefork/hugefork01
+>  /hugetlb/hugefork/hugefork02
+>  /hugetlb/hugemmap/hugemmap01
+> diff --git a/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c b/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c
+> new file mode 100644
+> index 000000000..fc9f4e4b8
+> --- /dev/null
+> +++ b/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c
+> @@ -0,0 +1,210 @@
+> +// SPDX-License-Identifier: LGPL-2.1-or-later
+> +/*
+> + * Copyright (C) 2015 Oracle Corporation
+> + * Author: Mike Kravetz
+> + */
+> +
+> +/*\
+> + * [Description]
+> + *
+> + * Stress test fallocate.  This test starts three threads.
+> + * Thread one will continually punch/fill holes via falloc.
+> + * Thread two will continually fault in those same pages.
+> + * Thread three will continually mmap/munmap that page range.
+> + *
+> + */
+> +
+> +#define _GNU_SOURCE
+> +#include <stdio.h>
+> +#include <sys/mount.h>
+> +#include <limits.h>
+> +#include <sys/param.h>
+> +#include <sys/types.h>
+> +#include <pthread.h>
+> +
+> +#include "hugetlb.h"
+> +#include "lapi/fallocate.h"
+> +#include "tst_safe_pthread.h"
+> +
+> +#define MNTPOINT "hugetlbfs/"
+> +#define min(a, b) (((a) < (b)) ? (a) : (b))
+> +#define MAX_PAGES_TO_USE 100
+> +#define FALLOCATE_ITERATIONS 100000
+> +
+> +static int  fd = -1;
+> +static long nr_hpages_free;
+> +static long max_hpages;
+> +static int err;
+> +static long hpage_size;
+> +static unsigned long free_before, free_after;
+> +static unsigned long rsvd_before, rsvd_after;
+> +
+> +static void *thread_fallocate(void *arg)
+
+We never use arg so don't you get a compiler warning?
+
+> +{
+> +	int i, err;
+> +	long tpage;
+> +
+> +	for (i = 0; i < FALLOCATE_ITERATIONS; i++) {
+> +		tpage = ((long long)random()) % (max_hpages);
+> +		err = fallocate(fd,
+> +				FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
+> +				tpage * hpage_size, hpage_size);
+
+You can use the TEST macro here with TST_RET and TST_ERRNO.
+
+> +		if (err)
+> +			tst_res(TFAIL, "fallocate(): %s",
+> strerror(errno));
+
+You can use TERRNO or TTERRNO (with the TEST macro).
+
+This produces better output for log parsing and manual debugging.
+
+> +		err = fallocate(fd, 0, tpage * hpage_size, hpage_size);
+> +		if (err)
+> +			tst_res(TFAIL, "fallocate(): %s", strerror(errno));
+> +	}
+> +	return NULL;
+> +}
+> +
+> +static void *fault_mmap_addr;
+> +
+> +static void thread_fault_cleanup(void *arg)
+
+Same with arg.
+
+> +{
+> +	if (fault_mmap_addr)
+> +		munmap(fault_mmap_addr, max_hpages * hpage_size);
+> +}
+> +
+> +static void *thread_fault(void *arg)
+
+Same with arg
+
+> +{
+> +	long tpage;
+> +	char foo;
+> +	struct timespec ts;
+> +
+> +	fault_mmap_addr = SAFE_MMAP(NULL, max_hpages * hpage_size,
+> +			PROT_READ | PROT_WRITE, MAP_SHARED,
+> +			fd, 0);
+> +
+> +	pthread_cleanup_push(thread_fault_cleanup, NULL);
+> +
+> +	ts.tv_sec = 0;
+> +	ts.tv_nsec = 0;
+> +
+> +	while (1) {
+> +		tpage = ((long long)random()) % (max_hpages);
+> +		foo = *((char *)(fault_mmap_addr + (tpage * hpage_size)));
+> +		*((char *)(fault_mmap_addr + (tpage * hpage_size))) = foo;
+> +
+> +		nanosleep(&ts, NULL); /* thread cancellation point */
+
+Could we just use sched_yield instead?
+
+> +	}
+> +
+> +	pthread_cleanup_pop(1);
+> +
+> +	return NULL;
+> +}
+> +
+> +static void *mmap_munmap_addr;
+> +
+> +static void thread_mmap_munmap_cleanup(void *arg)
+
+and so on
+
+> +{
+> +	if (mmap_munmap_addr)
+> +		munmap(mmap_munmap_addr, max_hpages * hpage_size);
+> +}
+> +
+> +static void *thread_mmap_munmap(void *arg)
+> +{
+> +	int err;
+> +	struct timespec ts;
+> +
+> +	pthread_cleanup_push(thread_mmap_munmap_cleanup, NULL);
+> +
+> +	ts.tv_sec = 0;
+> +	ts.tv_nsec = 0;
+> +
+> +	while (1) {
+> +		mmap_munmap_addr = SAFE_MMAP(NULL, max_hpages * hpage_size,
+> +				PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+> +		SAFE_MUNMAP(mmap_munmap_addr, max_hpages * hpage_size);
+> +		mmap_munmap_addr = NULL;
+> +
+> +		nanosleep(&ts, NULL);   /* thread cancellation point */
+> +	}
+> +	pthread_cleanup_pop(1);
+> +	return NULL;
+> +}
+> +
+> +static void run_test(void)
+> +{
+> +	fd = tst_creat_unlinked(MNTPOINT, 0);
+> +	pthread_t falloc_th, fault_th, mmap_munmap_th;
+> +	void *falloc_th_ret, *fault_th_ret, *mmap_munmap_th_ret;
+> +
+> +	srandom((int)getpid() * time(NULL));
+
+Does this need to be random? Would it be better if the test results were
+reproducible?
+
+If it does need to be random then we should print the seed. So that it
+can be used when trying to reproduce a failure.
+
+> +
+> +	nr_hpages_free = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
+> +	max_hpages = min(nr_hpages_free, MAX_PAGES_TO_USE);
+> +	free_before = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
+> +	rsvd_before = SAFE_READ_MEMINFO(MEMINFO_HPAGE_RSVD);
+> +
+> +	/* First preallocate file with max_hpages pages */
+> +	err = fallocate(fd, 0, 0, hpage_size * max_hpages);
+
+Also here; TEST and TTERRNO.
+
+> +	if (err) {
+> +		if (errno == EOPNOTSUPP)
+> +			tst_brk(TCONF, "fallocate() Operation is not supported");
+> +		if (err) {
+> +			tst_res(TFAIL, "fallocate(): %s", strerror(errno));
+> +			goto windup;
+> +		}
+> +	}
+> +
+> +	free_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
+> +	if (free_before - free_after != max_hpages) {
+> +		tst_res(TFAIL, "fallocate did not preallocate %ld huge pages\n",
+> +				max_hpages);
+> +		goto windup;
+> +	}
+> +
+> +	SAFE_PTHREAD_CREATE(&falloc_th, NULL, thread_fallocate, NULL);
+> +
+> +	SAFE_PTHREAD_CREATE(&fault_th, NULL, thread_fault, NULL);
+> +
+> +	SAFE_PTHREAD_CREATE(&mmap_munmap_th, NULL, thread_mmap_munmap, NULL);
+> +
+> +	SAFE_PTHREAD_JOIN(falloc_th, &falloc_th_ret);
+> +
+> +	if (falloc_th_ret) {
+> +		tst_res(TFAIL, "thread_fallocate unexpected exit code");
+> +		goto windup;
+> +	}
+
+If it is worth checking this at all, we should print the exit code.
+
+Note that we have the TST_EXP_* macro's in tst_test_macros.h to help
+with this. These are incompatible with the goto, but I'm not sure that
+is needed?
+
+> +
+> +	SAFE_PTHREAD_CANCEL(fault_th);
+> +
+> +	SAFE_PTHREAD_JOIN(fault_th, &fault_th_ret);
+> +
+> +	SAFE_PTHREAD_CANCEL(mmap_munmap_th);
+> +
+> +	SAFE_PTHREAD_JOIN(mmap_munmap_th, &mmap_munmap_th_ret);
+
+Can't the exit code pointer just be NULL? We don't seem to check it.
+
+> +
+> +windup:
+> +	SAFE_CLOSE(fd);
+> +
+> +	free_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
+> +	rsvd_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_RSVD);
+> +	if (free_after != free_before || rsvd_after != rsvd_before)
+> +		tst_res(TFAIL, "free or reserve counts incorrect after fallocate stress test");
+> +	else
+> +		tst_res(TPASS, "fallocate stress test passed");
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	hpage_size = SAFE_READ_MEMINFO(MEMINFO_HPAGE_SIZE)*1024;
+
+Can we use tst_get_hugepage_size instead?
+
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	if (fd > 0)
+> +		SAFE_CLOSE(fd);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.needs_root = 1,
+> +	.mntpoint = MNTPOINT,
+> +	.needs_hugetlbfs = 1,
+> +	.needs_tmpdir = 1,
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.test_all = run_test,
+> +	.hugepages = {2, TST_NEEDS},
+> +};
+> -- 
+> 2.39.2 (Apple Git-143)
+
+
+-- 
+Thank you,
+Richard.
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
