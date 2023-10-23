@@ -1,46 +1,86 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8B3E7D392B
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:19:21 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 55EE27D3912
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:16:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 742EA3CECF7
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:19:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9E2ED3CECEA
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:16:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 742B13CECA6
- for <ltp@lists.linux.it>; Mon, 23 Oct 2023 15:57:25 +0200 (CEST)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 7FB921400077
- for <ltp@lists.linux.it>; Mon, 23 Oct 2023 15:57:24 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D5F4C1042;
- Mon, 23 Oct 2023 06:58:03 -0700 (PDT)
-Received: from e123572-lin.arm.com (e123572-lin.cambridge.arm.com
- [10.1.194.65])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5E36F3F64C;
- Mon, 23 Oct 2023 06:57:22 -0700 (PDT)
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-To: ltp@lists.linux.it
-Date: Mon, 23 Oct 2023 14:56:47 +0100
-Message-Id: <20231023135647.2157030-4-kevin.brodsky@arm.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20231023135647.2157030-1-kevin.brodsky@arm.com>
-References: <20231023135647.2157030-1-kevin.brodsky@arm.com>
+ by picard.linux.it (Postfix) with ESMTPS id 849DF3C62EA
+ for <ltp@lists.linux.it>; Mon, 23 Oct 2023 16:16:19 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C6774600640
+ for <ltp@lists.linux.it>; Mon, 23 Oct 2023 16:16:18 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9739221AEC;
+ Mon, 23 Oct 2023 14:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1698070577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/G2WPLGcIUyOqTqmQ52BEQnW2++8X3AB5NPpPpyZHZk=;
+ b=wtHh9kdFljTH8Za1EMt9kA+92/KptNtlTK+JfINYuOglPw0JOyBx5iaLnoDYw2i3sa2Ts5
+ ck7obCGNpDAt+P65EEDE1QfWu9vDRfXQrY7JlPltDFCFQPjJUhP7XGkJc+r81jxpQpRUAW
+ opNwkpx71u+xC7CvUDW0QmUZJYZroHQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1698070577;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/G2WPLGcIUyOqTqmQ52BEQnW2++8X3AB5NPpPpyZHZk=;
+ b=Py5qECdiB93uRAqlAili5/HQrVVyKJ+QEKYNQLPOwwh57vBKXNDK6qDNzih4E/18Hx5+p9
+ DveSKa1yKy9VjpCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 744A6139C2;
+ Mon, 23 Oct 2023 14:16:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id OKpHGzGANmXNaAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 23 Oct 2023 14:16:17 +0000
+Date: Mon, 23 Oct 2023 16:16:48 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Wei Gao <wegao@suse.com>
+Message-ID: <ZTaAUO1-Jr3BbJa9@yuki>
+References: <20231014033104.31424-1-wegao@suse.com>
+ <20231017131646.1297-1-wegao@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20231017131646.1297-1-wegao@suse.com>
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -6.52
+X-Spamd-Result: default: False [-6.52 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ NEURAL_HAM_LONG(-3.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-2.92)[99.68%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Mailman-Approved-At: Mon, 23 Oct 2023 16:18:31 +0200
-Subject: [LTP] [PATCH 3/3] Provide a PATH_MAX-long buffer when expecting
- ENAMETOOLONG
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4] Add test for UI_GET_NAME ioctl
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,84 +92,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-A number of tests check that syscalls manipulating paths return
--ENAMETOOLONG when the specified path is longer than allowed. There
-are actually two ways this error can be triggered:
+Hi!
+I've adjusted the FAIL/PASS messages and pushed, thanks.
 
-1. If the given string is longer than PATH_MAX, i.e. 4096 as far as
-   the kernel is concerned, then the getname() helper will fail and
-   the kernel will return -ENAMETOOLONG right away.
-
-2. If the string fits in PATH_MAX, but the filesystem rejects the
-   path name, for instance because one of its components is longer
-   than the support file name length (e.g. 255 for ext4).
-
-At the moment, we always fail because of 2. since we set PATH_MAX to
-1024 in LTP, and in fact we sometimes use NAME_MAX as buffer length
-instead (which is shorter). Thus what actually happens is that the
-kernel overreads the provided buffer and finds some zero before
-hitting the "real" PATH_MAX limit (4096).
-
-We should clearly avoid such overreads. Having the syscalls fail
-right away by hitting 1. is the safer option. To do so, we obtain
-the value of PATH_MAX directly from the appropriate kernel header,
-and ensure it is used where relevant. This affects at least the
-following tests:
-
-- rename10
-- symlink03
-
-Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
----
- include/old/usctest.h                       | 12 ++----------
- testcases/kernel/syscalls/rename/rename10.c |  2 +-
- 2 files changed, 3 insertions(+), 11 deletions(-)
-
-diff --git a/include/old/usctest.h b/include/old/usctest.h
-index 9b9446d70a1e..2d46c4045111 100644
---- a/include/old/usctest.h
-+++ b/include/old/usctest.h
-@@ -34,16 +34,8 @@
- #ifndef __USCTEST_H__
- #define __USCTEST_H__
- 
--/*
-- * Ensure that PATH_MAX is defined
-- */
--#ifndef PATH_MAX
--#ifdef MAXPATHLEN
--#define PATH_MAX  MAXPATHLEN
--#else
--#define PATH_MAX  1024
--#endif
--#endif
-+/* For PATH_MAX */
-+#include <linux/limits.h>
- 
- /***********************************************************************
-  * The following globals are defined in parse_opts.c but must be
-diff --git a/testcases/kernel/syscalls/rename/rename10.c b/testcases/kernel/syscalls/rename/rename10.c
-index 444f65366576..3eab4be0f913 100644
---- a/testcases/kernel/syscalls/rename/rename10.c
-+++ b/testcases/kernel/syscalls/rename/rename10.c
-@@ -18,7 +18,7 @@
- #define MNT_POINT "mntpoint"
- #define TEMP_FILE "tmpfile"
- 
--static char long_path[NAME_MAX + 1] = {[0 ... NAME_MAX] = 'a'};
-+static char long_path[PATH_MAX + 1] = {[0 ... PATH_MAX] = 'a'};
- 
- static void setup(void)
- {
 -- 
-2.38.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
