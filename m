@@ -1,46 +1,46 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 157B87D3920
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:18:45 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B8B3E7D392B
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:19:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D85063CECF1
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:18:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 742EA3CECF7
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:19:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BFD1A3CECA6
- for <ltp@lists.linux.it>; Mon, 23 Oct 2023 15:57:24 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 742B13CECA6
+ for <ltp@lists.linux.it>; Mon, 23 Oct 2023 15:57:25 +0200 (CEST)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id F3201200DD9
- for <ltp@lists.linux.it>; Mon, 23 Oct 2023 15:57:23 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 7FB921400077
+ for <ltp@lists.linux.it>; Mon, 23 Oct 2023 15:57:24 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 341A1FEC;
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D5F4C1042;
  Mon, 23 Oct 2023 06:58:03 -0700 (PDT)
 Received: from e123572-lin.arm.com (e123572-lin.cambridge.arm.com
  [10.1.194.65])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B02893F64C;
- Mon, 23 Oct 2023 06:57:21 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5E36F3F64C;
+ Mon, 23 Oct 2023 06:57:22 -0700 (PDT)
 From: Kevin Brodsky <kevin.brodsky@arm.com>
 To: ltp@lists.linux.it
-Date: Mon, 23 Oct 2023 14:56:46 +0100
-Message-Id: <20231023135647.2157030-3-kevin.brodsky@arm.com>
+Date: Mon, 23 Oct 2023 14:56:47 +0100
+Message-Id: <20231023135647.2157030-4-kevin.brodsky@arm.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20231023135647.2157030-1-kevin.brodsky@arm.com>
 References: <20231023135647.2157030-1-kevin.brodsky@arm.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
 X-Mailman-Approved-At: Mon, 23 Oct 2023 16:18:31 +0200
-Subject: [LTP] [PATCH 2/3] syscalls/msgctl06: Pass an appropriate struct to
- msgsnd()
+Subject: [LTP] [PATCH 3/3] Provide a PATH_MAX-long buffer when expecting
+ ENAMETOOLONG
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,38 +58,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-msgsnd() expects a pointer to a struct as second argument. If a
-pointer to a short buffer is provided instead, both the type and
-message read by the kernel will be garbage. This went unnoticed as
-the sent message is never read back in this test.
+A number of tests check that syscalls manipulating paths return
+-ENAMETOOLONG when the specified path is longer than allowed. There
+are actually two ways this error can be triggered:
+
+1. If the given string is longer than PATH_MAX, i.e. 4096 as far as
+   the kernel is concerned, then the getname() helper will fail and
+   the kernel will return -ENAMETOOLONG right away.
+
+2. If the string fits in PATH_MAX, but the filesystem rejects the
+   path name, for instance because one of its components is longer
+   than the support file name length (e.g. 255 for ext4).
+
+At the moment, we always fail because of 2. since we set PATH_MAX to
+1024 in LTP, and in fact we sometimes use NAME_MAX as buffer length
+instead (which is shorter). Thus what actually happens is that the
+kernel overreads the provided buffer and finds some zero before
+hitting the "real" PATH_MAX limit (4096).
+
+We should clearly avoid such overreads. Having the syscalls fail
+right away by hitting 1. is the safer option. To do so, we obtain
+the value of PATH_MAX directly from the appropriate kernel header,
+and ensure it is used where relevant. This affects at least the
+following tests:
+
+- rename10
+- symlink03
 
 Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 ---
- testcases/kernel/syscalls/ipc/msgctl/msgctl06.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ include/old/usctest.h                       | 12 ++----------
+ testcases/kernel/syscalls/rename/rename10.c |  2 +-
+ 2 files changed, 3 insertions(+), 11 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c b/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
-index 6f54763833ed..c1264b71e0e4 100644
---- a/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
-+++ b/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
-@@ -139,12 +139,16 @@ static void verify_msgctl(unsigned int n)
+diff --git a/include/old/usctest.h b/include/old/usctest.h
+index 9b9446d70a1e..2d46c4045111 100644
+--- a/include/old/usctest.h
++++ b/include/old/usctest.h
+@@ -34,16 +34,8 @@
+ #ifndef __USCTEST_H__
+ #define __USCTEST_H__
+ 
+-/*
+- * Ensure that PATH_MAX is defined
+- */
+-#ifndef PATH_MAX
+-#ifdef MAXPATHLEN
+-#define PATH_MAX  MAXPATHLEN
+-#else
+-#define PATH_MAX  1024
+-#endif
+-#endif
++/* For PATH_MAX */
++#include <linux/limits.h>
+ 
+ /***********************************************************************
+  * The following globals are defined in parse_opts.c but must be
+diff --git a/testcases/kernel/syscalls/rename/rename10.c b/testcases/kernel/syscalls/rename/rename10.c
+index 444f65366576..3eab4be0f913 100644
+--- a/testcases/kernel/syscalls/rename/rename10.c
++++ b/testcases/kernel/syscalls/rename/rename10.c
+@@ -18,7 +18,7 @@
+ #define MNT_POINT "mntpoint"
+ #define TEMP_FILE "tmpfile"
+ 
+-static char long_path[NAME_MAX + 1] = {[0 ... NAME_MAX] = 'a'};
++static char long_path[PATH_MAX + 1] = {[0 ... PATH_MAX] = 'a'};
+ 
  static void setup(void)
  {
- 	struct msqid_ds temp_buf;
-+	struct buf {
-+		long type;
-+		char text[5];
-+	} msgbuf = {MSGTYPE, "abcd"};
- 	ltpuser = SAFE_GETPWNAM("nobody");
- 	nobody_uid = ltpuser->pw_uid;
- 	root_uid = 0;
- 
- 	msg_id = SAFE_MSGGET(IPC_PRIVATE, IPC_CREAT | MSG_RW);
--	SAFE_MSGSND(msg_id, "abcd", 4, 0);
-+	SAFE_MSGSND(msg_id, &msgbuf, sizeof(msgbuf.text), 0);
- 
- 	TEST(msgctl(msg_id, MSG_STAT_ANY, &temp_buf));
- 	if (TST_RET == -1) {
 -- 
 2.38.1
 
