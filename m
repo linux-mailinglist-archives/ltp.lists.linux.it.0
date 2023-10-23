@@ -1,35 +1,34 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E93887D3926
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:19:07 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 157B87D3920
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:18:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4F5AA3CECEE
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:19:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D85063CECF1
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Oct 2023 16:18:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EAF213CECA6
+ by picard.linux.it (Postfix) with ESMTPS id BFD1A3CECA6
  for <ltp@lists.linux.it>; Mon, 23 Oct 2023 15:57:24 +0200 (CEST)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 7844F200DD1
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id F3201200DD9
  for <ltp@lists.linux.it>; Mon, 23 Oct 2023 15:57:23 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AAC73C15;
- Mon, 23 Oct 2023 06:58:02 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 341A1FEC;
+ Mon, 23 Oct 2023 06:58:03 -0700 (PDT)
 Received: from e123572-lin.arm.com (e123572-lin.cambridge.arm.com
  [10.1.194.65])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0E5F63F64C;
- Mon, 23 Oct 2023 06:57:20 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B02893F64C;
+ Mon, 23 Oct 2023 06:57:21 -0700 (PDT)
 From: Kevin Brodsky <kevin.brodsky@arm.com>
 To: ltp@lists.linux.it
-Date: Mon, 23 Oct 2023 14:56:45 +0100
-Message-Id: <20231023135647.2157030-2-kevin.brodsky@arm.com>
+Date: Mon, 23 Oct 2023 14:56:46 +0100
+Message-Id: <20231023135647.2157030-3-kevin.brodsky@arm.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20231023135647.2157030-1-kevin.brodsky@arm.com>
 References: <20231023135647.2157030-1-kevin.brodsky@arm.com>
@@ -40,8 +39,8 @@ X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
 X-Mailman-Approved-At: Mon, 23 Oct 2023 16:18:31 +0200
-Subject: [LTP] [PATCH 1/3] syscalls/{,
- f}setxattr: Fix passing of value pointer
+Subject: [LTP] [PATCH 2/3] syscalls/msgctl06: Pass an appropriate struct to
+ msgsnd()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,46 +58,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-tc[i].value is a pointer to the actual value pointer, it therefore
-needs to be dereferenced before passing it down to {f,}setxattr()
-(which is already done as expected in the TEST() line below).
-
-This brokenness went unnoticed as the initial value (garbage before
-this patch) is never read back - this call is only used to create
-the key.
+msgsnd() expects a pointer to a struct as second argument. If a
+pointer to a short buffer is provided instead, both the type and
+message read by the kernel will be garbage. This went unnoticed as
+the sent message is never read back in this test.
 
 Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 ---
- testcases/kernel/syscalls/fsetxattr/fsetxattr01.c | 2 +-
- testcases/kernel/syscalls/setxattr/setxattr01.c   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ testcases/kernel/syscalls/ipc/msgctl/msgctl06.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c b/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-index d799e477f49c..b65b27bdf9ac 100644
---- a/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-+++ b/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-@@ -140,7 +140,7 @@ static void verify_fsetxattr(unsigned int i)
+diff --git a/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c b/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
+index 6f54763833ed..c1264b71e0e4 100644
+--- a/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
++++ b/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
+@@ -139,12 +139,16 @@ static void verify_msgctl(unsigned int n)
+ static void setup(void)
  {
- 	/* some tests might require existing keys for each iteration */
- 	if (tc[i].keyneeded) {
--		SAFE_FSETXATTR(fd, tc[i].key, tc[i].value, tc[i].size,
-+		SAFE_FSETXATTR(fd, tc[i].key, *tc[i].value, tc[i].size,
- 				XATTR_CREATE);
- 	}
+ 	struct msqid_ds temp_buf;
++	struct buf {
++		long type;
++		char text[5];
++	} msgbuf = {MSGTYPE, "abcd"};
+ 	ltpuser = SAFE_GETPWNAM("nobody");
+ 	nobody_uid = ltpuser->pw_uid;
+ 	root_uid = 0;
  
-diff --git a/testcases/kernel/syscalls/setxattr/setxattr01.c b/testcases/kernel/syscalls/setxattr/setxattr01.c
-index 8cd2821d0c6c..31f41369a608 100644
---- a/testcases/kernel/syscalls/setxattr/setxattr01.c
-+++ b/testcases/kernel/syscalls/setxattr/setxattr01.c
-@@ -137,7 +137,7 @@ static void verify_setxattr(unsigned int i)
- {
- 	/* some tests might require existing keys for each iteration */
- 	if (tc[i].keyneeded) {
--		SAFE_SETXATTR(FNAME, tc[i].key, tc[i].value, tc[i].size,
-+		SAFE_SETXATTR(FNAME, tc[i].key, *tc[i].value, tc[i].size,
- 				XATTR_CREATE);
- 	}
+ 	msg_id = SAFE_MSGGET(IPC_PRIVATE, IPC_CREAT | MSG_RW);
+-	SAFE_MSGSND(msg_id, "abcd", 4, 0);
++	SAFE_MSGSND(msg_id, &msgbuf, sizeof(msgbuf.text), 0);
  
+ 	TEST(msgctl(msg_id, MSG_STAT_ANY, &temp_buf));
+ 	if (TST_RET == -1) {
 -- 
 2.38.1
 
