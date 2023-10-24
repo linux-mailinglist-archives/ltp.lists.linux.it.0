@@ -2,70 +2,87 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 054887D4C96
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Oct 2023 11:38:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B06A7D4C71
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Oct 2023 11:32:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B57733CEC74
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Oct 2023 11:38:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0164B3CEC6B
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Oct 2023 11:32:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7586F3CCD8C
- for <ltp@lists.linux.it>; Tue, 24 Oct 2023 11:38:28 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id D06233CCF04
+ for <ltp@lists.linux.it>; Tue, 24 Oct 2023 11:32:30 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9069820118F
- for <ltp@lists.linux.it>; Tue, 24 Oct 2023 11:38:26 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 7732221B92;
- Tue, 24 Oct 2023 09:38:25 +0000 (UTC)
-Received: from g78 (rpalethorpe.udp.ovpn1.nue.suse.de [10.163.25.62])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1061B60137A
+ for <ltp@lists.linux.it>; Tue, 24 Oct 2023 11:32:29 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id D0E872CB1E;
- Tue, 24 Oct 2023 09:38:24 +0000 (UTC)
-References: <20231016123320.9865-1-chrubis@suse.cz>
- <20231016123320.9865-3-chrubis@suse.cz>
-User-agent: mu4e 1.10.7; emacs 29.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>
-Date: Tue, 24 Oct 2023 10:31:07 +0100
-Organization: Linux Private Site
-In-reply-to: <20231016123320.9865-3-chrubis@suse.cz>
-Message-ID: <87bkcouzqo.fsf@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7F6CD218B5;
+ Tue, 24 Oct 2023 09:32:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1698139948; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UImzd1sh/LRAfCtTn0HquaaS7ETWYcPhZNl0LU4i+fk=;
+ b=cTLYjheovoUWfbwNhyQ/I4KCUJNbmBtE846GWcWJaOW7qlPhMEcw5YV755oQCeyS5+2emV
+ d2KqiPYOXj/YKr4hbZJn7sRndG4F4Hs3aChriKSsgxytOiUsjF4V1JwOh7v0wlSTjWWSas
+ t76ZSrg7wjV7dzehOn4YHd1u/PkZAl8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1698139948;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UImzd1sh/LRAfCtTn0HquaaS7ETWYcPhZNl0LU4i+fk=;
+ b=8PH5YLrxfqGi215w8IbCf21pO6Rh6U0apZkSeM4rIL/yvkCu+g2FFqBMshiFxDLpdJD3Wi
+ foxWsTVvhY3gXKBA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6C7D0134F5;
+ Tue, 24 Oct 2023 09:32:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id o0c8GiyPN2UTCAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 24 Oct 2023 09:32:28 +0000
+Date: Tue, 24 Oct 2023 11:33:00 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <ZTePTBOKBQDK0v24@yuki>
+References: <20231014033104.31424-1-wegao@suse.com>
+ <20231017131646.1297-1-wegao@suse.com> <ZTaAUO1-Jr3BbJa9@yuki>
+ <20231024091052.GA219060@pevik>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20231024091052.GA219060@pevik>
+Authentication-Results: smtp-out1.suse.de;
+	none
 X-Spam-Level: 
-Authentication-Results: smtp-out1.suse.de; dkim=none; dmarc=none;
- spf=softfail (smtp-out1.suse.de: 149.44.160.134 is neither permitted nor
- denied by domain of rpalethorpe@suse.de) smtp.mailfrom=rpalethorpe@suse.de
-X-Rspamd-Server: rspamd2
-X-Spamd-Result: default: False [-2.21 / 50.00]; ARC_NA(0.00)[];
- HAS_REPLYTO(0.30)[rpalethorpe@suse.de]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[];
- RWL_MAILSPIKE_GOOD(0.00)[149.44.160.134:from];
- NEURAL_HAM_LONG(-3.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- REPLYTO_ADDR_EQ_FROM(0.00)[]; DMARC_NA(0.20)[suse.de];
- R_SPF_SOFTFAIL(0.60)[~all:c]; HAS_ORG_HEADER(0.00)[];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; VIOLATED_DIRECT_SPF(3.50)[];
- MX_GOOD(-0.01)[]; NEURAL_HAM_SHORT(-1.00)[-1.000];
- RCPT_COUNT_SEVEN(0.00)[8]; RCVD_NO_TLS_LAST(0.10)[];
- FROM_EQ_ENVFROM(0.00)[]; R_DKIM_NA(0.20)[];
- MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- MID_RHS_MATCH_FROM(0.00)[]; BAYES_HAM(-3.00)[100.00%]
-X-Spam-Score: -2.21
-X-Rspamd-Queue-Id: 7732221B92
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Spam-Score: -6.09
+X-Spamd-Result: default: False [-6.09 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; TO_DN_SOME(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ NEURAL_HAM_LONG(-3.00)[-1.000];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ BAYES_HAM(-2.49)[97.68%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/4] syscalls: readahead01: Make use of tst_fd
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [CI FAILURE] Re: [PATCH v4] Add test for UI_GET_NAME ioctl
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,124 +94,51 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: mszeredi@redhat.com, brauner@kernel.org, Jan Kara <jack@suse.cz>,
- Matthew Wilcox <willy@infradead.org>, viro@zeniv.linux.org.uk,
- linux-fsdevel@vger.kernel.org, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi!
+> > I've adjusted the FAIL/PASS messages and pushed, thanks.
+> 
+> UI_GET_NAME() from include/uapi/linux/uinput.h is not on the old CentOS 7 we
+> still support:
+> 
+> https://github.com/linux-test-project/ltp/actions/runs/6614554688/job/17964785134
+> /__w/ltp/ltp/testcases/kernel/input/input_helper.c:194:2: error: implicit declaration of function 'UI_GET_SYSNAME' [-Werror=implicit-function-declaration]
+>   SAFE_IOCTL(NULL, fd, UI_GET_SYSNAME(sizeof(sys_name)), sys_name, NULL);
+>   ^
+> 
+> I'll have look later today for the fix. I suppose we need lapi/uinput.h with
+> adds a fallback definition. It was added in kernel v3.15 in
+> e3480a61fca7 ("Input: uinput - add UI_GET_SYSNAME ioctl to retrieve the sysfs path")
+> 
+> Also, there is also an API version change, we could use this if simple ifndef
+> UI_GET_SYSNAME + fallback will not be enough (e.g. test fails because it
+> requires newer kernel API).
+> 
+> -#define UINPUT_VERSION         3
+> +#define UINPUT_VERSION         4
 
-Cyril Hrubis <chrubis@suse.cz> writes:
+Given that UI_GET_SYSNAME is a macro we can do as well:
 
-> TODO:
-> - readahead() on /proc/self/maps seems to succeed
-> - readahead() on pipe write end, O_PATH file and open_tree() fd returns EBADFD
->
-> Are these to be expected?
->
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-> ---
->  .../kernel/syscalls/readahead/readahead01.c   | 54 ++++++++++---------
->  1 file changed, 29 insertions(+), 25 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/readahead/readahead01.c b/testcases/kernel/syscalls/readahead/readahead01.c
-> index bdef7945d..6dd5086e5 100644
-> --- a/testcases/kernel/syscalls/readahead/readahead01.c
-> +++ b/testcases/kernel/syscalls/readahead/readahead01.c
-> @@ -30,43 +30,47 @@
->  
->  static void test_bad_fd(void)
->  {
-> -	char tempname[PATH_MAX] = "readahead01_XXXXXX";
-> -	int fd;
-> +	int fd[2];
-> +
-> +	TST_EXP_FAIL(readahead(-1, 0, getpagesize()), EBADF,
-> +	             "readahead() with fd = -1");
->  
-> -	tst_res(TINFO, "%s -1", __func__);
-> -	TST_EXP_FAIL(readahead(-1, 0, getpagesize()), EBADF);
-> +	SAFE_PIPE(fd);
-> +	SAFE_CLOSE(fd[0]);
-> +	SAFE_CLOSE(fd[1]);
+#ifndef UI_GET_SYSNAME
+# define UI_GET_SYSNAME(len) ...
+#endif
 
-Would it make more sense to just close one of the ends?
+However at the same time we would need to actually check if the ioctl is
+supported or not, because if the CentOS 7 kernel does not support
+UI_GET_SYSNAME ioctl() the SAFE_IOCTL() will fail with EINVAL.
 
-Or to open a file with write only?
-
-I wonder whether we still need test_bad_fd at all? Perhaps all the cases
-should be integrated into TST_FD_FOREACH?
-
-The rest looks good.
-
->  
-> -	tst_res(TINFO, "%s O_WRONLY", __func__);
-> -	fd = mkstemp(tempname);
-> -	if (fd == -1)
-> -		tst_res(TFAIL | TERRNO, "mkstemp failed");
-> -	SAFE_CLOSE(fd);
-> -	fd = SAFE_OPEN(tempname, O_WRONLY);
-> -	TST_EXP_FAIL(readahead(fd, 0, getpagesize()), EBADF);
-> -	SAFE_CLOSE(fd);
-> -	unlink(tempname);
-> +	TST_EXP_FAIL(readahead(fd[0], 0, getpagesize()), EBADF,
-> +	             "readahead() with invalid fd");
->  }
->  
-> -static void test_invalid_fd(void)
-> +static void test_invalid_fd(struct tst_fd *fd)
->  {
-> -	int fd[2];
-> +	int exp_errno = EINVAL;
->  
-> -	tst_res(TINFO, "%s pipe", __func__);
-> -	SAFE_PIPE(fd);
-> -	TST_EXP_FAIL(readahead(fd[0], 0, getpagesize()), EINVAL);
-> -	SAFE_CLOSE(fd[0]);
-> -	SAFE_CLOSE(fd[1]);
-> +	switch (fd->type) {
-> +	/* These two succeed */
-> +	case TST_FD_FILE:
-> +	case TST_FD_MEMFD:
-> +		return;
-> +	case TST_FD_PIPE_WRITE:
-> +	case TST_FD_OPEN_TREE:
-> +	case TST_FD_PATH:
-> +		exp_errno = EBADF;
-> +	break;
-> +	default:
-> +		break;
-> +	}
->  
-> -	tst_res(TINFO, "%s socket", __func__);
-> -	fd[0] = SAFE_SOCKET(AF_INET, SOCK_STREAM, 0);
-> -	TST_EXP_FAIL(readahead(fd[0], 0, getpagesize()), EINVAL);
-> -	SAFE_CLOSE(fd[0]);
-> +	TST_EXP_FAIL(readahead(fd->fd, 0, getpagesize()), exp_errno,
-> +		     "readahead() on %s", tst_fd_desc(fd));
->  }
->  
->  static void test_readahead(void)
->  {
->  	test_bad_fd();
-> -	test_invalid_fd();
-> +
-> +	TST_FD_FOREACH(fd)
-> +		test_invalid_fd(&fd);
->  }
->  
->  static void setup(void)
-> -- 
-> 2.41.0
-
+Also looking at the linux/uinput.h there are three more ioctls() added
+in version 5 that should be tested as well. I suppose that we will need
+add an issue for that.
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
