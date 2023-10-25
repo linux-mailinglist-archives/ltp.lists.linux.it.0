@@ -1,89 +1,92 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 307C37D66C7
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Oct 2023 11:30:09 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A3B77D6782
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Oct 2023 11:51:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E729C3CCBC3
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Oct 2023 11:30:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 815873CEC38
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Oct 2023 11:51:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EBC343CCBAA
- for <ltp@lists.linux.it>; Wed, 25 Oct 2023 11:30:07 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id F35823C8209
+ for <ltp@lists.linux.it>; Wed, 25 Oct 2023 11:51:21 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 76873609697
- for <ltp@lists.linux.it>; Wed, 25 Oct 2023 11:30:06 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 204F91A0C241
+ for <ltp@lists.linux.it>; Wed, 25 Oct 2023 11:51:20 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5B9391FF3F;
- Wed, 25 Oct 2023 09:30:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1698226206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3EF2921D8C
+ for <ltp@lists.linux.it>; Wed, 25 Oct 2023 09:51:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1698227480; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
- b=EemDxBp5YioDj24Kgjfq1Ob72Vcv5tT9Lwx4cNrUn8acGqYyb4PQOXmDlQ8U5IPykFPorG
- B/dm5lsQSBgf9uz8rgew0Wy7HrSYxV5itWLD/AybWOYle8HhOOFkwMHz+n0utYsvgpRxbi
- jIjW4VXTM8BL6gyEkaGbldIoyNtws2I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1698226206;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ bh=OI1HkaKngqReylLVufv32W8Qghs2NXSYaPDqWhfcAJI=;
+ b=lwJhW12LhxSHx3mA11snkSnFn9zw6sCc7jzG3LXqDBIG6HaW/SfiST1hpOp9a0jmcyOmPH
+ 93miJXSgFYOXDajFrCEJzKG7kh8c226Yq8CFdi4cqyjs1xgLsl8Qw9NoOrEdQm3mQl0YRG
+ tgoetokY50jl8RiShJbbTMkNOumY3OQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1698227480;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
- b=L0KAv870H/pPqmYAE+sWXK5/lefDapg0rsclTY6IlwzLdJ+rKVjnysCH/iTxNVRhN80Li1
- E2U7JAij8qgLPaAQ==
+ bh=OI1HkaKngqReylLVufv32W8Qghs2NXSYaPDqWhfcAJI=;
+ b=38BbwXgt26HGA9xfaSDc/XfS9CxPqVzfqxFUnwQ5B4Wzmr+kLCyKQXXaBMZ8L/u3M3Qa1m
+ 6zuqOny0E4mEVrCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3BE1C13524;
- Wed, 25 Oct 2023 09:30:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2CF9D138E9
+ for <ltp@lists.linux.it>; Wed, 25 Oct 2023 09:51:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id knZIDR7gOGX6HQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 25 Oct 2023 09:30:06 +0000
-Date: Wed, 25 Oct 2023 11:30:05 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <ZTjgHW9fQ2m1MFpY@rei>
-References: <20231024084923.217110-1-pvorel@suse.cz>
- <20231024084923.217110-2-pvorel@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 9tPUCRjlOGXqKAAAMHmgww
+ (envelope-from <mkittler@suse.de>)
+ for <ltp@lists.linux.it>; Wed, 25 Oct 2023 09:51:20 +0000
+From: Marius Kittler <mkittler@suse.de>
+To: ltp@lists.linux.it
+Date: Wed, 25 Oct 2023 11:51:19 +0200
+Message-ID: <4534034.LvFx2qVVIh@linux-9lzf>
+In-Reply-To: <bddbae90-13a5-0947-a55a-089de6530d99@suse.cz>
+References: <20231023160242.3605-1-mkittler@suse.de>
+ <20231023160242.3605-6-mkittler@suse.de>
+ <bddbae90-13a5-0947-a55a-089de6530d99@suse.cz>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231024084923.217110-2-pvorel@suse.cz>
-Authentication-Results: smtp-out2.suse.de;
+Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
-X-Spam-Score: -6.59
-X-Spamd-Result: default: False [-6.59 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[4]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
- NEURAL_HAM_LONG(-3.00)[-1.000];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+X-Spam-Score: -3.15
+X-Spamd-Result: default: False [-3.15 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; BAYES_HAM(-0.05)[59.98%];
+ FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ NEURAL_HAM_LONG(-3.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ TO_DN_NONE(0.00)[];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
+ RCPT_COUNT_ONE(0.00)[1];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-1.00)[-1.000]; FROM_EQ_ENVFROM(0.00)[];
  MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- BAYES_HAM(-2.99)[99.97%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[]; CTE_CASE(0.50)[]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] stack_clash: Compile with
- -Wno-infinite-recursion
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v7 5/5] Extend ioctl02 to test termio and termios
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,19 +98,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Pavel Boldin <pboldin@cloudlinux.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Am Dienstag, 24. Oktober 2023, 17:54:27 CEST schrieb Martin Doucha:
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> You don't need to duplicate the whole prepare_termio() function. You can
+> either initialize both structures at once:
+> termio.c_line = termios.c_line = 0;
+> termio.c_cflag = termios.c_cflag = ...;
+
+That's not possible with all the assignments because the variables have 
+different types (e.g. unsigned short vs. unsigned int). These different types 
+are the reason why there are different structs in the first place. (Of course it 
+would technically be possible but introducing implicit conversions and relying 
+on these conversions not being too lossy is a bad idea in my opinion.)
+
+> of #define an init macro:
+> #define TERM_INIT_VALUES { .c_line = 0, .c_cflag = ... }
+> termio = (struct termio)TERM_INIT_VALUES;
+> termios = (struct termios)TERM_INIT_VALUES;
+> 
+
+That is rather ugly but likely the way to go then. And I assume I'd call this 
+"combined" prepare function during the setup then.
+
+> Some code duplication is unavoidable here but the value validation can
+> be simplified:
+> 
+> 1) Add another pair of termio+termios variables which will be
+> initialized in setup() and passed only to SAFE_IOCTL(TCSETA/TCSETS).
+> 
+> 2) memset() the existing termio+termios variables before passing them to
+> SAFE_IOCTL(TCGETA/TCGETS). As is, the test can pass even if
+> TCGETA/TCGETS does nothing because they store data into a structure that
+> already contains the exact same values.
+> 
+> 3) Define a macro to compare the "set" and "get" variables:
+> #define CMP_ATTR(tcexp, tcval, attr) \
+> 	if ((tcval).attr != (tcexp).attr) { \
+> 		tst_res(TINFO, #attr " has incorrect value %o", \
+> 			 (tcval).attr); \
+> 		flag++; \
+> 	}
+> 
+> Then all attribtute checks except the loop can be reduced to one line.
+> 
+
+I guess that is the least ugly way to use macros, indeed. (Supposedly better 
+than just wrapping the whole function body into a macro.)
+
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
