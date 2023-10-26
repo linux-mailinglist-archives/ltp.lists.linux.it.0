@@ -1,72 +1,83 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0275A7D7ED3
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Oct 2023 10:48:38 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id AB52B7D7E20
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Oct 2023 10:12:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 976213CCB26
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Oct 2023 10:48:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 58E7D3CCB1A
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Oct 2023 10:12:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BD7ED3CCB15
- for <ltp@lists.linux.it>; Thu, 26 Oct 2023 10:48:35 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id B30153C8711
+ for <ltp@lists.linux.it>; Thu, 26 Oct 2023 10:12:28 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D9BE8201162
- for <ltp@lists.linux.it>; Thu, 26 Oct 2023 10:48:34 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id AB2F521B48
- for <ltp@lists.linux.it>; Thu, 26 Oct 2023 08:48:33 +0000 (UTC)
-Received: from g78 (unknown [10.163.25.62])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 412122D55E;
- Thu, 26 Oct 2023 08:48:33 +0000 (UTC)
-References: <20231025110533.6516-1-rpalethorpe@suse.com>
- <1881613.tdWV9SEqCh@linux-9lzf> <20231025151808.GA345083@pevik>
-User-agent: mu4e 1.10.7; emacs 29.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-Date: Thu, 26 Oct 2023 08:32:53 +0100
-Organization: Linux Private Site
-In-reply-to: <20231025151808.GA345083@pevik>
-Message-ID: <87ttqdu5up.fsf@suse.de>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 902CD1009BCE
+ for <ltp@lists.linux.it>; Thu, 26 Oct 2023 10:12:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1698307945;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Mp07FBA3qkSPGdx/U3ybWnMn3Tv5LiUzP8+/aRpR9Pg=;
+ b=jT0g6wu52KvcqNhwmb/dMUv9nrve1Qg7sftLJpLusSkvo8cMJeBHoaBPwS8vovnb/uI+05
+ c6cXhHIGK0Z74U0XYWKAQgBc8WdS+jbPE/RfYoirgW7HvN9R4Kx8CwrzMN1cqpP4LZ1W4W
+ 1VLWzQgA6z22AedB0VxuwqzGTarx1pM=
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
+ [209.85.222.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-518-oos6nVW1PByqpgSU1RxAIA-1; Thu, 26 Oct 2023 04:12:23 -0400
+X-MC-Unique: oos6nVW1PByqpgSU1RxAIA-1
+Received: by mail-ua1-f69.google.com with SMTP id
+ a1e0cc1a2514c-7b750197555so223588241.3
+ for <ltp@lists.linux.it>; Thu, 26 Oct 2023 01:12:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698307942; x=1698912742;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Mp07FBA3qkSPGdx/U3ybWnMn3Tv5LiUzP8+/aRpR9Pg=;
+ b=ZvhA6Wm5rvVnMwquxCfrsMVM4hTe6fuf3acg6OJCu7h6P17bKPthTXJpnA8MYG0k2O
+ 1NzFUsojliImzWXpsSJQLdgdnpsOIZOT90EzU5vBgtiSC/6Q3oope3Bk4MeDerZuMBOT
+ R//4ormxLDU3i31oa+It+Fe8w7VDrALsLTqc6GUsJtXXVKXakE6u6zY6weJkxyqyGlFg
+ 4OXjlHA9HRQxgZS+uWEjBWF4tXK9NLT5RvhJV3uQg8UaZXcUuYFtYJ47sjo70ZsdRWkF
+ UZTUNrllu7MlhbF5BrTm7tHK25uyl9/rjI3BaGSPjXpmbbFP8je/xy1Js9BtnNYCZWqY
+ SmGw==
+X-Gm-Message-State: AOJu0YzQZ8whgOkang9D5GxZ3KiTPETxTiUIZTjoeJgUmln57hHNAWjK
+ RAVNjcQQ4yr09DW1Z7O2pb5Kvf2DQ8CQbrKy+UaB6F+WQ8ly6O3cXtQ0e5NiKxjvu+QA6xDXZFa
+ ddM+ts+lAed1qUulMQUB/lQ5TFY8=
+X-Received: by 2002:a67:ab07:0:b0:44e:9313:b045 with SMTP id
+ u7-20020a67ab07000000b0044e9313b045mr16306932vse.7.1698307941738; 
+ Thu, 26 Oct 2023 01:12:21 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFj/+OyO1IQLO6d9JNk3PsCATgf8L9Z3lQ4fZeQOHswYcMI/waQRv63Mkai2AHZrVUQGCiwsZ3PRL1g9phPC4s=
+X-Received: by 2002:a67:ab07:0:b0:44e:9313:b045 with SMTP id
+ u7-20020a67ab07000000b0044e9313b045mr16306920vse.7.1698307941474; Thu, 26 Oct
+ 2023 01:12:21 -0700 (PDT)
 MIME-Version: 1.0
-X-Spam-Level: 
-Authentication-Results: smtp-out1.suse.de; dkim=none; dmarc=none;
- spf=softfail (smtp-out1.suse.de: 149.44.160.134 is neither permitted nor
- denied by domain of rpalethorpe@suse.de) smtp.mailfrom=rpalethorpe@suse.de
-X-Rspamd-Server: rspamd2
-X-Spamd-Result: default: False [-2.21 / 50.00]; ARC_NA(0.00)[];
- HAS_REPLYTO(0.30)[rpalethorpe@suse.de]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[3]; TO_DN_SOME(0.00)[];
- NEURAL_HAM_LONG(-3.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- REPLYTO_ADDR_EQ_FROM(0.00)[]; DMARC_NA(0.20)[suse.de];
- R_SPF_SOFTFAIL(0.60)[~all:c]; HAS_ORG_HEADER(0.00)[];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; VIOLATED_DIRECT_SPF(3.50)[];
- MX_GOOD(-0.01)[]; NEURAL_HAM_SHORT(-1.00)[-1.000];
- RWL_MAILSPIKE_GOOD(0.00)[149.44.160.134:from];
- RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
- R_DKIM_NA(0.20)[]; MIME_TRACE(0.00)[0:+];
- RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[];
- BAYES_HAM(-3.00)[100.00%]
-X-Spam-Score: -2.21
-X-Rspamd-Queue-Id: AB2F521B48
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+References: <20231025140109.340441-1-pvorel@suse.cz>
+In-Reply-To: <20231025140109.340441-1-pvorel@suse.cz>
+From: Jan Stancek <jstancek@redhat.com>
+Date: Thu, 26 Oct 2023 10:12:53 +0200
+Message-ID: <CAASaF6yVnrBK0UCxj4HRbi_scm84KS5Jm_xi8rUEuXcZXo=rZQ@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] cgroup: Handle trailing new line in
- cgroup.controllers
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 0/2] Remove CentOS 7 support
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,108 +89,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Ulrich Hecht <uli@kernel.org>, Martin Doucha <martin.doucha@suse.com>,
+ Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it,
+ automated-testing@lists.yoctoproject.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-
-Petr Vorel <pvorel@suse.cz> writes:
-
-> Hi Richie, Martchus,
->
-> @Richie, please add Fixes: tag when commit
->
-> I suppose it should be
-> Fixes: 310da3784 ("Add new CGroups APIs")
-> but please check yourself.
-
-Yes that is right.
-
->
-> Why this is useful? It helps to identify which test failures were false
-> positives. Also, you actually not just fix a line character, but also do other
-> validation, it would be worth to mention that.
-
-The validation is primarily checking my assumptions. We don't want to
-cut the name off at a '_' then get more confusing errors in the future.
-
->
->
->> Am Mittwoch, 25. Oktober 2023, 13:05:33 CEST schrieb Richard Palethorpe via 
->> ltp:
->> > +	switch (ctrl_name[l]) {
->> > +	case '\n': break;
->> > +	case '\0': break;
->> > +	default:
->> > +		tst_brk(TBROK, "Unexpected char in %s: %c", ctrl_name, 
->> ctrl_name[l]);
->
->> I'm wondering whether that's a bit too restrictive. Or is there any official 
->> documentation says that you really can only have the letters a-z in cgroup 
->> names (and not even A-Z). Otherwise it might be better to make this just a 
->> warning or allow any printable characters.
-
-Well I assumed there wasn't, but it seems this was actually thought
-about and specified to some extent. I should have scanned the docs.
-
->
-> I guess for cgroup v1 [1]
->
-> 	The name should match [\w.-]+
-
-Thats the name of the "hierarchy" AFAICT. I don't think that is the
-controller/subsystem name. Those characters would be a pain for naming
-things in C.
-
->
-> \w Matches a "word" character (alphanumeric plus "_", plus other connector
-> punctuation chars plus Unicode marks). Also '.' and '-' can be used.
-> => [A-Z.-] and others are valid names in v1. Although I'm not sure if
-> cgroup_find_ctrl() is used on systems with cgroups v1.
-
-None of the existing upstream controllers contain a _ unless we are
-missing one or more. However we should allow it, so I'll add it.
-
->
-> Also, shouldn't we check with MAX_CGROUP_TYPE_NAMELEN:
->
-> 	- name: should be initialized to a unique subsystem name. Should be
-> 	  no longer than MAX_CGROUP_TYPE_NAMELEN.
->
-
-It's not exposed to userland or specified in the docs. I suppose I could
-issue a WARN if it is over 32 though. Mostly likely if that happens then
-there is a parsing error.
-
-The kernel will also issue a WARN if the subsystem name is over 32.
-
-> For cgroup v2 [2] it looks to be:
->
-> 	All cgroup core interface files are prefixed with "cgroup." and each
-> 	controller's interface files are prefixed with the controller name and a
-> 	dot. A controller's name is composed of lower case alphabets and '_'s but
-> 	never begins with an '_' so it can be used as the prefix character for
-> 	collision avoidance. Also, interface file names won't start or end with
-> 	terms which are often used in categorizing workloads such as job, service,
-> 	slice, unit or workload.
->
-> => It matches ^[a-z][a-z_]. At least "_" is missing. Also this validation should
-> specify somewhere if it's for v2 only or for both.
->
-> Kind regards,
-> Petr
->
-> [1] https://www.kernel.org/doc/Documentation/cgroup-v1/cgroups.txt
-> [2] https://docs.kernel.org/admin-guide/cgroup-v2.html#avoid-name-collisions
-
-
--- 
-Thank you,
-Richard.
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gV2VkLCBPY3QgMjUsIDIwMjMgYXQgNDowMeKAr1BNIFBldHIgVm9yZWwgPHB2b3JlbEBzdXNl
+LmN6PiB3cm90ZToKPgo+IEhpIGFsbCwKPgo+IHdlIHJlY2VudGx5IGhhZCB5ZXQgYW5vdGhlciBy
+ZWdyZXNzaW9uIG9uIG9sZCBDZW50T1MgNyAoa2VybmVsIDMuMTAsCj4gZ2xpYmMgMi4xNywgZ2Nj
+IDQuOC41IFsxXS4gVGhhdCBicm91Z2h0IG1lIHRvIHRoZSBxdWVzdGlvbiBpZiB3ZSBzdGlsbAo+
+IHdhbnQgdG8gc3VwcG9ydCBpdC4KPgo+IEFsdGhvdWdoIHdlIHRlc3QgaW4gU1VTRSBhbHNvIHZl
+cnkgb2xkIFNMRVMgcmVsZWFzZXMsIHRoZXNlIGFyZSB0ZXN0ZWQKPiB3aXRoIG9sZGVyIExUUCBy
+ZWxlYXNlcy4gSSBzdXBwb3NlIFJlZCBIYXQgZG9lcyB0aGUgc2FtZSB3aXRoIFJIRUwKPiAoTGks
+IEphbiwgcGxlYXNlIGNvcnJlY3QgbWUgaWYgbm90LCBvciBmZWVsIGZyZWUgdG8gaW50cm9kdWNl
+IGFub3RoZXIKPiBDZW50T1MgdmVyc2lvbiwgYXMgdGhlcmUgd2lsbCBub25lIHdpdGggdGhpcyBw
+YXRjaHNldCksIHRodXMgd2h5Cj4gcHJldGVuZCBjdXJyZW50IExUUCBpcyB1c2VmdWwgb24gdGhl
+c2Ugb2xkIHJlbGVhc2VzLgoKTG9va2luZyBhdCBpbnRlcm5hbCBMVFAgdGVzdCB3cmFwcGVyLCBp
+dCdzIHVzaW5nIG9sZGVyIExUUCByZWxlYXNlIGZvciBSSEVMNywKc28geW91ciBhc3N1bXB0aW9u
+IGFwcGVhcnMgdG8gYmUgY29ycmVjdC4KCj4KPiBJIHdvbmRlciB3aG8gaXMgYWN0dWFsbHkgaW50
+ZXJlc3RlZCBpbiBrZWVwaW5nIExUUCBjb21waWxhYmxlIGZvciBDZW50T1MgNy4KPiBBY2NvcmRp
+bmcgdG8gZGlzdHJvd2F0Y2ggaXQgRU9MIGluIDIwMjQtMDYgWzJdLCBidXQgZG9lcyBhbnlib2R5
+IGV2ZW4gcnVuIG5ldwo+IExUUCBvbiBpdC4gSWYgeWVzLCBwbGVhc2Ugc3BlYWsgdXAsIGJ1dCBJ
+J2QgZXhwZWN0IHRoYXQgcGVyc29uIHRvCj4gYWN0dWFsbHkgbWFpbnRhaW4gQ0kgZmFpbHVyZXMu
+CgpUaGVyZSdzIHBsYW5uZWQgRUxTIHVudGlsIDIwMjYsIGJ1dCBJJ2QgZXhwZWN0IHRoYXQgY29u
+dGludWVzIHVzaW5nCm9sZGVyIExUUCBmb3IgdGVzdHMuCgo+Cj4gVGhlIG9sZGVzdCBTTEVTIHJl
+bGVhc2UgU1VTRSBhY3R1YWxseSB0ZXN0cyB3aXRoIHRoZSBsYXRlc3QgTFRQIHJlbGVhc2UgaXMK
+PiBTTEUxMi1TUDIgKGtlcm5lbCA0LjQsIGdsaWJjIDIuMjIgYW5kIGdjYyA0LjguNSkuIFRoZSBs
+YXRlc3Qga2VybmVsIExUU1MgaXMKPiA0LjE0LiBUaHVzIHJlbW92aW5nIENlbnRPUyA3IGZyb20g
+dGhlIENJIGFuZCByZS1hZGRpbmcgVWJ1bnR1IDE2LjA0IExUUwo+IHhlbmlhbCAoa2VybmVsIDQu
+NCwgZ2xpYmMgMi4yMywgZ2NjIDUuMy4xKSB3b3VsZCBtb3JlIG9yIGxlc3MgZml0IFNVU0UKPiBu
+ZWVkcy4gSXQgYWN0dWFsbHkgRU9MLCBidXQgZG9ja2VyIGlzIHN0aWxsIHN1cHBvcnRlZCBbM10u
+Cj4KPiBUaGUgYmVuZWZpdCB3b3VsZCBiZSB0byBoYXZlIDMgeWVhcnMgeW91bmdlciBiYXNlIGtl
+cm5lbCBhbmQgZ2xpYmMgKHRodXMKPiBsZXNzIGxhcGkgZmFsbGJhY2tzIG5lZWRlZCkuIElmIHRo
+aXMgaXMgYWNjZXB0ZWQsIEknbGwgaGF2ZSBsb29rIG9uCj4gb2xkZXIgY29kZSBhbmQgc2VuZCBm
+b2xsb3dpbmcgcGF0Y2hlcyB3aGljaCByZW1vdmVzIGl0Lgo+Cj4gV2UgY3VycmVudGx5IHVzZSAt
+c3RkPWdudTk5IHNpbmNlIGRjN2JlMzBlMiAoImNvbmZpZzogRXhwbGljaXRseSBzZXQgZ251OTki
+KSwKPiB3aGljaCBkb2N1bWVudHMgdGhhdCBjYW4ndCB1c2UgQzk5IGJlY2F1c2UgTFRQIGlzIGZh
+ciBmcm9tIGNvbXBsaWFudC4KPiBUaGVyZWZvcmUgSSdkIGtlZXAgaXQgdGhlIHNhbWUgdW50aWwg
+d2UgcmV3cml0ZSAob3IgZGVsZXRlKSB0aGUgb2xkIGNvZGUuCj4gKHhlbmlhbCBnY2MgNS4zLjEg
+aGFzIHRoZSBkZWZhdWx0IGRpYWxlY3QgLXN0ZD1nbnUxMSBbNF0sIFNMRTEyLVNQMiBnY2MgNC44
+LjUgaXMKPiAtc3RkPWdudTkwIFs1XSwgQzk5IGlzIGFscmVhZHkgc3VwcG9ydGVkIGluIGdjYyA0
+LjUsIHdpdGggLWZleHRlbmRlZC1pZGVudGlmaWVycwo+IFs2XSkuCj4KPiBLaW5kIHJlZ2FyZHMs
+Cj4gUGV0cgo+Cj4gUGV0ciBWb3JlbCAoMik6Cj4gICBDSTogUmVBcGxhY2UgQ2VudE9TIDcgd2l0
+aCBvcGVuU1VTRSBMZWFwIDQyLjIsIFVidW50dSB4ZW5pYWwKPiAgIGRvYy9zdXBwb3J0OiBVcGRh
+dGUgdGhlIGxhdGVzdCB0ZXN0ZWQgZGlzdHJvcwo+Cj4gIC5naXRodWIvd29ya2Zsb3dzL2NpLnlt
+bCAgICAgICAgICAgICAgICAgICAgICAgIHwgMTcgKysrKysrKysrKystLS0tLS0KPiAgLi4uZWQt
+a2VybmVsLC1saWJjLC10b29sY2hhaW4tdmVyc2lvbnMuYXNjaWlkb2MgfCAgMiArLQo+ICAyIGZp
+bGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCj4KPiAtLQo+IDIu
+NDIuMAo+CgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xp
+c3RpbmZvL2x0cAo=
