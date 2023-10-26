@@ -2,72 +2,90 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 341F47D8143
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Oct 2023 12:53:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED9BE7D809F
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Oct 2023 12:22:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 67D3F3CCFAA
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Oct 2023 12:53:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5BACA3CEC08
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Oct 2023 12:22:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8B8223C8711
- for <ltp@lists.linux.it>; Thu, 26 Oct 2023 12:53:37 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 802933CAB76
+ for <ltp@lists.linux.it>; Thu, 26 Oct 2023 12:22:36 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8317F1A01973
- for <ltp@lists.linux.it>; Thu, 26 Oct 2023 12:53:35 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 995EF21A2C;
- Thu, 26 Oct 2023 10:53:34 +0000 (UTC)
-Received: from g78 (rpalethorpe.udp.ovpn1.nue.suse.de [10.163.25.62])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AFF8360005C
+ for <ltp@lists.linux.it>; Thu, 26 Oct 2023 12:22:35 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id DE8452D584;
- Thu, 26 Oct 2023 10:53:33 +0000 (UTC)
-References: <875y33vsks.fsf@suse.de>
-User-agent: mu4e 1.10.7; emacs 29.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: rpalethorpe@suse.de
-Date: Thu, 26 Oct 2023 11:16:06 +0100
-Organization: Linux Private Site
-In-reply-to: <875y33vsks.fsf@suse.de>
-Message-ID: <87lebpu02a.fsf@suse.de>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 41DAA1F86A
+ for <ltp@lists.linux.it>; Thu, 26 Oct 2023 10:22:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1698315754; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=3uvpnewMacIG3W0Hf/W3EBJRHuNLnXPAimQRu7b7K4I=;
+ b=nDLjA5WLlSno/Fi6foxQ7m9X97exau5CC1iL+mAZ7dWsnmoET6oF3IySFgvpDF2GFezsCA
+ ONTQt2KIQcfAhWcmBRaHSR0/FfBPymd2ILVP2KEem1fhuC3+vULG7AnFFfxzGygMZUc9r8
+ /gN65TOtWvxz1ivKsm8tpkWBxHL4aWA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1698315754;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=3uvpnewMacIG3W0Hf/W3EBJRHuNLnXPAimQRu7b7K4I=;
+ b=28JYpztv7XJJDH6gLB1/kfEUCJHBFdTQMjMYdvKMs5pflHU4y5f11ckUvr7xaD/c3bkc1X
+ VOnmwbh+ubyl2rAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 33A841358F
+ for <ltp@lists.linux.it>; Thu, 26 Oct 2023 10:22:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id wCifC+o9OmXBTgAAMHmgww
+ (envelope-from <mkittler@suse.de>)
+ for <ltp@lists.linux.it>; Thu, 26 Oct 2023 10:22:34 +0000
+From: Marius Kittler <mkittler@suse.de>
+To: ltp@lists.linux.it
+Date: Thu, 26 Oct 2023 12:22:33 +0200
+Message-ID: <3263329.44csPzL39Z@linux-9lzf>
+In-Reply-To: <20231026094957.15371-1-rpalethorpe@suse.com>
+References: <20231026094957.15371-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Spamd-Bar: ++
-Authentication-Results: smtp-out1.suse.de; dkim=none; dmarc=none;
- spf=softfail (smtp-out1.suse.de: 149.44.160.134 is neither permitted nor
- denied by domain of rpalethorpe@suse.de) smtp.mailfrom=rpalethorpe@suse.de
-X-Rspamd-Server: rspamd2
-X-Spamd-Result: default: False [2.55 / 50.00]; ARC_NA(0.00)[];
- HAS_REPLYTO(0.30)[rpalethorpe@suse.de]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[];
- RWL_MAILSPIKE_GOOD(0.00)[149.44.160.134:from];
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -5.83
+X-Spamd-Result: default: False [-5.83 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; BAYES_HAM(-2.73)[98.84%];
+ FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  NEURAL_HAM_LONG(-3.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- REPLYTO_ADDR_EQ_FROM(0.00)[]; DMARC_NA(0.20)[suse.de];
- R_SPF_SOFTFAIL(0.60)[~all:c]; HAS_ORG_HEADER(0.00)[];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; VIOLATED_DIRECT_SPF(3.50)[];
- MX_GOOD(-0.01)[]; NEURAL_HAM_SHORT(-1.00)[-1.000];
- RCPT_COUNT_SEVEN(0.00)[9]; RCVD_NO_TLS_LAST(0.10)[];
- FROM_EQ_ENVFROM(0.00)[]; R_DKIM_NA(0.20)[];
- MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- MID_RHS_MATCH_FROM(0.00)[]; BAYES_HAM(-0.24)[72.79%];
- FORGED_RECIPIENTS(2.00)[m:rpalethorpe@suse.de, m:acervesato@suse.de,
- m:chrubis@suse.cz, m:pvorel@suse.cz, m:mkittler@suse.de,
- s:andrea.cervesato@suse.com]
-X-Spam-Score: 2.55
-X-Rspamd-Queue-Id: 995EF21A2C
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+ TO_DN_NONE(0.00)[];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
+ RCPT_COUNT_ONE(0.00)[1];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[]; CTE_CASE(0.50)[]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] Open monthly meeting 1st of November 09:00 UTC
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] cgroup: Handle trailing new line in
+ cgroup.controllers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,29 +97,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: Andrea Cervesato <acervesato@suse.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+LGTM (although it is a bit unfortunate that we have to hardcode 
+MAX_CGROUP_TYPE_NAMELEN)
 
-After reviewing the responses to the RFC I have come up with the
-following meeting details.
+Reviewed-by: Marius Kittler <mkittler@suse.de>
 
-Time and date: First Wednesday each month at 09:00 UTC.
-Platform: https://meet.jit.si/linux-test-project
 
-The first meeting will be on the 1st of November at 09:00 UTC.
 
-I haven't tried to address the lack of chat brought up by Li. I suggest
-trying Jitsi and if there are issues then we go from there.
-
--- 
-Thank you,
-Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
