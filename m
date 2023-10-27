@@ -1,70 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1D6E7D93B0
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 11:30:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 84A997D918D
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 10:30:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4591E3CCACF
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 11:30:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D6F863CCAD0
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 10:30:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 675E73C26EE
- for <ltp@lists.linux.it>; Thu, 26 Oct 2023 17:39:34 +0200 (CEST)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ by picard.linux.it (Postfix) with ESMTPS id 2F6163CCA98
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 10:30:20 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 659B320076F
- for <ltp@lists.linux.it>; Thu, 26 Oct 2023 17:39:32 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0FF8C63532
- for <ltp@lists.linux.it>; Thu, 26 Oct 2023 15:39:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5FD8C43391
- for <ltp@lists.linux.it>; Thu, 26 Oct 2023 15:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1698334768;
- bh=FDj+TtkA41V8W+Dgx4SdwNTR5EfRCiqvl6KQP3P3OD0=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=fZprWnS1zKe9CbthGm2D8C8zn1nHzy+//yBaYsrHS2yMyLV4Mra2DrQCWoWjXTzBz
- wmZsR2S4VUKMnbpnDA2j8BvXxn9wQ2HGezAJaWDPSU5a6RYVylVKNc71ZBr7bTLf/0
- md20LufSdvrHbA+7Y/9HEHJai5JDJ/LXeslMvVgc38iVm9ALkXNI0bSx4/No1e7twd
- 9IQkuaWHkBn4DGJqpMUo8J4lmwsu3KxMDmWbAFDWyLMymS1z2I94MghGWnphoVzqHH
- ek932aj5ECM/nNLrYNV+rPymMUzHfp8t1fNRvVqE1wuLbmDiAGPKuWymrgHTW8l+XM
- Ylf5ZSpZl3/Zg==
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2c50305c5c4so16096361fa.1
- for <ltp@lists.linux.it>; Thu, 26 Oct 2023 08:39:28 -0700 (PDT)
-X-Gm-Message-State: AOJu0YxEafoBPmgPNUQhLPm5q8Ls0Pf0dR3Y3LnyUvWbE8amuxVi9yjW
- KmWOKU7Aybt6M6gjdI4FvfN2aJuIzooaaz4MM5I=
-X-Google-Smtp-Source: AGHT+IE320/m4nxTYakuJFBJp88Ll7maED97PBXuy6j3H25+6YoIexbnB90kueybRhWmacv8IDTeoQ5wlVQQTkiVzRM=
-X-Received: by 2002:a2e:b04b:0:b0:2c5:1b01:b67f with SMTP id
- d11-20020a2eb04b000000b002c51b01b67fmr13026501ljl.52.1698334766885; Thu, 26
- Oct 2023 08:39:26 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D1E16141CE8C
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 10:30:19 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id D04E61FEDC
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 08:30:17 +0000 (UTC)
+Received: from g78 (rpalethorpe.udp.ovpn1.nue.suse.de [10.163.25.62])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 6AAD22CFFD;
+ Fri, 27 Oct 2023 08:30:17 +0000 (UTC)
+References: <20231026094957.15371-1-rpalethorpe@suse.com>
+ <20231026110659.GA593730@pevik>
+User-agent: mu4e 1.10.7; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Petr Vorel <pvorel@suse.cz>
+Date: Fri, 27 Oct 2023 09:21:11 +0100
+Organization: Linux Private Site
+In-reply-to: <20231026110659.GA593730@pevik>
+Message-ID: <87cyx0tqli.fsf@suse.de>
 MIME-Version: 1.0
-References: <CA+G9fYsCskpn_TNpSwLq9HGUgtT=aZpDzs7SVrqpa9WmyYFaxQ@mail.gmail.com>
- <ZTqGBzOQd4Oi3e9j@FVFF77S0Q05N.cambridge.arm.com>
-In-Reply-To: <ZTqGBzOQd4Oi3e9j@FVFF77S0Q05N.cambridge.arm.com>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Thu, 26 Oct 2023 17:39:11 +0200
-X-Gmail-Original-Message-ID: <CAMj1kXE8VrG6aPsjByd83kavw7He6vn=DszhJfAd-TfP9y8VBA@mail.gmail.com>
-Message-ID: <CAMj1kXE8VrG6aPsjByd83kavw7He6vn=DszhJfAd-TfP9y8VBA@mail.gmail.com>
-To: Mark Rutland <mark.rutland@arm.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Spam-Level: 
+X-Spamd-Bar: /
+Authentication-Results: smtp-out2.suse.de; dkim=none; dmarc=none;
+ spf=softfail (smtp-out2.suse.de: 149.44.160.134 is neither permitted nor
+ denied by domain of rpalethorpe@suse.de) smtp.mailfrom=rpalethorpe@suse.de
+X-Rspamd-Server: rspamd2
+X-Spamd-Result: default: False [0.79 / 50.00]; ARC_NA(0.00)[];
+ HAS_REPLYTO(0.30)[rpalethorpe@suse.de]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[];
+ RWL_MAILSPIKE_GOOD(0.00)[149.44.160.134:from];
+ NEURAL_HAM_LONG(-3.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ REPLYTO_ADDR_EQ_FROM(0.00)[]; DMARC_NA(0.20)[suse.de];
+ R_SPF_SOFTFAIL(0.60)[~all:c]; HAS_ORG_HEADER(0.00)[];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; VIOLATED_DIRECT_SPF(3.50)[];
+ MX_GOOD(-0.01)[]; RCPT_COUNT_TWO(0.00)[2];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; RCVD_NO_TLS_LAST(0.10)[];
+ FROM_EQ_ENVFROM(0.00)[]; R_DKIM_NA(0.20)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ MID_RHS_MATCH_FROM(0.00)[]; BAYES_HAM(-0.00)[11.09%]
+X-Spam-Score: 0.79
+X-Rspamd-Queue-Id: D04E61FEDC
+X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Mailman-Approved-At: Fri, 27 Oct 2023 11:30:48 +0200
-Subject: Re: [LTP] qemu-arm64: handle_futex_death - kernel/futex/core.c:661
- - Unable to handle kernel unknown 43 at virtual address
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] cgroup: Handle trailing new line in
+ cgroup.controllers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,73 +79,87 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
- LTP List <ltp@lists.linux.it>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will.deacon@arm.com>, open list <linux-kernel@vger.kernel.org>,
- Oliver Upton <oliver.upton@linux.dev>,
- Linux-Next Mailing List <linux-next@vger.kernel.org>,
- lkft-triage@lists.linaro.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, 26 Oct 2023 at 17:30, Mark Rutland <mark.rutland@arm.com> wrote:
->
-> On Thu, Oct 26, 2023 at 08:11:26PM +0530, Naresh Kamboju wrote:
-> > Following kernel crash noticed on qemu-arm64 while running LTP syscalls
-> > set_robust_list test case running Linux next 6.6.0-rc7-next-20231026 and
-> > 6.6.0-rc7-next-20231025.
-> >
-> > BAD: next-20231025
-> > Good: next-20231024
-> >
-> > Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
-> > Reported-by: Naresh Kamboju <naresh.kamboju@linaro.org>
-> >
-> > Log:
-> > ----
-> > <1>[  203.119139] Unable to handle kernel unknown 43 at virtual
-> > address 0001ffff9e2e7d78
-> > <1>[  203.119838] Mem abort info:
-> > <1>[  203.120064]   ESR = 0x000000009793002b
-> > <1>[  203.121040]   EC = 0x25: DABT (current EL), IL = 32 bits
-> > set_robust_list01    1  TPASS  :  set_robust_list: retval = -1
-> > (expected -1), errno = 22 (expected 22)
-> > set_robust_list01    2  TPASS  :  set_robust_list: retval = 0
-> > (expected 0), errno = 0 (expected 0)
-> > <1>[  203.124496]   SET = 0, FnV = 0
-> > <1>[  203.124778]   EA = 0, S1PTW = 0
-> > <1>[  203.125029]   FSC = 0x2b: unknown 43
->
-> It looks like this is fallout from the LPA2 enablement.
->
-> According to the latest ARM ARM (ARM DDI 0487J.a), page D19-6475, that "unknown
-> 43" (0x2b / 0b101011) is the DFSC for a level -1 translation fault:
->
->         0b101011 When FEAT_LPA2 is implemented:
->                  Translation fault, level -1.
->
-> It's triggered here by an LDTR in a get_user() on a bogus userspace address.
-> The exception is expected, and it's supposed to be handled via the exception
-> fixups, but the LPA2 patches didn't update the fault_info table entries for all
-> the level -1 faults, and so those all get handled by do_bad() and don't call
-> fixup_exception(), causing them to be fatal.
->
-> It should be relatively simple to update the fault_info table for the level -1
-> faults, but given the other issues we're seeing I think it's probably worth
-> dropping the LPA2 patches for the moment.
->
+Hello,
 
-Thanks for the analysis Mark.
+Petr Vorel <pvorel@suse.cz> writes:
 
-I agree that this should not be difficult to fix, but given the other
-CI problems and identified loose ends, I am not going to object to
-dropping this partially or entirely at this point. I'm sure everybody
-will be thrilled to go over those 60 patches again after I rebase them
-onto v6.7-rc1 :-)
+> Hi Richie,
+>
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+>
+>> V2:
+>> * Add underscore
+>> * Add length check
+>> * Expand commit message
+>> * Use shorter syntax
+> +1
+>
+>>  lib/tst_cgroup.c | 13 ++++++++++++-
+>>  1 file changed, 12 insertions(+), 1 deletion(-)
+>
+>> diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+>> index 5240aadaa..c5cb20505 100644
+>> --- a/lib/tst_cgroup.c
+>> +++ b/lib/tst_cgroup.c
+>> @@ -433,9 +433,20 @@ __attribute__ ((nonnull, warn_unused_result))
+>>  static struct cgroup_ctrl *cgroup_find_ctrl(const char *const ctrl_name)
+>>  {
+>>  	struct cgroup_ctrl *ctrl;
+>> +	int l = 0;
+>> +	char c = ctrl_name[l];
+>> +
+>> +	while (c == '_' || (c >= 'a' && c <= 'z'))
+>> +		c = ctrl_name[++l];
+>> +
+>> +	if (l > 32)
+> +1 for this check.
+> I would slightly prefer to add MAX_CGROUP_TYPE_NAMELEN definition into our
+> include/tst_cgroup.h, but it can stay as is.
+>
+> BTW include/linux/cgroup-defs.h contains also MAX_CGROUP_ROOT_NAMELEN, there are
+> also other checks in C files (CGROUP_FILE_NAME_MAX) in case it makes sense to
+> have some checks for these (I have no idea).
+
+I'm not sure about this. On the one hand it may detect a bug in the
+library or kernel. On the other it's not exposed to userland or defined
+anywhere.
+
+For me the main thing is to avoid janitorial work like creating and
+merging patches just to increase some internal kernel value that was
+increased or is ignored in some corner case.
+
+I'll post another patch if there is some obvious way to check the root
+name length that would help the library.
+
+Thanks for the review, I'll merge this now.
+
+>
+> Kind regards,
+> Petr
+>
+>> +		tst_res(TWARN, "Subsys name len greater than max known value of MAX_CGROUP_TYPE_NAMELEN: %d > 32", l);
+>
+>> +
+>> +	if (!(c == '\n' || c == '\0'))
+>> +		tst_brk(TBROK, "Unexpected char in %s: %c", ctrl_name, c);
+>
+>>  	for_each_ctrl(ctrl) {
+>> -		if (!strcmp(ctrl_name, ctrl->ctrl_name))
+>> +		if (!strncmp(ctrl_name, ctrl->ctrl_name, l))
+>>  			return ctrl;
+>>  	}
+
+
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
