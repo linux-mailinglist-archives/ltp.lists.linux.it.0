@@ -1,84 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 591567D9464
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 11:58:07 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A11BE7D9512
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 12:19:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 13F7E3CEB84
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 11:58:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2235B3CEBD5
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 12:19:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5BC373CCAD0
- for <ltp@lists.linux.it>; Fri, 27 Oct 2023 11:58:06 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id AA6643CCA83
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 12:19:40 +0200 (CEST)
+Received: from esa1.hc1455-7.c3s2.iphmx.com (esa1.hc1455-7.c3s2.iphmx.com
+ [207.54.90.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 72A0D600EA7
- for <ltp@lists.linux.it>; Fri, 27 Oct 2023 11:58:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1698400683;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=z8v2ZOCMdHP9SWg9tHMbcVUVy7mOR6hcfvuniyeLl7s=;
- b=hFMPGQ7csmTfzFHooUqYYVy64TRYQOx1gzYhTanlkJklPIMTIdghmAPdd5tiZn8WNYYPyO
- 2YqChSwaG9jS/U7qsBmK5eG63WnUiyESSy3gI8s7ec45lcfn8uIJzyCFljX3Y69LQqjeru
- VT+jV1lPVHjhw5Cfba7SoUc1rRAs7iY=
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-321-lMexxIS0NtavpD6qiC742A-1; Fri, 27 Oct 2023 05:58:02 -0400
-X-MC-Unique: lMexxIS0NtavpD6qiC742A-1
-Received: by mail-vs1-f72.google.com with SMTP id
- ada2fe7eead31-457ba261d60so837474137.2
- for <ltp@lists.linux.it>; Fri, 27 Oct 2023 02:58:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698400681; x=1699005481;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=z8v2ZOCMdHP9SWg9tHMbcVUVy7mOR6hcfvuniyeLl7s=;
- b=rphSS+oy69qI8aH2/14RumZ5YQgJKYCZZTnCi+UPQyHP4cQQRvunpnlT8htKOf5Srp
- tPU2KF0YUZAkT/XjZpW8QWtcLwEP43f6oBFyvQgRc7rlNCOr7RrNJKU8AitFTZ9xY4YH
- ul9KuIiSb2djlLWNISlNYDmr0MIzOwhF5oNXXHIji5MFFRBsPeKPsO0GmZ8I8xSh/1lG
- 3axsKj+Gfd1xtVLvpXn08GxWHmfsTjv0rXyAU908LEcEaUAKslzEQEUU6JanyrpR+Pef
- w7xqsbcIorXFKyAPHDPzpmZfXygSXhbO5Fjm2lgt4mrIi52+dlD7Q+pVNifBSVCQe4Ed
- 2yyQ==
-X-Gm-Message-State: AOJu0YwD7Nkf4FSeCbNUZiGEAXgEjqeUTOuEy01jEiimQ6rCbom8FDNj
- kJHlZDs+JiNvMz7w7aav1PndDAVJK6jnMqab4VbX3n/guB1D69fq1auQlavYdga3ncuXjPL0OU0
- tff5bonX4N9pJgjYRVuMsy0HYL38xs/sbRqc=
-X-Received: by 2002:a67:cb9c:0:b0:458:3bc1:9777 with SMTP id
- h28-20020a67cb9c000000b004583bc19777mr2025258vsl.15.1698400681533; 
- Fri, 27 Oct 2023 02:58:01 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGSkzEKJiJRjc0autizAbgLWuaYbNPX7OuJHao9mVcvGDMq4caQWyY+jqd2d+bnNZ0HKzYUuT59aUODUNsHqbI=
-X-Received: by 2002:a67:cb9c:0:b0:458:3bc1:9777 with SMTP id
- h28-20020a67cb9c000000b004583bc19777mr2025244vsl.15.1698400681259; Fri, 27
- Oct 2023 02:58:01 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 534571A0C274
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 12:19:38 +0200 (CEST)
+X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="137551057"
+X-IronPort-AV: E=Sophos;i="6.03,255,1694703600"; d="scan'208";a="137551057"
+Received: from unknown (HELO oym-r4.gw.nic.fujitsu.com) ([210.162.30.92])
+ by esa1.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2023 19:19:37 +0900
+Received: from oym-m1.gw.nic.fujitsu.com (oym-nat-oym-m1.gw.nic.fujitsu.com
+ [192.168.87.58])
+ by oym-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id 28C10DDC75
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 19:19:35 +0900 (JST)
+Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
+ [192.51.206.22])
+ by oym-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 666B9D8B8A
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 19:19:34 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+ by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id 044216C836
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 19:19:34 +0900 (JST)
+Received: from localhost.localdomain (unknown [10.167.220.121])
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id 736411A0070;
+ Fri, 27 Oct 2023 18:19:33 +0800 (CST)
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: ltp@lists.linux.it
+Date: Fri, 27 Oct 2023 05:37:59 -0400
+Message-Id: <20231027093801.51947-1-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-References: <345e84821f2319d24ce8b9b84f5e038d53a2c9d5.1697715265.git.jstancek@redhat.com>
- <CAEemH2fkj49Z-NQVSewZAgm6z8agC-Z_PoBrqRhFvGbu8uRAZg@mail.gmail.com>
-In-Reply-To: <CAEemH2fkj49Z-NQVSewZAgm6z8agC-Z_PoBrqRhFvGbu8uRAZg@mail.gmail.com>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Fri, 27 Oct 2023 11:58:33 +0200
-Message-ID: <CAASaF6y1y2t=g2-Rpc8SGxv3JTtW-f9KTuVk4vmH6Favm3W-DA@mail.gmail.com>
-To: Li Wang <liwang@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-27960.006
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-27960.006
+X-TMASE-Result: 10--8.241000-10.000000
+X-TMASE-MatchedRID: t6JJoekIeTgxAROjHaAf207nLUqYrlslFIuBIWrdOePfUZT83lbkEBaE
+ RsAuK/owsAxCCQ9WOyt/iseCANV010fr6WG4Th9a9k0tWBWiOf/QtWdx8wWyB5soi2XrUn/J8m+
+ hzBStanvIM9mETCO70yAHAopEd76vjz4sWLYl4Ih6luXUab9nW7pykYQINMxQGZ0UuNCE7TNFHj
+ hq/7eksg==
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/gettid02: fix s390x and couple races
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/3] umount01: Simplify test using TST_ macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,49 +74,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gRnJpLCBPY3QgMjAsIDIwMjMgYXQgMTA6NTXigK9BTSBMaSBXYW5nIDxsaXdhbmdAcmVkaGF0
-LmNvbT4gd3JvdGU6Cj4KPgo+Cj4gT24gVGh1LCBPY3QgMTksIDIwMjMgYXQgNzo0MOKAr1BNIEph
-biBTdGFuY2VrIDxqc3RhbmNla0ByZWRoYXQuY29tPiB3cm90ZToKPj4KPj4gczM5MHggaXMgYmln
-IGVuZGlhbiB3aGVyZSBzaXplb2YoaW50KSA9PSA0IGFuZCBzaXplb2Yodm9pZCAqKSA9PSA4Lgo+
-PiBUaGlzIHRlc3QgY3VycmVudGx5IGZhaWxzIG9uIHMzOTB4IGJlY2F1c2UgaW4gcHRocmVhZF9q
-b2luLCAiJnRpZHNbaV0iCj4+IGlzIHRyZWF0ZWQgYXMgInZvaWQqKiIgYW5kIGR1ZSB0byBkaWZm
-ZXJlbnQgdHlwZSBzaXplIGl0IHdyaXRlcyBvdmVyCj4+IDIgZW50cmllcyBvZiB0aWRzW10gYXJy
-YXkuIFNvIGZvciBzbWFsbCB0aWQgdmFsdWVzIHRlc3QgcmVwb3J0czoKPj4gICAgICAgICBnZXR0
-aWQwMi5jOjI5OiBUUEFTUzogRXhwZWN0OiBwYXJlbnQgSUQgKDE0MDQ4KSBkaWZmZXJzIGZyb20g
-dGhyZWFkWzBdIElEICgxNDA0OSkKPj4gICAgICAgICBnZXR0aWQwMi5jOjI5OiBUUEFTUzogRXhw
-ZWN0OiBwYXJlbnQgSUQgKDE0MDQ4KSBkaWZmZXJzIGZyb20gdGhyZWFkWzFdIElEICgxNDA1MCkK
-Pj4gICAgICAgICBnZXR0aWQwMi5jOjI5OiBUUEFTUzogRXhwZWN0OiBwYXJlbnQgSUQgKDE0MDQ4
-KSBkaWZmZXJzIGZyb20gdGhyZWFkWzJdIElEICgxNDA1MSkKPj4gICAgICAgICBnZXR0aWQwMi5j
-OjI5OiBUUEFTUzogRXhwZWN0OiBwYXJlbnQgSUQgKDE0MDQ4KSBkaWZmZXJzIGZyb20gdGhyZWFk
-WzNdIElEICgxNDA1MikKPj4gICAgICAgICBnZXR0aWQwMi5jOjI5OiBUUEFTUzogRXhwZWN0OiBw
-YXJlbnQgSUQgKDE0MDQ4KSBkaWZmZXJzIGZyb20gdGhyZWFkWzRdIElEICgxNDA1MykKPj4gICAg
-ICAgICBnZXR0aWQwMi5jOjI5OiBUUEFTUzogRXhwZWN0OiBwYXJlbnQgSUQgKDE0MDQ4KSBkaWZm
-ZXJzIGZyb20gdGhyZWFkWzVdIElEICgxNDA1NCkKPj4gICAgICAgICBnZXR0aWQwMi5jOjI5OiBU
-UEFTUzogRXhwZWN0OiBwYXJlbnQgSUQgKDE0MDQ4KSBkaWZmZXJzIGZyb20gdGhyZWFkWzZdIElE
-ICgxNDA1NSkKPj4gICAgICAgICBnZXR0aWQwMi5jOjI5OiBUUEFTUzogRXhwZWN0OiBwYXJlbnQg
-SUQgKDE0MDQ4KSBkaWZmZXJzIGZyb20gdGhyZWFkWzddIElEICgxNDA1NikKPj4gICAgICAgICBn
-ZXR0aWQwMi5jOjI5OiBUUEFTUzogRXhwZWN0OiBwYXJlbnQgSUQgKDE0MDQ4KSBkaWZmZXJzIGZy
-b20gdGhyZWFkWzhdIElEICgxNDA1NykKPj4gICAgICAgICBnZXR0aWQwMi5jOjI5OiBUUEFTUzog
-RXhwZWN0OiBwYXJlbnQgSUQgKDE0MDQ4KSBkaWZmZXJzIGZyb20gdGhyZWFkWzldIElEICgxNDA1
-OCkKPj4gICAgICAgICBnZXR0aWQwMi5jOjQ5OiBUSU5GTzogdGhyZWFkWzBdIGFuZCB0aHJlYWRb
-MV0gaGF2ZSB0aGUgc2FtZSBJRAo+PiAgICAgICAgIGdldHRpZDAyLmM6NDk6IFRJTkZPOiB0aHJl
-YWRbMF0gYW5kIHRocmVhZFsyXSBoYXZlIHRoZSBzYW1lIElECj4+ICAgICAgICAgZ2V0dGlkMDIu
-Yzo0OTogVElORk86IHRocmVhZFswXSBhbmQgdGhyZWFkWzNdIGhhdmUgdGhlIHNhbWUgSUQKPj4g
-ICAgICAgICAuLi4KPj4gd2hpY2ggaXMgY2xlYXJseSB3cm9uZywgc2luY2UgZWFjaCB0aHJlYWQg
-YWJvdmUgcHJpbnRlZCBkaWZmZXJlbnQgSUQuCj4+Cj4+IFRoaXMgY29uc3RydWN0IGlzIHJhY2Ut
-eSBvbiBzbG93ZXIgczM5MHggc3lzdGVtczoKPj4gICAgICAgICBmb3IgKGludCBpID0gMDsgaSA8
-IFRIUkVBRFNfTlVNOyBpKyspCj4+ICAgICAgICAgICAgICAgICBTQUZFX1BUSFJFQURfQ1JFQVRF
-KCZ0aHJlYWQsIE5VTEwsIHRocmVhZGVkLCAmaSk7Cj4+IGJlY2F1c2UgYnkgdGhlIHRpbWUgdGhy
-ZWFkIHN0YXJ0cyBhbmQgbG9va3MgYXQgIiZpIiwgdGhlIGxvb3AgY2FuCj4+IGFscmVhZHkgbW92
-ZSBvbiBhbmQgaW5jcmVtZW50ICJpIi4KPj4KPj4gQWxzbywgcG90ZW50aWFsbHkgc3RhcnRpbmcg
-YW5kIHdhaXRpbmcgZm9yIGVhY2ggdGhyZWFkIGNvdWxkIGJlIGFuIGlzc3VlLCBzaW5jZSBrZXJu
-ZWwgaXMKPj4gZnJlZSB0byByZS11c2UgdGlkIGZvciBhbHJlYWR5IGZpbmlzaGVkIHRocmVhZHMu
-Cj4KPgo+IE1ha2Ugc2Vuc2UhCj4KPiBSZXZpZXdlZC1ieTogTGkgV2FuZyA8bGl3YW5nQHJlZGhh
-dC5jb20+CgpQdXNoZWQgd2l0aCBtb2RpZmllZCBjb21taXQgbWVzc2FnZS4KCgotLSAKTWFpbGlu
-ZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ testcases/kernel/syscalls/umount/umount01.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/umount/umount01.c b/testcases/kernel/syscalls/umount/umount01.c
+index d05296dce..47e35eaeb 100644
+--- a/testcases/kernel/syscalls/umount/umount01.c
++++ b/testcases/kernel/syscalls/umount/umount01.c
+@@ -7,7 +7,6 @@
+  * It is intended to provide a limited exposure of the system call.
+  */
+ 
+-#include <errno.h>
+ #include <sys/mount.h>
+ #include "tst_test.h"
+ 
+@@ -23,7 +22,7 @@ static void verify_umount(void)
+ 		mount_flag = 1;
+ 	}
+ 
+-	TEST(umount(MNTPOINT));
++	TST_EXP_PASS(umount(MNTPOINT));
+ 
+ 	if (TST_RET != 0 && TST_ERR == EBUSY) {
+ 		tst_res(TINFO, "umount() Failed with EBUSY "
+@@ -31,12 +30,6 @@ static void verify_umount(void)
+ 			"is probing newly mounted dirs");
+ 	}
+ 
+-	if (TST_RET != 0) {
+-		tst_res(TFAIL | TTERRNO, "umount() Failed");
+-		return;
+-	}
+-
+-	tst_res(TPASS, "umount() Passed");
+ 	mount_flag = 0;
+ }
+ 
+-- 
+2.39.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
