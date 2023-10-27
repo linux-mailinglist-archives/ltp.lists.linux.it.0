@@ -2,88 +2,132 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33BD07D971E
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 14:01:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3A087D99DE
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 15:33:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D4D663CEB85
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 14:01:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8249E3CEB8E
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 15:33:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D0C4A3CCAB1
- for <ltp@lists.linux.it>; Fri, 27 Oct 2023 14:01:08 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 7DE8A3C6BD3
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 15:33:40 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D91DC1A01967
- for <ltp@lists.linux.it>; Fri, 27 Oct 2023 14:01:07 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2CA9110060BD
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 15:33:38 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5230221B71;
- Fri, 27 Oct 2023 12:01:06 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DC81021C76;
+ Fri, 27 Oct 2023 13:33:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1698408066;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=o+6Af8Sb6cGPzO8jEIx+1g0hnJHlIA76Cw4/kb3m/Uw=;
- b=hBjmI23pdMiTIaqgmrUfMi59PIXBfcBgZRH8NMC80mAupbUCYBQDuwm+XVimQpbr0F/zNm
- 9WpgB1gdLklT2Zh18zSe+ms8oFfbOklwDIfCWnDwDreLUYJxn5ORwus9jN7UESrbcNEi9y
- ZDspIrQ45gm+7MJNqnl9+hc8FsAsnVI=
+ t=1698413617; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1htTnuYtIqn0k2/JYvfJ7Kk74l7dVFT72y4DXN/VL5Q=;
+ b=lN6AGsaTXq24bUtQOcaz28xTf51YsMt4GUcYQ+lwRrJLSNzvR9cSMHYJa6YAXE8YNzosI8
+ 8uN5CHNOsNp3himBOC1Qh/Gd1iM4N/hDuuYf9HYNgM/jMCt5afjS1JCzYqQy/bXzFTyByD
+ za9bJOFviUTE1MJChf0j8HQwesUb4C0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1698408066;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=o+6Af8Sb6cGPzO8jEIx+1g0hnJHlIA76Cw4/kb3m/Uw=;
- b=TcGKI5O37WzLAomtfbktYRasg11as+9E6SERSvdNiewKF0KEM3371LnMx5sxRBDDdRNWtr
- w1bvLIIJPaCvppCw==
+ s=susede2_ed25519; t=1698413617;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1htTnuYtIqn0k2/JYvfJ7Kk74l7dVFT72y4DXN/VL5Q=;
+ b=fotGmQX1iwJ1wmoAoWBLERpf6L06nj2isW5iRTc1VLMtbt8gIVjNJVXrltQmFaij1bnKo1
+ 4qk6OkCGp1ifqWBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 26CD313524;
- Fri, 27 Oct 2023 12:01:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C5D351358C;
+ Fri, 27 Oct 2023 13:33:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Ic4gB4KmO2UqLwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 27 Oct 2023 12:01:06 +0000
-Date: Fri, 27 Oct 2023 14:01:04 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20231027120104.GA657078@pevik>
-References: <20231013074748.702214-1-pvorel@suse.cz>
- <20231013074748.702214-3-pvorel@suse.cz>
- <CAEemH2fQuqPhd+5wjiBeswJQOG=FikpKmL6eubdWgyWqehX6fw@mail.gmail.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id QmeGLTG8O2W6XwAAMHmgww
+ (envelope-from <mdoucha@suse.cz>); Fri, 27 Oct 2023 13:33:37 +0000
+Message-ID: <a88a0dfe-6cb0-4a71-9d5c-9c1e7112d063@suse.cz>
+Date: Fri, 27 Oct 2023 15:33:37 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2fQuqPhd+5wjiBeswJQOG=FikpKmL6eubdWgyWqehX6fw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20231027112256.654426-1-pvorel@suse.cz>
+Content-Language: en-US
+From: Martin Doucha <mdoucha@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ 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
+In-Reply-To: <20231027112256.654426-1-pvorel@suse.cz>
 Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
-X-Spam-Score: -6.30
-X-Spamd-Result: default: False [-6.30 / 50.00]; ARC_NA(0.00)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; NEURAL_HAM_LONG(-3.00)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
+X-Spam-Score: -10.99
+X-Spamd-Result: default: False [-10.99 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; XM_UA_NO_VERSION(0.01)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_GOOD(-0.10)[text/plain]; REPLY(-4.00)[];
+ BAYES_HAM(-2.90)[99.55%]; NEURAL_HAM_LONG(-3.00)[-1.000];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-1.00)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
- MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-3.00)[100.00%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[]; MID_RHS_MATCH_FROM(0.00)[]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/4] lib: Add .modprobe
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] tcindex01: Require dummy module
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,204 +139,51 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
+Cc: Jozef Pupava <jpupava@suse.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Hi,
+Acked-by: Martin Doucha <mdoucha@suse.cz>
 
-[ Cc Cyril ]
+On 27. 10. 23 13:22, Petr Vorel wrote:
+> This fixes TBROK on openSUSE JeOS, which does not install dummy module
+> by default.
+> 
+> Reported-by: Jozef Pupava <jpupava@suse.com>
+> Suggested-by: Martin Doucha <mdoucha@suse.cz>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+>   testcases/cve/tcindex01.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/testcases/cve/tcindex01.c b/testcases/cve/tcindex01.c
+> index 91bfafb53..001056820 100644
+> --- a/testcases/cve/tcindex01.c
+> +++ b/testcases/cve/tcindex01.c
+> @@ -128,6 +128,10 @@ static struct tst_test test = {
+>   		{"/proc/sys/user/max_user_namespaces", "1024", TST_SR_SKIP},
+>   		{}
+>   	},
+> +	.needs_drivers = (const char *const []) {
+> +		"dummy",
+> +		NULL
+> +	},
+>   	.tags = (const struct tst_tag[]) {
+>   		{"linux-git", "8c710f75256b"},
+>   		{"CVE", "2023-1829"},
 
-...
-> > +++ b/include/tst_test.h
-> > @@ -297,9 +297,12 @@ struct tst_test {
-> >         /* NULL terminated array of resource file names */
-> >         const char *const *resource_files;
+-- 
+Martin Doucha   mdoucha@suse.cz
+SW Quality Engineer
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
-> > -       /* NULL terminated array of needed kernel drivers */
-> > +       /* NULL terminated array of needed kernel drivers to be checked */
-> >         const char * const *needs_drivers;
-
-> > +       /* NULL terminated array of needed kernel drivers to be loaded
-> > with modprobe */
-> > +       const char * const *modprobe;
-> > +
-> >         /*
-> >          * {NULL, NULL} terminated array of (/proc, /sys) files to save
-> >          * before setup and restore after cleanup
-> > diff --git a/lib/tst_test.c b/lib/tst_test.c
-> > index 087c62a16..ccbaa4c02 100644
-> > --- a/lib/tst_test.c
-> > +++ b/lib/tst_test.c
-> > @@ -49,6 +49,7 @@ const char *TCID __attribute__((weak));
-> >  #define CVE_DB_URL "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-"
-
-> >  #define DEFAULT_TIMEOUT 30
-> > +#define MODULES_MAX_LEN 10
-
-> >  struct tst_test *tst_test;
-
-> > @@ -83,6 +84,8 @@ const char *tst_ipc_path = ipc_path;
-
-> >  static char shm_path[1024];
-
-> > +static int modules_loaded[MODULES_MAX_LEN];
-> > +
-> >  int TST_ERR;
-> >  int TST_PASS;
-> >  long TST_RET;
-> > @@ -1135,6 +1138,29 @@ static void do_cgroup_requires(void)
-> >         tst_cg_init();
-> >  }
-
-> > +/*
-> > + * Search kernel driver in /proc/modules.
-> > + *
-> > + * @param driver The name of the driver.
-> > + * @return 1 if driver is found, otherwise 0.
-> > + */
-> > +static int module_loaded(const char *driver)
-
-
-
-> What about renaming it as tst_module_is_loaded() and move into tst_kernel.h?
-> I guess we could make use of it widely for checking module loading or not.
-
-I can do that, but lib/tst_kernel.c uses the old API. I guess it would fit
-better in lib/tst_module.c, but that also uses the old API. Most of the tests
-are converted, but at least these modules are still in the old API and use
-tst_module_load from tst_module.h:
-
-testcases/kernel/device-drivers/acpi/ltp_acpi.c
-testcases/kernel/device-drivers/block/block_dev_user/block_dev.c
-testcases/kernel/device-drivers/pci/tpci_user/tpci.c
-testcases/kernel/device-drivers/uaccess/uaccess.c
-testcases/kernel/firmware/fw_load_user/fw_load.c
-testcases/kernel/device-drivers/tbio/tbio_user/tbio.c
-
-All but the last one were written by Alexey, they look ok, so they should 
-probably be converted. But I would rather not block this .modprobe_module
-effort due this.
-
-IMHO We need another file, which would be new API only. I'm also not sure if
-it's a good idea to put another file with just single function to it. We already
-have 38 lib/tst_*.c files which use new API. Any tip, what to use?
-Or should I really put it into lib/tst_module.c ain include/tst_module.h, but
-not into include/old/old_module.h (as we want old tests to be converted first?).
-
-> > +{
-> > +       char line[4096];
-> > +       int found = 0;
-> > +       FILE *file = SAFE_FOPEN("/proc/modules", "r");
-> > +
-> > +       while (fgets(line, sizeof(line), file)) {
-> > +               if (strstr(line, driver)) {
-> > +                       found = 1;
-> > +                       break;
-> > +               }
-> > +       }
-> > +       SAFE_FCLOSE(file);
-> > +
-> > +       return found;
-> > +}
-> > +
-> >  static void do_setup(int argc, char *argv[])
-> >  {
-> >         if (!tst_test)
-> > @@ -1194,6 +1220,20 @@ static void do_setup(int argc, char *argv[])
-> >                         safe_check_driver(name);
-> >         }
-
-> > +       if (tst_test->modprobe) {
-
-
-
-
-> > +               const char *name;
-> > +               int i;
-> > +
-> > +               for (i = 0; (name = tst_test->modprobe[i]); ++i) {
-> > +                       /* only load module if not already loaded */
-> > +                       if (!module_loaded(name) &&
-> > tst_check_builtin_driver(name)) {
-> > +                               const char *const cmd_modprobe[] =
-> > {"modprobe", name, NULL};
-> > +                               SAFE_CMD(cmd_modprobe, NULL, NULL);
-
-
-
-> And here print the name to tell people the module is loaded.
-
-
-+1
-
-> > +                               modules_loaded[i] = 1;
-> > +                       }
-> > +               }
-> > +       }
-
-
-
-> This part could be as a separate function like tst_load_module() and
-> built single into another lib. We prefer to keep the main tst_test.c
-> as a simple outline.
-
-+1 for a separate function, it should be in the same file as
-tst_module_is_loaded().
-
-> On the other hand, the extern functions can be used separately to let
-> modules to be loaded and unloaded during the test iteration.
-> It gives us more flexibility in test case design.
-
-Having it as the separate function would allow to use it in
-kvm_pagefault01.c and zram03.c - tiny simplification as they now call
-SAFE_CMD().
-
-kvm_pagefault01.c and can_common.h use them parameters, it might be worth
-to implement them.
-
-> > +
-> >         if (tst_test->mount_device)
-> >                 tst_test->format_device = 1;
-
-> > @@ -1362,6 +1402,19 @@ static void do_cleanup(void)
-
-> >         tst_sys_conf_restore(0);
-
-> > +       if (tst_test->modprobe) {
-
-
-
-
-> > +               const char *name;
-> > +               int i;
-> > +
-> > +               for (i = 0; (name = tst_test->modprobe[i]); ++i) {
-> > +                       if (!modules_loaded[i])
-> > +                               continue;
-> > +
-> > +                       const char *const cmd_rmmod[] = {"rmmod", name,
-> > NULL};
-> > +                       SAFE_CMD(cmd_rmmod, NULL, NULL);
-
-
-> Print unload module name.
-
-+1
-
-> > +               }
-> > +       }
-
-
-> Here as well. something maybe like tst_unload_module().
-
-+1
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
