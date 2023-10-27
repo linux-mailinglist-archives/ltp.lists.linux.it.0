@@ -2,88 +2,89 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F4617D94C6
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 12:09:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6E07D954B
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 12:34:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5202F3CEB85
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 12:09:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2F50C3CEB86
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Oct 2023 12:34:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 99FA03CCA83
- for <ltp@lists.linux.it>; Fri, 27 Oct 2023 12:09:07 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 4670F3CCB26
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 12:34:11 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DAED52348DA
- for <ltp@lists.linux.it>; Fri, 27 Oct 2023 12:09:06 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9D3AD10007BB
+ for <ltp@lists.linux.it>; Fri, 27 Oct 2023 12:34:10 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 39E6821C4A;
- Fri, 27 Oct 2023 10:09:05 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A8B1121C61;
+ Fri, 27 Oct 2023 10:34:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1698401345;
+ t=1698402849;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=CkOb1OCVGwxS+Tduatk5YJsC79Lqzy5Mnt4IWXA00yE=;
- b=H+Cq9d1LZQCywQKVGshFtJDlj7Q/nLAZM2UP8PDZpnVfa6o4R03PdWp4lPbE6Bm4GmMq3i
- nF8V80HHMiR0pc2Cn9ut6LFgft2uZz9PR1HwLRKbv2rzfyJjQ3bwVMb3YN9a8uiaZAcrCy
- r8h/teImKy1RCnX9uEQXGdL6fc4qe5A=
+ bh=Ys2+KPPBYIfu6a3q63u8M+Vw2ehYzu8nyjhXFbl/vnw=;
+ b=xrEZbTVHwPFFtZ015Se0dCKJPZI9KXTp0Cr5XiYGj+QOOLSFxShsgFF5kbYYQlJ4R//jXr
+ wVaBjbYRiFHtZdUMgfrwBtXGf6/rwHJNqpEUPs9Z9zb6H1e+5ng2nxSJfIP13uuz3AydhM
+ dNTluvGZVY7xv91TsKwPUHbe3LH4GV0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1698401345;
+ s=susede2_ed25519; t=1698402849;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=CkOb1OCVGwxS+Tduatk5YJsC79Lqzy5Mnt4IWXA00yE=;
- b=ysy2rCTV86JD9JItLZ5h7O0zH9ZNSDLYFKUMkvxhoKyEl2QWdm8JOKrzntfnzpjOkT8O+r
- zRy6OsZQ9C2aJDDw==
+ bh=Ys2+KPPBYIfu6a3q63u8M+Vw2ehYzu8nyjhXFbl/vnw=;
+ b=XeNXvU2bhVWmNs0YMBLenfCQ9PKyPeqqHJ6P1pAzq3k1igQFFyolo6a4hKjdw9s8uvK+Qe
+ dCVmbbHnpK24+UCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0109F1358C;
- Fri, 27 Oct 2023 10:09:04 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 700EF1358C;
+ Fri, 27 Oct 2023 10:34:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id D7JhOUCMO2UccQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 27 Oct 2023 10:09:04 +0000
-Date: Fri, 27 Oct 2023 12:09:03 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id Ven1GCGSO2UQfgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 27 Oct 2023 10:34:09 +0000
+Date: Fri, 27 Oct 2023 12:34:07 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <20231027100903.GA638866@pevik>
-References: <20231026094957.15371-1-rpalethorpe@suse.com>
- <20231026110659.GA593730@pevik> <87cyx0tqli.fsf@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20231027103407.GA644399@pevik>
+References: <20231005134504.3828-1-mkittler@suse.de> <ZSe6MNMQ6L5yJdV4@yuki>
+ <13368109.uLZWGnKmhe@linux-9lzf> <ZTuDOcJ8bG_rO4fA@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <87cyx0tqli.fsf@suse.de>
+In-Reply-To: <ZTuDOcJ8bG_rO4fA@yuki>
 Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
-X-Spam-Score: -3.30
-X-Spamd-Result: default: False [-3.30 / 50.00]; ARC_NA(0.00)[];
+X-Spam-Score: -10.22
+X-Spamd-Result: default: False [-10.22 / 50.00]; ARC_NA(0.00)[];
  HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; NEURAL_HAM_LONG(-3.00)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_GOOD(-0.10)[text/plain]; REPLY(-4.00)[];
+ NEURAL_HAM_LONG(-3.00)[-1.000]; RCVD_VIA_SMTP_AUTH(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-1.00)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
- MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.00)[36.66%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ BAYES_HAM(-2.92)[99.64%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] cgroup: Handle trailing new line in
- cgroup.controllers
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] Fix memcontrol tests under Tumbleweed
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,85 +103,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hello,
+> Hi!
+> > I thought so, too. However, when running this particular test without this 
+> > minimum specified explicitly, it runs into the following error:
 
-> Petr Vorel <pvorel@suse.cz> writes:
+> Ah, right, we create the tmpfs with size 32MB by default, but the test
+> creates 50MB worth of files so it needs slightly more than that, I would
+> say 60MB. However the .dev_min_size does limit the size of other FS
+> types as well, so we can't se this easily. I suppose that we need the
+> per fs minimal size stored in the library as we discussed with Peter
+> back then and with that we can set the real minimum in the test and
+> override when filesystem needs more.
 
-> > Hi Richie,
-
-> > Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
-> >> V2:
-> >> * Add underscore
-> >> * Add length check
-> >> * Expand commit message
-> >> * Use shorter syntax
-> > +1
-
-> >>  lib/tst_cgroup.c | 13 ++++++++++++-
-> >>  1 file changed, 12 insertions(+), 1 deletion(-)
-
-> >> diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-> >> index 5240aadaa..c5cb20505 100644
-> >> --- a/lib/tst_cgroup.c
-> >> +++ b/lib/tst_cgroup.c
-> >> @@ -433,9 +433,20 @@ __attribute__ ((nonnull, warn_unused_result))
-> >>  static struct cgroup_ctrl *cgroup_find_ctrl(const char *const ctrl_name)
-> >>  {
-> >>  	struct cgroup_ctrl *ctrl;
-> >> +	int l = 0;
-> >> +	char c = ctrl_name[l];
-> >> +
-> >> +	while (c == '_' || (c >= 'a' && c <= 'z'))
-> >> +		c = ctrl_name[++l];
-> >> +
-> >> +	if (l > 32)
-> > +1 for this check.
-> > I would slightly prefer to add MAX_CGROUP_TYPE_NAMELEN definition into our
-> > include/tst_cgroup.h, but it can stay as is.
-
-> > BTW include/linux/cgroup-defs.h contains also MAX_CGROUP_ROOT_NAMELEN, there are
-> > also other checks in C files (CGROUP_FILE_NAME_MAX) in case it makes sense to
-> > have some checks for these (I have no idea).
-
-> I'm not sure about this. On the one hand it may detect a bug in the
-> library or kernel. On the other it's not exposed to userland or defined
-> anywhere.
-
-Yep, it's just an idea, I'm not sure myself.
-
-> For me the main thing is to avoid janitorial work like creating and
-> merging patches just to increase some internal kernel value that was
-> increased or is ignored in some corner case.
-
-+1
-
-> I'll post another patch if there is some obvious way to check the root
-> name length that would help the library.
-
-+1
-
-> Thanks for the review, I'll merge this now.
-
-Great.
+I guess I should finish this implementation, thanks for reminding me.
 
 Kind regards,
 Petr
-
-> > Kind regards,
-> > Petr
-
-> >> +		tst_res(TWARN, "Subsys name len greater than max known value of MAX_CGROUP_TYPE_NAMELEN: %d > 32", l);
-
-> >> +
-> >> +	if (!(c == '\n' || c == '\0'))
-> >> +		tst_brk(TBROK, "Unexpected char in %s: %c", ctrl_name, c);
-
-> >>  	for_each_ctrl(ctrl) {
-> >> -		if (!strcmp(ctrl_name, ctrl->ctrl_name))
-> >> +		if (!strncmp(ctrl_name, ctrl->ctrl_name, l))
-> >>  			return ctrl;
-> >>  	}
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
