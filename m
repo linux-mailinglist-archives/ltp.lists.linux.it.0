@@ -2,84 +2,82 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 626047DB87A
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Oct 2023 11:49:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABEAF7DB8A6
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Oct 2023 12:01:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1CE823CC974
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Oct 2023 11:49:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5DA453CC970
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Oct 2023 12:01:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 72F423C84B8
- for <ltp@lists.linux.it>; Mon, 30 Oct 2023 11:49:36 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 0EA873C6D29
+ for <ltp@lists.linux.it>; Mon, 30 Oct 2023 12:01:12 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D9F051A05C63
- for <ltp@lists.linux.it>; Mon, 30 Oct 2023 11:49:35 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 35B2A200AC6
+ for <ltp@lists.linux.it>; Mon, 30 Oct 2023 12:01:10 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2D26621941;
- Mon, 30 Oct 2023 10:49:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1698662974; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=XxRWK2oLMJHVhmIrUa3lPxeShEeePwAkjWAcCNV3WGs=;
- b=OC9gXOZw3KR6eeAkX0ccSHfnr4tucSCNL79YxCQ5ybYBQ8wNsxN2m/Jr8cBXHqCb+HuldZ
- DoYk+FEEV0hE8BrWr8riXQ4BhOOdFpRTuscD11AR2Fq+ySR9CMh9H352sRII1X1x0w4qQD
- 2UKM+4q7nQXUWorvEhCWopejXv2mQTw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1698662974;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C54F8219B4;
+ Mon, 30 Oct 2023 11:01:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1698663668; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Pdjz8ao/4nMbHh6TESijG8eFYioXqw4Dt3MteCEUgxM=;
+ b=iYzYtoM5p+oljkETWiccOupRGJ4IsKramCVLiKOVyAb0b2EW0Qv5zoHaAEgKfhBnKs2oMY
+ 7hFZkEFl9J8hwpKQAcvg6/iyAv5j906enymAJYL2CLR3LhiBcccVyUb6pCsQHJ95So2h2J
+ fllek39UvZ8ooWIocx5fE4C4HILi07Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1698663668;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=XxRWK2oLMJHVhmIrUa3lPxeShEeePwAkjWAcCNV3WGs=;
- b=03i6ow13L7OI4y21zsrpVLXeJL+R94OYBOsrYrF5MkU36M35wUrGWHyB29oWglo9o9b36z
- mbKz4pY5g4oMViCA==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Pdjz8ao/4nMbHh6TESijG8eFYioXqw4Dt3MteCEUgxM=;
+ b=tpMLrgQL/XI/OiONyU8i4g4kfMY/rkjX+el8AHWseH73ZCPO6sPjWH9jen2kAUquBR3OZO
+ OHaOXBBZo4FGwbBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 18A56138EF;
- Mon, 30 Oct 2023 10:49:34 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A9B46138EF;
+ Mon, 30 Oct 2023 11:01:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 9IjABT6KP2XzNQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 30 Oct 2023 10:49:34 +0000
-Date: Mon, 30 Oct 2023 11:50:04 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <ZT-KXPKV6aB8teaw@yuki>
-References: <20231030100008.5280-1-rpalethorpe@suse.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id cWDiJ/SMP2UYPQAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Mon, 30 Oct 2023 11:01:08 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+To: ltp@lists.linux.it
+Date: Mon, 30 Oct 2023 12:01:05 +0100
+Message-Id: <20231030110107.4528-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231030100008.5280-1-rpalethorpe@suse.com>
 Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
-X-Spam-Score: -6.59
-X-Spamd-Result: default: False [-6.59 / 50.00]; ARC_NA(0.00)[];
+X-Spam-Score: -2.10
+X-Spamd-Result: default: False [-2.10 / 50.00]; ARC_NA(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
  TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- NEURAL_HAM_LONG(-3.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ R_MISSING_CHARSET(2.50)[]; MIME_GOOD(-0.10)[text/plain];
+ BROKEN_CONTENT_TYPE(1.50)[]; NEURAL_HAM_LONG(-3.00)[-1.000];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-1.00)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
- MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-2.99)[99.96%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
+ MID_CONTAINS_FROM(1.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-3.00)[99.99%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] cgroup: Fix scanning V1 mount options
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/2] Rewrite fsx-linux
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,20 +89,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Looks good to me.
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Rewritten fsx-linux test and removed fsx runtest suite.
+
+Andrea Cervesato (2):
+  Rewrite fsx-linux test
+  Remove fsx runtest suite
+
+ doc/ltp-run-files.txt                     |    1 -
+ runtest/fsx                               |    8 -
+ runtest/ltp-aiodio.part3                  |   99 +-
+ scenario_groups/default                   |    1 -
+ testcases/kernel/fs/fsx-linux/Makefile    |    4 +-
+ testcases/kernel/fs/fsx-linux/fsx-linux.c | 1509 ++++-----------------
+ testcases/kernel/fs/fsx-linux/fsxtest     |   50 -
+ testcases/kernel/fs/fsx-linux/fsxtest02   |   44 -
+ testcases/network/nfs/fsx-linux/fsx.sh    |    3 +-
+ 9 files changed, 324 insertions(+), 1395 deletions(-)
+ delete mode 100644 runtest/fsx
+ delete mode 100755 testcases/kernel/fs/fsx-linux/fsxtest
+ delete mode 100755 testcases/kernel/fs/fsx-linux/fsxtest02
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.35.3
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
