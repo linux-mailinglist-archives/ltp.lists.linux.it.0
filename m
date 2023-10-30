@@ -2,71 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FADA7DB8BD
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Oct 2023 12:08:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 626047DB87A
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Oct 2023 11:49:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0CD1A3CEAFD
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Oct 2023 12:08:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1CE823CC974
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Oct 2023 11:49:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DBBEA3C6D29
- for <ltp@lists.linux.it>; Mon, 30 Oct 2023 12:08:23 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 72F423C84B8
+ for <ltp@lists.linux.it>; Mon, 30 Oct 2023 11:49:36 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 12138600AFD
- for <ltp@lists.linux.it>; Mon, 30 Oct 2023 12:08:22 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A64AF21CEC
- for <ltp@lists.linux.it>; Mon, 30 Oct 2023 11:08:21 +0000 (UTC)
-Received: from g78 (rpalethorpe.tcp.ovpn1.nue.suse.de [10.163.17.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D9F051A05C63
+ for <ltp@lists.linux.it>; Mon, 30 Oct 2023 11:49:35 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 2DB9F2CB30;
- Mon, 30 Oct 2023 11:08:21 +0000 (UTC)
-References: <20231027104951.32464-1-rpalethorpe@suse.com>
- <20231027110116.GA649751@pevik> <ZTvH_DptjIrZJx-A@yuki>
- <20231027174512.GA710840@pevik>
-User-agent: mu4e 1.10.7; emacs 29.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-Date: Mon, 30 Oct 2023 10:39:17 +0000
-Organization: Linux Private Site
-In-reply-to: <20231027174512.GA710840@pevik>
-Message-ID: <878r7ktljv.fsf@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2D26621941;
+ Mon, 30 Oct 2023 10:49:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1698662974; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=XxRWK2oLMJHVhmIrUa3lPxeShEeePwAkjWAcCNV3WGs=;
+ b=OC9gXOZw3KR6eeAkX0ccSHfnr4tucSCNL79YxCQ5ybYBQ8wNsxN2m/Jr8cBXHqCb+HuldZ
+ DoYk+FEEV0hE8BrWr8riXQ4BhOOdFpRTuscD11AR2Fq+ySR9CMh9H352sRII1X1x0w4qQD
+ 2UKM+4q7nQXUWorvEhCWopejXv2mQTw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1698662974;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=XxRWK2oLMJHVhmIrUa3lPxeShEeePwAkjWAcCNV3WGs=;
+ b=03i6ow13L7OI4y21zsrpVLXeJL+R94OYBOsrYrF5MkU36M35wUrGWHyB29oWglo9o9b36z
+ mbKz4pY5g4oMViCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 18A56138EF;
+ Mon, 30 Oct 2023 10:49:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 9IjABT6KP2XzNQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 30 Oct 2023 10:49:34 +0000
+Date: Mon, 30 Oct 2023 11:50:04 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <ZT-KXPKV6aB8teaw@yuki>
+References: <20231030100008.5280-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20231030100008.5280-1-rpalethorpe@suse.com>
+Authentication-Results: smtp-out1.suse.de;
+	none
 X-Spam-Level: 
-X-Spamd-Bar: /
-Authentication-Results: smtp-out1.suse.de; dkim=none; dmarc=none;
- spf=softfail (smtp-out1.suse.de: 149.44.160.134 is neither permitted nor
- denied by domain of rpalethorpe@suse.de) smtp.mailfrom=rpalethorpe@suse.de
-X-Rspamd-Server: rspamd2
-X-Spamd-Result: default: False [0.79 / 50.00]; ARC_NA(0.00)[];
- HAS_REPLYTO(0.30)[rpalethorpe@suse.de]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[3]; TO_DN_SOME(0.00)[];
+X-Spam-Score: -6.59
+X-Spamd-Result: default: False [-6.59 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  NEURAL_HAM_LONG(-3.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- REPLYTO_ADDR_EQ_FROM(0.00)[]; DMARC_NA(0.20)[suse.de];
- R_SPF_SOFTFAIL(0.60)[~all:c]; HAS_ORG_HEADER(0.00)[];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; VIOLATED_DIRECT_SPF(3.50)[];
- MX_GOOD(-0.01)[]; NEURAL_HAM_SHORT(-1.00)[-1.000];
- RWL_MAILSPIKE_GOOD(0.00)[149.44.160.134:from];
- RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
- R_DKIM_NA(0.20)[]; MIME_TRACE(0.00)[0:+];
- RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[];
- BAYES_HAM(-0.00)[32.36%]
-X-Spam-Score: 0.79
-X-Rspamd-Queue-Id: A64AF21CEC
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-2.99)[99.96%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] controllers/cpuset: Make mount failure TCONF
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cgroup: Fix scanning V1 mount options
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,56 +91,20 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi!
+Looks good to me.
 
-Petr Vorel <pvorel@suse.cz> writes:
-
->> Hi!
->> > > It appears that if the subsystem is available under V2 then mounting
->> > > the V1 can fail. Probably when the V2 has processes assigned to a
->> > > group it controls.
->
->> > Sounds likely, but it would be good to check this in the kernel code or with
->> > kernel cgroup developers.
->
->> I'm pretty sure that controller can be used either in v1, or in v2 but
->> not from both at the same time by choice. Some of the changes between v1
->> and v2 are incompatible so this couldn't work either way.
->
->> I think that once the controller name is written to
->> /sys/fs/cgroup/unified/cgroup.subtree_controll mounting it to v1 should
->> fail, so maybe we should just try to grep the fail instead and exit the
->> test with TCONF if we found the controller bound to v2 already.
->
-> Sounds like a good idea.
-
-I tried a quick experiment. Adding it to cgroup.subtree_control is not
-enough. However adding a process to a cgroup where the controller is
-enabled causes mount to fail with EBUSY. There could be other ways. I
-would assume that sort of thing can change as well between kernel versions.
-
-If we want to avoid attempting the mount then maybe even just scanning
-cgroup.controllers is best. This is practically what we do in tst_cgroup
-lib. However there is also just the option of not running the test on
-systems where only V2 will be used. So this is just a minimal fix to
-keep the test limping along until they are obsolete or rewritten
-entirely.
-
-Another option would be to split the tests into V1 only and everything
-else. That would work for us if distros are practically stopping support for
-V1 on newer versions. Then there is no need to make these tests detect
-V2, we just don't run them on those systems.
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
