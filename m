@@ -2,72 +2,62 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E47E87DBD89
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Oct 2023 17:12:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18BC47EAD5A
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Nov 2023 10:50:42 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D81B73CF3F2
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Oct 2023 17:12:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DC94D3CE4C7
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Nov 2023 10:50:41 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EF0913CF3DB
- for <ltp@lists.linux.it>; Mon, 30 Oct 2023 17:12:04 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 7D0FD3CEB3C
+ for <ltp@lists.linux.it>; Tue, 31 Oct 2023 02:53:17 +0100 (CET)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3AA3C1000993
- for <ltp@lists.linux.it>; Mon, 30 Oct 2023 17:12:03 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3C8EC1FEE7;
- Mon, 30 Oct 2023 16:12:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1698682323; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BTP9nM9tW01TKQwL7b/D3Pj8UAQkcbo+uAG/wKx9UzM=;
- b=cc83X5kt47uckGQCZ0kalNpEVBX93yNNlacn3P8umBclkyQiwcSggvvJ55IdTjdN/vA+b8
- 6F0jCDmjhHsnnPYDppOAZLTBbRHWnmncNc7cCZvij/xWkt5b0Cl6Hs9g50FnoxyA1lE8vI
- 7bY9ZAuksLeTvz+ZInlMZWoHWIeeD1Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1698682323;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BTP9nM9tW01TKQwL7b/D3Pj8UAQkcbo+uAG/wKx9UzM=;
- b=gnvwRYuoeisbSWt9OLy27sp3byQ0e9C7dQd93O7Q0OKWgsMjSEY2XyTk8drU8CJVy65pw1
- eUFqdhaa00Ke7YBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 28622138F8;
- Mon, 30 Oct 2023 16:12:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BQRgCNPVP2VhBQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 30 Oct 2023 16:12:03 +0000
-Date: Mon, 30 Oct 2023 17:12:33 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Spoorthy <spoorthy@linux.ibm.com>
-Message-ID: <ZT_V8Z02VCvz_qiM@yuki>
-References: <20230912121238.64692-1-spoorthy@linux.ibm.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 80770600750
+ for <ltp@lists.linux.it>; Tue, 31 Oct 2023 02:53:12 +0100 (CET)
+X-UUID: e67e9f41a2914ef2a0357cb28757153b-20231031
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.32, REQID:ec9b4dbb-8cf2-476c-b25e-53335b2502db, IP:20,
+ URL:0,TC:0,Content:0,EDM:25,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACT
+ ION:release,TS:30
+X-CID-INFO: VERSION:1.1.32, REQID:ec9b4dbb-8cf2-476c-b25e-53335b2502db, IP:20,
+ UR
+ L:0,TC:0,Content:0,EDM:25,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:30
+X-CID-META: VersionHash:5f78ec9, CLOUDID:39fe80d7-04a0-4e50-8742-3543eab8cb8e,
+ B
+ ulkID:23103109501841XJK58Q,BulkQuantity:1,Recheck:0,SF:66|24|17|19|44|102,
+ TC:nil,Content:0,EDM:5,IP:-2,URL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0,O
+ SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_FSI
+X-UUID: e67e9f41a2914ef2a0357cb28757153b-20231031
+X-User: wangxuewen@kylinos.cn
+Received: from wxw-qitianm428-n000.. [(39.156.73.13)] by mailgw
+ (envelope-from <wangxuewen@kylinos.cn>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1219363071; Tue, 31 Oct 2023 09:53:04 +0800
+From: wangxuewen@kylinos.cn
+To: ltp@lists.linux.it
+Date: Tue, 31 Oct 2023 09:53:01 +0800
+Message-Id: <20231031015301.355147-1-wangxuewen@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230912121238.64692-1-spoorthy@linux.ibm.com>
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Hugetlb: Migrating libhugetlbfs shm-perms
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Mailman-Approved-At: Tue, 14 Nov 2023 10:50:40 +0100
+Subject: [LTP] [PATCH] hugemmap24: loongarch:Add __longarch__ for
+ compatibility with Loongarch
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,177 +69,57 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: wangxuewen <wangxuewen@kylinos.cn>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Migrating the libhugetlbfs/tests/shm-perms.c test
-> 
-> Test Description: Test shared memory behavior when multiple threads are attached
-> to a segment with different permissions. A segment is created
-> and children attach read-only to check reservation accounting.
+From: wangxuewen <wangxuewen@kylinos.cn>
 
-First of all there are style problems in the patchset, please run
-'make check' and fix all reported problems.
+This allows for a lower address branch on the Longarch platform.
 
-> Signed-off-by: Spoorthy <spoorthy@linux.ibm.com>
-> ---
->  runtest/hugetlb                               |  1 +
->  testcases/kernel/mem/.gitignore               |  1 +
->  .../mem/hugetlb/hugeshmat/hugeshmat06.c       | 86 +++++++++++++++++++
->  3 files changed, 88 insertions(+)
->  create mode 100644 testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat06.c
-> 
-> diff --git a/runtest/hugetlb b/runtest/hugetlb
-> index 299c07ac9..240701b2b 100644
-> --- a/runtest/hugetlb
-> +++ b/runtest/hugetlb
-> @@ -44,6 +44,7 @@ hugeshmat02 hugeshmat02 -i 5
->  hugeshmat03 hugeshmat03 -i 5
->  hugeshmat04 hugeshmat04 -i 5
->  hugeshmat05 hugeshmat05 -i 5
-> +hugeshmat06 hugeshmat06
->  
->  hugeshmctl01 hugeshmctl01 -i 5
->  hugeshmctl02 hugeshmctl02 -i 5
-> diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
-> index 7258489ed..9f7fb1e76 100644
-> --- a/testcases/kernel/mem/.gitignore
-> +++ b/testcases/kernel/mem/.gitignore
-> @@ -39,6 +39,7 @@
->  /hugetlb/hugeshmat/hugeshmat03
->  /hugetlb/hugeshmat/hugeshmat04
->  /hugetlb/hugeshmat/hugeshmat05
-> +/hugetlb/hugeshmat/hugeshmat06
->  /hugetlb/hugeshmctl/hugeshmctl01
->  /hugetlb/hugeshmctl/hugeshmctl02
->  /hugetlb/hugeshmctl/hugeshmctl03
-> diff --git a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat06.c b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat06.c
-> new file mode 100644
-> index 000000000..ca36ae2f4
-> --- /dev/null
-> +++ b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat06.c
-> @@ -0,0 +1,86 @@
-> +// SPDX-License-Identifier: LGPL-2.1-or-later
-> +/*
-> + * Copyright (C) 2005-2006 IBM Corporation.
-> + * Author: David Gibson & Adam Litke
-> + */
-> +
-> +/*\
-> + * [Description]
-> + *
-> + * Test shared memory behavior when multiple threads are attached  
-> + * to a segment with different permissions.  A segment is created  
-> + * and children attach read-only to check reservation accounting.  
-> + */
-> +
-> +
-> +#include "tst_safe_sysv_ipc.h"
-> +#include "hugetlb.h"
-> +
-> +#define SEGMENT_SIZE ((size_t) 0x4000000)
-> +#define SEGMENT_KEY (0x82ba15ff)
-> +#define STRIDE (0x200000)
-> +#define MNTPOINT "hugetlbfs/"
-> +
-> +static int global_shmid = -1;
-> +
-> +void *shm_addr = NULL;
+./hugemmap24
+tst_hugepage.c:83: TINFO: 4 hugepage(s) reserved
+tst_test.c:1560: TINFO: Timeout per run is 0h 00m 30s
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0x20000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0x30000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0x40000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0x50000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0x60000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0x70000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0x80000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0x90000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0xa0000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0xb0000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0xc0000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0xd0000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0xe0000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0xf0000000000: EINVAL (22)
+hugemmap24.c:64: TINFO: can't use slice_boundary: 0x100000000000: EINVAL (22)
+hugemmap24.c:72: TFAIL: couldn't find 2 free neighbour slices: EINVAL (22)
 
-should be static
+Signed-off-by: wangxuewen <wangxuewen@kylinos.cn>
+---
+ testcases/kernel/mem/hugetlb/hugemmap/hugemmap24.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> +static long hpage_size;
-> +
-> +int attach_segment(size_t segsize, int shmflags, int shmperms)
-
-here as well.
-
-> +{
-> +    int shmid;
-> +    shmid = SAFE_SHMGET(SEGMENT_KEY, segsize, shmflags);
-> +    shm_addr = SAFE_SHMAT(shmid, shm_addr, shmperms); 
-> +    global_shmid = shmid;
-
-I do not thint that this works as intended. The test cleanup() is not
-executed for child processes.
-
-> +    return shmid;
-> +}
-> +
-> +static void setup(void)
-> +{
-> +    hpage_size = tst_get_hugepage_size();
-> +}
-> +
-> +static void run_test(void)
-> +{
-> +    char *p;
-> +    int i, iterations;
-> +    long total_hpages = SAFE_READ_MEMINFO(MEMINFO_HPAGE_TOTAL);
-> +    if (hpage_size > SEGMENT_SIZE)
-> +        tst_res(TCONF,"Page size is too large for configured SEGMENT_SIZE");
-
-Why do we set static sement size? Why can't we just use multiple of
-hugepage size instead?
-
-> +    iterations = (total_hpages * hpage_size) / SEGMENT_SIZE + 1;
-> +    SAFE_MALLOC(sizeof(pid_t) * iterations);
-> +    attach_segment(SEGMENT_SIZE, IPC_CREAT | SHM_HUGETLB | 0640, 0);
-> +    p = (char *)shm_addr;
-> +    for (i = 0; i < 4; i++, p += STRIDE)
-> +        memset(p, 0x55, STRIDE);
-> +    
-> +    SAFE_SHMDT((const void *)shm_addr);
-> +    for (i = 0; i < iterations; i++)
-> +    {
-> +        SAFE_FORK();
-> +        attach_segment(0, 0, SHM_RDONLY);
-> +        SAFE_SHMDT((const void *)shm_addr);
-
-This code runs both for child and parent, this looks like a mistake.
-
-Also at which point should the child exit?
-
-> +    }
-> +    tst_reap_children();
-
-Here as well all children gets here.
-
-> +    tst_res(TPASS, "Successfully tested shared memory behavior when multiple threads are attached");
-
-What did we actually validated here? What is the purpose of the test?
-
-My guess is that we are trying to check that we can attach shm hugepages
-several times and the number of hugepages in use does not grow, but the
-code does not seem to match that expecation.
-
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +    if (global_shmid >= 0)
-> +        SAFE_SHMCTL(global_shmid, IPC_RMID, NULL);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.needs_root = 1,
-> +	.mntpoint = MNTPOINT,
-> +	.needs_hugetlbfs = 1,
-> +	.needs_tmpdir = 1,
-> +	.forks_child = 1,
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.test_all = run_test,
-> +	.hugepages = {32, TST_NEEDS},
-> +};
-
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap24.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap24.c
+index 158a03010..431dc1bbf 100644
+--- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap24.c
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap24.c
+@@ -30,7 +30,7 @@ static int init_slice_boundary(int fd)
+ 	unsigned long slice_size;
+ 	void *p, *heap;
+ 	int i;
+-#if defined(__LP64__) && !defined(__aarch64__)
++#if defined(__LP64__) && !defined(__aarch64__) && !defined(__loongarch__)
+ 	/* powerpc: 1TB slices starting at 1 TB */
+ 	slice_boundary = 0x10000000000;
+ 	slice_size = 0x10000000000;
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.34.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
