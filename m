@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A5537DD139
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Oct 2023 17:09:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 416347DD18B
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Oct 2023 17:27:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3890C3CE9EC
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Oct 2023 17:09:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 13F4F3CE9EF
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Oct 2023 17:27:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
@@ -14,62 +14,38 @@ Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 008DA3C8883
- for <ltp@lists.linux.it>; Tue, 31 Oct 2023 17:09:26 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0F9CD20099E
- for <ltp@lists.linux.it>; Tue, 31 Oct 2023 17:09:25 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 31BB01F6E6;
- Tue, 31 Oct 2023 16:09:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1698768565; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=EuYmnU9ZKG2RkhUT0BL+yWcLC7QLpxfXmKg3mkbNYms=;
- b=Clc/4Zt/4QDFUwtLh1RQrRPoKRm8PZl8Evwu8jEFn8BfDsj3xmkNrIDVsLC2y50yuPUucB
- cY0UOVLc6LRidZrp8vIjAo6FYzoLmPnJ5LKKCi6I5w87z+JTqAdcFGhZF5+vQxCAk6xbFk
- SYi9LQ2tMqW3/w8y9nXLgxH8bb9UEP8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1698768565;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=EuYmnU9ZKG2RkhUT0BL+yWcLC7QLpxfXmKg3mkbNYms=;
- b=8C+71iEPYX7SvSS/wdka/LLsYuODNT1BKwjjsXlpqCcQw1VcJlFkN5klZ7+iPU/R9Whuvp
- LJYl0PqwtDg/FkCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0AFA5138EF;
- Tue, 31 Oct 2023 16:09:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IM1NAbUmQWUmSgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 31 Oct 2023 16:09:25 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 31 Oct 2023 17:09:18 +0100
-Message-ID: <20231031160918.17845-2-pvorel@suse.cz>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231031160918.17845-1-pvorel@suse.cz>
-References: <20231031160918.17845-1-pvorel@suse.cz>
+ by picard.linux.it (Postfix) with ESMTPS id 276F53CE9E2
+ for <ltp@lists.linux.it>; Tue, 31 Oct 2023 17:27:48 +0100 (CET)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 9419E2064FD
+ for <ltp@lists.linux.it>; Tue, 31 Oct 2023 17:27:46 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 371A92F4;
+ Tue, 31 Oct 2023 09:28:25 -0700 (PDT)
+Received: from FVFF77S0Q05N (unknown [10.57.36.213])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 155193F67D;
+ Tue, 31 Oct 2023 09:27:40 -0700 (PDT)
+Date: Tue, 31 Oct 2023 16:27:35 +0000
+From: Mark Rutland <mark.rutland@arm.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Message-ID: <ZUEq9_0vJzmnW5ed@FVFF77S0Q05N>
+References: <CA+G9fYsCskpn_TNpSwLq9HGUgtT=aZpDzs7SVrqpa9WmyYFaxQ@mail.gmail.com>
+ <ZTqGBzOQd4Oi3e9j@FVFF77S0Q05N.cambridge.arm.com>
+ <CAMj1kXE8VrG6aPsjByd83kavw7He6vn=DszhJfAd-TfP9y8VBA@mail.gmail.com>
+ <CA+G9fYuQxUhsrL_=uYSAdotU1_Wx7iu5PxFuG9EzWgBE2nMjcw@mail.gmail.com>
+ <CAMj1kXESknQ40SZRMFv6Vv32x-2mSuMyOxoURQwwO1apQ+m=jA@mail.gmail.com>
+ <CA+G9fYv3Ph6UDpW1uhoXD5QBE4tAZKpUkVy-Oo9NNrghChL_+A@mail.gmail.com>
+ <CAMj1kXE9c3YVbiuwB6cQnWsmUu_kh=vnipJgitYcUh_HWeS=OA@mail.gmail.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAMj1kXE9c3YVbiuwB6cQnWsmUu_kh=vnipJgitYcUh_HWeS=OA@mail.gmail.com>
 X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] runtest/net.nfs: Rename test names
+Subject: Re: [LTP] qemu-arm64: handle_futex_death - kernel/futex/core.c:661
+ - Unable to handle kernel unknown 43 at virtual address
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,226 +57,105 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
+ LTP List <ltp@lists.linux.it>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will.deacon@arm.com>, open list <linux-kernel@vger.kernel.org>,
+ Oliver Upton <oliver.upton@linux.dev>,
+ Linux-Next Mailing List <linux-next@vger.kernel.org>,
+ lkft-triage@lists.linaro.org, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Test names weren't obvious, rename to be more descriptive.
+On Mon, Oct 30, 2023 at 09:14:56AM +0100, Ard Biesheuvel wrote:
+> From 97dea432bceadfcece84484609374c277afc2c81 Mon Sep 17 00:00:00 2001
+> From: Ard Biesheuvel <ardb@kernel.org>
+> Date: Sat, 28 Oct 2023 09:40:29 +0200
+> Subject: [PATCH v2] Add missing ESR decoding for level -1 translation faults
+> 
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- runtest/net.nfs | 188 ++++++++++++++++++++++++------------------------
- 1 file changed, 94 insertions(+), 94 deletions(-)
+As a heads-up, looking at this some more we'll also need to rework the usage of
+of ESR_ELx_FSC_TYPE and ESR_ELx_FSC_LEVEL, since those no longer work correctly
+Level -1 xFSC value. ESR_ELx_FSC_TYPE is 0x3c and ESR_ELx_FSC_LEVEL is 0x3, and
+work on the basis that the xFSC fault types are encoded as xxxxyy, where the
+xxxx is the type and the yy is the level (0 to 3).
 
-diff --git a/runtest/net.nfs b/runtest/net.nfs
-index 15a960017..7556ed4fc 100644
---- a/runtest/net.nfs
-+++ b/runtest/net.nfs
-@@ -2,107 +2,107 @@
- #
- # PLEASE READ THE README FILE network/README.md BEFORE RUNNING THESE.
- #
--nfs3_01 nfs01.sh -v 3 -t udp
--nfs3t_01 nfs01.sh -v 3 -t tcp
--nfs4_01 nfs01.sh -v 4 -t tcp
--nfs41_01 nfs01.sh -v 4.1 -t tcp
--nfs42_01 nfs01.sh -v 4.2 -t tcp
--nfs3_ipv6_01 nfs01.sh -6 -v 3 -t udp
--nfs3t_ipv6_01 nfs01.sh -6 -v 3 -t tcp
--nfs4_ipv6_01 nfs01.sh -6 -v 4 -t tcp
--nfs41_ipv6_01 nfs01.sh -6 -v 4.1 -t tcp
--nfs42_ipv6_01 nfs01.sh -6 -v 4.2 -t tcp
-+nfs01.sh_v3_ipv4_udp nfs01.sh -v 3 -t udp
-+nfs01.sh_v3_ipv4_tcp nfs01.sh -v 3 -t tcp
-+nfs01.sh_v4_ipv4_tcp nfs01.sh -v 4 -t tcp
-+nfs01.sh_v4.1_ipv4_tcp nfs01.sh -v 4.1 -t tcp
-+nfs01.sh_v4.2_ipv4_tcp nfs01.sh -v 4.2 -t tcp
-+nfs01.sh_v3_ipv6_udp nfs01.sh -6 -v 3 -t udp
-+nfs01.sh_v3_ipv6_tcp nfs01.sh -6 -v 3 -t tcp
-+nfs01.sh_v4_ipv6_tcp nfs01.sh -6 -v 4 -t tcp
-+nfs01.sh_v4.1_ipv6_tcp nfs01.sh -6 -v 4.1 -t tcp
-+nfs01.sh_v4.2_ipv6_tcp nfs01.sh -6 -v 4.2 -t tcp
- 
--nfs3_02 nfs02.sh -v 3 -t udp
--nfs3t_02 nfs02.sh -v 3 -t tcp
--nfs4_02 nfs02.sh -v 4 -t tcp
--nfs41_02 nfs02.sh -v 4.1 -t tcp
--nfs42_02 nfs02.sh -v 4.2 -t tcp
--nfs3_ipv6_02 nfs02.sh -6 -v 3 -t udp
--nfs3t_ipv6_02 nfs02.sh -6 -v 3 -t tcp
--nfs4_ipv6_02 nfs02.sh -6 -v 4 -t tcp
--nfs41_ipv6_02 nfs02.sh -6 -v 4.1 -t tcp
--nfs42_ipv6_02 nfs02.sh -6 -v 4.2 -t tcp
-+nfs02.sh_v3_ipv4_udp nfs02.sh -v 3 -t udp
-+nfs02.sh_v3_ipv4_tcp nfs02.sh -v 3 -t tcp
-+nfs02.sh_v4_ipv4_tcp nfs02.sh -v 4 -t tcp
-+nfs02.sh_v4.1_ipv4_tcp nfs02.sh -v 4.1 -t tcp
-+nfs02.sh_v4.2_ipv4_tcp nfs02.sh -v 4.2 -t tcp
-+nfs02.sh_v3_ipv6_udp nfs02.sh -6 -v 3 -t udp
-+nfs02.sh_v3_ipv6_tcp nfs02.sh -6 -v 3 -t tcp
-+nfs02.sh_v4_ipv6_tcp nfs02.sh -6 -v 4 -t tcp
-+nfs02.sh_v4.1_ipv6_tcp nfs02.sh -6 -v 4.1 -t tcp
-+nfs02.sh_v4.2_ipv6_tcp nfs02.sh -6 -v 4.2 -t tcp
- 
--nfs3_03 nfs03.sh -v 3 -t udp
--nfs3t_03 nfs03.sh -v 3 -t tcp
--nfs4_03 nfs03.sh -v 4 -t tcp
--nfs41_03 nfs03.sh -v 4.1 -t tcp
--nfs42_03 nfs03.sh -v 4.2 -t tcp
--nfs3_ipv6_03 nfs03.sh -6 -v 3 -t udp
--nfs3t_ipv6_03 nfs03.sh -6 -v 3 -t tcp
--nfs4_ipv6_03 nfs03.sh -6 -v 4 -t tcp
--nfs41_ipv6_03 nfs03.sh -6 -v 4.1 -t tcp
--nfs42_ipv6_03 nfs03.sh -6 -v 4.2 -t tcp
-+nfs03.sh_v3_ipv4_udp nfs03.sh -v 3 -t udp
-+nfs03.sh_v3_ipv4_tcp nfs03.sh -v 3 -t tcp
-+nfs03.sh_v4_ipv4_tcp nfs03.sh -v 4 -t tcp
-+nfs03.sh_v4.1_ipv4_tcp nfs03.sh -v 4.1 -t tcp
-+nfs03.sh_v4.2_ipv4_tcp nfs03.sh -v 4.2 -t tcp
-+nfs03.sh_v3_ipv6_udp nfs03.sh -6 -v 3 -t udp
-+nfs03.sh_v3_ipv6_tcp nfs03.sh -6 -v 3 -t tcp
-+nfs03.sh_v4_ipv6_tcp nfs03.sh -6 -v 4 -t tcp
-+nfs03.sh_v4.1_ipv6_tcp nfs03.sh -6 -v 4.1 -t tcp
-+nfs03.sh_v4.2_ipv6_tcp nfs03.sh -6 -v 4.2 -t tcp
- 
--nfs3_04 nfs04.sh -v 3 -t udp
--nfs3t_04 nfs04.sh -v 3 -t tcp
--nfs4_04 nfs04.sh -v 4 -t tcp
--nfs41_04 nfs04.sh -v 4.1 -t tcp
--nfs42_04 nfs04.sh -v 4.2 -t tcp
--nfs3_ipv6_04 nfs04.sh -6 -v 3 -t udp
--nfs3t_ipv6_04 nfs04.sh -6 -v 3 -t tcp
--nfs4_ipv6_04 nfs04.sh -6 -v 4 -t tcp
--nfs41_ipv6_04 nfs04.sh -6 -v 4.1 -t tcp
--nfs42_ipv6_04 nfs04.sh -6 -v 4.2 -t tcp
-+nfs04.sh_v3_ipv4_udp nfs04.sh -v 3 -t udp
-+nfs04.sh_v3_ipv4_tcp nfs04.sh -v 3 -t tcp
-+nfs04.sh_v4_ipv4_tcp nfs04.sh -v 4 -t tcp
-+nfs04.sh_v4.1_ipv4_tcp nfs04.sh -v 4.1 -t tcp
-+nfs04.sh_v4.2_ipv4_tcp nfs04.sh -v 4.2 -t tcp
-+nfs04.sh_v3_ipv6_udp nfs04.sh -6 -v 3 -t udp
-+nfs04.sh_v3_ipv6_tcp nfs04.sh -6 -v 3 -t tcp
-+nfs04.sh_v4_ipv6_tcp nfs04.sh -6 -v 4 -t tcp
-+nfs04.sh_v4.1_ipv6_tcp nfs04.sh -6 -v 4.1 -t tcp
-+nfs04.sh_v4.2_ipv6_tcp nfs04.sh -6 -v 4.2 -t tcp
- 
--nfs3_05 nfs05.sh -v 3 -t udp
--nfs3t_05 nfs05.sh -v 3 -t tcp
--nfs4_05 nfs05.sh -v 4 -t tcp
--nfs41_05 nfs05.sh -v 4.1 -t tcp
--nfs42_05 nfs05.sh -v 4.2 -t tcp
--nfs3_ipv6_05 nfs05.sh -6 -v 3 -t udp
--nfs3t_ipv6_05 nfs05.sh -6 -v 3 -t tcp
--nfs4_ipv6_05 nfs05.sh -6 -v 4 -t tcp
--nfs41_ipv6_05 nfs05.sh -6 -v 4.1 -t tcp
--nfs42_ipv6_05 nfs05.sh -6 -v 4.2 -t tcp
-+nfs05.sh_v3_ipv4_udp nfs05.sh -v 3 -t udp
-+nfs05.sh_v3_ipv4_tcp nfs05.sh -v 3 -t tcp
-+nfs05.sh_v4_ipv4_tcp nfs05.sh -v 4 -t tcp
-+nfs05.sh_v4.1_ipv4_tcp nfs05.sh -v 4.1 -t tcp
-+nfs05.sh_v4.2_ipv4_tcp nfs05.sh -v 4.2 -t tcp
-+nfs05.sh_v3_ipv6_udp nfs05.sh -6 -v 3 -t udp
-+nfs05.sh_v3_ipv6_tcp nfs05.sh -6 -v 3 -t tcp
-+nfs05.sh_v4_ipv6_tcp nfs05.sh -6 -v 4 -t tcp
-+nfs05.sh_v4.1_ipv6_tcp nfs05.sh -6 -v 4.1 -t tcp
-+nfs05.sh_v4.2_ipv6_tcp nfs05.sh -6 -v 4.2 -t tcp
- 
--nfs01_06  nfs06.sh -v "3,3,3,4,4,4" -t "udp,udp,tcp,tcp,tcp,tcp"
--nfs02_06 nfs06.sh -v "3,4,4.1,4.2,4.2,4.2" -t "tcp,tcp,tcp,tcp,tcp,tcp"
--nfs03_ipv6_06 nfs06.sh -6 -v "4,4.1,4.1,4.2,4.2,4.2" -t "tcp,tcp,tcp,tcp,tcp,tcp"
-+nfs06.sh_v3_v4_ipv4_tcp_udp  nfs06.sh -v "3,3,3,4,4,4" -t "udp,udp,tcp,tcp,tcp,tcp"
-+nfs06.sh_vall_ipv4tcp nfs02_06 nfs06.sh -v "3,4,4.1,4.2,4.2,4.2" -t "tcp,tcp,tcp,tcp,tcp,tcp"
-+nfs06.sh_v4*_ipv6_tcp nfs03_ipv6_06 nfs06.sh -6 -v "4,4.1,4.1,4.2,4.2,4.2" -t "tcp,tcp,tcp,tcp,tcp,tcp"
- 
--nfs3_07 nfs07.sh -v 3 -t udp
--nfs3t_07 nfs07.sh -v 3 -t tcp
--nfs4_07 nfs07.sh -v 4 -t tcp
--nfs41_07 nfs07.sh -v 4.1 -t tcp
--nfs42_07 nfs07.sh -v 4.2 -t tcp
--nfs3_ipv6_07 nfs07.sh -6 -v 3 -t udp
--nfs3t_ipv6_07 nfs07.sh -6 -v 3 -t tcp
--nfs4_ipv6_07 nfs07.sh -6 -v 4 -t tcp
--nfs41_ipv6_07 nfs07.sh -6 -v 4.1 -t tcp
--nfs42_ipv6_07 nfs07.sh -6 -v 4.2 -t tcp
-+nfs07.sh_v3_ipv4_udp nfs07.sh -v 3 -t udp
-+nfs07.sh_v3_ipv4_tcp nfs07.sh -v 3 -t tcp
-+nfs07.sh_v4_ipv4_tcp nfs07.sh -v 4 -t tcp
-+nfs07.sh_v4.1_ipv4_tcp nfs07.sh -v 4.1 -t tcp
-+nfs07.sh_v4.2_ipv4_tcp nfs07.sh -v 4.2 -t tcp
-+nfs07.sh_v3_ipv6_udp nfs07.sh -6 -v 3 -t udp
-+nfs07.sh_v3_ipv6_tcp nfs07.sh -6 -v 3 -t tcp
-+nfs07.sh_v4_ipv6_tcp nfs07.sh -6 -v 4 -t tcp
-+nfs07.sh_v4.1_ipv6_tcp nfs07.sh -6 -v 4.1 -t tcp
-+nfs07.sh_v4.2_ipv6_tcp nfs07.sh -6 -v 4.2 -t tcp
- 
--nfs3_08 nfs08.sh -v 3 -t udp
--nfs3t_08 nfs08.sh -v 3 -t tcp
--nfs4_08 nfs08.sh -v 4 -t tcp
--nfs41_08 nfs08.sh -v 4.1 -t tcp
--nfs42_08 nfs08.sh -v 4.2 -t tcp
--nfs3_ipv6_08 nfs08.sh -6 -v 3 -t udp
--nfs3t_ipv6_08 nfs08.sh -6 -v 3 -t tcp
--nfs4_ipv6_08 nfs08.sh -6 -v 4 -t tcp
--nfs41_ipv6_08 nfs08.sh -6 -v 4.1 -t tcp
--nfs42_ipv6_08 nfs08.sh -6 -v 4.2 -t tcp
-+nfs08.sh_v3_ipv4_udp nfs08.sh -v 3 -t udp
-+nfs08.sh_v3_ipv4_tcp nfs08.sh -v 3 -t tcp
-+nfs08.sh_v4_ipv4_tcp nfs08.sh -v 4 -t tcp
-+nfs08.sh_v4.1_ipv4_tcp nfs08.sh -v 4.1 -t tcp
-+nfs08.sh_v4.2_ipv4_tcp nfs08.sh -v 4.2 -t tcp
-+nfs08.sh_v3_ipv6_udp nfs08.sh -6 -v 3 -t udp
-+nfs08.sh_v3_ipv6_tcp nfs08.sh -6 -v 3 -t tcp
-+nfs08.sh_v4_ipv6_tcp nfs08.sh -6 -v 4 -t tcp
-+nfs08.sh_v4.1_ipv6_tcp nfs08.sh -6 -v 4.1 -t tcp
-+nfs08.sh_v4.2_ipv6_tcp nfs08.sh -6 -v 4.2 -t tcp
- 
--nfslock3_01 nfslock01.sh -v 3 -t udp
--nfslock3t_01 nfslock01.sh -v 3 -t tcp
--nfslock4_01 nfslock01.sh -v 4 -t tcp
--nfslock41_01 nfslock01.sh -v 4.1 -t tcp
--nfslock42_01 nfslock01.sh -v 4.2 -t tcp
--nfslock3_ipv6_01 nfslock01.sh -6 -v 3 -t udp
--nfslock3t_ipv6_01 nfslock01.sh -6 -v 3 -t tcp
--nfslock4_ipv6_01 nfslock01.sh -6 -v 4 -t tcp
--nfslock41_ipv6_01 nfslock01.sh -6 -v 4.1 -t tcp
--nfslock42_ipv6_01 nfslock01.sh -6 -v 4.2 -t tcp
-+nfslock01.sh_v3_ipv4_udp nfslock01.sh -v 3 -t udp
-+nfslock01.sh_v3_ipv4_tcp nfslock01.sh -v 3 -t tcp
-+nfslock01.sh_v4_ipv4_tcp nfslock01.sh -v 4 -t tcp
-+nfslock01.sh_v4.1_ipv4_tcp nfslock01.sh -v 4.1 -t tcp
-+nfslock01.sh_v4.2_ipv4_tcp nfslock01.sh -v 4.2 -t tcp
-+nfslock01.sh_v3_ipv6_udp nfslock01.sh -6 -v 3 -t udp
-+nfslock01.sh_v3_ipv6_tcp nfslock01.sh -6 -v 3 -t tcp
-+nfslock01.sh_v4_ipv6_tcp nfslock01.sh -6 -v 4 -t tcp
-+nfslock01.sh_v4.1_ipv6_tcp nfslock01.sh -6 -v 4.1 -t tcp
-+nfslock01.sh_v4.2_ipv6_tcp nfslock01.sh -6 -v 4.2 -t tcp
- 
--nfsstat3_01 nfsstat01.sh
-+nfsstat3.sh nfsstat01.sh
- 
--nfsx3 fsx.sh -v 3 -t udp
--nfsx3t fsx.sh -v 3 -t tcp
--nfsx4 fsx.sh -v 4 -t tcp
--nfsx41 fsx.sh -v 4.1 -t tcp
--nfsx42 fsx.sh -v 4.2 -t tcp
--nfsx3_ipv6 fsx.sh -6 -v 3 -t udp
--nfsx3t_ipv6 fsx.sh -6 -v 3 -t tcp
--nfsx4_ipv6 fsx.sh -6 -v 4 -t tcp
--nfsx41_ipv6 fsx.sh -6 -v 4.1 -t tcp
--nfsx42_ipv6 fsx.sh -6 -v 4.2 -t tcp
-+fsx.sh_v3_ipv4_udp fsx.sh -v 3 -t udp
-+fsx.sh_v3_ipv4_tcp fsx.sh -v 3 -t tcp
-+fsx.sh_v4_ipv4_tcp fsx.sh -v 4 -t tcp
-+fsx.sh_v4.1_ipv4_tcp fsx.sh -v 4.1 -t tcp
-+fsx.sh_v4.2_ipv4_tcp fsx.sh -v 4.2 -t tcp
-+fsx.sh_v3_ipv6_udp fsx.sh -6 -v 3 -t udp
-+fsx.sh_v3_ipv6_tcp fsx.sh -6 -v 3 -t tcp
-+fsx.sh_v4_ipv6_tcp fsx.sh -6 -v 4 -t tcp
-+fsx.sh_v4.1_ipv6_tcp fsx.sh -6 -v 4.1 -t tcp
-+fsx.sh_v4.2_ipv6_tcp fsx.sh -6 -v 4.2 -t tcp
--- 
-2.42.0
+That didn't expand naturally to level -1. For example, Level {0,1,2,3}
+translation faults get reported as 0b0001xx, where the xx encodes the level,
+while Level -1 translation faults get reported as 0b101011.
+
+That ends up affecting:
+
+* All the is_${FOO}_fault() predicat functions, e.g. is_translation_fault(),
+  is_el1_permission_fault() and is_spurious_el1_translation_fault().
+
+* Places where we synthesize an xFSC value, e.g. set_thread_esr()
+
+* A bunch of KVM due to the use of kvm_vcpu_trap_get_fault_type()
+
+... and we probably need to remove ESR_ELx_FSC_TYPE and ESR_ELx_FSC_LEVEL
+entirely to avoid the possiblity of misuse.
+
+Mark.
+
+> ---
+>  arch/arm64/mm/fault.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+> index 2e5d1e238af9..13f192691060 100644
+> --- a/arch/arm64/mm/fault.c
+> +++ b/arch/arm64/mm/fault.c
+> @@ -780,18 +780,18 @@ static const struct fault_info fault_info[] = {
+>  	{ do_translation_fault,	SIGSEGV, SEGV_MAPERR,	"level 1 translation fault"	},
+>  	{ do_translation_fault,	SIGSEGV, SEGV_MAPERR,	"level 2 translation fault"	},
+>  	{ do_translation_fault,	SIGSEGV, SEGV_MAPERR,	"level 3 translation fault"	},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 8"			},
+> +	{ do_page_fault,	SIGSEGV, SEGV_ACCERR,	"level 0 access flag fault"	},
+>  	{ do_page_fault,	SIGSEGV, SEGV_ACCERR,	"level 1 access flag fault"	},
+>  	{ do_page_fault,	SIGSEGV, SEGV_ACCERR,	"level 2 access flag fault"	},
+>  	{ do_page_fault,	SIGSEGV, SEGV_ACCERR,	"level 3 access flag fault"	},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 12"			},
+> +	{ do_page_fault,	SIGSEGV, SEGV_ACCERR,	"level 0 permission fault"	},
+>  	{ do_page_fault,	SIGSEGV, SEGV_ACCERR,	"level 1 permission fault"	},
+>  	{ do_page_fault,	SIGSEGV, SEGV_ACCERR,	"level 2 permission fault"	},
+>  	{ do_page_fault,	SIGSEGV, SEGV_ACCERR,	"level 3 permission fault"	},
+>  	{ do_sea,		SIGBUS,  BUS_OBJERR,	"synchronous external abort"	},
+>  	{ do_tag_check_fault,	SIGSEGV, SEGV_MTESERR,	"synchronous tag check fault"	},
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 18"			},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 19"			},
+> +	{ do_sea,		SIGKILL, SI_KERNEL,	"level -1 (translation table walk)"	},
+>  	{ do_sea,		SIGKILL, SI_KERNEL,	"level 0 (translation table walk)"	},
+>  	{ do_sea,		SIGKILL, SI_KERNEL,	"level 1 (translation table walk)"	},
+>  	{ do_sea,		SIGKILL, SI_KERNEL,	"level 2 (translation table walk)"	},
+> @@ -799,7 +799,7 @@ static const struct fault_info fault_info[] = {
+>  	{ do_sea,		SIGBUS,  BUS_OBJERR,	"synchronous parity or ECC error" },	// Reserved when RAS is implemented
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 25"			},
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 26"			},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 27"			},
+> +	{ do_sea,		SIGKILL, SI_KERNEL,	"level -1 synchronous parity error (translation table walk)"	},	// Reserved when RAS is implemented
+>  	{ do_sea,		SIGKILL, SI_KERNEL,	"level 0 synchronous parity error (translation table walk)"	},	// Reserved when RAS is implemented
+>  	{ do_sea,		SIGKILL, SI_KERNEL,	"level 1 synchronous parity error (translation table walk)"	},	// Reserved when RAS is implemented
+>  	{ do_sea,		SIGKILL, SI_KERNEL,	"level 2 synchronous parity error (translation table walk)"	},	// Reserved when RAS is implemented
+> @@ -813,9 +813,9 @@ static const struct fault_info fault_info[] = {
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 38"			},
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 39"			},
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 40"			},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 41"			},
+> +	{ do_bad,		SIGKILL, SI_KERNEL,	"level -1 address size fault"	},
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 42"			},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 43"			},
+> +	{ do_translation_fault,	SIGSEGV, SEGV_MAPERR,	"level -1 translation fault"	},
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 44"			},
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 45"			},
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 46"			},
+> -- 
+> 2.42.0.820.g83a721a137-goog
+> 
 
 
 -- 
