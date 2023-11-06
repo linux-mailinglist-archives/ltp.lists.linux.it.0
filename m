@@ -1,74 +1,88 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A02D47E1EF7
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Nov 2023 11:54:59 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5292B7E1F01
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Nov 2023 11:58:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5AE143CE053
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Nov 2023 11:54:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 060BD3CE053
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Nov 2023 11:58:28 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3349F3CC737
- for <ltp@lists.linux.it>; Mon,  6 Nov 2023 11:54:57 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id DAF683CC737
+ for <ltp@lists.linux.it>; Mon,  6 Nov 2023 11:58:26 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 74B65200DCA
- for <ltp@lists.linux.it>; Mon,  6 Nov 2023 11:54:57 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 082472185F;
- Mon,  6 Nov 2023 10:54:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1699268097; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C6A9360563C
+ for <ltp@lists.linux.it>; Mon,  6 Nov 2023 11:58:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1699268304;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=lQ1N68q2P1jZ9rKmhkpTUS8ORBcY7eQORsGhaDdX6V4=;
- b=Ee/Psw2mJiN/vbd3lt1px405+9eRk0HKV+h56aP3eP6r8GHdOfnCcSiyU2GjDxxABgaOhy
- KLU/f/FBCaqNSNqxc7uEdb7P+OvfFiVGRaPiymbYiXMUJ4L39M8Y07WcBorwnonjdS8eKt
- v/1mencZPOFNtOFGk2sFVJhKMMTBHxQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1699268097;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lQ1N68q2P1jZ9rKmhkpTUS8ORBcY7eQORsGhaDdX6V4=;
- b=NOeHAEqCHBM3dzBsMcMe7BEuLU60vY4rnyazym5SqrslZkUezj8m9Ir8cpgLjiOt2/WpjZ
- tWDkPevdNLD5WVBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9EE9F138E5;
- Mon,  6 Nov 2023 10:54:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SPFaJQDGSGXCIAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 06 Nov 2023 10:54:56 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon,  6 Nov 2023 11:54:17 +0100
-Message-ID: <20231106105418.1240169-3-pvorel@suse.cz>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231106105418.1240169-1-pvorel@suse.cz>
-References: <20231106105418.1240169-1-pvorel@suse.cz>
+ bh=gRKLxhaItaJ81pNT3O0zb/UuBsfFKpOn4KLhdTnEcAg=;
+ b=C5PhMWzLXQtTRnO2/PrQws648KPVNVP3jBGdaGmhjYCxpu4Xal85Zw4tsM3fyey3DQbqiW
+ WjcvSCHqWxwUIJGX6sjgCv4eVKBorGvuQAFtX7kYpnmzrx0HYPIdby0zu6Jor3Dw0NGD/x
+ 3oMv0o6xtgCJBsbrbza84y6lbHjSLzA=
+Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
+ [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-76-RvgWlFrhO6G_l0pEdkGibw-1; Mon, 06 Nov 2023 05:58:22 -0500
+X-MC-Unique: RvgWlFrhO6G_l0pEdkGibw-1
+Received: by mail-lf1-f71.google.com with SMTP id
+ 2adb3069b0e04-50798a259c7so3979953e87.1
+ for <ltp@lists.linux.it>; Mon, 06 Nov 2023 02:58:21 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699268300; x=1699873100;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gRKLxhaItaJ81pNT3O0zb/UuBsfFKpOn4KLhdTnEcAg=;
+ b=STkYc4RnUwwt0Db1fqHTeZWrttYUMwadKf1C+CTrBnuqjX2PXSWsLPzV1Z8tWgYaOq
+ su+HAAnS7r2+eo6o00B7WIYKGNZUBQ17J7/+mG580CTIZN64FtLoX/eyNE9/cFH+P5jO
+ ffn72ArUefqW0Z7vNEUlX6qJFkBBTMVz78mAU+ifCOuHhW5YSnfq/RgV+G40ZmUiz0ER
+ /184zqARCh2qCa+o8NpoWQQYlK2IairnLXqSfK6x9aCZukZS8J2GzASrhpgstW/UEmwp
+ Rc3uNkSQh0af6eTe5XdCMa3NcAfSCdZE+OR6N4QHwJ2I2Zi/uK+Sr3mWe1/PQjhXdOdi
+ E0eg==
+X-Gm-Message-State: AOJu0Yy++Yne/3zEE9Rf+XRMqrf/DGnTenj+8jQ5PK1R8S6/z89y6HhB
+ SWPd2pbN7O0FbC/uU+aEQ2RHUuWUhOtQQZjtr85RxnlEHCCa/LgzxqfnjBuCjBzQyCimSpn5Z/r
+ hGVMlpT/NpRym6M0oJ/7E1b4zDYo=
+X-Received: by 2002:a05:6512:3096:b0:508:11f5:8953 with SMTP id
+ z22-20020a056512309600b0050811f58953mr11591520lfd.26.1699268300528; 
+ Mon, 06 Nov 2023 02:58:20 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFM4q+JGpEztpvxkYtJzO9UiEqQNtCsFY2JvVxl9Wiq1b8+kZrh606pMhOXwJNw89CO2l4T1f3iaauBC4b9ORk=
+X-Received: by 2002:a05:6512:3096:b0:508:11f5:8953 with SMTP id
+ z22-20020a056512309600b0050811f58953mr11591508lfd.26.1699268300156; Mon, 06
+ Nov 2023 02:58:20 -0800 (PST)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+References: <20231102072030.1800796-1-liwang@redhat.com>
+ <20231102092135.GA921952@pevik>
+ <CAEemH2fWDQgPv+9TR9nb4rw5CsJx3uGKS+Yvb3YqgNEOUSVYmg@mail.gmail.com>
+ <20231103091439.GA1026385@pevik>
+ <CAEemH2ewUHBC17LL+4OXd8AZqciGrRqo4Ty+Hik2KcXP+t4fNA@mail.gmail.com>
+ <20231106104023.GA1236692@pevik>
+In-Reply-To: <20231106104023.GA1236692@pevik>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 6 Nov 2023 18:58:08 +0800
+Message-ID: <CAEemH2fbsZaK11MRgS+jqowWihStX9NX5dc4fcgcDrbFfJULOA@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 2/2] doc/support: Update the oldest tested distros
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: Re: [LTP] [PATCH] ci: add centos stream support
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,52 +94,49 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Ulrich Hecht <uli@kernel.org>, Richard Palethorpe <rpalethorpe@suse.com>,
- automated-testing@lists.yoctoproject.org
+Cc: Chao Ye <cye@redhat.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Update changes from previous commit (CentOS 7 replaced by Ubuntu 16.04
-LTS xenial and openSUSE Leap 42.2).
+Petr Vorel <pvorel@suse.cz> wrote:
 
-Also remove note about Debian 10 oldstable (buster), because since
-June 2023, when Debian 12 bookworm was released as Debian stable,
-the oldstable release codename alias points to Debian 11 bullseye
-which uses quite new software (kernel 5.10, glibc: 2.31, gcc 10.2)
-therefore not mentioned in the table.
 
-Acked-by: Jan Stancek <jstancek@redhat.com>
-Reviewed-by: Li Wang <liwang@redhat.com>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- doc/Supported-kernel,-libc,-toolchain-versions.asciidoc | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+>
+> > > If we want to add both CentOS 8 and 9, we could remove some of
+> > > debian:oldstable (bullseye)
+> > > (similar kernel).
+>
+> > > And, we could add just openSUSE Leap 42.2, which has older glibc and
+> gcc
+> > > than
+> > > Ubuntu 16.04 LTS xenial. For sure there are more people which use
+> xenial
+> > > than
+> > > old Leap 42.2, but as I said, the goal is to test the oldest distro we
+> > > maintainers really care about (and do not have extra work for nothing,
+> > > which is
+> > > IMHO keeping CentOS 7 compilable).
+>
+> > > WDYT?
+>
+>
+> > Your explanation is quite useful, thanks!
+>
+> > I'm fine to remove the CentOS8 build in this patch,
+> > should I resent the new patch or push it directly?
+>
+> You can push it directly. If it does not apply, feel free to push my change
+> first. I'll post a note about keeping only openSUSE Leap 42.2 in the
+> patchset.
+>
 
-diff --git a/doc/Supported-kernel,-libc,-toolchain-versions.asciidoc b/doc/Supported-kernel,-libc,-toolchain-versions.asciidoc
-index e3d9cd92f..bdb3e44f3 100644
---- a/doc/Supported-kernel,-libc,-toolchain-versions.asciidoc
-+++ b/doc/Supported-kernel,-libc,-toolchain-versions.asciidoc
-@@ -19,12 +19,11 @@ NOTE: GitHub Actions does only build testing, passing the CI means only that
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
- [align="center",options="header"]
--|==============================================================
-+|===============================================================
- | Distro                       | kernel  | glibc | gcc   | clang
--| CentOS 7                     | 3.10    | 2.17  | 4.8.5 | -
-+| openSUSE Leap 42.2           | 4.4     | 2.22  | 4.8.5 | -
- | Ubuntu 18.04 LTS bionic      | 4.15    | 2.27  | 7.3.0 | -
--| Debian 10 oldstable (buster) | 4.19.37 | 2.28  | 8.3.0 | 7.0
--|==============================================================
-+|===============================================================
- 
- Older distributions are not officially supported, which means that it
- may or may not work. It all depends on your luck. It should be possible
+Done, and sorry I just merged the V2 then see you post V3 patches.
+
 -- 
-2.42.0
-
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
