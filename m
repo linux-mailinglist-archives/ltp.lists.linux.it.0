@@ -1,71 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FE9A7E1D47
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Nov 2023 10:30:54 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 86CB17E1D4A
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Nov 2023 10:31:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 898303CE323
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Nov 2023 10:30:53 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1BEC83CF1BE
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Nov 2023 10:31:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C96883C26EE
- for <ltp@lists.linux.it>; Mon,  6 Nov 2023 10:30:41 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 5FC723CC72A
+ for <ltp@lists.linux.it>; Mon,  6 Nov 2023 10:30:46 +0100 (CET)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D1C001400450
- for <ltp@lists.linux.it>; Mon,  6 Nov 2023 10:30:40 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B49FC10011C3
+ for <ltp@lists.linux.it>; Mon,  6 Nov 2023 10:30:45 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1699263039;
+ s=mimecast20190719; t=1699263044;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=3X8UM2rmp/5TUEgsN2Uqr/aaYH9cCL1EEaYuRj2puLI=;
- b=CNqjHxCzTtWW8HaRK6hucz+nkfSwS4OaYpHeJGdCIunDE7ehaJErCOHdOjK96mIEavnmJT
- 3/ixr9KFCqq5/1eygG8Y9Gg5zpe/C8cRxpi66RPFEJ6FY9bYFyGGugIDDk5DROY0UCPguL
- vl3yAGl9jDFQC2zNLahFGV7n0UfWMJ8=
+ bh=I4CLBaYy/njdz8+jsl4dFMlMIxI5HcKd3ltaHx30t54=;
+ b=Ya8FlmYtvihjbFzWBq5JZ3oA8QImgA2qWYiu8hTl6iPWOsHoOWwHsieG24Vm7TdmGyofJd
+ 5jDBtz+yXiT0UfN6iIabqzVz7hbmo90rm6bSSKvj9v2dA96Zjei6YiKER9MPk5qeoh+ENG
+ 8C6WS5uNVdQEvVEmJAeTsPX93JgBsMU=
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-199-XQLJfQOvNXSR3hT9SUsAyw-1; Mon,
- 06 Nov 2023 04:30:37 -0500
-X-MC-Unique: XQLJfQOvNXSR3hT9SUsAyw-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-448-LM7z2pHvNEWuzePMKfxePw-1; Mon,
+ 06 Nov 2023 04:30:39 -0500
+X-MC-Unique: LM7z2pHvNEWuzePMKfxePw-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
  [10.11.54.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D3392810D44
- for <ltp@lists.linux.it>; Mon,  6 Nov 2023 09:30:37 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B9FEE3C100A2
+ for <ltp@lists.linux.it>; Mon,  6 Nov 2023 09:30:38 +0000 (UTC)
 Received: from liwang-workstation.lab.eng.nay.redhat.com (unknown
  [10.66.145.229])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4FD9A1C060AE
- for <ltp@lists.linux.it>; Mon,  6 Nov 2023 09:30:36 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CDF411C060AE
+ for <ltp@lists.linux.it>; Mon,  6 Nov 2023 09:30:37 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Mon,  6 Nov 2023 17:30:29 +0800
-Message-Id: <20231106093031.1844129-2-liwang@redhat.com>
+Date: Mon,  6 Nov 2023 17:30:30 +0800
+Message-Id: <20231106093031.1844129-3-liwang@redhat.com>
 In-Reply-To: <20231106093031.1844129-1-liwang@redhat.com>
 References: <20231106093031.1844129-1-liwang@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/3] lib: add support for kinds of hpsize
- reservation
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 2/3] hugemmap32: improvement test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,251 +82,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Typically when we make use of huge page via LTP library, .hugepages choose
-the default hugepage size, but this can not satisfy all scenarios.
-
-So this patch introduces applying a specified types of hugepage for user.
-
-There is nothing that needs to change for the existing test cases which
-already using .hugepages, it only needs to fill one more field in the
-structure of .hugepages if a different type (GIGANTIC or HUGE) is required.
-
-e.g.
-
-    static struct tst_test test = {
-	.needs_root = 1,
-	...
-	.hugepages = {2, TST_NEEDS, TST_GIGANTIC},
-    };
-
 Signed-off-by: Li Wang <liwang@redhat.com>
 ---
- doc/C-Test-API.asciidoc | 42 +++++++++++++++++++++++++--
- include/tst_hugepage.h  | 11 +++++++
- lib/tst_hugepage.c      | 63 ++++++++++++++++++++++++++++++++++++-----
- 3 files changed, 107 insertions(+), 9 deletions(-)
+ .../kernel/mem/hugetlb/hugemmap/hugemmap32.c  | 59 +------------------
+ 1 file changed, 2 insertions(+), 57 deletions(-)
 
-diff --git a/doc/C-Test-API.asciidoc b/doc/C-Test-API.asciidoc
-index dab811564..82a1866d3 100644
---- a/doc/C-Test-API.asciidoc
-+++ b/doc/C-Test-API.asciidoc
-@@ -2034,9 +2034,13 @@ For full documentation see the comments in 'include/tst_fuzzy_sync.h'.
- ~~~~~~~~~~~~~~~~~~~~~~~~
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap32.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap32.c
+index d27e5b8b2..8f57a79ac 100644
+--- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap32.c
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap32.c
+@@ -18,67 +18,13 @@
  
- Many of the LTP tests need to use hugepage in their testing, this allows the
--test can reserve hugepages from system via '.hugepages = {xx, TST_REQUEST}'.
-+test can reserve specify size of hugepages from system via:
-+  '.hugepages = {xx, TST_REQUEST, TST_HUGE}'  or,
-+  '.hugepages = {xx, TST_NEEDS,   TST_GIGANTIC}'.
+ #define _GNU_SOURCE
+ #include <dirent.h>
+-
+ #include <stdio.h>
  
--We achieved two policies for reserving hugepages:
-+xx: This is used to set how many pages we wanted.
-+
-+Two policies for reserving hugepage:
+ #include "hugetlb.h"
  
- TST_REQUEST:
-   It will try the best to reserve available huge pages and return the number
-@@ -2049,6 +2053,17 @@ TST_NEEDS:
-   use these specified numbers correctly. Otherwise, test exits with TCONF if
-   the attempt to reserve hugepages fails or reserves less than requested.
- 
-+Two types of the reserved hugepage (optional field):
-+
-+TST_HUGE:
-+  It means target for reserve the default hugepage size (e.g. 2MB on x86_64).
-+  And, if nothing fills in this field LTP also chooses the default hugepage
-+  size to reserve. i.e.
-+  '.hugepages = {xx, TST_REQUEST}' == '.hugepages = {xx, TST_REQUEST, TST_HUGE}'
-+
-+TST_GIGANTIC:
-+  It means target for reserve the largest hugepage size (e.g. 1GB on x86_64)
-+
- With success test stores the reserved hugepage number in 'tst_hugepages'. For
- system without hugetlb supporting, variable 'tst_hugepages' will be set to 0.
- If the hugepage number needs to be set to 0 on supported hugetlb system, please
-@@ -2103,6 +2118,29 @@ struct tst_test test = {
- };
- -------------------------------------------------------------------------------
- 
-+or,
-+
-+[source,c]
-+-------------------------------------------------------------------------------
-+#include "tst_test.h"
-+
-+static void run(void)
-+{
-+	...
-+}
-+
-+struct tst_test test = {
-+	.test_all = run,
-+	/*
-+	 * Specify gigantic page sizes reserved automatically in the library
-+	 * $ echo 2 > /sys/kernel/mm//hugepages/hugepages-1048576kB/nr_hugepages
-+	 * Do check if 2 hpages are reserved correctly in there.
-+	 */
-+	.hugepages = {2, TST_NEEDS, TST_GIGANTIC},
-+	...
-+};
-+-------------------------------------------------------------------------------
-+
- 1.35 Checking for required commands
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
-diff --git a/include/tst_hugepage.h b/include/tst_hugepage.h
-index 46327c79a..725b4ddaf 100644
---- a/include/tst_hugepage.h
-+++ b/include/tst_hugepage.h
-@@ -24,9 +24,15 @@ enum tst_hp_policy {
- 	TST_NEEDS,
- };
- 
-+enum tst_hp_type {
-+	TST_HUGE,
-+	TST_GIGANTIC,
-+};
-+
- struct tst_hugepage {
- 	const unsigned long number;
- 	enum  tst_hp_policy policy;
-+	enum  tst_hp_type   hptype;
- };
- 
- /*
-@@ -34,6 +40,11 @@ struct tst_hugepage {
-  */
- size_t tst_get_hugepage_size(void);
- 
-+/*
-+ * Get the largest hugepage (gigantic) size. Returns 0 if hugepages are not supported.
-+ */
-+size_t tst_get_gigantic_size(void);
-+
- /*
-  * Try the best to request a specified number of huge pages from system,
-  * it will store the reserved hpage number in tst_hugepages.
-diff --git a/lib/tst_hugepage.c b/lib/tst_hugepage.c
-index d2e70a955..3a7c412f3 100644
---- a/lib/tst_hugepage.c
-+++ b/lib/tst_hugepage.c
-@@ -5,6 +5,7 @@
- 
- #define TST_NO_DEFAULT_MAIN
- 
-+#include <stdio.h>
- #include "tst_test.h"
- #include "tst_hugepage.h"
- 
-@@ -20,11 +21,35 @@ size_t tst_get_hugepage_size(void)
- 	return SAFE_READ_MEMINFO("Hugepagesize:") * 1024;
- }
- 
-+size_t tst_get_gigantic_size(void)
-+{
-+	DIR *dir;
-+	struct dirent *ent;
-+	unsigned long max, g_pgsz;
-+
-+	max = tst_get_hugepage_size() / 1024;
-+
-+	/*
-+	 * Scanning the largest hugepage sisze, for example aarch64 configuration:
-+	 * hugepages-1048576kB hugepages-32768kB hugepages-2048kB hugepages-64kB
-+	 */
-+	dir = SAFE_OPENDIR(PATH_HUGEPAGES);
-+	while ((ent = SAFE_READDIR(dir)) != NULL) {
-+		if (sscanf(ent->d_name, "hugepages-%lukB", &g_pgsz)
-+				&& (g_pgsz > max))
-+			max = g_pgsz;
-+	}
-+
-+	SAFE_CLOSEDIR(dir);
-+	return max * 1024;
-+}
-+
- unsigned long tst_reserve_hugepages(struct tst_hugepage *hp)
+-#define PATH_HUGEPAGE "/sys/kernel/mm/hugepages"
+-#define GIGANTIC_MIN_ORDER 10
+-
+-static int org_g_hpages;
+-static char g_hpage_path[4096];
+-
+ static void run_test(void)
  {
--	unsigned long val, max_hpages;
-+	unsigned long val, max_hpages, hpsize;
-+	char hugepage_path[PATH_MAX];
- 	struct tst_path_val pvl = {
--		.path = PATH_NR_HPAGES,
-+		.path = hugepage_path,
- 		.val = NULL,
- 		.flags = TST_SR_SKIP_MISSING | TST_SR_TCONF_RO
- 	};
-@@ -41,6 +66,19 @@ unsigned long tst_reserve_hugepages(struct tst_hugepage *hp)
- 	else
- 		tst_hugepages = hp->number;
- 
-+	if (hp->hptype == TST_GIGANTIC)
-+		hpsize = tst_get_gigantic_size() / 1024;
-+	else
-+		hpsize = tst_get_hugepage_size() / 1024;
-+
-+	sprintf(hugepage_path, PATH_HUGEPAGES"/hugepages-%lukB/nr_hugepages", hpsize);
-+	if (access(hugepage_path, F_OK)) {
-+		if (hp->policy == TST_NEEDS)
-+			tst_brk(TCONF, "Hugepage size %lu not supported", hpsize);
-+		tst_hugepages = 0;
-+		goto out;
-+	}
-+
- 	if (hp->number == TST_NO_HUGEPAGES) {
- 		tst_hugepages = 0;
- 		goto set_hugepages;
-@@ -49,11 +87,18 @@ unsigned long tst_reserve_hugepages(struct tst_hugepage *hp)
- 	SAFE_FILE_PRINTF("/proc/sys/vm/drop_caches", "3");
- 	SAFE_FILE_PRINTF("/proc/sys/vm/compact_memory", "1");
- 	if (hp->policy == TST_NEEDS) {
-+		/*
-+		 * In case of the gigantic page configured as the default hugepage size,
-+		 * we have to garantee the TST_NEEDS take effect.
-+		 */
-+		if (tst_get_gigantic_size() != tst_get_hugepage_size())
-+			goto set_hugepages;
-+
- 		tst_hugepages += SAFE_READ_MEMINFO("HugePages_Total:");
- 		goto set_hugepages;
- 	}
- 
--	max_hpages = SAFE_READ_MEMINFO("MemFree:") / SAFE_READ_MEMINFO("Hugepagesize:");
-+	max_hpages = SAFE_READ_MEMINFO("MemFree:") / hpsize;
- 	if (tst_hugepages > max_hpages) {
- 		tst_res(TINFO, "Requested number(%lu) of hugepages is too large, "
- 				"limiting to 80%% of the max hugepage count %lu",
-@@ -66,22 +111,26 @@ unsigned long tst_reserve_hugepages(struct tst_hugepage *hp)
- 
- set_hugepages:
- 	tst_sys_conf_save(&pvl);
--	SAFE_FILE_PRINTF(PATH_NR_HPAGES, "%lu", tst_hugepages);
--	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%lu", &val);
-+
-+	SAFE_FILE_PRINTF(hugepage_path, "%lu", tst_hugepages);
-+	SAFE_FILE_SCANF(hugepage_path, "%lu", &val);
-+
- 	if (val != tst_hugepages)
- 		tst_brk(TCONF, "nr_hugepages = %lu, but expect %lu. "
- 				"Not enough hugepages for testing.",
- 				val, tst_hugepages);
- 
- 	if (hp->policy == TST_NEEDS) {
--		unsigned long free_hpages = SAFE_READ_MEMINFO("HugePages_Free:");
-+		unsigned long free_hpages;
-+		sprintf(hugepage_path, PATH_HUGEPAGES"/hugepages-%lukB/free_hugepages", hpsize);
-+		SAFE_FILE_SCANF(hugepage_path, "%lu", &free_hpages);
- 		if (hp->number > free_hpages)
- 			tst_brk(TCONF, "free_hpages = %lu, but expect %lu. "
- 				"Not enough hugepages for testing.",
- 				free_hpages, hp->number);
- 	}
- 
--	tst_res(TINFO, "%lu hugepage(s) reserved", tst_hugepages);
-+	tst_res(TINFO, "%lu (%luMB) hugepage(s) reserved", tst_hugepages, hpsize/1024);
- out:
- 	return tst_hugepages;
+-	if (FILE_PRINTF(g_hpage_path, "%d", 1))
+-		tst_brk(TCONF, "Can't update the gigantic hugepages.");
+-	SAFE_FILE_PRINTF(g_hpage_path, "%d", 0);
+-
+-	if (tst_taint_check())
+-		tst_res(TFAIL, "Freeing Gigantic pages resulted in Bad Page State bug.");
+-	else
+-		tst_res(TPASS, "Successfully freed the gigantic hugepages");
+-}
+-
+-static void setup(void)
+-{
+-	DIR *dir;
+-	struct dirent *ent;
+-	unsigned long hpage_size;
+-
+-	if (access(PATH_HUGEPAGE, F_OK))
+-		tst_brk(TCONF, "hugetlbfs is not supported");
+-
+-	dir = SAFE_OPENDIR(PATH_HUGEPAGE);
+-	while ((ent = SAFE_READDIR(dir))) {
+-		if ((sscanf(ent->d_name, "hugepages-%lukB", &hpage_size) == 1) &&
+-			is_hugetlb_gigantic(hpage_size * 1024)) {
+-			sprintf(g_hpage_path, "%s/%s/%s", PATH_HUGEPAGE,
+-					ent->d_name, "nr_hugepages");
+-			break;
+-		}
+-	}
+-	if (!g_hpage_path[0])
+-		tst_brk(TCONF, "Gigantic hugepages not supported");
+-
+-	SAFE_CLOSEDIR(dir);
+-
+-	SAFE_FILE_PRINTF("/proc/sys/vm/drop_caches", "3");
+-	SAFE_FILE_PRINTF("/proc/sys/vm/compact_memory", "1");
+-
+-	if (tst_available_mem() < (long long)hpage_size) {
+-		g_hpage_path[0] = '\0';
+-		tst_brk(TCONF, "No enough memory for gigantic hugepage reservation");
+-	}
+-
+-	SAFE_FILE_LINES_SCANF(g_hpage_path, "%d", &org_g_hpages);
+-}
+-
+-static void cleanup(void)
+-{
+-	if (g_hpage_path[0])
+-		SAFE_FILE_PRINTF(g_hpage_path, "%d", org_g_hpages);
++	tst_res(TPASS, "If reserved & freed the gigantic page completely, then regard as pass");
  }
+ 
+ static struct tst_test test = {
+@@ -88,8 +34,7 @@ static struct tst_test test = {
+ 	    {}
+ 	},
+ 	.needs_root = 1,
+-	.setup = setup,
+-	.cleanup = cleanup,
++	.hugepages = {1, TST_NEEDS, TST_GIGANTIC},
+ 	.test_all = run_test,
+ 	.taint_check = TST_TAINT_B,
+ };
 -- 
 2.40.1
 
