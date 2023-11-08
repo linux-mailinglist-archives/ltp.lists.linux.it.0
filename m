@@ -1,73 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D03247E4871
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Nov 2023 19:41:23 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 32D147E5009
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Nov 2023 06:31:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 910B23CE837
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Nov 2023 19:41:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 560E63CE7DC
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Nov 2023 06:31:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A1AF43CC6C1
- for <ltp@lists.linux.it>; Tue,  7 Nov 2023 19:41:21 +0100 (CET)
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
- [IPv6:2607:f8b0:4864:20::b49])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id D36E13CC598
+ for <ltp@lists.linux.it>; Wed,  8 Nov 2023 06:31:26 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D3D54600AAA
- for <ltp@lists.linux.it>; Tue,  7 Nov 2023 19:41:20 +0100 (CET)
-Received: by mail-yb1-xb49.google.com with SMTP id
- 3f1490d57ef6-da3b6438170so6019383276.1
- for <ltp@lists.linux.it>; Tue, 07 Nov 2023 10:41:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1699382479; x=1699987279; darn=lists.linux.it;
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=CW+9pEJYp0UpZG4DFf3RhYygmFxrJ9tJKhFTtuXeA08=;
- b=wvH9nClhlgW9B3rzWNhr8y6gT+BXJYtypmzgv/3LoOVOMDEQ+tgjDP1dN5mWn+CpMi
- QFbtRo2gPhWTEpOnQtiqzDoXzmgoOTAxGJ9ZmSVKGcmfgR83M/ZTna+ZxqisLP+Z8E7c
- m5gkqM/TmF5Wz9XAGJ+dQrpvfazMF62nkwHFtq4bkOTdiRokStKaPqg5+xN5dXfz2qQH
- MtH2QqpBjS8+HjlM49sfDiTB95u6KkiIRbhfkJU6apRXXSUYySdYyixeVWYLud+pcEUt
- n3Wmno2kUwK/BVS3H/lESz2u5/T/cUVelvNPkLlkkd7UlfRLsGbUr79D1BCFUgrDmsBk
- YYHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699382479; x=1699987279;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=CW+9pEJYp0UpZG4DFf3RhYygmFxrJ9tJKhFTtuXeA08=;
- b=sCWza9zo6tO6DFs7yNFaLQGTMM1q5d8WevLls90JQYBLB/J8xa4s5hM+UXzF2MRY7e
- riDuJ2dAYOWC0CqZFL3KluX0VAgR5qRXT1tzq4himaHEIP1RvFFCqmtduWcdkrURfuyD
- eT6tqEy21eIEQilgFkHOrJsJszY4wsE6nRqezutge/LFm2M7Jfswv6l9pt5Euorfv6Vj
- yWb39I1b6Bszkt/Dg4tKhaRc6uPFoboXbzkqzrtGtf9IpAXdzUUAYR/vWAMP83pNSbZ0
- lXe0L9HO/Enmmz3C8lJQTWlHSZ2xiKAJtlsAFbXmaa2qfjnEXiIQkRYbfbCv+xuIYDGu
- 5cUg==
-X-Gm-Message-State: AOJu0YwsEIOkW2PZWr6b00rz6mqklTHvUwpkBCue3Aoruqt2gPAVH18a
- +fq+Cc8+V/1IMR2XAxy5/+RvnbNkaxbZMN77QIojesN0Cdty3rxGG5yTD/0DQiGOh0DyFMVsg/Z
- Ka4tg82AZJndWGChLI1QfGC9WY98r7F0RhcM1vKfxJycPUPaRKfXFLMTC
-X-Google-Smtp-Source: AGHT+IHGwjrFl1nmT3J0T73dn4W+UaHEy5tP6dqQjV9vA27XZsr0mMRzFCloUL4efW22xpQuP358j+Z1BY0=
-X-Received: from edliaw.c.googlers.com ([fda3:e722:ac3:cc00:24:72f4:c0a8:305d])
- (user=edliaw job=sendgmr) by 2002:a25:cb02:0:b0:d89:dd12:163d with SMTP id
- b2-20020a25cb02000000b00d89dd12163dmr620794ybg.1.1699382479028; Tue, 07 Nov
- 2023 10:41:19 -0800 (PST)
-Date: Tue,  7 Nov 2023 18:41:12 +0000
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.42.0.869.gea05f2083d-goog
-Message-ID: <20231107184113.2627463-1-edliaw@google.com>
-To: ltp@lists.linux.it
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0D7551A00A31
+ for <ltp@lists.linux.it>; Wed,  8 Nov 2023 06:31:25 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EFB3F1F45A;
+ Wed,  8 Nov 2023 05:31:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1699421484;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yY+3CHWy++Bh2sBD4mPREYQvIOiPZ1YyKVuixzofhVo=;
+ b=qafGL9VAqVrblHISb1vi8wgRJy+SDmIGY8QAQWxXSPDqlXlqTGTuG1BQzpIvHSfkbLjZXg
+ WRnziKiMt8mVsCBBzE30uZHD0ABU/7m87JRhVxEjmpUWGnSrr2EyGnxYRHZOwF/8uFgsh/
+ 5G0YkGRtj/kI+6t7tpe5muSIelDDJxU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1699421484;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yY+3CHWy++Bh2sBD4mPREYQvIOiPZ1YyKVuixzofhVo=;
+ b=nXEwPjefwiRVpdmpyig4IyEnz20MDY6qHNDu+RvZz5x32r6YLDKJ9kAM3HJ85QK/h5LK3H
+ bfCyT0LESeJDWnDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C8C3E1390F;
+ Wed,  8 Nov 2023 05:31:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id lpt3LywdS2UsawAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 08 Nov 2023 05:31:24 +0000
+Date: Wed, 8 Nov 2023 06:31:22 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Message-ID: <20231108053122.GA1383908@pevik>
+References: <20231107105836.68108-1-xuyang2018.jy@fujitsu.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20231107105836.68108-1-xuyang2018.jy@fujitsu.com>
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
- USER_IN_DEF_DKIM_WL shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] madvise11: Allow test to skip if MADV_SOFT_OFFLINE
- is not supported
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] link05: Convert docs to docparse
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,41 +79,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Edward Liaw via ltp <ltp@lists.linux.it>
-Reply-To: Edward Liaw <edliaw@google.com>
-Cc: kernel-team@android.com
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-madvise11 will exit with TFAIL if CONFIG_MEMORY_FAILURE is not
-configured.  Require it to be set instead.
+Hi Xu,
 
-Suggested-by: Cyril Hrubis <chrubis@suse.cz>
-Signed-off-by: Edward Liaw <edliaw@google.com>
----
- testcases/kernel/syscalls/madvise/madvise11.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> The description of link05's test has no relevance to the test code,
+> I've changed the description.
 
-diff --git a/testcases/kernel/syscalls/madvise/madvise11.c b/testcases/kernel/syscalls/madvise/madvise11.c
-index 74caadc44..7a12abf20 100644
---- a/testcases/kernel/syscalls/madvise/madvise11.c
-+++ b/testcases/kernel/syscalls/madvise/madvise11.c
-@@ -426,6 +426,10 @@ static struct tst_test test = {
- 		"rmmod",
- 		NULL
- 	},
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_MEMORY_FAILURE=y",
-+		NULL
-+	},
- 	.max_runtime = 30,
- 	.needs_checkpoints = 1,
- 	.setup = setup,
--- 
-2.42.0.869.gea05f2083d-goog
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+> ---
+>  testcases/kernel/syscalls/link/link05.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
 
+> diff --git a/testcases/kernel/syscalls/link/link05.c b/testcases/kernel/syscalls/link/link05.c
+> index 95787ec24..f255bc13b 100644
+> --- a/testcases/kernel/syscalls/link/link05.c
+> +++ b/testcases/kernel/syscalls/link/link05.c
+> @@ -1,13 +1,15 @@
+>  // SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+>   * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
+> - *  AUTHOR		: Richard Logan
+> - *  CO-PILOT		: William Roske
+> + * Authors: Richard Logan, William Roske
+>   * Copyright (c) 2014 Cyril Hrubis <chrubis@suse.cz>
+> + * Copyright (c) Linux Test Project, 2001-2023
+>   */
++1
+
+> -/*
+> - * Test if link(2) fails with EMLINK.
+> +/*\
+> + * [Description]
+> + *
+> + * Tests that link(2) succeeds with creating n links.
++1. I'd just instead of "n links" mention either "1000 links" or "high number of
+links" (to be more obvious).
+
+Kind regards,
+Petr
+
+>   */
+
+
+>  #include <stdio.h>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
