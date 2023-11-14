@@ -1,91 +1,89 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BCFA7EABC6
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Nov 2023 09:42:35 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 036467EAF2D
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Nov 2023 12:30:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6A0A33CE4C1
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Nov 2023 09:42:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A12373CE4E1
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Nov 2023 12:30:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9F2983CC281
- for <ltp@lists.linux.it>; Tue, 14 Nov 2023 09:42:33 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 954393CC27F
+ for <ltp@lists.linux.it>; Tue, 14 Nov 2023 12:30:36 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 52E70200D16
- for <ltp@lists.linux.it>; Tue, 14 Nov 2023 09:42:31 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7EF33687226
+ for <ltp@lists.linux.it>; Tue, 14 Nov 2023 12:30:34 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id C75C8218E2;
- Tue, 14 Nov 2023 08:42:30 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 2CE1421892;
+ Tue, 14 Nov 2023 11:30:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1699951350;
+ t=1699961433;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ShZIbI8cywnTA0esGPDETPuSzFf819kw5/pgd1kkyfc=;
- b=tMAqaxCZ/T5wRmWhvw87W4A+9w26HIJIOxDsew2nYrxhhNe+TRx0TfPC+IVcXXJ/G5V8tx
- EsPN9PLJHUTe1HdNsy34vAzbNSaqBQQEwFzTTl/vrYV9rv7vgSJp+b0kiYU91rXEeLJjW+
- y/+SgO9FEvF0TeZtkIx3FF0JpMEoAH4=
+ bh=r4jE3s0fuPtaizZfC+J8K6JTUgOiIe1j96SXkg6AkXE=;
+ b=H8iTUiNJWFjbXucbyRRF4mzQF+xFD25lqm9hdgqu8WRy5msjENBOXEYArxJTuM5mOFZOxL
+ fA0BO8cgsbRbsvQZ6/apt9kkv0RvlTuEIeVREISV8UL7c8u4D3Q8r9F4yFSn8WpMhrBVug
+ PH/uNJOWu8RGUf5rcu/XRozjAPTzeKM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1699951350;
+ s=susede2_ed25519; t=1699961433;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ShZIbI8cywnTA0esGPDETPuSzFf819kw5/pgd1kkyfc=;
- b=iy1fHjde6mVvswwYuPv3ryih5QnHMeCVVGpwLarK+UJ9VuFenlIK287TtwQTn2J20MO2M1
- OpZ1+pmLf+JS/XBg==
+ bh=r4jE3s0fuPtaizZfC+J8K6JTUgOiIe1j96SXkg6AkXE=;
+ b=8FYw2XMBLdfpDN9yPrwhDjEueghQG4KGljlc8/adOm51n8WbCG5BLre5xSgteFVSnSZ7UR
+ Bl/rMAX+lfyCEtCg==
 Received: from g78 (rpalethorpe.udp.ovpn2.prg.suse.de [10.100.204.110])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 623D62D085;
- Tue, 14 Nov 2023 08:42:30 +0000 (UTC)
-References: <20230913100803.13756-1-akumar@suse.de>
- <20230913100803.13756-2-akumar@suse.de>
- <e73de656-9075-42d5-8d0a-b6951c28d603@suse.com>
+ by relay2.suse.de (Postfix) with ESMTPS id CAFDF2C525;
+ Tue, 14 Nov 2023 11:30:32 +0000 (UTC)
+References: <20230913101542.18550-1-wegao@suse.com>
 User-agent: mu4e 1.10.7; emacs 29.1
 From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Date: Tue, 14 Nov 2023 08:37:16 +0000
+To: Wei Gao <wegao@suse.com>
+Date: Tue, 14 Nov 2023 09:17:15 +0000
 Organization: Linux Private Site
-In-reply-to: <e73de656-9075-42d5-8d0a-b6951c28d603@suse.com>
-Message-ID: <874jhobua2.fsf@suse.de>
+In-reply-to: <20230913101542.18550-1-wegao@suse.com>
+Message-ID: <87zfzga7xj.fsf@suse.de>
 MIME-Version: 1.0
 X-Spam-Level: 
 Authentication-Results: smtp-out1.suse.de; dkim=none; dmarc=none;
  spf=softfail (smtp-out1.suse.de: 149.44.160.134 is neither permitted nor
  denied by domain of rpalethorpe@suse.de) smtp.mailfrom=rpalethorpe@suse.de
 X-Rspamd-Server: rspamd2
-X-Spamd-Result: default: False [-1.21 / 50.00]; ARC_NA(0.00)[];
+X-Spamd-Result: default: False [-2.21 / 50.00]; ARC_NA(0.00)[];
  HAS_REPLYTO(0.30)[rpalethorpe@suse.de]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[3]; TO_DN_SOME(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  NEURAL_HAM_LONG(-3.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
  REPLYTO_ADDR_EQ_FROM(0.00)[]; DMARC_NA(0.20)[suse.de];
  R_SPF_SOFTFAIL(0.60)[~all:c]; HAS_ORG_HEADER(0.00)[];
- TO_MATCH_ENVRCPT_SOME(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MX_GOOD(-0.01)[]; VIOLATED_DIRECT_SPF(3.50)[];
  RWL_MAILSPIKE_GOOD(0.00)[149.44.160.134:from];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MX_GOOD(-0.01)[]; RCPT_COUNT_TWO(0.00)[2];
+ VIOLATED_DIRECT_SPF(3.50)[]; NEURAL_HAM_SHORT(-1.00)[-1.000];
  RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
  R_DKIM_NA(0.20)[]; MIME_TRACE(0.00)[0:+];
  RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[];
  BAYES_HAM(-3.00)[100.00%]
-X-Spam-Score: -1.21
-X-Rspamd-Queue-Id: C75C8218E2
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Spam-Score: -2.21
+X-Rspamd-Queue-Id: 2CE1421892
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls/munmap02: Refactor the test using
- new LTP API
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] move_mount03: check allow to mount beneath top
+ mount
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,343 +104,165 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hello,
 
-Andrea Cervesato via ltp <ltp@lists.linux.it> writes:
+Wei Gao via ltp <ltp@lists.linux.it> writes:
 
-> Hi!
+> Signed-off-by: Wei Gao <wegao@suse.com>
+> ---
+>  include/lapi/fsmount.h                        |  4 ++
+>  runtest/syscalls                              |  1 +
+>  .../kernel/syscalls/move_mount/.gitignore     |  1 +
+>  .../kernel/syscalls/move_mount/move_mount03.c | 63 +++++++++++++++++++
+>  4 files changed, 69 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/move_mount/move_mount03.c
 >
-> munmap01 and munmap02 looks quite similar. The refactoring is good to
-> me, but maybe we can merge them into a single test using 2 different
-> test cases, where the first is mapping a certain portion of the file
-> and the second an another.
+> diff --git a/include/lapi/fsmount.h b/include/lapi/fsmount.h
+> index 07eb42ffa..216e966c7 100644
+> --- a/include/lapi/fsmount.h
+> +++ b/include/lapi/fsmount.h
+> @@ -115,6 +115,10 @@ static inline int mount_setattr(int dirfd, const char *from_pathname, unsigned i
+>  }
+>  #endif /* HAVE_MOUNT_SETATTR */
+>  
+> +#ifndef MOVE_MOUNT_BENEATH
+> +#define MOVE_MOUNT_BENEATH 		0x00000200
+> +#endif /* MOVE_MOUNT_BENEATH */
+> +
+>  /*
+>   * New headers added in kernel after 5.2 release, create them for old userspace.
+>  */
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index b1125dd75..04b758fd9 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -824,6 +824,7 @@ mount_setattr01 mount_setattr01
+>  
+>  move_mount01 move_mount01
+>  move_mount02 move_mount02
+> +move_mount03 move_mount03
+>  
+>  move_pages01 move_pages01
+>  move_pages02 move_pages02
+> diff --git a/testcases/kernel/syscalls/move_mount/.gitignore b/testcases/kernel/syscalls/move_mount/.gitignore
+> index 83ae40145..ddfe10128 100644
+> --- a/testcases/kernel/syscalls/move_mount/.gitignore
+> +++ b/testcases/kernel/syscalls/move_mount/.gitignore
+> @@ -1,2 +1,3 @@
+>  /move_mount01
+>  /move_mount02
+> +/move_mount03
+> diff --git a/testcases/kernel/syscalls/move_mount/move_mount03.c b/testcases/kernel/syscalls/move_mount/move_mount03.c
+> new file mode 100644
+> index 000000000..071fd984c
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/move_mount/move_mount03.c
+> @@ -0,0 +1,63 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2023 Wei Gao <wegao@suse.com>
+> + */
+> +
+> +/*\
+> + * [Description]
+> + *
+> + * Verify allow to mount beneath top mount
 
-Yes, these should be merged. Otherwise the rewrite looks good.
+This should at least reference the following commit:
 
->
-> Regards,
-> Andrea
->
-> On 9/13/23 12:08, Avinesh Kumar wrote:
->> Signed-off-by: Avinesh Kumar <akumar@suse.de>
->> ---
->>   testcases/kernel/syscalls/munmap/munmap02.c | 297 ++++----------------
->>   1 file changed, 55 insertions(+), 242 deletions(-)
->>
->> diff --git a/testcases/kernel/syscalls/munmap/munmap02.c b/testcases/kernel/syscalls/munmap/munmap02.c
->> index b43250512..7c7fb5b2c 100644
->> --- a/testcases/kernel/syscalls/munmap/munmap02.c
->> +++ b/testcases/kernel/syscalls/munmap/munmap02.c
->> @@ -1,270 +1,83 @@
->> +// SPDX-License-Identifier: GPL-2.0-or-later
->>   /*
->> - *
->> - *   Copyright (c) International Business Machines  Corp., 2001
->> - *
->> - *   This program is free software;  you can redistribute it and/or modify
->> - *   it under the terms of the GNU General Public License as published by
->> - *   the Free Software Foundation; either version 2 of the License, or
->> - *   (at your option) any later version.
->> - *
->> - *   This program is distributed in the hope that it will be useful,
->> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
->> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
->> - *   the GNU General Public License for more details.
->> - *
->> - *   You should have received a copy of the GNU General Public License
->> - *   along with this program;  if not, write to the Free Software
->> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
->> + * Copyright (c) International Business Machines  Corp., 2001
->> + *  07/2001 Ported by Wayne Boyer
->> + * Copyright (c) 2023 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
->>    */
->>   -/*
->> - * Test Name: munmap02
->> - *
->> - * Test Description:
->> - *  Verify that, munmap call will succeed to unmap a mapped file or
->> - *  anonymous shared memory region from the calling process's address space
->> - *  if the region specified by the address and the length is part or all of
->> - *  the mapped region.
->> - *
->> - * Expected Result:
->> - *  munmap call should succeed to unmap a part or all of mapped region of a
->> - *  file or anonymous shared memory from the process's address space and it
->> - *  returns with a value 0,
->> - *  further reference to the unmapped region should result in a segmentation
->> - *  fault (SIGSEGV).
->> +/*\
->> + * [Description]
->>    *
->> - * Algorithm:
->> - *  Setup:
->> - *   Setup signal handling.
->> - *   Create temporary directory.
->> - *   Pause for SIGUSR1 if option specified.
->> - *
->> - *  Test:
->> - *   Loop if the proper options are given.
->> - *   Execute system call
->> - *   Check return code, if system call failed (return=-1)
->> - *   	Log the errno and Issue a FAIL message.
->> - *   Otherwise,
->> - *   	Verify the Functionality of system call
->> - *      if successful,
->> - *      	Issue Functionality-Pass message.
->> - *      Otherwise,
->> - *		Issue Functionality-Fail message.
->> - *  Cleanup:
->> - *   Print errno log and/or timing stats if options given
->> - *   Delete the temporary directory created.
->> - *
->> - * Usage:  <for command-line>
->> - *  munmap01 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
->> - *     where,  -c n : Run n copies concurrently.
->> - *             -f   : Turn off functionality Testing.
->> - *	       -i n : Execute test n times.
->> - *	       -I x : Execute test for x seconds.
->> - *	       -P x : Pause for x seconds between iterations.
->> - *	       -t   : Turn on syscall timing.
->> - *
->> - * HISTORY
->> - *	07/2001 Ported by Wayne Boyer
->> - *
->> - * RESTRICTIONS:
->> - *  None.
->> + * Verify that, munmap() call succeeds to unmap a mapped file region from
->> + * the calling process's address space when the region being unmapped is
->> + * only part of the total mapped region, and any attempt to access the
->> + * unmapped memory region generates SIGSEGV signal.
->>    */
->> -#include <errno.h>
->> -#include <unistd.h>
->> -#include <fcntl.h>
->> -#include <sys/stat.h>
->> -#include <sys/mman.h>
->> -
->> -#include "test.h"
->> -#include "safe_macros.h"
->> -
->> -#define TEMPFILE	"mmapfile"
->>   -char *TCID = "munmap02";
->> -int TST_TOTAL = 1;
->> +#include "tst_test.h"
->> +#include <setjmp.h>
->>   +#define TEMPFILE "mmapfile"
->> +static char *addr1, *addr2;
->> +static int fd;
->> +static volatile int sig_flag;
->> +static sigjmp_buf env;
->>   static size_t page_sz;
->> -char *addr;			/* addr of memory mapped region */
->> -int fildes;			/* file descriptor for tempfile */
->> -unsigned int map_len;		/* length of the region to be mapped */
->> +static unsigned int map_len;
->>   -void setup();			/* Main setup function of test
->> */
->> -void cleanup();			/* cleanup function for the test */
->> -void sig_handler();		/* signal catching function */
->> -
->> -#ifndef UCLINUX
->> -
->> -int main(int ac, char **av)
->> +static void sig_handler(int sig)
->>   {
->> -	int lc;
->> -
->> -	tst_parse_opts(ac, av, NULL, NULL);
->> -
->> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
->> -
->> -		tst_count = 0;
->> -
->> -		setup();
->> -
->> -		/*
->> -		 * Call munmap to unmap the part of the mapped region of the
->> -		 * temporary file from the address and length that is part of
->> -		 * the mapped region.
->> -		 */
->> -		TEST(munmap(addr, map_len));
->> -
->> -		/* Check for the return value of munmap() */
->> -		if (TEST_RETURN == -1) {
->> -			tst_resm(TFAIL, "munmap() fails, errno=%d : %s",
->> -				 TEST_ERRNO, strerror(TEST_ERRNO));
->> -			continue;
->> -		}
->> -		/*
->> -		 * Check whether further reference is possible
->> -		 * to the unmapped memory region by writing
->> -		 * to the first byte of region with
->> -		 * some arbitrary number.
->> -		 */
->> -		*addr = 50;
->> -
->> -		/* This message is printed if no SIGSEGV */
->> -		tst_resm(TFAIL, "process succeeds to refer unmapped "
->> -			 "memory region");
->> -		cleanup();
->> -
->> +	if (sig == SIGSEGV) {
->> +		sig_flag = 1;
->> +		siglongjmp(env, 1);
->>   	}
->> -	tst_exit();
->> -}
->> -
->> -#else
->> -
->> -int main(void)
->> -{
->> -	tst_resm(TINFO, "munmap02 test is not available on uClinux");
->> -	tst_exit();
->>   }
->>   -#endif /* ifndef UCLINUX */
->> -
->> -/*
->> - * setup() - performs all ONE TIME setup for this test.
->> - * Setup signal handler to catch SIGSEGV.
->> - * Get system page size, create a temporary file for reading/writing,
->> - * write one byte data into it, map the open file for the specified
->> - * map length.
->> - */
->> -void setup(void)
->> +static void setup(void)
->>   {
->> +	SAFE_SIGNAL(SIGSEGV, sig_handler);
->>   -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
->> -
->> -	/* call signal function to trap the signal generated */
->> -	if (signal(SIGSEGV, sig_handler) == SIG_ERR) {
->> -		tst_brkm(TBROK, cleanup, "signal fails to catch signal");
->> -	}
->> -
->> -	TEST_PAUSE;
->> -
->> -	/* Get the system page size */
->>   	page_sz = getpagesize();
->> +	map_len = page_sz * 3;
->>   -	/*
->> -	 * Get the length of the open file to be mapped into process
->> -	 * address space.
->> -	 */
->> -	map_len = 3 * page_sz;
->> -
->> -	tst_tmpdir();
->> +	fd = SAFE_OPEN(TEMPFILE, O_RDWR | O_CREAT, 0666);
->> +	SAFE_LSEEK(fd, map_len, SEEK_SET);
->> +	SAFE_WRITE(SAFE_WRITE_ALL, fd, "a", 1);
->> +}
->>   -	/* Creat a temporary file used for mapping */
->> -	if ((fildes = open(TEMPFILE, O_RDWR | O_CREAT, 0666)) < 0) {
->> -		tst_brkm(TBROK, cleanup, "open() on %s Failed, errno=%d : %s",
->> -			 TEMPFILE, errno, strerror(errno));
->> -	}
->> +static void run(void)
->> +{
->> +	addr1 = SAFE_MMAP(NULL, map_len, PROT_READ | PROT_WRITE, MAP_FILE | MAP_SHARED, fd, 0);
->>   -	/*
->> -	 * move the file pointer to maplength position from the beginning
->> -	 * of the file.
->> -	 */
->> -	SAFE_LSEEK(cleanup, fildes, map_len, SEEK_SET);
->> +	addr2 = (char *)((long)addr1 + page_sz);
->> +	map_len = page_sz * 2;
->>   -	/* Write one byte into temporary file */
->> -	if (write(fildes, "a", 1) != 1) {
->> -		tst_brkm(TBROK, cleanup, "write() on %s Failed, errno=%d : %s",
->> -			 TEMPFILE, errno, strerror(errno));
->> -	}
->> +	TST_EXP_PASS(munmap(addr2, map_len));
->> +	if (TST_RET == -1)
->> +		return;
->>   -	/*
->> -	 * map the open file 'TEMPFILE' from its beginning up to the maplength
->> -	 * into the calling process's address space at the system choosen
->> -	 * with read/write permissions to the the mapped region.
->> -	 */
->> -#ifdef UCLINUX
->> -	/* mmap() doesn't support MAP_SHARED on uClinux */
->> -	addr = mmap(0, map_len, PROT_READ | PROT_WRITE,
->> -		    MAP_FILE | MAP_PRIVATE, fildes, 0);
->> -#else
->> -	addr = mmap(0, map_len, PROT_READ | PROT_WRITE,
->> -		    MAP_FILE | MAP_SHARED, fildes, 0);
->> -#endif
->> +	if (sigsetjmp(env, 1) == 0)
->> +		*addr2 = 50;
->>   -	/* check for the return value of mmap system call */
->> -	if (addr == (char *)MAP_FAILED) {
->> -		tst_brkm(TBROK, cleanup, "mmap() Failed on %s, errno=%d : %s",
->> -			 TEMPFILE, errno, strerror(errno));
->> -	}
->> +	if (sig_flag == 1)
->> +		tst_res(TPASS, "Received SIGSEGV signal");
->> +	else
->> +		tst_res(TFAIL, "SIGSEGV signal not received");
->>   -	/*
->> -	 * increment the start address of the region at which the file is
->> -	 * mapped to a maplength of 3 times the system page size by the value
->> -	 * of system  page size and decrement the maplength value by the value
->> -	 * of system page size.
->> -	 */
->> -	addr = (char *)((long)addr + page_sz);
->> -	map_len = map_len - page_sz;
->> +	SAFE_MUNMAP(addr1, page_sz);
->> +	map_len = page_sz * 3;
->> +	sig_flag = 0;
->>   }
->>   -/*
->> - * void
->> - * sig_handler() - signal catching function.
->> - *   This function is used to trap the signal generated when tried to read or
->> - *   write to the memory mapped region which is already detached from the
->> - *   calling process address space.
->> - *   this function is invoked when SIGSEGV generated and it calls test
->> - *   cleanup function and exit the program.
->> - */
->> -void sig_handler(void)
->> +static void cleanup(void)
->>   {
->> -	tst_resm(TPASS, "Functionality of munmap() successful");
->> -
->> -	/* Invoke test cleanup function and exit */
->> -	cleanup();
->> -
->> -	tst_exit();
->> +	if (fd > 0)
->> +		SAFE_CLOSE(fd);
->>   }
->>   -/*
->> - * cleanup() - performs all ONE TIME cleanup for this test at
->> - *             completion or premature exit.
->> - *  Unmap the portion of the region of the file left unmapped.
->> - *  Close the temporary file.
->> - *  Remove the temporary directory.
->> - */
->> -void cleanup(void)
->> -{
->> -
->> -	/*
->> -	 * get the start address and length of the portion of
->> -	 * the mapped region of the file.
->> -	 */
->> -	addr = (char *)((long)addr - page_sz);
->> -	map_len = map_len - page_sz;
->> -
->> -	/* unmap the portion of the region of the file left unmapped */
->> -	SAFE_MUNMAP(NULL, addr, map_len);
->> -
->> -	/* Close the temporary file */
->> -	SAFE_CLOSE(NULL, fildes);
->> -
->> -	tst_rmdir();
->> -}
->> +static struct tst_test test = {
->> +	.setup = setup,
->> +	.cleanup = cleanup,
->> +	.test_all = run,
->> +	.needs_tmpdir = 1
->> +};
+commit 6ac392815628f317fcfdca1a39df00b9cc4ebc8b
+Author: Christian Brauner <brauner@kernel.org>
+Date:   Wed May 3 13:18:42 2023 +0200
+
+    fs: allow to mount beneath top mount
+
+To be honest I am struggling to understand what all of this
+does. However I think that I found some issues with the test which I
+have noted below.
+
+> + *
+> + */
+> +
+> +#include <stdio.h>
+> +
+> +#include "tst_test.h"
+> +#include "lapi/fsmount.h"
+> +#include "lapi/sched.h"
+> +
+> +#define MNTPOINTR "mntpoint"
+> +#define DIRA "LTP_DIR_A"
+> +
+> +static void run(void)
+> +{
+> +	int fd;
+> +
+> +	SAFE_UNSHARE(CLONE_NEWNS);
+> +	SAFE_MKDIR(DIRA, 0777);
+> +	SAFE_TOUCH(DIRA "/A", 0, NULL);
+> +	/* The parent mnt should be private if check MOVE_MOUNT_BENEATH */
+> +	SAFE_MOUNT("none", "/", "none", MS_REC | MS_PRIVATE, NULL);
+
+Is it necessary and safe to do this on root? It's not clear what effect
+setting all mounts under the present "/" and namespace might have. I
+guess it should be possible to create a mount to use as the parent that
+is private?
+
+> +	SAFE_MOUNT(DIRA, DIRA, "none", MS_BIND, NULL);
+> +	fd = SAFE_OPEN(DIRA, O_RDONLY | O_DIRECTORY);
+
+Why do we open this directory? It seems both source and destination can
+be paths.
+
+Also it is never closed.
+
+> +
+> +	TST_EXP_PASS(move_mount(fd, "", AT_FDCWD, MNTPOINT,
+> +				MOVE_MOUNT_BENEATH | MOVE_MOUNT_F_EMPTY_PATH));
+> +
+> +	if (access(MNTPOINT "/A", F_OK) == 0)
+
+So we have mounted mntpoint/LTP_DIR_A at mntpoint (or moved it there),
+but we don't expect file A to be there?
+
+> +		tst_res(TFAIL, "mount beneath top mount failed");
+> +	else
+> +		tst_res(TPASS, "mount beneath top mount pass");
+
+This message doesn't explain what the test is doing. You can probably
+use TST_EXP_* here as well.
+
+> +
+> +	if (tst_is_mounted_at_tmpdir(MNTPOINT))
+> +		SAFE_UMOUNT(MNTPOINT);
+> +
+> +	if (access(MNTPOINT "/A", F_OK) == 0)
+> +		tst_res(TPASS, "mount beneath top mount pass");
+> +	else
+> +		tst_res(TFAIL, "mount beneath top mount failed");
+> +
+
+So if MNTPOINT is not under tmpdir we do nothing, but the test now
+expects A to exist?
+
+If we always unmount MNTPOINT then this should always fail because we
+never created anything at mntpoint/A.
+
+> +	remove(DIRA "/A");
+
+This should probably be SAFE_UNLINK.
+
+> +	SAFE_RMDIR(DIRA);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = run,
+> +	.needs_root = 1,
+> +	.format_device = 1,
+> +	.mntpoint = MNTPOINT,
+> +	.mount_device = 1,
+> +	.all_filesystems = 1,
+> +	.skip_filesystems = (const char *const []){"fuse", NULL},
+> +	.min_kver = "6.5.0"
+> +};
+
 
 
 -- 
