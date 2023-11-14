@@ -2,66 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D58B67EAD03
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Nov 2023 10:29:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BD7E7EAE11
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Nov 2023 11:29:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 862703CE4C8
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Nov 2023 10:29:09 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8BBC53CE4EB
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Nov 2023 11:29:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 256163CC2AE
- for <ltp@lists.linux.it>; Tue, 14 Nov 2023 10:29:08 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id DBBE23CE4C4
+ for <ltp@lists.linux.it>; Tue, 14 Nov 2023 11:29:53 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3380F601561
- for <ltp@lists.linux.it>; Tue, 14 Nov 2023 10:29:06 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3162D601BC9
+ for <ltp@lists.linux.it>; Tue, 14 Nov 2023 11:29:52 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 569A921898;
- Tue, 14 Nov 2023 09:28:36 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CB15D2189A;
+ Tue, 14 Nov 2023 10:29:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1699954116;
+ t=1699957791;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=PA0gr8fuc13o05opNi99bHbSmo6lD1QIJXPGmfB+8Ho=;
- b=vbxyw8dw0/eDzzOGLCqLVG3Akec1kLzuWsliMG1xRwFQNh/1aWJKWsKkRTMccosbbh2X+4
- ZsUucZE5SCESDLWiLGJGPw6V0s1oT3xYv17kXW3MxrMhumQMOj0qmBJ3QXifFRNLMApSLd
- 03WtcEMZgtOJT1LyZEFoMF9Tfm5nxYc=
+ bh=uu/Nhwi08iGuuwkPdaiBlrUtG2YkY+bjeMc3BwqIpf0=;
+ b=wM3FG+f02dQM4MSJPEmZK8ue0Ua2nqafdCXSuKmd6NPhLRiPXnUcISYRjCDgDtvObPUXYP
+ HSi/YUwN5NtL91lcTFeFTUQGncA4lvtQGBkxE4ZAuFs9Os6FY4q/ZTF7c00OSGoOqX0DCA
+ FaxzruO69S27KMYx6rAyi5DWJA0SFJU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1699954116;
+ s=susede2_ed25519; t=1699957791;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=PA0gr8fuc13o05opNi99bHbSmo6lD1QIJXPGmfB+8Ho=;
- b=wRFFTU95EP0aYQVLe2jJXm9EHqCsBrAmkPXO1BjTd8Y2CIwV/1eD9gIeLK/8RBV75dUEXX
- jidtuFiJjWLUPSDw==
+ bh=uu/Nhwi08iGuuwkPdaiBlrUtG2YkY+bjeMc3BwqIpf0=;
+ b=74B5RXk7aXb244AdbmBAZ3fTzEw6BLiJ5OlrXzByZIP/mmTqLoKlPLSVNQEqozfCdgp7cV
+ A4f2ctpM17BZAJCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0AB4113416;
- Tue, 14 Nov 2023 09:28:36 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8523313416;
+ Tue, 14 Nov 2023 10:29:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id q7f9AMQ9U2X/EAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 14 Nov 2023 09:28:36 +0000
-Date: Tue, 14 Nov 2023 10:28:34 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id RZc1Hx9MU2XJMQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 14 Nov 2023 10:29:51 +0000
+Date: Tue, 14 Nov 2023 11:29:50 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20231114092834.GA2318130@pevik>
-References: <20231106110819.1243292-1-pvorel@suse.cz>
- <CAEemH2cBRNxsXCpPW7Lgfi+9r_e3UCkdLNi8R4kFw2y==PCHLg@mail.gmail.com>
+To: Amir Goldstein <amir73il@gmail.com>
+Message-ID: <20231114102950.GA2325395@pevik>
+References: <20231114072338.1669277-1-amir73il@gmail.com>
+ <20231114072338.1669277-2-amir73il@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2cBRNxsXCpPW7Lgfi+9r_e3UCkdLNi8R4kFw2y==PCHLg@mail.gmail.com>
+In-Reply-To: <20231114072338.1669277-2-amir73il@gmail.com>
 Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
@@ -69,10 +69,12 @@ X-Spam-Score: -6.30
 X-Spamd-Result: default: False [-6.30 / 50.00]; ARC_NA(0.00)[];
  HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
  FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; NEURAL_HAM_LONG(-3.00)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_FIVE(0.00)[6];
+ NEURAL_HAM_LONG(-3.00)[-1.000];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-1.00)[-1.000]; RCPT_COUNT_SEVEN(0.00)[7];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; FREEMAIL_TO(0.00)[gmail.com];
  FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
  MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2];
  RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-3.00)[99.99%]
@@ -82,7 +84,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] ci: doc: Remove Ubuntu 16.04 LTS xenial
+Subject: Re: [LTP] [PATCH 1/2] fanotify13: Test overlayfs while watching
+ lower fs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,16 +98,16 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Ulrich Hecht <uli@kernel.org>, Richard Palethorpe <rpalethorpe@suse.com>,
- ltp@lists.linux.it, automated-testing@lists.yoctoproject.org
+Cc: ltp@lists.linux.it, Jan Kara <jack@suse.cz>, linux-unionfs@vger.kernel.org,
+ Miklos Szeredi <miklos@szeredi.hu>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Hi Amir,
 
-thanks for your review, merged!
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
 Kind regards,
 Petr
