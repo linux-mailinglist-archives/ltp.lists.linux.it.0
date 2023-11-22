@@ -1,95 +1,80 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 260B27F5C35
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Nov 2023 11:23:52 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 082597F5C2D
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Nov 2023 11:21:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DEB2B3CE06F
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Nov 2023 11:23:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 89CC03CDEB0
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Nov 2023 11:21:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2607C3CE086
- for <ltp@lists.linux.it>; Wed, 22 Nov 2023 18:20:01 +0100 (CET)
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 6463D3CC2D5
+ for <ltp@lists.linux.it>; Wed, 22 Nov 2023 22:34:54 +0100 (CET)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0244614001E6
- for <ltp@lists.linux.it>; Wed, 22 Nov 2023 18:19:58 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 414C93200B57;
- Wed, 22 Nov 2023 12:19:55 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Wed, 22 Nov 2023 12:19:56 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=devkernel.io; h=
- cc:cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm2; t=1700673594; x=1700759994; bh=HB
- A8/PFg10ymZNJDZ693U+tza3MBCER8GemTUdFxOSY=; b=kB6PqRHMuOJq8+yRwk
- Apu+hG7KQ+/+RHI96oE3S0StgmKqV5mmf22tZOYHgW9hRlZpNdIkgzfLfY5fJLKY
- 9P2zfPVBksW6U1pW2cmnlctW8bGx/o5h3Gw0VjIfjKGRThaDcPgDRNGqlsjMNcty
- Dh5qD/Z/HqG20rhZM41Pt+LaeaxmdI+VC0n97IFgo6S1i+22SLTKZ4zssVKemROE
- 4vbp830JmNxWbSYcUlRBjx5dfciVR9erOEvF6wmTb/ecb8nYX2+wGSYTQgr5SOAO
- qeJuPvbmyS2VTTNO86Fvx3hitJhu0xaCPL4z5nU1qm9zzngdLJEGzhb+5RT6o/b2
- NwiA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; t=1700673594; x=1700759994; bh=HBA8/PFg10ymZ
- NJDZ693U+tza3MBCER8GemTUdFxOSY=; b=RwghFZzluA72h5rDesMsi5YLfssF1
- 3QpqmD0qIBO6NwG3K27ii6vjYDhnf6dW3PbdCKsOJ1ZroqZFSSdlX/RFcn5bKfbD
- ADMkrUqWLSlNYcfErGTuW8NAbmf5MraM/qHMWEYeQMkHWSi8GaqRJsvymIhOx+0K
- 9cDgwzOrodGUDtoFom9ndeyL9gQc8KHWWhk7SottR/8CRYQQTyDTTeS4L4Xk0N8t
- hk21090Sxex9EvyQ9+D+ZvEw+tvErD1R0zCBaKMST9tAvrmLNP9yCPtwVFxiWK0F
- RO9c2KRqkEU6UXRYa8gUXUV6h+wQ9M/ftfjW+sEr5jBklvUYMu8ulOyrQ==
-X-ME-Sender: <xms:ODheZSK711yXzfijKj2B_yBjTSUX16HiWl3r4oIc6IXHwZVVAp7mvA>
- <xme:ODheZaJVSaGM9PXw3T9h2rw3ILQwiQp1sZ9nZMn0ypbs9w01PmgJT39dAbDnOvzoQ
- -8r-41C8o5gx2LO9Cw>
-X-ME-Received: <xmr:ODheZSta4fNxw3YCa6Z0iFf09Mu_g3zq0gQWkBiTatoRe7_fgB_sN_oX>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrudehuddgleekucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- goteeftdduqddtudculdduhedmnecujfgurhepfhgfhffvvefuffgjkfggtgesthdtredt
- tdertdenucfhrhhomhepufhtvghfrghnucftohgvshgthhcuoehshhhrseguvghvkhgvrh
- hnvghlrdhioheqnecuggftrfgrthhtvghrnhepvdduhfdvffduvedvkedvffejvdejuedv
- feejtdejtefffeejgfelhfetkedtgeeknecuffhomhgrihhnpehkshhmtddupgdurdhfrg
- hilhdpkhgvrhhnvghlrdhorhhgpdhkshhmtddurdhfrghilhenucevlhhushhtvghrufhi
- iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehshhhrseguvghvkhgvrhhnvghlrd
- hioh
-X-ME-Proxy: <xmx:ODheZXZyffz4GkJdkTUFiCUsEVMAvWwdNM91jQU5dVZZ6BhNiNI7ww>
- <xmx:ODheZZaES0sNWBYMcb-ilagzdRnfsfZUYQy1w38KAjHImlfD_ocwrA>
- <xmx:ODheZTDUdLdzHlDIx0CQqQXkW1DGhjL7xcT7qRhvB94K-FNsmFS-WQ>
- <xmx:OjheZbkcTFFOEdBWdMYskZszXXXzSl9agWrw8pvICwlJTQPTzHQFDQ>
-Feedback-ID: i84614614:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 22 Nov 2023 12:19:50 -0500 (EST)
-References: <202311161132.13d8ce5a-oliver.sang@intel.com>
- <3540fd3e-88dd-462b-88ce-df28b7b5b148@redhat.com>
- <87edgo8gq7.fsf@devkernel.io>
-User-agent: mu4e 1.10.3; emacs 29.1
-From: Stefan Roesch <shr@devkernel.io>
-To: Stefan Roesch <shr@devkernel.io>
-Date: Wed, 22 Nov 2023 09:16:47 -0800
-In-reply-to: <87edgo8gq7.fsf@devkernel.io>
-Message-ID: <877cm9so25.fsf@devkernel.io>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B35701400273
+ for <ltp@lists.linux.it>; Wed, 22 Nov 2023 22:34:53 +0100 (CET)
+Received: by mail-ot1-x335.google.com with SMTP id
+ 46e09a7af769-6ce2b6b3cb6so153659a34.3
+ for <ltp@lists.linux.it>; Wed, 22 Nov 2023 13:34:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1700688892; x=1701293692; darn=lists.linux.it;
+ h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=36p0YB0KR7O+G8lyACYy5o5yT1uc/pOfxqTgExJINwE=;
+ b=z2gMbOwaxVa8zXYtkouwPqzvuO7B/ZAI+YWEGbbWolwC5cJMOp9KLyfksj4mRzmIA1
+ R4vm4pCc7+hlGhatykf7forBv4FZlwIjIFhF4ltha2FlJzAVz/h6qbiXfgAJZjfVvHP3
+ N0oXaQCwjKCrHXSqDuNeea+lWN17nI4UaKyQQcQWzeNyGIMum4oCcmGcfb0pi/Y18G4I
+ PH8pIilG8R34v4x0dwarto7kP9EdSg/cNKFsIkFGwEShaXe9DxpZHIYixvnH6MhUjIsD
+ D/23NX7aLfnz2dUI5OI1TFIzrBGLigEAdQJkSzclDFUqoolr9YKR0B4S5MSe7OsOjfcb
+ m4Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700688892; x=1701293692;
+ h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=36p0YB0KR7O+G8lyACYy5o5yT1uc/pOfxqTgExJINwE=;
+ b=b79Dwy2BgDun5OIjUfborO1+/scJyg1HFWB5Yzo1HMOKGXXf1wb4DgZS6TuqfrVioi
+ +WB5rImSSxK2gtyjkEbrQVDCnaQvzGCx6FqoQYz2LpvEfv8D2m6six30msznThfSEWXD
+ 5bx76QvhlSQjGFJPcAscsVC6SY/v+PNMg5TigXSQgpEGY0c64wQY5lqqbwM2Bjot2UjF
+ Yobl81WkmPKsRGIKnfAc0hzDBe2gP3YiRnyP4YSYxgOQhDZsgZWKCNk4fXiTcCJT9s9E
+ tr1tZSahs8ISC+x3laXC9v6rJCW+LFVhAZcWDw+OmcsulHCW3GGHn6MpTNmeE2DnxC21
+ VWPg==
+X-Gm-Message-State: AOJu0YzvCYB2OLnyolVJbZuAlxU/FYg+wMeRWuydg3InVnmPrheAkEx9
+ u02svuii5ecEABX9UnLRLXtIUQ==
+X-Google-Smtp-Source: AGHT+IFwMY3SgfREnZHEqzqmHiaM5728FRyA2VzbRjHPJgC6AoJTeiFgDXwUiYUVcDXU4jGdNCfrXg==
+X-Received: by 2002:a9d:6c92:0:b0:6d6:4633:a735 with SMTP id
+ c18-20020a9d6c92000000b006d64633a735mr4147790otr.8.1700688892225; 
+ Wed, 22 Nov 2023 13:34:52 -0800 (PST)
+Received: from ripple.attlocal.net
+ (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+ by smtp.gmail.com with ESMTPSA id
+ d13-20020a9d51cd000000b006c619f17669sm67156oth.74.2023.11.22.13.34.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Nov 2023 13:34:51 -0800 (PST)
+Date: Wed, 22 Nov 2023 13:34:39 -0800 (PST)
+X-X-Sender: hugh@ripple.attlocal.net
+To: Petr Vorel <pvorel@suse.cz>
+In-Reply-To: <20231122211318.31358-1-pvorel@suse.cz>
+Message-ID: <27f877cb-1135-dcd8-7a1a-4f1c1b8e6e87@google.com>
+References: <20231122211318.31358-1-pvorel@suse.cz>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
- T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,
+ SPF_PASS,T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+ shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Mailman-Approved-At: Thu, 23 Nov 2023 11:23:39 +0100
-Subject: Re: [LTP] [linus:master] [mm/ksm] 5e924ff54d: ltp.ksm01.fail
+X-Mailman-Approved-At: Thu, 23 Nov 2023 11:21:30 +0100
+Subject: Re: [LTP] [PATCH 1/1] diotest4: Skip test 3 and 14 for tmpfs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,108 +86,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: lkp@intel.com, David Hildenbrand <david@redhat.com>,
- Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, kernel test robot <oliver.sang@intel.com>,
- Johannes Weiner <hannes@cmpxchg.org>, oe-lkp@lists.linux.dev,
- Andrew Morton <akpm@linux-foundation.org>, ltp@lists.linux.it
+From: Hugh Dickins via ltp <ltp@lists.linux.it>
+Reply-To: Hugh Dickins <hughd@google.com>
+Cc: Jan Kara <jack@suse.cz>, Christian Brauner <brauner@kernel.org>,
+ Hugh Dickins <hughd@google.com>, Christoph Hellwig <hch@lst.de>,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+On Wed, 22 Nov 2023, Petr Vorel wrote:
 
-Stefan Roesch <shr@devkernel.io> writes:
+> tmpfs in kernel v6.6 got support for O_DIRECT in e88e0d366f9c ("tmpfs:
+> trivial support for direct IO"). There is no reason for tmpfs to reject
+> direct IO of any size therefore follow the approach already used for
+> Btrfs, NFS and FUSE: skipping test 3 (odd count of read and write)
+> and 14 (read, write with non-aligned buffer).
+> 
+> Suggested-by: Jan Kara <jack@suse.cz>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
 
-> David Hildenbrand <david@redhat.com> writes:
->
->> On 16.11.23 05:39, kernel test robot wrote:
->>> hi, Stefan Roesch,
->>> we reported
->>> "[linux-next:master] [mm/ksm]  5e924ff54d: ltp.ksm01_1.fail"
->>> in
->>> https://lore.kernel.org/all/202311031548.66780ff5-oliver.sang@intel.com/
->>> when this commit is in linux-next/master.
->>> now we noticed this commit is merged in mainline, and we still observed
->>> same issue. just FYI.
->>> Hello,
->>> kernel test robot noticed "ltp.ksm01.fail" on:
->>> commit: 5e924ff54d088828794d9f1a4d5bf17808f7270e ("mm/ksm: add "smart" page
->>> scanning mode")
->>> https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
->>> [test failed on linus/master 3ca112b71f35dd5d99fc4571a56b5fc6f0c15814]
->>> [test failed on linux-next/master 8728c14129df7a6e29188a2e737b4774fb200953]
->>> in testcase: ltp
->>> version: ltp-x86_64-14c1f76-1_20230715
->>> with following parameters:
->>> 	disk: 1HDD
->>> 	test: mm-00/ksm01
->>> compiler: gcc-12
->>> test machine: 8 threads 1 sockets Intel(R) Core(TM) i7-7700 CPU @ 3.60GHz (Kaby Lake) with 32G memory
->>> (please refer to attached dmesg/kmsg for entire log/backtrace)
->>> If you fix the issue in a separate patch/commit (i.e. not just a new version
->>> of
->>> the same patch/commit), kindly add following tags
->>> | Reported-by: kernel test robot <oliver.sang@intel.com>
->>> | Closes: https://lore.kernel.org/oe-lkp/202311161132.13d8ce5a-oliver.sang@intel.com
->>> Running tests.......
->>> <<<test_start>>>
->>> tag=ksm01 stime=1699563923
->>> cmdline="ksm01"
->>> contacts=""
->>> analysis=exit
->>> <<<test_output>>>
->>> tst_kconfig.c:87: TINFO: Parsing kernel config '/proc/config.gz'
->>> tst_test.c:1558: TINFO: Timeout per run is 0h 00m 30s
->>> mem.c:422: TINFO: wait for all children to stop.
->>> mem.c:388: TINFO: child 0 stops.
->>> mem.c:388: TINFO: child 1 stops.
->>> mem.c:388: TINFO: child 2 stops.
->>> mem.c:495: TINFO: KSM merging...
->>> mem.c:434: TINFO: resume all children.
->>> mem.c:422: TINFO: wait for all children to stop.
->>> mem.c:344: TINFO: child 1 continues...
->>> mem.c:347: TINFO: child 1 allocates 128 MB filled with 'a'
->>> mem.c:344: TINFO: child 2 continues...
->>> mem.c:347: TINFO: child 2 allocates 128 MB filled with 'a'
->>> mem.c:344: TINFO: child 0 continues...
->>> mem.c:347: TINFO: child 0 allocates 128 MB filled with 'c'
->>> mem.c:400: TINFO: child 1 stops.
->>> mem.c:400: TINFO: child 0 stops.
->>> mem.c:400: TINFO: child 2 stops.
->>> ksm_helper.c:36: TINFO: ksm daemon takes 2s to run two full scans
->>> mem.c:264: TINFO: check!
->>> mem.c:255: TPASS: run is 1.
->>> mem.c:255: TPASS: pages_shared is 2.
->>> ....
->>> mem.c:255: TPASS: pages_shared is 1.
->>> mem.c:255: TPASS: pages_sharing is 98302.
->>> mem.c:252: TFAIL: pages_volatile is not 0 but 1.     <-----
->>> mem.c:252: TFAIL: pages_unshared is not 1 but 0.     <-----
->>
->> @Stefan, is this simply related to the new scanning optimization (skip and
->> eventually not merge a pages within the "2 scans" windows, whereby previously,
->> they would have gotten merged)?
->>
->> If so, we might just want to disable that optimization for that test case?
->>
->> Alternatively, maybe we have to wait for "more" scan cycles instead of only 2?
->
-> I'd expect this is caused by "smart scan", where we can skip pages.
-> The best is probably to disable the smart scan feature for this test.
-> The smart scan feature can be disabled by:
->
->     echo 0 > /sys/kernel/mm/ksm/smart_scan
->
-> I'll have a look at it today.
->
+Acked-by: Hugh Dickins <hughd@google.com>
 
-If I disable "smart scan", the testcase completes successully. This is
-simply the case that for the testcase, it can "skip" a page (as the
-"smart scan" feature is enabled).
+Great, thanks a lot. I've never minded tmpfs failing those LTP tests,
+but had never looked at them closely enough to notice that there is
+this established way to avoid the failures...
 
-The easiest fix is to disable smart scan for the ksm cases. I'll send an
-ltp patch a bit later to address this issue.
+... but hold on: I can't look at the LTP source at the moment,
+but records tell me that the two tests failing were dio04 and dio10,
+whereas you say test 3 and test 14 - please clarify or correct, thanks.
+
+> ---
+>  testcases/kernel/io/direct_io/diotest4.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/testcases/kernel/io/direct_io/diotest4.c b/testcases/kernel/io/direct_io/diotest4.c
+> index 45c677b5b..ad00fa3e0 100644
+> --- a/testcases/kernel/io/direct_io/diotest4.c
+> +++ b/testcases/kernel/io/direct_io/diotest4.c
+> @@ -270,6 +270,7 @@ int main(int argc, char *argv[])
+>  	case TST_NFS_MAGIC:
+>  	case TST_BTRFS_MAGIC:
+>  	case TST_FUSE_MAGIC:
+> +	case TST_TMPFS_MAGIC:
+>  		tst_resm(TCONF, "%s supports odd count IO",
+>  			 tst_fs_type_name(fs_type));
+>  	break;
+> @@ -443,6 +444,7 @@ int main(int argc, char *argv[])
+>  	case TST_NFS_MAGIC:
+>  	case TST_BTRFS_MAGIC:
+>  	case TST_FUSE_MAGIC:
+> +	case TST_TMPFS_MAGIC:
+>  		tst_resm(TCONF, "%s supports non-aligned buffer",
+>  			 tst_fs_type_name(fs_type));
+>  	break;
+> -- 
+> 2.42.0
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
