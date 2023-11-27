@@ -1,93 +1,101 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BFA67F73DA
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Nov 2023 13:31:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B8D817FA143
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Nov 2023 14:46:42 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E1E2B3CDE14
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Nov 2023 13:31:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 394303CDB6F
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Nov 2023 14:46:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 03B123CBA35
- for <ltp@lists.linux.it>; Fri, 24 Nov 2023 13:31:23 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id E5D0C3CDB1E
+ for <ltp@lists.linux.it>; Mon, 27 Nov 2023 14:46:40 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 51566618FDA
- for <ltp@lists.linux.it>; Fri, 24 Nov 2023 13:31:22 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5A2C221E36;
- Fri, 24 Nov 2023 12:31:20 +0000 (UTC)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 60781200DC3
+ for <ltp@lists.linux.it>; Mon, 27 Nov 2023 14:46:38 +0100 (CET)
+Received: from relay2.suse.de (unknown [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id F1D9E1F8AC
+ for <ltp@lists.linux.it>; Mon, 27 Nov 2023 13:46:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1700829080; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1701092796;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Y/UF6JLfIahgLjbKp6ZUnQIlnzlfdlGmHaF2b/uoaik=;
- b=RLW+FyCvi2yEWnpSfvOo/lZJ8JyQltD6riU6xOnJa1pMI9jVqe2Md2Rnx1IsMpv7jSAMzs
- 4x7FwwLzaDXctmNOAZDksL8HKgwf5FPvkqPaZMocobbmeDOpgKjqBVs6Rxba8stxa3TTBM
- oEhM8FasaISxOPKVpZ3Jd1wbyfRByx8=
+ bh=cQHdeYTawcjdTOjcEEzbghB2E6Bz560jA7cL9HX32WQ=;
+ b=KTr+12ZJ0OidYw9kDNRvadVmSb6jOMq5Hs4GFDHGDm+Pkp8E/HqogkQl8DOHtQdOAgi8Tf
+ aD8f88gEpEMzUxvCm69aAk9heVm1afdYUUqrkOkN3LOHZVftLhalhzNTT6hchsXVivr2jn
+ Q8afdHpPjp+nndX5Ngio+KRIqiO+2H0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1700829080;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1701092796;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Y/UF6JLfIahgLjbKp6ZUnQIlnzlfdlGmHaF2b/uoaik=;
- b=NpO+DEY9PDESaYolClGoQmEoID90AiCf9khMwGQEJ6lwzOqGGfV4tUFMS7j5P6E5dAq+AE
- 7ZYKa3xYhqPQAdDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ bh=cQHdeYTawcjdTOjcEEzbghB2E6Bz560jA7cL9HX32WQ=;
+ b=aH6CSB6X1ULD9SxjEffWNgfuHezY8WCoa06Ka8xGvZ/vF0zEqMnXog9rYyWTUj2BABVUMj
+ OLZNE65cy/bN7cAg==
+Received: from g78 (rpalethorpe.udp.ovpn1.prg.suse.de [10.100.228.202])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 23BC113A9C;
- Fri, 24 Nov 2023 12:31:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id MJYVBpiXYGV3IgAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Fri, 24 Nov 2023 12:31:20 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-To: ltp@lists.linux.it
-Date: Fri, 24 Nov 2023 13:31:18 +0100
-Message-Id: <20231124123118.20441-2-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20231124123118.20441-1-andrea.cervesato@suse.de>
-References: <20231124123118.20441-1-andrea.cervesato@suse.de>
+ by relay2.suse.de (Postfix) with ESMTPS id D2B2D2C145;
+ Mon, 27 Nov 2023 13:46:33 +0000 (UTC)
+References: <20230925093005.24248-1-mkittler@suse.de>
+User-agent: mu4e 1.10.7; emacs 29.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Marius Kittler <mkittler@suse.de>
+Date: Mon, 27 Nov 2023 13:45:10 +0000
+Organization: Linux Private Site
+In-reply-to: <20230925093005.24248-1-mkittler@suse.de>
+Message-ID: <874jh78g1z.fsf@suse.de>
 MIME-Version: 1.0
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spam-Score: 0.70
-X-Spam-Level: 
-X-Spamd-Result: default: False [0.70 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
- BROKEN_CONTENT_TYPE(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- RCVD_COUNT_THREE(0.00)[3];
+X-Spamd-Bar: ++++++++++++++++++
+X-Spam-Score: 18.99
+X-Rspamd-Server: rspamd1
+Authentication-Results: smtp-out2.suse.de; dkim=none;
+ spf=softfail (smtp-out2.suse.de: 149.44.160.134 is neither permitted nor
+ denied by domain of rpalethorpe@suse.de) smtp.mailfrom=rpalethorpe@suse.de; 
+ dmarc=fail reason="No valid SPF,
+ No valid DKIM" header.from=suse.de (policy=none)
+X-Rspamd-Queue-Id: F1D9E1F8AC
+X-Spamd-Result: default: False [18.99 / 50.00];
+ HAS_REPLYTO(0.30)[rpalethorpe@suse.de]; RDNS_NONE(1.00)[];
+ SPAMHAUS_XBL(0.00)[149.44.160.134:from]; TO_DN_SOME(0.00)[];
+ RWL_MAILSPIKE_GOOD(0.00)[149.44.160.134:from];
+ REPLYTO_ADDR_EQ_FROM(0.00)[];
+ HFILTER_HELO_IP_A(1.00)[relay2.suse.de];
+ R_SPF_SOFTFAIL(4.60)[~all:c];
+ HFILTER_HELO_NORES_A_OR_MX(0.30)[relay2.suse.de];
+ HAS_ORG_HEADER(0.00)[]; MX_GOOD(-0.01)[];
+ RCPT_COUNT_TWO(0.00)[2]; RCVD_NO_TLS_LAST(0.10)[];
+ FROM_EQ_ENVFROM(0.00)[]; R_DKIM_NA(2.20)[];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
+ BAYES_HAM(-3.00)[100.00%]; RDNS_DNSFAIL(0.00)[];
+ ARC_NA(0.00)[]; FROM_HAS_DN(0.00)[];
+ NEURAL_SPAM_SHORT(3.00)[1.000]; MIME_GOOD(-0.10)[text/plain];
+ TO_MATCH_ENVRCPT_SOME(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.995]; RCPT_COUNT_TWO(0.00)[2];
- MID_CONTAINS_FROM(1.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- BAYES_HAM(-3.00)[100.00%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+ VIOLATED_DIRECT_SPF(3.50)[]; NEURAL_SPAM_LONG(3.50)[1.000];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_COUNT_TWO(0.00)[2];
+ HFILTER_HOSTNAME_UNKNOWN(2.50)[];
+ DMARC_POLICY_SOFTFAIL(0.10)[suse.de : No valid SPF, No valid DKIM,none]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v1] Refactor mount02 test using new LTP API
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] Add regression test for hangup on pipe
+ operations
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,307 +107,161 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Hello,
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- testcases/kernel/syscalls/mount/mount02.c | 222 ++++++++--------------
- 1 file changed, 74 insertions(+), 148 deletions(-)
+Pushed with some significant changes, please see commit for
+details. Thanks!
 
-diff --git a/testcases/kernel/syscalls/mount/mount02.c b/testcases/kernel/syscalls/mount/mount02.c
-index 392b4fd3a..965e75fe9 100644
---- a/testcases/kernel/syscalls/mount/mount02.c
-+++ b/testcases/kernel/syscalls/mount/mount02.c
-@@ -1,76 +1,50 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
-- *  AUTHOR: Nirmala Devi Dhanasekar <nirmala.devi@wipro.com>
-- * Copyright (c) 2014 Cyril Hrubis <chrubis@suse.cz>
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-+ *               Nirmala Devi Dhanasekar <nirmala.devi@wipro.com>
-+ * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-  *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-+ * Check for basic errors returned by mount(2) system call.
-  *
-+ * - ENODEV if filesystem type not configured
-+ * - ENOTBLK if specialfile is not a block device
-+ * - EBUSY if specialfile is already mounted or it  cannot  be remounted
-+ *   read-only, because it still holds files open for writing.
-+ * - EINVAL if specialfile or device is invalid or a remount was attempted,
-+ *   while source was not already mounted on target.
-+ * - EFAULT if special file or device file points to invalid address space.
-+ * - ENAMETOOLONG if pathname was longer than MAXPATHLEN.
-+ * - ENOENT if pathname was empty or has a nonexistent component.
-+ * - ENOTDIR if not a directory.
-  */
- 
--/*
--
--   DESCRIPTION
--	Check for basic errors returned by mount(2) system call.
--
--	Verify that mount(2) returns -1 and sets errno to
--	1) ENODEV if filesystem type not configured
--	2) ENOTBLK if specialfile is not a block device
--	3) EBUSY if specialfile is already mounted or
--		it  cannot  be remounted read-only, because it still holds
--		files open for writing.
--	4) EINVAL if specialfile or device is invalid or
--		 a remount was attempted, while source was not already
--		 mounted on target.
--	5) EFAULT if specialfile or device file points to invalid address space.
--	6) ENAMETOOLONG if pathname was longer than MAXPATHLEN.
--	7) ENOENT if pathname was empty or has a nonexistent component.
--	8) ENOTDIR if not a directory.
--*/
--
--#include <errno.h>
-+#include "tst_test.h"
- #include <sys/mount.h>
--#include <sys/types.h>
--#include <sys/stat.h>
- #include <sys/sysmacros.h>
--#include <fcntl.h>
--#include "test.h"
--#include "safe_macros.h"
--
--static void setup(void);
--static void cleanup(void);
- 
--char *TCID = "mount02";
--
--#define DIR_MODE	(S_IRWXU | S_IRUSR | S_IXUSR | S_IRGRP | S_IXGRP)
--#define FILE_MODE	(S_IRWXU | S_IRWXG | S_IRWXO)
-+#define MNTPOINT "mntpoint"
- 
- static char path[PATH_MAX + 2];
- static const char *long_path = path;
-+static const char *device;
- static const char *fs_type;
-+static const char *null;
- static const char *wrong_fs_type = "error";
--static const char *mntpoint = "mntpoint";
--static const char *device;
--static const char *null = NULL;
--static const char *fault = (void*)-1;
-+static const char *mntpoint = MNTPOINT;
-+static const char *fault = (void *)-1;
- static const char *nonexistent = "nonexistent";
- static const char *char_dev = "char_device";
- static const char *file = "filename";
- static int fd;
- 
--static void do_umount(void);
--static void close_umount(void);
--static void do_mount(void);
--static void mount_open(void);
-+static void pre_mount(void);
-+static void post_umount(void);
-+static void pre_create_file(void);
-+static void post_delete_file(void);
- 
- static struct test_case {
- 	const char **device;
-@@ -80,12 +54,11 @@ static struct test_case {
- 	int exp_errno;
- 	void (*setup)(void);
- 	void (*cleanup)(void);
--} tc[] = {
-+} test_cases[] = {
- 	{&device, &mntpoint, &wrong_fs_type, 0, ENODEV, NULL, NULL},
- 	{&char_dev, &mntpoint, &fs_type, 0, ENOTBLK, NULL, NULL},
--	{&device, &mntpoint, &fs_type, 0, EBUSY, do_mount, do_umount},
--	{&device, &mntpoint, &fs_type, MS_REMOUNT | MS_RDONLY, EBUSY,
--	 mount_open, close_umount},
-+	{&device, &mntpoint, &fs_type, 0, EBUSY, pre_mount, post_umount},
-+	{&device, &mntpoint, &fs_type, MS_REMOUNT | MS_RDONLY, EBUSY, pre_create_file, post_delete_file},
- 	{&null, &mntpoint, &fs_type, 0, EINVAL, NULL, NULL},
- 	{&device, &mntpoint, &null, 0, EINVAL, NULL, NULL},
- 	{&device, &mntpoint, &fs_type, MS_REMOUNT, EINVAL, NULL, NULL},
-@@ -96,117 +69,70 @@ static struct test_case {
- 	{&device, &file, &fs_type, 0, ENOTDIR, NULL, NULL},
- };
- 
--int TST_TOTAL = ARRAY_SIZE(tc);
--
--static void verify_mount(struct test_case *tc)
-+static void pre_mount(void)
- {
--	if (tc->setup)
--		tc->setup();
--
--	TEST(mount(*tc->device, *tc->mntpoint, *tc->fs_type, tc->flag, NULL));
--
--	if (TEST_RETURN != -1) {
--		tst_resm(TFAIL, "mount() succeded unexpectedly (ret=%li)",
--		         TEST_RETURN);
--		goto cleanup;
--	}
--
--	if (TEST_ERRNO != tc->exp_errno) {
--		tst_resm(TFAIL | TTERRNO,
--		         "mount() was expected to fail with %s(%i)",
--		         tst_strerrno(tc->exp_errno), tc->exp_errno);
--		goto cleanup;
--	}
--
--	tst_resm(TPASS | TTERRNO, "mount() failed expectedly");
--
--cleanup:
--	if (tc->cleanup)
--		tc->cleanup();
-+	SAFE_MOUNT(device, mntpoint, fs_type, 0, NULL);
- }
- 
--int main(int ac, char **av)
-+static void post_umount(void)
- {
--	int lc, i;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--
--		for (i = 0; i < TST_TOTAL; ++i)
--			verify_mount(tc + i);
--	}
--
--	cleanup();
--	tst_exit();
-+	if (tst_is_mounted(MNTPOINT))
-+		SAFE_UMOUNT(MNTPOINT);
- }
- 
--static void do_mount(void)
-+static void pre_create_file(void)
- {
--	if (mount(device, mntpoint, fs_type, 0, NULL))
--		tst_brkm(TBROK | TERRNO, cleanup, "Failed to mount(mntpoint)");
-+	pre_mount();
-+	fd = SAFE_OPEN("mntpoint/file", O_CREAT | O_RDWR, 0700);
- }
- 
--static void mount_open(void)
-+static void post_delete_file(void)
- {
--	do_mount();
--
--	fd = SAFE_OPEN(cleanup, "mntpoint/file", O_CREAT | O_RDWR, S_IRWXU);
-+	SAFE_CLOSE(fd);
-+	post_umount();
- }
- 
--static void close_umount(void)
-+static void setup(void)
- {
--	SAFE_CLOSE(cleanup, fd);
--	do_umount();
-+	device = tst_device->dev;
-+	fs_type = tst_device->fs_type;
-+
-+	memset(path, 'a', PATH_MAX + 1);
-+
-+	SAFE_MKNOD(char_dev, S_IFCHR | 0777, 0);
-+	SAFE_TOUCH(file, 0777, 0);
- }
- 
--static void do_umount(void)
-+static void cleanup(void)
- {
--	if (tst_umount(mntpoint))
--		tst_brkm(TBROK | TERRNO, cleanup, "Failed to umount(mntpoint)");
-+	if (tst_is_mounted(MNTPOINT))
-+		SAFE_UMOUNT(MNTPOINT);
- }
- 
--static void setup(void)
-+static void run(unsigned int i)
- {
--	dev_t dev;
--
--	tst_sig(FORK, DEF_HANDLER, cleanup);
--
--	tst_require_root();
--
--	tst_tmpdir();
--
--	SAFE_TOUCH(cleanup, file, FILE_MODE, NULL);
--
--	fs_type = tst_dev_fs_type();
--	device = tst_acquire_device(cleanup);
--
--	if (!device)
--		tst_brkm(TCONF, cleanup, "Failed to obtain block device");
-+	struct test_case *tc = &test_cases[i];
- 
--	tst_mkfs(cleanup, device, fs_type, NULL, NULL);
--
--	SAFE_MKDIR(cleanup, mntpoint, DIR_MODE);
--
--	memset(path, 'a', PATH_MAX + 1);
-+	if (tc->setup)
-+		tc->setup();
- 
--	dev = makedev(1, 3);
--	if (mknod(char_dev, S_IFCHR | FILE_MODE, dev)) {
--		tst_brkm(TBROK | TERRNO, cleanup,
--			 "failed to mknod(char_dev, S_IFCHR | FILE_MODE, %lu)",
--			 dev);
--	}
-+	TST_EXP_FAIL(mount(*tc->device, *tc->mntpoint, *tc->fs_type, tc->flag, NULL),
-+		tc->exp_errno,
-+		"Expecting %s",
-+		tst_strerrno(tc->exp_errno));
- 
--	TEST_PAUSE;
-+	if (tc->cleanup)
-+		tc->cleanup();
- }
- 
--static void cleanup(void)
--{
--	if (device)
--		tst_release_device(device);
--
--	tst_rmdir();
--}
-+static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(test_cases),
-+	.test = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_root = 1,
-+	.needs_device = 1,
-+	.needs_tmpdir = 1,
-+	.format_device = 1,
-+	.mntpoint = MNTPOINT,
-+};
+Marius Kittler <mkittler@suse.de> writes:
+
+> This tests the problem fixed by the patch
+> https://www.spinics.net/lists/linux-api/msg49731.html.
+>
+> Signed-off-by: Marius Kittler <mkittler@suse.de>
+> ---
+>  runtest/syscalls                          |  1 +
+>  testcases/kernel/syscalls/pipe/.gitignore |  1 +
+>  testcases/kernel/syscalls/pipe/pipe15.c   | 96 +++++++++++++++++++++++
+>  3 files changed, 98 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/pipe/pipe15.c
+>
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index 4f1ee1f34..6c125c2f5 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -1004,6 +1004,7 @@ pipe11 pipe11
+>  pipe12 pipe12
+>  pipe13 pipe13
+>  pipe14 pipe14
+> +pipe15 pipe15
+>  
+>  pipe2_01 pipe2_01
+>  pipe2_02 pipe2_02
+> diff --git a/testcases/kernel/syscalls/pipe/.gitignore b/testcases/kernel/syscalls/pipe/.gitignore
+> index 774d73205..581a68b78 100644
+> --- a/testcases/kernel/syscalls/pipe/.gitignore
+> +++ b/testcases/kernel/syscalls/pipe/.gitignore
+> @@ -12,3 +12,4 @@
+>  /pipe12
+>  /pipe13
+>  /pipe14
+> +/pipe15
+> diff --git a/testcases/kernel/syscalls/pipe/pipe15.c b/testcases/kernel/syscalls/pipe/pipe15.c
+> new file mode 100644
+> index 000000000..7b55143c1
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/pipe/pipe15.c
+> @@ -0,0 +1,96 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2023 SUSE LLC Marius Kittler <mkittler@suse.de>
+> + */
+> +
+> +/*\
+> + * [Description]
+> + *
+> + * This is a regression test for hangup on pipe operations. See
+> + * https://www.spinics.net/lists/linux-api/msg49762.html for
+> + * additional context. It tests that pipe operations do not block
+> + * indefinitely when going to the soft limit on the total size of
+> + * all pipes created by a single user.
+> + */
+> +
+> +#define _GNU_SOURCE
+> +#include <fcntl.h>
+> +#include <stdlib.h>
+> +#include <unistd.h>
+> +
+> +#include "tst_test.h"
+> +#include "tst_safe_stdio.h"
+> +#include "tst_safe_macros.h"
+> +
+> +static int pipe_count;
+> +static int *pipes;
+> +static char *buffer;
+> +static int buffer_size;
+> +
+> +static void run(void)
+> +{
+> +	SAFE_WRITE(0, pipes[1], buffer, buffer_size);
+> +	SAFE_READ(0, pipes[0], buffer, buffer_size - 1);
+> +	SAFE_WRITE(0, pipes[1], buffer, 1);
+> +	tst_res(TPASS,
+> +		"Pipe operations do not block indefinitely when going to "
+> +		"the soft limit on the total size of all pipes created by "
+> +		"a single user");
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	int pipe[2];
+> +	int page_size = getpagesize(), soft_limit;
+> +	struct rlimit nfd;
+> +
+> +	/* determine the buffer size of a pipe, usually 65536 */
+> +	SAFE_PIPE(pipe);
+> +	buffer_size = fcntl(pipe[1], F_GETPIPE_SZ);
+> +	SAFE_CLOSE(pipe[0]);
+> +	SAFE_CLOSE(pipe[1]);
+> +
+> +	/* determine the max number of pipes we can create within the
+> +	 * soft limit, usually 1024
+> +	 */
+> +	SAFE_FILE_SCANF("/proc/sys/fs/pipe-user-pages-soft", "%i", &soft_limit);
+> +	pipe_count = soft_limit * page_size / buffer_size;
+> +
+> +	tst_res(TINFO, "Soft limit for pipes: %i pages", soft_limit);
+> +	tst_res(TINFO, "Buffer size: %d byte", buffer_size);
+> +	tst_res(TINFO, "Creating %i pipes", pipe_count);
+> +
+> +	/* avoid running into "pipe() failed: EMFILE (24)" */
+> +	SAFE_GETRLIMIT(RLIMIT_NOFILE, &nfd);
+> +	if (nfd.rlim_max < (unsigned long)pipe_count)
+> +		tst_brk(TCONF, "NOFILE limit max too low: %lu < %i",
+> +			nfd.rlim_max, pipe_count);
+> +	if (nfd.rlim_cur < nfd.rlim_max) {
+> +		nfd.rlim_cur = nfd.rlim_max;
+> +		SAFE_SETRLIMIT(RLIMIT_NOFILE, &nfd);
+> +	}
+> +
+> +	/* allocate memory for pipes and the buffer */
+> +	pipes = calloc(pipe_count * 2, sizeof(int));
+> +	memset(pipes, 0xFF, pipe_count * 2 * sizeof(int));
+> +	for (int i = 0; i < pipe_count; ++i)
+> +		SAFE_PIPE(pipes + i * 2);
+> +	buffer = calloc(buffer_size, 1);
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	for (int i = 0; i < pipe_count * 2; i++)
+> +		if (pipes[i] > 0)
+> +			SAFE_CLOSE(pipes[i]);
+> +	if (pipes)
+> +		free(pipes);
+> +	if (buffer)
+> +		free(buffer);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.test_all = run,
+> +	.cleanup = cleanup
+> +};
+> -- 
+> 2.42.0
+
+
 -- 
-2.35.3
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
