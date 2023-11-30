@@ -2,81 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 563417FEC21
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:46:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F9A67FEB64
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:06:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 22ED63CD625
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:46:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D2B8A3CD696
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:06:55 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A5A8A3CD5A6
- for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:46:52 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id A71713CB9AB
+ for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:06:52 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D5C03207CCF
- for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:46:51 +0100 (CET)
-Received: from g78 (unknown [10.100.228.202])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DFDF0206C2F
+ for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:06:51 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8A97621AB8;
- Thu, 30 Nov 2023 09:46:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1701337610;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7aBID9PS6kC5042KwDVIHq8BKwoJlM4AtEvWE4Nbfpk=;
- b=R3gByxFT3srWRtKTCGhbuvVBTZCMKMG51P0SVjKra4oNuH3SooUeybnbhHZlvi33rh1UTI
- zr0HLYTysBObP5GS7wIURpN4AbRAqNv6SB++wjmyzU1oGcZmlUFIeP7O5NJT3XBthT8ep0
- N3+YH4fZ/X/OG9FEUbMLd5FgbJ197Y8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1701337610;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7aBID9PS6kC5042KwDVIHq8BKwoJlM4AtEvWE4Nbfpk=;
- b=na+hoekeAUhgdDnEpEn6lY3g+w2/Zow0jKSEJ5shsxptvkBYWValV+1tLQcwyq6JYz9FOU
- /aeg/+Ni0cndZhAQ==
-References: <20230929083916.72813-1-geetika@linux.ibm.com>
-User-agent: mu4e 1.10.7; emacs 29.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Geetika <geetika@linux.ibm.com>
-Date: Thu, 30 Nov 2023 09:03:26 +0000
-Organization: Linux Private Site
-In-reply-to: <20230929083916.72813-1-geetika@linux.ibm.com>
-Message-ID: <87leaf7euv.fsf@suse.de>
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B05C91FC26;
+ Thu, 30 Nov 2023 09:06:50 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 9EE9B138E5;
+ Thu, 30 Nov 2023 09:06:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id FimHJqpQaGW5IAAAn2gu4w
+ (envelope-from <jack@suse.cz>); Thu, 30 Nov 2023 09:06:50 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 1A655A07DC; Thu, 30 Nov 2023 10:06:50 +0100 (CET)
+Date: Thu, 30 Nov 2023 10:06:50 +0100
+From: Jan Kara <jack@suse.cz>
+To: Amir Goldstein <amir73il@gmail.com>
+Message-ID: <20231130090650.kxo5pwe4umvso77t@quack3>
+References: <20231129114617.12660-1-jack@suse.cz>
+ <20231129115440.19100-2-jack@suse.cz>
+ <CAOQ4uxjZ3mfz7FR38ynStaJb=m_STS_ZEYqkveFAWHSeNJwgug@mail.gmail.com>
 MIME-Version: 1.0
-Authentication-Results: smtp-out1.suse.de;
-	none
+Content-Disposition: inline
+In-Reply-To: <CAOQ4uxjZ3mfz7FR38ynStaJb=m_STS_ZEYqkveFAWHSeNJwgug@mail.gmail.com>
 X-Spam-Level: 
-X-Spam-Score: -3.78
-X-Spamd-Result: default: False [-3.78 / 50.00]; ARC_NA(0.00)[];
- HAS_REPLYTO(0.30)[rpalethorpe@suse.de]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- NEURAL_HAM_LONG(-0.98)[-0.977]; MIME_GOOD(-0.10)[text/plain];
- REPLYTO_ADDR_EQ_FROM(0.00)[]; HAS_ORG_HEADER(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCPT_COUNT_TWO(0.00)[2]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCVD_COUNT_ZERO(0.00)[0]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
- BAYES_HAM(-3.00)[100.00%]
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Rspamd-Server: rspamd2
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	 REPLY(-4.00)[]
+X-Spam-Score: -4.00
+X-Rspamd-Queue-Id: B05C91FC26
 X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Migrating the
- libhugetlbfs/testcases/truncate_above_4GB.c test
+Subject: Re: [LTP] [PATCH 2/6] fanotify: Provide
+ fanotify_mark_supported_on_fs()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,159 +75,24 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Jan Kara <jack@suse.cz>, ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-
-Geetika <geetika@linux.ibm.com> writes:
-
-> Test Description:
->
-> A misconversion of hugetlb_vmtruncate_list to a prio_tree meant that
-> on 32-bit machines, truncates at or above 4GB could truncate lower pages,
-> resulting in BUG_ON()s. This kernel bug was fixed with
-> 'commit 856fc2950555'.
->
-> The purpose of this test is to check whether huge pages are handled correctly
-> when a file is truncated above the 4GB boundary. It ensures that the memory is
-> not corrupted or lost during the truncation process, and that the expected data
-> is still present in the memory after truncation.
->
-> Signed-off-by: Geetika <geetika@linux.ibm.com>
-> ---
-> v2:
->  -Corrected typo
-> ---
->  runtest/hugetlb                               |   1 +
->  testcases/kernel/mem/.gitignore               |   1 +
->  .../kernel/mem/hugetlb/hugemmap/hugemmap39.c  | 171 ++++++++++++++++++
->  3 files changed, 173 insertions(+)
->  create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap39.c
->
-> diff --git a/runtest/hugetlb b/runtest/hugetlb
-> index 299c07ac9..26587ecc0 100644
-> --- a/runtest/hugetlb
-> +++ b/runtest/hugetlb
-> @@ -35,6 +35,7 @@ hugemmap29 hugemmap29
->  hugemmap30 hugemmap30
->  hugemmap31 hugemmap31
->  hugemmap32 hugemmap32
-> +hugemmap39 hugemmap39
->  hugemmap05_1 hugemmap05 -m
->  hugemmap05_2 hugemmap05 -s
->  hugemmap05_3 hugemmap05 -s -m
-> diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
-> index 7258489ed..4c55d5c8c 100644
-> --- a/testcases/kernel/mem/.gitignore
-> +++ b/testcases/kernel/mem/.gitignore
-> @@ -34,6 +34,7 @@
->  /hugetlb/hugemmap/hugemmap30
->  /hugetlb/hugemmap/hugemmap31
->  /hugetlb/hugemmap/hugemmap32
-> +/hugetlb/hugemmap/hugemmap39
->  /hugetlb/hugeshmat/hugeshmat01
->  /hugetlb/hugeshmat/hugeshmat02
->  /hugetlb/hugeshmat/hugeshmat03
-> diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap39.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap39.c
-> new file mode 100644
-> index 000000000..be5cba69f
-> --- /dev/null
-> +++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap39.c
-> @@ -0,0 +1,171 @@
-> +// SPDX-License-Identifier: LGPL-2.1-or-later
-> +/*
-> + * Copyright (C) 2005-2006 David Gibson & Adam Litke, IBM Corporation.
-> + * Copyright (C) 2006 Hugh Dickins <hugh@veritas.com>
-> + */
-> +
-> +/*\
-> + *[Descripiton]
-> + *
-> + * At one stage, a misconversion of hugetlb_vmtruncate_list to a
-> + * prio_tree meant that on 32-bit machines, truncates at or above 4GB
-> + * could truncate lower pages, resulting in BUG_ON()s.
-> + *
-> + * WARNING: The offsets and addresses used within are specifically
-> + * calculated to trigger the bug as it existed.  Don't mess with them
-> + * unless you *really* know what you're doing.
-> + *
-> + */
-> +
-> +#define _GNU_SOURCE
-> +#define _LARGEFILE64_SOURCE
-> +#define FOURGIG ((off64_t)0x100000000ULL)
-> +#define MNTPOINT "hugetlbfs/"
-> +
-> +#include <signal.h>
-> +#include <setjmp.h>
-> +#include "hugetlb.h"
-> +
-> +static int page_size;
-> +static long hpage_size;
-> +static int fd = -1;
-> +static volatile int test_pass;
-> +static int err;
-> +static int sigbus_count;
-> +static sigjmp_buf sig_escape;
-> +
-> +static void sigbus_handler_fail(int signum, siginfo_t *si, void *uc)
-> +{
-> +	siglongjmp(sig_escape, 17);
-> +}
-> +
-> +static void sigbus_handler_pass(int signum, siginfo_t *si, void *uc)
-> +{
-> +	test_pass = 1;
-> +	siglongjmp(sig_escape, 17);
-> +}
-> +
-> +static void run_test(void)
-> +{
-> +	long long buggy_offset, truncate_point;
-> +	void *p, *q;
-> +	volatile unsigned int *pi, *qi;
-> +
-> +	struct sigaction sa_pass = {
-> +		.sa_sigaction = sigbus_handler_pass,
-> +		.sa_flags = SA_SIGINFO,
-> +	};
-> +
-> +	struct sigaction sa_fail = {
-> +		.sa_sigaction = sigbus_handler_pass,
-> +		.sa_flags = SA_SIGINFO,
-> +	};
-> +
-> +	sigbus_count = 0;
-> +	test_pass = 0;
-> +
-> +	buggy_offset = truncate_point / (hpage_size / page_size);
-> +	buggy_offset = PALIGN(buggy_offset, hpage_size);
-> +
-> +	/* First get arena of three hpages size, at file offset 4GB */
-> +	q = mmap64(NULL, 3*hpage_size, PROT_READ|PROT_WRITE,
-> +		 MAP_PRIVATE, fd, truncate_point);
-> +	if (q == MAP_FAILED)
-> +		tst_brk(TBROK, "mmap() offset 4GB: %s", strerror(errno));
-
-In musl mmap64 is just defined as mmap or not at all if _GNU_SOURCE is
-absent. So do we really need it? It seems likely to cause compilation
-failures.
-
-Instead we could just use SAFE_MMAP.
-
-Same goes for truncate64 etc.
-
-There are a lot of warnings when compiling this, we don't want to
-introduce more warnings.
-
--- 
-Thank you,
-Richard.
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gV2VkIDI5LTExLTIzIDE2OjQ3OjU2LCBBbWlyIEdvbGRzdGVpbiB3cm90ZToKPiBPbiBXZWQs
+IE5vdiAyOSwgMjAyMyBhdCAxOjU04oCvUE0gSmFuIEthcmEgPGphY2tAc3VzZS5jej4gd3JvdGU6
+Cj4gPgo+ID4gUHJvdmlkZSBoZWxwZXIgY2hlY2tpbmcgd2hldGhlciBhIG1hcmsgaXMgc3VwcG9y
+dGVkIG9uIGEgZmlsZXN5c3RlbQo+ID4gc2luY2Ugc29tZSBtYXJrcyBuZWVkIG5vdCBiZSBhdmFp
+bGFibGUgb24gYWxsIGZpbGVzeXN0ZW1zIChlLmcuIGJ0cmZzCj4gPiBzdWJ2b2x1bWVzKS4gQWxz
+byBjb252ZXJ0IFJFUVVJUkVfTUFSS19UWVBFX1NVUFBPUlRFRF9CWV9LRVJORUwoKSBhbmQKPiA+
+IGl0cyBvbmx5IHVzZXIgdG8gdXNlIHRoaXMgbmV3IGZ1bmN0aW9uLgo+ID4KPiA+IFNpZ25lZC1v
+ZmYtYnk6IEphbiBLYXJhIDxqYWNrQHN1c2UuY3o+Ci4uLgo+ID4gK3N0YXRpYyBpbmxpbmUgaW50
+IGZhbm90aWZ5X21hcmtfc3VwcG9ydGVkX29uX2ZzKHVpbnQ2NF90IGZsYWcsIGNvbnN0IGNoYXIg
+KmZuYW1lKQo+ID4gK3sKPiA+ICsgICAgICAgcmV0dXJuIGZhbm90aWZ5X2ZsYWdzX3N1cHBvcnRl
+ZF9vbl9mcyhGQU5fQ0xBU1NfQ09OVEVOVCwgZmxhZywgRkFOX0FDQ0VTUywgZm5hbWUpOwo+IAo+
+IFdoeSBub3QgRkFOX0NMQVNTX05PVElGPwoKQ3V0J24ncGFzdGUgZnJvbSBzb21ld2hlcmUgOykg
+Rml4ZWQuIFRoYW5rcyEKCgkJCQkJCQkJSG9uemEKLS0gCkphbiBLYXJhIDxqYWNrQHN1c2UuY29t
+PgpTVVNFIExhYnMsIENSCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGlu
+dXguaXQvbGlzdGluZm8vbHRwCg==
