@@ -1,95 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C7347FEBFE
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:38:22 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF28E7FEBFC
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:37:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C715C3CFC81
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:38:21 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9C7213CD74D
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:37:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0A0C73C8960
+ by picard.linux.it (Postfix) with ESMTPS id CDAC03C8960
  for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:37:13 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1EDAB60135E
- for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:37:13 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B7339207CCC
+ for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:37:12 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 27C2E21A9A;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 288EA1FCE0;
  Thu, 30 Nov 2023 09:37:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1701337032; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fPpZqdy8WmkwRUH7L2mYE9vU9NZ9C+P0M1NFAywlK8g=;
- b=JJAOOxnBlQ+vFXztiX1svWxUAd4hzRCTYP3n9ELnZRg3Si95JUjzkh40DtS+uWvO7xfJJi
- 6f/SO4WLQ63BCimQ2/CJBkiZbIq1Jas93fW8twEQHslGkA/iHuusF4Dohlygi13hbHJ4lk
- OCaOktXqI8Jn7RR7A+hM2/GwT9rQdDQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1701337032;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fPpZqdy8WmkwRUH7L2mYE9vU9NZ9C+P0M1NFAywlK8g=;
- b=Zyb4nmZaVnM4C5MOSTMnrHh6UUSCsBFAaul0ex6Yx42DOhxy0u8VvNQg6brWvLvRIAilz/
- XzwfK/bibEirIzAw==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 1AD3313AE2;
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 1CEBB13B3E;
  Thu, 30 Nov 2023 09:37:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id pKGZBshXaGVmKAAAn2gu4w
+ by imap2.dmz-prg2.suse.org with ESMTPSA id DJQQB8hXaGVnKAAAn2gu4w
  (envelope-from <jack@suse.cz>); Thu, 30 Nov 2023 09:37:12 +0000
 Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 6EA2BA07F7; Thu, 30 Nov 2023 10:37:11 +0100 (CET)
+ id 74A6CA07F9; Thu, 30 Nov 2023 10:37:11 +0100 (CET)
 From: Jan Kara <jack@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 30 Nov 2023 10:37:09 +0100
-Message-Id: <20231130093711.20171-6-jack@suse.cz>
+Date: Thu, 30 Nov 2023 10:37:10 +0100
+Message-Id: <20231130093711.20171-7-jack@suse.cz>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20231130093533.10036-1-jack@suse.cz>
 References: <20231130093533.10036-1-jack@suse.cz>
 MIME-Version: 1.0
-Authentication-Results: smtp-out1.suse.de;
-	none
 X-Spam-Level: 
-X-Spam-Score: -3.10
-X-Spamd-Result: default: False [-3.10 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[4]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
- R_MISSING_CHARSET(2.50)[]; REPLY(-4.00)[];
- BROKEN_CONTENT_TYPE(1.50)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- NEURAL_HAM_LONG(-1.00)[-1.000]; RCVD_COUNT_THREE(0.00)[3];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- MID_CONTAINS_FROM(1.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; FREEMAIL_CC(0.00)[gmail.com,suse.cz];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-3.00)[100.00%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+X-Rspamd-Server: rspamd1
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Rspamd-Queue-Id: 288EA1FCE0
+X-Spam-Score: -4.00
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	 REPLY(-4.00)[]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 6/7] fanotify: Convert remaining init_flags tests
- to be performed on target fs
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 7/7] fanotify: Convert permission events feature
+ check to be performed on fs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,74 +81,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Convert remaining tests using
-REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_BY_KERNEL to be performed on
-target filesystem using REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_ON_FS and
-remove the now unused macro and functions.
+Convert feature check for availability of permission events to be
+performed on the tested filesystem.
 
 Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 Signed-off-by: Jan Kara <jack@suse.cz>
 ---
- testcases/kernel/syscalls/fanotify/fanotify.h   | 9 ---------
- testcases/kernel/syscalls/fanotify/fanotify20.c | 3 ++-
- testcases/kernel/syscalls/fanotify/fanotify21.c | 3 ++-
- 3 files changed, 4 insertions(+), 11 deletions(-)
+ testcases/kernel/syscalls/fanotify/fanotify.h   | 5 +++--
+ testcases/kernel/syscalls/fanotify/fanotify03.c | 3 +--
+ testcases/kernel/syscalls/fanotify/fanotify07.c | 3 +--
+ 3 files changed, 5 insertions(+), 6 deletions(-)
 
 diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
-index d49966810381..66b1b5e4141a 100644
+index 66b1b5e4141a..e0d178bcc7b3 100644
 --- a/testcases/kernel/syscalls/fanotify/fanotify.h
 +++ b/testcases/kernel/syscalls/fanotify/fanotify.h
-@@ -201,11 +201,6 @@ static inline int fanotify_init_flags_supported_on_fs(unsigned int flags, const
- 	return fanotify_flags_supported_on_fs(flags, FAN_MARK_INODE, FAN_ACCESS, fname);
+@@ -133,13 +133,14 @@ static inline int fanotify_save_fid(const char *path,
+ #define INIT_FANOTIFY_MARK_TYPE(t) \
+ 	{ FAN_MARK_ ## t, "FAN_MARK_" #t }
+ 
+-static inline void require_fanotify_access_permissions_supported_by_kernel(void)
++static inline void require_fanotify_access_permissions_supported_on_fs(
++							const char *fname)
+ {
+ 	int fd;
+ 
+ 	fd = SAFE_FANOTIFY_INIT(FAN_CLASS_CONTENT, O_RDONLY);
+ 
+-	if (fanotify_mark(fd, FAN_MARK_ADD, FAN_ACCESS_PERM, AT_FDCWD, ".") < 0) {
++	if (fanotify_mark(fd, FAN_MARK_ADD, FAN_ACCESS_PERM, AT_FDCWD, fname) < 0) {
+ 		if (errno == EINVAL) {
+ 			tst_brk(TCONF | TERRNO,
+ 				"CONFIG_FANOTIFY_ACCESS_PERMISSIONS not configured in kernel?");
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify03.c b/testcases/kernel/syscalls/fanotify/fanotify03.c
+index 343ba857e1ae..028da742c76c 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify03.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify03.c
+@@ -320,11 +320,10 @@ static void test_fanotify(unsigned int n)
+ 
+ static void setup(void)
+ {
+-	require_fanotify_access_permissions_supported_by_kernel();
+-
+ 	sprintf(fname, MOUNT_PATH"/fname_%d", getpid());
+ 	SAFE_FILE_PRINTF(fname, "1");
+ 
++	require_fanotify_access_permissions_supported_on_fs(fname);
+ 	filesystem_mark_unsupported = fanotify_mark_supported_on_fs(FAN_MARK_FILESYSTEM, fname);
+ 	exec_events_unsupported = fanotify_flags_supported_on_fs(FAN_CLASS_CONTENT,
+ 					0, FAN_OPEN_EXEC_PERM, fname);
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify07.c b/testcases/kernel/syscalls/fanotify/fanotify07.c
+index 396c8490eeda..34aa810c7dac 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify07.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify07.c
+@@ -189,10 +189,9 @@ static void test_fanotify(void)
+ 
+ static void setup(void)
+ {
+-	require_fanotify_access_permissions_supported_by_kernel();
+-
+ 	sprintf(fname, "fname_%d", getpid());
+ 	SAFE_FILE_PRINTF(fname, "%s", fname);
++	require_fanotify_access_permissions_supported_on_fs(fname);
  }
  
--static inline int fanotify_init_flags_supported_by_kernel(unsigned int flags)
--{
--	return fanotify_init_flags_supported_on_fs(flags, NULL);
--}
--
- static inline int fanotify_mark_supported_on_fs(uint64_t flag, const char *fname)
- {
- 	return fanotify_flags_supported_on_fs(FAN_CLASS_NOTIF, flag, FAN_ACCESS, fname);
-@@ -280,10 +275,6 @@ static inline void fanotify_flags_err_msg(const char *flags_str,
- 	fanotify_flags_err_msg(#flags, __FILE__, __LINE__, tst_brk_, \
- 		fanotify_init_flags_supported_on_fs(flags, fname))
- 
--#define REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_BY_KERNEL(flags) \
--	fanotify_flags_err_msg(#flags, __FILE__, __LINE__, tst_brk_, \
--		fanotify_init_flags_supported_by_kernel(flags))
--
- static inline int fanotify_handle_supported_by_kernel(int flag)
- {
- 	/*
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify20.c b/testcases/kernel/syscalls/fanotify/fanotify20.c
-index 71310fb86e9e..1d249ac9cfcc 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify20.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify20.c
-@@ -50,7 +50,8 @@ static void do_setup(void)
- 	 * An explicit check for FAN_REPORT_PIDFD is performed early on in the
- 	 * test initialization as it's a prerequisite for all test cases.
- 	 */
--	REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_BY_KERNEL(FAN_REPORT_PIDFD);
-+	REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_ON_FS(FAN_REPORT_PIDFD,
-+						    MOUNT_PATH);
- }
- 
- static void do_test(unsigned int i)
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify21.c b/testcases/kernel/syscalls/fanotify/fanotify21.c
-index 8a1028086237..d54930f05161 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify21.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify21.c
-@@ -119,7 +119,8 @@ static void do_setup(void)
- 	 * on in the test initialization as it's a prerequisite for
- 	 * all test cases.
- 	 */
--	REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_BY_KERNEL(FAN_REPORT_PIDFD);
-+	REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_ON_FS(FAN_REPORT_PIDFD,
-+						    TEST_FILE);
- 
- 	fanotify_fd = SAFE_FANOTIFY_INIT(FAN_REPORT_PIDFD, O_RDONLY);
- 	SAFE_FANOTIFY_MARK(fanotify_fd, FAN_MARK_ADD, FAN_OPEN, AT_FDCWD,
+ static void cleanup(void)
 -- 
 2.35.3
 
