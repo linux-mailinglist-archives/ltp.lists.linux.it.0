@@ -2,94 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFFA67FEBDA
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:29:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 155847FEBF8
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:37:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A99A23CD769
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:29:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D0CC83CF637
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:37:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A54653CD549
- for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:29:14 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by picard.linux.it (Postfix) with ESMTPS id 91C4E3C8960
+ for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:37:13 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E00CB14016EE
- for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:29:13 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1AD63603454
+ for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:37:13 +0100 (CET)
 Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 10EFD1FC83;
- Thu, 30 Nov 2023 09:29:11 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C55FF21AB1;
+ Thu, 30 Nov 2023 09:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1701336551; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yZGGYtWgEFczexVR2S6EYfgm/YgwEUxtzfDRyR262sE=;
- b=cnSZ5e1OzKJDKZ08VIbrcAE+G+Y7t8eRTDBjLPkkOkshBp76x6QqboEGIGjoCHn4/bfEiz
- 6oJBH/Z6oPPE8rANLW7WCOn3dkb+g7wl1qtDiMtDNGk975PVMgVMZvRv09bWcgZPb9WZUV
- qGL9vYd8q1nq+HfCgGXuozKUYsB/b5M=
+ t=1701337031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=fNGEfPz/bxEpknsN/e+GJ8e2UP5P0u8R8SolDMCGkEs=;
+ b=h5ods8mBJgxySK51BbPvzfIKmTKxw7V27h+w4LxOs7RJLUpGkJsCrRxFocM9bWVJq+0IXr
+ JllOxncmjtOexBEct9vnuOp5Eb5PXHV4DIp1pl9W2raHu3f5kRLF7DBLQKThm5Qv255DUg
+ iZic/oEx0BpcX8eOQPMvPdD+awQjKXo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1701336551;
+ s=susede2_ed25519; t=1701337031;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yZGGYtWgEFczexVR2S6EYfgm/YgwEUxtzfDRyR262sE=;
- b=p3kRAA4r7IxVpngCae2IytZuyga7LY32cRdcE4IfMve35I+uCuPpN+zwOnYc2+jrVcWNY2
- gQwaUPQThtOrfFCA==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=fNGEfPz/bxEpknsN/e+GJ8e2UP5P0u8R8SolDMCGkEs=;
+ b=cNX2nod/03WFnIhePkxSNxZ8soS4LTM70s6kEcRA8bx9ee23ar5S7TOjDHPU1cbbsP2xKE
+ KMJNbYPVpSx2ZfCw==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id F3D10138E5;
- Thu, 30 Nov 2023 09:29:10 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id B4A7113A5C;
+ Thu, 30 Nov 2023 09:37:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id 8UBIO+ZVaGU6JgAAn2gu4w
- (envelope-from <jack@suse.cz>); Thu, 30 Nov 2023 09:29:10 +0000
+ by imap2.dmz-prg2.suse.org with ESMTPSA id HqgSLMdXaGVQKAAAn2gu4w
+ (envelope-from <jack@suse.cz>); Thu, 30 Nov 2023 09:37:11 +0000
 Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 84E55A07DC; Thu, 30 Nov 2023 10:29:06 +0100 (CET)
-Date: Thu, 30 Nov 2023 10:29:06 +0100
+ id 44E04A07E3; Thu, 30 Nov 2023 10:37:11 +0100 (CET)
 From: Jan Kara <jack@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20231130092906.espzcsg24vilt2l7@quack3>
-References: <20231129114617.12660-1-jack@suse.cz>
- <20231129115440.19100-3-jack@suse.cz>
- <20231129134639.GA1426618@pevik>
+To: ltp@lists.linux.it
+Date: Thu, 30 Nov 2023 10:37:03 +0100
+Message-Id: <20231130093533.10036-1-jack@suse.cz>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231129134639.GA1426618@pevik>
-Authentication-Results: smtp-out2.suse.de;
+Authentication-Results: smtp-out1.suse.de;
 	none
-X-Spam-Level: 
-X-Spam-Score: -3.28
-X-Spamd-Result: default: False [-3.28 / 50.00]; ARC_NA(0.00)[];
+X-Spam-Score: 3.90
+X-Spamd-Result: default: False [3.90 / 50.00]; ARC_NA(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
  RCPT_COUNT_THREE(0.00)[4]; TO_DN_SOME(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ R_MISSING_CHARSET(2.50)[]; BROKEN_CONTENT_TYPE(1.50)[];
  FREEMAIL_ENVRCPT(0.00)[gmail.com];
  NEURAL_HAM_LONG(-1.00)[-1.000]; RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
- FREEMAIL_CC(0.00)[suse.cz,lists.linux.it,gmail.com];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-2.68)[98.61%]
-X-Virus-Scanned: clamav-milter 1.0.1 at in-6.smtp.seeweb.it
+ MID_CONTAINS_FROM(1.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_CC(0.00)[gmail.com,suse.cz]; RCVD_TLS_ALL(0.00)[];
+ BAYES_HAM(-0.00)[43.04%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/6] fanotify: Switch event and mark tests to
- *_on_fs() variant
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/6 v2] fanotify: Make feature tests operate against
+ tested path
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,39 +92,32 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>, ltp@lists.linux.it
+Cc: Jan Kara <jack@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed 29-11-23 14:46:39, Petr Vorel wrote:
-> Hi Jan, Amir,
-> 
-> > Switch event availability and mark type availability tests to be
-> > performed on the filesystem actually used for testing instead of on the
-> > current directory. This is more reliable as not all filesystems support
-> > the same set of features.
-> 
-> Jan, unfortunately this commit breaks fanotify09 and fanotify10 on SLES15 based kernels:
-> 
-> # ./fanotify09
-> tst_device.c:97: TINFO: Found free device 0 '/dev/loop0'
-> tst_test.c:1106: TINFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-> mke2fs 1.46.4 (18-Aug-2021)
-> tst_test.c:1120: TINFO: Mounting /dev/loop0 to /tmp/LTP_fanRt2Q1k/fs_mnt fstyp=ext2 flags=0
-> tst_test.c:1690: TINFO: LTP version: 20230929-156-gf7f69b7ef
-> tst_test.c:1576: TINFO: Timeout per run is 0h 00m 30s
-> fanotify.h:210: TBROK: fanotify_mark (3, FAN_MARK_ADD, ..., AT_FDCWD, fs_mnt) failed: EINVAL (22)
-> ...
+Hello,
 
-Thanks for testing! Indeed this was a bug in Amir's original test function
-which I didn't notice. I've fixed it up.
+some of the fanotify features are not available across all filesystems. Thus
+depending on which path is used for placing fanotify mark the feature may or
+may not be available. This leads to test failures when some feature is
+supported in tmpdir but not on the tested filesystem. Convert all of the
+fanotify feature tests to be performed on the path actually being used for
+testing.
+
+Changes since v1:
+* Added Amir's reviewed by
+* Fixed up bug in patch 1 leading to incorrect feature availability detection
+* Added patch to print more details in error messages
+* Changed FAN_CLASS_CONTENT to FAN_CLASS_NOTIF when testing whether a mark
+  type is supported.
+
 
 								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Previous versions:
+Link: http://lore.kernel.org/r/20231129114617.12660-1-jack@suse.cz # v1
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
