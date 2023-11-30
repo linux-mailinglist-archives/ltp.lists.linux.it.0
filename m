@@ -1,69 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF28E7FEBFC
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:37:57 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6744E7FEC9A
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 11:12:49 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9C7213CD74D
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 10:37:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 914E53CD74D
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Nov 2023 11:12:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CDAC03C8960
- for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:37:13 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 8D2C03CC93A
+ for <ltp@lists.linux.it>; Thu, 30 Nov 2023 11:12:43 +0100 (CET)
+Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
+ [IPv6:2607:f8b0:4864:20::f2e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B7339207CCC
- for <ltp@lists.linux.it>; Thu, 30 Nov 2023 10:37:12 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:98])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 288EA1FCE0;
- Thu, 30 Nov 2023 09:37:12 +0000 (UTC)
-Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 1CEBB13B3E;
- Thu, 30 Nov 2023 09:37:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id DJQQB8hXaGVnKAAAn2gu4w
- (envelope-from <jack@suse.cz>); Thu, 30 Nov 2023 09:37:12 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 74A6CA07F9; Thu, 30 Nov 2023 10:37:11 +0100 (CET)
-From: Jan Kara <jack@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu, 30 Nov 2023 10:37:10 +0100
-Message-Id: <20231130093711.20171-7-jack@suse.cz>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20231130093533.10036-1-jack@suse.cz>
-References: <20231130093533.10036-1-jack@suse.cz>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3DA79207CEF
+ for <ltp@lists.linux.it>; Thu, 30 Nov 2023 11:12:43 +0100 (CET)
+Received: by mail-qv1-xf2e.google.com with SMTP id
+ 6a1803df08f44-67a545a9462so4034546d6.0
+ for <ltp@lists.linux.it>; Thu, 30 Nov 2023 02:12:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701339162; x=1701943962; darn=lists.linux.it;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yiOiTsAhC/GddQtEHoguqHfFubUt1i21XOCUKPPwAoA=;
+ b=V0Fl7mPp4wWBC2F31SdwQTURkBP7btcdYOi3tqifG+BrAWUtTuOwbPkVpR18yuSlr7
+ sWrYza/7kjS8Rea+j1OPXo55dgSkhR1Hj7GNHt/9+gc8LXy6DchZEJxzQff/Wt1BhYae
+ 90Rc/j+5EOk6bXORSWfNHE5ISl9KXSYwQ8uBxznYsVnKRWcYkuXPuzk1EgRvGGRelMrV
+ yXOafzW4/qlFN8n6u8sSExmyDxhXt7SKVcMIAr6DGziZJ6tj4bZKWm66Ru/eTBJx4SjP
+ RuHNrU7l4Ior7EjKS3j2WtSd3kD/N3mRosEhG3jN07tsLLkM3WrIhYFk0fYze5tJ9uJ/
+ chvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701339162; x=1701943962;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yiOiTsAhC/GddQtEHoguqHfFubUt1i21XOCUKPPwAoA=;
+ b=NirnHVcoK0pLjuwpOCSskAxgC0A8hi88y7l84KHtOfxPSK4T61zvbyc+jHVXZtGEPn
+ dnufBfIaTz9sLvJ74dJAuzl741ToNZZsvQckisHUXl4c96fXdTv+dduhBEKghDBXvehb
+ iFDr7akbfALC8KOLK4e4sK0hh3RJ6yfwfSZcFV3h08zapXi3ZIP4fb8aDiSmwGZPhaZI
+ WWhMsJ2WS/58DawTL7lAYVPFIDS3Rx7/TVdrVhAreDgb2EcLNJktH3CxfbJ+zEnDB6eU
+ nHkz6RM6zF4JW3tM3mZJgRKz84yd2+xm4hcRP3asYHWQFhakobpbiLHpjAekT0yJmIkk
+ 5F5g==
+X-Gm-Message-State: AOJu0YxVxTdZrDr+nB45jARO+QUCIy+GSQGNW3tcdSoOtP9usQ2omAhh
+ /fHXc/W98nixAC0IqWSpnZjM6XKsockUHgk8sOU=
+X-Google-Smtp-Source: AGHT+IFMHOxV+I/eQyy7Aqr1OFeVHoBn7eURLyUaaDgBIugVAax3aRbN4THUXeB+YQIp1JQhmuorDZ+3FB6adkrQCPQ=
+X-Received: by 2002:ad4:504e:0:b0:67a:1f8c:9157 with SMTP id
+ m14-20020ad4504e000000b0067a1f8c9157mr20275027qvq.17.1701339162064; Thu, 30
+ Nov 2023 02:12:42 -0800 (PST)
 MIME-Version: 1.0
-X-Spam-Level: 
-X-Rspamd-Server: rspamd1
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Rspamd-Queue-Id: 288EA1FCE0
-X-Spam-Score: -4.00
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	 REPLY(-4.00)[]
+References: <20231130093533.10036-1-jack@suse.cz>
+ <20231130093711.20171-2-jack@suse.cz>
+In-Reply-To: <20231130093711.20171-2-jack@suse.cz>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 30 Nov 2023 12:12:31 +0200
+Message-ID: <CAOQ4uxiAaizGGGHAUaBNjf-r9qAEJZpUeuaopfVtqBazegJrTA@mail.gmail.com>
+To: Jan Kara <jack@suse.cz>
 X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 7/7] fanotify: Convert permission events feature
- check to be performed on fs
+Subject: Re: [LTP] [PATCH v2 2/7] fanotify: Print more details on error from
+ fanotify_flags_supported_on_fs()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,80 +82,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Convert feature check for availability of permission events to be
-performed on the tested filesystem.
-
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Jan Kara <jack@suse.cz>
----
- testcases/kernel/syscalls/fanotify/fanotify.h   | 5 +++--
- testcases/kernel/syscalls/fanotify/fanotify03.c | 3 +--
- testcases/kernel/syscalls/fanotify/fanotify07.c | 3 +--
- 3 files changed, 5 insertions(+), 6 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
-index 66b1b5e4141a..e0d178bcc7b3 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify.h
-+++ b/testcases/kernel/syscalls/fanotify/fanotify.h
-@@ -133,13 +133,14 @@ static inline int fanotify_save_fid(const char *path,
- #define INIT_FANOTIFY_MARK_TYPE(t) \
- 	{ FAN_MARK_ ## t, "FAN_MARK_" #t }
- 
--static inline void require_fanotify_access_permissions_supported_by_kernel(void)
-+static inline void require_fanotify_access_permissions_supported_on_fs(
-+							const char *fname)
- {
- 	int fd;
- 
- 	fd = SAFE_FANOTIFY_INIT(FAN_CLASS_CONTENT, O_RDONLY);
- 
--	if (fanotify_mark(fd, FAN_MARK_ADD, FAN_ACCESS_PERM, AT_FDCWD, ".") < 0) {
-+	if (fanotify_mark(fd, FAN_MARK_ADD, FAN_ACCESS_PERM, AT_FDCWD, fname) < 0) {
- 		if (errno == EINVAL) {
- 			tst_brk(TCONF | TERRNO,
- 				"CONFIG_FANOTIFY_ACCESS_PERMISSIONS not configured in kernel?");
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify03.c b/testcases/kernel/syscalls/fanotify/fanotify03.c
-index 343ba857e1ae..028da742c76c 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify03.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify03.c
-@@ -320,11 +320,10 @@ static void test_fanotify(unsigned int n)
- 
- static void setup(void)
- {
--	require_fanotify_access_permissions_supported_by_kernel();
--
- 	sprintf(fname, MOUNT_PATH"/fname_%d", getpid());
- 	SAFE_FILE_PRINTF(fname, "1");
- 
-+	require_fanotify_access_permissions_supported_on_fs(fname);
- 	filesystem_mark_unsupported = fanotify_mark_supported_on_fs(FAN_MARK_FILESYSTEM, fname);
- 	exec_events_unsupported = fanotify_flags_supported_on_fs(FAN_CLASS_CONTENT,
- 					0, FAN_OPEN_EXEC_PERM, fname);
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify07.c b/testcases/kernel/syscalls/fanotify/fanotify07.c
-index 396c8490eeda..34aa810c7dac 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify07.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify07.c
-@@ -189,10 +189,9 @@ static void test_fanotify(void)
- 
- static void setup(void)
- {
--	require_fanotify_access_permissions_supported_by_kernel();
--
- 	sprintf(fname, "fname_%d", getpid());
- 	SAFE_FILE_PRINTF(fname, "%s", fname);
-+	require_fanotify_access_permissions_supported_on_fs(fname);
- }
- 
- static void cleanup(void)
--- 
-2.35.3
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gVGh1LCBOb3YgMzAsIDIwMjMgYXQgMTE6MzfigK9BTSBKYW4gS2FyYSA8amFja0BzdXNlLmN6
+PiB3cm90ZToKPgo+IFByaW50IG1vcmUgZGV0YWlscyBhYm91dCBmYWlsaW5nIGNhbGxzIGZyb20K
+PiBmYW5vdGlmeV9mbGFnc19zdXBwb3J0ZWRfb25fZnMoKS4KPgo+IFNpZ25lZC1vZmYtYnk6IEph
+biBLYXJhIDxqYWNrQHN1c2UuY3o+CgpSZXZpZXdlZC1ieTogQW1pciBHb2xkc3RlaW4gPGFtaXI3
+M2lsQGdtYWlsLmNvbT4KCj4gLS0tCj4gIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3Rp
+ZnkvZmFub3RpZnkuaCB8IDkgKysrKysrLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlv
+bnMoKyksIDMgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9z
+eXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeS5oIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9m
+YW5vdGlmeS9mYW5vdGlmeS5oCj4gaW5kZXggZjM0NDQwZTBiZDQxLi4zYjg4MzhlOGRkNjggMTAw
+NjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeS5o
+Cj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeS5oCj4g
+QEAgLTE5NSw3ICsxOTUsOSBAQCBzdGF0aWMgaW5saW5lIGludCBmYW5vdGlmeV9mbGFnc19zdXBw
+b3J0ZWRfb25fZnModW5zaWduZWQgaW50IGluaXRfZmxhZ3MsCj4gICAgICAgICAgICAgICAgIGlm
+IChlcnJubyA9PSBFTk9TWVMpCj4gICAgICAgICAgICAgICAgICAgICAgICAgdHN0X2JyayhUQ09O
+RiwgImZhbm90aWZ5IG5vdCBjb25maWd1cmVkIGluIGtlcm5lbCIpOwo+ICAgICAgICAgICAgICAg
+ICBpZiAoZXJybm8gIT0gRUlOVkFMKQo+IC0gICAgICAgICAgICAgICAgICAgICAgIHRzdF9icmso
+VEJST0sgfCBURVJSTk8sICJmYW5vdGlmeV9pbml0KCkgZmFpbGVkIik7Cj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgdHN0X2JyayhUQlJPSyB8IFRFUlJOTywKPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICJmYW5vdGlmeV9pbml0KCV4LCBPX1JET05MWSkgZmFpbGVkIiwKPiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGluaXRfZmxhZ3MpOwo+ICAgICAgICAgICAgICAg
+ICByZXR1cm4gLTE7Cj4gICAgICAgICB9Cj4KPiBAQCAtMjA0LDggKzIwNiw5IEBAIHN0YXRpYyBp
+bmxpbmUgaW50IGZhbm90aWZ5X2ZsYWdzX3N1cHBvcnRlZF9vbl9mcyh1bnNpZ25lZCBpbnQgaW5p
+dF9mbGFncywKPiAgICAgICAgICAgICAgICAgICAgICAgICBydmFsID0gc3RyY21wKGZuYW1lLCBP
+VkxfTU5UKSA/IC0yIDogLTM7Cj4gICAgICAgICAgICAgICAgIH0gZWxzZSBpZiAoZXJybm8gIT0g
+RUlOVkFMKSB7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgdHN0X2JyayhUQlJPSyB8IFRFUlJO
+TywKPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJmYW5vdGlmeV9tYXJrICglZCwg
+RkFOX01BUktfQURELCAuLi4sIEFUX0ZEQ1dELCAlcykgZmFpbGVkIiwKPiAtICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGZkLCBmbmFtZSk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAiZmFub3RpZnlfbWFyayAoJWQsIEZBTl9NQVJLX0FERCB8ICV4LCAlbGx4LCBBVF9G
+RENXRCwgJXMpIGZhaWxlZCIsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmZCwg
+bWFya19mbGFncywgKHVuc2lnbmVkIGxvbmcgbG9uZylldmVudF9mbGFncywKPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGZuYW1lKTsKPiAgICAgICAgICAgICAgICAgfSBlbHNlIHsK
+PiAgICAgICAgICAgICAgICAgICAgICAgICBydmFsID0gLTE7Cj4gICAgICAgICAgICAgICAgIH0K
+PiAtLQo+IDIuMzUuMwo+CgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGlu
+dXguaXQvbGlzdGluZm8vbHRwCg==
