@@ -1,50 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54E738049E9
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Dec 2023 07:17:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1796B8049EC
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Dec 2023 07:17:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 00DC23CBFD9
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Dec 2023 07:16:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 54D9F3CC303
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Dec 2023 07:17:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 98DE73CBF77
- for <ltp@lists.linux.it>; Tue,  5 Dec 2023 07:16:57 +0100 (CET)
-Received: from esa11.hc1455-7.c3s2.iphmx.com (esa11.hc1455-7.c3s2.iphmx.com
- [207.54.90.137])
+ by picard.linux.it (Postfix) with ESMTPS id B2D623CBF85
+ for <ltp@lists.linux.it>; Tue,  5 Dec 2023 07:16:58 +0100 (CET)
+Received: from esa9.hc1455-7.c3s2.iphmx.com (esa9.hc1455-7.c3s2.iphmx.com
+ [139.138.36.223])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id EA6F32009CC
- for <ltp@lists.linux.it>; Tue,  5 Dec 2023 07:16:55 +0100 (CET)
-X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="121477130"
-X-IronPort-AV: E=Sophos;i="6.04,251,1695654000"; d="scan'208";a="121477130"
-Received: from unknown (HELO oym-r2.gw.nic.fujitsu.com) ([210.162.30.90])
- by esa11.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D9DB7600CCC
+ for <ltp@lists.linux.it>; Tue,  5 Dec 2023 07:16:57 +0100 (CET)
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="130438137"
+X-IronPort-AV: E=Sophos;i="6.04,251,1695654000"; d="scan'208";a="130438137"
+Received: from unknown (HELO oym-r3.gw.nic.fujitsu.com) ([210.162.30.91])
+ by esa9.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  05 Dec 2023 15:16:54 +0900
-Received: from oym-m1.gw.nic.fujitsu.com (oym-nat-oym-m1.gw.nic.fujitsu.com
- [192.168.87.58])
- by oym-r2.gw.nic.fujitsu.com (Postfix) with ESMTP id 3214BD7AE8
- for <ltp@lists.linux.it>; Tue,  5 Dec 2023 15:16:51 +0900 (JST)
+Received: from oym-m2.gw.nic.fujitsu.com (oym-nat-oym-m2.gw.nic.fujitsu.com
+ [192.168.87.59])
+ by oym-r3.gw.nic.fujitsu.com (Postfix) with ESMTP id 45C56D64A0
+ for <ltp@lists.linux.it>; Tue,  5 Dec 2023 15:16:52 +0900 (JST)
 Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
  [192.51.206.21])
- by oym-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 5D396D88B8
- for <ltp@lists.linux.it>; Tue,  5 Dec 2023 15:16:50 +0900 (JST)
+ by oym-m2.gw.nic.fujitsu.com (Postfix) with ESMTP id 6D7E1BF4A0
+ for <ltp@lists.linux.it>; Tue,  5 Dec 2023 15:16:51 +0900 (JST)
 Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id E8E4E2007B701
- for <ltp@lists.linux.it>; Tue,  5 Dec 2023 15:16:49 +0900 (JST)
+ by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id 040052007B701
+ for <ltp@lists.linux.it>; Tue,  5 Dec 2023 15:16:51 +0900 (JST)
 Received: from rhel93GA.g08.fujitsu.local (unknown [10.167.221.71])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id A00091A0071;
- Tue,  5 Dec 2023 14:16:49 +0800 (CST)
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id A2C0C1A0071;
+ Tue,  5 Dec 2023 14:16:50 +0800 (CST)
 From: Yang Xu <xuyang2018.jy@fujitsu.com>
 To: ltp@lists.linux.it
-Date: Tue,  5 Dec 2023 01:16:38 -0500
-Message-Id: <20231205061639.68656-2-xuyang2018.jy@fujitsu.com>
+Date: Tue,  5 Dec 2023 01:16:39 -0500
+Message-Id: <20231205061639.68656-3-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 2.39.3
 In-Reply-To: <20231205061639.68656-1-xuyang2018.jy@fujitsu.com>
 References: <20231205061639.68656-1-xuyang2018.jy@fujitsu.com>
@@ -53,20 +52,18 @@ X-TM-AS-GCONF: 00
 X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28038.005
 X-TM-AS-User-Approved-Sender: Yes
 X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28038.005
-X-TMASE-Result: 10--9.608600-10.000000
-X-TMASE-MatchedRID: ojZhuzNjofOPo+6vQMop+qzGfgakLdjawTlc9CcHMZerwqxtE531VIPc
- XuILVCbat52LZu/NbuP5KQEoKNwwIHyAL08NM00eutvHF25zoU8kPki1Yfh9Il/8lGqVstJXXJg
- Pk+dCjq2wDEIJD1Y7K6loc6WqrZaZICxs2SEh5wGIf3m0sUfx5za6AaQm7fhmPHMAbjuhwd9G1Q
- vheJ9Oe7vlPk1VIqp1gDLqnrRlXrZ8nn9tnqel2DsAVzN+Ov/s/WxM7wRQia704rMS4XOUcP4j3
- pyGCyOJZr2vw798TI48KQxoBVDnpQ==
+X-TMASE-Result: 10--9.963700-10.000000
+X-TMASE-MatchedRID: uXLKq++rPJdlJTodqNqEzqzGfgakLdjalwT0XposETW+f7ap9DJaDb8F
+ Hrw7frluf146W0iUu2tMCgkc3/BmTUwYXRRr2ymnfOaYwP8dcX4ogaQhRNNEvpsoi2XrUn/J8m+
+ hzBStansUGm4zriL0oQtuKBGekqUpI/NGWt0UYPArDdi+0UXUjf7DjywJezFAalWSuTFeCDFc6V
+ Qb0Hn5VK8e8eBqaP6r
 X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] syscalls/swapon03: Use get_maxswapfiles() api
- instead of hard code
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/3] swaponoff.h: Remove useless header
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,94 +80,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Since we have use get_maxswapfiles() api in swapon03.c, so this header
+is useless and can be removed safely.
+
 Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- testcases/kernel/syscalls/swapon/swapon03.c | 47 +++------------------
- 1 file changed, 6 insertions(+), 41 deletions(-)
+ testcases/kernel/syscalls/swapon/swaponoff.h | 8 --------
+ 1 file changed, 8 deletions(-)
+ delete mode 100644 testcases/kernel/syscalls/swapon/swaponoff.h
 
-diff --git a/testcases/kernel/syscalls/swapon/swapon03.c b/testcases/kernel/syscalls/swapon/swapon03.c
-index dc633ebc6..744fca3d1 100644
---- a/testcases/kernel/syscalls/swapon/swapon03.c
-+++ b/testcases/kernel/syscalls/swapon/swapon03.c
-@@ -19,14 +19,12 @@
- 
- #include "tst_test.h"
- #include "lapi/syscalls.h"
--#include "swaponoff.h"
- #include "libswap.h"
- 
- static int setup_swap(void);
- static int clean_swap(void);
- static int check_and_swapoff(const char *filename);
+diff --git a/testcases/kernel/syscalls/swapon/swaponoff.h b/testcases/kernel/syscalls/swapon/swaponoff.h
+deleted file mode 100644
+index 900761bda..000000000
+--- a/testcases/kernel/syscalls/swapon/swaponoff.h
++++ /dev/null
+@@ -1,8 +0,0 @@
 -
--static int swapfiles;
-+static int swapfiles, max_swapfiles;
- 
- int testfiles = 3;
- static struct swap_testfile_t {
-@@ -57,47 +55,13 @@ static void verify_swapon(void)
- 			"(%d). System reboot recommended.",
- 			expected_errno);
- 	} else {
--		/* Probably the system supports MAX_SWAPFILES > 30,
--		 * let's try with MAX_SWAPFILES == 32 */
+-#ifndef __SWAP_ON_OFF_H_
+-#define __SWAP_ON_OFF_H_
 -
--		/* Call swapon sys call once again for 32
--		 * now we can't receive an error */
--		TEST(tst_syscall(__NR_swapon, swap_testfiles[1].filename, 0));
+-#include <linux/version.h>
+-#define MAX_SWAPFILES 30
 -
--		/* Check return code (now we're expecting success) */
--		if (TST_RET < 0) {
--			tst_res(TFAIL | TTERRNO,
--				"swapon(2) got an unexpected failure");
--		} else {
--			/* Call swapon sys call once again for 33
--			 * now we have to receive an error */
--			TEST(tst_syscall(__NR_swapon, swap_testfiles[2].filename, 0));
--
--			/* Check return code (should be an error) */
--			if ((TST_RET == -1) && (TST_ERR == expected_errno)) {
--				tst_res(TPASS,
--					"swapon(2) got expected failure;"
--					" Got errno = %d, probably your"
--					" MAX_SWAPFILES is 32",
--					expected_errno);
--			} else {
--				tst_res(TFAIL,
--					"swapon(2) failed to produce"
--					" expected error: %d, got %s."
--					" System reboot after execution of LTP"
--					" test suite is recommended.",
--					expected_errno, strerror(TST_ERR));
--			}
--		}
-+		tst_res(TFAIL, "swapon(2) succeeded unexpectedly");
- 	}
- 
- 	if (clean_swap() < 0)
- 		tst_brk(TBROK, "Cleanup failed, quitting the test");
- }
- 
--/*
-- * Create 33 and activate 30 swapfiles.
-- */
- static int setup_swap(void)
- {
- 	pid_t pid;
-@@ -139,9 +103,10 @@ static int setup_swap(void)
- 		tst_brk(TFAIL, "Failed to find existing number of swapfiles");
- 
- 	/* Determine how many more files are to be created */
--	swapfiles = MAX_SWAPFILES - swapfiles;
--	if (swapfiles > MAX_SWAPFILES)
--		swapfiles = MAX_SWAPFILES;
-+	max_swapfiles = (int)get_maxswapfiles();
-+	swapfiles = max_swapfiles - swapfiles;
-+	if (swapfiles > max_swapfiles)
-+		swapfiles = max_swapfiles;
- 	pid = SAFE_FORK();
- 	if (pid == 0) {
- 		/*create and turn on remaining swapfiles */
+-#endif
 -- 
 2.27.0
 
