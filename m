@@ -2,42 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BC50805CF3
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Dec 2023 19:10:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24575805CF0
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Dec 2023 19:10:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 50EC53CF5B5
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Dec 2023 19:10:35 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EF9FC3CD8C9
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Dec 2023 19:10:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 19B1C3CC16D
+ by picard.linux.it (Postfix) with ESMTPS id 9F6163CC0A4
  for <ltp@lists.linux.it>; Tue,  5 Dec 2023 19:10:10 +0100 (CET)
 Received: from 66-220-144-179.mail-mxout.facebook.com
  (66-220-144-179.mail-mxout.facebook.com [66.220.144.179])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C5791200091
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5806F1A00689
  for <ltp@lists.linux.it>; Tue,  5 Dec 2023 19:10:09 +0100 (CET)
 Received: by devbig1114.prn1.facebook.com (Postfix, from userid 425415)
- id A3F201067A2EC; Tue,  5 Dec 2023 10:09:54 -0800 (PST)
+ id AAA361067A2EE; Tue,  5 Dec 2023 10:09:54 -0800 (PST)
 From: Stefan Roesch <shr@devkernel.io>
 To: kernel-team@fb.com
-Date: Tue,  5 Dec 2023 10:09:50 -0800
-Message-Id: <20231205180952.3843711-1-shr@devkernel.io>
+Date: Tue,  5 Dec 2023 10:09:51 -0800
+Message-Id: <20231205180952.3843711-2-shr@devkernel.io>
 X-Mailer: git-send-email 2.39.3
+In-Reply-To: <20231205180952.3843711-1-shr@devkernel.io>
+References: <20231205180952.3843711-1-shr@devkernel.io>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.6 required=7.0 tests=HELO_MISC_IP,RDNS_DYNAMIC,
  SPF_HELO_PASS,SPF_NEUTRAL,TVD_RCVD_IP,T_SCC_BODY_TEXT_LINE
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 0/2] KSM: support smart-scan feature
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 1/2] mem: disable KSM smart scan for ksm tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,60 +57,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch series makes two changes:
-- Disable the smart-scan feature for ksm01 - ksm04
-  This is necessary to make sure that the volatile metrics have the
-  expected counts.
-- Add a new test for the smart-scan feature
-  The new test verifies that the smart-scan feature skips pages when it has
-  been enabled for a VMA.
+This disables the "smart scan" KSM feature to make sure that the volatile
+count remains at 0.
 
-Versions:
-- V4:
-  - no changes to first patch
+Signed-off-by: Stefan Roesch <shr@devkernel.io>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-  - Changed header documentation
-  - Fixed includes
-  - Renamed create_memory() to verify_ksm(), orignal verify_ksm() has been
-    removed
-  - Remove loop in verify_ksm
-  - Remove wait at the end
-  - Call madvise at the end of the function
-  - Remove needs_fork
-  
-- V3:
-  - Disable smart scan for ksm05 and ksm06
-  - add ksm07 to runtest/mm
-  - change documentation format in header of ksm07.c
-  - Move function create_memory_for_smartscan() to ksm07.c
-  - Rename create_memory_for_smartscan() to create_memory()
-  
-- V2:
-  - Disable smart_scan in the test setup structure
-  - Remove the changes in create_same_memory()
-  - Add the new testcase ksm07 for the smart scan test
-  
+Reported-by: kernel test robot <oliver.sang@intel.com>
+Closes: https://lore.kernel.org/oe-lkp/202311161132.13d8ce5a-oliver.sang@intel.com
+---
+ testcases/kernel/mem/ksm/ksm01.c | 2 ++
+ testcases/kernel/mem/ksm/ksm02.c | 2 ++
+ testcases/kernel/mem/ksm/ksm03.c | 2 ++
+ testcases/kernel/mem/ksm/ksm04.c | 2 ++
+ testcases/kernel/mem/ksm/ksm05.c | 2 ++
+ testcases/kernel/mem/ksm/ksm06.c | 2 ++
+ 6 files changed, 12 insertions(+)
 
-*** BLURB HERE ***
-
-Stefan Roesch (2):
-  mem: disable KSM smart scan for ksm tests
-  add ksm test for smart-scan feature
-
- runtest/mm                       |   1 +
- testcases/kernel/mem/.gitignore  |   1 +
- testcases/kernel/mem/ksm/ksm01.c |   2 +
- testcases/kernel/mem/ksm/ksm02.c |   2 +
- testcases/kernel/mem/ksm/ksm03.c |   2 +
- testcases/kernel/mem/ksm/ksm04.c |   2 +
- testcases/kernel/mem/ksm/ksm05.c |   2 +
- testcases/kernel/mem/ksm/ksm06.c |   2 +
- testcases/kernel/mem/ksm/ksm07.c | 113 +++++++++++++++++++++++++++++++
- 9 files changed, 127 insertions(+)
- create mode 100644 testcases/kernel/mem/ksm/ksm07.c
-
-
-base-commit: 8c89ef3d451087ed6e18750bd5eedd10e5ab3d2e
+diff --git a/testcases/kernel/mem/ksm/ksm01.c b/testcases/kernel/mem/ksm/ksm01.c
+index bcd095865..e2d3d9e00 100644
+--- a/testcases/kernel/mem/ksm/ksm01.c
++++ b/testcases/kernel/mem/ksm/ksm01.c
+@@ -86,6 +86,8 @@ static struct tst_test test = {
+ 			TST_SR_SKIP_MISSING | TST_SR_TCONF_RO},
+ 		{"/sys/kernel/mm/ksm/merge_across_nodes", "1",
+ 			TST_SR_SKIP_MISSING | TST_SR_TCONF_RO},
++		{"/sys/kernel/mm/ksm/smart_scan", "0",
++			TST_SR_SKIP_MISSING | TST_SR_TBROK_RO},
+ 		{}
+ 	},
+ 	.needs_kconfigs = (const char *const[]){
+diff --git a/testcases/kernel/mem/ksm/ksm02.c b/testcases/kernel/mem/ksm/ksm02.c
+index bce639dce..3707de95d 100644
+--- a/testcases/kernel/mem/ksm/ksm02.c
++++ b/testcases/kernel/mem/ksm/ksm02.c
+@@ -107,6 +107,8 @@ static struct tst_test test = {
+ 			TST_SR_SKIP_MISSING | TST_SR_TCONF_RO},
+ 		{"/sys/kernel/mm/ksm/merge_across_nodes", "1",
+ 			TST_SR_SKIP_MISSING | TST_SR_TCONF_RO},
++		{"/sys/kernel/mm/ksm/smart_scan", "0",
++			TST_SR_SKIP_MISSING | TST_SR_TBROK_RO},
+ 		{}
+ 	},
+ 	.needs_kconfigs = (const char *const[]){
+diff --git a/testcases/kernel/mem/ksm/ksm03.c b/testcases/kernel/mem/ksm/ksm03.c
+index 4a733269f..cff74700d 100644
+--- a/testcases/kernel/mem/ksm/ksm03.c
++++ b/testcases/kernel/mem/ksm/ksm03.c
+@@ -89,6 +89,8 @@ static struct tst_test test = {
+ 			TST_SR_SKIP_MISSING | TST_SR_TCONF_RO},
+ 		{"/sys/kernel/mm/ksm/merge_across_nodes", "1",
+ 			TST_SR_SKIP_MISSING | TST_SR_TCONF_RO},
++		{"/sys/kernel/mm/ksm/smart_scan", "0",
++			TST_SR_SKIP_MISSING | TST_SR_TBROK_RO},
+ 		{}
+ 	},
+ 	.needs_kconfigs = (const char *const[]){
+diff --git a/testcases/kernel/mem/ksm/ksm04.c b/testcases/kernel/mem/ksm/ksm04.c
+index 4f1f2f721..9935e32d7 100644
+--- a/testcases/kernel/mem/ksm/ksm04.c
++++ b/testcases/kernel/mem/ksm/ksm04.c
+@@ -109,6 +109,8 @@ static struct tst_test test = {
+ 			TST_SR_SKIP_MISSING | TST_SR_TCONF_RO},
+ 		{"/sys/kernel/mm/ksm/merge_across_nodes", "1",
+ 			TST_SR_SKIP_MISSING | TST_SR_TCONF_RO},
++		{"/sys/kernel/mm/ksm/smart_scan", "0",
++			TST_SR_SKIP_MISSING | TST_SR_TBROK_RO},
+ 		{}
+ 	},
+ 	.needs_kconfigs = (const char *const[]){
+diff --git a/testcases/kernel/mem/ksm/ksm05.c b/testcases/kernel/mem/ksm/ksm05.c
+index 1f58c8325..61e740843 100644
+--- a/testcases/kernel/mem/ksm/ksm05.c
++++ b/testcases/kernel/mem/ksm/ksm05.c
+@@ -89,6 +89,8 @@ static struct tst_test test = {
+ 	.test_all = test_ksm,
+ 	.save_restore = (const struct tst_path_val[]) {
+ 		{"/sys/kernel/mm/ksm/run", "1", TST_SR_TBROK},
++		{"/sys/kernel/mm/ksm/smart_scan", "0",
++			TST_SR_SKIP_MISSING | TST_SR_TBROK_RO},
+ 		{}
+ 	},
+ 	.needs_kconfigs = (const char *const[]){
+diff --git a/testcases/kernel/mem/ksm/ksm06.c b/testcases/kernel/mem/ksm/ksm06.c
+index 0b159e5c7..80fdf1e47 100644
+--- a/testcases/kernel/mem/ksm/ksm06.c
++++ b/testcases/kernel/mem/ksm/ksm06.c
+@@ -142,6 +142,8 @@ static struct tst_test test = {
+ 		{"/sys/kernel/mm/ksm/run", NULL, TST_SR_TBROK},
+ 		{"/sys/kernel/mm/ksm/sleep_millisecs", NULL, TST_SR_TBROK},
+ 		{"/sys/kernel/mm/ksm/merge_across_nodes", NULL, TST_SR_TCONF},
++		{"/sys/kernel/mm/ksm/smart_scan", "0",
++			TST_SR_SKIP_MISSING | TST_SR_TBROK_RO},
+ 		{}
+ 	},
+ 	.needs_kconfigs = (const char *const[]){
 -- 
 2.39.3
 
