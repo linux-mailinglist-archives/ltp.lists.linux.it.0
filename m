@@ -2,75 +2,88 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10A48808670
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Dec 2023 12:12:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F4DA808689
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Dec 2023 12:18:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 78D8C3CBBDE
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Dec 2023 12:12:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 200393CBBDF
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Dec 2023 12:18:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6C3993CA6DE
- for <ltp@lists.linux.it>; Thu,  7 Dec 2023 12:12:29 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id B2A463C6A7A
+ for <ltp@lists.linux.it>; Thu,  7 Dec 2023 12:18:54 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 34A0C601B06
- for <ltp@lists.linux.it>; Thu,  7 Dec 2023 12:12:28 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:98])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 09841204703
+ for <ltp@lists.linux.it>; Thu,  7 Dec 2023 12:18:53 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 512F61F8C3;
- Thu,  7 Dec 2023 11:12:27 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3EFDC21E41;
+ Thu,  7 Dec 2023 11:18:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1701947931;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VqYh0FUd9KVHXDDAMOqXTPsAc69YDr9DpSytrlqu+GE=;
+ b=KdpO+07qv5jVEPmJtx/xv0evkaNAccGS/FT+E3KR0UeLF1gn/WVrczmssT8t/YEcge6Hw9
+ X460k743wD11lL/T/jET9z7VTUUj+TaEivQgHjgBfRE7+4b7OURCnht8A2M0UgQHa4oiAQ
+ j7NvSLlQMFGTJyBNNe9o8MzXW0lJT2E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1701947931;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VqYh0FUd9KVHXDDAMOqXTPsAc69YDr9DpSytrlqu+GE=;
+ b=ZmMuIwCopldAc57DtQ2HgwlWJvFnj4fdmFSxk05lkJggfwua1chsu6XQYyqRGgID0hoxpM
+ /BiiaWQ+ZfhJDsBQ==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id C9EB613907;
- Thu,  7 Dec 2023 11:12:26 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 8A7E613907;
+ Thu,  7 Dec 2023 11:18:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id 8FRILJqocWVBZgAAn2gu4w
- (envelope-from <pvorel@suse.cz>); Thu, 07 Dec 2023 11:12:26 +0000
+ by imap2.dmz-prg2.suse.org with ESMTPSA id MbPYGxqqcWXaaAAAn2gu4w
+ (envelope-from <pvorel@suse.cz>); Thu, 07 Dec 2023 11:18:50 +0000
+Date: Thu, 7 Dec 2023 12:18:44 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  7 Dec 2023 12:12:23 +0100
-Message-ID: <20231207111223.234170-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.43.0
+Message-ID: <20231207111844.GA234785@pevik>
+References: <20231207111223.234170-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: 512F61F8C3
-X-Spam-Score: 2.58
-X-Spamd-Result: default: False [2.58 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:98:from];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
- R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_GOOD(-0.10)[text/plain]; DMARC_NA(0.00)[suse.cz];
- BROKEN_CONTENT_TYPE(1.50)[]; TO_DN_SOME(0.00)[];
- R_SPF_SOFTFAIL(0.00)[~all]; RCVD_COUNT_THREE(0.00)[3];
- MX_GOOD(-0.01)[]; MID_CONTAINS_FROM(1.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
+Content-Disposition: inline
+In-Reply-To: <20231207111223.234170-1-pvorel@suse.cz>
+X-Spam-Level: 
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Score: 0.41
+X-Spamd-Result: default: False [0.41 / 50.00]; ARC_NA(0.00)[];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_COUNT_THREE(0.00)[3];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- R_DKIM_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- BAYES_HAM(-2.31)[96.80%]
-X-Spamd-Bar: ++
-Authentication-Results: smtp-out2.suse.de; dkim=none; dmarc=none;
- spf=softfail (smtp-out2.suse.de: 2a07:de40:b281:104:10:150:64:98 is neither
- permitted nor denied by domain of pvorel@suse.cz)
- smtp.mailfrom=pvorel@suse.cz
-X-Rspamd-Server: rspamd1
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+ MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
+ RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.29)[74.75%]
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] fsx-linux: Reduce log output
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] fsx-linux: Reduce log output
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,113 +95,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Log output is very verbose. Given how many times the test tries it's a
-significant time spent for printing output. This change also helps to
-run on slower SUT without need to set LTP_TIMEOUT_MUL environment
-variable.
+> Log output is very verbose. Given how many times the test tries it's a
+> significant time spent for printing output. This change also helps to
+> run on slower SUT without need to set LTP_TIMEOUT_MUL environment
+> variable.
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/kernel/fs/fsx-linux/fsx-linux.c | 33 ++++-------------------
- 1 file changed, 5 insertions(+), 28 deletions(-)
+IMHO output should have been only on error (test run 10000x or 100000x or even
+500000x, that's a lot for a regular output). Also logs get huge due logging.
 
-diff --git a/testcases/kernel/fs/fsx-linux/fsx-linux.c b/testcases/kernel/fs/fsx-linux/fsx-linux.c
-index 112c21f85..375ef4a1a 100644
---- a/testcases/kernel/fs/fsx-linux/fsx-linux.c
-+++ b/testcases/kernel/fs/fsx-linux/fsx-linux.c
-@@ -98,7 +98,6 @@ static void update_file_size(struct file_pos_t const *pos)
- {
- 	if (pos->offset + pos->size > file_size) {
- 		file_size = pos->offset + pos->size;
--
- 		tst_res(TINFO, "File size changed: %llu", file_size);
- 	}
- }
-@@ -134,12 +133,6 @@ static int op_read(void)
- 	struct file_pos_t pos;
- 
- 	op_file_position(file_size, op_read_align, &pos);
--
--	tst_res(TINFO,
--		"Reading at offset=%llu, size=%llu",
--		pos.offset,
--		pos.size);
--
- 	memset(temp_buff, 0, file_max_size);
- 
- 	SAFE_LSEEK(file_desc, (off_t)pos.offset, SEEK_SET);
-@@ -176,11 +169,6 @@ static int op_write(void)
- 		temp_buff[i] = data;
- 	}
- 
--	tst_res(TINFO,
--		"Writing at offset=%llu, size=%llu",
--		pos.offset,
--		pos.size);
--
- 	SAFE_LSEEK(file_desc, (off_t)pos.offset, SEEK_SET);
- 	SAFE_WRITE(SAFE_WRITE_ALL, file_desc, temp_buff, pos.size);
- 
-@@ -194,11 +182,7 @@ static int op_truncate(void)
- 	struct file_pos_t pos;
- 
- 	op_file_position(file_max_size, op_trunc_align, &pos);
--
- 	file_size = pos.offset + pos.size;
--
--	tst_res(TINFO, "Truncating to %llu", file_size);
--
- 	SAFE_FTRUNCATE(file_desc, file_size);
- 	memset(file_buff + file_size, 0, file_max_size - file_size);
- 
-@@ -218,11 +202,6 @@ static int op_map_read(void)
- 	op_file_position(file_size, op_read_align, &pos);
- 	op_align_pages(&pos);
- 
--	tst_res(TINFO,
--		"Map reading at offset=%llu, size=%llu",
--		pos.offset,
--		pos.size);
--
- 	addr = SAFE_MMAP(
- 		0, pos.size,
- 		PROT_READ,
-@@ -261,11 +240,6 @@ static int op_map_write(void)
- 	if (file_size < pos.offset + pos.size)
- 		SAFE_FTRUNCATE(file_desc, pos.offset + pos.size);
- 
--	tst_res(TINFO,
--		"Map writing at offset=%llu, size=%llu",
--		pos.offset,
--		pos.size);
--
- 	for (long long i = 0; i < pos.size; i++)
- 		file_buff[pos.offset + i] = random() % 10 + 'l';
- 
-@@ -277,10 +251,13 @@ static int op_map_write(void)
- 		(off_t)pos.offset);
- 
- 	memcpy(addr, file_buff + pos.offset, pos.size);
--	msync(addr, pos.size, MS_SYNC);
- 
--	SAFE_MUNMAP(addr, pos.size);
-+	if (msync(addr, pos.size, MS_SYNC) != 0) {
-+		tst_res(TWARN, "Map writing at offset=%llu, size=%llu failed",
-+			pos.offset, pos.size);
-+	}
- 
-+	SAFE_MUNMAP(addr, pos.size);
- 	update_file_size(&pos);
- 
- 	return 1;
--- 
-2.43.0
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
