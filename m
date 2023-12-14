@@ -1,83 +1,82 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CFC981347F
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Dec 2023 16:20:04 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 31D81813482
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Dec 2023 16:20:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F2B623CE5AE
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Dec 2023 16:20:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B6A7D3CF4C3
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Dec 2023 16:20:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4D5F33CB4B6
- for <ltp@lists.linux.it>; Thu, 14 Dec 2023 16:20:01 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id B6E8F3CE5CE
+ for <ltp@lists.linux.it>; Thu, 14 Dec 2023 16:20:04 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1502E600A8C
- for <ltp@lists.linux.it>; Thu, 14 Dec 2023 16:20:01 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 38A21602AED
+ for <ltp@lists.linux.it>; Thu, 14 Dec 2023 16:20:03 +0100 (CET)
 Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6598921F6F;
- Thu, 14 Dec 2023 15:20:00 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 43CD122111;
+ Thu, 14 Dec 2023 15:20:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1702567200; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1702567203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6Z2oTG7SNbISPLOMbTDwAJg+d85rhfCkxnTPj47uDd0=;
- b=ff/IZG1MfeotbrG8BjHzxEyTJVbUsz+HNQ47x37p8lJbXcnCXn0m7KhAMCljaAy9onEQa2
- Qw2QtWil9G0AHlB4J1bKiByzcjTKLuxMd5b5J9TB5fbqTdZ+6zU4dZGHDGltYbQTQ8uG6H
- G3Uhy75Pc8sO3OeCWooNOq5seL9YO0o=
+ bh=pXPCe7qENdtfO80DihSNa8wx4FfKFVX3Sz68X3pKf7s=;
+ b=uRZ+0GNf29EDPDkIsWvfvo0z4yET9HEKE+s3uyr5M2jUZ733rRBJD/fFNgmuKw7jd2A6p+
+ WuVJDcbG3MBAdsXKyNQTAjagw2KrKxQWi0ft7TKo83865y8ZlY5naZnjKFMHoys49noO4b
+ 4vofMbcwoGMQtBCnOoOdid1Kli4AOUc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1702567200;
+ s=susede2_ed25519; t=1702567203;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6Z2oTG7SNbISPLOMbTDwAJg+d85rhfCkxnTPj47uDd0=;
- b=xBnMHEY1K/wjFCJB5mUK5PfR50d24a55JwsSHDg27tiHkTaEpwDqgMtJw6rkDxQ7pKlrm3
- 1rF36S5NjZT3i3CA==
+ bh=pXPCe7qENdtfO80DihSNa8wx4FfKFVX3Sz68X3pKf7s=;
+ b=FNVIdl4WHLTaV0xYZfMExcj7010fu5CW1xmeP4PTIAYNZa1ltzuqiimAuAxoztm8JfFNgy
+ n41Px1fhGYroEjDg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1702567200; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1702567203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6Z2oTG7SNbISPLOMbTDwAJg+d85rhfCkxnTPj47uDd0=;
- b=ff/IZG1MfeotbrG8BjHzxEyTJVbUsz+HNQ47x37p8lJbXcnCXn0m7KhAMCljaAy9onEQa2
- Qw2QtWil9G0AHlB4J1bKiByzcjTKLuxMd5b5J9TB5fbqTdZ+6zU4dZGHDGltYbQTQ8uG6H
- G3Uhy75Pc8sO3OeCWooNOq5seL9YO0o=
+ bh=pXPCe7qENdtfO80DihSNa8wx4FfKFVX3Sz68X3pKf7s=;
+ b=uRZ+0GNf29EDPDkIsWvfvo0z4yET9HEKE+s3uyr5M2jUZ733rRBJD/fFNgmuKw7jd2A6p+
+ WuVJDcbG3MBAdsXKyNQTAjagw2KrKxQWi0ft7TKo83865y8ZlY5naZnjKFMHoys49noO4b
+ 4vofMbcwoGMQtBCnOoOdid1Kli4AOUc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1702567200;
+ s=susede2_ed25519; t=1702567203;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6Z2oTG7SNbISPLOMbTDwAJg+d85rhfCkxnTPj47uDd0=;
- b=xBnMHEY1K/wjFCJB5mUK5PfR50d24a55JwsSHDg27tiHkTaEpwDqgMtJw6rkDxQ7pKlrm3
- 1rF36S5NjZT3i3CA==
+ bh=pXPCe7qENdtfO80DihSNa8wx4FfKFVX3Sz68X3pKf7s=;
+ b=FNVIdl4WHLTaV0xYZfMExcj7010fu5CW1xmeP4PTIAYNZa1ltzuqiimAuAxoztm8JfFNgy
+ n41Px1fhGYroEjDg==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 2C37213AB3;
- Thu, 14 Dec 2023 15:19:59 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id C5A7F134B0;
+ Thu, 14 Dec 2023 15:20:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id UKvgBR8de2WpJwAAn2gu4w
- (envelope-from <pvorel@suse.cz>); Thu, 14 Dec 2023 15:19:59 +0000
+ by imap2.dmz-prg2.suse.org with ESMTPSA id UO5NLSAde2WpJwAAn2gu4w
+ (envelope-from <pvorel@suse.cz>); Thu, 14 Dec 2023 15:20:00 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 14 Dec 2023 16:19:45 +0100
-Message-ID: <20231214151954.840244-2-pvorel@suse.cz>
+Date: Thu, 14 Dec 2023 16:19:46 +0100
+Message-ID: <20231214151954.840244-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231214151954.840244-1-pvorel@suse.cz>
 References: <20231214151954.840244-1-pvorel@suse.cz>
@@ -96,19 +95,20 @@ X-Spamd-Result: default: False [-0.30 / 50.00]; ARC_NA(0.00)[];
  RCPT_COUNT_FIVE(0.00)[6]; NEURAL_HAM_LONG(-1.00)[-1.000];
  RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.978]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_SHORT(-0.20)[-0.976]; MID_CONTAINS_FROM(1.00)[];
  DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[]
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ BAYES_HAM(-0.00)[31.54%]
 X-Spam-Flag: NO
-X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 01/10] lib/tests: Add test for testing tst_res()
- flags
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 02/10] tst_test.sh/tst_brk(): Convert only TBROK to
+ TWARN in cleanup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,91 +125,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+C API specifies (since 6440c5d0d):
+
+    WARNING: Calling tst_brk() in test cleanup() does not exit the test as well
+	     and TBROK is converted to TWARN.
+
+But shell API 1) changed *anything* to TWARN 2) do change only in exit.
+Unify with C API => change also on cleanup() and convert only TBROK.
+
+Also, TBROK in cleanup() was printed 2x (as TBROK and then as TWARN).
+Fixing it requires TST_DO_CLEANUP to be unset *before* running cleanup
+function ($TST_CLEANUP).
+
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- lib/newlib_tests/shell/tst_res_flags.sh | 24 +++++++++++++++
- lib/newlib_tests/tst_res_flags.c        | 41 +++++++++++++++++++++++++
- 2 files changed, 65 insertions(+)
- create mode 100755 lib/newlib_tests/shell/tst_res_flags.sh
- create mode 100644 lib/newlib_tests/tst_res_flags.c
+ testcases/lib/tst_test.sh | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/lib/newlib_tests/shell/tst_res_flags.sh b/lib/newlib_tests/shell/tst_res_flags.sh
-new file mode 100755
-index 000000000..bca3d26c0
---- /dev/null
-+++ b/lib/newlib_tests/shell/tst_res_flags.sh
-@@ -0,0 +1,24 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2023 Petr Vorel <pvorel@suse.cz>
-+
-+TST_TESTFUNC=test
-+TST_CLEANUP=cleanup
-+
-+test()
-+{
-+	tst_res TPASS "TPASS message"
-+	tst_res TFAIL "TFAIL message"
-+	tst_res TBROK "TBROK message"
-+	tst_res TCONF "TCONF message"
-+	tst_res TWARN "TWARN message"
-+	tst_res TINFO "TINFO message"
-+}
-+
-+cleanup()
-+{
-+	tst_brk TBROK "TBROK message should be TWARN in cleanup"
-+}
-+
-+. tst_test.sh
-+tst_run
-diff --git a/lib/newlib_tests/tst_res_flags.c b/lib/newlib_tests/tst_res_flags.c
-new file mode 100644
-index 000000000..85eee09a6
---- /dev/null
-+++ b/lib/newlib_tests/tst_res_flags.c
-@@ -0,0 +1,41 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2023 Petr Vorel <pvorel@suse.cz>
-+ */
-+
-+/*
-+ * Test tst_res() flags.
-+ */
-+
-+#include "tst_test.h"
-+
-+#define FLAG(x) .flag = x, .str = #x
-+static struct tcase {
-+	int flag;
-+	const char *str;
-+} tcases[] = {
-+	{FLAG(TPASS)},
-+	{FLAG(TFAIL)},
-+	{FLAG(TBROK)},
-+	{FLAG(TCONF)},
-+	{FLAG(TWARN)},
-+	{FLAG(TINFO)},
-+};
-+
-+static void do_cleanup(void)
-+{
-+	tst_brk(TBROK, "TBROK message should be TWARN in cleanup");
-+}
-+
-+static void do_test(void)
-+{
-+	size_t i;
-+
-+	for (i = 0; i < ARRAY_SIZE(tcases); i++)
-+		tst_res(tcases[i].flag, "%s message", tcases[i].str);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = do_test,
-+	.cleanup = do_cleanup,
-+};
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index b5b38f524..a6a5d82a4 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -28,6 +28,7 @@ _tst_do_cleanup()
+ {
+ 	if [ -n "$TST_DO_CLEANUP" -a -n "$TST_CLEANUP" -a -z "$TST_NO_CLEANUP" ]; then
+ 		if command -v $TST_CLEANUP >/dev/null 2>/dev/null; then
++			TST_DO_CLEANUP=
+ 			$TST_CLEANUP
+ 		else
+ 			tst_res TWARN "TST_CLEANUP=$TST_CLEANUP declared, but function not defined (or cmd not found)"
+@@ -126,8 +127,10 @@ tst_brk()
+ 	local res=$1
+ 	shift
+ 
+-	if [ "$TST_DO_EXIT" = 1 ]; then
++	# TBROK => TWARN on cleanup or exit
++	if [ "$res" = TBROK ] && [ "$TST_DO_EXIT" = 1 -o -z "$TST_DO_CLEANUP" -a -n "$TST_CLEANUP" ]; then
+ 		tst_res TWARN "$@"
++		TST_DO_CLEANUP=
+ 		return
+ 	fi
+ 
 -- 
 2.43.0
 
