@@ -1,107 +1,91 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC17C812FFF
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Dec 2023 13:27:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 64ACB813480
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Dec 2023 16:20:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BCD6A3CCAC9
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Dec 2023 13:27:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 013153CF4BD
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Dec 2023 16:20:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AE4AF3CB491
- for <ltp@lists.linux.it>; Thu, 14 Dec 2023 13:26:58 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by picard.linux.it (Postfix) with ESMTPS id B1C673CB4B6
+ for <ltp@lists.linux.it>; Thu, 14 Dec 2023 16:20:01 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 59AFF600FA8
- for <ltp@lists.linux.it>; Thu, 14 Dec 2023 13:26:56 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6829B600156
+ for <ltp@lists.linux.it>; Thu, 14 Dec 2023 16:19:59 +0100 (CET)
 Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 197CF220DD;
- Thu, 14 Dec 2023 12:26:56 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 141572210A;
+ Thu, 14 Dec 2023 15:19:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1702556816;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MGiKL5KuyVPjfxF31pV6aOvEZvIWfs73/qovK5M5Xp0=;
- b=p20apbVdeoXCixmLPZsa1EFvDQ4mxepWGR+HkdjC30xFAL2nlK0Cdr16SaHzIR0vbt429A
- CYJv+qVWmoX3yWLJcvRqSl5Esoko5bDxSB8cVbGQp4qlAzrZTHElX3/oxvjMmpxrIg9LYq
- +4ZxMlegQxuBP9SArZcSRyYiXzA8ViI=
+ t=1702567199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=q5uqKi55m9s0HL5mHhgP9iVBZWtMShAO31RJv3QSpS0=;
+ b=bD+EhWlp25JDJMA0nKZnRTr5JvVdg7meWlNAJqPF+e0FKbnpeZ4oASVOG0EmnMNpbN/2RT
+ cma1l5eV/vC+WrpCz4CL0tPsmIYJI6NAjXzNQQzjCRtDjqejd3gny0E0BEzrXAYOXvaw2x
+ ikMHW2UIS6spLv3ok8zkVILhIQ+CX9o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1702556816;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MGiKL5KuyVPjfxF31pV6aOvEZvIWfs73/qovK5M5Xp0=;
- b=H5FdBCCV0zZoP3Eq6O375aLpFvryHz/p+1yaWy5QGy/gFYAGGgIyq+kqSfDYDTyOiBkjEZ
- mtE5ayLo8rta7bAg==
+ s=susede2_ed25519; t=1702567199;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=q5uqKi55m9s0HL5mHhgP9iVBZWtMShAO31RJv3QSpS0=;
+ b=RW2MDnD3QT6f6ZUqVnuDa2ZwQgxSi7i1KHVGGPtPyZ9DG36MkRKV+6PRXLsWtGN0T5qfqN
+ hHaYSWr4J413iDAg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1702556816;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MGiKL5KuyVPjfxF31pV6aOvEZvIWfs73/qovK5M5Xp0=;
- b=p20apbVdeoXCixmLPZsa1EFvDQ4mxepWGR+HkdjC30xFAL2nlK0Cdr16SaHzIR0vbt429A
- CYJv+qVWmoX3yWLJcvRqSl5Esoko5bDxSB8cVbGQp4qlAzrZTHElX3/oxvjMmpxrIg9LYq
- +4ZxMlegQxuBP9SArZcSRyYiXzA8ViI=
+ t=1702567199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=q5uqKi55m9s0HL5mHhgP9iVBZWtMShAO31RJv3QSpS0=;
+ b=bD+EhWlp25JDJMA0nKZnRTr5JvVdg7meWlNAJqPF+e0FKbnpeZ4oASVOG0EmnMNpbN/2RT
+ cma1l5eV/vC+WrpCz4CL0tPsmIYJI6NAjXzNQQzjCRtDjqejd3gny0E0BEzrXAYOXvaw2x
+ ikMHW2UIS6spLv3ok8zkVILhIQ+CX9o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1702556816;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MGiKL5KuyVPjfxF31pV6aOvEZvIWfs73/qovK5M5Xp0=;
- b=H5FdBCCV0zZoP3Eq6O375aLpFvryHz/p+1yaWy5QGy/gFYAGGgIyq+kqSfDYDTyOiBkjEZ
- mtE5ayLo8rta7bAg==
+ s=susede2_ed25519; t=1702567199;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=q5uqKi55m9s0HL5mHhgP9iVBZWtMShAO31RJv3QSpS0=;
+ b=RW2MDnD3QT6f6ZUqVnuDa2ZwQgxSi7i1KHVGGPtPyZ9DG36MkRKV+6PRXLsWtGN0T5qfqN
+ hHaYSWr4J413iDAg==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 69506134B0;
- Thu, 14 Dec 2023 12:26:55 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 5F6A7134B0;
+ Thu, 14 Dec 2023 15:19:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id WDlTFo/0emX6cgAAn2gu4w
- (envelope-from <pvorel@suse.cz>); Thu, 14 Dec 2023 12:26:55 +0000
-Date: Thu, 14 Dec 2023 13:26:49 +0100
+ by imap2.dmz-prg2.suse.org with ESMTPSA id vfRVFR4de2WpJwAAn2gu4w
+ (envelope-from <pvorel@suse.cz>); Thu, 14 Dec 2023 15:19:58 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it,
- Li Wang <liwang@redhat.com>, Richard Palethorpe <rpalethorpe@suse.com>,
- Jan Stancek <jstancek@redhat.com>, Xiao Yang <yangx.jy@fujitsu.com>,
- Yang Xu <xuyang2018.jy@fujitsu.com>
-Message-ID: <20231214122649.GB800332@pevik>
-References: <20231211161807.526714-1-pvorel@suse.cz>
- <20231211161807.526714-2-pvorel@suse.cz> <ZXoAKxPxfXxU8bxw@rei>
- <20231213234044.GA774490@pevik> <ZXrGTkJIh4YluH3T@rei>
- <20231214121935.GA800332@pevik>
+To: ltp@lists.linux.it
+Date: Thu, 14 Dec 2023 16:19:44 +0100
+Message-ID: <20231214151954.840244-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231214121935.GA800332@pevik>
-X-Spam-Score: 0.48
-X-Spam-Level: 
+X-Spam-Score: 3.70
 Authentication-Results: smtp-out1.suse.de;
 	none
-X-Spam-Level: 
-X-Spam-Score: -0.51
-X-Spamd-Result: default: False [-0.51 / 50.00]; ARC_NA(0.00)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCVD_COUNT_THREE(0.00)[3];
+X-Spam-Score: 3.70
+X-Spamd-Result: default: False [3.70 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ BROKEN_CONTENT_TYPE(1.50)[]; RCPT_COUNT_FIVE(0.00)[6];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.998]; RCPT_COUNT_SEVEN(0.00)[7];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MID_CONTAINS_FROM(1.00)[];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.01)[51.07%]
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[]
 X-Spam-Flag: NO
 X-Virus-Scanned: clamav-milter 1.0.1 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -109,8 +93,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/3] lib/tests: Add test for testing tst_res()
- flags
+Subject: [LTP] [PATCH v4 00/10] Add TDEBUG tst_res() flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,42 +105,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> > Hi!
-> > > > Maybe it would make sense the loop over the flags here instead, so that
-> > > > we don't have to produce second TPASS message.
+Changes v3->v4:
+* Use -D instead of -v. That requires rename options in various tests
+* Activate also with TST_ENABLE_DEBUG=1 environment variable
+* Add also shell test
+* Add 2 shell RFC fixes
 
-> > > I'm not sure if I follow you. I wanted to use the flag in tst_res(),
-> > > but for these two there would be tst_brk(TBROK) due missing result.
+Petr Vorel (10):
+  lib/tests: Add test for testing tst_res() flags
+  tst_test.sh/tst_brk(): Convert only TBROK to TWARN in cleanup
+  tst_test.sh/tst_brk(): Allow only TBROK and TCONF
+  ioctl02: Rename option -D => -d
+  can_filter: Rename option -D => -d
+  can_rcv_own_msgs: Rename option -D => -d
+  tst_netload(): Rename option -d => -f
+  netstress: Rename option -D => -d
+  lib: Add support for TDEBUG tst_res() flag
+  fsx-linux: Reduce log output with TDEBUG
 
-> > I mean that if we put TBROK last in the array we can do:
+ doc/C-Test-API.asciidoc                       | 10 +++--
+ doc/User-Guidelines.asciidoc                  |  1 +
+ include/tst_ansi_color.h                      |  3 ++
+ include/tst_common.h                          |  2 +-
+ include/tst_res_flags.h                       |  1 +
+ include/tst_test.h                            |  5 ++-
+ lib/newlib_tests/shell/tst_res_flags.sh       | 24 ++++++++++
+ lib/newlib_tests/tst_res_flags.c              | 44 +++++++++++++++++++
+ lib/tst_ansi_color.c                          |  3 ++
+ lib/tst_res.c                                 |  5 +++
+ lib/tst_test.c                                | 19 ++++++++
+ runtest/syscalls                              |  2 +-
+ testcases/kernel/fs/fsx-linux/fsx-linux.c     | 33 +++++---------
+ testcases/kernel/syscalls/ioctl/ioctl02.c     |  2 +-
+ testcases/kernel/syscalls/ioctl/test_ioctl    |  2 +-
+ testcases/lib/tst_net.sh                      | 12 ++---
+ testcases/lib/tst_test.sh                     | 12 ++++-
+ testcases/network/busy_poll/busy_poll01.sh    |  2 +-
+ testcases/network/busy_poll/busy_poll02.sh    |  2 +-
+ testcases/network/busy_poll/busy_poll03.sh    |  2 +-
+ .../network/can/filter-tests/can_filter.c     |  2 +-
+ .../can/filter-tests/can_rcv_own_msgs.c       |  2 +-
+ testcases/network/netstress/netstress.c       |  2 +-
+ testcases/network/virt/virt_lib.sh            |  6 +--
+ 24 files changed, 149 insertions(+), 49 deletions(-)
+ create mode 100755 lib/newlib_tests/shell/tst_res_flags.sh
+ create mode 100644 lib/newlib_tests/tst_res_flags.c
 
-> > 	for (i = 0; i < ARRAY_SIZE(...); i++)
-FYI TBROK can stay, because we test tst_res().
-
-I add also add similar test in shell API (IMHO there still can be bugs in shell
-API implementation).
-
-Kind regards,
-Petr
-
-> > 		tst_res(....);
-
-> Yeah, I realized that later (it was too late already when I wrote the question).
-> My motivation was that extra TPASS also test functionality, we test, that TINFO
-> and TDEBUG are not results. But this is probably not important, thus I'll just
-> loop over array. And sure, I'll put TBROK to the end.
-
-> Kind regards,
-> Petr
-
-> > I.e. loop over all the flags in a single call of the function, which
-> > would mean that we do not have to add artificial TPASS at the end.
+-- 
+2.43.0
 
 
 -- 
