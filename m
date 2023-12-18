@@ -2,68 +2,88 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE2168167E2
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Dec 2023 09:16:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9231481674B
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Dec 2023 08:21:20 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9758F3CACAA
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Dec 2023 09:16:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5E0EC3CACE5
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Dec 2023 08:21:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8160C3CACE7
- for <ltp@lists.linux.it>; Mon, 18 Dec 2023 09:16:33 +0100 (CET)
-Received: from esa3.hc1455-7.c3s2.iphmx.com (esa3.hc1455-7.c3s2.iphmx.com
- [207.54.90.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id D41063C8224
+ for <ltp@lists.linux.it>; Mon, 18 Dec 2023 08:21:18 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E64C060011C
- for <ltp@lists.linux.it>; Mon, 18 Dec 2023 09:16:32 +0100 (CET)
-X-IronPort-AV: E=McAfee;i="6600,9927,10927"; a="143773077"
-X-IronPort-AV: E=Sophos;i="6.04,284,1695654000"; d="scan'208";a="143773077"
-Received: from unknown (HELO yto-r4.gw.nic.fujitsu.com) ([218.44.52.220])
- by esa3.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2023 17:16:31 +0900
-Received: from yto-m2.gw.nic.fujitsu.com (yto-nat-yto-m2.gw.nic.fujitsu.com
- [192.168.83.65])
- by yto-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id BA152E0401
- for <ltp@lists.linux.it>; Mon, 18 Dec 2023 17:16:28 +0900 (JST)
-Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
- [192.51.206.21])
- by yto-m2.gw.nic.fujitsu.com (Postfix) with ESMTP id 0F497D5E91
- for <ltp@lists.linux.it>; Mon, 18 Dec 2023 17:16:28 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id 884D3202CAA4E
- for <ltp@lists.linux.it>; Mon, 18 Dec 2023 17:16:27 +0900 (JST)
-Received: from rhel93GA.g08.fujitsu.local (unknown [10.167.221.71])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id 3F1641A006F;
- Mon, 18 Dec 2023 16:16:27 +0800 (CST)
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: ltp@lists.linux.it
-Date: Mon, 18 Dec 2023 01:21:29 -0500
-Message-Id: <20231218062129.130236-2-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20231218062129.130236-1-xuyang2018.jy@fujitsu.com>
-References: <20231218062129.130236-1-xuyang2018.jy@fujitsu.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1800E1000947
+ for <ltp@lists.linux.it>; Mon, 18 Dec 2023 08:21:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1702884075;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=WHHzd7sxA/T3P7fbygpLJ+XskEFGe5kZ51+Kvk9lymU=;
+ b=WiT7lylzQu1yJWd4fjEcSOIIrCgfUYmiTPhMuTyhS8EoCYv2+gaKafKDeDsWtDGz+DgvC4
+ YVVrMqlb4ZvHg2BZdFKnvfGu4OayFCnwD+1xycg2vQAxGC4Z1eTNn1aYgzid7TJBYZDEui
+ A2A6N1jr9HNo9rGLOOjtVSIu/IDd6t8=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-486-tzw0qE_YOaSwImOzX7iCzQ-1; Mon, 18 Dec 2023 02:21:12 -0500
+X-MC-Unique: tzw0qE_YOaSwImOzX7iCzQ-1
+Received: by mail-lf1-f72.google.com with SMTP id
+ 2adb3069b0e04-50c1c0710f6so2113829e87.1
+ for <ltp@lists.linux.it>; Sun, 17 Dec 2023 23:21:12 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702884071; x=1703488871;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=WHHzd7sxA/T3P7fbygpLJ+XskEFGe5kZ51+Kvk9lymU=;
+ b=OpKAo5UIWj7zJd1plvQnRdwxiFQWfHGka8gPmIOOlNlhnM4p4BitOu4fA75Rc9J5G/
+ zmEmjAsr0Y4A8H0mvtJs4eMJPaYtqSuE4iEIUGZ6ZF1BngHb0nFo2zzdkhU/X6FFHyyy
+ OWKa0cazaDm+nO24tNO5goCVi9hoULLpg9J8QCKJTXxy9vqVABjgXBwpGwd5uIgfFe1l
+ 73sEbrWlJj57DNpq8BEujr7qtEAVMzLvEtETUyLuDLlUBQaAE7VDr0DUnuTTjFYO6GWd
+ BxviauTDe0haZcp5Gx8l2FJc22MF22GXG4j3/7XTZjBnJcfmmCWaxaBSGC1hMJ7hrhcm
+ ggCA==
+X-Gm-Message-State: AOJu0YyqTonIIyztx2tkGJwnKYwuwtzR98Qx8TXrP18tLO/jZEukAcD9
+ ZkBLRYgKnMAb6fOWnjWa67XgIOkbZBZPndq1xiQHsK9Bl5UIL1tJj0wdFpRNaoH3GrUUD7zep6r
+ KHGKM4DD3unS6C1fVilWi1c6ACxQ=
+X-Received: by 2002:ac2:4a6e:0:b0:50e:2d42:cd37 with SMTP id
+ q14-20020ac24a6e000000b0050e2d42cd37mr1410224lfp.33.1702884071321; 
+ Sun, 17 Dec 2023 23:21:11 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE1I1QK5SmBytDx5nmUjd8KGvJ1icugVW/wGsxqPruJtZnNHJqtru5jVMdjRN9Hp1HWqC2qUUlFSfbAs44EGPc=
+X-Received: by 2002:ac2:4a6e:0:b0:50e:2d42:cd37 with SMTP id
+ q14-20020ac24a6e000000b0050e2d42cd37mr1410221lfp.33.1702884071016; Sun, 17
+ Dec 2023 23:21:11 -0800 (PST)
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28064.005
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28064.005
-X-TMASE-Result: 10--3.967800-10.000000
-X-TMASE-MatchedRID: v71phiYrRiGhhjsqgSuNbxF4zyLyne+ATJDl9FKHbrlcGuTueJkNItno
- quRwHY3Bi1QzF8xBpkXLmbje3yGzqlxxDx5qbkR9FEUknJ/kEl5q8/xv2Um1avoLR4+zsDTtB00
- /kkeBTwC5btQ5LU4P+ulH3GBMmErZEYvadqlssWK9jalmCPsPIGyXxKB0VMnPGVReE3/zNggelH
- a7KKLmnU/zrLAqSDDwHz9KYf72QduGk+xUaqdMDwHEKwHwYevbwUSxXh+jiUgkww/gwY7hMA==
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
-X-Virus-Scanned: clamav-milter 1.0.1 at in-2.smtp.seeweb.it
+References: <20231214063311.2325-1-wegao@suse.com>
+ <20231214071321.9863-1-wegao@suse.com>
+ <20231214071321.9863-2-wegao@suse.com> <20231215185749.GA58273@pevik>
+ <CAEemH2dxjRqz4aqJR8C95fAzE4M9XeScEwa-d3bRSO6EyW-EjA@mail.gmail.com>
+ <20231218043033.GA160518@pevik>
+In-Reply-To: <20231218043033.GA160518@pevik>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 18 Dec 2023 15:20:59 +0800
+Message-ID: <CAEemH2ehu_q4J02uPKVaCXNdfHCnCJ4X4L0rTMugpy0diFq2EQ@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] gettimeofday02: Convert docs to docparse
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: Re: [LTP] [PATCH v3 1/2] tst_memutils.c: Add tst_print_meminfo
+ function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,41 +95,45 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- testcases/kernel/syscalls/gettimeofday/gettimeofday02.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+Petr Vorel <pvorel@suse.cz> wrote:
 
-diff --git a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-index 7c462cc29..fcd027df5 100644
---- a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-+++ b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-@@ -4,13 +4,12 @@
-  * Copyright (C) 2017 Cyril Hrubis <chrubis@suse.cz>
-  */
- 
--/*
-+/*\
-  * DESCRIPTION
-- *	Check if gettimeofday is monotonous
-+ * Check if gettimeofday is monotonous during 10s
-  *
-- * ALGORITHM
-- *	Call gettimeofday() to get a t1 (fist value)
-- *	call it again to get t2, see if t2 < t1, set t2 = t1, repeat for 10 sec
-+ * - Call gettimeofday() to get a t1 (fist value)
-+ * - Call it again to get t2, see if t2 < t1, set t2 = t1, repeat for 10 sec
-  */
- 
- #include <stdint.h>
+
+>
+> > Agreed, anything related to the dedicated ops should be put into the
+> > corresponding header files. tst_safe_file_ops.h is a generic operation
+> > for Linux (but not for specific) files. So I vote for adding *_MEMINFO()
+> > to tst_memutil.h.
+>
+> +1
+>
+> I understand that it's a good idea when we separate things according to
+> e.g.
+> libc header. But we also have separated C files in lib/.
+> It's probably easier if we have more shorter files than fewer very long
+> files,
+> but I wonder if some sourcers should not be in single files, e.g. these:
+> tst_supported_fs_types.c, tst_fs_type.c => tst_fs.c
+> or
+> tst_fill_fs.c, tst_fill_file.c => tst_fill.c
+> or
+> tst_fs_setup.c, tst_path_has_mnt_flags.c => tst_mount.c
+> (into some more generic name)
+>
+
+
+Yes, I think so. Unless there is some necessary reason (I overlooked) to
+prevent mergeing them together.
+
+
 -- 
-2.39.3
-
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
