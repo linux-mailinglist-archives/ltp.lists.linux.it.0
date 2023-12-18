@@ -1,84 +1,84 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62BA08167D6
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Dec 2023 09:08:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A46D2816891
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Dec 2023 09:48:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B6E673CF339
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Dec 2023 09:08:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1E2623CB043
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Dec 2023 09:48:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2CF433C98E9
- for <ltp@lists.linux.it>; Mon, 18 Dec 2023 09:08:24 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 710A23C83BA
+ for <ltp@lists.linux.it>; Mon, 18 Dec 2023 09:48:01 +0100 (CET)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [216.145.221.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 49E221001260
- for <ltp@lists.linux.it>; Mon, 18 Dec 2023 09:08:23 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6EE852064EF
+ for <ltp@lists.linux.it>; Mon, 18 Dec 2023 09:48:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1702886902;
+ s=mimecast20190719; t=1702889278;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=CocnknGzy1OJr2WuguDd+Ryddu5qdvK3Xy3y7/IT6ec=;
- b=AE+UQ24zwoyJbdIhmU2jzocPAVnEla0QySzbnc32lqN4X17j+wLTOYrftJhIS0C592t3mM
- wz/YgyqM5NTunS8NiuC/zn6gcC7pA2B46bkU01j0fsOT+hEue/7oOmewTAFWcY95/HA1LX
- x0ONJGKNiLUKr6w5L1sC+gMXoimrBEc=
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=MRFoP4exmEnhSQEqtXDXHgLTvjMaC7CYjjAWoQs3Z/U=;
+ b=AeYtkJwEc5BqnMR8dGz2lbKl8cUZEOQs6cMtilMUqrD114oK47/lMB6DpIL7SNkXLz8/H5
+ M/C2/hJrMPQuHa8v1NFvzBWetQbumOwMWNuSNy/kxksOp4OK22dKxeoL2VhH/hdYwexJiW
+ YYM7vbPoA1pQpYDSN6GCHVgkHMaCNTw=
+Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
+ [209.85.208.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-498-kuAVY4FNOM-IW-wJpHGxJg-1; Mon, 18 Dec 2023 03:08:20 -0500
-X-MC-Unique: kuAVY4FNOM-IW-wJpHGxJg-1
-Received: by mail-lf1-f70.google.com with SMTP id
- 2adb3069b0e04-50e30e33677so744748e87.2
- for <ltp@lists.linux.it>; Mon, 18 Dec 2023 00:08:20 -0800 (PST)
+ us-mta-2-lbImvdRzPR2mB9w6I5Q1yw-1; Mon, 18 Dec 2023 03:47:56 -0500
+X-MC-Unique: lbImvdRzPR2mB9w6I5Q1yw-1
+Received: by mail-lj1-f199.google.com with SMTP id
+ 38308e7fff4ca-2cc61c96e08so13586841fa.0
+ for <ltp@lists.linux.it>; Mon, 18 Dec 2023 00:47:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702886898; x=1703491698;
+ d=1e100.net; s=20230601; t=1702889272; x=1703494072;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=CocnknGzy1OJr2WuguDd+Ryddu5qdvK3Xy3y7/IT6ec=;
- b=LMVcX8O00gTpKTTnAIx5t1MszvTWwgEkdNKPb4ATND0U7UAsPfoDOF9W/tEu+vP6Wa
- f5ju3QuCroRqywbkxKQxoW06TJusB13+X4IA8dgXwHsdeDxe2yeiB2QQfQUjb7ONj6t7
- ix4g2JUSKnKoT1mtGPbjErsQmcBj908P0f3ihdMm/ZkTsUSQA1Ej7jXNQor0rvuT/Dnp
- 1hYS8Q/9WDM6yLgn/6tvgiW8yw9QG0Bt0DAo/slgCSOYFbL+xnRYFAgyQlOVO8BO67+h
- 5+cOc20BiU41733aqxANP/fPQJ1pBIiK0UHjW9cPLiE1bB9b9vd4FklSY2QNcrOO0Obc
- meaQ==
-X-Gm-Message-State: AOJu0Yz88Zrg58aUOwfkd55QGZLFjApKO/wR6xK/2PR7lCk7RVI4C90Q
- YgtmjoFun9dPWTAGgBv+TTBgEAWmHTfxudnPwmkAd4fw0+4cKY9QjCXcrA1WEgwwgs07um8ItIC
- rl5nGC0fvxu+aCTU25pFFklGtfUdyC20FdLX1XQmF
-X-Received: by 2002:a05:6512:3056:b0:50e:16f4:5925 with SMTP id
- b22-20020a056512305600b0050e16f45925mr3578609lfb.112.1702886897893; 
- Mon, 18 Dec 2023 00:08:17 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEzL4RcHVim6LJKam8wtnEE+Lq0l/PCLfIOsAQsBvK0n7dVwof3B76ZKgSEs9CvWshMZc5q0oXiH8+HQWtb/xs=
-X-Received: by 2002:a05:6512:3056:b0:50e:16f4:5925 with SMTP id
- b22-20020a056512305600b0050e16f45925mr3578605lfb.112.1702886897606; Mon, 18
- Dec 2023 00:08:17 -0800 (PST)
+ bh=MRFoP4exmEnhSQEqtXDXHgLTvjMaC7CYjjAWoQs3Z/U=;
+ b=WjxL+vrpSfKNFROVjL+bXocelwm8ZnWHi3xtYSbC+HE4Xf+Xtb9Oo6T89dXNNLDa8A
+ SNVU39/2g5SGEvuh4VFAUu4ctBQXcoGNT15uM55uG4o6N1yUhFoFXcoW8U+D/HvPhN3P
+ yZTLHDI4iP/GdkNmtF+t8U8e89c4ABjDnlnX47CBKl/J+uCTaAn8P/ICbf0hJLaSln5y
+ SScZBi7wShaLQeFWhXNXYC3A0xF7c32rmQCqFP2ekEmSkTPhXNmeBICt3WfnT67hJeSN
+ mCWJwkkM7SD5JO+YoweLB2aJgnNNL2WF0+YIFqe6l1a+8kW9ABpspy47J/2MeyqO7TrY
+ PoSA==
+X-Gm-Message-State: AOJu0Yx112YS3nrUi2Mi8N8qYZy567MHLu5rpJqFR4CFZ3lPEbC94jEA
+ kfW3SnM14eWLXXpEIBI6ToDqZqjGIhMhDcIA/GVv0/1Z4lZ1X6OKt8YaOi6rgq9PQE+uy+k+cUa
+ zWXhimWqWDJZHOIDb4TVBbNt52V3j+N8S9aDuyvvTubw=
+X-Received: by 2002:a05:651c:50c:b0:2cc:4210:57b9 with SMTP id
+ o12-20020a05651c050c00b002cc421057b9mr3847131ljp.80.1702889272560; 
+ Mon, 18 Dec 2023 00:47:52 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEI/NDe26nYQhcX3akXK3wGzn3fgTwGIKht6paWks3Atk++g/INx6bnCpTtI3FQgNtuG1pwiUHR2fpoRyajZ+8=
+X-Received: by 2002:a05:651c:50c:b0:2cc:4210:57b9 with SMTP id
+ o12-20020a05651c050c00b002cc421057b9mr3847126ljp.80.1702889272242; Mon, 18
+ Dec 2023 00:47:52 -0800 (PST)
 MIME-Version: 1.0
-References: <20231215130609.14122-1-pvorel@suse.cz>
-In-Reply-To: <20231215130609.14122-1-pvorel@suse.cz>
+References: <20231218062129.130236-1-xuyang2018.jy@fujitsu.com>
+In-Reply-To: <20231218062129.130236-1-xuyang2018.jy@fujitsu.com>
 From: Li Wang <liwang@redhat.com>
-Date: Mon, 18 Dec 2023 16:08:04 +0800
-Message-ID: <CAEemH2c=nsC8rDVmQ2btqFC8P4VY8F-rfaHF6hE_bHntDs0Bpg@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
+Date: Mon, 18 Dec 2023 16:47:39 +0800
+Message-ID: <CAEemH2e-QNst=HVf3C-mEmdRiNh-Rrq-WzAc8bAcOLEAW9jjOA@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 1.0.1 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.1 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
 X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH 1/1] runtest: Merge runtest/connectors to
- kernel_misc
+Subject: Re: [LTP] [PATCH 1/2] gettimeofday01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,18 +91,14 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Reviewed-by: Li Wang <liwang@redhat.com>
-
-
-
--- 
-Regards,
-Li Wang
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gTW9uLCBEZWMgMTgsIDIwMjMgYXQgNDoxNuKAr1BNIFlhbmcgWHUgPHh1eWFuZzIwMTguanlA
+ZnVqaXRzdS5jb20+IHdyb3RlOgoKPiBTaWduZWQtb2ZmLWJ5OiBZYW5nIFh1IDx4dXlhbmcyMDE4
+Lmp5QGZ1aml0c3UuY29tPgo+CgpSZXZpZXdlZC1ieTogTGkgV2FuZyA8bGl3YW5nQHJlZGhhdC5j
+b20+CgpCdXQgSSB3b3VsZCBzdWdnZXN0IGFkZGluZyBtb3JlIGNvdmVyYWdlIG9uIEVSUk9SUyBp
+biB0aGlzIHRlc3QuCgotLSAKUmVnYXJkcywKTGkgV2FuZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZv
+OiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
