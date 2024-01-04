@@ -1,118 +1,108 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE59C8249CA
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 21:47:54 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C17CF8249C0
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 21:46:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AA7703CE740
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 21:47:53 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6DF013CB9D4
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 21:46:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 871AB3CC020
- for <ltp@lists.linux.it>; Thu,  4 Jan 2024 21:46:23 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by picard.linux.it (Postfix) with ESMTPS id D720C3C810A
+ for <ltp@lists.linux.it>; Thu,  4 Jan 2024 21:46:22 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 720091000743
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6BE9B1A004F4
  for <ltp@lists.linux.it>; Thu,  4 Jan 2024 21:46:22 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D582821E1A;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F28981F831;
  Thu,  4 Jan 2024 20:46:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1704401182; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WltCfivNAY7HX74Y00KT+GoKpGOCiZ14dXfssg8VzA0=;
- b=hQEzwBxSRg25vRfksaYsqTjuMetJbqpFmVQZ+snRNP8bmO7RP26W5nvuhCqZyZVuUuusGC
- laSapq91zeZ6VKpLxiu31WFzuGLpvK3Rg5Kyf7GFTZYyq5f6kNDPPnapXXYjhoHAbg8BWW
- MgTfJNV3YRSwgPgRv+ylswPGI9IH4bo=
+ bh=mzgE5KKpe//ixbaxbxwC1HYPYiRmPdTxNWXRKFTzibY=;
+ b=KAGiktU8ctHnP9hlha8yBYzRKPwmrEwH0HQ91TkI0I93GdKLOaMasboKbtBn3ws2K21B2j
+ Lx/oTxsXGzw3m9WtnRGGRpnvuv73YdZollFQJp6jnatAY1yk7N27ubrq1Ws7eoouOhKrO7
+ 7bWfR9DIMDuAWUwD1rq5upkWDmyuJY8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1704401182;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WltCfivNAY7HX74Y00KT+GoKpGOCiZ14dXfssg8VzA0=;
- b=FtEyo10Jo7PdgIzEx4pNL2z+r8JvztMUVP/YWmlZFgk+0TQOw4JTXSYnGMMzNDS/EbmayK
- qOgYxfZPcc8fBKCw==
+ bh=mzgE5KKpe//ixbaxbxwC1HYPYiRmPdTxNWXRKFTzibY=;
+ b=mIWrJtMiQzSoYWjAxgaDerx9/9DWorhxG7zrbJesh40vXxahojHQ7VRXfZpm+YY1GaSr4O
+ YvaJxxr3COPFjaDQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1704401181; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WltCfivNAY7HX74Y00KT+GoKpGOCiZ14dXfssg8VzA0=;
- b=IuJkAK24dQFR07dSLc3HQvmiTvdz7UiiBmnlSonNyXSZHKKYj5TMc6uaBLJUK9xALyr0GV
- P2rrqohBBPuouSOTUJAzW+qyUoSYuPWol+y6BH1uEyegwL9i9v0MaVm+0adTmGi7lY6yqS
- 2kZ0SuMR4Sd78zni02PPDeo32rC7TfE=
+ bh=mzgE5KKpe//ixbaxbxwC1HYPYiRmPdTxNWXRKFTzibY=;
+ b=pP/hHICCcI/tUkUKfaMbI/0fOWRZwoqBy3O3OZ7hk27GMF045qamKz/9KFP8hk9ZW3uApF
+ AoJ65l/ybdOWJKmzAQ0KZyIf6XywZiz0NzG5CW9OQxgMKhk5pIDJVttCsrvbok2CQx0rpi
+ KMCEU6RVmybdnAqzKQxfR7oWdNxJNhc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1704401181;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WltCfivNAY7HX74Y00KT+GoKpGOCiZ14dXfssg8VzA0=;
- b=lh37ZX/kecF509EvOJyGHLoWyjzc5gvB/Lx1Q/gUo3pbLXA4iZZkUAWvdoqC/f0GF6lw3O
- zre4EcTit0oesXCQ==
+ bh=mzgE5KKpe//ixbaxbxwC1HYPYiRmPdTxNWXRKFTzibY=;
+ b=cX7hUTcXhNRm76I8cDKqC3kcAWIslpiTUXPB/0e0WaSn69QRgtCHCcgf6LxWZtJyeMMzT+
+ DUK6olEZGoLYawAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B6490137E8;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D99C113C96;
  Thu,  4 Jan 2024 20:46:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id wJypKx0Zl2WsIQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id mJ9DNB0Zl2WsIQAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 04 Jan 2024 20:46:21 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  4 Jan 2024 21:46:10 +0100
-Message-ID: <20240104204614.1426027-6-pvorel@suse.cz>
+Date: Thu,  4 Jan 2024 21:46:11 +0100
+Message-ID: <20240104204614.1426027-7-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240104204614.1426027-1-pvorel@suse.cz>
 References: <20240104204614.1426027-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: 4.48
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: D582821E1A
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=IuJkAK24;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="lh37ZX/k"
-X-Spamd-Bar: ++++
-X-Spamd-Result: default: False [4.48 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[test.sh:url,parse.sh:url,suse.cz:email,suse.cz:dkim];
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spam-Score: 3.70
+X-Spamd-Result: default: False [3.70 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; URIBL_BLOCKED(0.00)[suse.cz:email];
  FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
  R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_GOOD(-0.10)[text/plain];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- BROKEN_CONTENT_TYPE(1.50)[];
- DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
- RCVD_COUNT_THREE(0.00)[3];
+ MIME_GOOD(-0.10)[text/plain]; BROKEN_CONTENT_TYPE(1.50)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.cz:+]; RCPT_COUNT_TWO(0.00)[2];
- MID_CONTAINS_FROM(1.00)[]; MX_GOOD(-0.01)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
+ MID_CONTAINS_FROM(1.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.01)[49.96%]
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ BAYES_HAM(-0.00)[10.48%]
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 5/9] metaparse: Verbose output on V=1
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 6/9] metaparse: Add missing blank line on the list
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,36 +119,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Pass VERBOSE variable to:
-* parse.sh (=> pass -v to metaparse.c if VERBOSE=1)
-* make test target (=> pass VERBOSE variable to test.sh)
+Correct list in JSON for correct HTML/PDFformatting via asciidoctor
+requires extra space:
+
+ * My CORRECT list (with extra blank line before first item):
+ *
+ * * foo2
+ * * bar2
+
+But people often forget to add it:
+
+ * My BROKEN list (missing blank line before first item):
+ * * foo
+ * * bar
+
+Therefore add this blank line to fix doc formatting.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- metadata/Makefile | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ metadata/data_storage.h | 36 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 35 insertions(+), 1 deletion(-)
 
-diff --git a/metadata/Makefile b/metadata/Makefile
-index 522af4270..750804175 100644
---- a/metadata/Makefile
-+++ b/metadata/Makefile
-@@ -13,7 +13,7 @@ INSTALL_DIR		= metadata
- .PHONY: ltp.json
+diff --git a/metadata/data_storage.h b/metadata/data_storage.h
+index 91ea70a02..0f4d42a13 100644
+--- a/metadata/data_storage.h
++++ b/metadata/data_storage.h
+@@ -7,9 +7,10 @@
+ #define DATA_STORAGE_H__
  
- ltp.json: metaparse
--	$(abs_srcdir)/parse.sh > ltp.json
-+	VERBOSE=$(VERBOSE) $(abs_srcdir)/parse.sh > ltp.json
- ifeq ($(WITH_METADATA),yes)
- 	mkdir -p $(abs_top_builddir)/docparse
- 	$(MAKE) -C $(abs_top_builddir)/docparse/ -f $(abs_top_srcdir)/docparse/Makefile
-@@ -25,6 +25,6 @@ install:
- endif
+ #include <stdarg.h>
++#include <stdbool.h>
+ #include <stdio.h>
+-#include <string.h>
+ #include <stdlib.h>
++#include <string.h>
  
- test:
--	$(MAKE) -C $(abs_srcdir)/tests/ test
-+	$(MAKE) -C $(abs_srcdir)/tests/ VERBOSE=$(VERBOSE) test
+ enum data_type {
+ 	DATA_ARRAY,
+@@ -275,6 +276,29 @@ static inline void data_node_print_(struct data_node *self, unsigned int padd)
+ 	}
+ }
  
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
++static inline bool item_is_str_list_member(struct data_node *self)
++{
++	if (self->type != DATA_STRING)
++		return false;
++
++	return self->string.val[0] == '*' && self->string.val[1] == ' ';
++}
++
++static inline bool item_is_str_empty(struct data_node *self)
++{
++	if (self->type != DATA_STRING)
++		return false;
++
++	return !strlen(self->string.val);
++}
++
++static inline bool missing_space_for_list(struct data_node *cur, struct
++						data_node *prev)
++{
++	return item_is_str_list_member(cur) && !item_is_str_empty(prev) &&
++	    !item_is_str_list_member(prev);
++}
++
+ static inline void data_node_print(struct data_node *self)
+ {
+ 	printf("{\n");
+@@ -357,6 +381,16 @@ static inline void data_to_json_(struct data_node *self, FILE *f, unsigned int p
+ 	case DATA_ARRAY:
+ 		data_fprintf(f, do_padd ? padd : 0, "[\n");
+ 		for (i = 0; i < self->array.array_used; i++) {
++
++			if (i > 0 &&
++			    missing_space_for_list(self->array.array[i],
++						   self->array.array[i-1])) {
++				fprintf(stderr,
++					"%s:%d: WARNING: missing blank line before first list item, add it\n",
++					__FILE__, __LINE__);
++				data_fprintf(f, padd+1, "\"\",\n");
++			}
++
+ 			data_to_json_(self->array.array[i], f, padd+1, 1);
+ 			if (i < self->array.array_used - 1)
+ 				fprintf(f, ",\n");
 -- 
 2.43.0
 
