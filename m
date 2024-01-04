@@ -1,90 +1,92 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C95158241AE
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 13:23:48 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 863B38241AB
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 13:23:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 96E7E3CE6E2
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 13:23:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 035C13CE6EC
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 13:23:41 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5A1AC3CE6E2
+ by picard.linux.it (Postfix) with ESMTPS id 4EC933CE6DE
  for <ltp@lists.linux.it>; Thu,  4 Jan 2024 13:23:16 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id DCB8A601B26
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C4A961000958
  for <ltp@lists.linux.it>; Thu,  4 Jan 2024 13:23:15 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A2E0521EF5;
- Thu,  4 Jan 2024 12:23:14 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2624E1F807;
+ Thu,  4 Jan 2024 12:23:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1704370994; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1704370995; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4wojqmzRJT1viwni2OK/9uXj24KfMOAWYOd9snjW4mI=;
- b=1J2y/UYaemS4AgywiOt4dzBt7u84n6blTHapNiK3Fnedo1eckNBgiX9pxRs7v43nR5Wq1C
- HmyxPKkb9jLBB1QkO4mTCL1PsoZfaW5yKC2G+BGpsjoRFyJWq5rrcMlvOvMBEz4I/3w9FS
- Esq6T5qmMyhgvQCtMP4U8ZiOoo9n2oQ=
+ bh=RP0AosVLTnUqVXFX4kE2o5Uror/9pZI0SsliRKUNOQU=;
+ b=E3nM4NPZx80tNtvVVb6x10OZRc1cCqODkFMfu59GJ5qgSBCB3pput40i6MHjCYYQLIIyDU
+ Mde7LiF7uPDNnnlYBjaoh11LkHA7YfUTw/oArk7XxsjyjtNeSSqEFEXP/QAYDaSVn/AgPU
+ B/7U14uJ30aiuUZIR4WEAi57LkW/2Os=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1704370994;
+ s=susede2_ed25519; t=1704370995;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4wojqmzRJT1viwni2OK/9uXj24KfMOAWYOd9snjW4mI=;
- b=jNpmZ4B7c7wIU0knpYZ0w1QXv4D/duRXPW1yr/Ntw8CMeCo1q6TPrSJiyOImfvVN99cZM+
- oL6rwfTZe3/Fa8CQ==
+ bh=RP0AosVLTnUqVXFX4kE2o5Uror/9pZI0SsliRKUNOQU=;
+ b=sSgZfIQi3wT57j5wWH6DLSkiYtX6J7EmpuXmAa/QJQi6tQg7KKep3GT9PkwEIAWk9kltE7
+ dBzw+brpQXfoTuCw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1704370994; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1704370995; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4wojqmzRJT1viwni2OK/9uXj24KfMOAWYOd9snjW4mI=;
- b=1J2y/UYaemS4AgywiOt4dzBt7u84n6blTHapNiK3Fnedo1eckNBgiX9pxRs7v43nR5Wq1C
- HmyxPKkb9jLBB1QkO4mTCL1PsoZfaW5yKC2G+BGpsjoRFyJWq5rrcMlvOvMBEz4I/3w9FS
- Esq6T5qmMyhgvQCtMP4U8ZiOoo9n2oQ=
+ bh=RP0AosVLTnUqVXFX4kE2o5Uror/9pZI0SsliRKUNOQU=;
+ b=E3nM4NPZx80tNtvVVb6x10OZRc1cCqODkFMfu59GJ5qgSBCB3pput40i6MHjCYYQLIIyDU
+ Mde7LiF7uPDNnnlYBjaoh11LkHA7YfUTw/oArk7XxsjyjtNeSSqEFEXP/QAYDaSVn/AgPU
+ B/7U14uJ30aiuUZIR4WEAi57LkW/2Os=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1704370994;
+ s=susede2_ed25519; t=1704370995;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4wojqmzRJT1viwni2OK/9uXj24KfMOAWYOd9snjW4mI=;
- b=jNpmZ4B7c7wIU0knpYZ0w1QXv4D/duRXPW1yr/Ntw8CMeCo1q6TPrSJiyOImfvVN99cZM+
- oL6rwfTZe3/Fa8CQ==
+ bh=RP0AosVLTnUqVXFX4kE2o5Uror/9pZI0SsliRKUNOQU=;
+ b=sSgZfIQi3wT57j5wWH6DLSkiYtX6J7EmpuXmAa/QJQi6tQg7KKep3GT9PkwEIAWk9kltE7
+ dBzw+brpQXfoTuCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 52686137E8;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B5EBE13C96;
  Thu,  4 Jan 2024 12:23:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id KDyBEDKjlmUVFgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id IJMxKjKjlmUVFgAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 04 Jan 2024 12:23:14 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  4 Jan 2024 13:23:07 +0100
-Message-ID: <20240104122308.1158487-3-pvorel@suse.cz>
+Date: Thu,  4 Jan 2024 13:23:08 +0100
+Message-ID: <20240104122308.1158487-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240104122308.1158487-1-pvorel@suse.cz>
 References: <20240104122308.1158487-1-pvorel@suse.cz>
 MIME-Version: 1.0
 X-Spamd-Bar: +++
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="1J2y/UYa";
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=jNpmZ4B7
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=E3nM4NPZ;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=sSgZfIQi
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spamd-Result: default: False [3.49 / 50.00]; ARC_NA(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -100,16 +102,17 @@ X-Spamd-Result: default: False [3.49 / 50.00]; ARC_NA(0.00)[];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
  MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- BAYES_HAM(-0.00)[37.47%]
+ BAYES_HAM(-0.00)[25.48%]
 X-Spam-Score: 3.49
-X-Rspamd-Queue-Id: A2E0521EF5
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Rspamd-Queue-Id: 2624E1F807
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] lib: Use LTP_ prefix for LTP_NO_CLEANUP variable
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/3] doc: Add info about 'LTP_' and 'TST_' variable
+ prefixes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,56 +129,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Variables which are supposed to be user defined should use LTP_ prefix
-instead of TST_ prefix.
-
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- doc/User-Guidelines.asciidoc | 3 ++-
- testcases/lib/test.sh        | 2 +-
- testcases/lib/tst_test.sh    | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+ doc/User-Guidelines.asciidoc | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/doc/User-Guidelines.asciidoc b/doc/User-Guidelines.asciidoc
-index cff2e83c8..63081fdea 100644
+index 63081fdea..9ff9a59e7 100644
 --- a/doc/User-Guidelines.asciidoc
 +++ b/doc/User-Guidelines.asciidoc
-@@ -40,7 +40,8 @@ For running LTP network tests see `testcases/network/README.md`.
- | 'TMPDIR'              | Base directory for template directory (C: '.needs_tmpdir = 1'
-                           and others, which imply it, shell: 'TST_NEEDS_TMPDIR=1').
-                           Must be an absolute path (default: '/tmp').
--| 'TST_NO_CLEANUP'      | Disable running test cleanup (defined in 'TST_CLEANUP').
-+| 'LTP_NO_CLEANUP'      | Disable running test cleanup (defined in 'TST_CLEANUP').
-+                          Shell API only.
+@@ -7,6 +7,10 @@ For running LTP network tests see `testcases/network/README.md`.
+ 1. Library environment variables
+ --------------------------------
+ 
++Following environment variables are expected to be set by LTP users. Therefore,
++with some exceptions, they have 'LTP_' prefix. Environment variables with 'TST_'
++prefix are used inside LTP shell API and should *not* be set by users.
++
+ |==============================================================================
+ | 'KCONFIG_PATH'        | The path to the kernel config file, (if not set, it tries
+                           the usual paths '/boot/config-RELEASE' or '/proc/config.gz').
+@@ -45,7 +49,6 @@ For running LTP network tests see `testcases/network/README.md`.
  | 'LTP_ENABLE_DEBUG'    | Enable debug info (value '1' or 'y').
  |==============================================================================
  
-diff --git a/testcases/lib/test.sh b/testcases/lib/test.sh
-index 8947f47c1..d26cf5df0 100644
---- a/testcases/lib/test.sh
-+++ b/testcases/lib/test.sh
-@@ -108,7 +108,7 @@ tst_require_root()
+-
+ 2. Test execution time and timeout
+ ----------------------------------
  
- tst_exit()
- {
--	if [ -n "${TST_CLEANUP:-}" -a -z "${TST_NO_CLEANUP:-}" ]; then
-+	if [ -n "${TST_CLEANUP:-}" -a -z "${LTP_NO_CLEANUP:-}" ]; then
- 		$TST_CLEANUP
- 	fi
- 
-diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index 5f178a1be..98bc13b2c 100644
---- a/testcases/lib/tst_test.sh
-+++ b/testcases/lib/tst_test.sh
-@@ -26,7 +26,7 @@ trap "unset _tst_setup_timer_pid; tst_brk TBROK 'test terminated'" TERM
- 
- _tst_do_cleanup()
- {
--	if [ -n "$TST_DO_CLEANUP" -a -n "$TST_CLEANUP" -a -z "$TST_NO_CLEANUP" ]; then
-+	if [ -n "$TST_DO_CLEANUP" -a -n "$TST_CLEANUP" -a -z "$LTP_NO_CLEANUP" ]; then
- 		if command -v $TST_CLEANUP >/dev/null 2>/dev/null; then
- 			TST_DO_CLEANUP=
- 			$TST_CLEANUP
 -- 
 2.43.0
 
