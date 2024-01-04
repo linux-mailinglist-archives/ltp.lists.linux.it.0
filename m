@@ -2,107 +2,117 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 613CA8249C4
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 21:47:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E58F48249BF
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 21:46:23 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A688A3CE742
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 21:47:09 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A2D113CE6DC
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jan 2024 21:46:23 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1EB8E3CBDB0
+ by picard.linux.it (Postfix) with ESMTPS id 9B1EF3C810A
  for <ltp@lists.linux.it>; Thu,  4 Jan 2024 21:46:22 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 06EEB601148
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 18C971A004ED
  for <ltp@lists.linux.it>; Thu,  4 Jan 2024 21:46:21 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EF0611F82F;
- Thu,  4 Jan 2024 20:46:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 296D121E03;
+ Thu,  4 Jan 2024 20:46:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1704401181; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=wj2qBR7x8s1D5oV2faaSpYslhFKGwH2VVH/yTxHFoEg=;
- b=FC4ufamaQuWuG5mgT1Nbz+ocltmmHTmrmwDl22o/SWLdanC975+NcvYTcS/9WnDTCLcEU4
- 9qPxpVMhA6TWkkSpAKtZKbYtlp2pXnfByiGUsCRf5J52y28BW0YT6Suw31gcSG2AVrcEwj
- SCutHNvfGlR68m0Q92DSb48a9bJ2nZo=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=INVa5WprQ+3JvFzU6kjGWKrUTK/oK/aP0bzW04/3dWE=;
+ b=xpc+ojOzOYO6jvYvI9UjdwArVIVW4psIKt1DUd5DSAX88eNn3i7OsCizkVTQTmjZLggMch
+ snXyauYlNr5oguJkLkS6GbyU0Xad4LvOJiSbaFed9haP/xkT7848NJ+oFPT+adpYhrBQvn
+ O2X9yAK/VedPfyw8xB5xSXXl7gwxEWQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1704401181;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=wj2qBR7x8s1D5oV2faaSpYslhFKGwH2VVH/yTxHFoEg=;
- b=/pB/dUWcHimaB8u8Tlp73lkJ0jIn30TpuJVSLbvcKm1OWrdU79v+04IPqrHt+aafvnfvki
- 8ORWkSecHVVNfZCg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=INVa5WprQ+3JvFzU6kjGWKrUTK/oK/aP0bzW04/3dWE=;
+ b=I4tQM5nzoEB0ALF3EeNDJ2RAlvyYxcTGZtbHWV6KTGq6W0y19jVcq3E1ZMgtysE8KBBk+6
+ OjdmUUwyBxRN9XCQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1704401180; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=wj2qBR7x8s1D5oV2faaSpYslhFKGwH2VVH/yTxHFoEg=;
- b=XuiYB1/TVnljFVwECXX6DDMpo13zo126T8T3BmGJdCsr4JBehm3hYBq51WLUNKWgB9RXt5
- kNVWSniWVNFFPVyEKKHIf5VxusVMiSlDwF9VK6xQRIKmvZ0y1Hq/sYos2JWYW82ilHmygO
- HeV9zUjzyhwGLXmJSeZ3ehwqKg6N2a8=
+ t=1704401181; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=INVa5WprQ+3JvFzU6kjGWKrUTK/oK/aP0bzW04/3dWE=;
+ b=xpc+ojOzOYO6jvYvI9UjdwArVIVW4psIKt1DUd5DSAX88eNn3i7OsCizkVTQTmjZLggMch
+ snXyauYlNr5oguJkLkS6GbyU0Xad4LvOJiSbaFed9haP/xkT7848NJ+oFPT+adpYhrBQvn
+ O2X9yAK/VedPfyw8xB5xSXXl7gwxEWQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1704401180;
+ s=susede2_ed25519; t=1704401181;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=wj2qBR7x8s1D5oV2faaSpYslhFKGwH2VVH/yTxHFoEg=;
- b=6nnfjphJX6oDWsZmCPHYl2NlPEpYUZRg2Miq36YbT94xGxxs4/y0ABeDr651D7H06mD6Dz
- ncC2rTUYE2prnABA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=INVa5WprQ+3JvFzU6kjGWKrUTK/oK/aP0bzW04/3dWE=;
+ b=I4tQM5nzoEB0ALF3EeNDJ2RAlvyYxcTGZtbHWV6KTGq6W0y19jVcq3E1ZMgtysE8KBBk+6
+ OjdmUUwyBxRN9XCQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CAA8D137E8;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0579613C96;
  Thu,  4 Jan 2024 20:46:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id YfLzLxwZl2WsIQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id eCRfOxwZl2WsIQAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 04 Jan 2024 20:46:20 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  4 Jan 2024 21:46:05 +0100
-Message-ID: <20240104204614.1426027-1-pvorel@suse.cz>
+Date: Thu,  4 Jan 2024 21:46:06 +0100
+Message-ID: <20240104204614.1426027-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240104204614.1426027-1-pvorel@suse.cz>
+References: <20240104204614.1426027-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spamd-Bar: +++
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="XuiYB1/T";
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=6nnfjphJ
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [3.49 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
- DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
- BROKEN_CONTENT_TYPE(1.50)[]; RCVD_COUNT_THREE(0.00)[3];
- DKIM_TRACE(0.00)[suse.cz:+]; RCPT_COUNT_TWO(0.00)[2];
- MX_GOOD(-0.01)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+X-Spam-Score: 4.49
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 296D121E03
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=xpc+ojOz;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=I4tQM5nz
+X-Spamd-Bar: ++++
+X-Spamd-Result: default: False [4.49 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
  R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[suse.cz:dkim]; FROM_HAS_DN(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ URIBL_BLOCKED(0.00)[suse.cz:email,suse.cz:dkim];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  MIME_GOOD(-0.10)[text/plain];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ BROKEN_CONTENT_TYPE(1.50)[];
+ DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
+ RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- MID_CONTAINS_FROM(1.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: 3.49
-X-Rspamd-Queue-Id: EF0611F82F
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_TRACE(0.00)[suse.cz:+]; RCPT_COUNT_TWO(0.00)[2];
+ MID_CONTAINS_FROM(1.00)[]; MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ RCVD_TLS_ALL(0.00)[]
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/9] metadata: improvements
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/9] metaparse: Print parsing file on verbose
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,48 +129,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ metadata/metaparse.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-there are 3 parts:
-
-1) The main motivation is to avoid having to fix docs manually,
-implemented in commit "metaparse: Add missing blank line on the list".
-
-2) Add CI job for generating metadata, to catch the problem early
-(we test metadata in docker/podman CI jobs, but error there is quite
-hidden. Having special job (which is quick) will show the problem
-immediately.
-
-3) Minor verbose output improvements.
-
-Kind regards,
-Petr
-
-Petr Vorel (9):
-  metaparse: Print parsing file on verbose
-  metadata: parse.sh: Allow to pass list of files
-  metadata: parse.sh: Pass -v to metaparse on VERBOSE=1
-  metadata: test.sh: Print more info on VERBOSE=1
-  metaparse: Verbose output on V=1
-  metaparse: Add missing blank line on the list
-  metadata: Add test for missing blank line in list
-  ci/debian: Allow to install packages only for docparse
-  ci: Add job for building metadata
-
- .github/workflows/metadata.yml                | 58 +++++++++++++++++++
- ci/debian.sh                                  | 17 +++++-
- metadata/Makefile                             |  4 +-
- metadata/data_storage.h                       | 36 +++++++++++-
- metadata/metaparse.c                          |  3 +
- metadata/parse.sh                             | 13 ++++-
- metadata/tests/list_missing_blank_line.c      | 14 +++++
- metadata/tests/list_missing_blank_line.c.json | 18 ++++++
- metadata/tests/test.sh                        |  2 +
- 9 files changed, 159 insertions(+), 6 deletions(-)
- create mode 100644 .github/workflows/metadata.yml
- create mode 100644 metadata/tests/list_missing_blank_line.c
- create mode 100644 metadata/tests/list_missing_blank_line.c.json
-
+diff --git a/metadata/metaparse.c b/metadata/metaparse.c
+index 2384c73c8..fe6d68911 100644
+--- a/metadata/metaparse.c
++++ b/metadata/metaparse.c
+@@ -862,6 +862,9 @@ int main(int argc, char *argv[])
+ 		return 1;
+ 	}
+ 
++	if (verbose)
++		fprintf(stderr, "\n=== %s ===\n", argv[optind]);
++
+ 	res = parse_file(argv[optind]);
+ 	if (!res)
+ 		return 0;
 -- 
 2.43.0
 
