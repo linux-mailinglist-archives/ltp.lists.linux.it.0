@@ -2,75 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6521D828376
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jan 2024 10:50:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C03DC8283FA
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jan 2024 11:27:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E84853CE4F9
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jan 2024 10:50:35 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 87A543CE507
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jan 2024 11:27:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C581D3CD1B9
- for <ltp@lists.linux.it>; Tue,  9 Jan 2024 10:50:34 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=fujitsu.com (client-ip=207.54.90.47;
- helo=esa1.hc1455-7.c3s2.iphmx.com; envelope-from=ruansy.fnst@fujitsu.com;
+ by picard.linux.it (Postfix) with ESMTPS id 0F8833CD0F8
+ for <ltp@lists.linux.it>; Tue,  9 Jan 2024 11:27:09 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fujitsu.com (client-ip=207.54.90.48;
+ helo=esa2.hc1455-7.c3s2.iphmx.com; envelope-from=ruansy.fnst@fujitsu.com;
  receiver=lists.linux.it)
-Received: from esa1.hc1455-7.c3s2.iphmx.com (esa1.hc1455-7.c3s2.iphmx.com
- [207.54.90.47])
+Received: from esa2.hc1455-7.c3s2.iphmx.com (esa2.hc1455-7.c3s2.iphmx.com
+ [207.54.90.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id AA6296008A0
- for <ltp@lists.linux.it>; Tue,  9 Jan 2024 10:50:32 +0100 (CET)
-X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="145417047"
-X-IronPort-AV: E=Sophos;i="6.04,182,1695654000"; d="scan'208";a="145417047"
-Received: from unknown (HELO oym-r1.gw.nic.fujitsu.com) ([210.162.30.89])
- by esa1.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jan 2024 18:50:30 +0900
-Received: from oym-m1.gw.nic.fujitsu.com (oym-nat-oym-m1.gw.nic.fujitsu.com
- [192.168.87.58])
- by oym-r1.gw.nic.fujitsu.com (Postfix) with ESMTP id 4F5ECD2B2D
- for <ltp@lists.linux.it>; Tue,  9 Jan 2024 18:50:28 +0900 (JST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 91008140111E
+ for <ltp@lists.linux.it>; Tue,  9 Jan 2024 11:27:07 +0100 (CET)
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="145568551"
+X-IronPort-AV: E=Sophos;i="6.04,182,1695654000"; d="scan'208";a="145568551"
+Received: from unknown (HELO yto-r2.gw.nic.fujitsu.com) ([218.44.52.218])
+ by esa2.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jan 2024 19:27:07 +0900
+Received: from yto-m1.gw.nic.fujitsu.com (yto-nat-yto-m1.gw.nic.fujitsu.com
+ [192.168.83.64])
+ by yto-r2.gw.nic.fujitsu.com (Postfix) with ESMTP id C440AD618B
+ for <ltp@lists.linux.it>; Tue,  9 Jan 2024 19:27:03 +0900 (JST)
 Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
  [192.51.206.21])
- by oym-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 73213D5014
- for <ltp@lists.linux.it>; Tue,  9 Jan 2024 18:50:27 +0900 (JST)
+ by yto-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 0742012E97D
+ for <ltp@lists.linux.it>; Tue,  9 Jan 2024 19:27:03 +0900 (JST)
 Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id 0B56F2007C3E6
- for <ltp@lists.linux.it>; Tue,  9 Jan 2024 18:50:27 +0900 (JST)
+ by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id 84EE82008631E
+ for <ltp@lists.linux.it>; Tue,  9 Jan 2024 19:27:02 +0900 (JST)
 Received: from irides.g08.fujitsu.local (unknown [10.167.226.114])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id 976B61A0070
- for <ltp@lists.linux.it>; Tue,  9 Jan 2024 17:50:26 +0800 (CST)
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id 29D421A0070
+ for <ltp@lists.linux.it>; Tue,  9 Jan 2024 18:27:02 +0800 (CST)
 From: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 To: ltp@lists.linux.it
-Date: Tue,  9 Jan 2024 17:50:26 +0800
-Message-Id: <20240109095026.792527-1-ruansy.fnst@fujitsu.com>
+Date: Tue,  9 Jan 2024 18:27:01 +0800
+Message-Id: <20240109102701.812960-1-ruansy.fnst@fujitsu.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240109095026.792527-1-ruansy.fnst@fujitsu.com>
+References: <20240109095026.792527-1-ruansy.fnst@fujitsu.com>
 MIME-Version: 1.0
 X-TM-AS-GCONF: 00
 X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28108.006
 X-TM-AS-User-Approved-Sender: Yes
 X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28108.006
-X-TMASE-Result: 10--6.799900-10.000000
-X-TMASE-MatchedRID: qmqewXN7IpiH/OjJ1CEsvE7nLUqYrlslFIuBIWrdOeOU8ftiyKjZrXlb
+X-TMASE-Result: 10--14.321800-10.000000
+X-TMASE-MatchedRID: DUsWLlwCIVCH/OjJ1CEsvE7nLUqYrlslFIuBIWrdOeOU8ftiyKjZrXlb
  NLJMhGktx8cx3E6pg15WTBAeKqaX9Spe4ofkluPsiH95tLFH8edZ+CK+BxQ9k224tW2R9/7QDui
- v1PSTVn4QT82YoBmnzDFTm2Y2SkL+0eczgee7i1O5x7uAXGEprQRryDXHx6oXS7NxD4SLUR1FmB
- b8AoJ5yoTei6L3bqINd3Jxd2GlC9SGAgWc66O+H5V3j1zTOBYz+LidURF+DB0foSOaijzG1oL+H
- Y1rw++wq/t8RQsHcFTH6+B60Ji4pUUZABEzaC4/VV4ZZmbE3YyBs03RHrzjM1QuGn5b9r2Z2f+h
- whHsvfXi8zVgXoAltsZfJcPORGlUC24oEZ6SpSkj80Za3RRg8BiQU8vakiTsDm0/gjdFxLjvSnQ
- uKnyQrM7Mqkyenj9SJs421rzWBfk=
+ v1PSTVn4QT82YoBmnzDFTm2Y2SkL+XhvAA0pOb6LNgrlT5Ajc7jEvENg7dSUMycmFNidOeD02rz
+ KWrdiyknui8opdVfyWLCfCG45dNV3iATtmJziXsxMxKDqgAFSzv1wCVBblimutuWYz9oVoL5/p6
+ 742jA2BoIP+VSYj94JX2cPw5LGAfdWKNmKtnvU1i95/KnWCU3RULRRq00o2mZsoi2XrUn/Jn6Kd
+ MrRsL14qtq5d3cxkNQ9lVMtVBr0ZS/gzYjX2Sa5yx2SSeH+2LQCN01beODRgdKdkMyLayNA=
 X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=DMARC_PASS,SPF_HELO_PASS,
- SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled
- version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] dup06: Convert to new API
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] dup07: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,18 +88,19 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 ---
- testcases/kernel/syscalls/dup/dup06.c | 141 ++++++++++----------------
- 1 file changed, 52 insertions(+), 89 deletions(-)
+ testcases/kernel/syscalls/dup/dup07.c | 160 +++++++-------------------
+ 1 file changed, 41 insertions(+), 119 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/dup/dup06.c b/testcases/kernel/syscalls/dup/dup06.c
-index e3f8070bf..84fc260a1 100644
---- a/testcases/kernel/syscalls/dup/dup06.c
-+++ b/testcases/kernel/syscalls/dup/dup06.c
-@@ -1,42 +1,22 @@
+diff --git a/testcases/kernel/syscalls/dup/dup07.c b/testcases/kernel/syscalls/dup/dup07.c
+index a100f5d58..bccee0776 100644
+--- a/testcases/kernel/syscalls/dup/dup07.c
++++ b/testcases/kernel/syscalls/dup/dup07.c
+@@ -1,22 +1,8 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
+- *
 - *   Copyright (c) International Business Machines  Corp., 2002
-- *    ported from SPIE, section2/iosuite/dup1.c, by Airong Zhang
+- *    ported from SPIE, section2/iosuite/dup3.c, by Airong Zhang
 - *   Copyright (c) 2013 Cyril Hrubis <chrubis@suse.cz>
 - *
 - *   This program is free software;  you can redistribute it and/or modify
@@ -117,136 +117,154 @@ index e3f8070bf..84fc260a1 100644
 - *   along with this program;  if not, write to the Free Software
 - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 + * Copyright (c) International Business Machines  Corp., 2002
-+ *  ported from SPIE, section2/iosuite/dup1.c, by Airong Zhang
++ *  ported from SPIE, section2/iosuite/dup3.c, by Airong Zhang
 + * Copyright (c) 2013 Cyril Hrubis <chrubis@suse.cz>
   */
  
--/*
--  WHAT:  Does dup return -1 on the 21st file?
--  HOW:   Create up to _NFILE (20) files and check for -1 return on the
--         next attempt
--         Should check NOFILE as well as _NFILE.  19-Jun-84 Dale.
--*/
--
--#include <stdio.h>
--#include <fcntl.h>
--#include <errno.h>
--#include <unistd.h>
--#include <sys/types.h>
--#include <sys/stat.h>
--#include <sys/param.h>
--#include "test.h"
+ /*
+@@ -27,116 +13,52 @@
+   HOW:   Creat a file with each access mode; dup each file descriptor;
+          stat each file descriptor and compare mode of each pair
+ */
 +/*\
 + * [Description]
 + *
-+ * Test for dup(2) syscall with max open file descriptors.
++ * Verify that the file descriptor created by dup(2) syscall has the same
++ * access mode as the old one.
 + */
  
--char *TCID = "dup06";
--int TST_TOTAL = 1;
-+#include <stdlib.h>
+-#include <stdio.h>
+-#include <fcntl.h>
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include "test.h"
+-
+-char *TCID = "dup07";
+-int TST_TOTAL = 3;
 +#include "tst_test.h"
  
-+static int *pfildes;
-+static int minfd, maxfd, freefds;
-+static char pfilname[40];
- static int cnt_free_fds(int maxfd)
- {
- 	int freefds = 0;
-@@ -48,67 +28,50 @@ static int cnt_free_fds(int maxfd)
- 	return (freefds);
- }
+ static const char *testfile = "dup07";
  
 -static void setup(void);
 -static void cleanup(void);
--
++static struct tcase {
++	char *mode_desc;
++	int mode;
++} tcases[] = {
++	{"read only", 0444},
++	{"write only", 0222},
++	{"read/write", 0666},
++};
+ 
 -int main(int ac, char **av)
-+static void setup(void)
++static void run(unsigned int n)
  {
--	int *fildes, i;
--	int min;
--	int freefds;
+-	struct stat retbuf;
+-	struct stat dupbuf;
+-	int rdoret, wroret, rdwret;
+-	int duprdo, dupwro, duprdwr;
+-
 -	int lc;
--	const char *pfilname = "dup06";
 -
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
 -	setup();
 -
--	min = getdtablesize();
--	freefds = cnt_free_fds(min);
--	fildes = malloc((min + 5) * sizeof(int));
--
--	for (i = 0; i < min + 5; i++)
--		fildes[i] = 0;
--
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		unlink(pfilname);
 -
--		if ((fildes[0] = creat(pfilname, 0666)) == -1) {
--			tst_resm(TFAIL, "Cannot open first file");
--		} else {
--			for (i = 1; i < min + 5; i++) {
--				if ((fildes[i] = dup(fildes[i - 1])) == -1)
--					break;
--			}
--			if (i < freefds) {
--				tst_resm(TFAIL, "Not enough files duped");
--			} else if (i > freefds) {
--				tst_resm(TFAIL, "Too many files duped");
+-		if ((rdoret = creat(testfile, 0444)) == -1) {
+-			tst_resm(TFAIL, "Unable to creat file '%s'", testfile);
++	int oldfd, dupfd;
++	struct stat oldbuf, dupbuf;
++	struct tcase *tc = &tcases[n];
++
++	oldfd = SAFE_CREAT(testfile, tc->mode);
++	dupfd = TST_EXP_FD_SILENT(dup(oldfd), "dup() %s file", tc->mode_desc);
++	if (TST_PASS) {
++		SAFE_FSTAT(oldfd, &oldbuf);
++		SAFE_FSTAT(dupfd, &dupbuf);
++
++		if (oldbuf.st_mode != dupbuf.st_mode) {
++			tst_res(TFAIL, "%s and dup do not match", tc->mode_desc);
+ 		} else {
+-			if ((duprdo = dup(rdoret)) == -1) {
+-				tst_resm(TFAIL, "Unable to dup '%s'", testfile);
 -			} else {
--				tst_resm(TPASS, "Test passed.");
+-				fstat(rdoret, &retbuf);
+-				fstat(duprdo, &dupbuf);
+-				if (retbuf.st_mode != dupbuf.st_mode) {
+-					tst_resm(TFAIL,
+-						 "rdonly and dup do not match");
+-				} else {
+-					tst_resm(TPASS,
+-					         "Passed in read mode.");
+-				}
+-				close(duprdo);
 -			}
+-			close(rdoret);
++			tst_res(TPASS, "Passed in %s mode.", tc->mode_desc);
+ 		}
+-
+-		unlink(testfile);
+-		
+-		if ((wroret = creat(testfile, 0222)) == -1) {
+-			tst_resm(TFAIL, "Unable to creat file '%s'", testfile);
+-		} else {
+-			if ((dupwro = dup(wroret)) == -1) {
+-				tst_resm(TFAIL, "Unable to dup '%s'", testfile);
+-			} else {
+-				fstat(wroret, &retbuf);
+-				fstat(dupwro, &dupbuf);
+-				if (retbuf.st_mode != dupbuf.st_mode) {
+-					tst_resm(TFAIL,
+-						 "wronly and dup do not match");
+-				} else {
+-					tst_resm(TPASS,
+-					         "Passed in write mode.");
+-				}
+-				close(dupwro);
+-			}
+-			close(wroret);
+-
 -		}
-+	minfd = getdtablesize();	/* get number of files allowed open */
-+	maxfd = minfd + 5;
-+	freefds = cnt_free_fds(minfd);
-+	pfildes = SAFE_MALLOC(maxfd * sizeof(int));
-+	memset(pfildes, -1, maxfd * sizeof(int));
-+	sprintf(pfilname, "./dup06.%d\n", getpid());
-+}
- 
--		unlink(pfilname);
-+static void cleanup(void)
-+{
-+	if (pfildes != NULL)
-+		free(pfildes);
-+}
- 
--		for (i = 0; i < min + 5; i++) {
--			if (fildes[i] != 0 && fildes[i] != -1)
--				close(fildes[i]);
-+static void run(void)
-+{
-+	int i;
- 
--			fildes[i] = 0;
+-
+-		unlink(testfile);
+-
+-		if ((rdwret = creat(testfile, 0666)) == -1) {
+-			tst_resm(TFAIL, "Unable to creat file '%s'", testfile);
+-		} else {
+-			if ((duprdwr = dup(rdwret)) == -1) {
+-				tst_resm(TFAIL, "Unable to dup '%s'", testfile);
+-			} else {
+-				fstat(rdwret, &retbuf);
+-				fstat(duprdwr, &dupbuf);
+-				if (retbuf.st_mode != dupbuf.st_mode) {
+-					tst_resm(TFAIL,
+-						 "rdwr and dup do not match");
+-				} else {
+-					tst_resm(TPASS,
+-					         "Passed in read/write mode.");
+-				}
+-				close(duprdwr);
+-			}
+-			close(rdwret);
 -		}
-+	pfildes[0] = SAFE_CREAT(pfilname, 0666);
-+	for (i = 1; i < maxfd; i++) {
-+		if ((pfildes[i] = dup(pfildes[i - 1])) == -1)
-+			break;
-+	}
-+	if (i < freefds) {
-+		tst_res(TFAIL, "Not enough files duped");
-+	} else if (i > freefds) {
-+		tst_res(TFAIL, "Too many files duped");
-+	} else {
-+		tst_res(TPASS, "Test passed.");
+-		
+-		unlink(testfile);
++		SAFE_CLOSE(dupfd);
  	}
++	SAFE_CLOSE(oldfd);
  
 -	cleanup();
 -	tst_exit();
 -}
-+	SAFE_UNLINK(pfilname);
- 
+-
 -static void setup(void)
 -{
 -	tst_tmpdir();
-+	for (i = 0; i < maxfd; i++) {
-+		if (pfildes[i] != 0 && pfildes[i] != -1)
-+			SAFE_CLOSE(pfildes[i]);
-+	}
++	SAFE_UNLINK(testfile);
  }
  
 -static void cleanup(void)
@@ -255,9 +273,8 @@ index e3f8070bf..84fc260a1 100644
 -}
 +static struct tst_test test = {
 +	.needs_tmpdir = 1,
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
++	.test = run,
++	.tcnt = ARRAY_SIZE(tcases),
 +};
 -- 
 2.34.1
