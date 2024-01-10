@@ -2,60 +2,88 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33CD5829D55
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jan 2024 16:19:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC9D082925D
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jan 2024 03:17:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C9E1C3CE4D9
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jan 2024 16:19:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 75EA43CC43D
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jan 2024 03:17:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 69A713C4D6F
- for <ltp@lists.linux.it>; Wed, 10 Jan 2024 00:17:59 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=kernel.org (client-ip=145.40.68.75; helo=ams.source.kernel.org;
- envelope-from=srs0=cgsk=it=linux-m68k.org=gerg@kernel.org;
+ by picard.linux.it (Postfix) with ESMTPS id 2C67B3C1BC7
+ for <ltp@lists.linux.it>; Wed, 10 Jan 2024 03:17:09 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
  receiver=lists.linux.it)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3551A6019A8
- for <ltp@lists.linux.it>; Wed, 10 Jan 2024 00:17:57 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id B178BB81B6E;
- Tue,  9 Jan 2024 23:17:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2313DC433C7;
- Tue,  9 Jan 2024 23:17:51 +0000 (UTC)
-Message-ID: <461a6556-8f24-48f5-811a-498cb44f2d64@linux-m68k.org>
-Date: Wed, 10 Jan 2024 09:17:48 +1000
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5E1EF600921
+ for <ltp@lists.linux.it>; Wed, 10 Jan 2024 03:17:07 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1704853026;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Jm46x/uPgzlY8Za1JoSZfS/IPwRu6fYH6VWuH/Q4w6I=;
+ b=JPJMfG58PkclooBxU4JOp1rJOPqXCIOuxduIBUzHkKmPOCsnnqiGAJU7lNjvV8+KGV0sRS
+ SNqQ1xdheiFSdUG9HWe7O4C+8ql+uip94nrR6I4+xPjSn9rXpRD0VYYTlxcJg428Rq9AHj
+ a9k51tyhHpZG7EukMdOYPlDgiS5O7zM=
+Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
+ [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-636-uMJAHmX3NtmqFOwzeZvBDw-1; Tue, 09 Jan 2024 21:17:04 -0500
+X-MC-Unique: uMJAHmX3NtmqFOwzeZvBDw-1
+Received: by mail-lj1-f197.google.com with SMTP id
+ 38308e7fff4ca-2cce8b0c9acso24689221fa.3
+ for <ltp@lists.linux.it>; Tue, 09 Jan 2024 18:17:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704853023; x=1705457823;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Jm46x/uPgzlY8Za1JoSZfS/IPwRu6fYH6VWuH/Q4w6I=;
+ b=Cjp2gvQfmqTeHm7pyS6wW6CXjtj4LPus+tSMcKC0DTKG4doCCjpAPj2rflqmNIV6ko
+ 7O/Xb8uedX0hr4Eqtd5Z/bFestPFmr+lp2yds5t5s53lGXqJ6hBl0ItwthmtDnm1xSso
+ Dk82/aX+5lLtI2ReZ8FkTb6fkDBDjm0IPdEOUuIVywUk/xU6roZYSPCsPGZGcfuJESwz
+ yxt2pOwQqa6vK70XqpYVy0OH8E1CIdnl5dGa7bYLKArohe3r8QW/uqBn/jM3LdiCmwXl
+ A0nDO5iNRn73m8zPDl/9SXrdUVKttFmVJqOsSW/U0Qd34LSldKYDYwI45upiK3Kbba6J
+ PVAg==
+X-Gm-Message-State: AOJu0YzvXRiupMKosfnk5P47AhA434SpGSL20Yg8KtMIp0CAAN9t+CZC
+ ql7Ks+Mm4peGcHawC3oS7SRvSssm7lxbV+yI79NfkYgSsK3iH1BKClEs/+4xSim2dru5ap5HkY6
+ HLfqSm0EqBu1U86GT8Is/mHJ1S/OUHzNzRos=
+X-Received: by 2002:a2e:9015:0:b0:2cc:eb35:29f3 with SMTP id
+ h21-20020a2e9015000000b002cceb3529f3mr78217ljg.77.1704853022822; 
+ Tue, 09 Jan 2024 18:17:02 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEjAchwkvuCeDQYwqF6SGk7myRT8vo3I/tp72ko4ZSin+27LqoxDXfaN9LhVdLQf3qUyjqwm4OMnAv9xrqBfYs=
+X-Received: by 2002:a2e:9015:0:b0:2cc:eb35:29f3 with SMTP id
+ h21-20020a2e9015000000b002cceb3529f3mr78214ljg.77.1704853022493; Tue, 09 Jan
+ 2024 18:17:02 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Rob Landley <rob@landley.net>, Petr Vorel <pvorel@suse.cz>
-References: <20240103015240.1065284-1-pvorel@suse.cz>
- <CAMuHMdXGwyS-CL0vLdUP4Z4YEYhmcmDyC3YdGCnS=jFkqASqvw@mail.gmail.com>
- <20240103114957.GD1073466@pevik>
- <CAMuHMdX0s0gLRoPtjJmDnSmZ_MNY590dN+JxM1HKAL1g_bjX+w@mail.gmail.com>
- <ZZVOhlGPg5KRyS-F@yuki> <5a1f1ff3-8a61-67cf-59a9-ce498738d912@landley.net>
- <20240105131135.GA1484621@pevik>
- <90c1ddc1-c608-30fc-d5aa-fdf63c90d055@landley.net>
- <20240108090338.GA1552643@pevik>
- <a3d7f5ae-56c6-9cd8-2cda-2d50d12be9c4@landley.net>
-From: Greg Ungerer <gerg@linux-m68k.org>
-In-Reply-To: <a3d7f5ae-56c6-9cd8-2cda-2d50d12be9c4@landley.net>
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+References: <CAEemH2dJyfhEg4opn3v1c_P1Ewao+s33_PzoVMyP0siEy+0cxA@mail.gmail.com>
+ <3b638b9e-6269-459d-bcc8-2bad7b538de1@gmx.de> <20240109172016.GB1661159@pevik>
+In-Reply-To: <20240109172016.GB1661159@pevik>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 10 Jan 2024 10:16:50 +0800
+Message-ID: <CAEemH2c2AJPCyT0EbD0XrbqJ7c26ocyMjFzCvm5ntD8bGKs_cg@mail.gmail.com>
+To: Petr Vorel <petr.vorel@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=DMARC_MISSING,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Mailman-Approved-At: Wed, 10 Jan 2024 16:18:54 +0100
-Subject: Re: [LTP] Call for nommu LTP maintainer [was: Re: [PATCH 00/36]
- Remove UCLINUX from LTP]
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: Re: [LTP] Cleanup IA-64 related code?
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,108 +95,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Niklas Cassel <niklas.cassel@wdc.com>, Jonathan Corbet <corbet@lwn.net>,
- Linux-sh list <linux-sh@vger.kernel.org>,
- Christophe Lyon <christophe.lyon@linaro.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, Geert Uytterhoeven <geert@linux-m68k.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- linux-riscv <linux-riscv@lists.infradead.org>, buildroot@buildroot.org,
- ltp@lists.linux.it, automated-testing@lists.yoctoproject.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
-On 10/1/24 06:24, Rob Landley wrote:
-> On 1/8/24 03:03, Petr Vorel wrote:
->> Hi Rob, all,
->>
->> [ Added Niklas Cassel, who is maintainer of qemu_riscv64_nommu_virt_defconfig in
->> buildroot ]
-> 
-> Hi Niklas!
-> 
->>> Buildroot also apparently has an LTP package selectable in menuconfig:
->>
->>> https://github.com/buildroot/buildroot/tree/master/package/ltp-testsuite
->>
->>> But I haven't tried it...
->>
->> I'm the maintainer of the LTP package in buildroot in my private time.
->> BTW I spent quite a lot of time fixing LTP (and some other system packages,
->> e.g. nfs-utils) compilation on some old legacy architectures reported via
->> http://autobuild.buildroot.net/ I've never used in the reality.
->> But I certainly don't have time to drive nommu support in my private time.
->> I don't even have an interest, I don't use any nommu device.
-> 
-> I do, but I've never done much with LTP, and I have my hands full with toybox
-> and mkroot already.
-> 
->> Therefore nobody who is not involved in nommu will not find a time to support it
->> in LTP (support does not mean just to add the functionality to the new C API,
->> but run tests on nommu and fix failing bugs). I suppose nobody is paid to work
->> on nommu platforms, it would have to be a hobby project, right?
-> 
-> A bunch of people are paid to work on nommu platforms, and I've worked with them
-> a bunch, but none of them talk to linux-kernel. They find the culture toxic,
-> insular, and categorically dismissive of their interests.
-
-I have been involved in the kernel nommu space for 20 years, and sure, there is
-some of that. But mostly spending some time and effort to get involved pays off.
-I have seen potential contributors show up with some arrogant attitudes too,
-so it cuts both ways here.
-
-The m68k community I have been part of has been nothing but welcoming. The mm
-people have tried hard to keep nommu support up-to-date where almost none of them
-actually have a vested interest in doing so.
-
-What I have seen is that many companies working in this space just don't want
-to spend the time and effort to go mainline. That is a business decision they
-make, and that is fine. Heck my work in actual mainline has never really been
-paid for by any company and I have sunk a _lot_ of time into it. (Full disclosure
-I did get paid to work on early porting and support - just not geting it into
-mainline and maintain it there).
-
-
-> For example, cortex-m is a large nommu platform on which vendors support Linux
-> BSPs, but notice how page 8 of
-> https://www.microsemi.com/document-portal/doc_view/132181-linux-cortex-m-users-manual
-> points at a cross compiler toolchain from _2010_ and page 4 says they're booting
-> a 2.6.33 kernel?
-
-Any company/person who follows the route of not working with the linux kernel
-community to get their work included is going to inevitably get stuck on older
-versions of everything.
-
-
-> I'm a bit weird in that I try to get CURRENT stuff to work on nommu, and a lot
-> of people have been happy to consume my work, but getting any of them to post
-> directly to linux-kernel is like pulling teeth.
-
-I regularly test nommu configurations (as in every kernel rc and release) on m68k
-and at least every release on other architectures like arm(*) and recently on
-riscv as well.
-
-(*) somewhat annoyingly needing a minor patch to run the versatile qemu platform
-     I like to test with. But hey, that is on me :-)
-
-Regards
-Greg
-
-
-
->> But as I said, if anybody from nommu decides to maintain it in LTP, I'll try to
->> support him in my free time (review patches, give advices). And if nobody
->> stands, this patchset which removes the support in the old API will be merged
->> after next LTP release (in the end of January).
-> 
-> What does the API migration do? Is there a page on it ala OABI vs EABI in arm or
-> something?
-> 
-> Rob
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgQWxsLAoKT24gV2VkLCBKYW4gMTAsIDIwMjQgYXQgMToyMOKAr0FNIFBldHIgVm9yZWwgPHBl
+dHIudm9yZWxAZ21haWwuY29tPiB3cm90ZToKCj4gSGkgSGVsZ2UsIExpLAo+Cj4gPiBPbiAxMS8y
+MC8yMyAwOToxMSwgTGkgV2FuZyB3cm90ZToKPiA+ID4gSGkgYWxsLAo+Cj4gPiA+IEkgbm90aWNl
+ZCB0aGF0IHRoZSBtYWlubGluZSBrZXJuZWwgaXMgZGVjbGFyaW5nIHRvIGRyb3BwIHN1cHBvcnQg
+Zm9yCj4gPiA+IEl0YW5pdW0gSUEtNjQsIGFjdHVhbGx5LCB0aGUgY29tbWl0WzFdIGhhcyBiZWVu
+IG1lcmdlZCBpbiB2Ni43LXJjMi4KPgo+ID4gPiBJIGFtIG5vdyB0aGlua2luZyBzaG91bGQgd2Ug
+ZG8gdGhlIHNhbWUgYWN0aW9uIGZvciBMVFAgaW4gdGhlCj4gPiA+IG1haW4gYnJhbmNoIHRvIGtl
+ZXAgY29uc2lzdGVudCB3aXRoIHRoZSBtYWlubGluZSBrZXJuZWw/Cj4KPiA+IFVwc3RyZWFtIGtl
+cm5lbCBkcm9wcGVkIElBLTY0IGZvciBmdXR1cmUgcmVsZWFzZXMsIGJ1dCBpdCdzIHN0aWxsIGJl
+aW5nCj4gPiB1c2VkIHRoZSBuZXh0IGZldyB5ZWFycyB3aXRoIGV4aXN0aW5nIGtlcm5lbHMsIG1h
+Y2hpbmVzIGFuZAo+IGRpc3RyaWJ1dGlvbnMsCj4gPiBzbyBJIHN1Z2dlc3QgdG8gbm90ICpwcm8t
+YWN0aXZlbHkqIGRyb3BwaW5nIGV4aXN0aW5nIGNvZGUgeWV0Lgo+ID4gRS5nLiBpdCdzIHN0aWxs
+IHN1cHBvcnRlZCBvbiBkZWJpYW4gdW50aWwgZW5kIG9mIHRoZSBjdXJyZW50IGRlYmlhbgo+IHJl
+bGVhc2VzLgo+Cj4gPiBKdXN0IG15IDJjLgo+Cj4gSSB3b3VsZCBrZWVwIGl0IGF0IGxlYXN0IGlu
+IHRoaXMgdXBjb21pbmcgcmVsZWFzZS4gSSBhbHNvIHdvbmRlciBpZiBhbnlib2R5Cj4gdGVzdHMg
+SUEtNjQgd2l0aCBuZXcgTFRQLCBpLmUuIGhvdyBsb25nIHdlIHNob3VsZCBrZWVwIGl0IGluIExU
+UCBiZWZvcmUKPiByZW1vdmluZy4KPgoKR29vZCBxdWVzdGlvbi4gSSBoYXZlIHRoZSBzYW1lIHF1
+ZXJ5LgoKRnJvbSB3aGF0IEkgdGhpbmssIHdlJ2QgYmV0dGVyIGtlZXAgdGhlIGFyY2ggc3VwcG9y
+dCBsaXN0IGNvbnNpc3RlbnQKd2l0aCB0aGUgbWFpbmxpbmUga2VybmVsLiBJZiBzb21lIGFkZGl0
+aW9uYWwgZGlzdHJvcyAoZS5nIERlYmlhbikKaG9wZSB0byBleHRlbmQgdGhlIGxpZmUgb2YgSUE2
+NCBzdXBwb3J0LCBjaG9vc2luZyB0aGUgb2xkIExUUCByZWxlYXNlCnBhY2thZ2Ugc2hvdWxkIHdv
+cmsuCgpUaGUgbGF0ZXN0IG1haW4gYnJhbmNoIG9mIExUUCBtYWludGFpbnMgYXBwcm9wcmlhdGUg
+Y29tcGF0aWJpbGl0eQphbmQgZG9uJ3Qgd2FudCB0b28gbXVjaCwgd2hpY2ggbWlnaHQgYmUgdGhl
+IHJpZ2h0IHdheSB0byBkZXZlbG9wLgoKCi0tIApSZWdhcmRzLApMaSBXYW5nCgotLSAKTWFpbGlu
+ZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
