@@ -2,20 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A26E7829C6B
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jan 2024 15:21:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1704896477; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=Kp1yQ177Yr13lzGxYobxIX+4IfZOcEDBy1HSWtYljX4=;
- b=c2Myk0C9nIYV7qmVqwTptChj6zWRUl3JXjurH6ORja7rme6Qfh8gf7obXqdo2Fm+i78Gi
- Zj40l9ZJG1RrSkCFKiTx0SIQsaM4CeTBdfl6NtlnFdzG87u6gg1IXR/imyjRXG0u+Rd6oCy
- kul9yJhYgdJUWpka4glpwhx7bpevxW0=
+	by mail.lfdr.de (Postfix) with ESMTPS id 61E37829D56
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jan 2024 16:19:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5235E3CE4BB
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jan 2024 15:21:17 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1407D3CE49C
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jan 2024 16:19:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
@@ -23,105 +14,51 @@ Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8B7AA3C08CF
- for <ltp@lists.linux.it>; Wed, 10 Jan 2024 15:21:09 +0100 (CET)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2612::600])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 8D9EE3C4C18
+ for <ltp@lists.linux.it>; Wed, 10 Jan 2024 15:47:07 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=kernel.org (client-ip=145.40.73.55; helo=sin.source.kernel.org;
+ envelope-from=srs0=/pmw=iu=linux-m68k.org=gerg@kernel.org;
+ receiver=lists.linux.it)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0310214098AC
- for <ltp@lists.linux.it>; Wed, 10 Jan 2024 15:21:07 +0100 (CET)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CmlDyT3FlnVnphhzvsxewT7LfGU2tyGXv04qmkdQqtP5SUlViyEl0EcmllNCNXWQqFaHeUWjSnVUnCqD5CoqkVE4kTLLSZ9O7N4l8kKVKvxG+t0+wyXD8LQcj+XhPSSdUR3MXxk4emEehznn6rlr3cEKSb4jxpxOYzqkTPDrmtzYvLXJiZGkDLr3g/262pj8GahUNP+Zqs99jG4spVruEZvl1XBEUzc/w3EZjqV3qqLtvUuiBzW/6pJs3AmTr2SCPo5wiGlTXuuQdqhdHX9XW6GEEyfYU1Wd/eVD3EJDCiuvGG8CzSEVh8+QhNga3CQrY3iyDZsyGDA5k+CVFm6gkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zpvIe+XEZylFH5rMZUygWQ6gFtuy4P43w0YuJpzIhVU=;
- b=ZiYcoR31kmSqcOHVr+a30DTPMmDtSpPb4hHFCfpPW+fj61LvgVyi1ya6idKxdo+xnUaxjr7LZsFrWwkbGy0BMboWA4jiQAAHMMxHMHQ9RVC7goFpC6WyMujijx89crz6lkQhwKMh6L63uI9zujKinXPtruDPpiylFnn38mELvbTB/mL/gpESj4AvVuc1p9PHLPB0WeyXsydr4f4fD5ikRwJXhtSTPBn9y/djC+uc9CvjGI2J7S2+QKt9lVI/mmb/aZgzoYuD7qztb25Ci2rWtXwlb/kGwTzpRq5yDYyUPLwx81DeQw87aL/Ny8aDoUQPcDTAq4tlHDv5kaNU1CFxPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zpvIe+XEZylFH5rMZUygWQ6gFtuy4P43w0YuJpzIhVU=;
- b=DUU23FBh2TyUxbIxZ4jJk8ukHk00jrt0pzLphry+Q5bQCCC4C1/BHRuopji3nMgp6tnsZnxzuV/PBybOrm1Sur1oKJ/uSNJUKbDSuBRD6hnavQKKSa9KqgaEvZzB6lQkZABdujDGFR+1qd4VC73EjO4kPKeWpgueCXPZ6YrcGmTnKECUxY1q43W14uYCmmYI+1YytfCtbV3NSTj76Kaz2IP/2nmcEjt8HlMSfPovtbTlF3+6OhZS4sVevxBEVgaOaWDmWQg34K3Pmcwgu3+hFEkJJiWhi4cpZyRIeZ6cUU70+WhwYmChIVR02cIBGTNjq1xOk92E/cz7qGxeOks4ZA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Received: from AS8PR04MB8199.eurprd04.prod.outlook.com (2603:10a6:20b:3f6::21)
- by AS8PR04MB8801.eurprd04.prod.outlook.com (2603:10a6:20b:42c::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.27; Wed, 10 Jan
- 2024 14:21:06 +0000
-Received: from AS8PR04MB8199.eurprd04.prod.outlook.com
- ([fe80::c9bf:bb1e:181d:a2f4]) by AS8PR04MB8199.eurprd04.prod.outlook.com
- ([fe80::c9bf:bb1e:181d:a2f4%4]) with mapi id 15.20.7181.015; Wed, 10 Jan 2024
- 14:21:06 +0000
-To: ltp@lists.linux.it
-Date: Wed, 10 Jan 2024 09:20:58 -0500
-Message-Id: <20240110142058.31359-1-wegao@suse.com>
-X-Mailer: git-send-email 2.35.3
-X-ClientProxiedBy: TYCPR01CA0179.jpnprd01.prod.outlook.com
- (2603:1096:400:2b2::14) To AS8PR04MB8199.eurprd04.prod.outlook.com
- (2603:10a6:20b:3f6::21)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 29F7B14098AB
+ for <ltp@lists.linux.it>; Wed, 10 Jan 2024 15:47:05 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 7BA53CE1B5F;
+ Wed, 10 Jan 2024 14:46:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0237C433F1;
+ Wed, 10 Jan 2024 14:46:37 +0000 (UTC)
+Message-ID: <aef3568c-7894-49c9-a7aa-b3c58b822b91@linux-m68k.org>
+Date: Thu, 11 Jan 2024 00:46:35 +1000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8199:EE_|AS8PR04MB8801:EE_
-X-MS-Office365-Filtering-Correlation-Id: f051c3db-d544-4ea6-4271-08dc11e761d5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Npxt5cmoHnc3rogvdrHleaTmmTbsCiD2B4v2byyKygb4Fn4YgrAGqXmiuZihGgnkUzUV8MOxb6ZSss9mdhaMmOTLuj1FEK2Sl7NP188poxveKJKIZ0o4Stdg2KSDx6kbJP+IxQS+tTKk+V2fSrL9MVMtDpeGVFi6xl6em1qkw2h7qWZJYYRvj+3m9Sp/wXEuJI5vCfQFA6wjDF0ZHmxhPp6xt0++8cnQf6XCLwyzl1zRJ9/AjcKdOYR1FzROfGd5eOqxfiWpYe24bAjHda7xfMHNzXGWk3wcaC4iBP2gQJT6k/xEMRwjtHCuPPTNa7b6SGXSBCAI400dFQJ71F8MdVvQtJzZ7B+PJk3boVx86LdiUQineJeW1lE4v0SpTctj/HvA02we5kHIEQjIwLNpSk1SBsik0fGLK6nsC/06TL2kJBQX1lmDgAEuzG679BXDzI+AqHLAe/Ufqn6gqdEfdgaipivAjKbUbs0Yy1bNA90m8hmAB+JVi2A88DRAj3oqvn+YaBMfsxoLmmdtMdCW+hkd40zCUbFC93RS5evKzs2zcGhUlsOZMIK0LFqN8pfn
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS8PR04MB8199.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39850400004)(366004)(396003)(376002)(136003)(346002)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(83380400001)(107886003)(1076003)(5660300002)(6506007)(6512007)(2616005)(26005)(38100700002)(4326008)(8676002)(8936002)(6666004)(2906002)(6486002)(66946007)(478600001)(66556008)(6916009)(316002)(66476007)(41300700001)(36756003)(86362001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?28Yv/WUWhVEh4Adlng3uiSKXyk7jpLZp1Os2b7InsnyMkMHBNbfluakDnINh?=
- =?us-ascii?Q?PlG5TdOWdnf2+Br3uWc/jdVkdWfGkuevg1GfOKZ2nVqh10Wp2dj5SwOGySxy?=
- =?us-ascii?Q?LtlDsegr7fpzR+pwL+2tMmzctszdO36cRYeCPCGEN4auJMYW/5AxKBYdrpSd?=
- =?us-ascii?Q?jZ7z39fphyLqcB8i9Pw6vtAUUwZuWzywWKCRT20tBTetqAgpZNbIhbXJ2uQv?=
- =?us-ascii?Q?cizwAoaEdsa+3U/qW/KIOEAkn7RYiFnjuXBfvMlRi6jX2MKVaqllRCGISilm?=
- =?us-ascii?Q?hbOOojiDd6z7mf855PI3G27Jt7t7X//MypzFKEPLJ6fxM7xnA3u2MFR3ArjQ?=
- =?us-ascii?Q?vqJnklAGW4yDd9R7ybN2oF49mREIuVL5ch8BVJXi+tDWJeDl5IsPh9/OrrCP?=
- =?us-ascii?Q?3mkgjoXdrZPAYuWRXaAaEk8gW5ETnl7uq8pjjPzTgdDMuwJUP+gXRxQzKPy8?=
- =?us-ascii?Q?TSKIXbfkN7AB2pJoovsLzJb6Jg5wG3aH+edK2QVEEXQsJrYzwY1V7aVkHhLO?=
- =?us-ascii?Q?rdfA2ElrZRqzaSGLUeCdAf0kRd+tCYhGv81/Xf5i8jBUVPFGJaZsDN+qmi84?=
- =?us-ascii?Q?ZwdmUMdvFmXBY70YUZwCU2hxxCBNb+nF7Qf7XufyKSofbMtDLfAt7xxw3qvC?=
- =?us-ascii?Q?Hg3GWXKam9Yi9qKa3rPAgyR/HqVw3W8X75JXaKTnI3JWTWNp/QfKQKElXQwm?=
- =?us-ascii?Q?nlCMJiz9hV23b16mH7IAjOETNS0OzKi2KwZt1IXq3FUxtX6GWY9mNPah122f?=
- =?us-ascii?Q?CMSYhJe5SjT4j2GQp2hbXx3T4pu8X3FQwmkQRBOcsDcGCLnCg4InmtfCErmf?=
- =?us-ascii?Q?TOcts5TooZYnFKbYUEaFLOKWZoN3X07OQBAvXhEU/2sSUsUKu/Gk1H3PaiOp?=
- =?us-ascii?Q?g0NAynwL6yhcYpnfPKTEMHsceZEhc5Lv8U2H8dMPJZhgsl4xGf1dmlZqZ1yc?=
- =?us-ascii?Q?as0IykAwrYSiS49hdyrVgyaDTZDVMrAmGRQU0SczMK26CUxYY+bqNTir/B29?=
- =?us-ascii?Q?5G5Kimh2EaV0iSCPf5+WbSlphWIPYHCcTC0ucwbZOW1ouIlJOftvrxuXKzGd?=
- =?us-ascii?Q?U0wm/9tll4vjtQdholPcTBo04wSX92JPGtCydSWOBi73Swbc11CUdpOOHZp/?=
- =?us-ascii?Q?2L4c5QQzewv2tcLKQVYyUDqfaDcvNFYPloBeLqHtZ8GFCOZi/IzHwOVWZq2O?=
- =?us-ascii?Q?XpDwWlEpdhyJ8z+ZduMDdK/q5N6Xq/vE9YKDuAk+ffaatY1iBUC2g8HIY6ik?=
- =?us-ascii?Q?opnlU1o0bRpSn7Fyx2r6r2DvzwOsZap8YH/dZcV8itBCq1OgdTYWDpatqbcp?=
- =?us-ascii?Q?UsptfoP4kpAyJUfyYaFl/zQ8sDi+zsG950hZB2xt3mimla83sVpp5A9l7c4a?=
- =?us-ascii?Q?EawMF87qMfyWFwIq8MeTUGMi/rquHAz48odD1xS+5a+SOyUZ89K7kyxLqU1W?=
- =?us-ascii?Q?rCxX6juP1M5KvlIrd1jp7WOBJKJQiJqOQpwumdPI/AfU7TBASID7Gi1aaS1Y?=
- =?us-ascii?Q?G84Ni5yUgcWCYok2NyAvp38IYf14M/VX4u+GfvVYLN53LFteOK1t7GHfXvCf?=
- =?us-ascii?Q?7ul5iF/lzFg5j4GoSUk=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f051c3db-d544-4ea6-4271-08dc11e761d5
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8199.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2024 14:21:05.9704 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BftgMlHp7WkiYwFo90CJp8gJdBP/QGQngJ3QRrChLRcVUo3f1PhsbboAyBQ9pIK3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8801
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Rob Landley <rob@landley.net>, Petr Vorel <pvorel@suse.cz>
+References: <20240103015240.1065284-1-pvorel@suse.cz>
+ <CAMuHMdXGwyS-CL0vLdUP4Z4YEYhmcmDyC3YdGCnS=jFkqASqvw@mail.gmail.com>
+ <20240103114957.GD1073466@pevik>
+ <CAMuHMdX0s0gLRoPtjJmDnSmZ_MNY590dN+JxM1HKAL1g_bjX+w@mail.gmail.com>
+ <ZZVOhlGPg5KRyS-F@yuki> <5a1f1ff3-8a61-67cf-59a9-ce498738d912@landley.net>
+ <20240105131135.GA1484621@pevik>
+ <90c1ddc1-c608-30fc-d5aa-fdf63c90d055@landley.net>
+ <20240108090338.GA1552643@pevik>
+ <a3d7f5ae-56c6-9cd8-2cda-2d50d12be9c4@landley.net>
+ <461a6556-8f24-48f5-811a-498cb44f2d64@linux-m68k.org>
+ <b3a8b9db-86ee-47c6-96e2-baa2cba61404@landley.net>
+From: Greg Ungerer <gerg@linux-m68k.org>
+In-Reply-To: <b3a8b9db-86ee-47c6-96e2-baa2cba61404@landley.net>
 X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=ARC_SIGNED,ARC_VALID,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
- SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled
- version=4.0.0
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+ autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v1] getcwd: Fix description format
+X-Mailman-Approved-At: Wed, 10 Jan 2024 16:18:54 +0100
+Subject: Re: [LTP] Call for nommu LTP maintainer [was: Re: [PATCH 00/36]
+ Remove UCLINUX from LTP]
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,76 +70,91 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Niklas Cassel <niklas.cassel@wdc.com>, Jonathan Corbet <corbet@lwn.net>,
+ Linux-sh list <linux-sh@vger.kernel.org>,
+ Christophe Lyon <christophe.lyon@linaro.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ linux-riscv <linux-riscv@lists.infradead.org>, buildroot@buildroot.org,
+ ltp@lists.linux.it, automated-testing@lists.yoctoproject.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Wei Gao <wegao@suse.com>
----
- testcases/kernel/syscalls/getcwd/getcwd02.c | 12 +++++++-----
- testcases/kernel/syscalls/getcwd/getcwd03.c | 14 ++++++++------
- 2 files changed, 15 insertions(+), 11 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/getcwd/getcwd02.c b/testcases/kernel/syscalls/getcwd/getcwd02.c
-index cb111a698..e3df22ceb 100644
---- a/testcases/kernel/syscalls/getcwd/getcwd02.c
-+++ b/testcases/kernel/syscalls/getcwd/getcwd02.c
-@@ -3,12 +3,14 @@
-  * Copyright (c) International Business Machines Corp., 2001
-  */
- 
--/*
-- * DESCRIPTION
-+/*\
-+ * [Description]
-+ *
-  * Testcase to check the basic functionality of the getcwd(2) system call.
-- * 1) getcwd(2) works fine if buf and size are valid.
-- * 2) getcwd(2) works fine if buf points to NULL and size is set to 0.
-- * 3) getcwd(2) works fine if buf points to NULL and size is greater than strlen(path).
-+ *
-+ * 1. getcwd(2) works fine if buf and size are valid.
-+ * 2. getcwd(2) works fine if buf points to NULL and size is set to 0.
-+ * 3. getcwd(2) works fine if buf points to NULL and size is greater than strlen(path).
-  */
- 
- #include <errno.h>
-diff --git a/testcases/kernel/syscalls/getcwd/getcwd03.c b/testcases/kernel/syscalls/getcwd/getcwd03.c
-index 97f4f3a33..85a4ecf24 100644
---- a/testcases/kernel/syscalls/getcwd/getcwd03.c
-+++ b/testcases/kernel/syscalls/getcwd/getcwd03.c
-@@ -3,18 +3,20 @@
-  * Copyright (c) International Business Machines Corp., 2001
-  */
- 
--/*
-- * DESCRIPTION
-+/*\
-+ * [Description]
-+ *
-  * Testcase to check the basic functionality of the getcwd(2)
-  * system call on a symbolic link.
-  *
-  * ALGORITHM
-- * 1) create a directory, and create a symbolic link to it at the
-+ *
-+ * 1. create a directory, and create a symbolic link to it at the
-  *    same directory level.
-- * 2) get the working directory of a directory, and its pathname.
-- * 3) get the working directory of a symbolic link, and its pathname,
-+ * 2. get the working directory of a directory, and its pathname.
-+ * 3. get the working directory of a symbolic link, and its pathname,
-  *    and its readlink info.
-- * 4) compare the working directories and link information.
-+ * 4. compare the working directories and link information.
-  */
- 
- #define _GNU_SOURCE 1
--- 
-2.35.3
+On 10/1/24 15:47, Rob Landley wrote:
+> On 1/9/24 17:17, Greg Ungerer wrote:
+>> On 10/1/24 06:24, Rob Landley wrote:
+>>> I'm a bit weird in that I try to get CURRENT stuff to work on nommu, and a lot
+>>> of people have been happy to consume my work, but getting any of them to post
+>>> directly to linux-kernel is like pulling teeth.
+>>
+>> I regularly test nommu configurations (as in every kernel rc and release) on m68k
+>> and at least every release on other architectures like arm(*) and recently on
+>> riscv as well.
+> 
+> Sigh, I should start caring about riscv. I added or1k support, I should do
+> riscv. (Except I did or1k because I found it in actual hardware, the Orange Pi
+> 3b's power controller is an or1k asic so I needed an or1k toolchain to build
+> some of u-boot's firmware or else the board couldn't reboot, and there was a
+> qemu-system-or1k already, which turned into adding it to mkroot via a long
+> https://lore.kernel.org/openrisc/ZX1xbs_AGdgLgcx7@antec/ thread with its
+> developers. Alas I still can't get qemu to exit (I.E. virtually reboot or power
+> off), apparently I need to reinstall my laptop to have a new enough version of
+> python 3 to build a newer qemu with. It's on the todo list...)
+> 
+> I still have a hard time considering riscv anything other than open source's
+> version of Itanium. Promises of ubiquity, but even a 28 nanometer mask is still
+> 6 figures before you run any wafers and your mask build process is sucking in
+> all the black box libraries the fab can sell you, so what does "open" really get
+> you here? Cortex-m got cheap when the superh patents expired so Arm didn't have
+> to pay royalties to hitachi (renesas?) for the thumb instruction set anymore,
+> and they belt those suckers en masse amortizing the up-front costs over ENORMOUS
+> volume.
+> 
+> And yes, j-core was trying to fix the closed source library and toolchain issues
+> back when I was still working with them. Among other things fishing
+> Google/skywater's openlane toolchain build out of their magic docker and
+> reproducing it under a vanilla debootstrap, ala
+> https://github.com/j-core/openlane-vhdl-build (As with most corporate
+> clusterfscks, once you dig far enough it turns out you can throw over 90% of it
+> out...)
+> 
+> But these days I'm trying to get toybox to 1.0...
+> 
+>> (*) somewhat annoyingly needing a minor patch to run the versatile qemu platform
+>>       I like to test with. But hey, that is on me :-)
+> 
+> I would very much like to add more nommu targets to mkroot, can I get your
+> build/config info offline? (I tried fishing configs out of buildroot a couple
+> years ago, but after the THIRD one where the secret was "use very old versions
+> of packages, the current stuff is broken"... And the problems were things like
+> "the conversion to device tree deleted a huge chunk of this infrastructure", not
+> simple fixes.)
+
+Maybe getting a little off-topic here, but I'll just send links here.
+Who knows it might be useful to others.
+
+Recently I have been experimenting with minimal builds, this is a bunch of
+scripts, configs and a couple of patches I currently have:
+
+     https://github.com/gregungerer/simple-linux
+
+Mostly the kernel builds use the architecture defconfigs, but for armnommu
+versatile it was easier to use a dedicated config and patch:
+
+     https://github.com/gregungerer/simple-linux/blob/master/configs/linux-6.6-armnommu-versatile.config
+     https://github.com/gregungerer/simple-linux/blob/master/patches/linux-6.6-armnommu-versatile.patch
+
+Anyway the scripting uses the newest package versions of everything
+(binutils, gcc, linux, uClibc, busybox).
+
+Regards
+Greg
+
 
 
 -- 
