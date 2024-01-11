@@ -2,113 +2,112 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C723582A910
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jan 2024 09:26:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59EE082A99E
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jan 2024 09:52:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 92C023CE418
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jan 2024 09:26:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 22C843CE417
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jan 2024 09:52:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0F9683C4D74
- for <ltp@lists.linux.it>; Thu, 11 Jan 2024 09:25:58 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 3A8BF3CD010
+ for <ltp@lists.linux.it>; Thu, 11 Jan 2024 09:51:56 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1BBBE6003CA
- for <ltp@lists.linux.it>; Thu, 11 Jan 2024 09:25:57 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 306D2141CE8C
+ for <ltp@lists.linux.it>; Thu, 11 Jan 2024 09:51:54 +0100 (CET)
 Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 302B1220CC;
- Thu, 11 Jan 2024 08:25:41 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 50FF21FB8D;
+ Thu, 11 Jan 2024 08:50:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1704961464;
+ t=1704963099;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8dK+fHyY422dpG7NBNYk8qBMeA87GMj9AMCQiiZ5+yU=;
- b=V8c/b8MzukqdwFp0FhnDg51o1O5BtnzZxlHeHrFix84ACrh8g0HK9xhyAQjGfyIuoRx3+N
- PtKDMSDiu6CJSRn0ERHiCDwiiWvellFcY9v5TATTA0Xp5guQaftGVqanV+yr2Sn/wLiXt1
- LfvWQf8rAtJlDZfGvYqLu0qvH6grUWk=
+ bh=H+pEFBT6tBn8K488YQQaGYa6xOa8EDtMUcOmLgWbTmo=;
+ b=Ow1KeMfj2y6oSOMphyvZj8l9gMEMkuoN7p/KpFfIjROGV0L70gNKBP9Zy9SPTx07y2EY4C
+ 5Y+abKHg6GdjrgeLiVcofpKqD7dyoXRTmTNX3K4hdkqpuRT622xRqInGRKAgPaNXBXjjfh
+ aYR4tEzu2mCrubpwZpGN2IQoqA7WmsE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1704961464;
+ s=susede2_ed25519; t=1704963099;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8dK+fHyY422dpG7NBNYk8qBMeA87GMj9AMCQiiZ5+yU=;
- b=L4VbpG0NRYmNRXk7AcHA78GDrzTUMbq7eYPtltXZGE7FATHR+RpRMhOnEYGk2pbwnmzhIF
- QfwaBcWLofpMd9BQ==
+ bh=H+pEFBT6tBn8K488YQQaGYa6xOa8EDtMUcOmLgWbTmo=;
+ b=NHypObZDURc/lSQJdT0OsJYphs0k/XS28iKhJ5eHD/mhkHBLIcE+KWd+w8oyamCDyhpBUt
+ DkWuCtn6CdJ0M/Cg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1704961541;
+ t=1704963023;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8dK+fHyY422dpG7NBNYk8qBMeA87GMj9AMCQiiZ5+yU=;
- b=Om1baiXsq8FA7rJnyJ4UwvAAKYJCLa3yNhkej7kVaEpY+arBUab1qD25RkQn59qTLGwJK/
- pOtDBAE7Ep/g0VWRHt0UdOPLWp2s+XKkjPJbYZOPU92UFA7vHlL69SXKobWZnKSJm5AanW
- 7VtsOBs2pbemfN3amErNLdN8OSZuKqA=
+ bh=H+pEFBT6tBn8K488YQQaGYa6xOa8EDtMUcOmLgWbTmo=;
+ b=adNDjeStCq2/vwjJRuJiuLCj7uyMOcfFhXjKpUg5/1skwmrpK4mF9qsX4809vQg9o0ZF2f
+ Ci4CqUrTAYJ11rEo9wqVyel3E2v1Htj5RzDwlvDzIH7OCkIdPOxVx9v40JxYyTH0WjIjMX
+ qPEaG0VU4KQ+aj6Z9+F9P8C1ImWmRaw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1704961541;
+ s=susede2_ed25519; t=1704963023;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8dK+fHyY422dpG7NBNYk8qBMeA87GMj9AMCQiiZ5+yU=;
- b=bKvcBPzPPM7sNJDfgjU3aWpGZDEMLskuR681ZMm0kp5WbN3j1XB444ArA9J4OdagwU2O1L
- fNmbrnpzdwsqaWAw==
+ bh=H+pEFBT6tBn8K488YQQaGYa6xOa8EDtMUcOmLgWbTmo=;
+ b=E1O7FrHAQ4+GkczBJzFz2yJlXE11b69GCeXJ2MMBtvg5q3qxQwndEkaYEyi75ZEGJG+xQt
+ imUaJr9r56+L5lCw==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 8F141138E5;
- Thu, 11 Jan 2024 08:24:24 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 30E8B13C04;
+ Thu, 11 Jan 2024 08:50:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id zqyuIbiln2UiIAAAn2gu4w
- (envelope-from <pvorel@suse.cz>); Thu, 11 Jan 2024 08:24:24 +0000
-Date: Thu, 11 Jan 2024 09:25:49 +0100
+ by imap2.dmz-prg2.suse.org with ESMTPSA id O8W0Cs+rn2UrJQAAn2gu4w
+ (envelope-from <pvorel@suse.cz>); Thu, 11 Jan 2024 08:50:23 +0000
+Date: Thu, 11 Jan 2024 09:51:52 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Pengfei Xu <pengfei.xu@intel.com>
-Message-ID: <20240111082549.GA1856272@pevik>
-References: <cover.1704868967.git.pengfei.xu@intel.com>
- <f60daf00d0de49e54a5389c73c90994e7711a7d1.1704868967.git.pengfei.xu@intel.com>
- <20240110175931.GA1766165@pevik>
- <ZZ9aR/SEWl57q6aR@xpf.sh.intel.com>
+Message-ID: <20240111085152.GA1859394@pevik>
+References: <cover.1704949719.git.pengfei.xu@intel.com>
+ <48efcb1293a682182fc5db23f01be7af2889e26c.1704949719.git.pengfei.xu@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZZ9aR/SEWl57q6aR@xpf.sh.intel.com>
-Authentication-Results: smtp-out1.suse.de;
+In-Reply-To: <48efcb1293a682182fc5db23f01be7af2889e26c.1704949719.git.pengfei.xu@intel.com>
+Authentication-Results: smtp-out2.suse.de;
 	none
-X-Spamd-Result: default: False [-3.31 / 50.00]; ARC_NA(0.00)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
- TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_GOOD(-0.10)[text/plain]; REPLY(-4.00)[];
- RCVD_COUNT_THREE(0.00)[3]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.01)[46.81%]
 X-Spam-Level: 
-X-Spam-Score: -3.31
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-Spam-Score: -1.02
+X-Spamd-Result: default: False [-1.02 / 50.00];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_THREE(0.00)[3];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; BAYES_HAM(-0.52)[80.36%];
+ ARC_NA(0.00)[]; REPLYTO_EQ_FROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; MID_RHS_NOT_FQDN(0.50)[];
+ RCVD_TLS_ALL(0.00)[]
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 1/1] keyctl05: increase dns_res_payload data
- due to kernel code changes
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 1/1] keyctl05: improve the dns_res_payload for
+ boundary testing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,52 +126,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi Petr,
-
-> On 2024-01-10 at 18:59:31 +0100, Petr Vorel wrote:
-> > Hi Xu,
-
-> > Good catch, merged.
-
-> > BTW any change how to trigger autoload of dns_resolver ?
-
-> > # ./keyctl05
-> > ...
-> > keyctl05.c:99: TCONF: kernel doesn't support key type 'dns_resolver'
-> > ...
-
-> > # modprobe dns_resolver
-> > # ./keyctl05
-> > ...
-> > keyctl05.c:143: TPASS: updating 'dns_resolver' key expectedly failed with EOPNOTSUPP
-> > ...
-
-> > We consider modprobe as the last result.
-
-> Yes, it needs to load dns_resolver module to test it.
-> Or set kconfig CONFIG_DNS_RESOLVER=y.
-
-Well, that would not work for kernels in linux distros.
-Therefore I'll send a patch to add modprobe functionality.
-
-> Due to the bundary issue fixed patch as follows, I will send another patch to
-> set to 6 bytes coming data for add_key syscall for passed boundary checking:
+> Because the following patch will fix the add_key syscall incoming data boundary
+> size issue, 6 bytes incoming data should pass:
 > https://lore.kernel.org/all/1784441.1704907412@warthog.procyon.org.uk/
+>  -> https://lore.kernel.org/all/1850031.1704921100@warthog.procyon.org.uk/
+> In order to test above boundary incoming data size, change the dns_res_payload
+> size.
 
-Thank you!
+> Signed-off-by: Pengfei Xu <pengfei.xu@intel.com>
+> ---
+>  testcases/kernel/syscalls/keyctl/keyctl05.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 
-FYI we're planning LTP release in the end of month, it'd be great if you send
-patch soon so that fix is included.
+> diff --git a/testcases/kernel/syscalls/keyctl/keyctl05.c b/testcases/kernel/syscalls/keyctl/keyctl05.c
+> index 90cf1ef06..50e78853c 100644
+> --- a/testcases/kernel/syscalls/keyctl/keyctl05.c
+> +++ b/testcases/kernel/syscalls/keyctl/keyctl05.c
+> @@ -199,11 +199,11 @@ static void do_test(unsigned int i)
+>  	 * We need to pass check in dns_resolver_preparse(),
+>  	 * give it dummy server list request.
+>  	 * From v6.7-rc8 commit 1997b3cb4217b09e49659b634c94da47f0340409:
+> -	 * the incoming data for add_key syscall should be larger than 6 bytes,
+> -	 * because struct dns_server_list_v1_header without body is 6 bytes.
+> +	 * the incoming data for add_key syscall should be not less than 6
+> +	 * bytes, because struct dns_server_list_v1_header is 6 bytes.
+> +	 * The minimum payload will be tested here for boundary testing.
+>  	 */
+> -	static char dns_res_payload[] = { 0x00, 0x00, 0x01, 0xff, 0x00, \
+
+nit (already pushed): \ is not needed for arrays.
 
 Kind regards,
 Petr
 
-> BR,
-> Thanks!
+> -					  0x00, 0x00 };
+> +	static char dns_res_payload[] = { 0x00, 0x00, 0x01, 0xff, 0x00, 0x00 };
 
-
-> > Kind regards,
-> > Petr
+>  	switch (i) {
+>  	case 0:
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
