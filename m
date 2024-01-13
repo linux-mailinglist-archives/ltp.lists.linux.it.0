@@ -2,74 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D487E82CA55
-	for <lists+linux-ltp@lfdr.de>; Sat, 13 Jan 2024 08:05:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E16082CD18
+	for <lists+linux-ltp@lfdr.de>; Sat, 13 Jan 2024 15:50:17 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D85893CCEF9
-	for <lists+linux-ltp@lfdr.de>; Sat, 13 Jan 2024 08:05:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3A74F3CDB4C
+	for <lists+linux-ltp@lfdr.de>; Sat, 13 Jan 2024 15:50:17 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D092B3C2209
- for <ltp@lists.linux.it>; Sat, 13 Jan 2024 08:05:21 +0100 (CET)
-Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
- [IPv6:2607:f8b0:4864:20::f2d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C5D3860055A
- for <ltp@lists.linux.it>; Sat, 13 Jan 2024 08:05:20 +0100 (CET)
-Received: by mail-qv1-xf2d.google.com with SMTP id
- 6a1803df08f44-68141aa810eso8031946d6.2
- for <ltp@lists.linux.it>; Fri, 12 Jan 2024 23:05:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1705129519; x=1705734319; darn=lists.linux.it;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=GqUVJ8s7EGwnf8VW2qN30KaMR9GjPb0OJdm4xU8DVmE=;
- b=fCp1g9oAR/KM0KR/SyILP8Rr2M7P7Y+N0Ar23ZU6fHBczBfwo5h1zy38DfHw/UU8oX
- ZpNa4vITQPHfQ71WJz+aIR09+zWAoYSuwftgVU02U2GJAQ1ip0P/H1CwgNA7UWo0Kx9f
- SPFpL/xnZNP+lPO2I2a1VDrYc4eBA/HqlVx9/SZ1L1KwKhMRhVKJUMSIPJJjxYUkw3Rw
- pgN+35/c7Yt/ne4oEs9BzY3c13f8rbWJ4ibqvcvFHEFqrzzMV2ylfbZ+mm6KWPRk2QHE
- xP45JP+4lj7Xee3G/mM2Wcz5sQLtNAE3s1io8qw6b/b/uGs7Ooj6dDRU9IAZceaaK7FJ
- S6Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705129519; x=1705734319;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=GqUVJ8s7EGwnf8VW2qN30KaMR9GjPb0OJdm4xU8DVmE=;
- b=u9dvib4kwzhK8k8idW7ZhhqWLZbT8DoshicA9tUPvoIxQMdGbGn2uT9qBeTeXTlv1u
- 8+lTmNGQwFVAU6vQ/ft/6YAwB8Qi+VehjhNAMEs6h5OAe9c7wI3JflRfmdCFLE6n/UJW
- ULEwhDdhGBFDGFMZ4iCyy3scfvoe6uTg3LAetCApjodX/ftUhUqhhS8jUtkr4AYh5mx+
- 0Yea49E82MM9Ods3m8KJgMSAkWiTc/COkt7fjPofG3J5HQQlk3VZmMzhasFiCfZENIZ0
- xi/PqBdQZfZ8EMLCnJcMZJWM6AzI/hwRFF6gRcBXrrNy0qLdWEO6PKTWSk95hS9I6JKu
- Hi8g==
-X-Gm-Message-State: AOJu0YwjGMKtBQez+SU+RwZOHbDmEYvwVAAX7CLr3if5lrQEt+AjvTHY
- lddSeNKfDD7hfd/GPodBhyWk4FL78XhOHet65hqvKyhd12h2oQ==
-X-Google-Smtp-Source: AGHT+IFc0y2uSmt7xB6X4CM/6iYzv7XLzqDXm1OMDLNeYk0eIgGxUlMEo1QaTfdT2BHiqR6aEvzb2Y8BVfmQGNWecLs=
-X-Received: by 2002:ad4:5be2:0:b0:681:3b95:cedd with SMTP id
- k2-20020ad45be2000000b006813b95ceddmr2122750qvc.59.1705129519531; Fri, 12 Jan
- 2024 23:05:19 -0800 (PST)
+ by picard.linux.it (Postfix) with ESMTPS id 302423CA4A9
+ for <ltp@lists.linux.it>; Sat, 13 Jan 2024 15:49:59 +0100 (CET)
+Received: from m15.mail.163.com (m15.mail.163.com [45.254.50.219])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id D5E6D1400C44
+ for <ltp@lists.linux.it>; Sat, 13 Jan 2024 15:49:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=F7rDs
+ 22gRFQqKtAU0mQRHTOQu0UDtFEMsyFO6hdckf4=; b=fTQDxiOS4IZIQ6D1asnIv
+ pemyjvu5c8sf3ttcBNlBCF809uT0T9eB8r2nDvt01d5HsQCMIn/ov9knXIFZXABX
+ GYweswD1QFo2V1aG9l1T5/Ee/PYtWZTFiwSeC6rlh+SfaI1Eq6AQiUuq/4Ba0tni
+ yDetiBE3+JHlQmjscFM77Q=
+Received: from localhost.localdomain (unknown [183.210.226.120])
+ by zwqz-smtp-mta-g1-2 (Coremail) with SMTP id _____wD3X1IFo6JlDGAUBA--.25846S2;
+ Sat, 13 Jan 2024 22:49:43 +0800 (CST)
+From: ice_yangxiao@163.com
+To: ltp@lists.linux.it
+Date: Sat, 13 Jan 2024 22:49:38 +0800
+Message-Id: <20240113144940.133746-1-ice_yangxiao@163.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-References: <CA+G9fYu1hB2OMf0EFrt_86OE=0Ug3y6nQd3=OZeEeM1jp3P92g@mail.gmail.com>
- <11a31e09-2e11-43a4-8995-ae70c5bef8bf@kernel.org>
-In-Reply-To: <11a31e09-2e11-43a4-8995-ae70c5bef8bf@kernel.org>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Sat, 13 Jan 2024 12:35:08 +0530
-Message-ID: <CA+G9fYthC3qsH8ey=j3RvCr4-0zp1S3Ysr5QvY6SptorHpju1g@mail.gmail.com>
-To: Damien Le Moal <dlemoal@kernel.org>
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-CM-TRANSID: _____wD3X1IFo6JlDGAUBA--.25846S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Xw47CF15GryDKr18AF1UJrb_yoW7Cr43p3
+ y7Ja4UKF4kJr1fu3Z7Zr40ka1rA3Z2yFyrKF4Ika15ZrsYvw45CFW2qFyrJFyUXr48Kayj
+ yF4fXry2qw1kJFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UPkusUUUUU=
+X-Originating-IP: [183.210.226.120]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/xtbBEhFkXmVOBo5MrwAAs5
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] scsi: block: ioprio: Clean up interface definition -
- ioprio_set03.c:40: TFAIL: ioprio_set IOPRIO_CLASS_BE prio 8 should not work
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] syscalls/preadv: Make make check happy
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,56 +59,171 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Niklas Cassel <niklas.cassel@wdc.com>,
- Linux Regressions <regressions@lists.linux.dev>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
- linux-block <linux-block@vger.kernel.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, Christoph Hellwig <hch@lst.de>,
- LTP List <ltp@lists.linux.it>, Hannes Reinecke <hare@suse.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, 12 Jan 2024 at 10:49, Damien Le Moal <dlemoal@kernel.org> wrote:
->
-> On 1/12/24 14:15, Naresh Kamboju wrote:
-> > The LTP test 'iopri_set03' fails on all the devices.
-> > It fails on linux kernel >= v6.5. ( on Debian rootfs ).
-> > Test fail confirmed on LTP release 20230929 and 20230516.
-> >
-> > Test failed log:
-> > ------------
-> > tst_test.c:1690: TINFO: LTP version: 20230929
-> > tst_test.c:1574: TINFO: Timeout per run is 0h 05m 00s
-> > ioprio_set03.c:40: TFAIL: ioprio_set IOPRIO_CLASS_BE prio 8 should not work
-> > ioprio_set03.c:48: TINFO: tested illegal priority with class NONE
-> > ioprio_set03.c:51: TPASS: returned correct error for wrong prio: EINVAL (22)
-> >
-> > Investigation:
-> > ----------
-> > Bisecting this test between kernel v6.4 and v6.5 shows patch
-> > eca2040972b4 ("scsi: block: ioprio: Clean up interface definition")
-> > as the first faulty commit.
-> >
-> > Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
->
-> This is fixed in LTP. Please update your LTP setup to avoid this issue.
+From: Xiao Yang <yangx.jy@fujitsu.com>
 
-Please point me to the fixed commit id.
+Signed-off-by: Xiao Yang <yangx.jy@fujitsu.com>
+---
+ testcases/kernel/syscalls/preadv/preadv.h   | 19 ++------
+ testcases/kernel/syscalls/preadv/preadv01.c | 26 +++++------
+ testcases/kernel/syscalls/preadv/preadv02.c | 50 ++++++++++-----------
+ 3 files changed, 42 insertions(+), 53 deletions(-)
 
-I have the latest LTP release test results as ioprio_set03 has failed.
+diff --git a/testcases/kernel/syscalls/preadv/preadv.h b/testcases/kernel/syscalls/preadv/preadv.h
+index 73466a9aa..c3e9e5f19 100644
+--- a/testcases/kernel/syscalls/preadv/preadv.h
++++ b/testcases/kernel/syscalls/preadv/preadv.h
+@@ -1,18 +1,7 @@
+-/*
+-* Copyright (c) 2015 Fujitsu Ltd.
+-* Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
+-*
+-* This program is free software; you can redistribute it and/or modify it
+-* under the terms of version 2 of the GNU General Public License as
+-* published by the Free Software Foundation.
+-*
+-* This program is distributed in the hope that it would be useful, but
+-* WITHOUT ANY WARRANTY; without even the implied warranty of
+-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+-*
+-* You should have received a copy of the GNU General Public License
+-* alone with this program.
+-*/
++/* SPDX-License-Identifier: GPL-2.0-or-later
++ * Copyright (c) 2015 Fujitsu Ltd.
++ * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
++ */
+ 
+ #ifndef PREADV_H
+ #define PREADV_H
+diff --git a/testcases/kernel/syscalls/preadv/preadv01.c b/testcases/kernel/syscalls/preadv/preadv01.c
+index 62f9296f2..aba4748a5 100644
+--- a/testcases/kernel/syscalls/preadv/preadv01.c
++++ b/testcases/kernel/syscalls/preadv/preadv01.c
+@@ -1,17 +1,17 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+-* Copyright (c) 2015 Fujitsu Ltd.
+-* Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
+-*/
++ * Copyright (c) 2015 Fujitsu Ltd.
++ * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
++ */
+ 
+ /*
+-* Test Name: preadv01
+-*
+-* Test Description:
+-* Testcase to check the basic functionality of the preadv(2).
+-* Preadv(2) should succeed to read the expected content of data
+-* and after reading the file, the file offset is not changed.
+-*/
++ * Test Name: preadv01
++ *
++ * Test Description:
++ * Testcase to check the basic functionality of the preadv(2).
++ * Preadv(2) should succeed to read the expected content of data
++ * and after reading the file, the file offset is not changed.
++ */
+ 
+ #define _GNU_SOURCE
+ 
+@@ -38,7 +38,7 @@ static struct tcase {
+ 	{1, CHUNK*3/2, CHUNK/2, 'b'}
+ };
+ 
+-void verify_preadv(unsigned int n)
++static void verify_preadv(unsigned int n)
+ {
+ 	int i;
+ 	char *vec;
+@@ -81,7 +81,7 @@ void verify_preadv(unsigned int n)
+ 		 "with content '%c' expectedly", tc->size, tc->content);
+ }
+ 
+-void setup(void)
++static void setup(void)
+ {
+ 	char buf[CHUNK];
+ 
+@@ -94,7 +94,7 @@ void setup(void)
+ 	SAFE_WRITE(SAFE_WRITE_ALL, fd, buf, sizeof(buf));
+ }
+ 
+-void cleanup(void)
++static void cleanup(void)
+ {
+ 	if (fd > 0)
+ 		SAFE_CLOSE(fd);
+diff --git a/testcases/kernel/syscalls/preadv/preadv02.c b/testcases/kernel/syscalls/preadv/preadv02.c
+index 500059e42..65d4795d6 100644
+--- a/testcases/kernel/syscalls/preadv/preadv02.c
++++ b/testcases/kernel/syscalls/preadv/preadv02.c
+@@ -1,32 +1,32 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+-* Copyright (c) 2015-2016 Fujitsu Ltd.
+-* Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
+-*/
++ * Copyright (c) 2015-2016 Fujitsu Ltd.
++ * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
++ */
+ 
+ /*
+-* Test Name: preadv02
+-*
+-* Description:
+-* 1) preadv(2) fails if iov_len is invalid.
+-* 2) preadv(2) fails if the vector count iovcnt is less than zero.
+-* 3) preadv(2) fails if offset is negative.
+-* 4) preadv(2) fails when attempts to read into a invalid address.
+-* 5) preadv(2) fails if file descriptor is invalid.
+-* 6) preadv(2) fails if file descriptor is not open for reading.
+-* 7) preadv(2) fails when fd refers to a directory.
+-* 8) preadv(2) fails if fd is associated with a pipe.
+-*
+-* Expected Result:
+-* 1) preadv(2) should return -1 and set errno to EINVAL.
+-* 2) preadv(2) should return -1 and set errno to EINVAL.
+-* 3) preadv(2) should return -1 and set errno to EINVAL.
+-* 4) preadv(2) should return -1 and set errno to EFAULT.
+-* 5) preadv(2) should return -1 and set errno to EBADF.
+-* 6) preadv(2) should return -1 and set errno to EBADF.
+-* 7) preadv(2) should return -1 and set errno to EISDIR.
+-* 8) preadv(2) should return -1 and set errno to ESPIPE.
+-*/
++ * Test Name: preadv02
++ *
++ * Description:
++ * 1) preadv(2) fails if iov_len is invalid.
++ * 2) preadv(2) fails if the vector count iovcnt is less than zero.
++ * 3) preadv(2) fails if offset is negative.
++ * 4) preadv(2) fails when attempts to read into a invalid address.
++ * 5) preadv(2) fails if file descriptor is invalid.
++ * 6) preadv(2) fails if file descriptor is not open for reading.
++ * 7) preadv(2) fails when fd refers to a directory.
++ * 8) preadv(2) fails if fd is associated with a pipe.
++ *
++ * Expected Result:
++ * 1) preadv(2) should return -1 and set errno to EINVAL.
++ * 2) preadv(2) should return -1 and set errno to EINVAL.
++ * 3) preadv(2) should return -1 and set errno to EINVAL.
++ * 4) preadv(2) should return -1 and set errno to EFAULT.
++ * 5) preadv(2) should return -1 and set errno to EBADF.
++ * 6) preadv(2) should return -1 and set errno to EBADF.
++ * 7) preadv(2) should return -1 and set errno to EISDIR.
++ * 8) preadv(2) should return -1 and set errno to ESPIPE.
++ */
+ 
+ #define _GNU_SOURCE
+ 
+-- 
+2.26.2
 
-ioprio_set03.c:40: TFAIL: ioprio_set IOPRIO_CLASS_BE prio 8 should not work
-LTP Version: 20230929-258-gec0a8f18b
-on Debian rootfs.
-
-Links:
- - https://qa-reports.linaro.org/lkft/ltp-master/build/v6.6.10_20230929-258-gec0a8f18b/testrun/22035919/suite/ltp-syscalls/test/ioprio_set03/history/
- - https://qa-reports.linaro.org/lkft/ltp-master/build/v6.6.10_20230929-258-gec0a8f18b/testrun/22035919/suite/ltp-syscalls/test/ioprio_set03/details/
-
-- Naresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
