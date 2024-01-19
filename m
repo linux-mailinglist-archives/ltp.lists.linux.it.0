@@ -2,20 +2,20 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31618832A2B
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jan 2024 14:15:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F553832A9A
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jan 2024 14:36:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3F24D3CE2BD
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jan 2024 14:15:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 31E1E3CE03D
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jan 2024 14:36:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 439E03C006A
- for <ltp@lists.linux.it>; Fri, 19 Jan 2024 14:15:14 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 2F1143CC8BF
+ for <ltp@lists.linux.it>; Fri, 19 Jan 2024 14:36:38 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
@@ -23,47 +23,47 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 283697A925F
- for <ltp@lists.linux.it>; Fri, 19 Jan 2024 14:15:12 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 23F121400E56
+ for <ltp@lists.linux.it>; Fri, 19 Jan 2024 14:36:36 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 599F71FD15;
- Fri, 19 Jan 2024 13:15:12 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 237E11FD15;
+ Fri, 19 Jan 2024 13:36:36 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3E39513894;
- Fri, 19 Jan 2024 13:15:12 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DCECF1388C;
+ Fri, 19 Jan 2024 13:36:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id NCe2DeB1qmXtGQAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 19 Jan 2024 13:15:12 +0000
-Date: Fri, 19 Jan 2024 14:15:10 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id okQzNON6qmXuIAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 19 Jan 2024 13:36:35 +0000
+Date: Fri, 19 Jan 2024 14:36:34 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20240119131510.GA22947@pevik>
-References: <20231011160822.578637-1-pvorel@suse.cz>
- <20231011160822.578637-3-pvorel@suse.cz> <Zapa-P9vY--8BrdW@yuki>
+Message-ID: <20240119133634.GA27666@pevik>
+References: <20231011162428.583911-1-pvorel@suse.cz>
+ <20231011162428.583911-3-pvorel@suse.cz> <ZapkKSTNkXsnulC3@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Zapa-P9vY--8BrdW@yuki>
-X-Spam-Level: 
+In-Reply-To: <ZapkKSTNkXsnulC3@yuki>
 Authentication-Results: smtp-out2.suse.de;
 	none
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	 REPLY(-4.00)[]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 237E11FD15
+X-Spam-Level: 
 X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 599F71FD15
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/3] tst_fs.h: Improve tst_fibmap() doc
+Subject: Re: [LTP] [PATCH 2/2] swapon01: Simplify code, add copyright
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,27 +82,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi Cyril,
+
 > Hi!
-> >  /*
-> > - * test if FIBMAP ioctl is supported
-> > + * Check if FIBMAP ioctl is supported.
-> > + * Tests which use tst_fibmap() should use .needs_root = 1 to avoid EPERM.
->                ^
-> 	       Maybe just:
+> >  /*\
+> > @@ -21,18 +22,11 @@
 
-> 	       Tests nees to set .needs_root = 1 in order to avoid EPERM.
-+1 (with "needs")
+> >  static void verify_swapon(void)
+> >  {
+> > -	TEST(tst_syscall(__NR_swapon, SWAP_FILE, 0));
+> > +	TST_EXP_PASS(tst_syscall(__NR_swapon, SWAP_FILE, 0));
 
-Thanks, merged!
+> > -	if (TST_RET == -1) {
+> > -		tst_res(TFAIL | TTERRNO, "Failed to turn on swapfile");
+> > -	} else {
+> > -		tst_res(TPASS, "Succeeded to turn on swapfile");
+> > -		/*we need to turn this swap file off for -i option */
+> > -		if (tst_syscall(__NR_swapoff, SWAP_FILE) != 0) {
+> > -			tst_brk(TBROK | TERRNO, "Failed to turn off swapfile,"
+> > -				" system reboot after execution of LTP "
+> > -				"test suite is recommended.");
+> > -		}
+> > +	if (tst_syscall(__NR_swapoff, SWAP_FILE) != 0) {
+
+> Maybe if (TST_PASS && tst_syscall(__NR_swapoff, ...) != 0) {
+
+Rebased, add this change and merged. Thanks!
 
 Kind regards,
 Petr
 
-> > + * @return 0: FIBMAP is supported, 1: FIBMAP is *not* supported.
 
-> Otherwise it looks good.
+> Otherwise it looks good, with that change:
 
 > Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+
+> > +		tst_brk(TBROK | TERRNO,
+> > +				"Failed to turn off swapfile, system reboot recommended");
+> >  	}
+> >  }
+
+> > -- 
+> > 2.42.0
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
