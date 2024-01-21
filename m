@@ -1,71 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B93368355B0
-	for <lists+linux-ltp@lfdr.de>; Sun, 21 Jan 2024 13:31:10 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 88BE38355AE
+	for <lists+linux-ltp@lfdr.de>; Sun, 21 Jan 2024 13:30:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 29DF73CEF28
-	for <lists+linux-ltp@lfdr.de>; Sun, 21 Jan 2024 13:31:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4E6B23CACCC
+	for <lists+linux-ltp@lfdr.de>; Sun, 21 Jan 2024 13:30:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4D2433CC7F6
- for <ltp@lists.linux.it>; Sun, 21 Jan 2024 13:30:20 +0100 (CET)
-Authentication-Results: in-3.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=fujitsu.com (client-ip=68.232.139.139;
- helo=esa6.hc1455-7.c3s2.iphmx.com; envelope-from=yangx.jy@fujitsu.com;
+ by picard.linux.it (Postfix) with ESMTPS id 3691A3CC7D3
+ for <ltp@lists.linux.it>; Sun, 21 Jan 2024 13:30:19 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fujitsu.com (client-ip=207.54.90.48;
+ helo=esa2.hc1455-7.c3s2.iphmx.com; envelope-from=yangx.jy@fujitsu.com;
  receiver=lists.linux.it)
-Received: from esa6.hc1455-7.c3s2.iphmx.com (esa6.hc1455-7.c3s2.iphmx.com
- [68.232.139.139])
+Received: from esa2.hc1455-7.c3s2.iphmx.com (esa2.hc1455-7.c3s2.iphmx.com
+ [207.54.90.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2FD491A0117B
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 328741002057
  for <ltp@lists.linux.it>; Sun, 21 Jan 2024 13:30:18 +0100 (CET)
-X-IronPort-AV: E=McAfee;i="6600,9927,10959"; a="148427042"
-X-IronPort-AV: E=Sophos;i="6.05,209,1701097200"; d="scan'208";a="148427042"
-Received: from unknown (HELO oym-r1.gw.nic.fujitsu.com) ([210.162.30.89])
- by esa6.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2024 21:30:15 +0900
-Received: from oym-m1.gw.nic.fujitsu.com (oym-nat-oym-m1.gw.nic.fujitsu.com
- [192.168.87.58])
- by oym-r1.gw.nic.fujitsu.com (Postfix) with ESMTP id 65B88C1634
+X-IronPort-AV: E=McAfee;i="6600,9927,10959"; a="146761071"
+X-IronPort-AV: E=Sophos;i="6.05,209,1701097200"; d="scan'208";a="146761071"
+Received: from unknown (HELO yto-r1.gw.nic.fujitsu.com) ([218.44.52.217])
+ by esa2.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2024 21:30:16 +0900
+Received: from yto-m3.gw.nic.fujitsu.com (yto-nat-yto-m3.gw.nic.fujitsu.com
+ [192.168.83.66])
+ by yto-r1.gw.nic.fujitsu.com (Postfix) with ESMTP id 6C098D9DA5
  for <ltp@lists.linux.it>; Sun, 21 Jan 2024 21:30:13 +0900 (JST)
-Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
- [192.51.206.22])
- by oym-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 908D6D4F42
+Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
+ [192.51.206.21])
+ by yto-m3.gw.nic.fujitsu.com (Postfix) with ESMTP id A596BD2147
  for <ltp@lists.linux.it>; Sun, 21 Jan 2024 21:30:12 +0900 (JST)
 Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id 1C55322EAD8
+ by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id 2F068200A7854
  for <ltp@lists.linux.it>; Sun, 21 Jan 2024 21:30:12 +0900 (JST)
 Received: from localhost.localdomain (unknown [10.167.214.93])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id 7143C1A0070;
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id C71FB1A015E;
  Sun, 21 Jan 2024 20:30:11 +0800 (CST)
 From: Xiao Yang <yangx.jy@fujitsu.com>
 To: pvorel@suse.cz
-Date: Sun, 21 Jan 2024 20:29:56 +0800
-Message-Id: <20240121122959.1386-1-yangx.jy@fujitsu.com>
+Date: Sun, 21 Jan 2024 20:29:57 +0800
+Message-Id: <20240121122959.1386-2-yangx.jy@fujitsu.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20240121122959.1386-1-yangx.jy@fujitsu.com>
+References: <20240121122959.1386-1-yangx.jy@fujitsu.com>
 MIME-Version: 1.0
 X-TM-AS-GCONF: 00
 X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28132.007
 X-TM-AS-User-Approved-Sender: Yes
 X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28132.007
-X-TMASE-Result: 10--7.096100-10.000000
-X-TMASE-MatchedRID: 4dQSGpW1RnZa6JkWul/UfE7nLUqYrlslFIuBIWrdOeOjEIt+uIPPOEWY
- FvwCgnnKu+jFdzsOrevwpcCKD24C0z0zZJkr4Qiy5p1ddw6V4RvrLfunoI8iwMnJhTYnTng9CeW
- hs1FY/qWaodLlCZqD9UeSXLsBjkkFMkH7vrbBCJDrCzoWXDcUYn0tCKdnhB589yM15V5aWpj6C0
- ePs7A07fk39LXMSri6roh8AquVr3fo/K1YsqkFdGIAUB9PHXJ6HOMayw00/fI=
+X-TMASE-Result: 10--7.304500-10.000000
+X-TMASE-MatchedRID: f4rHggDVdNffytYpCSLCzrnHu4BcYSmtwTlc9CcHMZerwqxtE531VPnT
+ SlCpnRQQbnRB47KLJ1QzLmfGY6iDkYF+91Q/EzGtN70wXhI0DX4O4jfa+nI3PyfJTn+dmnFQuJE
+ UmdYPGSV+CxzcGwLNWGzNhvRhOypXTKxdspm3SX7fSQNpZkETVPi4nVERfgwdVub+/GZAO90gya
+ HyKlLsWafJQ9RXKcxagDLqnrRlXrZ8nn9tnqel2DsAVzN+Ov/sg7B+KYpwErJUT9gKLiJOBVnlo
+ 9dWGqXoVgJEAhhcZghzy/hLIuZDsQ==
 X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 1/4] syscalls/preadv: Fix docparse
+Subject: [LTP] [PATCH v2 2/4] syscalls/preadv: Make make check happy
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,105 +86,118 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Also add LTP Copyright.
+
 Signed-off-by: Xiao Yang <yangx.jy@fujitsu.com>
 ---
- testcases/kernel/syscalls/preadv/preadv01.c | 16 +++++-----
- testcases/kernel/syscalls/preadv/preadv02.c | 35 +++++++--------------
- testcases/kernel/syscalls/preadv/preadv03.c |  6 ++--
- 3 files changed, 24 insertions(+), 33 deletions(-)
+ testcases/kernel/syscalls/preadv/preadv.h   | 21 ++++++---------------
+ testcases/kernel/syscalls/preadv/preadv01.c | 13 +++++++------
+ testcases/kernel/syscalls/preadv/preadv02.c |  7 ++++---
+ testcases/kernel/syscalls/preadv/preadv03.c |  1 +
+ 4 files changed, 18 insertions(+), 24 deletions(-)
 
+diff --git a/testcases/kernel/syscalls/preadv/preadv.h b/testcases/kernel/syscalls/preadv/preadv.h
+index 73466a9aa..bfe7e7223 100644
+--- a/testcases/kernel/syscalls/preadv/preadv.h
++++ b/testcases/kernel/syscalls/preadv/preadv.h
+@@ -1,18 +1,9 @@
+-/*
+-* Copyright (c) 2015 Fujitsu Ltd.
+-* Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
+-*
+-* This program is free software; you can redistribute it and/or modify it
+-* under the terms of version 2 of the GNU General Public License as
+-* published by the Free Software Foundation.
+-*
+-* This program is distributed in the hope that it would be useful, but
+-* WITHOUT ANY WARRANTY; without even the implied warranty of
+-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+-*
+-* You should have received a copy of the GNU General Public License
+-* alone with this program.
+-*/
++/* SPDX-License-Identifier: GPL-2.0
++ *
++ * Copyright (c) 2015 Fujitsu Ltd.
++ * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
++ * Copyright (c) Linux Test Project, 2016-2023
++ */
+ 
+ #ifndef PREADV_H
+ #define PREADV_H
 diff --git a/testcases/kernel/syscalls/preadv/preadv01.c b/testcases/kernel/syscalls/preadv/preadv01.c
-index 62f9296f2..10604200d 100644
+index 10604200d..871b3ab42 100644
 --- a/testcases/kernel/syscalls/preadv/preadv01.c
 +++ b/testcases/kernel/syscalls/preadv/preadv01.c
-@@ -4,14 +4,14 @@
- * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
- */
- 
--/*
--* Test Name: preadv01
--*
--* Test Description:
--* Testcase to check the basic functionality of the preadv(2).
--* Preadv(2) should succeed to read the expected content of data
--* and after reading the file, the file offset is not changed.
+@@ -1,8 +1,9 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+-* Copyright (c) 2015 Fujitsu Ltd.
+-* Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
 -*/
-+/*\
-+ * [Description]
-+ *
-+ * Testcase to check the basic functionality of the preadv(2).
-+ *
-+ * Preadv(2) should succeed to read the expected content of data
-+ * and after reading the file, the file offset is not changed.
++ * Copyright (c) 2015 Fujitsu Ltd.
++ * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
++ * Copyright (c) Linux Test Project, 2016-2023
 + */
  
- #define _GNU_SOURCE
+ /*\
+  * [Description]
+@@ -38,7 +39,7 @@ static struct tcase {
+ 	{1, CHUNK*3/2, CHUNK/2, 'b'}
+ };
  
+-void verify_preadv(unsigned int n)
++static void verify_preadv(unsigned int n)
+ {
+ 	int i;
+ 	char *vec;
+@@ -81,7 +82,7 @@ void verify_preadv(unsigned int n)
+ 		 "with content '%c' expectedly", tc->size, tc->content);
+ }
+ 
+-void setup(void)
++static void setup(void)
+ {
+ 	char buf[CHUNK];
+ 
+@@ -94,7 +95,7 @@ void setup(void)
+ 	SAFE_WRITE(SAFE_WRITE_ALL, fd, buf, sizeof(buf));
+ }
+ 
+-void cleanup(void)
++static void cleanup(void)
+ {
+ 	if (fd > 0)
+ 		SAFE_CLOSE(fd);
 diff --git a/testcases/kernel/syscalls/preadv/preadv02.c b/testcases/kernel/syscalls/preadv/preadv02.c
-index 500059e42..bfcf5052b 100644
+index bfcf5052b..9977a4f48 100644
 --- a/testcases/kernel/syscalls/preadv/preadv02.c
 +++ b/testcases/kernel/syscalls/preadv/preadv02.c
-@@ -4,29 +4,18 @@
- * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
- */
- 
--/*
--* Test Name: preadv02
--*
--* Description:
--* 1) preadv(2) fails if iov_len is invalid.
--* 2) preadv(2) fails if the vector count iovcnt is less than zero.
--* 3) preadv(2) fails if offset is negative.
--* 4) preadv(2) fails when attempts to read into a invalid address.
--* 5) preadv(2) fails if file descriptor is invalid.
--* 6) preadv(2) fails if file descriptor is not open for reading.
--* 7) preadv(2) fails when fd refers to a directory.
--* 8) preadv(2) fails if fd is associated with a pipe.
--*
--* Expected Result:
--* 1) preadv(2) should return -1 and set errno to EINVAL.
--* 2) preadv(2) should return -1 and set errno to EINVAL.
--* 3) preadv(2) should return -1 and set errno to EINVAL.
--* 4) preadv(2) should return -1 and set errno to EFAULT.
--* 5) preadv(2) should return -1 and set errno to EBADF.
--* 6) preadv(2) should return -1 and set errno to EBADF.
--* 7) preadv(2) should return -1 and set errno to EISDIR.
--* 8) preadv(2) should return -1 and set errno to ESPIPE.
+@@ -1,8 +1,9 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+-* Copyright (c) 2015-2016 Fujitsu Ltd.
+-* Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
 -*/
-+/*\
-+ * [Description]
-+ *
-+ * - EINVAL when iov_len is invalid.
-+ * - EINVAL when the vector count iovcnt is less than zero.
-+ * - EINVAL when offset is negative.
-+ * - EFAULT when attempts to read into a invalid address.
-+ * - EBADF when file descriptor is invalid.
-+ * - EBADF when file descriptor is not open for reading.
-+ * - EISDIR when fd refers to a directory.
-+ * - ESPIPE when fd is associated with a pipe.
++ * Copyright (c) 2015-2016 Fujitsu Ltd.
++ * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
++ * Copyright (c) Linux Test Project, 2017-2023
 + */
  
- #define _GNU_SOURCE
- 
+ /*\
+  * [Description]
 diff --git a/testcases/kernel/syscalls/preadv/preadv03.c b/testcases/kernel/syscalls/preadv/preadv03.c
-index d4595dda6..5d2946bc3 100644
+index 5d2946bc3..558d85050 100644
 --- a/testcases/kernel/syscalls/preadv/preadv03.c
 +++ b/testcases/kernel/syscalls/preadv/preadv03.c
-@@ -4,10 +4,12 @@
+@@ -2,6 +2,7 @@
+ /*
+  * Copyright (c) 2018 FUJITSU LIMITED. All rights reserved.
   * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
++ * Copyright (c) Linux Test Project, 2019-2023
   */
  
--/*
-- * Description:
-+/*\
-+ * [Description]
-+ *
-  * Check the basic functionality of the preadv(2) for the file
-  * opened with O_DIRECT in all filesystem.
-+ *
-  * preadv(2) should succeed to read the expected content of data
-  * and after reading the file, the file offset is not changed.
-  */
+ /*\
 -- 
 2.40.0
 
