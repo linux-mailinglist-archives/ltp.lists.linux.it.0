@@ -1,21 +1,21 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A10B1835B9A
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jan 2024 08:30:15 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0715C835B9C
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jan 2024 08:30:53 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 67BD83CD19D
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jan 2024 08:30:15 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BB4B13CE225
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jan 2024 08:30:52 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 88F3D3CE226
- for <ltp@lists.linux.it>; Mon, 22 Jan 2024 08:29:59 +0100 (CET)
-Authentication-Results: in-3.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ by picard.linux.it (Postfix) with ESMTPS id A16E43CE22C
+ for <ltp@lists.linux.it>; Mon, 22 Jan 2024 08:30:01 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
  smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
  helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwang@redhat.com;
  receiver=lists.linux.it)
@@ -24,38 +24,38 @@ Received: from us-smtp-delivery-124.mimecast.com
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C2CDC1A01063
- for <ltp@lists.linux.it>; Mon, 22 Jan 2024 08:29:58 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1963110005A2
+ for <ltp@lists.linux.it>; Mon, 22 Jan 2024 08:30:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1705908597;
+ s=mimecast20190719; t=1705908599;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ldMb9g4osGuYl13i+2MdXQEX+MqHXW+dqt5cH8Wlar8=;
- b=goETUEvm+7mrUD84OWkC92+jLfMlpJcIliPfaf+0Xu2OAs2w4ZjUjeHC06gynbivB0A7wa
- /Ww07sSk1qizwEIty3Y4MoFdEKUJhtL2NE6Rmo+51kCxZMyv+M9ks6OdmWI/tOQT3kA3Db
- QUCSbaMLcknb+ql082kVh4OLiSoJ40I=
+ bh=uloy3yWgLpRH0WR5Cft3HdrpQPfZgNWLzDtiVwb8VsQ=;
+ b=c3j0XdPXsJVwozNu/ZRkPUboUGGbOzLq01tQuIvd/y4gFd+FR8vVlQigS0RTd+3yPIUfMi
+ tRM/N07npsuZRabRmNJv96vRsGHEbVS/G8A9hcu3kmqxD+JVh/9iYoyzhS2awMtKqoWreb
+ aSrq5r+cvEYugz/zuVw2ddQK0vyQB9Y=
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-658-hCwsQ0aRNBe2TX2n_3dn6g-1; Mon,
- 22 Jan 2024 02:29:55 -0500
-X-MC-Unique: hCwsQ0aRNBe2TX2n_3dn6g-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-294-c7C081zJPEu2bQu7O8Z31A-1; Mon,
+ 22 Jan 2024 02:29:57 -0500
+X-MC-Unique: c7C081zJPEu2bQu7O8Z31A-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A255280A9A6
- for <ltp@lists.linux.it>; Mon, 22 Jan 2024 07:29:55 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E6603C0EAC4
+ for <ltp@lists.linux.it>; Mon, 22 Jan 2024 07:29:57 +0000 (UTC)
 Received: from liwang-workstation.lab.eng.nay.redhat.com (unknown
  [10.66.145.229])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A18F6492BC6
- for <ltp@lists.linux.it>; Mon, 22 Jan 2024 07:29:54 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 258B9492BC6
+ for <ltp@lists.linux.it>; Mon, 22 Jan 2024 07:29:55 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Mon, 22 Jan 2024 15:29:47 +0800
-Message-Id: <20240122072948.2568801-3-liwang@redhat.com>
+Date: Mon, 22 Jan 2024 15:29:48 +0800
+Message-Id: <20240122072948.2568801-4-liwang@redhat.com>
 In-Reply-To: <20240122072948.2568801-1-liwang@redhat.com>
 References: <20240122072948.2568801-1-liwang@redhat.com>
 MIME-Version: 1.0
@@ -65,11 +65,11 @@ X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 3/4] swapon01: Improving test with memory limits and
- swap reporting
+Subject: [LTP] [PATCH 4/4] libswap: add Btrfs noCOW attribute setting for
+ swap files
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,58 +86,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is target to create a more robust and controlled environment to test
-the swapon system call. By introducing memory limits through cgroups and
-filling memory with a known pattern, the test can better assess swapon
-behavior when the system experiences memory pressure.
-
-Additionally, the reporting of "SwapCached" memory before turning off the
-swap file provides a clearer understanding of the swap system's state in
-response to the test conditions.
+The patch aims to ensure swap files on Btrfs filesystems are created
+with the appropriate FS_NOCOW_FL attribute, which is necessary to
+disable CoW (Copy-on-Write) for swap files, perthe btrfs(5) manual page.
+This change is gated behind a kernel version check to ensure compatibility
+with the system's capabilities.
 
 Signed-off-by: Li Wang <liwang@redhat.com>
 ---
- testcases/kernel/syscalls/swapon/swapon01.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ libs/libltpswap/libswap.c | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-diff --git a/testcases/kernel/syscalls/swapon/swapon01.c b/testcases/kernel/syscalls/swapon/swapon01.c
-index e1fe50459..a74a5171e 100644
---- a/testcases/kernel/syscalls/swapon/swapon01.c
-+++ b/testcases/kernel/syscalls/swapon/swapon01.c
-@@ -20,11 +20,15 @@
+diff --git a/libs/libltpswap/libswap.c b/libs/libltpswap/libswap.c
+index 623f2fb3c..0b1d9a227 100644
+--- a/libs/libltpswap/libswap.c
++++ b/libs/libltpswap/libswap.c
+@@ -4,6 +4,7 @@
+  * Author: Stanislav Kholmanskikh <stanislav.kholmanskikh@oracle.com>
+  */
  
- #define MNTPOINT	"mntpoint"
- #define SWAP_FILE	MNTPOINT"/swapfile01"
-+#define TESTMEM		(1UL<<30)
++#include <linux/fs.h>
+ #include <errno.h>
  
- static void verify_swapon(void)
- {
- 	TST_EXP_PASS(tst_syscall(__NR_swapon, SWAP_FILE, 0));
- 
-+	tst_pollute_memory(TESTMEM, 0x41);
-+	tst_res(TINFO, "SwapCached: %ld Kb", SAFE_READ_MEMINFO("SwapCached:"));
-+
- 	if (TST_PASS && tst_syscall(__NR_swapoff, SWAP_FILE) != 0) {
- 		tst_brk(TBROK | TERRNO,
- 				"Failed to turn off swapfile, system reboot recommended");
-@@ -35,6 +39,9 @@ static void setup(void)
- {
- 	is_swap_supported(SWAP_FILE);
- 	make_swapfile(SWAP_FILE, 0);
-+
-+	SAFE_CG_PRINTF(tst_cg, "cgroup.procs", "%d", getpid());
-+	SAFE_CG_PRINTF(tst_cg, "memory.max", "%lu", TESTMEM);
- }
- 
- static struct tst_test test = {
-@@ -42,6 +49,7 @@ static struct tst_test test = {
- 	.mount_device = 1,
- 	.needs_root = 1,
- 	.all_filesystems = 1,
-+	.needs_cgroup_ctrls = (const char *const []){ "memory", NULL },
- 	.test_all = verify_swapon,
- 	.setup = setup
+ #define TST_NO_DEFAULT_MAIN
+@@ -23,11 +24,37 @@ static const char *const swap_supported_fs[] = {
+ 	NULL
  };
+ 
++static void set_nocow_attr(const char *filename)
++{
++	int fd;
++	int attrs;
++
++	fd = SAFE_OPEN(filename, O_RDONLY);
++
++	if (ioctl(fd, FS_IOC_GETFLAGS, &attrs) == -1) {
++		tst_res(TFAIL | TERRNO, "Error getting attributes");
++		close(fd);
++		return;
++	}
++
++	attrs |= FS_NOCOW_FL;
++
++	if (ioctl(fd, FS_IOC_SETFLAGS, &attrs) == -1)
++		tst_res(TFAIL | TERRNO, "Error setting FS_NOCOW_FL attribute");
++	else
++		tst_res(TINFO, "FS_NOCOW_FL attribute set on %s\n", filename);
++
++	close(fd);
++}
++
+ /*
+  * Make a swap file
+  */
+ int make_swapfile(const char *swapfile, int safe)
+ {
++	long fs_type = tst_fs_type(swapfile);
++	const char *fstype = tst_fs_type_name(fs_type);
++
+ 	if (!tst_fs_has_free(".", sysconf(_SC_PAGESIZE) * 10, TST_BYTES))
+ 		tst_brk(TBROK, "Insufficient disk space to create swap file");
+ 
+@@ -35,6 +62,14 @@ int make_swapfile(const char *swapfile, int safe)
+ 	if (tst_fill_file(swapfile, 0, sysconf(_SC_PAGESIZE), 10) != 0)
+ 		tst_brk(TBROK, "Failed to create swapfile");
+ 
++	/* Btrfs file need set 'nocow' attribute */
++	if (strcmp(fstype, "btrfs") == 0) {
++		if (tst_kvercmp(5, 0, 0) > 0)
++			set_nocow_attr(swapfile);
++		else
++			tst_brk(TCONF, "Swapfile on %s not implemented", fstype);
++	}
++
+ 	/* make the file swapfile */
+ 	const char *argv[2 + 1];
+ 	argv[0] = "mkswap";
 -- 
 2.40.1
 
