@@ -2,73 +2,79 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0119842EA8
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jan 2024 22:32:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4088843B8C
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jan 2024 10:59:24 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 650C13CF988
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jan 2024 22:32:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 70DFA3CE1A1
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jan 2024 10:59:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8CF8B3CF972
- for <ltp@lists.linux.it>; Tue, 30 Jan 2024 22:31:59 +0100 (CET)
-Authentication-Results: in-3.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de; envelope-from=jack@suse.cz;
- receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 3DFAA3CE1F8
+ for <ltp@lists.linux.it>; Wed, 24 Jan 2024 21:51:55 +0100 (CET)
+Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
+ [IPv6:2607:f8b0:4864:20::d2b])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 835281A007FE
- for <ltp@lists.linux.it>; Tue, 30 Jan 2024 22:31:57 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:98])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7EC992230B;
- Tue, 30 Jan 2024 21:31:57 +0000 (UTC)
-Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 73D5613212;
- Tue, 30 Jan 2024 21:31:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id 9/4+HM1quWUgGQAAn2gu4w
- (envelope-from <jack@suse.cz>); Tue, 30 Jan 2024 21:31:57 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 1B557A07F9; Tue, 30 Jan 2024 22:31:57 +0100 (CET)
-Date: Tue, 30 Jan 2024 22:31:57 +0100
-From: Jan Kara <jack@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <20240130213157.fco4tnocm4vgwgw3@quack3>
-References: <20240125110510.751445-1-amir73il@gmail.com>
- <20240130130712.GB778733@pevik>
- <CAOQ4uxi+0us5cq5BhoLoPDCbZgeqhtWiK4UCDV5HaZ+aZQwCLw@mail.gmail.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id ABBFA600B48
+ for <ltp@lists.linux.it>; Wed, 24 Jan 2024 21:51:54 +0100 (CET)
+Received: by mail-io1-xd2b.google.com with SMTP id
+ ca18e2360f4ac-7bed8faf6ebso237141939f.2
+ for <ltp@lists.linux.it>; Wed, 24 Jan 2024 12:51:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1706129513; x=1706734313; darn=lists.linux.it;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=fQVPErXU290D1mpBNScwazLtfS5510hpywHlBQuGA3w=;
+ b=AlIhNwTMEs1swxeBqBSHx3sbzB/5R7nnULksetWum9CzObVKjNR8uuUAC9Xr+IsG7W
+ 4VbF0OgUG7OqKfwuPu/PzhTiShR4q0Z0jc6EN2Mm+Q2WJIjCbcj4QbZr35H+gOKKIimj
+ 0ZY+3yrs5JZbYA+xcWfPGWPjKSG8s0fBWdlNxJS64DT8GJgKR12Qk3uJIkqlYwqez01b
+ oJfwCgTHxczxG4dcPUn1MyuxOSgR2ufbG/Xe6LJXCwKuSWKHYTdTjsrsm7bt3h9W3WHG
+ VoQqjzrxbrw2uS9wa52ewun5617OOrK0GxxXFTWmtUtqzsG/WQSiK+sq2NBqfLtUYlhf
+ 9mPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706129513; x=1706734313;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fQVPErXU290D1mpBNScwazLtfS5510hpywHlBQuGA3w=;
+ b=dKN6xxIzmG+ouoQaSu6nIDonxFLTLpcqwW4qgTQMdB3QxHeqP7Fw++w99ULwzvb8nh
+ qsFbnbTqCwkmaBlOArkeDU18cO4gfKAhyHHlLtYwMhZKhJ7FmVrbR3SYMBHvQ86Ou3Xw
+ SoIKXEqx9gY3H7YS7Lhvcqs3kzCjB0pq8vv2Tlnh8FUYJDP1DAWizDYrDZ/a86t1/6jS
+ ZJlbvuHcucVSMOjs6aQG2X6RkddZJuHBlA8NOGP3F4vSGSym+3URijV48ptQ8gbC0RBY
+ H+0T+fMPuRsq1f58TXs5f56/gyVbBWKca0Zf/AvXSStGX/Mo+XxCvHGNB9QatrErstZX
+ XHOw==
+X-Gm-Message-State: AOJu0YxykbmUh7q49iM4VwkINhlHafYK6pqBjlHgOUHQ4hNMAOzaAnUo
+ j/R0V+PAEkNrP3rTuwUmOuY5ZtaGNi5Op4hDShTMnCUfB27GKVTq
+X-Google-Smtp-Source: AGHT+IHjNeWesur/WB2rRojObeX1a+LSe04ratH+e1bBz40qjvSKeqNxLteQ5vzjt/5l3tCMVI0Yfw==
+X-Received: by 2002:a5e:a50e:0:b0:7bf:59d5:3b43 with SMTP id
+ 14-20020a5ea50e000000b007bf59d53b43mr27797iog.3.1706129513250; 
+ Wed, 24 Jan 2024 12:51:53 -0800 (PST)
+Received: from fedora-laptop (c-73-127-246-43.hsd1.nm.comcast.net.
+ [73.127.246.43]) by smtp.gmail.com with ESMTPSA id
+ gs1-20020a0566382d8100b0046e9ad3dbe3sm4136813jab.128.2024.01.24.12.51.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jan 2024 12:51:52 -0800 (PST)
+Date: Wed, 24 Jan 2024 13:51:49 -0700
+From: Thomas Bertschinger <tahbertschinger@gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20240124205149.GA268968@fedora-laptop>
+References: <20240124200032.GA343522@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAOQ4uxi+0us5cq5BhoLoPDCbZgeqhtWiK4UCDV5HaZ+aZQwCLw@mail.gmail.com>
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	 REPLY(-4.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 7EC992230B
-X-Spam-Level: 
-X-Spam-Score: -4.00
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
+In-Reply-To: <20240124200032.GA343522@pevik>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] fanotify01: Test setting two marks on different
- filesystems
+X-Mailman-Approved-At: Wed, 31 Jan 2024 10:59:18 +0100
+Subject: Re: [LTP] bcachefs fails to mount loop device on kernel
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,42 +86,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>, ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: linux-bcachefs@vger.kernel.org, Brian Foster <bfoster@redhat.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>, linux-kernel@vger.kernel.org,
+ ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVHVlIDMwLTAxLTI0IDE2OjU4OjI4LCBBbWlyIEdvbGRzdGVpbiB3cm90ZToKPiBPbiBUdWUs
-IEphbiAzMCwgMjAyNCBhdCAzOjA34oCvUE0gUGV0ciBWb3JlbCA8cHZvcmVsQHN1c2UuY3o+IHdy
-b3RlOgo+ID4gVGVzdGVkIG9uIFNMRSAxNS1TUDYgKGtlcm5lbCA2LjQpLCBvbiAxNS1TUDQgKGtl
-cm5lbCA1LjE0KSwgVHVtYmxld2VlZCAoa2VybmVsCj4gPiA2LjguMC1yYzEpLCBBbHBpbmUgTGlu
-dXggKGtlcm5lbCA2LjQpIEkgZ2V0Ogo+ID4KPiA+IGZhbm90aWZ5MDEuYzozNDE6IFRGQUlMOiBm
-YW5vdGlmeV9tYXJrKGZkX25vdGlmeSwgMHgwMDAwMDAwMSwgMHgwMDAwMDAwOCwgLTEwMCwgIi4i
-KSBmYWlsZWQ6IEVYREVWICgxOCkKPiA+Cj4gPiBmb3IgdGVzdHMgIzMsICM0IGFuZCAjNSBvbiBh
-bGwgZmlsZXN5c3RlbXMuCj4gPgo+ID4gVGVzdGluZyBvbiBvdGhlciBvbiBvdGhlciBmaWxlc3lz
-dGVtIGl0IHdvcmtzOiBEZWJpYW4ga2VybmVsIDUuMTAsIDYuMSBvbiBleHQ0LAo+ID4gQWxwaW5l
-IExpbnV4IGtlcm5lbCA2LjQgb24gdG1wZnMsIFR1bWJsZXdlZWQga2VybmVsIDYuOC4wLXJjMSBv
-biB0bXBmcy4KPiA+Cj4gPiBTaG91bGQgYmUgYnRyZnMgaGFuZGxlZCBkaWZmZXJlbnRseSBvciBz
-a2lwcGVkPyAoYmVsb3cpCj4gPiBPciB0ZXN0IEVYREVWIGZvciAjMywgIzQgYW5kICM1PyAobm90
-IHN1cmUgaG93IGhhbmRsZSBqdXN0IGhhbGYgb2YgdGhlIHRlc3RzIG9uCj4gPiBidHJmcyBkaWZm
-ZXJlbnRseSkuCj4gPgo+ID4gS2luZCByZWdhcmRzLAo+ID4gUGV0cgo+ID4KPiA+IGRpZmYgLS1n
-aXQgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTAxLmMgdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTAxLmMKPiA+IGluZGV4IGJhMDlm
-MzA5ZC4uOTdhZGUxODI5IDEwMDY0NAo+ID4gLS0tIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
-ZmFub3RpZnkvZmFub3RpZnkwMS5jCj4gPiArKysgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9m
-YW5vdGlmeS9mYW5vdGlmeTAxLmMKPiA+IEBAIC0zMzUsOCArMzM1LDE1IEBAIHBhc3M6Cj4gPiAg
-ICAgICAgICAqIGRpZmZlcmVudCBmaWxlc3lzdGVtcyBhcmUgc3VwcG9ydGVkLgo+ID4gICAgICAg
-ICAgKiBXaGVuIHRlc3RlZCBmcyBoYXMgemVybyBmc2lkIChlLmcuIGZ1c2UpIGFuZCBldmVudHMg
-YXJlIHJlcG9ydGVkCj4gPiAgICAgICAgICAqIHdpdGggZnNpZCtmaWQsIHdhdGNoaW5nIGRpZmZl
-cmVudCBmaWxlc3lzdGVtcyBpcyBub3Qgc3VwcG9ydGVkLgo+ID4gKyAgICAgICAgKiBOb3Qgc3Vw
-cG9ydGVkIG9uIEJ0cmZzLgo+ID4gICAgICAgICAgKi8KPiA+ICsgICAgICAgaWYgKHRzdF9mc190
-eXBlKCIuIikgPT0gVFNUX0JUUkZTX01BR0lDKSB7Cj4gPiArICAgICAgICAgICAgICAgdHN0X3Jl
-cyhUQ09ORiwgInNraXBwZWQgb24gQnRyZnMiKTsKPiA+ICsgICAgICAgICAgICAgICByZXR1cm47
-Cj4gPiArICAgICAgIH0KPiA+ICsKPiAKPiBOb3RlIHRoYXQgYnRyZnMgaXMgbm90IHRoZSBGUyB1
-bmRlciB0ZXN0LiBJdCBpcyB0aGUgRlMgb2YgVE1QRlMsCj4gc28gZXZlbiBpZiB5b3UgZGlkIHNr
-aXAsIHRoaXMgbWVzc2FnZSB3b3VsZCBoYXZlIGJlZW4gd3JvbmcuCj4gCj4gUGxlYXNlIHRyeSB0
-aGUgcGF0Y2ggYmVsb3cuCgpUaGFua3MgZm9yIGZpeGluZyB0aGlzIHNvIHF1aWNrbHkhIFRoZSBm
-aXggbG9va3MgZ29vZCB0byBtZS4KCgkJCQkJCQkJSG9uemEKLS0gCkphbiBLYXJhIDxqYWNrQHN1
-c2UuY29tPgpTVVNFIExhYnMsIENSCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlz
-dHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+On Wed, Jan 24, 2024 at 09:00:32PM +0100, Petr Vorel wrote:
+> Hi all,
+> 
+> bcachefs fails to mount loop device on kernel on both 6.7 and 6.8.0-rc1.
+> Is mounting loop even supported?
+> 
+> [...]
+>
+> bcachefs mount /dev/loop0 /mnt
+> => Unknown command mount
+
+What version of the bcachefs CLI tool are you using? Is it distribution
+provided or did you build it yourself?
+
+The mount command has been implemented in Rust for a while (since
+28f703cc256f "Rust now integrated into bcachefs binary") and if building
+without Rust support (BCACHEFS_NO_RUST defined), that command won't be
+included in the binary.
+
+In more recent versions of bcachefs-tools, building without Rust is not
+supported at all.
+
+I don't think this has anything to do with loop devices specifically.
+
+- Thomas Bertschinger
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
