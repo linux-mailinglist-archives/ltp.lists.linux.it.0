@@ -2,108 +2,88 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA15683C749
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jan 2024 16:51:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F77B83D34A
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Jan 2024 05:02:30 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 86B8B3CFB05
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jan 2024 16:51:20 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0E6BA3CFB23
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Jan 2024 05:02:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A0F113CE1E6
- for <ltp@lists.linux.it>; Thu, 25 Jan 2024 16:51:14 +0100 (CET)
-Authentication-Results: in-3.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id DC3EB3CFB2D
+ for <ltp@lists.linux.it>; Fri, 26 Jan 2024 05:01:51 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fujitsu.com (client-ip=139.138.61.252;
+ helo=esa7.hc1455-7.c3s2.iphmx.com; envelope-from=ruansy.fnst@fujitsu.com;
+ receiver=lists.linux.it)
+Received: from esa7.hc1455-7.c3s2.iphmx.com (esa7.hc1455-7.c3s2.iphmx.com
+ [139.138.61.252])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EE4321A0100A
- for <ltp@lists.linux.it>; Thu, 25 Jan 2024 16:51:13 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D212C1F88D;
- Thu, 25 Jan 2024 15:51:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1706197872; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=zyeZk1KxQlGSa+S7DLlIoUWWc/eUp67r4UM/IPMbbHw=;
- b=N7Ni1WgZlzYF1L2eqKfd9rxSku5EL6Hw4cB2ERMApUtlmZeEnRthDXoapN4pJFWLvh1eRR
- xfbw4sryJeWSDsitQrTa5F8mTXrKVVBW3zWOM7Ky2zhjVfAW1ARLOL8o6winMw2rMN4VXv
- UL3P2ahjmCgbrnuWQRVbFEk4WsgsiWY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1706197872;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=zyeZk1KxQlGSa+S7DLlIoUWWc/eUp67r4UM/IPMbbHw=;
- b=BnCxxh/MIprq7d2SpEXU4oMVdj7gXWKRPERL6SKq5UHfRYhtLOQX8y3HIPgKmszykp7sGl
- unX5RKLZaL3bBcDw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1706197871; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=zyeZk1KxQlGSa+S7DLlIoUWWc/eUp67r4UM/IPMbbHw=;
- b=uw/OXPEJJINc9oInsx75K+zvC8WDGbPbL0+Ly5TdlA3+jn1enovEllvddG1oQ9dcatrl5Z
- 21YiTwON8z4/M7iBPX1L1f1p8uRBR3ROCQUwoR7MCOBvQ4okBCiFAuoNnnLAj4IJlcnszw
- I9k5ohYSdMCulyP9OmuDTYroFzuBEP8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1706197871;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=zyeZk1KxQlGSa+S7DLlIoUWWc/eUp67r4UM/IPMbbHw=;
- b=WcCr2QLr8Am/EOX7tvbrGgmxYGLkn5/7uKRbppcWjj/mXagoEdKuUa1EhaAXAPrlQZesVM
- +QASCEWzevBT8kAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7F0C313649;
- Thu, 25 Jan 2024 15:51:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 10QfG2+DsmXjbgAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 25 Jan 2024 15:51:11 +0000
-From: Petr Vorel <pvorel@suse.cz>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 88ED520093F
+ for <ltp@lists.linux.it>; Fri, 26 Jan 2024 05:01:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+ t=1706241710; x=1737777710;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=xMI1UjbLy7vvgLix5jTE+2lbEtSMG0YXBs8dPU1sZbI=;
+ b=UxzdnFze59xZCHZVfwu6I9w564nUoI3gD+EAZb8UQBKa9AW/FDMGuTSr
+ E1Ws5RtKchLXcHbk/z5K3Iir77Tk2b0EGULjSs0Od9dozgQSa4RH5UdML
+ M8ArbJAgcD1rRcWNOMbtDtUB6nlQ1dRP/iLfiT18xwzjqVwjLAgBfpeAH
+ W1t5ITmtbNZf/FqYQKjbyE/9cGJboGelfU3Itjrddj2QqQc55nzAPSSjY
+ yLvGLuDbpWJ/qlmZDeGBGUyJMxNYai65D3NhBWaYz58KXLLA024jtEYgo
+ GPYgNxKQBg0yCJUS49Ki3Hnl3KA22EQ2F4irTvBAW72wjVd4jz2rKhuoy Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10964"; a="126110251"
+X-IronPort-AV: E=Sophos;i="6.05,216,1701097200"; d="scan'208";a="126110251"
+Received: from unknown (HELO oym-r1.gw.nic.fujitsu.com) ([210.162.30.89])
+ by esa7.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2024 13:01:44 +0900
+Received: from oym-m1.gw.nic.fujitsu.com (oym-nat-oym-m1.gw.nic.fujitsu.com
+ [192.168.87.58])
+ by oym-r1.gw.nic.fujitsu.com (Postfix) with ESMTP id 5847CE8C08
+ for <ltp@lists.linux.it>; Fri, 26 Jan 2024 13:01:42 +0900 (JST)
+Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
+ [192.51.206.21])
+ by oym-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id C79BAD8BCC
+ for <ltp@lists.linux.it>; Fri, 26 Jan 2024 13:01:40 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+ by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id 60D262007C3E2
+ for <ltp@lists.linux.it>; Fri, 26 Jan 2024 13:01:40 +0900 (JST)
+Received: from irides.. (unknown [10.167.226.114])
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id EDD321A006A
+ for <ltp@lists.linux.it>; Fri, 26 Jan 2024 12:01:39 +0800 (CST)
+From: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 To: ltp@lists.linux.it
-Date: Thu, 25 Jan 2024 16:51:07 +0100
-Message-ID: <20240125155107.430656-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.43.0
+Date: Fri, 26 Jan 2024 12:01:37 +0800
+Message-Id: <20240126040139.2534873-1-ruansy.fnst@fujitsu.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Spamd-Bar: +++
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="uw/OXPEJ";
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=WcCr2QLr
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [3.34 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_GOOD(-0.10)[text/plain]; BROKEN_CONTENT_TYPE(1.50)[];
- RCPT_COUNT_FIVE(0.00)[5]; NEURAL_HAM_LONG(-1.00)[-1.000];
- RCVD_COUNT_THREE(0.00)[3];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.cz:+]; MX_GOOD(-0.01)[];
- MID_CONTAINS_FROM(1.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.15)[68.65%]
-X-Spam-Score: 3.34
-X-Rspamd-Queue-Id: D212C1F88D
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28142.004
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28142.004
+X-TMASE-Result: 10--22.004700-10.000000
+X-TMASE-MatchedRID: VRedb8S231nyq/cli2hvDU7nLUqYrlslFIuBIWrdOeMnyU5/nZpxUL4q
+ 7wkSW5bKbnRB47KLJ1QzLmfGY6iDkYF+91Q/EzGtN70wXhI0DX4yhLY8urUHvmvlGb+24NaZuJE
+ UmdYPGSXiTzfmGp/ZBzTiWC5C1sf/sIm8s6bJZMU5ZRbFNAl0j79cAlQW5YprpjlkbDvDJ4djDe
+ scmMp4DI2J1F/55TUPJEbUc8xGQ/ZXDwaouY0y7s2CuVPkCNzuBGvINcfHqhcvPRFFhcWhYNBBe
+ W0QNlfKWLhiC/mMnN+ITE3HVSm/hYaYpgfhqlfrEzEoOqAAVLM2hINq/IswlJmPq8jhF/uENq8y
+ lq3YspJADnLPlN1QTR00eqxHEa4eEd0YyW6tLbkdahq+rGDn/50JB6wB6CqmVC4aflv2vZlJI7w
+ YmUmzrHJcwyKKWovqJKpa08oNRnyPJkelMnqjq1VeGWZmxN2MHhysWPN3OzibKItl61J/yZ+inT
+ K0bC9eKrauXd3MZDUD/dHyT/Xh7Q==
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/1] splice07: Whitelist /dev/zero on pipe write
+Subject: [LTP] [PATCH 1/3] fdatasync01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,43 +95,204 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-/dev/zero on pipe write started to succeeded on kernel 6.7.
-
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 ---
-Hi,
+ .../kernel/syscalls/fdatasync/fdatasync01.c   | 164 +++---------------
+ 1 file changed, 26 insertions(+), 138 deletions(-)
 
-@Jan could you please check the problem is a kernel 6.7 bug
-or just wanted change and we should whitelist /dev/zero on pipe write?
-
-Thanks!
-
-Kind regards,
-Petr
-
- testcases/kernel/syscalls/splice/splice07.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/testcases/kernel/syscalls/splice/splice07.c b/testcases/kernel/syscalls/splice/splice07.c
-index 135c42e47..1fa13b3e6 100644
---- a/testcases/kernel/syscalls/splice/splice07.c
-+++ b/testcases/kernel/syscalls/splice/splice07.c
-@@ -38,6 +38,7 @@ static void check_splice(struct tst_fd *fd_in, struct tst_fd *fd_out)
- 	if (fd_out->type == TST_FD_PIPE_WRITE) {
- 		switch (fd_in->type) {
- 		/* While these combinations succeeed */
-+		case TST_FD_DEV_ZERO:
- 		case TST_FD_FILE:
- 		case TST_FD_MEMFD:
- 			return;
+diff --git a/testcases/kernel/syscalls/fdatasync/fdatasync01.c b/testcases/kernel/syscalls/fdatasync/fdatasync01.c
+index 24a91785c..ba4375b68 100644
+--- a/testcases/kernel/syscalls/fdatasync/fdatasync01.c
++++ b/testcases/kernel/syscalls/fdatasync/fdatasync01.c
+@@ -1,155 +1,43 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
++ * Copyright (c) Linux Test Project, 2003-2024
+  */
+-/**********************************************************
+- *
+- *    TEST IDENTIFIER   : fdatasync01
+- *
+- *    EXECUTED BY       : Any user
+- *
+- *    TEST TITLE        : Basic test for fdatasync(2)
+- *
+- *    TEST CASE TOTAL   : 1
+- *
+- *    AUTHOR            : Madhu T L <madhu.tarikere@wipro.com>
+- *
+- *    SIGNALS
+- *	Uses SIGUSR1 to pause before test if option set.
+- *	(See the parse_opts(3) man page).
+- *
+- *    DESCRIPTION
+- *	This is a Phase I test for the fdatasync(2) system call.
+- *	It is intended to provide a limited exposure of the system call.
+- *
+- *	Setup:
+- *	  Setup signal handling.
+- *	  Pause for SIGUSR1 if option specified.
+- *	  Create a temp directory and cd to it
+- *	  Initialize filename and open it in write mode for each child process.
+- *
+- *	Test:
+- *	 Loop if the proper options are given.
+- *	  Execute system call
+- *	  Check return code, if system call failed (return=-1)
+- *		Issue FAIL message with errno.
+- *	  Otherwise, Issue PASS message.
+- *
+- *	Cleanup:
+- *	  Print errno log and/or timing stats if options given
+- *	  Remove temporary directory and all files in it.
+- *
+- * USAGE:  <for command-line>
+- *  fdatasync01 [-c n] [-e] [-f] [-h] [-i n] [-I x] [-p] [-P x] [-t]
+- *		where,  -c n : Run n copies concurrently.
+- *			-e   : Turn on errno logging.
+- *			-f   : Turn off functional testing
+- *			-h   : Show help screen
+- *			-i n : Execute test n times.
+- *			-I x : Execute test for x seconds.
+- *			-p   : Pause for SIGUSR1 before starting
+- *			-P x : Pause for x seconds between iterations.
+- *			-t   : Turn on syscall timing.
++
++/*\
++ * [Description]
+  *
+- ****************************************************************/
+-#include <errno.h>
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <fcntl.h>
+-#include <unistd.h>
+-#include "test.h"
++ * Basic test for fdatasync(). Call fdatasync() on a fd and expect it to pass.
++ */
+ 
+-static int fd;
+-static char filename[30];
+-static void setup(void);
+-static void cleanup(void);
++#include "tst_test.h"
+ 
+-char *TCID = "fdatasync01";
+-int TST_TOTAL = 1;
++static int fd;
++static char pfilename[30];
+ 
+-int main(int argc, char **argv)
++static void run(void)
+ {
+-	int lc;
+-
+-	tst_parse_opts(argc, argv, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		/* reset tst_count in case we are looping */
+-		tst_count = 0;
+-
+-		/* Test the system call */
+-		TEST(fdatasync(fd));
+-
+-		/* check return code */
+-		if (TEST_RETURN == -1) {
+-			tst_resm(TFAIL, "fdatasync() failed, errno=%d : %s",
+-				 TEST_ERRNO, strerror(TEST_ERRNO));
+-		} else {
+-			/* No Functional verification yet */
+-			tst_resm(TPASS, "fdatasync() successful");
+-		}
+-	}
+-
+-	/* perform global cleanup and exit */
+-	cleanup();
+-
+-	tst_exit();
+-
++	TST_EXP_PASS(fdatasync(fd), "fdatasync(%d)", fd);
+ }
+ 
+-/* setup() - performs all ONE TIME setup for this test */
+-void setup(void)
++static void setup(void)
+ {
+-
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	/* Pause if that option was specified
+-	 * TEST_PAUSE contains the code to fork the test with the -c option.
+-	 */
+-	TEST_PAUSE;
+-
+-	tst_tmpdir();
+-
+ 	/* Initialize unique filename for each child process */
+-	if (sprintf(filename, "fdatasync_%d", getpid()) <= 0) {
+-		tst_brkm(TBROK, cleanup, "Failed to initialize filename");
+-	}
+-	if ((fd = open(filename, O_CREAT | O_WRONLY, 0777)) == -1) {	//mode must be specified when O_CREATE is in the flag
+-		tst_brkm(TBROK, cleanup, "open() failed");
+-	}
+-	if ((write(fd, filename, strlen(filename) + 1)) == -1) {
+-		tst_brkm(TBROK, cleanup, "write() failed");
+-	}
++	sprintf(pfilename, "fdatasync_%d", getpid());
++
++	/* mode must be specified when O_CREATE is in the flag */
++	fd = SAFE_OPEN(pfilename, O_CREAT | O_WRONLY, 0777);
++	SAFE_WRITE(SAFE_WRITE_ALL, fd, pfilename, strlen(pfilename) + 1);
+ }
+ 
+-/*
+- * cleanup()
+- *	performs all ONE TIME cleanup for this test at
+- *	completion or premature exit
+- */
+-void cleanup(void)
++static void cleanup(void)
+ {
+-	/*
+-	 * print timing stats if that option was specified.
+-	 * print errno log if that option was specified.
+-	 */
+ 	close(fd);
+-
+-	tst_rmdir();
+-
+ }
++
++static struct tst_test test = {
++	.needs_tmpdir = 1,
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++};
 -- 
-2.43.0
+2.34.1
 
 
 -- 
