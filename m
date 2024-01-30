@@ -2,20 +2,21 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51A71841CAF
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jan 2024 08:36:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9B65841CA8
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jan 2024 08:35:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1ADE63CE10E
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jan 2024 08:36:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AEAFE3CE103
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jan 2024 08:35:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 74D323C4DB7
- for <ltp@lists.linux.it>; Tue, 30 Jan 2024 08:35:13 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id E79713C4DB7
+ for <ltp@lists.linux.it>; Tue, 30 Jan 2024 08:35:12 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
@@ -24,91 +25,46 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A96091400E0E
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5B04F200A03
  for <ltp@lists.linux.it>; Tue, 30 Jan 2024 08:35:12 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3A48522033;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5FB5822043;
  Tue, 30 Jan 2024 07:35:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1706600112; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=a85kVBRL96ekAwz5fBmkPkTy6YEvbDheWeYTJ69UYTo=;
- b=MsmTDAXAaEXKhV11WqiExuIXLpOp1M6Oy90pxHzOw4hOcx2H8tZrN6OttHjZ/j7plL7FfC
- u+TXWd7fx8HgKCGt9ejuw700vrblUjWjRXs1BGH7rrBaja5tur33VL58V8aC1MT4iCt3J6
- CGxsg4SKxstkT4F1iSwCqoq2ZmnEplY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1706600112;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=a85kVBRL96ekAwz5fBmkPkTy6YEvbDheWeYTJ69UYTo=;
- b=6nOJAFfkUGoKV/r07C4djt0Q6XzNc32WvAfGhmH2R/W7y7wUpoUhDtwnKMLaemz0L/dWLa
- VRhUA3YhWni3ErCQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1706600111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=a85kVBRL96ekAwz5fBmkPkTy6YEvbDheWeYTJ69UYTo=;
- b=XZbsBvdGcXbdotBI9ffffk/XGPuxpE/GM26WUxxq1beXY7lGOfKeVBw9NYxRJyzC0OsSUA
- EJmNc/obWcajWTqfa4c3nyfg4arn5auELZ05xa7Vrf9C9TtnEkhl0VF+gr3xwptCaKzg+p
- xrX6kr9l4GfLJDONnUvAAtAJe5tr8q8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1706600111;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=a85kVBRL96ekAwz5fBmkPkTy6YEvbDheWeYTJ69UYTo=;
- b=ZceI+RDKnrRIEFTVHePQSzkIrVp0nChPK54fSGT7dZIS+HLzMBOSeoRHp+pHC9BfI+psqk
- GHKMKmRaqmlQ9jDg==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E5431376E;
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 4163B13462;
  Tue, 30 Jan 2024 07:35:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id 6CMqBq+muGVjTwAAn2gu4w
+ by imap2.dmz-prg2.suse.org with ESMTPSA id MKPIDq+muGVjTwAAn2gu4w
  (envelope-from <pvorel@suse.cz>); Tue, 30 Jan 2024 07:35:11 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 30 Jan 2024 08:35:05 +0100
-Message-ID: <20240130073507.662414-2-pvorel@suse.cz>
+Date: Tue, 30 Jan 2024 08:35:06 +0100
+Message-ID: <20240130073507.662414-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240130073507.662414-1-pvorel@suse.cz>
 References: <20240130073507.662414-1-pvorel@suse.cz>
 MIME-Version: 1.0
+X-Spam-Level: 
 Authentication-Results: smtp-out1.suse.de;
 	none
-X-Spamd-Result: default: False [0.85 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
- REPLY(-4.00)[]; BROKEN_CONTENT_TYPE(1.50)[];
- RCVD_COUNT_THREE(0.00)[3];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_TWO(0.00)[2]; MID_CONTAINS_FROM(1.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- BAYES_HAM(-0.05)[59.32%]
-X-Spam-Level: 
-X-Spam-Score: 0.85
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	 REPLY(-4.00)[]
+X-Spam-Score: -4.00
+X-Rspamd-Queue-Id: 5FB5822043
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/3] runtest: Move capability related tests to new
- capability
+Subject: [LTP] [PATCH 2/3] runtest: Move io content to ltp-aiodio.part4
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,59 +81,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Move cap_bounds content to syscalls
-
-runtest/cap_bounds and runtest/filecaps had both only single entry.
-That's a waste of starting SUT, therefore create new runtest file
-capability and move it there. Add there also runtest/securebits.
++ Remove bogus comments.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-Maybe it'd be safer to verify if the tests are still relevant now.
-Because name is more promising than the actual content :).
-Also we have other tests which use libcap.
-Alternatively, we could just move them to syscalls.
+ runtest/io               | 3 ---
+ runtest/ltp-aiodio.part4 | 6 +++---
+ 2 files changed, 3 insertions(+), 6 deletions(-)
+ delete mode 100644 runtest/io
 
- runtest/cap_bounds                 | 2 --
- runtest/{securebits => capability} | 5 ++++-
- runtest/filecaps                   | 2 --
- 3 files changed, 4 insertions(+), 5 deletions(-)
- delete mode 100644 runtest/cap_bounds
- rename runtest/{securebits => capability} (53%)
- delete mode 100644 runtest/filecaps
-
-diff --git a/runtest/cap_bounds b/runtest/cap_bounds
+diff --git a/runtest/io b/runtest/io
 deleted file mode 100644
-index 518d1e3ab..000000000
---- a/runtest/cap_bounds
+index cd51cce3c..000000000
+--- a/runtest/io
 +++ /dev/null
-@@ -1,2 +0,0 @@
--#DESCRIPTION:Posix capability bounding set
--Cap_bounds	run_capbounds.sh
-diff --git a/runtest/securebits b/runtest/capability
-similarity index 53%
-rename from runtest/securebits
-rename to runtest/capability
-index 64e6e0a0d..c7af1235e 100644
---- a/runtest/securebits
-+++ b/runtest/capability
-@@ -1,4 +1,7 @@
--#DESCRIPTION:securebits tests
-+# various capability related tests
-+cap_bounds run_capbounds.sh
-+filecaps filecapstest.sh
+@@ -1,3 +0,0 @@
+-#AIO01 & AIO02 tests to be run
+-aio01 aio01
+-aio02 aio02
+diff --git a/runtest/ltp-aiodio.part4 b/runtest/ltp-aiodio.part4
+index c31bef934..de00b8a78 100644
+--- a/runtest/ltp-aiodio.part4
++++ b/runtest/ltp-aiodio.part4
+@@ -1,6 +1,6 @@
+-# 3/2006
+-# Malcles Jacky: this file is a copy from Ridgeway Marty's aio script
+-#     goal: all aio tests using the same framework
++aio01 aio01
++aio02 aio02
 +
- check_keepcaps01 check_keepcaps 1
- check_keepcaps02 check_keepcaps 2
- check_keepcaps03 check_keepcaps 3
-diff --git a/runtest/filecaps b/runtest/filecaps
-deleted file mode 100644
-index 1872c0bc5..000000000
---- a/runtest/filecaps
-+++ /dev/null
-@@ -1,2 +0,0 @@
--#DESCRIPTION:file capabilities
--Filecaps	filecapstest.sh
+ #Running dio_sparse & dirty tests
+ DI000 dirty
+ DS000 dio_sparse
 -- 
 2.43.0
 
