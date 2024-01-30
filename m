@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19EC3841C82
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jan 2024 08:23:25 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E763841CAD
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jan 2024 08:35:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AD7BD3CE0E0
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jan 2024 08:23:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C698D3CE103
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jan 2024 08:35:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
@@ -14,61 +14,88 @@ Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 79E0C3CB948
- for <ltp@lists.linux.it>; Tue, 30 Jan 2024 08:23:18 +0100 (CET)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 0ACB23CE0E6
+ for <ltp@lists.linux.it>; Tue, 30 Jan 2024 08:35:12 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A336D1400BE6
- for <ltp@lists.linux.it>; Tue, 30 Jan 2024 08:23:17 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-55a179f5fa1so4118112a12.0
- for <ltp@lists.linux.it>; Mon, 29 Jan 2024 23:23:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706599397; x=1707204197; darn=lists.linux.it;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=tzvdPgvt5+7oQC8//UTqp7pRz++rztY2vF1W4o1jwgs=;
- b=gaj3tbLkdOTfF2u+270ZPNuFBpJAEYEPXqSklm1hKzUhao/H8Hyy9RulvyfCEaoGfX
- KuP8WvpVhCBeWnUlb2x3LYOvQBVpm77Ho7dy1wJMXr1v7wnfzN/uQplKh9XyopDclf7k
- 1Xe8N60vv9MB32VrvYs/CQ4t2gbMQiAIAUxZ10+Yibe0HyPA2z+nJWe5U5xMC1qP+UpC
- jwjYPIHwFCrsqCbiVtNQMpd1PgHowkqzK56hPjM8eFiZ4Wxai7iJ3k8wuuFcn7hHrgY8
- VxZXalFRvQdeU+Bh4ssMp9PB09oZsYBvS9YH2kQX12frRRDnFH+H/jt8sQPGyPaeaHeU
- qgZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706599397; x=1707204197;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=tzvdPgvt5+7oQC8//UTqp7pRz++rztY2vF1W4o1jwgs=;
- b=duQf+r/Byk0cug9oe4h52OrHUrS97rV1QcJP8ionWEKb9RdV/JlhzEiC/fqP+77hs1
- JJSN3aRyDAIP/w3lRuYyYvq79IHtdCy5HmnRs+1/8TDUAR8vaev/98t7ojAnpVoW4WfE
- 3da3Ei3UogaiNr42/LKwZv7Y60GKov+Ca1VCGT+TpEhlRdv4A/woVH7vdhhu/6JbhArm
- RMjSa9N/jZ2dUdoKkdlQCW+vP9XY09+7Ti993DFuBhk+WTNqbwjudx29WKTh+DcBwmGK
- yR1JqiM5Z+Q2gvCBlPruQjJTjgxmEixlvS36G+U3uCQVCqL3IuEG7hr9wS3bCeBUmBh1
- khvg==
-X-Gm-Message-State: AOJu0YxwC5btRky8+FLYG4tndVvsiBCQH0u5AM4iodf2l+h1ONDeQl0Y
- iA57lUdLBYF8eJWZ+UOEOLNNadgOSOC6EhqpUCNE+OmJRO8W8Fm6F6pDrXOBB2TYCZyOLrsQfiC
- 5NfZEmIz1N05BbmPs02+9xY0MhTLfFWo=
-X-Google-Smtp-Source: AGHT+IFiPwmVO4ZREQw1oQct/8vPkimzakkQ+NVj289BZqfvhifQUGZoHGpZ1e+Z3vH6Ogom8EzWT6pCvYCtGq1g+cM=
-X-Received: by 2002:a05:6402:3594:b0:55d:2ecf:eb1b with SMTP id
- y20-20020a056402359400b0055d2ecfeb1bmr6023890edc.1.1706599396692; Mon, 29 Jan
- 2024 23:23:16 -0800 (PST)
-MIME-Version: 1.0
-From: Anil kumar Julakal <julakalanilkumar@gmail.com>
-Date: Tue, 30 Jan 2024 12:53:03 +0530
-Message-ID: <CA+QiLSHC64=ZA0dpeM1AsMWAY6TQ5BHHb0JHchV_4K+_oCHdeg@mail.gmail.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6022F1400E17
+ for <ltp@lists.linux.it>; Tue, 30 Jan 2024 08:35:12 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 173081F833;
+ Tue, 30 Jan 2024 07:35:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1706600111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=clDFRJVHNiO/+swh8uuRyZPKQmMMhVECvdC80duwlXQ=;
+ b=Di54TC9SBeHluMx/YQjci95dvz76uxQNY4hVkhu2jfcQ5p1SI9+hQ3VwWJ9PTnzGmXTxXC
+ NRWH1PHcnAJ8ApX+CJvpZ+JqHkvVybO8xnlg5trByQQozSnl2SHBclA7Z+CTZGUzfx/l15
+ Qo8fiA7Y/hM1d6U9dwc86OSXzOPIhY8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1706600111;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=clDFRJVHNiO/+swh8uuRyZPKQmMMhVECvdC80duwlXQ=;
+ b=dntvCQJoI/XQCq5iEbE7f7oGcEjxhwlIRZab1rectvr7w/d1H5bB7VO2dCcDGPK3eqjIRy
+ FQdsoFy5fS+6mWDQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1706600111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=clDFRJVHNiO/+swh8uuRyZPKQmMMhVECvdC80duwlXQ=;
+ b=Di54TC9SBeHluMx/YQjci95dvz76uxQNY4hVkhu2jfcQ5p1SI9+hQ3VwWJ9PTnzGmXTxXC
+ NRWH1PHcnAJ8ApX+CJvpZ+JqHkvVybO8xnlg5trByQQozSnl2SHBclA7Z+CTZGUzfx/l15
+ Qo8fiA7Y/hM1d6U9dwc86OSXzOPIhY8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1706600111;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=clDFRJVHNiO/+swh8uuRyZPKQmMMhVECvdC80duwlXQ=;
+ b=dntvCQJoI/XQCq5iEbE7f7oGcEjxhwlIRZab1rectvr7w/d1H5bB7VO2dCcDGPK3eqjIRy
+ FQdsoFy5fS+6mWDQ==
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id F208713462;
+ Tue, 30 Jan 2024 07:35:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id 9ff2Oa6muGVjTwAAn2gu4w
+ (envelope-from <pvorel@suse.cz>); Tue, 30 Jan 2024 07:35:10 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
+Date: Tue, 30 Jan 2024 08:35:04 +0100
+Message-ID: <20240130073507.662414-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spamd-Result: default: False [1.93 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ BROKEN_CONTENT_TYPE(1.50)[]; RCVD_COUNT_THREE(0.00)[3];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCPT_COUNT_TWO(0.00)[2]; MID_CONTAINS_FROM(1.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ BAYES_HAM(-2.97)[99.88%]
+X-Spam-Score: 1.93
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled
- version=4.0.0
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: [LTP] cve 2015 3290 broken
+Subject: [LTP] [PATCH 0/3] runtest cleanup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,31 +112,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Petr Vorel (3):
+  runtest: Move capability related tests to new capability
+  runtest: Move io content to ltp-aiodio.part4
+  runtest: Remove 'ltp-' prefix from aio* runtests
 
-I am running ltp test cases on the android x86_64 platform with Kernel
-v5.15.106. CVE-2015-3290 is failing with Timeout for both 32bit and 64bit.
-Following is the error I see,
+ runtest/{ltp-aio-stress => aio-stress}     | 0
+ runtest/{ltp-aiodio.part1 => aiodio.part1} | 0
+ runtest/{ltp-aiodio.part2 => aiodio.part2} | 0
+ runtest/{ltp-aiodio.part3 => aiodio.part3} | 0
+ runtest/{ltp-aiodio.part4 => aiodio.part4} | 6 +++---
+ runtest/cap_bounds                         | 2 --
+ runtest/{securebits => capability}         | 5 ++++-
+ runtest/filecaps                           | 2 --
+ runtest/io                                 | 3 ---
+ 9 files changed, 7 insertions(+), 11 deletions(-)
+ rename runtest/{ltp-aio-stress => aio-stress} (100%)
+ rename runtest/{ltp-aiodio.part1 => aiodio.part1} (100%)
+ rename runtest/{ltp-aiodio.part2 => aiodio.part2} (100%)
+ rename runtest/{ltp-aiodio.part3 => aiodio.part3} (100%)
+ rename runtest/{ltp-aiodio.part4 => aiodio.part4} (90%)
+ delete mode 100644 runtest/cap_bounds
+ rename runtest/{securebits => capability} (53%)
+ delete mode 100644 runtest/filecaps
+ delete mode 100644 runtest/io
 
+-- 
+2.43.0
 
-
-*pid: 8962, tid: 8964, name: cve-2015-3290 >>> cve-2015-3290 <<<
-uid: 0
-signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0000000000000000
-rax 0000000000000001 rbx 0000000000000010 rcx 0000000000000049 rdx
-0000000000000000
-r8 0000000000000000 r9 0000000000000000 r10 0000000000000000 r11
-0000000000000246
-r12 0000000000000007 r13 0000000000000010 r14 0000737216a3f000 r15
-00007372164b4000
-rdi 0000000000000026 rsi 0000000000000033
-rbp 0000000000000800 rsp 0000737217227bf0 rip 000064711cc81b7b*
-
-Can you please help me on this issue?
-
-Thanks & Regards,
-
-Anil Kumar Julakal
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
