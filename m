@@ -2,19 +2,20 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 754648446BF
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jan 2024 19:07:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC2838446C1
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jan 2024 19:08:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3ACD23CE0D0
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jan 2024 19:07:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 849C03CF91D
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jan 2024 19:08:41 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D354E3CE19E
- for <ltp@lists.linux.it>; Wed, 31 Jan 2024 19:07:04 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id B213A3CE19E
+ for <ltp@lists.linux.it>; Wed, 31 Jan 2024 19:07:05 +0100 (CET)
 Authentication-Results: in-3.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
@@ -24,90 +25,97 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B02F11A0C26E
- for <ltp@lists.linux.it>; Wed, 31 Jan 2024 19:07:03 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B9DDF1A0C252
+ for <ltp@lists.linux.it>; Wed, 31 Jan 2024 19:07:04 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0F62721E73;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 465F021E7D;
  Wed, 31 Jan 2024 18:07:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1706724423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6CIiygPmiC8CRRbfFxQ7YOJEHJsqkRU6I/91yOQ16Tc=;
- b=DsMfi2g4IeXozOI4CE8moz9tQSSsQ2mgGpEqurXJ8TocTE7CZacTfph8GIkoiUnuq+5Ieg
- o/61d19Xp4KeM8q9GSvh6SUdrp3Ava1fE6KZP7LXxzYWZsE/aicJpJndv0FcWg7T9aHic1
- W1Qkl0h/neDSRD8g2ASAQrsGgM7OSxE=
+ bh=ABMBeQOTBrXDTWaxCWKXb2I81e10uWxxZ8+tbxdMZFA=;
+ b=DeiyDdvCznGpMx6uKVZo80N2Q2R+VLG2g2xks0CZ60sQEuVxaWUMOjunTMUdQ6oSN668Nr
+ CUYMlbq/Puv2DSw0ZIdBd6kdjjbI5/pr1Ynov1e3PoTIWQpzMQfIaMMCj+E79y5ZRqcQK6
+ l0eJmCIyFSih99+WH2eW5xDRiTdzAyQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1706724423;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6CIiygPmiC8CRRbfFxQ7YOJEHJsqkRU6I/91yOQ16Tc=;
- b=AtuGXnEPaMtcvODJoBlpM/8es7fkKKAsi2HyQssB5582jH1CYrKnJr80ktVHM/WPzEbyyr
- mhp02WpPsFeE9sDA==
+ bh=ABMBeQOTBrXDTWaxCWKXb2I81e10uWxxZ8+tbxdMZFA=;
+ b=BhxeVLOtsAwDWcGjZ2GxrNyNP08r4rUDwgKK/CFdvEMsocO2CmBDmbsvfoF2jHScxyzx7X
+ X3/nxik/Rp2GYUCQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1706724423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6CIiygPmiC8CRRbfFxQ7YOJEHJsqkRU6I/91yOQ16Tc=;
- b=DsMfi2g4IeXozOI4CE8moz9tQSSsQ2mgGpEqurXJ8TocTE7CZacTfph8GIkoiUnuq+5Ieg
- o/61d19Xp4KeM8q9GSvh6SUdrp3Ava1fE6KZP7LXxzYWZsE/aicJpJndv0FcWg7T9aHic1
- W1Qkl0h/neDSRD8g2ASAQrsGgM7OSxE=
+ bh=ABMBeQOTBrXDTWaxCWKXb2I81e10uWxxZ8+tbxdMZFA=;
+ b=DeiyDdvCznGpMx6uKVZo80N2Q2R+VLG2g2xks0CZ60sQEuVxaWUMOjunTMUdQ6oSN668Nr
+ CUYMlbq/Puv2DSw0ZIdBd6kdjjbI5/pr1Ynov1e3PoTIWQpzMQfIaMMCj+E79y5ZRqcQK6
+ l0eJmCIyFSih99+WH2eW5xDRiTdzAyQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1706724423;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6CIiygPmiC8CRRbfFxQ7YOJEHJsqkRU6I/91yOQ16Tc=;
- b=AtuGXnEPaMtcvODJoBlpM/8es7fkKKAsi2HyQssB5582jH1CYrKnJr80ktVHM/WPzEbyyr
- mhp02WpPsFeE9sDA==
+ bh=ABMBeQOTBrXDTWaxCWKXb2I81e10uWxxZ8+tbxdMZFA=;
+ b=BhxeVLOtsAwDWcGjZ2GxrNyNP08r4rUDwgKK/CFdvEMsocO2CmBDmbsvfoF2jHScxyzx7X
+ X3/nxik/Rp2GYUCQ==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id BFA56139FC;
- Wed, 31 Jan 2024 18:07:02 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 1F0A5139D9;
+ Wed, 31 Jan 2024 18:07:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id wMWxLEaMumUoIgAAn2gu4w
- (envelope-from <pvorel@suse.cz>); Wed, 31 Jan 2024 18:07:02 +0000
+ by imap2.dmz-prg2.suse.org with ESMTPSA id eK2tBEeMumUoIgAAn2gu4w
+ (envelope-from <pvorel@suse.cz>); Wed, 31 Jan 2024 18:07:03 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 31 Jan 2024 19:06:56 +0100
-Message-ID: <20240131180659.23587-3-pvorel@suse.cz>
+Date: Wed, 31 Jan 2024 19:06:57 +0100
+Message-ID: <20240131180659.23587-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240131180659.23587-1-pvorel@suse.cz>
 References: <20240131180659.23587-1-pvorel@suse.cz>
 MIME-Version: 1.0
 Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spam-Level: 
-X-Spam-Score: 0.70
-X-Spamd-Result: default: False [0.70 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
- BROKEN_CONTENT_TYPE(1.50)[]; RCVD_COUNT_THREE(0.00)[3];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
- BAYES_HAM(-3.00)[100.00%]; ARC_NA(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MIME_GOOD(-0.10)[text/plain];
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=DeiyDdvC;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=BhxeVLOt
+X-Spamd-Result: default: False [1.69 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:98:from];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_GOOD(-0.10)[text/plain]; BROKEN_CONTENT_TYPE(1.50)[];
+ RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- MID_CONTAINS_FROM(1.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[]
+ DKIM_TRACE(0.00)[suse.cz:+]; RCPT_COUNT_TWO(0.00)[2];
+ MID_CONTAINS_FROM(1.00)[]; MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ BAYES_HAM(-3.00)[100.00%]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Score: 1.69
+X-Rspamd-Queue-Id: 465F021E7D
+X-Spamd-Bar: +
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/5] tree: Define MNTPOINT in include/tst_fs.h
+Subject: [LTP] [PATCH 3/5] tree: Reuse MNTPOINT definition
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,821 +132,1012 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-and therefore remove it in all tests.
+Reuse MNTPOINT definition instead of MNT_POINT and other custom
+definitions.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- include/tst_fs.h                                          | 3 ++-
- testcases/kernel/fs/fs_fill/fs_fill.c                     | 1 -
- testcases/kernel/mem/hugetlb/lib/hugetlb.h                | 2 --
- testcases/kernel/syscalls/chdir/chdir01.c                 | 1 -
- testcases/kernel/syscalls/creat/creat09.c                 | 1 -
- testcases/kernel/syscalls/fallocate/fallocate05.c         | 1 -
- testcases/kernel/syscalls/fallocate/fallocate06.c         | 1 -
- testcases/kernel/syscalls/fanotify/fanotify14.c           | 1 -
- testcases/kernel/syscalls/fgetxattr/fgetxattr01.c         | 1 -
- testcases/kernel/syscalls/fgetxattr/fgetxattr02.c         | 1 -
- testcases/kernel/syscalls/fremovexattr/fremovexattr01.c   | 1 -
- testcases/kernel/syscalls/fremovexattr/fremovexattr02.c   | 1 -
- testcases/kernel/syscalls/fsconfig/fsconfig01.c           | 1 -
- testcases/kernel/syscalls/fsconfig/fsconfig03.c           | 1 -
- testcases/kernel/syscalls/fsetxattr/fsetxattr01.c         | 1 -
- testcases/kernel/syscalls/fsetxattr/fsetxattr02.c         | 1 -
- testcases/kernel/syscalls/fsmount/fsmount01.c             | 1 -
- testcases/kernel/syscalls/fsmount/fsmount02.c             | 1 -
- testcases/kernel/syscalls/fsopen/fsopen01.c               | 1 -
- testcases/kernel/syscalls/fspick/fspick01.c               | 1 -
- testcases/kernel/syscalls/fspick/fspick02.c               | 1 -
- testcases/kernel/syscalls/ftruncate/ftruncate04.c         | 1 -
- testcases/kernel/syscalls/getxattr/getxattr02.c           | 1 -
- testcases/kernel/syscalls/getxattr/getxattr03.c           | 1 -
- testcases/kernel/syscalls/getxattr/getxattr04.c           | 1 -
- testcases/kernel/syscalls/lremovexattr/lremovexattr01.c   | 1 -
- testcases/kernel/syscalls/mkdir/mkdir09.c                 | 1 -
- testcases/kernel/syscalls/mmap/mmap16.c                   | 1 -
- testcases/kernel/syscalls/mount/mount01.c                 | 1 -
- testcases/kernel/syscalls/mount/mount03.c                 | 1 -
- testcases/kernel/syscalls/mount/mount04.c                 | 1 -
- testcases/kernel/syscalls/mount/mount07.c                 | 1 -
- testcases/kernel/syscalls/mount_setattr/mount_setattr01.c | 1 -
- testcases/kernel/syscalls/move_mount/move_mount01.c       | 1 -
- testcases/kernel/syscalls/move_mount/move_mount02.c       | 1 -
- testcases/kernel/syscalls/open/open11.c                   | 1 -
- testcases/kernel/syscalls/open/open12.c                   | 1 -
- testcases/kernel/syscalls/open_tree/open_tree01.c         | 1 -
- testcases/kernel/syscalls/open_tree/open_tree02.c         | 1 -
- testcases/kernel/syscalls/openat/openat04.c               | 1 -
- testcases/kernel/syscalls/prctl/prctl06.h                 | 1 -
- testcases/kernel/syscalls/preadv/preadv03.c               | 1 -
- testcases/kernel/syscalls/preadv2/preadv203.c             | 1 -
- testcases/kernel/syscalls/pwritev/pwritev03.c             | 1 -
- testcases/kernel/syscalls/quotactl/quotactl01.c           | 1 -
- testcases/kernel/syscalls/quotactl/quotactl06.c           | 1 -
- testcases/kernel/syscalls/quotactl/quotactl08.c           | 1 -
- testcases/kernel/syscalls/quotactl/quotactl_syscall_var.h | 1 -
- testcases/kernel/syscalls/rename/rename11.c               | 1 -
- testcases/kernel/syscalls/renameat/renameat01.c           | 1 -
- testcases/kernel/syscalls/set_mempolicy/set_mempolicy03.c | 1 -
- testcases/kernel/syscalls/set_mempolicy/set_mempolicy04.c | 1 -
- testcases/kernel/syscalls/setxattr/setxattr01.c           | 1 -
- testcases/kernel/syscalls/statx/statx12.c                 | 1 -
- testcases/kernel/syscalls/umount/umount01.c               | 1 -
- testcases/kernel/syscalls/umount/umount02.c               | 1 -
- testcases/kernel/syscalls/umount/umount03.c               | 1 -
- testcases/kernel/syscalls/umount2/umount2_01.c            | 1 -
- testcases/kernel/syscalls/umount2/umount2_02.c            | 1 -
- testcases/kernel/syscalls/utime/utime03.c                 | 1 -
- testcases/kernel/syscalls/utimensat/utimensat01.c         | 1 -
- testcases/kernel/syscalls/writev/writev03.c               | 1 -
- 62 files changed, 2 insertions(+), 63 deletions(-)
+ testcases/kernel/io/direct_io/dma_thread_diotest.c |  9 ++++-----
+ testcases/kernel/syscalls/access/access04.c        |  5 ++---
+ testcases/kernel/syscalls/chmod/chmod06.c          |  5 ++---
+ testcases/kernel/syscalls/chown/chown04.c          |  6 ++----
+ testcases/kernel/syscalls/fchmod/fchmod06.c        |  5 ++---
+ testcases/kernel/syscalls/fchown/fchown04.c        |  5 ++---
+ testcases/kernel/syscalls/fstatfs/fstatfs01.c      |  5 ++---
+ testcases/kernel/syscalls/link/link08.c            |  3 +--
+ testcases/kernel/syscalls/mkdir/mkdir03.c          |  3 +--
+ testcases/kernel/syscalls/mkdirat/mkdirat02.c      |  3 +--
+ testcases/kernel/syscalls/mknod/mknod07.c          |  7 +++----
+ testcases/kernel/syscalls/mknodat/mknodat02.c      |  9 ++++-----
+ testcases/kernel/syscalls/rename/rename01.c        |  5 ++---
+ testcases/kernel/syscalls/rename/rename03.c        | 11 +++++------
+ testcases/kernel/syscalls/rename/rename04.c        |  5 ++---
+ testcases/kernel/syscalls/rename/rename05.c        |  5 ++---
+ testcases/kernel/syscalls/rename/rename06.c        |  5 ++---
+ testcases/kernel/syscalls/rename/rename07.c        |  5 ++---
+ testcases/kernel/syscalls/rename/rename08.c        |  5 ++---
+ testcases/kernel/syscalls/rename/rename10.c        |  5 ++---
+ testcases/kernel/syscalls/rename/rename12.c        |  5 ++---
+ testcases/kernel/syscalls/rename/rename13.c        |  7 +++----
+ testcases/kernel/syscalls/rmdir/rmdir02.c          |  5 ++---
+ testcases/kernel/syscalls/statfs/statfs01.c        |  5 ++---
+ testcases/kernel/syscalls/statvfs/statvfs01.c      |  5 ++---
+ testcases/kernel/syscalls/statx/statx01.c          |  3 +--
+ testcases/kernel/syscalls/statx/statx04.c          |  5 ++---
+ testcases/kernel/syscalls/statx/statx05.c          |  1 -
+ testcases/kernel/syscalls/statx/statx06.c          |  5 ++---
+ testcases/kernel/syscalls/statx/statx08.c          |  7 +++----
+ testcases/kernel/syscalls/statx/statx09.c          |  1 -
+ testcases/kernel/syscalls/statx/statx10.c          |  1 -
+ testcases/kernel/syscalls/utime/utime01.c          |  5 ++---
+ testcases/kernel/syscalls/utime/utime02.c          |  5 ++---
+ testcases/kernel/syscalls/utime/utime04.c          |  5 ++---
+ testcases/kernel/syscalls/utime/utime05.c          |  7 +++----
+ testcases/kernel/syscalls/utime/utime06.c          |  5 ++---
+ testcases/kernel/syscalls/utimes/utimes01.c        |  3 +--
+ 38 files changed, 76 insertions(+), 115 deletions(-)
 
-diff --git a/include/tst_fs.h b/include/tst_fs.h
-index 1dd7d32fc..0690d051d 100644
---- a/include/tst_fs.h
-+++ b/include/tst_fs.h
-@@ -49,7 +49,8 @@ enum {
- 	TST_GB = 1073741824,
+diff --git a/testcases/kernel/io/direct_io/dma_thread_diotest.c b/testcases/kernel/io/direct_io/dma_thread_diotest.c
+index c317eba8e..3c94ec140 100644
+--- a/testcases/kernel/io/direct_io/dma_thread_diotest.c
++++ b/testcases/kernel/io/direct_io/dma_thread_diotest.c
+@@ -108,8 +108,7 @@
+ #define FILESIZE	(12*1024*1024)
+ #define READSIZE	(1024*1024)
+ 
+-#define MNT_POINT	"mntpoint"
+-#define FILE_BASEPATH   MNT_POINT "/_dma_thread_test_%.04d.tmp"
++#define FILE_BASEPATH   MNTPOINT "/_dma_thread_test_%.04d.tmp"
+ #define DIR_MODE	(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP| \
+ 			 S_IXGRP|S_IROTH|S_IXOTH)
+ #define FILECOUNT	100
+@@ -385,7 +384,7 @@ static void setup(void)
+ 		SAFE_CLOSE(NULL, fd);
+ 	}
+ 
+-	SAFE_MKDIR(cleanup, MNT_POINT, DIR_MODE);
++	SAFE_MKDIR(cleanup, MNTPOINT, DIR_MODE);
+ 
+ 	/*
+ 	 * verify whether the current directory has enough free space,
+@@ -401,7 +400,7 @@ static void setup(void)
+ 			tst_mkfs(NULL, device, "ext3", NULL, NULL);
+ 		}
+ 
+-		SAFE_MOUNT(NULL, device, MNT_POINT, "ext3", 0, NULL);
++		SAFE_MOUNT(NULL, device, MNTPOINT, "ext3", 0, NULL);
+ 		mount_flag = 1;
+ 	}
+ 
+@@ -427,7 +426,7 @@ static void cleanup(void)
+ {
+ 	free(buffer);
+ 
+-	if (mount_flag && tst_umount(MNT_POINT) < 0)
++	if (mount_flag && tst_umount(MNTPOINT) < 0)
+ 		tst_resm(TWARN | TERRNO, "umount device:%s failed", device);
+ 
+ 	free(worker);
+diff --git a/testcases/kernel/syscalls/access/access04.c b/testcases/kernel/syscalls/access/access04.c
+index b5764a5dd..d32cc2894 100644
+--- a/testcases/kernel/syscalls/access/access04.c
++++ b/testcases/kernel/syscalls/access/access04.c
+@@ -39,7 +39,6 @@
+ #define DNAME	"accessfile2"
+ #define SNAME1	"symlink1"
+ #define SNAME2	"symlink2"
+-#define MNT_POINT	"mntpoint"
+ #define LONGPATHSIZE (PATH_MAX + 2)
+ 
+ static uid_t uid;
+@@ -108,7 +107,7 @@ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.forks_child = 1,
+ 	.needs_rofs = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.setup = setup,
+ 	.test = verify_access,
+ 	.bufs = (struct tst_buffers []) {
+@@ -117,7 +116,7 @@ static struct tst_test test = {
+ 		{&sname1, .str = SNAME1},
+ 		{&empty_fname, .str = ""},
+ 		{&longpathname, .size = LONGPATHSIZE},
+-		{&mnt_point, .str = MNT_POINT},
++		{&mnt_point, .str = MNTPOINT},
+ 		{}
+ 	}
+ };
+diff --git a/testcases/kernel/syscalls/chmod/chmod06.c b/testcases/kernel/syscalls/chmod/chmod06.c
+index d6b86af75..ae8248de4 100644
+--- a/testcases/kernel/syscalls/chmod/chmod06.c
++++ b/testcases/kernel/syscalls/chmod/chmod06.c
+@@ -35,7 +35,6 @@
+ #define TEST_FILE2	"testdir_1/tfile_2"
+ #define TEST_FILE3	"t_file/tfile_3"
+ #define TEST_FILE4	"test_file4"
+-#define MNT_POINT	"mntpoint"
+ 
+ #define DIR_MODE	(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP| \
+ 			 S_IXGRP|S_IROTH|S_IXOTH)
+@@ -61,7 +60,7 @@ static struct tcase {
+ 	{long_path, FILE_MODE, ENAMETOOLONG, NULL, NULL},
+ 	{"", FILE_MODE, ENOENT, NULL, NULL},
+ 	{TEST_FILE3, FILE_MODE, ENOTDIR, NULL, NULL},
+-	{MNT_POINT, FILE_MODE, EROFS, NULL, NULL},
++	{MNTPOINT, FILE_MODE, EROFS, NULL, NULL},
+ 	{TEST_FILE4, FILE_MODE, ELOOP, NULL, NULL},
  };
  
--#define OVL_BASE_MNTPOINT        "mntpoint"
-+#define MNTPOINT	"mntpoint"
-+#define OVL_BASE_MNTPOINT	MNTPOINT
- #define OVL_LOWER	OVL_BASE_MNTPOINT"/lower"
- #define OVL_UPPER	OVL_BASE_MNTPOINT"/upper"
- #define OVL_WORK	OVL_BASE_MNTPOINT"/work"
-diff --git a/testcases/kernel/fs/fs_fill/fs_fill.c b/testcases/kernel/fs/fs_fill/fs_fill.c
-index 3b4ee1ae9..c842f2817 100644
---- a/testcases/kernel/fs/fs_fill/fs_fill.c
-+++ b/testcases/kernel/fs/fs_fill/fs_fill.c
-@@ -17,7 +17,6 @@
- #include "tst_safe_pthread.h"
- #include "tst_test.h"
+@@ -144,5 +143,5 @@ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tc),
+ 	.needs_root = 1,
+ 	.needs_rofs = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ };
+diff --git a/testcases/kernel/syscalls/chown/chown04.c b/testcases/kernel/syscalls/chown/chown04.c
+index 4e9188567..0299f866f 100644
+--- a/testcases/kernel/syscalls/chown/chown04.c
++++ b/testcases/kernel/syscalls/chown/chown04.c
+@@ -41,13 +41,11 @@
+ #define FILE_MODE	(S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
+ #define DIR_MODE	(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH)
  
--#define MNTPOINT "mntpoint"
- #define THREADS_DIR MNTPOINT "/subdir"
+-#define MNT_POINT	"mntpoint"
+ #define DIR_TEMP	"testdir_1"
+ #define TEST_FILE1	"tfile_1"
+ #define TEST_FILE2	"testdir_1/tfile_2"
+ #define TEST_FILE3	"t_file/tfile_3"
+ #define TEST_FILE4	"test_eloop1"
+-#define TEST_FILE5	"mntpoint"
  
- static volatile int run;
-diff --git a/testcases/kernel/mem/hugetlb/lib/hugetlb.h b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-index 0f5707621..34fe08c24 100644
---- a/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-+++ b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-@@ -20,8 +20,6 @@
- #include "old_tmpdir.h"
- #include "mem.h"
+ static char long_path[PATH_MAX + 2] = {[0 ... PATH_MAX + 1] = 'a'};
  
--#define MNTPOINT "mntpoint"
--
- #define PALIGN(p, a) ((void *)LTP_ALIGN((unsigned long)(p), (a)))
+@@ -63,7 +61,7 @@ static struct test_case_t {
+ 	{"", ENOENT, "when file does not exist"},
+ 	{TEST_FILE3, ENOTDIR, "when the path prefix is not a directory"},
+ 	{TEST_FILE4, ELOOP, "with too many symbolic links"},
+-	{TEST_FILE5, EROFS, "when the named file resides on a read-only filesystem"}
++	{MNTPOINT, EROFS, "when the named file resides on a read-only filesystem"}
+ };
  
- #define SHM_RD	0400
-diff --git a/testcases/kernel/syscalls/chdir/chdir01.c b/testcases/kernel/syscalls/chdir/chdir01.c
-index d50a8f50c..7f36bec06 100644
---- a/testcases/kernel/syscalls/chdir/chdir01.c
-+++ b/testcases/kernel/syscalls/chdir/chdir01.c
-@@ -18,7 +18,6 @@
- 
- #include "tst_test.h"
- 
--#define MNTPOINT "mntpoint"
- 
- #define FILE_NAME "testfile"
- #define DIR_NAME "subdir"
-diff --git a/testcases/kernel/syscalls/creat/creat09.c b/testcases/kernel/syscalls/creat/creat09.c
-index a5d3740ac..c381c0317 100644
---- a/testcases/kernel/syscalls/creat/creat09.c
-+++ b/testcases/kernel/syscalls/creat/creat09.c
-@@ -49,7 +49,6 @@
- #define MODE_RWX        0777
- #define MODE_SGID       (S_ISGID|0777)
- 
--#define MNTPOINT	"mntpoint"
- #define WORKDIR		MNTPOINT "/testdir"
- #define CREAT_FILE	WORKDIR "/creat.tmp"
- #define OPEN_FILE	WORKDIR "/open.tmp"
-diff --git a/testcases/kernel/syscalls/fallocate/fallocate05.c b/testcases/kernel/syscalls/fallocate/fallocate05.c
-index af6bf9e8c..b5c7f8b9e 100644
---- a/testcases/kernel/syscalls/fallocate/fallocate05.c
-+++ b/testcases/kernel/syscalls/fallocate/fallocate05.c
-@@ -25,7 +25,6 @@
- #include "tst_test.h"
- #include "lapi/fallocate.h"
- 
--#define MNTPOINT "mntpoint"
- #define FALLOCATE_BLOCKS 256
- #define DEALLOCATE_BLOCKS 64
- #define TESTED_FLAGS "fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)"
-diff --git a/testcases/kernel/syscalls/fallocate/fallocate06.c b/testcases/kernel/syscalls/fallocate/fallocate06.c
-index 24f98e271..01dfa5d7a 100644
---- a/testcases/kernel/syscalls/fallocate/fallocate06.c
-+++ b/testcases/kernel/syscalls/fallocate/fallocate06.c
-@@ -41,7 +41,6 @@
- #include "tst_test.h"
- #include "lapi/fallocate.h"
- 
--#define MNTPOINT "mntpoint"
- #define TEMPFILE MNTPOINT "/test_file"
- #define WRITE_BLOCKS 8
- #define FALLOCATE_BLOCKS 2
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify14.c b/testcases/kernel/syscalls/fanotify/fanotify14.c
-index 0b0da89ca..ebc9d3f52 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify14.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify14.c
-@@ -31,7 +31,6 @@
- #ifdef HAVE_SYS_FANOTIFY_H
- #include "fanotify.h"
- 
--#define MNTPOINT "mntpoint"
- #define FILE1 MNTPOINT"/file1"
- 
- /*
-diff --git a/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c b/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c
-index 52e6e44ab..cc147613c 100644
---- a/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c
-+++ b/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c
-@@ -39,7 +39,6 @@
- #define XATTR_TEST_VALUE "this is a test value"
- #define XATTR_TEST_VALUE_SIZE 20
- #define XATTR_TEST_INVALID_KEY "user.nosuchkey"
--#define MNTPOINT "mntpoint"
- #define FNAME MNTPOINT"/fgetxattr01testfile"
- 
- static int fd = -1;
-diff --git a/testcases/kernel/syscalls/fgetxattr/fgetxattr02.c b/testcases/kernel/syscalls/fgetxattr/fgetxattr02.c
-index 1a9a39c9b..2033e8af6 100644
---- a/testcases/kernel/syscalls/fgetxattr/fgetxattr02.c
-+++ b/testcases/kernel/syscalls/fgetxattr/fgetxattr02.c
-@@ -54,7 +54,6 @@
- #define XATTR_TEST_VALUE "this is a test value"
- #define XATTR_TEST_VALUE_SIZE 20
- 
--#define MNTPOINT "mntpoint"
- #define OFFSET    11
- #define FILENAME "fgetxattr02testfile"
- #define DIRNAME  "fgetxattr02testdir"
-diff --git a/testcases/kernel/syscalls/fremovexattr/fremovexattr01.c b/testcases/kernel/syscalls/fremovexattr/fremovexattr01.c
-index 907d210d1..0286fe554 100644
---- a/testcases/kernel/syscalls/fremovexattr/fremovexattr01.c
-+++ b/testcases/kernel/syscalls/fremovexattr/fremovexattr01.c
-@@ -32,7 +32,6 @@
- #define XATTR_TEST_VALUE "this is a test value"
- #define XATTR_TEST_VALUE_SIZE 20
- 
--#define MNTPOINT "mntpoint"
- #define FNAME MNTPOINT"/fremovexattr01testfile"
- 
- static int fd = -1;
-diff --git a/testcases/kernel/syscalls/fremovexattr/fremovexattr02.c b/testcases/kernel/syscalls/fremovexattr/fremovexattr02.c
-index eb106a8fa..909013998 100644
---- a/testcases/kernel/syscalls/fremovexattr/fremovexattr02.c
-+++ b/testcases/kernel/syscalls/fremovexattr/fremovexattr02.c
-@@ -34,7 +34,6 @@
- 
- #define XATTR_TEST_KEY "user.testkey"
- 
--#define MNTPOINT "mntpoint"
- #define FNAME MNTPOINT"/fremovexattr02testfile"
- 
- static int fd = -1;
-diff --git a/testcases/kernel/syscalls/fsconfig/fsconfig01.c b/testcases/kernel/syscalls/fsconfig/fsconfig01.c
-index a585daa6d..909cb3fa2 100644
---- a/testcases/kernel/syscalls/fsconfig/fsconfig01.c
-+++ b/testcases/kernel/syscalls/fsconfig/fsconfig01.c
-@@ -8,7 +8,6 @@
- #include "tst_test.h"
- #include "lapi/fsmount.h"
- 
--#define MNTPOINT	"mntpoint"
- 
- static int fd;
- 
-diff --git a/testcases/kernel/syscalls/fsconfig/fsconfig03.c b/testcases/kernel/syscalls/fsconfig/fsconfig03.c
-index 0ba5355d3..d5e85c1fb 100644
---- a/testcases/kernel/syscalls/fsconfig/fsconfig03.c
-+++ b/testcases/kernel/syscalls/fsconfig/fsconfig03.c
-@@ -19,7 +19,6 @@
- #include "tst_test.h"
- #include "lapi/fsmount.h"
- 
--#define MNTPOINT	"mntpoint"
- 
- static int fd = -1;
- 
-diff --git a/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c b/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-index b65b27bdf..af44af0a6 100644
---- a/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-+++ b/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-@@ -52,7 +52,6 @@
- #define XATTR_TEST_KEY "user.testkey"
- #define XATTR_TEST_VALUE "this is a test value"
- #define XATTR_TEST_VALUE_SIZE 20
--#define MNTPOINT "mntpoint"
- #define FNAME MNTPOINT"/fsetxattr01testfile"
- 
- static int fd = -1;
-diff --git a/testcases/kernel/syscalls/fsetxattr/fsetxattr02.c b/testcases/kernel/syscalls/fsetxattr/fsetxattr02.c
-index 39265af36..813908c43 100644
---- a/testcases/kernel/syscalls/fsetxattr/fsetxattr02.c
-+++ b/testcases/kernel/syscalls/fsetxattr/fsetxattr02.c
-@@ -54,7 +54,6 @@
- #define XATTR_TEST_VALUE "this is a test value"
- #define XATTR_TEST_VALUE_SIZE 20
- 
--#define MNTPOINT "mntpoint"
- #define OFFSET    11
- #define FILENAME "fsetxattr02testfile"
- #define DIRNAME  "fsetxattr02testdir"
-diff --git a/testcases/kernel/syscalls/fsmount/fsmount01.c b/testcases/kernel/syscalls/fsmount/fsmount01.c
-index 5f755863f..babdc398e 100644
---- a/testcases/kernel/syscalls/fsmount/fsmount01.c
-+++ b/testcases/kernel/syscalls/fsmount/fsmount01.c
-@@ -9,7 +9,6 @@
- #include "tst_test.h"
- #include "lapi/fsmount.h"
- 
--#define MNTPOINT	"mntpoint"
- 
- #define TCASE_ENTRY(_flags, _attrs)	{.name = "Flag " #_flags ", Attr " #_attrs, .flags = _flags, .attrs = _attrs}
- 
-diff --git a/testcases/kernel/syscalls/fsmount/fsmount02.c b/testcases/kernel/syscalls/fsmount/fsmount02.c
-index a4f42dc18..f82dab111 100644
---- a/testcases/kernel/syscalls/fsmount/fsmount02.c
-+++ b/testcases/kernel/syscalls/fsmount/fsmount02.c
-@@ -9,7 +9,6 @@
- 
- int fd = -1, invalid_fd = -1;
- 
--#define MNTPOINT	"mntpoint"
- 
- static struct tcase {
- 	char *name;
-diff --git a/testcases/kernel/syscalls/fsopen/fsopen01.c b/testcases/kernel/syscalls/fsopen/fsopen01.c
-index c2c719c96..b0b5ee69e 100644
---- a/testcases/kernel/syscalls/fsopen/fsopen01.c
-+++ b/testcases/kernel/syscalls/fsopen/fsopen01.c
-@@ -8,7 +8,6 @@
- #include "tst_test.h"
- #include "lapi/fsmount.h"
- 
--#define MNTPOINT	"mntpoint"
- 
- #define TCASE_ENTRY(_flags)	{.name = "Flag " #_flags, .flags = _flags}
- 
-diff --git a/testcases/kernel/syscalls/fspick/fspick01.c b/testcases/kernel/syscalls/fspick/fspick01.c
-index d3309a912..640187f29 100644
---- a/testcases/kernel/syscalls/fspick/fspick01.c
-+++ b/testcases/kernel/syscalls/fspick/fspick01.c
-@@ -7,7 +7,6 @@
- #include "tst_test.h"
- #include "lapi/fsmount.h"
- 
--#define MNTPOINT		"mntpoint"
- #define TCASE_ENTRY(_flags)	{.name = "Flag " #_flags, .flags = _flags}
- 
- static struct tcase {
-diff --git a/testcases/kernel/syscalls/fspick/fspick02.c b/testcases/kernel/syscalls/fspick/fspick02.c
-index f9a3697c1..4a2b5ed00 100644
---- a/testcases/kernel/syscalls/fspick/fspick02.c
-+++ b/testcases/kernel/syscalls/fspick/fspick02.c
-@@ -7,7 +7,6 @@
- #include "tst_test.h"
- #include "lapi/fsmount.h"
- 
--#define MNTPOINT		"mntpoint"
- 
- static struct tcase {
- 	char *name;
-diff --git a/testcases/kernel/syscalls/ftruncate/ftruncate04.c b/testcases/kernel/syscalls/ftruncate/ftruncate04.c
-index c832ceaa6..1ab3d4a8e 100644
---- a/testcases/kernel/syscalls/ftruncate/ftruncate04.c
-+++ b/testcases/kernel/syscalls/ftruncate/ftruncate04.c
-@@ -35,7 +35,6 @@
- #include "tst_test.h"
- 
- #define RECLEN	100
--#define MNTPOINT	"mntpoint"
- #define TESTFILE	MNTPOINT"/testfile"
- 
- static int len = 8 * 1024;
-diff --git a/testcases/kernel/syscalls/getxattr/getxattr02.c b/testcases/kernel/syscalls/getxattr/getxattr02.c
-index 5a84d876c..c269033d0 100644
---- a/testcases/kernel/syscalls/getxattr/getxattr02.c
-+++ b/testcases/kernel/syscalls/getxattr/getxattr02.c
-@@ -34,7 +34,6 @@
- #include "tst_test.h"
- #include "tst_test_macros.h"
- 
--#define MNTPOINT "mntpoint"
- #define FNAME MNTPOINT"/getxattr02"
- #define XATTR_TEST_KEY "user.testkey"
- 
-diff --git a/testcases/kernel/syscalls/getxattr/getxattr03.c b/testcases/kernel/syscalls/getxattr/getxattr03.c
-index 1fe4ba48f..05dce2201 100644
---- a/testcases/kernel/syscalls/getxattr/getxattr03.c
-+++ b/testcases/kernel/syscalls/getxattr/getxattr03.c
-@@ -17,7 +17,6 @@
- #include <sys/xattr.h>
- #include "tst_safe_macros.h"
- 
--#define MNTPOINT "mntpoint"
- #define FNAME MNTPOINT"/getxattr03testfile"
- #define XATTR_TEST_KEY "user.testkey"
- #define XATTR_TEST_VALUE "test value"
-diff --git a/testcases/kernel/syscalls/getxattr/getxattr04.c b/testcases/kernel/syscalls/getxattr/getxattr04.c
-index e64f2a1f1..554571463 100644
---- a/testcases/kernel/syscalls/getxattr/getxattr04.c
-+++ b/testcases/kernel/syscalls/getxattr/getxattr04.c
-@@ -34,7 +34,6 @@
- 
- #ifdef HAVE_SYS_XATTR_H
- 
--#define MNTPOINT	"mntpoint"
- #define TEST_FILE	MNTPOINT "/file"
- #define TRUSTED_BIG	"trusted.big"
- #define TRUSTED_SMALL	"trusted.small"
-diff --git a/testcases/kernel/syscalls/lremovexattr/lremovexattr01.c b/testcases/kernel/syscalls/lremovexattr/lremovexattr01.c
-index 590f5a6f3..4fd8893df 100644
---- a/testcases/kernel/syscalls/lremovexattr/lremovexattr01.c
-+++ b/testcases/kernel/syscalls/lremovexattr/lremovexattr01.c
-@@ -43,7 +43,6 @@
- #define XATTR_VALUE		"file and link"
- #define XATTR_VALUE_SIZE	13
- 
--#define MNTPOINT "mntpoint"
- #define FILENAME MNTPOINT"/lremovexattr01testfile"
- #define SYMLINK  MNTPOINT"/lremovexattr01symlink"
- 
-diff --git a/testcases/kernel/syscalls/mkdir/mkdir09.c b/testcases/kernel/syscalls/mkdir/mkdir09.c
-index 44a2348be..89e1f9afd 100644
---- a/testcases/kernel/syscalls/mkdir/mkdir09.c
-+++ b/testcases/kernel/syscalls/mkdir/mkdir09.c
-@@ -16,7 +16,6 @@
- #include "tst_test.h"
- #include "tst_safe_pthread.h"
- 
--#define MNTPOINT	"mntpoint"
- #define MODE_RWX	07770
- #define DIR_NAME	MNTPOINT "/X.%d"
- #define DIR_NAME_GROUP	MNTPOINT "/X.%d.%d"
-diff --git a/testcases/kernel/syscalls/mmap/mmap16.c b/testcases/kernel/syscalls/mmap/mmap16.c
-index 4e0d8a3f4..434cc7dfc 100644
---- a/testcases/kernel/syscalls/mmap/mmap16.c
-+++ b/testcases/kernel/syscalls/mmap/mmap16.c
-@@ -34,7 +34,6 @@
- #include <sys/wait.h>
- #include "tst_test.h"
- 
--#define MNTPOINT "mntpoint"
- #define FILE_PARENT "mntpoint/testfilep"
- #define FILE_CHILD "mntpoint/testfilec"
- #define FS_BLOCKSIZE 1024
-diff --git a/testcases/kernel/syscalls/mount/mount01.c b/testcases/kernel/syscalls/mount/mount01.c
-index 1d902ba89..16734cdb6 100644
---- a/testcases/kernel/syscalls/mount/mount01.c
-+++ b/testcases/kernel/syscalls/mount/mount01.c
-@@ -34,7 +34,6 @@ char *TCID = "mount01";
- int TST_TOTAL = 1;
- 
- #define DIR_MODE (S_IRWXU | S_IRUSR | S_IXUSR | S_IRGRP | S_IXGRP)
--#define MNTPOINT "mntpoint"
- 
- static const char *device;
- static const char *fs_type;
-diff --git a/testcases/kernel/syscalls/mount/mount03.c b/testcases/kernel/syscalls/mount/mount03.c
-index 98d5933b7..403adbe03 100644
---- a/testcases/kernel/syscalls/mount/mount03.c
-+++ b/testcases/kernel/syscalls/mount/mount03.c
-@@ -31,7 +31,6 @@
- #include "tst_test.h"
- #include "lapi/mount.h"
- 
--#define MNTPOINT	"mntpoint"
- #define TESTBIN	"mount03_suid_child"
- #define BIN_PATH	MNTPOINT "/" TESTBIN
- #define TEST_STR "abcdefghijklmnopqrstuvwxyz"
-diff --git a/testcases/kernel/syscalls/mount/mount04.c b/testcases/kernel/syscalls/mount/mount04.c
-index 5eb5ee11b..1c92b997a 100644
---- a/testcases/kernel/syscalls/mount/mount04.c
-+++ b/testcases/kernel/syscalls/mount/mount04.c
+ static void run(unsigned int i)
+@@ -100,7 +98,7 @@ static void setup(void)
+ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.needs_rofs = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.tcnt = ARRAY_SIZE(tc),
+ 	.test = run,
+ 	.setup = setup,
+diff --git a/testcases/kernel/syscalls/fchmod/fchmod06.c b/testcases/kernel/syscalls/fchmod/fchmod06.c
+index 4a8aee6ca..367872edc 100644
+--- a/testcases/kernel/syscalls/fchmod/fchmod06.c
++++ b/testcases/kernel/syscalls/fchmod/fchmod06.c
 @@ -16,7 +16,6 @@
  #include <pwd.h>
- #include <sys/mount.h>
+ #include "tst_test.h"
  
--#define MNTPOINT "mntpoint"
+-#define MNT_POINT "mntpoint"
  
- static void cleanup(void)
+ static int fd1;
+ static int fd2;
+@@ -58,7 +57,7 @@ static void setup(void)
  {
-diff --git a/testcases/kernel/syscalls/mount/mount07.c b/testcases/kernel/syscalls/mount/mount07.c
-index eb3fb55a0..264f2eaa6 100644
---- a/testcases/kernel/syscalls/mount/mount07.c
-+++ b/testcases/kernel/syscalls/mount/mount07.c
-@@ -29,7 +29,6 @@
- # define ST_NOSYMFOLLOW 0x2000
- #endif
+ 	struct passwd *ltpuser = SAFE_GETPWNAM("nobody");
  
--#define MNTPOINT "mntpoint"
+-	fd3 = SAFE_OPEN(MNT_POINT"/file", O_RDONLY);
++	fd3 = SAFE_OPEN(MNTPOINT"/file", O_RDONLY);
+ 	fd1 = SAFE_OPEN("tfile_1", O_RDWR | O_CREAT, 0666);
+ 	fd2 = SAFE_OPEN("tfile_2", O_RDWR | O_CREAT, 0666);
+ 	SAFE_CLOSE(fd2);
+@@ -82,5 +81,5 @@ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tcases),
+ 	.needs_root = 1,
+ 	.needs_rofs = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ };
+diff --git a/testcases/kernel/syscalls/fchown/fchown04.c b/testcases/kernel/syscalls/fchown/fchown04.c
+index a7af3aae7..36bc4c96c 100644
+--- a/testcases/kernel/syscalls/fchown/fchown04.c
++++ b/testcases/kernel/syscalls/fchown/fchown04.c
+@@ -25,7 +25,6 @@
+ #include "compat_tst_16.h"
+ #include "tst_safe_macros.h"
  
- static char test_file[PATH_MAX];
- static char link_file[PATH_MAX];
-diff --git a/testcases/kernel/syscalls/mount_setattr/mount_setattr01.c b/testcases/kernel/syscalls/mount_setattr/mount_setattr01.c
-index e500df28e..6ede36f05 100644
---- a/testcases/kernel/syscalls/mount_setattr/mount_setattr01.c
-+++ b/testcases/kernel/syscalls/mount_setattr/mount_setattr01.c
-@@ -33,7 +33,6 @@
- #include "tst_test.h"
- #include "lapi/fsmount.h"
+-#define MNT_POINT	"mntpoint"
+ #define TEST_FILE	"tfile_1"
+ #define MODE		0666
+ #define DIR_MODE	(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH)
+@@ -48,7 +47,7 @@ static void setup(void)
+ 	struct passwd *ltpuser;
  
--#define MNTPOINT        "mntpoint"
- #define OT_MNTPOINT     "ot_mntpoint"
- #define TCASE_ENTRY(attrs, exp_attrs)   \
- 	{                                \
-diff --git a/testcases/kernel/syscalls/move_mount/move_mount01.c b/testcases/kernel/syscalls/move_mount/move_mount01.c
-index 445e6197e..dd8a2f644 100644
---- a/testcases/kernel/syscalls/move_mount/move_mount01.c
-+++ b/testcases/kernel/syscalls/move_mount/move_mount01.c
-@@ -7,7 +7,6 @@
- #include "tst_test.h"
- #include "lapi/fsmount.h"
+ 	fd1 = SAFE_OPEN(TEST_FILE, O_RDWR | O_CREAT, MODE);
+-	fd3 = SAFE_OPEN(MNT_POINT, O_RDONLY);
++	fd3 = SAFE_OPEN(MNTPOINT, O_RDONLY);
  
--#define MNTPOINT	"mntpoint"
- 
- #define TCASE_ENTRY(_flags)	{.name = "Flag " #_flags, .flags = _flags}
- 
-diff --git a/testcases/kernel/syscalls/move_mount/move_mount02.c b/testcases/kernel/syscalls/move_mount/move_mount02.c
-index 45b1db4be..b8c0c44c1 100644
---- a/testcases/kernel/syscalls/move_mount/move_mount02.c
-+++ b/testcases/kernel/syscalls/move_mount/move_mount02.c
-@@ -7,7 +7,6 @@
- #include "tst_test.h"
- #include "lapi/fsmount.h"
- 
--#define MNTPOINT	"mntpoint"
- 
- int invalid_fd = -1, fsmfd;
- 
-diff --git a/testcases/kernel/syscalls/open/open11.c b/testcases/kernel/syscalls/open/open11.c
-index 3431efc2c..514cfca8c 100644
---- a/testcases/kernel/syscalls/open/open11.c
-+++ b/testcases/kernel/syscalls/open/open11.c
-@@ -54,7 +54,6 @@
- 
+ 	ltpuser = SAFE_GETPWNAM("nobody");
+ 	SAFE_SETEUID(ltpuser->pw_uid);
+@@ -78,7 +77,7 @@ static void cleanup(void)
+ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.needs_rofs = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.tcnt = ARRAY_SIZE(tc),
+ 	.test = run,
+ 	.setup = setup,
+diff --git a/testcases/kernel/syscalls/fstatfs/fstatfs01.c b/testcases/kernel/syscalls/fstatfs/fstatfs01.c
+index 6b14fd0d6..d54be49ca 100644
+--- a/testcases/kernel/syscalls/fstatfs/fstatfs01.c
++++ b/testcases/kernel/syscalls/fstatfs/fstatfs01.c
+@@ -15,8 +15,7 @@
+ #include <stdio.h>
  #include "tst_test.h"
  
--#define MNTPOINT "mntpoint"
- #define T_REG "t_reg"			/* regular file with content */
- #define T_REG_EMPTY "t_reg_empty"	/* empty regular file */
- #define T_LINK_REG "t_link_reg"		/* hard link to T_REG */
-diff --git a/testcases/kernel/syscalls/open/open12.c b/testcases/kernel/syscalls/open/open12.c
-index 188d17946..6b0701a9d 100644
---- a/testcases/kernel/syscalls/open/open12.c
-+++ b/testcases/kernel/syscalls/open/open12.c
-@@ -32,7 +32,6 @@
- #include "lapi/fcntl.h"
- #include "lapi/mount.h"
+-#define MNT_POINT "mntpoint"
+-#define TEMP_FILE MNT_POINT"/test_file"
++#define TEMP_FILE MNTPOINT"/test_file"
  
--#define MNTPOINT	"mntpoint"
- #define TEST_FILE	MNTPOINT"/test_file"
- #define LARGE_FILE	"large_file"
+ static int file_fd;
+ static int pipe_fd;
+@@ -61,7 +60,7 @@ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tcases),
+ 	.test = run,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1,
+ 	.needs_root = 1
+ };
+diff --git a/testcases/kernel/syscalls/link/link08.c b/testcases/kernel/syscalls/link/link08.c
+index 92d507489..f844493d2 100644
+--- a/testcases/kernel/syscalls/link/link08.c
++++ b/testcases/kernel/syscalls/link/link08.c
+@@ -26,7 +26,6 @@
  
-diff --git a/testcases/kernel/syscalls/open_tree/open_tree01.c b/testcases/kernel/syscalls/open_tree/open_tree01.c
-index 808d25665..faf63c212 100644
---- a/testcases/kernel/syscalls/open_tree/open_tree01.c
-+++ b/testcases/kernel/syscalls/open_tree/open_tree01.c
-@@ -7,7 +7,6 @@
- #include "tst_test.h"
- #include "lapi/fsmount.h"
- 
--#define MNTPOINT	"mntpoint"
- #define OT_MNTPOINT	"ot_mntpoint"
- 
- #define TCASE_ENTRY(_flags)	{.name = "Flag " #_flags, .flags = _flags}
-diff --git a/testcases/kernel/syscalls/open_tree/open_tree02.c b/testcases/kernel/syscalls/open_tree/open_tree02.c
-index ddaa204f2..985f1e7b9 100644
---- a/testcases/kernel/syscalls/open_tree/open_tree02.c
-+++ b/testcases/kernel/syscalls/open_tree/open_tree02.c
-@@ -7,7 +7,6 @@
- #include "tst_test.h"
- #include "lapi/fsmount.h"
- 
--#define MNTPOINT	"mntpoint"
- 
- static struct tcase {
- 	char *name;
-diff --git a/testcases/kernel/syscalls/openat/openat04.c b/testcases/kernel/syscalls/openat/openat04.c
-index df5956cd8..e9945b354 100644
---- a/testcases/kernel/syscalls/openat/openat04.c
-+++ b/testcases/kernel/syscalls/openat/openat04.c
-@@ -36,7 +36,6 @@
- 
- #define MODE_RWX        0777
- #define MODE_SGID       (S_ISGID|0777)
--#define MNTPOINT	"mntpoint"
- #define WORKDIR		MNTPOINT "/testdir"
- #define OPEN_FILE	"open.tmp"
- 
-diff --git a/testcases/kernel/syscalls/prctl/prctl06.h b/testcases/kernel/syscalls/prctl/prctl06.h
-index dfb2de4ba..400af93eb 100644
---- a/testcases/kernel/syscalls/prctl/prctl06.h
-+++ b/testcases/kernel/syscalls/prctl/prctl06.h
-@@ -17,7 +17,6 @@
- #include "tst_test.h"
- 
- #define PROC_STATUS        "/proc/self/status"
--#define MNTPOINT           "mntpoint"
- #define TESTBIN            "prctl06_execve"
- #define TEST_REL_BIN_DIR   MNTPOINT"/"
- #define BIN_PATH           MNTPOINT"/"TESTBIN
-diff --git a/testcases/kernel/syscalls/preadv/preadv03.c b/testcases/kernel/syscalls/preadv/preadv03.c
-index 558d85050..5213dec18 100644
---- a/testcases/kernel/syscalls/preadv/preadv03.c
-+++ b/testcases/kernel/syscalls/preadv/preadv03.c
+ #define DIR_MODE	(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP| \
+ 			 S_IXGRP|S_IROTH|S_IXOTH)
+-#define MNT_POINT	"mntpoint"
+ #define TEST_FILE	"testfile"
+ #define TEST_FILE1	"testfile1"
+ #define TEST_FILE2	"mntpoint/file"
+@@ -86,5 +85,5 @@ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tcases),
+ 	.needs_root = 1,
+ 	.needs_rofs = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ };
+diff --git a/testcases/kernel/syscalls/mkdir/mkdir03.c b/testcases/kernel/syscalls/mkdir/mkdir03.c
+index d5141bb64..5e5695db2 100644
+--- a/testcases/kernel/syscalls/mkdir/mkdir03.c
++++ b/testcases/kernel/syscalls/mkdir/mkdir03.c
 @@ -24,7 +24,6 @@
- #include "tst_test.h"
- #include "preadv.h"
+ #define TST_ENOTDIR_DIR	"tst_enotdir/tst"
+ #define MODE		0777
  
--#define MNTPOINT	"mntpoint"
- #define FNAME	MNTPOINT"/file"
+-#define MNT_POINT	"mntpoint"
+ #define DIR_MODE	(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP| \
+ 			 S_IXGRP|S_IROTH|S_IXOTH)
+ #define TST_EROFS      "mntpoint/tst_erofs"
+@@ -89,7 +88,7 @@ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(TC),
+ 	.needs_root = 1,
+ 	.needs_rofs = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.setup = setup,
+ 	.test = verify_mkdir,
+ };
+diff --git a/testcases/kernel/syscalls/mkdirat/mkdirat02.c b/testcases/kernel/syscalls/mkdirat/mkdirat02.c
+index 2bd8fe9c0..21cdf0a8c 100644
+--- a/testcases/kernel/syscalls/mkdirat/mkdirat02.c
++++ b/testcases/kernel/syscalls/mkdirat/mkdirat02.c
+@@ -12,7 +12,6 @@
+ #define _GNU_SOURCE
+ #include "tst_test.h"
+ 
+-#define MNT_POINT	"mntpoint"
+ #define TEST_DIR	"mntpoint/test_dir"
+ #define DIR_MODE	(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP| \
+ 			 S_IXGRP|S_IROTH|S_IXOTH)
+@@ -77,5 +76,5 @@ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tcases),
+ 	.needs_root = 1,
+ 	.needs_rofs = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ };
+diff --git a/testcases/kernel/syscalls/mknod/mknod07.c b/testcases/kernel/syscalls/mknod/mknod07.c
+index 829199061..3c27c795c 100644
+--- a/testcases/kernel/syscalls/mknod/mknod07.c
++++ b/testcases/kernel/syscalls/mknod/mknod07.c
+@@ -52,7 +52,6 @@
+ #define DIR_TEMP_MODE		(S_IRUSR | S_IXUSR)
+ #define DIR_MODE		(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP| \
+ 				 S_IXGRP|S_IROTH|S_IXOTH)
+-#define MNT_POINT		"mntpoint"
+ 
+ #define FIFO_MODE	(S_IFIFO | S_IRUSR | S_IRGRP | S_IROTH)
+ #define SOCKET_MODE	(S_IFSOCK | S_IRWXU | S_IRWXG | S_IRWXO)
+@@ -130,8 +129,8 @@ static void setup(void)
+ 	TEST_PAUSE;
+ 
+ 	/* mount a read-only file system for EROFS test */
+-	SAFE_MKDIR(cleanup, MNT_POINT, DIR_MODE);
+-	SAFE_MOUNT(cleanup, device, MNT_POINT, fs_type, MS_RDONLY, NULL);
++	SAFE_MKDIR(cleanup, MNTPOINT, DIR_MODE);
++	SAFE_MOUNT(cleanup, device, MNTPOINT, fs_type, MS_RDONLY, NULL);
+ 	mount_flag = 1;
+ 
+ 	ltpuser = SAFE_GETPWNAM(cleanup, "nobody");
+@@ -174,7 +173,7 @@ static void cleanup(void)
+ 	if (seteuid(0) == -1)
+ 		tst_resm(TWARN | TERRNO, "seteuid(0) failed");
+ 
+-	if (mount_flag && tst_umount(MNT_POINT) < 0)
++	if (mount_flag && tst_umount(MNTPOINT) < 0)
+ 		tst_resm(TWARN | TERRNO, "umount device:%s failed", device);
+ 
+ 	if (device)
+diff --git a/testcases/kernel/syscalls/mknodat/mknodat02.c b/testcases/kernel/syscalls/mknodat/mknodat02.c
+index fdac5db15..6ca46677a 100644
+--- a/testcases/kernel/syscalls/mknodat/mknodat02.c
++++ b/testcases/kernel/syscalls/mknodat/mknodat02.c
+@@ -44,7 +44,6 @@ static void cleanup(void);
+ 
+ #define DIR_MODE	(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP| \
+ 			 S_IXGRP|S_IROTH|S_IXOTH)
+-#define MNT_POINT	"mntpoint"
+ 
+ #define FIFOMODE	(S_IFIFO | S_IRUSR | S_IRGRP | S_IROTH)
+ #define FREGMODE	(S_IFREG | S_IRUSR | S_IRGRP | S_IROTH)
+@@ -124,10 +123,10 @@ static void setup(void)
+ 	/*
+ 	 * mount a read-only file system for EROFS test
+ 	 */
+-	SAFE_MKDIR(cleanup, MNT_POINT, DIR_MODE);
+-	SAFE_MOUNT(cleanup, device, MNT_POINT, fs_type, MS_RDONLY, NULL);
++	SAFE_MKDIR(cleanup, MNTPOINT, DIR_MODE);
++	SAFE_MOUNT(cleanup, device, MNTPOINT, fs_type, MS_RDONLY, NULL);
+ 	mount_flag = 1;
+-	dir_fd = SAFE_OPEN(cleanup, MNT_POINT, O_DIRECTORY);
++	dir_fd = SAFE_OPEN(cleanup, MNTPOINT, O_DIRECTORY);
+ 
+ 	/*
+ 	 * NOTE: the ELOOP test is written based on that the consecutive
+@@ -168,7 +167,7 @@ static void cleanup(void)
+ {
+ 	if (dir_fd > 0 && close(dir_fd) < 0)
+ 		tst_resm(TWARN | TERRNO, "close(%d) failed", dir_fd);
+-	if (mount_flag && tst_umount(MNT_POINT) < 0)
++	if (mount_flag && tst_umount(MNTPOINT) < 0)
+ 		tst_resm(TWARN | TERRNO, "umount device:%s failed", device);
+ 
+ 	if (device)
+diff --git a/testcases/kernel/syscalls/rename/rename01.c b/testcases/kernel/syscalls/rename/rename01.c
+index 159341d09..e8048682c 100644
+--- a/testcases/kernel/syscalls/rename/rename01.c
++++ b/testcases/kernel/syscalls/rename/rename01.c
+@@ -14,7 +14,6 @@
+ #include <stdio.h>
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+ 
+ static const char *old_file_name = "oldfile";
+ static const char *old_dir_name = "olddir";
+@@ -32,7 +31,7 @@ static inline void swap(const char **a, const char **b)
+ 
+ static void setup(void)
+ {
+-	SAFE_CHDIR(MNT_POINT);
++	SAFE_CHDIR(MNTPOINT);
+ 
+ 	SAFE_TOUCH(old_file_name, 0700, NULL);
+ 	SAFE_MKDIR(old_dir_name, 00770);
+@@ -78,6 +77,6 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1
+ };
+diff --git a/testcases/kernel/syscalls/rename/rename03.c b/testcases/kernel/syscalls/rename/rename03.c
+index 652fa3bdb..d8ef98b7f 100644
+--- a/testcases/kernel/syscalls/rename/rename03.c
++++ b/testcases/kernel/syscalls/rename/rename03.c
+@@ -16,11 +16,10 @@
+ #include <stdio.h>
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+-#define OLD_FILE_NAME MNT_POINT"/oldfile"
+-#define NEW_FILE_NAME MNT_POINT"/newfile"
+-#define OLD_DIR_NAME MNT_POINT"/olddir"
+-#define NEW_DIR_NAME MNT_POINT"/newdir"
++#define OLD_FILE_NAME MNTPOINT"/oldfile"
++#define NEW_FILE_NAME MNTPOINT"/newfile"
++#define OLD_DIR_NAME MNTPOINT"/olddir"
++#define NEW_DIR_NAME MNTPOINT"/newdir"
+ 
+ static struct stat old_file_st, old_dir_st, new_file_st, new_dir_st;
+ 
+@@ -68,6 +67,6 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1
+ };
+diff --git a/testcases/kernel/syscalls/rename/rename04.c b/testcases/kernel/syscalls/rename/rename04.c
+index 598ecd6fe..54363ac8a 100644
+--- a/testcases/kernel/syscalls/rename/rename04.c
++++ b/testcases/kernel/syscalls/rename/rename04.c
+@@ -15,14 +15,13 @@
+ #include <stdio.h>
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+ #define DIR1 "dir1"
+ #define DIR2 "dir2"
+ #define TEMP_FILE DIR2"/tmpfile"
+ 
+ static void setup(void)
+ {
+-	SAFE_CHDIR(MNT_POINT);
++	SAFE_CHDIR(MNTPOINT);
+ 	SAFE_MKDIR(DIR1, 00770);
+ 	SAFE_MKDIR(DIR2, 00770);
+ 	SAFE_TOUCH(TEMP_FILE, 0700, NULL);
+@@ -44,7 +43,7 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.test_all = run,
+ 	.needs_root = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.mount_device = 1,
+ 	.all_filesystems = 1
+ };
+diff --git a/testcases/kernel/syscalls/rename/rename05.c b/testcases/kernel/syscalls/rename/rename05.c
+index 7894a9214..6ed213837 100644
+--- a/testcases/kernel/syscalls/rename/rename05.c
++++ b/testcases/kernel/syscalls/rename/rename05.c
+@@ -15,13 +15,12 @@
+ #include <stdio.h>
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+ #define TEMP_FILE "tmpfile"
+ #define TEMP_DIR "tmpdir"
+ 
+ static void setup(void)
+ {
+-	SAFE_CHDIR(MNT_POINT);
++	SAFE_CHDIR(MNTPOINT);
+ 	SAFE_TOUCH(TEMP_FILE, 0700, NULL);
+ 	SAFE_MKDIR(TEMP_DIR, 00770);
+ }
+@@ -37,6 +36,6 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1
+ };
+diff --git a/testcases/kernel/syscalls/rename/rename06.c b/testcases/kernel/syscalls/rename/rename06.c
+index 82665d1c2..fdff5a8c4 100644
+--- a/testcases/kernel/syscalls/rename/rename06.c
++++ b/testcases/kernel/syscalls/rename/rename06.c
+@@ -15,13 +15,12 @@
+ #include <stdio.h>
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+ #define DIR1 "dir1"
+ #define DIR2 DIR1"/dir2"
+ 
+ static void setup(void)
+ {
+-	SAFE_CHDIR(MNT_POINT);
++	SAFE_CHDIR(MNTPOINT);
+ 	SAFE_MKDIR(DIR1, 00770);
+ 	SAFE_MKDIR(DIR2, 00770);
+ }
+@@ -37,6 +36,6 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1
+ };
+diff --git a/testcases/kernel/syscalls/rename/rename07.c b/testcases/kernel/syscalls/rename/rename07.c
+index 51338dbf4..fc851fc6f 100644
+--- a/testcases/kernel/syscalls/rename/rename07.c
++++ b/testcases/kernel/syscalls/rename/rename07.c
+@@ -16,13 +16,12 @@
+ #include <stdio.h>
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+ #define TEMP_DIR "tmpdir"
+ #define TEMP_FILE "tmpfile"
+ 
+ static void setup(void)
+ {
+-	SAFE_CHDIR(MNT_POINT);
++	SAFE_CHDIR(MNTPOINT);
+ 	SAFE_MKDIR(TEMP_DIR, 00770);
+ 	SAFE_TOUCH(TEMP_FILE, 0700, NULL);
+ }
+@@ -38,6 +37,6 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1
+ };
+diff --git a/testcases/kernel/syscalls/rename/rename08.c b/testcases/kernel/syscalls/rename/rename08.c
+index 8a9a9b344..89dac5423 100644
+--- a/testcases/kernel/syscalls/rename/rename08.c
++++ b/testcases/kernel/syscalls/rename/rename08.c
+@@ -15,13 +15,12 @@
+ #include <stdio.h>
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+ #define TEMP_FILE "tmpfile"
+ #define INVALID_PATH ((void *)-1)
+ 
+ static void setup(void)
+ {
+-	SAFE_CHDIR(MNT_POINT);
++	SAFE_CHDIR(MNTPOINT);
+ 	SAFE_TOUCH(TEMP_FILE, 0700, NULL);
+ }
+ 
+@@ -38,6 +37,6 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1
+ };
+diff --git a/testcases/kernel/syscalls/rename/rename10.c b/testcases/kernel/syscalls/rename/rename10.c
+index 5b5f79073..954f2846a 100644
+--- a/testcases/kernel/syscalls/rename/rename10.c
++++ b/testcases/kernel/syscalls/rename/rename10.c
+@@ -15,7 +15,6 @@
+ #include <stdio.h>
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+ #define TEMP_FILE "tmpfile"
+ 
+ /* Path longer than PATH_MAX: fails the syscall right away (getname() fails) */
+@@ -28,7 +27,7 @@ static char long_name[PATH_MAX] = {[0 ... PATH_MAX - 2] = 'a', [PATH_MAX - 1] =
+ 
+ static void setup(void)
+ {
+-	SAFE_CHDIR(MNT_POINT);
++	SAFE_CHDIR(MNTPOINT);
+ 	SAFE_TOUCH(TEMP_FILE, 0700, NULL);
+ }
+ 
+@@ -45,6 +44,6 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1
+ };
+diff --git a/testcases/kernel/syscalls/rename/rename12.c b/testcases/kernel/syscalls/rename/rename12.c
+index d6e1ccbe9..f6982b6d4 100644
+--- a/testcases/kernel/syscalls/rename/rename12.c
++++ b/testcases/kernel/syscalls/rename/rename12.c
+@@ -17,7 +17,6 @@
+ #include <pwd.h>
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+ #define TEMP_DIR "tempdir"
+ #define TEMP_FILE1 TEMP_DIR"/tmpfile1"
+ #define TEMP_FILE2 TEMP_DIR"/tmpfile2"
+@@ -32,7 +31,7 @@ static void setup(void)
+ 	pw = SAFE_GETPWNAM("nobody");
+ 	nobody_uid = pw->pw_uid;
+ 
+-	SAFE_CHDIR(MNT_POINT);
++	SAFE_CHDIR(MNTPOINT);
+ 	SAFE_MKDIR(TEMP_DIR, 0777);
+ 	SAFE_STAT(TEMP_DIR, &buf1);
+ 	SAFE_CHMOD(TEMP_DIR, buf1.st_mode | S_ISVTX);
+@@ -56,7 +55,7 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.test_all = run,
+ 	.needs_root = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.mount_device = 1,
+ 	.all_filesystems = 1,
+ 	.skip_filesystems = (const char *const[]){
+diff --git a/testcases/kernel/syscalls/rename/rename13.c b/testcases/kernel/syscalls/rename/rename13.c
+index 51490db75..2cccd8428 100644
+--- a/testcases/kernel/syscalls/rename/rename13.c
++++ b/testcases/kernel/syscalls/rename/rename13.c
+@@ -15,9 +15,8 @@
+ #include <stdio.h>
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+-#define TEMP_FILE1 MNT_POINT"/tmpfile1"
+-#define TEMP_FILE2 MNT_POINT"/tmpfile2"
++#define TEMP_FILE1 MNTPOINT"/tmpfile1"
++#define TEMP_FILE2 MNTPOINT"/tmpfile2"
+ 
+ static struct stat buf1, buf2;
+ 
+@@ -43,7 +42,7 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.test_all = run,
+ 	.needs_root = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.mount_device = 1,
+ 	.all_filesystems = 1,
+ 	.skip_filesystems = (const char *const[]){
+diff --git a/testcases/kernel/syscalls/rmdir/rmdir02.c b/testcases/kernel/syscalls/rmdir/rmdir02.c
+index cb0aec857..32336a4ae 100644
+--- a/testcases/kernel/syscalls/rmdir/rmdir02.c
++++ b/testcases/kernel/syscalls/rmdir/rmdir02.c
+@@ -26,7 +26,6 @@
+ #define TESTDIR2	"nosuchdir/testdir2"
+ #define TESTDIR3	"testfile2/testdir3"
+ #define TESTDIR4	"/loopdir"
+-#define MNT_POINT	"mntpoint"
+ #define TESTDIR5	"mntpoint/dir"
+ #define TESTFILE    "testdir/testfile"
+ #define TESTFILE2   "testfile2"
+@@ -45,7 +44,7 @@ static struct testcase {
+ 	{NULL, EFAULT},
+ 	{looppathname, ELOOP},
+ 	{TESTDIR5, EROFS},
+-	{MNT_POINT, EBUSY},
++	{MNTPOINT, EBUSY},
+ 	{".", EINVAL}
+ };
+ 
+@@ -104,5 +103,5 @@ static struct tst_test test = {
+ 	.test = verify_rmdir,
+ 	.needs_root = 1,
+ 	.needs_rofs = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ };
+diff --git a/testcases/kernel/syscalls/statfs/statfs01.c b/testcases/kernel/syscalls/statfs/statfs01.c
+index a2043f03d..224d76acf 100644
+--- a/testcases/kernel/syscalls/statfs/statfs01.c
++++ b/testcases/kernel/syscalls/statfs/statfs01.c
+@@ -14,8 +14,7 @@
+ 
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+-#define TEMP_FILE MNT_POINT"/testfile"
++#define TEMP_FILE MNTPOINT"/testfile"
+ #define TEXT "dummy text"
+ 
+ static void setup(void)
+@@ -38,6 +37,6 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1
+ };
+diff --git a/testcases/kernel/syscalls/statvfs/statvfs01.c b/testcases/kernel/syscalls/statvfs/statvfs01.c
+index c10c67b18..f68486354 100644
+--- a/testcases/kernel/syscalls/statvfs/statvfs01.c
++++ b/testcases/kernel/syscalls/statvfs/statvfs01.c
+@@ -16,8 +16,7 @@
+ #include <sys/statvfs.h>
+ #include "tst_test.h"
+ 
+-#define MNT_POINT "mntpoint"
+-#define TEST_PATH MNT_POINT"/testfile"
++#define TEST_PATH MNTPOINT"/testfile"
+ #define NLS_MAX_CHARSET_SIZE 6
+ 
+ static void run(void)
+@@ -58,6 +57,6 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1
+ };
+diff --git a/testcases/kernel/syscalls/statx/statx01.c b/testcases/kernel/syscalls/statx/statx01.c
+index f9c2748d2..188babb7e 100644
+--- a/testcases/kernel/syscalls/statx/statx01.c
++++ b/testcases/kernel/syscalls/statx/statx01.c
+@@ -39,8 +39,7 @@
+ #include <inttypes.h>
+ 
+ #define TESTFILE "test_file"
+-#define MNTPOINT "mntpoint/"
+-#define DEVICEFILE MNTPOINT"blk_dev"
++#define DEVICEFILE MNTPOINT"/blk_dev"
+ #define MODE 0644
+ 
+ #define SIZE 256
+diff --git a/testcases/kernel/syscalls/statx/statx04.c b/testcases/kernel/syscalls/statx/statx04.c
+index 58296bd24..1f5aa62ce 100644
+--- a/testcases/kernel/syscalls/statx/statx04.c
++++ b/testcases/kernel/syscalls/statx/statx04.c
+@@ -58,8 +58,7 @@
+ #include "lapi/stat.h"
+ #include "lapi/fcntl.h"
+ 
+-#define MOUNT_POINT "mntpoint"
+-#define TESTDIR MOUNT_POINT "/testdir"
++#define TESTDIR MNTPOINT "/testdir"
+ 
+ #define ATTR(x) {.attr = x, .name = #x}
+ 
+@@ -129,7 +128,7 @@ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.all_filesystems = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MOUNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.min_kver = "4.11",
+ 	.skip_filesystems = (const char *const[]) {
+ 		"fuse",
+diff --git a/testcases/kernel/syscalls/statx/statx05.c b/testcases/kernel/syscalls/statx/statx05.c
+index 9781b3e70..3240a63c3 100644
+--- a/testcases/kernel/syscalls/statx/statx05.c
++++ b/testcases/kernel/syscalls/statx/statx05.c
+@@ -29,7 +29,6 @@
+ #include "lapi/stat.h"
+ #include "lapi/fcntl.h"
+ 
+-#define MNTPOINT "mnt_point"
+ #define TESTDIR_FLAGGED MNTPOINT"/test_dir1"
+ #define TESTDIR_UNFLAGGED MNTPOINT"/test_dir2"
+ 
+diff --git a/testcases/kernel/syscalls/statx/statx06.c b/testcases/kernel/syscalls/statx/statx06.c
+index 1771dff49..d9854af21 100644
+--- a/testcases/kernel/syscalls/statx/statx06.c
++++ b/testcases/kernel/syscalls/statx/statx06.c
+@@ -30,8 +30,7 @@
+ #include "lapi/mount.h"
+ #include "lapi/fcntl.h"
+ 
+-#define MOUNT_POINT "mount_ext"
+-#define TEST_FILE MOUNT_POINT"/test_file.txt"
++#define TEST_FILE MNTPOINT"/test_file.txt"
+ #define SIZE 2
  
  static int fd;
-diff --git a/testcases/kernel/syscalls/preadv2/preadv203.c b/testcases/kernel/syscalls/preadv2/preadv203.c
-index c87deb674..5b57b01af 100644
---- a/testcases/kernel/syscalls/preadv2/preadv203.c
-+++ b/testcases/kernel/syscalls/preadv2/preadv203.c
-@@ -49,7 +49,6 @@
- 
- #define CHUNK_SZ 4123
- #define CHUNKS 60
--#define MNTPOINT "mntpoint"
- #define FILES 500
- 
- static int fds[FILES];
-diff --git a/testcases/kernel/syscalls/pwritev/pwritev03.c b/testcases/kernel/syscalls/pwritev/pwritev03.c
-index 1bf9d5731..c5f51795b 100644
---- a/testcases/kernel/syscalls/pwritev/pwritev03.c
-+++ b/testcases/kernel/syscalls/pwritev/pwritev03.c
-@@ -25,7 +25,6 @@
- #include "pwritev.h"
- #include "tst_safe_prw.h"
- 
--#define MNTPOINT	"mntpoint"
- #define FNAME	MNTPOINT"/file"
- 
- static char *initbuf, *preadbuf;
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl01.c b/testcases/kernel/syscalls/quotactl/quotactl01.c
-index 36ec93edc..6ca2cbcdc 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl01.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl01.c
-@@ -39,7 +39,6 @@
- 
- #define USRPATH MNTPOINT "/aquota.user"
- #define GRPPATH MNTPOINT "/aquota.group"
--#define MNTPOINT	"mntpoint"
- 
- static int32_t fmt_id;
- static int test_id;
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl06.c b/testcases/kernel/syscalls/quotactl/quotactl06.c
-index 74a098a8c..536e70300 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl06.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl06.c
-@@ -45,7 +45,6 @@
- 
- #define OPTION_INVALID 999
- #define USRPATH MNTPOINT "/aquota.user"
--#define MNTPOINT "mntpoint"
- #define TESTDIR1 MNTPOINT "/testdir1"
- #define TESTDIR2 MNTPOINT "/testdir2"
- 
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl08.c b/testcases/kernel/syscalls/quotactl/quotactl08.c
-index 0fabb51a5..dc8589586 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl08.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl08.c
-@@ -41,7 +41,6 @@
- #include "tst_test.h"
- #include "quotactl_syscall_var.h"
- 
--#define MNTPOINT	"mntpoint"
- 
- static int32_t fmt_id = QFMT_VFS_V1;
- static int test_id, mount_flag;
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl_syscall_var.h b/testcases/kernel/syscalls/quotactl/quotactl_syscall_var.h
-index 3d1a2c8f5..52752df20 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl_syscall_var.h
-+++ b/testcases/kernel/syscalls/quotactl/quotactl_syscall_var.h
-@@ -10,7 +10,6 @@
- #include "lapi/quotactl.h"
- 
- #define QUOTACTL_SYSCALL_VARIANTS 2
--#define MNTPOINT "mntpoint"
- 
- static int fd = -1;
- 
-diff --git a/testcases/kernel/syscalls/rename/rename11.c b/testcases/kernel/syscalls/rename/rename11.c
-index 17cf04c85..689bf5a2f 100644
---- a/testcases/kernel/syscalls/rename/rename11.c
-+++ b/testcases/kernel/syscalls/rename/rename11.c
-@@ -41,7 +41,6 @@
- 
- char *TCID = "rename11";
- 
--#define MNTPOINT	"mntpoint"
- #define TEST_EROFS	"mntpoint/test_erofs"
- #define TEST_NEW_EROFS	"mntpoint/new_test_erofs"
- 
-diff --git a/testcases/kernel/syscalls/renameat/renameat01.c b/testcases/kernel/syscalls/renameat/renameat01.c
-index c318a7971..4590d9d58 100644
---- a/testcases/kernel/syscalls/renameat/renameat01.c
-+++ b/testcases/kernel/syscalls/renameat/renameat01.c
-@@ -51,7 +51,6 @@
- #include "safe_macros.h"
+@@ -153,7 +152,7 @@ static struct tst_test test = {
+ 	.test = test_statx,
+ 	.min_kver = "4.11",
+ 	.needs_root = 1,
+-	.mntpoint = MOUNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.mount_device = 1,
+ 	.dev_fs_type = "ext4",
+ 	.dev_fs_opts = (const char *const []){"-I", "256", NULL},
+diff --git a/testcases/kernel/syscalls/statx/statx08.c b/testcases/kernel/syscalls/statx/statx08.c
+index 64b36986d..6f0e88f67 100644
+--- a/testcases/kernel/syscalls/statx/statx08.c
++++ b/testcases/kernel/syscalls/statx/statx08.c
+@@ -28,9 +28,8 @@
+ #include "lapi/stat.h"
  #include "lapi/fcntl.h"
  
--#define MNTPOINT "mntpoint"
- #define TESTDIR "testdir"
- #define NEW_TESTDIR "new_testdir"
- #define TESTDIR2 "/loopdir"
-diff --git a/testcases/kernel/syscalls/set_mempolicy/set_mempolicy03.c b/testcases/kernel/syscalls/set_mempolicy/set_mempolicy03.c
-index 5cfcda6d8..33f78bb57 100644
---- a/testcases/kernel/syscalls/set_mempolicy/set_mempolicy03.c
-+++ b/testcases/kernel/syscalls/set_mempolicy/set_mempolicy03.c
-@@ -17,7 +17,6 @@
- #include "tst_test.h"
- #include "tst_numa.h"
+-#define MOUNT_POINT "mntpoint"
+-#define TESTDIR_FLAGGED MOUNT_POINT"/test_dir1"
+-#define TESTDIR_UNFLAGGED MOUNT_POINT"/test_dir2"
++#define TESTDIR_FLAGGED MNTPOINT"/test_dir1"
++#define TESTDIR_UNFLAGGED MNTPOINT"/test_dir2"
  
--#define MNTPOINT "mntpoint"
- #define PAGES_ALLOCATED 16u
- 
- #ifdef HAVE_NUMA_V2
-diff --git a/testcases/kernel/syscalls/set_mempolicy/set_mempolicy04.c b/testcases/kernel/syscalls/set_mempolicy/set_mempolicy04.c
-index 2a1d2e1b9..4596686ed 100644
---- a/testcases/kernel/syscalls/set_mempolicy/set_mempolicy04.c
-+++ b/testcases/kernel/syscalls/set_mempolicy/set_mempolicy04.c
+ static int fd, clear_flags;
+ static int supp_compr = 1, supp_append = 1, supp_immutable = 1, supp_nodump = 1;
+@@ -176,6 +175,6 @@ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.all_filesystems = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MOUNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.min_kver = "4.11",
+ };
+diff --git a/testcases/kernel/syscalls/statx/statx09.c b/testcases/kernel/syscalls/statx/statx09.c
+index 6e75ff3ec..9c52b4653 100644
+--- a/testcases/kernel/syscalls/statx/statx09.c
++++ b/testcases/kernel/syscalls/statx/statx09.c
 @@ -28,7 +28,6 @@
- #include "tst_test.h"
- #include "tst_numa.h"
+ #include "lapi/fcntl.h"
+ #include <inttypes.h>
  
--#define MNTPOINT "mntpoint"
- #define FILES 10
+-#define MNTPOINT "mnt_point"
+ #define TESTFILE_FLAGGED MNTPOINT"/test_file1"
+ #define TESTFILE_UNFLAGGED MNTPOINT"/test_file2"
  
- #ifdef HAVE_NUMA_V2
-diff --git a/testcases/kernel/syscalls/setxattr/setxattr01.c b/testcases/kernel/syscalls/setxattr/setxattr01.c
-index 31f41369a..88e22467c 100644
---- a/testcases/kernel/syscalls/setxattr/setxattr01.c
-+++ b/testcases/kernel/syscalls/setxattr/setxattr01.c
-@@ -51,7 +51,6 @@
- #define XATTR_TEST_KEY "user.testkey"
- #define XATTR_TEST_VALUE "this is a test value"
- #define XATTR_TEST_VALUE_SIZE 20
--#define MNTPOINT "mntpoint"
- #define FNAME MNTPOINT"/setxattr01testfile"
- 
- static char long_key[XATTR_NAME_LEN];
-diff --git a/testcases/kernel/syscalls/statx/statx12.c b/testcases/kernel/syscalls/statx/statx12.c
-index 432f1cb77..b8ddce9e9 100644
---- a/testcases/kernel/syscalls/statx/statx12.c
-+++ b/testcases/kernel/syscalls/statx/statx12.c
-@@ -23,7 +23,6 @@
- #include "tst_test.h"
+diff --git a/testcases/kernel/syscalls/statx/statx10.c b/testcases/kernel/syscalls/statx/statx10.c
+index 42106285e..0e70023cd 100644
+--- a/testcases/kernel/syscalls/statx/statx10.c
++++ b/testcases/kernel/syscalls/statx/statx10.c
+@@ -33,7 +33,6 @@
  #include "lapi/stat.h"
+ #include "lapi/fcntl.h"
  
--#define MNTPOINT "mntpoint"
+-#define MNTPOINT "mnt_point"
  #define TESTFILE MNTPOINT"/testfile"
  
- static int dir_fd = -1, file_fd = -1;
-diff --git a/testcases/kernel/syscalls/umount/umount01.c b/testcases/kernel/syscalls/umount/umount01.c
-index 264c8f7d7..ee9b3fe7c 100644
---- a/testcases/kernel/syscalls/umount/umount01.c
-+++ b/testcases/kernel/syscalls/umount/umount01.c
-@@ -14,7 +14,6 @@
- #include <sys/mount.h>
+ static void verify_statx(void)
+diff --git a/testcases/kernel/syscalls/utime/utime01.c b/testcases/kernel/syscalls/utime/utime01.c
+index 0cc9822e7..5bde0de7e 100644
+--- a/testcases/kernel/syscalls/utime/utime01.c
++++ b/testcases/kernel/syscalls/utime/utime01.c
+@@ -18,8 +18,7 @@
  #include "tst_test.h"
- 
--#define MNTPOINT	"mntpoint"
- 
- static int mount_flag;
- 
-diff --git a/testcases/kernel/syscalls/umount/umount02.c b/testcases/kernel/syscalls/umount/umount02.c
-index acc35e8a4..61897e9bd 100644
---- a/testcases/kernel/syscalls/umount/umount02.c
-+++ b/testcases/kernel/syscalls/umount/umount02.c
-@@ -23,7 +23,6 @@
- #include <sys/mount.h>
- #include "tst_test.h"
- 
--#define MNTPOINT	"mntpoint"
- 
- static char long_path[PATH_MAX + 2];
- static int mount_flag;
-diff --git a/testcases/kernel/syscalls/umount/umount03.c b/testcases/kernel/syscalls/umount/umount03.c
-index 3260312f7..c2e57f85e 100644
---- a/testcases/kernel/syscalls/umount/umount03.c
-+++ b/testcases/kernel/syscalls/umount/umount03.c
-@@ -16,7 +16,6 @@
- #include <sys/mount.h>
- #include "tst_test.h"
- 
--#define MNTPOINT	"mntpoint"
- 
- static int mount_flag;
- 
-diff --git a/testcases/kernel/syscalls/umount2/umount2_01.c b/testcases/kernel/syscalls/umount2/umount2_01.c
-index 5696270d6..9b70ee4d2 100644
---- a/testcases/kernel/syscalls/umount2/umount2_01.c
-+++ b/testcases/kernel/syscalls/umount2/umount2_01.c
-@@ -37,7 +37,6 @@ int TST_TOTAL = 1;
- 
- #define DIR_MODE	(S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
- #define FILE_MODE	(S_IRWXU | S_IRWXG | S_IRWXO | S_ISUID | S_ISGID)
--#define MNTPOINT	"mntpoint"
- 
- static int fd;
- static int mount_flag;
-diff --git a/testcases/kernel/syscalls/umount2/umount2_02.c b/testcases/kernel/syscalls/umount2/umount2_02.c
-index f4b228f97..fd9d2426a 100644
---- a/testcases/kernel/syscalls/umount2/umount2_02.c
-+++ b/testcases/kernel/syscalls/umount2/umount2_02.c
-@@ -23,7 +23,6 @@
- #include "lapi/mount.h"
- #include "tst_test.h"
- 
--#define MNTPOINT        "mntpoint"
- #define SYMLINK	"symlink"
- 
- #define FLAG_DESC(x, y) .flag = x, .exp_errno = 0, \
-diff --git a/testcases/kernel/syscalls/utime/utime03.c b/testcases/kernel/syscalls/utime/utime03.c
-index 734f4897b..8ef8a67d6 100644
---- a/testcases/kernel/syscalls/utime/utime03.c
-+++ b/testcases/kernel/syscalls/utime/utime03.c
-@@ -26,7 +26,6 @@
- #include "tst_uid.h"
  #include "tst_clocks.h"
  
--#define MNTPOINT	"mntpoint"
- #define TEMP_FILE	MNTPOINT"/tmp_file"
- #define FILE_MODE	0766
+-#define MNT_POINT	"mntpoint"
+-#define TEMP_FILE	MNT_POINT"/tmp_file"
++#define TEMP_FILE	MNTPOINT"/tmp_file"
+ #define FILE_MODE	0444
  
-diff --git a/testcases/kernel/syscalls/utimensat/utimensat01.c b/testcases/kernel/syscalls/utimensat/utimensat01.c
-index efcb5c7a4..34ba236ac 100644
---- a/testcases/kernel/syscalls/utimensat/utimensat01.c
-+++ b/testcases/kernel/syscalls/utimensat/utimensat01.c
-@@ -21,7 +21,6 @@
- #include "time64_variants.h"
- #include "tst_timer.h"
+ static void setup(void)
+@@ -64,7 +63,7 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.setup = setup,
+ 	.needs_root = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.mount_device = 1,
+ 	.all_filesystems = 1,
+ 	.skip_filesystems = (const char *const[]) {
+diff --git a/testcases/kernel/syscalls/utime/utime02.c b/testcases/kernel/syscalls/utime/utime02.c
+index fdcd40f66..a60f40ea9 100644
+--- a/testcases/kernel/syscalls/utime/utime02.c
++++ b/testcases/kernel/syscalls/utime/utime02.c
+@@ -23,8 +23,7 @@
+ #include "tst_test.h"
+ #include "tst_clocks.h"
  
--#define MNTPOINT	"mntpoint"
- #define TEST_FILE	MNTPOINT"/test_file"
- #define TEST_DIR	MNTPOINT"/test_dir"
+-#define MNT_POINT	"mntpoint"
+-#define TEMP_FILE	MNT_POINT"/tmp_file"
++#define TEMP_FILE	MNTPOINT"/tmp_file"
+ #define FILE_MODE	0444
  
-diff --git a/testcases/kernel/syscalls/writev/writev03.c b/testcases/kernel/syscalls/writev/writev03.c
-index 3575ca449..99a29827e 100644
---- a/testcases/kernel/syscalls/writev/writev03.c
-+++ b/testcases/kernel/syscalls/writev/writev03.c
-@@ -29,7 +29,6 @@
+ #define TEST_USERNAME "nobody"
+@@ -80,7 +79,7 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.setup = setup,
+ 	.needs_root = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.mount_device = 1,
+ 	.all_filesystems = 1,
+ 	.skip_filesystems = (const char *const[]) {
+diff --git a/testcases/kernel/syscalls/utime/utime04.c b/testcases/kernel/syscalls/utime/utime04.c
+index 7b820ab06..522f4c548 100644
+--- a/testcases/kernel/syscalls/utime/utime04.c
++++ b/testcases/kernel/syscalls/utime/utime04.c
+@@ -19,8 +19,7 @@
+ #include <utime.h>
+ #include "tst_test.h"
  
- #define CHUNK_SIZE 256
- #define BUF_SIZE (2 * CHUNK_SIZE)
--#define MNTPOINT "mntpoint"
- #define TEMPFILE MNTPOINT "/test_file"
- #define MAPFILE MNTPOINT "/map_file"
+-#define MNT_POINT	"mntpoint"
+-#define TEMP_FILE	MNT_POINT"/tmp_file"
++#define TEMP_FILE	MNTPOINT"/tmp_file"
  
+ #define FILE_MODE	0444
+ #define NEW_MODF_TIME	10000
+@@ -55,7 +54,7 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1,
+ 	.skip_filesystems = (const char *const[]) {
+ 		"vfat",
+diff --git a/testcases/kernel/syscalls/utime/utime05.c b/testcases/kernel/syscalls/utime/utime05.c
+index 941a3ccee..8232c7f5a 100644
+--- a/testcases/kernel/syscalls/utime/utime05.c
++++ b/testcases/kernel/syscalls/utime/utime05.c
+@@ -22,8 +22,7 @@
+ 
+ #include "tst_test.h"
+ 
+-#define MNT_POINT	"mntpoint"
+-#define TEMP_FILE	MNT_POINT"/tmp_file"
++#define TEMP_FILE	MNTPOINT"/tmp_file"
+ 
+ #define FILE_MODE	0444
+ #define MODE_RWX	0777
+@@ -41,7 +40,7 @@ static void setup(void)
+ {
+ 	struct passwd *pw;
+ 
+-	SAFE_CHMOD(MNT_POINT, MODE_RWX);
++	SAFE_CHMOD(MNTPOINT, MODE_RWX);
+ 
+ 	pw = SAFE_GETPWNAM(TEST_USERNAME);
+ 	tst_res(TINFO, "Switching effective user ID to user: %s", pw->pw_name);
+@@ -69,7 +68,7 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1,
+ 	.skip_filesystems = (const char *const[]) {
+ 		"vfat",
+diff --git a/testcases/kernel/syscalls/utime/utime06.c b/testcases/kernel/syscalls/utime/utime06.c
+index 3ba62a316..0e8df9e03 100644
+--- a/testcases/kernel/syscalls/utime/utime06.c
++++ b/testcases/kernel/syscalls/utime/utime06.c
+@@ -24,7 +24,6 @@
+ #include "tst_test.h"
+ 
+ #define TEMP_FILE	"tmp_file"
+-#define MNT_POINT	"mntpoint"
+ #define FILE_MODE	0644
+ #define TEST_USERNAME "nobody"
+ 
+@@ -39,7 +38,7 @@ static struct tcase {
+ 	{TEMP_FILE, EACCES, NULL, "No write access"},
+ 	{"", ENOENT, NULL, "File not exist"},
+ 	{TEMP_FILE, EPERM, &times, "Not file owner"},
+-	{MNT_POINT, EROFS, NULL, "Read-only filesystem"}
++	{MNTPOINT, EROFS, NULL, "Read-only filesystem"}
+ };
+ 
+ 
+@@ -68,6 +67,6 @@ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tcases),
+ 	.needs_root = 1,
+ 	.needs_tmpdir = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ 	.needs_rofs = 1
+ };
+diff --git a/testcases/kernel/syscalls/utimes/utimes01.c b/testcases/kernel/syscalls/utimes/utimes01.c
+index 2bfc1654b..178d9f147 100644
+--- a/testcases/kernel/syscalls/utimes/utimes01.c
++++ b/testcases/kernel/syscalls/utimes/utimes01.c
+@@ -28,7 +28,6 @@
+ #include "tst_test.h"
+ #include "lapi/syscalls.h"
+ 
+-#define MNT_POINT "mntpoint"
+ #define TESTFILE1 "testfile1"
+ #define TESTFILE2 "testfile2"
+ #define TESTFILE3 "mntpoint/file"
+@@ -98,5 +97,5 @@ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tcases),
+ 	.needs_root = 1,
+ 	.needs_rofs = 1,
+-	.mntpoint = MNT_POINT,
++	.mntpoint = MNTPOINT,
+ };
 -- 
 2.43.0
 
