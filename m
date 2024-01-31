@@ -2,112 +2,110 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A66368442CC
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jan 2024 16:15:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2522B8442CF
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jan 2024 16:15:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5FC3C3CFF7D
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jan 2024 16:15:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C9DC63D122A
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jan 2024 16:15:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 266523CB492
+ by picard.linux.it (Postfix) with ESMTPS id C9EF93CE0B3
  for <ltp@lists.linux.it>; Wed, 31 Jan 2024 16:15:02 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4EEBA6019A6
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A0F001013443
  for <ltp@lists.linux.it>; Wed, 31 Jan 2024 16:15:01 +0100 (CET)
 Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8970C1FB86;
- Wed, 31 Jan 2024 15:15:00 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 124F121FFC;
+ Wed, 31 Jan 2024 15:15:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1706714100; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1706714101; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0ClPYoEK4bFUBa7k6SnD9lFD1SaV7eKmtVrefH6DHGA=;
- b=TwAfBM2OXILoTJennKq4re2ISrFXaBLrTrnm72b8S5/xwF0KMciraQ9urTo6FT0aPAGp0U
- gkhNWnYgnZh+EPjgcKbvR6+ADIflWW+yv+ZdY9nHPAtWMVhDsTVc7KshE7A+YRM3BMhFgP
- VF0QMcDjBOi6NqCk87+wSUPL4bLG27A=
+ bh=m4NyHzSypAU/xhXztmRK3JNtz4kEoUGMQzmH2fCkhWE=;
+ b=wT0FWUuyq8yVM/QPWmfPmtR63QKyvy+s3fRt+PA7xVcIlrfgim3oEjtN8cnVb1LegYxwps
+ qTROtNha9siKuxJ/Wau5VNlFQrKNyNvufq4ameUQMAbLoVsm5E0NRMCDZ5zez/Huu2ZFlu
+ 04IyuhYpQxFh3M+5Bi3gbdND+GDRyRk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1706714100;
+ s=susede2_ed25519; t=1706714101;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0ClPYoEK4bFUBa7k6SnD9lFD1SaV7eKmtVrefH6DHGA=;
- b=dfmz3u5lraoKl4B9imW+Ktbtrb6LxHY+eCRRsVtjCDeeACqSShDyHpgmOXIqeBVSmuKQsW
- SneWzQrA1Co37WDA==
+ bh=m4NyHzSypAU/xhXztmRK3JNtz4kEoUGMQzmH2fCkhWE=;
+ b=ds4Goqyf31KXGfVxZuMgU7R5tzeKIMUBVviQbRRaCkI/95MnJAuxPCC0SndvKpUYl4tgFd
+ +ZY/tCGOifmyn/Ag==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1706714100; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1706714101; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0ClPYoEK4bFUBa7k6SnD9lFD1SaV7eKmtVrefH6DHGA=;
- b=TwAfBM2OXILoTJennKq4re2ISrFXaBLrTrnm72b8S5/xwF0KMciraQ9urTo6FT0aPAGp0U
- gkhNWnYgnZh+EPjgcKbvR6+ADIflWW+yv+ZdY9nHPAtWMVhDsTVc7KshE7A+YRM3BMhFgP
- VF0QMcDjBOi6NqCk87+wSUPL4bLG27A=
+ bh=m4NyHzSypAU/xhXztmRK3JNtz4kEoUGMQzmH2fCkhWE=;
+ b=wT0FWUuyq8yVM/QPWmfPmtR63QKyvy+s3fRt+PA7xVcIlrfgim3oEjtN8cnVb1LegYxwps
+ qTROtNha9siKuxJ/Wau5VNlFQrKNyNvufq4ameUQMAbLoVsm5E0NRMCDZ5zez/Huu2ZFlu
+ 04IyuhYpQxFh3M+5Bi3gbdND+GDRyRk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1706714100;
+ s=susede2_ed25519; t=1706714101;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0ClPYoEK4bFUBa7k6SnD9lFD1SaV7eKmtVrefH6DHGA=;
- b=dfmz3u5lraoKl4B9imW+Ktbtrb6LxHY+eCRRsVtjCDeeACqSShDyHpgmOXIqeBVSmuKQsW
- SneWzQrA1Co37WDA==
+ bh=m4NyHzSypAU/xhXztmRK3JNtz4kEoUGMQzmH2fCkhWE=;
+ b=ds4Goqyf31KXGfVxZuMgU7R5tzeKIMUBVviQbRRaCkI/95MnJAuxPCC0SndvKpUYl4tgFd
+ +ZY/tCGOifmyn/Ag==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 3AD5B132FA;
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 9CDDB139F5;
  Wed, 31 Jan 2024 15:15:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id SEvuCvRjumWJeQAAn2gu4w
+ by imap2.dmz-prg2.suse.org with ESMTPSA id kN9hJPRjumWJeQAAn2gu4w
  (envelope-from <pvorel@suse.cz>); Wed, 31 Jan 2024 15:15:00 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 31 Jan 2024 16:14:44 +0100
-Message-ID: <20240131151446.936281-3-pvorel@suse.cz>
+Date: Wed, 31 Jan 2024 16:14:45 +0100
+Message-ID: <20240131151446.936281-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240131151446.936281-1-pvorel@suse.cz>
 References: <20240131151446.936281-1-pvorel@suse.cz>
 MIME-Version: 1.0
-Authentication-Results: smtp-out2.suse.de;
+Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spamd-Result: default: False [1.90 / 50.00]; ARC_NA(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
  TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
- BROKEN_CONTENT_TYPE(1.50)[]; RCPT_COUNT_FIVE(0.00)[5];
- RCVD_COUNT_THREE(0.00)[3];
+ BROKEN_CONTENT_TYPE(1.50)[]; RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- MID_CONTAINS_FROM(1.00)[];
+ RCPT_COUNT_SEVEN(0.00)[11]; MID_CONTAINS_FROM(1.00)[];
  DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
  MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
  BAYES_HAM(-3.00)[100.00%]
 X-Spam-Score: 1.90
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/4] nfsstat01.sh: Validate parsing /proc/net/rpc/nfs{, d}
+Subject: [LTP] [PATCH 3/4] nfsstat01.sh: Add support for NFSv4*
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,79 +117,90 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org
+Cc: linux-nfs@vger.kernel.org, NeilBrown <neilb@suse.de>,
+ Jeff Layton <jlayton@kernel.org>, Steve Dickson <steved@redhat.com>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>,
+ Chuck Lever <chuck.lever@oracle.com>, Anna Schumaker <anna@kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-print TWARN when parsing /proc/net/rpc/nfs{,d} fails.
-NOTE: better would be to quit with TBROK, but at this point test would
-fail to umount.
+NFSv4, NFSv4.1 and NFSv4.2 have following changes:
+* server (/proc/net/rpc/nfsd) has "remove" remove 1) in proc4ops line 2)
+  in column 31.
+* client (/proc/net/rpc/nfs) has "remove" record in column 24.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-NFS developers can ignore this patch (LTP specific).
+Dear NFS developers,
 
-@Cyril, @Martin it'd be nice to fix nfs_lib.sh so that it would support
-tst_brk. The problem could be that get_calls() is called inside $()
-therefore cd $LTPROOT (to leave mounted directory) in the cleanup
-function is done for child process). I would have to redirect to a file
-and read it afterwards, right? (similarly get_pcr10_aggregate() in
-ima_tpm.sh does).
+I hope I found correct column (reading utils/nfsstat/nfsstat.c [1] and
+comparing content of /proc/net/rpc/nfs{,d} and nfsstat output), but
+please correct me, if other value should be tested.
+
+You can test this LTP patchset with these commands:
+
+git clone -b rename-net.nfs.v2 https://github.com/pevik/ltp.git && cd ltp
+# optionally install LTP build dependencies with ./ci/YOUR_DISTRO.sh
+make autotools && ./configure
+for i in testcases/lib testcases/kernel/fs/fsstress/ testcases/network/nfs*/; do cd $i && make -j`nproc` && make install; cd -; done
+
+PATH=/opt/ltp/testcases/bin:$PATH LTP_SINGLE_FS_TYPE=ext4 nfsstat01.sh -v4.1 # -v can be 3, 4, 4.1, 4.2
 
 Kind regards,
 Petr
 
- testcases/network/nfs/nfsstat01/nfsstat01.sh | 29 ++++++++++++++------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+[1] https://git.linux-nfs.org/?p=steved/nfs-utils.git;a=blob;f=utils/nfsstat/nfsstat.c;h=ca845325f0dc02a4f005dd44b010fcadcff4d3c7;hb=HEAD
+
+ testcases/network/nfs/nfsstat01/nfsstat01.sh | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
 diff --git a/testcases/network/nfs/nfsstat01/nfsstat01.sh b/testcases/network/nfs/nfsstat01/nfsstat01.sh
-index 708750a97..4c09ae135 100755
+index 4c09ae135..c2856eff1 100755
 --- a/testcases/network/nfs/nfsstat01/nfsstat01.sh
 +++ b/testcases/network/nfs/nfsstat01/nfsstat01.sh
-@@ -11,20 +11,33 @@ get_calls()
- 	local name=$1
- 	local field=$2
- 	local nfs_f=$3
--	local calls=
--	local opt=
-+	local type="lhost"
-+	local calls opt
-+
- 	[ "$name" = "rpc" ] && opt="r" || opt="n"
-+	! tst_net_use_netns && [ "$nfs_f" != "nfs" ] && type="rhost"
+@@ -45,7 +45,9 @@ get_calls()
+ #           tracking using the 'nfsstat' command and /proc/net/rpc
+ do_test()
+ {
+-	local client_calls server_calls new_server_calls new_client_calls field
++	local client_calls server_calls new_server_calls new_client_calls
++	local client_field server_field
++	local client_v=$VERSION server_v=$VERSION
  
--	if tst_net_use_netns || [ "$nfs_f" = "nfs" ]; then
-+	if [ "$type" = "lhost" ]; then
- 		calls="$(grep $name /proc/net/rpc/$nfs_f | cut -d' ' -f$field)"
- 		ROD nfsstat -c$opt | grep -q "$calls"
--		echo "$calls"
--		return
-+	else
-+		calls=$(tst_rhost_run -c "grep $name /proc/net/rpc/$nfs_f" | \
-+			cut -d' ' -f$field)
-+		tst_rhost_run -s -c "nfsstat -s$opt" | grep -q "$calls"
-+	fi
-+
-+	if ! tst_is_int "$calls"; then
-+		if [ "$type" = "lhost" ]; then
-+			tst_res TINFO "lhost /proc/net/rpc/$nfs_f"
-+			cat /proc/net/rpc/$nfs_f >&2
-+		else
-+			tst_res TINFO "rhost /proc/net/rpc/$nfs_f"
-+			tst_rhost_run -c "cat /proc/net/rpc/$nfs_f" >&2
-+		fi
-+
-+		tst_res TWARN "get_calls: failed to get integer value (args: $@)"
- 	fi
+ 	tst_res TINFO "checking RPC calls for server/client"
  
--	calls=$(tst_rhost_run -c "grep $name /proc/net/rpc/$nfs_f" | \
--		cut -d' ' -f$field)
--	tst_rhost_run -s -c "nfsstat -s$opt" | grep -q "$calls"
- 	echo "$calls"
- }
+@@ -75,21 +77,23 @@ do_test()
  
+ 	tst_res TINFO "checking NFS calls for server/client"
+ 	case $VERSION in
+-	2) field=13
++	2) client_field=13 server_field=13
+ 	;;
+-	*) field=15
++	3) client_field=15 server_field=15
++	;;
++	4*) client_field=24 server_field=31 client_v=4 server_v=4ops
+ 	;;
+ 	esac
+ 
+-	server_calls="$(get_calls proc$VERSION $field nfsd)"
+-	client_calls="$(get_calls proc$VERSION $field nfs)"
++	server_calls="$(get_calls proc$server_v $server_field nfsd)"
++	client_calls="$(get_calls proc$client_v $client_field nfs)"
+ 	tst_res TINFO "calls $server_calls/$client_calls"
+ 
+ 	tst_res TINFO "Checking for tracking of NFS calls for server/client"
+ 	rm -f nfsstat01.tmp
+ 
+-	new_server_calls="$(get_calls proc$VERSION $field nfsd)"
+-	new_client_calls="$(get_calls proc$VERSION $field nfs)"
++	new_server_calls="$(get_calls proc$server_v $server_field nfsd)"
++	new_client_calls="$(get_calls proc$client_v $client_field nfs)"
+ 	tst_res TINFO "new calls $new_server_calls/$new_client_calls"
+ 
+ 	if [ "$new_server_calls" -le "$server_calls" ]; then
 -- 
 2.43.0
 
