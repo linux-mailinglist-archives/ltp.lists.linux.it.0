@@ -1,90 +1,89 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2ECF84E36D
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Feb 2024 15:44:57 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 65EDB84E406
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Feb 2024 16:26:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9B60E3CDEAC
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Feb 2024 15:44:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1FC7E3CF530
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Feb 2024 16:26:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 191F73CC3EC
- for <ltp@lists.linux.it>; Thu,  8 Feb 2024 15:44:51 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 536FA3CB3D1
+ for <ltp@lists.linux.it>; Thu,  8 Feb 2024 16:26:29 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1E91B14010E7
- for <ltp@lists.linux.it>; Thu,  8 Feb 2024 15:44:49 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2C927601184
+ for <ltp@lists.linux.it>; Thu,  8 Feb 2024 16:26:28 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 920E221F95;
- Thu,  8 Feb 2024 14:44:48 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DD6FF1FCF4;
+ Thu,  8 Feb 2024 15:26:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1707403488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1707405988; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MeYjsOIuyZWJkypaa+8/BznO8amu9nLucH32jby0UQU=;
- b=EZCEjFcD9Tt7D5uUn+ESmPOx0kLcxPDC1deSleqS9j+tIXrPDQZtTwRDTFOlg8qniNEgK+
- Bk5iWds1/Abe2esHEX1YEqoxwf1KKdVlJobhwHGRrPrym9K7OjPRKyyJUGT09oZTkv7TKE
- 2NNOyCEc2sJwb/iM7Ahqiv5G6nqqTxM=
+ bh=nJS8znyPUcNdO6hyp8k0LKYOmNnBNF9wegIPo9+H+y0=;
+ b=yjGUXPaosK9FFXCwQteFbfgh+IgUWMh6udy9nblRDeu7xeMwOcHk91L30cXYKZYMc1lIsE
+ cSrzmemEDviKZW1JAFB4hG9GxUoAJal7S0doJH523MHKxyOKH/n2o/gmg5Nj2iEDBiYQgH
+ fRUvXUEpG95N5Z3aEXClnbbLhGNtkCU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1707403488;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ s=susede2_ed25519; t=1707405988;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MeYjsOIuyZWJkypaa+8/BznO8amu9nLucH32jby0UQU=;
- b=NyW/zj9uIYuCOBfzZEnbOWOsAFTXQFxAYiFJ8W5yBF4AolxwsWSDEU4+yRsxkO5TT5f9JJ
- GZYxlS1+TyzVnoDQ==
+ bh=nJS8znyPUcNdO6hyp8k0LKYOmNnBNF9wegIPo9+H+y0=;
+ b=NSfnu6K3v+8SLk2FilxoGvEiKbBSerbzdIkAfqwbiFIP1f3Bz1v4w6j1x4Twkoiqo9/jfP
+ Pb7ZyCs5VYS4v3AA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1707403488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1707405987; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MeYjsOIuyZWJkypaa+8/BznO8amu9nLucH32jby0UQU=;
- b=EZCEjFcD9Tt7D5uUn+ESmPOx0kLcxPDC1deSleqS9j+tIXrPDQZtTwRDTFOlg8qniNEgK+
- Bk5iWds1/Abe2esHEX1YEqoxwf1KKdVlJobhwHGRrPrym9K7OjPRKyyJUGT09oZTkv7TKE
- 2NNOyCEc2sJwb/iM7Ahqiv5G6nqqTxM=
+ bh=nJS8znyPUcNdO6hyp8k0LKYOmNnBNF9wegIPo9+H+y0=;
+ b=FxYm9ODd5Us+Gr6FBgBusFHUzSffi7Pjq3xvuxstrY/tdU/b4G/U5f8LdwAcF8GXYnCA8m
+ WNe6ZGCnellMPKcJ/dNsJ1BwuTI26jTQKWy6Rr6lON2ZlLetfkJTtMfDm58VaObfzOSuUI
+ OSzF0V/AeJXuT5tP7Sn8dhB8dLTPT0U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1707403488;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ s=susede2_ed25519; t=1707405987;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MeYjsOIuyZWJkypaa+8/BznO8amu9nLucH32jby0UQU=;
- b=NyW/zj9uIYuCOBfzZEnbOWOsAFTXQFxAYiFJ8W5yBF4AolxwsWSDEU4+yRsxkO5TT5f9JJ
- GZYxlS1+TyzVnoDQ==
+ bh=nJS8znyPUcNdO6hyp8k0LKYOmNnBNF9wegIPo9+H+y0=;
+ b=Rpf2p4HGiMbUGibSIBCWn92HTh9Ap59uuPvxT9chFmduddt8aRrwgMa2XFxG0aCnKE1kkl
+ suDo02uCL0B7jRDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1F3BF1326D;
- Thu,  8 Feb 2024 14:44:48 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C884C13984;
+ Thu,  8 Feb 2024 15:26:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id v3UXBODoxGWTagAAD6G6ig
- (envelope-from <mdoucha@suse.cz>); Thu, 08 Feb 2024 14:44:48 +0000
-Message-ID: <1ad65f0c-430c-4805-83eb-81198303a888@suse.cz>
-Date: Thu, 8 Feb 2024 15:44:47 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id l3KWMKPyxGXadgAAD6G6ig
+ (envelope-from <mdoucha@suse.cz>); Thu, 08 Feb 2024 15:26:27 +0000
+Message-ID: <eca84387-a58a-48b4-a7e3-521fc4915efb@suse.cz>
+Date: Thu, 8 Feb 2024 16:26:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
-References: <20240131151446.936281-1-pvorel@suse.cz>
- <20240131151446.936281-5-pvorel@suse.cz>
 Content-Language: en-US
+To: Andrea Cervesato <andrea.cervesato@suse.de>, ltp@lists.linux.it
+References: <20231124123118.20441-1-andrea.cervesato@suse.de>
 From: Martin Doucha <mdoucha@suse.cz>
 Autocrypt: addr=mdoucha@suse.cz; keydata=
  xsFNBF1D6M0BEAC5BHC0NuN/v+UBXDYuwuYeAJA4leuKz0H76YBevziJKUtnzMsBA+GT9vdH
@@ -129,38 +128,29 @@ Autocrypt: addr=mdoucha@suse.cz; keydata=
  Rz4zFhW8KQ9+zrae5rL/6vwz3d/MpEeOmDm9uutE6xyzXRl/RxeFZ8P7KlACXWm7VjSyc74E
  eCNL6GOOeqzE77fDcBf4HvNGn8w7IX/FvNzmu78wzT2MDwMi8ug8T4KEKzIYUIRibe7cl0LG
  2dSj02pOT7E5/x4gKQB/OZqnTTQxJ0OL8BJKNFeSYqaMzKFKiYaArwuFkGnCknwh5A==
-In-Reply-To: <20240131151446.936281-5-pvorel@suse.cz>
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=EZCEjFcD;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="NyW/zj9u"
-X-Spamd-Result: default: False [-0.30 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- XM_UA_NO_VERSION(0.01)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- BAYES_HAM(-0.00)[31.13%]; MIME_GOOD(-0.10)[text/plain];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_THREE(0.00)[3];
+In-Reply-To: <20231124123118.20441-1-andrea.cervesato@suse.de>
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spamd-Result: default: False [-3.09 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; XM_UA_NO_VERSION(0.01)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; BAYES_HAM(-3.00)[99.99%];
+ MIME_GOOD(-0.10)[text/plain]; RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- MX_GOOD(-0.01)[]; DKIM_TRACE(0.00)[suse.cz:+];
- RCPT_COUNT_SEVEN(0.00)[10];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email];
+ RCPT_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:email];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
  MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
  MID_RHS_MATCH_FROM(0.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: -0.30
-X-Rspamd-Queue-Id: 920E221F95
 X-Spam-Level: 
-X-Spamd-Bar: /
+X-Spam-Score: -3.09
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 4/4] nfsstat01.sh: Run on all NFS versions,
- TCP and UDP
+Subject: Re: [LTP] [PATCH v1] Refactor mount01 test using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,51 +162,173 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, NeilBrown <neilb@suse.de>,
- Jeff Layton <jlayton@kernel.org>, Steve Dickson <steved@redhat.com>,
- Chuck Lever <chuck.lever@oracle.com>, Anna Schumaker <anna@kernel.org>,
- Trond Myklebust <trond.myklebust@hammerspace.com>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi,
-for the whole patchset:
+some suggestions below.
 
-Reviewed-by: Martin Doucha <mdoucha@suse.cz>
-
-On 31. 01. 24 16:14, Petr Vorel wrote:
-> Due fix in previous version we can run nfsstat01.sh on all NFS versions
-> (added NFSv4, NFSv4.1, NFSv4.2) and on TCP and UDP.
+On 24. 11. 23 13:31, Andrea Cervesato wrote:
+> From: Andrea Cervesato <andrea.cervesato@suse.com>
 > 
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 > ---
->   runtest/net.nfs | 11 ++++++++++-
->   1 file changed, 10 insertions(+), 1 deletion(-)
+>   testcases/kernel/syscalls/mount/mount01.c | 115 ++++++----------------
+>   1 file changed, 32 insertions(+), 83 deletions(-)
 > 
-> diff --git a/runtest/net.nfs b/runtest/net.nfs
-> index 463c95c37..9c1c5c63e 100644
-> --- a/runtest/net.nfs
-> +++ b/runtest/net.nfs
-> @@ -94,7 +94,16 @@ nfslock01_v40_ip6t nfslock01.sh -6 -v 4 -t tcp
->   nfslock01_v41_ip6t nfslock01.sh -6 -v 4.1 -t tcp
->   nfslock01_v42_ip6t nfslock01.sh -6 -v 4.2 -t tcp
+> diff --git a/testcases/kernel/syscalls/mount/mount01.c b/testcases/kernel/syscalls/mount/mount01.c
+> index 1d902ba89..b757d826a 100644
+> --- a/testcases/kernel/syscalls/mount/mount01.c
+> +++ b/testcases/kernel/syscalls/mount/mount01.c
+> @@ -1,99 +1,48 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>   /*
+>    * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
+> + *               Nirmala Devi Dhanasekar <nirmala.devi@wipro.com>
+> + * Copyright (C) 2023 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+> + */
+> +
+> +/*\
+> + * [Description]
+>    *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms of version 2 of the GNU General Public License as
+> - * published by the Free Software Foundation.
+
+The correct SPDX header for this test is:
+// SPDX-License-Identifier: GPL-2.0-only
+
+We cannot change the test licence without permission from the original 
+author.
+
+> - *
+> - * This program is distributed in the hope that it would be useful, but
+> - * WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+> - *
+> - * You should have received a copy of the GNU General Public License along
+> - * with this program; if not, write the Free Software Foundation, Inc.,
+> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+> - *
+> - *    AUTHOR		: Nirmala Devi Dhanasekar <nirmala.devi@wipro.com>
+> - *
+> - *    DESCRIPTION
+> - *	This is a Phase I test for the mount(2) system call.
+> - *	It is intended to provide a limited exposure of the system call.
+> + * Basic test that checks `mount` syscall works on multiple filesystems.
+>    */
 >   
-> -nfsstat01_v30 nfsstat01.sh -v 3
-> +nfsstat01_v30_ip4u nfsstat01.sh -v 3 -t udp
-> +nfsstat01_v30_ip4t nfsstat01.sh -v 3 -t tcp
-> +nfsstat01_v40_ip4t nfsstat01.sh -v 4 -t tcp
-> +nfsstat01_v41_ip4t nfsstat01.sh -v 4.1 -t tcp
-> +nfsstat01_v42_ip4t nfsstat01.sh -v 4.2 -t tcp
-> +nfsstat01_v30_ip6u nfsstat01.sh -6 -v 3 -t udp
-> +nfsstat01_v30_ip6t nfsstat01.sh -6 -v 3 -t tcp
-> +nfsstat01_v40_ip6t nfsstat01.sh -6 -v 4 -t tcp
-> +nfsstat01_v41_ip6t nfsstat01.sh -6 -v 4.1 -t tcp
-> +nfsstat01_v42_ip6t nfsstat01.sh -6 -v 4.2 -t tcp
+> -#include <errno.h>
+> +#include "tst_test.h"
+>   #include <sys/mount.h>
+> -#include <sys/types.h>
+> -#include <sys/stat.h>
+> -#include "test.h"
+> -#include "safe_macros.h"
+> -
+> -static void setup(void);
+> -static void cleanup(void);
 >   
->   fsx_v30_ip4u fsx.sh -v 3 -t udp
->   fsx_v30_ip4t fsx.sh -v 3 -t tcp
+> -char *TCID = "mount01";
+> -int TST_TOTAL = 1;
+> -
+> -#define DIR_MODE (S_IRWXU | S_IRUSR | S_IXUSR | S_IRGRP | S_IXGRP)
+>   #define MNTPOINT "mntpoint"
+>   
+> -static const char *device;
+> -static const char *fs_type;
+> -
+> -int main(int ac, char **av)
+> +static void cleanup(void)
+>   {
+> -	int lc;
+> -
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> -
+> -	setup();
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -
+> -		tst_count = 0;
+> -
+> -		TEST(mount(device, MNTPOINT, fs_type, 0, NULL));
+> -
+> -		if (TEST_RETURN != 0) {
+> -			tst_resm(TFAIL | TTERRNO, "mount(2) failed");
+> -		} else {
+> -			tst_resm(TPASS, "mount(2) passed ");
+> -			TEST(tst_umount(MNTPOINT));
+> -			if (TEST_RETURN != 0) {
+> -				tst_brkm(TBROK | TTERRNO, cleanup,
+> -					 "umount(2) failed");
+> -			}
+> -		}
+> -	}
+> -
+> -	cleanup();
+> -	tst_exit();
+> +	if (tst_is_mounted(MNTPOINT))
+> +		SAFE_UMOUNT(MNTPOINT);
+>   }
+>   
+> -static void setup(void)
+> +static void run(void)
+>   {
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> -
+> -	tst_require_root();
+> -
+> -	tst_tmpdir();
+> -
+> -	fs_type = tst_dev_fs_type();
+> -	device = tst_acquire_device(cleanup);
+> -
+> -	if (!device)
+> -		tst_brkm(TCONF, cleanup, "Failed to obtain block device");
+> +	TST_EXP_PASS(mount(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, NULL));
+>   
+> -	tst_mkfs(cleanup, device, fs_type, NULL, NULL);
+> -
+> -	SAFE_MKDIR(cleanup, MNTPOINT, DIR_MODE);
+> -
+> -	TEST_PAUSE;
+> +	if (tst_is_mounted(MNTPOINT))
+> +		SAFE_UMOUNT(MNTPOINT);
+
+Maybe you could also add tst_res(TFAIL) here if tst_is_mounted() returns 
+false? Then we'd have coverage that the filesystem was mounted to the 
+right directory.
+
+>   }
+>   
+> -static void cleanup(void)
+> -{
+> -	if (device)
+> -		tst_release_device(device);
+> -
+> -	tst_rmdir();
+> -}
+> +static struct tst_test test = {
+> +	.cleanup = cleanup,
+> +	.test_all = run,
+> +	.needs_root = 1,
+> +	.needs_device = 1,
+
+.needs_device is automatically forced by .all_filesystems
+
+> +	.needs_tmpdir = 1,
+> +	.format_device = 1,
+> +	.all_filesystems = 1,
+> +	.mntpoint = MNTPOINT,
+> +	.skip_filesystems = (const char *const []){
+> +		"exfat",
+> +		"vfat",
+> +		"ntfs",
+> +		NULL
+> +	},
+> +};
 
 -- 
 Martin Doucha   mdoucha@suse.cz
