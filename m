@@ -2,20 +2,20 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F29884DC38
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Feb 2024 10:00:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30A9184DC2B
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Feb 2024 09:59:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 675013CF55A
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Feb 2024 10:00:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DBAD33CF542
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Feb 2024 09:59:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 564723CF542
- for <ltp@lists.linux.it>; Thu,  8 Feb 2024 09:59:48 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 1D5213CC4AD
+ for <ltp@lists.linux.it>; Thu,  8 Feb 2024 09:59:40 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
@@ -24,87 +24,88 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 802421400998
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6CA6711F6454
  for <ltp@lists.linux.it>; Thu,  8 Feb 2024 09:59:39 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8305622389;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A184C22393;
  Thu,  8 Feb 2024 08:59:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1707382778; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Yy6TdfeN5UJ7G/BuI8eAAetwGU03TNC6jPVYJ31S0lA=;
- b=zFc5Q+FXYbugvlgbo43p60PQoUMT0/vQrjB5sAnts1sxdVzziF8la1mKH9TBS9O3PZu4AS
- fsVHqLRIJMVQeLKLxf2XZjNjd7siTYNSXuFQ9D2SaQGjHixgQYqOq7vOC6w3uJkPAdw31Z
- tvAdBwxpY0KvqLj5xbM2X4bhJTBIKKc=
+ bh=QITzb9SqfWSC13RYFXcsCSPagD2U0xIOctHBkxOWJag=;
+ b=yslu13hbjwwSI4v5ib62aVlwbfZ4Y6dJgIWbc2bq/dDHjjBrlNRb1fApXJAjYSQPfEv4Re
+ Geg1XzGo87a8iA9850KVvBtdUq846ct1+lUmMib6PxN9SCYKSmA9o8hSj+yvKXoq74akJQ
+ ceN0RsyT94t+n+KIpFuHCWlaycQ5mF4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1707382778;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Yy6TdfeN5UJ7G/BuI8eAAetwGU03TNC6jPVYJ31S0lA=;
- b=V85CudOtBB0p9IjRP1mhBLuHAf03tMZAtHXpaIeMc9NfBRbkngWWmZrB/JOnECQ8QKmijP
- 1G3thyM80zfH5kAw==
+ bh=QITzb9SqfWSC13RYFXcsCSPagD2U0xIOctHBkxOWJag=;
+ b=oBfRPWmCu3GHK6MnHU/K+haJ9gx8BgDcHIPjj+1WXR751l99WsBe1JJFFIEjky/ht/i867
+ 5sM4cN8g3nwn2/CQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1707382778; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Yy6TdfeN5UJ7G/BuI8eAAetwGU03TNC6jPVYJ31S0lA=;
- b=zFc5Q+FXYbugvlgbo43p60PQoUMT0/vQrjB5sAnts1sxdVzziF8la1mKH9TBS9O3PZu4AS
- fsVHqLRIJMVQeLKLxf2XZjNjd7siTYNSXuFQ9D2SaQGjHixgQYqOq7vOC6w3uJkPAdw31Z
- tvAdBwxpY0KvqLj5xbM2X4bhJTBIKKc=
+ bh=QITzb9SqfWSC13RYFXcsCSPagD2U0xIOctHBkxOWJag=;
+ b=yslu13hbjwwSI4v5ib62aVlwbfZ4Y6dJgIWbc2bq/dDHjjBrlNRb1fApXJAjYSQPfEv4Re
+ Geg1XzGo87a8iA9850KVvBtdUq846ct1+lUmMib6PxN9SCYKSmA9o8hSj+yvKXoq74akJQ
+ ceN0RsyT94t+n+KIpFuHCWlaycQ5mF4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1707382778;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Yy6TdfeN5UJ7G/BuI8eAAetwGU03TNC6jPVYJ31S0lA=;
- b=V85CudOtBB0p9IjRP1mhBLuHAf03tMZAtHXpaIeMc9NfBRbkngWWmZrB/JOnECQ8QKmijP
- 1G3thyM80zfH5kAw==
+ bh=QITzb9SqfWSC13RYFXcsCSPagD2U0xIOctHBkxOWJag=;
+ b=oBfRPWmCu3GHK6MnHU/K+haJ9gx8BgDcHIPjj+1WXR751l99WsBe1JJFFIEjky/ht/i867
+ 5sM4cN8g3nwn2/CQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 30CEF13A29;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5870D13984;
  Thu,  8 Feb 2024 08:59:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id GG8TC/qXxGUoDgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id CB12FPqXxGUoDgAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 08 Feb 2024 08:59:38 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  8 Feb 2024 09:59:29 +0100
-Message-ID: <20240208085932.182167-4-pvorel@suse.cz>
+Date: Thu,  8 Feb 2024 09:59:30 +0100
+Message-ID: <20240208085932.182167-5-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240208085932.182167-1-pvorel@suse.cz>
 References: <20240208085932.182167-1-pvorel@suse.cz>
 MIME-Version: 1.0
 Authentication-Results: smtp-out1.suse.de;
 	none
-X-Spamd-Result: default: False [10.00 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; BAYES_SPAM(5.10)[100.00%];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
- R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_GOOD(-0.10)[text/plain]; BROKEN_CONTENT_TYPE(1.50)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_THREE(0.00)[3];
+X-Spam-Score: 3.86
+X-Spamd-Result: default: False [3.86 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; R_MISSING_CHARSET(2.50)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ BROKEN_CONTENT_TYPE(1.50)[]; TO_DN_SOME(0.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- MID_CONTAINS_FROM(1.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: 10.00
+ NEURAL_HAM_SHORT(-0.04)[-0.186]; MID_CONTAINS_FROM(1.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ BAYES_HAM(-0.00)[15.85%]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 3/4] network: Remove telnet01.sh test
+Subject: [LTP] [PATCH 4/4] network: Remove clockdiff01.sh test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,167 +123,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-login via telnet has been obsolete for ages. Testing it nowadays does
-not make sense, remove it.
+clockdiff is not much relevant nowadays, thus remove it.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
  runtest/net.tcp_cmds                          |  1 -
- testcases/network/tcp_cmds/telnet/Makefile    | 29 ------
- testcases/network/tcp_cmds/telnet/telnet01.sh | 96 -------------------
- 3 files changed, 126 deletions(-)
- delete mode 100644 testcases/network/tcp_cmds/telnet/Makefile
- delete mode 100755 testcases/network/tcp_cmds/telnet/telnet01.sh
+ testcases/network/tcp_cmds/clockdiff/Makefile | 10 -------
+ .../network/tcp_cmds/clockdiff/clockdiff01.sh | 30 -------------------
+ 3 files changed, 41 deletions(-)
+ delete mode 100644 testcases/network/tcp_cmds/clockdiff/Makefile
+ delete mode 100755 testcases/network/tcp_cmds/clockdiff/clockdiff01.sh
 
 diff --git a/runtest/net.tcp_cmds b/runtest/net.tcp_cmds
-index 83f7c5b78..d6ba49e07 100644
+index d6ba49e07..248c7371d 100644
 --- a/runtest/net.tcp_cmds
 +++ b/runtest/net.tcp_cmds
-@@ -13,7 +13,6 @@ ping02 ping02.sh
- sendfile sendfile01.sh
- tc01 tc01.sh
- tcpdump tcpdump01.sh
--telnet telnet01.sh
- iptables iptables01.sh
- nft nft01.sh
- dhcpd dhcpd_tests.sh
-diff --git a/testcases/network/tcp_cmds/telnet/Makefile b/testcases/network/tcp_cmds/telnet/Makefile
+@@ -5,7 +5,6 @@
+ ipneigh01_arp ipneigh01.sh -c arp
+ ipneigh01_ip ipneigh01.sh -c ip
+ arping01 arping01.sh
+-clockdiff01 clockdiff01.sh
+ ftp ftp01.sh
+ netstat netstat01.sh
+ ping01 ping01.sh
+diff --git a/testcases/network/tcp_cmds/clockdiff/Makefile b/testcases/network/tcp_cmds/clockdiff/Makefile
 deleted file mode 100644
-index 90e879de2..000000000
---- a/testcases/network/tcp_cmds/telnet/Makefile
+index d2e72519a..000000000
+--- a/testcases/network/tcp_cmds/clockdiff/Makefile
 +++ /dev/null
-@@ -1,29 +0,0 @@
--#
--#    network/tcp_cmds/telnet testcases Makefile.
--#
--#    Copyright (C) 2009, Cisco Systems Inc.
--#
--#    This program is free software; you can redistribute it and/or modify
--#    it under the terms of the GNU General Public License as published by
--#    the Free Software Foundation; either version 2 of the License, or
--#    (at your option) any later version.
--#
--#    This program is distributed in the hope that it will be useful,
--#    but WITHOUT ANY WARRANTY; without even the implied warranty of
--#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--#    GNU General Public License for more details.
--#
--#    You should have received a copy of the GNU General Public License along
--#    with this program; if not, write to the Free Software Foundation, Inc.,
--#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
--#
--# Ngie Cooper, July 2009
--#
+@@ -1,10 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-or-later
+-# Copyright (c) 2016-2019 Oracle and/or its affiliates. All Rights Reserved.
 -
 -top_srcdir		?= ../../../..
 -
 -include $(top_srcdir)/include/mk/env_pre.mk
 -
--INSTALL_TARGETS		:= telnet01.sh
+-INSTALL_TARGETS		:= clockdiff01.sh
 -
 -include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/network/tcp_cmds/telnet/telnet01.sh b/testcases/network/tcp_cmds/telnet/telnet01.sh
+diff --git a/testcases/network/tcp_cmds/clockdiff/clockdiff01.sh b/testcases/network/tcp_cmds/clockdiff/clockdiff01.sh
 deleted file mode 100755
-index 93343b995..000000000
---- a/testcases/network/tcp_cmds/telnet/telnet01.sh
+index 4058fbe11..000000000
+--- a/testcases/network/tcp_cmds/clockdiff/clockdiff01.sh
 +++ /dev/null
-@@ -1,96 +0,0 @@
+@@ -1,30 +0,0 @@
 -#!/bin/sh
--#   Copyright (c) International Business Machines  Corp., 2000
--#
--#   This program is free software;  you can redistribute it and/or modify
--#   it under the terms of the GNU General Public License as published by
--#   the Free Software Foundation; either version 2 of the License, or
--#   (at your option) any later version.
--#
--#   This program is distributed in the hope that it will be useful,
--#   but WITHOUT ANY WARRANTY;  without even the implied warranty of
--#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
--#   the GNU General Public License for more details.
--#
--#   You should have received a copy of the GNU General Public License
--#   along with this program;  if not, write to the Free Software
--#   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
--#
--#    03/01 Robbie Williamson (robbiew@us.ibm.com)
+-# SPDX-License-Identifier: GPL-2.0-or-later
+-# Copyright (c) 2016-2019 Oracle and/or its affiliates. All Rights Reserved.
+-# Author: Alexey Kodanev <alexey.kodanev@oracle.com>
 -
--TCID="telnet01"
--TST_TOTAL=1
+-TST_TESTFUNC="do_test"
+-TST_NEEDS_ROOT=1
+-TST_NEEDS_CMDS="cut clockdiff"
 -
--TST_USE_LEGACY_API=1
--
--setup()
--{
--	tst_require_cmds telnet expect
--
--	if [ -z $RUSER ]; then
--		RUSER=root
--	fi
--
--	if [ -z $PASSWD ]; then
--		tst_brkm TCONF "Please set PASSWD for $RUSER."
--	fi
--
--	if [ -z $RHOST ]; then
--		tst_brkm TCONF "Please set RHOST."
--	fi
--
--	if [ -z $LOOPCOUNT ]; then
--		LOOPCOUNT=25
--	fi
--}
 -
 -do_test()
 -{
--	tst_resm TINFO "Starting"
+-	tst_res TINFO "check time delta for $(tst_ipaddr)"
 -
--	for i in $(seq 1 ${LOOPCOUNT})
--	do
--		telnet_test || return 1
--	done
--}
+-	local output=$(clockdiff $(tst_ipaddr))
 -
--telnet_test()
--{
--	tst_resm TINFO "login with telnet($i/$LOOPCOUNT)"
--
--	expect -c "
--		spawn telnet $RHOST
--
--		expect -re \"login:\"
--		send \"$RUSER\r\"
--
--		expect -re \"Password:\"
--		send \"$PASSWD\r\"
--
--		expect {
--			\"incorrect\" {
--				exit 1
--			} \"$RUSER@\" {
--				send \"LC_ALL=C ls -l /etc/hosts | \\
--				       wc -w > $RUSER.$RHOST\rexit\r\";
--				exp_continue}
--		}
--
--	" > /dev/null || return 1
--
--	tst_resm TINFO "checking telnet status($i/$LOOPCOUNT)"
--	tst_rhost_run -u $RUSER -c "grep -q 9 $RUSER.$RHOST" || return 1
--	tst_rhost_run -u $RUSER -c "rm -f $RUSER.$RHOST"
+-	if [ $? -ne 0 ]; then
+-		tst_res TFAIL "clockdiff failed to get delta"
+-	else
+-		delta=$(echo "$output" | cut -d' ' -f2,3)
+-		if [ "$delta" = "0 0" ]; then
+-			tst_res TPASS "delta is 0 as expected"
+-		else
+-			tst_res TFAIL "not expected data received: '$output'"
+-		fi
+-	fi
 -}
 -
 -. tst_net.sh
--
--setup
--
--do_test
--if [ $? -ne 0 ]; then
--	tst_resm TFAIL "Test $TCID failed."
--else
--	tst_resm TPASS "Test $TCID succeeded."
--fi
--
--tst_exit
+-tst_run
 -- 
 2.43.0
 
