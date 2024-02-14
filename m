@@ -2,69 +2,104 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C60EA85368A
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Feb 2024 17:48:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18764854F77
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Feb 2024 18:10:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 948B73D07EC
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Feb 2024 17:48:58 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C47C53D0514
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Feb 2024 18:10:21 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 603DE3CCAB2
- for <ltp@lists.linux.it>; Tue, 13 Feb 2024 17:48:52 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id EF0AC3CF3BB
+ for <ltp@lists.linux.it>; Wed, 14 Feb 2024 18:10:02 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 203141400433
- for <ltp@lists.linux.it>; Tue, 13 Feb 2024 17:48:50 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:98])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 14B79600748
+ for <ltp@lists.linux.it>; Wed, 14 Feb 2024 18:10:01 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AC2B121EA7;
- Tue, 13 Feb 2024 16:48:49 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 292D01FD18;
+ Wed, 14 Feb 2024 17:10:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1707930600; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=GQbfkBj84iMveEDcTj3JAPbH6YIOxpzBF4D4agNlIxk=;
+ b=J9aAlcWqaYzI4ePo1pYAJtXV2rJc6NYwfhrW+szf4/WaYu7Ns1zEfxewRCNdU4yMc28FcA
+ uyOpH6tD4wlsCKA7sPPwu+q5B2FSI8PMD+FP2Lwr7pMvA4cl5HbjhIgX5xI8/4x/yuTmGY
+ 5sncHGhp2tAPupzKJZYMuGT+N9jQpho=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1707930600;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=GQbfkBj84iMveEDcTj3JAPbH6YIOxpzBF4D4agNlIxk=;
+ b=KvDaoWSTxtKFNFxRctdjIP9dLq8Q1rK6yGoP7P7uQvMUsBE7B8DWJL7soZgog9YeiDubSR
+ XzpOkTk+VOwrhDBg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1707930600; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=GQbfkBj84iMveEDcTj3JAPbH6YIOxpzBF4D4agNlIxk=;
+ b=J9aAlcWqaYzI4ePo1pYAJtXV2rJc6NYwfhrW+szf4/WaYu7Ns1zEfxewRCNdU4yMc28FcA
+ uyOpH6tD4wlsCKA7sPPwu+q5B2FSI8PMD+FP2Lwr7pMvA4cl5HbjhIgX5xI8/4x/yuTmGY
+ 5sncHGhp2tAPupzKJZYMuGT+N9jQpho=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1707930600;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=GQbfkBj84iMveEDcTj3JAPbH6YIOxpzBF4D4agNlIxk=;
+ b=KvDaoWSTxtKFNFxRctdjIP9dLq8Q1rK6yGoP7P7uQvMUsBE7B8DWJL7soZgog9YeiDubSR
+ XzpOkTk+VOwrhDBg==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 5539E1329E;
- Tue, 13 Feb 2024 16:48:49 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 83FEF13A0B;
+ Wed, 14 Feb 2024 17:09:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id m3lxEHGdy2U5EAAAn2gu4w
- (envelope-from <pvorel@suse.cz>); Tue, 13 Feb 2024 16:48:49 +0000
-Date: Tue, 13 Feb 2024 17:48:47 +0100
+ by imap2.dmz-prg2.suse.org with ESMTPSA id ReqAHefzzGUnNQAAn2gu4w
+ (envelope-from <pvorel@suse.cz>); Wed, 14 Feb 2024 17:09:59 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20240213164847.GA699750@pevik>
-References: <20240213140233.14445-1-mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Wed, 14 Feb 2024 18:09:46 +0100
+Message-ID: <20240214170949.793338-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240213140233.14445-1-mdoucha@suse.cz>
-Authentication-Results: smtp-out1.suse.de;
+Authentication-Results: smtp-out2.suse.de;
 	none
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	 REPLY(-4.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: AC2B121EA7
 X-Spam-Level: 
-X-Spam-Score: -4.00
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Score: -3.30
+X-Spamd-Result: default: False [-3.30 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_THREE(0.00)[3];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; RCPT_COUNT_SEVEN(0.00)[7];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ BAYES_HAM(-3.00)[100.00%]; ARC_NA(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MIME_GOOD(-0.10)[text/plain];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ MID_CONTAINS_FROM(1.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[]
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] Add test for file truncation over NFS
+Subject: [LTP] [PATCH 0/3] License cleanup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,62 +111,125 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
+Petr Vorel (3):
+  tree: Fix license GPL-2.0-or-later
+  tree: Fix SPDX license GPL-2.0-only
+  tree: Relicense GPL-2.0 (v2 only) => GPL-2.0-or-later
 
-Merged, thank you!
+ include/old/test.h                                              | 2 +-
+ lib/tst_fs_type.c                                               | 2 +-
+ lib/tst_process_state.c                                         | 2 +-
+ lib/tst_timer.c                                                 | 2 +-
+ scripts/checkpatch.pl                                           | 2 +-
+ testcases/kernel/containers/mountns/mountns01.c                 | 2 +-
+ testcases/kernel/containers/mountns/mountns02.c                 | 2 +-
+ testcases/kernel/containers/mountns/mountns03.c                 | 2 +-
+ testcases/kernel/containers/mountns/mountns04.c                 | 2 +-
+ testcases/kernel/containers/mqns/mqns_02.c                      | 2 +-
+ testcases/kernel/containers/netns/netns_netlink.c               | 2 +-
+ testcases/kernel/containers/pidns/pidns03.c                     | 2 +-
+ testcases/kernel/containers/pidns/pidns04.c                     | 2 +-
+ testcases/kernel/containers/pidns/pidns06.c                     | 2 +-
+ testcases/kernel/containers/pidns/pidns10.c                     | 2 +-
+ testcases/kernel/controllers/io/io_control01.c                  | 2 +-
+ testcases/kernel/controllers/memcg/memcontrol01.c               | 2 +-
+ testcases/kernel/controllers/memcg/memcontrol02.c               | 2 +-
+ testcases/kernel/controllers/memcg/memcontrol03.c               | 2 +-
+ testcases/kernel/controllers/memcg/memcontrol04.c               | 2 +-
+ testcases/kernel/controllers/memcg/memcontrol_common.h          | 2 +-
+ testcases/kernel/io/ltp-aiodio/aio-stress.c                     | 2 +-
+ testcases/kernel/security/dirtypipe/dirtypipe.c                 | 2 +-
+ testcases/kernel/syscalls/adjtimex/adjtimex01.c                 | 2 +-
+ testcases/kernel/syscalls/adjtimex/adjtimex02.c                 | 2 +-
+ testcases/kernel/syscalls/capset/capset01.c                     | 2 +-
+ testcases/kernel/syscalls/chown/chown01.c                       | 2 +-
+ testcases/kernel/syscalls/clock_gettime/leapsec01.c             | 2 +-
+ testcases/kernel/syscalls/close_range/close_range01.c           | 2 +-
+ testcases/kernel/syscalls/close_range/close_range02.c           | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify01.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify02.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify03.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify04.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify05.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify06.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify08.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify10.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify12.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify13.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify14.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify23.c                 | 2 +-
+ testcases/kernel/syscalls/fanotify/fanotify_child.c             | 2 +-
+ testcases/kernel/syscalls/fcntl/fcntl30.c                       | 2 +-
+ testcases/kernel/syscalls/fcntl/fcntl33.c                       | 2 +-
+ testcases/kernel/syscalls/fcntl/fcntl38.c                       | 2 +-
+ testcases/kernel/syscalls/fcntl/fcntl39.c                       | 2 +-
+ testcases/kernel/syscalls/fork/fork04.c                         | 2 +-
+ testcases/kernel/syscalls/fork/fork13.c                         | 2 +-
+ testcases/kernel/syscalls/fstatfs/fstatfs01.c                   | 2 +-
+ testcases/kernel/syscalls/getgid/getgid01.c                     | 2 +-
+ testcases/kernel/syscalls/gethostid/gethostid01.c               | 2 +-
+ testcases/kernel/syscalls/gethostname/gethostname01.c           | 2 +-
+ testcases/kernel/syscalls/getpagesize/getpagesize01.c           | 2 +-
+ testcases/kernel/syscalls/getpgrp/getpgrp01.c                   | 2 +-
+ testcases/kernel/syscalls/getppid/getppid01.c                   | 2 +-
+ testcases/kernel/syscalls/getrusage/getrusage01.c               | 2 +-
+ testcases/kernel/syscalls/getrusage/getrusage03.c               | 2 +-
+ testcases/kernel/syscalls/getrusage/getrusage03.h               | 2 +-
+ testcases/kernel/syscalls/getrusage/getrusage03_child.c         | 2 +-
+ testcases/kernel/syscalls/inotify/inotify04.c                   | 2 +-
+ testcases/kernel/syscalls/inotify/inotify10.c                   | 2 +-
+ testcases/kernel/syscalls/lstat/lstat01.c                       | 2 +-
+ testcases/kernel/syscalls/mknod/mknod01.c                       | 2 +-
+ testcases/kernel/syscalls/mlock/mlock03.c                       | 2 +-
+ testcases/kernel/syscalls/mlock/mlock04.c                       | 2 +-
+ testcases/kernel/syscalls/mount/mount03.c                       | 2 +-
+ testcases/kernel/syscalls/mount/mount03_suid_child.c            | 2 +-
+ testcases/kernel/syscalls/munlock/munlock01.c                   | 2 +-
+ testcases/kernel/syscalls/munlock/munlock02.c                   | 2 +-
+ testcases/kernel/syscalls/ptrace/ptrace01.c                     | 2 +-
+ testcases/kernel/syscalls/ptrace/ptrace08.c                     | 2 +-
+ testcases/kernel/syscalls/readahead/readahead01.c               | 2 +-
+ testcases/kernel/syscalls/readahead/readahead02.c               | 2 +-
+ testcases/kernel/syscalls/reboot/reboot01.c                     | 2 +-
+ testcases/kernel/syscalls/reboot/reboot02.c                     | 2 +-
+ testcases/kernel/syscalls/remap_file_pages/remap_file_pages02.c | 2 +-
+ testcases/kernel/syscalls/sbrk/sbrk01.c                         | 2 +-
+ testcases/kernel/syscalls/sbrk/sbrk02.c                         | 2 +-
+ testcases/kernel/syscalls/setdomainname/setdomainname01.c       | 2 +-
+ testcases/kernel/syscalls/setdomainname/setdomainname02.c       | 2 +-
+ testcases/kernel/syscalls/setdomainname/setdomainname03.c       | 2 +-
+ testcases/kernel/syscalls/setgid/setgid01.c                     | 2 +-
+ testcases/kernel/syscalls/setregid/setregid01.c                 | 2 +-
+ testcases/kernel/syscalls/setregid/setregid02.c                 | 2 +-
+ testcases/kernel/syscalls/setregid/setregid03.c                 | 2 +-
+ testcases/kernel/syscalls/setregid/setregid04.c                 | 2 +-
+ testcases/kernel/syscalls/setresuid/setresuid05.c               | 2 +-
+ testcases/kernel/syscalls/setreuid/setreuid01.c                 | 2 +-
+ testcases/kernel/syscalls/setxattr/setxattr03.c                 | 2 +-
+ testcases/kernel/syscalls/sigpending/sigpending02.c             | 2 +-
+ testcases/kernel/syscalls/statfs/statfs01.c                     | 2 +-
+ testcases/kernel/syscalls/statvfs/statvfs01.c                   | 2 +-
+ testcases/kernel/syscalls/statvfs/statvfs02.c                   | 2 +-
+ testcases/kernel/syscalls/timer_create/timer_create01.c         | 2 +-
+ testcases/kernel/syscalls/timer_create/timer_create02.c         | 2 +-
+ testcases/kernel/syscalls/timer_delete/timer_delete01.c         | 2 +-
+ testcases/kernel/syscalls/timer_delete/timer_delete02.c         | 2 +-
+ testcases/kernel/syscalls/timer_settime/timer_settime01.c       | 2 +-
+ testcases/kernel/syscalls/timer_settime/timer_settime02.c       | 2 +-
+ testcases/kernel/syscalls/ustat/ustat01.c                       | 2 +-
+ testcases/kernel/syscalls/ustat/ustat02.c                       | 2 +-
+ testcases/kernel/syscalls/wait/wait02.c                         | 2 +-
+ .../open_posix_testsuite/conformance/interfaces/shm_open/37-1.c | 2 +-
+ 104 files changed, 104 insertions(+), 104 deletions(-)
 
-> Some older kernels have a bug in NFS where the client caches that
-> a file does not exist after unsuccessful access to it and then
-> does not pass O_TRUNC flag to the server even though the file may
-> have been created by another client in the mean time. This may result
-> in new data being merged with old file contents instead of replacing
-> them.
-...
+-- 
+2.43.0
 
-> +++ b/runtest/net.nfs
-> @@ -83,6 +83,17 @@ nfs08_v40_ip6t nfs08.sh -6 -v 4 -t tcp
->  nfs08_v41_ip6t nfs08.sh -6 -v 4.1 -t tcp
->  nfs08_v42_ip6t nfs08.sh -6 -v 4.2 -t tcp
-
-> +nfs09_v30_ip4u nfs09.sh -v 3 -t udp
-> +nfs09_v30_ip4t nfs09.sh -v 3 -t tcp
-
-For a record, this is the test which fails. And NFSv3 is affected on all
-kernels, including latest stable 6.7.4 and 6.8.0-rc1 (both openSUSE packages).
-
-> +nfs09_v40_ip4t nfs09.sh -v 4 -t tcp
-> +nfs09_v41_ip4t nfs09.sh -v 4.1 -t tcp
-> +nfs09_v42_ip4t nfs09.sh -v 4.2 -t tcp
-> +nfs09_v30_ip6u nfs09.sh -6 -v 3 -t udp
-> +nfs09_v30_ip6t nfs09.sh -6 -v 3 -t tcp
-> +nfs09_v40_ip6t nfs09.sh -6 -v 4 -t tcp
-> +nfs09_v41_ip6t nfs09.sh -6 -v 4.1 -t tcp
-> +nfs09_v42_ip6t nfs09.sh -6 -v 4.2 -t tcp
-...
-> +++ b/testcases/network/nfs/nfs_stress/nfs09.sh
-...
-> +do_test()
-> +{
-> +	local local_file="testfile"
-> +	local remote_file="$(nfs_get_remote_path)/$local_file"
-> +	local testmsg='File truncated'
-> +	local data
-> +
-> +	EXPECT_FAIL "ls -l '$local_file'"
-> +	tst_rhost_run -c "echo -n 'File rewritten not' >'$remote_file'"
-> +	echo -n "$testmsg" >"$local_file"
-echo is considered unportable (printf is preferred), but "echo -n" should be
-hopefully safe nowadays.
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
