@@ -1,115 +1,160 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC803854F78
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Feb 2024 18:10:41 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A0B68550CD
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Feb 2024 18:52:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8FF623D052A
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Feb 2024 18:10:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E01033CF3D3
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Feb 2024 18:52:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 79AE23D0519
- for <ltp@lists.linux.it>; Wed, 14 Feb 2024 18:10:05 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id A64483CF344
+ for <ltp@lists.linux.it>; Wed, 14 Feb 2024 18:52:10 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 81C1120D3AE
- for <ltp@lists.linux.it>; Wed, 14 Feb 2024 18:10:04 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 70922140B039
+ for <ltp@lists.linux.it>; Wed, 14 Feb 2024 18:52:09 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A1E6E1FD29;
- Wed, 14 Feb 2024 17:10:02 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5E7162207A;
+ Wed, 14 Feb 2024 17:52:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1707930603; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ t=1707933128; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vfc8JYCVIA5Ty0h+MahVUDli7DlWP1yuP/avvnuP0uo=;
- b=i7n2A6QbY2fyYHDoYojuvd2Sft4ijatLQPqQhoSGfIGQgd7UV6gcqBSzTlXbbhCZqTFJfG
- yZJWsrPTm5+AafxHsstxNW7bf03S+e2euV7wl51Txa1RkQQceTFkGiqJZJ9PUdfEv7/jLo
- tjKU7a8/ICVUaeXE8nVq04zsc5dNAnE=
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GMXq1LH/LUZpu3NtqdeLasJ2uUCr6QVju3a7ok8lyP0=;
+ b=b9HiHdV/IjI/b02KDBcEFz0QdIbS1+tTeIlQpvZEAdZ0Dgg+D/tkJOtT+Nj9Bnqc7RhNbz
+ ejM/kSdJcDyTM/ggIufw4LNoRZVVpnrEY1Q8NLfqXENwS670WB++2BktOw0upoUhmY/hk3
+ VyFlVO/ZIuSA+3EwGmclsSuszVeq+PQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1707930603;
+ s=susede2_ed25519; t=1707933128;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vfc8JYCVIA5Ty0h+MahVUDli7DlWP1yuP/avvnuP0uo=;
- b=P26GyD2na5u85sQO4WhjyXms6AfeT+afTNQhZ74+0Coq3rZAcL5zeQRFuTiJ+mpj2ryqZZ
- /oDFJMC1UEsz7LCw==
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GMXq1LH/LUZpu3NtqdeLasJ2uUCr6QVju3a7ok8lyP0=;
+ b=zWV8gzJ886dSCNOfwih9oa+QZCK5isbdJGd2s3kP1v+IzMd0zCack+angV7uZO/bnPp4kj
+ /NxYsWJGlWQPmbBg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1707930602; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ t=1707933128; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vfc8JYCVIA5Ty0h+MahVUDli7DlWP1yuP/avvnuP0uo=;
- b=1OpI00SXn9tAqll78/SdISxZR5woJbeAefUpkxpiv5XzC45NegzdLAnIfAIojzBX7gQ1pp
- 6NYrwhCOlanSyjg/ZxfBBsBgdqkoLt5/Nxm46suDvvc2vHKhMf6PaCg57obE+Ztr3IaiSN
- wSyyU23t2+/2CSc5gG4QSLCxdtOnN68=
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GMXq1LH/LUZpu3NtqdeLasJ2uUCr6QVju3a7ok8lyP0=;
+ b=b9HiHdV/IjI/b02KDBcEFz0QdIbS1+tTeIlQpvZEAdZ0Dgg+D/tkJOtT+Nj9Bnqc7RhNbz
+ ejM/kSdJcDyTM/ggIufw4LNoRZVVpnrEY1Q8NLfqXENwS670WB++2BktOw0upoUhmY/hk3
+ VyFlVO/ZIuSA+3EwGmclsSuszVeq+PQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1707930602;
+ s=susede2_ed25519; t=1707933128;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vfc8JYCVIA5Ty0h+MahVUDli7DlWP1yuP/avvnuP0uo=;
- b=oI6Ou5Qp6fHb6gBlufm7I28pB3M2cpknYoa+R+06A6Oc0KsQa+Mydl03T5OPZfnMlE57sK
- ILmf6j2cPUxPX/Bw==
-Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GMXq1LH/LUZpu3NtqdeLasJ2uUCr6QVju3a7ok8lyP0=;
+ b=zWV8gzJ886dSCNOfwih9oa+QZCK5isbdJGd2s3kP1v+IzMd0zCack+angV7uZO/bnPp4kj
+ /NxYsWJGlWQPmbBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id BA23913A35;
- Wed, 14 Feb 2024 17:10:01 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2EA2813A6D;
+ Wed, 14 Feb 2024 17:52:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id IG7JKunzzGUnNQAAn2gu4w
- (envelope-from <pvorel@suse.cz>); Wed, 14 Feb 2024 17:10:01 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 14 Feb 2024 18:09:49 +0100
-Message-ID: <20240214170949.793338-4-pvorel@suse.cz>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240214170949.793338-1-pvorel@suse.cz>
-References: <20240214170949.793338-1-pvorel@suse.cz>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Zm9rCMj9zGXfTAAAD6G6ig
+ (envelope-from <mdoucha@suse.cz>); Wed, 14 Feb 2024 17:52:08 +0000
+Message-ID: <9fd838e3-7eba-428c-a296-caf4860ba1fb@suse.cz>
+Date: Wed, 14 Feb 2024 18:52:07 +0100
 MIME-Version: 1.0
-Authentication-Results: smtp-out2.suse.de;
+User-Agent: Mozilla Thunderbird
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20240214170949.793338-1-pvorel@suse.cz>
+ <20240214170949.793338-4-pvorel@suse.cz>
+Content-Language: en-US
+From: Martin Doucha <mdoucha@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ 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
+In-Reply-To: <20240214170949.793338-4-pvorel@suse.cz>
+Authentication-Results: smtp-out1.suse.de;
 	none
-X-Spam-Level: 
-X-Spam-Score: -3.30
-X-Spamd-Result: default: False [-3.30 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
+X-Spamd-Result: default: False [-4.10 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; XM_UA_NO_VERSION(0.01)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
  FREEMAIL_ENVRCPT(0.00)[gmail.com];
- MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- REPLY(-4.00)[]; BROKEN_CONTENT_TYPE(1.50)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; RCVD_COUNT_THREE(0.00)[3];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ REPLY(-4.00)[]; BAYES_HAM(-0.01)[48.33%];
+ RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; RCPT_COUNT_TWELVE(0.00)[12];
- MID_CONTAINS_FROM(1.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[richiejp.com:email,huawei.com:email,suse.com:email,suse.cz:email,mbobrowski.org:email];
+ RCPT_COUNT_SEVEN(0.00)[11];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
  MIME_TRACE(0.00)[0:+];
- FREEMAIL_CC(0.00)[suse.cz,redhat.com,fujitsu.com,gmail.com,mbobrowski.org,richiejp.com];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-3.00)[100.00%]
+ FREEMAIL_CC(0.00)[redhat.com,fujitsu.com,suse.cz,gmail.com,mbobrowski.org,richiejp.com];
+ RCVD_TLS_ALL(0.00)[]; MID_RHS_MATCH_FROM(0.00)[]
+X-Spam-Level: 
+X-Spam-Score: -4.10
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 3/3] tree: Relicense GPL-2.0 (v2 only) =>
+Subject: Re: [LTP] [PATCH 3/3] tree: Relicense GPL-2.0 (v2 only) =>
  GPL-2.0-or-later
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -123,331 +168,52 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: Jan Kara <jack@suse.cz>, Matthew Bobrowski <mbobrowski@mbobrowski.org>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Cc: Cyril Hrubis <chrubis@suse.cz>
-Cc: Jan Kara <jack@suse.cz>
-Cc: Amir Goldstein <amir73il@gmail.com>
-Cc: Matthew Bobrowski <mbobrowski@mbobrowski.org>
-Cc: Jan Stancek <jstancek@redhat.com>
-Cc: Martin Doucha <mdoucha@suse.cz>
-Cc: Richard Palethorpe <io@richiejp.com>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Hi all,
+On 14. 02. 24 18:09, Petr Vorel wrote:
+> Cc: Cyril Hrubis <chrubis@suse.cz>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: Amir Goldstein <amir73il@gmail.com>
+> Cc: Matthew Bobrowski <mbobrowski@mbobrowski.org>
+> Cc: Jan Stancek <jstancek@redhat.com>
+> Cc: Martin Doucha <mdoucha@suse.cz>
+> Cc: Richard Palethorpe <io@richiejp.com>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> Hi all,
+> 
+> I'm sorry to steal your time with license cleanup.
+> 
+> LTP started as GPL v2 only around 2001. Later new tests were changed to
+> GPL v2+. When we later started using SPDX, we use GPL-2.0 which actually
+> means GPL-2.0-only. Please if you agree with changing GPL-2.0-or-later
+> for tests you wrote ack this (or send a patch where you change it if you
+> prefer). If you don't agree or you don't reply your files will stay
+> GPL v2 only (just SPDX will be changed to GPL-2.0-only to be obvious.)
+> 
+> Kind regards,
+> Petr
+> 
+> Martin Doucha
+> testcases/kernel/syscalls/ptrace/ptrace08.c
 
-I'm sorry to steal your time with license cleanup.
+I would ack licence change for ptrace08 but it's based on a reproducer 
+by Andrew Lutomirsky which is licensed under GPL-2.0:
+https://github.com/linux-test-project/ltp/issues/593
 
-LTP started as GPL v2 only around 2001. Later new tests were changed to
-GPL v2+. When we later started using SPDX, we use GPL-2.0 which actually
-means GPL-2.0-only. Please if you agree with changing GPL-2.0-or-later
-for tests you wrote ack this (or send a patch where you change it if you
-prefer). If you don't agree or you don't reply your files will stay
-GPL v2 only (just SPDX will be changed to GPL-2.0-only to be obvious.)
+Therefore my ack is not sufficient.
 
-Kind regards,
-Petr
-
-Matthew Bobrowski
-testcases/kernel/syscalls/fanotify/fanotify12.c
-testcases/kernel/syscalls/fanotify/fanotify13.c
-testcases/kernel/syscalls/fanotify/fanotify14.c
-testcases/kernel/syscalls/fanotify/fanotify_child.c
-
-Amir Goldstein
-testcases/kernel/syscalls/fanotify/fanotify06.c
-testcases/kernel/syscalls/fanotify/fanotify10.c
-testcases/kernel/syscalls/fanotify/fanotify23.c
-testcases/kernel/syscalls/fcntl/fcntl38.c
-testcases/kernel/syscalls/fcntl/fcntl39.c
-testcases/kernel/syscalls/inotify/inotify10.c
-
-Jan Kara
-testcases/kernel/syscalls/fanotify/fanotify01.c
-testcases/kernel/syscalls/fanotify/fanotify02.c
-testcases/kernel/syscalls/fanotify/fanotify03.c
-testcases/kernel/syscalls/fanotify/fanotify04.c
-testcases/kernel/syscalls/fanotify/fanotify05.c
-testcases/kernel/syscalls/fanotify/fanotify06.c
-testcases/kernel/syscalls/fanotify/fanotify10.c
-
-Richard Palethorpe
-testcases/kernel/controllers/io/io_control01.c
-testcases/kernel/syscalls/close_range/close_range01.c
-testcases/kernel/syscalls/close_range/close_range02.c
-
-Martin Doucha
-testcases/kernel/syscalls/ptrace/ptrace08.c
-
-Jan Stancek
-testcases/kernel/syscalls/readahead/readahead01.c
-
-Cyril Hrubis
-lib/tst_fs_type.c
-lib/tst_process_state.c
-lib/tst_timer.c
-include/tst_process_state.h (originally v2 only, but changed by me to v2+, can be kept?)
-
- lib/tst_fs_type.c                                     | 2 +-
- lib/tst_process_state.c                               | 2 +-
- lib/tst_timer.c                                       | 2 +-
- testcases/kernel/controllers/io/io_control01.c        | 2 +-
- testcases/kernel/syscalls/close_range/close_range01.c | 2 +-
- testcases/kernel/syscalls/close_range/close_range02.c | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify01.c       | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify02.c       | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify03.c       | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify04.c       | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify05.c       | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify06.c       | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify10.c       | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify12.c       | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify13.c       | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify14.c       | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify23.c       | 2 +-
- testcases/kernel/syscalls/fanotify/fanotify_child.c   | 2 +-
- testcases/kernel/syscalls/fcntl/fcntl38.c             | 2 +-
- testcases/kernel/syscalls/fcntl/fcntl39.c             | 2 +-
- testcases/kernel/syscalls/inotify/inotify10.c         | 2 +-
- testcases/kernel/syscalls/ptrace/ptrace08.c           | 2 +-
- testcases/kernel/syscalls/readahead/readahead01.c     | 2 +-
- 23 files changed, 23 insertions(+), 23 deletions(-)
-
-diff --git a/lib/tst_fs_type.c b/lib/tst_fs_type.c
-index 7f0d61a8e..e9efb89dc 100644
---- a/lib/tst_fs_type.c
-+++ b/lib/tst_fs_type.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2005-2021 Linux Test Project
-  *
-diff --git a/lib/tst_process_state.c b/lib/tst_process_state.c
-index c15283c3d..033af2023 100644
---- a/lib/tst_process_state.c
-+++ b/lib/tst_process_state.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (C) 2012-2014 Cyril Hrubis chrubis@suse.cz
-  * Copyright (c) 2021 Xie Ziyao <xieziyao@huawei.com>
-diff --git a/lib/tst_timer.c b/lib/tst_timer.c
-index 62d8f9080..ecf165ca4 100644
---- a/lib/tst_timer.c
-+++ b/lib/tst_timer.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (C) 2015 Cyril Hrubis <chrubis@suse.cz>
-  */
-diff --git a/testcases/kernel/controllers/io/io_control01.c b/testcases/kernel/controllers/io/io_control01.c
-index 691196886..47ae0f104 100644
---- a/testcases/kernel/controllers/io/io_control01.c
-+++ b/testcases/kernel/controllers/io/io_control01.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2022 SUSE LLC <rpalethorpe@suse.com>
-  */
-diff --git a/testcases/kernel/syscalls/close_range/close_range01.c b/testcases/kernel/syscalls/close_range/close_range01.c
-index 072bbab66..c2a0c9619 100644
---- a/testcases/kernel/syscalls/close_range/close_range01.c
-+++ b/testcases/kernel/syscalls/close_range/close_range01.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Taken from the kernel self tests, which in turn were based on
-  * a Syzkaller reproducer.
-diff --git a/testcases/kernel/syscalls/close_range/close_range02.c b/testcases/kernel/syscalls/close_range/close_range02.c
-index 2aa6d2c9f..48d9a31df 100644
---- a/testcases/kernel/syscalls/close_range/close_range02.c
-+++ b/testcases/kernel/syscalls/close_range/close_range02.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2021 SUSE LLC
-  */
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify01.c b/testcases/kernel/syscalls/fanotify/fanotify01.c
-index 3cb485c2a..5d18fe851 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify01.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify01.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2013 SUSE.  All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify02.c b/testcases/kernel/syscalls/fanotify/fanotify02.c
-index 3321e5526..19854064a 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify02.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify02.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2013 SUSE.  All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify03.c b/testcases/kernel/syscalls/fanotify/fanotify03.c
-index 028da742c..3ed78e5fa 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify03.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify03.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2013 SUSE.  All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify04.c b/testcases/kernel/syscalls/fanotify/fanotify04.c
-index 8541a7b96..378bc57c0 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify04.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify04.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2013 SUSE.  All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify05.c b/testcases/kernel/syscalls/fanotify/fanotify05.c
-index 04670cb1c..12c240881 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify05.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify05.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2014 SUSE Linux.  All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify06.c b/testcases/kernel/syscalls/fanotify/fanotify06.c
-index 618c85a43..8779e34d9 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify06.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify06.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2014 SUSE.  All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify10.c b/testcases/kernel/syscalls/fanotify/fanotify10.c
-index 6c89ca1d0..c6d8ec922 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify10.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify10.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2014 SUSE.  All Rights Reserved.
-  * Copyright (c) 2018 CTERA Networks.  All Rights Reserved.
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify12.c b/testcases/kernel/syscalls/fanotify/fanotify12.c
-index 42ba08800..60ba27e16 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify12.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify12.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2018 Matthew Bobrowski. All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify13.c b/testcases/kernel/syscalls/fanotify/fanotify13.c
-index 6086a81fc..5cd857707 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify13.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify13.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2018 Matthew Bobrowski. All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify14.c b/testcases/kernel/syscalls/fanotify/fanotify14.c
-index 0b0da89ca..d02d81495 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify14.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify14.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2018 Matthew Bobrowski. All Rights Reserved.
-  * Copyright (c) Linux Test Project, 2020-2022
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify23.c b/testcases/kernel/syscalls/fanotify/fanotify23.c
-index 5a03503e9..35a613fea 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify23.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify23.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2022 CTERA Networks.  All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify_child.c b/testcases/kernel/syscalls/fanotify/fanotify_child.c
-index 2e4e189cb..73f634514 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify_child.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify_child.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2018 Matthew Bobrowski. All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/fcntl/fcntl38.c b/testcases/kernel/syscalls/fcntl/fcntl38.c
-index 2f1b0229e..d867bf876 100644
---- a/testcases/kernel/syscalls/fcntl/fcntl38.c
-+++ b/testcases/kernel/syscalls/fcntl/fcntl38.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2020 CTERA Networks. All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/fcntl/fcntl39.c b/testcases/kernel/syscalls/fcntl/fcntl39.c
-index 973b6a652..30aada2aa 100644
---- a/testcases/kernel/syscalls/fcntl/fcntl39.c
-+++ b/testcases/kernel/syscalls/fcntl/fcntl39.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2021 CTERA Networks. All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/inotify/inotify10.c b/testcases/kernel/syscalls/inotify/inotify10.c
-index ed91b920f..6a9a0a436 100644
---- a/testcases/kernel/syscalls/inotify/inotify10.c
-+++ b/testcases/kernel/syscalls/inotify/inotify10.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2020 CTERA Networks. All Rights Reserved.
-  *
-diff --git a/testcases/kernel/syscalls/ptrace/ptrace08.c b/testcases/kernel/syscalls/ptrace/ptrace08.c
-index d17d6b411..9e64edc48 100644
---- a/testcases/kernel/syscalls/ptrace/ptrace08.c
-+++ b/testcases/kernel/syscalls/ptrace/ptrace08.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2018 Andrew Lutomirski
-  * Copyright (C) 2020 SUSE LLC <mdoucha@suse.cz>
-diff --git a/testcases/kernel/syscalls/readahead/readahead01.c b/testcases/kernel/syscalls/readahead/readahead01.c
-index a1f313605..0f610daf8 100644
---- a/testcases/kernel/syscalls/readahead/readahead01.c
-+++ b/testcases/kernel/syscalls/readahead/readahead01.c
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (C) 2012 Linux Test Project, Inc.
-  * Copyright (C) 2023-2024 Cyril Hrubis <chrubis@suse.cz>
 -- 
-2.43.0
+Martin Doucha   mdoucha@suse.cz
+SW Quality Engineer
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 
 -- 
