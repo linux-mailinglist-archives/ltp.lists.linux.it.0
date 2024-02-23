@@ -1,21 +1,20 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBC398611BD
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Feb 2024 13:43:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF3828611E2
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Feb 2024 13:47:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 81DD83CF5B0
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Feb 2024 13:43:29 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B1B643CF62B
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Feb 2024 13:47:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3BC4A3CE7BD
- for <ltp@lists.linux.it>; Fri, 23 Feb 2024 13:43:27 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 8DE8A3CCD37
+ for <ltp@lists.linux.it>; Fri, 23 Feb 2024 13:47:49 +0100 (CET)
 Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
@@ -24,95 +23,87 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C9560600C5F
- for <ltp@lists.linux.it>; Fri, 23 Feb 2024 13:43:26 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C9451600858
+ for <ltp@lists.linux.it>; Fri, 23 Feb 2024 13:47:48 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AE5281FC0C;
- Fri, 23 Feb 2024 12:43:23 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D66CD1FBB5;
+ Fri, 23 Feb 2024 12:47:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1708692205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1708692468; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=g0+x/uvv7oe0tbuq7VVwCmpcf5SC/oY1olCb2bQGHDc=;
- b=qwzMSd5cNhQFFOE1j+H94RrwYyRPAw+osW89bUAL66LdY92o5E3ESv9RGGzqjCjGwqlH2e
- mq67S1QP2IazVa+zgLAPncVGEkYK+lvDz9md5FywBIvoC17MCPw+ePfb/6qpRE5udeuJcb
- jA/yTfiThz1dkmi7V4VEmHqDCqhaNas=
+ bh=2BwOPeI1BXcqkYa9j+HvroHA9kfIqrSUh2mIo2UGLGg=;
+ b=ZVvefiOIEmI9sNiZIbTFyvh4vrDgcKyGJH1ZysUnrlSz3B9/Ek/gVMaPEVqMTyaAr7Vuje
+ gHOCrM2C2Uew4XyUFf+CqIY2G17e90RlSnmuHN390Xj2xCbK3mvi+8c6bsBUwOQLEEOZlg
+ dFMjW6yiMnga8CuS99PsBJ5BAp1jOiM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1708692205;
+ s=susede2_ed25519; t=1708692468;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=g0+x/uvv7oe0tbuq7VVwCmpcf5SC/oY1olCb2bQGHDc=;
- b=+8bY/3ASS+3pXmOWd/2j7POjXESJvWz5YOKvxToK3QyljdmcHP/CeHAN8LH+YeD9EbX+96
- 85SFlq0qFiKxIaAw==
+ bh=2BwOPeI1BXcqkYa9j+HvroHA9kfIqrSUh2mIo2UGLGg=;
+ b=VygQoozffFblHe14RH1Bp/t62WWeD65ZjBj80OjPzes/km0RIVqMcpgTmGcsrsmkrwv/2q
+ JeXjboIQrTHDsFAg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1708692203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1708692467; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=g0+x/uvv7oe0tbuq7VVwCmpcf5SC/oY1olCb2bQGHDc=;
- b=1cc3PQ6tKejMnSuBh9tVLcm+v7cFhmGH295KzNK1Xpv16R5NKgY+WaHaWdACWhTRqtdY47
- Sl7bhGbw6oDzngIpt0NVxh6Ba9N56+20hcy2bN5yaaaOF0EWaCoHjA4/pibkG3E6IieHAj
- RyAPxBoVWFjH87s9LhLLdhBPyBJ1AmQ=
+ bh=2BwOPeI1BXcqkYa9j+HvroHA9kfIqrSUh2mIo2UGLGg=;
+ b=zPRGCOX701S41hrCnFajTH3F15Y0cBXFmnvQn2s5Anxgv3oVWskRcXhLnauaNzJ5ZWTLJN
+ +3ycvHNpE+6KW1dwSE7pqTJxRkzp+x5CLycCeIPNhp0aD6495guiBD5dqd6hLC1lyZsD6/
+ TxgTTxgN0A+kTAfn2P/98cLHCiDf6/U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1708692203;
+ s=susede2_ed25519; t=1708692467;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=g0+x/uvv7oe0tbuq7VVwCmpcf5SC/oY1olCb2bQGHDc=;
- b=QgV0wJ7CZHbZdNpqwDoSGoenMBb4PiH+D/kajVLQsRtmSecRepPPXCZ/9MgSkYYIVGLUA5
- oxbeC9YqrdDQCbCg==
+ bh=2BwOPeI1BXcqkYa9j+HvroHA9kfIqrSUh2mIo2UGLGg=;
+ b=Ibg9RYmb5FdWtaHeYB64mxRg+xp9EDZ71DSV2SY8mNQ9ANZyJsNAQ5iBFDR+wMqzOWQkSy
+ eFFJSsXAmtMwGqDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D146133DC;
- Fri, 23 Feb 2024 12:43:23 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BC0F8133DC;
+ Fri, 23 Feb 2024 12:47:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ABj0JOuS2GXLdwAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Fri, 23 Feb 2024 12:43:23 +0000
-Date: Fri, 23 Feb 2024 13:42:17 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0ee0LPOT2GXxeAAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Fri, 23 Feb 2024 12:47:47 +0000
+Date: Fri, 23 Feb 2024 13:46:41 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <ZdiSqReYgNf88ema@yuki>
+Message-ID: <ZdiTsXWqH-LkoxSQ@yuki>
 References: <20240104204614.1426027-1-pvorel@suse.cz>
- <20240104204614.1426027-3-pvorel@suse.cz>
+ <20240104204614.1426027-4-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240104204614.1426027-3-pvorel@suse.cz>
+In-Reply-To: <20240104204614.1426027-4-pvorel@suse.cz>
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=1cc3PQ6t;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=QgV0wJ7C
-X-Spamd-Result: default: False [0.19 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+	none
+X-Spam-Level: 
+X-Spam-Score: -1.91
+X-Spamd-Result: default: False [-1.91 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MIME_GOOD(-0.10)[text/plain];
  RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.cz:+]; RCPT_COUNT_TWO(0.00)[2];
- MX_GOOD(-0.01)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,linux.it:url];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
  MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.00)[15.56%]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: 0.19
-X-Rspamd-Queue-Id: AE5281FC0C
-X-Spam-Level: 
-X-Spamd-Bar: /
+ RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-1.11)[88.33%]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/9] metadata: parse.sh: Allow to pass list of
- files
+Subject: Re: [LTP] [PATCH 3/9] metadata: parse.sh: Pass -v to metaparse on
+ VERBOSE=1
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,36 +122,27 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +if [ $# -gt 0 ]; then
-> +	tests=$*
-> +else
-> +	tests=$(find testcases/ -name '*.c' | sort)
-> +fi
+> +[ "$VERBOSE" ] && v="-v"
 
-This unfortunately does not work when there are unexpected characters in
-the paths. Which shouldn't happen unless you pass an absoulte path to
-the script which contains for example space.
+The build system uses just V=1 for a verbose mode so we should probably
+be consistent...
 
-I do not think that we can safely pass a list in a variable without
-breaking it in that case. E.g. it works directly with $* or $@ if it's
-quoted properly as:
+Other than that:
 
-for test in "$@"; do
-	...
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
-But as long as you pass $@ indirectly it breaks on spaces.
-
-
-Note that the subshell $() with find has the same problem, but there is
-much less room for breaking something because that is passed relative
-paths inside of LTP.
-
-And yes I hate argument parsing in shell..
-
-> +for test in $tests; do
->  	a=$($top_builddir/metadata/metaparse -Iinclude -Itestcases/kernel/syscalls/utils/ "$test")
+>  for test in $tests; do
+> -	a=$($top_builddir/metadata/metaparse -Iinclude -Itestcases/kernel/syscalls/utils/ "$test")
+> +	a=$($top_builddir/metadata/metaparse $v -Iinclude -Itestcases/kernel/syscalls/utils/ "$test")
 >  	if [ -n "$a" ]; then
 >  		if [ -z "$first" ]; then
+>  			echo ','
+> -- 
+> 2.43.0
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
 Cyril Hrubis
