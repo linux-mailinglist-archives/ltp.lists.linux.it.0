@@ -1,96 +1,84 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15B42868B71
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Feb 2024 09:57:25 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 44FBF868D6D
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Feb 2024 11:23:47 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1709024244; h=to : date :
- message-id : in-reply-to : references : mime-version : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-type :
- content-transfer-encoding : sender : from;
- bh=lRJwTMH2urhesDdtsHMZWnulnbtRR7jifisjXUNlmvI=;
- b=rGoNdXzYaer+ZOoFO11EwyTlcz5ftM6r5TVhDPq392/6hxr/DF3qZI2VuJvnFEBZLVYK3
- 0u7yqOHdbHlZLIIwyXS8c8PVz1D1QdBX5JyWx9iMe1flhZbKWUcr4+fQ6uhmvM6xlhGAFn5
- R1TwxL2GIHA+SVz4p8zbbArWPnj0U8k=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1709029426; h=date :
+ mime-version : message-id : to : subject : list-id : list-unsubscribe
+ : list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : cc : content-type : content-transfer-encoding : sender :
+ from; bh=vm661GoH5CEg90JgAaC46/s+KTRlF0bX9xl7nqRVqxM=;
+ b=cZqzCkLY9VYDj91BptEhwv76l8vV6SFG3GOqNkM+5bb+/n9q8S00znLSnaZVvYh+/bu1J
+ tmTc2ifMxcn/OndfugpAUvsRHKD2x0c/XDGe/y7Pr9tZ50N/mhAehj8OOvViQu2xzzd3cwr
+ miPK8ERcUHLSh44EJlRKRTDE/sN5aWE=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CD4463CEEEE
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Feb 2024 09:57:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E7BEF3CEF40
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Feb 2024 11:23:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8EEEA3CEF12
- for <ltp@lists.linux.it>; Tue, 27 Feb 2024 09:56:59 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=fujitsu.com (client-ip=207.54.90.48;
- helo=esa2.hc1455-7.c3s2.iphmx.com; envelope-from=xuyang2018.jy@fujitsu.com;
- receiver=lists.linux.it)
-Received: from esa2.hc1455-7.c3s2.iphmx.com (esa2.hc1455-7.c3s2.iphmx.com
- [207.54.90.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id B006D3CCFCA
+ for <ltp@lists.linux.it>; Tue, 27 Feb 2024 02:37:32 +0100 (CET)
+Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
+ [IPv6:2607:f8b0:4864:20::b4a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6DB8D6008C2
- for <ltp@lists.linux.it>; Tue, 27 Feb 2024 09:56:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
- t=1709024218; x=1740560218;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=toJl4eTBYSDK6BxB62zwyBNRh5WBrJftjdtySJZUcaI=;
- b=qXHrdXa/HdCZgIneRC7haF35NfRgMw/nctFpiKaJhnYkfzS34LeL6CgM
- OLeLWG/OgH4p42GivBAMyMGqnEwxfnBsSp6quWCT91/Hol6uCQQ1sNOyD
- VfMsV+NWylvow8x4EIhLIB9O1JCsC2DOPfSqRkS5sMuQ7eu80uJkKzlNk
- zZ2RMYyhaXl9oLKUgd6/ycRLBkiYHfaxEIhwLEWJe/KGgtr+0PGbrwubD
- i4dm0I3EniERQGE2eX89l5NjPv8EDeiFHXZ6SrEKathLNZc9WX8i5faJx
- bhk9INpBkX29LcIzrEblntz0CCDoIzMaII4sO1b99q0EqSzDtR4kRos7U w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10996"; a="150559668"
-X-IronPort-AV: E=Sophos;i="6.06,187,1705330800"; d="scan'208";a="150559668"
-Received: from unknown (HELO yto-r2.gw.nic.fujitsu.com) ([218.44.52.218])
- by esa2.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2024 17:56:56 +0900
-Received: from yto-m4.gw.nic.fujitsu.com (yto-nat-yto-m4.gw.nic.fujitsu.com
- [192.168.83.67])
- by yto-r2.gw.nic.fujitsu.com (Postfix) with ESMTP id 043AE5DDE7
- for <ltp@lists.linux.it>; Tue, 27 Feb 2024 17:56:53 +0900 (JST)
-Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
- [192.51.206.22])
- by yto-m4.gw.nic.fujitsu.com (Postfix) with ESMTP id 43349D7B6A
- for <ltp@lists.linux.it>; Tue, 27 Feb 2024 17:56:52 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id C1EB66BE50
- for <ltp@lists.linux.it>; Tue, 27 Feb 2024 17:56:51 +0900 (JST)
-Received: from rhel93GA.g08.fujitsu.local (unknown [10.167.221.71])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id 6E0371A006A;
- Tue, 27 Feb 2024 16:56:51 +0800 (CST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 637AB20092C
+ for <ltp@lists.linux.it>; Tue, 27 Feb 2024 02:37:32 +0100 (CET)
+Received: by mail-yb1-xb4a.google.com with SMTP id
+ 3f1490d57ef6-dc647f65573so6120887276.2
+ for <ltp@lists.linux.it>; Mon, 26 Feb 2024 17:37:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1708997851; x=1709602651; darn=lists.linux.it;
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=MEPTeV+Vb+r3R1QmR+QB92YqLj92qefFxcYFa/EVdUU=;
+ b=dZ6nQerjksUmcNfQ4BCStzsSUQW9huTZlnafo5/c98vgVmzTiG569zcQ/JQssOzi2p
+ nN1iR1k1A51z7RMQAQJqaDEIVQBSs+BocMMANCoNmFnd88i9XMZSQyyvgy04+Yd0Qgxw
+ FeE7gxRpHlCYZCUR8+4fZ6Q7/lBg8PGHsDhZQq3q+B7GuUK28I6mm+O63wrkIncy3sPE
+ zdpbGK2cq92WPfacletddg5BRdo0S93WPqridjuiJxZVXWGCOp8fB5JtXqdMnY5eMEnj
+ PRLdueOkWFqUzsoZbl/IIsb1Z91ffTWjnPtMuHX0xhgkfeYFTzBb9fX17PTxgsAP2LE1
+ an9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708997851; x=1709602651;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MEPTeV+Vb+r3R1QmR+QB92YqLj92qefFxcYFa/EVdUU=;
+ b=XNHNZ8jldyOqIwu4i8V6lmkgYZIDP+/hwbenfBSI7IEZH3e3rJQ8fueB+oDG5MmoUW
+ W+UySdTyYJiJWDnKLM8mGycCgobWlHTRHSVzR4s4waRnfDjI/glh52/dKVW1LIBRVeH4
+ 1MiajfUB48cFgWdgPEwEZ3HBW00Q3FxpcYpZeV+0rOjDMJBLAjdygPqQSuAWm8BFwSNd
+ I/u7yqHJ5fg2GAZJ93LI43Fh5Zg8q3zlSEwXzm2vJb60TTRTCIk0xaHqG3tapYJ/8jwT
+ bo2JxNq2mBWpZDiqo87tvWnanaOzJx12tfovlE7jMSX1bJjzU3ChIdE6ssRFTOIjmyLV
+ XPGw==
+X-Gm-Message-State: AOJu0Yz0rvuM/H3EAmkyjPWiXaAn6JszeL3jZFwaMBEVtwVxGhgbIce1
+ nsU+4TOvGHMJ4jsmAOMrgphSbXMSGqvEEwakqthLsDkQ/Lb9q6wPVzCwEusXJgv/rHHMHpvYlOW
+ /2s7mZ0KZEJFZ855T9EvYXOwXQRoDHIztnpnnMrxha7ys6gJygeVc5ADVNh7/UoJs8VvXir0CQR
+ v8FvvLDQ3/XCzLQetB84X0i535qUNgTqnS
+X-Google-Smtp-Source: AGHT+IGk+H70oHmN15zFoYk0A1++eDWpiM9KbPqxG4T9rBFbdlE0IuSlfLfguCUaj/KK4MgUgKKRfLG3KjPn
+X-Received: from sergeyu1.c.googlers.com
+ ([fda3:e722:ac3:cc00:24:72f4:c0a8:3094])
+ (user=sergeyu job=sendgmr) by 2002:a05:6902:2107:b0:dc9:c54e:c5eb with SMTP
+ id dk7-20020a056902210700b00dc9c54ec5ebmr210184ybb.7.1708997850867; Mon, 26
+ Feb 2024 17:37:30 -0800 (PST)
+Date: Tue, 27 Feb 2024 01:37:27 +0000
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.44.0.rc1.240.g4c46232300-goog
+Message-ID: <20240227013727.1979300-1-sergeyu@google.com>
 To: ltp@lists.linux.it
-Date: Tue, 27 Feb 2024 03:56:41 -0500
-Message-Id: <20240227085641.33715-2-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20240227085641.33715-1-xuyang2018.jy@fujitsu.com>
-References: <20240227085641.33715-1-xuyang2018.jy@fujitsu.com>
-MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28216.006
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28216.006
-X-TMASE-Result: 10--5.076900-10.000000
-X-TMASE-MatchedRID: Y8KQO0q7nHqhhjsqgSuNbxF4zyLyne+AVBDQSDMig9EnyU5/nZpxULiR
- FJnWDxklc4u9Bvo0YaW9SB1aT+6PzeUgeblHhHsaKiJEqUFWRggnhzAhgvoq55soi2XrUn/J8m+
- hzBStantdY+ZoWiLImyAHAopEd76vCCXYGVA0S5NoM9xpo29kQPbcePGqMUITxcKjCpcNIO43gr
- URT1HD/Q==
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS,
- T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+ USER_IN_DEF_DKIM_WL shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/2] iopl02: Convert docs to docparse
+X-Mailman-Approved-At: Tue, 27 Feb 2024 11:23:38 +0100
+Subject: [LTP] [PATCH] Use memset() to fill buffers in diotest
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,52 +90,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Yang Xu via ltp <ltp@lists.linux.it>
-Reply-To: Yang Xu <xuyang2018.jy@fujitsu.com>
+From: Sergey Ulanov via ltp <ltp@lists.linux.it>
+Reply-To: Sergey Ulanov <sergeyu@google.com>
+Cc: Sergey Ulanov <sergeyu@google.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- testcases/kernel/syscalls/iopl/iopl02.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+Previously fillbuf() was calling strncpy() for every byte in the buffer,
+which is rather inefficient and was slowing down the tests.
 
-diff --git a/testcases/kernel/syscalls/iopl/iopl02.c b/testcases/kernel/syscalls/iopl/iopl02.c
-index 7301442f9..1a588590e 100644
---- a/testcases/kernel/syscalls/iopl/iopl02.c
-+++ b/testcases/kernel/syscalls/iopl/iopl02.c
-@@ -1,19 +1,17 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- *  Copyright (c) Linux Test Project, 2020
-- *  Copyright (c) Wipro Technologies Ltd, 2002
-+ * Copyright (c) Linux Test Project, 2020
-+ * Copyright (c) Wipro Technologies Ltd, 2002
-+ * Author: Subhab Biswas <subhabrata.biswas@wipro.com>
-  */
+Signed-off-by: Sergey Ulanov <sergeyu@google.com>
+---
+ testcases/kernel/io/direct_io/diotest_routines.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/testcases/kernel/io/direct_io/diotest_routines.c b/testcases/kernel/io/direct_io/diotest_routines.c
+index fe03630ef..793572c37 100644
+--- a/testcases/kernel/io/direct_io/diotest_routines.c
++++ b/testcases/kernel/io/direct_io/diotest_routines.c
+@@ -55,11 +55,7 @@
+ */
+ void fillbuf(char *buf, int count, char value)
+ {
+-	while (count > 0) {
+-		strncpy(buf, &value, 1);
+-		buf++;
+-		count = count - 1;
+-	}
++	memset(buf, value, count);
+ }
  
--/*
-- * This is an error test for iopl(2) system call.
-+/*\
-+ * [Description]
-  *
-- * Verify that
-- *  1) iopl(2) returns -1 and sets errno to EINVAL for privilege
-- *     level greater than 3.
-- *  2) iopl(2) returns -1 and sets errno to EPERM if the current
-- *     user is not the super-user.
-+ * Test for iopl(2) system call error.
-  *
-- * Author: Subhab Biswas <subhabrata.biswas@wipro.com>
-+ * - iopl(2) fail with EINVAL when privilege level greater than 3.
-+ * - iopl(2) fail with EPERM when the current user is not the super-user.
-  */
- 
- #include <errno.h>
+ void vfillbuf(struct iovec *iv, int vcnt, char value)
 -- 
-2.43.0
+2.44.0.rc1.240.g4c46232300-goog
 
 
 -- 
