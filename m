@@ -2,83 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44FBF868D6D
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Feb 2024 11:23:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1709029426; h=date :
- mime-version : message-id : to : subject : list-id : list-unsubscribe
- : list-archive : list-post : list-help : list-subscribe : from :
- reply-to : cc : content-type : content-transfer-encoding : sender :
- from; bh=vm661GoH5CEg90JgAaC46/s+KTRlF0bX9xl7nqRVqxM=;
- b=cZqzCkLY9VYDj91BptEhwv76l8vV6SFG3GOqNkM+5bb+/n9q8S00znLSnaZVvYh+/bu1J
- tmTc2ifMxcn/OndfugpAUvsRHKD2x0c/XDGe/y7Pr9tZ50N/mhAehj8OOvViQu2xzzd3cwr
- miPK8ERcUHLSh44EJlRKRTDE/sN5aWE=
+	by mail.lfdr.de (Postfix) with ESMTPS id 596FE868BE1
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Feb 2024 10:13:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E7BEF3CEF40
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Feb 2024 11:23:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1935C3CEF14
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Feb 2024 10:13:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B006D3CCFCA
- for <ltp@lists.linux.it>; Tue, 27 Feb 2024 02:37:32 +0100 (CET)
-Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
- [IPv6:2607:f8b0:4864:20::b4a])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id D532F3CB62A
+ for <ltp@lists.linux.it>; Tue, 27 Feb 2024 10:13:33 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 637AB20092C
- for <ltp@lists.linux.it>; Tue, 27 Feb 2024 02:37:32 +0100 (CET)
-Received: by mail-yb1-xb4a.google.com with SMTP id
- 3f1490d57ef6-dc647f65573so6120887276.2
- for <ltp@lists.linux.it>; Mon, 26 Feb 2024 17:37:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1708997851; x=1709602651; darn=lists.linux.it;
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=MEPTeV+Vb+r3R1QmR+QB92YqLj92qefFxcYFa/EVdUU=;
- b=dZ6nQerjksUmcNfQ4BCStzsSUQW9huTZlnafo5/c98vgVmzTiG569zcQ/JQssOzi2p
- nN1iR1k1A51z7RMQAQJqaDEIVQBSs+BocMMANCoNmFnd88i9XMZSQyyvgy04+Yd0Qgxw
- FeE7gxRpHlCYZCUR8+4fZ6Q7/lBg8PGHsDhZQq3q+B7GuUK28I6mm+O63wrkIncy3sPE
- zdpbGK2cq92WPfacletddg5BRdo0S93WPqridjuiJxZVXWGCOp8fB5JtXqdMnY5eMEnj
- PRLdueOkWFqUzsoZbl/IIsb1Z91ffTWjnPtMuHX0xhgkfeYFTzBb9fX17PTxgsAP2LE1
- an9A==
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7AFF9601BCC
+ for <ltp@lists.linux.it>; Tue, 27 Feb 2024 10:13:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1709025211;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lG72ubeWdH8+p3sciCmnD52BqR80+m1M8hC5VTN+++w=;
+ b=ZAddQSf1Qr28RgGmxA72y2aFIo/bmRoHOclhiN1bX1YNb4IyAhA2VO/FEH9JVClb5vRDBt
+ 42MwpjpRwapHEU59lkAZJIblAa2Iem357WKc4IdCFHWiPejTQ+JzTO81BdA0Lk5dHWildZ
+ et+S+yKIsl9vTZyh/SkUq6/wVAxp9b8=
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-136-8aUpqHzINFOhTlbq1aP99g-1; Tue, 27 Feb 2024 04:13:24 -0500
+X-MC-Unique: 8aUpqHzINFOhTlbq1aP99g-1
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-29a9f042643so1221716a91.0
+ for <ltp@lists.linux.it>; Tue, 27 Feb 2024 01:13:24 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708997851; x=1709602651;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=MEPTeV+Vb+r3R1QmR+QB92YqLj92qefFxcYFa/EVdUU=;
- b=XNHNZ8jldyOqIwu4i8V6lmkgYZIDP+/hwbenfBSI7IEZH3e3rJQ8fueB+oDG5MmoUW
- W+UySdTyYJiJWDnKLM8mGycCgobWlHTRHSVzR4s4waRnfDjI/glh52/dKVW1LIBRVeH4
- 1MiajfUB48cFgWdgPEwEZ3HBW00Q3FxpcYpZeV+0rOjDMJBLAjdygPqQSuAWm8BFwSNd
- I/u7yqHJ5fg2GAZJ93LI43Fh5Zg8q3zlSEwXzm2vJb60TTRTCIk0xaHqG3tapYJ/8jwT
- bo2JxNq2mBWpZDiqo87tvWnanaOzJx12tfovlE7jMSX1bJjzU3ChIdE6ssRFTOIjmyLV
- XPGw==
-X-Gm-Message-State: AOJu0Yz0rvuM/H3EAmkyjPWiXaAn6JszeL3jZFwaMBEVtwVxGhgbIce1
- nsU+4TOvGHMJ4jsmAOMrgphSbXMSGqvEEwakqthLsDkQ/Lb9q6wPVzCwEusXJgv/rHHMHpvYlOW
- /2s7mZ0KZEJFZ855T9EvYXOwXQRoDHIztnpnnMrxha7ys6gJygeVc5ADVNh7/UoJs8VvXir0CQR
- v8FvvLDQ3/XCzLQetB84X0i535qUNgTqnS
-X-Google-Smtp-Source: AGHT+IGk+H70oHmN15zFoYk0A1++eDWpiM9KbPqxG4T9rBFbdlE0IuSlfLfguCUaj/KK4MgUgKKRfLG3KjPn
-X-Received: from sergeyu1.c.googlers.com
- ([fda3:e722:ac3:cc00:24:72f4:c0a8:3094])
- (user=sergeyu job=sendgmr) by 2002:a05:6902:2107:b0:dc9:c54e:c5eb with SMTP
- id dk7-20020a056902210700b00dc9c54ec5ebmr210184ybb.7.1708997850867; Mon, 26
- Feb 2024 17:37:30 -0800 (PST)
-Date: Tue, 27 Feb 2024 01:37:27 +0000
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.44.0.rc1.240.g4c46232300-goog
-Message-ID: <20240227013727.1979300-1-sergeyu@google.com>
-To: ltp@lists.linux.it
-X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
- USER_IN_DEF_DKIM_WL shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Mailman-Approved-At: Tue, 27 Feb 2024 11:23:38 +0100
-Subject: [LTP] [PATCH] Use memset() to fill buffers in diotest
+ d=1e100.net; s=20230601; t=1709025203; x=1709630003;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=lG72ubeWdH8+p3sciCmnD52BqR80+m1M8hC5VTN+++w=;
+ b=ATD65Q4EyOfM1QT8gZv49VnL5Ppa2JQf2ibSvxwxyYcB7BT2n2LsgJDYQXmoNgBHmd
+ 35/h9i3LGlmbo7/TGBtXPaJkww+u4q8P+uP2j56/d+6AorUorEQEMLSprba7oNIW8TUq
+ TtKPWAsSAiUDy3gs52TqtnqkAdBrWG7XYARd6vw2i5qgtBzLGRWeW+GhgihvLDUViceO
+ Gu//xf2DSXsEDM8Hw5JtVbd2NSPnZJh/dbgoYa7u576pU25Pj0LQM2xMmIMgXXSfksyL
+ TFwRLdVnEv2Ti/YKwuIggWcidhvBBJ+6pmqg+25ywFfgNSc/0TmMG9nrIdOXA4HENT4d
+ CdIQ==
+X-Gm-Message-State: AOJu0YwnNkUwnDGgo/zzO6yoDVnWsDIciyfmHekOQIIwJuRah6ji5Czj
+ R8XEaSgUEJzuGmo588OmUDiWkI+ns4xDslczf866BBfwlxTXC0Hd+dzh1v/kFbkT4sXlcms+iDN
+ uOlUORXNGzCUa3q8h1y4R7COBilPnW2eWmo5Gxr0N4nICfs7EeQ7pbX6TppOfLVkyyYQgqT8f25
+ gji8Wk7Zp6Gog0NUyvkmauZFQ=
+X-Received: by 2002:a17:90a:940c:b0:29a:9c12:785 with SMTP id
+ r12-20020a17090a940c00b0029a9c120785mr5604455pjo.1.1709025203543; 
+ Tue, 27 Feb 2024 01:13:23 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHvfQppb6KcN//UER47RSh8UJ1Sxh4EKtIOmx6cAKmtnItwaQA+FJc4R8yIc/50D0To6GonnkGIg4QWcGy3K1k=
+X-Received: by 2002:a17:90a:940c:b0:29a:9c12:785 with SMTP id
+ r12-20020a17090a940c00b0029a9c120785mr5604443pjo.1.1709025203219; Tue, 27 Feb
+ 2024 01:13:23 -0800 (PST)
+MIME-Version: 1.0
+References: <20240226135336.19733-1-xuyang2018.jy@fujitsu.com>
+In-Reply-To: <20240226135336.19733-1-xuyang2018.jy@fujitsu.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 27 Feb 2024 17:13:10 +0800
+Message-ID: <CAEemH2cpcrPw321Jwe49U=UNGmvVmQ7OKOKzB2LnjPrdT5Qakg@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: Re: [LTP] [PATCH v5 1/7] libltpswap: Add tst_max_swapfiles API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,42 +92,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Sergey Ulanov via ltp <ltp@lists.linux.it>
-Reply-To: Sergey Ulanov <sergeyu@google.com>
-Cc: Sergey Ulanov <sergeyu@google.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Previously fillbuf() was calling strncpy() for every byte in the buffer,
-which is rather inefficient and was slowing down the tests.
+Hi Xu, Petr,
 
-Signed-off-by: Sergey Ulanov <sergeyu@google.com>
----
- testcases/kernel/io/direct_io/diotest_routines.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+The patch set generally looks good to me.
 
-diff --git a/testcases/kernel/io/direct_io/diotest_routines.c b/testcases/kernel/io/direct_io/diotest_routines.c
-index fe03630ef..793572c37 100644
---- a/testcases/kernel/io/direct_io/diotest_routines.c
-+++ b/testcases/kernel/io/direct_io/diotest_routines.c
-@@ -55,11 +55,7 @@
- */
- void fillbuf(char *buf, int count, char value)
- {
--	while (count > 0) {
--		strncpy(buf, &value, 1);
--		buf++;
--		count = count - 1;
--	}
-+	memset(buf, value, count);
- }
- 
- void vfillbuf(struct iovec *iv, int vcnt, char value)
+Reviewed-by: Li Wang <liwang@redhat.com>
+
+
 -- 
-2.44.0.rc1.240.g4c46232300-goog
-
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
