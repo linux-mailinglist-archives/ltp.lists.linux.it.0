@@ -1,111 +1,120 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31C44875E06
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 07:45:38 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD3EB875C83
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 03:49:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E56023CE96B
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 07:45:37 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8EB613D0C1A
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 03:49:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DF2C83CC75A
- for <ltp@lists.linux.it>; Fri,  8 Mar 2024 07:45:31 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 35AC43CB8D1
+ for <ltp@lists.linux.it>; Fri,  8 Mar 2024 03:49:54 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 288C9201190
- for <ltp@lists.linux.it>; Fri,  8 Mar 2024 07:45:30 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 98BF31000D27
+ for <ltp@lists.linux.it>; Fri,  8 Mar 2024 03:49:53 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 79D053F577;
- Thu,  7 Mar 2024 23:04:00 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B4A2E4DF31;
+ Thu,  7 Mar 2024 23:08:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1709852640;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ t=1709852906;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pCIPiGj//dIhpoqAsopm7NlvhrMF4wn+1/UZJtmTVsE=;
- b=vyXevcOXfUfYXuYOi/f3N+G2nnteRXJ/25eo0R28LpI5Ibl6LsNsDQrV81f5SwUGGPkmRi
- CWN3eOOl+uwN0jv0TapobBdfwt5fbaQJUshHWmdQalkDxCVpn+zQAMrbP4l/6oOQmFn++3
- L7kr2MTARlnaDBWA3WGsfJDxVnoH3Pw=
+ bh=ZXJAUF+82/Ak6fT6bYHbFilebLIFYG2d8JRacpZnGqA=;
+ b=le6lp15ndSul2Uh9Kz9IDKuDFXhtT6fkEl8B/sOjeziYsun2Wl1DiiX8r4NRPF8+WFqwZd
+ /jan+BIpx37ShI+7iIHMvoHilGyrkfFNm1cpOiQR49gSX/+hQbnsESlix6MSd4dhaiRXiB
+ YzWrYsLT+fP2spBfWmwSIMiK+1rwr+4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1709852640;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1709852906;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pCIPiGj//dIhpoqAsopm7NlvhrMF4wn+1/UZJtmTVsE=;
- b=IyrbLSMcrZcu0ZOYSBq0ObZC/nWJPq13Qy5lkzWsgYHyaNKEnkbK0T76cdeIfRBYCuuDc2
- 4DR1aadVaEGEobAQ==
+ bh=ZXJAUF+82/Ak6fT6bYHbFilebLIFYG2d8JRacpZnGqA=;
+ b=7Bg2EgJmVYwvH0+UmR+D14E4O25j/c5ipq9Sv4ReZ+pigYJtK3GmO+moJUifcEBKVVbmnj
+ XNmqGb+XyRHxAwCw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1709852640;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ t=1709852905;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pCIPiGj//dIhpoqAsopm7NlvhrMF4wn+1/UZJtmTVsE=;
- b=vyXevcOXfUfYXuYOi/f3N+G2nnteRXJ/25eo0R28LpI5Ibl6LsNsDQrV81f5SwUGGPkmRi
- CWN3eOOl+uwN0jv0TapobBdfwt5fbaQJUshHWmdQalkDxCVpn+zQAMrbP4l/6oOQmFn++3
- L7kr2MTARlnaDBWA3WGsfJDxVnoH3Pw=
+ bh=ZXJAUF+82/Ak6fT6bYHbFilebLIFYG2d8JRacpZnGqA=;
+ b=pwpBTAd06KL9pkOefHUCiRT9rRJT341SVsuU4NwtNGmP44tDtyOm8Dt5YVVfxbtjFX69BU
+ ueVQbM2yeoYVu4MAf6JFbG2bAMr2KJ0z+pIQd99g9gN6zwu/JUPIoGCvXAQQytR45SgFXr
+ BcuSxHgxH0F+jBaf4dTOFKaRCtgsZZo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1709852640;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1709852905;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pCIPiGj//dIhpoqAsopm7NlvhrMF4wn+1/UZJtmTVsE=;
- b=IyrbLSMcrZcu0ZOYSBq0ObZC/nWJPq13Qy5lkzWsgYHyaNKEnkbK0T76cdeIfRBYCuuDc2
- 4DR1aadVaEGEobAQ==
+ bh=ZXJAUF+82/Ak6fT6bYHbFilebLIFYG2d8JRacpZnGqA=;
+ b=498GR23qGlu+DB2tzZ1Sv+5gna7qhWfUd63beyFDHn7fdRALIlNczy+yimxTV7V9d0EUve
+ ndUZhuFrBu5a4ZDg==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 4358513997;
- Thu,  7 Mar 2024 23:04:00 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 8B18413997;
+ Thu,  7 Mar 2024 23:08:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id +CbCDeBH6mUcRgAAn2gu4w
- (envelope-from <pvorel@suse.cz>); Thu, 07 Mar 2024 23:04:00 +0000
-Date: Fri, 8 Mar 2024 00:03:58 +0100
+ by imap2.dmz-prg2.suse.org with ESMTPSA id B8tTIOlI6mXIRgAAn2gu4w
+ (envelope-from <pvorel@suse.cz>); Thu, 07 Mar 2024 23:08:25 +0000
+Date: Fri, 8 Mar 2024 00:08:20 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <20240307230358.GB218331@pevik>
-References: <20240119092308.20337-1-andrea.cervesato@suse.de>
+To: Martin Doucha <mdoucha@suse.cz>, Wei Gao <wegao@suse.com>,
+ ltp@lists.linux.it, Li Wang <liwang@redhat.com>
+Message-ID: <20240307230820.GA225601@pevik>
+References: <20240306104609.17141-1-wegao@suse.com>
+ <6285aaad-79ca-4d7c-8be0-6d846d165df2@suse.cz>
+ <20240307213335.GA211890@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240119092308.20337-1-andrea.cervesato@suse.de>
-X-Spam-Level: 
+In-Reply-To: <20240307213335.GA211890@pevik>
+X-Spamd-Bar: /
 Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [-2.30 / 50.00]; ARC_NA(0.00)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=pwpBTAd0;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=498GR23q
+X-Spamd-Result: default: False [0.49 / 50.00]; ARC_NA(0.00)[];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ REPLYTO_EQ_FROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[4]; TO_DN_SOME(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
  RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
+ DKIM_TRACE(0.00)[suse.cz:+]; MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
  MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-3.00)[100.00%]
-X-Spam-Score: -2.30
+ RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.00)[42.72%];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:98:from]
+X-Spam-Level: 
+X-Spam-Score: 0.49
+X-Rspamd-Queue-Id: B4A2E4DF31
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v1] Add rename15 test
+Subject: Re: [LTP] [PATCH v1] chdir01.c: set umask to 0 within setup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,183 +127,44 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> From: Andrea Cervesato <andrea.cervesato@suse.com>
+> Hi Martin, all,
 
-> This test has been extracted from symlink01 and it verifies that
-> rename() is working correctly on symlink() generated files, renaming
-> symbolic link and checking if stat() information are preserved.
+> > Hi,
+> > you're trying to fix a vfat mount quirk. We should fix that in the LTP
+> > library instead, e.g. by setting umask(0) and then restoring the original
+> > value inside safe_mount().
 
-The original test does 2 things:
-1) Create symlink to *non-existing* file, then rename symlink:
-symlink("object", "symbolic")           = 0
-rename("symbolic", "asymbolic")         = 0
+> This makes sense. FYI Wei first tried to adjust umask globally for all tests in
+> the do_setup() [1], which I worried it would influence tests.
 
-and check struct stat content.
+Also, it would be good to update:
 
-2) Create symlink to *non-existing* file, but then creates the file, so that
-it's symlink to an existing file (I would personally first call creat()).
+https://github.com/linux-test-project/ltp/wiki/C-Test-API#21-umask
 
-symlink("object", "symbolic")           = 0
-creat("object", 0700)                   = 3
-rename("symbolic", "asymbolic")         = 0
+Kind regards,
+Petr
 
-Therefore you are testing only 2), maybe it'd be worth to test both cases.
-I suppose there is no point to test on more file types (directory, char device,
-...).
+> Later Li fixed problem in cgroup tests [2]. This is obviously more general
+> solution, Wei please send a patch for it and to the commit message
+> Suggested-by: Martin Doucha <mdoucha@suse.cz>
 
-Also, it performs lstat() and then it checks against S_IFLNK,
-but we can probably be ok just with safe_symlink(). I'm repeating myself,
-because you send these symlink01.c related tests as separate patches, but IMHO
-they are related (if v2 is needed it might make sense to sent all you sent in a
-patchset, not separate).
+> While we are fixing issues caused by too restrictive umask (Wei fixed e.g.
+> statx07 [3]), just to let you know that some failures are kernel failures (at
+> least creat09 which uses all_filesystems, had bug on XFS [4], which got fixed
+> in the kernel).
 
+> Kind regards,
+> Petr
 
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
-> ---
->  runtest/smoketest                           |  2 +-
->  runtest/syscalls                            |  2 +-
->  testcases/kernel/syscalls/rename/.gitignore |  1 +
->  testcases/kernel/syscalls/rename/rename15.c | 41 +++++++++++++++++++++
->  4 files changed, 44 insertions(+), 2 deletions(-)
->  create mode 100644 testcases/kernel/syscalls/rename/rename15.c
-
-> diff --git a/runtest/smoketest b/runtest/smoketest
-> index 83eebfe7b..19fa257d6 100644
-> --- a/runtest/smoketest
-> +++ b/runtest/smoketest
-> @@ -10,7 +10,7 @@ write01 write01
->  symlink01 symlink01
->  stat04 symlink01 -T stat04
->  utime01A symlink01 -T utime01
-> -rename01A symlink01 -T rename01
-> +rename15 rename15
->  splice02 splice02 -s 20
->  df01_sh df01.sh
->  shell_test01 echo "SUCCESS" | shell_pipe01.sh
-> diff --git a/runtest/syscalls b/runtest/syscalls
-> index 6e2407879..ae058153b 100644
-> --- a/runtest/syscalls
-> +++ b/runtest/syscalls
-> @@ -1158,7 +1158,6 @@ removexattr01 removexattr01
->  removexattr02 removexattr02
-
->  rename01 rename01
-> -rename01A symlink01 -T rename01
->  rename03 rename03
->  rename04 rename04
->  rename05 rename05
-> @@ -1171,6 +1170,7 @@ rename11 rename11
->  rename12 rename12
->  rename13 rename13
->  rename14 rename14
-> +rename15 rename15
-
->  #renameat test cases
->  renameat01 renameat01
-> diff --git a/testcases/kernel/syscalls/rename/.gitignore b/testcases/kernel/syscalls/rename/.gitignore
-> index f95cf7d21..d17b80f09 100644
-> --- a/testcases/kernel/syscalls/rename/.gitignore
-> +++ b/testcases/kernel/syscalls/rename/.gitignore
-> @@ -11,3 +11,4 @@
->  /rename12
->  /rename13
->  /rename14
-> +/rename15
-> diff --git a/testcases/kernel/syscalls/rename/rename15.c b/testcases/kernel/syscalls/rename/rename15.c
-> new file mode 100644
-> index 000000000..ae7f330b6
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/rename/rename15.c
-> @@ -0,0 +1,41 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-> + *    Author: David Fenner
-> + *    Copilot: Jon Hendrickson
-> + * Copyright (C) 2024 Andrea Cervesato andrea.cervesato@suse.com
-> + */
-> +
-> +/*\
-> + * [Description]
-> + *
-> + * This test verifies that rename() is working correctly on symlink()
-> + * generated files, renaming symbolic link and checking if stat() information
-> + * are preserved.
-> + */
-> +
-
-very nit: maybe it'd be safer to actually use headers which are needed.
-One day, if we rewrite library, we will have to keep all the headers in
-tst_test.h, even not needed in the library, because tests starts to depend on
-it.
-
-#include <stdio.h>
-#include <sys/stat.h>
-#include <unistd.h>
-
-> +#include "tst_test.h"
-> +
-> +static void run(void)
-> +{
-> +	char *oldname = "my_symlink0";
-> +	char *newname = "asymlink";
-
-These aren't modified, how about use:
-
-#define OLDNAME "my_symlink0"
-#define NEWNAME "asymlink"
-
-> +	struct stat oldsym_stat;
-> +	struct stat newsym_stat;
-> +
-> +	SAFE_SYMLINK(tst_get_tmpdir(), oldname);
-Again, this looks to be a memory leak.
-
-It's noted in the headers, but IMHO it should be added to the docs:
-https://github.com/linux-test-project/ltp/wiki/C-Test-API
-https://github.com/linux-test-project/ltp/wiki/Maintainer-Patch-Review-Checklist
-and/or even write sparse check.
-
-include/tst_test.h
-/*
- * Returns path to the test temporary directory in a newly allocated buffer.
- */
-char *tst_get_tmpdir(void);
-
-include/old/old_tmpdir.h
-/* tst_get_tmpdir()
- *
- * Return a copy of the test temp directory as seen by LTP. This is for
- * path-oriented tests like chroot, etc, that may munge the path a bit.
- *
- * FREE VARIABLE AFTER USE IF IT IS REUSED!
- */
-char *tst_get_tmpdir(void);
-
-Alternatives would be: 1) use "." (relative path instead of absolute,
-2) call it in the setup function.
-
-> +	SAFE_STAT(oldname, &oldsym_stat);
-> +
-> +	SAFE_RENAME(oldname, newname);
-> +	SAFE_STAT(newname, &newsym_stat);
-> +
-> +	TST_EXP_EQ_LI(oldsym_stat.st_ino, newsym_stat.st_ino);
-> +	TST_EXP_EQ_LI(oldsym_stat.st_dev, newsym_stat.st_dev);
-> +
-> +	SAFE_UNLINK(newname);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test_all = run,
-> +	.needs_tmpdir = 1,
-> +};
+> [1] https://lore.kernel.org/ltp/20240219134845.22171-1-wegao@suse.com/
+> [2] https://github.com/linux-test-project/ltp/commit/50626b4a1d01caacd418156ec997853bd4a9fc39
+> [3] https://github.com/linux-test-project/ltp/commit/d95f453ac624dc159d3acddb62eadeb9a8215f0e
+> [4] https://lore.kernel.org/ltp/62343BF2.1020006@fujitsu.com/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
