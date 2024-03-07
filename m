@@ -2,87 +2,95 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58614874A24
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Mar 2024 09:54:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 208F087647B
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 13:43:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 16BD43CE9A3
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Mar 2024 09:54:30 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BD3C13CFFEF
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 13:43:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 23CFA3CE8A8
- for <ltp@lists.linux.it>; Thu,  7 Mar 2024 09:54:23 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
+ by picard.linux.it (Postfix) with ESMTPS id E2AB53CE99F
+ for <ltp@lists.linux.it>; Thu,  7 Mar 2024 10:26:07 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=meted@linux.ibm.com;
  receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 146AF21F6A0
- for <ltp@lists.linux.it>; Thu,  7 Mar 2024 09:54:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1709801661;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7xuMKcRCvB5tHnerPYgIEyxAxD7qu7P1WlIxutjYnAM=;
- b=YKzoRKN77ezf1NifyCHolR1ZeiV6+lcpJRzcyyBZFGOogRsILjoUwvX6sLy8I3JGpwtOSr
- XsXWHq7zouYd8A6VUdlR8swL0P/JP0bF8BUN+w4BObZLM0g9djiZy1xKtGfjsAg3VrK+dS
- 7eYefwyLoXrokpknq59JWnXxVaLf+bg=
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-130-HeGefNy-P8WVWiwHoIg53A-1; Thu, 07 Mar 2024 03:54:19 -0500
-X-MC-Unique: HeGefNy-P8WVWiwHoIg53A-1
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-29b976631dcso148228a91.0
- for <ltp@lists.linux.it>; Thu, 07 Mar 2024 00:54:19 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709801659; x=1710406459;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7xuMKcRCvB5tHnerPYgIEyxAxD7qu7P1WlIxutjYnAM=;
- b=O1VCmNHi+5zAvNxoT3g6fp7P1ckiStxAmC4PwmPzIlmq+W6FypW5vQR5Pn0V8mVkq9
- 3BHckKqEiZvTWPEmVdcAtoEuJV0oLlTlc1A3C/EP2B71LTf4WjfOCJZe0GzM3ljg7u31
- Tk095nDCqJsDAYk4WMlbWBIzFhCsvdIJKTlEcUzuwJzpN2SFbIG77OKyHthyZXjOKS4s
- Eau5xECOKX4/KXTpgmsmdNc6gJqdRz6RdmVHIyGKZsc+LZMSv91vMMtxbiMGXrsI8vxF
- T8Og5FfOjjLKFUs4S5AnXxvtO5HaMm/fb75OQ2Iir7TkYtVtgwu2SpJU07Cvj1XTqymk
- 28zQ==
-X-Gm-Message-State: AOJu0YxvKttFNnXXO09qTzpw0+W3iDxiJ7+OWvnyl6HM24s2BseA4woB
- I8Q4os4e89YQ1gqWt/1UPM+UftKoWTZKmovQ93iwBDJYcQPJR+mDhFEBz35EKDw/1X8k6XF701+
- Z6oTJz7RlHvepKHKXeBRvWp4+7oLDeKYY5ZRRyMXNQ/70ElCJjR0SHOXm7sxoWM7p8Az52qFLfO
- 790zUp+wJqs+BR65wHof0U2ZI=
-X-Received: by 2002:a17:90a:d514:b0:29a:be0d:4038 with SMTP id
- t20-20020a17090ad51400b0029abe0d4038mr13916640pju.3.1709801658855; 
- Thu, 07 Mar 2024 00:54:18 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IG9TXpZWG/h1daNzAzL3PyzLtQCkJzagzNa/8LO4axUu61slebq6FMJKjMMA3yAMOb0t8g7wF1r4Du8zCz8unM=
-X-Received: by 2002:a17:90a:d514:b0:29a:be0d:4038 with SMTP id
- t20-20020a17090ad51400b0029abe0d4038mr13916625pju.3.1709801658482; Thu, 07
- Mar 2024 00:54:18 -0800 (PST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7C53F140B4C1
+ for <ltp@lists.linux.it>; Thu,  7 Mar 2024 10:26:05 +0100 (CET)
+Received: from pps.filterd (m0353727.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 42792ALA001733 for <ltp@lists.linux.it>; Thu, 7 Mar 2024 09:26:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=from : to : subject :
+ date : message-id : mime-version : content-transfer-encoding; s=pp1;
+ bh=xMEZBQwZlG5pNDwla5oQ4MHj4KSNxvTDGGTgbmipggA=;
+ b=lBsQS2H2Sxt0AfSfwAwk+iHIh7j5gtjk/DWHrWKtW5RwQX8sOyS3bBIe9cDJnPfDkKjb
+ O2kqPdDqffWrxdbU1Ma2k0y7HGW81F9i7KFDVy2ECLd1wvKZ7X7uaz1cx+hLiGZJv4wZ
+ h1vzGSxrZSIOYbCql6zsdfTHFWPdsY5HG54VFP0d7rxwW9ypWw6wX7+VcWdqpEBJdpUl
+ 2gagjxGq7tCf5HdjyGetSl4rszin6RF05e4bSbCunvsPMpGsDTEIJVKqjbRQivrEeRI2
+ jRCs2jZJjDNZg89ucFI857Aey8YbAEF50nyZUE3oC1R12+4mef8WtTtyhHhRAdyI/Gof Yg== 
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3wqakhrd6n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <ltp@lists.linux.it>; Thu, 07 Mar 2024 09:26:03 +0000
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 4278t24S031549 for <ltp@lists.linux.it>; Thu, 7 Mar 2024 09:26:02 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 3wmgnkc8w1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <ltp@lists.linux.it>; Thu, 07 Mar 2024 09:26:02 +0000
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com
+ [10.20.54.106])
+ by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 4279PxHu12779892
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <ltp@lists.linux.it>; Thu, 7 Mar 2024 09:26:01 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EF5D02004E
+ for <ltp@lists.linux.it>; Thu,  7 Mar 2024 09:25:58 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D8A2220043
+ for <ltp@lists.linux.it>; Thu,  7 Mar 2024 09:25:58 +0000 (GMT)
+Received: from lenovoibm.boeblingen.de.ibm.com (unknown [9.152.212.129])
+ by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP
+ for <ltp@lists.linux.it>; Thu,  7 Mar 2024 09:25:58 +0000 (GMT)
+From: Mete Durlu <meted@linux.ibm.com>
+To: ltp@lists.linux.it
+Date: Thu,  7 Mar 2024 10:26:03 +0100
+Message-ID: <20240307092603.16269-1-meted@linux.ibm.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240307074019.766020-1-dbrendel@redhat.com>
-In-Reply-To: <20240307074019.766020-1-dbrendel@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 7 Mar 2024 16:54:06 +0800
-Message-ID: <CAEemH2fTCB8SB85DY1NUVsFK_hSmAXqaFHtsWngU7hPdkcHtMw@mail.gmail.com>
-To: Dennis Brendel <dbrendel@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: hbhwkZh2AIohJHwwnV4JE160MRpbleV3
+X-Proofpoint-ORIG-GUID: hbhwkZh2AIohJHwwnV4JE160MRpbleV3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-07_06,2024-03-06_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ mlxlogscore=999 phishscore=0 spamscore=0 priorityscore=1501 suspectscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 mlxscore=0 bulkscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311290000 definitions=main-2403070068
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+ SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v4] munlockall: re-write test case
+X-Mailman-Approved-At: Fri, 08 Mar 2024 13:43:41 +0100
+Subject: [LTP] [PATCH v1] fanotify14: fix anonymous pipe testcases
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,18 +102,72 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Reviewed-by: Li Wang <liwang@redhat.com>
+When SElinux is configured (comes out of the box on most distros) and
+is configured to enforcing (the default configuration), tests related
+to anonymous pipes return EACCES instead of the expected errno EINVAL.
+Fix the failures caused by the above condition by checking the SElinux
+configuration and adjusting the errno accordingly.
 
+Signed-off-by: Mete Durlu <meted@linux.ibm.com>
+---
+ testcases/kernel/syscalls/fanotify/fanotify14.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify14.c b/testcases/kernel/syscalls/fanotify/fanotify14.c
+index d02d81495..61ed8c660 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify14.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify14.c
+@@ -27,12 +27,14 @@
+ #define _GNU_SOURCE
+ #include "tst_test.h"
+ #include <errno.h>
++#include <stdlib.h>
+ 
+ #ifdef HAVE_SYS_FANOTIFY_H
+ #include "fanotify.h"
+ 
+ #define MNTPOINT "mntpoint"
+ #define FILE1 MNTPOINT"/file1"
++#define SELINUX_STATUS_PATH "/sys/fs/selinux/enforce"
+ 
+ /*
+  * List of inode events that are only available when notification group is
+@@ -240,6 +242,19 @@ static struct test_case_t {
+ 	},
+ };
+ 
++static int is_selinux_enforcing(void)
++{
++	char res;
++	int fd;
++
++	fd = open(SELINUX_STATUS_PATH, O_RDONLY);
++	if (fd <= 0)
++		return 0;
++	SAFE_READ(1, fd, &res, 1);
++	SAFE_CLOSE(fd);
++	return atoi(&res);
++}
++
+ static void do_test(unsigned int number)
+ {
+ 	struct test_case_t *tc = &test_cases[number];
+@@ -279,6 +294,8 @@ static void do_test(unsigned int number)
+ 	if (tc->pfd) {
+ 		dirfd = tc->pfd[0];
+ 		path = NULL;
++		if (is_selinux_enforcing())
++			tc->expected_errno = EACCES;
+ 	}
+ 
+ 	tst_res(TINFO, "Testing %s with %s",
 -- 
-Regards,
-Li Wang
+2.44.0
 
 
 -- 
