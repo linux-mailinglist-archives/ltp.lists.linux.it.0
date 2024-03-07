@@ -1,91 +1,95 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B65298748E9
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Mar 2024 08:40:41 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C350874A07
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Mar 2024 09:45:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4A73A3CE998
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Mar 2024 08:40:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3687D3CE998
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Mar 2024 09:45:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B3D9D3C8919
- for <ltp@lists.linux.it>; Thu,  7 Mar 2024 08:40:38 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=dbrendel@redhat.com;
+ by picard.linux.it (Postfix) with ESMTPS id 0AC193CE8A8
+ for <ltp@lists.linux.it>; Thu,  7 Mar 2024 09:45:29 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it; spf=none (no SPF record)
+ smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=sachinpb@linux.vnet.ibm.com;
  receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C850F21BDE2
- for <ltp@lists.linux.it>; Thu,  7 Mar 2024 08:40:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1709797236;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=1Ew8PHkmOGe7ibNVfR5bk6b6XNXVc0pUIhA81Y8/7uc=;
- b=LbC04ZJ1X/Owo3fVGTFigccpsyJmwcUNdEqzAT9JXJ/ihbVsmfQFHIWWbS8hLi8hNhIEdQ
- u/HMz8CpiUOUra/4ePevDHRq+iwA7C66L+C+FsTsOWkEobeuLVRNa+jJWrkScVmhjaXzdV
- wS5BZgB/ZEfhDfQK6DIp33FNViO3Vf4=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-183-4P8o-XzwO3makQq0VGjmig-1; Thu, 07 Mar 2024 02:40:34 -0500
-X-MC-Unique: 4P8o-XzwO3makQq0VGjmig-1
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-33deb1f7afdso222612f8f.2
- for <ltp@lists.linux.it>; Wed, 06 Mar 2024 23:40:33 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709797232; x=1710402032;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1Ew8PHkmOGe7ibNVfR5bk6b6XNXVc0pUIhA81Y8/7uc=;
- b=CBoTq52vTabUpRxGQrSw8m/UbFaRpq5lHlhesKzWjXMt/OCeQN9Opl/RmO6ASDw0ZZ
- xTG/2uMZDEfSvK6O+s7ORxg8OoVCAyVxffbgR+L+pfVyEJCOCOaCRew0Kn1CnqjwI3RM
- 72lP/r+um5UpTzdKSsXs/mpqoy9oqxQ+1bZ1HFSdigAz5r4qLHPCA1QkiwSFvV8U1WE7
- Tw/QjiNtRfZ+ovumXfKRpJciQwZXLVJpPnOnx/QC/ivA/30QKoj2ZbFj5XPlzmZiIdcc
- juxUwuW02aCIf9AslQ6ZSAPgLzVm12sdtBpOlmHBdWRRv7SFtZFs5OHNWhSr2+wR8lAB
- oLYA==
-X-Gm-Message-State: AOJu0YxJ87CJUGLDsAeReVgU++CWDBbxIBGNuGF2PBMknGeZDNP3w6qL
- VU6zZgTISb0vJE7d7M6Ux7KbGvVCfhD4D+KDlPThxIWGzF5PeAphxKMJlGJVtTYEoffHUGO2Q6g
- udF+PiAF0qNbD8jIX4sha4Flhh6aq62/tEMxQeOVAbGuad//SKoJ6qAcM/QKD5PGzSoRGJ18qXF
- dZIzJ8yCAHRZyL2K/VJpbRJDFehbd5xYVT
-X-Received: by 2002:a05:6000:1e97:b0:33e:172f:5709 with SMTP id
- dd23-20020a0560001e9700b0033e172f5709mr13307854wrb.8.1709797232684; 
- Wed, 06 Mar 2024 23:40:32 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEQL5BLZPC2BGwFT2OYJ6cwSxQaPaqXzbzuxkSD2w16RMQAWcQCHS7pJq2EnIUMMOZ+vw9mfQ==
-X-Received: by 2002:a05:6000:1e97:b0:33e:172f:5709 with SMTP id
- dd23-20020a0560001e9700b0033e172f5709mr13307835wrb.8.1709797232145; 
- Wed, 06 Mar 2024 23:40:32 -0800 (PST)
-Received: from T14s.redhat.com ([185.44.203.230])
- by smtp.gmail.com with ESMTPSA id
- e13-20020a5d594d000000b0033e12b2e567sm18637702wri.35.2024.03.06.23.40.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Mar 2024 23:40:31 -0800 (PST)
-From: Dennis Brendel <dbrendel@redhat.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8703A602778
+ for <ltp@lists.linux.it>; Thu,  7 Mar 2024 09:45:26 +0100 (CET)
+Received: from pps.filterd (m0353726.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 4278WEpF020688; Thu, 7 Mar 2024 08:45:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-transfer-encoding; s=pp1;
+ bh=b53M9vD5UCJBWnaurPvBxRs5LaMDdCOZuVixV7ji6gk=;
+ b=PRNcg/IDdTBv1MJKC8ULZ4VpQdu+z+s/rfapDswboCJ1Uy6InRcE3NT4oJF9RnSjqtXw
+ EGf1ixu/AhkZbUwqoTsf30wTVJVyxsbQQEqzXsKXPb1aVClGhtEtryNIqR0ZI8aJKi0M
+ 14HYET+Ep0jil+9wdzMiEaFXIejukmKzc9b+hTBNvo7mNN3fC3V2Txmd5YtQmlULSJ1r
+ CjPWYpelqny0ULdexfLmo9xiYlQCDF81ULaJbc3NFt96pkcjPJHFk5+z8cOL8fYBTr4p
+ uZ4DdshSIpqQyRjkndj4cchm3BJPxINdwZ5rkGVXhdw/LtpVIXWjqT77TDeXcL7eErge cg== 
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3wqa5bg7s5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 Mar 2024 08:45:24 +0000
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 4278MQMA026216; Thu, 7 Mar 2024 08:45:23 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 3wmfep4dmk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 Mar 2024 08:45:23 +0000
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
+ [10.20.54.101])
+ by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 4278jImk42074490
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 7 Mar 2024 08:45:20 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BB7082005A;
+ Thu,  7 Mar 2024 08:45:18 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DD0E02004F;
+ Thu,  7 Mar 2024 08:45:17 +0000 (GMT)
+Received: from ltcden9-lp4.aus.stglabs.ibm.com (unknown [9.53.174.133])
+ by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Thu,  7 Mar 2024 08:45:17 +0000 (GMT)
+From: Sachin P Bappalige <sachinpb@linux.vnet.ibm.com>
 To: ltp@lists.linux.it
-Date: Thu,  7 Mar 2024 08:40:19 +0100
-Message-ID: <20240307074019.766020-1-dbrendel@redhat.com>
-X-Mailer: git-send-email 2.44.0
+Date: Thu,  7 Mar 2024 02:45:13 -0600
+Message-ID: <20240307084513.109829-1-sachinpb@linux.vnet.ibm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: z4hfHSfjqxlj9iMg_GS-HzxqOcvl4VPj
+X-Proofpoint-ORIG-GUID: z4hfHSfjqxlj9iMg_GS-HzxqOcvl4VPj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-07_05,2024-03-06_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ spamscore=0 malwarescore=0 clxscore=1015 adultscore=0 impostorscore=0
+ mlxlogscore=999 suspectscore=0 phishscore=0 priorityscore=1501 mlxscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311290000 definitions=main-2403070062
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+ DMARC_PASS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4] munlockall: re-write test case
+Subject: [LTP] [PATCH v3] Migrating the libhugetlbfs/testcases/shm-gettest.c
+ test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,199 +101,159 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: sachinpb@linux.vnet.ibm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This uses the new API and actually verifies the expected behavior:
+Test Description: This testcase creates shared memory segments
+backed by hugepages, writes  specific patterns to each segment,
+verifies pattern and detaches a shared memory segments in a loop.
 
-- there should not be any memory locked after starting the process
-- we lock the process' memory and verify it has been locked
-- we call munlockall(2) and verify the kernel reports that no more
-  memory is locked
+This looping test was added to verify the functionality of
+large page backed shared memory segments. A segment is created,
+written, verified, and detached a specified number of times.
 
-Signed-off-by: Dennis Brendel <dbrendel@redhat.com>
+-Updated 'kernel/mem/.gitignore'
+-Updated 'runtest/hugetlb' for number of iterations with -i 5
+
+Signed-off-by: Sachin P Bappalige <sachinpb@linux.vnet.ibm.com>
 ---
+v3:
+ -Addressed v2 comments
+ -Updated 'runtest/hugetlb' for number of iterations with -i 5
 
-Changes compared to v3:
+v2:
+ -Fixed coding style errors as per 'make check'
+ -Reporting TPASS moved inside do_shmtest() function
+ -Moved testcase file from folder hugemmap to hugeshmget
+ -Renamed testcase 'hugepage35.c' to hugeshmget06.c 
+ -Updated 'kernel/mem/.gitignore'
+ -Updated 'runtest/hugetlb' for number of iterations with -i 10
+---
+ runtest/hugetlb                               |  1 +
+ testcases/kernel/mem/.gitignore               |  1 +
+ .../mem/hugetlb/hugeshmget/hugeshmget06.c     | 84 +++++++++++++++++++
+ 3 files changed, 86 insertions(+)
+ create mode 100644 testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget06.c
 
-- remove useless size output in the mlockall() check
-- use TST_EXP_PASS macro for calling munlockall()
-
- .../kernel/syscalls/munlockall/munlockall01.c | 146 ++++--------------
- 1 file changed, 29 insertions(+), 117 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/munlockall/munlockall01.c b/testcases/kernel/syscalls/munlockall/munlockall01.c
-index 51f731b65..7051b8535 100644
---- a/testcases/kernel/syscalls/munlockall/munlockall01.c
-+++ b/testcases/kernel/syscalls/munlockall/munlockall01.c
-@@ -1,134 +1,46 @@
+diff --git a/runtest/hugetlb b/runtest/hugetlb
+index 299c07ac9..7d8715922 100644
+--- a/runtest/hugetlb
++++ b/runtest/hugetlb
+@@ -44,6 +44,7 @@ hugeshmat02 hugeshmat02 -i 5
+ hugeshmat03 hugeshmat03 -i 5
+ hugeshmat04 hugeshmat04 -i 5
+ hugeshmat05 hugeshmat05 -i 5
++hugeshmat06 hugeshmat06 -i 5
+ 
+ hugeshmctl01 hugeshmctl01 -i 5
+ hugeshmctl02 hugeshmctl02 -i 5
+diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
+index c96fe8bfc..d88484fa1 100644
+--- a/testcases/kernel/mem/.gitignore
++++ b/testcases/kernel/mem/.gitignore
+@@ -47,6 +47,7 @@
+ /hugetlb/hugeshmget/hugeshmget02
+ /hugetlb/hugeshmget/hugeshmget03
+ /hugetlb/hugeshmget/hugeshmget05
++/hugetlb/hugeshmget/hugeshmget06
+ /ksm/ksm01
+ /ksm/ksm02
+ /ksm/ksm03
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget06.c b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget06.c
+new file mode 100644
+index 000000000..3491df868
+--- /dev/null
++++ b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget06.c
+@@ -0,0 +1,84 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-+ * Copyright Red Hat
-+ * Author: Dennis Brendel <dbrendel@redhat.com>
-  */
--/**************************************************************************
-- *
-- *    TEST IDENTIFIER	: munlockall01
-- *
-- *    EXECUTED BY	: root / superuser
-- *
-- *    TEST TITLE	: Basic test for munlockall(2)
-- *
-- *    TEST CASE TOTAL	: 1
-- *
-- *    AUTHOR		: sowmya adiga<sowmya.adiga@wipro.com>
-- *
-- *    SIGNALS
-- * 	Uses SIGUSR1 to pause before test if option set.
-- * 	(See the parse_opts(3) man page).
-- *
-- *    DESCRIPTION
-- *	This is a phase I test for the munlockall(2) system call.
-- *	It is intended to provide a limited exposure of the system call.
-- *
-- * 	Setup:
-- *	  Setup signal handling.
-- *	  Pause for SIGUSR1 if option specified.
-- *
-- * 	Test:
-- *        Execute system call
-- *	  Check return code, if system call failed (return=-1)
-- *	  Log the errno and Issue a FAIL message.
-- *	  Otherwise, Issue a PASS message.
-- *
-- * 	Cleanup:
-- * 	  Print errno log and/or timing stats if options given
-- *
-- * USAGE:  <for command-line>
-- *  munlockall01 [-c n] [-e] [-i n] [-I x] [-p x] [-t]
-- *		where,		-c n : Run n copies concurrently
-- *	               		-e   : Turn on errno logging.
-- *				-h   : Show this help screen
-- *				-i n : Execute test n times.
-- *				-I x : Execute test for x seconds.
-- *				-p   : Pause for SIGUSR1 before starting
-- *                      	-P x : Pause for x seconds between iterations.
-- *                       	 t   : Turn on syscall timing.
-- *
-- * RESTRICTIONS
-- * Must be root/superuser to run it.
-- *****************************************************************************/
--#include <errno.h>
--#include <sys/mman.h>
--#include "test.h"
- 
--void setup();
--void cleanup();
-+/*\
-+ * [Description]
-+ *
-+ * Verify that munlockall(2) unlocks all previously locked memory
++/*
++ * Copyright (C) 2005-2006, IBM Corporation.
++ * Author: David Gibson & Adam Litke
 + */
- 
--char *TCID = "munlockall01";
--int TST_TOTAL = 1;
-+#include <sys/mman.h>
- 
--#if !defined(UCLINUX)
-+#include "tst_test.h"
- 
--int main(int ac, char **av)
-+static void verify_munlockall(void)
- {
--	int lc;
--
--	tst_parse_opts(ac, av, NULL, NULL);
-+	unsigned long size = 0;
- 
--	setup();
-+	SAFE_FILE_LINES_SCANF("/proc/self/status", "VmLck: %ld", &size);
- 
--	/* check looping state */
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
-+	if (size != 0UL)
-+		tst_brk(TBROK, "Locked memory after init should be 0 but is %ld", size);
- 
--		tst_count = 0;
-+	if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0)
-+		tst_brk(TBROK | TERRNO, "Could not lock memory using mlockall()");
- 
--		TEST(munlockall());
-+	SAFE_FILE_LINES_SCANF("/proc/self/status", "VmLck: %ld", &size);
- 
--		/* check return code */
--		if (TEST_RETURN == -1) {
--			tst_resm(TFAIL | TTERRNO, "munlockall() Failed with"
--				 " return=%ld", TEST_RETURN);
--		} else {
--			tst_resm(TPASS, "munlockall() passed with"
--				 " return=%ld ", TEST_RETURN);
-+	if (size == 0UL)
-+		tst_brk(TBROK, "Locked memory after mlockall() should be > 0");
- 
--		}
--	}
-+	TST_EXP_PASS(munlockall(), "Unlock memory using munlockall()");
- 
--	/* cleanup and exit */
--	cleanup();
--	tst_exit();
-+	SAFE_FILE_LINES_SCANF("/proc/self/status", "VmLck: %ld", &size);
- 
-+	if (size != 0UL)
-+		tst_res(TFAIL, "Locked memory after munlockall() should be 0 but is %ld", size);
-+	else
-+		tst_res(TPASS, "Memory successfully locked and unlocked");
- }
- 
--#else
--
--int main(void)
--{
--	tst_resm(TINFO, "test is not available on uClinux");
--	tst_exit();
--}
--
--#endif /* if !defined(UCLINUX) */
--
--/* setup() - performs all ONE TIME setup for this test. */
--void setup(void)
--{
--	tst_require_root();
--
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--}
--
--/*
-- * cleanup() - performs all ONE TIME cleanup for this test at
-- *		completion or premature exit.
-- */
--void cleanup(void)
--{
--}
++
++/*\
++ * DESCRIPTION
++ *	hugeshmget06 -
++ * This testcase creates shared memory segments backed by hugepages,
++ * writes specific patterns to each segment, verifies pattern,
++ * and detaches a shared memory segments in a loop.
++ * It ensures that the hugepage backed shared memory functionalities
++ * works correctly by validating the data written to segment.
++ */
++
++#include "hugetlb.h"
++#include "tst_safe_sysv_ipc.h"
++
++#define MNTPOINT "hugetlbfs/"
++#define NR_HUGEPAGES 4
++
++static long hpage_size;
++static int shmid = -1, key = -1;
++
++static void do_shmtest(void)
++{
++	size_t i, j;
++	char pattern;
++	char *shmaddr;
++
++	shmaddr = SAFE_SHMAT(shmid, 0, SHM_RND);
++	tst_res(TINFO, "shmaddr: %p\n", shmaddr);
++
++	for (i = 0; i < NR_HUGEPAGES; i++) {
++		pattern = 65 + (i % 26);
++		tst_res(TINFO, "Touching %p with %c\n",
++		shmaddr + (i * hpage_size), pattern);
++		memset(shmaddr + (i * hpage_size), pattern, hpage_size);
++	}
++
++	for (i = 0; i < NR_HUGEPAGES; i++) {
++		pattern = 65 + (i % 26);
++		tst_res(TINFO, "Verifying %p\n", (shmaddr + (i * hpage_size)));
++		for (j = 0; j < (size_t)hpage_size; j++)
++			if (*(shmaddr + (i * hpage_size) + j) != pattern) {
++				tst_res(TFAIL, "Got wrong byte 0x%02x expected 0x%02x",
++						*(shmaddr + (i * hpage_size) + j),
++						pattern);
++				return;
++			}
++	}
++	SAFE_SHMDT((const void *)shmaddr);
++	tst_res(TPASS, "shm hugepages works correctly");
++}
++
++static void run_test(void)
++{
++	do_shmtest();
++}
++
++static void setup(void)
++{
++	hpage_size = tst_get_hugepage_size();
++	tst_res(TINFO, "hugepage size is  %ld", hpage_size);
++	shmid = SAFE_SHMGET(key, NR_HUGEPAGES * hpage_size, SHM_HUGETLB|IPC_CREAT|SHM_R|SHM_W);
++	tst_res(TINFO, "shmid: 0x%x\n", shmid);
++}
++
++static void cleanup(void)
++{
++	if (shmid >= 0)
++		SAFE_SHMCTL(shmid, IPC_RMID, NULL);
++}
++
 +static struct tst_test test = {
-+	.test_all = verify_munlockall,
++	.needs_root = 1,
++	.mntpoint = MNTPOINT,
++	.needs_hugetlbfs = 1,
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = run_test,
++	.hugepages = {NR_HUGEPAGES, TST_NEEDS},
 +};
 -- 
-2.44.0
+2.43.0
 
 
 -- 
