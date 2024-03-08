@@ -1,87 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC1CB875C5B
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 03:33:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1709865206; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=4EO0iEVaHdhgXUHy6DCLl/TnaZJTwRqov3alct11q4o=;
- b=bHhn1hRgwURg2Rxmgff2txWI3eOMq2GKSQXuOJvYadSDPNM7QxZV/nCs+1j438iFRZAwO
- g/BwPJu53YeMVUoYUNYpWVwLXYMhvni3i19O8BxDBEkPzqn++viMZzZMfiYWEYMusXGUwLm
- NEF6BD0b3ks5Rua8XuMFepzkolTELgI=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C7EB4875D44
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 05:52:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6C62F3D0C1A
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 03:33:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7F2C43D1868
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 05:52:41 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1D9D03CB8D1
- for <ltp@lists.linux.it>; Fri,  8 Mar 2024 03:33:23 +0100 (CET)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id EF1893CE9A1
+ for <ltp@lists.linux.it>; Fri,  8 Mar 2024 05:52:39 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwang@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C0EC4600A1B
- for <ltp@lists.linux.it>; Fri,  8 Mar 2024 03:33:22 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-33e672e10cfso589805f8f.0
- for <ltp@lists.linux.it>; Thu, 07 Mar 2024 18:33:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1709865201; x=1710470001; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=EiD5vJ99bnsZocl0Vqj+hhjQTzULB58Gf7R/G1e7Blo=;
- b=REzWjkaihMsU2DjssS0tq6ADtj/VtRfTlASBYEGmqJDlhRHHZTPLjMcLvKAdqck65I
- 3fc8dDYM6G7E0xa7GTbhkbSSbz13zMjmCyIaWVaMogPaaJfNtmg6yrnqLZUDlwmavzGg
- kNr9Qbf7n/AV+jVrL+IRTkNR4WD846Ze888Wyz5axlnplv7ZL5oZ4UK/LYbaBdIzBPH+
- d74I9Wq+aCCRiNqOYjr2KV6DgLxIGT300Efxjm3pP2zQwCs+zCZSw9l/dUb4HyPQALTN
- euqA4o/dvCsMbi1FmxacDxWs6qyYP9MJNQ3ukdTCkIZtJBBh05vu+V8NK8p9/vFQyG/Z
- BxlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709865201; x=1710470001;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=EiD5vJ99bnsZocl0Vqj+hhjQTzULB58Gf7R/G1e7Blo=;
- b=OVDsuLX9TBH7e7QywzHfVDjFwGZ0jdEUyobmVzitUbhbt+6qA1d8GoUSpVMNae4eD1
- v95hWL7JUxARu4bP8n1D2pfDc8TD50ABE2KtAsDOpr4YtSIumb3FMzMZAneuPJ6YB4i3
- WrIGNScPPy0ZSsG1G3WbOfrQWKWlOeJirxwMoPz6h7kayGzDSGYbUydg+BYXI31KgfyN
- wBIRYHVieGkNwyJ298+qY7KFYTL3OKU7S2FjA7uXrxs8V0033Gqo+RwXYoimUEL68pa1
- oPTlfBmzBLG7WPhT5bSAD1AMPIEk1NdGoKvIcKRcwTo3BdGNzBN/IaKPGIdzEDPmENcb
- OU9Q==
-X-Gm-Message-State: AOJu0YxDxtzNR90XiqCLG30M2FsD0JNxIhFRK3794uMD0ljLbUs9hZNm
- uRf9KYDAAZScmp+GFbox98S8CmYC9sa9yEX3zKSwML9p235pTjBRyyYTRS5p5b3u/rKE+NRLBPQ
- =
-X-Google-Smtp-Source: AGHT+IHhpmC8526Y7ZQVRsLsdNd/jRWlt7KA+2vnjRV7rh2cuiDiBQe6/S89U9gwcFhdVgqHhRP6Cg==
-X-Received: by 2002:adf:b649:0:b0:33e:1f2a:d88a with SMTP id
- i9-20020adfb649000000b0033e1f2ad88amr15414620wre.69.1709865201594; 
- Thu, 07 Mar 2024 18:33:21 -0800 (PST)
-Received: from localhost ([81.95.8.245]) by smtp.gmail.com with ESMTPSA id
- bx33-20020a5d5b21000000b0033cf4e47496sm216607wrb.51.2024.03.07.18.33.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Mar 2024 18:33:21 -0800 (PST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 27ACC6012A8
+ for <ltp@lists.linux.it>; Fri,  8 Mar 2024 05:52:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1709873557;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=2bmZCMyJ3r1KuNoM+8VN3DinZ01T5lory1u+IW4r3PM=;
+ b=hzzCdixeW6xy/fkcZPlmyCLGgZbjEP9MhYc3Q7Q0OKevU3A+OwY3YazmPRf9SeKVXRcuPJ
+ xHf2WhVxhuX+7XWWIphFPDMd7Ubz0GR220OWGjC1eVVwdxRBJ8yBhtRSX4+UNTRzuqxWYM
+ BlzWpU9KhyERxM7T0hIigps3LU+VAoA=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-394-T8lAsqi_NiCfHf0Oz7g0CQ-1; Thu, 07 Mar 2024 23:52:35 -0500
+X-MC-Unique: T8lAsqi_NiCfHf0Oz7g0CQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 226528007A2
+ for <ltp@lists.linux.it>; Fri,  8 Mar 2024 04:52:35 +0000 (UTC)
+Received: from liwang-workstation.lab.eng.nay.redhat.com (unknown
+ [10.66.145.229])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3ACA0492BDC
+ for <ltp@lists.linux.it>; Fri,  8 Mar 2024 04:52:33 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Thu,  7 Mar 2024 21:33:12 -0500
-Message-Id: <20240308023312.25449-1-wegao@suse.com>
-X-Mailer: git-send-email 2.35.3
+Date: Fri,  8 Mar 2024 12:52:28 +0800
+Message-Id: <20240308045230.3106549-1-liwang@redhat.com>
 MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v1] memcontrol03: Using clean page cache to avoid
- dependency on IO rate
+Subject: [LTP] [PATCH 1/3] kconfig: add funtion to parse /proc/cmdline
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,50 +78,107 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Bad IO situation(storage bandwidth ~10MB/sec) will lead background
-writeback has uncertain progress for dirty page. So system can not
-reclaim enough memory for new process and finally lead a unexpected
-OOM.
+In tst_kconfig.c, it adds the tst_kcmdline_parse function to
+read and parse command-line parameters from /proc/cmdline.
+This function tokenizes the command line, matches keys with
+the provided parameter array, and stores the associated values.
+The update enhances the testing framework's ability to handle
+kernel configuration parameters dynamically.
 
-memcontrol03.c:218: TPASS: Expect: (A/B/E memory.current=0) ~= 0
-memcontrol03.c:116: TPASS: Child 1918 killed by OOM
-memcontrol03.c:224: TPASS: Expect: (A/B memory.current=52588544) ~= 52428800
-memcontrol03.c:129: TFAIL: Expected child 1944 to exit(0), but instead killed by SIGKILL
-
-Signed-off-by: Wei Gao <wegao@suse.com>
+Signed-off-by: Li Wang <liwang@redhat.com>
 ---
- testcases/kernel/controllers/memcg/memcontrol03.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/tst_kconfig.h | 23 +++++++++++++++++++++++
+ lib/tst_kconfig.c     | 41 +++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 64 insertions(+)
 
-diff --git a/testcases/kernel/controllers/memcg/memcontrol03.c b/testcases/kernel/controllers/memcg/memcontrol03.c
-index 9c6c808e0..9903ba82b 100644
---- a/testcases/kernel/controllers/memcg/memcontrol03.c
-+++ b/testcases/kernel/controllers/memcg/memcontrol03.c
-@@ -201,6 +201,7 @@ static void test_memcg_min(void)
- 		sleep(1);
- 	}
+diff --git a/include/tst_kconfig.h b/include/tst_kconfig.h
+index 8b24a8380..0ecf2c0d1 100644
+--- a/include/tst_kconfig.h
++++ b/include/tst_kconfig.h
+@@ -64,4 +64,27 @@ void tst_kconfig_read(struct tst_kconfig_var vars[], size_t vars_len);
+  */
+ int tst_kconfig_check(const char *const kconfigs[]);
  
-+	sync();
- 	alloc_anon_in_child(trunk_cg[G], MB(148), 0);
++/**
++ * Macro to initialize a tst_kcmdline_param structure with a specified parameter
++ * name and an empty value. This is useful for setting up an array of parameter
++ * structures before parsing the actual command-line arguments.
++ */
++#define TST_KCMDLINE_INIT(paraname) { \
++	.key = paraname, \
++	.value = "" \
++}
++
++/* Structure for storing command-line parameter key and its corresponding value */
++struct tst_kcmdline_param {
++	const char *key;
++	char value[128];
++};
++
++/**
++ * Parses command-line parameters from /proc/cmdline and stores them in params array
++ * params: The array of tst_kcmdline_param structures to be filled with parsed key-value pairs
++ * params_len: The length of the params array, indicating how many parameters to parse
++ */
++void tst_kcmdline_parse(struct tst_kcmdline_param params[], size_t params_len);
++
+ #endif	/* TST_KCONFIG_H__ */
+diff --git a/lib/tst_kconfig.c b/lib/tst_kconfig.c
+index 595ea4b09..f79dea5c6 100644
+--- a/lib/tst_kconfig.c
++++ b/lib/tst_kconfig.c
+@@ -565,3 +565,44 @@ char tst_kconfig_get(const char *confname)
  
- 	SAFE_CG_SCANF(trunk_cg[B], "memory.current", "%ld", c);
-@@ -217,6 +218,7 @@ static void test_memcg_min(void)
- 	TST_EXP_EXPR(values_close(c[2], 0, 1),
- 		     "(A/B/E memory.current=%ld) ~= 0", c[2]);
- 
-+	sync();
- 	alloc_anon_in_child(trunk_cg[G], MB(170), 1);
- 
- 	SAFE_CG_SCANF(trunk_cg[B], "memory.current", "%ld", c);
+ 	return var.choice;
+ }
++
++void tst_kcmdline_parse(struct tst_kcmdline_param params[], size_t params_len) {
++	FILE *proc_cmdline;
++	char cmdline[4096];
++	char *token, *key, *value;
++
++	proc_cmdline = fopen("/proc/cmdline", "r");
++	if (proc_cmdline == NULL)
++		tst_brk(TBROK | TERRNO, "Failed to open /proc/cmdline for reading");
++
++	if (fgets(cmdline, sizeof(cmdline), proc_cmdline) == NULL) {
++		fclose(proc_cmdline);
++
++		if (feof(proc_cmdline))
++			tst_brk(TBROK, "End-of-File reached on /proc/cmdline without reading any data");
++		else
++			tst_brk(TBROK | TERRNO, "Failed to read from /proc/cmdline");
++	}
++	fclose(proc_cmdline);
++
++	token = strtok(cmdline, " ");
++	while (token != NULL) {
++		key = token;
++		value = strchr(token, '=');
++
++		if (value != NULL) {
++			/* Split the token into key and value at '=' */
++			*value++ = '\0';
++
++			for (size_t i = 0; i < params_len; i++) {
++				if (strcmp(params[i].key, key) == 0) {
++					strncpy(params[i].value, value, sizeof(params[i].value) - 1);
++					params[i].value[sizeof(params[i].value) - 1] = '\0';
++					break;
++				}
++			}
++		}
++
++		token = strtok(NULL, " ");
++	}
++}
 -- 
-2.35.3
+2.40.1
 
 
 -- 
