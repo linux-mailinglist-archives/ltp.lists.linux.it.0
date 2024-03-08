@@ -2,21 +2,21 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5A80876172
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 11:03:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F85687624F
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 11:43:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 984723CFE06
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 11:03:37 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 54E733CFE04
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Mar 2024 11:43:58 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 359603C802B
- for <ltp@lists.linux.it>; Fri,  8 Mar 2024 11:03:30 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id BF1763CD842
+ for <ltp@lists.linux.it>; Fri,  8 Mar 2024 11:43:52 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
@@ -25,67 +25,67 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B32FA600668
- for <ltp@lists.linux.it>; Fri,  8 Mar 2024 11:03:29 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B567420A6AE
+ for <ltp@lists.linux.it>; Fri,  8 Mar 2024 11:43:51 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 49BC617049;
- Fri,  8 Mar 2024 09:31:58 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5D33B4DFEE;
+ Fri,  8 Mar 2024 10:00:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1709890320; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1709892016; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9XbNEoPhTuZKOx54VKPZGR+X/HPOj8TI4W99YA3m1Qs=;
- b=iASJR/aRSJlTW3nhdbpBxQlH4AypmssnEGOZzPwrBkx4/Ivq/O7E7M1Jm5x0kxXA9nj6AO
- ldldNG1qKugspbvwdAcV/OB+MFdD1CpAeefvQyLs8NMrUPHMFF6rlsWd75gxG5ybuEXJP2
- hy4RxmiAD2VNEJb3f0+VDmJ+pjaHQ5E=
+ bh=RClU0Za4SwqOda+0ool2oYmU1d8N+64Rq/DGR22H0+c=;
+ b=tZ6AlE1UJKfsB/CNrAYsW47GcZQlkeNB47/DgrNZ1lDHN1QDHg0vvm82ux+phkdkqCMWLP
+ 7uIfRjY/csQHC7e+c/4UV9aB3CSc3uTryA7WLskda47nMUwNVNBmvazwceoDyJXIDGIkyV
+ AGILhP9Oyj4fNKokK8+hQ9DklhvuT1U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1709890320;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ s=susede2_ed25519; t=1709892016;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9XbNEoPhTuZKOx54VKPZGR+X/HPOj8TI4W99YA3m1Qs=;
- b=DqH/1DSUvS3FqF8QslT9S9k1QCv+gNtcnLxCqFy5OA3Z5X0wGFN0ukwYIYvbjrEcnzwbp/
- Fmrqsq6QMhFBhyAQ==
+ bh=RClU0Za4SwqOda+0ool2oYmU1d8N+64Rq/DGR22H0+c=;
+ b=gYO5VAFZxAZW+2Qp6YwsQ0I60J7P7DmoVcMSqCjBgPQv0xvFMvT+lN0aLvjSo5BvRrcY+Z
+ YNNgZksSR7mLq/AA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1709890319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1709892016; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9XbNEoPhTuZKOx54VKPZGR+X/HPOj8TI4W99YA3m1Qs=;
- b=jcz8hVaxWpgpfx3wZsvwyRKId7i1iJEugWa4tpe6ro+rk37ERA/bykYlwu5g3aoQxNbod/
- ChBAe9mwBZv8Wgzn0KbomusNSBnKbOaEjFbv3Td6ZZD04JqdQXX35EJ/Jb8Mdh69PajHVl
- oNISsIpxIiqzcyZzDNsTcaZmsAI95cU=
+ bh=RClU0Za4SwqOda+0ool2oYmU1d8N+64Rq/DGR22H0+c=;
+ b=tZ6AlE1UJKfsB/CNrAYsW47GcZQlkeNB47/DgrNZ1lDHN1QDHg0vvm82ux+phkdkqCMWLP
+ 7uIfRjY/csQHC7e+c/4UV9aB3CSc3uTryA7WLskda47nMUwNVNBmvazwceoDyJXIDGIkyV
+ AGILhP9Oyj4fNKokK8+hQ9DklhvuT1U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1709890319;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ s=susede2_ed25519; t=1709892016;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9XbNEoPhTuZKOx54VKPZGR+X/HPOj8TI4W99YA3m1Qs=;
- b=X2pQ3fmUd9tjHrXRXJe+oSvE00hPv8Jp//1SXvumFlXn6Ox03VxuCAk7uEeVca9wNsVJ4t
- qY6Ei2FSXdWzqzDw==
+ bh=RClU0Za4SwqOda+0ool2oYmU1d8N+64Rq/DGR22H0+c=;
+ b=gYO5VAFZxAZW+2Qp6YwsQ0I60J7P7DmoVcMSqCjBgPQv0xvFMvT+lN0aLvjSo5BvRrcY+Z
+ YNNgZksSR7mLq/AA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4003913310;
- Fri,  8 Mar 2024 09:31:58 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 54D7013310;
+ Fri,  8 Mar 2024 10:00:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yG9UDw7b6mVIYAAAD6G6ig
- (envelope-from <mdoucha@suse.cz>); Fri, 08 Mar 2024 09:31:58 +0000
-Message-ID: <c7027971-9aab-4261-bbd7-f9f221c9387c@suse.cz>
-Date: Fri, 8 Mar 2024 10:31:57 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id NaCLFLDh6mWYZwAAD6G6ig
+ (envelope-from <mdoucha@suse.cz>); Fri, 08 Mar 2024 10:00:16 +0000
+Message-ID: <bf366ebf-dc06-46bc-9a16-bf4831f785ca@suse.cz>
+Date: Fri, 8 Mar 2024 11:00:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Wei Gao <wegao@suse.com>
-References: <20240306104609.17141-1-wegao@suse.com>
- <6285aaad-79ca-4d7c-8be0-6d846d165df2@suse.cz> <ZepL4jcbj6zmc0E1@wegao>
 Content-Language: en-US
+To: Wei Gao <wegao@suse.com>, ltp@lists.linux.it
+References: <20240306104609.17141-1-wegao@suse.com>
+ <20240308083220.19332-1-wegao@suse.com>
 From: Martin Doucha <mdoucha@suse.cz>
 Autocrypt: addr=mdoucha@suse.cz; keydata=
  xsFNBF1D6M0BEAC5BHC0NuN/v+UBXDYuwuYeAJA4leuKz0H76YBevziJKUtnzMsBA+GT9vdH
@@ -130,29 +130,31 @@ Autocrypt: addr=mdoucha@suse.cz; keydata=
  Rz4zFhW8KQ9+zrae5rL/6vwz3d/MpEeOmDm9uutE6xyzXRl/RxeFZ8P7KlACXWm7VjSyc74E
  eCNL6GOOeqzE77fDcBf4HvNGn8w7IX/FvNzmu78wzT2MDwMi8ug8T4KEKzIYUIRibe7cl0LG
  2dSj02pOT7E5/x4gKQB/OZqnTTQxJ0OL8BJKNFeSYqaMzKFKiYaArwuFkGnCknwh5A==
-In-Reply-To: <ZepL4jcbj6zmc0E1@wegao>
+In-Reply-To: <20240308083220.19332-1-wegao@suse.com>
 X-Spam-Level: 
 Authentication-Results: smtp-out1.suse.de;
 	none
-X-Spamd-Result: default: False [-0.34 / 50.00]; ARC_NA(0.00)[];
+X-Spamd-Result: default: False [-3.09 / 50.00]; ARC_NA(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[]; XM_UA_NO_VERSION(0.01)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
- TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_GOOD(-0.10)[text/plain]; BAYES_HAM(-0.25)[73.35%];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; BAYES_HAM(-3.00)[100.00%];
+ MIME_GOOD(-0.10)[text/plain];
+ URIBL_BLOCKED(0.00)[suse.cz:email,suse.com:email];
  RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
+ RCPT_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:email];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
  MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
  MID_RHS_MATCH_FROM(0.00)[]
-X-Spam-Score: -0.34
+X-Spam-Score: -3.09
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v1] chdir01.c: set umask to 0 within setup
+Subject: Re: [LTP] [PATCH v2] safe_macros.c: set umask to 0 within safe_mount
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,42 +166,57 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 08. 03. 24 0:21, Wei Gao wrote:
-> On Thu, Mar 07, 2024 at 04:18:35PM +0100, Martin Doucha wrote:
->> Hi,
->> you're trying to fix a vfat mount quirk. We should fix that in the LTP
->> library instead, e.g. by setting umask(0) and then restoring the original
->> value inside safe_mount().
-> 
-> Thanks for your feedback.
-> 
-> For chdir case i just use Petr's below suggestion(Detail info you can check patch link
-> in below):
-> 
-> "2) tests, which set .mount_device = 1 and have more restrictive umask will not
-> work. Workaround would be to not use it and mount manually in the setup().
-> Or, reset umask with umask(0)."
-> 
-> https://patchwork.ozlabs.org/project/ltp/patch/20240219134845.22171-1-wegao@suse.com/
+Hi,
+the doc change is not needed. For the lib change alone:
 
-I'd rather avoid mounting in setup unless you need to set special mount 
-parameters.
+Reviewed-by: Martin Doucha <mdoucha@suse.cz>
 
-Mount-time umask does not matter for most filesystem. The exception are 
-vfat and exfat which don't have any internal concept of access 
-permissions and instead you need to either pass mount options that'll 
-define access permissions for all files and directories, otherwise 
-current process umask value will be used as the default.
-
-So resetting umask to 0 before mount and restoring immediately after is 
-perfectly safe. But we should later fix it properly by implementing 
-per-filesystem mount options.
+On 08. 03. 24 9:32, Wei Gao wrote:
+> When system's default umask is 0077, this will trigger following issues:
+> chdir01.c:100: TFAIL: nobody: chdir("subdir") returned unexpected value -1: EACCES (13)
+> 
+> Suggested-by: Martin Doucha <mdoucha@suse.cz>
+> Signed-off-by: Wei Gao <wegao@suse.com>
+> ---
+>   doc/C-Test-API.asciidoc | 4 +++-
+>   lib/safe_macros.c       | 3 +++
+>   2 files changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/doc/C-Test-API.asciidoc b/doc/C-Test-API.asciidoc
+> index 08a76c403..81067b12b 100644
+> --- a/doc/C-Test-API.asciidoc
+> +++ b/doc/C-Test-API.asciidoc
+> @@ -2460,7 +2460,9 @@ with 'open()' or 'creat()' etc, the mode specified as the last parameter *is
+>   not* the mode the file is created with. The mode depends on current 'umask()'
+>   settings which may clear some of the bits. If your test depends on specific
+>   file permissions you need either to change umask to 0 or 'chmod()' the file
+> -afterwards or use 'SAFE_TOUCH()' that does the 'chmod()' for you.
+> +afterwards or use 'SAFE_TOUCH()' that does the 'chmod()' for you. SAFE_MOUNT
+> +also does similar action such as setting umask(0) and then restoring the
+> +original value.
+>   
+>   2.2 access()
+>   ~~~~~~~~~~~~
+> diff --git a/lib/safe_macros.c b/lib/safe_macros.c
+> index 951e1b064..109268587 100644
+> --- a/lib/safe_macros.c
+> +++ b/lib/safe_macros.c
+> @@ -913,7 +913,10 @@ int safe_mount(const char *file, const int lineno, void (*cleanup_fn)(void),
+>   	 * the kernel's NTFS driver doesn't have proper write support.
+>   	 */
+>   	if (!filesystemtype || strcmp(filesystemtype, "ntfs")) {
+> +		mode_t old_umask = umask(0);
+> +
+>   		rval = mount(source, target, filesystemtype, mountflags, data);
+> +		umask(old_umask);
+>   		if (!rval)
+>   			return 0;
+>   	}
 
 -- 
 Martin Doucha   mdoucha@suse.cz
