@@ -1,62 +1,66 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6C74876FE5
-	for <lists+linux-ltp@lfdr.de>; Sat,  9 Mar 2024 10:01:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D4D8876FE8
+	for <lists+linux-ltp@lfdr.de>; Sat,  9 Mar 2024 10:02:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C57333CE94C
-	for <lists+linux-ltp@lfdr.de>; Sat,  9 Mar 2024 10:01:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D3FA93CE946
+	for <lists+linux-ltp@lfdr.de>; Sat,  9 Mar 2024 10:02:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 46AAC3CB2A4
- for <ltp@lists.linux.it>; Sat,  9 Mar 2024 10:01:24 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
+ by picard.linux.it (Postfix) with ESMTPS id E41363CE95E
+ for <ltp@lists.linux.it>; Sat,  9 Mar 2024 10:01:34 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
  helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwang@redhat.com;
  receiver=lists.linux.it)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E421C613383
- for <ltp@lists.linux.it>; Sat,  9 Mar 2024 10:01:23 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2EBCB14001F4
+ for <ltp@lists.linux.it>; Sat,  9 Mar 2024 10:01:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1709974882;
+ s=mimecast20190719; t=1709974892;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=6O/bjE6YwKKbRml2BAZ1nEq80/mwb4LlC+5y9PB/E5A=;
- b=DYbKI8ArmI2T30lRDqiGSKNIPeWOtnXgrUwOxtTRdTIinp4hQmeorodiE9eMAhX3YDbV9a
- 629re+Lej31UkJyuZ6Nl8BE2gja35nu+uPmrJh83LqcDm+zWAQJyj+NMme9qYO2M4inwyV
- uxyrv/vUyliOLCQj5bk1Qhey9oS8oHU=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-569-uUMC_JQoMjOz5Q8yS1UtcA-1; Sat, 09 Mar 2024 04:01:18 -0500
-X-MC-Unique: uUMC_JQoMjOz5Q8yS1UtcA-1
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uYS+0Amn8UStDS7g2pSSjW9mivRcTE5C9kD9M2qGNnc=;
+ b=QWE+gSfKLcl/22XxhLq4mTWG9vxROsVoqZIP1gqufEjAYxqkV47LPqpAyVrkV7Nbu72iwM
+ fxfqpja3NiwH3CbnCRAQnGWxsxnsmDNGHWvI+Mtzxn0eILM/rB4rkCRGJRoBxEX6hcmT5q
+ PkUjLYuLJmbRUv1AyxRSqRJdBs8seTo=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-360-9uYUeEHqODWiqDxpfQzXmw-1; Sat,
+ 09 Mar 2024 04:01:20 -0500
+X-MC-Unique: 9uYUeEHqODWiqDxpfQzXmw-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 011C1101A552;
- Sat,  9 Mar 2024 09:01:18 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 126923C02747;
+ Sat,  9 Mar 2024 09:01:20 +0000 (UTC)
 Received: from liwang-workstation.lab.eng.nay.redhat.com (unknown
  [10.66.145.229])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 77E5937F6;
- Sat,  9 Mar 2024 09:01:16 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F92C37F6;
+ Sat,  9 Mar 2024 09:01:18 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it,
 	chrubis@suse.cz,
 	pvorel@suse.cz
-Date: Sat,  9 Mar 2024 17:01:10 +0800
-Message-Id: <20240309090113.3121235-1-liwang@redhat.com>
+Date: Sat,  9 Mar 2024 17:01:11 +0800
+Message-Id: <20240309090113.3121235-2-liwang@redhat.com>
+In-Reply-To: <20240309090113.3121235-1-liwang@redhat.com>
+References: <20240309090113.3121235-1-liwang@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
@@ -64,10 +68,10 @@ X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 0/3] provide a unified way to parse /proc/cmdline
+Subject: [LTP] [PATCH v2 1/3] kconfig: add funtion to parse /proc/cmdline
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,28 +88,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-V1 --> V2
-	* redefine the struct name to tst_kcmdline_var
-	* make use of SAFE_FOPEN/FCLOSE macro (Petr)
-	* read the file char char building up the key and value (Cyril)
-	* remove redundant varibales from the test (Petr)
+A new structure tst_kcmdline_var is defined to hold a command-line
+argument's key and a fixed-size value. Furthermore, function
+tst_kcmdline_parse is added to the corresponding .c file, which
+reads from /proc/cmdline, parses the command-line arguments, and
+populates the tst_kcmdline_var array with the obtained key-value
+pairs, ensuring safe file operations and buffer size checks.
 
-Li Wang (3):
-  kconfig: add funtion to parse /proc/cmdline
-  init_module: To handle kernel module signature enforcement
-  stack_clash: make use of tst_kcmdline_parse
+Signed-off-by: Li Wang <liwang@redhat.com>
+---
+ include/tst_kconfig.h | 23 ++++++++++++++++++++++
+ lib/tst_kconfig.c     | 45 +++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 68 insertions(+)
 
- include/tst_kconfig.h                         | 23 ++++++++++
- lib/tst_kconfig.c                             | 45 +++++++++++++++++++
- testcases/cve/stack_clash.c                   | 14 +++---
- .../syscalls/delete_module/delete_module01.c  |  8 ++++
- .../syscalls/delete_module/delete_module03.c  |  8 ++++
- .../syscalls/finit_module/finit_module01.c    | 15 ++++++-
- .../syscalls/finit_module/finit_module02.c    | 37 +++++++++------
- .../syscalls/init_module/init_module01.c      | 13 ++++++
- .../syscalls/init_module/init_module02.c      | 19 +++++++-
- 9 files changed, 158 insertions(+), 24 deletions(-)
-
+diff --git a/include/tst_kconfig.h b/include/tst_kconfig.h
+index 8b24a8380..a8cbfb786 100644
+--- a/include/tst_kconfig.h
++++ b/include/tst_kconfig.h
+@@ -64,4 +64,27 @@ void tst_kconfig_read(struct tst_kconfig_var vars[], size_t vars_len);
+  */
+ int tst_kconfig_check(const char *const kconfigs[]);
+ 
++/**
++ * Macro to initialize a tst_kcmdline_var structure with a specified parameter
++ * name and an empty value. This is useful for setting up an array of parameter
++ * structures before parsing the actual command-line arguments.
++ */
++#define TST_KCMDLINE_INIT(paraname) { \
++	.key = paraname, \
++	.value = "" \
++}
++
++/* Structure for storing command-line parameter key and its corresponding value */
++struct tst_kcmdline_var {
++	const char *key;
++	char value[128];
++};
++
++/**
++ * Parses command-line parameters from /proc/cmdline and stores them in params array
++ * params: The array of tst_kcmdline_var structures to be filled with parsed key-value pairs
++ * params_len: The length of the params array, indicating how many parameters to parse
++ */
++void tst_kcmdline_parse(struct tst_kcmdline_var params[], size_t params_len);
++
+ #endif	/* TST_KCONFIG_H__ */
+diff --git a/lib/tst_kconfig.c b/lib/tst_kconfig.c
+index 595ea4b09..c200dd261 100644
+--- a/lib/tst_kconfig.c
++++ b/lib/tst_kconfig.c
+@@ -14,6 +14,7 @@
+ #include "tst_private.h"
+ #include "tst_kconfig.h"
+ #include "tst_bool_expr.h"
++#include "tst_safe_stdio.h"
+ 
+ static int kconfig_skip_check(void)
+ {
+@@ -565,3 +566,47 @@ char tst_kconfig_get(const char *confname)
+ 
+ 	return var.choice;
+ }
++
++void tst_kcmdline_parse(struct tst_kcmdline_var params[], size_t params_len) {
++	char buf[128];
++	size_t buf_pos = 0, i;
++	int var_id = -1, c;
++
++	FILE *f = SAFE_FOPEN("/proc/cmdline", "r");
++
++	while ((c = fgetc(f)) != EOF) {
++		switch (c) {
++		case '=':
++			buf[buf_pos] = '\0';
++			for (i = 0; i < params_len; i++) {
++				if (strcmp(buf, params[i].key) == 0)
++					var_id = (int)i;
++			}
++
++			buf_pos = 0;
++		break;
++		case ' ':
++		case '\n':
++			buf[buf_pos] = '\0';
++			if (var_id >= 0 && var_id < (int)params_len)
++				strcpy(params[var_id].value, buf);
++
++			var_id = -1;
++			buf_pos = 0;
++		break;
++		default:
++			if (buf_pos + 1  >= sizeof(buf)) {
++				tst_res(TWARN, "Buffer overflowed while parsing /proc/cmdline");
++				while ((c = fgetc(f)) != EOF && c != ' ' && c != '\n');
++
++				var_id = -1;
++				buf_pos = 0;
++			}
++
++			buf[buf_pos++] = (char)c;
++		break;
++		}
++	}
++
++	SAFE_FCLOSE(f);
++}
 -- 
 2.40.1
 
