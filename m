@@ -1,136 +1,91 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E150E87CB28
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Mar 2024 11:11:53 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 346FC87C971
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Mar 2024 08:44:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1710497513; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=xrDQsI6VAUdqxvHzOlbBvkwdFtXIm+fIZvuZLaBA6Go=;
- b=n1lGo13WAxOjm2Xsb3OMOiJrLlJb9JRvf8F6r2q+J156gOKqQqBPiMbJideisCzVlq5Tj
- ODkBWqI4tao7cW9ujf+JQ0hxvZsa8SpnbnqhvnfreSW1dFUYW9aIdKE5Ve33pfxSMull6P0
- cWm8koZVMI10DF8A/4sL4M+2xq9HXpQ=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1710488683; h=date : to :
+ message-id : references : mime-version : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=0mgNHvM0IjiV9ZPnnW4iHWA61VOwLMPrD/onhDhtffQ=;
+ b=YTSYe5OFVhWXuE8UQwtyShTDVzk0XOwAH6j8RhIybO8+2bhOXoRQP/vXYX/vRtPxj7YEX
+ DMVb6f2Gu6E1Fq/kEowZ1i7/38Pl9BIKZcMopz7EoUjtewUSbX5iSvDhcElZVHbmnCsF5W+
+ I1nYw8o2mgr1UQkhtXPjwa1wPCo7sAk=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9E9313D0A0F
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Mar 2024 11:11:53 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C72CD3CE752
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Mar 2024 08:44:43 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7DE8A3C012D
- for <ltp@lists.linux.it>; Fri, 15 Mar 2024 07:44:32 +0100 (CET)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2408::601])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id AE9AD3CE748
+ for <ltp@lists.linux.it>; Fri, 15 Mar 2024 08:44:41 +0100 (CET)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id CEC941BB959C
- for <ltp@lists.linux.it>; Fri, 15 Mar 2024 07:44:30 +0100 (CET)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n2tir/yQuSq2PKm7zIQHR/L/VNx38y9rwQmr+OshkodeQvNztL+k2z59oYYWOB3zJ7kt0ejXxOdwMwL6O349q69TPITYQZi9rA1IJ/cC+R7rqeBx/Wbz3vGD4oKkWLfiWGzgTyd9Fd3ct1MHyO3DhB0xtQ9QnjE/F8h+OHYJgM7Kscxj1NOmiBCiyEaZPfU9gFKApHenuD0V7mQYB8XnZ/bI3vf4l8XLUVY913oYKudChTPyO0f8S5qcGwpfjUD2Pgu6WPBVVygpfLPHDcqSXlAnxpTmD6/OQAduJ4pjZN/+tK9TZT0ONEZq6ErutkciEArQxGbBi9T8e5nRolcsiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sdRLqw8sWwt6kL3HhxBlW6fLJuBA4f6DclxWe8RpeFs=;
- b=bmJEIlXxub1OxSKFghVqjfN1rn3QR5OpTzK7kFjiyMdZUU4OGMExH0TKh1qUzgMefrywJ4k3ZW67hh3Rl3adNqQVny1sbWuoH9jqyuItXvj7VvsLQENszF5kDXXQls+XkTTm4i8cKk8IcmHyKr0OFRDpqjjl2LGbSqGk+apo3A4BDVNqHmmLqf7dpqonzOOSfe49GmhMtNvXeNPyfalzqXqTxQ4fLxjcEBLa9aacNDtlWIlWK81cMlyIrPsvJOCAQvdSj/GQoDORXXKFFNNlVPdaHOSipkK1iKZ9b01K3IKQA2WyUNZBoOKsjWj8Me0z2RIj5ep3rlnNWx6YwlK5CA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sdRLqw8sWwt6kL3HhxBlW6fLJuBA4f6DclxWe8RpeFs=;
- b=CtUOiMbO2Upjn3ul+tbOrDst4MYDizmVqV06w6ImDk/OQvnPA13obhEC6k9RW5lis8dNaobkgOP2WcHq8uHYoGqc27ivfWZ86ZnEG4uugPqCaj3zINvjXEOmI//+Jst8xCALZGtQcO2lzT6nfMzi6zRHeg2+qE48DwVeW2ESAns=
-Received: from BL1PR12MB5994.namprd12.prod.outlook.com (2603:10b6:208:39a::14)
- by DS0PR12MB8199.namprd12.prod.outlook.com (2603:10b6:8:de::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.20; Fri, 15 Mar
- 2024 06:44:25 +0000
-Received: from BL1PR12MB5994.namprd12.prod.outlook.com
- ([fe80::1436:5871:f1bc:4a6f]) by BL1PR12MB5994.namprd12.prod.outlook.com
- ([fe80::1436:5871:f1bc:4a6f%5]) with mapi id 15.20.7386.020; Fri, 15 Mar 2024
- 06:44:25 +0000
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: Regarding LTP Version 20230929
-Thread-Index: AQHadqQExjnYCF9lIEOk+QAFape46A==
-Date: Fri, 15 Mar 2024 06:44:25 +0000
-Message-ID: <BL1PR12MB599467E27B4B32A86788E6D1E2282@BL1PR12MB5994.namprd12.prod.outlook.com>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-03-15T06:44:25.305Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5994:EE_|DS0PR12MB8199:EE_
-x-ms-office365-filtering-correlation-id: e0b538f7-f184-4295-a404-08dc44bb5b11
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: uItJNCc1CafrcfwCXFnwN3t5Y48QJbDzaAdLTbFlVdoxLZDAscc88Fq2N/mPop5wfrdUlTwQlDOXLKrytk+nLIvZNJhss/h6uKyVnfhC6yAqIJZeEgX+IdyoXj5ADHtZHkkCbC/V9dzrhnHAu2VcjwVAnvNPzyF/UFpRei3+sumI2dx+S94pPiZIUYaVrHxhEUcSFKvMKBZGlMXry0kiqXK3+3NaVxTEWx+A0sqW613jhyMaRtx9kbdV0KSasHu6bu2O1QbMy9i75AsAxc91qKqPDPBbWxn1dBkZtMf2OqJgqpU9seo5U/adtyXd7KMqphM7kAJ7ntAeP+MQT0yOVFnKMX6AYWfu7a4mFZTlYxyPk0yX6bJJVkpANiC03UoteaT4NtQpPD7qyf0K1sJ7Ws9DZ5lJOcnBS8+iGgwESkwPjfKflEViWp254DL7YiQo5k53ukOe5wWtI9kv/RWJ21OQbPPmCnBMYwIn5SUHHXAeZdqHqydh1wlEWOui1yEf6Qus2xC6V3MOy/xbzPlrko+eLUwnnhXHgyFf36fMZmeTF2cxEnT0ANnsODOmDYmXqjJ9HhUmZsHetyZaeyJQTtLSeCQMMA97hlMhB5IH6H9P1qY7lWSPmaNyf9ap06ISl5D4m2GyzsiOH3Bq8mGBq4OT1qRgvzaKPVjhE9UvQoTTCVu3RwtsNsKZ+8N3NkJznR3ykbgoZpGfElgbfgnSL2fz4/RkDj8xnth7PkPKWVs=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5994.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?gCqEHZ0ieDGJzfIoJG2Sp8rz56lOXUF72Hzj4h6+9huwVgNecWoUpgBd0z?=
- =?iso-8859-1?Q?1pQKSaumHVl8rc2gZlN4ArQ9OQnVk3i9tTFegHvkROQDWYUP2eQBkRa2Et?=
- =?iso-8859-1?Q?nyGcC5zNyxRfQOayhNEfi7LNimyBWSI7UWrLylzW6KEG3kh4LL/q76QSOz?=
- =?iso-8859-1?Q?ijv52OUGIw5H+yCemE/WSLE4YFxxvESZr63XQbtY29NzwtwgdF//KtKE57?=
- =?iso-8859-1?Q?YyidI5iG9JLJytA5w6v6l+5cLQe1XJjVzEM6cAZOk1LT9/57w6nKsZG8NN?=
- =?iso-8859-1?Q?TfczH2GeWfTTfPKLM3evMFZ4Pmyttza5IANl+hP4rjKmrQAZmQigYjKmRT?=
- =?iso-8859-1?Q?E/fn4uBQKuCbGdClkGQIUke6FzhzJubvqU+nygPSqYspa6qaAwJA2V1Nqe?=
- =?iso-8859-1?Q?hWQak4kxgbI9H6JFhpm/Pl6ifS3oGqTH9N7qpWSeeOK+4gKdeYivcco94j?=
- =?iso-8859-1?Q?NeZVHp5uPWb3u3q3U/0ethJbYWnnQeklqEiZKgyB4MWibUYr83OSf9NIND?=
- =?iso-8859-1?Q?GiYcapHPiiqwoJEfFVLwpp/HwmBtt/fmbBMdTyG5kELt8tHEQyltwLq4K6?=
- =?iso-8859-1?Q?WWYMMt4jeP1cn/CIqn3/ejkyyw54VwAEJm3Jk5O8wN25B9fwo2E8LB6YqA?=
- =?iso-8859-1?Q?NE9+UyCgnDXoRVOKTrEP0abT6h+WyQX3nCOIlfm2+uBHzYsWdxMhc9HJOm?=
- =?iso-8859-1?Q?STqwsNHYz8v9V/Icydr6yrZdcUzAEIdI6qu4SqrKsRxDJ9TUa+2l5ceKct?=
- =?iso-8859-1?Q?2603DydSca3L0lN/PPfZkazspjtLiaqHVeuDcSkNgZXFSTHCVldEmI8ry+?=
- =?iso-8859-1?Q?y+f6I5r8+V7yo2PAXV6aDGaeCAVDRv2TJicES26TU0P09tOe/97R0CZ9uS?=
- =?iso-8859-1?Q?1dvpPJJlfbGIwm1dfDh82WS0R05Xb5JrZbkxFn8IV3NAqp841on21HY1vE?=
- =?iso-8859-1?Q?cMTpMLA0BpfBkxjymzrtrXCyBSRDWje7/wmbP1P6vOaIxDLnyH43n+PEE7?=
- =?iso-8859-1?Q?rwfpCRbPTgwikctfKJ1hnwkymjSI74JHwlT6CP+h3sZXUtC1avJvkdYQjZ?=
- =?iso-8859-1?Q?77UWhWREepkjBTWf5ZLg4aP4IizrEcf1yIP/IxQnhRA7JqQNZAiNaN1oIO?=
- =?iso-8859-1?Q?1P9WKTFy5EIVDrh7U14o4yF+F5+10iRbBU0TP39m2ItUSEyoXuv1L9yuBO?=
- =?iso-8859-1?Q?HwKhPEviJEr1OQLTgxYrzykfUyOuzwRd/Nx+7IjTOW3tVdLaQNyphzK0sb?=
- =?iso-8859-1?Q?T+T9U0O8pn7Gr4B5jzS5Jr7bNkUEIreBNDJ86tRpXDaBjjqIuk0fk1WRmX?=
- =?iso-8859-1?Q?3m9S9/h1wmdfyJmHAc0agM6WIWX+zR61tDAQ+GQG3g6kUYAtAmpg7QO7+j?=
- =?iso-8859-1?Q?LIQBo+ZWiw25MN+rs9fB+IQUKtxpPu8FfiG1mQbY/hCCjs28KoI1bj+RXj?=
- =?iso-8859-1?Q?EL1QLgfrjn79/5Su5jmOIOdyBcgWCxRsuLh0VZ29gpAkKdgMMqPmTEEIb7?=
- =?iso-8859-1?Q?IghSXw/iAcL1a6ejKQO8RQelVzcfyLtgblTbhO+AH8IFWZwpsPA+I6Ht3Y?=
- =?iso-8859-1?Q?ngSejLA04lg94KumFlg2YrGVVOr6LmbxDz0mwdmAoqAyk6axCbF13bG84i?=
- =?iso-8859-1?Q?tHpc/s1wLNMfM=3D?=
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 20FED617E7A
+ for <ltp@lists.linux.it>; Fri, 15 Mar 2024 08:44:40 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a466e53f8c0so214159466b.1
+ for <ltp@lists.linux.it>; Fri, 15 Mar 2024 00:44:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1710488679; x=1711093479; darn=lists.linux.it;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=I0u00Pn5uYkfpRwR0KRTd7avEm6er+XC41bTh7t3E/c=;
+ b=PSuo1Y/EFs/xyNtH6o48reZHWEAoKBGjgC08688aJIm81pHrgRZwUuy51EW5bOHlbP
+ 7XuYByY8tDiI6zzSBXQO6qJ7dsNCZmRLL/WdgLhQKxThcuT9Y5+dNqQ45LO3y6Ni0RKn
+ yYs3LFE+ty6abQ210MqZRT02i2mqxRYsN8HXHwv4z2IN6uZyAii6SXFR5tV95eA58SPz
+ MBEE53+96v1GMxDJu7TswEYu1STEB4xVqOV2YbShReWWXkmHyoNJ2/oV9FaSBjLwz83y
+ HbYQQH1S25E8SbBefSCnEh3SKTdcaf3S4Wz9fmXBMxA6FOPAVNlNsITEai26jPBRuFRU
+ GhNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710488679; x=1711093479;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=I0u00Pn5uYkfpRwR0KRTd7avEm6er+XC41bTh7t3E/c=;
+ b=YkNgqI98HCLOooAUzQvKdbUd1uhOIrC7VjsiU84YSaW3e8FlZrJz26RDBWEcBfaCSq
+ uBG5sfkh2ueyQp8PquSyt+FSe9Ml9LjC14r4BfcFsqlR4oBrk/dGSRiz1P0Efm+iAiH5
+ mgg0MXkuM7yWoo0dEnbtwdP17o8vD1e7ij0KFQ9i8proEQXGXjX4hSmbT+14paZ8cIO1
+ gi3s39YNM50JDi/eVADiS4MH4Vzjfq34cdNmyas8lJCPtnMT0q6U4VYX/5gfOsFiaKvu
+ 2iOKtIpMPzrDw6uZclMK81FYhgQbHl9z0Td12Bkw3FlUYwBEcTXom5JQWgc6zEkhlUzd
+ kctQ==
+X-Gm-Message-State: AOJu0Yz+bHDI5mUfORbO31ama8RXR0IQL4lq6ou6U37ZAA8j5yt7PVcQ
+ WirzRoX14XBKZmmaQHV2M2hHJW7EZH0J3zKP4Umxi9RwN7gaJ3e1qNsWuxg9gw==
+X-Google-Smtp-Source: AGHT+IHLAu1fry73Agcugsk1JTzl0lf2jBZ5pd5tN3LS1UjMUuknHI5o9zuV74m800v39JSOHDt+SA==
+X-Received: by 2002:a17:907:6b88:b0:a45:5328:8432 with SMTP id
+ rg8-20020a1709076b8800b00a4553288432mr3491938ejc.50.1710488679408; 
+ Fri, 15 Mar 2024 00:44:39 -0700 (PDT)
+Received: from wegao.29.253.26 ([81.95.8.245])
+ by smtp.gmail.com with ESMTPSA id
+ f19-20020a17090624d300b00a462e4d7216sm1442119ejb.76.2024.03.15.00.44.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Mar 2024 00:44:39 -0700 (PDT)
+Date: Fri, 15 Mar 2024 03:44:32 -0400
+To: Li Wang <liwang@redhat.com>
+Message-ID: <ZfP8YEwKpLGweAe1@wegao.29.253.26>
+References: <CAEemH2cTzLuJ1uTBNbUB-E7kJPeHjx3sPi1crkqTCJ6h4DgSbg@mail.gmail.com>
+ <20240315062448.3181177-1-liwang@redhat.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5994.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0b538f7-f184-4295-a404-08dc44bb5b11
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Mar 2024 06:44:25.6858 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yChnjA1brhnSi7mh3u2Ag9mDDfBtrGAJNsXrzkcce0lHOlNd75qD+B87sjEIrau8T2mowBKYpyKpPc3wawAPUA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8199
-X-Spam-Status: No, score=0.1 required=7.0 tests=ARC_SIGNED,ARC_VALID,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,
- SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20240315062448.3181177-1-liwang@redhat.com>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Fri, 15 Mar 2024 11:11:45 +0100
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: [LTP] Regarding LTP Version 20230929
+Subject: Re: [LTP] [PATCH] swapon01: swapon01: prevent OOM happening in swap
+ process
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,21 +97,161 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: "K N, Santhosh via ltp" <ltp@lists.linux.it>
-Reply-To: "K N, Santhosh" <Santhosh.KN@amd.com>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-[AMD Official Use Only - General]
+On Fri, Mar 15, 2024 at 02:24:48PM +0800, Li Wang wrote:
+> Here we take many ways to prevent the OOM happening with
+> run the swapon test:
+> 
+>   * shrink the pollute memory size
+>   * increase swapfile size
+>   * setting swap max for Cgroup
+>   * setting test oom_score_adj to -1000
+> 
+> Reproted-by: Wei Gao <wegao@suse.com>
+> Signed-off-by: Li Wang <liwang@redhat.com>
+> ---
+> 
+> Notes:
+>     Hi Wei,
+>     
+>        Could you please test this patch and post the output messages?
+tst_device.c:97: TINFO: Found free device 1 '/dev/loop1'
+tst_test.c:1741: TINFO: LTP version: 20240129-94-g8f14b06e0
+tst_test.c:1627: TINFO: Timeout per run is 0h 00m 30s
+tst_supported_fs_types.c:97: TINFO: Kernel supports ext2
+tst_supported_fs_types.c:62: TINFO: mkfs.ext2 does exist
+tst_supported_fs_types.c:97: TINFO: Kernel supports ext3
+tst_supported_fs_types.c:62: TINFO: mkfs.ext3 does exist
+tst_supported_fs_types.c:97: TINFO: Kernel supports ext4
+tst_supported_fs_types.c:62: TINFO: mkfs.ext4 does exist
+tst_supported_fs_types.c:97: TINFO: Kernel supports xfs
+tst_supported_fs_types.c:62: TINFO: mkfs.xfs does exist
+tst_supported_fs_types.c:97: TINFO: Kernel supports btrfs
+tst_supported_fs_types.c:62: TINFO: mkfs.btrfs does exist
+tst_supported_fs_types.c:105: TINFO: Skipping bcachefs because of FUSE blacklist
+tst_supported_fs_types.c:97: TINFO: Kernel supports vfat
+tst_supported_fs_types.c:62: TINFO: mkfs.vfat does exist
+tst_supported_fs_types.c:97: TINFO: Kernel supports exfat
+tst_supported_fs_types.c:58: TINFO: mkfs.exfat does not exist
+tst_supported_fs_types.c:128: TINFO: Filesystem ntfs is not supported
+tst_supported_fs_types.c:97: TINFO: Kernel supports tmpfs
+tst_supported_fs_types.c:49: TINFO: mkfs is not needed for tmpfs
+tst_test.c:1701: TINFO: === Testing on ext2 ===
+tst_test.c:1118: TINFO: Formatting /dev/loop1 with ext2 opts='' extra opts=''
+mke2fs 1.47.0 (5-Feb-2023)
+tst_test.c:1132: TINFO: Mounting /dev/loop1 to /tmp/LTP_swafHGLPe/mntpoint fstyp=ext2 flags=0
+tst_ioctl.c:26: TINFO: FIBMAP ioctl is supported
+swapon01.c:27: TPASS: tst_syscall(__NR_swapon, SWAP_FILE, 0) passed
+swapon01.c:30: TINFO: SwapCached: 0 Kb
+tst_test.c:1701: TINFO: === Testing on ext3 ===
+tst_test.c:1118: TINFO: Formatting /dev/loop1 with ext3 opts='' extra opts=''
+mke2fs 1.47.0 (5-Feb-2023)
+tst_test.c:1132: TINFO: Mounting /dev/loop1 to /tmp/LTP_swafHGLPe/mntpoint fstyp=ext3 flags=0
+tst_ioctl.c:26: TINFO: FIBMAP ioctl is supported
+swapon01.c:27: TPASS: tst_syscall(__NR_swapon, SWAP_FILE, 0) passed
+swapon01.c:30: TINFO: SwapCached: 0 Kb
+tst_test.c:1701: TINFO: === Testing on ext4 ===
+tst_test.c:1118: TINFO: Formatting /dev/loop1 with ext4 opts='' extra opts=''
+mke2fs 1.47.0 (5-Feb-2023)
+tst_test.c:1132: TINFO: Mounting /dev/loop1 to /tmp/LTP_swafHGLPe/mntpoint fstyp=ext4 flags=0
+tst_ioctl.c:26: TINFO: FIBMAP ioctl is supported
+swapon01.c:27: TPASS: tst_syscall(__NR_swapon, SWAP_FILE, 0) passed
+swapon01.c:30: TINFO: SwapCached: 0 Kb
+tst_test.c:1701: TINFO: === Testing on xfs ===
+tst_test.c:1118: TINFO: Formatting /dev/loop1 with xfs opts='' extra opts=''
+tst_test.c:1132: TINFO: Mounting /dev/loop1 to /tmp/LTP_swafHGLPe/mntpoint fstyp=xfs flags=0
+tst_ioctl.c:26: TINFO: FIBMAP ioctl is supported
+swapon01.c:27: TPASS: tst_syscall(__NR_swapon, SWAP_FILE, 0) passed
+swapon01.c:30: TINFO: SwapCached: 0 Kb
+tst_test.c:1701: TINFO: === Testing on btrfs ===
+tst_test.c:1118: TINFO: Formatting /dev/loop1 with btrfs opts='' extra opts=''
+tst_test.c:1132: TINFO: Mounting /dev/loop1 to /tmp/LTP_swafHGLPe/mntpoint fstyp=btrfs flags=0
+libswap.c:42: TINFO: FS_NOCOW_FL attribute set on mntpoint/swapfile01
+tst_ioctl.c:21: TINFO: FIBMAP ioctl is NOT supported: EINVAL (22)
+libswap.c:125: TINFO: File 'mntpoint/swapfile01' is not contiguous
+libswap.c:42: TINFO: FS_NOCOW_FL attribute set on mntpoint/swapfile01
+swapon01.c:27: TPASS: tst_syscall(__NR_swapon, SWAP_FILE, 0) passed
+swapon01.c:30: TINFO: SwapCached: 0 Kb
+tst_test.c:1701: TINFO: === Testing on vfat ===
+tst_test.c:1118: TINFO: Formatting /dev/loop1 with vfat opts='' extra opts=''
+tst_test.c:1132: TINFO: Mounting /dev/loop1 to /tmp/LTP_swafHGLPe/mntpoint fstyp=vfat flags=0
+tst_ioctl.c:26: TINFO: FIBMAP ioctl is supported
+swapon01.c:27: TPASS: tst_syscall(__NR_swapon, SWAP_FILE, 0) passed
+swapon01.c:30: TINFO: SwapCached: 0 Kb
+tst_test.c:1701: TINFO: === Testing on tmpfs ===
+tst_test.c:1118: TINFO: Skipping mkfs for TMPFS filesystem
+tst_test.c:1098: TINFO: Limiting tmpfs size to 32MB
+tst_test.c:1132: TINFO: Mounting ltp-tmpfs to /tmp/LTP_swafHGLPe/mntpoint fstyp=tmpfs flags=0
+tst_ioctl.c:21: TINFO: FIBMAP ioctl is NOT supported: EINVAL (22)
+libswap.c:214: TCONF: Swapfile on tmpfs not implemented
 
-Hi ,
+Summary:
+passed   6
+failed   0
+broken   0
+skipped  1
+warnings 0
 
-I am using the latest LTP version 20230929, may I know how much time it will take to complete the full test to get the results.
 
-Regards
-Santhosh
+>        Thanks!!
+> 
+>  testcases/kernel/syscalls/swapon/swapon01.c | 17 ++++++++++++++---
+>  1 file changed, 14 insertions(+), 3 deletions(-)
+> 
+> diff --git a/testcases/kernel/syscalls/swapon/swapon01.c b/testcases/kernel/syscalls/swapon/swapon01.c
+> index d406e4bd9..b4fc02d6e 100644
+> --- a/testcases/kernel/syscalls/swapon/swapon01.c
+> +++ b/testcases/kernel/syscalls/swapon/swapon01.c
+> @@ -26,7 +26,7 @@ static void verify_swapon(void)
+>  {
+>  	TST_EXP_PASS(tst_syscall(__NR_swapon, SWAP_FILE, 0));
+>  
+> -	tst_pollute_memory(TESTMEM, 0x41);
+> +	tst_pollute_memory(TESTMEM * 9/10, 0x41);
+>  	tst_res(TINFO, "SwapCached: %ld Kb", SAFE_READ_MEMINFO("SwapCached:"));
+>  
+>  	if (TST_PASS && tst_syscall(__NR_swapoff, SWAP_FILE) != 0) {
+> @@ -37,11 +37,21 @@ static void verify_swapon(void)
+>  
+>  static void setup(void)
+>  {
+> +	tst_enable_oom_protection(0);
+>  	is_swap_supported(SWAP_FILE);
+> -	make_swapfile(SWAP_FILE, 10, 0);
+> +	make_swapfile(SWAP_FILE, 1024, 0);
+>  
+>  	SAFE_CG_PRINTF(tst_cg, "cgroup.procs", "%d", getpid());
+>  	SAFE_CG_PRINTF(tst_cg, "memory.max", "%lu", TESTMEM);
+> +	if (TST_CG_VER_IS_V1(tst_cg, "memory"))
+> +		SAFE_CG_PRINTF(tst_cg, "memory.swap.max", "%lu", ~0UL);
+> +	else
+> +		SAFE_CG_PRINT(tst_cg, "memory.swap.max", "max");
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	tst_disable_oom_protection(0);
+>  }
+>  
+>  static struct tst_test test = {
+> @@ -51,5 +61,6 @@ static struct tst_test test = {
+>  	.all_filesystems = 1,
+>  	.needs_cgroup_ctrls = (const char *const []){ "memory", NULL },
+>  	.test_all = verify_swapon,
+> -	.setup = setup
+> +	.setup = setup,
+> +	.cleanup = cleanup
+>  };
+> -- 
+> 2.40.1
+> 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
