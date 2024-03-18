@@ -2,101 +2,94 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4289E87ECFA
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Mar 2024 17:08:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A616987ED76
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Mar 2024 17:26:09 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F41B63D058A
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Mar 2024 17:08:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A9EB23D058C
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Mar 2024 17:26:08 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0BB423CFC46
- for <ltp@lists.linux.it>; Mon, 18 Mar 2024 17:07:54 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id A6BF03D00F0
+ for <ltp@lists.linux.it>; Mon, 18 Mar 2024 17:25:49 +0100 (CET)
 Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
- envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7E79B1000F21
- for <ltp@lists.linux.it>; Mon, 18 Mar 2024 17:07:54 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B2B3D1002048
+ for <ltp@lists.linux.it>; Mon, 18 Mar 2024 17:25:48 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8DC7B34C0A;
- Mon, 18 Mar 2024 16:07:53 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 834AD5C748;
+ Mon, 18 Mar 2024 16:25:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1710778073; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6ziis2pLnKwj1wahekse9pnAf6Z/fsUHGwlxXdMvYF8=;
- b=dhcUF+nxzD/2RC8ap/zqawIbEXJRqqKmjRGLzXt7xsqJVtMLqNVYfziZDKceR0uM7onYAZ
- dHnVA6qjsdxysg3fZuFq+23z3vk1IGXaOHOXElpp2JJWwupP75mwisw9bs3Kiif77JwFdz
- gMFzZ5r5VZca7VttMlrWgCofwnsxJZM=
+ t=1710779147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Gvn3f0q8OOA25qPYvgAd4IeFyGJaWilslrmYeFKM3c0=;
+ b=ggavaGNG221DYIPl0VYRF/nSx80DXv7RrY4Gol2BajtY6MbS74qaYOaJNOBbRAxksZIZl4
+ YALSvPQlheqA7hsJOI/xUgTkXcyZU+OXEHoSx7qnEaFvp+xoZD85XcQ+QtGVB8LN2V3NDO
+ yXwm1HYRLYTFHejEnw4BN7CKTLy/7jM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1710778073;
+ s=susede2_ed25519; t=1710779147;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6ziis2pLnKwj1wahekse9pnAf6Z/fsUHGwlxXdMvYF8=;
- b=uezC6eyj7aTHYJJXiz3p02bWFSB/WvNEGC0ODlA171nW/y2jQ1gkiUko8haZJIketLf7ys
- KZyYu5qzbMtNkqCw==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Gvn3f0q8OOA25qPYvgAd4IeFyGJaWilslrmYeFKM3c0=;
+ b=I5Fd6COsK23zCvS4wLe+Eh1gI/s6u/kOsx5hCg7blJn0th+Eua244Gd9TghcAGpaGzNVvY
+ gF7S7rCE3J+LszDA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1710778073; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6ziis2pLnKwj1wahekse9pnAf6Z/fsUHGwlxXdMvYF8=;
- b=dhcUF+nxzD/2RC8ap/zqawIbEXJRqqKmjRGLzXt7xsqJVtMLqNVYfziZDKceR0uM7onYAZ
- dHnVA6qjsdxysg3fZuFq+23z3vk1IGXaOHOXElpp2JJWwupP75mwisw9bs3Kiif77JwFdz
- gMFzZ5r5VZca7VttMlrWgCofwnsxJZM=
+ t=1710779147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Gvn3f0q8OOA25qPYvgAd4IeFyGJaWilslrmYeFKM3c0=;
+ b=ggavaGNG221DYIPl0VYRF/nSx80DXv7RrY4Gol2BajtY6MbS74qaYOaJNOBbRAxksZIZl4
+ YALSvPQlheqA7hsJOI/xUgTkXcyZU+OXEHoSx7qnEaFvp+xoZD85XcQ+QtGVB8LN2V3NDO
+ yXwm1HYRLYTFHejEnw4BN7CKTLy/7jM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1710778073;
+ s=susede2_ed25519; t=1710779147;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6ziis2pLnKwj1wahekse9pnAf6Z/fsUHGwlxXdMvYF8=;
- b=uezC6eyj7aTHYJJXiz3p02bWFSB/WvNEGC0ODlA171nW/y2jQ1gkiUko8haZJIketLf7ys
- KZyYu5qzbMtNkqCw==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Gvn3f0q8OOA25qPYvgAd4IeFyGJaWilslrmYeFKM3c0=;
+ b=I5Fd6COsK23zCvS4wLe+Eh1gI/s6u/kOsx5hCg7blJn0th+Eua244Gd9TghcAGpaGzNVvY
+ gF7S7rCE3J+LszDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7DF3B136A8;
- Mon, 18 Mar 2024 16:07:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id UD11Hdlm+GWIXgAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Mon, 18 Mar 2024 16:07:53 +0000
-Date: Mon, 18 Mar 2024 17:06:54 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <petr.vorel@gmail.com>
-Message-ID: <ZfhmntA-tpbieR4J@yuki>
-References: <20240104211935.1438103-1-petr.vorel@gmail.com>
- <20240104211935.1438103-4-petr.vorel@gmail.com>
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 61430136A5;
+ Mon, 18 Mar 2024 16:25:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id MFapFgtr+GXcZAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Mon, 18 Mar 2024 16:25:47 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon, 18 Mar 2024 17:25:38 +0100
+Message-ID: <20240318162539.407214-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240104211935.1438103-4-petr.vorel@gmail.com>
-X-Spam-Score: -3.80
-X-Spamd-Result: default: False [-3.80 / 50.00]; ARC_NA(0.00)[];
+X-Spam-Score: 0.70
+X-Spamd-Result: default: False [0.70 / 50.00]; ARC_NA(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TAGGED_RCPT(0.00)[];
- MIME_GOOD(-0.10)[text/plain]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ BROKEN_CONTENT_TYPE(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  RCVD_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
+ MID_CONTAINS_FROM(1.00)[];
  DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
- FREEMAIL_TO(0.00)[gmail.com]; FUZZY_BLOCKED(0.00)[rspamd.com];
- FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
- MID_RHS_NOT_FQDN(0.50)[]; RCVD_TLS_ALL(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
  BAYES_HAM(-3.00)[100.00%]
 X-Spam-Level: 
-Authentication-Results: smtp-out1.suse.de;
+Authentication-Results: smtp-out2.suse.de;
 	none
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
@@ -104,7 +97,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 3/3] Makefile: Improve 'make help'
+Subject: [LTP] [PATCH 1/2] tst_safe_macros: Move implementations into C file, rename
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,67 +109,215 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> index 49d91f4d5..7c9d1217a 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -216,8 +216,36 @@ test-metadata: metadata-all
->  ## Help
->  .PHONY: help
->  help:
-> -	@echo "Please read the Configuration section in $(top_srcdir)/INSTALL"
-> -	@exit 1
-> +	@echo 'Cleaning:'
-> +	@echo '  clean              - delete all files created by build'
-> +	@echo '  distclean          - delete all non-source files'
-> +	@echo '  lib-clean          - delete all files created by build in lib directory (C API library and tests)'
-> +	@echo '  libs-clean         - delete all files created by build in libs directory (other libraries)'
-> +	@echo '  testcases-clean    - delete all files created by build in testcases directory (tests)'
-> +	@echo
-> +	@echo 'Build:'
-> +	@echo '  all                - build everything'
-> +	@echo '  autotools          - preparation for configure'
-> +	@echo '  lib-all            - build lib directory (C API library and tests)'
-> +	@echo '  libs-all           - build libs directory (other libraries)'
-> +	@echo '  testcases-all      - build testcases and their dependencies'
-> +	@echo
-> +	@echo 'Install:'
-> +	@echo '  install            - install all files created by build'
-> +	@echo '  install-lib        - install files in lib directory (C API library and tests)'
-> +	@echo '  install-libs       - install files in libs directory (other libraries)'
-> +	@echo '  install-testcases  - install testcases'
+9120d8a22 ("safe_macros: turn functions with off_t parameter into static inline")
+noted:
 
-I'm not sure if the sub-targets should be described in make help. I
-would say to stick to a simple set of clean, distclean, autotools, all,
-install, doc, check and be done with it.
+    Some functions used to implement safe macros have parameters
+    of type off_t or structures containing off_t fields.
 
-> +	@echo 'Documentation:'
-> +	@echo '  doc                - create test documentation (HTML and/or PDF, based on configuration)'
-> +	@echo
-> +	@echo 'Testing:'
-> +	@echo '  test               - run all tests'
-> +	@echo '  test-c             - run C API tests'
-> +	@echo '  test-metadata      - run documentation tests'
-> +	@echo '  test-shell         - run shell API tests'
+But that's not the case of safe_mprotect() and helper safe_prot_to_str().
+Therefore move their implementations into C file (following the approach
+we don't want static inline implementations in the API headers).
 
-This is way to confusing, we shouldn't mention the internal testsuite
-here users will confuse that with actually running LTP tests.
+Also rename safe_prot_to_str() to tst_prot_to_str() (safe_ functions
+take const char *file, const int lineno and call tst_brk_() on error).
 
-We should instead probably mention the make check.
+Fixes: b366afb64 ("Add SAFE_MPROTECT() macro")
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ include/tst_safe_macros.h | 74 +++++++--------------------------------
+ lib/tst_safe_macros.c     | 55 +++++++++++++++++++++++++++++
+ 2 files changed, 68 insertions(+), 61 deletions(-)
 
-> +	@echo 'For more info please read the Configuration section in $(top_srcdir)/INSTALL'
-
-That file should be probably updated too.
-
+diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
+index 7178a842d..1c2decadd 100644
+--- a/include/tst_safe_macros.h
++++ b/include/tst_safe_macros.h
+@@ -1,5 +1,5 @@
+ /* SPDX-License-Identifier: GPL-2.0-or-later
+- * Copyright (c) 2010-2018 Linux Test Project
++ * Copyright (c) 2010-2024 Linux Test Project
+  * Copyright (c) 2011-2015 Cyril Hrubis <chrubis@suse.cz>
+  */
+ 
+@@ -264,49 +264,15 @@ int safe_getgroups(const char *file, const int lineno, int size, gid_t list[]);
+ 	            "fcntl(%i,%s,...) failed", fd, #cmd), 0 \
+ 	 : tst_ret_;})
+ 
+-/*
+- * following functions are inline because the behaviour may depend on
+- * -D_FILE_OFFSET_BITS=64 compile flag
+- */
+-
+-#define PROT_FLAG_STR(f) #f " | "
+-
+-static void safe_prot_to_str(const int prot, char *buf)
+-{
+-	char *ptr = buf;
+-
+-	if (prot == PROT_NONE) {
+-		strcpy(buf, "PROT_NONE");
+-		return;
+-	}
+-
+-	if (prot & PROT_READ) {
+-		strcpy(ptr, PROT_FLAG_STR(PROT_READ));
+-		ptr += sizeof(PROT_FLAG_STR(PROT_READ)) - 1;
+-	}
+-
+-	if (prot & PROT_WRITE) {
+-		strcpy(ptr, PROT_FLAG_STR(PROT_WRITE));
+-		ptr += sizeof(PROT_FLAG_STR(PROT_WRITE)) - 1;
+-	}
+-
+-	if (prot & PROT_EXEC) {
+-		strcpy(ptr, PROT_FLAG_STR(PROT_EXEC));
+-		ptr += sizeof(PROT_FLAG_STR(PROT_EXEC)) - 1;
+-	}
+-
+-	if (buf != ptr)
+-		ptr[-3] = 0;
+-}
++void tst_prot_to_str(const int prot, char *buf);
+ 
+ static inline void *safe_mmap(const char *file, const int lineno,
+-                              void *addr, size_t length,
+-                              int prot, int flags, int fd, off_t offset)
++	void *addr, size_t length, int prot, int flags, int fd, off_t offset)
+ {
+ 	void *rval;
+ 	char prot_buf[512];
+ 
+-	safe_prot_to_str(prot, prot_buf);
++	tst_prot_to_str(prot, prot_buf);
+ 
+ 	tst_res_(file, lineno, TDEBUG,
+ 		"mmap(%p, %ld, %s(%x), %d, %d, %ld)",
+@@ -321,37 +287,23 @@ static inline void *safe_mmap(const char *file, const int lineno,
+ 
+ 	return rval;
+ }
++
++
+ #define SAFE_MMAP(addr, length, prot, flags, fd, offset) \
+ 	safe_mmap(__FILE__, __LINE__, (addr), (length), (prot), \
+ 	(flags), (fd), (offset))
+ 
+-static inline int safe_mprotect(const char *file, const int lineno,
+-	char *addr, size_t len, int prot)
+-{
+-	int rval;
+-	char prot_buf[512];
+-
+-	safe_prot_to_str(prot, prot_buf);
+-
+-	tst_res_(file, lineno, TDEBUG,
+-		"mprotect(%p, %ld, %s(%x))", addr, len, prot_buf, prot);
++int safe_mprotect(const char *file, const int lineno,
++	char *addr, size_t len, int prot);
+ 
+-	rval = mprotect(addr, len, prot);
+-
+-	if (rval == -1) {
+-		tst_brk_(file, lineno, TBROK | TERRNO,
+-			"mprotect(%p, %ld, %s(%x))", addr, len, prot_buf, prot);
+-	} else if (rval) {
+-		tst_brk_(file, lineno, TBROK | TERRNO,
+-			"mprotect(%p, %ld, %s(%x)) return value %d",
+-			addr, len, prot_buf, prot, rval);
+-	}
+-
+-	return rval;
+-}
+ #define SAFE_MPROTECT(addr, len, prot) \
+ 	safe_mprotect(__FILE__, __LINE__, (addr), (len), (prot))
+ 
++/*
++ * Following functions are inline because the behaviour may depend on
++ * -D_FILE_OFFSET_BITS=64 compile flag.
++ */
++
+ static inline int safe_ftruncate(const char *file, const int lineno,
+                                  int fd, off_t length)
+ {
+diff --git a/lib/tst_safe_macros.c b/lib/tst_safe_macros.c
+index 498e45a74..907675afe 100644
+--- a/lib/tst_safe_macros.c
++++ b/lib/tst_safe_macros.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2017 Cyril Hrubis <chrubis@suse.cz>
++ * Copyright (c) 2017-2024 Linux Test Project
+  */
+ 
+ #define _GNU_SOURCE
+@@ -622,3 +623,57 @@ void safe_print_file(const char *file, const int lineno, char *path)
+ 
+ 	safe_fclose(file, lineno, NULL, pfile);
+ }
++
++#define PROT_FLAG_STR(f) #f " | "
++void tst_prot_to_str(const int prot, char *buf)
++{
++	char *ptr = buf;
++
++	if (prot == PROT_NONE) {
++		strcpy(buf, "PROT_NONE");
++		return;
++	}
++
++	if (prot & PROT_READ) {
++		strcpy(ptr, PROT_FLAG_STR(PROT_READ));
++		ptr += sizeof(PROT_FLAG_STR(PROT_READ)) - 1;
++	}
++
++	if (prot & PROT_WRITE) {
++		strcpy(ptr, PROT_FLAG_STR(PROT_WRITE));
++		ptr += sizeof(PROT_FLAG_STR(PROT_WRITE)) - 1;
++	}
++
++	if (prot & PROT_EXEC) {
++		strcpy(ptr, PROT_FLAG_STR(PROT_EXEC));
++		ptr += sizeof(PROT_FLAG_STR(PROT_EXEC)) - 1;
++	}
++
++	if (buf != ptr)
++		ptr[-3] = 0;
++}
++
++int safe_mprotect(const char *file, const int lineno,
++	char *addr, size_t len, int prot)
++{
++	int rval;
++	char prot_buf[512];
++
++	tst_prot_to_str(prot, prot_buf);
++
++	tst_res_(file, lineno, TDEBUG,
++		"mprotect(%p, %ld, %s(%x))", addr, len, prot_buf, prot);
++
++	rval = mprotect(addr, len, prot);
++
++	if (rval == -1) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"mprotect(%p, %ld, %s(%x))", addr, len, prot_buf, prot);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"mprotect(%p, %ld, %s(%x)) return value %d",
++			addr, len, prot_buf, prot, rval);
++	}
++
++	return rval;
++}
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.43.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
