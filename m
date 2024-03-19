@@ -1,74 +1,119 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0515187FB72
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Mar 2024 11:08:50 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id F0D4B87FBDF
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Mar 2024 11:35:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BB3CD3CFC03
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Mar 2024 11:08:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A04D23CE6A8
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Mar 2024 11:35:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 35DCA3CE6A1
- for <ltp@lists.linux.it>; Tue, 19 Mar 2024 11:08:37 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwang@redhat.com;
- receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id 7BC9E3CB5E1
+ for <ltp@lists.linux.it>; Tue, 19 Mar 2024 11:35:00 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 87622600D11
- for <ltp@lists.linux.it>; Tue, 19 Mar 2024 11:08:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1710842915;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D4D0B605630
+ for <ltp@lists.linux.it>; Tue, 19 Mar 2024 11:34:59 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 27A115D4C5;
+ Tue, 19 Mar 2024 10:34:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1710844498; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ww/IUz9FqoUw75+YSi5c5L0FqeyTDMP309mSbGFQzfM=;
- b=SraPoYs56qJv/Dg1rKvhs+5ADmA2aR/MEArThEhDwO9TFNq3mUEcpdkzk9iHnGmX6emRdp
- HKvZGcn5s2qbU2bf40wc+oJdR9cUxAXwQnLW2tKmT6xnuqrLnubnMH9MI4NwWWaARDexkp
- f6Fp2KwbEt8gqV0/vELjD7URXYz458E=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-586-wmHwV3fuOcqG7hYOHlUx9Q-1; Tue,
- 19 Mar 2024 06:08:32 -0400
-X-MC-Unique: wmHwV3fuOcqG7hYOHlUx9Q-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+ bh=D+jJHS5za5o4KPVtUSvufScW+swwmWudmMZwCF37//Y=;
+ b=ZhzPVktZfmMFjYGUwu+xGVK6ZrEoC8akeGKUFPBLWuiRy1Vbirh57VrvOmnDw03aHOfXgi
+ FlPBrTGTk9viUNLwEtQ2u4LQbD9+NZJvgC73VgFPnbVarOnSgHSeDKtdX39/f9PZvzH99C
+ FaKW7ZJC3anYyljT5fHNMu0kDyZItWI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1710844498;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=D+jJHS5za5o4KPVtUSvufScW+swwmWudmMZwCF37//Y=;
+ b=YW7ttxQ3CLEGkR3jfHEcG3pN+trRmFbQId/EI+yuYr+s+CFmIvrLwlmwE3qOV3Y50bcstB
+ CdOSA50/zD85eoAg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1710844498; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=D+jJHS5za5o4KPVtUSvufScW+swwmWudmMZwCF37//Y=;
+ b=ZhzPVktZfmMFjYGUwu+xGVK6ZrEoC8akeGKUFPBLWuiRy1Vbirh57VrvOmnDw03aHOfXgi
+ FlPBrTGTk9viUNLwEtQ2u4LQbD9+NZJvgC73VgFPnbVarOnSgHSeDKtdX39/f9PZvzH99C
+ FaKW7ZJC3anYyljT5fHNMu0kDyZItWI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1710844498;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=D+jJHS5za5o4KPVtUSvufScW+swwmWudmMZwCF37//Y=;
+ b=YW7ttxQ3CLEGkR3jfHEcG3pN+trRmFbQId/EI+yuYr+s+CFmIvrLwlmwE3qOV3Y50bcstB
+ CdOSA50/zD85eoAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D38C51C05EB8;
- Tue, 19 Mar 2024 10:08:31 +0000 (UTC)
-Received: from liwang-workstation.lab.eng.nay.redhat.com (unknown
- [10.66.145.229])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9234D10F43;
- Tue, 19 Mar 2024 10:08:30 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Tue, 19 Mar 2024 18:08:22 +0800
-Message-Id: <20240319100822.3243785-3-liwang@redhat.com>
-In-Reply-To: <20240319100822.3243785-1-liwang@redhat.com>
-References: <20240319100822.3243785-1-liwang@redhat.com>
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 10031136D6;
+ Tue, 19 Mar 2024 10:34:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Hjz5AlJq+WUfKwAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Tue, 19 Mar 2024 10:34:58 +0000
+Date: Tue, 19 Mar 2024 11:33:59 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <ZflqF-zH-e77vePV@yuki>
+References: <6868ae95-b004-4fb2-8aac-7ccf96b32f90@suse.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+In-Reply-To: <6868ae95-b004-4fb2-8aac-7ccf96b32f90@suse.com>
+X-Spam-Score: -0.97
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ZhzPVktZ;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=YW7ttxQ3
+X-Spamd-Bar: /
+X-Spamd-Result: default: False [-0.97 / 50.00]; ARC_NA(0.00)[];
+ TO_DN_EQ_ADDR_SOME(0.00)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ BAYES_HAM(-0.16)[69.51%]; MIME_GOOD(-0.10)[text/plain];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; RCVD_COUNT_THREE(0.00)[3];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.cz:+]; RCPT_COUNT_TWO(0.00)[2];
+ MX_GOOD(-0.01)[]; SUBJECT_ENDS_EXCLAIM(0.20)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
+ RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 27A115D4C5
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 2/2] swapon01: create 128MB swapfile
+Subject: Re: [LTP] New LTP documentation!
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,44 +125,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The modification in the setup function changes the swap file
-creation approach. Instead of allocating swap space based on
-a number of blocks (which potentially could be too small for
-the polluted memory swapout, thus causing an OOM), it now uses
-a fixed size of 128 units for the swap file creation.
+Hi!
+> I started to work on documentation refactoring, re-organizing the 
+> overall structure. The first prototype can be found here:
+> 
+> https://ltp-acerv.readthedocs.io/en/latest/index.html
 
-This is likely a conservative figure to prevent the OOM killer
-from being triggered due to excessive memory allocation for the
-swap file, helping ensure the test runs successfully on systems
-with no swap space.
+Thanks for doing this! This looks way better than the current wiki we
+have.
 
-Signed-off-by: Li Wang <liwang@redhat.com>
-Reviewed-by: Wei Gao <wegao@suse.com>
----
- testcases/kernel/syscalls/swapon/swapon01.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'm also looking forward to the API documentation parsed from the
+library headers.
 
-diff --git a/testcases/kernel/syscalls/swapon/swapon01.c b/testcases/kernel/syscalls/swapon/swapon01.c
-index 2e399db61..17fde00bc 100644
---- a/testcases/kernel/syscalls/swapon/swapon01.c
-+++ b/testcases/kernel/syscalls/swapon/swapon01.c
-@@ -38,7 +38,7 @@ static void verify_swapon(void)
- static void setup(void)
- {
- 	is_swap_supported(SWAP_FILE);
--	MAKE_SWAPFILE_BLKS(SWAP_FILE, 10, 0);
-+	MAKE_SWAPFILE_SIZE(SWAP_FILE, 128, 0);
- 
- 	SAFE_CG_PRINTF(tst_cg, "cgroup.procs", "%d", getpid());
- 	SAFE_CG_PRINTF(tst_cg, "memory.max", "%lu", TESTMEM);
+A few minor comments:
+
+"Install and run" -> "Installation and test execution"
+
+"Patch reviewing" -> "Patch review"
+
+"Debugging with gdb and strace" -> Just change that to "Debugging"
+
+And we should mention the newly introduced -D test parameter in that
+section as well.
+
+
 -- 
-2.40.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
