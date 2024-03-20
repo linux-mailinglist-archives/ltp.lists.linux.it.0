@@ -1,120 +1,111 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AABF288158A
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 17:23:11 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF4C58815B4
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 17:34:24 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7103A3CFFAA
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 17:23:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8780E3CFFB1
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 17:34:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1715B3CFC01
- for <ltp@lists.linux.it>; Wed, 20 Mar 2024 17:20:49 +0100 (CET)
-Authentication-Results: in-4.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by picard.linux.it (Postfix) with ESMTPS id 43E1A3CFBF2
+ for <ltp@lists.linux.it>; Wed, 20 Mar 2024 17:34:18 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7B26C1001197
- for <ltp@lists.linux.it>; Wed, 20 Mar 2024 17:20:48 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8EA2861338C
+ for <ltp@lists.linux.it>; Wed, 20 Mar 2024 17:34:17 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 377A75BF35;
- Wed, 20 Mar 2024 16:20:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1710951647; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 019A6347AE;
+ Wed, 20 Mar 2024 16:34:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1710952456;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=F1dkt8YX+TMv5z1xXSNuz74AcCbSvGz0JwFu4zkjpe4=;
- b=f+ru530t87J5214kre3aQQnPXSs8zgASRwy3q+xWWXaWIoNmVrIrShlcl04wPpavq1YqGU
- oksLnfKzRpT9wD2mni1ZxqDivHNAay8Ld/qyqWGVXjfZ+K7IEsrqDRI0RQX1j9Y/aYw95b
- Po87U+7r9lI+86uhMqJ4Tmng9KBUa/Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1710951647;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ bh=ys9vtMTMIOGrQ+Xwr5Grn4jQcyUClM7F+OJqX+A8PzM=;
+ b=ZgWiflzZ1m4kcwfcQp5cNUxFNQkDTMt4CSJvCVtWmd3N5DNkrl3aG+yP9qfyWuRVx689kX
+ CdGz8ev+6IAXECGI/Gz7fUqRQPapa1q6Nn+s2bJacbl2xb5oio1KIG4Q6cGp4IZCExyZb3
+ AFFzD48rYB94t346MsNkYMc2/8wDtlU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1710952456;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=F1dkt8YX+TMv5z1xXSNuz74AcCbSvGz0JwFu4zkjpe4=;
- b=99o8lkIZ//fxhDo3zoiHGd5w9qZy0UC70nFC9EBefa8yh886fnYxmW8hdBczoPmvXDw1VE
- rLhymTgIK80DUrBg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1710951647; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ bh=ys9vtMTMIOGrQ+Xwr5Grn4jQcyUClM7F+OJqX+A8PzM=;
+ b=x7DzDWeBDUa96rpIk+EimtOyullnUbGvmJ4Fp3CnYySf9sEKYgqucbkd6p72X9etE8qRXQ
+ 8YKbgvEgZlW5YBBQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1710952456;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=F1dkt8YX+TMv5z1xXSNuz74AcCbSvGz0JwFu4zkjpe4=;
- b=f+ru530t87J5214kre3aQQnPXSs8zgASRwy3q+xWWXaWIoNmVrIrShlcl04wPpavq1YqGU
- oksLnfKzRpT9wD2mni1ZxqDivHNAay8Ld/qyqWGVXjfZ+K7IEsrqDRI0RQX1j9Y/aYw95b
- Po87U+7r9lI+86uhMqJ4Tmng9KBUa/Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1710951647;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ bh=ys9vtMTMIOGrQ+Xwr5Grn4jQcyUClM7F+OJqX+A8PzM=;
+ b=ZgWiflzZ1m4kcwfcQp5cNUxFNQkDTMt4CSJvCVtWmd3N5DNkrl3aG+yP9qfyWuRVx689kX
+ CdGz8ev+6IAXECGI/Gz7fUqRQPapa1q6Nn+s2bJacbl2xb5oio1KIG4Q6cGp4IZCExyZb3
+ AFFzD48rYB94t346MsNkYMc2/8wDtlU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1710952456;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=F1dkt8YX+TMv5z1xXSNuz74AcCbSvGz0JwFu4zkjpe4=;
- b=99o8lkIZ//fxhDo3zoiHGd5w9qZy0UC70nFC9EBefa8yh886fnYxmW8hdBczoPmvXDw1VE
- rLhymTgIK80DUrBg==
+ bh=ys9vtMTMIOGrQ+Xwr5Grn4jQcyUClM7F+OJqX+A8PzM=;
+ b=x7DzDWeBDUa96rpIk+EimtOyullnUbGvmJ4Fp3CnYySf9sEKYgqucbkd6p72X9etE8qRXQ
+ 8YKbgvEgZlW5YBBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 21544136D6;
- Wed, 20 Mar 2024 16:20:47 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C82A4136D6;
+ Wed, 20 Mar 2024 16:34:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4G/gBt8M+2U/ZgAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Wed, 20 Mar 2024 16:20:47 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 20 Mar 2024 17:20:54 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id nzBzLgcQ+2WiagAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Wed, 20 Mar 2024 16:34:15 +0000
+Date: Wed, 20 Mar 2024 17:34:14 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Shiyang Ruan <ruansy.fnst@fujitsu.com>
+Message-ID: <20240320163414.GA496781@pevik>
+References: <20240121161159.4106646-2-ruansy.fnst@fujitsu.com>
+ <20240314101344.4000544-1-ruansy.fnst@fujitsu.com>
 MIME-Version: 1.0
-Message-Id: <20240320-new_website-v1-10-79b603c8aea1@suse.com>
-References: <20240320-new_website-v1-0-79b603c8aea1@suse.com>
-In-Reply-To: <20240320-new_website-v1-0-79b603c8aea1@suse.com>
-To: ltp@lists.linux.it
-X-Mailer: b4 0.13.0
+Content-Disposition: inline
+In-Reply-To: <20240314101344.4000544-1-ruansy.fnst@fujitsu.com>
+Authentication-Results: smtp-out1.suse.de;
+	none
 X-Spam-Level: 
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=f+ru530t;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=99o8lkIZ
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-1.51 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+X-Spam-Score: -3.50
+X-Spamd-Result: default: False [-3.50 / 50.00]; ARC_NA(0.00)[];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
  FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCVD_COUNT_THREE(0.00)[3];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]; RCPT_COUNT_TWO(0.00)[2];
- MX_GOOD(-0.01)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.de:dkim];
+ MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_COUNT_THREE(0.00)[3];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.00)[31.82%]
-X-Spam-Score: -1.51
-X-Rspamd-Queue-Id: 377A75BF35
+ MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
+ RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-3.00)[100.00%]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 10/10] Introduce kernel-doc API support
+Subject: Re: [LTP] [PATCH v2] getxattr01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,88 +117,139 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+> ---
+> Changes since v1:
+> 1. removed comments above tcases;
+> 2. simplified check logic;
+> 3. replaced close() with SAFE_CLOSE();
+> 4. Description: merged the 4th point into the 3rd one according to
+>    the check logic;
 
-kernel-doc API support is introduced by linuxdoc package that includes
-Linux kernel tools used to generate the documentation.
-With this patch we fully support the kernel documentation format that
-can be found here:
+...
 
-https://return42.github.io/linuxdoc/linuxdoc-howto/kernel-doc-syntax.html
----
- doc_new/conf.py                          | 3 +--
- doc_new/developers/api_c_tests.rst       | 3 +++
- doc_new/developers/api_kvm_tests.rst     | 3 +++
- doc_new/developers/api_network_tests.rst | 3 +++
- doc_new/requirements.txt                 | 1 +
- 5 files changed, 11 insertions(+), 2 deletions(-)
+#ifdef HAVE_SYS_XATTR_H
+Please remove this check, we always have <sys/xattr.h>.
 
-diff --git a/doc_new/conf.py b/doc_new/conf.py
-index b333ebf2a..44122b761 100644
---- a/doc_new/conf.py
-+++ b/doc_new/conf.py
-@@ -14,8 +14,7 @@ release = '1.0'
- # -- General configuration ---------------------------------------------------
- # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
- 
--extensions = []
--
-+extensions = ['linuxdoc.rstKernelDoc']
- 
- # -- Options for HTML output -------------------------------------------------
- # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-diff --git a/doc_new/developers/api_c_tests.rst b/doc_new/developers/api_c_tests.rst
-index c03f9caf1..adee17f16 100644
---- a/doc_new/developers/api_c_tests.rst
-+++ b/doc_new/developers/api_c_tests.rst
-@@ -1,4 +1,7 @@
- .. SPDX-License-Identifier: GPL-2.0-or-later
- 
-+.. Include headers in this file with:
-+.. .. kernel-doc:: ../../include/tst_test.h
-+
- Developing using C API
- ======================
-diff --git a/doc_new/developers/api_kvm_tests.rst b/doc_new/developers/api_kvm_tests.rst
-index 1ef7ec452..5ec3fc3a4 100644
---- a/doc_new/developers/api_kvm_tests.rst
-+++ b/doc_new/developers/api_kvm_tests.rst
-@@ -1,4 +1,7 @@
- .. SPDX-License-Identifier: GPL-2.0-or-later
- 
-+.. Include headers in this file with:
-+.. .. kernel-doc:: ../../include/tst_test.h
-+
- Developing using KVM API
- ========================
-diff --git a/doc_new/developers/api_network_tests.rst b/doc_new/developers/api_network_tests.rst
-index 4fe45f5f6..3e487d7f2 100644
---- a/doc_new/developers/api_network_tests.rst
-+++ b/doc_new/developers/api_network_tests.rst
-@@ -1,4 +1,7 @@
- .. SPDX-License-Identifier: GPL-2.0-or-later
- 
-+.. Include headers in this file with:
-+.. .. kernel-doc:: ../../include/tst_test.h
-+
- Developing using network API
- ============================
-diff --git a/doc_new/requirements.txt b/doc_new/requirements.txt
-index 59709ec72..720e6870e 100644
---- a/doc_new/requirements.txt
-+++ b/doc_new/requirements.txt
-@@ -1 +1,2 @@
- sphinx-rtd-theme==2.0.0
-+linuxdoc==20231020
+> +#define XATTR_TEST_NOKEY	"user.nosuchkey"
+> +#define XATTR_TEST_KEY		"user.testkey"
+> +#define XATTR_TEST_VALUE	"this is a test value"
+> +#define XATTR_TEST_VALUE_SIZE	20
+> +#define BUFFSIZE		64
 
--- 
-2.35.3
+> -char filename[BUFSIZ];
+> +static char filename[BUFSIZ];
 
+> -struct test_case {
+> +static struct tcase {
+>  	char *fname;
+>  	char *key;
+>  	char *value;
+>  	size_t size;
+>  	int exp_err;
+> +} tcases[] = {
+> +	{ filename, XATTR_TEST_NOKEY, NULL, BUFFSIZE - 1, ENODATA },
+> +	{ filename, XATTR_TEST_KEY, NULL, 1, ERANGE },
+> +	{ filename, XATTR_TEST_KEY, NULL, BUFFSIZE - 1, 0 },
+
+If .fname is always filename, why to pass it via test struct?
+The same applies for .value (always NULL).
+
+NOTE, this is ok, but if there were a lot of more struct members and some of
+them would be 0 or NULL, we'd prefer to initialize it as:
+
+{ .key = XATTR_TEST_NOKEY, .size = BUFFSIZE - 1, .exp_err = ENODATA },
+{ .key = XATTR_TEST_KEY, .size = 1, .exp_err = ERANGE },
+{ .key = XATTR_TEST_KEY, .size = BUFFSIZE - 1 }
+
+This way it would be possible to avoid many NULL or 0.
+
+...
+> +	struct tcase *tc = &tcases[n];
+> +
+> +	if (tc->exp_err == 0) {
+> +		TST_EXP_VAL(getxattr(tc->fname, tc->key, tc->value, tc->size),
+> +			    XATTR_TEST_VALUE_SIZE);
+
+> +		if (memcmp(tc->value, XATTR_TEST_VALUE, XATTR_TEST_VALUE_SIZE))
+> +			tst_res(TFAIL, "Wrong value, expect \"%s\" got \"%s\"",
+instead of \", more readable is to use '.
+
+> +				XATTR_TEST_VALUE, tc->value);
+>  		else
+> -			tst_resm(TPASS, "Got the right value");
+> +			tst_res(TPASS, "getxattr() retrieved expected value");
+> +	} else {
+> +		TST_EXP_FAIL(getxattr(tc->fname, tc->key, tc->value, tc->size),
+> +			     tc->exp_err);
+>  	}
+
+>  static void setup(void)
+> @@ -144,41 +69,36 @@ static void setup(void)
+>  	int fd;
+>  	unsigned int i;
+
+> -	tst_require_root();
+> -
+> -	tst_tmpdir();
+> -
+>  	/* Create test file and setup initial xattr */
+>  	snprintf(filename, BUFSIZ, "getxattr01testfile");
+> -	fd = SAFE_CREAT(cleanup, filename, 0644);
+> -	close(fd);
+> -	if (setxattr(filename, XATTR_TEST_KEY, XATTR_TEST_VALUE,
+> -		     strlen(XATTR_TEST_VALUE), XATTR_CREATE) == -1) {
+> -		if (errno == ENOTSUP) {
+> -			tst_brkm(TCONF, cleanup, "No xattr support in fs or "
+> -				 "mount without user_xattr option");
+> -		}
+> -	}
+> +	fd = SAFE_CREAT(filename, 0644);
+> +	SAFE_CLOSE(fd);
+
+...
+> +	for (i = 0; i < ARRAY_SIZE(tcases); i++)
+> +		tcases[i].value = SAFE_MALLOC(BUFFSIZE);
+>  }
+
+>  static void cleanup(void)
+>  {
+> -	tst_rmdir();
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(tcases); i++)
+> +		if (tcases[i].value != NULL)
+Shouldn't be free() unconditional (always)?
+
+> +			free(tcases[i].value);
+>  }
+> +
+> +static struct tst_test test = {
+> +	.needs_tmpdir = 1,
+> +	.needs_root = 1,
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.tcnt = ARRAY_SIZE(tcases),
+> +	.test = run,
+> +};
+> +
+>  #else /* HAVE_SYS_XATTR_H */
+> -int main(int argc, char *argv[])
+> -{
+> -	tst_brkm(TCONF, NULL, "<sys/xattr.h> does not exist.");
+> -}
+> +	TST_TEST_TCONF("<sys/xattr.h> does not exist.");
+This is to be removed (as noted up).
+>  #endif
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
