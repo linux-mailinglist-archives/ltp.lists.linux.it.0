@@ -1,112 +1,104 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62DAB880F21
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 10:55:05 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8865A880F32
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 11:00:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2D2363CE66F
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 10:55:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3CA6A3CE6CF
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 11:00:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8348D3CE64C
- for <ltp@lists.linux.it>; Wed, 20 Mar 2024 10:55:03 +0100 (CET)
-Authentication-Results: in-4.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 30EE83CE744
+ for <ltp@lists.linux.it>; Wed, 20 Mar 2024 11:00:30 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id BFF0D1001876
- for <ltp@lists.linux.it>; Wed, 20 Mar 2024 10:55:02 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 64E1F602AD3
+ for <ltp@lists.linux.it>; Wed, 20 Mar 2024 11:00:26 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C3F3420C24;
- Wed, 20 Mar 2024 09:55:01 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CE8EB20C3B
+ for <ltp@lists.linux.it>; Wed, 20 Mar 2024 10:00:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1710928501;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0CCsik4LrH+7seMrgJyDNr03hKsU40a3zyn2juerUxs=;
- b=qJ55AzS2iAfWzwn39C8gx3fg0eL6wZZsTnABpluHZkT0DIQp2UldyOS5yvEgHdXQtG2A6R
- 4oouVMBoT9adkxkFxTtI55/U0RYjQfb9RcynjY2i/Ed5H1t1gYhbyDBEvRDhStoH1cBDM9
- eM1VOjykgVxTH43I8/WmmrQ3ohO3G/8=
+ t=1710928825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=PMxxeVdiJ9y2tVi4kQru0woDLpJ4n4+k0vo7yHh/4qs=;
+ b=p5kD6zD8jRgzdl97LCc4WwS92Nig1UPSMqSc2A7bIljC6oA1fVUF/ONl6ZwRIVFDXF8Nnb
+ EhRpZmiqUNbDcobre1zD37gL9ZPTdZ8bgjm+cJcSsjp+WDd5KthkoLCk6938hJhny+tI8o
+ isWRUh8UZAgnXq+U20G9lGYNCcOakVM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1710928501;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0CCsik4LrH+7seMrgJyDNr03hKsU40a3zyn2juerUxs=;
- b=RmuTZ/4XllYU1I581RVgqnWT7eMzWVEmdlUf4b4weDVyui23CvAVMMYDEbJXtfj/NELmXW
- /CyQVac2fme4L8AA==
+ s=susede2_ed25519; t=1710928825;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=PMxxeVdiJ9y2tVi4kQru0woDLpJ4n4+k0vo7yHh/4qs=;
+ b=QzYTXNxBkjXX1iLiH0UPa0SAu464maYOdAuv9hCXZVnXNPyIodqql73yf3l8MdrkTdRLlh
+ 8ei4FDv0dofX+5AA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1710928501;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0CCsik4LrH+7seMrgJyDNr03hKsU40a3zyn2juerUxs=;
- b=qJ55AzS2iAfWzwn39C8gx3fg0eL6wZZsTnABpluHZkT0DIQp2UldyOS5yvEgHdXQtG2A6R
- 4oouVMBoT9adkxkFxTtI55/U0RYjQfb9RcynjY2i/Ed5H1t1gYhbyDBEvRDhStoH1cBDM9
- eM1VOjykgVxTH43I8/WmmrQ3ohO3G/8=
+ t=1710928825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=PMxxeVdiJ9y2tVi4kQru0woDLpJ4n4+k0vo7yHh/4qs=;
+ b=p5kD6zD8jRgzdl97LCc4WwS92Nig1UPSMqSc2A7bIljC6oA1fVUF/ONl6ZwRIVFDXF8Nnb
+ EhRpZmiqUNbDcobre1zD37gL9ZPTdZ8bgjm+cJcSsjp+WDd5KthkoLCk6938hJhny+tI8o
+ isWRUh8UZAgnXq+U20G9lGYNCcOakVM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1710928501;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0CCsik4LrH+7seMrgJyDNr03hKsU40a3zyn2juerUxs=;
- b=RmuTZ/4XllYU1I581RVgqnWT7eMzWVEmdlUf4b4weDVyui23CvAVMMYDEbJXtfj/NELmXW
- /CyQVac2fme4L8AA==
+ s=susede2_ed25519; t=1710928825;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=PMxxeVdiJ9y2tVi4kQru0woDLpJ4n4+k0vo7yHh/4qs=;
+ b=QzYTXNxBkjXX1iLiH0UPa0SAu464maYOdAuv9hCXZVnXNPyIodqql73yf3l8MdrkTdRLlh
+ 8ei4FDv0dofX+5AA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A61DB136D6;
- Wed, 20 Mar 2024 09:55:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id eaKXJ3Wy+mV6XgAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Wed, 20 Mar 2024 09:55:01 +0000
-Date: Wed, 20 Mar 2024 10:54:59 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20240320095459.GA466582@pevik>
-References: <20231227000430.30224-1-wegao@suse.com>
- <20231228025537.28807-1-wegao@suse.com>
- <2cc04819-1bd7-4f24-842d-cf686cda7fa7@suse.cz>
- <20240320074304.GC452876@pevik>
- <8798c323-8298-49b1-9950-09f2a7c309cb@suse.cz>
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BE84E136D6
+ for <ltp@lists.linux.it>; Wed, 20 Mar 2024 10:00:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id SIR8Lbmz+mXBYAAAD6G6ig
+ (envelope-from <chrubis@suse.cz>)
+ for <ltp@lists.linux.it>; Wed, 20 Mar 2024 10:00:25 +0000
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Date: Wed, 20 Mar 2024 10:59:25 +0100
+Message-ID: <20240320095927.19973-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.43.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8798c323-8298-49b1-9950-09f2a7c309cb@suse.cz>
+X-Spam-Score: 3.66
+X-Spamd-Result: default: False [3.66 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_GOOD(-0.10)[text/plain];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
+ BROKEN_CONTENT_TYPE(1.50)[]; RCPT_COUNT_ONE(0.00)[1];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; RCVD_COUNT_THREE(0.00)[3];
+ TO_DN_NONE(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ BAYES_HAM(-0.04)[58.20%]
 Authentication-Results: smtp-out2.suse.de;
 	none
-X-Spam-Level: 
-X-Spam-Score: -0.61
-X-Spamd-Result: default: False [-0.61 / 50.00]; ARC_NA(0.00)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
- TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; RCVD_COUNT_THREE(0.00)[3];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
- RCVD_TLS_ALL(0.00)[]; BAYES_HAM(-0.11)[66.46%]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] move_mount03: check allow to mount beneath top
- mount
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: [LTP] [PATCH 0/2] Add splice tests fro /dev/{zero,null,full}
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,56 +110,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> On 20. 03. 24 8:43, Petr Vorel wrote:
-> > > On 28. 12. 23 3:55, Wei Gao via ltp wrote:
-> > > > +static void cleanup(void)
-> > > > +{
-> > > > +	if (tst_is_mounted_at_tmpdir(DIRA))
-> > > > +		SAFE_UMOUNT(DIRA);
-> > > > +
-> > > > +	if (tst_is_mounted_at_tmpdir(DIRB))
-> > > > +		SAFE_UMOUNT(DIRB);
+We came around this when we were doing pre-release testing for the
+splice07 test, the support for splicing to/from some dev files was
+likely unintentionaly removed and added back later on. This patchset
+implements first two basic splice tests for these device files.
 
-> > > I believe that DIRB may need to be unmounted twice here. Also please close
-> > > fda and fdb here if they're still open.
+Cyril Hrubis (2):
+  syscalls: Add test for splicing from /dev/zero and /dev/full
+  syscalls: Add test for splicing to /dev/zero and /dev/null
 
-> > What would do the second mount? move_mount() ?
+ runtest/syscalls                            |  2 +
+ testcases/kernel/syscalls/splice/.gitignore |  2 +
+ testcases/kernel/syscalls/splice/splice08.c | 88 +++++++++++++++++++++
+ testcases/kernel/syscalls/splice/splice09.c | 55 +++++++++++++
+ 4 files changed, 147 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/splice/splice08.c
+ create mode 100644 testcases/kernel/syscalls/splice/splice09.c
 
-> > There are SAFE_UMOUNT() in the end of the testing function, that's why usually
-> > even these 2 SAFE_UMOUNT() aren't needed (but obviously we need to add them if
-> > SAFE_TOUCH() or something quits testing early):
+-- 
+2.43.2
 
-> > move_mount03.c:92: TPASS: move_mount(fda, "", fdb, "", MOVE_MOUNT_BENEATH | MOVE_MOUNT_F_EMPTY_PATH | MOVE_MOUNT_T_EMPTY_PATH) passed
-> > move_mount03.c:98: TPASS: access(DIRB "/B", F_OK) passed
-> > move_mount03.c:99: TINFO: Umounting /tmp/LTP_movqeTZGu/LTP_DIR_B
-> > move_mount03.c:100: TPASS: access(DIRB "/A", F_OK) passed
-> > move_mount03.c:102: TINFO: Umounting /tmp/LTP_movqeTZGu/LTP_DIR_B
-> > move_mount03.c:103: TINFO: Umounting /tmp/LTP_movqeTZGu/LTP_DIR_A
-> > tst_device.c:442: TINFO: No device is mounted at /tmp/LTP_movqeTZGu/LTP_DIR_A
-> > tst_device.c:442: TINFO: No device is mounted at /tmp/LTP_movqeTZGu/LTP_DIR_B
-
-> Yes, open_tree() was called with OPEN_TREE_CLONE so after move_mount(), the
-> mounts look like this:
-> - tmpfs[1] at DIRA
-> - tmpfs[1] at DIRB
-> - tmpfs[2] at DIRB
-
-> If either SAFE_CLOSE() immediately after move_mount() fails, cleanup() will
-> unmount tmpfs[1] from DIRA and tmpfs[2] from DIRB but leave tmpfs[1] mounted
-> at DIRB.
-
-@Martin Thanks!
-@Wai Please send another version.
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
