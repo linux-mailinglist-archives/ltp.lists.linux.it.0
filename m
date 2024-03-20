@@ -1,125 +1,113 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98150880F33
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 11:01:07 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 319A8880F31
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 11:00:30 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4ABE73CE6A4
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 11:01:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D07B53CE670
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 11:00:29 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BAC593CFBEE
- for <ltp@lists.linux.it>; Wed, 20 Mar 2024 11:00:31 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id A06F43C92E2
+ for <ltp@lists.linux.it>; Wed, 20 Mar 2024 11:00:27 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 60564600648
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6BE99208F83
  for <ltp@lists.linux.it>; Wed, 20 Mar 2024 11:00:27 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 466B020C3C
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A74F134145
  for <ltp@lists.linux.it>; Wed, 20 Mar 2024 10:00:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1710928826; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QzDqX51KQycQatL16079fa5Sjr5mgjb4pppzF/1o15Q=;
- b=LBFZb4jXF68AI0bzLpZUOq6OUrTYM5pOwFsz0ZmEW8Xd67gnI9nV1tSBVefvGiFIq/lgpc
- cSjbkHCSN5dJAmfMumjSQoEhkyyB74d6E5cLp3S+tUb7fdfymaZQjTbOqlsXOA6Pizc383
- I3K0QYRYgEMRLUk4SL1k7OPyzncvh/E=
+ bh=oZVc0Xbvv/HfRXgGNwuPFMEsqIclYylVyce19I0qQPo=;
+ b=CoR3LEss21Wn5zlAKvcmZasRe2RjT/ZJZ+D+z84rScpwcsEENtHN8NFJAUNxq0NQDm2+MM
+ VFTZ5ogzevxltjdMipnQe9EWy8YangtDdHs19hmHb66Z3Ghcc1uD/EZTwq0DocCbExBp64
+ OKB9Kt6trZsq9NH1duwxEeL8cggjsfc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1710928826;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QzDqX51KQycQatL16079fa5Sjr5mgjb4pppzF/1o15Q=;
- b=/cb7O8Tipw8a3pYL2jwG1a3jVXeiueBxArH0SNLLtqhgja9zxPyc/SDdFNFv1kGzrRRb41
- Er3JHlksOLe5u9DA==
+ bh=oZVc0Xbvv/HfRXgGNwuPFMEsqIclYylVyce19I0qQPo=;
+ b=sCOMNKRST8QeXhydD4s694tqqjXRcAP2TYgVypFido4oixhZm/53tPsIrQM5x8037EOI/u
+ w+ISZB2PHdzDRdBQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1710928826; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QzDqX51KQycQatL16079fa5Sjr5mgjb4pppzF/1o15Q=;
- b=LBFZb4jXF68AI0bzLpZUOq6OUrTYM5pOwFsz0ZmEW8Xd67gnI9nV1tSBVefvGiFIq/lgpc
- cSjbkHCSN5dJAmfMumjSQoEhkyyB74d6E5cLp3S+tUb7fdfymaZQjTbOqlsXOA6Pizc383
- I3K0QYRYgEMRLUk4SL1k7OPyzncvh/E=
+ bh=oZVc0Xbvv/HfRXgGNwuPFMEsqIclYylVyce19I0qQPo=;
+ b=CoR3LEss21Wn5zlAKvcmZasRe2RjT/ZJZ+D+z84rScpwcsEENtHN8NFJAUNxq0NQDm2+MM
+ VFTZ5ogzevxltjdMipnQe9EWy8YangtDdHs19hmHb66Z3Ghcc1uD/EZTwq0DocCbExBp64
+ OKB9Kt6trZsq9NH1duwxEeL8cggjsfc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1710928826;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QzDqX51KQycQatL16079fa5Sjr5mgjb4pppzF/1o15Q=;
- b=/cb7O8Tipw8a3pYL2jwG1a3jVXeiueBxArH0SNLLtqhgja9zxPyc/SDdFNFv1kGzrRRb41
- Er3JHlksOLe5u9DA==
+ bh=oZVc0Xbvv/HfRXgGNwuPFMEsqIclYylVyce19I0qQPo=;
+ b=sCOMNKRST8QeXhydD4s694tqqjXRcAP2TYgVypFido4oixhZm/53tPsIrQM5x8037EOI/u
+ w+ISZB2PHdzDRdBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3441B136D6
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 968A1136D6
  for <ltp@lists.linux.it>; Wed, 20 Mar 2024 10:00:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ed/NC7qz+mXDYAAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id aJTdI7qz+mXGYAAAD6G6ig
  (envelope-from <chrubis@suse.cz>)
  for <ltp@lists.linux.it>; Wed, 20 Mar 2024 10:00:26 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 20 Mar 2024 10:59:26 +0100
-Message-ID: <20240320095927.19973-2-chrubis@suse.cz>
+Date: Wed, 20 Mar 2024 10:59:27 +0100
+Message-ID: <20240320095927.19973-3-chrubis@suse.cz>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240320095927.19973-1-chrubis@suse.cz>
 References: <20240320095927.19973-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Spam-Level: 
-X-Spamd-Bar: /
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=LBFZb4jX;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="/cb7O8Ti"
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [0.49 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FROM_HAS_DN(0.00)[]; R_MISSING_CHARSET(2.50)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+X-Spam-Score: 3.70
+X-Spamd-Result: default: False [3.70 / 50.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_GOOD(-0.10)[text/plain];
  PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
  BROKEN_CONTENT_TYPE(1.50)[]; RCPT_COUNT_ONE(0.00)[1];
  NEURAL_HAM_LONG(-1.00)[-1.000]; RCVD_COUNT_THREE(0.00)[3];
  TO_DN_NONE(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.cz:+]; MX_GOOD(-0.01)[];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MID_CONTAINS_FROM(1.00)[];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
  MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- BAYES_HAM(-3.00)[100.00%]
-X-Spam-Score: 0.49
-X-Rspamd-Queue-Id: 466B020C3C
+ BAYES_HAM(-0.00)[23.67%]
+Authentication-Results: smtp-out1.suse.de;
+	none
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
-X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/2] syscalls: Add test for splicing from /dev/zero
- and /dev/full
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] syscalls: Add test for splicing to /dev/zero and
+ /dev/null
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,43 +124,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Both of these devices produce zeroes when read.
+Both of these devices discard written data.
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
  runtest/syscalls                            |  1 +
  testcases/kernel/syscalls/splice/.gitignore |  1 +
- testcases/kernel/syscalls/splice/splice08.c | 88 +++++++++++++++++++++
- 3 files changed, 90 insertions(+)
- create mode 100644 testcases/kernel/syscalls/splice/splice08.c
+ testcases/kernel/syscalls/splice/splice09.c | 55 +++++++++++++++++++++
+ 3 files changed, 57 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/splice/splice09.c
 
 diff --git a/runtest/syscalls b/runtest/syscalls
-index 4ed2b5602..0889f58a1 100644
+index 0889f58a1..50bc350f0 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -1517,6 +1517,7 @@ splice04 splice04
- splice05 splice05
+@@ -1518,6 +1518,7 @@ splice05 splice05
  splice06 splice06
  splice07 splice07
-+splice08 splice08
+ splice08 splice08
++splice09 splice09
  
  tee01 tee01
  tee02 tee02
 diff --git a/testcases/kernel/syscalls/splice/.gitignore b/testcases/kernel/syscalls/splice/.gitignore
-index 88a8dff78..9453cf93a 100644
+index 9453cf93a..96b1727a1 100644
 --- a/testcases/kernel/syscalls/splice/.gitignore
 +++ b/testcases/kernel/syscalls/splice/.gitignore
-@@ -5,3 +5,4 @@
- /splice05
+@@ -6,3 +6,4 @@
  /splice06
  /splice07
-+/splice08
-diff --git a/testcases/kernel/syscalls/splice/splice08.c b/testcases/kernel/syscalls/splice/splice08.c
+ /splice08
++/splice09
+diff --git a/testcases/kernel/syscalls/splice/splice09.c b/testcases/kernel/syscalls/splice/splice09.c
 new file mode 100644
-index 000000000..cdd51b66c
+index 000000000..46f755b01
 --- /dev/null
-+++ b/testcases/kernel/syscalls/splice/splice08.c
-@@ -0,0 +1,88 @@
++++ b/testcases/kernel/syscalls/splice/splice09.c
+@@ -0,0 +1,55 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (C) 2024 Cyril Hrubis <chrubis@suse.cz>
@@ -181,84 +169,51 @@ index 000000000..cdd51b66c
 +/*\
 + * [Description]
 + *
-+ * Test for splicing from /dev/zero and /dev/full.
++ * Test for splicing to /dev/zero and /dev/null these two devices discard all
++ * data written to them.
 + *
-+ * The support for splicing from /dev/zero and /dev/full was removed in:
-+ * c6585011bc1d ("splice: Remove generic_file_splice_read()")
-+ *
-+ * And added back in:
++ * The support for splicing to /dev/zero was added in:
 + * 1b057bd800c3 ("drivers/char/mem: implement splice() for /dev/zero, /dev/full")
 + */
 +
 +#define _GNU_SOURCE
 +#include "tst_test.h"
 +
-+static int fd_zero;
-+static int fd_full;
-+
-+static void test_splice(unsigned int bytes, int dev_fd)
-+{
-+	int pipefd[2];
-+	char buf[bytes];
-+	size_t i;
-+	int fail = 0;
-+
-+	memset(buf, 0xff, sizeof(buf));
-+
-+	SAFE_PIPE(pipefd);
-+
-+	TST_EXP_POSITIVE(splice(dev_fd, NULL, pipefd[1], NULL, sizeof(buf), 0));
-+
-+	if (!TST_PASS)
-+		goto ret;
-+
-+	SAFE_READ(1, pipefd[0], buf, sizeof(buf));
-+
-+	for (i = 0; i < sizeof(buf); i++) {
-+		if (buf[i])
-+			fail++;
-+	}
-+
-+	if (fail)
-+		tst_res(TFAIL, "Non-zero bytes spliced from /dev/zero");
-+	else
-+		tst_res(TPASS, "All bytes spliced from /dev/zero are zeroed");
-+
-+ret:
-+	SAFE_CLOSE(pipefd[0]);
-+	SAFE_CLOSE(pipefd[1]);
-+}
++static const char *test_devices[] = {
++	"/dev/null",
++	"/dev/zero",
++};
 +
 +static void verify_splice(unsigned int n)
 +{
-+	unsigned int bytes = 1009 * n;
++	char buf[1024];
++	char dev_fd;
++	int pipefd[2];
 +
-+	tst_res(TINFO, "Splicing %u bytes from /dev/zero", bytes);
-+	test_splice(bytes, fd_zero);
-+	tst_res(TINFO, "Splicing %u bytes from /dev/full", bytes);
-+	test_splice(bytes, fd_full);
-+}
++	memset(buf, 0xff, sizeof(buf));
 +
-+static void setup(void)
-+{
-+	fd_zero = SAFE_OPEN("/dev/zero", O_RDONLY);
-+	fd_full = SAFE_OPEN("/dev/full", O_RDONLY);
-+}
++	tst_res(TINFO, "Testing %s", test_devices[n]);
 +
-+static void cleanup(void)
-+{
-+	if (fd_zero > 0)
-+		SAFE_CLOSE(fd_zero);
++	dev_fd = SAFE_OPEN(test_devices[n], O_WRONLY);
 +
-+	if (fd_full > 0)
-+		SAFE_CLOSE(fd_full);
++	SAFE_PIPE(pipefd);
++	SAFE_WRITE(1, pipefd[1], buf, sizeof(buf));
++
++	TST_EXP_POSITIVE(splice(pipefd[0], NULL, dev_fd, NULL, sizeof(buf), 0));
++
++	if (TST_PASS && TST_RET != sizeof(buf))
++		tst_res(TFAIL, "Wrote only part of the pipe buffer");
++	else
++		tst_res(TPASS, "Wrote whole pipe buffer");
++
++	SAFE_CLOSE(pipefd[0]);
++	SAFE_CLOSE(pipefd[1]);
++	SAFE_CLOSE(dev_fd);
 +}
 +
 +static struct tst_test test = {
 +	.test = verify_splice,
-+	.tcnt = 9,
-+	.setup = setup,
-+	.cleanup = cleanup,
++	.tcnt = ARRAY_SIZE(test_devices),
 +	.min_kver = "6.7",
 +};
 -- 
