@@ -1,122 +1,121 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07970880F95
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 11:23:52 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F717880F8F
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 11:22:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B6D2F3CFBED
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 11:23:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EEB243CE6CF
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Mar 2024 11:22:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A4E4B3CE64F
- for <ltp@lists.linux.it>; Wed, 20 Mar 2024 11:22:59 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 82ECE3CE64F
+ for <ltp@lists.linux.it>; Wed, 20 Mar 2024 11:22:55 +0100 (CET)
+Authentication-Results: in-3.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 64B7F140871B
- for <ltp@lists.linux.it>; Wed, 20 Mar 2024 11:22:55 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 15E091A010E2
+ for <ltp@lists.linux.it>; Wed, 20 Mar 2024 11:22:54 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 07FC420C96;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4821520C97;
  Wed, 20 Mar 2024 10:22:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1710930174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dlegKgozGHmgTzqcKPuSDgkptWq68VO+JL9QMXbzYek=;
- b=1ruP9w31SC6Jzyo6f6hJUD5r490mhORvphxkcGOTCqiqkufZzfD1zBB1SLz9i0iYHTWmKL
- 2HwY9jVkn0onfUO0xbE4eXhjKNg7r/FdaxoE7MPBe2gJhR6X/291fAftD+7c/P8kqcurlV
- 2Kz8cjYYDIX6QpqtMkM7LnOxSIxL7iw=
+ bh=PbGrt+gUX+nW/HNo9QwcRk8hQB9H/FwU/nYUCuan0Zo=;
+ b=SuPTOGXG1gA9vN6IIYT5xi12UiO32Svqj4vl9Xs5erKNsYDEiwOS+JVFqUeg28H/SxqO8v
+ toslUIfdAKOqc9vD1RpqpdgD3HdDAOWaAeJzAL6zS0OeU4NNAdc09EyXDstC983wRG09Tf
+ WVT0X2ju7jLdHiUF9UAJQe3K9eKK+Tg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1710930174;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dlegKgozGHmgTzqcKPuSDgkptWq68VO+JL9QMXbzYek=;
- b=Qh4qyDOodbli+IcMp3eDhgsT6PxnAzTrjJiOJ58Q5zCscxVa+dH7PbCpUVKvrC5vPHYYRi
- teH6SDLslqsDGXAg==
+ bh=PbGrt+gUX+nW/HNo9QwcRk8hQB9H/FwU/nYUCuan0Zo=;
+ b=o/xWv4/d0p3OnKfcjdU8cIHvTDNOETkScaUPf5qM67pa3TfzajnVRlzdi+oc1kCaYKXN5G
+ SNcxfSIgRxxmcVCg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1710930174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dlegKgozGHmgTzqcKPuSDgkptWq68VO+JL9QMXbzYek=;
- b=1ruP9w31SC6Jzyo6f6hJUD5r490mhORvphxkcGOTCqiqkufZzfD1zBB1SLz9i0iYHTWmKL
- 2HwY9jVkn0onfUO0xbE4eXhjKNg7r/FdaxoE7MPBe2gJhR6X/291fAftD+7c/P8kqcurlV
- 2Kz8cjYYDIX6QpqtMkM7LnOxSIxL7iw=
+ bh=PbGrt+gUX+nW/HNo9QwcRk8hQB9H/FwU/nYUCuan0Zo=;
+ b=SuPTOGXG1gA9vN6IIYT5xi12UiO32Svqj4vl9Xs5erKNsYDEiwOS+JVFqUeg28H/SxqO8v
+ toslUIfdAKOqc9vD1RpqpdgD3HdDAOWaAeJzAL6zS0OeU4NNAdc09EyXDstC983wRG09Tf
+ WVT0X2ju7jLdHiUF9UAJQe3K9eKK+Tg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1710930174;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dlegKgozGHmgTzqcKPuSDgkptWq68VO+JL9QMXbzYek=;
- b=Qh4qyDOodbli+IcMp3eDhgsT6PxnAzTrjJiOJ58Q5zCscxVa+dH7PbCpUVKvrC5vPHYYRi
- teH6SDLslqsDGXAg==
+ bh=PbGrt+gUX+nW/HNo9QwcRk8hQB9H/FwU/nYUCuan0Zo=;
+ b=o/xWv4/d0p3OnKfcjdU8cIHvTDNOETkScaUPf5qM67pa3TfzajnVRlzdi+oc1kCaYKXN5G
+ SNcxfSIgRxxmcVCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D0E1A136D6;
- Wed, 20 Mar 2024 10:22:53 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 178F813942;
+ Wed, 20 Mar 2024 10:22:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id SM9lMv24+mWyaAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Wed, 20 Mar 2024 10:22:53 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0LEfBP64+mWyaAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Wed, 20 Mar 2024 10:22:54 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 20 Mar 2024 11:22:03 +0100
-Message-ID: <20240320102204.475230-3-pvorel@suse.cz>
+Date: Wed, 20 Mar 2024 11:22:04 +0100
+Message-ID: <20240320102204.475230-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240320102204.475230-1-pvorel@suse.cz>
 References: <20240320102204.475230-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: 3.50
-X-Spamd-Bar: +++
+X-Spam-Score: 0.82
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=1ruP9w31;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Qh4qyDOo
-X-Spamd-Result: default: False [3.50 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_GOOD(-0.10)[text/plain]; BROKEN_CONTENT_TYPE(1.50)[];
- RCPT_COUNT_FIVE(0.00)[5]; NEURAL_HAM_LONG(-1.00)[-1.000];
- RCVD_COUNT_THREE(0.00)[3];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=SuPTOGXG;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="o/xWv4/d"
+X-Spamd-Bar: /
+X-Spamd-Result: default: False [0.82 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
+ BROKEN_CONTENT_TYPE(1.50)[]; RCVD_COUNT_THREE(0.00)[3];
  DKIM_TRACE(0.00)[suse.cz:+]; MX_GOOD(-0.01)[];
+ RCPT_COUNT_SEVEN(0.00)[7]; NEURAL_HAM_SHORT(-0.20)[-0.998];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ BAYES_HAM(-2.67)[98.56%]; ARC_NA(0.00)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  MID_CONTAINS_FROM(1.00)[];
  DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; NEURAL_HAM_SHORT(-0.19)[-0.962];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ FREEMAIL_CC(0.00)[linux.ibm.com,suse.cz,redhat.com,gmail.com];
  RCVD_TLS_ALL(0.00)[];
  RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+X-Spam-Level: 
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 07FC420C96
+X-Rspamd-Queue-Id: 4821520C97
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
-X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 2/3] lib: Add tst_selinux_enforcing()
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 3/3] fanotify14: fix anonymous pipe testcases
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,84 +127,78 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Mete Durlu <meted@linux.ibm.com>
+Cc: Jan Kara <jack@suse.cz>, Mete Durlu <meted@linux.ibm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Reviewed-by: Li Wang <liwang@redhat.com>
-Co-developed-by: Mete Durlu <meted@linux.ibm.com>
+From: Mete Durlu <meted@linux.ibm.com>
+
+When SElinux is in enforcing state and SEpolicies disallow anonymous
+pipe usage with fanotify_mark(), related fanotify14 testcases fail with
+EACCES instead of EINVAL. Accept both errnos when SElinux is in
+enforcing state to correctly evaluate test results.
+
+Replace TST_EXP_FD_OR_FAIL with TST_EXP_FAIL when testing
+fanotify_mark() as it returns -1 on failure and 0 on success not a file
+descriptor.
+
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Co-developed-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Mete Durlu <meted@linux.ibm.com>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
 changes v1->v2:
-* Add selinux to tst_security.c instead of it's own C file.
+* Do not include library header in fanotify14 (not needed)
 
- include/tst_security.h |  1 +
- lib/tst_security.c     | 18 ++++++++++++++++--
- 2 files changed, 17 insertions(+), 2 deletions(-)
+ .../kernel/syscalls/fanotify/fanotify14.c      | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/include/tst_security.h b/include/tst_security.h
-index 438b16dbb..5d91f8a98 100644
---- a/include/tst_security.h
-+++ b/include/tst_security.h
-@@ -13,5 +13,6 @@ int tst_fips_enabled(void);
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify14.c b/testcases/kernel/syscalls/fanotify/fanotify14.c
+index d02d81495..82725f317 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify14.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify14.c
+@@ -47,6 +47,7 @@ static int pipes[2] = {-1, -1};
+ static int fanotify_fd;
+ static int ignore_mark_unsupported;
+ static int filesystem_mark_unsupported;
++static int se_enforcing;
+ static unsigned int supported_init_flags;
  
- int tst_lockdown_enabled(void);
- int tst_secureboot_enabled(void);
-+int tst_selinux_enforcing(void);
+ struct test_case_flags_t {
+@@ -283,9 +284,18 @@ static void do_test(unsigned int number)
  
- #endif /* TST_SECURITY_H__ */
-diff --git a/lib/tst_security.c b/lib/tst_security.c
-index 0fc704dfa..7d929fafe 100644
---- a/lib/tst_security.c
-+++ b/lib/tst_security.c
-@@ -7,6 +7,7 @@
- 
- #define PATH_FIPS	"/proc/sys/crypto/fips_enabled"
- #define PATH_LOCKDOWN	"/sys/kernel/security/lockdown"
-+#define SELINUX_STATUS_PATH "/sys/fs/selinux/enforce"
- 
- #if defined(__powerpc64__) || defined(__ppc64__)
- # define SECUREBOOT_VAR "/proc/device-tree/ibm,secure-boot"
-@@ -16,6 +17,7 @@
- # define VAR_DATA_SIZE 5
- #endif
- 
-+#include <fcntl.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <sys/mount.h>
-@@ -30,11 +32,11 @@ int tst_fips_enabled(void)
- {
- 	int fips = 0;
- 
--	if (access(PATH_FIPS, R_OK) == 0) {
-+	if (access(PATH_FIPS, R_OK) == 0)
- 		SAFE_FILE_SCANF(PATH_FIPS, "%d", &fips);
--	}
- 
- 	tst_res(TINFO, "FIPS: %s", fips ? "on" : "off");
+ 	tst_res(TINFO, "Testing %s with %s",
+ 		tc->mark.desc, tc->mask.desc);
+-	TST_EXP_FD_OR_FAIL(fanotify_mark(fanotify_fd, FAN_MARK_ADD | tc->mark.flags,
+-					 tc->mask.flags, dirfd, path),
+-					 tc->expected_errno);
 +
- 	return fips;
++	if (tc->pfd && se_enforcing) {
++		const int exp_errs[] = {tc->expected_errno, EACCES};
++
++		TST_EXP_FAIL_ARR(fanotify_mark(fanotify_fd, FAN_MARK_ADD | tc->mark.flags,
++				 tc->mask.flags, dirfd, path),
++				 exp_errs);
++	} else {
++		TST_EXP_FAIL(fanotify_mark(fanotify_fd, FAN_MARK_ADD | tc->mark.flags,
++						 tc->mask.flags, dirfd, path),
++						 tc->expected_errno);
++	}
+ 
+ 	/*
+ 	 * ENOTDIR are errors for events/flags not allowed on a non-dir inode.
+@@ -334,6 +344,8 @@ static void do_setup(void)
+ 	SAFE_FILE_PRINTF(FILE1, "0");
+ 	/* Create anonymous pipes to place marks on */
+ 	SAFE_PIPE2(pipes, O_CLOEXEC);
++
++	se_enforcing = tst_selinux_enforcing();
  }
  
-@@ -99,3 +101,15 @@ int tst_secureboot_enabled(void)
- 	tst_res(TINFO, "SecureBoot: %s", data[VAR_DATA_SIZE - 1] ? "on" : "off");
- 	return data[VAR_DATA_SIZE - 1];
- }
-+
-+int tst_selinux_enforcing(void)
-+{
-+	int res = 0;
-+
-+	if (access(SELINUX_STATUS_PATH, F_OK) == 0)
-+		SAFE_FILE_SCANF(SELINUX_STATUS_PATH, "%d", &res);
-+
-+	tst_res(TINFO, "SELinux enforcing: %s", res ? "on" : "off");
-+
-+	return res;
-+}
+ static void do_cleanup(void)
 -- 
 2.43.0
 
