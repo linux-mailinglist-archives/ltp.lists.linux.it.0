@@ -2,75 +2,119 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 968F589D6AC
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Apr 2024 12:18:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 182D489F0F5
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Apr 2024 13:35:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6E3C03CF63B
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Apr 2024 12:18:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D46183CF76C
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Apr 2024 13:35:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B28363C00E4
- for <ltp@lists.linux.it>; Tue,  9 Apr 2024 12:18:04 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id B4EFB3C1A16
+ for <ltp@lists.linux.it>; Wed, 10 Apr 2024 01:40:43 +0200 (CEST)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20700.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2405::700])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 238B9100E339
- for <ltp@lists.linux.it>; Tue,  9 Apr 2024 12:18:01 +0200 (CEST)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:98])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 48BC833920;
- Tue,  9 Apr 2024 10:17:59 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 2284313253;
- Tue,  9 Apr 2024 10:17:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id gU9eBtcVFWZjUQAAn2gu4w
- (envelope-from <pvorel@suse.cz>); Tue, 09 Apr 2024 10:17:59 +0000
-Date: Tue, 9 Apr 2024 12:17:53 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: samasth.norway.ananda@oracle.com
-Message-ID: <20240409101753.GA107959@pevik>
-References: <20240401150015.301640-1-samasth.norway.ananda@oracle.com>
- <Zg_oLGuLcssY-rYY@yuki>
- <e2368059-647c-4d98-8c90-2cc5f3bb34a4@oracle.com>
-MIME-Version: 1.0
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8B07A20D1A7
+ for <ltp@lists.linux.it>; Wed, 10 Apr 2024 01:40:42 +0200 (CEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=i66vOB5TjBUaNc1qxrxC1nNjQebjr16SIVQvB3e1AknE+K19gA/DrhW7F2g4hwDwMY0VbibPTVIgpuJ7a4F0F6nbVLilFvMgwSpUidzdSsQdPvq7QhMoNji2TRPgnXQKypluAJMx6o5FMeNS9oh6tmaXUHndWzOmYsN0cxGjbjPbBEweEsHOk0r42EPlhQK0QcolM3Dbj6JIjEy2/QeITWG9aI8evdJVQra5nSrcQMWFr8K5ov2LY8Yf81m6/BlMHjFXn2iqIoOGqZA8eo34+njRK8V7QpDOE/IWSeLiCw67Pd377RW9kEhnExi3XxdXPW9Wku/u1K2vucZzk5dEjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tWMIwn8gMb8/vVFcy1xxKQjULrjBDPfSLjunZLRur4g=;
+ b=MFqRxYd5Pqk5h9epKeRQLscFSZ1/02FK5GZEfRdezf1qr3QgHwBT6FEqnZpu38nROHBXa+ox6vL//xsrISXurIIPQuR1bxlMCignvYZBBjR6yweS2B2xOcWN9rJCx91V9og5zO09O4INqbyEbTDrEO8oLcuX46lLyeX+Izb+yf4cImGZh8MsYW9hrupDen+FAyJE+lg0K2lLh2PviyuaQZi65Yqvg2Oblxz+4ofYH+WxSnqeNgXKgWlYV6RiqWIBJXxtQ/qZRR157tZUAGeNy54XIxGucbhT4Qg5fxEnRHhC+m6SxWhMZus1WY6Yn9FD+9tiokMms1Iq3LWbTYd2pA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=memverge.com; dmarc=pass action=none header.from=memverge.com;
+ dkim=pass header.d=memverge.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=memverge.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tWMIwn8gMb8/vVFcy1xxKQjULrjBDPfSLjunZLRur4g=;
+ b=gsRn2wlPaT8Z5B1tWj7Fa5Hp+AYTJnqOZAg1vvdE8bOPBCu9cVuhVpx5Nl6HrfAdKfl8I4IbCEW7QtPdc26X5XIscVm6+FJtoGX61X05H53Q3zxw726QRLgl/W9xIyNRbFTSGlVPfpmwAibLeePljGSNZpyMG0OkZ/DViWgx3PM=
+Received: from SJ0PR17MB5512.namprd17.prod.outlook.com (2603:10b6:a03:394::19)
+ by SJ0PR17MB5125.namprd17.prod.outlook.com (2603:10b6:a03:38c::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Tue, 9 Apr
+ 2024 23:40:37 +0000
+Received: from SJ0PR17MB5512.namprd17.prod.outlook.com
+ ([fe80::6657:814f:5df0:bb5b]) by SJ0PR17MB5512.namprd17.prod.outlook.com
+ ([fe80::6657:814f:5df0:bb5b%5]) with mapi id 15.20.7409.049; Tue, 9 Apr 2024
+ 23:40:37 +0000
+Date: Tue, 9 Apr 2024 19:40:30 -0400
+From: Gregory Price <gregory.price@memverge.com>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <ZhXR7gdhKIFVEdvS@memverge.com>
+References: <20240329180742.384709-1-gregory.price@memverge.com>
+ <CAEemH2eZiJgM83z12eReH+2nrNiH9VkbK0F+iPk3sAZYhPoMRg@mail.gmail.com>
 Content-Disposition: inline
-In-Reply-To: <e2368059-647c-4d98-8c90-2cc5f3bb34a4@oracle.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 48BC833920
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+In-Reply-To: <CAEemH2eZiJgM83z12eReH+2nrNiH9VkbK0F+iPk3sAZYhPoMRg@mail.gmail.com>
+X-ClientProxiedBy: BYAPR06CA0023.namprd06.prod.outlook.com
+ (2603:10b6:a03:d4::36) To SJ0PR17MB5512.namprd17.prod.outlook.com
+ (2603:10b6:a03:394::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR17MB5512:EE_|SJ0PR17MB5125:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: buudy0aRAaXot+0c6khYdkjevokS6mux8xK5esVZm71YW6eiuX0pwgWwnwbvAW2J4ltdZwWcHcL+Se7Lbvz8CABvVfflawOZ/AQ0qMmef9Gt25JDK1oQE3BhV0Jaywhcxh6XLA7JzyCjNeC400yfkDVTvPlXBwqNpKXNLkfH1Ac+FPwbQF2IxnuUmUC+cLnifR8MWcCQqh1X5BwhbsCCeze65+uRG651CfkgOmLSRB/Dtdv7C1kgwzsPfA/dnLtQJRnmP873co1vq1obG8i98EItTrAjjUiKiIjQ/n2cZkCYZnxawFBSj4/bw9QO4y7UglKCQq5nYo03GK0ewN5MToYHd/6sWfDEaHRyD2HVNgEKYC64zsHhcoTEHJOOTbqzd/aKhh1jqeJu48fRFYD6x5kV/7fT9gU2bZUzKcX6GYBbDJAvp125LG2mxBoj5swA5UA7oleF6iUcH3ejL8SNukG/d33CYDbkn6VkFEALYbyhs5ENGPxWjZI6x2KKi+syo1Is22FpE4JHpLtwuVGsC2sZdYHOjSgRsyVI1N0FhvDcM8+LgdZU1fj4vQ7/XkMbhIL5cfygKBK9Fap4CionfI4rYUOz6cOHkjVBrV/0Dm4jw/7h7DMC48KKf1Wh2FTvgh3j2BHTGTpydFaUboun6IyCdpcA5rh3QZgdSN4gTkg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR17MB5512.namprd17.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?IhqCHRkIJl92P1bhxwRNzkNm1WmOtqYNQBVHYApn9ZtTA5FiyU9v3WcqS67y?=
+ =?us-ascii?Q?cDN8kWU+8OGfHaJ1wk4ibJtez090jhJtFeEY4okezNWcdkglFcXeAleH2zm+?=
+ =?us-ascii?Q?OoZcHzEP+97mPNdg/cuNmpUerMY/SfId4bIVj2k6T3D9lhmW7UTqs2XH61aq?=
+ =?us-ascii?Q?Smi8sxQjipOtZedJ2zn/1zBTrMAWOWYPN4XeW5P4szzzeSOuBSkyhE8vdmjI?=
+ =?us-ascii?Q?HRR3g9qjriQO4ca1+dOBGrPzAVBB3/NMW02VAmqnER8fZtxV50sSTWCoThXw?=
+ =?us-ascii?Q?38y6vSUmNvpZ4NxDhNK79HSdaHVxEJyxIvSfcQy4SMoFN/qVJw1uGYsAgeDV?=
+ =?us-ascii?Q?l3X/2wBHxzzMLOUw2g0c6RznVOMPdFDmkitHP0zxGfPU4dJG1SHGLa8L8rJS?=
+ =?us-ascii?Q?HBFVz77kJFX70SNFdDlS9sxpHZiiqslE4DOSalFBSMA4NidQMAjirYOKzWJQ?=
+ =?us-ascii?Q?titkn9/UlcWQgnItwAFNZwtvk2+bYgjJlzBr3Vfl3oRtybTxOEB91Ok0SW2Z?=
+ =?us-ascii?Q?6Bc9pSNqR1hK+M+m62vK8E3MPTdOzkJdb7SbJTjG7XXSLMfcjaViF28BWfI0?=
+ =?us-ascii?Q?IQL8Gy7EfDa3WEIYIvncFQW8jdMV6u8rY9D9wq6z7iHjncWRfiGoX5agJH0M?=
+ =?us-ascii?Q?6jFDGPl8jA0IOtN44n7qigz67Wu4Wbd8N3w6+Udw15gHmFmMCOQWXw4J2mbv?=
+ =?us-ascii?Q?pDEdtjxRqdpECVj83LTcllbkQvhNlRTGpzAANDwpzCThR565i/XG9saDrMus?=
+ =?us-ascii?Q?H/Zc6uL6OINc/6Hp5zfY/1nXYsD7EgCq7iqC3n0mD51hM54/UoF0w355kO2F?=
+ =?us-ascii?Q?gIxXj/8bqodra4VgnfIRFxkCGyQH+kY9WOMhQ9AA8Cx9c6MHZB/CBdtElXkI?=
+ =?us-ascii?Q?xMR2p3+AhTXXlemLjb0kbSVaAIoi8aB8+qnqXSBJFKyZEdL+2M/aym8L5vVx?=
+ =?us-ascii?Q?s6yGdDVXnYS9SuOsS60Udv3UNJFO8BQx56lWaK6GKnA1KfF11MYF38MT/fkA?=
+ =?us-ascii?Q?LBPSOiyoBd+gItevt0kUSBiFMeZxUmpM6COyA5hdNihp/u1LopSAJQGrur5C?=
+ =?us-ascii?Q?oFfEz0McvFvRWINu9ujvbNtUhBVkqccpniYlyXV+nnaY7TuWpP3F/5Ngei5n?=
+ =?us-ascii?Q?4Vaea1WEAIVrzLDFSpoqjGdogR7YtmdDu5Y516wbWQBEFHDjjlJypNrhImsq?=
+ =?us-ascii?Q?jn0re9t84jFw1IfpO7heAWq+Nn9aGfLgbgNsPpmyENAxCRxJDAT5Nz8SI9aH?=
+ =?us-ascii?Q?cnN1IY7fU8f8kNwocg/jWNPFsZlEBsT0NMmDLddbd3SjHe3HGDscSVV8V4GI?=
+ =?us-ascii?Q?s++SutJyoBWhYl9nvc5KLDEEJqjjUUrzaGGthtIin5TCNDgdMO3y9547W/wE?=
+ =?us-ascii?Q?9LRLTGJobgDiiX15aVweiJKn9hNwJU+OOTGvWvip9k8NKrBB7TVyN7LfVoBq?=
+ =?us-ascii?Q?kAoOcPEyBjiMmF76biX0bSI3HXugQ1d2Pejx3PbOXLjSl2PNJkI3/RNrHW6+?=
+ =?us-ascii?Q?p+Fl4YS/aY1v5KFoQv0rAVZGg5+881uMIxt32OnCep4c651mWL5yY/Cd+F96?=
+ =?us-ascii?Q?RkNJAT3jPYTBQokxH7xDfnLTB6c8bGw52y5zVvujmX7PDQM+Dyg2S5IGYfQt?=
+ =?us-ascii?Q?hg=3D=3D?=
+X-OriginatorOrg: memverge.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef215a19-3805-47b0-21f8-08dc58ee7516
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR17MB5512.namprd17.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2024 23:40:37.0624 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 5c90cb59-37e7-4c81-9c07-00473d5fb682
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I94GzR26FPeksCnQDD5gszRI66qubU+i366ZmAKEaxiMhccxt8S6tJeqyIhdJXGRDkKmlZ7MrIX3WaztWgWZBVUGkQB4N2mOhXlhJj1ewt4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR17MB5125
+X-Spam-Status: No, score=0.1 required=7.0 tests=ARC_SIGNED,ARC_VALID,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] mremap06: fallocate is not supported on nfsv3
+X-Mailman-Approved-At: Wed, 10 Apr 2024 13:34:57 +0200
+Subject: Re: [LTP] [PATCH] mempolicy/mbind: update syscall tests for
+ weighted interleave
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,91 +126,104 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: calum.mackay@oracle.com, ltp@lists.linux.it
+Cc: ltp@lists.linux.it, Gregory Price <gourry.memverge@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+On Mon, Apr 08, 2024 at 03:40:38PM +0800, Li Wang wrote:
+> Hi Gregory,
+> 
+> Thank you for starting this, comments are inline below.
+> 
+> > +#define MPOL_WEIGHTED_INTERLEAVE 6
+> > +#endif
+> >
+> 
+> And can we move this common part into include/lapi/numaif.h,
+> to avoid defining this again and again in test cases?
+> 
 
-> On 4/5/24 5:01 AM, Cyril Hrubis wrote:
-> > Hi!
-> > > The function fallocate() is not supported on nfsv3. Thus when we run the
-> > > mremap06 test over a nfsv3 filesystem the test fails.
+I have a pending patch to do just that, but it is not upstream yet.
 
-> > Can we rather than this just skip the test on nfsv3?
+This was a comment in the changelog:
 
-> > If we want to skip the test on nfs in generall we can just set
-> > .skip_filesystems = {"nfs", NULL} in the tst_test structure.
+> > MPOL_WEIGHTED_INTERLEAVE is ifdef defined because it is not upstream
+> > in libnuma yet, so this ensures compilation.
 
-> > I'm not sure if we can easily detect the nfs version. The test library
-> > does that by checking the NFS_SUPER_MAGIC againts stat, but there is a
-> > single SUPER_MAGIC for all nfs versions.
+Thought it was useful to shoot out a version of this before it all lands
+for the sake of getting ahead of the curve a bit.
 
-Yeah, include/uapi/linux/magic.h in kernel contains only single magic. BTW I
-wonder if magic is stored to the disk or there is some other complication which
-prevent to have more magic values which would allow to distinguish version.
+> 
+> First, we do not suggest adding any new tests by applying one "big"
+> patch especially since this contains too many other irrelevant
+> modifications.
+> We'd better separate them in single to guarantee everything goes
+> well for traceability of the commit.
+> 
 
-I wonder if it makes sense to add support to detect NFS version (read vers
-parameter in /proc/mounts). The only reason why to do that would be to make sure
-NFS v4.2 did not lost fallocate support by bug/regression. If we don't care,
-checking errno is better option (will reflect kernel changes without a need to
-adapt LTP test).
+Will do.
 
-> > So if we want to keep the test enabled for nfsv4 we can exit with TCONF
-> > when the call fails only when we are on NFS with tst_fs_type() and check
-> > that against TST_NFS_MAGIC.
+> Second, I don't see any new code in set_mempolicy06/07, since you
+> only copied them from set_mempolicy02/04, even without any change of the
+> comments, this is bad for test maintenance work and involves redundant
+> stuff.
+> 
 
+the only major differences between the tests, presently, are that the
+policy applied is weighted interleave
 
-> Hi Cyril,
+TEST(set_mempolicy(MPOL_WEIGHTED_INTERLEAVE, bm->maskp, bm->size+1));
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
 
-> Wanted to mention that fallocate() is only supported over NFSv4.2 in
-> particular. it's not supported over NFSv3, v4.0 or v4.1.
-> I could even see on the fallocate ltp tests that it is handled the same
-> manner.
+In truth, this test isn't really completely, as it should also:
 
-Yeah, these tests have it:
-testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate01.c
-testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate02.c
-testcases/kernel/syscalls/fallocate/fallocate01.c
-testcases/kernel/syscalls/fallocate/fallocate02.c
-testcases/kernel/syscalls/fallocate/fallocate03.c
-testcases/kernel/syscalls/fallocate/fallocate04.c
+1) Set the sysfs values located at
+/sys/kernel/mm/mempolicy/weighted_interleave/
 
-I guess we should write SAFE_FALLOCATE(). @Samasth any change you would write
-it (as a separate effort).
+2) Validate allocations actually match those settings
 
-> Thanks,
-> Samasth.
+However, this test is quite complicated to write and make fully
+reliable, as you also need to know
 
-> > > Signed-off-by: Samasth Norway Ananda <samasth.norway.ananda@oracle.com>
-> > > ---
-> > >   testcases/kernel/syscalls/mremap/mremap06.c | 8 +++++++-
-> > >   1 file changed, 7 insertions(+), 1 deletion(-)
+1) The environment (available nodes, cpu nodes, memory-only nodes)
+2) The node the test will be run on (which can be forced)
+3) Where allocations will start from (node X or node Y) as this can
+   ultimately affect the final distribution.
 
-> > > diff --git a/testcases/kernel/syscalls/mremap/mremap06.c b/testcases/kernel/syscalls/mremap/mremap06.c
-> > > index 3bbaf441a..362b03e19 100644
-> > > --- a/testcases/kernel/syscalls/mremap/mremap06.c
-> > > +++ b/testcases/kernel/syscalls/mremap/mremap06.c
-> > > @@ -104,8 +104,14 @@ static void setup(void)
-> > >   	fd = SAFE_OPEN("testfile", O_CREAT | O_RDWR | O_TRUNC, 0600);
-> > >   	ret = fallocate(fd, 0, 0, mmap_size);
-> > > -	if (ret == -1)
-> > > +	if (ret != 0) {
-> > > +		if (errno == EOPNOTSUPP || errno == ENOSYS) {
-> > > +			tst_brk(TCONF,
-> > > +				"fallocate system call is not implemented");
-> > > +		}
-> > >   		tst_brk(TBROK, "fallocate() failed");
-> > > +		return;
+In my tests separately, the test itself can also cause allocation
+(stack, other regions) which may result in an unexpected distribution of
+memory on the target region.  This is because those allocations are
+credited as part of the interleaving, but the existing code of the test
+cannot adjust for that. This may cause failures for no obvious reason.
 
-I suggest to merge this now, without return (it can be removed before merge).
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+This is ultimately why I left the tests mostly unchanged, because I
+found it only reasonable to test the default behavior.
 
-Kind regards,
-Petr
+> The recommended way is to add MPOL_WEIGHTED_INTERLEAVE in
+> the original case if you just want to validate the behavior similarly with
+> MPOL_INTERLEAVE.
+> 
+> But if you want to test something special/new of MPOL_WEIGHTED_INTERLEAVE,
+> I think that's necessary to create set_mempolicy06/07, and do something
+> validate that interleaving behavior is executed based on weights set in '
+> /sys/kernel/mm/mempolicy/weighted_interleave/'.
+> 
+
+Was hoping to get input on this.  I think probably trying to write a
+test to track page-distribution of real weighted interleave will be
+difficult to make reliable, so maybe I should just fold these tests back
+into the original and note that this simply tests the default behavior
+(which is equivalent to MPOL_INTERLEAVE).
+
+That may require changing the original tests to ensure the sysfs files
+are set to 1 to explicitly avoid failures.  But I wasn't sure if that
+was ok since it would be making silent system-wide changes, and would
+require root.
+
+Thank you for the feedback
+~Gregory
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
