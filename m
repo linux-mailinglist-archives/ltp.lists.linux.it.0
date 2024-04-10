@@ -1,118 +1,91 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 182D489F0F5
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Apr 2024 13:35:04 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1305589EDE5
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Apr 2024 10:45:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D46183CF76C
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Apr 2024 13:35:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 978443CF749
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Apr 2024 10:45:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B4EFB3C1A16
- for <ltp@lists.linux.it>; Wed, 10 Apr 2024 01:40:43 +0200 (CEST)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20700.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2405::700])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 32CB13CAB59
+ for <ltp@lists.linux.it>; Wed, 10 Apr 2024 10:45:01 +0200 (CEST)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8B07A20D1A7
- for <ltp@lists.linux.it>; Wed, 10 Apr 2024 01:40:42 +0200 (CEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i66vOB5TjBUaNc1qxrxC1nNjQebjr16SIVQvB3e1AknE+K19gA/DrhW7F2g4hwDwMY0VbibPTVIgpuJ7a4F0F6nbVLilFvMgwSpUidzdSsQdPvq7QhMoNji2TRPgnXQKypluAJMx6o5FMeNS9oh6tmaXUHndWzOmYsN0cxGjbjPbBEweEsHOk0r42EPlhQK0QcolM3Dbj6JIjEy2/QeITWG9aI8evdJVQra5nSrcQMWFr8K5ov2LY8Yf81m6/BlMHjFXn2iqIoOGqZA8eo34+njRK8V7QpDOE/IWSeLiCw67Pd377RW9kEhnExi3XxdXPW9Wku/u1K2vucZzk5dEjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tWMIwn8gMb8/vVFcy1xxKQjULrjBDPfSLjunZLRur4g=;
- b=MFqRxYd5Pqk5h9epKeRQLscFSZ1/02FK5GZEfRdezf1qr3QgHwBT6FEqnZpu38nROHBXa+ox6vL//xsrISXurIIPQuR1bxlMCignvYZBBjR6yweS2B2xOcWN9rJCx91V9og5zO09O4INqbyEbTDrEO8oLcuX46lLyeX+Izb+yf4cImGZh8MsYW9hrupDen+FAyJE+lg0K2lLh2PviyuaQZi65Yqvg2Oblxz+4ofYH+WxSnqeNgXKgWlYV6RiqWIBJXxtQ/qZRR157tZUAGeNy54XIxGucbhT4Qg5fxEnRHhC+m6SxWhMZus1WY6Yn9FD+9tiokMms1Iq3LWbTYd2pA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=memverge.com; dmarc=pass action=none header.from=memverge.com;
- dkim=pass header.d=memverge.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=memverge.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tWMIwn8gMb8/vVFcy1xxKQjULrjBDPfSLjunZLRur4g=;
- b=gsRn2wlPaT8Z5B1tWj7Fa5Hp+AYTJnqOZAg1vvdE8bOPBCu9cVuhVpx5Nl6HrfAdKfl8I4IbCEW7QtPdc26X5XIscVm6+FJtoGX61X05H53Q3zxw726QRLgl/W9xIyNRbFTSGlVPfpmwAibLeePljGSNZpyMG0OkZ/DViWgx3PM=
-Received: from SJ0PR17MB5512.namprd17.prod.outlook.com (2603:10b6:a03:394::19)
- by SJ0PR17MB5125.namprd17.prod.outlook.com (2603:10b6:a03:38c::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Tue, 9 Apr
- 2024 23:40:37 +0000
-Received: from SJ0PR17MB5512.namprd17.prod.outlook.com
- ([fe80::6657:814f:5df0:bb5b]) by SJ0PR17MB5512.namprd17.prod.outlook.com
- ([fe80::6657:814f:5df0:bb5b%5]) with mapi id 15.20.7409.049; Tue, 9 Apr 2024
- 23:40:37 +0000
-Date: Tue, 9 Apr 2024 19:40:30 -0400
-From: Gregory Price <gregory.price@memverge.com>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <ZhXR7gdhKIFVEdvS@memverge.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2234514011B4
+ for <ltp@lists.linux.it>; Wed, 10 Apr 2024 10:44:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1712738698;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=GiKtabtvEDkcueC+l+CFCdwdB8I4kIOeCg0YdxPJhBY=;
+ b=bC4XXDXszDimpDHCb8cZJbC0n5RiKl5E/xbSrEvW9s2d/Izq1OgajEoBY/ioL4BchNc1B0
+ kNd+gYucNS+dNZ7EZX80ad0y61trjcF0xuLmDmNyIvkybn4WfbSzH7uYen35cEqXTNt4iW
+ 2bV8f7T/4tCpZisQcdYUPDq8vFCtOME=
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-355--2Se4Kv9Paqfpn_SndRAkQ-1; Wed, 10 Apr 2024 04:44:56 -0400
+X-MC-Unique: -2Se4Kv9Paqfpn_SndRAkQ-1
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-5ca5b61c841so5304485a12.3
+ for <ltp@lists.linux.it>; Wed, 10 Apr 2024 01:44:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712738695; x=1713343495;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GiKtabtvEDkcueC+l+CFCdwdB8I4kIOeCg0YdxPJhBY=;
+ b=TxkVJB8K1kMnuULa+l5A39wBy1EMhmVBVYN8mt3ji9HkpY7who/6waEgGxN+Vj4vNx
+ xMky7LBEe55H1ATbTy85P9kfQ7hqw9EaTuGRJfv9kXcf+2Nl18gm3o7mAgOtDFeByZGT
+ IlgypUfcWBFr1TrQMhkx/f8t/4/hkrfqv0ChMp6BjwpWIYXJrdxh5716xHYImjJWb1K5
+ w4faZ9oqPhYZXrZQZOUYM/Vu4iJITSGcnLf0spjZkqG8R96Cvs4TgL1SyeZiY3FDisf/
+ aOIRpn4LYtS7GiH6UtSkNYmOGKRizQGvuZ7wLi2m473IInyVsKjqEL3IMU5aLhFsae5q
+ +iXg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUlWd+DsQl/+mtaglTftf6CDM4weJ4gggLRL6j4J2tvM6WKXvEfJfvPDrLNp4hahbJ4ErQ2L6kbwChACg4qmr/nNnE=
+X-Gm-Message-State: AOJu0YxRmxuS83hgpyc32gFq86RsFHKIMX04VbNUfqajLP5P4Kv2RVyt
+ REJgV8qtDgkICmx9nyTDu/+nNfFZDzs9F+WfH5G9L3GY0fVpk/Ekk8QpHRrXct7xGiVq08/ISE+
+ PujwzBxYtIRguASlQo0s67pvE9lhivQ9vuYkJ1RAy6ZIOWNE0+r7ndkJsnnn3uyLfB4ous97ROO
+ 9m1p9BHM1ExKAjDXjpxlwzFkQ=
+X-Received: by 2002:a05:6a20:1059:b0:1a3:57b4:ed1c with SMTP id
+ gt25-20020a056a20105900b001a357b4ed1cmr1950492pzc.25.1712738695339; 
+ Wed, 10 Apr 2024 01:44:55 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEcxzMMAUn8IAttAuk0/yImXmC7qPXHHwk8+sfBucaXB4slcZVTqzrlhUukdxXmN+QmTsJ35Ht1z4VYA9grFvA=
+X-Received: by 2002:a05:6a20:1059:b0:1a3:57b4:ed1c with SMTP id
+ gt25-20020a056a20105900b001a357b4ed1cmr1950481pzc.25.1712738694967; Wed, 10
+ Apr 2024 01:44:54 -0700 (PDT)
+MIME-Version: 1.0
 References: <20240329180742.384709-1-gregory.price@memverge.com>
  <CAEemH2eZiJgM83z12eReH+2nrNiH9VkbK0F+iPk3sAZYhPoMRg@mail.gmail.com>
-Content-Disposition: inline
-In-Reply-To: <CAEemH2eZiJgM83z12eReH+2nrNiH9VkbK0F+iPk3sAZYhPoMRg@mail.gmail.com>
-X-ClientProxiedBy: BYAPR06CA0023.namprd06.prod.outlook.com
- (2603:10b6:a03:d4::36) To SJ0PR17MB5512.namprd17.prod.outlook.com
- (2603:10b6:a03:394::19)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR17MB5512:EE_|SJ0PR17MB5125:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: buudy0aRAaXot+0c6khYdkjevokS6mux8xK5esVZm71YW6eiuX0pwgWwnwbvAW2J4ltdZwWcHcL+Se7Lbvz8CABvVfflawOZ/AQ0qMmef9Gt25JDK1oQE3BhV0Jaywhcxh6XLA7JzyCjNeC400yfkDVTvPlXBwqNpKXNLkfH1Ac+FPwbQF2IxnuUmUC+cLnifR8MWcCQqh1X5BwhbsCCeze65+uRG651CfkgOmLSRB/Dtdv7C1kgwzsPfA/dnLtQJRnmP873co1vq1obG8i98EItTrAjjUiKiIjQ/n2cZkCYZnxawFBSj4/bw9QO4y7UglKCQq5nYo03GK0ewN5MToYHd/6sWfDEaHRyD2HVNgEKYC64zsHhcoTEHJOOTbqzd/aKhh1jqeJu48fRFYD6x5kV/7fT9gU2bZUzKcX6GYBbDJAvp125LG2mxBoj5swA5UA7oleF6iUcH3ejL8SNukG/d33CYDbkn6VkFEALYbyhs5ENGPxWjZI6x2KKi+syo1Is22FpE4JHpLtwuVGsC2sZdYHOjSgRsyVI1N0FhvDcM8+LgdZU1fj4vQ7/XkMbhIL5cfygKBK9Fap4CionfI4rYUOz6cOHkjVBrV/0Dm4jw/7h7DMC48KKf1Wh2FTvgh3j2BHTGTpydFaUboun6IyCdpcA5rh3QZgdSN4gTkg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR17MB5512.namprd17.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?IhqCHRkIJl92P1bhxwRNzkNm1WmOtqYNQBVHYApn9ZtTA5FiyU9v3WcqS67y?=
- =?us-ascii?Q?cDN8kWU+8OGfHaJ1wk4ibJtez090jhJtFeEY4okezNWcdkglFcXeAleH2zm+?=
- =?us-ascii?Q?OoZcHzEP+97mPNdg/cuNmpUerMY/SfId4bIVj2k6T3D9lhmW7UTqs2XH61aq?=
- =?us-ascii?Q?Smi8sxQjipOtZedJ2zn/1zBTrMAWOWYPN4XeW5P4szzzeSOuBSkyhE8vdmjI?=
- =?us-ascii?Q?HRR3g9qjriQO4ca1+dOBGrPzAVBB3/NMW02VAmqnER8fZtxV50sSTWCoThXw?=
- =?us-ascii?Q?38y6vSUmNvpZ4NxDhNK79HSdaHVxEJyxIvSfcQy4SMoFN/qVJw1uGYsAgeDV?=
- =?us-ascii?Q?l3X/2wBHxzzMLOUw2g0c6RznVOMPdFDmkitHP0zxGfPU4dJG1SHGLa8L8rJS?=
- =?us-ascii?Q?HBFVz77kJFX70SNFdDlS9sxpHZiiqslE4DOSalFBSMA4NidQMAjirYOKzWJQ?=
- =?us-ascii?Q?titkn9/UlcWQgnItwAFNZwtvk2+bYgjJlzBr3Vfl3oRtybTxOEB91Ok0SW2Z?=
- =?us-ascii?Q?6Bc9pSNqR1hK+M+m62vK8E3MPTdOzkJdb7SbJTjG7XXSLMfcjaViF28BWfI0?=
- =?us-ascii?Q?IQL8Gy7EfDa3WEIYIvncFQW8jdMV6u8rY9D9wq6z7iHjncWRfiGoX5agJH0M?=
- =?us-ascii?Q?6jFDGPl8jA0IOtN44n7qigz67Wu4Wbd8N3w6+Udw15gHmFmMCOQWXw4J2mbv?=
- =?us-ascii?Q?pDEdtjxRqdpECVj83LTcllbkQvhNlRTGpzAANDwpzCThR565i/XG9saDrMus?=
- =?us-ascii?Q?H/Zc6uL6OINc/6Hp5zfY/1nXYsD7EgCq7iqC3n0mD51hM54/UoF0w355kO2F?=
- =?us-ascii?Q?gIxXj/8bqodra4VgnfIRFxkCGyQH+kY9WOMhQ9AA8Cx9c6MHZB/CBdtElXkI?=
- =?us-ascii?Q?xMR2p3+AhTXXlemLjb0kbSVaAIoi8aB8+qnqXSBJFKyZEdL+2M/aym8L5vVx?=
- =?us-ascii?Q?s6yGdDVXnYS9SuOsS60Udv3UNJFO8BQx56lWaK6GKnA1KfF11MYF38MT/fkA?=
- =?us-ascii?Q?LBPSOiyoBd+gItevt0kUSBiFMeZxUmpM6COyA5hdNihp/u1LopSAJQGrur5C?=
- =?us-ascii?Q?oFfEz0McvFvRWINu9ujvbNtUhBVkqccpniYlyXV+nnaY7TuWpP3F/5Ngei5n?=
- =?us-ascii?Q?4Vaea1WEAIVrzLDFSpoqjGdogR7YtmdDu5Y516wbWQBEFHDjjlJypNrhImsq?=
- =?us-ascii?Q?jn0re9t84jFw1IfpO7heAWq+Nn9aGfLgbgNsPpmyENAxCRxJDAT5Nz8SI9aH?=
- =?us-ascii?Q?cnN1IY7fU8f8kNwocg/jWNPFsZlEBsT0NMmDLddbd3SjHe3HGDscSVV8V4GI?=
- =?us-ascii?Q?s++SutJyoBWhYl9nvc5KLDEEJqjjUUrzaGGthtIin5TCNDgdMO3y9547W/wE?=
- =?us-ascii?Q?9LRLTGJobgDiiX15aVweiJKn9hNwJU+OOTGvWvip9k8NKrBB7TVyN7LfVoBq?=
- =?us-ascii?Q?kAoOcPEyBjiMmF76biX0bSI3HXugQ1d2Pejx3PbOXLjSl2PNJkI3/RNrHW6+?=
- =?us-ascii?Q?p+Fl4YS/aY1v5KFoQv0rAVZGg5+881uMIxt32OnCep4c651mWL5yY/Cd+F96?=
- =?us-ascii?Q?RkNJAT3jPYTBQokxH7xDfnLTB6c8bGw52y5zVvujmX7PDQM+Dyg2S5IGYfQt?=
- =?us-ascii?Q?hg=3D=3D?=
-X-OriginatorOrg: memverge.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef215a19-3805-47b0-21f8-08dc58ee7516
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR17MB5512.namprd17.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2024 23:40:37.0624 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5c90cb59-37e7-4c81-9c07-00473d5fb682
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I94GzR26FPeksCnQDD5gszRI66qubU+i366ZmAKEaxiMhccxt8S6tJeqyIhdJXGRDkKmlZ7MrIX3WaztWgWZBVUGkQB4N2mOhXlhJj1ewt4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR17MB5125
-X-Spam-Status: No, score=0.1 required=7.0 tests=ARC_SIGNED,ARC_VALID,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+ <ZhXR7gdhKIFVEdvS@memverge.com>
+In-Reply-To: <ZhXR7gdhKIFVEdvS@memverge.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 10 Apr 2024 16:44:43 +0800
+Message-ID: <CAEemH2fSFBw92+3jHuCsMSg0R+8JvPpQwv2xBE9NaWFaNrrCCw@mail.gmail.com>
+To: Gregory Price <gregory.price@memverge.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Wed, 10 Apr 2024 13:34:57 +0200
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 Subject: Re: [LTP] [PATCH] mempolicy/mbind: update syscall tests for
  weighted interleave
 X-BeenThere: ltp@lists.linux.it
@@ -127,103 +100,89 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it, Gregory Price <gourry.memverge@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, Apr 08, 2024 at 03:40:38PM +0800, Li Wang wrote:
-> Hi Gregory,
-> 
-> Thank you for starting this, comments are inline below.
-> 
-> > +#define MPOL_WEIGHTED_INTERLEAVE 6
-> > +#endif
-> >
-> 
-> And can we move this common part into include/lapi/numaif.h,
-> to avoid defining this again and again in test cases?
-> 
-
-I have a pending patch to do just that, but it is not upstream yet.
-
-This was a comment in the changelog:
-
-> > MPOL_WEIGHTED_INTERLEAVE is ifdef defined because it is not upstream
-> > in libnuma yet, so this ensures compilation.
-
-Thought it was useful to shoot out a version of this before it all lands
-for the sake of getting ahead of the curve a bit.
-
-> 
-> First, we do not suggest adding any new tests by applying one "big"
-> patch especially since this contains too many other irrelevant
-> modifications.
-> We'd better separate them in single to guarantee everything goes
-> well for traceability of the commit.
-> 
-
-Will do.
-
-> Second, I don't see any new code in set_mempolicy06/07, since you
-> only copied them from set_mempolicy02/04, even without any change of the
-> comments, this is bad for test maintenance work and involves redundant
-> stuff.
-> 
-
-the only major differences between the tests, presently, are that the
-policy applied is weighted interleave
-
-TEST(set_mempolicy(MPOL_WEIGHTED_INTERLEAVE, bm->maskp, bm->size+1));
-                   ^^^^^^^^^^^^^^^^^^^^^^^^
-
-In truth, this test isn't really completely, as it should also:
-
-1) Set the sysfs values located at
-/sys/kernel/mm/mempolicy/weighted_interleave/
-
-2) Validate allocations actually match those settings
-
-However, this test is quite complicated to write and make fully
-reliable, as you also need to know
-
-1) The environment (available nodes, cpu nodes, memory-only nodes)
-2) The node the test will be run on (which can be forced)
-3) Where allocations will start from (node X or node Y) as this can
-   ultimately affect the final distribution.
-
-In my tests separately, the test itself can also cause allocation
-(stack, other regions) which may result in an unexpected distribution of
-memory on the target region.  This is because those allocations are
-credited as part of the interleaving, but the existing code of the test
-cannot adjust for that. This may cause failures for no obvious reason.
-
-This is ultimately why I left the tests mostly unchanged, because I
-found it only reasonable to test the default behavior.
-
-> The recommended way is to add MPOL_WEIGHTED_INTERLEAVE in
-> the original case if you just want to validate the behavior similarly with
-> MPOL_INTERLEAVE.
-> 
-> But if you want to test something special/new of MPOL_WEIGHTED_INTERLEAVE,
-> I think that's necessary to create set_mempolicy06/07, and do something
-> validate that interleaving behavior is executed based on weights set in '
-> /sys/kernel/mm/mempolicy/weighted_interleave/'.
-> 
-
-Was hoping to get input on this.  I think probably trying to write a
-test to track page-distribution of real weighted interleave will be
-difficult to make reliable, so maybe I should just fold these tests back
-into the original and note that this simply tests the default behavior
-(which is equivalent to MPOL_INTERLEAVE).
-
-That may require changing the original tests to ensure the sysfs files
-are set to 1 to explicitly avoid failures.  But I wasn't sure if that
-was ok since it would be making silent system-wide changes, and would
-require root.
-
-Thank you for the feedback
-~Gregory
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgR3JlZ29yeSwKCk9uIFdlZCwgQXByIDEwLCAyMDI0IGF0IDc6NDDigK9BTSBHcmVnb3J5IFBy
+aWNlIDxncmVnb3J5LnByaWNlQG1lbXZlcmdlLmNvbT4Kd3JvdGU6Cgo+IE9uIE1vbiwgQXByIDA4
+LCAyMDI0IGF0IDAzOjQwOjM4UE0gKzA4MDAsIExpIFdhbmcgd3JvdGU6Cj4gPiBIaSBHcmVnb3J5
+LAo+ID4KPiA+IFRoYW5rIHlvdSBmb3Igc3RhcnRpbmcgdGhpcywgY29tbWVudHMgYXJlIGlubGlu
+ZSBiZWxvdy4KPiA+Cj4gPiA+ICsjZGVmaW5lIE1QT0xfV0VJR0hURURfSU5URVJMRUFWRSA2Cj4g
+PiA+ICsjZW5kaWYKPiA+ID4KPiA+Cj4gPiBBbmQgY2FuIHdlIG1vdmUgdGhpcyBjb21tb24gcGFy
+dCBpbnRvIGluY2x1ZGUvbGFwaS9udW1haWYuaCwKPiA+IHRvIGF2b2lkIGRlZmluaW5nIHRoaXMg
+YWdhaW4gYW5kIGFnYWluIGluIHRlc3QgY2FzZXM/Cj4gPgo+Cj4gSSBoYXZlIGEgcGVuZGluZyBw
+YXRjaCB0byBkbyBqdXN0IHRoYXQsIGJ1dCBpdCBpcyBub3QgdXBzdHJlYW0geWV0Lgo+Cj4gVGhp
+cyB3YXMgYSBjb21tZW50IGluIHRoZSBjaGFuZ2Vsb2c6Cj4KPiA+ID4gTVBPTF9XRUlHSFRFRF9J
+TlRFUkxFQVZFIGlzIGlmZGVmIGRlZmluZWQgYmVjYXVzZSBpdCBpcyBub3QgdXBzdHJlYW0KPiA+
+ID4gaW4gbGlibnVtYSB5ZXQsIHNvIHRoaXMgZW5zdXJlcyBjb21waWxhdGlvbi4KPgo+IFRob3Vn
+aHQgaXQgd2FzIHVzZWZ1bCB0byBzaG9vdCBvdXQgYSB2ZXJzaW9uIG9mIHRoaXMgYmVmb3JlIGl0
+IGFsbCBsYW5kcwo+IGZvciB0aGUgc2FrZSBvZiBnZXR0aW5nIGFoZWFkIG9mIHRoZSBjdXJ2ZSBh
+IGJpdC4KPgo+ID4KPiA+IEZpcnN0LCB3ZSBkbyBub3Qgc3VnZ2VzdCBhZGRpbmcgYW55IG5ldyB0
+ZXN0cyBieSBhcHBseWluZyBvbmUgImJpZyIKPiA+IHBhdGNoIGVzcGVjaWFsbHkgc2luY2UgdGhp
+cyBjb250YWlucyB0b28gbWFueSBvdGhlciBpcnJlbGV2YW50Cj4gPiBtb2RpZmljYXRpb25zLgo+
+ID4gV2UnZCBiZXR0ZXIgc2VwYXJhdGUgdGhlbSBpbiBzaW5nbGUgdG8gZ3VhcmFudGVlIGV2ZXJ5
+dGhpbmcgZ29lcwo+ID4gd2VsbCBmb3IgdHJhY2VhYmlsaXR5IG9mIHRoZSBjb21taXQuCj4gPgo+
+Cj4gV2lsbCBkby4KPgo+ID4gU2Vjb25kLCBJIGRvbid0IHNlZSBhbnkgbmV3IGNvZGUgaW4gc2V0
+X21lbXBvbGljeTA2LzA3LCBzaW5jZSB5b3UKPiA+IG9ubHkgY29waWVkIHRoZW0gZnJvbSBzZXRf
+bWVtcG9saWN5MDIvMDQsIGV2ZW4gd2l0aG91dCBhbnkgY2hhbmdlIG9mIHRoZQo+ID4gY29tbWVu
+dHMsIHRoaXMgaXMgYmFkIGZvciB0ZXN0IG1haW50ZW5hbmNlIHdvcmsgYW5kIGludm9sdmVzIHJl
+ZHVuZGFudAo+ID4gc3R1ZmYuCj4gPgo+Cj4gdGhlIG9ubHkgbWFqb3IgZGlmZmVyZW5jZXMgYmV0
+d2VlbiB0aGUgdGVzdHMsIHByZXNlbnRseSwgYXJlIHRoYXQgdGhlCj4gcG9saWN5IGFwcGxpZWQg
+aXMgd2VpZ2h0ZWQgaW50ZXJsZWF2ZQo+Cj4gVEVTVChzZXRfbWVtcG9saWN5KE1QT0xfV0VJR0hU
+RURfSU5URVJMRUFWRSwgYm0tPm1hc2twLCBibS0+c2l6ZSsxKSk7Cj4gICAgICAgICAgICAgICAg
+ICAgIF5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXgo+Cj4gSW4gdHJ1dGgsIHRoaXMgdGVzdCBpc24n
+dCByZWFsbHkgY29tcGxldGVseSwgYXMgaXQgc2hvdWxkIGFsc286Cj4KPiAxKSBTZXQgdGhlIHN5
+c2ZzIHZhbHVlcyBsb2NhdGVkIGF0Cj4gL3N5cy9rZXJuZWwvbW0vbWVtcG9saWN5L3dlaWdodGVk
+X2ludGVybGVhdmUvCj4KPiAyKSBWYWxpZGF0ZSBhbGxvY2F0aW9ucyBhY3R1YWxseSBtYXRjaCB0
+aG9zZSBzZXR0aW5ncwo+Cj4gSG93ZXZlciwgdGhpcyB0ZXN0IGlzIHF1aXRlIGNvbXBsaWNhdGVk
+IHRvIHdyaXRlIGFuZCBtYWtlIGZ1bGx5Cj4gcmVsaWFibGUsIGFzIHlvdSBhbHNvIG5lZWQgdG8g
+a25vdwo+Cj4gMSkgVGhlIGVudmlyb25tZW50IChhdmFpbGFibGUgbm9kZXMsIGNwdSBub2Rlcywg
+bWVtb3J5LW9ubHkgbm9kZXMpCj4gMikgVGhlIG5vZGUgdGhlIHRlc3Qgd2lsbCBiZSBydW4gb24g
+KHdoaWNoIGNhbiBiZSBmb3JjZWQpCj4gMykgV2hlcmUgYWxsb2NhdGlvbnMgd2lsbCBzdGFydCBm
+cm9tIChub2RlIFggb3Igbm9kZSBZKSBhcyB0aGlzIGNhbgo+ICAgIHVsdGltYXRlbHkgYWZmZWN0
+IHRoZSBmaW5hbCBkaXN0cmlidXRpb24uCj4KPiBJbiBteSB0ZXN0cyBzZXBhcmF0ZWx5LCB0aGUg
+dGVzdCBpdHNlbGYgY2FuIGFsc28gY2F1c2UgYWxsb2NhdGlvbgo+IChzdGFjaywgb3RoZXIgcmVn
+aW9ucykgd2hpY2ggbWF5IHJlc3VsdCBpbiBhbiB1bmV4cGVjdGVkIGRpc3RyaWJ1dGlvbiBvZgo+
+IG1lbW9yeSBvbiB0aGUgdGFyZ2V0IHJlZ2lvbi4gIFRoaXMgaXMgYmVjYXVzZSB0aG9zZSBhbGxv
+Y2F0aW9ucyBhcmUKPiBjcmVkaXRlZCBhcyBwYXJ0IG9mIHRoZSBpbnRlcmxlYXZpbmcsIGJ1dCB0
+aGUgZXhpc3RpbmcgY29kZSBvZiB0aGUgdGVzdAo+IGNhbm5vdCBhZGp1c3QgZm9yIHRoYXQuIFRo
+aXMgbWF5IGNhdXNlIGZhaWx1cmVzIGZvciBubyBvYnZpb3VzIHJlYXNvbi4KPgo+IFRoaXMgaXMg
+dWx0aW1hdGVseSB3aHkgSSBsZWZ0IHRoZSB0ZXN0cyBtb3N0bHkgdW5jaGFuZ2VkLCBiZWNhdXNl
+IEkKPiBmb3VuZCBpdCBvbmx5IHJlYXNvbmFibGUgdG8gdGVzdCB0aGUgZGVmYXVsdCBiZWhhdmlv
+ci4KPgo+ID4gVGhlIHJlY29tbWVuZGVkIHdheSBpcyB0byBhZGQgTVBPTF9XRUlHSFRFRF9JTlRF
+UkxFQVZFIGluCj4gPiB0aGUgb3JpZ2luYWwgY2FzZSBpZiB5b3UganVzdCB3YW50IHRvIHZhbGlk
+YXRlIHRoZSBiZWhhdmlvciBzaW1pbGFybHkKPiB3aXRoCj4gPiBNUE9MX0lOVEVSTEVBVkUuCj4g
+Pgo+ID4gQnV0IGlmIHlvdSB3YW50IHRvIHRlc3Qgc29tZXRoaW5nIHNwZWNpYWwvbmV3IG9mCj4g
+TVBPTF9XRUlHSFRFRF9JTlRFUkxFQVZFLAo+ID4gSSB0aGluayB0aGF0J3MgbmVjZXNzYXJ5IHRv
+IGNyZWF0ZSBzZXRfbWVtcG9saWN5MDYvMDcsIGFuZCBkbyBzb21ldGhpbmcKPiA+IHZhbGlkYXRl
+IHRoYXQgaW50ZXJsZWF2aW5nIGJlaGF2aW9yIGlzIGV4ZWN1dGVkIGJhc2VkIG9uIHdlaWdodHMg
+c2V0IGluICcKPiA+IC9zeXMva2VybmVsL21tL21lbXBvbGljeS93ZWlnaHRlZF9pbnRlcmxlYXZl
+LycuCj4gPgo+Cj4gV2FzIGhvcGluZyB0byBnZXQgaW5wdXQgb24gdGhpcy4gIEkgdGhpbmsgcHJv
+YmFibHkgdHJ5aW5nIHRvIHdyaXRlIGEKPiB0ZXN0IHRvIHRyYWNrIHBhZ2UtZGlzdHJpYnV0aW9u
+IG9mIHJlYWwgd2VpZ2h0ZWQgaW50ZXJsZWF2ZSB3aWxsIGJlCj4gZGlmZmljdWx0IHRvIG1ha2Ug
+cmVsaWFibGUsIHNvIG1heWJlIEkgc2hvdWxkIGp1c3QgZm9sZCB0aGVzZSB0ZXN0cyBiYWNrCj4g
+aW50byB0aGUgb3JpZ2luYWwgYW5kIG5vdGUgdGhhdCB0aGlzIHNpbXBseSB0ZXN0cyB0aGUgZGVm
+YXVsdCBiZWhhdmlvcgo+ICh3aGljaCBpcyBlcXVpdmFsZW50IHRvIE1QT0xfSU5URVJMRUFWRSku
+Cj4KCk9rLCBzdXJlLiBJZiBzbyBtZXJnZSB0aGUgTVBPTF9XRUlHSFRFRF9JTlRFUkxFQVZFIGlu
+dG8KTVBPTF9JTlRFUkxFQVZFIHRlc3Qgc2hvdWxkIGJlIGVub3VnaC4KCgoKPgo+IFRoYXQgbWF5
+IHJlcXVpcmUgY2hhbmdpbmcgdGhlIG9yaWdpbmFsIHRlc3RzIHRvIGVuc3VyZSB0aGUgc3lzZnMg
+ZmlsZXMKPiBhcmUgc2V0IHRvIDEgdG8gZXhwbGljaXRseSBhdm9pZCBmYWlsdXJlcy4gIEJ1dCBJ
+IHdhc24ndCBzdXJlIGlmIHRoYXQKPiB3YXMgb2sgc2luY2UgaXQgd291bGQgYmUgbWFraW5nIHNp
+bGVudCBzeXN0ZW0td2lkZSBjaGFuZ2VzLCBhbmQgd291bGQKPiByZXF1aXJlIHJvb3QuCj4KCkxU
+UCBsaWIgcHJvdmlkZXMgYSB3YXkgdG8gc2F2ZS9yZXN0b3JlIHRoZSAnL3Byb2MgfCAvc3lzJyB2
+YWx1ZQpiZWZvcmUgYW5kIGFmdGVyIGRvaW5nIHRoZSB0ZXN0LCBzbyBpdCB3b3VsZCBub3QgYmUg
+ZGlmZmljdWx0IHRvCnNhdGlzZnkgdGhlIHJlcXVpcmVtZW50IGlmIGl0IGlzIGp1c3Qgc2V0IDEg
+dG8gYSByZWxhdGl2ZSBmaWxlLgoKc2VlOgpodHRwczovL2dpdGh1Yi5jb20vbGludXgtdGVzdC1w
+cm9qZWN0L2x0cC9ibG9iL21hc3Rlci9kb2Mvb2xkL0MtVGVzdC1BUEkuYXNjaWlkb2MjMTI3LXNh
+dmluZy0tcmVzdG9yaW5nLXByb2NzeXMtdmFsdWVzCgpPciwgdXNlIHRzdF9zeXNfY29uZl9zYXZl
+KCkgc2VwYXJhdGVseSB0byB0cmF2ZXJzZSBhbmQgc2F2ZSB0aGUgdmFsdWUgb2YKIm1lbXBvbGlj
+eS93ZWlnaHRlZF9pbnRlcmxlYXZlL25vZGUqIiBmaWxlIGlmIHdlIGFyZSB1bnN1cmUgaG93IG1h
+bnkgbm9kZXMKYXJlIG9uIHRoZSBzeXN0ZW0sIHRoZW4gc2V0IHRoZSB2YWx1ZSB2aWE6CiAgICBT
+QUZFX0ZJTEVfUFJJTlRGKCIuLi93ZWlnaHRlZF9pbnRlcmxlYXZlL25vZGUqIiwgIiVkIiwgMSk7
+ClVsdGltYXRlbHksIExUUCBsaWIgd2lsbCByZXN0b3JlIGFsbCBvZiB0aGUgdmFsdWVzIHRvIHRo
+ZSBvcmlnaW5hbC4KCkFuZCBzZXQgIi5uZWVkc19yb290ID0gMSwiIGluIHRoZSBzdHJ1Y3QgdHN0
+X3Rlc3Qgd2lsbCBiZSB0aGUgcmVxdWVzdGVkCnJvb3QgcGVybWlzc2lvbi4KCgotLSAKUmVnYXJk
+cywKTGkgV2FuZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0
+L2xpc3RpbmZvL2x0cAo=
