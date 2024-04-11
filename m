@@ -1,97 +1,97 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9C868A173A
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:30:53 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 173FB8A1742
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:32:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7D61C3C0333
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:30:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BFD2E3CF844
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:32:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8D5763C0333
- for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:31 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id E79113C0F55
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:32 +0200 (CEST)
+Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C9B45208E0C
- for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:30 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4B93F140709B
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:32 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A7A515CD1B;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D237D375A8;
  Thu, 11 Apr 2024 14:30:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1712845829; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PJ+LMX+tgNmKeY60cpK7W4k9yvVxMxPf8hvsxdOrulk=;
- b=P/DOotjj2I79g9hku2bZPeP3eGMW32RcdEvitCAjUV2SK2Sxx2Ng3LBVxjVq9AOWMm7Gwr
- uGYv5neC32yuwUONoaRuk0rKpKHkg7CCOyzKfhpJctCJsUNXqO3A3l+RPLJD+/84LHTBAP
- M206Lbhek+vSb9VV+GBCfk2bsYfgrGk=
+ bh=UtgigCZdzHh9M2adQHM91U0IH/Ef66LmKIuQ5wrzlEc=;
+ b=WA5ERPEqwgobHwhbjiaEL7a8uW3Wa2KxrA8pvWBWilVkFu3a5yhrG1u3o2egTrErqmJuLK
+ bNHN6wnHe52w5Ry6hzbyflu3GIz6mKG8cw9nM8AhbsEltWN9Tl6TfiwC5GxRWbBMZpUviP
+ lBOWRB3cKwopkajbsyQGeUxWOTFSAqQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1712845829;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PJ+LMX+tgNmKeY60cpK7W4k9yvVxMxPf8hvsxdOrulk=;
- b=928ALzLULEbGSS6Bmwmna4BlHlM/aQyvKi+tT1YzlOWTZB3YfX+FiCjWX+N5d5v5VzKsyo
- 9tnNx2+ohLAGryDg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="P/DOotjj";
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=928ALzLU
+ bh=UtgigCZdzHh9M2adQHM91U0IH/Ef66LmKIuQ5wrzlEc=;
+ b=7f0xY5Iuz76nlXK6mh8xEHzNzTq1iq4poAw8404rH5gELJFalGdanr2G9S6Ad7rxCDo+Ek
+ BGndHt3J85Ou8ABw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=WA5ERPEq;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=7f0xY5Iu
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1712845829; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PJ+LMX+tgNmKeY60cpK7W4k9yvVxMxPf8hvsxdOrulk=;
- b=P/DOotjj2I79g9hku2bZPeP3eGMW32RcdEvitCAjUV2SK2Sxx2Ng3LBVxjVq9AOWMm7Gwr
- uGYv5neC32yuwUONoaRuk0rKpKHkg7CCOyzKfhpJctCJsUNXqO3A3l+RPLJD+/84LHTBAP
- M206Lbhek+vSb9VV+GBCfk2bsYfgrGk=
+ bh=UtgigCZdzHh9M2adQHM91U0IH/Ef66LmKIuQ5wrzlEc=;
+ b=WA5ERPEqwgobHwhbjiaEL7a8uW3Wa2KxrA8pvWBWilVkFu3a5yhrG1u3o2egTrErqmJuLK
+ bNHN6wnHe52w5Ry6hzbyflu3GIz6mKG8cw9nM8AhbsEltWN9Tl6TfiwC5GxRWbBMZpUviP
+ lBOWRB3cKwopkajbsyQGeUxWOTFSAqQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1712845829;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PJ+LMX+tgNmKeY60cpK7W4k9yvVxMxPf8hvsxdOrulk=;
- b=928ALzLULEbGSS6Bmwmna4BlHlM/aQyvKi+tT1YzlOWTZB3YfX+FiCjWX+N5d5v5VzKsyo
- 9tnNx2+ohLAGryDg==
+ bh=UtgigCZdzHh9M2adQHM91U0IH/Ef66LmKIuQ5wrzlEc=;
+ b=7f0xY5Iuz76nlXK6mh8xEHzNzTq1iq4poAw8404rH5gELJFalGdanr2G9S6Ad7rxCDo+Ek
+ BGndHt3J85Ou8ABw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8E4401386E;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B011913888;
  Thu, 11 Apr 2024 14:30:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id YN+kIAX0F2ZZRgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0HNvKQX0F2ZZRgAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 11 Apr 2024 14:30:29 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 11 Apr 2024 16:29:55 +0200
-Message-ID: <20240411143025.352507-2-pvorel@suse.cz>
+Date: Thu, 11 Apr 2024 16:29:56 +0200
+Message-ID: <20240411143025.352507-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240411143025.352507-1-pvorel@suse.cz>
 References: <20240411143025.352507-1-pvorel@suse.cz>
 MIME-Version: 1.0
 X-Spam-Level: 
-X-Spamd-Result: default: False [-1.83 / 50.00]; BAYES_HAM(-1.82)[93.93%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [-0.99 / 50.00]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; BAYES_HAM(-0.98)[87.00%];
  R_MISSING_CHARSET(0.50)[];
  R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
@@ -104,17 +104,19 @@ X-Spamd-Result: default: False [-1.83 / 50.00]; BAYES_HAM(-1.82)[93.93%];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  RCPT_COUNT_TWO(0.00)[2]; TO_DN_SOME(0.00)[];
  DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Score: -0.99
+X-Spamd-Bar: /
+X-Rspamd-Queue-Id: D237D375A8
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: A7A515CD1B
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: -1.83
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Status: No, score=2.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,TVD_SUBJ_WIPE_DEBT
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Level: **
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 01/31] m4: Remove UCLINUX (nommu detection)
+Subject: [LTP] [PATCH 02/31] make: Remove WITH_POWER_MANAGEMENT_TESTSUITE
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,52 +133,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-nommu detection was written for UCLINUX distribution, which is not
-active any more.  While there are still some used nommu kernel
-architectures (m68k and other), there is missing support in the new
-C API and nobody from the community did not stand to implement and
-maintain it. Therefore removing all UCLINUX/nommu related code in this
-and following commits.
+It was introduced only for UCLINUX.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- configure.ac          |  1 -
- m4/ltp-nommu-linux.m4 | 14 --------------
- 2 files changed, 15 deletions(-)
- delete mode 100644 m4/ltp-nommu-linux.m4
+ include/mk/features.mk.in | 7 -------
+ runtest/Makefile          | 4 ----
+ testcases/kernel/Makefile | 5 +----
+ 3 files changed, 1 insertion(+), 15 deletions(-)
 
-diff --git a/configure.ac b/configure.ac
-index 1d7e862d8..1d7e7628f 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -384,7 +384,6 @@ LTP_CHECK_KERNEL_DEVEL
- LTP_CHECK_KEYUTILS_SUPPORT
- LTP_CHECK_LIBMNL
- LTP_CHECK_LINUXRANDOM
--LTP_CHECK_NOMMU_LINUX
- LTP_CHECK_SELINUX
- LTP_CHECK_SYNC_ADD_AND_FETCH
- LTP_CHECK_SYSCALL_EVENTFD
-diff --git a/m4/ltp-nommu-linux.m4 b/m4/ltp-nommu-linux.m4
-deleted file mode 100644
-index 7471ddd06..000000000
---- a/m4/ltp-nommu-linux.m4
-+++ /dev/null
-@@ -1,14 +0,0 @@
--dnl SPDX-License-Identifier: GPL-2.0-or-later
--dnl Copyright (c) Linux Test Project, 2010
--dnl Author: Mike Frysinger <vapier@gentoo.org>
+diff --git a/include/mk/features.mk.in b/include/mk/features.mk.in
+index 802ee0ba8..c2b64b549 100644
+--- a/include/mk/features.mk.in
++++ b/include/mk/features.mk.in
+@@ -36,13 +36,6 @@ WITH_METADATA_PDF		:= @WITH_METADATA_PDF@
+ 
+ # Test suite knobs
+ 
+-# Enable testcases/kernel/power_management's compile and install?
+-ifeq ($(UCLINUX),1)
+-WITH_POWER_MANAGEMENT_TESTSUITE	:= no
+-else
+-WITH_POWER_MANAGEMENT_TESTSUITE	:= yes
+-endif
 -
--AC_DEFUN([LTP_CHECK_NOMMU_LINUX],
--[
--	AC_CHECK_FUNCS([fork daemon vfork])
--	UCLINUX=0
--	if test "x$ac_cv_func_fork" = "xno" ; then
--		UCLINUX=1
--		AC_DEFINE([UCLINUX], 1, [Target is running Linux w/out an MMU])
--	fi
--	AC_SUBST(UCLINUX)
--])
+ # Enable testcases/open_posix_testsuite's compile and install?
+ WITH_OPEN_POSIX_TESTSUITE	:= @WITH_OPEN_POSIX_TESTSUITE@
+ 
+diff --git a/runtest/Makefile b/runtest/Makefile
+index 6a1565b6a..0f95e69fa 100644
+--- a/runtest/Makefile
++++ b/runtest/Makefile
+@@ -32,10 +32,6 @@ UNWANTED_FILES		:= Makefile CVS STAX
+ 
+ INSTALL_MODE		:= 00644
+ 
+-ifneq ($(WITH_POWER_MANAGEMENT_TESTSUITE),yes)
+-UNWANTED_FILES		+= power_management_tests
+-endif
+-
+ INSTALL_TARGETS		:= $(filter-out $(UNWANTED_FILES),$(notdir $(patsubst $(abs_srcdir)/%,%,$(sort $(wildcard $(abs_srcdir)/*)))))
+ 
+ MAKE_TARGETS		:=
+diff --git a/testcases/kernel/Makefile b/testcases/kernel/Makefile
+index bf890e175..3ca0e74bd 100644
+--- a/testcases/kernel/Makefile
++++ b/testcases/kernel/Makefile
+@@ -32,6 +32,7 @@ SUBDIRS			+= connectors \
+ 			   logging \
+ 			   mem \
+ 			   numa \
++			   power_management \
+ 			   pty \
+ 			   sched \
+ 			   security \
+@@ -40,10 +41,6 @@ SUBDIRS			+= connectors \
+ 			   uevents \
+ 			   watchqueue \
+ 
+-ifeq ($(WITH_POWER_MANAGEMENT_TESTSUITE),yes)
+-SUBDIRS			+= power_management
+-endif
+-
+ ifeq ($(WITH_KVM_TESTSUITE),yes)
+ SUBDIRS			+= kvm
+ endif
 -- 
 2.43.0
 
