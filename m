@@ -2,113 +2,119 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB12B8A1748
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:33:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB0CD8A1746
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:33:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B04713CF830
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:33:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9266A3CF83C
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:33:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AEB863CF800
+ by picard.linux.it (Postfix) with ESMTPS id 6103C3C0333
  for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:33 +0200 (CEST)
-Authentication-Results: in-5.smtp.seeweb.it;
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E9C4B61336D
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 933F410103D1
  for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:32 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EB8F55CD1B;
- Thu, 11 Apr 2024 14:30:31 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 19BE65CD1D;
+ Thu, 11 Apr 2024 14:30:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1712845832; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VeVa9ORNdn9IIXGsiD8nSITdraXB5pDrv8eh9gx1CV0=;
- b=O8oGLizd3qX/KDFefsqoIFBcsZaOfVCizHJ42dVQEzjcg2AXf12xkDkze1yjvYOerOZ2f0
- eV+GkF5VvYJJEEZHF7gn6Ft4yb/3YnN6JZDCtal6xtu/SNtZMZT+tfycm64w13Qblu0lKW
- FyghtiW8imM3RUBXqzXC5wCjafpGSyM=
+ bh=R73LKd6TACt+py7Sg0XSIMZtADFvZkwmOltfHtgn1Qs=;
+ b=hj8LWB5IyhlA5JaOGcweN6aDQr9jV8xiAR/nJcBAMkQhxX0h9zW+wsJdCmDDWwwYx5+xN/
+ XkbRlzHi+IfiTEowpPYXhzvNj9RdRkm6TrBgdiZbckwxW/zBN+iFZg8tIzZzsmDbD7CCAw
+ TygSGxsEXJNvYLxndQKBLa7uK8Hr9T4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1712845832;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VeVa9ORNdn9IIXGsiD8nSITdraXB5pDrv8eh9gx1CV0=;
- b=OMRwJ7mWKRVP8nGFpJFQn8fnVqMnnnJ9Le0BOyJr0ITF0kC5IhxyvLdyTNkuST54YuB/cG
- Pl4ecqWF9B698oCQ==
+ bh=R73LKd6TACt+py7Sg0XSIMZtADFvZkwmOltfHtgn1Qs=;
+ b=sO44yX1m6LXfvXVn7LK8GUG9lzaybxe/3K2u02Pi5kMak5IzZYlcLJ2vaeuMwDVVdY6D0Z
+ icqg8AhTvX8Y+EDg==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=hj8LWB5I;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=sO44yX1m
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1712845831; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1712845832; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VeVa9ORNdn9IIXGsiD8nSITdraXB5pDrv8eh9gx1CV0=;
- b=Kp4tU6xTVOj3VAYy5cvd+TmreJv0RWN0Muqyo0IIZdV/f1W2G1380dTCXImrmverWA6bJx
- kzxIYDv2DWeF3AsazRF5oC+mhAoTrraF+cqWEolp/FBiNcTQZmBC65zh08Jvn7ohuNPPfp
- wRjO6O7VaaopdaqyiY53DLzlM9ebgpY=
+ bh=R73LKd6TACt+py7Sg0XSIMZtADFvZkwmOltfHtgn1Qs=;
+ b=hj8LWB5IyhlA5JaOGcweN6aDQr9jV8xiAR/nJcBAMkQhxX0h9zW+wsJdCmDDWwwYx5+xN/
+ XkbRlzHi+IfiTEowpPYXhzvNj9RdRkm6TrBgdiZbckwxW/zBN+iFZg8tIzZzsmDbD7CCAw
+ TygSGxsEXJNvYLxndQKBLa7uK8Hr9T4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1712845831;
+ s=susede2_ed25519; t=1712845832;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VeVa9ORNdn9IIXGsiD8nSITdraXB5pDrv8eh9gx1CV0=;
- b=WXfY+xndO421kkgFpuDPtH5TIoKnBMjuoIqAD8Oty5rC5tnBblh+bxw3N3bWRBMn9FHYVT
- j9Cl9zbmjHIGrZAw==
+ bh=R73LKd6TACt+py7Sg0XSIMZtADFvZkwmOltfHtgn1Qs=;
+ b=sO44yX1m6LXfvXVn7LK8GUG9lzaybxe/3K2u02Pi5kMak5IzZYlcLJ2vaeuMwDVVdY6D0Z
+ icqg8AhTvX8Y+EDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D5C2E1386D;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F41241386E;
  Thu, 11 Apr 2024 14:30:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id EJ7JMgf0F2ZZRgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yAe6OQf0F2ZZRgAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 11 Apr 2024 14:30:31 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 11 Apr 2024 16:30:08 +0200
-Message-ID: <20240411143025.352507-15-pvorel@suse.cz>
+Date: Thu, 11 Apr 2024 16:30:09 +0200
+Message-ID: <20240411143025.352507-16-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240411143025.352507-1-pvorel@suse.cz>
 References: <20240411143025.352507-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: -2.78
 X-Spam-Level: 
-X-Spamd-Result: default: False [-2.78 / 50.00]; BAYES_HAM(-2.98)[99.90%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCPT_COUNT_TWO(0.00)[2];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[];
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
- RCVD_TLS_ALL(0.00)[]
-X-Spam-Status: No, score=0.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+ RCPT_COUNT_TWO(0.00)[2]; TO_DN_SOME(0.00)[];
+ DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 19BE65CD1D
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Score: -3.01
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 14/31] madvise02: Remove UCLINUX
+Subject: [LTP] [PATCH 15/31] mlockall: Remove UCLINUX
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,58 +131,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-skip is now off by default for all cases.
-
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/syscalls/madvise/madvise02.c | 25 ++++++++-----------
- 1 file changed, 11 insertions(+), 14 deletions(-)
+ testcases/kernel/syscalls/mlockall/mlockall01.c | 12 ------------
+ testcases/kernel/syscalls/mlockall/mlockall02.c | 12 ------------
+ testcases/kernel/syscalls/mlockall/mlockall03.c | 12 ------------
+ 3 files changed, 36 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/madvise/madvise02.c b/testcases/kernel/syscalls/madvise/madvise02.c
-index 90c0431c5..793bda98d 100644
---- a/testcases/kernel/syscalls/madvise/madvise02.c
-+++ b/testcases/kernel/syscalls/madvise/madvise02.c
-@@ -65,17 +65,17 @@ static struct tcase {
- 	int exp_errno;
- 	int skip;
- } tcases[] = {
--	{MADV_NORMAL,      "MADV_NORMAL",      &nonalign, EINVAL, 0},
--	{1212,             "MADV_NORMAL",      &file1,    EINVAL, 0},
--	{MADV_REMOVE,      "MADV_REMOVE",      &file1,    EINVAL, 0},
--	{MADV_DONTNEED,    "MADV_DONTNEED",    &file1,    EINVAL, 1},
--	{MADV_MERGEABLE,   "MADV_MERGEABLE",   &file1,    EINVAL, 0},
--	{MADV_UNMERGEABLE, "MADV_UNMERGEABLE", &file1,    EINVAL, 0},
--	{MADV_NORMAL,      "MADV_NORMAL",      &file2,    ENOMEM, 0},
--	{MADV_WILLNEED,    "MADV_WILLNEED",    &file2,    ENOMEM, 0},
--	{MADV_WILLNEED,    "MADV_WILLNEED",    &tmp_addr,  EBADF, 0},
--	{MADV_FREE,        "MADV_FREE",        &file1,    EINVAL, 0},
--	{MADV_WIPEONFORK,  "MADV_WIPEONFORK",  &file1,    EINVAL, 0},
-+	{MADV_NORMAL,      "MADV_NORMAL",      &nonalign, EINVAL},
-+	{1212,             "MADV_NORMAL",      &file1,    EINVAL},
-+	{MADV_REMOVE,      "MADV_REMOVE",      &file1,    EINVAL},
-+	{MADV_DONTNEED,    "MADV_DONTNEED",    &file1,    EINVAL},
-+	{MADV_MERGEABLE,   "MADV_MERGEABLE",   &file1,    EINVAL},
-+	{MADV_UNMERGEABLE, "MADV_UNMERGEABLE", &file1,    EINVAL},
-+	{MADV_NORMAL,      "MADV_NORMAL",      &file2,    ENOMEM},
-+	{MADV_WILLNEED,    "MADV_WILLNEED",    &file2,    ENOMEM},
-+	{MADV_WILLNEED,    "MADV_WILLNEED",    &tmp_addr,  EBADF},
-+	{MADV_FREE,        "MADV_FREE",        &file1,    EINVAL},
-+	{MADV_WIPEONFORK,  "MADV_WIPEONFORK",  &file1,    EINVAL},
- 	{MADV_WIPEONFORK,  "MADV_WIPEONFORK shared_anon", &shared_anon, EINVAL, 0},
- 	{MADV_WIPEONFORK,  "MADV_WIPEONFORK private file backed", &file3, EINVAL, 0},
- };
-@@ -89,11 +89,8 @@ static void tcases_filter(void)
+diff --git a/testcases/kernel/syscalls/mlockall/mlockall01.c b/testcases/kernel/syscalls/mlockall/mlockall01.c
+index fa43dad33..50cdfc256 100644
+--- a/testcases/kernel/syscalls/mlockall/mlockall01.c
++++ b/testcases/kernel/syscalls/mlockall/mlockall01.c
+@@ -75,8 +75,6 @@ void cleanup();
+ char *TCID = "mlockall01";
+ int TST_TOTAL = 3;
  
- 		switch (tc->advice) {
- 		case MADV_DONTNEED:
 -#if !defined(UCLINUX)
- 			if (mlock(file1, st.st_size) < 0)
- 				tst_brk(TBROK | TERRNO, "mlock failed");
--			tc->skip = 0;
+-
+ struct test_case_t {
+ 	int flag;
+ 	char *fdesc;
+@@ -127,16 +125,6 @@ int main(int ac, char **av)
+ 	tst_exit();
+ }
+ 
+-#else
+-
+-int main(void)
+-{
+-	tst_resm(TINFO, "test is not available on uClinux");
+-	tst_exit();
+-}
+-
+-#endif
+-
+ /*
+  * setup() - performs all ONE TIME setup for this test.
+  */
+diff --git a/testcases/kernel/syscalls/mlockall/mlockall02.c b/testcases/kernel/syscalls/mlockall/mlockall02.c
+index 94d6e3270..6524cb4a8 100644
+--- a/testcases/kernel/syscalls/mlockall/mlockall02.c
++++ b/testcases/kernel/syscalls/mlockall/mlockall02.c
+@@ -99,8 +99,6 @@ struct test_case_t {
+ 	0, EINVAL, "Unknown flag"}
+ };
+ 
+-#if !defined(UCLINUX)
+-
+ int main(int ac, char **av)
+ {
+ 	int lc, i;
+@@ -258,13 +256,3 @@ void cleanup(void)
+ {
+ 	return;
+ }
+-
+-#else
+-
+-int main(void)
+-{
+-	tst_resm(TINFO, "test is not available on uClinux");
+-	tst_exit();
+-}
+-
 -#endif /* if !defined(UCLINUX) */
- 		break;
- 		case MADV_MERGEABLE:
- 		case MADV_UNMERGEABLE:
+diff --git a/testcases/kernel/syscalls/mlockall/mlockall03.c b/testcases/kernel/syscalls/mlockall/mlockall03.c
+index 7418dd64d..a505891fc 100644
+--- a/testcases/kernel/syscalls/mlockall/mlockall03.c
++++ b/testcases/kernel/syscalls/mlockall/mlockall03.c
+@@ -92,8 +92,6 @@ void cleanup();
+ char *TCID = "mlockall03";
+ int TST_TOTAL = 3;
+ 
+-#if !defined(UCLINUX)
+-
+ char *ref_release = "2.6.8\0";
+ 
+ struct test_case_t {
+@@ -286,16 +284,6 @@ void cleanup_test(int i)
+ 	}
+ }
+ 
+-#else
+-
+-int main(void)
+-{
+-	tst_resm(TINFO, "test is not available on uClinux");
+-	tst_exit();
+-}
+-
+-#endif /* if !defined(UCLINUX) */
+-
+ /*
+  * cleanup() - performs all ONE TIME cleanup for this test at
+  *		completion or premature exit.
 -- 
 2.43.0
 
