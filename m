@@ -2,86 +2,93 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D65228A0745
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 06:47:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39A228A0869
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 08:24:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1712810824; h=to : date :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1712816650; h=to : date :
  message-id : mime-version : subject : list-id : list-unsubscribe :
  list-archive : list-post : list-help : list-subscribe : from :
  reply-to : content-type : content-transfer-encoding : sender : from;
- bh=YQlAeKRfvfKfbXN3ZEKrqBB7rl/kGm+k6eKsTN1d4Qw=;
- b=Nl6YjcLTa+wxOt5SbLgn1OWzqOj7xv/bsK7Kk90WCqi7FBO4JCiC//pFTQ7MlzAEHleSW
- 7gn4nhCKO7vRRHA6Ql2393swjbKXMIEpawbuqaec4CHUqzkAP8haa4LGvRVrlHkbfzG/i1g
- VsPZzxAgqux3tQ/uIuMsyCZFpLDvvMw=
+ bh=ldyEpOoMM3vcN73CLIWvbs6Kn5ZkonuJxYCjf1BrLNI=;
+ b=eMy3RxDm7q12B3UfyW+GeFjzolHVaLCYmFBmtekNdACPrtyJtsxU3OHd2topHQAcVGoPO
+ Xo1WMXWyYa6+OGGSuGLJjnAgtr8UfcqRJTjYtiA57iuGntLkRxbYL23bTXHe/dbDAp95l6O
+ O6jJnzONnhsZ5VQ1qiBmtpS3AvLqY4U=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 071E93CF7B5
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 06:47:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DA76E3CF7B5
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 08:24:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3F8033CB493
- for <ltp@lists.linux.it>; Thu, 11 Apr 2024 06:46:56 +0200 (CEST)
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 601D53C0640
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 08:24:08 +0200 (CEST)
+Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fujitsu.com (client-ip=139.138.36.225;
+ helo=esa10.hc1455-7.c3s2.iphmx.com; envelope-from=xuyang2018.jy@fujitsu.com;
+ receiver=lists.linux.it)
+Received: from esa10.hc1455-7.c3s2.iphmx.com (esa10.hc1455-7.c3s2.iphmx.com
+ [139.138.36.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3AF2D208E11
- for <ltp@lists.linux.it>; Thu, 11 Apr 2024 06:46:55 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2d6fc3adaacso91827841fa.2
- for <ltp@lists.linux.it>; Wed, 10 Apr 2024 21:46:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1712810814; x=1713415614; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=3rCmH0kzEV60+bD5w47AJTG0t8xg0TAlViDU3+du+vU=;
- b=TtuQEZoGG6uye0kGkaO/FeBTPERqcRFflYXGYuvKosjF32BlXJ7HKt0JK5uVXtCxHX
- IM9NDi25sly1tSdyVqlP03EnYwotZPUEBXMB9HX75bB7iQzIOHtIXD9w2Uz2Pa7lnQyg
- fmjMwF7Uia7Dkl/mkg/J+BDikX3eZ9B26SL4o2il8X6qbpeOR+uzfs/5DXhWyvWUlG3G
- aIfGK8tQvhp7fSAymnLsh+zH9HHx12gUbFbadT20VBr2oqDMCUXibnlRenMVPa5rfN6r
- FnjqhjNKOSSwPR9egY9FTMR+e2dw2UNRlvzIpXME7mMnr65bLpknwGdK5eXJH1jGGqzL
- KLhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712810814; x=1713415614;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3rCmH0kzEV60+bD5w47AJTG0t8xg0TAlViDU3+du+vU=;
- b=GKsCt+3vqA8w+EpwBeGbXx0mG5jccRm4dNfmRubx/e+9ypD1UZRLUiAtjLOLnTSQ1N
- HGbuOEZrCOQGE4SoJ+G7Fy04Dx4BaAbJ33hJKV7pWMDiChzBY7t4A+BqyCTvTjjgGHaD
- skVN+kdOx7dcLuiPxFsi31GngaCpErEfWWu8U11j0fXld55CA38WrcLiKCtoLYvBceTN
- +pq9GDpUwbFnvPUCteS8rdQYRwfWAWH43yJTOUx2MOOlYGa0IV4ibhqtLPU9OcyZPveZ
- lwQp/QbcD17OzD1RN/bqxAbKiMlrla+CCNVGvbYGnSrIIW0WY+0DUoWISSp4SQPf8mJj
- Nc8Q==
-X-Gm-Message-State: AOJu0YxK+z/uuma5tZT2+sQsLQK0qAkFYJKjuD6/mFsJwKsrOjfy/pKm
- Nw5kN+U1kp5vM9yQQWEk3ytNhugODcUJvDYOPn5G9yBILPecRgrfxjerfkZR60N/iA/uNR/1dRg
- =
-X-Google-Smtp-Source: AGHT+IEwQVN/eIQIWOSn6uocXEe/4/Y96ozJLHS2xzBXmXDgiBGDwyu1SqrUmMA9TiZrL1/TlW8rnA==
-X-Received: by 2002:a05:651c:1543:b0:2d8:d972:67e0 with SMTP id
- y3-20020a05651c154300b002d8d97267e0mr2597790ljp.10.1712810814147; 
- Wed, 10 Apr 2024 21:46:54 -0700 (PDT)
-Received: from localhost ([2a07:de40:b240:0:dc1a:df90:dc1a:df90])
- by smtp.gmail.com with ESMTPSA id
- di7-20020a0560000ac700b003439d2a5f99sm822546wrb.55.2024.04.10.21.46.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Apr 2024 21:46:53 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BC30660565F
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 08:24:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+ t=1712816647; x=1744352647;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=c+gIq1svx51PgYTW6LSHamJEH2EXrfnSEhCiLYCIt+Y=;
+ b=jnL2UGaLLX292kbx7tVJCBmelXm1KQen0YOaM7DyFDIeh5dGdD/jWZyB
+ i1lsSzc68IEBEfj0LjXmxJzf4pCzd3ViSGq/h31tq9ZPuRht3hov9I3fj
+ /YMzAniNu/42/OvCUQpEc7YULMKxG2+5dsmA3evk06rMSq1aL/HmR9rXl
+ wV5xzcsgdV539B7EyZWlVB6eApBRwrukzJKWUESyjqR2At6jqW4ye50s0
+ ZsoEFlDuZ9ywmts2znzlS+vqatTHPVls/4kvC/DHkFeYuO4RhNyOl36TA
+ Ukco/xMJm09McW7OGXXQcDbxuUqj09GBC1/bJgnLd8kZ5ezE7DUGR7suI Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="142867695"
+X-IronPort-AV: E=Sophos;i="6.07,192,1708354800"; d="scan'208";a="142867695"
+Received: from unknown (HELO yto-r3.gw.nic.fujitsu.com) ([218.44.52.219])
+ by esa10.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2024 15:24:03 +0900
+Received: from yto-m4.gw.nic.fujitsu.com (yto-nat-yto-m4.gw.nic.fujitsu.com
+ [192.168.83.67])
+ by yto-r3.gw.nic.fujitsu.com (Postfix) with ESMTP id B88DF127CCF
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 15:24:01 +0900 (JST)
+Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
+ [192.51.206.22])
+ by yto-m4.gw.nic.fujitsu.com (Postfix) with ESMTP id 062B5D3F39
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 15:24:01 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+ by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id 8D8596B5F4
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 15:24:00 +0900 (JST)
+Received: from rhel93GA.g08.fujitsu.local (unknown [10.167.221.71])
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id 394CD1A000B;
+ Thu, 11 Apr 2024 14:24:00 +0800 (CST)
 To: ltp@lists.linux.it
-Date: Thu, 11 Apr 2024 00:46:45 -0400
-Message-Id: <20240411044645.29938-1-wegao@suse.com>
-X-Mailer: git-send-email 2.35.3
+Date: Thu, 11 Apr 2024 01:49:40 -0400
+Message-Id: <20240411054940.17859-1-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 2.39.3
 MIME-Version: 1.0
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28312.003
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28312.003
+X-TMASE-Result: 10--18.097400-10.000000
+X-TMASE-MatchedRID: GQw6Xh/XS6VSuJfEWZSQfB1kSRHxj+Z59LMB0hXFSeg6FHRWx2FGsI3c
+ eRXYSJoDIvrftAIhWmLy9zcRSkKatS01VXlcjcCUCtzGvPCy/m5SuvtBzlaEqFH3rkvzbWPM4Ib
+ z3CH3vCeIuA1iha0SDkeDPyqIAshAuo7vrkTNm7UF7cpFXK76TRdoyFlJ5UUMcfnL37UR/joYnR
+ Q/QDMQFaVhoFhOJKHxS8AxUE03d7D9u77cJ0N/QJ4CIKY/Hg3AGdQnQSTrKGPEQdG7H66TyOk/y
+ 0w7JiZo
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v1] zram01.sh: Increase timeout for
- check_read_mem_used_total
+Subject: [LTP] [PATCH v2] unlink: Add error tests for EPERM and EROFS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,36 +100,154 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
+From: Yang Xu via ltp <ltp@lists.linux.it>
+Reply-To: Yang Xu <xuyang2018.jy@fujitsu.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Increase timeout value to let case pass on our low ppc64le
-machine.
+Add negative cases for unlink(), when errno is EPERM or EROFS.
 
-Signed-off-by: Wei Gao <wegao@suse.com>
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- testcases/kernel/device-drivers/zram/zram01.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ runtest/syscalls                            |   1 +
+ testcases/kernel/syscalls/unlink/.gitignore |   1 +
+ testcases/kernel/syscalls/unlink/unlink09.c | 102 ++++++++++++++++++++
+ 3 files changed, 104 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/unlink/unlink09.c
 
-diff --git a/testcases/kernel/device-drivers/zram/zram01.sh b/testcases/kernel/device-drivers/zram/zram01.sh
-index 0c100b706..959dab217 100755
---- a/testcases/kernel/device-drivers/zram/zram01.sh
-+++ b/testcases/kernel/device-drivers/zram/zram01.sh
-@@ -155,7 +155,7 @@ zram_fill_fs()
- 			continue
- 		fi
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 4ed2b5602..b99ce7170 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1651,6 +1651,7 @@ unlink01 symlink01 -T unlink01
+ unlink05 unlink05
+ unlink07 unlink07
+ unlink08 unlink08
++unlink09 unlink09
  
--		TST_RETRY_FUNC "check_read_mem_used_total /sys/block/zram$i/mm_stat" 0
-+		TST_RETRY_FN_EXP_BACKOFF "check_read_mem_used_total /sys/block/zram$i/mm_stat" 0 10
- 		mem_used_total=$(read_mem_used_total /sys/block/zram$i/mm_stat)
- 		tst_res TINFO "mem_used_total: $mem_used_total"
- 
+ #unlinkat test cases
+ unlinkat01 unlinkat01
+diff --git a/testcases/kernel/syscalls/unlink/.gitignore b/testcases/kernel/syscalls/unlink/.gitignore
+index 2e783580d..6038cc29d 100644
+--- a/testcases/kernel/syscalls/unlink/.gitignore
++++ b/testcases/kernel/syscalls/unlink/.gitignore
+@@ -1,3 +1,4 @@
+ /unlink05
+ /unlink07
+ /unlink08
++/unlink09
+diff --git a/testcases/kernel/syscalls/unlink/unlink09.c b/testcases/kernel/syscalls/unlink/unlink09.c
+new file mode 100644
+index 000000000..3ab478e50
+--- /dev/null
++++ b/testcases/kernel/syscalls/unlink/unlink09.c
+@@ -0,0 +1,102 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2024 FUJITSU LIMITED. All Rights Reserved.
++ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Verify that unlink(2) fails with
++ *
++ * - EPERM when target file is marked as immutable or append-only
++ * - EROFS when target file is on a read-only filesystem.
++ */
++
++#include <sys/ioctl.h>
++#include "tst_test.h"
++#include "lapi/fs.h"
++
++#define TEST_EPERM_IMMUTABLE "test_eperm_immutable"
++#define TEST_EPERM_APPEND_ONLY "test_eperm_append_only"
++#define DIR_EROFS "erofs"
++#define TEST_EROFS "erofs/test_erofs"
++
++static int fd_immutable;
++static int fd_append_only;
++
++static struct test_case_t {
++	char *filename;
++	int *fd;
++	int flag;
++	int expected_errno;
++	char *desc;
++} tcases[] = {
++	{TEST_EPERM_IMMUTABLE, &fd_immutable, FS_IMMUTABLE_FL, EPERM,
++		"target file is immutable"},
++	{TEST_EPERM_APPEND_ONLY, &fd_append_only, FS_APPEND_FL, EPERM,
++		"target file is append-only"},
++	{TEST_EROFS, NULL, 0, EROFS, "target file in read-only filesystem"},
++};
++
++static void setup(void)
++{
++	int attr;
++
++	fd_immutable = SAFE_OPEN(TEST_EPERM_IMMUTABLE, O_CREAT, 0600);
++	SAFE_IOCTL(fd_immutable, FS_IOC_GETFLAGS, &attr);
++	attr |= FS_IMMUTABLE_FL;
++	SAFE_IOCTL(fd_immutable, FS_IOC_SETFLAGS, &attr);
++
++	fd_append_only = SAFE_OPEN(TEST_EPERM_APPEND_ONLY, O_CREAT, 0600);
++	SAFE_IOCTL(fd_append_only, FS_IOC_GETFLAGS, &attr);
++	attr |= FS_APPEND_FL;
++	SAFE_IOCTL(fd_append_only, FS_IOC_SETFLAGS, &attr);
++}
++
++static void cleanup(void)
++{
++	int attr;
++
++	SAFE_IOCTL(fd_immutable, FS_IOC_GETFLAGS, &attr);
++	attr &= ~FS_IMMUTABLE_FL;
++	SAFE_IOCTL(fd_immutable, FS_IOC_SETFLAGS, &attr);
++	SAFE_CLOSE(fd_immutable);
++
++	SAFE_IOCTL(fd_append_only, FS_IOC_GETFLAGS, &attr);
++	attr &= ~FS_APPEND_FL;
++	SAFE_IOCTL(fd_append_only, FS_IOC_SETFLAGS, &attr);
++	SAFE_CLOSE(fd_append_only);
++}
++
++static void verify_unlink(unsigned int i)
++{
++	struct test_case_t *tc = &tcases[i];
++	int attr;
++
++	TST_EXP_FAIL(unlink(tc->filename), tc->expected_errno, "%s", tc->desc);
++
++	/* If unlink() suceeded unexpectedly, test file should be retored. */
++	if (!TST_RET) {
++		if (tc->fd) {
++			*(tc->fd) = SAFE_OPEN(tc->filename, O_CREAT, 0600);
++			if (tc->flag) {
++				SAFE_IOCTL(*(tc->fd), FS_IOC_GETFLAGS, &attr);
++				attr |= tc->flag;
++				SAFE_IOCTL(*(tc->fd), FS_IOC_SETFLAGS, &attr);
++			}
++		} else {
++			SAFE_TOUCH(tc->filename, 0600, 0);
++		}
++	}
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.tcnt = ARRAY_SIZE(tcases),
++	.cleanup = cleanup,
++	.test = verify_unlink,
++	.needs_rofs = 1,
++	.mntpoint = DIR_EROFS,
++	.needs_root = 1,
++};
 -- 
-2.35.3
+2.39.3
 
 
 -- 
