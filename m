@@ -2,98 +2,94 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F00968A1765
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:37:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 378B88A1763
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:37:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A24D33CF868
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:37:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EDA1D3C0333
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:37:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 35EC13CF7D5
- for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:35 +0200 (CEST)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id C31533CF822
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:34 +0200 (CEST)
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 07A50140872D
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2547C6067B8
  for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:34 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8A31E375AA;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AFFA55CD1B;
  Thu, 11 Apr 2024 14:30:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1712845833; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xNNPHZhaYu6+DDerBqwNcyRHUzGSDjY30xsfIP5ByBk=;
- b=FL+Rkj7DtbjkhyjYA22NFVc2OWoBiBXxn1flQZt8CEylHYFTLO36QJ+O0Tow8dx5aKTyBQ
- ERwPZWjr4J2gmWtDRgvXTq6zw8OaWn4ltlTLs/lPMOz8Efiopm5NKqnklEN70yhRUwQGct
- Vc+RdE282U2Psr2gPWQTXHuTryUDEoM=
+ bh=zCKNaH/yJOfgleyVHojsqMOUmXcOxTDx/Nf8YFFEQWk=;
+ b=Q6aRP3O2C24dmOmCqWYdq4lJgg+FYHynbboxf6qOaczDQKMKXorVTBMAwFdDl2DnDXvKZZ
+ N3UPDQU947TmG313Bk2iGCJ6Vt4S3Bs8W2ykdFxpvwOWYNU8grAdrldvCnlysqRM25nFIx
+ 3wRUWRGafIBSwRpePT/cnNp0ZroY63E=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1712845833;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xNNPHZhaYu6+DDerBqwNcyRHUzGSDjY30xsfIP5ByBk=;
- b=i9TYSTEzk+jZq4mck49mg7h5kJOtbGiqm8ENE6dumkP39TvYkl6D2LlFO99wakMrLogu2X
- +N2iWoK3LZH74NCQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=FL+Rkj7D;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=i9TYSTEz
+ bh=zCKNaH/yJOfgleyVHojsqMOUmXcOxTDx/Nf8YFFEQWk=;
+ b=NY207598gGmaFpsFhOufGA9qbEgn7WWMU96I++/wxhIAYsLQQ8XZeJBGDr4hicVLQ8boe5
+ A3lms4wo7T8DHnAw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Q6aRP3O2;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=NY207598
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1712845833; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xNNPHZhaYu6+DDerBqwNcyRHUzGSDjY30xsfIP5ByBk=;
- b=FL+Rkj7DtbjkhyjYA22NFVc2OWoBiBXxn1flQZt8CEylHYFTLO36QJ+O0Tow8dx5aKTyBQ
- ERwPZWjr4J2gmWtDRgvXTq6zw8OaWn4ltlTLs/lPMOz8Efiopm5NKqnklEN70yhRUwQGct
- Vc+RdE282U2Psr2gPWQTXHuTryUDEoM=
+ bh=zCKNaH/yJOfgleyVHojsqMOUmXcOxTDx/Nf8YFFEQWk=;
+ b=Q6aRP3O2C24dmOmCqWYdq4lJgg+FYHynbboxf6qOaczDQKMKXorVTBMAwFdDl2DnDXvKZZ
+ N3UPDQU947TmG313Bk2iGCJ6Vt4S3Bs8W2ykdFxpvwOWYNU8grAdrldvCnlysqRM25nFIx
+ 3wRUWRGafIBSwRpePT/cnNp0ZroY63E=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1712845833;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xNNPHZhaYu6+DDerBqwNcyRHUzGSDjY30xsfIP5ByBk=;
- b=i9TYSTEzk+jZq4mck49mg7h5kJOtbGiqm8ENE6dumkP39TvYkl6D2LlFO99wakMrLogu2X
- +N2iWoK3LZH74NCQ==
+ bh=zCKNaH/yJOfgleyVHojsqMOUmXcOxTDx/Nf8YFFEQWk=;
+ b=NY207598gGmaFpsFhOufGA9qbEgn7WWMU96I++/wxhIAYsLQQ8XZeJBGDr4hicVLQ8boe5
+ A3lms4wo7T8DHnAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6B5491386E;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 921A31386D;
  Thu, 11 Apr 2024 14:30:33 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id OHwyGQn0F2ZZRgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yJBIIgn0F2ZZRgAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 11 Apr 2024 14:30:33 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 11 Apr 2024 16:30:19 +0200
-Message-ID: <20240411143025.352507-26-pvorel@suse.cz>
+Date: Thu, 11 Apr 2024 16:30:20 +0200
+Message-ID: <20240411143025.352507-27-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240411143025.352507-1-pvorel@suse.cz>
 References: <20240411143025.352507-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: -2.64
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 8A31E375AA
 X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-2.64 / 50.00]; BAYES_HAM(-2.63)[98.35%];
+X-Spamd-Result: default: False [-2.98 / 50.00]; BAYES_HAM(-2.97)[99.87%];
  NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
  R_MISSING_CHARSET(0.50)[];
  R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
@@ -107,13 +103,17 @@ X-Spamd-Result: default: False [-2.64 / 50.00]; BAYES_HAM(-2.63)[98.35%];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  RCPT_COUNT_TWO(0.00)[2]; TO_DN_SOME(0.00)[];
  DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: AFFA55CD1B
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Score: -2.98
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 25/31] setsid01: Remove UCLINUX
+Subject: [LTP] [PATCH 26/31] sigrelse01: Remove UCLINUX
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,66 +132,50 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/syscalls/setsid/setsid01.c | 23 ---------------------
- 1 file changed, 23 deletions(-)
+ .../kernel/syscalls/sigrelse/sigrelse01.c     | 20 +++----------------
+ 1 file changed, 3 insertions(+), 17 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/setsid/setsid01.c b/testcases/kernel/syscalls/setsid/setsid01.c
-index 5df2c1ff4..197e865cb 100644
---- a/testcases/kernel/syscalls/setsid/setsid01.c
-+++ b/testcases/kernel/syscalls/setsid/setsid01.c
-@@ -49,10 +49,6 @@
- char *TCID = "setsid01";
- int TST_TOTAL = 1;
- 
+diff --git a/testcases/kernel/syscalls/sigrelse/sigrelse01.c b/testcases/kernel/syscalls/sigrelse/sigrelse01.c
+index a9d509cba..957542120 100644
+--- a/testcases/kernel/syscalls/sigrelse/sigrelse01.c
++++ b/testcases/kernel/syscalls/sigrelse/sigrelse01.c
+@@ -192,9 +192,6 @@ int main(int argc, char **argv)
+ 	 * parse standard options
+ 	 */
+ 	tst_parse_opts(argc, argv, NULL, NULL);
 -#ifdef UCLINUX
--static char *argv0;
--#endif
--
- void do_child_1(void);
- void do_child_2(void);
- void setup(void);
-@@ -68,12 +64,6 @@ int main(int ac, char **av)
- 	int lc;
- 
- 	tst_parse_opts(ac, av, NULL, NULL);
--#ifdef UCLINUX
--	argv0 = av[0];
--
--	maybe_run_child(&do_child_1, "n", 1);
--	maybe_run_child(&do_child_2, "n", 2);
+-	maybe_run_child(&child, "dd", &pipe_fd[1], &pipe_fd2[0]);
 -#endif
  
  	/*
- 	 * perform global setup for the test
-@@ -98,14 +88,7 @@ int main(int ac, char **av)
- 
- 			}
- 			if (pid == 0) {
--#ifdef UCLINUX
--				if (self_exec(argv0, "n", 1) < 0) {
--					tst_resm(TFAIL, "self_exec failed");
+ 	 * perform global setup for test
+@@ -208,23 +205,12 @@ int main(int argc, char **argv)
+ 		/*
+ 		 * fork off a child process
+ 		 */
+-		if ((pid = tst_fork()) < 0) {
++		if ((pid = tst_fork()) < 0)
+ 			tst_brkm(TBROK | TERRNO, cleanup, "fork() failed");
 -
--				}
--#else
- 				do_child_1();
--#endif
- 			} else {
- 				if (setpgid(0, 0) < 0) {
- 					tst_resm(TFAIL,
-@@ -165,13 +148,7 @@ void do_child_1(void)
- 		tst_brkm(TFAIL, NULL, "Fork failed");
- 	}
- 	if (pid == 0) {
+-		} else if (pid > 0) {
++		else if (pid > 0)
+ 			parent();
+-
+-		} else {
 -#ifdef UCLINUX
--		if (self_exec(argv0, "n", 2) < 0) {
--			tst_brkm(TFAIL, NULL, "self_exec failed");
--		}
+-			if (self_exec(argv[0], "dd", pipe_fd[1], pipe_fd2[0]) <
+-			    0) {
+-				tst_brkm(TBROK | TERRNO, cleanup,
+-					 "self_exec() failed");
+-			}
 -#else
- 		do_child_2();
++		else
+ 			child();
 -#endif
- 	} else {
- 		retval = setpgid(0, getppid());
- 		if (retval < 0) {
+-		}
+ 
+ 	}
+ 
 -- 
 2.43.0
 
