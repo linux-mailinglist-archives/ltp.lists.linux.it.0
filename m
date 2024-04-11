@@ -1,113 +1,120 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FAE98A1737
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:30:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D86E98A1740
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:31:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DDB383CF83A
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:30:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9F99C3CF83C
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:31:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4D2263C0333
+ by picard.linux.it (Postfix) with ESMTPS id E34863C0333
  for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:32 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it;
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 99FA26068E6
- for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:31 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 62C45208F79
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:32 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 29E0C5CD2B;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 552A35CD2C;
  Thu, 11 Apr 2024 14:30:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1712845831; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nZ06TyagYBauLO777RetuCbP201c2cYIi2zETO8SaNM=;
- b=yacCJDWYeQ2uZXn1JIFHoUKklO+s3qO8o6jGWDErDIGOxpefbGyiFXy9/VOXcP0kuDgI3w
- l/PVBodM+0aU4InNXCB+uUWclWr3GQnOntcpyOnqIyw68L62VhHKM52a8kC0zkwnLR4fLG
- UvMF867ViTJVxdCBikVuTD6LalKADMA=
+ bh=cjdC7lbULd4JoqWLBXMc2mYzBEbmEAywIl7vs6BjW6M=;
+ b=EBYFOnCGiZ5M0DLS+bbE6PAA4nOzzXMqnXhF/zKd7nz7oNtEjNDRtPr9ovUiwv8wNgGERS
+ 0LiUzJ9g74BV/wwOqaJtY3j6+/zMpo17rtoE6RmGSRBVSiflMuBkvAoTUwiVnQ/T9g1BoW
+ m5ybi05sXc/SP5JQkaQLryQXrDwTvpE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1712845831;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nZ06TyagYBauLO777RetuCbP201c2cYIi2zETO8SaNM=;
- b=EKGeRmzNwtZlQW29lIe4Fdii3Tf5p2pdzFUkoFDuskH26VHDFD+H5rNNE0bAf0y1310j+5
- waWEMKfyjn6IshCg==
+ bh=cjdC7lbULd4JoqWLBXMc2mYzBEbmEAywIl7vs6BjW6M=;
+ b=eY9ydzAByu71+YjuxrfYvKK0EA2MTVZhfT+SbVbuZ2zLsLtRoTCpOi9wu5mMz4OFf5KRlZ
+ hrcufnocy2Gy8MBw==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=EBYFOnCG;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=eY9ydzAB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1712845831; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nZ06TyagYBauLO777RetuCbP201c2cYIi2zETO8SaNM=;
- b=yacCJDWYeQ2uZXn1JIFHoUKklO+s3qO8o6jGWDErDIGOxpefbGyiFXy9/VOXcP0kuDgI3w
- l/PVBodM+0aU4InNXCB+uUWclWr3GQnOntcpyOnqIyw68L62VhHKM52a8kC0zkwnLR4fLG
- UvMF867ViTJVxdCBikVuTD6LalKADMA=
+ bh=cjdC7lbULd4JoqWLBXMc2mYzBEbmEAywIl7vs6BjW6M=;
+ b=EBYFOnCGiZ5M0DLS+bbE6PAA4nOzzXMqnXhF/zKd7nz7oNtEjNDRtPr9ovUiwv8wNgGERS
+ 0LiUzJ9g74BV/wwOqaJtY3j6+/zMpo17rtoE6RmGSRBVSiflMuBkvAoTUwiVnQ/T9g1BoW
+ m5ybi05sXc/SP5JQkaQLryQXrDwTvpE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1712845831;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nZ06TyagYBauLO777RetuCbP201c2cYIi2zETO8SaNM=;
- b=EKGeRmzNwtZlQW29lIe4Fdii3Tf5p2pdzFUkoFDuskH26VHDFD+H5rNNE0bAf0y1310j+5
- waWEMKfyjn6IshCg==
+ bh=cjdC7lbULd4JoqWLBXMc2mYzBEbmEAywIl7vs6BjW6M=;
+ b=eY9ydzAByu71+YjuxrfYvKK0EA2MTVZhfT+SbVbuZ2zLsLtRoTCpOi9wu5mMz4OFf5KRlZ
+ hrcufnocy2Gy8MBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0695D13888;
- Thu, 11 Apr 2024 14:30:30 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3653F1386D;
+ Thu, 11 Apr 2024 14:30:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id KAfwOgb0F2ZZRgAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 11 Apr 2024 14:30:30 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KPFsCwf0F2ZZRgAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 11 Apr 2024 14:30:31 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 11 Apr 2024 16:30:03 +0200
-Message-ID: <20240411143025.352507-10-pvorel@suse.cz>
+Date: Thu, 11 Apr 2024 16:30:04 +0200
+Message-ID: <20240411143025.352507-11-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240411143025.352507-1-pvorel@suse.cz>
 References: <20240411143025.352507-1-pvorel@suse.cz>
 MIME-Version: 1.0
+X-Spam-Score: -2.93
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 552A35CD2C
 X-Spam-Level: 
-X-Spamd-Result: default: False [-2.75 / 50.00]; BAYES_HAM(-2.95)[99.77%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCPT_COUNT_TWO(0.00)[2];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[];
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-2.93 / 50.00]; BAYES_HAM(-2.92)[99.64%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
- RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -2.75
+ RCPT_COUNT_TWO(0.00)[2]; TO_DN_SOME(0.00)[];
+ DKIM_TRACE(0.00)[suse.cz:+]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 09/31] connect01: Remove UCLINUX
+Subject: [LTP] [PATCH 10/31] creat06: Remove UCLINUX
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,61 +133,49 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/syscalls/connect/connect01.c | 15 ---------------
- 1 file changed, 15 deletions(-)
+ testcases/kernel/syscalls/creat/creat06.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/connect/connect01.c b/testcases/kernel/syscalls/connect/connect01.c
-index d901427ff..660c4f7a9 100644
---- a/testcases/kernel/syscalls/connect/connect01.c
-+++ b/testcases/kernel/syscalls/connect/connect01.c
-@@ -83,13 +83,10 @@ struct test_case_t {		/* test case structure */
- 	PF_INET, SOCK_STREAM, 0, (struct sockaddr *)&sin1,
- 		    sizeof(struct sockaddr_in), -1, EBADF, setup0,
- 		    cleanup0, "bad file descriptor"},
--#ifndef UCLINUX
--	    /* Skip since uClinux does not implement memory protection */
- 	{
- 	PF_INET, SOCK_STREAM, 0, (struct sockaddr *)-1,
- 		    sizeof(struct sockaddr_in), -1, EFAULT, setup1,
- 		    cleanup1, "invalid socket buffer"},
--#endif
- 	{
- 	PF_INET, SOCK_STREAM, 0, (struct sockaddr *)&sin1,
- 		    3, -1, EINVAL, setup1, cleanup1, "invalid salen"}, {
-@@ -112,10 +109,6 @@ struct test_case_t {		/* test case structure */
- 
- int TST_TOTAL = sizeof(tdat) / sizeof(tdat[0]);
- 
--#ifdef UCLINUX
--static char *argv0;
--#endif
--
- /**
-  * bionic's connect() implementation calls netdClientInitConnect() before
-  * sending the request to the kernel.  We need to bypass this, or the test will
-@@ -139,10 +132,6 @@ int main(int argc, char *argv[])
- 	int lc;
- 
- 	tst_parse_opts(argc, argv, NULL, NULL);
--#ifdef UCLINUX
--	argv0 = argv[0];
--	maybe_run_child(&do_child, "d", &sfd);
+diff --git a/testcases/kernel/syscalls/creat/creat06.c b/testcases/kernel/syscalls/creat/creat06.c
+index 5c82e4757..bd9835ea3 100644
+--- a/testcases/kernel/syscalls/creat/creat06.c
++++ b/testcases/kernel/syscalls/creat/creat06.c
+@@ -60,9 +60,7 @@
+ static void setup(void);
+ static void test6_setup(void);
+ static void test6_cleanup(void);
+-#if !defined(UCLINUX)
+ static void bad_addr_setup(int);
 -#endif
  
- 	setup();
- 
-@@ -263,11 +252,7 @@ pid_t start_server(struct sockaddr_in *sin0)
- 
- 	switch ((pid = tst_fork())) {
- 	case 0:		/* child */
--#ifdef UCLINUX
--		self_exec(argv0, "d", sfd);
--#else
- 		do_child();
+ static struct passwd *ltpuser;
+ static char long_name[PATH_MAX+2];
+@@ -78,9 +76,7 @@ static struct test_case_t {
+ 	{long_name, MODE1, ENAMETOOLONG, NULL, NULL},
+ 	{NO_DIR, MODE1, ENOENT, NULL, NULL},
+ 	{NOT_DIR, MODE1, ENOTDIR, NULL, NULL},
+-#if !defined(UCLINUX)
+ 	{NULL, MODE1, EFAULT, bad_addr_setup, NULL},
 -#endif
- 		break;
- 	case -1:
- 		tst_brkm(TBROK | TERRNO, cleanup, "server fork failed");
+ 	{TEST6_FILE, MODE1, EACCES, test6_setup, test6_cleanup},
+ 	{TEST7_FILE, MODE1, ELOOP, NULL, NULL},
+ 	{TEST8_FILE, MODE1, EROFS, NULL, NULL},
+@@ -127,7 +123,6 @@ static void setup(void)
+ 	SAFE_SYMLINK("test_file_eloop2", TEST7_FILE);
+ }
+ 
+-#if !defined(UCLINUX)
+ static void bad_addr_setup(int i)
+ {
+ 	if (tcases[i].fname)
+@@ -136,7 +131,6 @@ static void bad_addr_setup(int i)
+ 	tcases[i].fname = SAFE_MMAP(0, 1, PROT_NONE,
+ 	                            MAP_PRIVATE | MAP_ANONYMOUS, 0, 0);
+ }
+-#endif
+ 
+ static void test6_setup(void)
+ {
 -- 
 2.43.0
 
