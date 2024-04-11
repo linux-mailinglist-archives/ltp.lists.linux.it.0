@@ -1,92 +1,93 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB1B78A1757
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:35:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D5A518A1761
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:36:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B37233C0509
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:35:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9E3633CF850
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:36:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 204943CF826
- for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:33 +0200 (CEST)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id AED7B3CF800
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:34 +0200 (CEST)
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 38E441408721
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1360C600D24
  for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:33 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C0085375A8;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E78445CD21;
  Thu, 11 Apr 2024 14:30:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1712845832; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=O2i1qKjdWB54MiFme3nRUKrLnribKYndwxD5QMPZURE=;
- b=Xup+UBFzAddYSPZJIPAdXSDenckOODU2DxN25PJqpjbzFb0KfXtFAJY129cOC29m0HYTiT
- vA337iAo9JjJ5S+NGK3Fa1LUy9mQKzyqgObtE+D1fkXfA8d4ACkbj78gLJdmnPQXp/hKvc
- BwVD5FcJrIz2zp2SltO5LWRO4eYQpys=
+ bh=ruO8ep+Ouoj4vYMpJHIrl4Xp7sbqJujLVfUVLgKwsSE=;
+ b=ek4G3GY5y5fvpuuCLUTUrOM8Ev3LVePxwLQwqP38NvZm0xG9XI8/fhw/iru9d0MTqsBKNt
+ ZPrKuBQBJ/fg9cIo6p60PVKbCQ05uTF3eGcWys98MvzNzoEx9KckJzX1dTmhkmCotrDDQj
+ hGYcTXjIZvNDL0OPyLtZ+q0/5m5nz+w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1712845832;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=O2i1qKjdWB54MiFme3nRUKrLnribKYndwxD5QMPZURE=;
- b=v1gC6L8AUMwbe0abL7j6/ar3y6y3QJqna70qz3tgorczV+N0VY1TZbf8+ggGMxfD1ydle9
- sPLBjB9t1nEtOBAA==
-Authentication-Results: smtp-out1.suse.de;
+ bh=ruO8ep+Ouoj4vYMpJHIrl4Xp7sbqJujLVfUVLgKwsSE=;
+ b=1O2pn1vQmj93o6eln5Gp7XvLZK6BY8h9HKPR1Er18wZ0hLXhE1xL01OIlcStY2qguYAh91
+ k59q3xp/eS2iXCBw==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1712845832; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=O2i1qKjdWB54MiFme3nRUKrLnribKYndwxD5QMPZURE=;
- b=Xup+UBFzAddYSPZJIPAdXSDenckOODU2DxN25PJqpjbzFb0KfXtFAJY129cOC29m0HYTiT
- vA337iAo9JjJ5S+NGK3Fa1LUy9mQKzyqgObtE+D1fkXfA8d4ACkbj78gLJdmnPQXp/hKvc
- BwVD5FcJrIz2zp2SltO5LWRO4eYQpys=
+ bh=ruO8ep+Ouoj4vYMpJHIrl4Xp7sbqJujLVfUVLgKwsSE=;
+ b=ek4G3GY5y5fvpuuCLUTUrOM8Ev3LVePxwLQwqP38NvZm0xG9XI8/fhw/iru9d0MTqsBKNt
+ ZPrKuBQBJ/fg9cIo6p60PVKbCQ05uTF3eGcWys98MvzNzoEx9KckJzX1dTmhkmCotrDDQj
+ hGYcTXjIZvNDL0OPyLtZ+q0/5m5nz+w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1712845832;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=O2i1qKjdWB54MiFme3nRUKrLnribKYndwxD5QMPZURE=;
- b=v1gC6L8AUMwbe0abL7j6/ar3y6y3QJqna70qz3tgorczV+N0VY1TZbf8+ggGMxfD1ydle9
- sPLBjB9t1nEtOBAA==
+ bh=ruO8ep+Ouoj4vYMpJHIrl4Xp7sbqJujLVfUVLgKwsSE=;
+ b=1O2pn1vQmj93o6eln5Gp7XvLZK6BY8h9HKPR1Er18wZ0hLXhE1xL01OIlcStY2qguYAh91
+ k59q3xp/eS2iXCBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A271E1386D;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C6D3F1386E;
  Thu, 11 Apr 2024 14:30:32 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id AMHbJgj0F2ZZRgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WHKNLwj0F2ZZRgAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 11 Apr 2024 14:30:32 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 11 Apr 2024 16:30:14 +0200
-Message-ID: <20240411143025.352507-21-pvorel@suse.cz>
+Date: Thu, 11 Apr 2024 16:30:15 +0200
+Message-ID: <20240411143025.352507-22-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240411143025.352507-1-pvorel@suse.cz>
 References: <20240411143025.352507-1-pvorel@suse.cz>
 MIME-Version: 1.0
+X-Spam-Score: -2.80
 X-Spam-Level: 
 X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
@@ -100,14 +101,13 @@ X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
  RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -2.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 20/31] recv*: Remove UCLINUX
+Subject: [LTP] [PATCH 21/31] send*: Remove UCLINUX
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,29 +126,47 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/syscalls/recv/recv01.c         | 17 -----------------
- testcases/kernel/syscalls/recvfrom/recvfrom01.c | 15 ---------------
- 2 files changed, 32 deletions(-)
+ testcases/kernel/syscalls/send/send01.c       | 21 -------------------
+ testcases/kernel/syscalls/sendmsg/sendmsg01.c | 14 -------------
+ testcases/kernel/syscalls/sendto/sendto01.c   | 21 -------------------
+ 3 files changed, 56 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/recv/recv01.c b/testcases/kernel/syscalls/recv/recv01.c
-index 64658ae32..d71243c30 100644
---- a/testcases/kernel/syscalls/recv/recv01.c
-+++ b/testcases/kernel/syscalls/recv/recv01.c
-@@ -87,13 +87,10 @@ struct test_case_t {		/* test case structure */
- 	0, 0, 0, buf, sizeof(buf), 0,
- 		    -1, ENOTSOCK, setup0, cleanup0, "invalid socket"}
+diff --git a/testcases/kernel/syscalls/send/send01.c b/testcases/kernel/syscalls/send/send01.c
+index 1f97daf5f..41859ff6f 100644
+--- a/testcases/kernel/syscalls/send/send01.c
++++ b/testcases/kernel/syscalls/send/send01.c
+@@ -100,8 +100,6 @@ static struct test_case_t tdat[] = {
+ 	 .cleanup = cleanup0,
+ 	 .desc = "invalid socket"}
  	,
 -#ifndef UCLINUX
--	    /* Skip since uClinux does not implement memory protection */
- 	{
- 	PF_INET, SOCK_STREAM, 0, (void *)-1, sizeof(buf), 0,
- 		    -1, EFAULT, setup1, cleanup1, "invalid recv buffer"}
+-	/* Skip since uClinux does not implement memory protection */
+ 	{.domain = PF_INET,
+ 	 .type = SOCK_STREAM,
+ 	 .proto = 0,
+@@ -114,7 +112,6 @@ static struct test_case_t tdat[] = {
+ 	 .cleanup = cleanup1,
+ 	 .desc = "invalid send buffer"}
  	,
 -#endif
- 	{
- 	PF_INET, SOCK_STREAM, 0, buf, sizeof(buf), MSG_OOB,
- 		    -1, EINVAL, setup1, cleanup1, "invalid MSG_OOB flag set"}
-@@ -105,19 +102,11 @@ struct test_case_t {		/* test case structure */
+ 	{.domain = PF_INET,
+ 	 .type = SOCK_DGRAM,
+ 	 .proto = 0,
+@@ -139,8 +136,6 @@ static struct test_case_t tdat[] = {
+ 	 .cleanup = cleanup1,
+ 	 .desc = "local endpoint shutdown"}
+ 	,
+-#ifndef UCLINUX
+-	/* Skip since uClinux does not implement memory protection */
+ 	{.domain = PF_INET,
+ 	 .type = SOCK_DGRAM,
+ 	 .proto = 0,
+@@ -152,15 +147,10 @@ static struct test_case_t tdat[] = {
+ 	 .setup = setup1,
+ 	 .cleanup = cleanup1,
+ 	 .desc = "invalid flags set"}
+-#endif
+ };
  
  int TST_TOTAL = sizeof(tdat) / sizeof(tdat[0]);
  
@@ -156,22 +174,13 @@ index 64658ae32..d71243c30 100644
 -static char *argv0;
 -#endif
 -
- int main(int argc, char *argv[])
+ static pid_t start_server(struct sockaddr_in *sin0)
  {
- 	int lc;
- 
- 	tst_parse_opts(argc, argv, NULL, NULL);
--#ifdef UCLINUX
--	argv0 = argv[0];
--	maybe_run_child(&do_child, "d", &sfd);
--#endif
- 
- 	setup();
- 
-@@ -242,13 +231,7 @@ pid_t start_server(struct sockaddr_in *sin0)
+ 	pid_t pid;
+@@ -187,13 +177,7 @@ static pid_t start_server(struct sockaddr_in *sin0)
  
  	switch ((pid = tst_fork())) {
- 	case 0:		/* child */
+ 	case 0:
 -#ifdef UCLINUX
 -		if (self_exec(argv0, "d", sfd) < 0)
 -			tst_brkm(TBROK | TERRNO, cleanup,
@@ -182,11 +191,23 @@ index 64658ae32..d71243c30 100644
  		break;
  	case -1:
  		tst_brkm(TBROK | TERRNO, cleanup, "server fork failed");
-diff --git a/testcases/kernel/syscalls/recvfrom/recvfrom01.c b/testcases/kernel/syscalls/recvfrom/recvfrom01.c
-index a05256003..f26f85688 100644
---- a/testcases/kernel/syscalls/recvfrom/recvfrom01.c
-+++ b/testcases/kernel/syscalls/recvfrom/recvfrom01.c
-@@ -126,21 +126,12 @@ struct test_case_t {		/* test case structure */
+@@ -253,11 +237,6 @@ int main(int ac, char *av[])
+ 
+ 	tst_parse_opts(ac, av, NULL, NULL);
+ 
+-#ifdef UCLINUX
+-	argv0 = av[0];
+-	maybe_run_child(&do_child, "d", &sfd);
+-#endif
+-
+ 	setup();
+ 
+ 	for (lc = 0; TEST_LOOPING(lc); ++lc) {
+diff --git a/testcases/kernel/syscalls/sendmsg/sendmsg01.c b/testcases/kernel/syscalls/sendmsg/sendmsg01.c
+index 62477e56b..38cd7182c 100644
+--- a/testcases/kernel/syscalls/sendmsg/sendmsg01.c
++++ b/testcases/kernel/syscalls/sendmsg/sendmsg01.c
+@@ -358,21 +358,12 @@ struct test_case_t tdat[] = {
  
  int TST_TOTAL = sizeof(tdat) / sizeof(tdat[0]);
  
@@ -202,26 +223,100 @@ index a05256003..f26f85688 100644
  
 -#ifdef UCLINUX
 -	argv0 = argv[0];
--	maybe_run_child(&do_child, "d", &sfd);
+-	maybe_run_child(&do_child, "dd", &sfd, &ufd);
 -#endif
 -
  	setup();
  
  	for (lc = 0; TEST_LOOPING(lc); ++lc) {
-@@ -271,13 +262,7 @@ pid_t start_server(struct sockaddr_in *sin0)
+@@ -459,12 +450,7 @@ static pid_t start_server(struct sockaddr_in *sin0, struct sockaddr_un *sun0)
  
  	switch ((pid = tst_fork())) {
- 	case 0:		/* child */
+ 	case 0:
 -#ifdef UCLINUX
--		if (self_exec(argv0, "d", sfd) < 0) {
+-		if (self_exec(argv0, "dd", sfd, ufd) < 0)
 -			tst_brkm(TBROK, cleanup, "server self_exec failed");
--		}
+-#else
+ 		do_child();
+-#endif
+ 		break;
+ 	case -1:
+ 		tst_brkm(TBROK, cleanup, "server fork failed: %s",
+diff --git a/testcases/kernel/syscalls/sendto/sendto01.c b/testcases/kernel/syscalls/sendto/sendto01.c
+index 654e6057e..b3b7b6efd 100644
+--- a/testcases/kernel/syscalls/sendto/sendto01.c
++++ b/testcases/kernel/syscalls/sendto/sendto01.c
+@@ -106,8 +106,6 @@ struct test_case_t tdat[] = {
+ 	 .cleanup = cleanup0,
+ 	 .desc = "invalid socket"}
+ 	,
+-#ifndef UCLINUX
+-	/* Skip since uClinux does not implement memory protection */
+ 	{.domain = PF_INET,
+ 	 .type = SOCK_DGRAM,
+ 	 .proto = 0,
+@@ -122,7 +120,6 @@ struct test_case_t tdat[] = {
+ 	 .cleanup = cleanup1,
+ 	 .desc = "invalid send buffer"}
+ 	,
+-#endif
+ 	{.domain = PF_INET,
+ 	 .type = SOCK_STREAM,
+ 	 .proto = 0,
+@@ -165,8 +162,6 @@ struct test_case_t tdat[] = {
+ 	 .cleanup = cleanup1,
+ 	 .desc = "invalid to buffer length"}
+ 	,
+-#ifndef UCLINUX
+-	/* Skip since uClinux does not implement memory protection */
+ 	{.domain = PF_INET,
+ 	 .type = SOCK_DGRAM,
+ 	 .proto = 0,
+@@ -181,7 +176,6 @@ struct test_case_t tdat[] = {
+ 	 .cleanup = cleanup1,
+ 	 .desc = "invalid to buffer"}
+ 	,
+-#endif
+ 	{.domain = PF_INET,
+ 	 .type = SOCK_DGRAM,
+ 	 .proto = 0,
+@@ -227,10 +221,6 @@ struct test_case_t tdat[] = {
+ 
+ int TST_TOTAL = sizeof(tdat) / sizeof(tdat[0]);
+ 
+-#ifdef UCLINUX
+-static char *argv0;
+-#endif
+-
+ static pid_t start_server(struct sockaddr_in *sin0)
+ {
+ 	pid_t pid;
+@@ -257,13 +247,7 @@ static pid_t start_server(struct sockaddr_in *sin0)
+ 
+ 	switch ((pid = tst_fork())) {
+ 	case 0:
+-#ifdef UCLINUX
+-		if (self_exec(argv0, "d", sfd) < 0)
+-			tst_brkm(TBROK | TERRNO, cleanup,
+-				 "server self_exec failed");
 -#else
  		do_child();
 -#endif
  		break;
  	case -1:
  		tst_brkm(TBROK | TERRNO, cleanup, "server fork failed");
+@@ -323,11 +307,6 @@ int main(int ac, char *av[])
+ 
+ 	tst_parse_opts(ac, av, NULL, NULL);
+ 
+-#ifdef UCLINUX
+-	argv0 = av[0];
+-	maybe_run_child(&do_child, "d", &sfd);
+-#endif
+-
+ 	setup();
+ 
+ 	for (lc = 0; TEST_LOOPING(lc); ++lc) {
 -- 
 2.43.0
 
