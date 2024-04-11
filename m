@@ -1,120 +1,113 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6B768A15C4
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 15:38:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E63F28A1771
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:39:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A4F933CF828
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 15:38:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A54DD3CF86B
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:39:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EA6FA3CF816
- for <ltp@lists.linux.it>; Thu, 11 Apr 2024 15:38:24 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 3E4143CF832
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:32 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DB9C66233B3
- for <ltp@lists.linux.it>; Thu, 11 Apr 2024 15:38:22 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B24E2100F07D
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:30 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8E6025C9A1;
- Thu, 11 Apr 2024 13:38:21 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 85B33375A5;
+ Thu, 11 Apr 2024 14:30:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1712842701;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8/rDYfirXBulMG7u8dapU8x8bbbwOoaEL1wWHD3eyQo=;
- b=nkWv7rx49EubRYJdatr3jibtSg39kl0ZxUwNDqgaUMmD/mtIJa4kFgqPwdDA9Y2v54lOci
- Tns4WB7CH4Iyr6eENVBCommBKwGCHuKcs/3Yky9FOIJO2ZISSKF75csMQHAfzy/Pw3pxhH
- b40TT1GQubR/Y4hUF63S7cl8d9b2roQ=
+ t=1712845829; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=NAXaqetwF6hL//fq6oUVl72TleUxiMl/rSaKBMe3bRA=;
+ b=xqJXLK0hQ1HkTDjblR5d8Vb4kNPvi7QWAk4OmOi86e7qz4TBLYaolNCXZaMvB6xcbCICNc
+ Pyj4VAUyO4KWsjX0uo3x3VwzdNidVZbyBUOYOmTm1A36yHE4Id2ZpWkDS2b2JXl6kKba+1
+ IH6hRk4O45/qCl2RhCiTyYWnezw2eDc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1712842701;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8/rDYfirXBulMG7u8dapU8x8bbbwOoaEL1wWHD3eyQo=;
- b=ECl/utpzKEPzEKa1V9PRjpoc1mjGKy6w1BNBysdvzDnyNST7KCJYLkmD+oTy/8xfbWaAUY
- NP3wA5rbRtqbbMAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
+ s=susede2_ed25519; t=1712845829;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=NAXaqetwF6hL//fq6oUVl72TleUxiMl/rSaKBMe3bRA=;
+ b=OTu3pZtPU5Dgspbl5ckCmEb1k3EbRZOdn3fqCBHPR9WvBHuNME1MzTzAwjd+fy8tXWDdON
+ Ksle32+jUcNywtBw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=xqJXLK0h;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=OTu3pZtP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1712842701;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8/rDYfirXBulMG7u8dapU8x8bbbwOoaEL1wWHD3eyQo=;
- b=nkWv7rx49EubRYJdatr3jibtSg39kl0ZxUwNDqgaUMmD/mtIJa4kFgqPwdDA9Y2v54lOci
- Tns4WB7CH4Iyr6eENVBCommBKwGCHuKcs/3Yky9FOIJO2ZISSKF75csMQHAfzy/Pw3pxhH
- b40TT1GQubR/Y4hUF63S7cl8d9b2roQ=
+ t=1712845829; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=NAXaqetwF6hL//fq6oUVl72TleUxiMl/rSaKBMe3bRA=;
+ b=xqJXLK0hQ1HkTDjblR5d8Vb4kNPvi7QWAk4OmOi86e7qz4TBLYaolNCXZaMvB6xcbCICNc
+ Pyj4VAUyO4KWsjX0uo3x3VwzdNidVZbyBUOYOmTm1A36yHE4Id2ZpWkDS2b2JXl6kKba+1
+ IH6hRk4O45/qCl2RhCiTyYWnezw2eDc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1712842701;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8/rDYfirXBulMG7u8dapU8x8bbbwOoaEL1wWHD3eyQo=;
- b=ECl/utpzKEPzEKa1V9PRjpoc1mjGKy6w1BNBysdvzDnyNST7KCJYLkmD+oTy/8xfbWaAUY
- NP3wA5rbRtqbbMAw==
+ s=susede2_ed25519; t=1712845829;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=NAXaqetwF6hL//fq6oUVl72TleUxiMl/rSaKBMe3bRA=;
+ b=OTu3pZtPU5Dgspbl5ckCmEb1k3EbRZOdn3fqCBHPR9WvBHuNME1MzTzAwjd+fy8tXWDdON
+ Ksle32+jUcNywtBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 48723139DE;
- Thu, 11 Apr 2024 13:38:21 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3DBAF1386D;
+ Thu, 11 Apr 2024 14:30:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id n/MFEM3nF2bzMwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 11 Apr 2024 13:38:21 +0000
-Date: Thu, 11 Apr 2024 15:38:15 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id H8lCDQX0F2ZZRgAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 11 Apr 2024 14:30:29 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20240411133815.GA338630@pevik>
-References: <6868ae95-b004-4fb2-8aac-7ccf96b32f90@suse.com>
- <CAEemH2eDT6gN3hw=Lz2qgnwFnnHmNYai9tqbKduSkcWfNjpERQ@mail.gmail.com>
- <20240410101225.GA187895@pevik>
- <CAEemH2e7GAQmdkcu0p3p=4Hequ4nck2+ECeSfMYpXSpvKhqsDg@mail.gmail.com>
+To: ltp@lists.linux.it
+Date: Thu, 11 Apr 2024 16:29:54 +0200
+Message-ID: <20240411143025.352507-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2e7GAQmdkcu0p3p=4Hequ4nck2+ECeSfMYpXSpvKhqsDg@mail.gmail.com>
-X-Spam-Score: -7.30
+X-Spam-Score: -1.51
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 85B33375A5
 X-Spam-Level: 
-X-Spamd-Result: default: False [-7.30 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
- SUBJECT_ENDS_EXCLAIM(0.20)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; TO_DN_EQ_ADDR_SOME(0.00)[];
- TO_DN_SOME(0.00)[]; MISSING_XM_UA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-1.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCPT_COUNT_FIVE(0.00)[6]; REPLYTO_EQ_FROM(0.00)[]
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[suse.cz,linux-m68k.org,gmail.com,landley.net,physik.fu-berlin.de,lists.linux-m68k.org,vger.kernel.org];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim];
+ TAGGED_RCPT(0.00)[]; RCPT_COUNT_SEVEN(0.00)[9];
+ DKIM_TRACE(0.00)[suse.cz:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] New LTP documentation!
+Subject: [LTP] [PATCH 00/31] Remove UCLINUX (nommu support) from LTP legacy
+ C API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,105 +119,151 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Giovanni Lostumbo <giovanni.lostumbo@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Rob Landley <rob@landley.net>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgTGksCgo+IEhpIFBldHIsCgo+IE9uIFdlZCwgQXByIDEwLCAyMDI0IGF0IDY6MTLigK9QTSBQ
-ZXRyIFZvcmVsIDxwdm9yZWxAc3VzZS5jej4gd3JvdGU6Cgo+ID4gSGkgYWxsLAoKPiA+ID4gSGkg
-QW5kcmVhLAoKPiA+ID4gT24gTW9uLCBNYXIgMTgsIDIwMjQgYXQgODo0MeKAr1BNIEFuZHJlYSBD
-ZXJ2ZXNhdG8gdmlhIGx0cCA8Cj4gPiBsdHBAbGlzdHMubGludXguaXQ+Cj4gPiA+IHdyb3RlOgoK
-PiA+ID4gPiBIZWxsbyBldmVyeW9uZSwKCj4gPiA+ID4gYXMgYWxyZWFkeSBtZW50aW9uZWQgaW4g
-dGhlIG1vbnRobHkgTFRQIG1lZXRpbmcsIExpbnV4IFRlc3QgUHJvamVjdAo+ID4gPiA+IGxhY2tz
-IG9mIGEgbmljZSBhbmQgY2xlYW4gZG9jdW1lbnRhdGlvbiB0aGF0IGNhbiBiZSBlYXNpbHkgYWNj
-ZXNzZWQgYnkKPiA+ID4gPiB1c2VycywgZGV2ZWxvcGVycyBhbmQgbWFpbnRhaW5lcnMuCj4gPiA+
-ID4gVGhlIGN1cnJlbnQgTFRQIGRvY3VtZW50YXRpb24gaXMgYWxzbyBub3QgbWF0Y2hpbmcgd2l0
-aCBvdXIgZXhwZWN0YW5jeQo+ID4gPiA+IHRvd2FyZHMgdGhlIGVudGlyZSBwcm9qZWN0LCB3aGlj
-aCBpcyBoYXMgYmVlbiBoZWF2aWx5IHJlZmFjdG9yZWQgYW5kIGl0Cj4gPiA+ID4gaGFzIGNoYW5n
-ZWQgaW4gdGhlIHBhc3QgeWVhcnMsIHByb3ZpZGluZyBhIGhpZ2hlciBxdWFsaXR5IGNvZGUgYW5k
-IG5ldwo+ID4gPiA+IHRlc3RpbmcgZmVhdHVyZXMuCgo+ID4gPiA+IEZvciB0aGlzIHJlYXNvbnMs
-IHdlIHRoaW5rIGl0J3MgdGltZSB0byBtb3ZlIGZvcndhcmQgYW5kIHRvIHN0YXJ0Cj4gPiA+ID4g
-d29ya2luZyBvbiBkb2N1bWVudGF0aW9uLCBoZWxwaW5nIHBlb3BsZSB0byB1c2UsIHRvIGRldmVs
-b3AgYW5kIHRvCj4gPiA+ID4gbWFpbnRhaW4gTFRQIGluIGFuIGVhc2llciB3YXksIGluY3JlYXNp
-bmcgcXVhbGl0eSBvZiB0aGUgb3ZlcmFsbAo+ID4gcHJvamVjdAo+ID4gPiA+IGFuZCB0byBjYWxs
-IG1vcmUgZGV2ZWxvcGVycyBpbiB0aGUgY29tbXVuaXR5LgoKPiA+ID4gPiBJIHN0YXJ0ZWQgdG8g
-d29yayBvbiBkb2N1bWVudGF0aW9uIHJlZmFjdG9yaW5nLCByZS1vcmdhbml6aW5nIHRoZQo+ID4g
-PiA+IG92ZXJhbGwgc3RydWN0dXJlLiBUaGUgZmlyc3QgcHJvdG90eXBlIGNhbiBiZSBmb3VuZCBo
-ZXJlOgoKPiA+ID4gPiBodHRwczovL2x0cC1hY2Vydi5yZWFkdGhlZG9jcy5pby9lbi9sYXRlc3Qv
-aW5kZXguaHRtbAoKCj4gPiA+IExvb2tzIGdyZWF0ISBUaGFua3MgZm9yIGJyaW5naW5nIHRoaXMu
-Cgo+ID4gPiBBbmQgSSBqdXN0IHRyaWVkIHRoYXQgdGhlIGxhdGVzdCBMVFAgY29tcGlsZWQgJiBl
-eGVjdXRlZCBzdWNjZWVkIG9uCj4gPiA+IFJIRUwtNy45Lgo+ID4gPiBDYW4geW91IHVwZGF0ZSB0
-aGUgIk9sZGVzdCB0ZXN0ZWQgZGlzdHJpYnV0aW9ucyIgWzFdIHBhcnQgYnkgYWRkaW5nOgoKPiA+
-ID4gICBSSEVMLTcuOSBNYWlwbyAoRGlzdHJvKSAgMy4xMCAoa2VybmVsKSAgNC44LjUoZ2NjKSAg
-Mi4xNyhnbGliYykKPiA+IC0oY2xhbmcpCgo+ID4gQWx0aG91Z2ggaW4gdGhlIG9yaWdpbmFsIGRv
-Y3MsIHRoZSB0YWJsZSB3YXMgbm90IHVuZGVyIHNlY3Rpb24gIkJ1aWxkCj4gPiB0ZXN0aW5nCj4g
-PiB3aXRoIEdpdEh1YiBBY3Rpb25zIiwgSSBhc3N1bWVkIGl0J3MgY2xlYXIgd2UgdGFsayBhYm91
-dCBHaXRIdWIgQWN0aW9ucwo+ID4gdGVzdGluZy4KPiA+IFRoYXQncyB3aHkgSSBwdXQgdGhlcmUg
-b25seSBkaXN0cm9zIHdlIGFjdHVhbGx5IGhhdmUgaW4KPiA+IC5naXRodWIvd29ya2Zsb3dzL2Np
-LnltbAo+ID4gYW5kIG5vdCBlLmcuIFNMRTEyLVNQMiB3aGljaCB3ZSB0ZXN0IHdpdGggbGF0ZXN0
-IExUUCByZWxlYXNlLgoKPiA+IEkgYWN0dWFsbHkgZmluZCB1c2VmdWwgdG8gc3RhbmQgd2hpY2gg
-ZGlzdHJvcyB3ZSB0ZXN0IHByaXZhdGVseSwgYnV0IHRoaXMKPiA+IGluZm8KPiA+IHNob3VsZCBi
-ZSBvYnZpb3VzIChlaXRoZXIgYWRkIGEgY29sdW1uICJDSSIsIHdoZXJlIHdvdWxkIGJlICJHaXRI
-dWIKPiA+IEFjdGlvbnMiIG9yCj4gPiAiUkhFTCBwcml2YXRlIENJIiBvciB3aGF0ZXZlci4KCgoK
-Cj4gPiBATGkgQW5kcmVhIHB1dCB0aGVyZSBhcyBuZXcgaW5mbzogIk1pbmltYWwgc3VwcG9ydGVk
-IGtlcm5lbCB2ZXJzaW9uIGlzCj4gPiAzLjEwLiIKPiA+IHdoaWNoIGlzIG5vdCBpbiBvbGQgZG9j
-cy4gRG8geW91IHJlYWxseSB0ZXN0IFJIRUwtNy45ICgzLjEwIGJhc2VkKSB3aXRoIHRoZQo+ID4g
-bGF0ZXN0IExUUCByZWxlYXNlPwoKCj4gWWVzLCBJIGRpZCBidXQgb25seSBjaGVja2VkIG9uIFJI
-RUwtNy45IHdpdGggeDg2XzY0IGFuZCBzMzkweAo+IChjb21waWxlICYgZXhlY3V0aW9uIHdlbGwp
-IGxhc3QgdGltZS4KCj4gQWZ0ZXIgcmVidWlsZGluZyB0aGUgbGF0ZXN0IGJyYW5jaCBvbiBhbGwg
-YXJjaGVzLCBJIGZvdW5kIHRoZSByZXN0Cj4gYXJjaGVzIGhhdmUKPiBwcm9ibGVtcyBpbiBjb21w
-aWxpbmcgKGZvcmdpdmUgbWUgY2FyZWxlc3MgbGFzdCB0aW1lKS4KCj4gTm93IEkgYW0gaGVzaXRh
-bnQgdG8gZml4IHRoZSBlcnJvciBvciByYWlzZSB0aGUgYmFzZWxpbmUgdG8gUkhFTDguMy4KPiAo
-SSB0YWxrZWQgdG8gY29sbGVhZ3VlcyBhbmQgZ290IHRvIGtub3cgdGhleSBhbHdheXMgY2hvc2Ug
-dG8gdXNlIGZpeGVkCj4gdmVyc2lvbnMgb2YgTFRQIHdoZW4gPD1SSEVMOC4yKS4KClRoYW5rcyBm
-b3IgaW5mbyEgRXZlbiB5b3UgZml4IHRoZSBjb21waWxhdGlvbiBvdXRkYXRlZCBpbmZvIGlzIHdo
-eSBJIHdvdWxkCmRlbGV0ZSBSSEVMIDcuOSBpbmZvIGFuZCAzLjEwIGJhc2VkIGtlcm5lbCBmcm9t
-IG91ciBkb2NzLiBDdXJyZW50bHkgSSdtIG5vdApmaXhpbmcgdGVzdCBydW50aW1lIGlzc3VlcyBl
-dmVuIGZvciBTTEUxMi1TUDMgKGtlcm5lbCA0LjQgYmFzZWQpLiBIYXZpbmcgIndlCnN1cHBvcnQg
-a2VybmVsIDMuMTAiIGlzIGFza2luZyBmb3IgcmFuZG9tIHRlc3RpbmcgZm9sa3MgY3JlYXRpbmcg
-dXNlbGVzcyBnaXRodWIKaXNzdWVzICJ0ZXN0IGJyb2tlbiBvbiBrZXJuZWwgPj0gMy4xMCA8IDQu
-MTkgKG9sZGVzdCBtYWlubGluZSBsb25ndGVybSBrZXJuZWwpLgoKSSB3b3VsZCByZWFsbHkgc3Rh
-dGUgd2hhdCB3ZSB0ZXN0IGluIENJIGFuZCBkaWQgbm90IGdpdmUgZmFsc2UgZXhwZWN0YXRpb24g
-YWJvdXQKdGhlIGFjdHVhbCB0ZXN0IGZ1bmN0aW9uYWxpdHkuIEFuZCBpZiB3ZSByZWFsbHkgd2Fu
-dCB0byBzdGF0ZSB3aGF0IHdlIGJ1aWxkIGZvciwKSSdkIHByZWZlciBtZW50aW9uaW5nIHRoYXQg
-d2UgYXJlIGNvbXBpbGUgZm9yIHRoYXQgZGlzdHJvIChpLmUuIHRlc3RzIHN0aWxsIGNhbgpoYXZl
-IGJ1Z3MsIGl0IG1pZ2h0IGJlIHNraXBwZWQgZHVlIG9sZCBjb25maWcgYW5kIGJ1ZyBub3Qgbm90
-aWNlIG9yIHRlc3QgZmFpbHVyZQpidXQgV09OVEZJWCBldGMpLiBBZ2FpbiwgbWlzc2VkIHVwZGF0
-ZSB3aGVuIHdlIGNoYW5nZSBHaXRIdWIgQWN0aW9ucyBzZXR1cCBpcwplYXNpbHkgdG8gYmUgY2hl
-Y2tlZCwgYnV0IGNsYWltaW5nIHNvbWV0aGluZyBpcyB0ZXN0aW5nIHByaXZhdGUgQ0kgaXMgYXNr
-aW5nIHRvCmhhdmUgb3V0ZGF0ZWQgaW5mbyBzb29uZXIgb3IgbGF0ZXIuCgpLaW5kIHJlZ2FyZHMs
-ClBldHIKCj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gIyAzLjEwLjAtMTEzNi5lbDcucHBjNjRs
-ZQoKPiAjIGdsaWJjLTIuMTctMzE2LmVsNy5wcGM2NGxlCgo+IEluIGZpbGUgaW5jbHVkZWQgZnJv
-bSAvdXNyL2luY2x1ZGUvdGVybWlvcy5oOjQwOjAsCj4gICAgICAgICAgICAgICAgICBmcm9tIC91
-c3IvaW5jbHVkZS9iaXRzL2lvY3RsLXR5cGVzLmg6NSwKPiAgICAgICAgICAgICAgICAgIGZyb20g
-L3Vzci9pbmNsdWRlL3N5cy9pb2N0bC5oOjI5LAo+ICAgICAgICAgICAgICAgICAgZnJvbSAuLi8u
-Li8uLi8uLi9pbmNsdWRlL2xhcGkvaW9jdGwuaDoxMSwKPiAgICAgICAgICAgICAgICAgIGZyb20g
-aW9jdGwwMi5jOjMxOgo+IC91c3IvaW5jbHVkZS9iaXRzL3Rlcm1pb3MuaDozMzo4OiBlcnJvcjog
-cmVkZWZpbml0aW9uIG9mIOKAmHN0cnVjdCB0ZXJtaW9z4oCZCj4gIHN0cnVjdCB0ZXJtaW9zIHsK
-PiAgICAgICAgIF4KPiBJbiBmaWxlIGluY2x1ZGVkIGZyb20gaW9jdGwwMi5jOjI5OjA6Cj4gL3Vz
-ci9pbmNsdWRlL2FzbS90ZXJtYml0cy5oOjIyOjg6IG5vdGU6IG9yaWdpbmFsbHkgZGVmaW5lZCBo
-ZXJlCj4gIHN0cnVjdCB0ZXJtaW9zIHsKPiAgICAgICAgIF4KCgpIbSwgbm90IGluIGh0dHBzOi8v
-c291cmNld2FyZS5vcmcvZ2xpYmMvd2lraS9TeW5jaHJvbml6aW5nX0hlYWRlcnMuCgpJIHN1c3Bl
-Y3Q6CjY5N2EwNmE4MiAoImlvY3RsMDI6IFVzZSBjb3JyZWN0IHRlcm1pb3Mgc3RydWN0dXJlIikK
-ClRoYXQgd2FzIHJlcXVpcmVkIHRvIGZpeCBydW50aW1lIGVycm9yIG9uIHBwYzY0bGUsIG5vdCBz
-dXJlIGlmIGl0J3MgZWFzeSB0byBiZQpmaXhlZCAobTQgbWFjcm8gd291bGQgYmUgcHJvYmFibHkg
-cmVxdWlyZWQpLgoKSWYgbm90LCBmZWVsIGZyZWUgdG8gYmlzZWN0LCB3aGV0aGVyIG9uZSBvZiB0
-aGVzZSBvciBzb21ldGhpbmcgZWxzZSBicm9rZSBpdDoKCjg4NzhmYzY4MyAoImlvY3RsLHB0eTog
-QWRkIGZhbGxiYWNrIGRlZmluaXRpb24gb2Ygc3RydWN0IHRlcm1pbyIpCmZlZDYzY2U5NyAoInB0
-eTAzOiBBZGQgZmFsbGJhY2sgZGVmaW5pdGlvbiBmb3IgVElPQ1ZIQU5HVVAiKQoKS2luZCByZWdh
-cmRzLApQZXRyCgo+ID4gQFlhbmcgWHUgSSBmb3VuZCB5b3UgcmVtb3ZlZCBmYWxsYmFja3MgdXAg
-dG8ga2VybmVsIDMuMTA6Cgo+ID4gMDZhZGEwMzI5ICgiUmVtb3ZlIG9sZCBrZXJuZWwgdmVyc2lv
-biBjaGVjayB3aGVuIHVzaW5nIG1pbl9rdmVyIHVuZGVyCj4gPiAzLjEwIikKPiA+IDg2MmQ5NGM0
-NSAoIlJlbW92ZSBvbGQga2VybmVsIHZlcnNpb24gY2hlY2sgd2hlbiB1c2luZyB0c3Rfa3ZlcmNt
-cCB1bmRlcgo+ID4gMy4xMCIpCj4gPiA5NzE4MjhjMDAgKCJzaGVsbDogUmVtb3ZlIG9sZCBrZXJu
-ZWwgdmVyc2lvbiBjaGVjayBiZWxvdyAzLjEwIikKCj4gPiBIb3BlZnVsbHkgSSBoYXZlbid0IG92
-ZXJsb29rIGFueXRoaW5nLgoKPiA+IEBBbmRyZWE6IEFsc28sIEkgd291bGQgcHJlZmVyIHRvIHB1
-dCBiYWNrIHBhcmFncmFwaCAiMS4gQnVpbGQgdGVzdGluZyB3aXRoCj4gPiBHaXRIdWIgQWN0aW9u
-cyIuIEknbGwgc2VuZCBhIHBhdGNoLCB0byBmb3JjZSBteXNlbGYgdG8gbGVhcm4gYnVpbGRpbmcg
-bmV3Cj4gPiBkb2NzLgoKPiA+IEtpbmQgcmVnYXJkcywKPiA+IFBldHIKCj4gPiA+IFsxXQo+ID4g
-aHR0cHM6Ly9sdHAtYWNlcnYucmVhZHRoZWRvY3MuaW8vZW4vbGF0ZXN0L3VzZXJzL3N1cHBvcnRl
-ZF9zeXN0ZW1zLmh0bWwKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51
-eC5pdC9saXN0aW5mby9sdHAK
+Hi all,
+
+this is a patchset I announced 3 months ago [1]. I'm Cc you only in
+cover letter (I don't want to fill your mailbox, the code itself is in
+LTP ML [2], lore archive [3], patchwork [4]).
+
+Kind regards,
+Petr
+
+[1] https://lore.kernel.org/ltp/20240103015240.1065284-1-pvorel@suse.cz/
+[2] https://lists.linux.it/pipermail/ltp/2024-April/thread.html
+[3] https://lore.kernel.org/ltp/
+[4] https://patchwork.ozlabs.org/project/ltp/list/
+
+Petr Vorel (31):
+  m4: Remove UCLINUX (nommu detection)
+  make: Remove WITH_POWER_MANAGEMENT_TESTSUITE
+  make: Remove UCLINUX (nommu detection)
+  test.h: Remove MAP_PRIVATE_EXCEPT_UCLINUX
+  tree: Remove FORK_OR_VFORK and tst_vfork()
+  lib/parse_opts.c: Remove UCLINUX
+  tlibio.c: Remove UCLINUX
+  clone02: Remove UCLINUX
+  connect01: Remove UCLINUX
+  creat06: Remove UCLINUX
+  fcntl: Remove UCLINUX
+  semctl06: Remove UCLINUX
+  kill: Remove UCLINUX
+  madvise02: Remove UCLINUX
+  mlockall: Remove UCLINUX
+  munmap: Remove UCLINUX
+  writev05: Remove UCLINUX
+  pipe: Remove UCLINUX
+  pause: Remove UCLINUX
+  recv*: Remove UCLINUX
+  send*: Remove UCLINUX
+  sock*: Remove UCLINUX
+  read02: Remove UCLINUX
+  setgroups04: Remove UCLINUX
+  setsid01: Remove UCLINUX
+  sigrelse01: Remove UCLINUX
+  sysinfo02: Remove UCLINUX
+  ustat02: Remove UCLINUX
+  lib: Remove -C option and self_exec.c
+  Remove doc/old/nommu-notes.txt
+  doc: UCLINUX has been removed
+
+ Makefile                                      |   7 -
+ configure.ac                                  |   1 -
+ doc/maintainers/patch_review.rst              |   4 -
+ ...Maintainer-Patch-Review-Checklist.asciidoc |   3 -
+ doc/old/nommu-notes.txt                       | 171 -------------
+ include/mk/env_post.mk                        |   4 -
+ include/mk/features.mk.in                     |  11 -
+ include/old/test.h                            |  21 --
+ lib/parse_opts.c                              |  23 +-
+ lib/self_exec.c                               | 225 ------------------
+ lib/tlibio.c                                  |   2 +-
+ lib/tst_res.c                                 |   8 -
+ lib/tst_test.c                                |  15 --
+ m4/ltp-nommu-linux.m4                         |  14 --
+ runtest/Makefile                              |   4 -
+ testcases/kernel/Makefile                     |   7 +-
+ testcases/kernel/syscalls/Makefile            |   5 -
+ testcases/kernel/syscalls/access/Makefile     |   4 -
+ testcases/kernel/syscalls/clone/clone02.c     |   5 -
+ testcases/kernel/syscalls/connect/connect01.c |  17 +-
+ testcases/kernel/syscalls/creat/creat06.c     |   6 -
+ testcases/kernel/syscalls/epoll/epoll-ltp.c   |   4 +-
+ testcases/kernel/syscalls/exit/exit01.c       |   2 +-
+ testcases/kernel/syscalls/fcntl/fcntl07.c     |   2 +-
+ testcases/kernel/syscalls/fcntl/fcntl11.c     |  16 +-
+ testcases/kernel/syscalls/fcntl/fcntl14.c     |  52 +---
+ testcases/kernel/syscalls/fcntl/fcntl16.c     |  29 +--
+ testcases/kernel/syscalls/fcntl/fcntl17.c     |  59 +----
+ testcases/kernel/syscalls/fcntl/fcntl18.c     |  12 +-
+ testcases/kernel/syscalls/fcntl/fcntl19.c     |  15 +-
+ testcases/kernel/syscalls/fcntl/fcntl20.c     |  16 +-
+ testcases/kernel/syscalls/fcntl/fcntl21.c     |  18 +-
+ testcases/kernel/syscalls/fcntl/fcntl22.c     |   2 +-
+ testcases/kernel/syscalls/ipc/msgsnd/Makefile |   4 -
+ .../syscalls/ipc/msgstress/msgstress01.c      |   4 +-
+ .../syscalls/ipc/msgstress/msgstress02.c      |   6 +-
+ .../syscalls/ipc/msgstress/msgstress03.c      |   4 +-
+ .../syscalls/ipc/msgstress/msgstress04.c      |   6 +-
+ .../kernel/syscalls/ipc/semctl/semctl06.c     |   9 +-
+ testcases/kernel/syscalls/kill/kill02.c       | 101 +-------
+ testcases/kernel/syscalls/kill/kill07.c       |  12 +-
+ testcases/kernel/syscalls/kill/kill08.c       |  15 +-
+ testcases/kernel/syscalls/kill/kill09.c       |  13 +-
+ testcases/kernel/syscalls/kill/kill12.c       |   2 +-
+ testcases/kernel/syscalls/madvise/madvise02.c |  25 +-
+ .../kernel/syscalls/mlockall/mlockall01.c     |  12 -
+ .../kernel/syscalls/mlockall/mlockall02.c     |  12 -
+ .../kernel/syscalls/mlockall/mlockall03.c     |  12 -
+ .../kernel/syscalls/modify_ldt/modify_ldt02.c |   2 +-
+ .../kernel/syscalls/mprotect/mprotect02.c     |   4 +-
+ .../kernel/syscalls/mprotect/mprotect03.c     |   2 +-
+ testcases/kernel/syscalls/munmap/munmap01.c   |  18 +-
+ testcases/kernel/syscalls/munmap/munmap02.c   |  18 --
+ testcases/kernel/syscalls/munmap/munmap03.c   |   3 +-
+ testcases/kernel/syscalls/pause/pause02.c     |  11 +-
+ testcases/kernel/syscalls/pause/pause03.c     |  13 +-
+ testcases/kernel/syscalls/pipe/pipe02.c       |   9 -
+ testcases/kernel/syscalls/pipe/pipe04.c       |  23 +-
+ testcases/kernel/syscalls/pipe/pipe09.c       |   4 +-
+ testcases/kernel/syscalls/read/read02.c       |   4 -
+ testcases/kernel/syscalls/recv/recv01.c       |  19 +-
+ .../kernel/syscalls/recvfrom/recvfrom01.c     |  17 +-
+ testcases/kernel/syscalls/rename/rename14.c   |   4 +-
+ testcases/kernel/syscalls/send/send01.c       |  23 +-
+ testcases/kernel/syscalls/sendmsg/sendmsg01.c |  16 +-
+ testcases/kernel/syscalls/sendto/sendto01.c   |  23 +-
+ .../kernel/syscalls/setfsuid/setfsuid04.c     |   4 +-
+ .../kernel/syscalls/setgroups/setgroups04.c   |  12 -
+ testcases/kernel/syscalls/setpgid/setpgid01.c |   2 +-
+ testcases/kernel/syscalls/setpgrp/setpgrp01.c |   2 +-
+ .../kernel/syscalls/setrlimit/setrlimit01.c   |   6 +-
+ testcases/kernel/syscalls/setsid/setsid01.c   |  29 +--
+ .../kernel/syscalls/sigrelse/sigrelse01.c     |  20 +-
+ .../kernel/syscalls/socketpair/socketpair01.c |   2 -
+ .../kernel/syscalls/sockioctl/sockioctl01.c   |   2 -
+ testcases/kernel/syscalls/sysinfo/sysinfo02.c |  12 -
+ testcases/kernel/syscalls/ustat/ustat02.c     |   2 -
+ testcases/kernel/syscalls/writev/Makefile     |   4 -
+ testcases/kernel/syscalls/writev/writev02.c   |   3 +-
+ testcases/kernel/syscalls/writev/writev05.c   |  15 +-
+ testcases/kernel/syscalls/writev/writev06.c   |   8 +-
+ 81 files changed, 100 insertions(+), 1257 deletions(-)
+ delete mode 100644 doc/old/nommu-notes.txt
+ delete mode 100644 lib/self_exec.c
+ delete mode 100644 m4/ltp-nommu-linux.m4
+
+-- 
+2.43.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
