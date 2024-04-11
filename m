@@ -2,119 +2,111 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D86E98A1740
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:31:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C9988A1747
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:33:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9F99C3CF83C
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:31:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C3BA43CF85C
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Apr 2024 16:33:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E34863C0333
- for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:32 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 6C3F13CF800
+ for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:33 +0200 (CEST)
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 62C45208F79
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8C4F06126EE
  for <ltp@lists.linux.it>; Thu, 11 Apr 2024 16:30:32 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 552A35CD2C;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 839A4375AD;
  Thu, 11 Apr 2024 14:30:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1712845831; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cjdC7lbULd4JoqWLBXMc2mYzBEbmEAywIl7vs6BjW6M=;
- b=EBYFOnCGiZ5M0DLS+bbE6PAA4nOzzXMqnXhF/zKd7nz7oNtEjNDRtPr9ovUiwv8wNgGERS
- 0LiUzJ9g74BV/wwOqaJtY3j6+/zMpo17rtoE6RmGSRBVSiflMuBkvAoTUwiVnQ/T9g1BoW
- m5ybi05sXc/SP5JQkaQLryQXrDwTvpE=
+ bh=nHeOqDREtbdJFWMmClejc06mAOTC9+z1Fl9QDH33crI=;
+ b=ab6v1yqHci1hWXIgOXgxs3QDzAWdtXshl7xsqiARsIDy+ky6I/D4qt+RDQpDumbQXX+MR/
+ 5kELtIHBghij7dSB7pMl2BKifIEar0Ja58Y7t6fxXOo0M2ci3YcwTnyVxNFCPcko9p2HSP
+ cHLCWGUPKI/lWIjxQVwW/KMkUsz0Gj0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1712845831;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cjdC7lbULd4JoqWLBXMc2mYzBEbmEAywIl7vs6BjW6M=;
- b=eY9ydzAByu71+YjuxrfYvKK0EA2MTVZhfT+SbVbuZ2zLsLtRoTCpOi9wu5mMz4OFf5KRlZ
- hrcufnocy2Gy8MBw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=EBYFOnCG;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=eY9ydzAB
+ bh=nHeOqDREtbdJFWMmClejc06mAOTC9+z1Fl9QDH33crI=;
+ b=EYswfls7NBUXighvD9+zFrX2Of8iz6ERTmzM3ScLXnvLRoshux8bBpi/jcaoAIFaLuTFjq
+ dM0dKvwAtPDR8gCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1712845831; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cjdC7lbULd4JoqWLBXMc2mYzBEbmEAywIl7vs6BjW6M=;
- b=EBYFOnCGiZ5M0DLS+bbE6PAA4nOzzXMqnXhF/zKd7nz7oNtEjNDRtPr9ovUiwv8wNgGERS
- 0LiUzJ9g74BV/wwOqaJtY3j6+/zMpo17rtoE6RmGSRBVSiflMuBkvAoTUwiVnQ/T9g1BoW
- m5ybi05sXc/SP5JQkaQLryQXrDwTvpE=
+ bh=nHeOqDREtbdJFWMmClejc06mAOTC9+z1Fl9QDH33crI=;
+ b=ab6v1yqHci1hWXIgOXgxs3QDzAWdtXshl7xsqiARsIDy+ky6I/D4qt+RDQpDumbQXX+MR/
+ 5kELtIHBghij7dSB7pMl2BKifIEar0Ja58Y7t6fxXOo0M2ci3YcwTnyVxNFCPcko9p2HSP
+ cHLCWGUPKI/lWIjxQVwW/KMkUsz0Gj0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1712845831;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cjdC7lbULd4JoqWLBXMc2mYzBEbmEAywIl7vs6BjW6M=;
- b=eY9ydzAByu71+YjuxrfYvKK0EA2MTVZhfT+SbVbuZ2zLsLtRoTCpOi9wu5mMz4OFf5KRlZ
- hrcufnocy2Gy8MBw==
+ bh=nHeOqDREtbdJFWMmClejc06mAOTC9+z1Fl9QDH33crI=;
+ b=EYswfls7NBUXighvD9+zFrX2Of8iz6ERTmzM3ScLXnvLRoshux8bBpi/jcaoAIFaLuTFjq
+ dM0dKvwAtPDR8gCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3653F1386D;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6007A1386E;
  Thu, 11 Apr 2024 14:30:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id KPFsCwf0F2ZZRgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uDtuFgf0F2ZZRgAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 11 Apr 2024 14:30:31 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 11 Apr 2024 16:30:04 +0200
-Message-ID: <20240411143025.352507-11-pvorel@suse.cz>
+Date: Thu, 11 Apr 2024 16:30:05 +0200
+Message-ID: <20240411143025.352507-12-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240411143025.352507-1-pvorel@suse.cz>
 References: <20240411143025.352507-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: -2.93
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 552A35CD2C
+X-Spam-Score: -2.80
 X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-2.93 / 50.00]; BAYES_HAM(-2.92)[99.64%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; RCPT_COUNT_TWO(0.00)[2];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_TWO(0.00)[2]; TO_DN_SOME(0.00)[];
- DKIM_TRACE(0.00)[suse.cz:+]
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
+ RCVD_TLS_ALL(0.00)[]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 10/31] creat06: Remove UCLINUX
+Subject: [LTP] [PATCH 11/31] fcntl: Remove UCLINUX
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,49 +125,435 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/syscalls/creat/creat06.c | 6 ------
- 1 file changed, 6 deletions(-)
+ testcases/kernel/syscalls/fcntl/fcntl11.c | 16 +-----
+ testcases/kernel/syscalls/fcntl/fcntl14.c | 50 ++-----------------
+ testcases/kernel/syscalls/fcntl/fcntl16.c | 29 +----------
+ testcases/kernel/syscalls/fcntl/fcntl17.c | 59 ++---------------------
+ testcases/kernel/syscalls/fcntl/fcntl18.c | 10 ----
+ testcases/kernel/syscalls/fcntl/fcntl19.c | 13 -----
+ testcases/kernel/syscalls/fcntl/fcntl20.c | 16 +-----
+ testcases/kernel/syscalls/fcntl/fcntl21.c | 18 +------
+ 8 files changed, 14 insertions(+), 197 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/creat/creat06.c b/testcases/kernel/syscalls/creat/creat06.c
-index 5c82e4757..bd9835ea3 100644
---- a/testcases/kernel/syscalls/creat/creat06.c
-+++ b/testcases/kernel/syscalls/creat/creat06.c
-@@ -60,9 +60,7 @@
- static void setup(void);
- static void test6_setup(void);
- static void test6_cleanup(void);
--#if !defined(UCLINUX)
- static void bad_addr_setup(int);
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl11.c b/testcases/kernel/syscalls/fcntl/fcntl11.c
+index 2ad3aee5e..4fd9fcca9 100644
+--- a/testcases/kernel/syscalls/fcntl/fcntl11.c
++++ b/testcases/kernel/syscalls/fcntl/fcntl11.c
+@@ -245,10 +245,6 @@ int main(int ac, char **av)
+ 	int lc;
+ 
+ 	tst_parse_opts(ac, av, NULL, NULL);
+-#ifdef UCLINUX
+-	maybe_run_child(&do_child, "ddddd", &parent_pipe[0],
+-			&parent_pipe[1], &child_pipe[0], &child_pipe[1], &fd);
 -#endif
  
- static struct passwd *ltpuser;
- static char long_name[PATH_MAX+2];
-@@ -78,9 +76,7 @@ static struct test_case_t {
- 	{long_name, MODE1, ENAMETOOLONG, NULL, NULL},
- 	{NO_DIR, MODE1, ENOENT, NULL, NULL},
- 	{NOT_DIR, MODE1, ENOTDIR, NULL, NULL},
--#if !defined(UCLINUX)
- 	{NULL, MODE1, EFAULT, bad_addr_setup, NULL},
--#endif
- 	{TEST6_FILE, MODE1, EACCES, test6_setup, test6_cleanup},
- 	{TEST7_FILE, MODE1, ELOOP, NULL, NULL},
- 	{TEST8_FILE, MODE1, EROFS, NULL, NULL},
-@@ -127,7 +123,6 @@ static void setup(void)
- 	SAFE_SYMLINK("test_file_eloop2", TEST7_FILE);
- }
+ 	setup();		/* global setup */
  
--#if !defined(UCLINUX)
- static void bad_addr_setup(int i)
+@@ -257,17 +253,9 @@ int main(int ac, char **av)
+ 		/* reset tst_count in case we are looping */
+ 		tst_count = 0;
+ 
+-		if ((child_pid = tst_fork()) == 0) {	/* parent */
+-#ifdef UCLINUX
+-			if (self_exec(av[0], "ddddd", parent_pipe[0],
+-				      parent_pipe[1], child_pipe[0],
+-				      child_pipe[1], fd) < 0)
+-				tst_brkm(TBROK | TERRNO, cleanup,
+-					 "self_exec failed");
+-#else
++		if ((child_pid = tst_fork()) == 0) /* parent */
+ 			do_child();
+-#endif
+-		} else if (child_pid == -1)
++		else if (child_pid == -1)
+ 			tst_brkm(TBROK | TERRNO, cleanup, "fork failed");
+ 
+ 		SAFE_CLOSE(cleanup, parent_pipe[0]);
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl14.c b/testcases/kernel/syscalls/fcntl/fcntl14.c
+index 09f5f0954..d38220951 100644
+--- a/testcases/kernel/syscalls/fcntl/fcntl14.c
++++ b/testcases/kernel/syscalls/fcntl/fcntl14.c
+@@ -547,10 +547,6 @@ char *TCID = "fcntl14";
+ int TST_TOTAL = 1;
+ int NO_NFS = 1;
+ 
+-#ifdef UCLINUX
+-static char *argv0;
+-#endif
+-
+ void cleanup(void)
  {
- 	if (tcases[i].fname)
-@@ -136,7 +131,6 @@ static void bad_addr_setup(int i)
- 	tcases[i].fname = SAFE_MMAP(0, 1, PROT_NONE,
- 	                            MAP_PRIVATE | MAP_ANONYMOUS, 0, 0);
- }
+ 	tst_rmdir();
+@@ -745,14 +741,7 @@ void dochild(void)
+ 			fail = 1;
+ 			break;
+ 		case 0:
+-#ifdef UCLINUX
+-			if (self_exec(argv0, "nd", 1, parent) < 0) {
+-				tst_resm(TFAIL, "self_exec failed");
+-				break;
+-			}
+-#else
+ 			do_usleep_child();
+-#endif
+ 			break;
+ 
+ 		default:
+@@ -828,19 +817,9 @@ void run_test(int file_flag, int file_mode, int seek, int start, int end)
+ 		/* flush the stdout to avoid garbled output */
+ 		fflush(stdout);
+ 
+-		if ((child = tst_fork()) == 0) {
+-#ifdef UCLINUX
+-			if (self_exec(argv0, "nddddddddd", 2, thiscase->c_type,
+-				      thiscase->c_whence, thiscase->c_start,
+-				      thiscase->c_len, thiscase->c_flag,
+-				      thiscase->a_type, fd, test, parent) < 0) {
+-				tst_resm(TFAIL, "self_exec failed");
+-				cleanup();
+-			}
+-#else
++		if ((child = tst_fork()) == 0)
+ 			dochild();
+-#endif
+-		}
++
+ 		if (child < 0)
+ 			tst_brkm(TBROK|TERRNO, cleanup, "Fork failed");
+ 
+@@ -943,17 +922,6 @@ int main(int ac, char **av)
+ 	int lc;
+ 
+ 	tst_parse_opts(ac, av, NULL, NULL);
+-#ifdef UCLINUX
+-	argv0 = av[0];
+-
+-	maybe_run_child(&do_usleep_child, "nd", 1, &parent);
+-	thiscase = malloc(sizeof(testcase));
+-
+-	maybe_run_child(&dochild, "nddddddddd", 2, &thiscase->c_type,
+-			&thiscase->c_whence, &thiscase->c_start,
+-			&thiscase->c_len, &thiscase->c_flag, &thiscase->a_type,
+-			&fd, &test, &parent);
 -#endif
  
- static void test6_setup(void)
+ 	setup();
+ 
+@@ -1079,19 +1047,9 @@ int main(int ac, char **av)
+ 		if (sighold(SIGUSR1) < 0)
+ 			tst_brkm(TBROK, cleanup, "sighold failed");
+ 
+-		if ((child = tst_fork()) == 0) {
+-#ifdef UCLINUX
+-			if (self_exec(argv0, "nddddddddd", 2, thiscase->c_type,
+-				      thiscase->c_whence, thiscase->c_start,
+-				      thiscase->c_len, thiscase->c_flag,
+-				      thiscase->a_type, fd, test, parent) < 0) {
+-				tst_resm(TFAIL, "self_exec failed");
+-				cleanup();
+-			}
+-#else
++		if ((child = tst_fork()) == 0)
+ 			dochild();
+-#endif
+-		}
++
+ 		if (child < 0)
+ 			tst_brkm(TBROK|TERRNO, cleanup, "Fork failed");
+ 
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl16.c b/testcases/kernel/syscalls/fcntl/fcntl16.c
+index 2d895edd2..4ae9e6e7a 100644
+--- a/testcases/kernel/syscalls/fcntl/fcntl16.c
++++ b/testcases/kernel/syscalls/fcntl/fcntl16.c
+@@ -279,10 +279,6 @@ extern void catch_int(int sig);	/* signal catching subroutine */
+ char *TCID = "fcntl16";
+ int TST_TOTAL = 1;
+ 
+-#ifdef UCLINUX
+-static char *argv0;
+-#endif
+-
+ /*
+  * cleanup - performs all the ONE TIME cleanup for this test at completion or
+  *	premature exit
+@@ -339,15 +335,6 @@ void dochild(int kid)
+ 	exit(0);
+ }				/* end of child process */
+ 
+-#ifdef UCLINUX
+-static int kid_uc;
+-
+-void dochild_uc(void)
+-{
+-	dochild(kid_uc);
+-}
+-#endif
+-
+ void catch_alarm(int sig)
  {
+ 	alarm_flag = 1;
+@@ -497,17 +484,8 @@ int run_test(int file_flag, int file_mode, int start, int end)
+ 		/* spawn child processes */
+ 		for (i = 0; i < 2; i++) {
+ 			if (thislock->l_type != IGNORED) {
+-				if ((child = tst_fork()) == 0) {
+-#ifdef UCLINUX
+-					if (self_exec(argv0, "ddddd", i, parent,
+-						      test, thislock, fd) < 0) {
+-						perror("self_exec failed");
+-						return 1;
+-					}
+-#else
++				if ((child = tst_fork()) == 0)
+ 					dochild(i);
+-#endif
+-				}
+ 				if (child < 0) {
+ 					perror("Fork failed");
+ 					return 1;
+@@ -654,11 +632,6 @@ int main(int ac, char **av)
+ 	int lc;
+ 
+ 	tst_parse_opts(ac, av, NULL, NULL);
+-#ifdef UCLINUX
+-	maybe_run_child(dochild_uc, "ddddd", &kid_uc, &parent, &test,
+-			&thislock, &fd);
+-	argv0 = av[0];
+-#endif
+ 
+ 	setup();		/* global setup */
+ 
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl17.c b/testcases/kernel/syscalls/fcntl/fcntl17.c
+index 35769579f..5a52f0af3 100644
+--- a/testcases/kernel/syscalls/fcntl/fcntl17.c
++++ b/testcases/kernel/syscalls/fcntl/fcntl17.c
+@@ -438,23 +438,6 @@ int main(int ac, char **av)
+ 	int fail = 0;
+ 
+ 	tst_parse_opts(ac, av, NULL, NULL);
+-#ifdef UCLINUX
+-	maybe_run_child(&do_child1, "nddddddddd", 1, &file_fd,
+-			&parent_pipe[0], &parent_pipe[1],
+-			&child_pipe1[0], &child_pipe1[1],
+-			&child_pipe2[0], &child_pipe2[1],
+-			&child_pipe3[0], &child_pipe3[1]);
+-	maybe_run_child(&do_child2, "nddddddddd", 2, &file_fd,
+-			&parent_pipe[0], &parent_pipe[1],
+-			&child_pipe1[0], &child_pipe1[1],
+-			&child_pipe2[0], &child_pipe2[1],
+-			&child_pipe3[0], &child_pipe3[1]);
+-	maybe_run_child(&do_child3, "nddddddddd", 3, &file_fd,
+-			&parent_pipe[0], &parent_pipe[1],
+-			&child_pipe1[0], &child_pipe1[1],
+-			&child_pipe2[0], &child_pipe2[1],
+-			&child_pipe3[0], &child_pipe3[1]);
+-#endif
+ 
+ 	if (setup()) {		/* global testup */
+ 		tst_resm(TINFO, "setup failed");
+@@ -467,56 +450,22 @@ int main(int ac, char **av)
+ 		tst_count = 0;
+ 
+ 		tst_resm(TINFO, "Enter preparation phase");
+-		if ((child_pid1 = tst_fork()) == 0) {	/* first child */
+-#ifdef UCLINUX
+-			if (self_exec(av[0], "nddddddddd", 1, file_fd,
+-				      parent_pipe[0], parent_pipe[1],
+-				      child_pipe1[0], child_pipe1[1],
+-				      child_pipe2[0], child_pipe2[1],
+-				      child_pipe3[0], child_pipe3[1]) < 0) {
+-				perror("self_exec failed, child 1");
+-				cleanup();
+-			}
+-#else
++		if ((child_pid1 = tst_fork()) == 0)	/* first child */
+ 			do_child1();
+-#endif
+-		} else if (child_pid1 < 0)
++		else if (child_pid1 < 0)
+ 			tst_brkm(TBROK|TERRNO, cleanup, "Fork failed: child 1");
+ 
+ 		/* parent */
+ 
+-		if ((child_pid2 = fork()) == 0) {	/* second child */
+-#ifdef UCLINUX
+-			if (self_exec(av[0], "nddddddddd", 2, file_fd,
+-				      parent_pipe[0], parent_pipe[1],
+-				      child_pipe1[0], child_pipe1[1],
+-				      child_pipe2[0], child_pipe2[1],
+-				      child_pipe3[0], child_pipe3[1]) < 0) {
+-				perror("self_exec failed, child 2");
+-				cleanup();
+-			}
+-#else
++		if ((child_pid2 = fork()) == 0)	/* second child */
+ 			do_child2();
+-#endif
+-		} else if (child_pid2 < 0) {
++		else if (child_pid2 < 0)
+ 			tst_brkm(TBROK|TERRNO, cleanup, "Fork failed: child 2");
+-		}
+ 
+ 		/* parent */
+ 
+ 		if ((child_pid3 = fork()) == 0) {	/* third child */
+-#ifdef UCLINUX
+-			if (self_exec(av[0], "nddddddddd", 3, file_fd,
+-				      parent_pipe[0], parent_pipe[1],
+-				      child_pipe1[0], child_pipe1[1],
+-				      child_pipe2[0], child_pipe2[1],
+-				      child_pipe3[0], child_pipe3[1]) < 0) {
+-				perror("self_exec failed, child 3");
+-				cleanup();
+-			}
+-#else
+ 			do_child3();
+-#endif
+ 			do_child3();
+ 		} else if (child_pid3 < 0) {
+ 			tst_brkm(TBROK|TERRNO, cleanup, "Fork failed: child 3");
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl18.c b/testcases/kernel/syscalls/fcntl/fcntl18.c
+index 6bf39b981..7a26f65a2 100644
+--- a/testcases/kernel/syscalls/fcntl/fcntl18.c
++++ b/testcases/kernel/syscalls/fcntl/fcntl18.c
+@@ -70,8 +70,6 @@ int main(int ac, char **av)
+ 	setup();		/* global setup */
+ 
+ /* //block1: */
+-#ifndef UCLINUX
+-	/* Skip since uClinux does not implement memory protection */
+ 	tst_resm(TINFO, "Enter block 1");
+ 	fail = 0;
+ 	if ((fd = open("temp.dat", O_CREAT | O_RDWR, 0777)) < 0) {	//mode must be specified when O_CREATE is in the flag
+@@ -93,13 +91,8 @@ int main(int ac, char **av)
+ 		tst_resm(TINFO, "Block 1 PASSED");
+ 	}
+ 	tst_resm(TINFO, "Exit block 1");
+-#else
+-	tst_resm(TINFO, "Skip block 1 on uClinux");
+-#endif
+ 
+ /* //block2: */
+-#ifndef UCLINUX
+-	/* Skip since uClinux does not implement memory protection */
+ 	tst_resm(TINFO, "Enter block 2");
+ 	fail = 0;
+ 	/* Error condition if address is bad */
+@@ -116,9 +109,6 @@ int main(int ac, char **av)
+ 		tst_resm(TINFO, "Block 2 PASSED");
+ 	}
+ 	tst_resm(TINFO, "Exit block 2");
+-#else
+-	tst_resm(TINFO, "Skip block 2 on uClinux");
+-#endif
+ 
+ /* //block3: */
+ 	tst_resm(TINFO, "Enter block 3");
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl19.c b/testcases/kernel/syscalls/fcntl/fcntl19.c
+index 368629d25..a58e921c3 100644
+--- a/testcases/kernel/syscalls/fcntl/fcntl19.c
++++ b/testcases/kernel/syscalls/fcntl/fcntl19.c
+@@ -284,10 +284,6 @@ int main(int ac, char **av)
+ 	int lc;
+ 
+ 	tst_parse_opts(ac, av, NULL, NULL);
+-#ifdef UCLINUX
+-	maybe_run_child(&do_child, "ddddd", &parent_pipe[0], &parent_pipe[1],
+-			&child_pipe[0], &child_pipe[1], &fd);
+-#endif
+ 
+ 	setup();		/* global setup */
+ 
+@@ -297,16 +293,7 @@ int main(int ac, char **av)
+ 		tst_count = 0;
+ 
+ 		if ((child_pid = tst_fork()) == 0) {	/* child */
+-#ifdef UCLINUX
+-			if (self_exec
+-			    (av[0], "ddddd", parent_pipe[0], parent_pipe[1],
+-			     child_pipe[0], child_pipe[1], fd) < 0) {
+-				tst_resm(TFAIL, "self_exec failed");
+-				cleanup();
+-			}
+-#else
+ 			do_child();
+-#endif
+ 		} else if (child_pid < 0) {
+ 			tst_resm(TFAIL, "Fork failed");
+ 			cleanup();
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl20.c b/testcases/kernel/syscalls/fcntl/fcntl20.c
+index 0865140de..f271eeb2d 100644
+--- a/testcases/kernel/syscalls/fcntl/fcntl20.c
++++ b/testcases/kernel/syscalls/fcntl/fcntl20.c
+@@ -283,10 +283,6 @@ int main(int ac, char **av)
+ 	int lc;
+ 
+ 	tst_parse_opts(ac, av, NULL, NULL);
+-#ifdef UCLINUX
+-	maybe_run_child(&do_child, "ddddd", &parent_pipe[0], &parent_pipe[1],
+-			&child_pipe[0], &child_pipe[1], &fd);
+-#endif
+ 
+ 	setup();		/* global setup */
+ 
+@@ -295,18 +291,8 @@ int main(int ac, char **av)
+ 		/* reset tst_count in case we are looping */
+ 		tst_count = 0;
+ 
+-		if ((child_pid = tst_fork()) == 0) {	/* child */
+-#ifdef UCLINUX
+-			if (self_exec
+-			    (av[0], "ddddd", parent_pipe[0], parent_pipe[1],
+-			     child_pipe[0], child_pipe[1], fd) < 0) {
+-				tst_resm(TFAIL, "self_exec failed");
+-				cleanup();
+-			}
+-#else
++		if ((child_pid = tst_fork()) == 0)	/* child */
+ 			do_child();
+-#endif
+-		}
+ 
+ 		if (child_pid < 0) {
+ 			tst_resm(TFAIL, "Fork failed");
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl21.c b/testcases/kernel/syscalls/fcntl/fcntl21.c
+index d191a6bbd..a262ae8dd 100644
+--- a/testcases/kernel/syscalls/fcntl/fcntl21.c
++++ b/testcases/kernel/syscalls/fcntl/fcntl21.c
+@@ -291,11 +291,6 @@ int main(int ac, char **av)
+ 	int lc;
+ 
+ 	tst_parse_opts(ac, av, NULL, NULL);
+-#ifdef UCLINUX
+-	maybe_run_child(&do_child, "ddddd", &parent_pipe[0], &parent_pipe[1],
+-			&child_pipe[0], &child_pipe[1], &fd);
+-#endif
+-
+ 	setup();		/* global setup */
+ 
+ 	/* Check for looping state if -i option is given */
+@@ -303,18 +298,9 @@ int main(int ac, char **av)
+ 		/* reset tst_count in case we are looping */
+ 		tst_count = 0;
+ 
+-		if ((child_pid = tst_fork()) == 0) {
+-#ifdef UCLINUX
+-			if (self_exec
+-			    (av[0], "ddddd", parent_pipe[0], parent_pipe[1],
+-			     child_pipe[0], child_pipe[1], fd) < 0) {
+-				tst_resm(TFAIL, "self_exec failed");
+-				cleanup();
+-			}
+-#else
++		if ((child_pid = tst_fork()) == 0)
+ 			do_child();
+-#endif
+-		}
++
+ 		if (child_pid < 0) {
+ 			tst_resm(TFAIL, "Fork failed");
+ 			cleanup();
 -- 
 2.43.0
 
