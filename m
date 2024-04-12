@@ -2,20 +2,21 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88B9D8A297F
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Apr 2024 10:41:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2160F8A2963
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Apr 2024 10:32:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1712911317; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=I63nKDHNRPpqab/ylX81cRXG+gdpvk7oRGfZoa61d+I=;
- b=FDEZyWCi4Hg2L1AkchQ8dLVMybhtNnzpAG5CHKvxyZ6P9CxJAMJYGo6b4opGVo1y23j80
- eCFwvp5R8qaBYCUZkH7GiajX4vDVWDYbgWGhTihhIaiqlfmoZ1tcAQBcDCAJNGFCpXJxa1H
- L42wo5whebMifuGmJBB5k2kOQB2WQ6s=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1712910737; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : content-transfer-encoding :
+ content-type : sender : from;
+ bh=fZivYTkn0jHHEQcdmBqj3vwdgKvfXqxquq+4ZgtpiAQ=;
+ b=XDLPmN7x0QdNgtxEaVWX6N52kgNEEJR2EiwECNKu42rjvI3XYqmlTCdwwoLE5NJL3ffPX
+ FdqgoAuMl+arfuW9Ji5VQ5xn1b01039F6npKf9aBlYDkGFFAKf/sJyfkd3+Nnrc3awA/MPE
+ iPINdC5674etaL786kA9utxAlic2lic=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D86303CF8A8
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Apr 2024 10:41:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9A8713CF894
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Apr 2024 10:32:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
@@ -23,73 +24,72 @@ Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 008363CF887
- for <ltp@lists.linux.it>; Fri, 12 Apr 2024 10:41:56 +0200 (CEST)
-Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=fujitsu.com (client-ip=207.54.90.48;
- helo=esa2.hc1455-7.c3s2.iphmx.com; envelope-from=xuyang2018.jy@fujitsu.com;
- receiver=lists.linux.it)
-Received: from esa2.hc1455-7.c3s2.iphmx.com (esa2.hc1455-7.c3s2.iphmx.com
- [207.54.90.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id B1E913CF865
+ for <ltp@lists.linux.it>; Fri, 12 Apr 2024 10:32:14 +0200 (CEST)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5763E609A2E
- for <ltp@lists.linux.it>; Fri, 12 Apr 2024 10:41:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
- t=1712911316; x=1744447316;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=HM9hxUaBEPdFZDzZOPwL1DuedBhprNO4K1tnT2COu1Q=;
- b=RHHERzHECTwyVzw3SuvZ9qBUVN2L1Ku8FB4OaHQIi9jLNiTcuytndO4s
- L4uje6RXPGpY3X5tGJpbbA+oUrNAkmWP3xSaKSPXFmO05MquXUGGspyQp
- Ysd+mFmP3FtqLU74Rthobudhlbka+WfSuJoPCgyBAfIrtYVlRROvdachs
- 6YD5kmG4PQ4/LpsCGAmr3iPbiFzb6H/s1cU88IkHy0eLOoHlcW8B5xoC4
- 6FZiTUYozHbDaDmFcDHrqGAv5qEn/xiLTK49seR6uc4zSAzD/2lBSQHZL
- kKACL9d4KFNmdttHIjvb3a13DWeHuL6VxMYxsapwlyu1IQLFBrWUgloFy Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11041"; a="155449727"
-X-IronPort-AV: E=Sophos;i="6.07,195,1708354800"; d="scan'208";a="155449727"
-Received: from unknown (HELO yto-r3.gw.nic.fujitsu.com) ([218.44.52.219])
- by esa2.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2024 17:41:54 +0900
-Received: from yto-m1.gw.nic.fujitsu.com (yto-nat-yto-m1.gw.nic.fujitsu.com
- [192.168.83.64])
- by yto-r3.gw.nic.fujitsu.com (Postfix) with ESMTP id 04578127CCD
- for <ltp@lists.linux.it>; Fri, 12 Apr 2024 17:41:51 +0900 (JST)
-Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
- [192.51.206.22])
- by yto-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 3A9F3340EF
- for <ltp@lists.linux.it>; Fri, 12 Apr 2024 17:41:50 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id CBAD9E2B3B
- for <ltp@lists.linux.it>; Fri, 12 Apr 2024 17:41:49 +0900 (JST)
-Received: from rhel93GA.g08.fujitsu.local (unknown [10.167.221.71])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id 7B6191A000A;
- Fri, 12 Apr 2024 16:41:49 +0800 (CST)
-To: ltp@lists.linux.it
-Date: Fri, 12 Apr 2024 04:07:39 -0400
-Message-Id: <20240412080739.18933-1-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 2.39.3
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C06A960110B
+ for <ltp@lists.linux.it>; Fri, 12 Apr 2024 10:32:13 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-343c2f5b50fso432038f8f.2
+ for <ltp@lists.linux.it>; Fri, 12 Apr 2024 01:32:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1712910732; x=1713515532; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=fWwMOhCN+SaAb1p5cOs+UPltkVUyN5pwU9ilBriq3DE=;
+ b=CNjHia1JMtBCibnOYYMUEYQ2T+UBW+ThnghwH2N7qd7ciVVeZpAaZcN5nXi6EmHi1k
+ XxJRt016+opmrCIG/lgZj0dLvDyrKEUvHIk54NzcPlzfrbDEf4WolC00edv1dnS/Jtpo
+ iEJP2UKnW02/gjLMehRf/KTXbpDUTm79SmjrJs68/y6bpiVOFfP3BW4PY9kniWQUXgDg
+ SHYnBBO1K5kGaI7T3yZQQUordIE77Kfo5jukySTC9LdMThTjfbd0x8ebRB0eM4ikJz7w
+ 1kd63gWMRQbDGE2Y0a/qWwPzY04hRFmkeFs1k0lka2O2ur9FfUPG5lpPHhK+bBTcvchQ
+ YWkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712910732; x=1713515532;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=fWwMOhCN+SaAb1p5cOs+UPltkVUyN5pwU9ilBriq3DE=;
+ b=IX7Hv1IihI5S3ZzjKzCW2OH57qeAQHNApQm8vnOFe7yntKZhphxN9e1SMrbmNJBzfP
+ zXc999VzUzFxwdeiRN4FoxFQ+jvD05qRKSqH3muKcOFGKRFRLRpMB8kNcZyRM7KQZbVE
+ cuHMjL/QomWq4v44iP/PDoBk7uOaQbfV44Mqti5zlt7JmyszAzjX8jdAA1kAD3IZWXNa
+ EDvlnugbioD1GqMDzl+KV6ewP7JIcOtq7r0eHkmkYOzVHUL1bJHs6kcFpxXW8yHlvlo2
+ PGvP39zalne5Iwy91Zt5H2W/rNcj/KKd2PV/3R4D8E4Gb3ytH+E73icF0T/Edarj1Uvf
+ c53A==
+X-Gm-Message-State: AOJu0YzEbQHXoD8P3jdzOjIB/yrQp2PfWVk9A3abZnlMTcGuRz3TTPAB
+ ThwxW68Hwg9KU1uERe7TnYq7UijBogckHR2AsD7cvtoM+OOWZnPFMGFdBQQ/hxMayOE8es81WDB
+ GtV6aow==
+X-Google-Smtp-Source: AGHT+IHmnvA9x6gYA+AeOFjYk8ra0a/flre+hzWeqXS5HSlo/oSAcYtSLWghTvq3hbBkocizkmE3Xw==
+X-Received: by 2002:adf:e706:0:b0:341:c270:208f with SMTP id
+ c6-20020adfe706000000b00341c270208fmr1184747wrm.20.1712910732516; 
+ Fri, 12 Apr 2024 01:32:12 -0700 (PDT)
+Received: from [10.232.133.111] ([88.128.88.50])
+ by smtp.gmail.com with ESMTPSA id
+ t16-20020a5d6a50000000b0034403ee44b1sm3735355wrw.14.2024.04.12.01.32.12
+ for <ltp@lists.linux.it>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 12 Apr 2024 01:32:12 -0700 (PDT)
+Message-ID: <617829ec-4b79-4147-9c64-b53adc925c77@suse.com>
+Date: Fri, 12 Apr 2024 10:32:11 +0200
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28314.006
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28314.006
-X-TMASE-Result: 10--11.089800-10.000000
-X-TMASE-MatchedRID: kREspPIIG7RSuJfEWZSQfBvMKxHA9efN2FA7wK9mP9dgPgeggVwCFnU3
- oKSu0J1xUh5maKIJAx/mn3xyPJAJoh2P280ZiGmRCtzGvPCy/m5SuvtBzlaEqFH3rkvzbWPM4Ib
- z3CH3vCeIuA1iha0SDtEvtdGUvF12zWzoxmRe9hVoMLOoNHsM9n2/mTu5B5RIgLKGgWgNCVm4kR
- SZ1g8ZJaH3E3UlyJO9hBax1yAmf0pcvC2bT9P9zmQYj6+BFPEwLGGfhb0UUN3ebsVFPGXfZBZaD
- voiUT/MmiLgWTVbD0+AMuqetGVetnyef22ep6XYOwBXM346/+yLLs/gf1vmfh/2Dqv5GEMuqgsG
- bvw27lVOWRal6QGxj+Fopv27ZE9l
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+User-Agent: Mozilla Thunderbird
+To: ltp@lists.linux.it
+References: <20240411143025.352507-1-pvorel@suse.cz>
+ <20240411143025.352507-8-pvorel@suse.cz> <Zhf6wC7Cxa4-Zs--@yuki>
+ <20240411204631.GA368229@pevik> <ZhjkZ7PP5vS12Cvb@yuki>
+Content-Language: en-US
+In-Reply-To: <ZhjkZ7PP5vS12Cvb@yuki>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] connect: Add negative tests for connect
+Subject: Re: [LTP] [PATCH 07/31] tlibio.c: Remove UCLINUX
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,172 +101,32 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Yang Xu via ltp <ltp@lists.linux.it>
-Reply-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Content-Type: text/plain; charset="us-ascii"
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add negative cases for connect(), when errno is EACCES and EPROTOTYPE
+Hi!
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- runtest/syscalls                              |   1 +
- testcases/kernel/syscalls/connect/.gitignore  |   1 +
- testcases/kernel/syscalls/connect/connect03.c | 121 ++++++++++++++++++
- 3 files changed, 123 insertions(+)
- create mode 100644 testcases/kernel/syscalls/connect/connect03.c
+On 4/12/24 09:36, Cyril Hrubis wrote:
+> Hi!
+>> IMHO you are wrong here. IMHO uCLinux-ng [1], still used libc (used in Buildroot
+>> and openembedded). And log in e5e938f4b7 (2009) suggests that it's about libc.
+>> But the question is whether it's still needed. I could try to remove these and
+>> test, but as a separate effort.
+> You are right, these should be converted into configure checks later on.
+>
+> And the tlibio should probably be rewritten completely. So let's keep
+> the patch as it is.
+>
+I started to rewrite part of that library when I was working on 
+growfiles test rewrite, but the complexity of it, the amount of nested 
+statements and macro directives made me crazy.
+Waiting for a better moment to restart rewriting it, but work is on-going.
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 71579cde4..cb2c001a0 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -131,6 +131,7 @@ confstr01 confstr01
- 
- connect01 connect01
- connect02 connect02
-+connect03 connect03
- 
- creat01 creat01
- creat03 creat03
-diff --git a/testcases/kernel/syscalls/connect/.gitignore b/testcases/kernel/syscalls/connect/.gitignore
-index 0a3fc90bf..7ef5fef1a 100644
---- a/testcases/kernel/syscalls/connect/.gitignore
-+++ b/testcases/kernel/syscalls/connect/.gitignore
-@@ -1,2 +1,3 @@
- /connect01
- /connect02
-+/connect03
-diff --git a/testcases/kernel/syscalls/connect/connect03.c b/testcases/kernel/syscalls/connect/connect03.c
-new file mode 100644
-index 000000000..367b9d172
---- /dev/null
-+++ b/testcases/kernel/syscalls/connect/connect03.c
-@@ -0,0 +1,121 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2024 FUJITSU LIMITED. All Rights Reserved.
-+ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that connect(2) fails with
-+ *
-+ * - EACCES when write permission is denied on the socket file
-+ * - EPROTOTYPE when socket type does not support the protocol
-+ */
-+
-+#include <sys/types.h>
-+#include <sys/socket.h>
-+#include <sys/wait.h>
-+#include <pwd.h>
-+#include "tst_test.h"
-+
-+#define CLIENT_EACCES "client_eacces"
-+#define SERVER_EACCES "server_eacces"
-+#define CLIENT_EPROTOTYPE "client_eprototype"
-+#define SERVER_EPROTOTYPE "server_eprototype"
-+
-+static struct passwd *pw;
-+
-+static struct sockaddr_un client_eacces;
-+static struct sockaddr_un server_eacces;
-+static struct sockaddr_un client_eprototype;
-+static struct sockaddr_un server_eprototype;
-+
-+static struct test_case_t {
-+	struct sockaddr *client;
-+	socklen_t len_client;
-+	int type_client;
-+	int protocol_client;
-+	struct sockaddr *server;
-+	socklen_t len_server;
-+	char *file_server;
-+	int type_server;
-+	int protocol_server;
-+	int expected_errno;
-+	char *desc;
-+} tcases[] = {
-+	{(struct sockaddr *)&client_eacces, sizeof(client_eacces),
-+		SOCK_STREAM, 0, (struct sockaddr *)&server_eacces,
-+		sizeof(server_eacces), SERVER_EACCES, SOCK_STREAM, 0, EACCES,
-+		"connect() write permission is denied on the socket file"},
-+	{(struct sockaddr *)&client_eprototype, sizeof(client_eprototype),
-+		SOCK_DGRAM, 0, (struct sockaddr *)&server_eprototype,
-+		sizeof(server_eprototype), SERVER_EPROTOTYPE, SOCK_STREAM, 0,
-+		EPROTOTYPE,
-+		"connect() socket type does not support the protocol"},
-+};
-+
-+static void setup(void)
-+{
-+	pw = SAFE_GETPWNAM("nobody");
-+
-+	client_eacces.sun_family = AF_UNIX;
-+	strncpy(client_eacces.sun_path, CLIENT_EACCES,
-+		sizeof(client_eacces.sun_path));
-+
-+	server_eacces.sun_family = AF_UNIX;
-+	strncpy(server_eacces.sun_path, SERVER_EACCES,
-+		sizeof(server_eacces.sun_path));
-+
-+	client_eprototype.sun_family = AF_UNIX;
-+	strncpy(client_eprototype.sun_path, CLIENT_EPROTOTYPE,
-+		sizeof(client_eprototype.sun_path));
-+
-+	server_eprototype.sun_family = AF_UNIX;
-+	strncpy(server_eprototype.sun_path, SERVER_EPROTOTYPE,
-+		sizeof(server_eprototype.sun_path));
-+}
-+
-+static void verify_connect(unsigned int i)
-+{
-+	struct test_case_t *tc = &tcases[i];
-+	pid_t pid;
-+
-+	int fd_server = SAFE_SOCKET(tc->server->sa_family, tc->type_server,
-+		tc->protocol_server);
-+	int fd_client = SAFE_SOCKET(tc->client->sa_family, tc->type_client,
-+		tc->protocol_client);
-+
-+	SAFE_BIND(fd_server, tc->server, tc->len_server);
-+	SAFE_LISTEN(fd_server, 5);
-+
-+	if (tc->expected_errno == EACCES) {
-+		pid = SAFE_FORK();
-+		if (!pid) {
-+			SAFE_SETUID(pw->pw_uid);
-+			TST_EXP_FAIL(connect(fd_client, tc->server,
-+				tc->len_server), tc->expected_errno,
-+				"%s", tc->desc);
-+			exit(0);
-+		}
-+		SAFE_WAITPID(pid, NULL, 0);
-+	} else {
-+		TST_EXP_FAIL(connect(fd_client, tc->server, tc->len_server),
-+			tc->expected_errno, "%s", tc->desc);
-+	}
-+
-+	if (fd_client > 0)
-+		SAFE_CLOSE(fd_client);
-+	if (fd_server > 0)
-+		SAFE_CLOSE(fd_server);
-+	SAFE_UNLINK(tc->file_server);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = verify_connect,
-+	.needs_tmpdir = 1,
-+	.needs_root = 1,
-+	.forks_child = 1,
-+};
--- 
-2.39.3
+Andrea
 
 
 -- 
