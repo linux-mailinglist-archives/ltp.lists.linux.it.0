@@ -1,93 +1,99 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C118A664B
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Apr 2024 10:39:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1713256747; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=cQA6jnzdz4zDcfcdzaiYKGyLYs32nb4TCu3O6If5m48=;
- b=MA3v9wsC4UemwpjUD2EnUSjqt10vusb75KDIOQ/pwmQf7zNlspctefMuIl6ZBB0+x3fVm
- n9LoTgr5uMT9IV5C/WjcyPR312vBtOyvTlrW6FLYR3RFj05bPgCwtlhEH1qV4sCFrZVa+/X
- U/1iopUcGzsSqlKKgr8Mzykh0H/xCM4=
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 71C038A65C6
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Apr 2024 10:11:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 607AD3CFA85
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Apr 2024 10:39:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0BC753CFA80
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Apr 2024 10:11:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DF1443CFA82
- for <ltp@lists.linux.it>; Tue, 16 Apr 2024 10:39:05 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=fujitsu.com (client-ip=139.138.61.253;
- helo=esa8.hc1455-7.c3s2.iphmx.com; envelope-from=xuyang2018.jy@fujitsu.com;
+ by picard.linux.it (Postfix) with ESMTPS id E7D713CF78D
+ for <ltp@lists.linux.it>; Tue, 16 Apr 2024 10:11:53 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=shirisha@linux.ibm.com;
  receiver=lists.linux.it)
-Received: from esa8.hc1455-7.c3s2.iphmx.com (esa8.hc1455-7.c3s2.iphmx.com
- [139.138.61.253])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4865960029A
- for <ltp@lists.linux.it>; Tue, 16 Apr 2024 10:39:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
- t=1713256745; x=1744792745;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=XJr9zoG4AQoVYtbG8rA7FTEFRDKhJ7N+28GXN/pzKAU=;
- b=gUnxeVZYXzVGw2tEuUfI+xfsz84JdhPgqgnbce+2GanNEUPjSBxqcVpp
- TCeEXChkUuWstYEkUzkmuMNCX5ibbYHQrzpPYJakG9rCQmv89zaEi/hDl
- OOn2kEaK/KuJYV4uePsZi5ihjCSvwmU80lzONtsH21D2rwBJfe6lvhjSO
- Ks0rLWYMeh71Iw6Jn9Cb7FL7Y7qYxJLtZSwKj0OJh/7V3edqWH6VDbvB8
- hmeFcbAZMCZ2icAmoSBgw//EWOPMQp8B7+bI5HamCgb5xMe63RS6GrZ6h
- 0kRanvj0LYNUNtdujmrk/g6z8NqAP2buZ6FskawKc8M+ISLrJ8dJB3pez w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11045"; a="143708923"
-X-IronPort-AV: E=Sophos;i="6.07,205,1708354800"; d="scan'208";a="143708923"
-Received: from unknown (HELO oym-r3.gw.nic.fujitsu.com) ([210.162.30.91])
- by esa8.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2024 17:39:02 +0900
-Received: from oym-m2.gw.nic.fujitsu.com (oym-nat-oym-m2.gw.nic.fujitsu.com
- [192.168.87.59])
- by oym-r3.gw.nic.fujitsu.com (Postfix) with ESMTP id A5F59C2261
- for <ltp@lists.linux.it>; Tue, 16 Apr 2024 17:39:00 +0900 (JST)
-Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
- [192.51.206.22])
- by oym-m2.gw.nic.fujitsu.com (Postfix) with ESMTP id CEDB3BDC8A
- for <ltp@lists.linux.it>; Tue, 16 Apr 2024 17:38:59 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id 717486B5ED
- for <ltp@lists.linux.it>; Tue, 16 Apr 2024 17:38:59 +0900 (JST)
-Received: from rhel93GA.g08.fujitsu.local (unknown [10.167.221.71])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id 213281A000A;
- Tue, 16 Apr 2024 16:38:59 +0800 (CST)
-To: ltp@lists.linux.it
-Date: Tue, 16 Apr 2024 04:04:48 -0400
-Message-Id: <20240416080448.22650-1-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 2.39.3
-MIME-Version: 1.0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8764B1001F4C
+ for <ltp@lists.linux.it>; Tue, 16 Apr 2024 10:11:51 +0200 (CEST)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 43G82M6I016708; Tue, 16 Apr 2024 08:11:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : subject :
+ from : to : cc : date : in-reply-to : references : content-type :
+ mime-version : content-transfer-encoding; s=pp1;
+ bh=Y6X3cNqecHz1qLfdaAGEWslIWHXwoGjmYkhFlVkZr8w=;
+ b=GleyJnJgAbKXGbynvm/+d+uoTJjj7orTKy7+IxZYFce+8ZfbE9p502EVK41W6Uzywc6m
+ x97OfedsRMKmnpTSCSWXrEn5VpmH+ThwjWXg5+eWIT+sXC1xOmdjUKeL7E3wHxaBVIxb
+ gQxd5+8ikwijjOPrY86RqyosN330S+r1KbD4RGnVEGzk5GWOvis7nCFGDEE59vcPQOsZ
+ 1fMAaRlhrbBfYjvkVJqwkYReD29QBx3bUSdi1raMYNpgb6oxPftYnXc7AMn9BhzvLXrZ
+ J55bzYHj0wTmO/9Lmvli8Pw7miXQ7qd5y+6i6xYrMPvN/XzMNWRy2CyvvA67JR9ZwLkD 8Q== 
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3xhnf9r0qc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Apr 2024 08:11:49 +0000
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 43G5NW84027323; Tue, 16 Apr 2024 08:11:48 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 3xg4ryw3hc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Apr 2024 08:11:48 +0000
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
+ [10.20.54.101])
+ by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 43G8Biiv41353588
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 16 Apr 2024 08:11:46 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4AA6F2004F;
+ Tue, 16 Apr 2024 08:11:44 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9B0C520043;
+ Tue, 16 Apr 2024 08:11:43 +0000 (GMT)
+Received: from li-d12addcc-2792-11b2-a85c-bd8df30615ab.ibm.com (unknown
+ [9.199.152.158])
+ by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Tue, 16 Apr 2024 08:11:43 +0000 (GMT)
+Message-ID: <8125158bc5b44f8cc3328939d6f321008064a0fd.camel@linux.ibm.com>
+From: Shirisha ganta <shirisha@linux.ibm.com>
+To: Petr Vorel <pvorel@suse.cz>
+Date: Tue, 16 Apr 2024 13:41:42 +0530
+In-Reply-To: <20240219221811.GC1067220@pevik>
+References: <20231213084753.61762-1-shirisha@linux.ibm.com>
+ <20240219221811.GC1067220@pevik>
+X-Mailer: Evolution 3.28.5 (3.28.5-22.el8) 
+Mime-Version: 1.0
 X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28324.006
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28324.006
-X-TMASE-Result: 10--16.373900-10.000000
-X-TMASE-MatchedRID: 2wfub8HDRfNSuJfEWZSQfB1kSRHxj+Z5TJDl9FKHbrlgPgeggVwCFnU3
- oKSu0J1xUh5maKIJAx/mn3xyPJAJoimyf2R1E4xpGYJhRh6ssesfimmlcABuNyfJTn+dmnFQGmV
- udEhnpoS1/NE2jc9NGJzIetqw3Ni7ziy8MZTDuT2qh5pv1eDPz/lSepWcgdLPnt/M15zYPUO0x0
- bNkCWz1poi4Fk1Ww9PgDLqnrRlXrZ8nn9tnqel2JBlLa6MK1y4
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+X-Proofpoint-ORIG-GUID: F8jwaD8LtY7l5L2GvudgMB1DYnBa70h_
+X-Proofpoint-GUID: F8jwaD8LtY7l5L2GvudgMB1DYnBa70h_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-16_06,2024-04-15_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0
+ adultscore=0 impostorscore=0 mlxscore=0 mlxlogscore=999 bulkscore=0
+ priorityscore=1501 clxscore=1011 lowpriorityscore=0 spamscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2404010000 definitions=main-2404160049
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] getrandom: Add negative tests for getrandom
+Subject: Re: [LTP] [PATCH] Add hugemmap41(Migrating the
+ libhugetlbfs/testcases/slbpacaflush.c test)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,98 +105,86 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Yang Xu via ltp <ltp@lists.linux.it>
-Reply-To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add negative cases for getrandom(), when errno is EFAULT or EINVAL
-
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- runtest/syscalls                              |  1 +
- .../kernel/syscalls/getrandom/.gitignore      |  1 +
- .../kernel/syscalls/getrandom/getrandom05.c   | 46 +++++++++++++++++++
- 3 files changed, 48 insertions(+)
- create mode 100644 testcases/kernel/syscalls/getrandom/getrandom05.c
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index cc1e39c05..62eb4c1cd 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -504,6 +504,7 @@ getrandom01 getrandom01
- getrandom02 getrandom02
- getrandom03 getrandom03
- getrandom04 getrandom04
-+getrandom05 getrandom05
- 
- getresgid01 getresgid01
- getresgid01_16 getresgid01_16
-diff --git a/testcases/kernel/syscalls/getrandom/.gitignore b/testcases/kernel/syscalls/getrandom/.gitignore
-index ef06ece9d..e47d8b3f4 100644
---- a/testcases/kernel/syscalls/getrandom/.gitignore
-+++ b/testcases/kernel/syscalls/getrandom/.gitignore
-@@ -2,3 +2,4 @@
- /getrandom02
- /getrandom03
- /getrandom04
-+/getrandom05
-diff --git a/testcases/kernel/syscalls/getrandom/getrandom05.c b/testcases/kernel/syscalls/getrandom/getrandom05.c
-new file mode 100644
-index 000000000..a50228d3d
---- /dev/null
-+++ b/testcases/kernel/syscalls/getrandom/getrandom05.c
-@@ -0,0 +1,46 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2024 FUJITSU LIMITED. All Rights Reserved.
-+ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that getrandom(2) fails with
-+ *
-+ * - EFAULT when buf address is outside the accessible address space
-+ * - EINVAL when flag is invalid
-+ */
-+
-+#include <sys/random.h>
-+#include "tst_test.h"
-+
-+static char buff_efault[64];
-+static char buff_einval[64];
-+
-+static struct test_case_t {
-+	char *buff;
-+	size_t size;
-+	unsigned int flag;
-+	int expected_errno;
-+	char *desc;
-+} tcases[] = {
-+	{NULL, sizeof(buff_efault), 0, EFAULT,
-+		"buf address is outside the accessible address space"},
-+	{buff_einval, sizeof(buff_einval), -1, EINVAL, "flag is invalid"},
-+};
-+
-+static void verify_getrandom(unsigned int i)
-+{
-+	struct test_case_t *tc = &tcases[i];
-+
-+	TST_EXP_FAIL(getrandom(tc->buff, tc->size, tc->flag),
-+		tc->expected_errno, "%s", tc->desc);
-+}
-+
-+static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = verify_getrandom,
-+	.needs_root = 1,
-+};
--- 
-2.39.3
+On Mon, 2024-02-19 at 23:18 +0100, Petr Vorel wrote:
+> Hi Shirisha,
+> 
+> > +void check_online_cpus(int online_cpus[], int nr_cpus_needed)
+> > +{
+> > +	char cpu_state, path_buf[64];
+> > +	int total_cpus, cpu_idx, fd, ret, i;
+> > +
+> > +	total_cpus = get_nprocs_conf();
+> > +	cpu_idx = 0;
+> > +
+> > +	if (get_nprocs() < nr_cpus_needed)
+> > +		tst_res(TFAIL, "Atleast online %d cpus are required",
+> > nr_cpus_needed);
+> s/Atleast/At least/
+> (or better: "minimum %d online cpus" ..., but I'm not a native
+> speaker.)
+will take care in V2
+> 
+> Also test should exit when not enough online CPU, right? (it's a test
+> requirement not a subject of testing). Therefore tst_brk(TCONF, ...)
+> should be
+> used instead of tst_res(TFAIL).
+will take care in V2
+> 
+> And shouldn't this be a setup function (i.e. run only once, before
+> test starts -
+> test itself can be run more times, eg 3x with -i3).
+I think not because of successive iterations the online cpus state
+might change
+> 
+> > +
+> > +	for (i = 0; i < total_cpus && cpu_idx < nr_cpus_needed; i++) {
+> > +		errno = 0;
+> > +		sprintf(path_buf, SYSFS_CPU_ONLINE_FMT, i);
+> > +		fd = open(path_buf, O_RDONLY);
+> > +		if (fd < 0) {
+> > +			/* If 'online' is absent, the cpu cannot be
+> > offlined */
+> > +			if (errno == ENOENT) {
+> > +				online_cpus[cpu_idx] = i;
+> > +				cpu_idx++;
+> > +				continue;
+> > +			} else {
+> > +				tst_res(TFAIL, "Unable to open %s: %s",
+> > path_buf,
+> > +				     strerror(errno));
+> > +			}
+> > +		}
+> > +
+> > +		ret = read(fd, &cpu_state, 1);
+> > +		if (ret < 1)
+> > +			tst_res(TFAIL, "Unable to read %s: %s",
+> > path_buf,
+> > +			     strerror(errno));
+> > +
+> > +		if (cpu_state == '1') {
+> > +			online_cpus[cpu_idx] = i;
+> > +			cpu_idx++;
+> > +		}
+> > +
+> > +		if (fd >= 0)
+> > +			SAFE_CLOSE(fd);
+> > +	}
+> > +
+> > +	if (cpu_idx < nr_cpus_needed)
+> > +		tst_res(TFAIL, "Atleast %d online cpus were not found",
+> > nr_cpus_needed);
+> Also here tst_brk(TCONF, ...)
+will take care in V2
+> > +}
+> 
+> Kind regards,
+> Petr
 
 
 -- 
