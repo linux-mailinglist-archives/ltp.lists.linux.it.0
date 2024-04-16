@@ -1,93 +1,94 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88CC58A6400
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Apr 2024 08:35:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F1578A663B
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Apr 2024 10:36:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1713256563; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-type : content-transfer-encoding : sender : from;
+ bh=aoXXt4HqFy7o4ABU6FvYs3V4Q9sqvzYA0MCszy+yz3k=;
+ b=ZCHxc40NITRf+WA9jS0VSPTCykcqN5iPaievu77AAE4l1FnyYoKKhnfy2h8Qfm8YRxioX
+ ZK7FmVVGsgH8qm2VedwlnCFdhbUlf0BDwUu4+2nl2j4w6Ixo1C87lH9YolHCf5iypOuPUyb
+ jARPSCuKwhhH5b3ZjxXVaZIOXkrJNwk=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 316523CFA96
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Apr 2024 08:35:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A290F3CFA8F
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Apr 2024 10:36:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BF3D73CFA35
- for <ltp@lists.linux.it>; Tue, 16 Apr 2024 08:35:33 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
+ by picard.linux.it (Postfix) with ESMTPS id 672E83CFA81
+ for <ltp@lists.linux.it>; Tue, 16 Apr 2024 10:35:59 +0200 (CEST)
+Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fujitsu.com (client-ip=207.54.90.47;
+ helo=esa1.hc1455-7.c3s2.iphmx.com; envelope-from=xuyang2018.jy@fujitsu.com;
  receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from esa1.hc1455-7.c3s2.iphmx.com (esa1.hc1455-7.c3s2.iphmx.com
+ [207.54.90.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 98293201741
- for <ltp@lists.linux.it>; Tue, 16 Apr 2024 08:35:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1713249330;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WwZUnfVR7b2FLp+dhKSKCC0kG7MsiDvxLr7j41QnlUg=;
- b=L+cClE/tq4q8C4AyjHa9coKcx0bVTDbQ2eOcZZML+U44S/RtGWrG43pm2pYHTvqLemvKjp
- +kGQpMar1JUDGr1RO8t4bPOawTgTc0XwOk5WRBBoDp8pl8tD6g7TgKRpz7hlfI36k2WmXP
- wKGGISyYoNpxHizNHZ3n9WkPK3lEWOw=
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-628-Q2WAaT1DMv6Xf3X3qiXIhA-1; Tue, 16 Apr 2024 02:35:28 -0400
-X-MC-Unique: Q2WAaT1DMv6Xf3X3qiXIhA-1
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-2a2d197ac0aso3818305a91.2
- for <ltp@lists.linux.it>; Mon, 15 Apr 2024 23:35:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713249327; x=1713854127;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=WwZUnfVR7b2FLp+dhKSKCC0kG7MsiDvxLr7j41QnlUg=;
- b=OQ1/kfZpWbEyRKry/kPztuKaWGmlGK9zGJVMHdAvVI4Xd05Z68K4VmppYbbwGj7mp1
- /sxnO9wDmtnOZjV+pqIt3+y2s5UCu5ivU2FYe39gV5H+5CP0JGNUgnLD/aRc4uyrKaXM
- FeYFZ/WXN6otSYXxn8vxVJNvBXUD0SPisHii9ZCk7tGpCDnGPEOnNAh/tHVhO+Im1Q5t
- F7rKQrXrv4/Y9foUrk7sPpFdueM/gEJvojm/0LvPM+3aUkWf6ENR1ceTn8hBqlkCNAuI
- C9ibcwqNhi7oSLqdi85CsKRlASAQ8TYl6FA5J/YYu5yMu8MMiOgChsDDRAqXgPvquumm
- TS0Q==
-X-Gm-Message-State: AOJu0YzMbIA2OI0D3nBM2iN93xSsbu0YQxBtU55+v3S5PGMQ2GhKH0TP
- Y/qUyjfjrg2OcxTlYNwO95ri2yjnu6X7BAqWWyXSzV/AlMBQUe84jTFZQ+wKzm+Ugsu97xJqdT2
- K93/rFdr43t/kgLucn6WKyr42923hbCwuWhGXLjo80OvX3ZXFaPxn6zKx7xt14RJmi/Z/FQqRTc
- zFek78EfHvMCNq6+0+jWWWlIo=
-X-Received: by 2002:a17:90a:b28c:b0:2a2:5457:d34e with SMTP id
- c12-20020a17090ab28c00b002a25457d34emr8989818pjr.13.1713249326990; 
- Mon, 15 Apr 2024 23:35:26 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEFnMPKW8N0cGh/WHr3KXf5IfRyLGLM+QofKlCKlFzxHFsHud1A2butZk/A7Dmzu45nAh8zbnIpZL0rIJ6FWRo=
-X-Received: by 2002:a17:90a:b28c:b0:2a2:5457:d34e with SMTP id
- c12-20020a17090ab28c00b002a25457d34emr8989805pjr.13.1713249326626; Mon, 15
- Apr 2024 23:35:26 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3B32F600A5B
+ for <ltp@lists.linux.it>; Tue, 16 Apr 2024 10:35:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+ t=1713256559; x=1744792559;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=lnytVn3RFcbvkTdAdw128QxK7/vCEwODMVK90ubqMAI=;
+ b=pU+eBX9WlaJcvINKMoMA9rzViMmu4NbEe1L09IySYBYMknZ4hXG0HR+D
+ noPfZROsc2oIPhY0BcJWTYLDyMQ6o+rQGl5vCgiLEGx4n4NZJws6AVklS
+ avsMOWrnV8LBAtfv1zoaLuNR9MA8AtrRtfcSjjDkaPLECZr2hQBsz/Vr4
+ oOW5lN7E+uMlh9M1ecvSacU48LYuphOVYNV2eAeo8C/z8MQVXHkzw+tZ8
+ cShwnu/DpHWRWqhW1aNwagA4d87D3u3cfi7nzR5kyitIvnRRlIaz0iHBN
+ HkNcuF4W9MQpatnRr5QJF2iKbfobSRbx9qlLqaiZ4cM8z0gd2T/Ods8Ya g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11045"; a="155607426"
+X-IronPort-AV: E=Sophos;i="6.07,205,1708354800"; d="scan'208";a="155607426"
+Received: from unknown (HELO yto-r2.gw.nic.fujitsu.com) ([218.44.52.218])
+ by esa1.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Apr 2024 17:35:55 +0900
+Received: from yto-m3.gw.nic.fujitsu.com (yto-nat-yto-m3.gw.nic.fujitsu.com
+ [192.168.83.66])
+ by yto-r2.gw.nic.fujitsu.com (Postfix) with ESMTP id 78176C68B4
+ for <ltp@lists.linux.it>; Tue, 16 Apr 2024 17:35:53 +0900 (JST)
+Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
+ [192.51.206.22])
+ by yto-m3.gw.nic.fujitsu.com (Postfix) with ESMTP id AD9BE11C70
+ for <ltp@lists.linux.it>; Tue, 16 Apr 2024 17:35:52 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+ by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id 353DC6B5E9
+ for <ltp@lists.linux.it>; Tue, 16 Apr 2024 17:35:52 +0900 (JST)
+Received: from rhel93GA.g08.fujitsu.local (unknown [10.167.221.71])
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id D92E11A000A;
+ Tue, 16 Apr 2024 16:35:51 +0800 (CST)
+To: ltp@lists.linux.it
+Date: Tue, 16 Apr 2024 04:01:41 -0400
+Message-Id: <20240416080141.22616-1-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 2.39.3
 MIME-Version: 1.0
-References: <20240322030208.3278120-1-liwang@redhat.com>
- <20240322050046.GA572447@pevik>
- <CAEemH2c3SNktFnPpsnbXvtTvfEv84byRrNmjcz3YyQHem9mcGg@mail.gmail.com>
- <20240322053217.GA588706@pevik>
- <CAEemH2fjNisDjZjRn60534rK1AHefbXPEUPS1FS0EA0OcfFrtQ@mail.gmail.com>
- <20240415152043.GA541530@pevik>
-In-Reply-To: <20240415152043.GA541530@pevik>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 16 Apr 2024 14:35:14 +0800
-Message-ID: <CAEemH2ev62JxH7-DA5Sc2LjMKrquYqt927ATHZefNPAOiXb5qA@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28324.006
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28324.006
+X-TMASE-Result: 10--14.949700-10.000000
+X-TMASE-MatchedRID: SzbEz7SZt2tSuJfEWZSQfAXtykVcrvpN2FA7wK9mP9dgPgeggVwCFnU3
+ oKSu0J1xUh5maKIJAx/mn3xyPJAJoh2P280ZiGmRCtzGvPCy/m5SuvtBzlaEqFH3rkvzbWPM4Ib
+ z3CH3vCeIuA1iha0SDuWYSIzA/m69pYuGZa3i+E6qh5pv1eDPz5fau+Sc1iUTa9jb7ypNKp5VcX
+ P3eMLfF/yPsndJnGNFHRfAWehAV7AfE8yM4pjsDwtuKBGekqUpI/NGWt0UYPCJ1gw8aZd/mU/CY
+ buk1n1sdXKAZpMNY8FaIah/TcyTupNEOnMbeTr1
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH v3 1/2] libswap: add two methods to create swapfile
+Subject: [LTP] [PATCH] execve: Add negative test for execve
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,30 +100,104 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: Yang Xu via ltp <ltp@lists.linux.it>
+Reply-To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgUGV0ciwKClRoYW5rcyBmb3IgcmVwb3J0aW5nIHRoaXMuCgpPbiBNb24sIEFwciAxNSwgMjAy
-NCBhdCAxMToyMOKAr1BNIFBldHIgVm9yZWwgPHB2b3JlbEBzdXNlLmN6PiB3cm90ZToKCj4gSGkg
-TGksCj4KPiA+IFBldHIgVm9yZWwgPHB2b3JlbEBzdXNlLmN6PiB3cm90ZToKPgo+ID4gPiA+IFRo
-YW5rcywgSSB3b3VsZCBnaXZlIHRoZSBwYXRjaCBzZXQgbW9yZSB0aW1lIGluIGNhc2Ugb3RoZXJz
-IGhhdmUKPiA+ID4gY29tbWVudHMuCj4KPiA+ID4gU3VyZS4gVGhhbmtzIGZvciBhIG5pY2Ugd29y
-ayEKPgo+Cj4gPiBQYXRjaCBzZXQgYXBwbGllZC4KPgo+IEZZSSBpdCBsb29rcyBsaWtlIHRoaXMg
-cGF0Y2ggbWVyZ2UgYXM6Cj4KPiBmOTg3ZmZmZjUgKCJsaWJzd2FwOiBhZGQgdHdvIG1ldGhvZHMg
-dG8gY3JlYXRlIHN3YXBmaWxlIikKPgo+IGludHJvZHVjZWQgVFdBUk4gb24gYWxsIHRlc3RzIHdo
-aWNoIHRvdWNoZWQ6IHN3YXBvZmYwWzEyXSwgc3dhcG9uMFsxLTNdIG9uCj4gb3BlblNVU0UgVHVt
-Ymxld2VlZAo+IG9uIHBwYzY0bGUgKGUuZy4gdmVyeSBjbG9zZSB0byBtYWlubGluZSBzdGFibGUg
-a2VybmVsczogNi44LngpLiBIYXZlIHlvdQo+IG5vdGljZWQKPiB0aGlzIG9uIEZlZG9yYSBhcyB3
-ZWxsPyAgSSBob3BlIHRvIG1hbmFnZSB0byBoYXZlIGxvb2sgb24gaXQgc29vbiwgYnV0Cj4gbWF5
-YmUKPiBpdCdzIG9idmlvdXMgdG8geW91IGFscmVhZHkuCj4KPiBsaWJzd2FwLmM6MTYzOiBUV0FS
-TjogU3dhcGZpbGUgc2l6ZSBpcyBsZXNzIHRoYW4gdGhlIHN5c3RlbSBwYWdlIHNpemUuCj4gVXNp
-bmcgcGFnZSBzaXplICg2NTUzNiBieXRlcykgaW5zdGVhZCBvZiBibG9jayBzaXplICg0MDk2IGJ5
-dGVzKS4KPgoKWWVzLCB0aGF0IGlzIGV4cGVjdGVkIG9uIGEgc3lzdGVtIHdpdGggYSBsYXJnZXIg
-cGFnZSBzaXplLCBzbyBpdCBjb3VsZApndWFyYW50ZWUgYXQgbGVhc3Qgb25lIHBhZ2UgY2FuIGJl
-IHN3YXBwZWQgb3V0LgoKRG8geW91IHdhbnQgdG8gc3dpdGNoIHRvIHVzaW5nIFRJTkZPIGZvciB0
-aGUgY2hvaWNlPyBUQkggaXQKZG9lc24ndCBtYXR0ZXIgdG8gcmVwb3J0IHRoYXQgV0FSTklORyBt
-ZXNzYWdlLgoKCi0tIApSZWdhcmRzLApMaSBXYW5nCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0
-dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Add negative case for execve, when errno is ELOOP
+
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ runtest/syscalls                            |  1 +
+ testcases/kernel/syscalls/execve/.gitignore |  1 +
+ testcases/kernel/syscalls/execve/execve07.c | 51 +++++++++++++++++++++
+ 3 files changed, 53 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/execve/execve07.c
+
+diff --git a/runtest/syscalls b/runtest/syscalls
+index cb2c001a0..9578e991a 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -210,6 +210,7 @@ execve03 execve03
+ execve04 execve04
+ execve05 execve05 -i 5 -n 32
+ execve06 execve06
++execve07 execve07
+ execvp01 execvp01
+ execveat01 execveat01
+ execveat02 execveat02
+diff --git a/testcases/kernel/syscalls/execve/.gitignore b/testcases/kernel/syscalls/execve/.gitignore
+index fee81faf7..881f75486 100644
+--- a/testcases/kernel/syscalls/execve/.gitignore
++++ b/testcases/kernel/syscalls/execve/.gitignore
+@@ -7,3 +7,4 @@
+ /execve06
+ /execve06_child
+ /execve_child
++/execve07
+diff --git a/testcases/kernel/syscalls/execve/execve07.c b/testcases/kernel/syscalls/execve/execve07.c
+new file mode 100644
+index 000000000..6571846b9
+--- /dev/null
++++ b/testcases/kernel/syscalls/execve/execve07.c
+@@ -0,0 +1,51 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2024 FUJITSU LIMITED. All Rights Reserved.
++ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Verify that execve(2) fails with
++ *
++ * - ELOOP when too many symbolic links are encountered in filename
++ */
++
++#include "tst_test.h"
++
++#define TEST_ELOOP "test_eloop"
++#define TEST_ELOOP2 "test_eloop2"
++
++static struct test_case_t {
++	char *filename;
++	int expected_errno;
++	int user;
++	char *desc;
++} tcases[] = {
++	{TEST_ELOOP, ELOOP, 0,
++		"too many symbolic links are encountered in filename"},
++};
++
++static void setup(void)
++{
++	SAFE_SYMLINK(TEST_ELOOP, TEST_ELOOP2);
++	SAFE_SYMLINK(TEST_ELOOP2, TEST_ELOOP);
++}
++
++static void verify_execve(unsigned int i)
++{
++	struct test_case_t *tc = &tcases[i];
++	char *argv[2] = {tc->filename, NULL};
++
++	TST_EXP_FAIL(execve(tc->filename, argv, NULL), tc->expected_errno,
++		"%s", tc->desc);
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = verify_execve,
++	.needs_tmpdir = 1,
++	.needs_root = 1,
++};
+-- 
+2.39.3
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
