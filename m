@@ -1,109 +1,104 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08ACC8A84D8
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Apr 2024 15:37:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 126D38A850E
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Apr 2024 15:43:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B09243CFB98
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Apr 2024 15:37:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A93923CFB99
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Apr 2024 15:43:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D7F2D3CFB89
- for <ltp@lists.linux.it>; Wed, 17 Apr 2024 15:37:53 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id A4F123CFB8E
+ for <ltp@lists.linux.it>; Wed, 17 Apr 2024 15:43:44 +0200 (CEST)
 Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 305C320A6B4
- for <ltp@lists.linux.it>; Wed, 17 Apr 2024 15:37:52 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 874D320A6AD
+ for <ltp@lists.linux.it>; Wed, 17 Apr 2024 15:43:43 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A074322CE4;
- Wed, 17 Apr 2024 13:37:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 95DBF33D0D;
+ Wed, 17 Apr 2024 13:43:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1713361071;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1713361422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0N2zMYihwW9hopeqodDxIMWNLBSxlMGz7e4YUfR/auQ=;
- b=dED2uJL5mdG3PG+Ws7sLhwSUHHmxXJvV5W3vV+BEj550kk9HpYLXwHJVne/52te7GActOc
- A09uZj1ESOyFR0b1L9pwjSWIFaGyOmFfhFUfnBiHDka4RpZrTxDP9r0MVMsas11qtQANYo
- hjgXSyKjpMDhTVSmMpW4YgyPJc3VTfk=
+ bh=N2btqVKWoaz2+/7v5rUk7elj/8ELg2/ND/hPo5z8joo=;
+ b=s/1HK2anCCQHqN5rONuZ0sInuIyxH7p6NL65A4I7jine4B5SGHj+GziX3DtsgdGw5RX82s
+ w1kNpvPQpmTKFXgouxqFcFuv4cW4uMtsA3wCvDBW/qrP9Sf6dcvIzFxI+i+6GFawo1EB2y
+ KJWfQO1XV1lj6XxlVpQVfffLePQ8FJM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1713361071;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ s=susede2_ed25519; t=1713361422;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0N2zMYihwW9hopeqodDxIMWNLBSxlMGz7e4YUfR/auQ=;
- b=ZYVZ+pQIqegPOmTWupp2xR69lLWIWVgIFAxXbxyzg6M10zrqv1ikE8afi++ZMFZWCBSZDR
- /kPlPJK+ZNvrD9Ag==
+ bh=N2btqVKWoaz2+/7v5rUk7elj/8ELg2/ND/hPo5z8joo=;
+ b=YRD3H67fmTOVqw2S/0vOZW+Ik55sH1B5aDVKzY8FIOGeF5VRK/v9HFmGbNvmaL+Ag4ZVh6
+ wJckRQWqw0qvrZAA==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1713361071;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1713361422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0N2zMYihwW9hopeqodDxIMWNLBSxlMGz7e4YUfR/auQ=;
- b=dED2uJL5mdG3PG+Ws7sLhwSUHHmxXJvV5W3vV+BEj550kk9HpYLXwHJVne/52te7GActOc
- A09uZj1ESOyFR0b1L9pwjSWIFaGyOmFfhFUfnBiHDka4RpZrTxDP9r0MVMsas11qtQANYo
- hjgXSyKjpMDhTVSmMpW4YgyPJc3VTfk=
+ bh=N2btqVKWoaz2+/7v5rUk7elj/8ELg2/ND/hPo5z8joo=;
+ b=s/1HK2anCCQHqN5rONuZ0sInuIyxH7p6NL65A4I7jine4B5SGHj+GziX3DtsgdGw5RX82s
+ w1kNpvPQpmTKFXgouxqFcFuv4cW4uMtsA3wCvDBW/qrP9Sf6dcvIzFxI+i+6GFawo1EB2y
+ KJWfQO1XV1lj6XxlVpQVfffLePQ8FJM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1713361071;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ s=susede2_ed25519; t=1713361422;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0N2zMYihwW9hopeqodDxIMWNLBSxlMGz7e4YUfR/auQ=;
- b=ZYVZ+pQIqegPOmTWupp2xR69lLWIWVgIFAxXbxyzg6M10zrqv1ikE8afi++ZMFZWCBSZDR
- /kPlPJK+ZNvrD9Ag==
+ bh=N2btqVKWoaz2+/7v5rUk7elj/8ELg2/ND/hPo5z8joo=;
+ b=YRD3H67fmTOVqw2S/0vOZW+Ik55sH1B5aDVKzY8FIOGeF5VRK/v9HFmGbNvmaL+Ag4ZVh6
+ wJckRQWqw0qvrZAA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5F27C13957;
- Wed, 17 Apr 2024 13:37:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id zOdLFK/QH2bSNwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Wed, 17 Apr 2024 13:37:51 +0000
-Date: Wed, 17 Apr 2024 15:37:49 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it,
- Li Wang <liwang@redhat.com>
-Message-ID: <20240417133749.GA4484@pevik>
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 866F813957;
+ Wed, 17 Apr 2024 13:43:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id n36KHw7SH2bFOQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Wed, 17 Apr 2024 13:43:42 +0000
+Date: Wed, 17 Apr 2024 15:42:55 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <Zh_R31-342b-1Alm@yuki>
 References: <20240417090222.707302-1-pvorel@suse.cz> <Zh-eIg51K9UtdQuj@yuki>
  <20240417100611.GA713385@pevik> <Zh-lGL4tU5Z2dSLi@yuki>
- <20240417122418.GB727397@pevik>
+ <20240417122418.GB727397@pevik> <20240417133749.GA4484@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240417122418.GB727397@pevik>
-X-Spam-Score: -3.50
+In-Reply-To: <20240417133749.GA4484@pevik>
+X-Spam-Score: -7.80
 X-Spam-Level: 
-X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_TLS_ALL(0.00)[];
+X-Spamd-Result: default: False [-7.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ MISSING_XM_UA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCPT_COUNT_THREE(0.00)[3];
+ FROM_HAS_DN(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto];
- REPLYTO_EQ_FROM(0.00)[]
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
@@ -122,55 +117,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> > Hi!
-> > Looking at the patches we get the warning from the is_swap_supported()
-> > because we create only 10 blocks worth of swapfile there, right?
+Hi!
+> Changing it to {SAFE_,}MAKE_SWAPFILE_SIZE() on all places would mean we don't need
+> {SAFE_,}MAKE_SWAPFILE_BLKS() at all. Therefore I think this check should be
+> suppressed to TINFO. Other option is to use high enough value (more blocks)
+> (not sure if using really small swap file makes sense anyway).
 
-> > So the easiest fix is to make sure we create big enough swapfile there
-> > as well, what about?
+I do not think that we should use too small swap file even for the case
+where we try to detect if swapfiles are supported. Currently it seems
+that kernel accepts swapfiles smaller than page size, but it may also
+start rejecting them with EINVAL in the future.
 
-> > diff --git a/libs/libltpswap/libswap.c b/libs/libltpswap/libswap.c
-> > index 313a15f24..36b5af483 100644
-> > --- a/libs/libltpswap/libswap.c
-> > +++ b/libs/libltpswap/libswap.c
-> > @@ -192,7 +192,7 @@ int make_swapfile_(const char *file, const int lineno,
-> >  bool is_swap_supported(const char *filename)
-> >  {
-> >         int i, sw_support = 0;
-> > -       int ret = SAFE_MAKE_SWAPFILE_BLKS(filename, 10);
-> > +       int ret = SAFE_MAKE_SWAPFILE_SIZE(filename, 1);
-> Let me first check where it's needed, because SAFE_MAKE_SWAPFILE_BLKS() is
-> called on more places.
+So I would keep the warning and rather tried to fix all the parts where
+we attempt to create a swapfile smaller than page size.
 
-Yes, not only it's directly used from the library, which affects all swapo{ff,n}
-tests, but MAKE_SWAPFILE_BLKS() is also used directly by some of the tests.
-
-Changing it to {SAFE_,}MAKE_SWAPFILE_SIZE() on all places would mean we don't need
-{SAFE_,}MAKE_SWAPFILE_BLKS() at all. Therefore I think this check should be
-suppressed to TINFO. Other option is to use high enough value (more blocks)
-(not sure if using really small swap file makes sense anyway).
-
-> Also, first is needed to move __FILE__, __LINE__ in macros (from function),
-> sending patch...
-
-https://lore.kernel.org/ltp/20240417123113.731780-1-pvorel@suse.cz/
-https://lore.kernel.org/ltp/20240417123113.731780-1-pvorel@suse.cz/
-
-Kind regards,
-Petr
-
-> Kind regards,
-> Petr
-
-> >         int fi_contiguous = file_is_contiguous(filename);
-> >         long fs_type = tst_fs_type(filename);
-> >         const char *fstype = tst_fs_type_name(fs_type);
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
