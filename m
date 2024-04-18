@@ -1,88 +1,87 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DCF68A9C5B
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Apr 2024 16:13:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8021A8A9C5D
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Apr 2024 16:13:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D88E03CFC17
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Apr 2024 16:13:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 471A33CFC26
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Apr 2024 16:13:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 93EED3CF511
- for <ltp@lists.linux.it>; Thu, 18 Apr 2024 16:13:23 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 8219A3CFC1A
+ for <ltp@lists.linux.it>; Thu, 18 Apr 2024 16:13:24 +0200 (CEST)
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EC88F1007CB4
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id EE4A560A807
  for <ltp@lists.linux.it>; Thu, 18 Apr 2024 16:13:21 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0A77235020;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3BD3F2084D;
  Thu, 18 Apr 2024 14:13:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1713449601; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0imA8Kz6+MWvpH28dUhJvraZHXL/JKQgoGNThToj1Ik=;
- b=r+HznNBf51TwO/Lwn9VKjDqROz/ZO2WYB71f2QNiSwzEX2u2adL7NA5Q6qOxAFmaKNxBC9
- W+u6Tu6EYTSKmDMVqOW/XGDea5MNB9H47H8+4aT+IKTddSJTC1B6MtPnFYio+fLmKrUtqb
- j+KAlFVw6Met6jaqtj7LIWuzWvwkaJw=
+ bh=TNEiNE+MRSRjYRMcl1dBcC7769isS2frzvWf4eK8yUY=;
+ b=OemBADF5AnU9+BwyVgDZH3Q0tTHCNqXmWTAESAHcGrNekk7gHl9UgvSMxqd4g0sBhiudm/
+ H8BrXi1y4JG6BFAou1y2N++EpuPwkClAJUTJWrxYTLYWreiFrQ0tp3AgujGEPDaUmdOQbl
+ gF87ABEAhzbHGxg7RD0brw7fZ6PljFA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1713449601;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0imA8Kz6+MWvpH28dUhJvraZHXL/JKQgoGNThToj1Ik=;
- b=68yu+icNtYSqGGtWiYmjlQXcRDLuOuikI4WcUKWoHm1D5zyXXrakY8ZEimkEav0UfHQU9c
- sdGCtmXR+8b79GBg==
-Authentication-Results: smtp-out1.suse.de;
+ bh=TNEiNE+MRSRjYRMcl1dBcC7769isS2frzvWf4eK8yUY=;
+ b=QJX3M2ct1Hf+ph5kQresAXfQ4GUyRiHfGA+cuRXYJugSfPsWtwYwfd39kv81b5osX5AIyR
+ dKl/+GqM7THsCGCg==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1713449600; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0imA8Kz6+MWvpH28dUhJvraZHXL/JKQgoGNThToj1Ik=;
- b=lb/DOEu2s72VG6CTcKYu3Yo8LCh0xdgDTSeWFWLOoSynEOYBCSCSzUnGX7lSQQJ/8UB02/
- iu+f4zU7kLJX2Iw/ph1fo0/lY5NE4nTHGZ6mTHztfPfe6eD02CNmwYhEbi5j6nbgQoRerO
- 0eYDb8dm9WPJm6Is5c5JKMJ+xntvh9o=
+ bh=TNEiNE+MRSRjYRMcl1dBcC7769isS2frzvWf4eK8yUY=;
+ b=N0KHOAxEGQaWvRy4C0WXybwY2x8uBFeLClQporpapIq8e3vXWm+GL9WaO4IjxZ1svf4mnn
+ zs9wGnPXBF2VYyicNS+1kCOlYfRKdw5ROBrO3ynLsqBwVq8VJ1IYWnxtazfBHI56jRA1AA
+ ait8lffUAXMPHm5PGqQFrKpCXvEfYu4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1713449600;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0imA8Kz6+MWvpH28dUhJvraZHXL/JKQgoGNThToj1Ik=;
- b=5c1mMhUq57oJm7eGyev1GrK73BLGifeMQKOe14Gqe3HGMR6RBSOQ7nFzSPAxeVJv37eCOG
- wu7pxFAba0JfsHDg==
+ bh=TNEiNE+MRSRjYRMcl1dBcC7769isS2frzvWf4eK8yUY=;
+ b=qsA7lPqd6hvjvMpJN6gTglkxzFJZ0hcWtnYaczOjytyKaE8EOplpfraj+dYOedn9CvjaOC
+ +9YWw4UM+fh5qiDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D95B213980;
- Thu, 18 Apr 2024 14:13:19 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0E9DE13981;
+ Thu, 18 Apr 2024 14:13:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CHrlM38qIWbOHwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 18 Apr 2024 14:13:19 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id MO8zAoAqIWbOHwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 18 Apr 2024 14:13:20 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 18 Apr 2024 16:13:11 +0200
-Message-ID: <20240418141312.99794-3-pvorel@suse.cz>
+Date: Thu, 18 Apr 2024 16:13:12 +0200
+Message-ID: <20240418141312.99794-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240418141312.99794-1-pvorel@suse.cz>
 References: <20240418141312.99794-1-pvorel@suse.cz>
@@ -97,17 +96,16 @@ X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
  FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:email];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
  RCVD_TLS_ALL(0.00)[]
 X-Spam-Score: -2.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/3] libswap: Add {SAFE_,
- }MAKE_MINIMAL_SWAPFILE() macros
+Subject: [LTP] [PATCH 3/3] libswap: Use {SAFE_,}MAKE_MINIMAL_SWAPFILE()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,48 +122,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Maximum kernel page size is 256KiB (see kernel arch/Kconfig). Therefore
-this is the minimum blocks allowed to be used to avoid warning on any
-kernel page size setup:
+This effectively increases the minimal used number of blocks to 256.
+
+All {SAFE_,}MAKE_SWAPFILE_SIZE() calls which were creating swap used 10
+blocks. While this is ok on 4kb page size, it's too low on systems with
+64kb page size (e.g. on aarch64 with CONFIG_ARM64_64K_PAGES=y or on
+ppc64le with CONFIG_PAGE_SIZE_64KB=y):
 
     TWARN: Swapfile size is less than the system page size. Using page size
     (65536 bytes) instead of block size (4096 bytes).
 
-Therefore define this size and add helper macros.
+Obviously it would fail also on kernels with CONFIG_PAGE_SIZE_256KB.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- include/libswap.h | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ libs/libltpswap/libswap.c                     | 2 +-
+ testcases/kernel/syscalls/swapoff/swapoff02.c | 2 +-
+ testcases/kernel/syscalls/swapon/swapon02.c   | 4 ++--
+ testcases/kernel/syscalls/swapon/swapon03.c   | 4 ++--
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/include/libswap.h b/include/libswap.h
-index 87e32328e..ea1285e4f 100644
---- a/include/libswap.h
-+++ b/include/libswap.h
-@@ -23,6 +23,23 @@ int make_swapfile(const char *file, const int lineno,
- 			const char *swapfile, unsigned int num,
- 			int safe, enum swapfile_method method);
+diff --git a/libs/libltpswap/libswap.c b/libs/libltpswap/libswap.c
+index aed76dfe2..92127d8cd 100644
+--- a/libs/libltpswap/libswap.c
++++ b/libs/libltpswap/libswap.c
+@@ -192,7 +192,7 @@ int make_swapfile(const char *file, const int lineno,
+ bool is_swap_supported(const char *filename)
+ {
+ 	int i, sw_support = 0;
+-	int ret = SAFE_MAKE_SWAPFILE_BLKS(filename, 10);
++	int ret = SAFE_MAKE_MINIMAL_SWAPFILE(filename);
+ 	int fi_contiguous = file_is_contiguous(filename);
+ 	long fs_type = tst_fs_type(filename);
+ 	const char *fstype = tst_fs_type_name(fs_type);
+diff --git a/testcases/kernel/syscalls/swapoff/swapoff02.c b/testcases/kernel/syscalls/swapoff/swapoff02.c
+index 5a15826e4..676d06619 100644
+--- a/testcases/kernel/syscalls/swapoff/swapoff02.c
++++ b/testcases/kernel/syscalls/swapoff/swapoff02.c
+@@ -87,7 +87,7 @@ static void setup(void)
+ 	nobody_uid = nobody->pw_uid;
  
-+
-+/* see kernel arch/Kconfig */
-+#define MINIMAL_SWAP_BLOCKS 256
-+
-+/**
-+ * Macro to create minimal swapfile.
-+ */
-+#define MAKE_MINIMAL_SWAPFILE(swapfile) \
-+    make_swapfile(__FILE__, __LINE__, swapfile, MINIMAL_SWAP_BLOCKS, 0, SWAPFILE_BY_BLKS)
-+
-+/**
-+ * Macro to create minimal swapfile.
-+ * Includes safety checks to handle potential errors.
-+ */
-+#define SAFE_MAKE_MINIMAL_SWAPFILE(swapfile) \
-+    make_swapfile(__FILE__, __LINE__, swapfile, MINIMAL_SWAP_BLOCKS, 1, SWAPFILE_BY_BLKS)
-+
- /**
-  * Macro to create swapfile size in megabytes (MB).
-  */
+ 	is_swap_supported(TEST_FILE);
+-	SAFE_MAKE_SWAPFILE_BLKS(SWAP_FILE, 10);
++	SAFE_MAKE_MINIMAL_SWAPFILE(SWAP_FILE);
+ }
+ 
+ static struct tst_test test = {
+diff --git a/testcases/kernel/syscalls/swapon/swapon02.c b/testcases/kernel/syscalls/swapon/swapon02.c
+index e5e29b8e7..20f3cfd26 100644
+--- a/testcases/kernel/syscalls/swapon/swapon02.c
++++ b/testcases/kernel/syscalls/swapon/swapon02.c
+@@ -50,8 +50,8 @@ static void setup(void)
+ 	is_swap_supported(TEST_FILE);
+ 
+ 	SAFE_TOUCH(NOTSWAP_FILE, 0777, NULL);
+-	MAKE_SWAPFILE_BLKS(SWAP_FILE, 10);
+-	MAKE_SWAPFILE_BLKS(USED_FILE, 10);
++	MAKE_MINIMAL_SWAPFILE(SWAP_FILE);
++	MAKE_MINIMAL_SWAPFILE(USED_FILE);
+ 
+ 	if (tst_syscall(__NR_swapon, USED_FILE, 0))
+ 		tst_res(TWARN | TERRNO, "swapon(alreadyused) failed");
+diff --git a/testcases/kernel/syscalls/swapon/swapon03.c b/testcases/kernel/syscalls/swapon/swapon03.c
+index 5295a6a73..342b5e38a 100644
+--- a/testcases/kernel/syscalls/swapon/swapon03.c
++++ b/testcases/kernel/syscalls/swapon/swapon03.c
+@@ -49,7 +49,7 @@ static int setup_swap(void)
+ 
+ 			/* Create the swapfile */
+ 			snprintf(filename, sizeof(filename), "%s%02d", TEST_FILE, j + 2);
+-			MAKE_SWAPFILE_BLKS(filename, 10);
++			MAKE_MINIMAL_SWAPFILE(filename);
+ 
+ 			/* turn on the swap file */
+ 			TST_EXP_PASS_SILENT(swapon(filename, 0));
+@@ -62,7 +62,7 @@ static int setup_swap(void)
+ 		tst_brk(TFAIL, "Failed to setup swap files");
+ 
+ 	tst_res(TINFO, "Successfully created %d swap files", swapfiles);
+-	MAKE_SWAPFILE_BLKS(TEST_FILE, 10);
++	MAKE_MINIMAL_SWAPFILE(TEST_FILE);
+ 
+ 	return 0;
+ }
 -- 
 2.43.0
 
