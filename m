@@ -1,12 +1,21 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A82C38AA8E3
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Apr 2024 09:07:41 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7722F8AAB0C
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Apr 2024 11:00:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1713517222; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-type : content-transfer-encoding : sender : from;
+ bh=02H53CpR0IzCRHf03c5BTltlOsDEkEgEH4yTnHV69po=;
+ b=eBDpTKKhXw1OGOSYUpatsSjM8TkRWd97upJ+S+JUovInfEREeQshJixPA3Z+DGRd14Be5
+ Zxko3kzzVKzAPegqr5uuFl326RaJFKRZ/Q6I/E/NEilLGb7KrQDAHGTI0XXF2LDiEySiDiz
+ Il0jj4XGYrtEk8K6BgdzUCU4hJiQgkg=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6B9DA3CFC8C
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Apr 2024 09:07:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 324C83CFBCC
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Apr 2024 11:00:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
@@ -14,44 +23,71 @@ Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7C9BC3CFC8C
- for <ltp@lists.linux.it>; Fri, 19 Apr 2024 09:07:31 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 4BE953CFBA7
+ for <ltp@lists.linux.it>; Fri, 19 Apr 2024 11:00:08 +0200 (CEST)
 Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=uniontech.com (client-ip=15.184.224.54; helo=smtpbg154.qq.com;
- envelope-from=lufei@uniontech.com; receiver=lists.linux.it)
-Received: from smtpbg154.qq.com (smtpbg154.qq.com [15.184.224.54])
+ smtp.mailfrom=fujitsu.com (client-ip=207.54.90.137;
+ helo=esa11.hc1455-7.c3s2.iphmx.com; envelope-from=xuyang2018.jy@fujitsu.com;
+ receiver=lists.linux.it)
+Received: from esa11.hc1455-7.c3s2.iphmx.com (esa11.hc1455-7.c3s2.iphmx.com
+ [207.54.90.137])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 58D9560322F
- for <ltp@lists.linux.it>; Fri, 19 Apr 2024 09:07:28 +0200 (CEST)
-X-QQ-mid: bizesmtpsz4t1713510439txwlea7
-X-QQ-Originating-IP: slAgHV/9QL6Kvf7Ob6m8F9E2sNxqkbUeu69GgtFsiAk=
-Received: from localhost.localdomain ( [125.76.217.162])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 19 Apr 2024 15:07:18 +0800 (CST)
-X-QQ-SSF: 01400000000000C0B000000A0000000
-X-QQ-FEAT: zT6n3Y95oi0PIei9JsOhYZNmtPXnxcCLlXRMZz//0I7xX3uYGZp4i4WEZIS2n
- EKvQvUGiUFpYkR1qMYN4fGmtwReMhfYN1HUbDiwaVjMvEr1Rha3F036smkMqsJgMnDeyaXL
- bwrjQafwFA+mZqbNTOwZX9C++NIuC4KqEvqXTUOHkD4izM2CiZqf7xgjm7Psm321C1qcP5/
- vtolL7r7g4BQ/VVZ4ZYOq656W2MhO0TJhRdAcOcB01GWxSlcPhmDxwBFjsI+UGxqZe92y2o
- p+AX8EQ8ezjUXqJySCJMjIfIcTOHFtveQWI9dn49gQEfi9i1u8Cnc5QBrPQoTdKWuovxpfm
- 4KLPhb1tZmEsQMo9XKkskkSW4K3KLwpqi5H1pnZ7AS/ENtnM7CFDLs9xNxJR3sSQNe0WZTY
-X-QQ-GoodBg: 2
-X-BIZMAIL-ID: 7472301369956579254
-From: lufei <lufei@uniontech.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6CAF3601144
+ for <ltp@lists.linux.it>; Fri, 19 Apr 2024 11:00:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+ t=1713517208; x=1745053208;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ASPhN6XlU5zwf6d5Ab/FNzdfAjttxEm5cAtQ4oT8V2o=;
+ b=c2HjXCn7/4jbGJfs/LWiYMsDLvf6qGEireTxtDYIwMPQzOFcCIAdM82C
+ bkqIH1RvM09pQRg3rHfb9rw1vKOlIpEpYyOPwMU/hFO2mq7CtzV17AkaA
+ /hxacBtV0coli9DbX6rr+ZqWuL2liAPMP5ISwqDkXfd6u34EXCCnLOSbf
+ vTTSTeuxVhA1P8Zh/VPiBHFR/XCHqZr52gsMtgcPVaFhv5ZGI7ccrRS8Z
+ LxRC30q3FARX7wgEaxFUmql7dmnWmy7ZTToSbzreq3vv479epovis6LzU
+ 1tcBcUk+i5zr8Gd8BDqawyiKXAhUBKs4yrXDgXW3SAoCP6FLQvSiCsRo0 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11047"; a="135472289"
+X-IronPort-AV: E=Sophos;i="6.07,213,1708354800"; d="scan'208";a="135472289"
+Received: from unknown (HELO yto-r1.gw.nic.fujitsu.com) ([218.44.52.217])
+ by esa11.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2024 18:00:05 +0900
+Received: from yto-m4.gw.nic.fujitsu.com (yto-nat-yto-m4.gw.nic.fujitsu.com
+ [192.168.83.67])
+ by yto-r1.gw.nic.fujitsu.com (Postfix) with ESMTP id 22C50D6861
+ for <ltp@lists.linux.it>; Fri, 19 Apr 2024 18:00:02 +0900 (JST)
+Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
+ [192.51.206.22])
+ by yto-m4.gw.nic.fujitsu.com (Postfix) with ESMTP id 5096BD3F31
+ for <ltp@lists.linux.it>; Fri, 19 Apr 2024 18:00:01 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+ by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id BFC06223FC1
+ for <ltp@lists.linux.it>; Fri, 19 Apr 2024 18:00:00 +0900 (JST)
+Received: from rhel93GA.g08.fujitsu.local (unknown [10.167.221.71])
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id 5C4211A000A;
+ Fri, 19 Apr 2024 17:00:00 +0800 (CST)
 To: ltp@lists.linux.it
-Date: Fri, 19 Apr 2024 15:07:17 +0800
-Message-Id: <20240419070717.2506101-1-lufei@uniontech.com>
+Date: Fri, 19 Apr 2024 04:25:49 -0400
+Message-Id: <20240419082549.25476-1-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 2.39.3
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6a-0
-X-Spam-Status: No, score=-0.0 required=7.0 tests=DMARC_MISSING, SPF_HELO_PASS, 
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28330.006
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28330.006
+X-TMASE-Result: 10--12.900700-10.000000
+X-TMASE-MatchedRID: 54gb2yeIOXRSuJfEWZSQfB1kSRHxj+Z5TJDl9FKHbrlgPgeggVwCFnU3
+ oKSu0J1xUh5maKIJAx/mn3xyPJAJoimyf2R1E4xpGYJhRh6ssesfimmlcABuNyfJTn+dmnFQGmV
+ udEhnpoS1/NE2jc9NGGvtvwKw8+1BR+vpYbhOH1q/QNwZdfw3FX0tCKdnhB589yM15V5aWpj6C0
+ ePs7A07fUrOTjR0Rj1JdFu2iuU7XrrQBhjZUQ2qDdlL4rXp7hTR25yp5PApX8=
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2] Add case about arch_prctl syscall.
+Subject: [LTP] [PATCH v2] gethostname: Add negative test for gethostname
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,120 +99,79 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: lufei <lufei@uniontech.com>
+From: Yang Xu via ltp <ltp@lists.linux.it>
+Reply-To: Yang Xu <xuyang2018.jy@fujitsu.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add testcase about arch_prctl syscall.
+Add negative cases for gethostname(), when errno is ENAMETOOLONG
 
-Signed-off-by: Lu Fei <lufei@uniontech.com>
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- configure.ac                                  |  1 +
- .../kernel/syscalls/arch_prctl/.gitignore     |  1 +
- testcases/kernel/syscalls/arch_prctl/Makefile |  8 +++
- .../kernel/syscalls/arch_prctl/arch_prctl01.c | 56 +++++++++++++++++++
- 4 files changed, 66 insertions(+)
- create mode 100644 testcases/kernel/syscalls/arch_prctl/.gitignore
- create mode 100644 testcases/kernel/syscalls/arch_prctl/Makefile
- create mode 100644 testcases/kernel/syscalls/arch_prctl/arch_prctl01.c
+ runtest/syscalls                              |  1 +
+ .../kernel/syscalls/gethostname/.gitignore    |  1 +
+ .../syscalls/gethostname/gethostname02.c      | 31 +++++++++++++++++++
+ 3 files changed, 33 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/gethostname/gethostname02.c
 
-diff --git a/configure.ac b/configure.ac
-index 1d7e862d8..0dcaddc0f 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -41,6 +41,7 @@ AC_CHECK_DECLS([SEM_STAT_ANY],,,[#include <sys/sem.h>])
+diff --git a/runtest/syscalls b/runtest/syscalls
+index de4f5a633..cc1e39c05 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -477,6 +477,7 @@ gethostbyname_r01 gethostbyname_r01
+ gethostid01 gethostid01
  
- AC_CHECK_HEADERS_ONCE([ \
-     asm/ldt.h \
-+    asm/prctl.h \
-     cpuid.h \
-     emmintrin.h \
-     ifaddrs.h \
-diff --git a/testcases/kernel/syscalls/arch_prctl/.gitignore b/testcases/kernel/syscalls/arch_prctl/.gitignore
+ gethostname01 gethostname01
++gethostname02 gethostname02
+ 
+ getitimer01 getitimer01
+ getitimer02 getitimer02
+diff --git a/testcases/kernel/syscalls/gethostname/.gitignore b/testcases/kernel/syscalls/gethostname/.gitignore
+index d09d5d288..d6e4cffcb 100644
+--- a/testcases/kernel/syscalls/gethostname/.gitignore
++++ b/testcases/kernel/syscalls/gethostname/.gitignore
+@@ -1 +1,2 @@
+ /gethostname01
++/gethostname02
+diff --git a/testcases/kernel/syscalls/gethostname/gethostname02.c b/testcases/kernel/syscalls/gethostname/gethostname02.c
 new file mode 100644
-index 000000000..24871e249
+index 000000000..250e5f2fd
 --- /dev/null
-+++ b/testcases/kernel/syscalls/arch_prctl/.gitignore
-@@ -0,0 +1 @@
-+/arch_prctl01
-diff --git a/testcases/kernel/syscalls/arch_prctl/Makefile b/testcases/kernel/syscalls/arch_prctl/Makefile
-new file mode 100644
-index 000000000..272949d57
---- /dev/null
-+++ b/testcases/kernel/syscalls/arch_prctl/Makefile
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) UnionTech Software Technology Co.,Ltd. 2024
-+
-+top_srcdir		?= ../../../..
-+
-+include $(top_srcdir)/include/mk/testcases.mk
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/arch_prctl/arch_prctl01.c b/testcases/kernel/syscalls/arch_prctl/arch_prctl01.c
-new file mode 100644
-index 000000000..06b3d99b8
---- /dev/null
-+++ b/testcases/kernel/syscalls/arch_prctl/arch_prctl01.c
-@@ -0,0 +1,56 @@
++++ b/testcases/kernel/syscalls/gethostname/gethostname02.c
+@@ -0,0 +1,31 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
-+/* 
-+ * Copyright (c) UnionTech Software Technology Co.,Ltd., 2024
-+ * Author: Lu Fei <lufei@uniontech.com>
++/*
++ * Copyright (c) 2024 FUJITSU LIMITED. All Rights Reserved.
++ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
 + */
 +
-+/* 
++/*\
 + * [Description]
 + *
-+ * Simple test on arch_prctl to set and get cpuid instruction of test thread.
++ * Verify that gethostname(2) fails with
++ *
++ * - ENAMETOOLONG when len is smaller than the actual size
 + */
 +
-+# include "tst_test.h"
-+# include "lapi/syscalls.h"
-+# include <stdlib.h>
-+# ifdef HAVE_ASM_PRCTL_H
-+# include <asm/prctl.h>
++#include "tst_test.h"
 +
-+static int arch_prctl_get(int code, unsigned long *addr) {
-+	return tst_syscall(__NR_arch_prctl, code, *addr);
-+}
++static void verify_gethostname(void)
++{
++	char hostname[HOST_NAME_MAX];
++	int real_length;
 +
-+static int arch_prctl_set(int code, unsigned long addr) {
-+	return tst_syscall(__NR_arch_prctl, code, addr);
-+}
++	SAFE_GETHOSTNAME(hostname, sizeof(hostname));
++	real_length = strlen(hostname);
 +
-+static int tc[] = {0,1};
-+
-+static void run(unsigned int index){
-+
-+	unsigned long *addr = malloc(sizeof(long));
-+
-+	TEST(arch_prctl_set(ARCH_SET_CPUID, tc[index]));
-+
-+	if (TST_RET == 0)
-+		tst_res(TPASS, "set %s cpuid",tc[index] ? "enable" : "disable");
-+	else
-+		tst_res(TFAIL, "failed to set cpuid");
-+
-+	TEST(arch_prctl_get(ARCH_GET_CPUID, addr));
-+
-+	if (TST_RET == tc[index])
-+		tst_res(TPASS, "get cpuid succeed.");
-+	else
-+		tst_res(TFAIL, "get cpuid failed.");
++	TST_EXP_FAIL(gethostname(hostname, real_length - 1), ENAMETOOLONG,
++		"len is smaller than the actual size");
 +}
 +
 +static struct tst_test test = {
-+    .test = run,
-+    .tcnt = 2,
-+    .min_kver = "4.11",
++	.test_all = verify_gethostname,
 +};
-+
-+#else /* HAVE_ASM_PRCTL_H */
-+TST_TEST_TCONF("missing <asm/prctl.h>");
-+#endif
 -- 
 2.39.3
 
