@@ -2,87 +2,86 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C57E8B092C
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 14:22:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA5BD8B093A
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 14:23:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1713961337; h=date :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1713961396; h=date :
  in-reply-to : mime-version : references : message-id : to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=KW3zKKyFcVKV8+YBBohAgxsMGKij4mQoGCcwrqY/ky0=;
- b=MmmIf9qDQzOMgFG4/q5lmnvAMibAlSS56ufFNbJdT1IyytWV3u0FX4IVHfhLCMCYUzTwk
- rs83zzodBUXhojL7LpDibf57v/1893rzivcis3nDG5Zx3AZLM2vSnlhvByioDIpEi88vJOJ
- eZLAJLA/BDKDZosgHvfCBXnbW8Ky0EQ=
+ bh=4I2hZmgZybnYkreaqk+6wpYd4WD1gkUpPGUA6wW7MZQ=;
+ b=O+KjWPEACkfbIlVnaCP2fufJNPlAIXRi2o342ycDytaV6cLIIRMU0hRCSJMWTTGM7ETVm
+ b3x7e4Sdjpx1SvxCILUXbOywR3lLt27PmDgnG43Hj/O0OmdUo+Ot+OsO2R98DrXC278j9K/
+ aPyTIrEDgOj5sMYQUSFMybpecmJKl1U=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 240FA3D0021
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 14:22:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A5E7B3D004C
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 14:23:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 50AEC3CFA6F
- for <ltp@lists.linux.it>; Wed, 24 Apr 2024 00:58:30 +0200 (CEST)
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
- [IPv6:2607:f8b0:4864:20::b49])
+ by picard.linux.it (Postfix) with ESMTPS id AF00C3CFA6F
+ for <ltp@lists.linux.it>; Wed, 24 Apr 2024 00:58:31 +0200 (CEST)
+Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
+ [IPv6:2607:f8b0:4864:20::1149])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A2C296006D7
- for <ltp@lists.linux.it>; Wed, 24 Apr 2024 00:58:29 +0200 (CEST)
-Received: by mail-yb1-xb49.google.com with SMTP id
- 3f1490d57ef6-dc6b2682870so11082499276.0
- for <ltp@lists.linux.it>; Tue, 23 Apr 2024 15:58:29 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3ACCA1000900
+ for <ltp@lists.linux.it>; Wed, 24 Apr 2024 00:58:31 +0200 (CEST)
+Received: by mail-yw1-x1149.google.com with SMTP id
+ 00721157ae682-61ab173fe00so122721847b3.3
+ for <ltp@lists.linux.it>; Tue, 23 Apr 2024 15:58:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1713913108; x=1714517908; darn=lists.linux.it;
+ d=google.com; s=20230601; t=1713913110; x=1714517910; darn=lists.linux.it;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=mUabKwQ6pkEL5HnBx7JpYwffqD3CqZ31cx+tz1JLzHA=;
- b=Nw4ZzfSVNoFHEltL8v0NtP7gON2tCpkQ9Sf44xXT7zl6ly9AoAVSRhihwGgqi8hako
- QozVScAfOwsgv6gjJk2HoFDGBPUTwellfPzDGHUdY4+efIjhfBQc7Ocec10QsSss6FQP
- RNc0wMuE6pz5lx4IEkp+pkycklz7TL2NBilKYx9s0Xklqjet++yXe604ByQFxuTnWX7J
- UVgdCvHzjRl3IO5Y1k7r1N/9RWRHjnj/H/hRQsb9uUywI+7IinEH+ACJ48ZutFiTdCk8
- g3UU9f7l9NZca6bgKRmDs9v5Hu3zFFD0qSgMwA4VxeYyinnmsv9Ohh4KcEWY/7+DzcE7
- /u9g==
+ bh=eOozvj3glB6sdsKF5Juu5L8bKFQZW0f5cjVRMvpomsU=;
+ b=xxykyOUgw2YSc+WJIowiPE7VUT1jNQJrgILyLDEC5zi7sU0u+4AYFKjSi+WnlKJpzy
+ RMHMd8OQwm9VoCIfxBAqe//8Hr46ylT/SFj7zdsoA0hP/Q315Rqae/X0/nE+CIL3RmDz
+ MnD9x9OLZLQVqrOyzeiO7ApROn7XPFKvpg/xpmp+z1cTNqTLJDCaOX40tkWdczIdELCJ
+ tdc4jZiUHATu+jw26Nfn6pCBOxTueuYXnuOTpcQcNOqIR7VAShVAxQPEFUwu9Ddj5jSZ
+ pKFdIQp/G2pFcHOWlW0sOMvp6vwubrWGF1+Z9nqVq4oYMHZ85xM1+HPF5NwmndHBr+L2
+ tFpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713913108; x=1714517908;
+ d=1e100.net; s=20230601; t=1713913110; x=1714517910;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=mUabKwQ6pkEL5HnBx7JpYwffqD3CqZ31cx+tz1JLzHA=;
- b=pCd9KGJ+REzduLMUx6kp5sL98Nlz026VciIxoTPMR7dW/KTyS37H4dGar2CEWq93Ag
- FKIZmCaYOjkTCJXOiddO4ZuD+zkUeUm69f908CgS+uO46cm/D90WtXzDd2OVd4MVCzRn
- gdTt5lO5xSssH/usR/9zRr2+B0WNV509wpvIUFdCzi8IWwLTnxq9SXUQw92OHPP8HQpj
- kZK6K2GWOppyEM9i8wtAn9fn7+DcVqFTq4WXWhWqa2BtZNroT0m96X/M7zcqE7ofEKCL
- Kvon3TDBq2e53OJIsgW1Rj8mEruHv1NG8vY4NIgHAcmrRzcvb40bixhB+TWBY1BiLuBy
- i9jQ==
-X-Gm-Message-State: AOJu0Yymb7xl4E+iarBaGsN2ueWac6X/meTGN6IyY53DC5qKJZsxJqbj
- kRIIpikK1S4CKed1/0i3vB55A4ktoNda08wvDo+FuaHCCKhBvzgP4ihHrjpYSHQmkbkh/kL51U7
- UjFQLXVj9AWbHVY38k4EXSaeiHxHZQb6SMnRnwSBR0PvGC7YZ/yUgVwejtG4ZUeeQwUIMgPTBEX
- LMm2ZwKv6bQvoQMJpZOUGZMq8XItWnzG0=
-X-Google-Smtp-Source: AGHT+IH+tue3sjCZ3NHnjORp3DAOTdVr6uH6WzV3glygQLb0xfpPY3AXeYCii2VUjgCdEg5Popilu97Xa6gY
+ bh=eOozvj3glB6sdsKF5Juu5L8bKFQZW0f5cjVRMvpomsU=;
+ b=FbrGrl/1tul0H7EXj1HJsKfwFuD4/REkMIN0HwvUbNUaNrNlbWvZfjj+m+6SE4mcvr
+ yx0GOCAGYMlr88lVzioMbjpZuWbsILT7cXtj+LexaXq8fzTUWPQBA0TwYd3MMwDZxPlZ
+ RnYnbQwwYA95qjwwZ/mvFIj57rrIuoeYGl3ijTNOtU3K2OScT/XG18gR05rgf57FJODk
+ P28uizTLUbO0WUC2/xuhY/M971RPScnTXz+PjnA9MMsfkBQq+52RHNyFL6EP+MwuAKGF
+ Z9r1xkjuVITg5HXkK7Dw25ebFfMdrmueBaaX46jsA5dkdLOP41ni5JlffPr9qrWouFCE
+ Y45g==
+X-Gm-Message-State: AOJu0YwF4Hg6p+xahUkrK3lCctqUJzKcUsHxE12huAC7ni+deLCIhf48
+ VfVlWhAgezbEBL7VvmYzN4BMHUdZKL11g4tONk4u3u3CS+SsuXqMquVkUju0JIgktvrxQs5KEui
+ eYu6Y2gBPGXitaJDv38kauobGBOA3bwzd/VyEfUyG8ZLo3fW+/hTHZheSRPY5k6umeIVCvrh/82
+ e0U8D0iSyft/yT1B0ZjSGIj+c/Pbe+VVg=
+X-Google-Smtp-Source: AGHT+IFUZfSZmm54yv3CFZvrSw25y6hYoCw9Blh+0W8VN78E7cyzOD6ZdqO1ArVxg4rlrynE3+U1o3YvPg19
 X-Received: from jstultz-noogler2.c.googlers.com
  ([fda3:e722:ac3:cc00:24:72f4:c0a8:600])
- (user=jstultz job=sendgmr) by 2002:a05:6902:10c2:b0:dd9:3a6b:11f8 with SMTP
- id w2-20020a05690210c200b00dd93a6b11f8mr315331ybu.5.1713913108060; Tue, 23
- Apr 2024 15:58:28 -0700 (PDT)
-Date: Tue, 23 Apr 2024 15:57:58 -0700
+ (user=jstultz job=sendgmr) by 2002:a05:6902:260f:b0:de5:4ed6:d3f3 with SMTP
+ id dw15-20020a056902260f00b00de54ed6d3f3mr301345ybb.6.1713913109941; Tue, 23
+ Apr 2024 15:58:29 -0700 (PDT)
+Date: Tue, 23 Apr 2024 15:57:59 -0700
 In-Reply-To: <20240423225821.4003538-1-jstultz@google.com>
 Mime-Version: 1.0
 References: <20240423225821.4003538-1-jstultz@google.com>
 X-Mailer: git-send-email 2.44.0.769.g3c40516874-goog
-Message-ID: <20240423225821.4003538-2-jstultz@google.com>
+Message-ID: <20240423225821.4003538-3-jstultz@google.com>
 To: ltp@lists.linux.it
 X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Mailman-Approved-At: Wed, 24 Apr 2024 14:22:03 +0200
-Subject: [LTP] [PATCH 1/6] sched_football: Drop use of sched_yeild()
+Subject: [LTP] [PATCH 2/6] sched_football: Use atomic for ball
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,55 +102,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-sched_yeild() just causes the SCHED_FIFO tasks to behave like
-SCHED_RR which makes analysis of the behavior more difficult to
-follow. So lets drop the calls.
-
-Also fixes up some whitespace inconsistencies in the header comment.
+Use atomic type for the ball value, as we don't have any locking
+going on.
 
 Cc: kernel-team@android.com
 Cc: Darren Hart <darren@os.amperecomputing.com>
 Signed-off-by: John Stultz <jstultz@google.com>
 ---
- .../realtime/func/sched_football/sched_football.c      | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ testcases/realtime/func/sched_football/sched_football.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/testcases/realtime/func/sched_football/sched_football.c b/testcases/realtime/func/sched_football/sched_football.c
-index 6f075aea3..1e205219d 100644
+index 1e205219d..359c96703 100644
 --- a/testcases/realtime/func/sched_football/sched_football.c
 +++ b/testcases/realtime/func/sched_football/sched_football.c
-@@ -32,12 +32,12 @@
-  *       - Create a fixed number of offense threads (lower priority)
-  *       - Create a referee thread (highest priority)
-  *       - Once everyone is on the field, the offense thread increments the
-- *	 value of 'the_ball' and yields. The defense thread tries to block
-- *	 the ball by never letting the offense players get the CPU (it just
-- * 	   does a sched_yield).
-+ *         value of 'the_ball'. The defense thread tries to block
-+ *         the ball by never letting the offense players get the CPU (it just
-+ *         spins).
-  *       - The refree threads wakes up regularly to check if the game is over :)
-  *       - In the end, if the value of 'the_ball' is >0, the test is considered
-- *	 to have failed.
-+ *         to have failed.
-  *
-  * USAGE:
-  *      Use run_auto.sh script in current directory to build and run test.
-@@ -113,7 +113,6 @@ void *thread_defense(void *arg)
+@@ -71,7 +71,7 @@
+ #define DEF_GAME_LENGTH 5
+ 
+ /* Here's the position of the ball */
+-volatile int the_ball;
++static atomic_t the_ball;
+ 
+ static int players_per_team = 0;
+ static int game_length = DEF_GAME_LENGTH;
+@@ -122,7 +122,7 @@ void *thread_offense(void *arg)
+ {
  	atomic_inc(&players_ready);
- 	/*keep the ball from being moved */
  	while (1) {
--		sched_yield();	/* let other defenders run */
+-		the_ball++;	/* move the ball ahead one yard */
++		atomic_inc(&the_ball);	/* move the ball ahead one yard */
  	}
  	return NULL;
  }
-@@ -124,7 +123,6 @@ void *thread_offense(void *arg)
- 	atomic_inc(&players_ready);
- 	while (1) {
- 		the_ball++;	/* move the ball ahead one yard */
--		sched_yield();	/* let other offensive players run */
+@@ -138,16 +138,16 @@ int referee(int game_length)
+ 	now = start;
+ 
+ 	/* Start the game! */
+-	the_ball = 0;
++	atomic_set(0, &the_ball);
+ 
+ 	/* Watch the game */
+ 	while ((now.tv_sec - start.tv_sec) < game_length) {
+ 		sleep(1);
+ 		gettimeofday(&now, NULL);
  	}
- 	return NULL;
++	final_ball = atomic_get(&the_ball);
+ 	/* Blow the whistle */
+ 	printf("Game Over!\n");
+-	final_ball = the_ball;
+ 	printf("Final ball position: %d\n", final_ball);
+ 	return final_ball != 0;
  }
 -- 
 2.44.0.769.g3c40516874-goog
