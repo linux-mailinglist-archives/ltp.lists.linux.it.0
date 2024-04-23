@@ -1,88 +1,89 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 877DC8B0936
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 14:23:04 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F3C8B0954
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 14:24:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1713961384; h=date :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1713961478; h=date :
  in-reply-to : mime-version : references : message-id : to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=1Nwjb3P1i6dYvQcWTWteVqLlVcHRYaXzJ8e3Va+HAQg=;
- b=SsoQhcf4/PxVRPErkdWmAITAkkaFalpLqT2Wi/CuyvRlqzKa5S2SYv9JutAcET/9zTwM/
- eSVgPbuKHzo6KzhrkxvfHRrOl930euUG+Cp3E1Sb7ygY88uT5qROrlJMz9bnV+/DbM4tpBk
- ru4LjX94uhTNxHxvu03Xx+OeLqzJvdU=
+ bh=8bMvnHztokcm9BgxC2+IBKG69j/7F0mM3Cs/n9TMcVI=;
+ b=AqrOWgg3ijRmFevc5QW3nZIr/va9oaVZsxtCRrr7Oc+NKLhTJRPz0OyOLpzPvbVaKkHiT
+ +wZHjmIrhpThM5q6PIWJ6rVMBpQn84IamDXSwELK8Pr5Sf2wT0nChrtASBaC8LqOvZkd5jM
+ dGLuXCHQ7N1tfSKEeSegJyJ1i3pY5ZA=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3858E3CFFDC
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 14:23:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 37B1C3D0045
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 14:24:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E43493CFA6F
- for <ltp@lists.linux.it>; Wed, 24 Apr 2024 00:58:33 +0200 (CEST)
-Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
- [IPv6:2607:f8b0:4864:20::1149])
+ by picard.linux.it (Postfix) with ESMTPS id CC3C93CFFC1
+ for <ltp@lists.linux.it>; Wed, 24 Apr 2024 00:58:35 +0200 (CEST)
+Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
+ [IPv6:2607:f8b0:4864:20::64a])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6D6336006D7
- for <ltp@lists.linux.it>; Wed, 24 Apr 2024 00:58:33 +0200 (CEST)
-Received: by mail-yw1-x1149.google.com with SMTP id
- 00721157ae682-6183c4a6d18so111828947b3.3
- for <ltp@lists.linux.it>; Tue, 23 Apr 2024 15:58:33 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 690CD1000901
+ for <ltp@lists.linux.it>; Wed, 24 Apr 2024 00:58:35 +0200 (CEST)
+Received: by mail-pl1-x64a.google.com with SMTP id
+ d9443c01a7336-1e5e5fa31dbso66955955ad.0
+ for <ltp@lists.linux.it>; Tue, 23 Apr 2024 15:58:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1713913112; x=1714517912; darn=lists.linux.it;
+ d=google.com; s=20230601; t=1713913114; x=1714517914; darn=lists.linux.it;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=dtfJ/TZVDMnkUSVO20F4VJ8UFP1PC5iiWFEtOZAX0Lo=;
- b=yzRKPWaJA7IkEr3FdRVa9/zmq8yLa4IxI3/4wNO14FJFPQlAEIUlz/DtTPC4cg6kKe
- hWHiHBvtM/1MOj0ghm8YEnzgs4QRuX6JEvqpW5D3J1fhRs/pU9TAVUhlx0FqPyAdHz7X
- HJwmCk/IIxrOdlkWwks7Wj4u/JPHXTG75435XcQmMB9tD240mhx2w1RNQlr9sWW3/Mff
- TT4TB2o0YRLps5LTxZ/4vbkxK6JG4cDNcocbnBpcBoB19VsS+nyKFGhPNMUaVAV0nUeK
- 51r8D03U0pNwo22RwlJKdo/iFZGtRO3hCD6AUPmWAM8L3ZXUyJiz8bMF3w6Q/mXATFgR
- CEYw==
+ bh=2q841j9kye5YbA40IICyAAzsc+SoEdMrxrOnpu+k/aU=;
+ b=fmr2tB5xAcbrUAQRqyGyykCrNiqhuyXbBzQdRWVwz9ZKVRdBdoCl9hFnDEJI8h2b9/
+ 1YMjVXi0OatguJcrd7PsObdSwGKpx1A241TIIL0pvmU8QU7xPMLL0bYWnQruV8NGG56W
+ TYDtNbG66qteuU7LMIggQoWWg1KJW7/zEu/KU6WGCEbiJ/4G2OzbnnfjUHYa9TF4THTj
+ sc8HwAYFs57KqrEwM0iEhmbCv4AlzRrGKg8HM7uMYDgJzrzItvDw7nHfqyzuqLPK9F1D
+ jCr2N3mgqOivIbFJLLyaewK3Q53i/7yo+ShWq3Dh2zIagLbiqTtQ9zP+BL+JgC+/LYDc
+ Xkiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713913112; x=1714517912;
+ d=1e100.net; s=20230601; t=1713913114; x=1714517914;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=dtfJ/TZVDMnkUSVO20F4VJ8UFP1PC5iiWFEtOZAX0Lo=;
- b=hPs618NFZdR/rOpcYfixnHSa1ykkKpuCju1VljhA6ZgnnzsCdG8lsCMImFahh40nWL
- +SFCR4zd2b4xVyOUdBDN+rVB4yP8t9VESWQjKiIRoxrKrOaNxsD62TEsv1zRfyi7f/w9
- EpgNL1XIHYxQk2xo/kOJNspP2vqty2lT+q1fPbjsS4X0Sa5gwU0rRuHt+Ui1x874eVu4
- U8V0DotOqgK5ajUrqmuqqOxD9O2b13b2mmisbigUnjADL02VW27Yr4TvNDt8piVTCJjn
- BJqlqP/l4pBJldPUKRHrX1wVWYfP1lMHgR7GBKfQ4ffvPDmWLRdRu+UTkmctOF+6Q8QM
- XZDg==
-X-Gm-Message-State: AOJu0YxaSMXYsVUMAOoj0O+aLNx1Cl9JH3cI9assHZUkpOyU9k4g/zFN
- hx+BzJuqeCRU5vFRveFsp+Eqf2r1zHPNNa5wbqvkwgutNQ6oKbrOGYYBqFQ5jasVqGreIB2pfJt
- URicLdunvz+jPWAjrmaf9RLBbDMBPSN17LJ1Icd8x4CIoB5MeIzNHnOHjUVXEJvLAmvfKXROTZS
- chj7pIHDGw9UE9akoftwXwOxxQ4Wv8Tjg=
-X-Google-Smtp-Source: AGHT+IH61ROjBRBmLfZi8mKtjBeCwXYkZPpq02ehfASymKzE8TROxdDMCxRF7hY8ZNw5orct9kErswJcmPeS
+ bh=2q841j9kye5YbA40IICyAAzsc+SoEdMrxrOnpu+k/aU=;
+ b=LrEJJXJYoMCknIdzjFhW6N7eJT4R6+h5MUcFA2Gj/NCZ546l//A5EL8j19RtGe8V74
+ yw09wAYNFxBoVfDL8brEgZTOmmU32k3Wx9ChabKy9dDSSYM72q0Iz619UqRa9DLn+XSF
+ xy71jZrJmcUMZNqVI+dl5czk+DDwy/Z/3thXeo2adCgnxAOBdzb/R2Aycve8mMQYgwfR
+ EQHM+xI+XMLhOy/oC+9kvQ6x4GVER231awM7xWOgendnctYobVJczZ0BATWyRzH7Dfm0
+ ZCE/veUaQ/QDXB/Ov+0GtHgWynFVqoq5+SEVOxuBkMBdz8aQbwrzDgTRVAumtBxE4z0V
+ Lkbw==
+X-Gm-Message-State: AOJu0YwtXnqbvbdNjtHgOl3aFVEx0UTupsbPvb5iouWmuM97h5Tk/CxW
+ sjYQoaST72kzXO4OaiDkLV6G/X+4r+9Ar8Pu5av264PHBrZsXBU/eArqNQL5k4UuaeK+l30aD3P
+ t/MxcQkzndUQq/8EVX5hJPjOuDKH36mtkf8PA0z3esw1XhevHKECk+PA+zeNnGSgY+9OWmaVS0j
+ II9O0RVt8WWe9CWrwWTPhvSg5FR8KPdos=
+X-Google-Smtp-Source: AGHT+IGWkvu/8gdmvMWtQsPQxD+Kw2cxagGFp31dfPhKPSkKREHgj1/ERv6jddh6X8SgPPEo+raes2uSithv
 X-Received: from jstultz-noogler2.c.googlers.com
  ([fda3:e722:ac3:cc00:24:72f4:c0a8:600])
- (user=jstultz job=sendgmr) by 2002:a81:8382:0:b0:618:91c3:c8e2 with SMTP id
- t124-20020a818382000000b0061891c3c8e2mr191415ywf.1.1713913111599; Tue, 23 Apr
- 2024 15:58:31 -0700 (PDT)
-Date: Tue, 23 Apr 2024 15:58:00 -0700
+ (user=jstultz job=sendgmr) by 2002:a17:903:2290:b0:1e4:881f:bed1 with SMTP id
+ b16-20020a170903229000b001e4881fbed1mr11379plh.7.1713913113666; Tue, 23 Apr
+ 2024 15:58:33 -0700 (PDT)
+Date: Tue, 23 Apr 2024 15:58:01 -0700
 In-Reply-To: <20240423225821.4003538-1-jstultz@google.com>
 Mime-Version: 1.0
 References: <20240423225821.4003538-1-jstultz@google.com>
 X-Mailer: git-send-email 2.44.0.769.g3c40516874-goog
-Message-ID: <20240423225821.4003538-4-jstultz@google.com>
+Message-ID: <20240423225821.4003538-5-jstultz@google.com>
 To: ltp@lists.linux.it
 X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Mailman-Approved-At: Wed, 24 Apr 2024 14:22:03 +0200
-Subject: [LTP] [PATCH 3/6] sched_football: Re-add the crazy fans to
- interrupt everyone
+Subject: [LTP] [PATCH 4/6] sched_football: Add a sleep before the game
+ begins to get into steady state
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,122 +104,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-An idea that I had included long ago in this test case, but was
-later dropped was the "crazy fans", which added extra disruption
-to the scheduling behavior.
-
-In my recent work, I've found that including them uncovers some
-unexpected behavior with current Linux kernels.
-
-So re-add the high priroity tasks that wake up and run to disrupt
-the scheduling of defense threads. We run 2*NR_CPU "fan" threads
-and they spin for awhile, to force migrations.
+Before we begin the game, lets give a little extra time for any
+odd initial placement to get sorted before we start testing the
+RT scheduling invariant.
 
 Cc: kernel-team@android.com
 Cc: Darren Hart <darren@os.amperecomputing.com>
 Signed-off-by: John Stultz <jstultz@google.com>
 ---
- .../func/sched_football/sched_football.c      | 63 ++++++++++++++++---
- 1 file changed, 55 insertions(+), 8 deletions(-)
+ testcases/realtime/func/sched_football/sched_football.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/testcases/realtime/func/sched_football/sched_football.c b/testcases/realtime/func/sched_football/sched_football.c
-index 359c96703..ed3c5cadf 100644
+index ed3c5cadf..7686ce3e6 100644
 --- a/testcases/realtime/func/sched_football/sched_football.c
 +++ b/testcases/realtime/func/sched_football/sched_football.c
-@@ -22,19 +22,23 @@
-  * DESCRIPTION
-  *      This is a scheduler test that uses a football analogy.
-  *      The premise is that we want to make sure that lower priority threads
-- *      (defensive team). The offense is trying to increment the balls position,
-- *      while the defense is trying to block that from happening.
-+ *      don't run while we have runnable higher priority threads.
-+ *      The offense is trying to increment the balls position, while the
-+ *      defense is trying to block that from happening.
-  *      And the ref (highest priority thread) will blow the wistle if the
-  *      ball moves. Finally, we have crazy fans (higer prority) that try to
-  *      distract the defense by occasionally running onto the field.
-  *
-  *      Steps:
-- *       - Create a fixed number of offense threads (lower priority)
-+ *       - Create NR_CPU offense threads (lower priority)
-+ *       - Create NR_CPU defense threads (mid priority)
-+ *       - Create 2*NR_CPU fan threads (high priority)
-  *       - Create a referee thread (highest priority)
-- *       - Once everyone is on the field, the offense thread increments the
-- *         value of 'the_ball'. The defense thread tries to block
-- *         the ball by never letting the offense players get the CPU (it just
-- *         spins).
-+ *       - Once everyone is on the field, the offense thread spins incrementing
-+ *         the value of 'the_ball'. The defense thread tries to block the ball
-+ *         by never letting the offense players get the CPU (it just spins).
-+ *         The crazy fans sleep a bit, then jump the rail and run across the
-+ *         field, disrupting the players on the field.
-  *       - The refree threads wakes up regularly to check if the game is over :)
-  *       - In the end, if the value of 'the_ball' is >0, the test is considered
-  *         to have failed.
-@@ -52,7 +56,7 @@
-  *		bugfixes and cleanups. -- Josh Triplett
-  *     2009-06-23 Simplified atomic startup mechanism, avoiding thundering herd
-  *		scheduling at the beginning of the game. -- Darren Hart
-- *
-+ *     2024-04-23 Re-add crazy fans! Along with minor cleanups -- John Stultz
-  *****************************************************************************/
- 
- #include <stdio.h>
-@@ -107,6 +111,38 @@ int parse_args(int c, char *v)
- 	return handled;
- }
- 
-+#define NSEC_PER_SEC 1000000000ULL
-+unsigned long long ts_delta(struct timespec *start, struct timespec *stop)
-+{
-+	unsigned long long a, b;
-+
-+	a = start->tv_sec * NSEC_PER_SEC + start->tv_nsec;
-+	b = stop->tv_sec * NSEC_PER_SEC + stop->tv_nsec;
-+	return b - a;
-+}
-+
-+#define SPIN_TIME_NS 200000000
-+#define SLEEP_TIME_NS 50000000
-+/* These are fans running across the field. They're trying to interrupt/distract everyone */
-+void *thread_fan(void *arg)
-+{
-+	atomic_inc(&players_ready);
-+	/*occasionally wake up and run across the field */
-+	while (1) {
-+		int i;
-+		struct timespec start, stop;
-+
-+		start.tv_sec = 0;
-+		start.tv_nsec = SLEEP_TIME_NS;
-+		clock_nanosleep(CLOCK_MONOTONIC, 0, &start, NULL);
-+		clock_gettime(CLOCK_MONOTONIC, &start);
-+		clock_gettime(CLOCK_MONOTONIC, &stop);
-+		while (ts_delta(&start, &stop) < SPIN_TIME_NS)
-+			clock_gettime(CLOCK_MONOTONIC, &stop);
-+	}
-+	return NULL;
-+}
-+
- /* This is the defensive team. They're trying to block the offense */
- void *thread_defense(void *arg)
- {
-@@ -199,6 +235,17 @@ int main(int argc, char *argv[])
- 	while (atomic_get(&players_ready) < players_per_team * 2)
+@@ -246,6 +246,8 @@ int main(int argc, char *argv[])
+ 	while (atomic_get(&players_ready) < players_per_team * 4)
  		usleep(100);
  
-+	/* Start the crazy fans*/
-+	priority = 50;
-+	printf("Starting %d fan threads at priority %d\n",
-+	       players_per_team, priority);
-+	for (i = 0; i < players_per_team*2; i++)
-+		create_fifo_thread(thread_fan, NULL, priority);
-+
-+	/* Wait for the crazy fan threads to start */
-+	while (atomic_get(&players_ready) < players_per_team * 4)
-+		usleep(100);
-+
++	/* let things get into steady state */
++	sleep(2);
  	/* Ok, everyone is on the field, bring out the ref */
  	printf("Starting referee thread\n");
  	result = referee(game_length);
