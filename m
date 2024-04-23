@@ -2,102 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E3E78B05F1
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 11:24:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 256F58B092E
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 14:22:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1713961349; h=date :
+ mime-version : message-id : to : subject : list-id : list-unsubscribe
+ : list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : cc : content-type : content-transfer-encoding : sender :
+ from; bh=nqaagS2Wl3i9yM93JcdIxbMSzaq/BE2s6+49mFb1TKA=;
+ b=KiCrnWvgNYXkTmW34SJwqobjIA0xB72UZBCe+qewdjn7C9ssmHp4k2k3sHjbBuGxDDz8p
+ B/hIgraiwf9zbZm0f40KtjdBZPxlmz72YdKFsglHI3d4hqGNLJKj20JlogYORmAD9J2BlLk
+ qVPjpd0MtHSZxf1nEG/Dqjzv4DteWiI=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 964543CFFD2
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 11:24:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D9D653CFB44
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Apr 2024 14:22:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E38043CF915
- for <ltp@lists.linux.it>; Wed, 24 Apr 2024 11:24:01 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 516823CFA6F
+ for <ltp@lists.linux.it>; Wed, 24 Apr 2024 00:58:28 +0200 (CEST)
+Received: from mail-pl1-x649.google.com (mail-pl1-x649.google.com
+ [IPv6:2607:f8b0:4864:20::649])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 258A2207A04
- for <ltp@lists.linux.it>; Wed, 24 Apr 2024 11:24:00 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9BD2E612BB;
- Wed, 24 Apr 2024 09:23:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1713950638; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Tdcx1pv4roPGKTjyT1OwhGCLJJNlufHcfqzmPyB0CWQ=;
- b=OAFlxQaeQhpzT357DmhOSNWpUW7kXssP/gx2A7O/RklflnOB3yhzoEdVi4KDHDR+TQKVA+
- dhzzRD7ERlNVe4FbsF83Jn6vYNmGsutBTsWYUeF3rtiz/W4Vns6T+2m1xGBis1ruNMpOKW
- 2C9mMRXHefRTC0Dmr+XgAimmXc+a7UI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1713950638;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Tdcx1pv4roPGKTjyT1OwhGCLJJNlufHcfqzmPyB0CWQ=;
- b=C7t8gmzD8q6AhnlVnjs9jDz4QvGLEs5kA9U7x/m8wkCbkfTgcy3YQuMUg4gCFMO7S/Pzqa
- zgdZVaCS7lnsGyCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1713950638; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Tdcx1pv4roPGKTjyT1OwhGCLJJNlufHcfqzmPyB0CWQ=;
- b=OAFlxQaeQhpzT357DmhOSNWpUW7kXssP/gx2A7O/RklflnOB3yhzoEdVi4KDHDR+TQKVA+
- dhzzRD7ERlNVe4FbsF83Jn6vYNmGsutBTsWYUeF3rtiz/W4Vns6T+2m1xGBis1ruNMpOKW
- 2C9mMRXHefRTC0Dmr+XgAimmXc+a7UI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1713950638;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Tdcx1pv4roPGKTjyT1OwhGCLJJNlufHcfqzmPyB0CWQ=;
- b=C7t8gmzD8q6AhnlVnjs9jDz4QvGLEs5kA9U7x/m8wkCbkfTgcy3YQuMUg4gCFMO7S/Pzqa
- zgdZVaCS7lnsGyCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 767C513690;
- Wed, 24 Apr 2024 09:23:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id vWIAG67PKGbvNwAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Wed, 24 Apr 2024 09:23:58 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 555502005D6
+ for <ltp@lists.linux.it>; Wed, 24 Apr 2024 00:58:28 +0200 (CEST)
+Received: by mail-pl1-x649.google.com with SMTP id
+ d9443c01a7336-1e3c2fbc920so2185335ad.0
+ for <ltp@lists.linux.it>; Tue, 23 Apr 2024 15:58:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1713913107; x=1714517907; darn=lists.linux.it;
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=IBcDGjWKXokMjPsghOEAM9h/qxapVnoPg0MA16oLO+A=;
+ b=fGRig12TDn62WF8GwQNjClz6Bb/oEK4EDXKeyqYnvUZXR3tZiy7X/+ZaLn7/oVrkRQ
+ hsUGUqiq5ecFfuZCLQOTjitvEMM8D4A+Mvkvl4xe/5hA4wgJ1W34c5QQMHSrlwtjy5T9
+ 183og2eTFdInnokY6I891I65FbTgcRYapmrTssJszzq9S4OTGbDPOW7HgOn9GTe6OSGk
+ 0iYs8vUzj71bRY+fS708DH1TW+1GZ2tYK1kVjrWMpLipWOU5i36a7HphkLAmFUsV+nia
+ m6J6RhcGMcCtJodIG2IT9gZNWcqiAShFl01Pbu0kMWJkYiNG+tsg4BFYNArkAMIio9Ei
+ 4BzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713913107; x=1714517907;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=IBcDGjWKXokMjPsghOEAM9h/qxapVnoPg0MA16oLO+A=;
+ b=paHNSdQxIkydpH13wMueXf2Bkrd3h2cYv8d7mK/ottkr6wO5FDDz4ALqzlpXm48d3g
+ LH/0axYPdbgKjoKOqk7d3zqtdwClzZvocUZGraPJMziWDgn2SuExGU8p20sTUg2P+e7n
+ B3Aqv737c+toVuhz/F2xVCQfDuqa3W4Qi+wMTmBC3GhI3iDKQN5x+5FK/jUaUbR2CL0H
+ npOHex3NFEVJiuHTkm7huK8wGJd2RF+hCX8IiVwz5gM7KWPGzALkkqBDhUp12I5F6J9F
+ CjKbBpnShVg5XXxpZX/QetL0c1659lhJmLyBjrl4q2198mY9PlgxK1nJx1yojFc3AzME
+ Df1Q==
+X-Gm-Message-State: AOJu0Yz5Y/FKpU3wH4DTiMHUt6uZGlj3raWhe5OC16UA2PnrXD9knQoo
+ ClKLqrzjVOHM/Bkf9Q9j0XF09fd+aFly+6aPX0Lkp++XgDC5lOxPWVw8YkMLvAExtY638IsCY9J
+ krlMUyOBlLlqK1QBIYARCIbitBGlFabSvrMAfLkX6DfZFE29Isxv9a3X2oJarKiMOUktVAPVLuu
+ jrZBJOBXSwm4XkB4d+Fw+ldqyF1UxCVm4=
+X-Google-Smtp-Source: AGHT+IGpKjKTJQ2Ews2jKk4AIIorRKEpX8URIejrQPEyhkajXBx19wSSI4rf/7riRetx590XxJkNWVi1/DH1
+X-Received: from jstultz-noogler2.c.googlers.com
+ ([fda3:e722:ac3:cc00:24:72f4:c0a8:600])
+ (user=jstultz job=sendgmr) by 2002:a17:902:8486:b0:1e5:56e8:7bbd with SMTP id
+ c6-20020a170902848600b001e556e87bbdmr14288plo.1.1713913106142; Tue, 23 Apr
+ 2024 15:58:26 -0700 (PDT)
+Date: Tue, 23 Apr 2024 15:57:57 -0700
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.44.0.769.g3c40516874-goog
+Message-ID: <20240423225821.4003538-1-jstultz@google.com>
 To: ltp@lists.linux.it
-Date: Wed, 24 Apr 2024 11:23:57 +0200
-Message-Id: <20240424092357.11207-1-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCPT_COUNT_TWO(0.00)[2];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
- RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -2.80
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
+X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+ shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2] Add rename15 test
+X-Mailman-Approved-At: Wed, 24 Apr 2024 14:22:03 +0200
+Subject: [LTP] [PATCH 0/6] sched_football: Re-add crazy fans and other
+ cleanups
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,183 +92,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: John Stultz via ltp <ltp@lists.linux.it>
+Reply-To: John Stultz <jstultz@google.com>
+Cc: kernel-team@android.com, John Stultz <jstultz@google.com>,
+ Darren Hart <darren@os.amperecomputing.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Just the other day (~18 years ago), I had implemented the
+sched_football test to validate the RT scheduling invariant that
+we always run the top NR_CPU priority tasks at any time. 
 
-This test has been extracted from symlink01 and it verifies that
-rename() is working correctly on symlink() generated files, renaming
-symbolic link and checking if stat() information are preserved.
+That early version of the test included crazy fans, which
+disrupted the scheduling of the defensive threads. This was
+later removed from the test, likely due to occasional failures
+seen with it.
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
-Added 2 more tests
-* Test rename() on symlink pointing to a non-existent path
-* Test rename() on symlink pointing to a path created lately
+Recently, in testing the behavior of a scheduler patch I was
+working on I started tinkering with this test again, and found
+when I re-added the crazy fans, I could reproduce an actual
+scheduling problem with the vanilla kernel.
 
-Usage of macros for file names
-Resolve tmpdir memory leakage
+So I wanted to submit these changes to re-add the crazy fans
+along with some other cleanups and improvements to make it
+easier to use with tracing, so that the test can be used by
+others to reproduce this problem.
 
- runtest/smoketest                           |   2 +-
- runtest/syscalls                            |   2 +-
- testcases/kernel/syscalls/rename/.gitignore |   1 +
- testcases/kernel/syscalls/rename/rename15.c | 100 ++++++++++++++++++++
- 4 files changed, 103 insertions(+), 2 deletions(-)
- create mode 100644 testcases/kernel/syscalls/rename/rename15.c
+Feedback would be appreciated!
 
-diff --git a/runtest/smoketest b/runtest/smoketest
-index 83eebfe7b..19fa257d6 100644
---- a/runtest/smoketest
-+++ b/runtest/smoketest
-@@ -10,7 +10,7 @@ write01 write01
- symlink01 symlink01
- stat04 symlink01 -T stat04
- utime01A symlink01 -T utime01
--rename01A symlink01 -T rename01
-+rename15 rename15
- splice02 splice02 -s 20
- df01_sh df01.sh
- shell_test01 echo "SUCCESS" | shell_pipe01.sh
-diff --git a/runtest/syscalls b/runtest/syscalls
-index b9dd9fec6..f515d46aa 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1156,7 +1156,6 @@ removexattr01 removexattr01
- removexattr02 removexattr02
- 
- rename01 rename01
--rename01A symlink01 -T rename01
- rename03 rename03
- rename04 rename04
- rename05 rename05
-@@ -1169,6 +1168,7 @@ rename11 rename11
- rename12 rename12
- rename13 rename13
- rename14 rename14
-+rename15 rename15
- 
- #renameat test cases
- renameat01 renameat01
-diff --git a/testcases/kernel/syscalls/rename/.gitignore b/testcases/kernel/syscalls/rename/.gitignore
-index f95cf7d21..d17b80f09 100644
---- a/testcases/kernel/syscalls/rename/.gitignore
-+++ b/testcases/kernel/syscalls/rename/.gitignore
-@@ -11,3 +11,4 @@
- /rename12
- /rename13
- /rename14
-+/rename15
-diff --git a/testcases/kernel/syscalls/rename/rename15.c b/testcases/kernel/syscalls/rename/rename15.c
-new file mode 100644
-index 000000000..d410758a2
---- /dev/null
-+++ b/testcases/kernel/syscalls/rename/rename15.c
-@@ -0,0 +1,100 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-+ *    Author: David Fenner
-+ *    Copilot: Jon Hendrickson
-+ * Copyright (C) 2024 Andrea Cervesato andrea.cervesato@suse.com
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * This test verifies that rename() is working correctly on symlink()
-+ * generated files.
-+ */
-+
-+#include <stdlib.h>
-+#include "tst_test.h"
-+
-+#define OLDNAME "msymlink0"
-+#define NEWNAME "asymlink0"
-+
-+static char *tmpdir;
-+
-+static void test_existing(void)
-+{
-+	tst_res(TINFO, "Test rename() on symlink pointing to an existent path");
-+
-+	struct stat oldsym_stat;
-+	struct stat newsym_stat;
-+
-+	SAFE_SYMLINK(tmpdir, OLDNAME);
-+	SAFE_STAT(OLDNAME, &oldsym_stat);
-+
-+	SAFE_RENAME(OLDNAME, NEWNAME);
-+	SAFE_STAT(NEWNAME, &newsym_stat);
-+
-+	TST_EXP_EQ_LI(oldsym_stat.st_ino, newsym_stat.st_ino);
-+	TST_EXP_EQ_LI(oldsym_stat.st_dev, newsym_stat.st_dev);
-+
-+	SAFE_UNLINK(NEWNAME);
-+}
-+
-+static void test_non_existing(void)
-+{
-+	tst_res(TINFO, "Test rename() on symlink pointing to a non-existent path");
-+
-+	struct stat path_stat;
-+
-+	SAFE_SYMLINK("this_path_doesnt_exist", OLDNAME);
-+	TST_EXP_FAIL(stat(OLDNAME, &path_stat), ENOENT);
-+
-+	SAFE_RENAME(OLDNAME, NEWNAME);
-+	TST_EXP_FAIL(stat(NEWNAME, &path_stat), ENOENT);
-+
-+	SAFE_UNLINK(NEWNAME);
-+}
-+
-+static void test_creat(void)
-+{
-+	tst_res(TINFO, "Test rename() on symlink pointing to a path created lately");
-+
-+	char *objpath = "object";
-+	struct stat path_stat;
-+
-+	SAFE_SYMLINK(objpath, OLDNAME);
-+	TST_EXP_FAIL(stat(OLDNAME, &path_stat), ENOENT);
-+
-+	tst_res(TINFO, "Create object file");
-+
-+	SAFE_CREAT(objpath, 0700);
-+	SAFE_RENAME(OLDNAME, NEWNAME);
-+	TST_EXP_PASS(stat(NEWNAME, &path_stat));
-+
-+	SAFE_UNLINK(objpath);
-+	SAFE_UNLINK(NEWNAME);
-+}
-+
-+static void run(void)
-+{
-+	test_existing();
-+	test_creat();
-+	test_non_existing();
-+}
-+
-+static void setup(void)
-+{
-+	tmpdir = tst_get_tmpdir();
-+}
-+
-+static void cleanup(void)
-+{
-+	free(tmpdir);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = run,
-+	.needs_tmpdir = 1,
-+};
+thanks
+-john
+
+Cc: kernel-team@android.com
+Cc: Darren Hart <darren@os.amperecomputing.com>
+
+John Stultz (6):
+  sched_football: Drop use of sched_yeild()
+  sched_football: Use atomic for ball
+  sched_football: Re-add the crazy fans to interrupt everyone
+  sched_football: Add a sleep before the game begins to get into steady
+    state
+  sched_football: Add prctrl calls to set thread comms
+  sched_football: Add trace_marker messages if we're tracing
+
+ .../func/sched_football/sched_football.c      | 94 +++++++++++++++----
+ 1 file changed, 78 insertions(+), 16 deletions(-)
+
 -- 
-2.35.3
+2.44.0.769.g3c40516874-goog
 
 
 -- 
