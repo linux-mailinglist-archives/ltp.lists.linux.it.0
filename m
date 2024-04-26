@@ -1,60 +1,95 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8706A8B4A87
-	for <lists+linux-ltp@lfdr.de>; Sun, 28 Apr 2024 09:46:00 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 417458B5492
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Apr 2024 11:52:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 475203CFF56
-	for <lists+linux-ltp@lfdr.de>; Sun, 28 Apr 2024 09:46:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E37AE3D03EC
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Apr 2024 11:52:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B49D53C20CA
- for <ltp@lists.linux.it>; Sun, 28 Apr 2024 09:45:58 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 272363D0323
+ for <ltp@lists.linux.it>; Fri, 26 Apr 2024 15:48:11 +0200 (CEST)
 Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=uniontech.com (client-ip=54.92.39.34; helo=smtpbgjp3.qq.com;
- envelope-from=lufei@uniontech.com; receiver=lists.linux.it)
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=fstornio@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2449C2001CF
- for <ltp@lists.linux.it>; Sun, 28 Apr 2024 09:45:54 +0200 (CEST)
-X-QQ-mid: bizesmtp83t1714290345t4okzsoq
-X-QQ-Originating-IP: +xRPUFK79W0Ohcht/UoQIZdsvVDHVomCdsj3CR5ix70=
-Received: from localhost.localdomain ( [125.76.217.162])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Sun, 28 Apr 2024 15:45:11 +0800 (CST)
-X-QQ-SSF: 01400000000000C0B000000A0000000
-X-QQ-FEAT: qYgaZJPlkQ7pHKUDXYAGxechjWF+7san/DKWYSPYsWRNmpUqzuMDShPoHRU1N
- J0sK/PXrAzOGli9C/+oOXGyi7d2MkGfSKIifO8jywslh2Zvuh/Y68PJX/yJ3ykqBBYTWZY8
- wH3hIcqBA+MaWVdJhnBC5p+B+9NYkvyqDlpo43q96QwCMW8i7K0r+lbPhznwfwZWePS9f6m
- pTeZh2+DLedaCzgC0/TNt3m2+FVQPqUU0Lf0MIFF3Hy1Q1nyQz2hu9G7ac/kemVbotV4Hex
- WcwVDYR4xyFssjXB5VdC/RtlM4cU4/subX3xDurDNiIdBDfW53AEP55HEc3kdIBVrFW06W9
- G3wMMM+ShwOIiBYd6b3yI8xpeqIJv+WHqUeL5tG34ocqlJbRBETM1P/uy+AlKsceUsykM8V
-X-QQ-GoodBg: 2
-X-BIZMAIL-ID: 9796043827662619907
-From: lufei <lufei@uniontech.com>
-To: jstancek@redhat.com,
-	ltp@lists.linux.it
-Date: Sun, 28 Apr 2024 15:44:57 +0800
-Message-Id: <20240428074457.2629906-2-lufei@uniontech.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20240428074457.2629906-1-lufei@uniontech.com>
-References: <20240419070717.2506101-1-lufei@uniontech.com>
- <20240428074457.2629906-1-lufei@uniontech.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0993320172D
+ for <ltp@lists.linux.it>; Fri, 26 Apr 2024 15:48:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1714139289;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=l/M09QdNtQPgUiNo1H6FwIu5Ec5EJMdtE+7cuUy75Lw=;
+ b=V/WYQ4ifFRz4G0XW4HlN7UiSX0XLkZHCIJYCnu21iDnh32ksYy+5CNUHT4LkcrLYGh9puV
+ mEqx9CXi3hWsgPm6UJXJc/0fiDCmC6Qo7q0V9t8h4TKEKvIQqUKnt0cTOzGjoEMEcWmwW0
+ 5r/2gKDZMYVy+bw8d3c4GvNvWTjRpSo=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-327-FUthokGHOoO3TSRAQwtrgw-1; Fri, 26 Apr 2024 09:48:08 -0400
+X-MC-Unique: FUthokGHOoO3TSRAQwtrgw-1
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4393e712cd5so26924641cf.3
+ for <ltp@lists.linux.it>; Fri, 26 Apr 2024 06:48:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1714139287; x=1714744087;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=l/M09QdNtQPgUiNo1H6FwIu5Ec5EJMdtE+7cuUy75Lw=;
+ b=qcD2dmI1CYOdivJh0N+MCqhUpDoZhRkvcxeWNzeVkAzGCSZaHsFlzMrWwtuxDJ1GM1
+ ZH29OyNbemJEpfw9iypC9MnRMz4fPZrNxfjvn8Lki3ClcPe+8cRr3KbRM9n+mplgHGsd
+ OHItedGTFaeLPRcOej24lT5X+mT7Oaf4HoMfteAWrfhRWVRmULIhwfix4kzhQjZCngxv
+ e6+RCgv/JbpKyB1kYaPJhUEkseTOC3yz0rCv/jijnqvALrKUl+Gd58fSommbDLpKMRJm
+ qRaJAgnA044OShXDMrYoPssyGynjsSURWluXKZA+GOtTizSAVJXPC3whv/3DcfC6CieF
+ jDvQ==
+X-Gm-Message-State: AOJu0Yxehr7ui5QIyiu0nk1UNEwUIgLyoNk07kxlnPXbIcit/v2cDEHM
+ G4zRtH/mVWVoL71JyNsMmhUFGHnXpB6+fmw332VF+BmOaRyTnft5qYZA4K7U5OqlNea/CSXUHHb
+ YcfZ+J/chwur9hjNFEZgh56yhUBPYS91SP1gIuMaukpTYRUTz+/gFdklTdHTscrDPJgPFdxAzTd
+ 3zaVUki+1DQ+Bxr1oPpovi+8c1p27XNTVS
+X-Received: by 2002:ac8:584e:0:b0:439:db10:84f5 with SMTP id
+ h14-20020ac8584e000000b00439db1084f5mr3362851qth.28.1714139287136; 
+ Fri, 26 Apr 2024 06:48:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE+fHwkUdo4xfiQFY38g0D16AdiFeMrZcwqq2Cy9ZJtDeFyf6b8gvGHszt3SjTI1WcRsX54bA==
+X-Received: by 2002:ac8:584e:0:b0:439:db10:84f5 with SMTP id
+ h14-20020ac8584e000000b00439db1084f5mr3362822qth.28.1714139286730; 
+ Fri, 26 Apr 2024 06:48:06 -0700 (PDT)
+Received: from fstornio-thinkpadx1carbongen11.remote.csb
+ (host-79-50-126-211.retail.telecomitalia.it. [79.50.126.211])
+ by smtp.gmail.com with ESMTPSA id
+ ev14-20020a05622a510e00b0043971e215a7sm5902290qtb.60.2024.04.26.06.48.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Apr 2024 06:48:06 -0700 (PDT)
+From: Filippo Storniolo <fstornio@redhat.com>
+To: ltp@lists.linux.it
+Date: Fri, 26 Apr 2024 15:48:02 +0200
+Message-ID: <20240426134802.2607150-1-fstornio@redhat.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6a-0
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] Add case about arch_prctl syscall.
+X-Mailman-Approved-At: Mon, 29 Apr 2024 11:52:22 +0200
+Subject: [LTP] [PATCH] syscalls/mlock05: add mlock test for locking and
+ pre-faulting of memory
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,131 +101,123 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: lufei <lufei@uniontech.com>
+Cc: Filippo Storniolo <fstornio@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add testcase about arch_prctl syscall.
+check VmRSS and VmLck variables from /proc/$pid/status.
+VmRSS size should at least as big as the memory allocation.
+VmLck size should be equal to the size of the memory allocation.
 
-Signed-off-by: Lu Fei <lufei@uniontech.com>
+Co-developed-by: Dennis Brendel <dbrendel@redhat.com>
+Signed-off-by: Filippo Storniolo <fstornio@redhat.com>
 ---
- configure.ac                                  |  1 +
- runtest/syscalls                              |  2 +
- .../kernel/syscalls/arch_prctl/.gitignore     |  1 +
- testcases/kernel/syscalls/arch_prctl/Makefile |  8 +++
- .../kernel/syscalls/arch_prctl/arch_prctl01.c | 51 +++++++++++++++++++
- 5 files changed, 63 insertions(+)
- create mode 100644 testcases/kernel/syscalls/arch_prctl/.gitignore
- create mode 100644 testcases/kernel/syscalls/arch_prctl/Makefile
- create mode 100644 testcases/kernel/syscalls/arch_prctl/arch_prctl01.c
+ runtest/syscalls                           |  1 +
+ testcases/kernel/syscalls/mlock/.gitignore |  1 +
+ testcases/kernel/syscalls/mlock/mlock05.c  | 69 ++++++++++++++++++++++
+ 3 files changed, 71 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/mlock/mlock05.c
 
-diff --git a/configure.ac b/configure.ac
-index 1d7e862d8..0dcaddc0f 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -41,6 +41,7 @@ AC_CHECK_DECLS([SEM_STAT_ANY],,,[#include <sys/sem.h>])
- 
- AC_CHECK_HEADERS_ONCE([ \
-     asm/ldt.h \
-+    asm/prctl.h \
-     cpuid.h \
-     emmintrin.h \
-     ifaddrs.h \
 diff --git a/runtest/syscalls b/runtest/syscalls
-index 7794f1465..505b4243d 100644
+index 252123d8b..05a52fc8f 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -31,6 +31,8 @@ alarm05 alarm05
- alarm06 alarm06
- alarm07 alarm07
+@@ -781,6 +781,7 @@ mlock01 mlock01
+ mlock02 mlock02
+ mlock03 mlock03 -i 20
+ mlock04 mlock04
++mlock05 mlock05
  
-+arch_prctl01 arch_prctl01
-+
- bind01 bind01
- bind02 bind02
- bind03 bind03
-diff --git a/testcases/kernel/syscalls/arch_prctl/.gitignore b/testcases/kernel/syscalls/arch_prctl/.gitignore
+ mlock201 mlock201
+ mlock202 mlock202
+diff --git a/testcases/kernel/syscalls/mlock/.gitignore b/testcases/kernel/syscalls/mlock/.gitignore
+index 306574bbc..1872229b8 100644
+--- a/testcases/kernel/syscalls/mlock/.gitignore
++++ b/testcases/kernel/syscalls/mlock/.gitignore
+@@ -2,3 +2,4 @@
+ /mlock02
+ /mlock03
+ /mlock04
++/mlock05
+diff --git a/testcases/kernel/syscalls/mlock/mlock05.c b/testcases/kernel/syscalls/mlock/mlock05.c
 new file mode 100644
-index 000000000..24871e249
+index 000000000..e67cd1e03
 --- /dev/null
-+++ b/testcases/kernel/syscalls/arch_prctl/.gitignore
-@@ -0,0 +1 @@
-+/arch_prctl01
-diff --git a/testcases/kernel/syscalls/arch_prctl/Makefile b/testcases/kernel/syscalls/arch_prctl/Makefile
-new file mode 100644
-index 000000000..272949d57
---- /dev/null
-+++ b/testcases/kernel/syscalls/arch_prctl/Makefile
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) UnionTech Software Technology Co.,Ltd. 2024
-+
-+top_srcdir		?= ../../../..
-+
-+include $(top_srcdir)/include/mk/testcases.mk
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/arch_prctl/arch_prctl01.c b/testcases/kernel/syscalls/arch_prctl/arch_prctl01.c
-new file mode 100644
-index 000000000..5fe7ea131
---- /dev/null
-+++ b/testcases/kernel/syscalls/arch_prctl/arch_prctl01.c
-@@ -0,0 +1,51 @@
++++ b/testcases/kernel/syscalls/mlock/mlock05.c
+@@ -0,0 +1,69 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
-+ * Copyright (c) UnionTech Software Technology Co.,Ltd., 2024
-+ * Author: Lu Fei <lufei@uniontech.com>
++ * Copyright Red Hat
++ * Author: Filippo Storniolo <fstornio@redhat.com>
 + */
 +
 +/*\
 + * [Description]
 + *
-+ * Simple test on arch_prctl to set and get cpuid instruction of test thread.
++ * Verify mlock() causes pre-faulting of PTEs and prevent memory to be swapped out.
++ *
++ * Checks the variables VmRSS and VmLck in /proc/$pid/status after the
++ * mlock syscall:
++ * - VmRSS size should be at least as big as the memory allocation
++ * - VmLck size should be equal to the size of the memory allocation
 + */
 +
 +#include "tst_test.h"
-+#include "lapi/syscalls.h"
-+#include <stdlib.h>
-+#ifdef HAVE_ASM_PRCTL_H
-+#include <asm/prctl.h>
 +
-+static int arch_prctl_get(int code)
++#define MMAPLEN			(1UL<<20)
++
++static void verify_mlock(void)
 +{
-+	return tst_syscall(__NR_arch_prctl, code, NULL);
-+}
++	unsigned long VmRSS_before;
++	unsigned long VmRSS_after;
++	unsigned long VmLck_before;
++	unsigned long VmLck_after;
++	unsigned long VmRSS;
++	unsigned long VmLck;
++	char *buf;
 +
-+static int arch_prctl_set(int code, unsigned long addr)
-+{
-+	return tst_syscall(__NR_arch_prctl, code, addr);
-+}
++	buf = SAFE_MMAP(NULL, MMAPLEN, PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 +
-+static void run(unsigned int index)
-+{
-+	// index == 0 for disable cpuid, 1 for enable cpuid.
-+	TST_EXP_PASS(arch_prctl_set(ARCH_SET_CPUID, index));
++	SAFE_FILE_LINES_SCANF("/proc/self/status", "VmRSS: %lu", &VmRSS_before);
++	SAFE_FILE_LINES_SCANF("/proc/self/status", "VmLck: %lu", &VmLck_before);
 +
-+	TEST(arch_prctl_get(ARCH_GET_CPUID));
++	SAFE_MLOCK(buf, MMAPLEN);
 +
-+	if (TST_RET == index)
-+		tst_res(TPASS, "get cpuid succeed.");
-+	else
-+		tst_res(TFAIL, "get cpuid failed.");
++	SAFE_FILE_LINES_SCANF("/proc/self/status", "VmRSS: %lu", &VmRSS_after);
++	SAFE_FILE_LINES_SCANF("/proc/self/status", "VmLck: %lu", &VmLck_after);
++
++	VmRSS = VmRSS_after - VmRSS_before;
++	VmLck = VmLck_after - VmLck_before;
++
++	// Convertion from KiB to B
++	VmRSS *= 1024;
++	VmLck *= 1024;
++
++	if (VmRSS >= MMAPLEN) {
++		tst_res(TPASS, "Pre-allocation functionality of mlock() successful");
++	} else {
++		tst_brk(TBROK, "Expected pre-allocation of %lu bytes, "
++					"get %lu pre-allocated", MMAPLEN, VmRSS);
++	}
++
++	if (VmLck == MMAPLEN) {
++		tst_res(TPASS, "Locking functionality of mlock() successful");
++	} else {
++		tst_brk(TBROK, "Expected locking of %lu bytes, "
++					"get %lu locked", MMAPLEN, VmLck);
++	}
++
++	SAFE_MUNLOCK(buf, MMAPLEN);
++	SAFE_MUNMAP(buf, MMAPLEN);
 +}
 +
 +static struct tst_test test = {
-+	.test = run,
-+	.tcnt = 2,
-+	.min_kver = "4.12",
-+	.supported_archs = (const char *const []){"x86_64", "x86", NULL}
++	.test_all = verify_mlock,
 +};
-+
-+#else /* HAVE_ASM_PRCTL_H */
-+TST_TEST_TCONF("missing <asm/prctl.h>");
-+#endif
 -- 
-2.39.3
+2.44.0
 
 
 -- 
