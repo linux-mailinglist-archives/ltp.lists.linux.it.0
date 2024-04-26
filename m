@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D07288B3F35
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 Apr 2024 20:26:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 914278B3F3B
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Apr 2024 20:29:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C9EE83D03D7
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 Apr 2024 20:26:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4FCCD3D03DE
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Apr 2024 20:29:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
@@ -14,84 +14,83 @@ Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 19F233D037F
- for <ltp@lists.linux.it>; Fri, 26 Apr 2024 20:26:04 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 27BB93D038B
+ for <ltp@lists.linux.it>; Fri, 26 Apr 2024 20:28:57 +0200 (CEST)
 Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 31B691401110
- for <ltp@lists.linux.it>; Fri, 26 Apr 2024 20:26:03 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 852F61402E23
+ for <ltp@lists.linux.it>; Fri, 26 Apr 2024 20:28:56 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 60F6435136;
- Fri, 26 Apr 2024 18:26:03 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 950725BE7B;
+ Fri, 26 Apr 2024 18:28:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1714155963;
+ t=1714156135;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9bsWqMK0PEkKU+FJKEVEvunhIXqesc1y8D69LXvqC7s=;
- b=l9Fz8gfybs2nhi71iR+lvzf4Zf/dz8dh3feT5ZQonmT9yPNZ+0xubm3qo+vH2PfoJlEHeT
- BpUzLDfjNcTKCRHbcKCnsL886249w3GjiS7R7m+cfzNPIHkZcdJXwB7OT88Bu2g2Po29yN
- yIyQuAqCmMapfLxmTonbktayfHCb3t4=
+ bh=6ZtVOlS4QZpa8uWVyfe5prZXsyxiu8HXfqtTWqMiS18=;
+ b=YmsZseVRWJsVGEhxKjx8bfTbxlJUGDdUvjZL/Tc8xk1RMw8PoiAJrTZ7jBn5BU6UxharJL
+ S9o5EBPEde7l5Yaj5cUF4lZy8/lDVEOzSv9djptXxquhcoa4uFjXfSotIigC+9E+l7UyBS
+ lqaaRvx1g1wDrmNnDjQ8+pZJTePj0fg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1714155963;
+ s=susede2_ed25519; t=1714156135;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9bsWqMK0PEkKU+FJKEVEvunhIXqesc1y8D69LXvqC7s=;
- b=nib5IErQa2ZOQpzE3r4i/3oKMLfXTnTIH54eNCqZw5XqeEmJJgb7DtTqb/HjYOSPeUg9fr
- 4kNukKeFnAD69EDA==
-Authentication-Results: smtp-out1.suse.de;
+ bh=6ZtVOlS4QZpa8uWVyfe5prZXsyxiu8HXfqtTWqMiS18=;
+ b=O/wHfyKyNSBZ8GO/nkSbXR0AdTb5NrfcBklAJRVkvXvrbx1tc/c3YgOxGSo9mHbckjbu67
+ NxsgQ0HUpuXqjTBw==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1714155963;
+ t=1714156135;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9bsWqMK0PEkKU+FJKEVEvunhIXqesc1y8D69LXvqC7s=;
- b=l9Fz8gfybs2nhi71iR+lvzf4Zf/dz8dh3feT5ZQonmT9yPNZ+0xubm3qo+vH2PfoJlEHeT
- BpUzLDfjNcTKCRHbcKCnsL886249w3GjiS7R7m+cfzNPIHkZcdJXwB7OT88Bu2g2Po29yN
- yIyQuAqCmMapfLxmTonbktayfHCb3t4=
+ bh=6ZtVOlS4QZpa8uWVyfe5prZXsyxiu8HXfqtTWqMiS18=;
+ b=YmsZseVRWJsVGEhxKjx8bfTbxlJUGDdUvjZL/Tc8xk1RMw8PoiAJrTZ7jBn5BU6UxharJL
+ S9o5EBPEde7l5Yaj5cUF4lZy8/lDVEOzSv9djptXxquhcoa4uFjXfSotIigC+9E+l7UyBS
+ lqaaRvx1g1wDrmNnDjQ8+pZJTePj0fg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1714155963;
+ s=susede2_ed25519; t=1714156135;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9bsWqMK0PEkKU+FJKEVEvunhIXqesc1y8D69LXvqC7s=;
- b=nib5IErQa2ZOQpzE3r4i/3oKMLfXTnTIH54eNCqZw5XqeEmJJgb7DtTqb/HjYOSPeUg9fr
- 4kNukKeFnAD69EDA==
+ bh=6ZtVOlS4QZpa8uWVyfe5prZXsyxiu8HXfqtTWqMiS18=;
+ b=O/wHfyKyNSBZ8GO/nkSbXR0AdTb5NrfcBklAJRVkvXvrbx1tc/c3YgOxGSo9mHbckjbu67
+ NxsgQ0HUpuXqjTBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 26DBE136DB;
- Fri, 26 Apr 2024 18:26:03 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 57807136DB;
+ Fri, 26 Apr 2024 18:28:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 8d+qBrvxK2YnLgAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 26 Apr 2024 18:26:03 +0000
-Date: Fri, 26 Apr 2024 20:25:57 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id PmyQEmfyK2bYLgAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 26 Apr 2024 18:28:55 +0000
+Date: Fri, 26 Apr 2024 20:28:53 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20240426182557.GD6871@pevik>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <20240426182853.GE6871@pevik>
 References: <20240426042851.333269-1-pvorel@suse.cz>
  <3b2f3b29-153f-4921-bd51-cc32d2749881@suse.com>
- <CAEemH2dzzZp5kMF5cQPQQ=Z-Eb55JkEtqvh2E8UOt6UOE7gr7w@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2dzzZp5kMF5cQPQQ=Z-Eb55JkEtqvh2E8UOt6UOE7gr7w@mail.gmail.com>
-X-Spam-Score: -3.50
+In-Reply-To: <3b2f3b29-153f-4921-bd51-cc32d2749881@suse.com>
+X-Spam-Score: -7.50
 X-Spam-Level: 
-X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
+X-Spamd-Result: default: False [-7.50 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
  RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
  MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
@@ -99,8 +98,8 @@ X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
  FROM_HAS_DN(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:replyto];
  REPLYTO_EQ_FROM(0.00)[]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
@@ -127,46 +126,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Hi Andrea,
 
-> > >   /**
-> > > - * Macro to create minimal swapfile.
-> > > + * MAKE_SMALL_SWAPFILE - create small swap file.
-> > > + *
-> > > + * Macro to create small small swap file. Size defined with
-> > MINIMAL_SWAP_SIZE_MB.
-> > "small small" sounds weird. Maybe "really small"
+> > - * Macro to create minimal swapfile.
+> > + * MAKE_SMALL_SWAPFILE - create small swap file.
+> > + *
+> > + * Macro to create small small swap file. Size defined with MINIMAL_SWAP_SIZE_MB.
+> "small small" sounds weird. Maybe "really small"
 
++1, my typo, thanks!
 
-> +1 I guess that might be one typo.
+> > + *
+> > + * @swapfile: swap filename.
+> >    */
+> >   #define MAKE_SMALL_SWAPFILE(swapfile) \
+> >       make_swapfile(__FILE__, __LINE__, swapfile, MINIMAL_SWAP_SIZE_MB, 0, \
+> >   		  SWAPFILE_BY_SIZE)
+> >   /**
+> > - * Macro to create minimal swapfile.
+> > + * SAFE_MAKE_SMALL_SWAPFILE - create small swap file (safe version).
+> > + *
+> > + * Macro to create small small swap file. Size defined with MINIMAL_SWAP_SIZE_MB.
+> >    * Includes safety checks to handle potential errors.
+> Same here
+Yeah.
 
-> Otherwise looks good to me, thanks!
-
-Thanks a lot for catching these (on 2 places, diff below). I'm travelling for a
-few days, thus I'll leave it for others to see before merge.
+BTW we need to have CI job which tries to generate our docs with sphinx.
 
 Kind regards,
 Petr
-
-+++ include/libswap.h
-@@ -30,7 +30,7 @@ int make_swapfile(const char *file, const int lineno,
- /**
-  * MAKE_SMALL_SWAPFILE - create small swap file.
-  *
-- * Macro to create small small swap file. Size defined with MINIMAL_SWAP_SIZE_MB.
-+ * Macro to create small swap file. Size defined with MINIMAL_SWAP_SIZE_MB.
-  *
-  * @swapfile: swap filename.
-  */
-@@ -41,7 +41,7 @@ int make_swapfile(const char *file, const int lineno,
- /**
-  * SAFE_MAKE_SMALL_SWAPFILE - create small swap file (safe version).
-  *
-- * Macro to create small small swap file. Size defined with MINIMAL_SWAP_SIZE_MB.
-+ * Macro to create small swap file. Size defined with MINIMAL_SWAP_SIZE_MB.
-  * Includes safety checks to handle potential errors.
-  *
-  * @swapfile: swap filename.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
