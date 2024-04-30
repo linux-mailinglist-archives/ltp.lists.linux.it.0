@@ -2,54 +2,53 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B25E8B759F
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2024 14:23:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0CC18B759D
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2024 14:23:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D54783CB373
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2024 14:23:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4DEBE3CB46E
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2024 14:23:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1E6263CB3E0
- for <ltp@lists.linux.it>; Tue, 30 Apr 2024 14:23:07 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 9EE973C88E3
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2024 14:23:06 +0200 (CEST)
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 70CE26177C3
- for <ltp@lists.linux.it>; Tue, 30 Apr 2024 14:23:06 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1E528200C18
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2024 14:23:05 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D42E73402C
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CBE6A3402B
  for <ltp@lists.linux.it>; Tue, 30 Apr 2024 12:23:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1714479784; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QH4KW/xq5SPnprgSog0udCFFYWoGJpk7tqh9rpVlk/0=;
- b=sVp/UV50SgDVCALQe6OFBQGqwHMaB+JcjSBWEsXM9LOyWem0AWmNOi5Q+Wf1zM0n5uVz+l
- o2zlN24agpIr7J6Uxqwh+YXxJC56ZPsJhjC4fEQNJ06VIrGN57HuTC0GcZXirYZBxoYN/x
- FTQPkvYyAZVs4mwMFyeA41L00P68+TU=
+ bh=A9lcW4E//q+U168SqvJeCBa9DmrnsSTOXTISJtmRyD0=;
+ b=YVlZPDtx0SPa3aK7FkakFV8HGdAtIbldmXl7HtGUhzRE7tmGr/pipRQDzxfBL3siJwM5fS
+ g0M/Kzm8ZMIz9SvQW9zRjVkH/ZBkz5oGqNHH9IA+eInKh9o9XKKuEnnitBsAKdYxYQ4FJD
+ j7br0SMcvQ6L1pUSIchibws+eqMiiKI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1714479784;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QH4KW/xq5SPnprgSog0udCFFYWoGJpk7tqh9rpVlk/0=;
- b=2aU+PI7MyW0Lt4hnQ5I8UmtNzOxgQW8oJz3slAek1a053Mv2KANwI4HxJEGt4nzflBIcUG
- xm1Wb0H1fP3dmXDA==
+ bh=A9lcW4E//q+U168SqvJeCBa9DmrnsSTOXTISJtmRyD0=;
+ b=4GkueORBLO52A1iss2OXzIvrI8QrtHkIh1OcguLXkIK7pP08Mp/kFsldUhlPlBvrdCUm0H
+ UqFFP95KmhlusHAw==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
@@ -57,60 +56,59 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QH4KW/xq5SPnprgSog0udCFFYWoGJpk7tqh9rpVlk/0=;
- b=sVp/UV50SgDVCALQe6OFBQGqwHMaB+JcjSBWEsXM9LOyWem0AWmNOi5Q+Wf1zM0n5uVz+l
- o2zlN24agpIr7J6Uxqwh+YXxJC56ZPsJhjC4fEQNJ06VIrGN57HuTC0GcZXirYZBxoYN/x
- FTQPkvYyAZVs4mwMFyeA41L00P68+TU=
+ bh=A9lcW4E//q+U168SqvJeCBa9DmrnsSTOXTISJtmRyD0=;
+ b=YVlZPDtx0SPa3aK7FkakFV8HGdAtIbldmXl7HtGUhzRE7tmGr/pipRQDzxfBL3siJwM5fS
+ g0M/Kzm8ZMIz9SvQW9zRjVkH/ZBkz5oGqNHH9IA+eInKh9o9XKKuEnnitBsAKdYxYQ4FJD
+ j7br0SMcvQ6L1pUSIchibws+eqMiiKI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1714479784;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QH4KW/xq5SPnprgSog0udCFFYWoGJpk7tqh9rpVlk/0=;
- b=2aU+PI7MyW0Lt4hnQ5I8UmtNzOxgQW8oJz3slAek1a053Mv2KANwI4HxJEGt4nzflBIcUG
- xm1Wb0H1fP3dmXDA==
+ bh=A9lcW4E//q+U168SqvJeCBa9DmrnsSTOXTISJtmRyD0=;
+ b=4GkueORBLO52A1iss2OXzIvrI8QrtHkIh1OcguLXkIK7pP08Mp/kFsldUhlPlBvrdCUm0H
+ UqFFP95KmhlusHAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B43B2139B3
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C280F13A22
  for <ltp@lists.linux.it>; Tue, 30 Apr 2024 12:23:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id kFrfK6jiMGaQHAAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uBdbL6jiMGaQHAAAD6G6ig
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Tue, 30 Apr 2024 12:23:04 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 30 Apr 2024 14:21:59 +0200
-Message-ID: <20240430122208.13043-4-mdoucha@suse.cz>
+Date: Tue, 30 Apr 2024 14:22:00 +0200
+Message-ID: <20240430122208.13043-5-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240430122208.13043-1-mdoucha@suse.cz>
 References: <20240430122208.13043-1-mdoucha@suse.cz>
 MIME-Version: 1.0
 X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-2.76 / 50.00]; BAYES_HAM(-2.96)[99.81%];
  NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
  R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
  MIME_GOOD(-0.10)[text/plain]; FUZZY_BLOCKED(0.00)[rspamd.com];
  RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
  ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:email];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
  PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
  RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -2.80
+X-Spam-Score: -2.76
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 3/9] KVM: Implement printf-like formatting for
- tst_res() and tst_brk()
+Subject: [LTP] [PATCH 4/9] kvm_svm02: Fix saved stack segment index value
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,100 +125,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+The VMCB init helper function expects GDT item index while the VMCB
+segment selector values are byte offsets. Shift the byte offset
+of saved stack segment selector to get the correct GDT index.
+
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- testcases/kernel/kvm/include/kvm_guest.h | 12 +++++---
- testcases/kernel/kvm/lib_guest.c         | 36 +++++++++++++++++++++---
- 2 files changed, 40 insertions(+), 8 deletions(-)
+ testcases/kernel/kvm/kvm_svm02.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/kvm/include/kvm_guest.h b/testcases/kernel/kvm/include/kvm_guest.h
-index f19bacc39..080d0ac2b 100644
---- a/testcases/kernel/kvm/include/kvm_guest.h
-+++ b/testcases/kernel/kvm/include/kvm_guest.h
-@@ -68,12 +68,16 @@ void kvm_exit(void) __attribute__((noreturn));
- void kvm_yield(void);
+diff --git a/testcases/kernel/kvm/kvm_svm02.c b/testcases/kernel/kvm/kvm_svm02.c
+index 5d2e2ce37..f72fb3812 100644
+--- a/testcases/kernel/kvm/kvm_svm02.c
++++ b/testcases/kernel/kvm/kvm_svm02.c
+@@ -96,7 +96,7 @@ void main(void)
+ 	vmsave_buf = kvm_alloc_vmcb();
  
- void tst_res_(const char *file, const int lineno, int result,
--	const char *message);
--#define tst_res(result, msg) tst_res_(__FILE__, __LINE__, (result), (msg))
-+	const char *fmt, ...)
-+	__attribute__ ((format (printf, 4, 5)));
-+#define tst_res(result, fmt, ...) \
-+	tst_res_(__FILE__, __LINE__, (result), (fmt), ##__VA_ARGS__)
+ 	/* Save allocated stack for later VM reinit */
+-	ss = vcpu->vmcb->ss.selector;
++	ss = vcpu->vmcb->ss.selector >> 3;
+ 	rsp = vcpu->vmcb->rsp;
  
- void tst_brk_(const char *file, const int lineno, int result,
--	const char *message) __attribute__((noreturn));
--#define tst_brk(result, msg) tst_brk_(__FILE__, __LINE__, (result), (msg))
-+	const char *fmt, ...) __attribute__((noreturn))
-+	__attribute__ ((format (printf, 4, 5)));
-+#define tst_brk(result, fmt, ...) \
-+	tst_brk_(__FILE__, __LINE__, (result), (fmt), ##__VA_ARGS__)
- 
- /*
-  * Send asynchronous notification to host without stopping VM execution and
-diff --git a/testcases/kernel/kvm/lib_guest.c b/testcases/kernel/kvm/lib_guest.c
-index 73a76ccb1..2e3e9cb6e 100644
---- a/testcases/kernel/kvm/lib_guest.c
-+++ b/testcases/kernel/kvm/lib_guest.c
-@@ -443,6 +443,7 @@ static void tst_fatal_error(const char *file, const int lineno,
- 	test_result->result = TBROK;
- 	test_result->lineno = lineno;
- 	test_result->file_addr = (uintptr_t)file;
-+	/* Avoid sprintf() here in case of bugs */
- 	strcpy(test_result->message, message);
- 	strcat(test_result->message, " at address 0x");
- 	ptr2hex(test_result->message + strlen(test_result->message), ip);
-@@ -451,19 +452,46 @@ static void tst_fatal_error(const char *file, const int lineno,
- }
- 
- void tst_res_(const char *file, const int lineno, int result,
--	const char *message)
-+	const char *fmt, ...)
- {
-+	va_list args;
-+	int ret;
-+
-+	va_start(args, fmt);
- 	test_result->result = result;
- 	test_result->lineno = lineno;
- 	test_result->file_addr = (uintptr_t)file;
--	strcpy(test_result->message, message);
-+	ret = vsprintf(test_result->message, fmt, args);
-+	va_end(args);
-+
-+	if (ret < 0) {
-+		tst_brk_(file, lineno, TBROK, "Invalid tst_res() format: %s",
-+			fmt);
-+	}
-+
- 	kvm_yield();
- }
- 
- void tst_brk_(const char *file, const int lineno, int result,
--	const char *message)
-+	const char *fmt, ...)
- {
--	tst_res_(file, lineno, result, message);
-+	va_list args;
-+	int ret;
-+
-+	va_start(args, fmt);
-+	test_result->result = result;
-+	test_result->lineno = lineno;
-+	test_result->file_addr = (uintptr_t)file;
-+	ret = vsprintf(test_result->message, fmt, args);
-+	va_end(args);
-+
-+	if (ret < 0) {
-+		test_result->result = TBROK;
-+		strcpy(test_result->message, "Invalid tst_brk() format: ");
-+		strcat(test_result->message, fmt);
-+	}
-+
-+	kvm_yield();
- 	kvm_exit();
- }
- 
+ 	/* Load partial state from vmsave_buf and save it to vcpu->vmcb */
 -- 
 2.44.0
 
