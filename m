@@ -2,116 +2,115 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84A168B759E
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2024 14:23:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A62D8B75AC
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2024 14:24:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 47E693CB4FF
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2024 14:23:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 51D523CB577
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2024 14:24:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 207A63CB3F0
+ by picard.linux.it (Postfix) with ESMTPS id 119693CB3BC
  for <ltp@lists.linux.it>; Tue, 30 Apr 2024 14:23:06 +0200 (CEST)
-Authentication-Results: in-6.smtp.seeweb.it;
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 670D914004EB
- for <ltp@lists.linux.it>; Tue, 30 Apr 2024 14:23:06 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2B6761000998
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2024 14:23:05 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AE58834026
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B224A1F7D6
  for <ltp@lists.linux.it>; Tue, 30 Apr 2024 12:23:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1714479784; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=vEAJXqcH5QepFIBdueze4HQ/SiO8qZ6Yo7NIfqrIwEI=;
- b=M8BPEZ1jsntTyQfZxLIlVQJdFnI2OU0XDG1ZLNKs2FwWiPpgoUxjUg4UXVVUPAeUYMngZe
- Dsf+hix4b9CYl4L4EbX4ERO4onL9YSXrcaPd6ZqQwqATRGOaav0EDKUgQg9lVgII8K42/q
- 8EcI8BYXONt+orfjTmRXYEHgUgs7ewg=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=TA7oPB/IDU9+cpmzLEeDB+Bm85wlNVBliIUpkV/KRmE=;
+ b=olRsQp56Ig7LgG1yXisf7k14jKOyp7Mm270qbjEysDfPmTlK/d7sFWwLhzbJKooyF/ryJd
+ tcWOUU6D05YQr4RxkUJYVxRyxSy39GcYCBwYF6WViSveS/tKlzgxpOrN17nmTL4scDzCl4
+ 0vibdkQZgOU2AlVj1CAQc7mfXQydSEY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1714479784;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=vEAJXqcH5QepFIBdueze4HQ/SiO8qZ6Yo7NIfqrIwEI=;
- b=wEI/vIoXa396hgiAVe0OcnVvKss4lSNfq5N5PAOFnTfAMnYfa/PSY1GxXxSuhmhYKEwJBc
- TNX4wrUu1ShWb2Bg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=M8BPEZ1j;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="wEI/vIoX"
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=TA7oPB/IDU9+cpmzLEeDB+Bm85wlNVBliIUpkV/KRmE=;
+ b=KcUs0nkzv6B2yY+y2ieqSCbamSJTBfpd2OytOQY9ZZJPsqdFnOs93e8uMWH3LzaVbcWceD
+ LA0OyFP8z36RWFDQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1714479784; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=vEAJXqcH5QepFIBdueze4HQ/SiO8qZ6Yo7NIfqrIwEI=;
- b=M8BPEZ1jsntTyQfZxLIlVQJdFnI2OU0XDG1ZLNKs2FwWiPpgoUxjUg4UXVVUPAeUYMngZe
- Dsf+hix4b9CYl4L4EbX4ERO4onL9YSXrcaPd6ZqQwqATRGOaav0EDKUgQg9lVgII8K42/q
- 8EcI8BYXONt+orfjTmRXYEHgUgs7ewg=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=TA7oPB/IDU9+cpmzLEeDB+Bm85wlNVBliIUpkV/KRmE=;
+ b=olRsQp56Ig7LgG1yXisf7k14jKOyp7Mm270qbjEysDfPmTlK/d7sFWwLhzbJKooyF/ryJd
+ tcWOUU6D05YQr4RxkUJYVxRyxSy39GcYCBwYF6WViSveS/tKlzgxpOrN17nmTL4scDzCl4
+ 0vibdkQZgOU2AlVj1CAQc7mfXQydSEY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1714479784;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=vEAJXqcH5QepFIBdueze4HQ/SiO8qZ6Yo7NIfqrIwEI=;
- b=wEI/vIoXa396hgiAVe0OcnVvKss4lSNfq5N5PAOFnTfAMnYfa/PSY1GxXxSuhmhYKEwJBc
- TNX4wrUu1ShWb2Bg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=TA7oPB/IDU9+cpmzLEeDB+Bm85wlNVBliIUpkV/KRmE=;
+ b=KcUs0nkzv6B2yY+y2ieqSCbamSJTBfpd2OytOQY9ZZJPsqdFnOs93e8uMWH3LzaVbcWceD
+ LA0OyFP8z36RWFDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A7CF8136A8
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AB9EC137BA
  for <ltp@lists.linux.it>; Tue, 30 Apr 2024 12:23:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id PvrHKKjiMGaQHAAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 4Fu4KajiMGaQHAAAD6G6ig
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Tue, 30 Apr 2024 12:23:04 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 30 Apr 2024 14:21:56 +0200
-Message-ID: <20240430122208.13043-1-mdoucha@suse.cz>
+Date: Tue, 30 Apr 2024 14:21:57 +0200
+Message-ID: <20240430122208.13043-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240430122208.13043-1-mdoucha@suse.cz>
+References: <20240430122208.13043-1-mdoucha@suse.cz>
 MIME-Version: 1.0
+X-Spam-Score: -1.33
 X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-1.33 / 50.00]; BAYES_HAM(-1.53)[91.95%];
  NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_COUNT_TWO(0.00)[2]; ARC_NA(0.00)[];
- RCPT_COUNT_ONE(0.00)[1]; FROM_HAS_DN(0.00)[];
- MIME_TRACE(0.00)[0:+]; FROM_EQ_ENVFROM(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
+ ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: AE58834026
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: -3.01
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:email];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
+ RCVD_TLS_ALL(0.00)[]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 0/9] Add functional test for AMD VMSAVE/VMLOAD
- instructions
+Subject: [LTP] [PATCH 1/9] KVM: Disable EBP register use in 32bit code
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,40 +127,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Thanks to a minor bug in LTP KVM library, LTP test kvm_svm02 found a kernel
-bug in emulation of VMSAVE and VMLOAD instructions in nested VMs. Add
-a thorough functional test for both instructions which can detect and pinpoint
-emulation bugs.
+The EBP register points to the stack segment by default but GCC uses
+it to access data segment without the proper prefix. This works fine
+on most systems because the stack and data segments are usually
+identical. However, KVM environment intentionally enforces strict
+limits on the stack segment and access to the data segment using
+unprefixed EBP would trigger stack segment fault exception in 32bit
+LTP builds (stack segment limits are ignored in 64bit mode).
 
-Also implement basic printf-like formatting for tst_res() and tst_brk() so
-that the test can print incorrect register values to simplify result analysis.
-Only standard integer and character conversions are supported. Floating point
-number conversions, field alignment and padding are not implemented.
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+ testcases/kernel/kvm/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Martin Doucha (9):
-  KVM: Disable EBP register use in 32bit code
-  KVM: Implement strchr() and basic sprintf()
-  KVM: Implement printf-like formatting for tst_res() and tst_brk()
-  kvm_svm02: Fix saved stack segment index value
-  kvm_find_free_descriptor(): Skip descriptor 0
-  KVM: Add system control MSR constants
-  KVM: Add VMSAVE/VMLOAD functions to x86 SVM library
-  KVM: Add functional test for VMSAVE/VMLOAD instructions
-  KVM: Move kvm_pagefault01 to the end of KVM runfile
-
- runtest/kvm                                |   4 +-
- testcases/kernel/kvm/.gitignore            |   1 +
- testcases/kernel/kvm/Makefile              |   2 +-
- testcases/kernel/kvm/include/kvm_guest.h   |  23 +-
- testcases/kernel/kvm/include/kvm_x86.h     |  10 +
- testcases/kernel/kvm/include/kvm_x86_svm.h |   6 +
- testcases/kernel/kvm/kvm_svm02.c           |  14 +-
- testcases/kernel/kvm/kvm_svm04.c           | 307 ++++++++++++++++++
- testcases/kernel/kvm/lib_guest.c           | 348 ++++++++++++++++++++-
- testcases/kernel/kvm/lib_x86.c             |  20 +-
- 10 files changed, 713 insertions(+), 22 deletions(-)
- create mode 100644 testcases/kernel/kvm/kvm_svm04.c
-
+diff --git a/testcases/kernel/kvm/Makefile b/testcases/kernel/kvm/Makefile
+index ce4a5ede2..c85790e11 100644
+--- a/testcases/kernel/kvm/Makefile
++++ b/testcases/kernel/kvm/Makefile
+@@ -22,7 +22,7 @@ ifeq ($(HOST_CPU),x86_64)
+ endif
+ 
+ ifeq ($(HOST_CPU),x86)
+-	GUEST_CFLAGS += -m32
++	GUEST_CFLAGS += -m32 -ffixed-ebp
+ 	ASFLAGS += --32
+ endif
+ 
 -- 
 2.44.0
 
