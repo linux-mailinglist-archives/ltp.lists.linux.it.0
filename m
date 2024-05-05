@@ -2,59 +2,92 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50B258BF44D
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2024 03:59:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6C548BF4C1
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2024 04:56:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1715137000; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-type : content-transfer-encoding : sender : from;
+ bh=SXeGXOxKICeJQ3Ru6YObPO3vTrFuyNTGBUGm2RVdCgc=;
+ b=ZWphz6zYAbqGchnE+0vYXfiX16OIfMWnCSnxUV99FrNedPn3fqqa+vA668cnnax7JY78J
+ ROIKS4mLhmIUe7pobefGutrfgrM3bewy7Z9rTOvE6/3fZa+fJUf4oQtWi7Vx+xj8V4vzOTd
+ BGRkAv2ceeuzRxn14RtmQ27xNAtgSVM=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ECB913CDEA1
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2024 03:59:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 71E423CD806
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2024 04:56:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DC0F13CBEF0
- for <ltp@lists.linux.it>; Wed,  8 May 2024 03:59:28 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=uniontech.com (client-ip=18.132.163.193; helo=smtpbg150.qq.com;
- envelope-from=lufei@uniontech.com; receiver=lists.linux.it)
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+ by picard.linux.it (Postfix) with ESMTPS id 5FDC23CD806
+ for <ltp@lists.linux.it>; Wed,  8 May 2024 04:56:27 +0200 (CEST)
+Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fujitsu.com (client-ip=139.138.36.225;
+ helo=esa10.hc1455-7.c3s2.iphmx.com; envelope-from=xuyang2018.jy@fujitsu.com;
+ receiver=lists.linux.it)
+Received: from esa10.hc1455-7.c3s2.iphmx.com (esa10.hc1455-7.c3s2.iphmx.com
+ [139.138.36.225])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BDE73634A38
- for <ltp@lists.linux.it>; Wed,  8 May 2024 03:59:25 +0200 (CEST)
-X-QQ-mid: bizesmtpsz8t1715133558t6q27id
-X-QQ-Originating-IP: sT9Qad+zcJXGnL8OP7XtDartcxTVn0+ZBONLdrT3m5M=
-Received: from localhost.localdomain ( [125.76.217.162])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 08 May 2024 09:59:03 +0800 (CST)
-X-QQ-SSF: 01400000000000C0B000000A0000000
-X-QQ-FEAT: MqaDhgBJ9QpuLAYjyl2aGOCQcM9w3HNXjP5PPC6sGuJQg2uc7UzKSMvr1Xygh
- gD1+GVIO56O+VDomVHmWtDm0mH9kJxL9hPRYwT0jGjnm/RcN07zQDJjG6XMtvkUBnDe0xGd
- TlcXdQ8DFXJ9vK2KOwkC1dQlpaRZJINsKSrqhByq5rr+BWyAYdyCMZiaHvK7oXxWQ8RbOD5
- CIKCaZ6dNWFGMTCIdFv6yt/Rst6JhG1pp4pbVnLl8B87/kqBQvNwvfxNIx9q1sfsqnAz9RY
- xpLKbHTneA3sU1rLoWYsTe/eAGse/Oc7ekflj95rrtpDfSx0JBBljLfAdefIG7ymAQa2eJU
- 8I/+amMBOzx87UtUGUUg89JhcnbSrSd2zSK6aRG7E/CicMvTb+C2h8nCoCiPuzt78Wv39Y+
- q9Dn+paXos8=
-X-QQ-GoodBg: 2
-X-BIZMAIL-ID: 9208710240694505904
-From: lufei <lufei@uniontech.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 282CB2220BD
+ for <ltp@lists.linux.it>; Wed,  8 May 2024 04:56:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+ t=1715136987; x=1746672987;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=fQXfs/5SksTMogvb1fM1VYhoXH83yIb1LzvgbcbbfXg=;
+ b=atxCvCpVIW5WYBll9bMjDP20vNLsjPLhkbpO1l3O+ckv1wkDZuYr9L7w
+ inp0RWo2amkHfh0YNX8TXYaqyf5+tjzwJrHwK4B3xhtehEGy8LWn27MMo
+ L/LjEquphitYSCym5DwNNcAr+jSk9kKHjwOsxEVg2QOmVmxXnTTOeIBnW
+ 9zcj60HRFsz7lRQaeO1NFOKbZZrXyBVlVt6C1vbBSESbaqxaVcshsETtO
+ fRF/njI08TG3YPQvMdyGV6kseTv33LmxA3oBrGvq3rX2nxDmxICz7AQax
+ af+RMxt0wgKC3fwVNdfKG2Yd3HFLDgzBETIVaIVYvA5CgKycv5W7tJAIQ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11066"; a="145204033"
+X-IronPort-AV: E=Sophos;i="6.08,143,1712588400"; d="scan'208";a="145204033"
+Received: from unknown (HELO yto-r2.gw.nic.fujitsu.com) ([218.44.52.218])
+ by esa10.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2024 11:56:23 +0900
+Received: from yto-m2.gw.nic.fujitsu.com (yto-nat-yto-m2.gw.nic.fujitsu.com
+ [192.168.83.65])
+ by yto-r2.gw.nic.fujitsu.com (Postfix) with ESMTP id 16005C68A8
+ for <ltp@lists.linux.it>; Wed,  8 May 2024 11:56:20 +0900 (JST)
+Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
+ [192.51.206.21])
+ by yto-m2.gw.nic.fujitsu.com (Postfix) with ESMTP id 52263D5461
+ for <ltp@lists.linux.it>; Wed,  8 May 2024 11:56:19 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+ by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id C0F0E202CE130
+ for <ltp@lists.linux.it>; Wed,  8 May 2024 11:56:18 +0900 (JST)
+Received: from rhel93GA.g08.fujitsu.local (unknown [10.167.221.71])
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id 547711A0002;
+ Wed,  8 May 2024 10:56:18 +0800 (CST)
 To: ltp@lists.linux.it
-Date: Wed,  8 May 2024 09:58:52 +0800
-Message-Id: <20240508015852.3362-2-lufei@uniontech.com>
+Date: Sun,  5 May 2024 02:17:46 -0400
+Message-Id: <20240505061746.77510-1-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20240508015852.3362-1-lufei@uniontech.com>
-References: <20240507043235.1692-2-lufei@uniontech.com>
- <20240508015852.3362-1-lufei@uniontech.com>
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6a-0
-X-Spam-Status: No, score=-0.0 required=7.0 tests=DMARC_MISSING, SPF_HELO_PASS, 
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28368.004
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28368.004
+X-TMASE-Result: 10--6.106300-10.000000
+X-TMASE-MatchedRID: 2wfub8HDRfNSuJfEWZSQfB1kSRHxj+Z5TfK5j0EZbysc5SGKNk1CG7h+
+ pYnZ0bxF8YMGIR6ZqjVVmNrvsGRXOqGGOyqBK41vEXjPIvKd74BMkOX0UoduuUz5vzLEGq8D09D
+ 6Rw2zIrM2xy17I1v5+P/obOPM9tlrfDMsmEXCX5hVXhlmZsTdjKTYf9v9flolGPh40PSDz6yFcC
+ v6HgZ9MJoi4Fk1Ww9PgDLqnrRlXrZ8nn9tnqel2DsAVzN+Ov/siLRc0yVq+ZNGEd/AZObmvXaGG
+ RYiaY7UiSaQgzqoE0KaImDMZRpumg==
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] Add case about arch_prctl syscall.
+Subject: [LTP] [PATCH v2] bind: Add negative tests for bind
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,160 +99,109 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: lufei <lufei@uniontech.com>
+From: Yang Xu via ltp <ltp@lists.linux.it>
+Reply-To: Yang Xu <xuyang2018.jy@fujitsu.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add testcase about arch_prctl syscall.
+Add negative cases for bind(), when errno is EBADF or ENOTDIR.
+Also fix some format check warning for existed code.
 
-Signed-off-by: Lu Fei <lufei@uniontech.com>
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- configure.ac                                  |  1 +
- runtest/syscalls                              |  2 +
- .../kernel/syscalls/arch_prctl/.gitignore     |  1 +
- testcases/kernel/syscalls/arch_prctl/Makefile |  8 ++
- .../kernel/syscalls/arch_prctl/arch_prctl01.c | 82 +++++++++++++++++++
- 5 files changed, 94 insertions(+)
- create mode 100644 testcases/kernel/syscalls/arch_prctl/.gitignore
- create mode 100644 testcases/kernel/syscalls/arch_prctl/Makefile
- create mode 100644 testcases/kernel/syscalls/arch_prctl/arch_prctl01.c
+ testcases/kernel/syscalls/bind/bind01.c | 36 ++++++++++++++++++-------
+ 1 file changed, 27 insertions(+), 9 deletions(-)
 
-diff --git a/configure.ac b/configure.ac
-index 1d7e862d8..0dcaddc0f 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -41,6 +41,7 @@ AC_CHECK_DECLS([SEM_STAT_ANY],,,[#include <sys/sem.h>])
+diff --git a/testcases/kernel/syscalls/bind/bind01.c b/testcases/kernel/syscalls/bind/bind01.c
+index c008819a8..6d8338a22 100644
+--- a/testcases/kernel/syscalls/bind/bind01.c
++++ b/testcases/kernel/syscalls/bind/bind01.c
+@@ -17,11 +17,16 @@
  
- AC_CHECK_HEADERS_ONCE([ \
-     asm/ldt.h \
-+    asm/prctl.h \
-     cpuid.h \
-     emmintrin.h \
-     ifaddrs.h \
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 7794f1465..505b4243d 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -31,6 +31,8 @@ alarm05 alarm05
- alarm06 alarm06
- alarm07 alarm07
+ #include "tst_test.h"
  
-+arch_prctl01 arch_prctl01
+-int inet_socket;
+-int dev_null;
++#define DIR_ENOTDIR "dir_enotdir"
++#define TEST_ENOTDIR "test_enotdir"
+ 
+-struct sockaddr_in sin1, sin2, sin3;
+-struct sockaddr_un sun;
++static int inet_socket;
++static int dev_null;
++static int fd_ebadf;
++static int fd_enotdir;
 +
- bind01 bind01
- bind02 bind02
- bind03 bind03
-diff --git a/testcases/kernel/syscalls/arch_prctl/.gitignore b/testcases/kernel/syscalls/arch_prctl/.gitignore
-new file mode 100644
-index 000000000..24871e249
---- /dev/null
-+++ b/testcases/kernel/syscalls/arch_prctl/.gitignore
-@@ -0,0 +1 @@
-+/arch_prctl01
-diff --git a/testcases/kernel/syscalls/arch_prctl/Makefile b/testcases/kernel/syscalls/arch_prctl/Makefile
-new file mode 100644
-index 000000000..272949d57
---- /dev/null
-+++ b/testcases/kernel/syscalls/arch_prctl/Makefile
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) UnionTech Software Technology Co.,Ltd. 2024
++static struct sockaddr_in sin1, sin2, sin3;
++static struct sockaddr_un sun, sock_enotdir;
+ 
+ static struct test_case {
+ 	int *socket_fd;
+@@ -41,24 +46,28 @@ static struct test_case {
+ 	  EAFNOSUPPORT, "UNIX-domain of current directory" },
+ 	{ &inet_socket, (struct sockaddr *)&sin3, sizeof(sin3), -1,
+ 	  EADDRNOTAVAIL, "non-local address" },
++	{ &fd_ebadf, (struct sockaddr *)&sin1, sizeof(sin1), -1,
++	  EBADF, "sockfd is not a valid file descriptor" },
++	{ &fd_enotdir, (struct sockaddr *)&sock_enotdir, sizeof(sock_enotdir), -1,
++	  ENOTDIR, "a component of addr prefix is not a directory"},
+ };
+ 
+-void verify_bind(unsigned int nr)
++static void verify_bind(unsigned int nr)
+ {
+ 	struct test_case *tcase = &tcases[nr];
+ 
+ 	if (tcase->experrno) {
+ 		TST_EXP_FAIL(bind(*tcase->socket_fd, tcase->sockaddr, tcase->salen),
+-		             tcase->experrno, "%s", tcase->desc);
++				tcase->experrno, "%s", tcase->desc);
+ 	} else {
+ 		TST_EXP_PASS(bind(*tcase->socket_fd, tcase->sockaddr, tcase->salen),
+-		             "%s", tcase->desc);
++				"%s", tcase->desc);
+ 		SAFE_CLOSE(inet_socket);
+ 		inet_socket = SAFE_SOCKET(PF_INET, SOCK_STREAM, 0);
+ 	}
+ }
+ 
+-void test_setup(void)
++static void test_setup(void)
+ {
+ 	/* initialize sockaddr's */
+ 	sin1.sin_family = AF_INET;
+@@ -78,14 +87,22 @@ void test_setup(void)
+ 	sun.sun_family = AF_UNIX;
+ 	strncpy(sun.sun_path, ".", sizeof(sun.sun_path));
+ 
++	SAFE_TOUCH(DIR_ENOTDIR, 0777, NULL);
++	sock_enotdir.sun_family = AF_UNIX;
++	strncpy(sock_enotdir.sun_path, DIR_ENOTDIR "/" TEST_ENOTDIR,
++		sizeof(sock_enotdir.sun_path));
 +
-+top_srcdir		?= ../../../..
-+
-+include $(top_srcdir)/include/mk/testcases.mk
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/arch_prctl/arch_prctl01.c b/testcases/kernel/syscalls/arch_prctl/arch_prctl01.c
-new file mode 100644
-index 000000000..e30b5667a
---- /dev/null
-+++ b/testcases/kernel/syscalls/arch_prctl/arch_prctl01.c
-@@ -0,0 +1,82 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) UnionTech Software Technology Co.,Ltd., 2024
-+ * Author: Lu Fei <lufei@uniontech.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Simple test on arch_prctl to set and get cpuid instruction of test thread.
-+ */
-+
-+#include "tst_test.h"
-+#include "tst_safe_stdio.h"
-+#include "lapi/syscalls.h"
-+#include <stdlib.h>
-+#include <string.h>
-+#ifdef HAVE_ASM_PRCTL_H
-+#include <asm/prctl.h>
-+
-+static int arch_prctl_get(int code)
-+{
-+	return tst_syscall(__NR_arch_prctl, code, NULL);
-+}
-+
-+static int arch_prctl_set(int code, unsigned long addr)
-+{
-+	return tst_syscall(__NR_arch_prctl, code, addr);
-+}
-+
-+static bool tag;
-+
-+static void setup(void)
-+{
-+	FILE *f;
-+	char flag_mid[] = " cpuid_fault ";
-+	char flag_end[] = " cpuid_fault\n";
-+	char *line = NULL;
-+	size_t len = 0;
-+
-+	tag = false;
-+
-+	f = SAFE_FOPEN("/proc/cpuinfo", "r");
-+
-+	while (getline(&line, &len, f) != -1)
-+		if (strncmp(line, "flags", strlen("flags")) == 0 &&
-+				(strstr(line, flag_mid) != NULL ||
-+				 strstr(line, flag_end) != NULL)) {
-+			tag = true;
-+			break;
-+		}
-+}
-+
-+static void run(unsigned int index)
-+{
-+	if (tag)
-+		TST_EXP_PASS(arch_prctl_set(ARCH_SET_CPUID, index));
-+	else
-+		TST_EXP_FAIL(arch_prctl_set(ARCH_SET_CPUID, index), ENODEV);
-+
-+	// if cpu has cpuid_fault flag, ARCH_GET_CPUID returns what has been
-+	// set: index, otherwise, returns default status: 1
-+	int exp = tag ? index : 1;
-+
-+	TEST(arch_prctl_get(ARCH_GET_CPUID));
-+	if (TST_RET == exp)
-+		tst_res(TPASS, "get cpuid succeed.");
-+	else
-+		tst_res(TFAIL, "get wrong cpuid status");
-+}
-+
-+static struct tst_test test = {
-+	.test = run,
-+	.setup = setup,
-+	.tcnt = 2,
-+	.min_kver = "4.12",
-+	.supported_archs = (const char *const []){"x86_64", "x86", NULL}
-+};
-+
-+#else /* HAVE_ASM_PRCTL_H */
-+TST_TEST_TCONF("missing <asm/prctl.h>");
-+#endif
+ 	inet_socket = SAFE_SOCKET(PF_INET, SOCK_STREAM, 0);
+ 	dev_null = SAFE_OPEN("/dev/null", O_WRONLY);
++	fd_ebadf = -1;
++	fd_enotdir = SAFE_SOCKET(AF_UNIX, SOCK_STREAM, 0);
+ }
+ 
+-void test_cleanup(void)
++static void test_cleanup(void)
+ {
+ 	SAFE_CLOSE(inet_socket);
+ 	SAFE_CLOSE(dev_null);
++	SAFE_CLOSE(fd_enotdir);
+ }
+ 
+ static struct tst_test test = {
+@@ -93,4 +110,5 @@ static struct tst_test test = {
+ 	.setup = test_setup,
+ 	.cleanup = test_cleanup,
+ 	.test = verify_bind,
++	.needs_tmpdir = 1,
+ };
 -- 
 2.39.3
 
