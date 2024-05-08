@@ -1,70 +1,90 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B9078BF48C
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2024 04:29:20 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id F21C78BF58F
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2024 07:23:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 50ED83CDEA2
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2024 04:29:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 861D13CDEA3
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2024 07:23:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 420EE3CD806
- for <ltp@lists.linux.it>; Wed,  8 May 2024 04:29:10 +0200 (CEST)
-Authentication-Results: in-3.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=uniontech.com (client-ip=13.245.218.24; helo=smtpbg153.qq.com;
- envelope-from=lufei@uniontech.com; receiver=lists.linux.it)
-Received: from smtpbg153.qq.com (smtpbg153.qq.com [13.245.218.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 87CEB3CDB88
+ for <ltp@lists.linux.it>; Wed,  8 May 2024 07:23:37 +0200 (CEST)
+Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 617D21A00EA5
- for <ltp@lists.linux.it>; Wed,  8 May 2024 04:29:07 +0200 (CEST)
-X-QQ-GoodBg: 2
-X-QQ-SSF: 00400000000000F0
-X-QQ-XMRINFO: OWPUhxQsoeAVDbp3OJHYyFg=
-X-QQ-FEAT: cIAm9Ti9Z0wwIqFVxQia/M0tAIjUQxfcFtHOTePdP0DyzqAyVDJ9nA5H4fioa
- UR9rK/Rejvv/5GP3olUKCnErx1+KphSEpWCMRUfX3ZW85kKjNAd4dnIJD3sRqn6QkxCYXtD
- Xwv2rqUpE/992Wnjprsquz8x72aXWhKryP7aZeYxmDvS1BLQ3kggtm171KB1JR0WoeP82pq
- tejAPohHvJoCo7kSYxgX5tC6h8CBsC3Gce25AQ3/lG7IVveWDHranLDAB1Ezy3Whi8KFTw2
- CEZU702RMMRwhvudNEP9UYtYHa7S95JSSm1uJiFLy3px/XFh+GZilMbcWv/+c04oUGkB9V5
- vVTJQ3/6Xr3QVqAxAC2wAOviLGFzK502+N1AzuyJ2fHNIzsWhzV4HX/mnlgUTKFBqJA7eVt
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: dgXQoQruKC5j057Wphi8dWquFMHY20TmhSWtXUDzkPU=
-X-Originating-IP: 125.76.39.228
-X-QQ-STYLE: 
-X-QQ-mid: t5gz6a-3t1715135340t4009128
-From: "=?utf-8?B?6Lev5paQ?=" <lufei@uniontech.com>
-To: "=?utf-8?B?Q3lyaWwgSHJ1Ymlz?=" <chrubis@suse.cz>
-Mime-Version: 1.0
-Date: Wed, 8 May 2024 02:29:00 +0000
-X-Priority: 3
-Message-ID: <tencent_60EAD0C87B6992E152F29F11@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20240506070336.2711930-2-lufei@uniontech.com>
- <20240507043235.1692-1-lufei@uniontech.com>
- <20240507043235.1692-2-lufei@uniontech.com> <ZjojkXpTTleALvrQ@yuki>
-In-Reply-To: <ZjojkXpTTleALvrQ@yuki>
-X-QQ-ReplyHash: 2604727230
-X-BIZMAIL-ID: 14731648227307992163
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Wed, 08 May 2024 10:29:02 +0800 (CST)
-Feedback-ID: t:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4a-1
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,
- HTML_NONELEMENT_30_40,MSGID_FROM_MTA_HEADER,SPF_HELO_PASS,SPF_PASS
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 48BBE22A1F6
+ for <ltp@lists.linux.it>; Wed,  8 May 2024 07:23:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1715145814;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q1mv6TizJYPTCAvLUN2OGKj22huV4VGbzKIl6u/v6I8=;
+ b=Z9mf5VErPPaDrhIn2SsM75JyM5ckOBGZJddFSfowxs1XcoOAxXZK45tzRpG+hL6DsWRmQb
+ 9oAMjXa7wm53Ctp9XaVBxgr9wNikz2JGaybm7jvHXF4w3Ca0MEgJVXU6dzV0U/uDr7T6M6
+ 5moWN8ascr1BnEXymmdUA+JpdKmxAGw=
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
+ [209.85.161.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-616-qdPoJ2mYMgCdcimPI_AwjA-1; Wed, 08 May 2024 01:23:32 -0400
+X-MC-Unique: qdPoJ2mYMgCdcimPI_AwjA-1
+Received: by mail-oo1-f70.google.com with SMTP id
+ 006d021491bc7-5ad0529f9c5so5134067eaf.1
+ for <ltp@lists.linux.it>; Tue, 07 May 2024 22:23:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715145811; x=1715750611;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Q1mv6TizJYPTCAvLUN2OGKj22huV4VGbzKIl6u/v6I8=;
+ b=U60tFYjc4GgPgNU8H3qV3lm0qgSCYZ3S63ki5HP6IwQJaQIyVRy7l44fjc1c8oFTR4
+ JPKEgZO6QDzwsagdp4ozx0Qz4ZwV6GCfwPkBBehS6EkIoDQYv3QbchTRVkIIcsCdC9Cf
+ eZKpw+NMcjHSfZS8ED81t1CzkOggozOGgum/zw4SSuRdFe/9LeE/zYZdVT0IpgUdzFjK
+ ANd/0FK+WNAfWyD7rfJHASrIYUrndsQw7cxB8u4A+AgSzp1RDvvNf9qTJG0kBq/xiHhJ
+ HQhGykmAVOAhBxYjMGKMJhqPFlUP7oFqxAfRgvy4/jn3OPuecQxtBqWImuaovajHQYdX
+ V52A==
+X-Gm-Message-State: AOJu0YxuEac4VHTsQtJ3FWl2d7ieiOUJFVciVccrfuzwx4uoijZ19pa4
+ qgensIkWxifhJPNjRToojx5xa+1f/qB+KePy/XPeAhRYioIqnWNwr62uo4rWpfVu7VyZH6Jv34m
+ K2NiabRWd4MJtrH8Hfc1l84GUMrMtXKwretDkQsBpAitsibEFW24Vu+UyNCgWLjbXAQcIl8GPq9
+ DqUskJDPrTNOFJHGZuv6lQOXk=
+X-Received: by 2002:a05:6358:7694:b0:17e:53f9:6985 with SMTP id
+ e5c5f4694b2df-192d2a26af0mr198321055d.14.1715145811428; 
+ Tue, 07 May 2024 22:23:31 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGSRfM9U22FaYun3+4Rn1/THN8V0OP7g4IsVKeWSj88I/3LSFwvFEw1JObi5jzzTTkDzlnZRBxBPe+jQvU+nrk=
+X-Received: by 2002:a05:6358:7694:b0:17e:53f9:6985 with SMTP id
+ e5c5f4694b2df-192d2a26af0mr198319055d.14.1715145810895; Tue, 07 May 2024
+ 22:23:30 -0700 (PDT)
+MIME-Version: 1.0
+References: <b5872e1e-723f-4444-ae9c-39fd8b9d39fd@suse.com>
+ <20240418113204.GA70047@pevik>
+In-Reply-To: <20240418113204.GA70047@pevik>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 8 May 2024 13:23:18 +0800
+Message-ID: <CAEemH2fF0Wh738hcOcQ0E8ziO7rHpyxmK8MB5=BTyrRxqUL_hQ@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH] Add case about arch_prctl syscall.
+Subject: Re: [LTP] Open monthly meeting 8th of May 09:00 UTC
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,54 +96,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: =?utf-8?B?bHRw?= <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksIEN5cmlsLiZuYnNwOw0KVGhhbmtzIGFnYWluIHZlcnkgbXVjaC4NCg0KDQpBcyB3cml0dGVu
-IGluIG1hbiBwYWdlLCZuYnNwO0VOT0RFViBzZWVtcyBvbmx5IGZvciBBUkNIX1NFVF9DUFVJRCwg
-c28gSSBkaWRuJ3QgdXNlIFRTVF9FWFBfRkFJTCBpbiBBUkNIX0dFVF9DUFVJRCBjaGVjay4gQVJD
-SF9HRVRfQ1BVSUQgYWx3YXlzIHN1Y2Nlc3Mgd2l0aCByZXR1cm5pbmcgY3B1aWQgc3RhdHVzLCBJ
-J3ZlIHRlc3RlZCB0aGlzIG9uIGEgSW50ZWwmbmJzcDtKMTkwMCBtYWNoaW5lIHdpdGNoIGhhcyBu
-byBjcHVpZF9mYXVsdCBmbGFnLiBJJ3ZlIHJlc2VudCB0aGUgcGF0Y2guDQoNCkx1IEZlaQ0Kc2l0
-Ze+8mnd3dy51bmlvbnRlY2guY29tDQp0ZWzvvJooKzg2KTE4NTAxMDEyMzUyDQphZGRyOiBYaSdh
-biwgQ2hpbmEmbmJzcDsNCg0KDQoNCiZuYnNwOw0KJm5ic3A7DQotLS0tLS0tLS0tLS0tLS0tLS0m
-bmJzcDtPcmlnaW5hbCZuYnNwOy0tLS0tLS0tLS0tLS0tLS0tLQ0KRnJvbTogJm5ic3A7IkN5cmls
-Jm5ic3A7SHJ1YmlzIjxjaHJ1YmlzQHN1c2UuY3omZ3Q7Ow0KRGF0ZTogJm5ic3A7VHVlLCBNYXkg
-NywgMjAyNCAxMjo1MSBQTQ0KVG86ICZuYnNwOyJsdWZlaSI8bHVmZWlAdW5pb250ZWNoLmNvbSZn
-dDs7IA0KQ2M6ICZuYnNwOyJsdHAiPGx0cEBsaXN0cy5saW51eC5pdCZndDs7ICJqc3RhbmNlayI8
-anN0YW5jZWtAcmVkaGF0LmNvbSZndDs7IA0KU3ViamVjdDogJm5ic3A7UmU6IFtQQVRDSF0gQWRk
-IGNhc2UgYWJvdXQgYXJjaF9wcmN0bCBzeXNjYWxsLg0KDQombmJzcDsNCg0KSGkhDQomZ3Q7ICtz
-dGF0aWMgdm9pZCBydW4odW5zaWduZWQgaW50IGluZGV4KQ0KJmd0OyArew0KJmd0OyArCXN0cnVj
-dCB0Y2FzZSB0YyA9IHRjYXNlc1tpbmRleF07DQomZ3Q7ICsNCiZndDsgKwlURVNUKGFyY2hfcHJj
-dGxfc2V0KEFSQ0hfU0VUX0NQVUlELCB0Yy5pbnB1dCkpOw0KJmd0OyArDQomZ3Q7ICsJaWYgKFRT
-VF9SRVQgPT0gdGMuc2V0X2V4cCkNCiZndDsgKwkJaWYgKHRjLnNldF9leHAgPT0gLTEpDQomZ3Q7
-ICsJCQl0c3RfcmVzKChUU1RfRVJSID09IHRjLnRzdF9lcnJubyA/IFRQQVNTIDogVEZBSUwpLA0K
-Jmd0OyArCQkJCSJzZXQgY3B1aWQsIGV4cGVjdDogJXMsIGdldDogJXMiLA0KJmd0OyArCQkJCXRz
-dF9zdHJlcnJubyh0Yy50c3RfZXJybm8pLA0KJmd0OyArCQkJCXRzdF9zdHJlcnJubyhUU1RfRVJS
-KSk7DQomZ3Q7ICsJCWVsc2UNCiZndDsgKwkJCXRzdF9yZXMoVFBBU1MsICJzZXQgY3B1aWQgc3Vj
-Y2VlZC4iKTsNCiZndDsgKwllbHNlDQomZ3Q7ICsJCXRzdF9yZXMoVEZBSUwsICJzZXQgY3B1aWQg
-ZmFpbGVkLiIpOw0KDQpUaGlzIGlzIGtpbmQgb2YgdWdseSwgd2h5IGNhbid0IHdlIGp1c3QgZG86
-DQoNCglpZiAodGFnKQ0KCQlUU1RfRVhQX1BBU1MoYXJjaF9wcmN0bF9zZXQoQVJDSF9TRVRfQ1BV
-SUQsIGluZGV4KSk7DQoJZWxzZQ0KCQlUU1RfRVhQX0ZBSUwoYXJjaF9wcmN0bF9zZXQoQVJDSF9T
-RVRfQ1BVSUQsIGluZGV4KSwgRU5PREVWKTsNCg0KJmd0OyArCVRFU1QoYXJjaF9wcmN0bF9nZXQo
-QVJDSF9HRVRfQ1BVSUQpKTsNCiZndDsgKw0KJmd0OyArCWlmIChUU1RfUkVUID09IHRjLmdldF9l
-eHApDQomZ3Q7ICsJCXRzdF9yZXMoVFBBU1MsICJnZXQgY3B1aWQgc3VjY2VlZC4iKTsNCiZndDsg
-KwllbHNlDQomZ3Q7ICsJCXRzdF9yZXMoVEZBSUwsICJnZXQgY3B1aWQgZmFpbGVkLiIpOw0KDQoN
-CldlIGhhdmUgdG8gY2hlY2sgdGhlIGVycm5vIGhlcmUgYXMgd2VsbCwganVzdCBicmFuY2ggb24g
-dGhlIHRhZyBhcyB3ZWxsOg0KDQoJaWYgKHRhZykgew0KCQlURVNUKGFyY2hfcHJjdGxfZ2V0KEFS
-Q0hfR0VUX0NQVUlEKSk7DQoNCgkJaWYgKFRTVF9SRVQgPT0gaW5kZXgpDQoJCQl0c3RfcmVzKFRQ
-QVNTLCAiLi4uIik7DQoJCWVsc2UNCgkJCXRzdF9yZXMoRkFJTCwgIi4uLiIpOw0KCX0gZWxzZSB7
-DQoJCVRTVF9FWFBfRkFJTChhcmNoX3ByY3RsX2dldChBUkNIX0dFVF9DUFVJRCksIEVOT0RFVik7
-DQoJfQ0KDQpHZW5lcmFsbHkgdGhlIHVzZSBvZiBUU1RfRVhQX0ZBSUwoKSBpcyBwcmVmZXJlZCB3
-aGVuZXZlciBwb3NzaWJsZS4NCg0KJmd0OyArfQ0KJmd0OyArDQomZ3Q7ICtzdGF0aWMgc3RydWN0
-IHRzdF90ZXN0IHRlc3QgPSB7DQomZ3Q7ICsJLnRlc3QgPSBydW4sDQomZ3Q7ICsJLnNldHVwID0g
-c2V0dXAsDQomZ3Q7ICsJLnRjbnQgPSBBUlJBWV9TSVpFKHRjYXNlcyksDQomZ3Q7ICsJLm1pbl9r
-dmVyID0gIjQuMTIiLA0KJmd0OyArCS5zdXBwb3J0ZWRfYXJjaHMgPSAoY29uc3QgY2hhciAqY29u
-c3QgW10peyJ4ODZfNjQiLCAieDg2IiwgTlVMTH0NCiZndDsgK307DQomZ3Q7ICsNCiZndDsgKyNl
-bHNlIC8qIEhBVkVfQVNNX1BSQ1RMX0ggKi8NCiZndDsgK1RTVF9URVNUX1RDT05GKCJtaXNzaW5n
-IDxhc20vcHJjdGwuaCZndDsiKTsNCiZndDsgKyNlbmRpZg0KJmd0OyAtLSANCiZndDsgMi4zOS4z
-DQomZ3Q7IA0KDQotLSANCkN5cmlsIEhydWJpcw0KY2hydWJpc0BzdXNlLmN6CgotLSAKTWFpbGlu
-ZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Hi Petr,
+
+Petr Vorel <pvorel@suse.cz> wrote:
+
+
+> 8th May is a public holiday in the Czech Republic. I guess some of us will
+> not
+> be available in the call (definitely not me). Could we postpone a week
+> later?
+> (although it would work for me, there might be people taking 2 days of
+> vacation
+> on following Thursday and Friday).
+>
+
+It's been rescheduled to June 05, thanks.
+
+
+Also, I wonder if 9 UTC is not too late for those working from Asia. If yes,
+> please speak up what would be better time for you. I personally could start
+> earlier (8 UTC or even 7 UTC).
+
+
+9 UTC is 5-p.m. in the Beijing timezone, at least it works for me.
+Anyway, thanks for considering us.
+
+
+-- 
+Regards,
+Li Wang
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
