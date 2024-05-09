@@ -1,112 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1C4D8C0E2C
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2024 12:28:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B63E38C0E29
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2024 12:28:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3F3C73CE1BF
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2024 12:28:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6CB053CE113
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2024 12:28:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BD4CB3CE0C8
- for <ltp@lists.linux.it>; Thu,  9 May 2024 12:28:48 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by picard.linux.it (Postfix) with ESMTPS id 671D13CE0C8
+ for <ltp@lists.linux.it>; Thu,  9 May 2024 12:28:11 +0200 (CEST)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwang@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2FE5B200ADB
- for <ltp@lists.linux.it>; Thu,  9 May 2024 12:28:47 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 840C21400F8A
+ for <ltp@lists.linux.it>; Thu,  9 May 2024 12:28:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1715250489;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=/Pn7E6V/yofAI+ouecmjurolmSRAv+V7SyYRNcVkW1g=;
+ b=avNcq2TxKQVLpSt8ZoKK86VB7K1IfqVbkLnykgNn98x2EPXZcR+srNqQ2CtwnuAG1LOwH/
+ 3OHm/ex5N72lxq/0Pa4lklJiH/mX6qBhOqeKUfd0BrXdmMr5RBHbWgXxa58Wi8gfURuxOy
+ QO9xBvT3PwpPGdYGrTjgP66R4reDmzQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-613-QL7Yjc6PPt2IokfMHNYYSA-1; Thu, 09 May 2024 06:28:07 -0400
+X-MC-Unique: QL7Yjc6PPt2IokfMHNYYSA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 852275FCDA;
- Thu,  9 May 2024 10:28:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1715250526; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
- b=rQ98SvoMn9lPE4vxzzasJlmis5pTS3bpdlJoM0WbaVJXomTocDUFrt6EKr0sjK+b/N7pOa
- 6JVNVpsp/2dzcZj0D177mVmDUMmmUk+zg9JvUTnyTXh8z5+/3I78qVsO7pZH68KbsMuJJs
- d/ogz7sTfn/lJQXp4aUsUH8Pz9ghfl4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1715250526;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
- b=lgCYIikbdjXEMAGYnhw/cM1pX3Zg/b5RmBxYQTISIXR+gkvDLbSXcuAFrQ0wA8vkSrFyIp
- 3BL//THrYVd9RtCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1715250526; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
- b=rQ98SvoMn9lPE4vxzzasJlmis5pTS3bpdlJoM0WbaVJXomTocDUFrt6EKr0sjK+b/N7pOa
- 6JVNVpsp/2dzcZj0D177mVmDUMmmUk+zg9JvUTnyTXh8z5+/3I78qVsO7pZH68KbsMuJJs
- d/ogz7sTfn/lJQXp4aUsUH8Pz9ghfl4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1715250526;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
- b=lgCYIikbdjXEMAGYnhw/cM1pX3Zg/b5RmBxYQTISIXR+gkvDLbSXcuAFrQ0wA8vkSrFyIp
- 3BL//THrYVd9RtCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 61C5013941;
- Thu,  9 May 2024 10:28:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id JuvwFl6lPGabPwAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Thu, 09 May 2024 10:28:46 +0000
-Date: Thu, 9 May 2024 12:27:56 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: lufei <lufei@uniontech.com>
-Message-ID: <ZjylLDZkVoF7kmoE@yuki>
-References: <20240507043235.1692-2-lufei@uniontech.com>
- <20240508015852.3362-1-lufei@uniontech.com>
- <20240508015852.3362-2-lufei@uniontech.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3CDC7857A81
+ for <ltp@lists.linux.it>; Thu,  9 May 2024 10:28:07 +0000 (UTC)
+Received: from dell-per7425-02.rhts.eng.pek2.redhat.com
+ (dell-per7425-02.rhts.eng.pek2.redhat.com [10.73.116.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 06DD07414;
+ Thu,  9 May 2024 10:28:05 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Thu,  9 May 2024 18:28:02 +0800
+Message-ID: <20240509102802.20091-1-liwang@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240508015852.3362-2-lufei@uniontech.com>
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- SINGLE_SHORT_PART(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MISSING_XM_UA(0.00)[]; MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Score: -3.80
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] Add case about arch_prctl syscall.
+Subject: [LTP] [PATCH] madvise11: ignore EBUSY for MADV_SOFT_OFFLINE
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,18 +77,74 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Luis Goncalves <lgoncalv@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Applied, thanks.
+The EBUSY error could be easily triggered on small system with
+kernel-debug. By not treating EBUSY as a failure, the test can
+avoid false positives where the test environment itself might
+frequently cause resource contention.
 
+Test output:
+  madvise11.c:409: TINFO: Spawning 4 threads, with a total of 640 memory pages
+  madvise11.c:163: TINFO: Thread [0] returned 0, succeeded.
+  madvise11.c:163: TINFO: Thread [2] returned 0, succeeded.
+  madvise11.c:163: TINFO: Thread [1] returned 0, succeeded.
+  madvise11.c:163: TINFO: Thread [3] returned 0, succeeded.
+  madvise11.c:198: TPASS: soft-offline / mmap race still clean     <--- end of 1st test
+  madvise11.c:132: TFAIL: madvise failed: EBUSY (16)               <--- ERROR!
+  ...
+
+From kernel log:
+  [ 431.590511] soft offline: 0xbfa8f: page migration failed 1, type
+  0x800000008002e(referenced|uptodate|dirty|active|swapbacked|node=0|zone=1)
+  ...
+  [ 435.510819] soft offline: 0x98fb6: page migration failed 1, type
+  0x800000008000e(referenced|uptodate|dirty|swapbacked|node=0|zone=1)
+  ...
+
+Kernel callpath:
+  do_madvise()
+  ---
+  #ifdef CONFIG_MEMORY_FAILURE
+      if (behavior == MADV_HWPOISON || behavior == MADV_SOFT_OFFLINE)
+          return madvise_inject_error(behavior, start, start + len_in);
+  #endif
+  ---
+    madvise_inject_error()
+      soft_offline_page()
+        soft_offline_in_use_page()
+ 	  ...
+           2727	pr_info("soft offline: %#lx: %s migration failed %ld, type %pGp\n",
+           2728		pfn, msg_page[huge], ret, &page->flags);
+           2729	if (ret > 0)
+           2730		ret = -EBUSY;   <--- Here
+
+Debugged-by: Luis Goncalves <lgoncalv@redhat.com>
+Signed-off-by: Li Wang <liwang@redhat.com>
+---
+ testcases/kernel/syscalls/madvise/madvise11.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/testcases/kernel/syscalls/madvise/madvise11.c b/testcases/kernel/syscalls/madvise/madvise11.c
+index 7a12abf20..fe27a18d8 100644
+--- a/testcases/kernel/syscalls/madvise/madvise11.c
++++ b/testcases/kernel/syscalls/madvise/madvise11.c
+@@ -128,6 +128,8 @@ static int allocate_offline(int tnum)
+ 				return -1;
+ 
+ 			if (madvise(ptrs[num_alloc], pagesize, MADV_SOFT_OFFLINE) == -1) {
++				if (errno == EBUSY)
++					continue;
+ 				if (errno != EINVAL)
+ 					tst_res(TFAIL | TERRNO, "madvise failed");
+ 				if (errno == EINVAL)
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.45.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
