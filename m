@@ -1,100 +1,96 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B87A08C55C9
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2024 14:08:50 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id F14148C55C7
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2024 14:08:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 57DC33CF22D
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2024 14:08:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8ABDB3CF227
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2024 14:08:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6923E3C0562
- for <ltp@lists.linux.it>; Tue, 14 May 2024 14:08:15 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 4C83B3C0562
+ for <ltp@lists.linux.it>; Tue, 14 May 2024 14:08:14 +0200 (CEST)
 Authentication-Results: in-3.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B07291A0199A
- for <ltp@lists.linux.it>; Tue, 14 May 2024 14:08:14 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BFDBF1A01995
+ for <ltp@lists.linux.it>; Tue, 14 May 2024 14:08:13 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 612B25FE5C
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6FAA85FEA8
  for <ltp@lists.linux.it>; Tue, 14 May 2024 12:08:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1715688492; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WuY5dxuUw+haz7/F3/QlV/AoYIxWQGM1CQBcQmm9/HU=;
- b=YS7cF9HoTBqli94DNzQXB12IesJuI7lPgi8+G+KFioDq94uzqZWLxVjd7AFLuv3cZ4OyQS
- AiTf2imPIgLVJxlUK9fzdVcl0F5BRSEb/Ls+dKP/ItF4etKI0H/9/oWsaR8A7rBsqHp2+I
- Im8iuWqJluoYFbyqfVHvnLTPmbjEEBA=
+ bh=3ciWsBLfS0Gpo4D4vz2nZSqxgo/V7HTNV8SunCXirfw=;
+ b=LHP1z3/QiQly7GfuE1Oapg8bDzzhalbyR/Y6RafmJw3w9853miAoFkHp7dg9DeY5mBpSYs
+ 6fXgzjamR+143h0Rc5wqKK7Lhd3Fve/kVCRW3JdUZZxev4tGxAdwP1gVmeFdf2BWpqsaoB
+ 6AsCybTfRezwPUOZujxlBXFnTGwVL4g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1715688492;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WuY5dxuUw+haz7/F3/QlV/AoYIxWQGM1CQBcQmm9/HU=;
- b=JvA5GgCaOZooxEZbvJBW1bHuVr4/lOb3wzYhPO2YPdtrfcaFdi7RPO9v0SREELzI9mR3Th
- EW/NiJVoigheBdAg==
+ bh=3ciWsBLfS0Gpo4D4vz2nZSqxgo/V7HTNV8SunCXirfw=;
+ b=4MCEKIwCJgfmgF81Cxmz3hOPy6kOOLwMuBocN0SdWRKUeYO1rtuYNVjMgFAag1m8nJ5CHA
+ DH5sCjVLoC5vSTAQ==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=YS7cF9Ho;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=JvA5GgCa
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="LHP1z3/Q";
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=4MCEKIwC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1715688492; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WuY5dxuUw+haz7/F3/QlV/AoYIxWQGM1CQBcQmm9/HU=;
- b=YS7cF9HoTBqli94DNzQXB12IesJuI7lPgi8+G+KFioDq94uzqZWLxVjd7AFLuv3cZ4OyQS
- AiTf2imPIgLVJxlUK9fzdVcl0F5BRSEb/Ls+dKP/ItF4etKI0H/9/oWsaR8A7rBsqHp2+I
- Im8iuWqJluoYFbyqfVHvnLTPmbjEEBA=
+ bh=3ciWsBLfS0Gpo4D4vz2nZSqxgo/V7HTNV8SunCXirfw=;
+ b=LHP1z3/QiQly7GfuE1Oapg8bDzzhalbyR/Y6RafmJw3w9853miAoFkHp7dg9DeY5mBpSYs
+ 6fXgzjamR+143h0Rc5wqKK7Lhd3Fve/kVCRW3JdUZZxev4tGxAdwP1gVmeFdf2BWpqsaoB
+ 6AsCybTfRezwPUOZujxlBXFnTGwVL4g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1715688492;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WuY5dxuUw+haz7/F3/QlV/AoYIxWQGM1CQBcQmm9/HU=;
- b=JvA5GgCaOZooxEZbvJBW1bHuVr4/lOb3wzYhPO2YPdtrfcaFdi7RPO9v0SREELzI9mR3Th
- EW/NiJVoigheBdAg==
+ bh=3ciWsBLfS0Gpo4D4vz2nZSqxgo/V7HTNV8SunCXirfw=;
+ b=4MCEKIwCJgfmgF81Cxmz3hOPy6kOOLwMuBocN0SdWRKUeYO1rtuYNVjMgFAag1m8nJ5CHA
+ DH5sCjVLoC5vSTAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 50B9E13A62
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5A60813A66
  for <ltp@lists.linux.it>; Tue, 14 May 2024 12:08:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id SDuREyxUQ2bKEQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id YLvsFSxUQ2bKEQAAD6G6ig
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Tue, 14 May 2024 12:08:12 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 14 May 2024 14:07:09 +0200
-Message-ID: <20240514120713.12308-3-mdoucha@suse.cz>
+Date: Tue, 14 May 2024 14:07:10 +0200
+Message-ID: <20240514120713.12308-4-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240514120713.12308-1-mdoucha@suse.cz>
 References: <20240514120713.12308-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: -3.01
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 612B25FE5C
 X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_MISSING_CHARSET(0.50)[];
@@ -114,13 +110,18 @@ X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  RCVD_VIA_SMTP_AUTH(0.00)[];
  DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim, suse.cz:email,
  imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 6FAA85FEA8
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Score: -3.01
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 2/4] KVM: Implement strchr() and basic sprintf()
+Subject: [LTP] [PATCH v2 3/4] KVM: Implement printf-like formatting for
+ tst_res() and tst_brk()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,378 +138,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add basic implementation of sprintf() that supports string, pointer
-and integer arguments but without advanced formatting options like
-field alignment and padding.
-
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
 
-Changes since v1:
-- #include <stdarg.h> instead of defining custom va_list macros
+Changes since v1: None
 
-The C standard requires that <stdarg.h> must support freestanding environment
-so it's safe to #include it in KVM guest code.
-
- testcases/kernel/kvm/include/kvm_guest.h |   7 +
- testcases/kernel/kvm/lib_guest.c         | 312 +++++++++++++++++++++++
- 2 files changed, 319 insertions(+)
+ testcases/kernel/kvm/include/kvm_guest.h | 12 +++++---
+ testcases/kernel/kvm/lib_guest.c         | 36 +++++++++++++++++++++---
+ 2 files changed, 40 insertions(+), 8 deletions(-)
 
 diff --git a/testcases/kernel/kvm/include/kvm_guest.h b/testcases/kernel/kvm/include/kvm_guest.h
-index 96f246155..3cfafa313 100644
+index 3cfafa313..0eabfb9a0 100644
 --- a/testcases/kernel/kvm/include/kvm_guest.h
 +++ b/testcases/kernel/kvm/include/kvm_guest.h
-@@ -8,6 +8,8 @@
- #ifndef KVM_GUEST_H_
- #define KVM_GUEST_H_
+@@ -64,12 +64,16 @@ void kvm_exit(void) __attribute__((noreturn));
+ void kvm_yield(void);
  
-+#include <stdarg.h>
-+
- /* The main LTP include dir is intentionally excluded during payload build */
- #include "../../../../include/tst_res_flags.h"
- #undef TERRNO
-@@ -49,6 +51,11 @@ void *memcpy(void *dest, const void *src, size_t size);
- char *strcpy(char *dest, const char *src);
- char *strcat(char *dest, const char *src);
- size_t strlen(const char *str);
-+char *strchr(const char *s, int c);
-+char *strrchr(const char *s, int c);
-+
-+int vsprintf(char *dest, const char *fmt, va_list ap);
-+int sprintf(char *dest, const char *fmt, ...);
+ void tst_res_(const char *file, const int lineno, int result,
+-	const char *message);
+-#define tst_res(result, msg) tst_res_(__FILE__, __LINE__, (result), (msg))
++	const char *fmt, ...)
++	__attribute__ ((format (printf, 4, 5)));
++#define tst_res(result, fmt, ...) \
++	tst_res_(__FILE__, __LINE__, (result), (fmt), ##__VA_ARGS__)
  
- /* Exit the VM by looping on a HLT instruction forever */
- void kvm_exit(void) __attribute__((noreturn));
+ void tst_brk_(const char *file, const int lineno, int result,
+-	const char *message) __attribute__((noreturn));
+-#define tst_brk(result, msg) tst_brk_(__FILE__, __LINE__, (result), (msg))
++	const char *fmt, ...) __attribute__((noreturn))
++	__attribute__ ((format (printf, 4, 5)));
++#define tst_brk(result, fmt, ...) \
++	tst_brk_(__FILE__, __LINE__, (result), (fmt), ##__VA_ARGS__)
+ 
+ /*
+  * Send asynchronous notification to host without stopping VM execution and
 diff --git a/testcases/kernel/kvm/lib_guest.c b/testcases/kernel/kvm/lib_guest.c
-index f3e21d3d6..73a76ccb1 100644
+index 73a76ccb1..2e3e9cb6e 100644
 --- a/testcases/kernel/kvm/lib_guest.c
 +++ b/testcases/kernel/kvm/lib_guest.c
-@@ -76,6 +76,74 @@ size_t strlen(const char *str)
- 	return ret;
+@@ -443,6 +443,7 @@ static void tst_fatal_error(const char *file, const int lineno,
+ 	test_result->result = TBROK;
+ 	test_result->lineno = lineno;
+ 	test_result->file_addr = (uintptr_t)file;
++	/* Avoid sprintf() here in case of bugs */
+ 	strcpy(test_result->message, message);
+ 	strcat(test_result->message, " at address 0x");
+ 	ptr2hex(test_result->message + strlen(test_result->message), ip);
+@@ -451,19 +452,46 @@ static void tst_fatal_error(const char *file, const int lineno,
  }
  
-+char *strchr(const char *s, int c)
-+{
-+	for (; *s; s++) {
-+		if (*s == c)
-+			return (char *)s;
-+	}
-+
-+	return NULL;
-+}
-+
-+char *strrchr(const char *s, int c)
-+{
-+	const char *ret = NULL;
-+
-+	for (; *s; s++) {
-+		if (*s == c)
-+			ret = s;
-+	}
-+
-+	return (char *)ret;
-+}
-+
-+#if defined(__x86_64__) && !defined(__ILP32__)
-+uint64_t u64divu16(uint64_t a, uint16_t b)
-+{
-+	return a / b;
-+}
-+
-+unsigned int u64modu16(uint64_t a, uint16_t b)
-+{
-+	return a % b;
-+}
-+
-+#else /* defined(__x86_64__) && !defined(__ILP32__) */
-+
-+/* u64 short division helpers to avoid need to link libgcc on 32bit archs */
-+uint64_t u64divu16(uint64_t a, uint16_t b)
-+{
-+	uint64_t ret = 0;
-+	uint32_t tmp = a >> 32;
-+
-+	ret = tmp / b;
-+	ret <<= 32;
-+	tmp %= b;
-+	tmp <<= 16;
-+	tmp |= (a >> 16) & 0xffff;
-+	ret |= (tmp / b) << 16;
-+	tmp %= b;
-+	tmp <<= 16;
-+	tmp |= a & 0xffff;
-+	ret |= tmp / b;
-+	return ret;
-+}
-+
-+unsigned int u64modu16(uint64_t a, uint16_t b)
-+{
-+	uint32_t tmp = a >> 32;
-+
-+	tmp %= b;
-+	tmp <<= 16;
-+	tmp |= (a >> 16) & 0xffff;
-+	tmp %= b;
-+	tmp <<= 16;
-+	tmp |= a & 0xffff;
-+	return tmp % b;
-+}
-+#endif /* defined(__x86_64__) && !defined(__ILP32__) */
-+
- char *ptr2hex(char *dest, uintptr_t val)
+ void tst_res_(const char *file, const int lineno, int result,
+-	const char *message)
++	const char *fmt, ...)
  {
- 	unsigned int i;
-@@ -95,6 +163,250 @@ char *ptr2hex(char *dest, uintptr_t val)
- 	return ret;
- }
- 
-+char *u64tostr(char *dest, uint64_t val, uint16_t base, int caps)
-+{
-+	unsigned int i;
-+	uintptr_t tmp = u64divu16(val, base);
-+	char hex = caps ? 'A' : 'a';
-+	char *ret = dest;
-+
-+	for (i = 1; tmp; i++, tmp = u64divu16(tmp, base))
-+		;
-+
-+	dest[i] = '\0';
-+
-+	do {
-+		tmp = u64modu16(val, base);
-+		dest[--i] = tmp + (tmp >= 10 ? hex - 10 : '0');
-+		val = u64divu16(val, base);
-+	} while (i);
-+
-+	return ret;
-+}
-+
-+char *i64tostr(char *dest, int64_t val)
-+{
-+	if (val < 0) {
-+		dest[0] = '-';
-+		u64tostr(dest + 1, -val, 10, 0);
-+		return dest;
-+	}
-+
-+	return u64tostr(dest, val, 10, 0);
-+}
-+
-+int vsprintf(char *dest, const char *fmt, va_list ap)
-+{
-+	va_list args;
-+	int ret = 0;
-+	char conv;
-+	uint64_t u64val = 0;
-+	int64_t i64val = 0;
-+	const char * const uint_conv = "ouxX";
-+
-+	va_copy(args, ap);
-+
-+	for (; *fmt; fmt++) {
-+		if (*fmt != '%') {
-+			dest[ret++] = *fmt;
-+			continue;
-+		}
-+
-+		conv = 0;
-+		fmt++;
-+
-+		switch (*fmt) {
-+		case '%':
-+			dest[ret++] = *fmt;
-+			break;
-+
-+		case 'c':
-+			dest[ret++] = va_arg(args, int);
-+			break;
-+
-+		case 's':
-+			strcpy(dest + ret, va_arg(args, const char *));
-+			ret += strlen(dest + ret);
-+			break;
-+
-+		case 'p':
-+			strcpy(dest + ret, "0x");
-+			ptr2hex(dest + ret + 2,
-+				(uintptr_t)va_arg(args, void *));
-+			ret += strlen(dest + ret);
-+			break;
-+
-+		case 'l':
-+			fmt++;
-+
-+			switch (*fmt) {
-+			case 'l':
-+				fmt++;
-+
-+				if (*fmt == 'd' || *fmt == 'i') {
-+					i64val = va_arg(args, long long);
-+					conv = *fmt;
-+					break;
-+				}
-+
-+				if (strchr(uint_conv, *fmt)) {
-+					u64val = va_arg(args,
-+						unsigned long long);
-+					conv = *fmt;
-+					break;
-+				}
-+
-+				va_end(args);
-+				return -1;
-+
-+			case 'd':
-+			case 'i':
-+				i64val = va_arg(args, long);
-+				conv = *fmt;
-+				break;
-+
-+			default:
-+				if (strchr(uint_conv, *fmt)) {
-+					u64val = va_arg(args,
-+						unsigned long);
-+					conv = *fmt;
-+					break;
-+				}
-+
-+				va_end(args);
-+				return -1;
-+			}
-+			break;
-+
-+		case 'h':
-+			fmt++;
-+
-+			switch (*fmt) {
-+			case 'h':
-+				fmt++;
-+
-+				if (*fmt == 'd' || *fmt == 'i') {
-+					i64val = (signed char)va_arg(args, int);
-+					conv = *fmt;
-+					break;
-+				}
-+
-+				if (strchr(uint_conv, *fmt)) {
-+					u64val = (unsigned char)va_arg(args,
-+						unsigned int);
-+					conv = *fmt;
-+					break;
-+				}
-+
-+				va_end(args);
-+				return -1;
-+
-+			case 'd':
-+			case 'i':
-+				i64val = (short int)va_arg(args, int);
-+				conv = *fmt;
-+				break;
-+
-+			default:
-+				if (strchr(uint_conv, *fmt)) {
-+					u64val = (unsigned short int)va_arg(
-+						args, unsigned int);
-+					conv = *fmt;
-+					break;
-+				}
-+
-+				va_end(args);
-+				return -1;
-+			}
-+			break;
-+
-+		case 'z':
-+			fmt++;
-+
-+			if (*fmt == 'd' || *fmt == 'i') {
-+				i64val = va_arg(args, ssize_t);
-+				conv = *fmt;
-+				break;
-+			}
-+
-+			if (strchr(uint_conv, *fmt)) {
-+				u64val = va_arg(args, size_t);
-+				conv = *fmt;
-+				break;
-+			}
-+
-+			va_end(args);
-+			return -1;
-+
-+		case 'd':
-+		case 'i':
-+			i64val = va_arg(args, int);
-+			conv = *fmt;
-+			break;
-+
-+		default:
-+			if (strchr(uint_conv, *fmt)) {
-+				u64val = va_arg(args, unsigned int);
-+				conv = *fmt;
-+				break;
-+			}
-+
-+			va_end(args);
-+			return -1;
-+		}
-+
-+		switch (conv) {
-+		case 0:
-+			continue;
-+
-+		case 'd':
-+		case 'i':
-+			i64tostr(dest + ret, i64val);
-+			ret += strlen(dest + ret);
-+			break;
-+
-+		case 'o':
-+			u64tostr(dest + ret, u64val, 8, 0);
-+			ret += strlen(dest + ret);
-+			break;
-+
-+		case 'u':
-+			u64tostr(dest + ret, u64val, 10, 0);
-+			ret += strlen(dest + ret);
-+			break;
-+
-+		case 'x':
-+			u64tostr(dest + ret, u64val, 16, 0);
-+			ret += strlen(dest + ret);
-+			break;
-+
-+		case 'X':
-+			u64tostr(dest + ret, u64val, 16, 1);
-+			ret += strlen(dest + ret);
-+			break;
-+
-+		default:
-+			va_end(args);
-+			return -1;
-+		}
-+	}
-+
-+	va_end(args);
-+	dest[ret++] = '\0';
-+	return ret;
-+}
-+
-+int sprintf(char *dest, const char *fmt, ...)
-+{
 +	va_list args;
 +	int ret;
 +
 +	va_start(args, fmt);
-+	ret = vsprintf(dest, fmt, args);
+ 	test_result->result = result;
+ 	test_result->lineno = lineno;
+ 	test_result->file_addr = (uintptr_t)file;
+-	strcpy(test_result->message, message);
++	ret = vsprintf(test_result->message, fmt, args);
 +	va_end(args);
-+	return ret;
-+}
 +
- void *tst_heap_alloc_aligned(size_t size, size_t align)
++	if (ret < 0) {
++		tst_brk_(file, lineno, TBROK, "Invalid tst_res() format: %s",
++			fmt);
++	}
++
+ 	kvm_yield();
+ }
+ 
+ void tst_brk_(const char *file, const int lineno, int result,
+-	const char *message)
++	const char *fmt, ...)
  {
- 	uintptr_t addr = (uintptr_t)heap_end;
+-	tst_res_(file, lineno, result, message);
++	va_list args;
++	int ret;
++
++	va_start(args, fmt);
++	test_result->result = result;
++	test_result->lineno = lineno;
++	test_result->file_addr = (uintptr_t)file;
++	ret = vsprintf(test_result->message, fmt, args);
++	va_end(args);
++
++	if (ret < 0) {
++		test_result->result = TBROK;
++		strcpy(test_result->message, "Invalid tst_brk() format: ");
++		strcat(test_result->message, fmt);
++	}
++
++	kvm_yield();
+ 	kvm_exit();
+ }
+ 
 -- 
 2.44.0
 
