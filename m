@@ -2,123 +2,105 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 607EF8C63CA
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 11:36:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AE328C642A
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 11:49:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 26F6F3CF7A1
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 11:36:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1DE843CF804
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 11:49:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4F28E3CF74A
- for <ltp@lists.linux.it>; Wed, 15 May 2024 11:33:59 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
+ by picard.linux.it (Postfix) with ESMTPS id C6A5A3CF154
+ for <ltp@lists.linux.it>; Wed, 15 May 2024 11:48:56 +0200 (CEST)
+Authentication-Results: in-6.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
+ envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9A3EC1000CF5
- for <ltp@lists.linux.it>; Wed, 15 May 2024 11:33:58 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 786561400043
+ for <ltp@lists.linux.it>; Wed, 15 May 2024 11:48:54 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 970242048D;
- Wed, 15 May 2024 09:33:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1715765637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ViHSx8QjhJNj5eZ77Q/fbB6cgsOvS03qTHjZ4BxfxBM=;
- b=C3JueDK/RHWnixVdIkOV07itH0Aj/ARErXyWETu8XP+5E1Ncf4XN3QzBmd6ueKdC4ZXCXO
- L0QGA3hssDEINNauXLaR7WIMAy5DeGJrYTrAzIKTMUcarBUNRGmsZN9gPJsIr9P+rdY7iS
- 51peZ20evIaPIxp4/VN19DNt+khp7MA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1715765637;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ViHSx8QjhJNj5eZ77Q/fbB6cgsOvS03qTHjZ4BxfxBM=;
- b=O+RM2rzusTcLwY0qib0YLTKsznDbR0KTRQW0RM4QRR8IAQJR9+BwBBjjsyfa/BjJxXNjrh
- DfryAqzWvjCNAODQ==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DF675204AA
+ for <ltp@lists.linux.it>; Wed, 15 May 2024 09:48:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1715766533; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Vt8CwEO1Mx3lM4yy7q0raD+nKro27/1GFTVgXaxy0HM=;
+ b=v+UyArleqy1NQFL7slJ4knBAErKYXuHYZ3k/L2Z+qFccpqFVnSWbrM2sE6RYGc7a4o1jC4
+ S10cw/NUh0Qq83McQnOLs+nGdpXfCRAGOWDRzF9sSlC6RuBcDKNqgtqc5K80rNnEV79+Hg
+ cBqsZXtA22nvRPi+EydK1o2njmDRiWc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1715766533;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Vt8CwEO1Mx3lM4yy7q0raD+nKro27/1GFTVgXaxy0HM=;
+ b=QhTwEbY2H+nxlZp2MmrWrZG6kBdfJZdLXth4yVNEz5SJegnfWCfOjLfim9RIwpN/xuP9w6
+ aiJ0/3giQT1kvZDQ==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="C3JueDK/";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=O+RM2rzu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1715765637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ViHSx8QjhJNj5eZ77Q/fbB6cgsOvS03qTHjZ4BxfxBM=;
- b=C3JueDK/RHWnixVdIkOV07itH0Aj/ARErXyWETu8XP+5E1Ncf4XN3QzBmd6ueKdC4ZXCXO
- L0QGA3hssDEINNauXLaR7WIMAy5DeGJrYTrAzIKTMUcarBUNRGmsZN9gPJsIr9P+rdY7iS
- 51peZ20evIaPIxp4/VN19DNt+khp7MA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1715765637;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ViHSx8QjhJNj5eZ77Q/fbB6cgsOvS03qTHjZ4BxfxBM=;
- b=O+RM2rzusTcLwY0qib0YLTKsznDbR0KTRQW0RM4QRR8IAQJR9+BwBBjjsyfa/BjJxXNjrh
- DfryAqzWvjCNAODQ==
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1715766533; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Vt8CwEO1Mx3lM4yy7q0raD+nKro27/1GFTVgXaxy0HM=;
+ b=v+UyArleqy1NQFL7slJ4knBAErKYXuHYZ3k/L2Z+qFccpqFVnSWbrM2sE6RYGc7a4o1jC4
+ S10cw/NUh0Qq83McQnOLs+nGdpXfCRAGOWDRzF9sSlC6RuBcDKNqgtqc5K80rNnEV79+Hg
+ cBqsZXtA22nvRPi+EydK1o2njmDRiWc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1715766533;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Vt8CwEO1Mx3lM4yy7q0raD+nKro27/1GFTVgXaxy0HM=;
+ b=QhTwEbY2H+nxlZp2MmrWrZG6kBdfJZdLXth4yVNEz5SJegnfWCfOjLfim9RIwpN/xuP9w6
+ aiJ0/3giQT1kvZDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7076B13A62;
- Wed, 15 May 2024 09:33:57 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CE5EA1372E
+ for <ltp@lists.linux.it>; Wed, 15 May 2024 09:48:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 0FEuGYWBRGb1TwAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Wed, 15 May 2024 09:33:57 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id CqgrMgWFRGZHawAAD6G6ig
+ (envelope-from <mdoucha@suse.cz>)
+ for <ltp@lists.linux.it>; Wed, 15 May 2024 09:48:53 +0000
+From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 15 May 2024 11:33:49 +0200
-Message-Id: <20240515093349.7347-11-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20240515093349.7347-1-andrea.cervesato@suse.de>
-References: <20240515093349.7347-1-andrea.cervesato@suse.de>
+Date: Wed, 15 May 2024 11:47:52 +0200
+Message-ID: <20240515094753.1072-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-X-Spam-Score: -3.01
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 970242048D
+X-Spam-Score: -2.79
 X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-2.79 / 50.00]; BAYES_HAM(-2.99)[99.97%];
  NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; FUZZY_BLOCKED(0.00)[rspamd.com];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.com:email];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCPT_COUNT_TWO(0.00)[2];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
+ ARC_NA(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
+ RCVD_TLS_ALL(0.00)[]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v1 10/10] Add statmount06 test
+Subject: [LTP] [PATCH] tcindex01: Pass if the tcindex module is blacklisted
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,121 +117,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+The tcindex01 test currently fails if the tcindex module is enabled
+in kernel config but cannot be autoloaded. Some distros chose
+to blacklist the module rather than remove it completely, thus
+check for autoload failure and pass in that case.
 
-This test verifies that statmount() is correctly reading name of the
-filesystem type using STATMOUNT_FS_TYPE.
-
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- runtest/syscalls                              |  1 +
- .../kernel/syscalls/statmount/.gitignore      |  1 +
- .../kernel/syscalls/statmount/statmount06.c   | 73 +++++++++++++++++++
- 3 files changed, 75 insertions(+)
- create mode 100644 testcases/kernel/syscalls/statmount/statmount06.c
+ testcases/cve/tcindex01.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 2984117e6..86e253f77 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1542,6 +1542,7 @@ statmount02 statmount02
- statmount03 statmount03
- statmount04 statmount04
- statmount05 statmount05
-+statmount06 statmount06
- 
- statfs01 statfs01
- statfs01_64 statfs01_64
-diff --git a/testcases/kernel/syscalls/statmount/.gitignore b/testcases/kernel/syscalls/statmount/.gitignore
-index f64763242..03a75bd40 100644
---- a/testcases/kernel/syscalls/statmount/.gitignore
-+++ b/testcases/kernel/syscalls/statmount/.gitignore
-@@ -3,3 +3,4 @@ statmount02
- statmount03
- statmount04
- statmount05
-+statmount06
-diff --git a/testcases/kernel/syscalls/statmount/statmount06.c b/testcases/kernel/syscalls/statmount/statmount06.c
-new file mode 100644
-index 000000000..5c9be9be9
---- /dev/null
-+++ b/testcases/kernel/syscalls/statmount/statmount06.c
-@@ -0,0 +1,73 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
+diff --git a/testcases/cve/tcindex01.c b/testcases/cve/tcindex01.c
+index 70e5639f1..07239f9c0 100644
+--- a/testcases/cve/tcindex01.c
++++ b/testcases/cve/tcindex01.c
+@@ -106,8 +106,19 @@ static void run(void)
+ 	NETDEV_ADD_QDISC(DEVNAME, AF_UNSPEC, TC_H_ROOT, qd_handle, "htb",
+ 		qd_config);
+ 	NETDEV_ADD_TRAFFIC_CLASS(DEVNAME, qd_handle, clsid, "htb", cls_config);
+-	NETDEV_ADD_TRAFFIC_FILTER(DEVNAME, qd_handle, 10, ETH_P_IP, 1,
+-		"tcindex", f_config);
++	ret = tst_netdev_add_traffic_filter(__FILE__, __LINE__, 0, DEVNAME,
++		qd_handle, 10, ETH_P_IP, 1, "tcindex", f_config);
++	TST_ERR = tst_netlink_errno;
 +
-+/**
-+ * [Description]
-+ *
-+ * This test verifies that statmount() is correctly reading name of the
-+ * filesystem type using STATMOUNT_FS_TYPE.
-+ *
-+ * [Algorithm]
-+ *
-+ * * create a mount point
-+ * * run statmount() on the mount point using STATMOUNT_FS_TYPE
-+ * * read results and check if contain the name of the filesystem
-+ */
-+
-+#include "statmount.h"
-+#include "lapi/stat.h"
-+#include "lapi/sched.h"
-+
-+#define MNTPOINT "mntpoint"
-+#define SM_SIZE (1 << 10)
-+
-+static uint64_t root_id;
-+static struct statmount *st_mount;
-+
-+static void run(void)
-+{
-+	memset(st_mount, 0, SM_SIZE);
-+
-+	TST_EXP_PASS(statmount(
-+		root_id,
-+		STATMOUNT_FS_TYPE,
-+		st_mount,
-+		SM_SIZE,
-+		0));
-+
-+	if (TST_RET == -1)
++	if (!ret && TST_ERR == ENOENT) {
++		tst_res(TPASS | TTERRNO,
++			"tcindex module is blacklisted or unavailable");
 +		return;
-+
-+	TST_EXP_EQ_LI(st_mount->mask, STATMOUNT_FS_TYPE);
-+	TST_EXP_EXPR(strcmp(st_mount->str + st_mount->fs_type, tst_device->fs_type) == 0,
-+		"statmount() read '%s', expected '%s'",
-+		st_mount->str + st_mount->fs_type, tst_device->fs_type);
-+}
-+
-+static void setup(void)
-+{
-+	struct statx sx;
-+
-+	SAFE_STATX(AT_FDCWD, MNTPOINT, 0, STATX_MNT_ID_UNIQUE, &sx);
-+	root_id = sx.stx_mnt_id;
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.min_kver = "6.8",
-+	.format_device = 1,
-+	.mount_device = 1,
-+	.mntpoint = MNTPOINT,
-+	.all_filesystems = 1,
-+	.skip_filesystems = (const char *const []) {
-+		"fuse",
-+		NULL
-+	},
-+	.bufs = (struct tst_buffers []) {
-+		{&st_mount, .size = SM_SIZE},
-+		{}
 +	}
-+};
++
++	if (!ret)
++		tst_brk(TBROK | TTERRNO, "Cannot add tcindex filter");
++
+ 	NETDEV_REMOVE_TRAFFIC_FILTER(DEVNAME, qd_handle, 10, ETH_P_IP,
+ 		1, "tcindex");
+ 	ret = tst_netdev_add_traffic_filter(__FILE__, __LINE__, 0, DEVNAME,
 -- 
-2.35.3
+2.44.0
 
 
 -- 
