@@ -1,118 +1,115 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED7998C61B5
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 09:30:36 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E37458C63CB
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 11:37:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A80DC3CE5CD
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 09:30:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AB3B33CF8C0
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 11:37:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4D0193CC481
- for <ltp@lists.linux.it>; Wed, 15 May 2024 09:30:27 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 80C8C3CF782
+ for <ltp@lists.linux.it>; Wed, 15 May 2024 11:34:01 +0200 (CEST)
+Authentication-Results: in-5.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A7BC21006092
- for <ltp@lists.linux.it>; Wed, 15 May 2024 09:30:26 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AD4B860A64F
+ for <ltp@lists.linux.it>; Wed, 15 May 2024 11:33:57 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AAB562033E;
- Wed, 15 May 2024 07:30:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1715758225;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/SF8R/ivagzYUeqe8Wl8Q5efyprchX5HdQ7xK+L6LKw=;
- b=OZ5mJ7fAsUYow6/EYWAn7dewkmdbTFWhJEuSgOR36TNSFlTWqrwphWrLqd01y1VKFGGheD
- lana/wcf1nFdyJ+XpB+40sZdTMGkD32EORggoYzH5vBjj1dZdk4KQhqIOWIFNzBjUa5nse
- 2/4iPija9B3twQmHVUQUFyIa6iS7yN0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1715758225;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/SF8R/ivagzYUeqe8Wl8Q5efyprchX5HdQ7xK+L6LKw=;
- b=sj1lTslECp9JXLgqtjH5IzzlDbr6WVMoK/9mt0pBd9nPCYfXoTMY3LXoGG7+MuC1k8xAoP
- +HyvKMkRWLcYNzAg==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 71E2520488;
+ Wed, 15 May 2024 09:33:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1715765635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=mr7hKM9gO6z7NRtkhGc21vcss/v5F0iG1TDtouWvJUg=;
+ b=jk6vaGjTmKGrH/RGMCJpokYeuMWpcqKRLsszD4KL7z1jLQfembQfx8nHckdAqvwLLVFUnn
+ 2GM4dUYLzF+3d47k575jm60eKJvfWbVdMvEx0/Q0CgjisdTGy3M70i8LXMU3zf0yLfP0yK
+ 27TOBcGVLOEin1mO7CF8JF/wIIRVnbI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1715765635;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=mr7hKM9gO6z7NRtkhGc21vcss/v5F0iG1TDtouWvJUg=;
+ b=vMImBRhQQsdSpRbsNa2owIMZSSBysyAKE09EWxWk0Lij+Jh084ZWTq4KbbZm4cGJFbbv0F
+ ZiMvmDY6Qvxa8SBg==
 Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1715758225;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/SF8R/ivagzYUeqe8Wl8Q5efyprchX5HdQ7xK+L6LKw=;
- b=OZ5mJ7fAsUYow6/EYWAn7dewkmdbTFWhJEuSgOR36TNSFlTWqrwphWrLqd01y1VKFGGheD
- lana/wcf1nFdyJ+XpB+40sZdTMGkD32EORggoYzH5vBjj1dZdk4KQhqIOWIFNzBjUa5nse
- 2/4iPija9B3twQmHVUQUFyIa6iS7yN0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1715758225;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/SF8R/ivagzYUeqe8Wl8Q5efyprchX5HdQ7xK+L6LKw=;
- b=sj1lTslECp9JXLgqtjH5IzzlDbr6WVMoK/9mt0pBd9nPCYfXoTMY3LXoGG7+MuC1k8xAoP
- +HyvKMkRWLcYNzAg==
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jk6vaGjT;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vMImBRhQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1715765635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=mr7hKM9gO6z7NRtkhGc21vcss/v5F0iG1TDtouWvJUg=;
+ b=jk6vaGjTmKGrH/RGMCJpokYeuMWpcqKRLsszD4KL7z1jLQfembQfx8nHckdAqvwLLVFUnn
+ 2GM4dUYLzF+3d47k575jm60eKJvfWbVdMvEx0/Q0CgjisdTGy3M70i8LXMU3zf0yLfP0yK
+ 27TOBcGVLOEin1mO7CF8JF/wIIRVnbI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1715765635;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=mr7hKM9gO6z7NRtkhGc21vcss/v5F0iG1TDtouWvJUg=;
+ b=vMImBRhQQsdSpRbsNa2owIMZSSBysyAKE09EWxWk0Lij+Jh084ZWTq4KbbZm4cGJFbbv0F
+ ZiMvmDY6Qvxa8SBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7A5841372E;
- Wed, 15 May 2024 07:30:25 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4C1BE1372E;
+ Wed, 15 May 2024 09:33:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id FfjJHJFkRGahKQAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Wed, 15 May 2024 07:30:25 +0000
-Date: Wed, 15 May 2024 09:30:23 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>,
- Hui Min Mina Chou <minachou@andestech.com>, ltp@lists.linux.it,
- tim609@andestech.com, cynthia@andestech.com
-Message-ID: <20240515073023.GA200917@pevik>
-References: <20240328083344.277502-1-minachou@andestech.com>
- <20240510153103.GA448405@pevik> <ZkI0L9xkrsJ-mhPN@yuki>
- <20240515072120.GB197249@pevik>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id vuSVEIOBRGb1TwAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Wed, 15 May 2024 09:33:55 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+To: ltp@lists.linux.it
+Date: Wed, 15 May 2024 11:33:39 +0200
+Message-Id: <20240515093349.7347-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240515072120.GB197249@pevik>
 X-Spam-Level: 
-X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,imap1.dmz-prg2.suse.org:helo]; 
- ARC_NA(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- MISSING_XM_UA(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCPT_COUNT_FIVE(0.00)[5]; RCVD_COUNT_TWO(0.00)[2];
- REPLYTO_EQ_FROM(0.00)[]
-X-Spam-Score: -3.50
+ MX_GOOD(-0.01)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.de:dkim];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCPT_COUNT_TWO(0.00)[2];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 71E2520488
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Score: -3.01
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] syscalls/setitimer: Pass the kernel-defined
- struct __kernel_old_itimerval to sys_setitimer().
+Subject: [LTP] [PATCH v1 00/10] statmount/listmount testing suites
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,42 +121,95 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-> Hi all,
+This patch-set is adding new testing suites for statmount() and listmount()
+syscalls, which have been recently added in kernel v6.8.
+To find out more information, please read the following documentation since
+there's no man pages yet:
 
-...
-> > Also we should really add tests for the libc wrapper as well, since that
-> > is actually more likely to get broken by the double conversion on 32bit
-> > arch, but that should be done in an subsequent patches.
+https://lwn.net/Articles/950569/
+https://lore.kernel.org/lkml/170474400576.2602.7882507604401153304.pr-tracker-bot@kernel.org/T/
 
-> +1. Adding .test_variants with {g,s}etitimer() for {g,s}etitimer0[12].c should
-> be trivial. Or did you mean to have test variants also for other functions in
-> include/tst_timer.h (e.g. timerfd_{g,s}ettime()) ?
+Along with kernel source code:
 
-timerfd_{g,s}ettime() (and other functions) test raw syscall with variants for
-64bit and the old 32bit. These tests (in testcases/kernel/syscalls/timerfd) are
-already quite complicated. I'm not sure if it's a good idea to add also
-timerfd_{g,s}ettime() wrappers. But they should be covered as well, right?
+https://github.com/torvalds/linux/blob/1b294a1f35616977caddaddf3e9d28e576a1adbc/include/uapi/linux/mount.h#L155
+https://github.com/torvalds/linux/blob/1b294a1f35616977caddaddf3e9d28e576a1adbc/tools/testing/selftests/filesystems/statmount/statmount_test.c
 
-> BTW we already test {g,s}etitimer() libc wrapper in getitimer01.c, therefore we
-> already have libc wrapper at least somehow covered (the other two test raw
-> syscall).
+Andrea Cervesato (10):
+  Add SAFE_STATX macro
+  Add listmount/statmount fallback declarations
+  Add listmount01 test
+  Add listmount02 test
+  Add stamount01 test
+  Add statmount02 test
+  Add statmount03 test
+  Add statmount04 test
+  Add statmount05 test
+  Add statmount06 test
 
-And we of course test {g,s}etitimer() libc wrappers in open posix testsuite.
+ configure.ac                                  |   5 +
+ include/lapi/mount.h                          |  67 +++++++++
+ include/lapi/stat.h                           |  10 +-
+ include/lapi/syscalls/aarch64.in              |   2 +
+ include/lapi/syscalls/arc.in                  |   2 +
+ include/lapi/syscalls/arm.in                  |   2 +
+ include/lapi/syscalls/hppa.in                 |   2 +
+ include/lapi/syscalls/i386.in                 |   2 +
+ include/lapi/syscalls/ia64.in                 |   2 +
+ include/lapi/syscalls/loongarch.in            |   2 +
+ include/lapi/syscalls/mips_n32.in             |   2 +
+ include/lapi/syscalls/mips_n64.in             |   2 +
+ include/lapi/syscalls/mips_o32.in             |   2 +
+ include/lapi/syscalls/powerpc.in              |   2 +
+ include/lapi/syscalls/powerpc64.in            |   2 +
+ include/lapi/syscalls/s390.in                 |   2 +
+ include/lapi/syscalls/s390x.in                |   2 +
+ include/lapi/syscalls/sh.in                   |   2 +
+ include/lapi/syscalls/sparc.in                |   2 +
+ include/lapi/syscalls/sparc64.in              |   2 +
+ include/lapi/syscalls/x86_64.in               |   2 +
+ include/tst_safe_macros.h                     |   7 +
+ lib/tst_safe_macros.c                         |  21 +++
+ runtest/syscalls                              |  10 ++
+ .../kernel/syscalls/listmount/.gitignore      |   2 +
+ testcases/kernel/syscalls/listmount/Makefile  |   7 +
+ .../kernel/syscalls/listmount/listmount.h     |  26 ++++
+ .../kernel/syscalls/listmount/listmount01.c   |  66 +++++++++
+ .../kernel/syscalls/listmount/listmount02.c   | 106 ++++++++++++++
+ .../kernel/syscalls/statmount/.gitignore      |   6 +
+ testcases/kernel/syscalls/statmount/Makefile  |   7 +
+ .../kernel/syscalls/statmount/statmount.h     |  26 ++++
+ .../kernel/syscalls/statmount/statmount01.c   |  69 +++++++++
+ .../kernel/syscalls/statmount/statmount02.c   |  76 ++++++++++
+ .../kernel/syscalls/statmount/statmount03.c   |  99 +++++++++++++
+ .../kernel/syscalls/statmount/statmount04.c   | 133 +++++++++++++++++
+ .../kernel/syscalls/statmount/statmount05.c   | 138 ++++++++++++++++++
+ .../kernel/syscalls/statmount/statmount06.c   |  73 +++++++++
+ 38 files changed, 989 insertions(+), 1 deletion(-)
+ create mode 100644 testcases/kernel/syscalls/listmount/.gitignore
+ create mode 100644 testcases/kernel/syscalls/listmount/Makefile
+ create mode 100644 testcases/kernel/syscalls/listmount/listmount.h
+ create mode 100644 testcases/kernel/syscalls/listmount/listmount01.c
+ create mode 100644 testcases/kernel/syscalls/listmount/listmount02.c
+ create mode 100644 testcases/kernel/syscalls/statmount/.gitignore
+ create mode 100644 testcases/kernel/syscalls/statmount/Makefile
+ create mode 100644 testcases/kernel/syscalls/statmount/statmount.h
+ create mode 100644 testcases/kernel/syscalls/statmount/statmount01.c
+ create mode 100644 testcases/kernel/syscalls/statmount/statmount02.c
+ create mode 100644 testcases/kernel/syscalls/statmount/statmount03.c
+ create mode 100644 testcases/kernel/syscalls/statmount/statmount04.c
+ create mode 100644 testcases/kernel/syscalls/statmount/statmount05.c
+ create mode 100644 testcases/kernel/syscalls/statmount/statmount06.c
 
-Kind regards,
-Petr
+-- 
+2.35.3
 
-> Once we agree what to do I'll either post a patch or add a ticket for it (or
-> feel free to add a ticket yourself).
-...
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
