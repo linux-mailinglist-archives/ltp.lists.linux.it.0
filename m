@@ -1,83 +1,92 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E37458C63CB
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 11:37:08 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id DDED48C63BC
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 11:34:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AB3B33CF8C0
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 11:37:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A4ED73CF76D
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 May 2024 11:34:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 80C8C3CF782
- for <ltp@lists.linux.it>; Wed, 15 May 2024 11:34:01 +0200 (CEST)
-Authentication-Results: in-5.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 50B7E3CD986
+ for <ltp@lists.linux.it>; Wed, 15 May 2024 11:33:57 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AD4B860A64F
- for <ltp@lists.linux.it>; Wed, 15 May 2024 11:33:57 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 88DB8100034C
+ for <ltp@lists.linux.it>; Wed, 15 May 2024 11:33:56 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 71E2520488;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A81F22048A;
  Wed, 15 May 2024 09:33:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1715765635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=mr7hKM9gO6z7NRtkhGc21vcss/v5F0iG1TDtouWvJUg=;
- b=jk6vaGjTmKGrH/RGMCJpokYeuMWpcqKRLsszD4KL7z1jLQfembQfx8nHckdAqvwLLVFUnn
- 2GM4dUYLzF+3d47k575jm60eKJvfWbVdMvEx0/Q0CgjisdTGy3M70i8LXMU3zf0yLfP0yK
- 27TOBcGVLOEin1mO7CF8JF/wIIRVnbI=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ln6zJMRE5VCtE9Y081k7QIT+S488GvK62i49+/E3FnM=;
+ b=VNkRfaZ0B+OJhhqOtQZJKGCP3WEYAejA0CF+AnPIepfzt+3vZsoS2W5jvWXaY3r1FxHxV3
+ WrcQSNnYE1CFVzxNb1o/ebAtuTXejGvZZTPbd8xYVldGmV0XtOmGEAP9F3lhQs1IVABUI+
+ EU1MAlsODQjAig+vqabC23Hp5u/pP8E=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1715765635;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=mr7hKM9gO6z7NRtkhGc21vcss/v5F0iG1TDtouWvJUg=;
- b=vMImBRhQQsdSpRbsNa2owIMZSSBysyAKE09EWxWk0Lij+Jh084ZWTq4KbbZm4cGJFbbv0F
- ZiMvmDY6Qvxa8SBg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ln6zJMRE5VCtE9Y081k7QIT+S488GvK62i49+/E3FnM=;
+ b=diYEkZ2CaC+cVlZtfhpypHXv1ju6QR65TEgwSyBfUM/4JC3UYX67rubUF5ssfdetcg+wr7
+ tWO6pxFr3qCJzYCw==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jk6vaGjT;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vMImBRhQ
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=VNkRfaZ0;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=diYEkZ2C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1715765635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=mr7hKM9gO6z7NRtkhGc21vcss/v5F0iG1TDtouWvJUg=;
- b=jk6vaGjTmKGrH/RGMCJpokYeuMWpcqKRLsszD4KL7z1jLQfembQfx8nHckdAqvwLLVFUnn
- 2GM4dUYLzF+3d47k575jm60eKJvfWbVdMvEx0/Q0CgjisdTGy3M70i8LXMU3zf0yLfP0yK
- 27TOBcGVLOEin1mO7CF8JF/wIIRVnbI=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ln6zJMRE5VCtE9Y081k7QIT+S488GvK62i49+/E3FnM=;
+ b=VNkRfaZ0B+OJhhqOtQZJKGCP3WEYAejA0CF+AnPIepfzt+3vZsoS2W5jvWXaY3r1FxHxV3
+ WrcQSNnYE1CFVzxNb1o/ebAtuTXejGvZZTPbd8xYVldGmV0XtOmGEAP9F3lhQs1IVABUI+
+ EU1MAlsODQjAig+vqabC23Hp5u/pP8E=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1715765635;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=mr7hKM9gO6z7NRtkhGc21vcss/v5F0iG1TDtouWvJUg=;
- b=vMImBRhQQsdSpRbsNa2owIMZSSBysyAKE09EWxWk0Lij+Jh084ZWTq4KbbZm4cGJFbbv0F
- ZiMvmDY6Qvxa8SBg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ln6zJMRE5VCtE9Y081k7QIT+S488GvK62i49+/E3FnM=;
+ b=diYEkZ2CaC+cVlZtfhpypHXv1ju6QR65TEgwSyBfUM/4JC3UYX67rubUF5ssfdetcg+wr7
+ tWO6pxFr3qCJzYCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4C1BE1372E;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7EDA813A62;
  Wed, 15 May 2024 09:33:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id vuSVEIOBRGb1TwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id CJ7sHIOBRGb1TwAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Wed, 15 May 2024 09:33:55 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Wed, 15 May 2024 11:33:39 +0200
-Message-Id: <20240515093349.7347-1-andrea.cervesato@suse.de>
+Date: Wed, 15 May 2024 11:33:40 +0200
+Message-Id: <20240515093349.7347-2-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20240515093349.7347-1-andrea.cervesato@suse.de>
+References: <20240515093349.7347-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
 X-Spam-Level: 
 X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
@@ -93,23 +102,23 @@ X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.de:dkim];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
  RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
  RCPT_COUNT_TWO(0.00)[2];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
  DKIM_TRACE(0.00)[suse.de:+]
 X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 71E2520488
+X-Rspamd-Queue-Id: A81F22048A
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Score: -3.01
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v1 00/10] statmount/listmount testing suites
+Subject: [LTP] [PATCH v1 01/10] Add SAFE_STATX macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,85 +137,57 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-This patch-set is adding new testing suites for statmount() and listmount()
-syscalls, which have been recently added in kernel v6.8.
-To find out more information, please read the following documentation since
-there's no man pages yet:
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+ include/tst_safe_macros.h |  7 +++++++
+ lib/tst_safe_macros.c     | 21 +++++++++++++++++++++
+ 2 files changed, 28 insertions(+)
 
-https://lwn.net/Articles/950569/
-https://lore.kernel.org/lkml/170474400576.2602.7882507604401153304.pr-tracker-bot@kernel.org/T/
-
-Along with kernel source code:
-
-https://github.com/torvalds/linux/blob/1b294a1f35616977caddaddf3e9d28e576a1adbc/include/uapi/linux/mount.h#L155
-https://github.com/torvalds/linux/blob/1b294a1f35616977caddaddf3e9d28e576a1adbc/tools/testing/selftests/filesystems/statmount/statmount_test.c
-
-Andrea Cervesato (10):
-  Add SAFE_STATX macro
-  Add listmount/statmount fallback declarations
-  Add listmount01 test
-  Add listmount02 test
-  Add stamount01 test
-  Add statmount02 test
-  Add statmount03 test
-  Add statmount04 test
-  Add statmount05 test
-  Add statmount06 test
-
- configure.ac                                  |   5 +
- include/lapi/mount.h                          |  67 +++++++++
- include/lapi/stat.h                           |  10 +-
- include/lapi/syscalls/aarch64.in              |   2 +
- include/lapi/syscalls/arc.in                  |   2 +
- include/lapi/syscalls/arm.in                  |   2 +
- include/lapi/syscalls/hppa.in                 |   2 +
- include/lapi/syscalls/i386.in                 |   2 +
- include/lapi/syscalls/ia64.in                 |   2 +
- include/lapi/syscalls/loongarch.in            |   2 +
- include/lapi/syscalls/mips_n32.in             |   2 +
- include/lapi/syscalls/mips_n64.in             |   2 +
- include/lapi/syscalls/mips_o32.in             |   2 +
- include/lapi/syscalls/powerpc.in              |   2 +
- include/lapi/syscalls/powerpc64.in            |   2 +
- include/lapi/syscalls/s390.in                 |   2 +
- include/lapi/syscalls/s390x.in                |   2 +
- include/lapi/syscalls/sh.in                   |   2 +
- include/lapi/syscalls/sparc.in                |   2 +
- include/lapi/syscalls/sparc64.in              |   2 +
- include/lapi/syscalls/x86_64.in               |   2 +
- include/tst_safe_macros.h                     |   7 +
- lib/tst_safe_macros.c                         |  21 +++
- runtest/syscalls                              |  10 ++
- .../kernel/syscalls/listmount/.gitignore      |   2 +
- testcases/kernel/syscalls/listmount/Makefile  |   7 +
- .../kernel/syscalls/listmount/listmount.h     |  26 ++++
- .../kernel/syscalls/listmount/listmount01.c   |  66 +++++++++
- .../kernel/syscalls/listmount/listmount02.c   | 106 ++++++++++++++
- .../kernel/syscalls/statmount/.gitignore      |   6 +
- testcases/kernel/syscalls/statmount/Makefile  |   7 +
- .../kernel/syscalls/statmount/statmount.h     |  26 ++++
- .../kernel/syscalls/statmount/statmount01.c   |  69 +++++++++
- .../kernel/syscalls/statmount/statmount02.c   |  76 ++++++++++
- .../kernel/syscalls/statmount/statmount03.c   |  99 +++++++++++++
- .../kernel/syscalls/statmount/statmount04.c   | 133 +++++++++++++++++
- .../kernel/syscalls/statmount/statmount05.c   | 138 ++++++++++++++++++
- .../kernel/syscalls/statmount/statmount06.c   |  73 +++++++++
- 38 files changed, 989 insertions(+), 1 deletion(-)
- create mode 100644 testcases/kernel/syscalls/listmount/.gitignore
- create mode 100644 testcases/kernel/syscalls/listmount/Makefile
- create mode 100644 testcases/kernel/syscalls/listmount/listmount.h
- create mode 100644 testcases/kernel/syscalls/listmount/listmount01.c
- create mode 100644 testcases/kernel/syscalls/listmount/listmount02.c
- create mode 100644 testcases/kernel/syscalls/statmount/.gitignore
- create mode 100644 testcases/kernel/syscalls/statmount/Makefile
- create mode 100644 testcases/kernel/syscalls/statmount/statmount.h
- create mode 100644 testcases/kernel/syscalls/statmount/statmount01.c
- create mode 100644 testcases/kernel/syscalls/statmount/statmount02.c
- create mode 100644 testcases/kernel/syscalls/statmount/statmount03.c
- create mode 100644 testcases/kernel/syscalls/statmount/statmount04.c
- create mode 100644 testcases/kernel/syscalls/statmount/statmount05.c
- create mode 100644 testcases/kernel/syscalls/statmount/statmount06.c
-
+diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
+index 8de8ef106..43ff50a33 100644
+--- a/include/tst_safe_macros.h
++++ b/include/tst_safe_macros.h
+@@ -503,4 +503,11 @@ int safe_sscanf(const char *file, const int lineno, const char *restrict buffer,
+ #define SAFE_SSCANF(buffer, format, ...) \
+ 	safe_sscanf(__FILE__, __LINE__, (buffer), (format),	##__VA_ARGS__)
+ 
++struct statx;
++int safe_statx(const char *file, const int lineno,
++	int dirfd, const char *pathname, int flags, unsigned int mask,
++	struct statx *buf);
++#define SAFE_STATX(dirfd, pathname, flags, mask, buf) \
++	safe_statx(__FILE__, __LINE__, (dirfd), (pathname), (flags), (mask), (buf))
++
+ #endif /* TST_SAFE_MACROS_H__ */
+diff --git a/lib/tst_safe_macros.c b/lib/tst_safe_macros.c
+index 39b8cc924..bf2f3c0d8 100644
+--- a/lib/tst_safe_macros.c
++++ b/lib/tst_safe_macros.c
+@@ -710,3 +710,24 @@ int safe_mprotect(const char *file, const int lineno,
+ 
+ 	return rval;
+ }
++
++int safe_statx(const char *file, const int lineno,
++	int dirfd, const char *pathname, int flags, unsigned int mask,
++	struct statx *buf)
++{
++	int rval;
++
++	rval = statx(dirfd, pathname, flags, mask, buf);
++
++	if (rval == -1) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"statx(%d,%s,%d,%u,%p) failed", dirfd, pathname, flags, mask, buf);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid statx(%d,%s,%d,%u,%p) return value %d",
++			dirfd, pathname, flags, mask, buf,
++			rval);
++	}
++
++	return rval;
++}
 -- 
 2.35.3
 
