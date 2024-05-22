@@ -1,87 +1,123 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4D6D8CC191
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 May 2024 14:48:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1716382097; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=HLRoiCo+VdDyk/JVXgrwT1f7ZsHpV8qHVqa0FEZ1qDk=;
- b=g786hLMRxqoG7fP/F2G/LrnZKF6+WFW82x27jVbjwaFBQ0mzZzMVeXQkwGrEUgKvDjY/I
- oNDKfh0KxlygxFiRJAZPk7Bnz22acbch1IShSSAhbwkqJPQfT/2xJfhoRovfZ5/t1y+1N6g
- +2kwYx8uV/rt0dQA5pTTpEWUXzWR6go=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 263E18CC342
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 May 2024 16:34:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4EA893D00F0
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 May 2024 14:48:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2D91A3D00FB
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 May 2024 16:34:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 833EE3CB704
- for <ltp@lists.linux.it>; Wed, 22 May 2024 14:48:04 +0200 (CEST)
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id DB9EC3CEB69
+ for <ltp@lists.linux.it>; Wed, 22 May 2024 16:33:44 +0200 (CEST)
+Authentication-Results: in-5.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 70150602BD1
- for <ltp@lists.linux.it>; Wed, 22 May 2024 14:48:03 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-578338936cbso1108194a12.0
- for <ltp@lists.linux.it>; Wed, 22 May 2024 05:48:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1716382082; x=1716986882; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=B4WR1yHqr7DAliJlEVEEFhR9hdnYOfADpNyjzlMGjtE=;
- b=fM8ys5tDKZK45f6Jl7crKqrtZ7Jbnsfc9gk/AcL8KZpT/nnfTzcHyAsMkQdqfER38s
- Gk5RjuCpApWk0tTbQboGb1dmRDry3FX7rjr3DKFVQB9jY3YurNxyyiRscVfzHUMTjLgr
- DCMaBDd5rCagKRq/udl3s35xBtzEsvxpke9eF4ud2ezCF4/hCGv7d+r140OrwZI0gy4h
- 7qYDMGqWnQSNUEo1lWVE2O6DDwTj464UeIBDgPfB+wL0hpFhuDtxmgZ5gr2XQgfrxJo6
- ka9A90uxjMrW9YIS2Cdu6kPklOmG1G5J0TscgTkzFMwkGdHdqO9B1xP1J59L99fYkQnk
- vIWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716382082; x=1716986882;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=B4WR1yHqr7DAliJlEVEEFhR9hdnYOfADpNyjzlMGjtE=;
- b=T+yLJMFXnj9aoMNtXVEbeYemuwp7MFfgNfmRiPz+lc/Ks0G1Xv30gadQ+WIBX/LFHG
- NsTUmRkDE4RJD/z65hXCNw8EuSMRXtGsi0XPUJoPLXxyxhvUtJ5GOQXJEU9K6hHFpLLY
- mfs+9OS89YISdQUQDhGQ79yPyqYJOfVPEWf0VoaIT8yQrmDN+mv05/8fS3nUsm6wIzYJ
- G6Z/1LqJheDO86e0DYjFmDo3GC2N+24VlM1swi1RqKe7S7tTKRLTbXa6ZswIGHunRlXD
- me8F3NyUkP71Gg3+6HrDF9sAJQ+XI1lyIsMHqvjdpsZFEnMpM2L1Wo6FWdxYstrgdWb9
- 0l2w==
-X-Gm-Message-State: AOJu0YwIoBSnjanCxb67QPrahSKdtHoQW/hFGcU+gQeFo2U8Ry6WLgsF
- b2PruGGt1+4WxfCXqRRhyM84F5CuDxcAH8VUJP0SGlRwf7tKsg3CD0+24pI5cECoe0KLaftBvtY
- =
-X-Google-Smtp-Source: AGHT+IEEEPCQxbdcAaMuN44HATh3byZTWge/b555vMejOc8eTqjLNDAkmK2Yu6yeuo6ysOoseRRz+g==
-X-Received: by 2002:a17:906:3791:b0:a5c:dce0:9f4e with SMTP id
- a640c23a62f3a-a5d5ecdc434mr1090815766b.28.1716382082199; 
- Wed, 22 May 2024 05:48:02 -0700 (PDT)
-Received: from localhost ([2a07:de40:b240:0:dc1a:df90:dc1a:df90])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a179c7d87sm1777378566b.104.2024.05.22.05.48.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 May 2024 05:48:01 -0700 (PDT)
-To: ltp@lists.linux.it
-Date: Wed, 22 May 2024 08:47:54 -0400
-Message-Id: <20240522124754.9599-1-wegao@suse.com>
-X-Mailer: git-send-email 2.35.3
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C38BE600117
+ for <ltp@lists.linux.it>; Wed, 22 May 2024 16:33:43 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E276E22BD0;
+ Wed, 22 May 2024 14:33:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1716388423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=nFlveN3DhomcuVHjzcqU+QAwLyxlJRom5jdjYpWps8k=;
+ b=ee4QJD8S7Hwp0QiR2Q0PnTRDW9t1JjyuRTdVtIQjmeCslQg29wnlqZQaz8Cv66faYNZcXn
+ /2rJ/ZUsLUaaIkI+w+1+c9euzH02fqgOj+cGKk5WFZBi3sRMgKj08GW4fdip61hgkfapNS
+ BLFG5eeO87Uz3JYQDxjuj9rUl1CLtGs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1716388423;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=nFlveN3DhomcuVHjzcqU+QAwLyxlJRom5jdjYpWps8k=;
+ b=SEE4TTN0GsFQMLlDVnis+O8/peIlY2ROK6RWEyZX1c5b0LoAbSa2qQ29O3zsMXVhDLfiQj
+ /z/3M5q5koS0i+Bw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1716388422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=nFlveN3DhomcuVHjzcqU+QAwLyxlJRom5jdjYpWps8k=;
+ b=w3V/YW3rFDDUuld3vYs4HxGIcg46ru+YUiCIHIdYXescmY9u0rTINvxmQh/lmbOZGrd4jw
+ rwmpthAiXQy9KHbOV8TYIPHRY4hGnzwvPyNYAXC+NtjKA6E82bA79n/lyl1XGkQTGVLom7
+ 84ydRlpXw3YW9GMOM8ZEULyhTEwDW+4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1716388422;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=nFlveN3DhomcuVHjzcqU+QAwLyxlJRom5jdjYpWps8k=;
+ b=4yPxiy2U0kiJx3Zu/4n4LW0xaO4M303mcNBM/kKfb1/zWBTPIfDspa0aR82rDyYz5IcbaU
+ JWIHA6RX1V6BeECQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BDAE813A6B;
+ Wed, 22 May 2024 14:33:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id AwqlK0YCTmaJOwAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Wed, 22 May 2024 14:33:42 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Wed, 22 May 2024 16:33:04 +0200
+Message-Id: <20240522-process_mrelease-v1-0-41fe2fa44194@suse.com>
 MIME-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIACACTmYC/x3MSQqAQAwF0atI1jZoWl14FRFx+GrAiQREkL67j
+ cu3qHrJoAKjOnlJcYvJeUTkaULj2h8LnEzRxBkXWcnsLj1HmHW7YkNvcH7myvNQeEZFMbsUszz
+ /smlD+ADIuLsxYgAAAA==
+To: ltp@lists.linux.it
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2162;
+ i=andrea.cervesato@suse.com; h=from:subject:message-id;
+ bh=qYivq8ia/accoCDMvXUrGBYuoBBUpRzRlYvafzLJWZ8=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmTgIt4XPqsheuqQ57W6BbOuo5VUXsfUUj7oeRv
+ OZWiu5GKriJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZk4CLQAKCRDLzBqyILPm
+ RkkVC/9IQzNrM17J5CyzGZALqO00UlBZKFU01ysggWEX7mTwcUqPWRk7piU1vaisLKVNLPgynPE
+ VGmHkGQH6wreOGptcHu2/oZFDi84TJkfQQRCiJRZLmN4S4sft/wriv+J8qq8q6rAjLJglMXBG/r
+ nhlFSm1lamohNLEzYUOk/NDtroE1ooFqdVhUKt3/7RkOUOkhT4NEsnZLWrV23zT6GMgiYJkpi6T
+ DPYqbw1LMhybV/Z9DCVnNzWzCSjO7BcC4kPmqy8vvVuI5HfJ28TBXguUHV3VCq7G/fTxaJv4BmV
+ 9SmmGDSgCbp/4BfczVTHfLroBA9HIbbrX8gcfp8D60bgfKalO0njfLa2ktiXADTimSjoc6LLuqO
+ ZRj0c0qTQ5jqMOhGBpbuAfTlnvCqyS4G7pbmHbHEpzlgDrPRmQyN0y0LKp8G2o0HpHqnA7lBqEv
+ a4NHXpJ+Vdpllh/HnQXEkBKzf17DfFL8fzCySqKlPNJzrYFf8irwD+vWkGL5Nk3Rroti4=
+X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
+ fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[lwn.net:url, imap1.dmz-prg2.suse.org:helo,
+ suse.com:email]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v1] msync04: Check disk content if dirty bit check
- failed
+Subject: [LTP] [PATCH 0/3] Add process_mrelease testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,78 +129,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-msync04 test is inherently racy and nothing guarantees that the page
-is not written out before get_dirty_page() manages to read the page state.
-Hence the test should be reworked to verify the page contents is on disk
-when it finds dirty bit isn't set anymore...
+This testing suite is meant to add coverage for process_mrelease()
+syscall, introduced in the kernel 5.15.
 
-Signed-off-by: Wei Gao <wegao@suse.com>
+The testing suite is providing following tests:
+- process_mrelease01
+- process_mrelease02
+
+Since there's no man pages, please consider the following
+documentation instead:
+
+https://lwn.net/Articles/864184/
+https://lwn.net/Articles/865341/
+
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/syscalls/msync/msync04.c | 34 ++++++++++++++---------
- 1 file changed, 21 insertions(+), 13 deletions(-)
+Andrea Cervesato (3):
+      Add process_mrelease syscalls definition
+      Add process_mrelease01 test
+      Add process_mrelease02 test
 
-diff --git a/testcases/kernel/syscalls/msync/msync04.c b/testcases/kernel/syscalls/msync/msync04.c
-index 72ddc27a4..c296c8b20 100644
---- a/testcases/kernel/syscalls/msync/msync04.c
-+++ b/testcases/kernel/syscalls/msync/msync04.c
-@@ -46,6 +46,7 @@ uint64_t get_dirty_bit(void *data)
- static void test_msync(void)
- {
- 	uint64_t dirty;
-+	char buffer[20];
- 
- 	test_fd = SAFE_OPEN("msync04/testfile", O_CREAT | O_TRUNC | O_RDWR,
- 		0644);
-@@ -56,20 +57,27 @@ static void test_msync(void)
- 	mmaped_area[8] = 'B';
- 	dirty = get_dirty_bit(mmaped_area);
- 	if (!dirty) {
--		tst_res(TFAIL, "Expected dirty bit to be set after writing to"
--				" mmap()-ed area");
--		goto clean;
--	}
--	if (msync(mmaped_area, pagesize, MS_SYNC) < 0) {
--		tst_res(TFAIL | TERRNO, "msync() failed");
--		goto clean;
-+		tst_res(TINFO, "Not see dirty bit so we check content of file instead");
-+		test_fd = SAFE_OPEN("msync04/testfile", O_RDONLY);
-+		SAFE_READ(0, test_fd, buffer, 9);
-+		if (buffer[8] == 'B')
-+			tst_res(TCONF, "write file ok but msync couldn't be tested"
-+				" because the storage was written to too quickly");
-+		else
-+			tst_res(TFAIL, "write file failed");
-+	} else {
-+		if (msync(mmaped_area, pagesize, MS_SYNC) < 0) {
-+			tst_res(TFAIL | TERRNO, "msync() failed");
-+			goto clean;
-+		}
-+		dirty = get_dirty_bit(mmaped_area);
-+		if (dirty)
-+			tst_res(TFAIL, "msync() failed to write dirty page despite"
-+					" succeeding");
-+		else
-+			tst_res(TPASS, "msync() working correctly");
-+
- 	}
--	dirty = get_dirty_bit(mmaped_area);
--	if (dirty)
--		tst_res(TFAIL, "msync() failed to write dirty page despite"
--				" succeeding");
--	else
--		tst_res(TPASS, "msync() working correctly");
- 
- clean:
- 	SAFE_MUNMAP(mmaped_area, pagesize);
+ include/lapi/syscalls/aarch64.in                   |   1 +
+ include/lapi/syscalls/arc.in                       |   1 +
+ include/lapi/syscalls/arm.in                       |   1 +
+ include/lapi/syscalls/hppa.in                      |   1 +
+ include/lapi/syscalls/i386.in                      |   1 +
+ include/lapi/syscalls/ia64.in                      |   1 +
+ include/lapi/syscalls/mips_n32.in                  |   1 +
+ include/lapi/syscalls/mips_n64.in                  |   1 +
+ include/lapi/syscalls/mips_o32.in                  |   1 +
+ include/lapi/syscalls/powerpc.in                   |   1 +
+ include/lapi/syscalls/powerpc64.in                 |   1 +
+ include/lapi/syscalls/s390.in                      |   1 +
+ include/lapi/syscalls/s390x.in                     |   1 +
+ include/lapi/syscalls/sh.in                        |   1 +
+ include/lapi/syscalls/sparc.in                     |   1 +
+ include/lapi/syscalls/sparc64.in                   |   1 +
+ include/lapi/syscalls/x86_64.in                    |   1 +
+ runtest/syscalls                                   |   3 +
+ .../kernel/syscalls/process_mrelease/.gitignore    |   2 +
+ .../kernel/syscalls/process_mrelease/Makefile      |   7 ++
+ .../syscalls/process_mrelease/process_mrelease01.c | 118 +++++++++++++++++++++
+ .../syscalls/process_mrelease/process_mrelease02.c |  75 +++++++++++++
+ 22 files changed, 222 insertions(+)
+---
+base-commit: e644691d30c3948a9788b735c51e09ca849ea47f
+change-id: 20240522-process_mrelease-3f2632b432e6
+
+Best regards,
 -- 
-2.35.3
+Andrea Cervesato <andrea.cervesato@suse.com>
 
 
 -- 
