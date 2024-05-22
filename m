@@ -1,127 +1,135 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24F488CC343
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 May 2024 16:34:25 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 92EF98CC341
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 May 2024 16:33:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C715C3D00C0
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 May 2024 16:34:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 54D693D00E1
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 May 2024 16:33:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B910F3D00F0
- for <ltp@lists.linux.it>; Wed, 22 May 2024 16:33:46 +0200 (CEST)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id A9CE23CEB69
+ for <ltp@lists.linux.it>; Wed, 22 May 2024 16:33:44 +0200 (CEST)
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7E7D21401713
- for <ltp@lists.linux.it>; Wed, 22 May 2024 16:33:45 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D275A2079EB
+ for <ltp@lists.linux.it>; Wed, 22 May 2024 16:33:43 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 24F2C5C8DD;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5CA2A22C10;
  Wed, 22 May 2024 14:33:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1716388423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Txr46a8eXeO6aRxdkpNNTLZ3Yq6MyHrW1hD9qnP8EDE=;
- b=JRkSNCDdOwigGm7evBnLpy01XzYAlZli2L5Bkogud4a5fSZBNix4i6lqqjnGN/tDzZmHnG
- czaLXKtNKgE0Rvgdiot56Phqf2c+41Om7SuUX8ybp3i2IwTWbfpMNR13aIf7bahklZUXZU
- ZAyn2ENzZjd/sJe/xpdRk5u1VrOftjY=
+ bh=rkVIitkWTj5uQPtzz9FkVhu9WG1Fm8C+7Jsq5Qy2qQw=;
+ b=ES/pMQOeSuQ/S0ZyIgbIfQ4YtT64fyxkniOu425kcvVjZpvkmKPOdYtx0aENJUVaEp7gLe
+ AyaLGIBGiL+ONF6Lnli8i56p+x7DAiqPiuotZx77o0vwyvxTrgf21Y+UtZy+KHMtPp9dtd
+ i8V2Rn2k5ik+q1yqZ0DV2f4mGn2wut4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1716388423;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Txr46a8eXeO6aRxdkpNNTLZ3Yq6MyHrW1hD9qnP8EDE=;
- b=8e9wd/2DIwrVl/rPUsAPEzpJUAvvZ7oWwuIoMq1EPTvmmNdbDYmB2uwr/Dp0lFsctXnFJn
- /kcMQ9wSHmMV/6AA==
-Authentication-Results: smtp-out2.suse.de;
-	none
+ bh=rkVIitkWTj5uQPtzz9FkVhu9WG1Fm8C+7Jsq5Qy2qQw=;
+ b=wol33jxN4xYw+lGwkea8E6VuKadZpXQuRqrbbMwwbLMcDWIiqc3EbjDsgf2cy/g0+uFDzf
+ PkyzhgJH3itWjqAQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="ES/pMQOe";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=wol33jxN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1716388423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Txr46a8eXeO6aRxdkpNNTLZ3Yq6MyHrW1hD9qnP8EDE=;
- b=JRkSNCDdOwigGm7evBnLpy01XzYAlZli2L5Bkogud4a5fSZBNix4i6lqqjnGN/tDzZmHnG
- czaLXKtNKgE0Rvgdiot56Phqf2c+41Om7SuUX8ybp3i2IwTWbfpMNR13aIf7bahklZUXZU
- ZAyn2ENzZjd/sJe/xpdRk5u1VrOftjY=
+ bh=rkVIitkWTj5uQPtzz9FkVhu9WG1Fm8C+7Jsq5Qy2qQw=;
+ b=ES/pMQOeSuQ/S0ZyIgbIfQ4YtT64fyxkniOu425kcvVjZpvkmKPOdYtx0aENJUVaEp7gLe
+ AyaLGIBGiL+ONF6Lnli8i56p+x7DAiqPiuotZx77o0vwyvxTrgf21Y+UtZy+KHMtPp9dtd
+ i8V2Rn2k5ik+q1yqZ0DV2f4mGn2wut4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1716388423;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Txr46a8eXeO6aRxdkpNNTLZ3Yq6MyHrW1hD9qnP8EDE=;
- b=8e9wd/2DIwrVl/rPUsAPEzpJUAvvZ7oWwuIoMq1EPTvmmNdbDYmB2uwr/Dp0lFsctXnFJn
- /kcMQ9wSHmMV/6AA==
+ bh=rkVIitkWTj5uQPtzz9FkVhu9WG1Fm8C+7Jsq5Qy2qQw=;
+ b=wol33jxN4xYw+lGwkea8E6VuKadZpXQuRqrbbMwwbLMcDWIiqc3EbjDsgf2cy/g0+uFDzf
+ PkyzhgJH3itWjqAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F3C3913A7A;
- Wed, 22 May 2024 14:33:42 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3637E13A6B;
+ Wed, 22 May 2024 14:33:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id mLP4OEYCTmaJOwAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Wed, 22 May 2024 14:33:42 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id IMCrCkcCTmaJOwAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Wed, 22 May 2024 14:33:43 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 22 May 2024 16:33:05 +0200
+Date: Wed, 22 May 2024 16:33:06 +0200
 MIME-Version: 1.0
-Message-Id: <20240522-process_mrelease-v1-1-41fe2fa44194@suse.com>
+Message-Id: <20240522-process_mrelease-v1-2-41fe2fa44194@suse.com>
 References: <20240522-process_mrelease-v1-0-41fe2fa44194@suse.com>
 In-Reply-To: <20240522-process_mrelease-v1-0-41fe2fa44194@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6560;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4406;
  i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=boImZPjckVuKrOunvGkOvH4vLzN8TH7rEvehX+G6sYY=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmTgJGy1FQxRPtlzi/wHAIrKpIeZThxj0C4bluF
- 0ukLerQd3+JAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZk4CRgAKCRDLzBqyILPm
- Rh2hC/95Hi1gb7cPBR0JBZquo8EFxejYiL+vc5Cjut/gU71uUHZGyu4eXtXKrk3ZGKudiAS7FjP
- plKw3fLduOI5X5eXqZAEu2Mydia90e20cFrEU2/JyYa6GnQ7WVf+Zro0QuE9tdryjz4hWqUwQY/
- 7dkRudpDiCZyrgqpodaUC5snMR29vs0WcMWi+Bmz1qhyzd5HsGMugCQl71cVONRKuZht09lNDes
- FHo/KACQ5NEw5/9AqgkCEVKAfUPDmHvVIVfUxVXvuNLxg7nRshbapCW5+N+N25X08HPz93IL3q2
- 7iLXKgFo20k4KjN4WikfVxYuMWxryZxVKN0gsRYyZFlCeNdUFVq0QUASQiR7zYTuWFxBBh5NfGR
- pARIUc8qiY0FbUo2/xlJCit0K2nza+UaT5ban+z8X7JkdJKf7w94XQM64+MqNzyb4jWNo5a9wtq
- Yg7j3wLyIzzrY9Uoqtyd17HxLGZcXgtsOpbtBfXHxXnpGo16Jw9eMWTIdD0mIhI1mFpjQ=
+ bh=PwLcQfkUrQekE664H1X+AYTSyOCsurlB+3xweaAIpXw=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmTgJG7W/ERy7eMd76iGJPYNCsXP+u2rNbbCr2U
+ K63lmQYkG+JAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZk4CRgAKCRDLzBqyILPm
+ RhcKC/wLfJFiBYY+EyPWGRKbaJ+wQRUaD9PZsM6VZ9YJBAFOQ3wh6gETnGgRgxA94+nbjEeDvU+
+ wHd+1ZtJ5AKrn1IU8fR/n2r8+9BCgXza8kn3dwlZx4Dnx3aktnGQfYW1rQrs/zmz83o7mJj3Gpj
+ vLz7A8gLfIJbYKBedDxKcaLziH9YmL82rNsfkU9zL7DBzZfBImjsz4JuOomrNAZRUSeHsuusuIy
+ kHPQTDgPAWprxctrhR+tI7cfKjVaDgsD2DKaNX5Cn3jAnUfnsbRgnlFVeHKeklVAVvpCoITbTvw
+ 4k2CTIkYp1BSMbzkziWuc2LuvWLpqZrW7J3I9Mq8z2U9YRCdA0WtQeg08x4X4sxtMk4rVzRuJ4U
+ A+1uOhXYWIQreZ3klFQEHm2V41MDWTGvEodLNggVv1DT/QASc9XM7vf+c3UduAuyg5MWnIbb6Da
+ 2Dga+rdVIA2XbGCsRqazQGgkxzBeeSZyWzGU7HyprIb3ZLMwSs+4mbxu3tV+ZoDDMgS3g=
 X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
  fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
+X-Spam-Score: -4.51
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 5CA2A22C10
 X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[];
+ MX_GOOD(-0.01)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCPT_COUNT_TWO(0.00)[2];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Score: -4.30
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.de:dkim];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/3] Add process_mrelease syscalls definition
+Subject: [LTP] [PATCH 2/3] Add process_mrelease01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,200 +148,174 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
+This test verifies that process_mrelease() syscall is releasing memory
+from a killed process with memory allocation pending.
+
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- include/lapi/syscalls/aarch64.in   | 1 +
- include/lapi/syscalls/arc.in       | 1 +
- include/lapi/syscalls/arm.in       | 1 +
- include/lapi/syscalls/hppa.in      | 1 +
- include/lapi/syscalls/i386.in      | 1 +
- include/lapi/syscalls/ia64.in      | 1 +
- include/lapi/syscalls/mips_n32.in  | 1 +
- include/lapi/syscalls/mips_n64.in  | 1 +
- include/lapi/syscalls/mips_o32.in  | 1 +
- include/lapi/syscalls/powerpc.in   | 1 +
- include/lapi/syscalls/powerpc64.in | 1 +
- include/lapi/syscalls/s390.in      | 1 +
- include/lapi/syscalls/s390x.in     | 1 +
- include/lapi/syscalls/sh.in        | 1 +
- include/lapi/syscalls/sparc.in     | 1 +
- include/lapi/syscalls/sparc64.in   | 1 +
- include/lapi/syscalls/x86_64.in    | 1 +
- 17 files changed, 17 insertions(+)
+ runtest/syscalls                                   |   2 +
+ .../kernel/syscalls/process_mrelease/.gitignore    |   1 +
+ .../kernel/syscalls/process_mrelease/Makefile      |   7 ++
+ .../syscalls/process_mrelease/process_mrelease01.c | 118 +++++++++++++++++++++
+ 4 files changed, 128 insertions(+)
 
-diff --git a/include/lapi/syscalls/aarch64.in b/include/lapi/syscalls/aarch64.in
-index 2cb6c2d87..98e6c69c5 100644
---- a/include/lapi/syscalls/aarch64.in
-+++ b/include/lapi/syscalls/aarch64.in
-@@ -296,5 +296,6 @@ pidfd_getfd 438
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
- _sysctl 1078
-diff --git a/include/lapi/syscalls/arc.in b/include/lapi/syscalls/arc.in
-index 3e2ee9061..8ed05ce68 100644
---- a/include/lapi/syscalls/arc.in
-+++ b/include/lapi/syscalls/arc.in
-@@ -316,4 +316,5 @@ pidfd_getfd 438
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
-diff --git a/include/lapi/syscalls/arm.in b/include/lapi/syscalls/arm.in
-index 7bdbca533..d133a44be 100644
---- a/include/lapi/syscalls/arm.in
-+++ b/include/lapi/syscalls/arm.in
-@@ -394,4 +394,5 @@ pidfd_getfd (__NR_SYSCALL_BASE+438)
- faccessat2 (__NR_SYSCALL_BASE+439)
- epoll_pwait2 (__NR_SYSCALL_BASE+441)
- quotactl_fd (__NR_SYSCALL_BASE+443)
-+process_mrelease (__NR_SYSCALL_BASE+448)
- futex_waitv (__NR_SYSCALL_BASE+449)
-diff --git a/include/lapi/syscalls/hppa.in b/include/lapi/syscalls/hppa.in
-index 8ebdafafb..578751e2e 100644
---- a/include/lapi/syscalls/hppa.in
-+++ b/include/lapi/syscalls/hppa.in
-@@ -43,4 +43,5 @@ close_range 436
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
-diff --git a/include/lapi/syscalls/i386.in b/include/lapi/syscalls/i386.in
-index 1472631c4..59a1d030b 100644
---- a/include/lapi/syscalls/i386.in
-+++ b/include/lapi/syscalls/i386.in
-@@ -430,4 +430,5 @@ pidfd_getfd 438
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
-diff --git a/include/lapi/syscalls/ia64.in b/include/lapi/syscalls/ia64.in
-index 0ea6e9722..e410582d8 100644
---- a/include/lapi/syscalls/ia64.in
-+++ b/include/lapi/syscalls/ia64.in
-@@ -343,4 +343,5 @@ pidfd_getfd 1462
- faccessat2 1463
- epoll_pwait2 1465
- quotactl_fd 1467
-+process_mrelease 1472
- futex_waitv 1473
-diff --git a/include/lapi/syscalls/mips_n32.in b/include/lapi/syscalls/mips_n32.in
-index e818c9d92..f2602a02f 100644
---- a/include/lapi/syscalls/mips_n32.in
-+++ b/include/lapi/syscalls/mips_n32.in
-@@ -370,4 +370,5 @@ process_madvise 6440
- epoll_pwait2 6441
- mount_setattr 6442
- quotactl_fd 6443
-+process_mrelease 6448
- futex_waitv 6449
-diff --git a/include/lapi/syscalls/mips_n64.in b/include/lapi/syscalls/mips_n64.in
-index 6e15f43b3..f16762c69 100644
---- a/include/lapi/syscalls/mips_n64.in
-+++ b/include/lapi/syscalls/mips_n64.in
-@@ -346,4 +346,5 @@ process_madvise 5440
- epoll_pwait2 5441
- mount_setattr 5442
- quotactl_fd 5443
-+process_mrelease 5448
- futex_waitv 5449
-diff --git a/include/lapi/syscalls/mips_o32.in b/include/lapi/syscalls/mips_o32.in
-index 921d5d331..88a0d7ca8 100644
---- a/include/lapi/syscalls/mips_o32.in
-+++ b/include/lapi/syscalls/mips_o32.in
-@@ -416,4 +416,5 @@ process_madvise 4440
- epoll_pwait2 4441
- mount_setattr 4442
- quotactl_fd 4443
-+process_mrelease 4448
- futex_waitv 4449
-diff --git a/include/lapi/syscalls/powerpc.in b/include/lapi/syscalls/powerpc.in
-index 545d9d3d6..20233339d 100644
---- a/include/lapi/syscalls/powerpc.in
-+++ b/include/lapi/syscalls/powerpc.in
-@@ -423,4 +423,5 @@ pidfd_getfd 438
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
-diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
-index 545d9d3d6..20233339d 100644
---- a/include/lapi/syscalls/powerpc64.in
-+++ b/include/lapi/syscalls/powerpc64.in
-@@ -423,4 +423,5 @@ pidfd_getfd 438
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
-diff --git a/include/lapi/syscalls/s390.in b/include/lapi/syscalls/s390.in
-index 7213ac5f8..ae0c83636 100644
---- a/include/lapi/syscalls/s390.in
-+++ b/include/lapi/syscalls/s390.in
-@@ -410,4 +410,5 @@ pidfd_getfd 438
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
-diff --git a/include/lapi/syscalls/s390x.in b/include/lapi/syscalls/s390x.in
-index 879012e2b..d1476e98f 100644
---- a/include/lapi/syscalls/s390x.in
-+++ b/include/lapi/syscalls/s390x.in
-@@ -358,4 +358,5 @@ pidfd_getfd 438
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
-diff --git a/include/lapi/syscalls/sh.in b/include/lapi/syscalls/sh.in
-index 7d5192a27..845deff4d 100644
---- a/include/lapi/syscalls/sh.in
-+++ b/include/lapi/syscalls/sh.in
-@@ -404,4 +404,5 @@ pidfd_getfd 438
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
-diff --git a/include/lapi/syscalls/sparc.in b/include/lapi/syscalls/sparc.in
-index 91d2fb1c2..ec73eaa2b 100644
---- a/include/lapi/syscalls/sparc.in
-+++ b/include/lapi/syscalls/sparc.in
-@@ -409,4 +409,5 @@ pidfd_getfd 438
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
-diff --git a/include/lapi/syscalls/sparc64.in b/include/lapi/syscalls/sparc64.in
-index 1f2fc59b7..ecf8e1d22 100644
---- a/include/lapi/syscalls/sparc64.in
-+++ b/include/lapi/syscalls/sparc64.in
-@@ -374,4 +374,5 @@ pidfd_getfd 438
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
-diff --git a/include/lapi/syscalls/x86_64.in b/include/lapi/syscalls/x86_64.in
-index dc61aa56e..415f3011d 100644
---- a/include/lapi/syscalls/x86_64.in
-+++ b/include/lapi/syscalls/x86_64.in
-@@ -351,6 +351,7 @@ pidfd_getfd 438
- faccessat2 439
- epoll_pwait2 441
- quotactl_fd 443
-+process_mrelease 448
- futex_waitv 449
- rt_sigaction 512
- rt_sigreturn 513
+diff --git a/runtest/syscalls b/runtest/syscalls
+index cf06ee563..46a85fd31 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1050,6 +1050,8 @@ preadv203_64 preadv203_64
+ 
+ profil01 profil01
+ 
++process_mrelease01 process_mrelease01
++
+ process_vm_readv01 process_vm01 -r
+ process_vm_readv02 process_vm_readv02
+ process_vm_readv03 process_vm_readv03
+diff --git a/testcases/kernel/syscalls/process_mrelease/.gitignore b/testcases/kernel/syscalls/process_mrelease/.gitignore
+new file mode 100644
+index 000000000..673983858
+--- /dev/null
++++ b/testcases/kernel/syscalls/process_mrelease/.gitignore
+@@ -0,0 +1 @@
++/process_mrelease01
+diff --git a/testcases/kernel/syscalls/process_mrelease/Makefile b/testcases/kernel/syscalls/process_mrelease/Makefile
+new file mode 100644
+index 000000000..8cf1b9024
+--- /dev/null
++++ b/testcases/kernel/syscalls/process_mrelease/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/process_mrelease/process_mrelease01.c b/testcases/kernel/syscalls/process_mrelease/process_mrelease01.c
+new file mode 100644
+index 000000000..aa7c9960c
+--- /dev/null
++++ b/testcases/kernel/syscalls/process_mrelease/process_mrelease01.c
+@@ -0,0 +1,118 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * This test verifies that process_mrelease() syscall is releasing memory from
++ * a killed process with memory allocation pending.
++ */
++
++#include "tst_test.h"
++#include "lapi/syscalls.h"
++
++#define CHUNK (1 * TST_MB)
++#define MAX_SIZE_MB (128 * TST_MB)
++
++static void *mem;
++static volatile int *mem_size;
++
++static void do_child(int size)
++{
++	tst_res(TINFO, "Child: allocate %d bytes", size);
++
++	mem = SAFE_MMAP(NULL,
++		size,
++		PROT_READ | PROT_WRITE,
++		MAP_PRIVATE | MAP_ANON,
++		0, 0);
++
++	TST_CHECKPOINT_WAKE_AND_WAIT(0);
++
++	tst_res(TINFO, "Child: releasing memory");
++
++	SAFE_MUNMAP(mem, size);
++}
++
++static void run(void)
++{
++	int ret;
++	int pidfd;
++	int status;
++	pid_t pid;
++	volatile int restart;
++
++	for (*mem_size = CHUNK; *mem_size < MAX_SIZE_MB; *mem_size += CHUNK) {
++		restart = 0;
++
++		pid = SAFE_FORK();
++		if (!pid) {
++			do_child(*mem_size);
++			exit(0);
++		}
++
++		TST_CHECKPOINT_WAIT(0);
++
++		tst_disable_oom_protection(pid);
++
++		pidfd = SAFE_PIDFD_OPEN(pid, 0);
++
++		tst_res(TINFO, "Parent: killing child with PID=%d", pid);
++
++		SAFE_KILL(pid, SIGKILL);
++
++		ret = tst_syscall(__NR_process_mrelease, pidfd, 0);
++		if (ret == -1) {
++			if (errno == ESRCH) {
++				tst_res(TINFO, "Parent: child terminated before process_mrelease()."
++					" Increase memory size and restart test");
++
++				restart = 1;
++			} else {
++				tst_res(TFAIL | TERRNO, "process_mrelease(%d,0) error", pidfd);
++			}
++		} else {
++			tst_res(TPASS, "process_mrelease(%d,0) passed", pidfd);
++		}
++
++		SAFE_WAITPID(-1, &status, 0);
++		SAFE_CLOSE(pidfd);
++
++		if (!restart)
++			break;
++	}
++}
++
++static void setup(void)
++{
++	mem_size = SAFE_MMAP(
++		NULL,
++		sizeof(int),
++		PROT_READ | PROT_WRITE,
++		MAP_SHARED | MAP_ANONYMOUS,
++		-1, 0);
++}
++
++static void cleanup(void)
++{
++	if (mem)
++		SAFE_MUNMAP(mem, *mem_size);
++
++	if (mem_size)
++		SAFE_MUNMAP((void *)mem_size, sizeof(int));
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = run,
++	.needs_root = 1,
++	.forks_child = 1,
++	.min_kver = "5.15",
++	.needs_checkpoints = 1,
++	.needs_kconfigs = (const char *[]) {
++		"CONFIG_MMU=y",
++	},
++};
 
 -- 
 2.35.3
