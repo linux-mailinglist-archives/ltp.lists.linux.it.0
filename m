@@ -1,116 +1,134 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 027F68CE6B2
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 May 2024 16:10:24 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4178CF927
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 May 2024 08:31:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A46663D0237
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 May 2024 16:10:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E937E3D037E
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 May 2024 08:31:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B6FDB3CB744
- for <ltp@lists.linux.it>; Fri, 24 May 2024 16:10:13 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
- envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 922E83D0305
+ for <ltp@lists.linux.it>; Mon, 27 May 2024 08:30:47 +0200 (CEST)
+Authentication-Results: in-5.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6F19863CA7A
- for <ltp@lists.linux.it>; Fri, 24 May 2024 16:10:12 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2E85B600C35
+ for <ltp@lists.linux.it>; Mon, 27 May 2024 08:30:46 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1225A33B4E;
- Fri, 24 May 2024 14:10:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1716559810; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=F26aKVHEn/HJrJC8s7hiOmU9ISqv2CdOYQdRJrNXvj8=;
- b=XwqHhGHdUzYod8u0PTEKmFcHp+qU2dOjuU5VjoxIJtGEukkanafLhxb3iE+lM2qv/s7N7x
- sBrLsOhG+Tl2RkzmwP6e2PXP5RYEUHlvGBo8+Jy7zRJBjei+PK5Ut4iF13CGj4ABuObEeT
- 6iU0Z6BsUplfnW4aHAffX6IggUD34kY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1716559810;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 275C81FB61;
+ Mon, 27 May 2024 06:30:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1716791446; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pX/tzr3SEm6FrCSlWF5wmEfgt8CIFG7rVR5bhsXDKPg=;
+ b=ImI4S6atR/E0aC8afzc1SCT/8gofcrZjPui3IBMZL1QZQ8jaUPEED1iyFcVE4VsyMxTUk2
+ 43u1nsbZzynY/15H88ME1SDUWq/DBlPmXwJSoJQBAyIpGtQpX0wLBaj51JUWg+mxWyWPv+
+ o5WvxCfXAlZa1fipijb1ZRn743Cg5jk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1716791446;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=F26aKVHEn/HJrJC8s7hiOmU9ISqv2CdOYQdRJrNXvj8=;
- b=nbeNsxxfR68jIe/QlMWUEW07uHFh8aae4yMwEvxcI1jSbKl1HdHN6KVSh+ZoqkRLt1VMVs
- yEm7QJaoM6Cp7pDg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=XwqHhGHd;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=nbeNsxxf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1716559810; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=F26aKVHEn/HJrJC8s7hiOmU9ISqv2CdOYQdRJrNXvj8=;
- b=XwqHhGHdUzYod8u0PTEKmFcHp+qU2dOjuU5VjoxIJtGEukkanafLhxb3iE+lM2qv/s7N7x
- sBrLsOhG+Tl2RkzmwP6e2PXP5RYEUHlvGBo8+Jy7zRJBjei+PK5Ut4iF13CGj4ABuObEeT
- 6iU0Z6BsUplfnW4aHAffX6IggUD34kY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1716559810;
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pX/tzr3SEm6FrCSlWF5wmEfgt8CIFG7rVR5bhsXDKPg=;
+ b=eMvtBF96JycB8CdyXEHSMLFms/BVKHsPrz+JxJeWwUpvyAoFzDFWF9BFRUFOxfyNHARAOk
+ RVV80VfNqhk40tAg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ImI4S6at;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=eMvtBF96
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1716791446; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pX/tzr3SEm6FrCSlWF5wmEfgt8CIFG7rVR5bhsXDKPg=;
+ b=ImI4S6atR/E0aC8afzc1SCT/8gofcrZjPui3IBMZL1QZQ8jaUPEED1iyFcVE4VsyMxTUk2
+ 43u1nsbZzynY/15H88ME1SDUWq/DBlPmXwJSoJQBAyIpGtQpX0wLBaj51JUWg+mxWyWPv+
+ o5WvxCfXAlZa1fipijb1ZRn743Cg5jk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1716791446;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=F26aKVHEn/HJrJC8s7hiOmU9ISqv2CdOYQdRJrNXvj8=;
- b=nbeNsxxfR68jIe/QlMWUEW07uHFh8aae4yMwEvxcI1jSbKl1HdHN6KVSh+ZoqkRLt1VMVs
- yEm7QJaoM6Cp7pDg==
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pX/tzr3SEm6FrCSlWF5wmEfgt8CIFG7rVR5bhsXDKPg=;
+ b=eMvtBF96JycB8CdyXEHSMLFms/BVKHsPrz+JxJeWwUpvyAoFzDFWF9BFRUFOxfyNHARAOk
+ RVV80VfNqhk40tAg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 035A713A6B;
- Fri, 24 May 2024 14:10:09 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ED53E13A56;
+ Mon, 27 May 2024 06:30:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id s2cbO8GfUGaaGQAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Fri, 24 May 2024 14:10:09 +0000
-Date: Fri, 24 May 2024 16:10:10 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it, linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Message-ID: <ZlCfwm2kzHqhjiWn@yuki>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Ks+UNpUoVGbMUgAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Mon, 27 May 2024 06:30:45 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Mon, 27 May 2024 08:30:15 +0200
+Message-Id: <20240527-shutdown-v1-0-1feffca5e3df@suse.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_TLS_ALL(0.00)[]; TO_DN_NONE(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- RCPT_COUNT_FIVE(0.00)[6];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DKIM_TRACE(0.00)[suse.cz:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns]
+X-B4-Tracking: v=1; b=H4sIAHcoVGYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxMDUyMT3eKM0pKU/PI83WSLFHNTC4NUS0OzRCWg8oKi1LTMCrBR0bG1tQA
+ pQ03AWgAAAA==
+To: ltp@lists.linux.it
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=955;
+ i=andrea.cervesato@suse.com; h=from:subject:message-id;
+ bh=3NNPiZj6HhRbadWSdb4HFvXdJJnLnneMxoN4+MeXYI8=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmVCh+sxItr5umoI83+zY0nkcHxdMvyltFhMvBi
+ n8OZ6jaPziJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZlQofgAKCRDLzBqyILPm
+ RnymDACMx3huB3O19Xu+cKfG/T935QXKeunxR62yhh/RsJ7rzOegK7IEqbTrAxK3TAoqSZPxVI7
+ FJg4kzSdlZtQS/V4bLcBJYIF4Gfxo1xYIlIpNyO7pZNXOG8VBimSTuikryV76rOtVWLHCDkljI/
+ 5yhrTBN0iPmvqqitX/lkRZ/Jo8vJMNzFa7u8hmhFa1JKElmm4x0PNcXfep2/lMA4BrAirFG6bwH
+ cxZ8bEiH072vB/KrMg5PZPY6O4IRdexlTlIaZogiJ0qkF4setUt2fMoiY0kIe3u2FdWhr8qjkGi
+ Nh4sWYA85/j9O/oxNw2m7hKJVZjmH703PGNvYKqLeNi5uEHLVQ3S+2r/ls7b8pOlUwetJMyKtLl
+ 2CgEovBEKcoMHrsyOe2LdeTb9/R2lz8Vy4e93NtQEFaSufGYEGirZmYkONOwpbquAgYdWCeuzih
+ iFNWO8TDetJzg3a3BqE2IdbXWUe7W2PL03UUligBfXRGvaHg8bCGOjAY2onB0FJsUWDDI=
+X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
+ fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
+X-Spam-Score: -6.51
 X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 1225A33B4E
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: -4.01
+X-Rspamd-Queue-Id: 275C81FB61
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-6.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_TWO(0.00)[2];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.com:email];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [ANNOUNCE] The Linux Test Project has been released for MAY
- 2024
+Subject: [LTP] [PATCH 0/2] shutdown testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,186 +140,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: lwn@lwn.net, akpm@linux-foundation.org, torvalds@linux-foundation.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Good news everyone,
+This testing suite is meant to test shutdown() syscall functionalities.
+The current LTP version uses shutdown() inside many tests, but none of
+them is specifically running unit tests for it.
 
-the Linux Test Project test suite stable release for *May 2024* has been
-released.
+This suite comes with both unit tests for shutdown() flags and error
+codes.
 
-Since the last release 292 patches by 27 authors were merged.
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+Andrea Cervesato (2):
+      Add shutdown01 test
+      Add shutdown02 test
 
-Patch review is what most of the projects struggle with and LTP is no
-different. If you can spare some effort helping with the patch review is more
-than welcomed.
+ runtest/syscalls                                |   3 +
+ testcases/kernel/syscalls/shutdown/.gitignore   |   2 +
+ testcases/kernel/syscalls/shutdown/Makefile     |   7 ++
+ testcases/kernel/syscalls/shutdown/shutdown01.c | 136 ++++++++++++++++++++++++
+ testcases/kernel/syscalls/shutdown/shutdown02.c |  75 +++++++++++++
+ 5 files changed, 223 insertions(+)
+---
+base-commit: 0358f7a2788eed0cbff7f8519b1a0f7f89d36c13
+change-id: 20240524-shutdown-c8d7580e916a
 
-NOTABLE CHANGES
-===============
-
-* New tests
-
-  - mlock05 Test for pre-faulting locked memory
-  - kvm_svm04 Functional test for VMSAVE/VMLOAD instructions
-  - arch_prctl01 Test for ARCH_SET_CPUID and ARCH_GET_CPUID
-  - kallsyms A test to check that it's impossible to read kernel memory from userspace
-  - unlink09 Negative tests for unlink()
-  - getrandom05 Negative tests for getrandom()
-  - gethostname02 Negative tests for gethostname()
-  - splice08 Test for splicing from /dev/zero and /dev/full
-  - splice09 Test for splicing to /dev/zero and /dev/null
-  - shmat04 A regression test for fc0c8f9089c2
-           ("mm, mmap: fix vma_merge() case 7 with vma_ops->close")
-  - aslr01 Tests that hugepages, that cause addesses to be aligned to higher
-           order of 2, are not used for libraries when ASLR is enabled.
-
-* Increased coverage
-
-  - getsockname01 More negative testcases
-  - getsockopt01 More negative testcases
-  - bind01 More negative testcases
-  - swapon01 Runs on all supported filesystems now
-  - waitpid01 Tests all deadly signals now
-  - fanotify01 Tests setting two marks on different filesystems
-
-* Rewritten tests
-
-  - msgstress testcases were rewritten into a single msgstress01 test
-    this should finally fix the test to scale well from small embedded boards
-    towards big servers
-
-  - symlink01 has been split into several testcases, previously several different
-              testcases were build from the source based on different messy ifdefs
-
-* UCLINUX support was completely removed from LTP
-
-  It was unmaintained and partially broken and nobody stepped up to maintain
-  the support.
-
-* Small runtest files cleanup
-
-  - runtest/io was merged into ltp-aiodio.part4
-  - runtest/cap_bounds and runtest/filecaps were merged into single runtest file
-
-* 32 testcases were converted to the new test library
-
-+ The usual amount of fixes and cleanups
-
-NOTABLE CHANGES IN NETWORK TESTS
-================================
-brought to you by Petr Vorel
-
-* New tests
-
-  - nfs09 Regression test for file truncation on NFS.
-
-* Increased coverage
-
-  - nfsstat01.sh: Add support for NFSv4*
-
-* Removed tests
-
-  - clockdiff01.sh Testing clockdiff is not relevant nowadays.
-  - telnet01.sh Testing telnet not make sense nowadays, remove it.
-  - xinetd_tests.sh Testing xinetd is not relevant nowadays.
-  - host01.sh The test does not work in all cases since testing host require
-              proper DNS setup or internet connection. Rather than fixing this
-	      it makes sense to remove the test.
-
-New documentation
-=================
-
-We have finally started working on a comprehensive documentation for LTP and
-it's test library, the current state can be seen at:
-
-https://linux-test-project.readthedocs.io/en/latest/
-
-DOWNLOAD AND LINKS
-==================
-
-The latest version of the test-suite contains 3000+ tests for the Linux
-and can be downloaded at:
-
-https://github.com/linux-test-project/ltp/releases/tag/20240524
-
-The project pages as well as GIT repository are hosted on GitHub:
-
-https://github.com/linux-test-project/ltp
-
-If you ever wondered how to write a LTP testcase, don't miss our developer
-documentation at:
-
-https://linux-test-project.readthedocs.io/en/latest/developers/test_case_tutorial.html
-
-And our library API documentation at:
-
-https://linux-test-project.readthedocs.io/en/latest/developers/api_c_tests.html
-
-Patches, new tests, bugs, comments or questions should go to to our mailing
-list at ltp@lists.linux.it.
-
-CREDITS
-=======
-
-Many thanks to the people contributing to this release:
-
-git shortlog -s -e -n 20240129..
-
-    140  Petr Vorel <pvorel@suse.cz>
-     22  Martin Doucha <mdoucha@suse.cz>
-     25  Yang Xu <xuyang2018.jy@fujitsu.com>
-     21  Li Wang <liwang@redhat.com>
-     16  Andrea Cervesato <andrea.cervesato@suse.com>
-     15  Andrea Manzini <andrea.manzini@suse.com>
-     14  Wei Gao <wegao@suse.com>
-     10  Cyril Hrubis <chrubis@suse.cz>
-      5  Avinesh Kumar <akumar@suse.de>
-      2  Detlef Riekenberg <wine.dev@web.de>
-      2  Edward Liaw <edliaw@google.com>
-      4  Hui Min Mina Chou <minachou@andestech.com>
-      2  lufei <lufei@uniontech.com>
-      1  Amir Goldstein <amir73il@gmail.com>
-      1  Dennis Brendel <dbrendel@redhat.com>
-      1  Filippo Storniolo <fstornio@redhat.com>
-      1  Jan Stancek <jstancek@redhat.com>
-      1  Khem Raj <raj.khem@gmail.com>
-      1  Mete Durlu <meted@linux.ibm.com>
-      1  Murphy Zhou <jencce.kernel@gmail.com>
-      1  Samasth Norway Ananda <samasth.norway.ananda@oracle.com>
-      1  Sebastian Chlad <sebastianchlad@gmail.com>
-      1  Sergey Ulanov via ltp <ltp@lists.linux.it>
-      1  Shiyang Ruan <ruansy.fnst@fujitsu.com>
-      1  Wenjie Xu <xuwenjie04@baidu.com>
-      1  Xiangyu Chen <xiangyu.chen@windriver.com>
-      1  yangfeng <yangfeng@kylinos.cn>
-
-And also thanks to patch reviewers:
-
-git log 20240129.. | grep -Ei '(reviewed|acked)-by:' | sed 's/.*by: //' | sort | uniq -c | sort -n -r
-
-    125 Petr Vorel <pvorel@suse.cz>
-     94 Cyril Hrubis <chrubis@suse.cz>
-     31 Li Wang <liwang@redhat.com>
-     15 Andrea Cervesato <andrea.cervesato@suse.com>
-     12 Martin Doucha <mdoucha@suse.cz>
-     11 Avinesh Kumar <akumar@suse.de>
-      7 Jan Stancek <jstancek@redhat.com>
-      3 Marius Kittler <mkittler@suse.de>
-      3 Jan Kara <jack@suse.cz>
-      2 Amir Goldstein <amir73il@gmail.com>
-      1 Wei Gao <wegao@suse.com>
-      1 Vlastimil Babka <vbabka@suse.cz>
-      1 Richard Palethorpe <rpalethorpe@suse.com>
-      1 Matt Bobrowski <mattbobrowski@google.com>
-      1 Kent Overstreet <kent.overstreet@linux.dev>
-      1 Joerg Vehlow <joerg.vehlow@aox.de>
-
+Best regards,
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Andrea Cervesato <andrea.cervesato@suse.com>
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
