@@ -1,94 +1,111 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 682198D197B
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 May 2024 13:31:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1716895880; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-transfer-encoding :
- content-type : sender : from;
- bh=sGjfAlO9KsVOpvNjWQYVZDKw6iegdzwSU9MSyFdOc6w=;
- b=bHQ75+joZq9wO2kXeUdgAVBaLVFyyYr55zPYIVuPCvrJNPEz3nK+acVfxCzkTiW6fzGp4
- TL/SnApzKIMy6i0UEl3JBm3nhFHAbFgxVFd6BjASw5WOfqJ8C8+IN6wSGh9lQ/1PqaQCcmD
- ty7UIJOd1zsxi31cUL4bQOxR07zzoD0=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id AD15A8D1AA3
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 May 2024 14:06:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1D79D3D0526
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 May 2024 13:31:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6C2BA3D0530
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 May 2024 14:06:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7FC163CFCD7
- for <ltp@lists.linux.it>; Tue, 28 May 2024 13:31:07 +0200 (CEST)
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id D21773C67E5
+ for <ltp@lists.linux.it>; Tue, 28 May 2024 14:06:02 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 95C86601BC1
- for <ltp@lists.linux.it>; Tue, 28 May 2024 13:31:06 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-57857e0f464so981278a12.0
- for <ltp@lists.linux.it>; Tue, 28 May 2024 04:31:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1716895866; x=1717500666; darn=lists.linux.it;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ycQB1WGw9yj5JgkkKXGN8PNHOa5tW3znWt4ebkkKszw=;
- b=bWszQKZ8d5bT/AH6CqEg4Kuys1QcLuSnpNhelgItlvb/kKEbJ+EeJ97O06obvdNXxb
- 4IDAIogYlN4KlM0wDCh0gtYnGedS46wCcn1Pk0PsJdY+YRbAQmb2yXrJhr1zaX/rbw+e
- xSto1zCI68sEvFWci9uzMcDrlloGZDgb+FVOQdu1Fo7rK52Z6L9d1LuFyzh2gl8bLuq9
- nJCzcpmKJWUhIUINVtwzPYtcs/d+2kwsznMnYTXIf6MywRubt0nuyuj8kRIDpM9bgdzG
- Wh+0VFy5aOy33pgXQMtfB8t440PGXe4WuwuS9GQbawlJk5IFXc+XbZFogQBfVuqkXYoL
- px1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716895866; x=1717500666;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ycQB1WGw9yj5JgkkKXGN8PNHOa5tW3znWt4ebkkKszw=;
- b=KaoLWCNROae5/rZ+rijS0g2pzQ2yTJ46OzNQ3SocrjrczIFiZcFPy92jEET0+Iu7+h
- FAyVJI90Wld8FTpvgj3s5V2RTJhXwVsaTPjfpuDmszDAwgIlOC30nqKUtBB6BuaCFCTB
- CVKpcAFYkPD+IMinmfJtK0zodPINePrn9OgzHHvbproeKoY416qQmdmPIWYFQ6IygMIU
- y5DfLTRJ0HFu3SnM/dGGAA3huO9CUGVofcWQXNBUy0CMohfTiK0Y5rpcp34wx/5v//bE
- gqo17p9x+QrxGgT1miXoKnscFhYhU+HNH97WF6PrlNufu1rCU0qvL6xpcqaVTfDC7Qx7
- fWIQ==
-X-Gm-Message-State: AOJu0Yz4sQPETNidnXqLNieIPwebuxd7NqT0tk4U7nLwC/SCLh68GdWI
- wvdwmeWT6SvvSfUb6xBmE0p4HxG01lULmyloh0ziqlifnijalo5dl+y0sRlIuc+wVtYAT5VuXSm
- U
-X-Google-Smtp-Source: AGHT+IHcZ0gO6p67k3DwYkIl+pU4jeVdOLtqCwAXbVZP9Qg5bOaq/vEqvuhP/Z2eu6p9rkbsyfs3Pg==
-X-Received: by 2002:a17:906:d8d2:b0:a62:c02:425a with SMTP id
- a640c23a62f3a-a626525d448mr849541466b.74.1716895865640; 
- Tue, 28 May 2024 04:31:05 -0700 (PDT)
-Received: from [192.168.1.29] ([151.51.162.26])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626c93a84bsm598995466b.72.2024.05.28.04.31.05
- for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 May 2024 04:31:05 -0700 (PDT)
-Message-ID: <8a4a1452-0d8b-473e-be89-c0d4fb286abd@suse.com>
-Date: Tue, 28 May 2024 13:31:04 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EAD681002884
+ for <ltp@lists.linux.it>; Tue, 28 May 2024 14:06:01 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D2B93227F7;
+ Tue, 28 May 2024 12:06:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1716897961; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5jKzxMn0xhxlUue9wfDhF/8gcTTPx2m7LCwQB07QevU=;
+ b=YBfCveB0TWkDIJi2CJ+TWVbnS4DN0NyyLXv60HhWalAu+hg1gPzIwsZ4YFFLfJljR7QVSb
+ CFzkRwBLtXVUBbij2koH7QVgi2TpkyC82guvc71NRAoax+UJgmIjSoTqRNObfWL5qgYixv
+ KejNHtmA1Qc/CKhYWr7F2sjrHRCfrvg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1716897961;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5jKzxMn0xhxlUue9wfDhF/8gcTTPx2m7LCwQB07QevU=;
+ b=quLDvwejxi1jQrHhb39RR5aXi1uP+ziRr+DvdcI2qqypUNfFSmrwuikF3gcSH63WkUN+JV
+ JaAByIKn/U3fD7CQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=tTempyWD;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=KFyJ6uWX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1716897960; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5jKzxMn0xhxlUue9wfDhF/8gcTTPx2m7LCwQB07QevU=;
+ b=tTempyWDn7DdU0v46j+ZciFfpoOPS/Gmn7LK76NtBLxldCs47DOjDsNfYr2M4sYJp0QV4C
+ 6SHyq6f7rm5E5xepD3lVsAO9OduhASPdDoFEce9GYiHgCUV6mPOeeHEm5Vb7ZMhCijH14U
+ pMrMKF2E2rdE3IFOskzw0cxOzbEcq8c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1716897960;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5jKzxMn0xhxlUue9wfDhF/8gcTTPx2m7LCwQB07QevU=;
+ b=KFyJ6uWX4sv5qpK/B9MB302W/19qtYglsBsrI36KWv48Wuzo2sHCfUr3Hd2gI8Q8jX1xkI
+ 6iqwsUajYKj2XgAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A229E13A5D;
+ Tue, 28 May 2024 12:06:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id dXceJajIVWYjTQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Tue, 28 May 2024 12:06:00 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-References: <20240528103114.2311-1-maxj.fnst@fujitsu.com>
- <20240528103258.2390-2-maxj.fnst@fujitsu.com>
-Content-Language: en-US
-In-Reply-To: <20240528103258.2390-2-maxj.fnst@fujitsu.com>
+Date: Tue, 28 May 2024 14:05:52 +0200
+Message-ID: <20240528120554.433874-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+X-Spam-Score: -3.01
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: D2B93227F7
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCPT_COUNT_TWO(0.00)[2]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ DKIM_TRACE(0.00)[suse.cz:+]; TO_DN_SOME(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/2] signalfd: Add negative tests
+Subject: [LTP] [PATCH 0/2] lib: Add TINFO_WARN
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,173 +117,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
+Hi,
 
-Please take into account the same considerations made in signalfd01 test 
-refactoring.
+if we found this useful, is it worth to implement it also in the shell
+API?
 
-Regards,
-Andrea Cervesato
+Regardless the result, should it be TDEBUG backported to the shell API?
 
-On 5/28/24 12:33, Ma Xinjian via ltp wrote:
-> Add negative cases for signalfd(), when errno is EBADF or EINVAL
->
-> Signed-off-by: Ma Xinjian <maxj.fnst@fujitsu.com>
-> ---
->   runtest/syscalls                              |   1 +
->   testcases/kernel/syscalls/signalfd/.gitignore |   1 +
->   .../kernel/syscalls/signalfd/signalfd02.c     | 115 ++++++++++++++++++
->   3 files changed, 117 insertions(+)
->   create mode 100644 testcases/kernel/syscalls/signalfd/signalfd02.c
->
-> diff --git a/runtest/syscalls b/runtest/syscalls
-> index a06b046ac..2dac79798 100644
-> --- a/runtest/syscalls
-> +++ b/runtest/syscalls
-> @@ -1487,6 +1487,7 @@ signal05 signal05
->   signal06 signal06
->   
->   signalfd01 signalfd01
-> +signalfd02 signalfd02
->   
->   signalfd4_01 signalfd4_01
->   signalfd4_02 signalfd4_02
-> diff --git a/testcases/kernel/syscalls/signalfd/.gitignore b/testcases/kernel/syscalls/signalfd/.gitignore
-> index 3c9ed737c..959022f41 100644
-> --- a/testcases/kernel/syscalls/signalfd/.gitignore
-> +++ b/testcases/kernel/syscalls/signalfd/.gitignore
-> @@ -1 +1,2 @@
->   /signalfd01
-> +/signalfd02
-> diff --git a/testcases/kernel/syscalls/signalfd/signalfd02.c b/testcases/kernel/syscalls/signalfd/signalfd02.c
-> new file mode 100644
-> index 000000000..9ca943942
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/signalfd/signalfd02.c
-> @@ -0,0 +1,115 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2024 FUJITSU LIMITED. All Rights Reserved.
-> + * Author: Ma Xinjian <maxj.fnst@fujitsu.com>
-> + */
-> +
-> +/*\
-> + * [Description]
-> + *
-> + * Verify that signalfd(2) fails with
-> + *
-> + * - EBADF when fd is invalid
-> + * - EINVAL when fd is not a valid signalfd file descriptor
-> + * - EINVAL when flags are invalid
-> + */
-> +
-> +#define _GNU_SOURCE
-> +
-> +#include <signal.h>
-> +#include "tst_test.h"
-> +#include "config.h"
-> +
-> +#ifndef HAVE_SIGNALFD
-> +#define USE_STUB
-> +#endif
-> +
-> +#ifdef HAVE_SYS_SIGNALFD_H
-> +#include <sys/signalfd.h>
-> +#elif defined HAVE_LINUX_SIGNALFD_H
-> +#include <linux/signalfd.h>
-> +#define USE_OWNIMPL
-> +#else
-> +#define USE_STUB
-> +#endif /* HAVE_SYS_SIGNALFD_H */
-> +
-> +#ifndef HAVE_STRUCT_SIGNALFD_SIGINFO_SSI_SIGNO
-> +#define USE_STUB
-> +#endif /* HAVE_STRUCT_SIGNALFD_SIGINFO_SSI_SIGNO */
-> +
-> +#ifdef USE_STUB
-> +TST_TEST_TCONF("This system does not support signalfd()");
-> +#else /* USE_STUB */
-> +#if defined USE_OWNIMPL
-> +#include "lapi/syscalls.h"
-> +int signalfd(int fd, const sigset_t *mask, int flags)
-> +{
-> +	return tst_syscall(__NR_signalfd, fd, mask, flags);
-> +}
-> +#endif /* USE_OWNIMPL */
-> +
-> +#define SIGNAL_FILE "signal_file"
-> +
-> +static int fd_ebadf = -2;
-> +static int fd_einval1;
-> +static int fd_einval2 = -1;
-> +
-> +static sigset_t mask1;
-> +static sigset_t mask2;
-> +static sigset_t mask3;
-> +
-> +static struct test_case_t {
-> +	int *fd;
-> +	sigset_t *mask;
-> +	int flags;
-> +	int expected_errno;
-> +	char *desc;
-> +} tcases[] = {
-> +	{&fd_ebadf, &mask1, 0, EBADF, "fd is invalid"},
-> +	{&fd_einval1, &mask2, 0, EINVAL,
-> +		"fd is not a valid signalfd file descriptor"},
-> +	{&fd_einval2, &mask3, -1, EINVAL, "flags are invalid"},
-> +};
-> +
-> +static void setup(void)
-> +{
-> +	SAFE_SIGEMPTYSET(&mask1);
-> +	SAFE_SIGADDSET(&mask1, SIGUSR1);
-> +	SAFE_SIGPROCMASK(SIG_BLOCK, &mask1, NULL);
-> +	SAFE_SIGEMPTYSET(&mask2);
-> +	SAFE_SIGADDSET(&mask2, SIGUSR2);
-> +	SAFE_SIGPROCMASK(SIG_BLOCK, &mask2, NULL);
-> +	SAFE_SIGEMPTYSET(&mask2);
-> +	SAFE_SIGADDSET(&mask3, SIGUSR2);
-> +	SAFE_SIGPROCMASK(SIG_BLOCK, &mask3, NULL);
-> +
-> +	fd_einval1 = SAFE_OPEN(SIGNAL_FILE, O_CREAT, 0777);
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +	if (fd_ebadf > 0)
-> +		SAFE_CLOSE(fd_ebadf);
-> +	if (fd_einval1 > 0)
-> +		SAFE_CLOSE(fd_einval1);
-> +	if (fd_einval2 > 0)
-> +		SAFE_CLOSE(fd_einval2);
-> +}
-> +
-> +static void verify_signalfd(unsigned int i)
-> +{
-> +	struct test_case_t *tc = &tcases[i];
-> +
-> +	TST_EXP_FAIL2(signalfd(*(tc->fd), tc->mask, tc->flags),
-> +		tc->expected_errno, "%s", tc->desc);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.tcnt = ARRAY_SIZE(tcases),
-> +	.test = verify_signalfd,
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.needs_tmpdir = 1,
-> +};
-> +
-> +#endif /* USE_STUB */
+Kind regards,
+Petr
 
+Petr Vorel (2):
+  lib: Add TINFO_WARN
+  tree: Use TINFO_WARN
+
+ include/tst_res_flags.h                         |  6 +++++-
+ include/tst_test.h                              |  2 +-
+ lib/newlib_tests/tst_res_flags.c                |  1 +
+ lib/tst_ansi_color.c                            |  1 +
+ lib/tst_res.c                                   | 12 ++++++++----
+ lib/tst_supported_fs_types.c                    |  2 +-
+ lib/tst_test.c                                  |  3 +++
+ testcases/kernel/mem/hugetlb/lib/hugetlb.c      |  4 ++--
+ testcases/kernel/syscalls/ipc/semctl/semctl08.c |  2 +-
+ 9 files changed, 23 insertions(+), 10 deletions(-)
+
+-- 
+2.43.0
 
 
 -- 
