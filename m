@@ -2,21 +2,21 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5E408D45E1
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2024 09:16:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F1528D45DE
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2024 09:16:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6E19E3D067F
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2024 09:16:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id ED3B53D0680
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2024 09:16:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C2E7B3D0652
+ by picard.linux.it (Postfix) with ESMTPS id 69CE13D0185
  for <ltp@lists.linux.it>; Thu, 30 May 2024 09:15:53 +0200 (CEST)
-Authentication-Results: in-3.smtp.seeweb.it;
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
  (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
@@ -25,88 +25,88 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 360131A0BC36
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 36C0C100C1F2
  for <ltp@lists.linux.it>; Thu, 30 May 2024 09:15:53 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E1D4C20720;
- Thu, 30 May 2024 07:15:50 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0582320721;
+ Thu, 30 May 2024 07:15:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1717053350; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1717053351; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=d3ytGN4cUpruL5jyz/5fgSh2tlW53GFSauIUX2VUcPQ=;
- b=D0S2RbkXph1E5pybhLNRfzSRV/irzuma8hSfm8ayn5iM0umDPGR9EK3YgWwAuHnSH1qNjc
- 3CYh4GADuwHhLjV92Wr6+vBNIPW/7xnARbAwF0nldEB3Z2vWoklgjOaGFLS/zKPT52d4qs
- sTgjvU9Ldfv9e6CULJi3VdDY7kpJHkM=
+ bh=Kuni52Xz/iT72yH2mbxDDOGQDII4zEKCuDLTWyPFKY0=;
+ b=rDRM1KADnb6jKaDbDr6rN/8fF1SwTraldpNPhUO+k2Yf7tn2ZwXsibNQeDE3KKVSNhCSAY
+ p2qp+SJcq/t1E3Vs2YYxTsCzLAGXTv625vmpFrtLru5f+2JpsYqK8r+VVQOBYKkvLR1jj4
+ vl3OQuW6KLasXwXYxN7LR31qs/0ANIE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1717053350;
+ s=susede2_ed25519; t=1717053351;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=d3ytGN4cUpruL5jyz/5fgSh2tlW53GFSauIUX2VUcPQ=;
- b=/NmlXtPEEpxINFhOWP48C3xPAB7nmIA3s0dYGwAfM5Qjk/ucjjk2pi+xRjMIaiEFYWlwYG
- fd13guVRErfcu0Cw==
+ bh=Kuni52Xz/iT72yH2mbxDDOGQDII4zEKCuDLTWyPFKY0=;
+ b=GCMaB4yzZy1D9zf97kTQpffIOoLdjjlSK7mGGzto6k/n4gltTldSglvs/z0Rq+cQewPCY0
+ GAezAz1FOAGQCRCg==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=D0S2RbkX;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="/NmlXtPE"
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rDRM1KAD;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GCMaB4yz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1717053350; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1717053351; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=d3ytGN4cUpruL5jyz/5fgSh2tlW53GFSauIUX2VUcPQ=;
- b=D0S2RbkXph1E5pybhLNRfzSRV/irzuma8hSfm8ayn5iM0umDPGR9EK3YgWwAuHnSH1qNjc
- 3CYh4GADuwHhLjV92Wr6+vBNIPW/7xnARbAwF0nldEB3Z2vWoklgjOaGFLS/zKPT52d4qs
- sTgjvU9Ldfv9e6CULJi3VdDY7kpJHkM=
+ bh=Kuni52Xz/iT72yH2mbxDDOGQDII4zEKCuDLTWyPFKY0=;
+ b=rDRM1KADnb6jKaDbDr6rN/8fF1SwTraldpNPhUO+k2Yf7tn2ZwXsibNQeDE3KKVSNhCSAY
+ p2qp+SJcq/t1E3Vs2YYxTsCzLAGXTv625vmpFrtLru5f+2JpsYqK8r+VVQOBYKkvLR1jj4
+ vl3OQuW6KLasXwXYxN7LR31qs/0ANIE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1717053350;
+ s=susede2_ed25519; t=1717053351;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=d3ytGN4cUpruL5jyz/5fgSh2tlW53GFSauIUX2VUcPQ=;
- b=/NmlXtPEEpxINFhOWP48C3xPAB7nmIA3s0dYGwAfM5Qjk/ucjjk2pi+xRjMIaiEFYWlwYG
- fd13guVRErfcu0Cw==
+ bh=Kuni52Xz/iT72yH2mbxDDOGQDII4zEKCuDLTWyPFKY0=;
+ b=GCMaB4yzZy1D9zf97kTQpffIOoLdjjlSK7mGGzto6k/n4gltTldSglvs/z0Rq+cQewPCY0
+ GAezAz1FOAGQCRCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C994B13A8E;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E4BAE13A8F;
  Thu, 30 May 2024 07:15:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id mObnL6YnWGYfdwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id mNyVNqYnWGYfdwAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Thu, 30 May 2024 07:15:50 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Thu, 30 May 2024 09:15:21 +0200
+Date: Thu, 30 May 2024 09:15:22 +0200
 MIME-Version: 1.0
-Message-Id: <20240530-ioctl_ficlone-v1-2-fa96f07d0fca@suse.com>
+Message-Id: <20240530-ioctl_ficlone-v1-3-fa96f07d0fca@suse.com>
 References: <20240530-ioctl_ficlone-v1-0-fa96f07d0fca@suse.com>
 In-Reply-To: <20240530-ioctl_ficlone-v1-0-fa96f07d0fca@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2508;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3844;
  i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=lvn2nf/77X6jWoD7K400EAUjSSU8hYsSdycHIGpr7sw=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmWCemOkLn3/yoPk2OiUcQH17WLFtRFX693dA1o
- GI8ioT4M+eJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZlgnpgAKCRDLzBqyILPm
- RgYhC/9ul5QZzKNlg5dwLg9XaJriVGhZ3l3PydNqLviaFyhAbra2gY3CrNu502LznCPALeizaZE
- 18VOU//+6ue6AYdbZnGfIt/7JL3OnLrPQ/jgrcLmS8g64eCBnWCIGYEZg/v5Nv25C8V2V3SaKQ8
- WhQtx53GhYGM4J5+g3qtZYjDZGXk7B8F61A9OP7TKTsv8vk3bC/e/cVy/OHQ6UiEiTKntW0Atxs
- zRALkPJ0y0RCV56kU2ZrcvZcTvrWkWKBdDIeXDlmJuPWfoz+ew8V1SzaU585GbFsS+RgqWOqvCJ
- wqfCTza6RjAgpFrOPVj9bkqoGhwoPzlzY/YiMbqMiWYQucfBQ8fqTWu5+5tr83KlsdihDh24W6i
- u9GlQslDwkjyvq55pAXxQ/uRbXRy3/5S8scgYyh46kimydZAj+h5UTNeOkDtVmltzAhxLkzJnoY
- r2vlcK56mfsgF/vErMX9e7AGzgcouRftPPmJKxdOq9S3dKwy1KdRtBujJBJbpmB8xDKxI=
+ bh=I+OEZb+Z+o28gbfP/N8MJiXWrtzAZ1owx0+2Nip5b1Q=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmWCemkyEdiv1gNT/q1+KU6QCogIjYLP1TpvW8A
+ z5nWlozkeKJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZlgnpgAKCRDLzBqyILPm
+ Rh3MC/45zFtNi4gNr6LD/iQFpqjpc+uaRvILupxAUO97vcc5cUsjjw9s5/JttAnzdengd1UjJZA
+ 3BnP5/Iw3tSqgxwxwMo6sWXR7nAgiNM0uRwL/xsKYPSb9iXORcGnSpws2t8qv6YJJmruXvqDvji
+ EYdr6OPp5yIxW4YOnj/itGBieao3xdl16vTqvYJ1PPUTnWVGnpaIG/FGzhLr9op+XB6J9BVhqDH
+ 2AEqT3dRz8qBlLS/75nO2YZOzu9c51tVCoU8Dln24c1USuwJT09sQVGSNsPf9oNuTuzVKXzWN8b
+ jFe6Ag+8WGHvOSeS8tbIBfQ0XkSNNP65glWLw8j5Gb9VQ4qCBXLEFPkl9sFoIbGWZeCJcIvomYe
+ YH1yWBoR1X4pyOhcTHxUoU/DlHrUZF2Mc+lIGLHjaQwP5Z7j2Gjd5u6OA1pJeOd1oN0Uv8neU5y
+ gCgmukCSTu2M6oYUt8eW8mTZ8J8xZUK2YC1qgfw9DjNUAhwYS4BK8x2FtjNhpq5VrTucs=
 X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
  fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
 X-Spam-Score: -6.51
 X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: E1D4C20720
+X-Rspamd-Queue-Id: 0582320721
 X-Spam-Level: 
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spamd-Result: default: False [-6.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
@@ -127,10 +127,10 @@ X-Spamd-Result: default: False [-6.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/3] Add ioctl_ficlone02 test
+Subject: [LTP] [PATCH 3/3] Add ioctl_ficlone03 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,43 +150,42 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
 This test verifies that ioctl() FICLONE feature correctly raises
-EOPNOTSUPP when unsupported filesystem is used. In particular,
-filesystems which don't support copy-on-write.
+exceptions when it's supposed to.
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
  runtest/syscalls                                  |  1 +
  testcases/kernel/syscalls/ioctl/.gitignore        |  1 +
- testcases/kernel/syscalls/ioctl/ioctl_ficlone02.c | 49 +++++++++++++++++++++++
- 3 files changed, 51 insertions(+)
+ testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c | 96 +++++++++++++++++++++++
+ 3 files changed, 98 insertions(+)
 
 diff --git a/runtest/syscalls b/runtest/syscalls
-index 07e940f8c..b049530d3 100644
+index b049530d3..452a7a071 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -592,6 +592,7 @@ ioctl_ns07 ioctl_ns07
- ioctl_sg01 ioctl_sg01
+@@ -593,6 +593,7 @@ ioctl_sg01 ioctl_sg01
  
  ioctl_ficlone01 ioctl_ficlone01
-+ioctl_ficlone02 ioctl_ficlone02
+ ioctl_ficlone02 ioctl_ficlone02
++ioctl_ficlone03 ioctl_ficlone03
  
  inotify_init1_01 inotify_init1_01
  inotify_init1_02 inotify_init1_02
 diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
-index 5404aa93f..3d25fdfb2 100644
+index 3d25fdfb2..d0b470714 100644
 --- a/testcases/kernel/syscalls/ioctl/.gitignore
 +++ b/testcases/kernel/syscalls/ioctl/.gitignore
-@@ -23,3 +23,4 @@
- /ioctl_ns07
+@@ -24,3 +24,4 @@
  /ioctl_sg01
  /ioctl_ficlone01
-+/ioctl_ficlone02
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ficlone02.c b/testcases/kernel/syscalls/ioctl/ioctl_ficlone02.c
+ /ioctl_ficlone02
++/ioctl_ficlone03
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c b/testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c
 new file mode 100644
-index 000000000..950b1109b
+index 000000000..c6f9806a3
 --- /dev/null
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_ficlone02.c
-@@ -0,0 +1,49 @@
++++ b/testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c
+@@ -0,0 +1,96 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (C) 2024 Andrea Cervesato andrea.cervesato@suse.com
@@ -195,46 +194,93 @@ index 000000000..950b1109b
 +/*\
 + * [Description]
 + *
-+ * This test verifies that ioctl() FICLONE feature correctly raises EOPNOTSUPP
-+ * when an unsupported filesystem is used. In particular, filesystems which
-+ * don't support copy-on-write.
++ * This test verifies that ioctl() FICLONE feature correctly raises exceptions
++ * when it's supposed to.
 + */
 +
 +#include "tst_test.h"
 +#include "lapi/fs.h"
 +
 +#define MNTPOINT "mnt"
-+#define SRCPATH MNTPOINT "/file0"
-+#define DSTPATH MNTPOINT "/file1"
 +
-+static void run(void)
++static int invalid_fd = -1;
++static int rw_file = -1;
++static int ro_file = -1;
++static int wo_file = -1;
++static int dir_fd = -1;
++static int immut_fd = -1;
++static int mnt_file = -1;
++
++static struct tcase {
++	int *src_fd;
++	int *dst_fd;
++	int errno_exp;
++	char *msg;
++} tcases[] = {
++	{&invalid_fd, &rw_file, EBADF, "invalid source"},
++	{&rw_file, &invalid_fd, EBADF, "invalid destination"},
++	{&rw_file, &ro_file, EBADF, "read-only destination"},
++	{&wo_file, &rw_file, EBADF, "write-only source"},
++	{&rw_file, &dir_fd, EISDIR, "source is a directory"},
++	{&dir_fd, &rw_file, EISDIR, "destination is a directory"},
++	{&rw_file, &immut_fd, EPERM, "destination is immutable"},
++	{&rw_file, &mnt_file, EXDEV, "destination is on a different mount"},
++	{&mnt_file, &rw_file, EXDEV, "source is on a different mount"},
++};
++
++static void run(unsigned int n)
 +{
-+	int src_fd;
-+	int dst_fd;
++	struct tcase *tc = &tcases[n];
 +
-+	src_fd = SAFE_OPEN(SRCPATH, O_CREAT | O_RDWR, 0640);
-+	dst_fd = SAFE_OPEN(DSTPATH, O_CREAT | O_RDWR, 0640);
++	TST_EXP_FAIL(ioctl(*tc->dst_fd, FICLONE, *tc->src_fd),
++		tc->errno_exp,
++		"%s", tc->msg);
++}
 +
-+	TST_EXP_FAIL(ioctl(dst_fd, FICLONE, src_fd), EOPNOTSUPP);
++static void setup(void)
++{
++	int attr;
 +
-+	SAFE_CLOSE(src_fd);
-+	SAFE_CLOSE(dst_fd);
++	rw_file = SAFE_OPEN("ok_only", O_CREAT | O_RDWR, 0640);
++	ro_file = SAFE_OPEN("rd_only", O_CREAT | O_RDONLY, 0640);
++	wo_file = SAFE_OPEN("rw_only", O_CREAT | O_WRONLY, 0640);
++
++	SAFE_MKDIR("mydir", 0640);
++	dir_fd = SAFE_OPEN("mydir", O_DIRECTORY, 0640);
++
++	attr = FS_IMMUTABLE_FL;
++	immut_fd = SAFE_OPEN("immutable", O_CREAT | O_RDWR, 0640);
++	SAFE_IOCTL(immut_fd, FS_IOC_SETFLAGS, &attr);
++
++	mnt_file = SAFE_OPEN(MNTPOINT"/file", O_CREAT | O_RDWR, 0640);
++}
++
++static void cleanup(void)
++{
++	int attr;
++
++	SAFE_IOCTL(immut_fd, FS_IOC_GETFLAGS, &attr);
++	attr &= ~FS_IMMUTABLE_FL;
++	SAFE_IOCTL(immut_fd, FS_IOC_SETFLAGS, &attr);
++	SAFE_CLOSE(immut_fd);
++
++	SAFE_CLOSE(rw_file);
++	SAFE_CLOSE(ro_file);
++	SAFE_CLOSE(wo_file);
++	SAFE_CLOSE(dir_fd);
++	SAFE_CLOSE(mnt_file);
 +}
 +
 +static struct tst_test test = {
-+	.test_all = run,
++	.test = run,
++	.tcnt = ARRAY_SIZE(tcases),
++	.setup = setup,
++	.cleanup = cleanup,
 +	.min_kver = "4.5",
 +	.needs_root = 1,
 +	.mount_device = 1,
 +	.mntpoint = MNTPOINT,
-+	.all_filesystems = 1,
-+	.skip_filesystems = (const char *[]) {
-+		"btrfs",
-+		"overlayfs",
-+		"nfs",
-+		"xfs",
-+		NULL,
-+	},
++	.dev_fs_type = "btrfs",
 +};
 
 -- 
