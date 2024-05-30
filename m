@@ -1,136 +1,99 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F1528D45DE
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2024 09:16:14 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F4378D46F9
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2024 10:25:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1717057516; h=to : date :
+ message-id : in-reply-to : references : mime-version : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : content-type :
+ content-transfer-encoding : sender : from;
+ bh=asXHqPfyl13oCFyK41qS5TO/UMl2DZZN/w2JAX3U7go=;
+ b=o8OA6F0u0rauQsg0HfWk9x8z9UTtSh3C0Ku1qHSK6xYjd0oEnJycx9gX+qp+S8HEZu3jX
+ omTlYnyeiazhdxuwfVUdhXl3Mr2JRfduYfYzhuJAwODvgAhiJd6JEqge6PXJtv6iTC0zYba
+ RK337s3m9Rwvm5xBF5UUh9ENQNj0u0Y=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ED3B53D0680
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2024 09:16:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 192AA3D06F8
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2024 10:25:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 69CE13D0185
- for <ltp@lists.linux.it>; Thu, 30 May 2024 09:15:53 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id CE68F3C885D
+ for <ltp@lists.linux.it>; Thu, 30 May 2024 10:25:01 +0200 (CEST)
+Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fujitsu.com (client-ip=139.138.36.225;
+ helo=esa10.hc1455-7.c3s2.iphmx.com; envelope-from=maxj.fnst@fujitsu.com;
+ receiver=lists.linux.it)
+Received: from esa10.hc1455-7.c3s2.iphmx.com (esa10.hc1455-7.c3s2.iphmx.com
+ [139.138.36.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 36C0C100C1F2
- for <ltp@lists.linux.it>; Thu, 30 May 2024 09:15:53 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0582320721;
- Thu, 30 May 2024 07:15:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1717053351; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Kuni52Xz/iT72yH2mbxDDOGQDII4zEKCuDLTWyPFKY0=;
- b=rDRM1KADnb6jKaDbDr6rN/8fF1SwTraldpNPhUO+k2Yf7tn2ZwXsibNQeDE3KKVSNhCSAY
- p2qp+SJcq/t1E3Vs2YYxTsCzLAGXTv625vmpFrtLru5f+2JpsYqK8r+VVQOBYKkvLR1jj4
- vl3OQuW6KLasXwXYxN7LR31qs/0ANIE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1717053351;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Kuni52Xz/iT72yH2mbxDDOGQDII4zEKCuDLTWyPFKY0=;
- b=GCMaB4yzZy1D9zf97kTQpffIOoLdjjlSK7mGGzto6k/n4gltTldSglvs/z0Rq+cQewPCY0
- GAezAz1FOAGQCRCg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rDRM1KAD;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GCMaB4yz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1717053351; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Kuni52Xz/iT72yH2mbxDDOGQDII4zEKCuDLTWyPFKY0=;
- b=rDRM1KADnb6jKaDbDr6rN/8fF1SwTraldpNPhUO+k2Yf7tn2ZwXsibNQeDE3KKVSNhCSAY
- p2qp+SJcq/t1E3Vs2YYxTsCzLAGXTv625vmpFrtLru5f+2JpsYqK8r+VVQOBYKkvLR1jj4
- vl3OQuW6KLasXwXYxN7LR31qs/0ANIE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1717053351;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Kuni52Xz/iT72yH2mbxDDOGQDII4zEKCuDLTWyPFKY0=;
- b=GCMaB4yzZy1D9zf97kTQpffIOoLdjjlSK7mGGzto6k/n4gltTldSglvs/z0Rq+cQewPCY0
- GAezAz1FOAGQCRCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E4BAE13A8F;
- Thu, 30 May 2024 07:15:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id mNyVNqYnWGYfdwAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Thu, 30 May 2024 07:15:50 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Thu, 30 May 2024 09:15:22 +0200
-MIME-Version: 1.0
-Message-Id: <20240530-ioctl_ficlone-v1-3-fa96f07d0fca@suse.com>
-References: <20240530-ioctl_ficlone-v1-0-fa96f07d0fca@suse.com>
-In-Reply-To: <20240530-ioctl_ficlone-v1-0-fa96f07d0fca@suse.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B3D54600FC1
+ for <ltp@lists.linux.it>; Thu, 30 May 2024 10:24:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+ t=1717057499; x=1748593499;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=bCQcfZtMMbQ/hj//0fzgdmC9puxf+4qZpL7+vl7eUDs=;
+ b=QEa0weC21oea9/lJ+crDctr56l90wjR6AMzwjSy00w3DdWk2WWKlJAHz
+ S81xFm1oOLlffFQ1q5mBma/b2oc56lqkpTSy69t0Y3xNxZCvG4YhkfnBa
+ icdtLnEYcaAiHABdsITGTQCYlkU5ClSFIr9c2UM7BH1idQJ1I7is318RF
+ RxY03kbd2DUyE2TYyHbMTYExT3rZFg1YOq/FHFeJIhf2BQxBEFtqNvw/k
+ HuplyUmQ3sQ2fYs6pzaUu+zkVXqbeQ/pV3TGgLOz4Yyzn9ZdEjnDtogdA
+ zm4ThMZbu/rt8ylTlJYoxg42SiYDr8Pfzaptjb4VxuBaWUw9bazEa3NB9 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11087"; a="148198814"
+X-IronPort-AV: E=Sophos;i="6.08,199,1712588400"; d="scan'208";a="148198814"
+Received: from unknown (HELO oym-r4.gw.nic.fujitsu.com) ([210.162.30.92])
+ by esa10.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 May 2024 17:24:56 +0900
+Received: from oym-m1.gw.nic.fujitsu.com (oym-nat-oym-m1.gw.nic.fujitsu.com
+ [192.168.87.58])
+ by oym-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id 0BB18D8058
+ for <ltp@lists.linux.it>; Thu, 30 May 2024 17:24:55 +0900 (JST)
+Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
+ [192.51.206.22])
+ by oym-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 34A0C39FC1
+ for <ltp@lists.linux.it>; Thu, 30 May 2024 17:24:54 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+ by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id A3602220B79
+ for <ltp@lists.linux.it>; Thu, 30 May 2024 17:24:53 +0900 (JST)
+Received: from G08FNSTD200053.g08.fujitsu.local (unknown [10.167.226.137])
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id 39FE51A000A;
+ Thu, 30 May 2024 16:24:53 +0800 (CST)
 To: ltp@lists.linux.it
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3844;
- i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=I+OEZb+Z+o28gbfP/N8MJiXWrtzAZ1owx0+2Nip5b1Q=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmWCemkyEdiv1gNT/q1+KU6QCogIjYLP1TpvW8A
- z5nWlozkeKJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZlgnpgAKCRDLzBqyILPm
- Rh3MC/45zFtNi4gNr6LD/iQFpqjpc+uaRvILupxAUO97vcc5cUsjjw9s5/JttAnzdengd1UjJZA
- 3BnP5/Iw3tSqgxwxwMo6sWXR7nAgiNM0uRwL/xsKYPSb9iXORcGnSpws2t8qv6YJJmruXvqDvji
- EYdr6OPp5yIxW4YOnj/itGBieao3xdl16vTqvYJ1PPUTnWVGnpaIG/FGzhLr9op+XB6J9BVhqDH
- 2AEqT3dRz8qBlLS/75nO2YZOzu9c51tVCoU8Dln24c1USuwJT09sQVGSNsPf9oNuTuzVKXzWN8b
- jFe6Ag+8WGHvOSeS8tbIBfQ0XkSNNP65glWLw8j5Gb9VQ4qCBXLEFPkl9sFoIbGWZeCJcIvomYe
- YH1yWBoR1X4pyOhcTHxUoU/DlHrUZF2Mc+lIGLHjaQwP5Z7j2Gjd5u6OA1pJeOd1oN0Uv8neU5y
- gCgmukCSTu2M6oYUt8eW8mTZ8J8xZUK2YC1qgfw9DjNUAhwYS4BK8x2FtjNhpq5VrTucs=
-X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
- fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
-X-Spam-Score: -6.51
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 0582320721
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-6.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- DWL_DNSWL_MED(-2.00)[suse.de:dkim];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.de:dkim];
- DKIM_TRACE(0.00)[suse.de:+]
+Date: Thu, 30 May 2024 16:23:59 +0800
+Message-Id: <20240530082358.2450-1-maxj.fnst@fujitsu.com>
+X-Mailer: git-send-email 2.26.1.windows.1
+In-Reply-To: <6c329528-6181-4229-a121-194233bbb8a4@suse.com>
+References: <6c329528-6181-4229-a121-194233bbb8a4@suse.com>
+MIME-Version: 1.0
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28418.006
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28418.006
+X-TMASE-Result: 10--12.043100-10.000000
+X-TMASE-MatchedRID: v1GvEW1fSUBaSb0pBpxm6Ivefyp1glN0RealVAhocE/fUZT83lbkED13
+ GoPFA1HFIvrftAIhWmLP85tlrdTfE0m+H8mpR1DUypiC33/79mcL//VMxXlyE97p0Ru8jKvF/9T
+ DS4zEk/zv3R81Uj/6vMjhLggtE8XmxB13Y/+OC6ap3Btb1bH20Gvaomg0i4KN/5o9BPVzGUYQzv
+ W+/DZ4kUDji1Vz/pS9M5ojAfE2AMU/QMF1B4qVfaUl1aQUvopW5+bxXj2veqBk3qVhd1+rL4a9w
+ WwvhITIDZFIu8KLdap2CbccKtd0j2JHJG/db0P+VV4ZZmbE3Yw/xRB6OGnb2hA/fTf6RpCKysx/
+ ZixtIIrRVO9DC1SsM12WVzVdeoHbjq1D5vTzVFLl+SMjDa6LT30tCKdnhB589yM15V5aWpj6C0e
+ Ps7A07QsfaqMZktsdPqwJyliI8yAdJrVMNKXB4zMEvYrcY6SCy6EpGow1Wjo=
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 3/3] Add ioctl_ficlone03 test
+Subject: [LTP] [PATCH v2 1/2] signalfd01: Refactor old case with new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,149 +105,379 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Ma Xinjian via ltp <ltp@lists.linux.it>
+Reply-To: Ma Xinjian <maxj.fnst@fujitsu.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+signalfd01 is written in old API and some code seems unreachable. It needs
+to be refactored with new API to simplify the logic.
 
-This test verifies that ioctl() FICLONE feature correctly raises
-exceptions when it's supposed to.
-
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+Signed-off-by: Ma Xinjian <maxj.fnst@fujitsu.com>
 ---
- runtest/syscalls                                  |  1 +
- testcases/kernel/syscalls/ioctl/.gitignore        |  1 +
- testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c | 96 +++++++++++++++++++++++
- 3 files changed, 98 insertions(+)
+ .../kernel/syscalls/signalfd/signalfd01.c     | 327 +++---------------
+ 1 file changed, 49 insertions(+), 278 deletions(-)
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index b049530d3..452a7a071 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -593,6 +593,7 @@ ioctl_sg01 ioctl_sg01
- 
- ioctl_ficlone01 ioctl_ficlone01
- ioctl_ficlone02 ioctl_ficlone02
-+ioctl_ficlone03 ioctl_ficlone03
- 
- inotify_init1_01 inotify_init1_01
- inotify_init1_02 inotify_init1_02
-diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
-index 3d25fdfb2..d0b470714 100644
---- a/testcases/kernel/syscalls/ioctl/.gitignore
-+++ b/testcases/kernel/syscalls/ioctl/.gitignore
-@@ -24,3 +24,4 @@
- /ioctl_sg01
- /ioctl_ficlone01
- /ioctl_ficlone02
-+/ioctl_ficlone03
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c b/testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c
-new file mode 100644
-index 000000000..c6f9806a3
---- /dev/null
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c
-@@ -0,0 +1,96 @@
+diff --git a/testcases/kernel/syscalls/signalfd/signalfd01.c b/testcases/kernel/syscalls/signalfd/signalfd01.c
+index 8fb16800f..f0ef4a378 100644
+--- a/testcases/kernel/syscalls/signalfd/signalfd01.c
++++ b/testcases/kernel/syscalls/signalfd/signalfd01.c
+@@ -1,302 +1,73 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2024 Andrea Cervesato andrea.cervesato@suse.com
-+ */
-+
+ /*
+- *
+- *   Copyright (c) Red Hat Inc., 2008
+- *
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ * Copyright (c) Red Hat Inc., 2008
++ * Copyright (c) Linux Test Project, 2006-2024
+  */
+ 
+-/*
+- * NAME
+- *	signalfd01.c
+- *
+- * DESCRIPTION
+- *	Check signalfd can receive signals
+- *
+- * USAGE
+- * 	signalfd01
 +/*\
 + * [Description]
-+ *
-+ * This test verifies that ioctl() FICLONE feature correctly raises exceptions
-+ * when it's supposed to.
-+ */
-+
+  *
+- * HISTORY
+- *	9/2008 Initial version by Masatake YAMATO <yamato@redhat.com>
++ * Verify that signalfd() works as expected.
++ * 1. signalfd() can create fd, and fd can receive signal.
++ * 2. signalfd() can reassign fd, and fd can receive signal.
+  *
+- * RESTRICTIONS
+- * 	None
+  */
+-#define _GNU_SOURCE
+ 
+-#include "config.h"
+-
+-#include "test.h"
+-
+-#include <errno.h>
+-#include <signal.h>
+-#include <unistd.h>
+-#include <fcntl.h>
+-#include <inttypes.h>
+-#include "ltp_signal.h"
+-
+-TCID_DEFINE(signalfd01);
+-int TST_TOTAL = 1;
+-
+-#ifndef HAVE_SIGNALFD
+-#define  USE_STUB
+-#endif
+-
+-#if defined HAVE_SYS_SIGNALFD_H
+ #include <sys/signalfd.h>
+-#elif defined HAVE_LINUX_SIGNALFD_H
+-#include <linux/signalfd.h>
+-#define USE_OWNIMPL
+-#else
+-#define  USE_STUB
+-#endif
 +#include "tst_test.h"
-+#include "lapi/fs.h"
+ 
+-#ifndef HAVE_STRUCT_SIGNALFD_SIGINFO_SSI_SIGNO
+-#define USE_STUB
+-#endif
++static int fd_signal = -1;
++static sigset_t mask1;
++static sigset_t mask2;
+ 
+-#ifdef USE_STUB
+-int main(void)
++static void check_signal(int fd, uint32_t signal)
+ {
+-	tst_brkm(TCONF, NULL, "System doesn't support execution of the test");
++	pid_t pid = getpid();
++	ssize_t bytes;
++	struct signalfd_siginfo siginfo;
 +
-+#define MNTPOINT "mnt"
-+
-+static int invalid_fd = -1;
-+static int rw_file = -1;
-+static int ro_file = -1;
-+static int wo_file = -1;
-+static int dir_fd = -1;
-+static int immut_fd = -1;
-+static int mnt_file = -1;
-+
-+static struct tcase {
-+	int *src_fd;
-+	int *dst_fd;
-+	int errno_exp;
-+	char *msg;
-+} tcases[] = {
-+	{&invalid_fd, &rw_file, EBADF, "invalid source"},
-+	{&rw_file, &invalid_fd, EBADF, "invalid destination"},
-+	{&rw_file, &ro_file, EBADF, "read-only destination"},
-+	{&wo_file, &rw_file, EBADF, "write-only source"},
-+	{&rw_file, &dir_fd, EISDIR, "source is a directory"},
-+	{&dir_fd, &rw_file, EISDIR, "destination is a directory"},
-+	{&rw_file, &immut_fd, EPERM, "destination is immutable"},
-+	{&rw_file, &mnt_file, EXDEV, "destination is on a different mount"},
-+	{&mnt_file, &rw_file, EXDEV, "source is on a different mount"},
-+};
-+
-+static void run(unsigned int n)
-+{
-+	struct tcase *tc = &tcases[n];
-+
-+	TST_EXP_FAIL(ioctl(*tc->dst_fd, FICLONE, *tc->src_fd),
-+		tc->errno_exp,
-+		"%s", tc->msg);
-+}
-+
++	SAFE_KILL(pid, signal);
++	bytes = SAFE_READ(0, fd, &siginfo, sizeof(siginfo));
++	TST_EXP_EQ_LI(bytes, sizeof(siginfo));
++	TST_EXP_EQ_LI(siginfo.ssi_signo, signal);
+ }
+ 
+-#else
+-#if defined USE_OWNIMPL
+-#include "lapi/syscalls.h"
+-int signalfd(int fd, const sigset_t * mask, int flags)
 +static void setup(void)
-+{
-+	int attr;
-+
-+	rw_file = SAFE_OPEN("ok_only", O_CREAT | O_RDWR, 0640);
-+	ro_file = SAFE_OPEN("rd_only", O_CREAT | O_RDONLY, 0640);
-+	wo_file = SAFE_OPEN("rw_only", O_CREAT | O_WRONLY, 0640);
-+
-+	SAFE_MKDIR("mydir", 0640);
-+	dir_fd = SAFE_OPEN("mydir", O_DIRECTORY, 0640);
-+
-+	attr = FS_IMMUTABLE_FL;
-+	immut_fd = SAFE_OPEN("immutable", O_CREAT | O_RDWR, 0640);
-+	SAFE_IOCTL(immut_fd, FS_IOC_SETFLAGS, &attr);
-+
-+	mnt_file = SAFE_OPEN(MNTPOINT"/file", O_CREAT | O_RDWR, 0640);
-+}
-+
+ {
+-	/* Taken from GLIBC. */
+-	return tst_syscall(__NR_signalfd, fd, mask, SIGSETSIZE);
++	SAFE_SIGEMPTYSET(&mask1);
++	SAFE_SIGADDSET(&mask1, SIGUSR1);
++	SAFE_SIGPROCMASK(SIG_BLOCK, &mask1, NULL);
++	SAFE_SIGEMPTYSET(&mask2);
++	SAFE_SIGADDSET(&mask2, SIGUSR2);
++	SAFE_SIGPROCMASK(SIG_BLOCK, &mask2, NULL);
+ }
+-#endif
+-
+-void cleanup(void);
+-void setup(void);
+ 
+-int do_test1(uint32_t sig)
 +static void cleanup(void)
-+{
-+	int attr;
-+
-+	SAFE_IOCTL(immut_fd, FS_IOC_GETFLAGS, &attr);
-+	attr &= ~FS_IMMUTABLE_FL;
-+	SAFE_IOCTL(immut_fd, FS_IOC_SETFLAGS, &attr);
-+	SAFE_CLOSE(immut_fd);
-+
-+	SAFE_CLOSE(rw_file);
-+	SAFE_CLOSE(ro_file);
-+	SAFE_CLOSE(wo_file);
-+	SAFE_CLOSE(dir_fd);
-+	SAFE_CLOSE(mnt_file);
-+}
-+
+ {
+-	int sfd_for_next;
+-	int sfd;
+-	sigset_t mask;
+-	pid_t pid;
+-	struct signalfd_siginfo fdsi;
+-	ssize_t s;
+-
+-	sigemptyset(&mask);
+-	sigaddset(&mask, sig);
+-	if (sigprocmask(SIG_BLOCK, &mask, NULL) < 0) {
+-		tst_brkm(TBROK, cleanup,
+-			 "sigprocmask() Failed: errno=%d : %s",
+-			 errno, strerror(errno));
+-	}
+-
+-	TEST(signalfd(-1, &mask, 0));
+-
+-	if ((sfd = TEST_RETURN) == -1) {
+-		tst_resm(TFAIL,
+-			 "signalfd() Failed, errno=%d : %s",
+-			 TEST_ERRNO, strerror(TEST_ERRNO));
+-		sfd_for_next = -1;
+-		return sfd_for_next;
+-
+-	} else {
+-		tst_resm(TPASS, "signalfd is created successfully");
+-		sfd_for_next = sfd;
+-		goto out;
+-	}
+-
+-	if (fcntl(sfd, F_SETFL, O_NONBLOCK) == -1) {
+-		close(sfd);
+-		tst_brkm(TBROK, cleanup,
+-			 "setting signalfd nonblocking mode failed: errno=%d : %s",
+-			 errno, strerror(errno));
+-	}
+-
+-	pid = getpid();
+-	if (kill(pid, sig) == -1) {
+-		close(sfd);
+-		tst_brkm(TBROK, cleanup,
+-			 "kill(self, %s) failed: errno=%d : %s",
+-			 strsignal(sig), errno, strerror(errno));
+-	}
+-
+-	s = read(sfd, &fdsi, sizeof(struct signalfd_siginfo));
+-	if ((s > 0) && (s != sizeof(struct signalfd_siginfo))) {
+-		tst_resm(TFAIL,
+-			 "getting incomplete signalfd_siginfo data: "
+-			 "actual-size=%zd, expected-size=%zu",
+-			 s, sizeof(struct signalfd_siginfo));
+-		sfd_for_next = -1;
+-		close(sfd);
+-		goto out;
+-	} else if (s < 0) {
+-		if (errno == EAGAIN) {
+-			tst_resm(TFAIL,
+-				 "signalfd_siginfo data is not delivered yet");
+-			sfd_for_next = -1;
+-			close(sfd);
+-			goto out;
+-		} else {
+-			close(sfd);
+-			tst_brkm(TBROK, cleanup,
+-				 "read signalfd_siginfo data failed: errno=%d : %s",
+-				 errno, strerror(errno));
+-		}
+-	} else if (s == 0) {
+-		tst_resm(TFAIL, "got EOF unexpectedly");
+-		sfd_for_next = -1;
+-		close(sfd);
+-		goto out;
+-	}
+-
+-	if (fdsi.ssi_signo == sig) {
+-		tst_resm(TPASS, "got expected signal");
+-		sfd_for_next = sfd;
+-		goto out;
+-	} else {
+-		tst_resm(TFAIL, "got unexpected signal: signal=%d : %s",
+-			 fdsi.ssi_signo, strsignal(fdsi.ssi_signo));
+-		sfd_for_next = -1;
+-		close(sfd);
+-		goto out;
+-	}
+-
+-out:
+-	return sfd_for_next;
++	if (fd_signal > 0)
++		SAFE_CLOSE(fd_signal);
+ }
+ 
+-void do_test2(int fd, uint32_t sig)
++static void verify_signalfd(void)
+ {
+-	int sfd;
+-	sigset_t mask;
+-	pid_t pid;
+-	struct signalfd_siginfo fdsi;
+-	ssize_t s;
+-
+-	sigemptyset(&mask);
+-	sigaddset(&mask, sig);
+-	if (sigprocmask(SIG_BLOCK, &mask, NULL) < 0) {
+-		close(fd);
+-		tst_brkm(TBROK, cleanup,
+-			 "sigprocmask() Failed: errno=%d : %s",
+-			 errno, strerror(errno));
+-	}
+-
+-	TEST(signalfd(fd, &mask, 0));
+-
+-	if ((sfd = TEST_RETURN) == -1) {
+-		tst_resm(TFAIL,
+-			 "reassignment the file descriptor by signalfd() failed, errno=%d : %s",
+-			 TEST_ERRNO, strerror(TEST_ERRNO));
++	/* create fd */
++	TST_EXP_FD(signalfd(fd_signal, &mask1, 0),
++		"%s", "signalfd() create fd");
++	if (TST_RET == -1)
+ 		return;
+-	} else if (sfd != fd) {
+-		tst_resm(TFAIL,
+-			 "different fd is returned in reassignment: expected-fd=%d, actual-fd=%d",
+-			 fd, sfd);
+-		close(sfd);
++	fd_signal = TST_RET;
++	check_signal(fd_signal, SIGUSR1);
++	/* reassign fd */
++	TST_EXP_FD(signalfd(fd_signal, &mask2, 0), "%s",
++		"signalfd() reassign fd");
++	if (TST_RET == -1)
+ 		return;
+-
+-	} else {
+-		tst_resm(TPASS, "signalfd is successfully reassigned");
+-		goto out;
+-	}
+-
+-	pid = getpid();
+-	if (kill(pid, sig) == -1) {
+-		close(sfd);
+-		tst_brkm(TBROK, cleanup,
+-			 "kill(self, %s) failed: errno=%d : %s",
+-			 strsignal(sig), errno, strerror(errno));
+-	}
+-
+-	s = read(sfd, &fdsi, sizeof(struct signalfd_siginfo));
+-	if ((s > 0) && (s != sizeof(struct signalfd_siginfo))) {
+-		tst_resm(TFAIL,
+-			 "getting incomplete signalfd_siginfo data: "
+-			 "actual-size=%zd, expected-size= %zu",
+-			 s, sizeof(struct signalfd_siginfo));
+-		goto out;
+-	} else if (s < 0) {
+-		if (errno == EAGAIN) {
+-			tst_resm(TFAIL,
+-				 "signalfd_siginfo data is not delivered yet");
+-			goto out;
+-		} else {
+-			close(sfd);
+-			tst_brkm(TBROK, cleanup,
+-				 "read signalfd_siginfo data failed: errno=%d : %s",
+-				 errno, strerror(errno));
+-		}
+-	} else if (s == 0) {
+-		tst_resm(TFAIL, "got EOF unexpectedly");
+-		goto out;
+-	}
+-
+-	if (fdsi.ssi_signo == sig) {
+-		tst_resm(TPASS, "got expected signal");
+-		goto out;
+-	} else {
+-		tst_resm(TFAIL, "got unexpected signal: signal=%d : %s",
+-			 fdsi.ssi_signo, strsignal(fdsi.ssi_signo));
+-		goto out;
+-	}
+-
+-out:
+-	return;
+-}
+-
+-int main(int argc, char **argv)
+-{
+-	int lc;
+-	int sfd;
+-
+-	tst_parse_opts(argc, argv, NULL, NULL);
+-
+-	setup();
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		sfd = do_test1(SIGUSR1);
+-		if (sfd < 0)
+-			continue;
+-
+-		do_test2(sfd, SIGUSR2);
+-		close(sfd);
+-	}
+-
+-	cleanup();
+-
+-	tst_exit();
+-}
+-
+-/*
+- * setup() - performs all the ONE TIME setup for this test.
+- */
+-void setup(void)
+-{
+-
+-	TEST_PAUSE;
+-}
+-
+-/*
+- * cleanup() - performs all the ONE TIME cleanup for this test at completion
+- * 	       or premature exit.
+- */
+-void cleanup(void)
+-{
+-
++	TST_EXP_EQ_LI(TST_RET, fd_signal);
++	check_signal(fd_signal, SIGUSR2);
+ }
+ 
+-#endif
 +static struct tst_test test = {
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(tcases),
++	.test_all = verify_signalfd,
 +	.setup = setup,
 +	.cleanup = cleanup,
-+	.min_kver = "4.5",
-+	.needs_root = 1,
-+	.mount_device = 1,
-+	.mntpoint = MNTPOINT,
-+	.dev_fs_type = "btrfs",
 +};
-
 -- 
-2.35.3
+2.39.3
 
 
 -- 
