@@ -1,127 +1,82 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6612A8FD0FF
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2024 16:41:37 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 76DA58FD517
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2024 20:05:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1717610759; h=date :
+ mime-version : message-id : to : subject : list-id : list-unsubscribe
+ : list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : cc : content-type : content-transfer-encoding : sender :
+ from; bh=DyX3rKy03L4h3iRA1xw9yNmxYNwGT23YBdYd1nRY6Po=;
+ b=nA89jQ5e8JCktmJcOPFJ94KGvIMS9/LaPcg/lgsDPGK7hR1mY5TpyK4GGDVLcKWhXdOUj
+ piqgd/26nMdv4Dae8okyxMeI3qr8R5Bga1nAywGvh594pMM+re7UTVHqQnTbuufI6swRKTl
+ cQByL14Jn1B2JnZuBPybCa6tk4tbqnI=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2E56C3D0991
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2024 16:41:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 33B1F3D09B8
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2024 20:05:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B350D3D0982
- for <ltp@lists.linux.it>; Wed,  5 Jun 2024 16:41:18 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id CDE7F3C888E
+ for <ltp@lists.linux.it>; Wed,  5 Jun 2024 20:05:44 +0200 (CEST)
+Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com
+ [IPv6:2607:f8b0:4864:20::114a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 099CE201169
- for <ltp@lists.linux.it>; Wed,  5 Jun 2024 16:41:17 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 896B21F825;
- Wed,  5 Jun 2024 14:41:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1717598476; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=woPQv/Qo1VK32GCV1S0QwIjrG4oqR5Z6wYYjSl22mHE=;
- b=umM9K0eHzLdNCoZaO2vMhQYswDJ/1lAklSOK6hTih5GmWgSjF6HZHIWvF/nHEE5+f1qsQK
- BIHDLcFeaIjvas1cuZyC1DepFURMv7DmR9OR3MS86Y8udwP39MNY2O8SFTP5LBuxfj7a8R
- P1lGmPYbzSCHoYWA8r7JvmdjFDdsK/I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1717598476;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=woPQv/Qo1VK32GCV1S0QwIjrG4oqR5Z6wYYjSl22mHE=;
- b=Wdt6VSIonujpEJ1LMNYuMHzf4g/N/PUybGj8+UzZrjpEp7L+5G4078urgNJy7vgTDid5Nl
- 9RHwpuJypxNaKcDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1717598475; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=woPQv/Qo1VK32GCV1S0QwIjrG4oqR5Z6wYYjSl22mHE=;
- b=eJJt2O6SjLj3htGk8vP8HeEyz7kphg84c2oxcmoUThsoPyHcDBG3+MTQXOGxC7pq7MiXtB
- EyX9WXuEeiWXavDYLltWLaiM9fAu6qM4lfkZ/BALGTZrxoo8mh5Keg+S7jQ+l7bIChE3Zn
- 5BN/86IZ7prvEG5snHeF2tdFVrQ/4a8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1717598475;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=woPQv/Qo1VK32GCV1S0QwIjrG4oqR5Z6wYYjSl22mHE=;
- b=6AUeeqyLNaGifPO9kt5UacRGQZM4+m4lHY1yB23uDaUdvmPyfBJCCl9lhQSzGLKBb51pAS
- I/S7Pe/9VjfR/MDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6DE2A13A99;
- Wed,  5 Jun 2024 14:41:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id aGSIGQt5YGY/NwAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Wed, 05 Jun 2024 14:41:15 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 05 Jun 2024 16:40:39 +0200
-MIME-Version: 1.0
-Message-Id: <20240605-unlink09-v2-2-bfa0bbdc8753@suse.com>
-References: <20240605-unlink09-v2-0-bfa0bbdc8753@suse.com>
-In-Reply-To: <20240605-unlink09-v2-0-bfa0bbdc8753@suse.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3769E1A01555
+ for <ltp@lists.linux.it>; Wed,  5 Jun 2024 20:05:44 +0200 (CEST)
+Received: by mail-yw1-x114a.google.com with SMTP id
+ 00721157ae682-627e4afa326so345477b3.2
+ for <ltp@lists.linux.it>; Wed, 05 Jun 2024 11:05:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1717610743; x=1718215543; darn=lists.linux.it;
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=BqThqLmy/7MfpupiMoxj6SzXoQfpZmJaWjw5jfsyUg0=;
+ b=Emr5Eoq9lNqIziDDn9Z5WOSt5GF+7H0p79XNentJwhN2ZybMfvC/xbgcIPdQ2mk/mN
+ fhxJNq1uOUE1qyabK/tRCoVJHjkXO7gPBpfRsxdCjO+KlfYJHR0++83BFuduhK0YTUld
+ Z5ZoMqrHxTLekrTB+lCCyXpZsvYxfdHqNKBJ3pDOWa7Hk5ED5pF25pFrsCW8xGGgDfGB
+ N2GIJ2Bv418+Ha8sFxbA1BGmBy6sADGwb8bBlkrRrjjWNTYBZe1NydJ2Ick6QgiW5t4j
+ tZhiMzRc3prdoqtlgpQPrGt+OlSl1zgaW5JwLYBqLRLkMxyJT9W+L+dFQMeHqo8BYIZD
+ aqpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1717610743; x=1718215543;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=BqThqLmy/7MfpupiMoxj6SzXoQfpZmJaWjw5jfsyUg0=;
+ b=DL1OkWmBiUT/4AmCzqUZ0bTt//DcM6+srfadNp3ERA62qWSRWVP9zlp/I8gnQOptb5
+ lsGlrlXs5Qj76NXwaTcuydCWc5BeDU7FufFmxu1K8Y7zfO4kwySuPPlEYlaFs5A4frHX
+ kinoJZIYBNycwlb+saARzA+N4DH1qyVyzwn53/0IOw2FGQ5YUDPyMq4juwN+aAgFwPVt
+ hM580DoLrpSJmfGDQWBJ1C5joInTDxDnCGH+be34muydm/5R2JAGns3ADbepgjC1on+7
+ t08/ouDkYkSPmGKJdMOGtfwOkAlqWE9Dqot7Xx5orE9uuFhnI8OHDfBG/HQGUICQOuW5
+ 9cMA==
+X-Gm-Message-State: AOJu0YwYszwBVy6RadgCHhLXD2LWRZC2c5qxWNA/k6OU3zxcBb5A7h+F
+ rZbRyyg/Rzon+4NyDLoIWfBhbYDOKgrF28WH18mQFFrg5tsIRhOIAH7C86SoMBnjqsj1RuMzrsl
+ SUB3cvvs4qU1ZeWjfCRwmJZM51fPHJZ/jmMeZIfmLNZd7NhzGYlKs3VBs6blny2WaHfJ1S9voWL
+ KgEW/NtO7uP7ZoA1fY2m0vYXqPzoE=
+X-Google-Smtp-Source: AGHT+IFcC2JOa1ShLD4Sess6Vle8UMC8qWwv58xX+qsp4nX4/wUOyJmSjn7zT4WbFUuvgukOd9zQgHy7YfQ=
+X-Received: from edliaw.c.googlers.com ([fda3:e722:ac3:cc00:24:72f4:c0a8:305d])
+ (user=edliaw job=sendgmr) by 2002:a05:690c:101:b0:61b:1d66:61c4 with SMTP id
+ 00721157ae682-62cbb5de93fmr8419427b3.10.1717610742583; Wed, 05 Jun 2024
+ 11:05:42 -0700 (PDT)
+Date: Wed,  5 Jun 2024 18:05:36 +0000
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.45.1.467.gbab1589fc0-goog
+Message-ID: <20240605180536.1288027-1-edliaw@google.com>
 To: ltp@lists.linux.it
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2031;
- i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=0oFVU3Zed+tKZVs6LpNgxrPXnWT4ukMfqZ9kVTbqd0I=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmYHkLtvsHqosJL420s+Q8g8JaKsPETWB7cAJpz
- oMubhzzsreJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZmB5CwAKCRDLzBqyILPm
- RnQCDACytD1WTiMX167dJqNC6kT+gjDNafhLSEu314Sj0x6fGpnWD+G1fD+IUxKtSe8C1+TtZ9Y
- aqbaytCyXprAvUpCIVbNSWst+kxyoKSLhYI1dHlR4Z4sgbewgmFEiJDOha64/jOwZdIZxbeb9Xx
- 6A9pX5SJQZ6ySzeb0Lq75U3iYRTOs/byrfZ24RdWZg+u41qsGT+9gGLOa9890mQKK+BqPkC77q/
- 5Et8DWk+6MxJcnug6EJRGCz6wNxB5Hg/+pisJJfMDncRzwmt0sopAZ+uOpAAjtOxLnZFvotWia/
- ZfrLVUeqQ6LbALPN60ARaqv//aJJyjwEJ40XUveWustAmb6+M0mZaKaAd5L1K7So5fRkhHA49UQ
- Bi2QZQkEYwOvm/8BOl41xl9Wm9t9ZJVNsMracC3xVBMidC8Wet9YxV7rPKyD5JQQxZNC6LkO8ab
- VI2Dnduaak8J78+0l6IumXSfAKVfqOJ4ESg/6jZYUZQw1KmIvq4uI03miJ/GpNIuL+h5Y=
-X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
- fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[fujitsu.com:email, suse.com:email,
- imap1.dmz-prg2.suse.org:helo]
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+ USER_IN_DEF_DKIM_WL shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 2/2] Add unlink10 test
+Subject: [LTP] [PATCH] sched/starvation: Choose from available cpus
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,86 +88,60 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Edward Liaw via ltp <ltp@lists.linux.it>
+Reply-To: Edward Liaw <edliaw@google.com>
+Cc: kernel-team@android.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Use the first available cpu in the sched_getaffinity set.
 
-This test verifies that unlink(2) fails with EROFS when target file
-is on a read-only filesystem.
+This test was failing as a 32bit test for some arm architectures where
+cpu 0 does not support 32bit applications.
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+Signed-off-by: Edward Liaw <edliaw@google.com>
 ---
- runtest/syscalls                            |  1 +
- testcases/kernel/syscalls/unlink/.gitignore |  1 +
- testcases/kernel/syscalls/unlink/unlink10.c | 33 +++++++++++++++++++++++++++++
- 3 files changed, 35 insertions(+)
+ .../kernel/sched/cfs-scheduler/starvation.c     | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index cf06ee563..b59b64314 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1655,6 +1655,7 @@ unlink05 unlink05
- unlink07 unlink07
- unlink08 unlink08
- unlink09 unlink09
-+unlink10 unlink10
+diff --git a/testcases/kernel/sched/cfs-scheduler/starvation.c b/testcases/kernel/sched/cfs-scheduler/starvation.c
+index eb9fd6ff5..e0ea30d19 100644
+--- a/testcases/kernel/sched/cfs-scheduler/starvation.c
++++ b/testcases/kernel/sched/cfs-scheduler/starvation.c
+@@ -49,13 +49,28 @@ again:
+ static void setup(void)
+ {
+ 	cpu_set_t mask;
++	int cpu = 0;
++	long ncpus = tst_ncpus_conf();
  
- #unlinkat test cases
- unlinkat01 unlinkat01
-diff --git a/testcases/kernel/syscalls/unlink/.gitignore b/testcases/kernel/syscalls/unlink/.gitignore
-index 6038cc29d..4fc24059a 100644
---- a/testcases/kernel/syscalls/unlink/.gitignore
-+++ b/testcases/kernel/syscalls/unlink/.gitignore
-@@ -2,3 +2,4 @@
- /unlink07
- /unlink08
- /unlink09
-+/unlink10
-diff --git a/testcases/kernel/syscalls/unlink/unlink10.c b/testcases/kernel/syscalls/unlink/unlink10.c
-new file mode 100644
-index 000000000..861f24a50
---- /dev/null
-+++ b/testcases/kernel/syscalls/unlink/unlink10.c
-@@ -0,0 +1,33 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2024 FUJITSU LIMITED. All Rights Reserved.
-+ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-+ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
+ 	CPU_ZERO(&mask);
+ 
+-	CPU_SET(0, &mask);
++	/* Restrict test to a single cpu */
++	TST_EXP_POSITIVE(sched_getaffinity(0, sizeof(mask), &mask));
 +
-+/*\
-+ * [Description]
-+ *
-+ * Verify that unlink(2) fails with EROFS when target file is on a read-only
-+ * filesystem.
-+ */
++	if (CPU_COUNT(&mask) == 0)
++		tst_brk(TCONF, "No cpus available");
 +
-+#include <sys/ioctl.h>
-+#include "tst_test.h"
-+#include "lapi/fs.h"
++	while (CPU_ISSET(cpu, &mask) == 0 && cpu < ncpus)
++		cpu++;
 +
-+#define MNTPOINT "erofs"
-+#define FILENAME MNTPOINT"/file"
++	CPU_ZERO(&mask);
 +
-+static void run(void)
-+{
-+	TST_EXP_FAIL(unlink(FILENAME), EROFS,
-+		"%s", "target file in read-only filesystem");
-+}
++	CPU_SET(cpu, &mask);
+ 
+ 	TST_EXP_POSITIVE(sched_setaffinity(0, sizeof(mask), &mask));
+ 
++	tst_res(TINFO, "Set affinity to CPU %d", cpu);
 +
-+static struct tst_test test = {
-+	.test_all = run,
-+	.needs_rofs = 1,
-+	.needs_root = 1,
-+	.mntpoint = MNTPOINT,
-+};
-
+ 	if (tst_parse_long(str_loop, &loop, 1, LONG_MAX))
+ 		tst_brk(TBROK, "Invalid number of loop number '%s'", str_loop);
+ 
 -- 
-2.35.3
+2.45.1.467.gbab1589fc0-goog
 
 
 -- 
