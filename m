@@ -1,86 +1,85 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C302B8FF3EB
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Jun 2024 19:40:09 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C4CC8FF3EC
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Jun 2024 19:40:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1717695609; h=date :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1717695638; h=date :
  in-reply-to : mime-version : references : message-id : to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=WWZukqoKnLVmG+gnHFGj8qumhcRdepUbuUkiVqz/ZyA=;
- b=lonq5fT0fgIZOpsf/8dslcM9Lv9fIjzTHQqNPp0GQqWCAGDZAkqsK0CNVSm9EEwOrwiE9
- RpIMd0uTXw0sZ6qyzGvZ4WiLToL0967duVC9fz8L4CsxA91fh5I0/QSODruqb8x3Ki2sw9c
- 1KgA4oqocF+U4hP+FVVOxYUlD/BeykM=
+ bh=34ifTmDW1OhjzQ9i+mPtw2GScZik7+iMW4bb90kbQws=;
+ b=kd5xOdxxdQGBMBpM+fZeamv2cPHBFv5ncZuhLXHmJ4zfLvhd/TWj7VJ1YHaztBEMy9GFu
+ xRHwYzaB2gzG74gfS8rf5YZwGgyA88ySRraibfFbGbBbN3EG9qvgu/TWvp2+feVfLuF4a1q
+ XOAyErInvJ7rHNV+Mm8QDQVn3Hm4cn8=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7C5963D0A74
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Jun 2024 19:40:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B95623D0A7B
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Jun 2024 19:40:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DFC0E3C04BB
- for <ltp@lists.linux.it>; Thu,  6 Jun 2024 19:39:44 +0200 (CEST)
-Received: from mail-pl1-x649.google.com (mail-pl1-x649.google.com
- [IPv6:2607:f8b0:4864:20::649])
+ by picard.linux.it (Postfix) with ESMTPS id 58A8A3D0987
+ for <ltp@lists.linux.it>; Thu,  6 Jun 2024 19:39:46 +0200 (CEST)
+Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
+ [IPv6:2607:f8b0:4864:20::b49])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6528F1000A25
- for <ltp@lists.linux.it>; Thu,  6 Jun 2024 19:39:44 +0200 (CEST)
-Received: by mail-pl1-x649.google.com with SMTP id
- d9443c01a7336-1f67f27bea9so10167635ad.0
- for <ltp@lists.linux.it>; Thu, 06 Jun 2024 10:39:44 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id DB4261A0BC46
+ for <ltp@lists.linux.it>; Thu,  6 Jun 2024 19:39:45 +0200 (CEST)
+Received: by mail-yb1-xb49.google.com with SMTP id
+ 3f1490d57ef6-df773f9471fso2380952276.3
+ for <ltp@lists.linux.it>; Thu, 06 Jun 2024 10:39:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1717695583; x=1718300383; darn=lists.linux.it;
+ d=google.com; s=20230601; t=1717695584; x=1718300384; darn=lists.linux.it;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=B9fDIm68qSqGOlwzl3EwgvcQ21IJ9C3Nzo3+IMZK93w=;
- b=VBR3FUEib1glpI8Pk9PqjS39YYsRIMc/1tbF7XwGrZt5qSST+Xe1wT5mcunKCT86yt
- 8rVjenB6USLskXWjRevrVJz92OsWsCPawgg49SggnelYvzWXRemZIN3YbBjKrY2mMPWA
- g9g7v0Bw/1cP3ATGF+tztLUQBs5qCKgupo5nOOjeR36Zlwc9DZC/Fo0a8APP3aJX7ZG+
- EDYTU7k2AO1UuJbqumggYF93jWJwUtSz9T0gA3xd6LPGtKcOUB/I/1G10MkKQ9AMxfmy
- 6wKWuSFqtxPVt2iCaVdyIHo4Mq3oKQUFCFNlndGlqyZl6i8lSbGfhuhtmK95Xm8oRRwV
- ilUA==
+ bh=K4abEuoKQvd0YyYbRSUE6ydyP9nVNeVQVyHbs+ZQEps=;
+ b=LrlxlMIi+7OZuLAhkZIQGtxF3LMlD+rSjoj4W9d+ZuhUhTzpHtbXGzjWeA/TR5j7fv
+ n6HNOdSSuolyt1O96oS17r5g6vJl1BUMfwnlYftVWZh8SZJIQkmbePDpXvclULU60gj+
+ k17TFuih7jn3dJB4cmiPTA06Tn0nPBBJhOHBPrbHNfIrKrzgJt/9EWgA3h0C/iPXhN7A
+ jlv/Ya/hZkkYNmWrFIQt6xkLOT2tgkL6iqOyNj9HxDJA+K1hNbdaOjhWOQkx3VwsfaUZ
+ pYgHoo0Bf0ax8nPBQMmUsw/Rgal625ioYUhY9tLIbT4ubD1KQPTwomVeDy/Zctl7BO51
+ DKDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717695583; x=1718300383;
+ d=1e100.net; s=20230601; t=1717695584; x=1718300384;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=B9fDIm68qSqGOlwzl3EwgvcQ21IJ9C3Nzo3+IMZK93w=;
- b=bjK3QP1iFZk3WHQqoo1+yfMIWnPxhDgtrkgT/pxettE52w9p7AM8Mx2ORpAEVaLrn/
- s1rLfzNiBJJ0yjW5e0HukGP0TsCKpKLmNBxk18i/owysI6oHeMVtORNDtIcrpCxH91mD
- TvzaG6u+SGvbltmbB2+BTmRfRIhEKnRyXpvaEHt478INohVsomrS+8mpj4SDAK4e3PoS
- q3PX9LUVuPoSiNIEIgxYSf3oF7pyofTvM1LvTNJK/FAHvopg3zj0/r8hwG/vHkEzPFmR
- Z6V6goSzNxB2La8p3SCsXJkC8+Yc603dcNPPJ4fmsTNssgbZtg7gO7KB/uK9PqhiJSAd
- 7TPw==
-X-Gm-Message-State: AOJu0YyodnxbGVFHNt3WWcpdavr63upbhaNGCcuBWJEy+tuVunf1UKFf
- ByWjg2ELQV9Av8oc9fjihM4kfOtJayBpUbS9S1tOuI3tGtEDujmtqJwXF04JDIeMrf11orpcGVD
- ZUA4ytR2+r532rGxficJE5cSOBqWjkwQ7FDA45kEmF7NoPS/TQoGB9yupg50zfZAJOQls8MPyFs
- Ddcxj8ynVVM1DZBBWEqYarYsAW9Ug=
-X-Google-Smtp-Source: AGHT+IE4RPGhsX+lhP489e5HpukkeYGq9OXEJiCwXfPeuZ0Ve9j8kQDxxbwC91gf1o8wXY9mAi9JxptxLhs=
+ bh=K4abEuoKQvd0YyYbRSUE6ydyP9nVNeVQVyHbs+ZQEps=;
+ b=sYuJ0e7nLB2K6UgbFSeDRRgLsExt9NHNFtA+uB05177Fr9BbZZDKlw2uH2sOcU2b6p
+ 4cqV6wRbybc4JCOk7aENFTV9cJ8cyvnEPdf2Ee0bM832sjdNcqXw64KIenRLcMNnxqGS
+ t5eSJX9JM/fRVHb5kkFNN5L+34om3Y84SHN8ApqpUX9MsTtabFsmjyWsWwIX23hcndC/
+ g7nSTSLurU4dUm2YB/hSTZIl0iPN1A1pMQFqeykZ+3w8bttIc9yQzTvKtGfprGM1MWfM
+ +Cg4+Il8xpFDSHu1FURKZf8XijFntDYEUokqxTA6TVKVPuERKR9llL/MpGPZPB7XOorv
+ s0tg==
+X-Gm-Message-State: AOJu0Yw0hJdg1/fQcvL1xZBU3DqdAd3TB9FkfQfxpsR0zhIlpJYjYsuq
+ foB0sCoI1PS19jVyKBeswKxoKxFYOqRKFcw824W4Rjv4mOqIAvok1CZzTGPUZCdX2eSbiqBEfVt
+ aPRaMWwW+uUBB8uPAXfIO8/asFdiwuaM9BxLqaV7i/dVN6oAIAAy4m+h++rZAb/u5qPez907cy0
+ HnFX+IK+KNXMxbtCjgMxNNnF+YYUo=
+X-Google-Smtp-Source: AGHT+IFUmoYzYFcsSYnvsts4T+TiGsuzR8E9T92Q4Y9ar2GDcpNzZA6yh5NAMynUya1jeKvE2y6UXoiD+n8=
 X-Received: from edliaw.c.googlers.com ([fda3:e722:ac3:cc00:24:72f4:c0a8:305d])
- (user=edliaw job=sendgmr) by 2002:a17:902:d4c2:b0:1f6:7fb5:c720 with SMTP id
- d9443c01a7336-1f6d0363313mr7105ad.8.1717695582432; Thu, 06 Jun 2024 10:39:42
+ (user=edliaw job=sendgmr) by 2002:a05:6902:10c2:b0:dfa:f153:d1d with SMTP id
+ 3f1490d57ef6-dfaf65696a6mr23177276.2.1717695584322; Thu, 06 Jun 2024 10:39:44
  -0700 (PDT)
-Date: Thu,  6 Jun 2024 17:39:31 +0000
+Date: Thu,  6 Jun 2024 17:39:32 +0000
 In-Reply-To: <20240606173933.1671989-1-edliaw@google.com>
 Mime-Version: 1.0
 References: <20240606173933.1671989-1-edliaw@google.com>
 X-Mailer: git-send-email 2.45.2.505.gda0bf45e8d-goog
-Message-ID: <20240606173933.1671989-2-edliaw@google.com>
+Message-ID: <20240606173933.1671989-3-edliaw@google.com>
 To: ltp@lists.linux.it
 X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
  USER_IN_DEF_DKIM_WL shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 1/2] sched/starvation: Fix sched_setaffinity return
- check
+Subject: [LTP] [PATCH v3 2/2] sched/starvation: Choose from available cpus
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,28 +99,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-TST_EXP_POSITIVE to check the return value is incorrect because
-sched_setaffinity returns 0 on success / -1 on failure.
+From: Edward Liaw via ltp <ltp@lists.linux.it>
 
+Use the first available cpu in the sched_getaffinity set.
+
+This test was failing as a 32bit test for some arm architectures where
+cpu 0 does not support 32bit applications.
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 Signed-off-by: Edward Liaw <edliaw@google.com>
 ---
- testcases/kernel/sched/cfs-scheduler/starvation.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../kernel/sched/cfs-scheduler/starvation.c    | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
 diff --git a/testcases/kernel/sched/cfs-scheduler/starvation.c b/testcases/kernel/sched/cfs-scheduler/starvation.c
-index eb9fd6ff5..1d0d5ff97 100644
+index 1d0d5ff97..0f876880d 100644
 --- a/testcases/kernel/sched/cfs-scheduler/starvation.c
 +++ b/testcases/kernel/sched/cfs-scheduler/starvation.c
-@@ -54,7 +54,8 @@ static void setup(void)
+@@ -49,10 +49,26 @@ again:
+ static void setup(void)
+ {
+ 	cpu_set_t mask;
++	int cpu = 0;
++	long ncpus = tst_ncpus_conf();
  
- 	CPU_SET(0, &mask);
+ 	CPU_ZERO(&mask);
  
--	TST_EXP_POSITIVE(sched_setaffinity(0, sizeof(mask), &mask));
-+	if (!sched_setaffinity(0, sizeof(mask), &mask))
-+		tst_brk(TBROK | TERRNO, "sched_setaffinity() failed");
+-	CPU_SET(0, &mask);
++	/* Restrict test to a single cpu */
++	if (!sched_getaffinity(0, sizeof(mask), &mask))
++		tst_brk(TBROK | TERRNO, "sched_getaffinity() failed");
++
++	if (CPU_COUNT(&mask) == 0)
++		tst_brk(TBROK, "No cpus available");
++
++	while (CPU_ISSET(cpu, &mask) == 0 && cpu < ncpus)
++		cpu++;
++
++	CPU_ZERO(&mask);
++
++	CPU_SET(cpu, &mask);
++
++	tst_res(TINFO, "Setting affinity to CPU %d", cpu);
  
- 	if (tst_parse_long(str_loop, &loop, 1, LONG_MAX))
- 		tst_brk(TBROK, "Invalid number of loop number '%s'", str_loop);
+ 	if (!sched_setaffinity(0, sizeof(mask), &mask))
+ 		tst_brk(TBROK | TERRNO, "sched_setaffinity() failed");
 -- 
 2.45.2.505.gda0bf45e8d-goog
 
