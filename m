@@ -2,130 +2,126 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B5B18FFDE3
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2024 10:13:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA0DC8FFDE8
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2024 10:14:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 483D53D0A7E
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2024 10:13:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 737A43D0A98
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2024 10:14:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7DB1B3D0A74
- for <ltp@lists.linux.it>; Fri,  7 Jun 2024 10:13:45 +0200 (CEST)
-Authentication-Results: in-3.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id A40A13D0A74
+ for <ltp@lists.linux.it>; Fri,  7 Jun 2024 10:13:46 +0200 (CEST)
+Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id CB5691A0BC5E
- for <ltp@lists.linux.it>; Fri,  7 Jun 2024 10:13:44 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DA00014052EF
+ for <ltp@lists.linux.it>; Fri,  7 Jun 2024 10:13:45 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9E41721A5D;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C698121B50;
  Fri,  7 Jun 2024 08:13:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1717748023; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=yyifi6IrHif9m5+14poVfBuaPsPoAs5c6ofkFvEB1Uc=;
- b=Z/mXmj1R1k2oG2nnYHoLBBj6Wsmr3ZA3azPgJmvo3f23R1MY8Sok7Fzbanh1ABf7p082Za
- A2NhsrSGb424vwsYbhPaQTT6w3GWSkdz8169cg60BtRYjdsuW6jWR/KGyWIwNMK17rTPCl
- 0XFlnKKPEN8EVCgeYYbS0AGo+B7WHX0=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1cwiIHLPVz8oDjUCOekd2wDyzb9V8/tcc2T9FC5Bllg=;
+ b=y0AZ/T5Mpn5qSL3FShUyZjj70w/e71mk2CNbrOWG2Ar5k6NOO3rxiDTJ8qm4nUOWlbNo0K
+ WCyamHI7DxULVi3xGhlQLkLKy79y87RwKxHx5v9k+mRJGjFysZhKd8ZeV22k1gXiSlloPq
+ xZatgk3y+NjGnNO51qZpTLTK7muttRw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1717748023;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=yyifi6IrHif9m5+14poVfBuaPsPoAs5c6ofkFvEB1Uc=;
- b=jWu+OIpfxwyPfYUwCC5wjsMN0O+KBx+yLmaJofffD2botS/AlHZVuef10fsIEl2sbVrEzJ
- 6+l/u4cmA2+EYxBQ==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1cwiIHLPVz8oDjUCOekd2wDyzb9V8/tcc2T9FC5Bllg=;
+ b=Y14WgQ89Z7QUSsn6rQhNOAMQFxyPZePx6I5FNG2bJzoBodPE98u6kh6qiU460+CyY824O7
+ 3LC4rZuJbbJq0EBw==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="Z/mXmj1R";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=jWu+OIpf
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1717748023; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=yyifi6IrHif9m5+14poVfBuaPsPoAs5c6ofkFvEB1Uc=;
- b=Z/mXmj1R1k2oG2nnYHoLBBj6Wsmr3ZA3azPgJmvo3f23R1MY8Sok7Fzbanh1ABf7p082Za
- A2NhsrSGb424vwsYbhPaQTT6w3GWSkdz8169cg60BtRYjdsuW6jWR/KGyWIwNMK17rTPCl
- 0XFlnKKPEN8EVCgeYYbS0AGo+B7WHX0=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1cwiIHLPVz8oDjUCOekd2wDyzb9V8/tcc2T9FC5Bllg=;
+ b=y0AZ/T5Mpn5qSL3FShUyZjj70w/e71mk2CNbrOWG2Ar5k6NOO3rxiDTJ8qm4nUOWlbNo0K
+ WCyamHI7DxULVi3xGhlQLkLKy79y87RwKxHx5v9k+mRJGjFysZhKd8ZeV22k1gXiSlloPq
+ xZatgk3y+NjGnNO51qZpTLTK7muttRw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1717748023;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=yyifi6IrHif9m5+14poVfBuaPsPoAs5c6ofkFvEB1Uc=;
- b=jWu+OIpfxwyPfYUwCC5wjsMN0O+KBx+yLmaJofffD2botS/AlHZVuef10fsIEl2sbVrEzJ
- 6+l/u4cmA2+EYxBQ==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1cwiIHLPVz8oDjUCOekd2wDyzb9V8/tcc2T9FC5Bllg=;
+ b=Y14WgQ89Z7QUSsn6rQhNOAMQFxyPZePx6I5FNG2bJzoBodPE98u6kh6qiU460+CyY824O7
+ 3LC4rZuJbbJq0EBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7C5ED133F3;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A4BF213A42;
  Fri,  7 Jun 2024 08:13:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id rT0eHDfBYmbkBwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 6GZEJjfBYmbkBwAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Fri, 07 Jun 2024 08:13:43 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Fri, 07 Jun 2024 10:13:13 +0200
-Message-Id: <20240607-shutdown-v2-0-a09ce3290ee1@suse.com>
+Date: Fri, 07 Jun 2024 10:13:14 +0200
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIABnBYmYC/0XMQQ7CIBCF4as0sxYDWGx15T1MFwQGYSEYpkVNw
- 93FJsbl//LyrUCYAxKcuxUylkAhxRZy14HxOt6QBdsaJJc9V7Jn5JfZpmdkZrSDGjmexFFDuz8
- yuvDaqOvU2geaU35vchHf9YcMf6QIxplw6JzRCg/WXWgh3Jt0h6nW+gGNzb2PnwAAAA==
+Message-Id: <20240607-shutdown-v2-1-a09ce3290ee1@suse.com>
+References: <20240607-shutdown-v2-0-a09ce3290ee1@suse.com>
+In-Reply-To: <20240607-shutdown-v2-0-a09ce3290ee1@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1256;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4751;
  i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=VF9HbhrTuangPVteesuVdOpHJy/eSQMeY+VPaYV2a9Q=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmYsEc+8y6DZhwE34gZ+f59DJcFXZnS2I9zPbzY
- dlc7mSOKveJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZmLBHAAKCRDLzBqyILPm
- RmcFDACXciQ1RuX14PWw3lZ4rfYZDmmCNR2qfwgeAaVbmpI8ng5+SCNI3VpF4wny1bM1STQj5fc
- yigQO+J+sLzGXkerq9gM78AWZjbGL7aDtrWP1r2ygnPvsd2DxzM/QaUpvzRLY28gJmkbMMbSBO3
- MDB6Fe1JgXD+GJvdWdvBSDUTzUutAr2l9pUiycar4iLp8ORHt/Za7On/T4JI/XtJGSuBRC2aRY2
- Bnj8D4EADqeT29/mc2Qqcw8ClH2W8Bp6QfSpX97NwbudUYl05EZ/7IOPMp+oEtdnDJLDnzvTPqp
- TZEgODA9fSnCwl57wtX10EmpdnSJ49/jvo7gnMiDz3josfbO3vyuoZsyj4zeWDx0KxEwIb7xG+C
- 1oKxHfyEyeb9rSvqqvgDKmbBNF7rlcAKtFenSIGr/Kq8M0Zbc8lupggl4lnDNBwqiyevEF6Ig9E
- h5uObSjXXBVL6j0LVEtJ8V55M90ySQP5oQwSv+ROg8h4HIdFV34nsuQjthFeCxtEJvMuY=
+ bh=Ssqn1oi95YeMZQwDrZh87r3tu11nzY1yvwopB3PJkgE=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmYsE3QliTCUstIpSUCKxMSSiIhy3W9lPUA9zvP
+ Z9WFC5LDY+JAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZmLBNwAKCRDLzBqyILPm
+ RtzkDACsKhu0wnJyZMSwX9YPwXZTgwiB2hcAL2mdQ+ZzswdaeHRt8BiRSBRxV26DyIUKlnScZ5b
+ NINTy7jwj0+qBS21jH2PwWKeBJhn5DtXH90LHFljRPN9tqBUVhEOi9YrhqN73l0Cwz2ZIqiU8Xk
+ 7U7L9bpunf+i/Wi/z3fRfH6W0M0EiW3SmpW26Cquhx58rIIEctEtwGe3vchtCTDqSWSPU37+8fN
+ A65EmnmH/LPB8zVrkjyxqzXIWZv0H8AYLvcLscKZpKxl1/h40hTXbZh8UqRpdm6ELrEGi3ChCff
+ KqSbRXS1e6iKjyRqtvNJgiJIXD9nsf5GP0U+KiH8crl05rk5v1mmEnTMUjbHHrGdK3lfJaFHAM8
+ QljvbjDWkb5pgrn9yAljH1OSXSCkcM1shQqIOKfEA22k0BYEat1o1H1Ii9CBVqKDCsRnIvJ6Rpl
+ nIVDRlYP1taeUnMM1+937MBvUvT3AzL5tcKuNVHoZBP6na9IIcMc9MhUHuhtN+FEYZ9vY=
 X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
  fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
+X-Spam-Score: -4.30
 X-Spam-Level: 
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 9E41721A5D
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: -4.51
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 0/2] shutdown testing suite
+Subject: [LTP] [PATCH v2 1/2] Add shutdown01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,40 +138,185 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This testing suite is meant to test shutdown() syscall functionalities.
-The current LTP version uses shutdown() inside many tests, but none of
-them is specifically running unit tests for it.
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-This suite comes with both unit tests for shutdown() flags and error
-codes.
+This test verifies the following shutdown() functionalities:
+
+- SHUT_RD should enable send() ops but disable recv() ops
+- SHUT_WR should enable recv() ops but disable send() ops
+- SHUT_RDWR should disable both recv() and send() ops
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-Changes in v2:
-- shutdown01: move test cases inside .test / .tcnt
-- shutdown01: usage of SAFE_RECV / SAFE_SEND
-- shutdown01: fixed documentation formatting
-- shutdown02: fixed documentation formatting
-- Link to v1: https://lore.kernel.org/r/20240527-shutdown-v1-0-1feffca5e3df@suse.com
-
----
-Andrea Cervesato (2):
-      Add shutdown01 test
-      Add shutdown02 test
-
- runtest/syscalls                                |   3 +
- testcases/kernel/syscalls/shutdown/.gitignore   |   2 +
+ runtest/syscalls                                |   2 +
+ testcases/kernel/syscalls/shutdown/.gitignore   |   1 +
  testcases/kernel/syscalls/shutdown/Makefile     |   7 ++
  testcases/kernel/syscalls/shutdown/shutdown01.c | 121 ++++++++++++++++++++++++
- testcases/kernel/syscalls/shutdown/shutdown02.c |  76 +++++++++++++++
- 5 files changed, 209 insertions(+)
----
-base-commit: 0358f7a2788eed0cbff7f8519b1a0f7f89d36c13
-change-id: 20240524-shutdown-c8d7580e916a
+ 4 files changed, 131 insertions(+)
 
-Best regards,
+diff --git a/runtest/syscalls b/runtest/syscalls
+index cf06ee563..dc396415e 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1465,6 +1465,8 @@ shmget04 shmget04
+ shmget05 shmget05
+ shmget06 shmget06
+ 
++shutdown01 shutdown01
++
+ sigaction01 sigaction01
+ sigaction02 sigaction02
+ 
+diff --git a/testcases/kernel/syscalls/shutdown/.gitignore b/testcases/kernel/syscalls/shutdown/.gitignore
+new file mode 100644
+index 000000000..2df24d1ab
+--- /dev/null
++++ b/testcases/kernel/syscalls/shutdown/.gitignore
+@@ -0,0 +1 @@
++shutdown01
+diff --git a/testcases/kernel/syscalls/shutdown/Makefile b/testcases/kernel/syscalls/shutdown/Makefile
+new file mode 100644
+index 000000000..8cf1b9024
+--- /dev/null
++++ b/testcases/kernel/syscalls/shutdown/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/shutdown/shutdown01.c b/testcases/kernel/syscalls/shutdown/shutdown01.c
+new file mode 100644
+index 000000000..ba3853d9c
+--- /dev/null
++++ b/testcases/kernel/syscalls/shutdown/shutdown01.c
+@@ -0,0 +1,121 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * This test verifies the following shutdown() functionalities:
++ *
++ * - SHUT_RD should enable send() ops but disable recv() ops
++ * - SHUT_WR should enable recv() ops but disable send() ops
++ * - SHUT_RDWR should disable both recv() and send() ops
++ */
++
++#include "tst_test.h"
++#include "tst_safe_net.h"
++
++#define MSGSIZE 4
++#define SOCKETFILE "socket"
++
++static struct tcase {
++	int shutdown_op;
++	int recv_flag;
++	int recv_err;
++	int send_flag;
++	int send_err;
++	char *flag_str;
++} tcases[] = {
++	{SHUT_RD, 0, 0, 0, 0, "SHUT_RD"},
++	{SHUT_WR, MSG_DONTWAIT, EWOULDBLOCK, MSG_NOSIGNAL, EPIPE, "SHUT_WR"},
++	{SHUT_RDWR, 0, 0, MSG_NOSIGNAL, EPIPE, "SHUT_RDWR"}
++};
++
++static struct sockaddr_un *sock_addr;
++
++static void run_server(void)
++{
++	int server_sock;
++
++	server_sock = SAFE_SOCKET(sock_addr->sun_family, SOCK_STREAM, 0);
++
++	SAFE_BIND(server_sock,
++		(struct sockaddr *)sock_addr,
++		sizeof(struct sockaddr_un));
++	SAFE_LISTEN(server_sock, 10);
++
++	tst_res(TINFO, "Running server on socket file");
++
++	TST_CHECKPOINT_WAKE_AND_WAIT(0);
++
++	SAFE_CLOSE(server_sock);
++	SAFE_UNLINK(SOCKETFILE);
++}
++
++static int start_test(void)
++{
++	int client_sock;
++
++	if (!SAFE_FORK()) {
++		run_server();
++		_exit(0);
++	}
++
++	TST_CHECKPOINT_WAIT(0);
++
++	tst_res(TINFO, "Connecting to the server");
++
++	client_sock = SAFE_SOCKET(sock_addr->sun_family, SOCK_STREAM, 0);
++	SAFE_CONNECT(client_sock,
++		(struct sockaddr *)sock_addr,
++		sizeof(struct sockaddr_un));
++
++	return client_sock;
++}
++
++static void run(unsigned int n)
++{
++	struct tcase *tc = &tcases[n];
++	int client_sock;
++	char buff[MSGSIZE] = {0};
++
++	client_sock = start_test();
++
++	tst_res(TINFO, "Testing %s flag", tc->flag_str);
++
++	TST_EXP_PASS(shutdown(client_sock, tc->shutdown_op));
++
++	if (!tc->recv_err)
++		SAFE_RECV(0, client_sock, buff, MSGSIZE, tc->recv_flag);
++	else
++		TST_EXP_FAIL(recv(client_sock, buff, MSGSIZE, tc->recv_flag), tc->recv_err);
++
++	if (!tc->send_err)
++		SAFE_SEND(MSGSIZE, client_sock, buff, MSGSIZE, tc->send_flag);
++	else
++		TST_EXP_FAIL(send(client_sock, buff, MSGSIZE, tc->send_flag), tc->send_err);
++
++	SAFE_CLOSE(client_sock);
++	TST_CHECKPOINT_WAKE(0);
++
++}
++
++static void setup(void)
++{
++	sock_addr->sun_family = AF_UNIX;
++	memcpy(sock_addr->sun_path, SOCKETFILE, sizeof(SOCKETFILE));
++}
++
++static struct tst_test test = {
++	.test = run,
++	.tcnt = ARRAY_SIZE(tcases),
++	.setup = setup,
++	.forks_child = 1,
++	.needs_checkpoints = 1,
++	.needs_tmpdir = 1,
++	.bufs = (struct tst_buffers []) {
++		{&sock_addr, .size = sizeof(struct sockaddr_un)},
++		{}
++	}
++};
+
 -- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+2.35.3
 
 
 -- 
