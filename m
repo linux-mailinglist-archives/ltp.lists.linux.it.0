@@ -2,73 +2,113 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7772C9005EF
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2024 16:11:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFC3D900665
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2024 16:24:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2EDCD3D0AAA
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2024 16:11:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8A93E3D0AA6
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2024 16:24:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 469DF3CFBD1
- for <ltp@lists.linux.it>; Fri,  7 Jun 2024 16:11:36 +0200 (CEST)
-Authentication-Results: in-3.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 211BE3CFBD1
+ for <ltp@lists.linux.it>; Fri,  7 Jun 2024 16:24:31 +0200 (CEST)
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 69F2A1A01092
- for <ltp@lists.linux.it>; Fri,  7 Jun 2024 16:11:36 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4810E616620
+ for <ltp@lists.linux.it>; Fri,  7 Jun 2024 16:24:31 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ABA761FBA2;
- Fri,  7 Jun 2024 14:11:35 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C326E1FBA4;
+ Fri,  7 Jun 2024 14:24:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1717770269; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=IpOiMO4qlQdMNTQFARf9RHoS03JuONYEnMqujexpzKs=;
+ b=QWePxkfZbfgqPIHg48YFwPXJSE/syJb39ffT44ReTLvvSOPOWl6GFR1eCcV+MlnGWYlLY+
+ +6cBR1xxY6DwMgNiRd/wB1Kl6JsaYb2VWYPNs2EI5r2hrCXhN86m1MIvYG3OhOHCRssjPj
+ Np1Sptk+JdAmPlBDdwZ+LwUTCaEQD8E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1717770269;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=IpOiMO4qlQdMNTQFARf9RHoS03JuONYEnMqujexpzKs=;
+ b=sPCMjN2sUK6bsmJvO81iHFA9Yk5zs5uZ2goNnHZl3BpKAil+qH8GrnZ9KlJDB+QyAMQaua
+ 8MM6wSIcRBXyqKCA==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=QWePxkfZ;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=sPCMjN2s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1717770269; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=IpOiMO4qlQdMNTQFARf9RHoS03JuONYEnMqujexpzKs=;
+ b=QWePxkfZbfgqPIHg48YFwPXJSE/syJb39ffT44ReTLvvSOPOWl6GFR1eCcV+MlnGWYlLY+
+ +6cBR1xxY6DwMgNiRd/wB1Kl6JsaYb2VWYPNs2EI5r2hrCXhN86m1MIvYG3OhOHCRssjPj
+ Np1Sptk+JdAmPlBDdwZ+LwUTCaEQD8E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1717770269;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=IpOiMO4qlQdMNTQFARf9RHoS03JuONYEnMqujexpzKs=;
+ b=sPCMjN2sUK6bsmJvO81iHFA9Yk5zs5uZ2goNnHZl3BpKAil+qH8GrnZ9KlJDB+QyAMQaua
+ 8MM6wSIcRBXyqKCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 72A8213A42;
- Fri,  7 Jun 2024 14:11:35 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8D4AD133F3;
+ Fri,  7 Jun 2024 14:24:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cEdcGRcVY2b3AwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 07 Jun 2024 14:11:35 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id rcWlIB0YY2a0CAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 07 Jun 2024 14:24:29 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri,  7 Jun 2024 16:11:28 +0200
-Message-ID: <20240607141131.111470-2-pvorel@suse.cz>
+Date: Fri,  7 Jun 2024 16:24:20 +0200
+Message-ID: <20240607142423.116285-1-pvorel@suse.cz>
 X-Mailer: git-send-email 2.45.1
-In-Reply-To: <20240607141131.111470-1-pvorel@suse.cz>
-References: <20240607141131.111470-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
 X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: ABA761FBA2
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_COUNT_TWO(0.00)[2]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCPT_COUNT_SEVEN(0.00)[8];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.cz:+]
 X-Rspamd-Action: no action
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Rspamd-Queue-Id: C326E1FBA4
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Score: -3.01
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/2] doc: Link API pages, rename title
+Subject: [LTP] [RFC PATCH 0/3] Deprecate runltp (please use kirk)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,113 +120,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: automated-testing@lists.yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Rename pages to be able to use them in links via :doc:.
+Petr Vorel (3):
+  runltp: Deprecate, add info about kirk
+  ltpmenu: Remove legacy script
+  doc/old: Remove man pages
 
-We loose code formatting when linking code with :ref: struct tst_test,
-but IMHO having a link is more important (usability).
+ Makefile                         |   6 -
+ doc/old/Makefile                 |  11 -
+ doc/old/man1/Makefile            |  27 --
+ doc/old/man1/doio.1              |  70 ----
+ doc/old/man1/iogen.1             |  78 -----
+ doc/old/man1/ltp-bump.1          |  80 -----
+ doc/old/man1/ltp-pan.1           | 262 ---------------
+ doc/old/man3/Makefile            |  27 --
+ doc/old/man3/parse_opts.3        | 179 ----------
+ doc/old/man3/parse_ranges.3      | 169 ----------
+ doc/old/man3/random_range.3      | 114 -------
+ doc/old/man3/random_range_seed.3 | 114 -------
+ doc/old/man3/tst_res.3           | 313 ------------------
+ doc/old/man3/tst_sig.3           | 141 --------
+ doc/old/man3/tst_tmpdir.3        |  76 -----
+ doc/old/man3/usctest.3           | 164 ---------
+ ltpmenu                          | 548 -------------------------------
+ runltp                           |  13 +
+ 18 files changed, 13 insertions(+), 2379 deletions(-)
+ delete mode 100644 doc/old/Makefile
+ delete mode 100644 doc/old/man1/Makefile
+ delete mode 100644 doc/old/man1/doio.1
+ delete mode 100644 doc/old/man1/iogen.1
+ delete mode 100644 doc/old/man1/ltp-bump.1
+ delete mode 100644 doc/old/man1/ltp-pan.1
+ delete mode 100644 doc/old/man3/Makefile
+ delete mode 100644 doc/old/man3/parse_opts.3
+ delete mode 100644 doc/old/man3/parse_ranges.3
+ delete mode 100644 doc/old/man3/random_range.3
+ delete mode 100644 doc/old/man3/random_range_seed.3
+ delete mode 100644 doc/old/man3/tst_res.3
+ delete mode 100644 doc/old/man3/tst_sig.3
+ delete mode 100644 doc/old/man3/tst_tmpdir.3
+ delete mode 100644 doc/old/man3/usctest.3
+ delete mode 100755 ltpmenu
 
-Using :ref: requires to enable sphinx.ext.autosectionlabel plugin.
-
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- doc/conf.py                        |  1 +
- doc/developers/api_c_tests.rst     |  4 ++--
- doc/developers/api_shell_tests.rst |  4 ++--
- doc/developers/ltp_library.rst     |  5 +++--
- doc/maintainers/patch_review.rst   | 10 +++++-----
- 5 files changed, 13 insertions(+), 11 deletions(-)
-
-diff --git a/doc/conf.py b/doc/conf.py
-index 9525ad7bb..ac1220450 100644
---- a/doc/conf.py
-+++ b/doc/conf.py
-@@ -23,6 +23,7 @@ release = '1.0'
- extensions = [
-     'linuxdoc.rstKernelDoc',
-     'sphinxcontrib.spelling',
-+    'sphinx.ext.autosectionlabel',
-     'sphinx.ext.extlinks'
- ]
- 
-diff --git a/doc/developers/api_c_tests.rst b/doc/developers/api_c_tests.rst
-index 2a9f3e7b9..164f82504 100644
---- a/doc/developers/api_c_tests.rst
-+++ b/doc/developers/api_c_tests.rst
-@@ -4,8 +4,8 @@
- .. Include headers in this file with:
- .. .. kernel-doc:: ../../include/tst_test.h
- 
--Developing using C API
--======================
-+LTP C API
-+=========
- 
- Core LTP API
- ------------
-diff --git a/doc/developers/api_shell_tests.rst b/doc/developers/api_shell_tests.rst
-index 2fb2a5068..b6e8560d9 100644
---- a/doc/developers/api_shell_tests.rst
-+++ b/doc/developers/api_shell_tests.rst
-@@ -1,4 +1,4 @@
- .. SPDX-License-Identifier: GPL-2.0-or-later
- 
--Developing using shell API
--==========================
-+LTP shell API
-+=============
-diff --git a/doc/developers/ltp_library.rst b/doc/developers/ltp_library.rst
-index 723781feb..c10366516 100644
---- a/doc/developers/ltp_library.rst
-+++ b/doc/developers/ltp_library.rst
-@@ -6,8 +6,9 @@ LTP Library guidelines
- General Rules
- -------------
- 
--When we extend library API, we need to apply the same general rules that we use
--when writing tests, plus:
-+For extending the LTP library API it applies the same general rules as
-+for :doc:`writing tests <../developers/writing_tests>`
-+(with strong focus on readability and simplicity), plus:
- 
- #. LTP library tests must go inside :master:`lib/newlib_tests` directory
- #. LTP documentation has to be updated according to API changes
-diff --git a/doc/maintainers/patch_review.rst b/doc/maintainers/patch_review.rst
-index 0561ffd9d..36caaf23b 100644
---- a/doc/maintainers/patch_review.rst
-+++ b/doc/maintainers/patch_review.rst
-@@ -146,17 +146,17 @@ New test should
- C tests
- ~~~~~~~
- 
--* Use the new C API, implementing ``struct tst_test``
-+* Use :doc:`../developers/api_c_tests`, implementing :ref:`struct tst_test`
- * Test binaries are added into corresponding ``.gitignore`` files
- * Check coding style with ``make check``
- * Docparse documentation
--* If a test is a regression test it should include ``.tags`` in the
--  ``struct tst_test`` definition
-+* If a test is a regression test it should include :ref:`.tags<struct tst_tag>` in the
-+  :ref:`struct tst_test` definition
- 
- Shell tests
- ~~~~~~~~~~~
- 
--* Use new shell API
-+* Use :doc:`../developers/api_shell_tests`
- * Check coding style with ``make check``
- * If a test is a regression test it should include related kernel or glibc
-   commits as a comment
-@@ -164,4 +164,4 @@ Shell tests
- LTP library
- ~~~~~~~~~~~
- 
--For patchset touching the LTP library, follow the LTP library guidelines.
-+For patchset touching the LTP library, follow :doc:`../developers/ltp_library`.
 -- 
 2.45.1
 
