@@ -2,53 +2,92 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC5329020D3
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 13:56:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8FFC901FEA
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 12:52:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1718016754; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-transfer-encoding :
+ content-type : sender : from;
+ bh=KQLqCLIaO+IhCUk8qUjmgd/xVPYQem9u5RSVwq1vLiw=;
+ b=qO4yoRAVLsh+O3Z5ReRwXdpn7IJqZsqEQY0kcMeLb9CwepHBLxAlwRrYSIzRI7mkE9AUX
+ m47UbTNtrA7tLeLvGkGSSZyVLAyk4gpb/9i7MN6zFz9y3zHdntJWSKnmka3YEqn0W2KZRVf
+ ZZoSSseP/wlwU9et7SvsF3LWvIiaKhw=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5D73A3D0B32
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 13:56:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 522AA3D0B23
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 12:52:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C11113D0B1E
- for <ltp@lists.linux.it>; Mon, 10 Jun 2024 10:56:36 +0200 (CEST)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 44D1F20096C
- for <ltp@lists.linux.it>; Mon, 10 Jun 2024 10:56:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=+z+Yu
- pvG3z76aV5xcuw30gT66Ld+Bu8kDQKU75NV47Y=; b=PW3gjCCGn/4go/Vv2omAx
- QaU8PvHY3mDeKc+j6039u9VFqXC6U5cTTMqjWwZm0SMtep2XFFVTL+y+i4vrrOT/
- kX4xGFNHOAXkb8zJSYZz4kGMDlyXixJwERFlLaF8p/uZH/FsESOolquMlEN68ZSV
- vbv+TFAqJEseRke2UrD1Co=
-Received: from localhost.localdomain (unknown [120.244.62.148])
- by gzga-smtp-mta-g1-0 (Coremail) with SMTP id _____wDnL6O3v2ZmfW1wCA--.13218S2;
- Mon, 10 Jun 2024 16:56:25 +0800 (CST)
-From: Jiwei Sun <sjiwei@163.com>
-To: ltp@lists.linux.it,
-	sunjw10@lenovo.com
-Date: Mon, 10 Jun 2024 16:56:22 +0800
-Message-Id: <20240610085622.87076-1-sjiwei@163.com>
-X-Mailer: git-send-email 2.25.1
+ by picard.linux.it (Postfix) with ESMTPS id 8D0933D01A9
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2024 12:52:31 +0200 (CEST)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 73447601323
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2024 12:52:30 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a6f0e153eddso180818266b.0
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2024 03:52:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1718016750; x=1718621550; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6zS7ZHeSipxOwqy8Xp3HuZEOchDjywVJpz4VgCDyZ/g=;
+ b=dT/9XyEhMQFnWIhquExjzhSX1IEvb2LFsMOSj+e1ZRAPlVhSleujazJJu4h+JpMEJS
+ 8eGUWy0oyh0GUrDZXZK45mEusoE/rHMjNCNB39DG/Wq5LyZNHm2QIhRI/uZmoLGHN19v
+ 7DrZ8mFxC+baAQc4U4DNoHiC9SZa1GkMQYBg6FdoBcH1toahVwSvvGKplYBWvmQr2C+u
+ 9OtL3lIQdZpyEkKeM0Gv/Eh8TnSPyLmAgAYuCLU9LaIzCYc1RJAZKlRxDyVgi8IYGpM/
+ NG8xOrIgTWEljIsO4hwt6tAwNlvmkg/FxwVnBFIelWZUxlmgwdfidthgf33lHBOTWhAJ
+ u+dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718016750; x=1718621550;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6zS7ZHeSipxOwqy8Xp3HuZEOchDjywVJpz4VgCDyZ/g=;
+ b=wkuS8GUDzen6gtpPMU2xBPJ6FJ8Cytuk/bfwYRR60Nqkbdv2BauM31o2EeT+QEohwM
+ zSYCPF+Ppy0nrRP+1oJd6rMlEj3j8TpYFan2KF1CJJ0eqqulCAmyOENTQgV3iVaZpVv6
+ ka8c+o2jWj35Zjm5DKAjFc4TFYdbv6AyJ02rMDwqy6Tnpn5X5sN2JxlbBYgB6ZVXscJZ
+ MDhDrbEX/jayZ74DuyGbeoYtDzPgohoUaoEbrq0NyfTgnpIWUonXYkoo9DHmQUYHv604
+ lz52DvUWz7qIRLcn13K7eoMTiM5gFyEMzX3ZRTvfaYs0zMkZ+txz121yMYocfI/mctYA
+ yM2w==
+X-Gm-Message-State: AOJu0YxNy4z61HUeiklEJjc0hgcRP0bLZfSjcV/jj3yTo75alpyAKyHb
+ 1z9Ftv3f7duX4jzxEq0EMOqz6zsDWoosv7ZQnrpEIxJArb3mLoB4DD/pqwVvD0Q=
+X-Google-Smtp-Source: AGHT+IECje4unIJfIJrZZU4NzYGjpXMwH2rqp/2p+ywBuPVWeI9HTiIR8ftB10LQ0U+Da4aMOWaFLA==
+X-Received: by 2002:a17:906:1d5a:b0:a6e:6555:4bc7 with SMTP id
+ a640c23a62f3a-a6e65554cc7mr395363766b.36.1718016749771; 
+ Mon, 10 Jun 2024 03:52:29 -0700 (PDT)
+Received: from [10.232.133.65] ([88.128.88.147])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57aae23404fsm7230669a12.89.2024.06.10.03.52.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Jun 2024 03:52:29 -0700 (PDT)
+Message-ID: <3031ceb7-0070-4e71-a1f2-13c78fd6ed64@suse.com>
+Date: Mon, 10 Jun 2024 12:52:27 +0200
 MIME-Version: 1.0
-X-CM-TRANSID: _____wDnL6O3v2ZmfW1wCA--.13218S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Cw43Ar17WFyfWrW3Kry3urg_yoW8GFW8pa
- 1xGa42yr48Jrn5Jw1UCa1kurW8GFZ7WrZ8Kay7Zw18Zry3ZF17ZryavF1jq347XrsYvrWF
- 9r9Ygr13ZF1FyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U6GQgUUUUU=
-X-Originating-IP: [120.244.62.148]
-X-CM-SenderInfo: 5vml4vrl6rljoofrz/1tbiWwX5mWV4JY65qwABsb
+User-Agent: Mozilla Thunderbird
+To: Petr Vorel <pvorel@suse.cz>
+References: <20240607115304.86028-1-pvorel@suse.cz>
+ <6521fb41-3ac4-4487-8cf4-e1faff1e86b7@suse.com>
+ <20240610093226.GA705643@pevik>
+Content-Language: en-US
+In-Reply-To: <20240610093226.GA705643@pevik>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Mon, 10 Jun 2024 13:56:18 +0200
-Subject: [LTP] [PATCH] genload: fix memory corruption in hogvm
+Subject: Re: [LTP] [KIRK PATCH 1/1] README: Document passing environment
+ variables
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,59 +99,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ahuang12@lenovo.com
-Content-Type: text/plain; charset="us-ascii"
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Jiwei Sun <sunjw10@lenovo.com>
+On 6/10/24 11:32, Petr Vorel wrote:
+> Hi Andrea,
+>
+>> Hi!
+>> LGTM
+>> Reviewed-by: Andrea Cervesato <andrea.cervesato@suse.com>
+> Thanks, merged as
+> https://github.com/linux-test-project/kirk/commit/5e8c8064a0b2cee465f2a1dca1cfebef5ade36a2
+>
+> BTW I wonder if recent kirk commits (SSH fixes) are strong enough to release
+> kirk and update LTP. WDYT? Or do you wait for ltx improvements before releasing
+> new version?
+>
+> Kind regards,
+> Petr
 
-With the following command for doing memory stress test,
+There were really minor updates in kirk. We can probably create a new 
+version after more features will be added, but I have no idea when.
 
-  ./genload -v --vm 10 --vm-chunks 4 --vm-bytes 1073741824
-
-Some memory corruption issue was triggered,
-
-  malloc(): corrupted top size
-
-The root cause of the issue is that allocated memory for ptr is less
-than what is actually needed.
-
-Signed-off-by: Jiwei Sun <sunjw10@lenovo.com>
----
- tools/genload/genload.c | 2 +-
- tools/genload/stress.c  | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/tools/genload/genload.c b/tools/genload/genload.c
-index 7f56d5272..9712e7828 100644
---- a/tools/genload/genload.c
-+++ b/tools/genload/genload.c
-@@ -642,7 +642,7 @@ int hogvm(long long forks, long long chunks, long long bytes)
- 			usleep(backoff);
- 
- 			while (1) {
--				ptr = (char **)malloc(chunks * 2);
-+				ptr = (char **)malloc(chunks * 2 * sizeof(char *));
- 				for (j = 0; chunks == 0 || j < chunks; j++) {
- 					if ((ptr[j] =
- 					     (char *)malloc(bytes *
-diff --git a/tools/genload/stress.c b/tools/genload/stress.c
-index 7f56d5272..9712e7828 100644
---- a/tools/genload/stress.c
-+++ b/tools/genload/stress.c
-@@ -642,7 +642,7 @@ int hogvm(long long forks, long long chunks, long long bytes)
- 			usleep(backoff);
- 
- 			while (1) {
--				ptr = (char **)malloc(chunks * 2);
-+				ptr = (char **)malloc(chunks * 2 * sizeof(char *));
- 				for (j = 0; chunks == 0 || j < chunks; j++) {
- 					if ((ptr[j] =
- 					     (char *)malloc(bytes *
--- 
-2.27.0
+Andrea
 
 
 -- 
