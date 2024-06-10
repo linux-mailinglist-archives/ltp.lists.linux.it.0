@@ -1,21 +1,22 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE1E7902009
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 12:58:06 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B452902140
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 14:07:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 867473D0B23
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 12:58:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CEAEC3D0B1B
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 14:07:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A95E13D01A9
- for <ltp@lists.linux.it>; Mon, 10 Jun 2024 12:58:03 +0200 (CEST)
-Authentication-Results: in-5.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id CAC783C9430
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2024 14:07:05 +0200 (CEST)
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
@@ -23,100 +24,90 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CF9F6600D2A
- for <ltp@lists.linux.it>; Mon, 10 Jun 2024 12:58:02 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D2554601E2C
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2024 14:07:03 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 889981F7BE;
- Mon, 10 Jun 2024 10:58:01 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2E97B1F7D8;
+ Mon, 10 Jun 2024 12:07:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1718017081;
+ t=1718021223;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=AIbt5GBZ4NfQ6S+OVGVL7SIprkeFG+ULjJtRGqbwD/g=;
- b=lkZz7BeEnWYNi5ahz8J4aNqJmNWMDuKjc4nXOUwuv9RUK9cYHk+8iGFNmTAF6N0h/ciVLV
- n9Yjn42UvVWbqI7t7IQUyGJ19UdzSWVoslsDJyvUtFTPi9QTFxysdVK495XukG/9X/nNUy
- OI/06HsSjq5aWWWPLj/vK750tlm2gjc=
+ bh=hOkZ1KOtz/qa6c0qlyiXLxOcZm50lY23m5j49EI/pDs=;
+ b=azRcRP93LF5pOTMH+Oy73g/6LT6GNtcW7a3HGVvGBHXdN5silat4KrfcNhGjhDfn1wsAQi
+ B0BwtkY8TeUOBZweC3E7zoyvgf/ay/hdTiaJdJ/EPZtQceXcoO3qDXCXidIoT6s3M6rQnz
+ KAEouy9HLRnFqRVSb4mr4ojuaHoBy7w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1718017081;
+ s=susede2_ed25519; t=1718021223;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=AIbt5GBZ4NfQ6S+OVGVL7SIprkeFG+ULjJtRGqbwD/g=;
- b=j19FcGOgLhLgnbMJS5u4Ii05emtX0PCHIgKgzkB23wtwfHASa7+q/hyw+NDVWyH+hxt7ul
- 5irwSQz+mlGaksBA==
+ bh=hOkZ1KOtz/qa6c0qlyiXLxOcZm50lY23m5j49EI/pDs=;
+ b=GngQb7d/KuVPFpGGf19OuS1/aXewUUnqEz6jor3NNyZK0ROLZ4oyeGpGq8dZ+yJL68hd3M
+ iVAqM5RZ+3IEj3Cg==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=lkZz7BeE;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=j19FcGOg
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1718017081;
+ t=1718021223;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=AIbt5GBZ4NfQ6S+OVGVL7SIprkeFG+ULjJtRGqbwD/g=;
- b=lkZz7BeEnWYNi5ahz8J4aNqJmNWMDuKjc4nXOUwuv9RUK9cYHk+8iGFNmTAF6N0h/ciVLV
- n9Yjn42UvVWbqI7t7IQUyGJ19UdzSWVoslsDJyvUtFTPi9QTFxysdVK495XukG/9X/nNUy
- OI/06HsSjq5aWWWPLj/vK750tlm2gjc=
+ bh=hOkZ1KOtz/qa6c0qlyiXLxOcZm50lY23m5j49EI/pDs=;
+ b=azRcRP93LF5pOTMH+Oy73g/6LT6GNtcW7a3HGVvGBHXdN5silat4KrfcNhGjhDfn1wsAQi
+ B0BwtkY8TeUOBZweC3E7zoyvgf/ay/hdTiaJdJ/EPZtQceXcoO3qDXCXidIoT6s3M6rQnz
+ KAEouy9HLRnFqRVSb4mr4ojuaHoBy7w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1718017081;
+ s=susede2_ed25519; t=1718021223;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=AIbt5GBZ4NfQ6S+OVGVL7SIprkeFG+ULjJtRGqbwD/g=;
- b=j19FcGOgLhLgnbMJS5u4Ii05emtX0PCHIgKgzkB23wtwfHASa7+q/hyw+NDVWyH+hxt7ul
- 5irwSQz+mlGaksBA==
+ bh=hOkZ1KOtz/qa6c0qlyiXLxOcZm50lY23m5j49EI/pDs=;
+ b=GngQb7d/KuVPFpGGf19OuS1/aXewUUnqEz6jor3NNyZK0ROLZ4oyeGpGq8dZ+yJL68hd3M
+ iVAqM5RZ+3IEj3Cg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 62DF813AA8;
- Mon, 10 Jun 2024 10:58:01 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0EE7513A7F;
+ Mon, 10 Jun 2024 12:07:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iWlSFTncZmYpBwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Mon, 10 Jun 2024 10:58:01 +0000
-Date: Mon, 10 Jun 2024 12:57:59 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id F/y/AmfsZmbeGwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Mon, 10 Jun 2024 12:07:03 +0000
+Date: Mon, 10 Jun 2024 14:07:01 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.com>
-Message-ID: <20240610105759.GA710648@pevik>
-References: <20240607115304.86028-1-pvorel@suse.cz>
- <6521fb41-3ac4-4487-8cf4-e1faff1e86b7@suse.com>
- <20240610093226.GA705643@pevik>
- <3031ceb7-0070-4e71-a1f2-13c78fd6ed64@suse.com>
+Message-ID: <20240610120701.GA723984@pevik>
+References: <20240607141131.111470-1-pvorel@suse.cz>
+ <ad43b512-ddf9-4826-97b8-d3652a51c8cc@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <3031ceb7-0070-4e71-a1f2-13c78fd6ed64@suse.com>
+In-Reply-To: <ad43b512-ddf9-4826-97b8-d3652a51c8cc@suse.com>
 X-Spam-Level: 
-X-Spamd-Result: default: False [-3.71 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
  HAS_REPLYTO(0.30)[pvorel@suse.cz];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; REPLYTO_EQ_FROM(0.00)[]; ARC_NA(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; MISSING_XM_UA(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCPT_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ MISSING_XM_UA(0.00)[]; RCVD_TLS_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,suse.cz:replyto];
- RCVD_COUNT_TWO(0.00)[2]; DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 889981F7BE
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: -3.71
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_TWO(0.00)[2]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,imap1.dmz-prg2.suse.org:helo]; 
+ REPLYTO_EQ_FROM(0.00)[]
+X-Spam-Score: -3.50
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [KIRK PATCH 1/1] README: Document passing environment
- variables
+Subject: Re: [LTP] [PATCH 0/2] doc: Add hyperlinks
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,33 +126,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> On 6/10/24 11:32, Petr Vorel wrote:
-> > Hi Andrea,
+Hi Andrea,
 
-> > > Hi!
-> > > LGTM
-> > > Reviewed-by: Andrea Cervesato <andrea.cervesato@suse.com>
-> > Thanks, merged as
-> > https://github.com/linux-test-project/kirk/commit/5e8c8064a0b2cee465f2a1dca1cfebef5ade36a2
+> Hi!
 
-> > BTW I wonder if recent kirk commits (SSH fixes) are strong enough to release
-> > kirk and update LTP. WDYT? Or do you wait for ltx improvements before releasing
-> > new version?
-
-> > Kind regards,
-> > Petr
-
-> There were really minor updates in kirk. We can probably create a new
-> version after more features will be added, but I have no idea when.
-
-OK, thanks for info. From the description they looks as a real bug fixes which
-would users appreciated.
+> This was (indeed) a required job.
+Thanks, merged!
 
 Kind regards,
 Petr
-
-> Andrea
-
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
