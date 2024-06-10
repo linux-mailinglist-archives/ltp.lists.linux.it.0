@@ -1,96 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5EB49020E1
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 13:57:13 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC5329020D3
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 13:56:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 91E353D0B36
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 13:57:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5D73A3D0B32
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 13:56:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A43C83C74EA
- for <ltp@lists.linux.it>; Sun,  9 Jun 2024 15:01:38 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=vineethr@linux.ibm.com;
- receiver=lists.linux.it)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 30731200C27
- for <ltp@lists.linux.it>; Sun,  9 Jun 2024 15:01:35 +0200 (CEST)
-Received: from pps.filterd (m0353727.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 459D1Ui3014933
- for <ltp@lists.linux.it>; Sun, 9 Jun 2024 13:01:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=from
- :to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=pp1; bh=gDnUnvHV7XNzq/0NKDtBowks5I
- 7bL5BvCJsOAJ1trZc=; b=cuzmsnJMtKbNqknwjCsL/YG6Tl0YynlZuSXvTYY6RQ
- h6H+bwuj2l1j3amDZeAPlcN6GoTTcBmk+Dgc+LlN0SqdTi7UBAOCTPNFyC1ldbYJ
- ebX1YUFRl5xTlp89U76MykqPPm1nSO8i8KKM5C34mSyv7i94PA7VXTvJsv5bNxoc
- jRH9SbuiiAK/A9N1+jGFClNnnP7FK0jQcp8FRi5KlGWZTOkDUKFe72z4j587/BgO
- /NpbVM+kq1v7KPjHNM8fPIB/8k69ojSc944JBbN6mn8wYT+mBJmvf7MjxD2jNHo6
- frJoaFYGi4pwnkrVBGNjc2qIN45JK5HjlWOyj85P54Hw==
-Received: from ppma11.dal12v.mail.ibm.com
- (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3yncve8042-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <ltp@lists.linux.it>; Sun, 09 Jun 2024 13:01:32 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
- by ppma11.dal12v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id
- 459CGUr0008700 for <ltp@lists.linux.it>; Sun, 9 Jun 2024 13:01:31 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
- by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 3yn4b2sv2t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <ltp@lists.linux.it>; Sun, 09 Jun 2024 13:01:31 +0000
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com
- [10.20.54.102])
- by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 459D1Q3B55902584
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sun, 9 Jun 2024 13:01:28 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 374452004B;
- Sun,  9 Jun 2024 13:01:26 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D6D3420063;
- Sun,  9 Jun 2024 13:01:24 +0000 (GMT)
-Received: from li-fdfde5cc-27d0-11b2-a85c-e224154bf6d4.ibm.com.com (unknown
- [9.43.45.7]) by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Sun,  9 Jun 2024 13:01:24 +0000 (GMT)
-From: Madadi Vineeth Reddy <vineethr@linux.ibm.com>
-To: ltp@lists.linux.it
-Date: Sun,  9 Jun 2024 18:31:20 +0530
-Message-ID: <20240609130120.62790-1-vineethr@linux.ibm.com>
-X-Mailer: git-send-email 2.43.2
+ by picard.linux.it (Postfix) with ESMTPS id C11113D0B1E
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2024 10:56:36 +0200 (CEST)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 44D1F20096C
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2024 10:56:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=+z+Yu
+ pvG3z76aV5xcuw30gT66Ld+Bu8kDQKU75NV47Y=; b=PW3gjCCGn/4go/Vv2omAx
+ QaU8PvHY3mDeKc+j6039u9VFqXC6U5cTTMqjWwZm0SMtep2XFFVTL+y+i4vrrOT/
+ kX4xGFNHOAXkb8zJSYZz4kGMDlyXixJwERFlLaF8p/uZH/FsESOolquMlEN68ZSV
+ vbv+TFAqJEseRke2UrD1Co=
+Received: from localhost.localdomain (unknown [120.244.62.148])
+ by gzga-smtp-mta-g1-0 (Coremail) with SMTP id _____wDnL6O3v2ZmfW1wCA--.13218S2;
+ Mon, 10 Jun 2024 16:56:25 +0800 (CST)
+From: Jiwei Sun <sjiwei@163.com>
+To: ltp@lists.linux.it,
+	sunjw10@lenovo.com
+Date: Mon, 10 Jun 2024 16:56:22 +0800
+Message-Id: <20240610085622.87076-1-sjiwei@163.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: f48caVgDX3iSF90HL_iykA2aQwUTOWLE
-X-Proofpoint-GUID: f48caVgDX3iSF90HL_iykA2aQwUTOWLE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-09_09,2024-06-06_02,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0
- lowpriorityscore=0 mlxlogscore=913 impostorscore=0 spamscore=0
- suspectscore=0 malwarescore=0 clxscore=1011 priorityscore=1501 bulkscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405170001 definitions=main-2406090102
+X-CM-TRANSID: _____wDnL6O3v2ZmfW1wCA--.13218S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Cw43Ar17WFyfWrW3Kry3urg_yoW8GFW8pa
+ 1xGa42yr48Jrn5Jw1UCa1kurW8GFZ7WrZ8Kay7Zw18Zry3ZF17ZryavF1jq347XrsYvrWF
+ 9r9Ygr13ZF1FyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U6GQgUUUUU=
+X-Originating-IP: [120.244.62.148]
+X-CM-SenderInfo: 5vml4vrl6rljoofrz/1tbiWwX5mWV4JY65qwABsb
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
- autolearn=disabled version=4.0.0
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Mon, 10 Jun 2024 13:57:00 +0200
-Subject: [LTP] [PATCH] ebizzy: Fix a typo in README
+X-Mailman-Approved-At: Mon, 10 Jun 2024 13:56:18 +0200
+Subject: [LTP] [PATCH] genload: fix memory corruption in hogvm
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,34 +60,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Madadi Vineeth Reddy <vineethr@linux.ibm.com>
+Cc: ahuang12@lenovo.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fixed a spelling mistake in the README ("anre" to "are").
+From: Jiwei Sun <sunjw10@lenovo.com>
 
-Signed-off-by: Madadi Vineeth Reddy <vineethr@linux.ibm.com>
+With the following command for doing memory stress test,
+
+  ./genload -v --vm 10 --vm-chunks 4 --vm-bytes 1073741824
+
+Some memory corruption issue was triggered,
+
+  malloc(): corrupted top size
+
+The root cause of the issue is that allocated memory for ptr is less
+than what is actually needed.
+
+Signed-off-by: Jiwei Sun <sunjw10@lenovo.com>
 ---
- utils/benchmark/ebizzy-0.3/README | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/genload/genload.c | 2 +-
+ tools/genload/stress.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/utils/benchmark/ebizzy-0.3/README b/utils/benchmark/ebizzy-0.3/README
-index 6552f420d..57797d3b2 100644
---- a/utils/benchmark/ebizzy-0.3/README
-+++ b/utils/benchmark/ebizzy-0.3/README
-@@ -11,7 +11,7 @@ Compiling
- ---------
+diff --git a/tools/genload/genload.c b/tools/genload/genload.c
+index 7f56d5272..9712e7828 100644
+--- a/tools/genload/genload.c
++++ b/tools/genload/genload.c
+@@ -642,7 +642,7 @@ int hogvm(long long forks, long long chunks, long long bytes)
+ 			usleep(backoff);
  
- First configure ebizzy for your platform by typing "./configure".
--Currently Linux and Solaris anre supported.  Then type "make".  The
-+Currently Linux and Solaris are supported.  Then type "make".  The
- resulting binary will be named "ebizzy".
+ 			while (1) {
+-				ptr = (char **)malloc(chunks * 2);
++				ptr = (char **)malloc(chunks * 2 * sizeof(char *));
+ 				for (j = 0; chunks == 0 || j < chunks; j++) {
+ 					if ((ptr[j] =
+ 					     (char *)malloc(bytes *
+diff --git a/tools/genload/stress.c b/tools/genload/stress.c
+index 7f56d5272..9712e7828 100644
+--- a/tools/genload/stress.c
++++ b/tools/genload/stress.c
+@@ -642,7 +642,7 @@ int hogvm(long long forks, long long chunks, long long bytes)
+ 			usleep(backoff);
  
- Running
+ 			while (1) {
+-				ptr = (char **)malloc(chunks * 2);
++				ptr = (char **)malloc(chunks * 2 * sizeof(char *));
+ 				for (j = 0; chunks == 0 || j < chunks; j++) {
+ 					if ((ptr[j] =
+ 					     (char *)malloc(bytes *
 -- 
-2.35.3
+2.27.0
 
 
 -- 
