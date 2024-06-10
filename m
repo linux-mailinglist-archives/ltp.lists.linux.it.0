@@ -2,21 +2,20 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3461590273C
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 18:54:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79E49902742
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 18:56:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E53C23D0B58
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 18:54:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 248923D0B40
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2024 18:56:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1DC193D0B33
- for <ltp@lists.linux.it>; Mon, 10 Jun 2024 18:54:44 +0200 (CEST)
-Authentication-Results: in-3.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 7B3513D0B33
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2024 18:55:52 +0200 (CEST)
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
@@ -24,30 +23,30 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7627F1A00362
- for <ltp@lists.linux.it>; Mon, 10 Jun 2024 18:54:42 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F203E2000AF
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2024 18:55:51 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7B3C521F03;
- Mon, 10 Jun 2024 16:54:42 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2F53821F0B;
+ Mon, 10 Jun 2024 16:55:51 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 22DE113A51;
- Mon, 10 Jun 2024 16:54:42 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D05A613A51;
+ Mon, 10 Jun 2024 16:55:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id dAN/B9IvZ2bSbwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Mon, 10 Jun 2024 16:54:42 +0000
-Date: Mon, 10 Jun 2024 18:54:40 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id zdykMRYwZ2YRcAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Mon, 10 Jun 2024 16:55:50 +0000
+Date: Mon, 10 Jun 2024 18:55:49 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: "Bird, Tim" <Tim.Bird@sony.com>
-Message-ID: <20240610165440.GA780610@pevik>
+Message-ID: <20240610165549.GB780610@pevik>
 References: <20240607142423.116285-2-pvorel@suse.cz>
  <8043628a6eed94e788f9fedbf6c8b264ebfbae15.camel@linuxfoundation.org>
  <ZmMrBnkIXKfrF8Xv@yuki>
@@ -63,19 +62,19 @@ Content-Disposition: inline
 In-Reply-To: <SA3PR13MB63722C60AE789DABBCB3A311FDC62@SA3PR13MB6372.namprd13.prod.outlook.com>
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
 X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 7B3C521F03
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 2F53821F0B
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 Subject: Re: [LTP] [Automated-testing] [RFC PATCH 1/3] runltp: Deprecate,
  add info about kirk
@@ -99,30 +98,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Tim,
+Hi all,
 
-> In that case, would kirk or python be required on the target?
-> I presume that ltx runs on the target, and that is it a native app?
-
-Yes.
-
-> What are its dependencies?
-
-IMHO no dependencies, except C toolchain. Our openSUSE spec file [1] list
-nothing.
-
-Running make on sources [2] show just:
-
-cc -pedantic -W -Wall -Imsgpack \
-	msgpack/message.c msgpack/unpack.c ltx.c main.c -o ltx
-
-I.e. just plain source code without dependencies.
+looking on the discussion, we should have a wiki page which would explain the
+benefits we write here. And we should put this link under the deprecation
+message.
 
 Kind regards,
 Petr
-
-[1] https://build.opensuse.org/projects/benchmark:ltp:devel/packages/ltx/files/ltx.spec?expand=1
-[2] https://github.com/linux-test-project/ltx/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
