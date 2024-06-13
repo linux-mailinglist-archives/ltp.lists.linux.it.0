@@ -2,84 +2,90 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 411A9907DC0
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jun 2024 23:02:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21696907F54
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jun 2024 01:20:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1718312522; h=date :
- in-reply-to : mime-version : references : message-id : to : subject :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1718320855; h=to : date :
+ message-id : in-reply-to : references : mime-version : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=JPC8rwzLorzy+xTmSMf06n1Auuf7n2usBOuH4Zx9YIE=;
- b=UTDURDRqED6h/Ds200JSn808/PMvVUflwTLLY4FDv5u/G5h4ZnrTs0nidSx+WShO8ir69
- NiVIa55S7vWDcWwfrTGRWj8qSLIDe42YHNKPgX15eLSmqEIYFOfSvfOsNysyCXvPdDeCdNM
- ziyRw/qKVEoKlMFQhFKYk7db8Go9/xo=
+ bh=807kZd3Tqdlbb2hK94gWUSqtwS7g/XqyIzhbzTeIVSw=;
+ b=bUF76HySx/MbxP6WCwLD/8itN+3M2lKQgmQv8pCUFU30pCfT75r2qneLbxiHqCxCcD52a
+ 3emBPnYg16AN9dCDqqgYs7mg4luLRe988y1kw+b7nIRGTSmgbmAag+RLAfniujmKM6NwoX+
+ J+HV1+P+LXJBzG/JD/ofkrqeQCfnu7o=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EA8793D0C6B
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jun 2024 23:02:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C50803D0C6A
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jun 2024 01:20:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 053903D0C62
- for <ltp@lists.linux.it>; Thu, 13 Jun 2024 23:01:07 +0200 (CEST)
-Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
- [IPv6:2607:f8b0:4864:20::104a])
+ by picard.linux.it (Postfix) with ESMTPS id 749893CF635
+ for <ltp@lists.linux.it>; Fri, 14 Jun 2024 01:20:53 +0200 (CEST)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 755B7600BFD
- for <ltp@lists.linux.it>; Thu, 13 Jun 2024 23:01:07 +0200 (CEST)
-Received: by mail-pj1-x104a.google.com with SMTP id
- 98e67ed59e1d1-2c2e7927a77so1309144a91.3
- for <ltp@lists.linux.it>; Thu, 13 Jun 2024 14:01:07 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 96D4B1000C14
+ for <ltp@lists.linux.it>; Fri, 14 Jun 2024 01:20:52 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a6f177b78dcso212611066b.1
+ for <ltp@lists.linux.it>; Thu, 13 Jun 2024 16:20:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1718312466; x=1718917266; darn=lists.linux.it;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=7tcpVP6ZIV5BKbOnCsVfRUmjz6PTJVpdIFbEniVmaMw=;
- b=I0/akAQJj/403MlApsI/J3y9cPYHk8wpX7RS1gCOfq4E7HMmRUj55MIqDOb3CGBnEU
- lGIwkRjU4CqbEtC8N5QaG8vnr1miVSKvB92vpMXPHRFBFCitpohf8RPP+dzMgEULgNAC
- 6SiP0DrUowvHHm2i1ijc8qKp2o2RBFakdWSWcyLp8MMhkrpMAIZ5HJ8AsKWLwP1DEDfp
- /5aSbttfh2VU/jJQ6Bf+JQ3mkWZfP1lWLyvWR8pEllvlEKMuv4WHUzEwSAfu/sSIA8iQ
- DxGmOe2e/deYa+KTqOzsvzvEEhOmZXTywN3RlzaWYIwHbiQrqMvWMtNAt80zXU9CSh+j
- /BCw==
+ d=suse.com; s=google; t=1718320851; x=1718925651; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=l3DeCCFs1MNYjJx7ZGkzjFx3knlNVu1gQH0Kf65zpwY=;
+ b=TRPk8D7lLPRwy6eqZdIA8+zOqm1AIN5vdveVAZVu/i4sVf6urv16Kk3rc3xvE9OOUr
+ xRac5mZXIhgcmeOw5/XfGgXhAKBqGskLRGRy7p8Le9yJ4purqIq5y2CX1WhZYCb7Xl30
+ xG33O+gV9JnYn7TjXm4eNINUBYiXCcv6VC4ct9h9VOBM9epPVpxT0AVkZWZcSRsduRuj
+ /XF7IdU8ZI1SrQwqht7/2d87w81hyN0tBVNQNkzDsOeEm17IDhp/cxN65vRupb+crDlN
+ PoQ91LedUXys2cNXROyHN1gHIU+0TAj4WtR17YQiSTYy4I7bnt1D6IkqFs2nr1d6TB6m
+ aaVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718312466; x=1718917266;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7tcpVP6ZIV5BKbOnCsVfRUmjz6PTJVpdIFbEniVmaMw=;
- b=nfHUiWnRWP9/EK6UgG/7VbSXgdFt0Drvqwe2t/SiA7ViCcF6xv2pZNIfd4J3VHnLFW
- IbRH3Xl9iXDMVQIdIkm6wuoeFlz9O/0KBJ+Mq2K1Sn+6k8MMHyxuYvU3K3Nl6vN8IIV4
- Tk5osfobCy7ZtglCiv3fErD8RgWeY/ISTJh0VbQexbvE5qTiQO07AKcUNfhSc17kOoS+
- W69sQ7zNK22IJ4Uyvgxzslpd7nK2CMqINUix/t9Mtik0cdjAAMiyeprDEgA57glKzjp+
- /NdkzrY2EkoBB0pAhulzvgtR6QbsSjm37W1JFLY7glQXG67XZIZavMIoQlEXTevIHtNV
- aOYA==
-X-Gm-Message-State: AOJu0Yw0isYbt37JuhWbxSBGr4QcV56ow+aUkttwjZ7vEz8eCKgKHrnC
- +x/4T9KCxkFcGc7lE6M0SZS/70wYth81Vxa+C+7Ti0bZRJsE1NvKoOHPdnmkhQes0rtKYN9pReg
- OUU080z8G3ECtF8JaRgjSig4E77hfeg6XpLCVkWriBEffzbz8b1PVDZPKwe0vchs0pRkwUag5tc
- SjCs4Nm+Wj3bbf88/oW2gPGddjVpo=
-X-Google-Smtp-Source: AGHT+IEiKwO4/rWU7zBAdLls+5f4oqZuRI6LeAQ213l/S4QJz4ZgGHR83MZbN3kAMKXXUSyxWJ++/DO5dXg=
-X-Received: from edliaw.c.googlers.com ([fda3:e722:ac3:cc00:24:72f4:c0a8:305d])
- (user=edliaw job=sendgmr) by 2002:a17:90a:c711:b0:2c2:c661:fa3e with SMTP id
- 98e67ed59e1d1-2c4dbd30a72mr21664a91.6.1718312465519; Thu, 13 Jun 2024
- 14:01:05 -0700 (PDT)
-Date: Thu, 13 Jun 2024 21:00:59 +0000
-In-Reply-To: <20240613210059.352767-1-edliaw@google.com>
-Mime-Version: 1.0
-References: <20240613210059.352767-1-edliaw@google.com>
-X-Mailer: git-send-email 2.45.2.627.g7a2c4fd464-goog
-Message-ID: <20240613210059.352767-3-edliaw@google.com>
+ d=1e100.net; s=20230601; t=1718320851; x=1718925651;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=l3DeCCFs1MNYjJx7ZGkzjFx3knlNVu1gQH0Kf65zpwY=;
+ b=rCU+jCo2zt0aPMh9MfLyFmuV2Et5MhfugMZfg74AT23JqfvcjY6QziuayPDUM31dpc
+ j0QLJGcXu92zLw7z5OilaAiZOB1o846iA4b67sAYqWPIwBYYuCve8jgAEylXPbeq/hIm
+ nrGhygucwc3nYof/zJOFPqUoMzfkf5DQ5srPbVH2qPs76Vgkq6p6Q+MZtA6d3PVHkmQJ
+ pb347d11cSU3jMfiBl4KSYwkr2vy6kvhgCnHIWEaaXzsWdTiuOSh89rqrIoGC3fgffMD
+ bwEPBQz9bqrE6qmxRxAlxSAJ2SbQ07KcM90b06WDfrr8Ye7ypeKCNeNQakh36MQ60MN2
+ ByZg==
+X-Gm-Message-State: AOJu0Yzcsq763WZKbueeFcEo2idIc7GNmTnLGCFzcjAs+60DqwWN44/o
+ PVs3u84l2ZjFYlQXxYQmbG7/xiA5i+6op/IdlYTbsGBX8gvE/zjsmJLj2c05+a9Nyn1xnaLUV9M
+ =
+X-Google-Smtp-Source: AGHT+IFDimRBUskrCkpi/Z8B76cRn9R5dSGKwAYXwa4PHytvQp8CR1yW55eMCu4c/bwCvwm9w+pOmg==
+X-Received: by 2002:a17:907:d406:b0:a6f:6292:2425 with SMTP id
+ a640c23a62f3a-a6f629224e4mr39411566b.38.1718320851265; 
+ Thu, 13 Jun 2024 16:20:51 -0700 (PDT)
+Received: from localhost ([2a07:de40:b240:0:dc1a:df90:dc1a:df90])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a6f56da3f50sm120696966b.14.2024.06.13.16.20.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Jun 2024 16:20:50 -0700 (PDT)
 To: ltp@lists.linux.it
-X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
- USER_IN_DEF_DKIM_WL shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+Date: Thu, 13 Jun 2024 19:20:44 -0400
+Message-Id: <20240613232044.7418-1-wegao@suse.com>
+X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20240530044029.15474-1-wegao@suse.com>
+References: <20240530044029.15474-1-wegao@suse.com>
+MIME-Version: 1.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4 2/2] sched/starvation: Choose from available cpus
+Subject: [LTP] [PATCH v2] msync04.c: Use direct IO to verify the data is
+ stored on disk
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,60 +97,106 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Edward Liaw via ltp <ltp@lists.linux.it>
-Reply-To: Edward Liaw <edliaw@google.com>
-Cc: kernel-team@android.com
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
+Cc: Jan Kara <jack@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Edward Liaw via ltp <ltp@lists.linux.it>
-
-Use the first available cpu in the sched_getaffinity set.
-
-This test was failing as a 32bit test for some arm architectures where
-cpu 0 does not support 32bit applications.
-
-Signed-off-by: Edward Liaw <edliaw@google.com>
+Signed-off-by: Wei Gao <wegao@suse.com>
+Suggested-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- .../kernel/sched/cfs-scheduler/starvation.c    | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ testcases/kernel/syscalls/msync/msync04.c | 55 +++++++++++++----------
+ 1 file changed, 32 insertions(+), 23 deletions(-)
 
-diff --git a/testcases/kernel/sched/cfs-scheduler/starvation.c b/testcases/kernel/sched/cfs-scheduler/starvation.c
-index 1d0d5ff97..0f876880d 100644
---- a/testcases/kernel/sched/cfs-scheduler/starvation.c
-+++ b/testcases/kernel/sched/cfs-scheduler/starvation.c
-@@ -49,10 +49,26 @@ again:
- static void setup(void)
+diff --git a/testcases/kernel/syscalls/msync/msync04.c b/testcases/kernel/syscalls/msync/msync04.c
+index 1718bd7dc..e3478f690 100644
+--- a/testcases/kernel/syscalls/msync/msync04.c
++++ b/testcases/kernel/syscalls/msync/msync04.c
+@@ -11,6 +11,7 @@
+  * is no longer dirty after msync() call.
+  */
+ 
++#define _GNU_SOURCE
+ #include <errno.h>
+ #include "tst_test.h"
+ 
+@@ -43,10 +44,34 @@ static uint64_t get_dirty_bit(void *data)
+ 	return pageflag_entry & (1ULL << 4);
+ }
+ 
+-static void test_msync(void)
++static void verify_mmaped(void)
++{
++	char *buffer = SAFE_MEMALIGN(getpagesize(), getpagesize());
++
++	tst_res(TINFO, "Haven't seen dirty bit so we check content of file instead");
++	test_fd = SAFE_OPEN("msync04/testfile", O_RDONLY | O_DIRECT);
++	SAFE_READ(0, test_fd, buffer, getpagesize());
++
++	if (buffer[8] == 'B')
++		tst_res(TCONF, "Write was too fast, couldn't test msync()");
++	else
++		tst_res(TFAIL, "write file failed");
++
++	free(buffer);
++}
++
++static void verify_dirty(void)
  {
- 	cpu_set_t mask;
-+	int cpu = 0;
-+	long ncpus = tst_ncpus_conf();
+-	char buffer[20];
++	TST_EXP_PASS_SILENT(msync(mmaped_area, pagesize, MS_SYNC));
++
++	if (TST_RET == 0 && !get_dirty_bit(mmaped_area))
++		tst_res(TPASS, "msync() verify dirty page ok");
++	else
++		tst_res(TFAIL, "msync() verify dirty page failed");
++}
  
- 	CPU_ZERO(&mask);
++static void test_msync(void)
++{
+ 	test_fd = SAFE_OPEN("msync04/testfile", O_CREAT | O_TRUNC | O_RDWR,
+ 		0644);
+ 	SAFE_WRITE(SAFE_WRITE_ANY, test_fd, STRING_TO_WRITE, sizeof(STRING_TO_WRITE) - 1);
+@@ -55,27 +80,11 @@ static void test_msync(void)
+ 	SAFE_CLOSE(test_fd);
+ 	mmaped_area[8] = 'B';
  
--	CPU_SET(0, &mask);
-+	/* Restrict test to a single cpu */
-+	if (!sched_getaffinity(0, sizeof(mask), &mask))
-+		tst_brk(TBROK | TERRNO, "sched_getaffinity() failed");
+-	if (!get_dirty_bit(mmaped_area)) {
+-		tst_res(TINFO, "Not see dirty bit so we check content of file instead");
+-		test_fd = SAFE_OPEN("msync04/testfile", O_RDONLY);
+-		SAFE_READ(0, test_fd, buffer, 9);
+-		if (buffer[8] == 'B')
+-			tst_res(TCONF, "write file ok but msync couldn't be tested"
+-				" because the storage was written to too quickly");
+-		else
+-			tst_res(TFAIL, "write file failed");
+-	} else {
+-		if (msync(mmaped_area, pagesize, MS_SYNC) < 0) {
+-			tst_res(TFAIL | TERRNO, "msync() failed");
+-			goto clean;
+-		}
+-		if (get_dirty_bit(mmaped_area))
+-			tst_res(TFAIL, "msync() failed to write dirty page despite succeeding");
+-		else
+-			tst_res(TPASS, "msync() working correctly");
+-	}
+-
+-clean:
++	if (!get_dirty_bit(mmaped_area))
++		verify_mmaped();
++	else
++		verify_dirty();
 +
-+	if (CPU_COUNT(&mask) == 0)
-+		tst_brk(TBROK, "No cpus available");
-+
-+	while (CPU_ISSET(cpu, &mask) == 0 && cpu < ncpus)
-+		cpu++;
-+
-+	CPU_ZERO(&mask);
-+
-+	CPU_SET(cpu, &mask);
-+
-+	tst_res(TINFO, "Setting affinity to CPU %d", cpu);
- 
- 	if (!sched_setaffinity(0, sizeof(mask), &mask))
- 		tst_brk(TBROK | TERRNO, "sched_setaffinity() failed");
+ 	SAFE_MUNMAP(mmaped_area, pagesize);
+ 	mmaped_area = NULL;
+ }
 -- 
-2.45.2.627.g7a2c4fd464-goog
+2.35.3
 
 
 -- 
