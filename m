@@ -2,82 +2,86 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE34090F403
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jun 2024 18:28:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F7C690F404
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jun 2024 18:28:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1718814505; h=date :
- mime-version : message-id : to : subject : list-id : list-unsubscribe
- : list-archive : list-post : list-help : list-subscribe : from :
- reply-to : cc : content-type : content-transfer-encoding : sender :
- from; bh=M1t0BI8qNm0fgKRmEsZDygxh2K0jt9ubqr34BXphMD0=;
- b=gf1x/d26cyUpaYxeBK+KV3IO7pir7BEWKTkhvZ4V/8eYiCcPbYOO0IEN3AE/ePR4yZ3NL
- i/R5vAPtYK3WMw1s63JDsCRT3hhoXCmSZGhJ7QFi/n2vIwrT0z93gt4Tbf1VCmzDfesYzBp
- KW8p19Y3HBslAmgYnMGUDcASqZ+bTf0=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1718814535; h=date :
+ in-reply-to : mime-version : references : message-id : to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=P3LYPeA2PBm63ZI6SuGbkG6PscLaRSTBjgS7zUdCPS8=;
+ b=aM6pfNZcngKf1LTIDLgaTiTsc0G/fpD3mRwELhID3Af4FcjSIUHeB8wCTH7stszJ5EuS6
+ PDLrq39Tc1FKa6/7OsMr6/G1BHEms7hGw5mm+G9ZQvRQItq9pJ1i7Gi8X9JzjMOxQjsGkne
+ pPnPNsMMQIESF6fCz3dBZb/lY0Yz44M=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 80E693D0DD1
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jun 2024 18:28:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BCFA03D0DD2
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jun 2024 18:28:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 14C383D081B
- for <ltp@lists.linux.it>; Wed, 19 Jun 2024 18:28:12 +0200 (CEST)
-Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
- [IPv6:2607:f8b0:4864:20::54a])
+ by picard.linux.it (Postfix) with ESMTPS id 130303D081B
+ for <ltp@lists.linux.it>; Wed, 19 Jun 2024 18:28:14 +0200 (CEST)
+Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
+ [IPv6:2607:f8b0:4864:20::1049])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0969C1000CE0
- for <ltp@lists.linux.it>; Wed, 19 Jun 2024 18:28:11 +0200 (CEST)
-Received: by mail-pg1-x54a.google.com with SMTP id
- 41be03b00d2f7-6507e2f0615so6290194a12.1
- for <ltp@lists.linux.it>; Wed, 19 Jun 2024 09:28:11 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A880314098D3
+ for <ltp@lists.linux.it>; Wed, 19 Jun 2024 18:28:13 +0200 (CEST)
+Received: by mail-pj1-x1049.google.com with SMTP id
+ 98e67ed59e1d1-2c2dfbff88cso17217a91.2
+ for <ltp@lists.linux.it>; Wed, 19 Jun 2024 09:28:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1718814490; x=1719419290; darn=lists.linux.it;
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=h/OUUVkASrbAhicHoFKpSqUdby05sZ1NuLCLGIC+jfw=;
- b=31gZkPAhvdUuQFi15hbIVdlKEwoNXuMywf4Rcjt6UISm2Z/7v7ngEVgS1ccFpvZA7f
- CJf58GGwc20ToMjIfjJ8rYbxkW9JswjNPuoxPv2w29PcwI4a3liM015+tyzDWBjIx+6B
- KSPCDeWsyY/HplG5Nn9Kw1tv58uwCkxB9hud7726g4TQ3RUm6/ZWYzkpNFyGU4C4QH/e
- iUkot2caY0RiZJBWy2Sm5xTKWYpQHMUH+EozpQIm6nmapGEd3G136tK31A3eMiK68d5i
- nOHWtdvYVLgfrk0lMS3xiIS1QIpA667Pt2/jDCG1s/fY2dqqzhFa/D7ETzkm4QH0bgq3
- Nk0g==
+ d=google.com; s=20230601; t=1718814492; x=1719419292; darn=lists.linux.it;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=RJb1ZWagckoOz9UhcjLsTz5b9JU0HY0YqbonVprVfYM=;
+ b=gPrJ+uqQ0Fo+8CQQTBv9oGLOzWFyW1BwTSzV5lDyXaXFQ2eP0MIVAXKYxTp2sj65x9
+ Muk04oAVb/lN6giS6SAh5NshFs/PzDTaumptKywo11FsojKItn4dYgIzEGhxO3ylrW4d
+ zEnqXMMkpgsCnqEWUS71w5VtygkXj2ZY3tykp8ifyVJfbhlyrCnWgFn8OLrBjZQo/NQN
+ reS7Xznwey11SJ5o7yTRT/u9P69ZIXBwXuQZUvfNe2IhMITD2FW9wuOSp7lc5uE1lvuJ
+ BApdW4pxNLvvdr1mVKjmygsQK9VpbdQLogWHQ5AGWuRzuEFC7wutZjyKQ6tQ1WbdD1h0
+ 9VIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718814490; x=1719419290;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=h/OUUVkASrbAhicHoFKpSqUdby05sZ1NuLCLGIC+jfw=;
- b=BMuBZ0donSL++TXIwmrw/kn1MOn9Hsc5INsLXQUzM4Gjujh2ubbxZEHPzO4cucU4GQ
- B4TbCAEPRKr6gQ3QNv4yuzUbbEZj71z1mp9ayx8v4mj1erB9IzV2lFuzvqZ1wNM38jUB
- LJWS++KtfE/nwcJmZlubxirDxv7sYRst/EnCTZD+WaSqqQuOfV8a+02o2ogJ9fygrOgW
- eJSXBe3aoKaZ3PAyDULiHAEsjbTps8ctzyKdChQwNo6IZQaE3cakocxMeXa6YGzkpEBE
- 9XnIVfGwFhBm1FFSovcOCvSwb68LnB8zKmAUzPQZp7/ceFbbfeLfw3XRlkj8i4A762kJ
- 0Bpw==
-X-Gm-Message-State: AOJu0Yy/jxCgN1BvYyUrJf3EYtoKrPF59waKCHl17Dhulj7iZ6qMdVVH
- KJZnA5xaHNXIhNGICbVXWTs89CVuEQh1P23V91bUOlCJNObYkQfevgVXWrCFMEv09AtkBWeZyck
- F7upkdCQfcYdA1ro2a4M8wOiziDwAIxIml1sObTcdR9WGu7Pvibajs6OUVvL4iNW50rljQ5tGoG
- DEw7R5jCj/hcMI3+b1Gx3amGI+RfQ=
-X-Google-Smtp-Source: AGHT+IHXOy635VvUmFJLnYpbrE7pGF//NgGhcj1xbjPRykFqJjmDNUmnWrE6n0LmkgTaLcahdacwSlzK2Ho=
+ d=1e100.net; s=20230601; t=1718814492; x=1719419292;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=RJb1ZWagckoOz9UhcjLsTz5b9JU0HY0YqbonVprVfYM=;
+ b=ghxmbnl9mtSDjwrqfRdpnh2h8ZaAQf0oxOWI7Z8JD6HDemY/Mxzo0koGPaUXha5Nv3
+ 7thRlS9QOrbXYcq/Q9XpTlaXQcbCIvS7uCAlgijyH6qipyZjZW6/o1Z4sVdfyrBNWapE
+ 6xxkPbPgA/mSFTbC4XmbGDOBCdASiMWVf7KSEzspEXiXYFbUwqvFOP18Fc9B8ofYPyZa
+ DecZ7Xrbz5hPFHQE+S4k0KfeA9K5b+V0IVhiXu2ftRp74l+Cfd8pZsncKzwHFXX/RZIp
+ A0/CmbIvBlq/pkZYfIT9CXFFRczmNdKxL9XYmB4mHkw/ubJJD4/hzZp6qMkgptIxFdhG
+ cXYQ==
+X-Gm-Message-State: AOJu0YzNj8LZonI6OLxKWKu3y5+VL1YsRxBYgm8pirK74dXVmXxx8uXJ
+ pLC2TKTb5IpYMnvQq6DAKLD+jB5PNc3kwwazJVp83ibdL5F5wd1Z7rPuk9hO2jWO0wlM89tp7cf
+ NUE7eQqw8fXehHXxnsZ74SIr+tTZfE86yriDx8aaFPDb5CrRJqOnPrpSClO+/mn3s6TTR2mjD1i
+ tdQm0tRjHGGc2v+gTYw92li23u4Ps=
+X-Google-Smtp-Source: AGHT+IHNyMLux0DytyQHTOrG2uPRt3EdVob1wDmjXlBJeScbylfLh6dUcRqcG40FPQXr+ADJaHx3U88ssFQ=
 X-Received: from edliaw.c.googlers.com ([fda3:e722:ac3:cc00:24:72f4:c0a8:305d])
- (user=edliaw job=sendgmr) by 2002:a63:5217:0:b0:659:23db:a4b2 with SMTP id
- 41be03b00d2f7-710b8cc2034mr7894a12.8.1718814490040; Wed, 19 Jun 2024 09:28:10
- -0700 (PDT)
-Date: Wed, 19 Jun 2024 16:28:05 +0000
+ (user=edliaw job=sendgmr) by 2002:a17:90b:1091:b0:2c7:3a76:f6de with SMTP id
+ 98e67ed59e1d1-2c7b4e4b167mr18513a91.0.1718814491814; Wed, 19 Jun 2024
+ 09:28:11 -0700 (PDT)
+Date: Wed, 19 Jun 2024 16:28:06 +0000
+In-Reply-To: <20240619162807.2725018-1-edliaw@google.com>
 Mime-Version: 1.0
+References: <20240619162807.2725018-1-edliaw@google.com>
 X-Mailer: git-send-email 2.45.2.627.g7a2c4fd464-goog
-Message-ID: <20240619162807.2725018-1-edliaw@google.com>
+Message-ID: <20240619162807.2725018-2-edliaw@google.com>
 To: ltp@lists.linux.it
 X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
  USER_IN_DEF_DKIM_WL shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v5 0/2] sched/starvation: Choose from available cpus
+Subject: [LTP] [PATCH v5 1/2] sched/starvation: Fix sched_setaffinity return
+ check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,35 +101,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The starvation test was failing as a 32bit test for some arm
-architectures where cpu 0 does not support 32bit applications.
+From: Edward Liaw via ltp <ltp@lists.linux.it>
 
-v1: https://lore.kernel.org/ltp/20240605180536.1288027-1-edliaw@google.com/
+TST_EXP_POSITIVE to check the return value is incorrect because
+sched_setaffinity returns 0 on success / -1 on failure.
 
-v2: https://lore.kernel.org/ltp/20240606014022.1425928-1-edliaw@google.com/
-Made these substitutions based on Wei's suggestions:
-s/TST_EXP_POSITIVE/TST_EXP_PASS
-s/TCONF/TBROK
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Signed-off-by: Edward Liaw <edliaw@google.com>
+---
+ testcases/kernel/sched/cfs-scheduler/starvation.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-v3: https://lore.kernel.org/ltp/20240606173933.1671989-1-edliaw@google.com/
-Substituted test macros with check based on Petr's suggestions.
-Split commit into two: first to fix the return code check on
-sched_setaffinity.  Second to choose the cpu.
-
-v4: https://lore.kernel.org/ltp/20240613210059.352767-1-edliaw@google.com/
-Fixed some typos and commit tags.
-
-v5:
-Got the return code check reversed again.  Fixed it.
-
-Edward Liaw via ltp (2):
-  sched/starvation: Fix sched_setaffinity return check
-  sched/starvation: Choose from available cpus
-
- .../kernel/sched/cfs-scheduler/starvation.c   | 21 +++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
-
---
+diff --git a/testcases/kernel/sched/cfs-scheduler/starvation.c b/testcases/kernel/sched/cfs-scheduler/starvation.c
+index eb9fd6ff5..c845af849 100644
+--- a/testcases/kernel/sched/cfs-scheduler/starvation.c
++++ b/testcases/kernel/sched/cfs-scheduler/starvation.c
+@@ -54,7 +54,8 @@ static void setup(void)
+ 
+ 	CPU_SET(0, &mask);
+ 
+-	TST_EXP_POSITIVE(sched_setaffinity(0, sizeof(mask), &mask));
++	if (sched_setaffinity(0, sizeof(mask), &mask) < 0)
++		tst_brk(TBROK | TERRNO, "sched_setaffinity() failed");
+ 
+ 	if (tst_parse_long(str_loop, &loop, 1, LONG_MAX))
+ 		tst_brk(TBROK, "Invalid number of loop number '%s'", str_loop);
+-- 
 2.45.2.627.g7a2c4fd464-goog
 
 
