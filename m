@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04B1D911FEF
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 11:02:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 102B2912001
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 11:04:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B67D23D0F1D
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 11:02:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BAA203D0F49
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 11:04:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
@@ -14,39 +14,37 @@ Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E623A3CB74E
- for <ltp@lists.linux.it>; Thu, 20 Jun 2024 18:24:21 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 6AC923D0E28
+ for <ltp@lists.linux.it>; Thu, 20 Jun 2024 18:24:26 +0200 (CEST)
 Authentication-Results: in-3.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=kernel.org (client-ip=2604:1380:40e1:4800::1;
- helo=sin.source.kernel.org; envelope-from=arnd@kernel.org;
- receiver=lists.linux.it)
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+ smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org;
+ envelope-from=arnd@kernel.org; receiver=lists.linux.it)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0E0221A05C9C
- for <ltp@lists.linux.it>; Thu, 20 Jun 2024 18:24:20 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7F7EA1A05C94
+ for <ltp@lists.linux.it>; Thu, 20 Jun 2024 18:24:25 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id B171BCE274F;
- Thu, 20 Jun 2024 16:24:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F7DDC4AF0A;
- Thu, 20 Jun 2024 16:24:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 0238C621F8;
+ Thu, 20 Jun 2024 16:24:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B740C2BD10;
+ Thu, 20 Jun 2024 16:24:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718900656;
- bh=SxsG/TmKgeAvUmRAEjqsJKtLdqJlcUTp92xZHqYPbCE=;
+ s=k20201202; t=1718900663;
+ bh=CXrlszEDPUQiYKtZ0u7pc0WChHdomqG0bc13oHOMYk8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OMV332YN3UjvJEF4PnM8J7A3bK1CfCxAJvquL4L87vNJ73iww9j8NMyNmkVNBsvmV
- oELQxErXhDcG6P1rKt8y5lu6a2LtBjPDcBah6AiMLmVxYXeGEBhJxOd4/D1epMMzGZ
- R142uU7a0qh37b/GbHePGcf2G6lBDkIXJDHA3VULLtdkpyqDFbxpJJwYBlv8bNnybT
- NRdb50Ap1szpwu+NWMfOfVqEAO3pAtzZW5KC2NWeEgPMl+6NXwN5MlGV9mMt/0P1So
- DLVL2wKXmHzpfpxUnklRuzv1N+j+tSSs3o7VuHKcFzF8ECtFLmrSwZtTUw4SUAvjB1
- Yb913TxCniLxA==
+ b=cRy1c8+gzgzO1YmNYFn0xlU4/jPNcn/9MvwsPvAoPe7+0ERWB1jp/4Eg4SrYPfKQW
+ dCxbOu/gXMIqE1WRrm6G4NMNz7t3JWJ57na8ewDl991homE91hY2Y3XJ7fjtxJecwP
+ Z0ls7gy7/0cQaCVR+BfSxUjtZnsLGGh7q+ak0mQ9D7/e8CgHOIX2YIujd0ZuwccdAK
+ qgOlMp7UfU6xdGU8tsWYALGF509s2RqwNwr01W8ehfFbKfshH6UmIb9yP7CLjjIEtf
+ yU4JI3Alw+R/eT/X5xu84FD4G1b2AZ9URmrAprLqK37tETc9Dr0PtHUNggRkNu9Op0
+ cJXFcVyYlM6ng==
 From: Arnd Bergmann <arnd@kernel.org>
 To: linux-arch@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Date: Thu, 20 Jun 2024 18:23:07 +0200
-Message-Id: <20240620162316.3674955-7-arnd@kernel.org>
+Date: Thu, 20 Jun 2024 18:23:08 +0200
+Message-Id: <20240620162316.3674955-8-arnd@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240620162316.3674955-1-arnd@kernel.org>
 References: <20240620162316.3674955-1-arnd@kernel.org>
@@ -58,8 +56,8 @@ X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Mailman-Approved-At: Fri, 21 Jun 2024 11:00:08 +0200
-Subject: [LTP] [PATCH 06/15] parisc: use correct compat recv/recvfrom
- syscalls
+Subject: [LTP] [PATCH 07/15] parisc: use generic sys_fanotify_mark
+ implementation
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,6 +81,7 @@ Cc: Rich Felker <dalias@libc.org>, Andreas Larsson <andreas@gaisler.com>,
  Brian Cain <bcain@quicinc.com>, Christian Brauner <brauner@kernel.org>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>, libc-alpha@sourceware.org,
  linux-parisc@vger.kernel.org, linux-mips@vger.kernel.org,
+ Adhemerval Zanella <adhemerval.zanella@linaro.org>,
  linux-hexagon@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, "David S. Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="us-ascii"
@@ -92,40 +91,89 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-Johannes missed parisc back when he introduced the compat version
-of these syscalls, so receiving cmsg messages that require a compat
-conversion is still broken.
+The sys_fanotify_mark() syscall on parisc uses the reverse word order
+for the two halves of the 64-bit argument compared to all syscalls on
+all 32-bit architectures. As far as I can tell, the problem is that
+the function arguments on parisc are sorted backwards (26, 25, 24, 23,
+...) compared to everyone else, so the calling conventions of using an
+even/odd register pair in native word order result in the lower word
+coming first in function arguments, matching the expected behavior
+on little-endian architectures. The system call conventions however
+ended up matching what the other 32-bit architectures do.
 
-Use the correct calls like the other architectures do.
+A glibc cleanup in 2020 changed the userspace behavior in a way that
+handles all architectures consistently, but this inadvertently broke
+parisc32 by changing to the same method as everyone else.
 
-Fixes: 1dacc76d0014 ("net/compat/wext: send different messages to compat tasks")
+The change made it into glibc-2.35 and subsequently into debian 12
+(bookworm), which is the latest stable release. This means we
+need to choose between reverting the glibc change or changing the
+kernel to match it again, but either hange will leave some systems
+broken.
+
+Pick the option that is more likely to help current and future
+users and change the kernel to match current glibc. This also
+means the behavior is now consistent across architectures, but
+it breaks running new kernels with old glibc builds before 2.35.
+
+Link: https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=d150181d73d9
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/history/history.git/commit/arch/parisc/kernel/sys_parisc.c?h=57b1dfbd5b4a39d
+Cc: Adhemerval Zanella <adhemerval.zanella@linaro.org>
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- arch/parisc/kernel/syscalls/syscall.tbl | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I found this through code inspection, please double-check to make
+sure I got the bug and the fix right.
 
+The alternative is to fix this by reverting glibc back to the
+unusual behavior.
+---
+ arch/parisc/Kconfig                     | 1 +
+ arch/parisc/kernel/sys_parisc32.c       | 9 ---------
+ arch/parisc/kernel/syscalls/syscall.tbl | 2 +-
+ 3 files changed, 2 insertions(+), 10 deletions(-)
+
+diff --git a/arch/parisc/Kconfig b/arch/parisc/Kconfig
+index daafeb20f993..dc9b902de8ea 100644
+--- a/arch/parisc/Kconfig
++++ b/arch/parisc/Kconfig
+@@ -16,6 +16,7 @@ config PARISC
+ 	select ARCH_HAS_UBSAN
+ 	select ARCH_HAS_PTE_SPECIAL
+ 	select ARCH_NO_SG_CHAIN
++	select ARCH_SPLIT_ARG64 if !64BIT
+ 	select ARCH_SUPPORTS_HUGETLBFS if PA20
+ 	select ARCH_SUPPORTS_MEMORY_FAILURE
+ 	select ARCH_STACKWALK
+diff --git a/arch/parisc/kernel/sys_parisc32.c b/arch/parisc/kernel/sys_parisc32.c
+index 2a12a547b447..826c8e51b585 100644
+--- a/arch/parisc/kernel/sys_parisc32.c
++++ b/arch/parisc/kernel/sys_parisc32.c
+@@ -23,12 +23,3 @@ asmlinkage long sys32_unimplemented(int r26, int r25, int r24, int r23,
+     	current->comm, current->pid, r20);
+     return -ENOSYS;
+ }
+-
+-asmlinkage long sys32_fanotify_mark(compat_int_t fanotify_fd, compat_uint_t flags,
+-	compat_uint_t mask0, compat_uint_t mask1, compat_int_t dfd,
+-	const char  __user * pathname)
+-{
+-	return sys_fanotify_mark(fanotify_fd, flags,
+-			((__u64)mask1 << 32) | mask0,
+-			 dfd, pathname);
+-}
 diff --git a/arch/parisc/kernel/syscalls/syscall.tbl b/arch/parisc/kernel/syscalls/syscall.tbl
-index b13c21373974..39e67fab7515 100644
+index 39e67fab7515..66dc406b12e4 100644
 --- a/arch/parisc/kernel/syscalls/syscall.tbl
 +++ b/arch/parisc/kernel/syscalls/syscall.tbl
-@@ -108,7 +108,7 @@
- 95	common	fchown			sys_fchown
- 96	common	getpriority		sys_getpriority
- 97	common	setpriority		sys_setpriority
--98	common	recv			sys_recv
-+98	common	recv			sys_recv			compat_sys_recv
- 99	common	statfs			sys_statfs			compat_sys_statfs
- 100	common	fstatfs			sys_fstatfs			compat_sys_fstatfs
- 101	common	stat64			sys_stat64
-@@ -135,7 +135,7 @@
- 120	common	clone			sys_clone_wrapper
- 121	common	setdomainname		sys_setdomainname
- 122	common	sendfile		sys_sendfile			compat_sys_sendfile
--123	common	recvfrom		sys_recvfrom
-+123	common	recvfrom		sys_recvfrom			compat_sys_recvfrom
- 124	32	adjtimex		sys_adjtimex_time32
- 124	64	adjtimex		sys_adjtimex
- 125	common	mprotect		sys_mprotect
+@@ -364,7 +364,7 @@
+ 320	common	accept4			sys_accept4
+ 321	common	prlimit64		sys_prlimit64
+ 322	common	fanotify_init		sys_fanotify_init
+-323	common	fanotify_mark		sys_fanotify_mark		sys32_fanotify_mark
++323	common	fanotify_mark		sys_fanotify_mark		compat_sys_fanotify_mark
+ 324	32	clock_adjtime		sys_clock_adjtime32
+ 324	64	clock_adjtime		sys_clock_adjtime
+ 325	common	name_to_handle_at	sys_name_to_handle_at
 -- 
 2.39.2
 
