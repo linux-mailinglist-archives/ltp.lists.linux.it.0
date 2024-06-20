@@ -2,83 +2,60 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63858912000
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 11:04:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29AAA911FDF
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 11:00:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 15A803D0F4C
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 11:04:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D6BB43D0EC8
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 11:00:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 626CA3D0E1E
- for <ltp@lists.linux.it>; Thu, 20 Jun 2024 17:39:55 +0200 (CEST)
-Received: from mail-ua1-x935.google.com (mail-ua1-x935.google.com
- [IPv6:2607:f8b0:4864:20::935])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 81EA63CB74E
+ for <ltp@lists.linux.it>; Thu, 20 Jun 2024 18:23:43 +0200 (CEST)
+Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=kernel.org (client-ip=2604:1380:40e1:4800::1;
+ helo=sin.source.kernel.org; envelope-from=arnd@kernel.org;
+ receiver=lists.linux.it)
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 212152001AA
- for <ltp@lists.linux.it>; Thu, 20 Jun 2024 17:39:55 +0200 (CEST)
-Received: by mail-ua1-x935.google.com with SMTP id
- a1e0cc1a2514c-80f59ebd021so304488241.3
- for <ltp@lists.linux.it>; Thu, 20 Jun 2024 08:39:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718897994; x=1719502794; darn=lists.linux.it;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=5GUJPV8yOp4RRoYY7LVY9TGkg0HQmwQOmVMKijpbR4g=;
- b=TzpSOGL+akBVHcvseX5pii2E74WjR5uikavCLkWsxqGj4r+HTzxGc3CC3pUvEjEH0C
- j5UKwasL/7G7yaOx9sYwmbrYuim0ULJXOMervzVJ38wjdl+JPQmFH39P+eJbHfJkGKZo
- jOhBHIyoqP5KaZf9T2lV/UOpJqRJQCoI/ran0TRgTpabydzxiyKlIYYX9RiY3gql04Eo
- 5x/d3H+cw/QA5Etfp6pIBsYDt/+mTasMpVeYSOxkdsO8inmBDmyBbAJDzDV0mJT5Vo/p
- OmUjbOxKjnH5XPNgd0RcLbdoUT03AAIIe7S6ZnFmcDnLLTzVFTL1oANrXNCfNoBwA0tK
- h5QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718897994; x=1719502794;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=5GUJPV8yOp4RRoYY7LVY9TGkg0HQmwQOmVMKijpbR4g=;
- b=h6YqTrCyH0BAHrXrvRbP+NOiTgcQznPpg43wcY90U6arHzUWyHYlJuWvJDjZV3jbtt
- fGRlxy2qiZF1AbS6h558h3LwEDOM1c68kVPVufPJH9ypZMHVbj2xLPs2FMIml4QL4yZ8
- KM+o1QQYuWNjni5ELgs3buS2KqP6FhiNAGkiJQoSTq5KAl0FIt2IqS83esGCLbKZcrLG
- XyiVRQswNQoG9+VrJKVSM3AZqw5p+YkXNg2E3cYsxDp4b2mwYTYGt2dT7tALeB9hCv0L
- Ixdg1HrsD+MBvWzMY/fSpyO5vRi/Y9BoeYmezk2xovPjFkaiRJVK/H6UFUdxoHGZ/Ihc
- A/hw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXa7fKAU/Ah2ZR+3pZ9++kL9sV1U1FI3w7TVRFhTNdzwVw2jv/UVSwQqx/s9QqPe8bZvzQx1iLht6wHAlRFJhOcuQU=
-X-Gm-Message-State: AOJu0YwIlgkVfgTxJf1JgKV9zEUjElfhJ/iFzdHPo4SZRm+HwsdM+ibR
- laTPlTkXhAELLGDA4luIHgyTjLmj7Pad1/b0zsltJiJb9VlLhtqDbx1tJtsFLROh8jkQaheaLC/
- AtvJL0IAxNX1aEUZUXtNZ5laFwCqQ1c3Gd4MSDw==
-X-Google-Smtp-Source: AGHT+IHACjMP5RzFgepii/qD9qtk0+p5mwa6jnpfKmdaSdmp8lLICvVkXdDPSiF9XM3Dus6YHP7t5X5+bwf7WLuWK+4=
-X-Received: by 2002:a05:6122:1346:b0:4ec:f27b:ee9c with SMTP id
- 71dfb90a1353d-4ef276c041bmr6506472e0c.5.1718897992229; Thu, 20 Jun 2024
- 08:39:52 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 524F6601B2B
+ for <ltp@lists.linux.it>; Thu, 20 Jun 2024 18:23:41 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id A6190CE274D;
+ Thu, 20 Jun 2024 16:23:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C294C32786;
+ Thu, 20 Jun 2024 16:23:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1718900615;
+ bh=c2+3nT3Fz2YE3y2yTCQ/lqf84edhGpnQvBt5hH6hrrc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=XC1XYPkSMkLHnz9abDPwB+ZF9PlO95SQ+oHvZ5uCctS66b+uYGD9F2IRJX7pEtMkc
+ tv1ySBBzxr5W7wpTOSPmwFLPSaG8DZ+VHBfx2P4XohH/2B5Ig5ZAdTDxK0UXwPOa9f
+ kgG01VSndf2XvLA6qgkIX+rPcLDIj4cedf9ebxSx7WytcpCCbPGct3kqyatbZdmobi
+ VeFKF+urVmNd2v+/KXJBz8itdjWMHDfq1hlwgrSDbn0Mq69GGfKJxQF+5Zd1+MyiaZ
+ tJ0Pd6jm0rAgBQhogByTNSzjJmQ0Xpzjvie1YBoPoSwU/RqtdxmBuhM5TomoNaluGz
+ sj55VopFCAeAw==
+From: Arnd Bergmann <arnd@kernel.org>
+To: linux-arch@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Date: Thu, 20 Jun 2024 18:23:01 +0200
+Message-Id: <20240620162316.3674955-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <20240619125609.836313103@linuxfoundation.org>
- <CA+G9fYtPV3kskAyc4NQws68-CpBrV+ohxkt1EEaAN54Dh6J6Uw@mail.gmail.com>
- <2024062028-caloric-cost-2ab9@gregkh>
- <CA+G9fYsr0=_Yzew1uyUtrZ7ayZFYqmaNzAwFZJPjFnDXZEwYcQ@mail.gmail.com>
- <36a38846-0250-4ac2-b2d0-c72e00d6898d@redhat.com>
- <CA+G9fYv4fZiB-pL7=4SNfudh2Aqknf5+OXo1RFAFRhJFZMsEsg@mail.gmail.com>
- <3cd2cdca-5c89-447e-b6f1-f68112cf3f7b@redhat.com>
-In-Reply-To: <3cd2cdca-5c89-447e-b6f1-f68112cf3f7b@redhat.com>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Thu, 20 Jun 2024 21:09:40 +0530
-Message-ID: <CA+G9fYutNa9ziuj7aayhukaMdxKFU9+81qKAjZbQ=dQa3fwYYg@mail.gmail.com>
-To: David Hildenbrand <david@redhat.com>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Fri, 21 Jun 2024 11:00:08 +0200
-Subject: Re: [LTP] [PATCH 6.9 000/281] 6.9.6-rc1 review
+X-Mailman-Approved-At: Fri, 21 Jun 2024 11:00:07 +0200
+Subject: [LTP] [PATCH 00/15] linux system call fixes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,166 +67,126 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Miaohe Lin <linmiaohe@huawei.com>, lkft-triage@lists.linaro.org,
- patches@lists.linux.dev, linux-mm <linux-mm@kvack.org>, stable@vger.kernel.org,
- jbeulich@suse.com, shuah@kernel.org, Dan Carpenter <dan.carpenter@linaro.org>,
- f.fainelli@gmail.com, jonathanh@nvidia.com, patches@kernelci.org,
- linux@roeck-us.net, Arnd Bergmann <arnd@arndb.de>, srw@sladewatkins.net,
- broonie@kernel.org, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Cgroups <cgroups@vger.kernel.org>, LTP List <ltp@lists.linux.it>,
- rwarsow@gmx.de, pavel@denx.de, allen.lkml@gmail.com, conor@kernel.org,
- linux-kernel@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- akpm@linux-foundation.org, torvalds@linux-foundation.org,
- sudipm.mukherjee@gmail.com
+Cc: Rich Felker <dalias@libc.org>, Andreas Larsson <andreas@gaisler.com>,
+ Guo Ren <guoren@kernel.org>, Christophe Leroy <christophe.leroy@csgroup.eu>,
+ "H. Peter Anvin" <hpa@zytor.com>, sparclinux@vger.kernel.org,
+ linux-s390@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+ linux-sh@vger.kernel.org, linux-csky@vger.kernel.org,
+ "Naveen N . Rao" <naveen.n.rao@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+ musl@lists.openwall.com, Nicholas Piggin <npiggin@gmail.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, ltp@lists.linux.it,
+ Brian Cain <bcain@quicinc.com>, Christian Brauner <brauner@kernel.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, libc-alpha@sourceware.org,
+ linux-parisc@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-hexagon@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, "David S. Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, 20 Jun 2024 at 19:50, David Hildenbrand <david@redhat.com> wrote:
->
-> On 20.06.24 16:02, Naresh Kamboju wrote:
-> > On Thu, 20 Jun 2024 at 19:23, David Hildenbrand <david@redhat.com> wrote:
-> >>
-> >> On 20.06.24 15:14, Naresh Kamboju wrote:
-> >>> On Thu, 20 Jun 2024 at 17:59, Greg Kroah-Hartman
-> >>> <gregkh@linuxfoundation.org> wrote:
-> >>>>
-> >>>> On Thu, Jun 20, 2024 at 05:21:09PM +0530, Naresh Kamboju wrote:
-> >>>>> On Wed, 19 Jun 2024 at 18:41, Greg Kroah-Hartman
-> >>>>> <gregkh@linuxfoundation.org> wrote:
-> >>>>>>
-> >>>>>> This is the start of the stable review cycle for the 6.9.6 release.
-> >>>>>> There are 281 patches in this series, all will be posted as a response
-> >>>>>> to this one.  If anyone has any issues with these being applied, please
-> >>>>>> let me know.
-> >>>>>>
-> >>>>>> Responses should be made by Fri, 21 Jun 2024 12:55:11 +0000.
-> >>>>>> Anything received after that time might be too late.
-> >>>>>>
-> >>>>>> The whole patch series can be found in one patch at:
-> >>>>>>           https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.9.6-rc1.gz
-> >>>>>> or in the git tree and branch at:
-> >>>>>>           git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.9.y
-> >>>>>> and the diffstat can be found below.
-> >>>>>>
-> >>>>>> thanks,
-> >>>>>>
-> >>>>>> greg k-h
-> >>>>>
-> >>>>> There are two major issues on arm64 Juno-r2 on Linux stable-rc 6.9.6-rc1
-> >>>>>
-> >>>>> Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
-> >>>>>
-> >>>>> 1)
-> >>>>> The LTP controllers cgroup_fj_stress test cases causing kernel crash
-> >>>>> on arm64 Juno-r2 with
-> >>>>> compat mode testing with stable-rc 6.9 kernel.
-> >>>>>
-> >>>>> In the recent past I have reported this issues on Linux mainline.
-> >>>>>
-> >>>>> LTP: fork13: kernel panic on rk3399-rock-pi-4 running mainline 6.10.rc3
-> >>>>>     - https://lore.kernel.org/all/CA+G9fYvKmr84WzTArmfaypKM9+=Aw0uXCtuUKHQKFCNMGJyOgQ@mail.gmail.com/
-> >>>>>
-> >>>>> it goes like this,
-> >>>>>     Unable to handle kernel NULL pointer dereference at virtual address
-> >>>>>     ...
-> >>>>>     Insufficient stack space to handle exception!
-> >>>>>     end Kernel panic - not syncing: kernel stack overflow
-> >>>>>
-> >>
-> >> How is that related to 6.9.6-rc1? That report is from mainline (6.10.rc3).
-> >>
-> >> Can you share a similar kernel dmesg output from  the issue on 6.9.6-rc1?
-> >
-> > I request you to use this link for detailed boot log, test log and crash log.
-> >   - https://lkft.validation.linaro.org/scheduler/job/7687060#L23314
-> >
-> > Few more logs related to build artifacts links provided in the original
-> > email thread and bottom of this email.
-> >
-> > crash log:
-> > ---
-> >
+From: Arnd Bergmann <arnd@arndb.de>
 
-Thanks for investigating this crash report.
+I'm working on cleanup series for Linux system call handling, trying to
+unify some of the architecture specific code there among other things.
 
-> Thanks, so this is something different than the
->
-> "BUG: Bad page map in process fork13
->   BUG: Bad rss-counter state mm:"
->
-> stuff on mainline you referenced.
->
-> Looks like some recursive exception until we exhausted the stack.
+In the process, I came across a number of bugs that are ABI relevant,
+so I'm trying to merge these first. I found all of these by inspection,
+not by running the code, so any extra review would help. I assume some
+of the issues were already caught by existing LTP tests, while for others
+we could add a test. Again, I did not check what is already there.
 
-You are right !
-I see only one common case is, exhaust the stack.
+The sync_file_range and fadvise64_64 changes on sh, csky and hexagon
+are likely to also require changes in the libc implementation.
 
->
->
-> Trying to connect the dots here, can you enlighten me how this is
-> related to the fork13 mainline report?
+Once the patches are reviewed, I plan to merge my changes as bugfixes
+through the asm-generic tree, but architecture maintainers can also
+pick them up directly to speed up the bugfix.
 
-I am not sure about the relation between these two reports.
-But as a common practice I have shared that report information.
+     Arnd
 
-> > [ 0.000000] Booting Linux on physical CPU 0x0000000100 [0x410fd033]
-> > [ 0.000000] Linux version 6.9.6-rc1 (tuxmake@tuxmake)
-> > (aarch64-linux-gnu-gcc (Debian 13.2.0-12) 13.2.0, GNU ld (GNU Binutils
-> > for Debian) 2.42) #1 SMP PREEMPT @1718817000
-> > ...
-> > [ 1786.336761] Unable to handle kernel NULL pointer dereference at
-> > virtual address 0000000000000070
-> > [ 1786.345564] Mem abort info:
-> > [ 1786.348359]   ESR = 0x0000000096000004
-> > [ 1786.352112]   EC = 0x25: DABT (current EL), IL = 32 bits
-> > [ 1786.357434]   SET = 0, FnV = 0
-> > [ 1786.360492]   EA = 0, S1PTW = 0
-> > [ 1786.363637]   FSC = 0x04: level 0 translation fault
-> > [ 1786.368523] Data abort info:
-> > [ 1786.371405]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
-> > [ 1786.376900]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-> > [ 1786.381960]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-> > [ 1786.387284] Unable to handle kernel NULL pointer dereference at
-> > virtual address 0000000000000070
-> > [ 1786.387293] Insufficient stack space to handle exception!
-> > [ 1786.387296] ESR: 0x0000000096000047 -- DABT (current EL)
-> > [ 1786.387302] FAR: 0xffff80008399ffe0
-> > [ 1786.387306] Task stack:     [0xffff8000839a0000..0xffff8000839a4000]
-> > [ 1786.387312] IRQ stack:      [0xffff8000837f8000..0xffff8000837fc000]
-> > [ 1786.387319] Overflow stack: [0xffff00097ec95320..0xffff00097ec96320]
-> > [ 1786.387327] CPU: 4 PID: 0 Comm: swapper/4 Not tainted 6.9.6-rc1 #1
-> > [ 1786.387338] Hardware name: ARM Juno development board (r2) (DT)
-> > [ 1786.387344] pstate: a00003c5 (NzCv DAIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> > [ 1786.387355] pc : _prb_read_valid (kernel/printk/printk_ringbuffer.c:2109)
-> > [ 1786.387374] lr : prb_read_valid (kernel/printk/printk_ringbuffer.c:2183)
-> > [ 1786.387385] sp : ffff80008399ffe0
-> > [ 1786.387390] x29: ffff8000839a0030 x28: ffff000800365f00 x27: ffff800082530008
-> > [ 1786.387407] x26: ffff8000834e33b8 x25: ffff8000839a00b0 x24: 0000000000000001
-> > [ 1786.387423] x23: ffff8000839a00a8 x22: ffff8000830e3e40 x21: 0000000000001e9e
-> > [ 1786.387438] x20: 0000000000000000 x19: ffff8000839a01c8 x18: 0000000000000010
-> > [ 1786.387453] x17: 72646461206c6175 x16: 7472697620746120 x15: 65636e6572656665
-> > [ 1786.387468] x14: 726564207265746e x13: 3037303030303030 x12: 3030303030303030
-> > [ 1786.387483] x11: 2073736572646461 x10: ffff800083151ea0 x9 : ffff80008014273c
-> > [ 1786.387498] x8 : ffff8000839a0120 x7 : 0000000000000000 x6 : 0000000000000e9f
-> > [ 1786.387512] x5 : ffff8000839a00c8 x4 : ffff8000837157c0 x3 : 0000000000000000
-> > [ 1786.387526] x2 : ffff8000839a00b0 x1 : 0000000000000000 x0 : ffff8000830e3f58
-> > [ 1786.387542] Kernel panic - not syncing: kernel stack overflow
-> > [ 1786.387549] SMP: stopping secondary CPUs
-> > [ 1787.510055] SMP: failed to stop secondary CPUs 0,4
-> > [ 1787.510065] Kernel Offset: disabled
-> > [ 1787.510068] CPU features: 0x4,00001061,e0100000,0200421b
-> > [ 1787.510076] Memory Limit: none
-> > [ 1787.680436] ---[ end Kernel panic - not syncing: kernel stack overflow ]---
->
->
-> --
-> Cheers,
->
-> David / dhildenb
+Cc: linux-arch@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org
+Cc: Helge Deller <deller@gmx.de>
+Cc: linux-parisc@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Andreas Larsson <andreas@gaisler.com>
+Cc: sparclinux@vger.kernel.org
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
+Cc: Naveen N. Rao <naveen.n.rao@linux.ibm.com>
+Cc: linuxppc-dev@lists.ozlabs.org
+Cc: Brian Cain <bcain@quicinc.com>
+Cc: linux-hexagon@vger.kernel.org
+Cc: Guo Ren <guoren@kernel.org>
+Cc: linux-csky@vger.kernel.org
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: linux-s390@vger.kernel.org
+Cc: Rich Felker <dalias@libc.org>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: linux-sh@vger.kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org
+Cc: libc-alpha@sourceware.org
+Cc: musl@lists.openwall.com
+Cc: ltp@lists.linux.it
 
-- Naresh
+Arnd Bergmann (15):
+  ftruncate: pass a signed offset
+  syscalls: fix compat_sys_io_pgetevents_time64 usage
+  mips: fix compat_sys_lseek syscall
+  sparc: fix old compat_sys_select()
+  sparc: fix compat recv/recvfrom syscalls
+  parisc: use correct compat recv/recvfrom syscalls
+  parisc: use generic sys_fanotify_mark implementation
+  powerpc: restore some missing spu syscalls
+  sh: rework sync_file_range ABI
+  csky, hexagon: fix broken sys_sync_file_range
+  hexagon: fix fadvise64_64 calling conventions
+  s390: remove native mmap2() syscall
+  syscalls: mmap(): use unsigned offset type consistently
+  asm-generic: unistd: fix time32 compat syscall handling
+  linux/syscalls.h: add missing __user annotations
+
+ arch/arm64/include/asm/unistd32.h         |   2 +-
+ arch/csky/include/uapi/asm/unistd.h       |   1 +
+ arch/csky/kernel/syscall.c                |   2 +-
+ arch/hexagon/include/asm/syscalls.h       |   6 +
+ arch/hexagon/include/uapi/asm/unistd.h    |   1 +
+ arch/hexagon/kernel/syscalltab.c          |   7 +
+ arch/loongarch/kernel/syscall.c           |   2 +-
+ arch/microblaze/kernel/sys_microblaze.c   |   2 +-
+ arch/mips/kernel/syscalls/syscall_n32.tbl |   2 +-
+ arch/mips/kernel/syscalls/syscall_o32.tbl |   4 +-
+ arch/parisc/Kconfig                       |   1 +
+ arch/parisc/kernel/sys_parisc32.c         |   9 -
+ arch/parisc/kernel/syscalls/syscall.tbl   |   6 +-
+ arch/powerpc/kernel/syscalls/syscall.tbl  |   6 +-
+ arch/riscv/kernel/sys_riscv.c             |   4 +-
+ arch/s390/kernel/syscall.c                |  27 ---
+ arch/s390/kernel/syscalls/syscall.tbl     |   2 +-
+ arch/sh/kernel/sys_sh32.c                 |  11 ++
+ arch/sh/kernel/syscalls/syscall.tbl       |   3 +-
+ arch/sparc/kernel/sys32.S                 | 221 ----------------------
+ arch/sparc/kernel/syscalls/syscall.tbl    |   8 +-
+ arch/x86/entry/syscalls/syscall_32.tbl    |   2 +-
+ fs/open.c                                 |   4 +-
+ include/asm-generic/syscalls.h            |   2 +-
+ include/linux/compat.h                    |   2 +-
+ include/linux/syscalls.h                  |  20 +-
+ include/uapi/asm-generic/unistd.h         | 146 +++++++++-----
+ 27 files changed, 160 insertions(+), 343 deletions(-)
+ create mode 100644 arch/hexagon/include/asm/syscalls.h
+
+-- 
+2.39.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
