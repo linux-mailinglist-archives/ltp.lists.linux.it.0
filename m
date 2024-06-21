@@ -1,74 +1,117 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1FD29122EB
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 13:00:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C87F9122F3
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 13:03:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 734333D0EC3
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 13:00:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BBB863D0E84
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jun 2024 13:03:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D362E3D0E50
- for <ltp@lists.linux.it>; Fri, 21 Jun 2024 13:00:06 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 19BBB3D0C8B
+ for <ltp@lists.linux.it>; Fri, 21 Jun 2024 13:03:24 +0200 (CEST)
 Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 550DF608A8F
- for <ltp@lists.linux.it>; Fri, 21 Jun 2024 13:00:05 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9CC3E6009B4
+ for <ltp@lists.linux.it>; Fri, 21 Jun 2024 13:03:23 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7FB9421AFE;
- Fri, 21 Jun 2024 11:00:05 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 47EF21FB6C;
+ Fri, 21 Jun 2024 11:03:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1718967802;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=04oSzAMaF2vLSD8Muobs9f9rclWUyuSU4+aIxBzX7yA=;
+ b=bLbWzEb+CgRxqQzMMHtQBIYgOY8lKUuo/CdHrzBNI4gY1sIc4gvHY84M4oyv6sNrokrQpU
+ cP9l0gDTVZLBRVLcwu91+tmv7fm+7xN42k75mS9Bjlq9PUU+7Z3TydD+DX3Sj041WHbcQr
+ xHerWgIaQmmq6/f4MBQ362dvTGqIHTk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1718967802;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=04oSzAMaF2vLSD8Muobs9f9rclWUyuSU4+aIxBzX7yA=;
+ b=JBuqteTJ3/9xpDkIY7QrE+VPCR17RHqR9KMCEtWmdt1EZPX4I2mPkuH4B+dNESAMgjdjec
+ HLZGtpTydofhMACw==
+Authentication-Results: smtp-out2.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1718967802;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=04oSzAMaF2vLSD8Muobs9f9rclWUyuSU4+aIxBzX7yA=;
+ b=bLbWzEb+CgRxqQzMMHtQBIYgOY8lKUuo/CdHrzBNI4gY1sIc4gvHY84M4oyv6sNrokrQpU
+ cP9l0gDTVZLBRVLcwu91+tmv7fm+7xN42k75mS9Bjlq9PUU+7Z3TydD+DX3Sj041WHbcQr
+ xHerWgIaQmmq6/f4MBQ362dvTGqIHTk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1718967802;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=04oSzAMaF2vLSD8Muobs9f9rclWUyuSU4+aIxBzX7yA=;
+ b=JBuqteTJ3/9xpDkIY7QrE+VPCR17RHqR9KMCEtWmdt1EZPX4I2mPkuH4B+dNESAMgjdjec
+ HLZGtpTydofhMACw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5599413AAA;
- Fri, 21 Jun 2024 11:00:05 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2493613AAA;
+ Fri, 21 Jun 2024 11:03:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id YCjYEjVddWbBXgAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 21 Jun 2024 11:00:05 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id EwqHB/pddWb1XwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 21 Jun 2024 11:03:22 +0000
+Date: Fri, 21 Jun 2024 13:03:20 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 21 Jun 2024 12:59:57 +0200
-Message-ID: <20240621105957.671338-3-pvorel@suse.cz>
-X-Mailer: git-send-email 2.45.1
-In-Reply-To: <20240621105957.671338-1-pvorel@suse.cz>
-References: <20240621105957.671338-1-pvorel@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20240621110320.GB668048@pevik>
+References: <20240620021635.489505-1-liwang@redhat.com>
+ <CAEemH2ctF+3AEZkm4Y+KkcTUgYGM4XD24pkfwdJo=6ynQ-Wgxg@mail.gmail.com>
+ <20240620052100.GC537887@pevik>
+ <CAEemH2fd-b-apt-ifnAMDcq5ogCD1FJm+rHpq6R_6D9yvxuDbA@mail.gmail.com>
+ <CAEemH2dv-LfYvEtD=1F+4wQkXwwvLwVZ8O=sd-VpBicOZhDYog@mail.gmail.com>
 MIME-Version: 1.0
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 7FB9421AFE
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Spam-Score: -4.00
+Content-Disposition: inline
+In-Reply-To: <CAEemH2dv-LfYvEtD=1F+4wQkXwwvLwVZ8O=sd-VpBicOZhDYog@mail.gmail.com>
+X-Spam-Score: -3.50
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
+X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,imap1.dmz-prg2.suse.org:helo]; 
+ REPLYTO_EQ_FROM(0.00)[]
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 2/2] lib: Create tst_tmpdir.h
+Subject: Re: [LTP] [PATCH v2] tst_kconfig: Avoid reporting buffer overflow
+ when parsing /proc/cmdline
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,109 +123,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This fixes our sparse warning:
+Hi Li,
 
-tst_tmpdir.c:347:6: warning: Symbol 'tst_purge_dir' has no prototype or
-library ('tst_') prefix. Should it be static?
+...
+> I dared to merge this patch to avoid annoying our engineers with this
+> little WARNING issue.
+> Thanks!
 
-Also add header into our readthedocs docs (C API section).
+Sure, thanks for proceeding (no worth of blocking).
+I'll add macros to my TODO list, working on it sometimes during July.
 
-Suggested-by: Cyril Hrubis <chrubis@suse.cz>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Changes v1->v2:
-* Use proper kerneldoc comment (Cyril)
-* Add the header to readthedocs docs
-
- doc/developers/api_c_tests.rst |  4 ++++
- include/tst_device.h           |  6 +-----
- include/tst_tmpdir.h           | 19 +++++++++++++++++++
- lib/tst_tmpdir.c               |  1 +
- 4 files changed, 25 insertions(+), 5 deletions(-)
- create mode 100644 include/tst_tmpdir.h
-
-diff --git a/doc/developers/api_c_tests.rst b/doc/developers/api_c_tests.rst
-index 164f82504..74185c29e 100644
---- a/doc/developers/api_c_tests.rst
-+++ b/doc/developers/api_c_tests.rst
-@@ -37,3 +37,7 @@ Capabilities
- libltpswap
- ----------
- .. kernel-doc:: ../../include/libswap.h
-+
-+Temporary directory
-+-------------------
-+.. kernel-doc:: ../../include/tst_tmpdir.h
-diff --git a/include/tst_device.h b/include/tst_device.h
-index 36258f436..391fb4e56 100644
---- a/include/tst_device.h
-+++ b/include/tst_device.h
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2016-2019 Cyril Hrubis <chrubis@suse.cz>
-+ * Copyright (c) Linux Test Project, 2019-2024
-  */
- 
- #ifndef TST_DEVICE_H__
-@@ -101,11 +102,6 @@ int tst_dev_sync(int fd);
-  */
- unsigned long tst_dev_bytes_written(const char *dev);
- 
--/*
-- * Wipe the contents of given directory but keep the directory itself
-- */
--void tst_purge_dir(const char *path);
--
- /*
-  * Find the file or path belongs to which block dev
-  * @path       Path to find the backing dev
-diff --git a/include/tst_tmpdir.h b/include/tst_tmpdir.h
-new file mode 100644
-index 000000000..e6c5d962c
---- /dev/null
-+++ b/include/tst_tmpdir.h
-@@ -0,0 +1,19 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2017 Cyril Hrubis <chrubis@suse.cz>
-+ * Copyright (c) 2020 Martin Doucha <mdoucha@suse.cz>
-+ */
-+
-+#ifndef TST_TMPDIR_H__
-+#define TST_TMPDIR_H__
-+
-+/**
-+ * tst_purge_dir - Wipe the content of given directory.
-+ *
-+ * Wipe the content of given directory but keep the directory itself.
-+ *
-+ * @path: Path of the directory to be wiped.
-+ */
-+void tst_purge_dir(const char *path);
-+
-+#endif /* TST_TMPDIR_H__ */
-diff --git a/lib/tst_tmpdir.c b/lib/tst_tmpdir.c
-index bcc788390..0f1b15ca4 100644
---- a/lib/tst_tmpdir.c
-+++ b/lib/tst_tmpdir.c
-@@ -72,6 +72,7 @@
- 
- #include "test.h"
- #include "safe_macros.h"
-+#include "tst_tmpdir.h"
- #include "ltp_priv.h"
- #include "lapi/futex.h"
- 
--- 
-2.45.1
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
