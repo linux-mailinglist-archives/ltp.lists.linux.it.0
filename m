@@ -2,85 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EAD3917505
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jun 2024 01:53:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ED63917509
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jun 2024 01:53:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1719359580; h=date :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1719359635; h=date :
  in-reply-to : mime-version : references : message-id : to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=N7O99ebZ0R4aekAw3xNX9mxbJjW9+JmB1E5ufe0Eras=;
- b=DDR0i/gthQoLKF314GGns2xXeZ/wzUDD0WpK10upa6o8IVWbqKVaPNRAInOoCQCa7825F
- vLDiEodTtjffuCFlJS7JNDsSSq/fDNqbA4gAJGdYGUp4fXfSFGq1haHO66C4m2lvmOqunFA
- z1OY1JMb1umKlw/p3anrcM3IFLohk+k=
+ bh=qrw+sy62BekQvLKJu2HUcwhVrztuk2fltcmtj8t3I/U=;
+ b=lmyHlwEkZyOtEJDDpqEmGE4u9/AnkJycqnyvU1BkJTOxaOeS6TKyFMOxyt66k6obUyPCq
+ 2Rlgysb0AjC0O0xxzRM7kRIBjX4D9i8Ja8SLstf+/OJVo87iZxSKFGgU6llzLjOrpYMKAT/
+ GDvBE1SHMqJkGS/WKBk02PkWaPES068=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BB6CA3D1134
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jun 2024 01:53:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 28FA93D1138
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jun 2024 01:53:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 19B553C13C2
- for <ltp@lists.linux.it>; Wed, 26 Jun 2024 01:52:56 +0200 (CEST)
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
- [IPv6:2607:f8b0:4864:20::b49])
+ by picard.linux.it (Postfix) with ESMTPS id D92383C13C2
+ for <ltp@lists.linux.it>; Wed, 26 Jun 2024 01:52:58 +0200 (CEST)
+Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
+ [IPv6:2607:f8b0:4864:20::b4a])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 38204140051E
- for <ltp@lists.linux.it>; Wed, 26 Jun 2024 01:52:56 +0200 (CEST)
-Received: by mail-yb1-xb49.google.com with SMTP id
- 3f1490d57ef6-e032e254319so1377039276.3
- for <ltp@lists.linux.it>; Tue, 25 Jun 2024 16:52:56 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 12F97208187
+ for <ltp@lists.linux.it>; Wed, 26 Jun 2024 01:52:58 +0200 (CEST)
+Received: by mail-yb1-xb4a.google.com with SMTP id
+ 3f1490d57ef6-e02b7adfb95so13725237276.2
+ for <ltp@lists.linux.it>; Tue, 25 Jun 2024 16:52:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1719359575; x=1719964375; darn=lists.linux.it;
+ d=google.com; s=20230601; t=1719359577; x=1719964377; darn=lists.linux.it;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=jvH6ZIsZFpN93JEbkzVNomsf2DRly8nxONgN5XybNeI=;
- b=jtgXOYtR8nc5mS91PQV2YwCqeW4Jhhy6BcwlFvkE2vw6fFU8etnYOm8qXySyeg9zWN
- qVirbX0SCnDA0C4Z/I1Fd/Prf0H7UQllgiJ/9dtQ5bBR0vWW4lAjT4990MaN5cCGA6I3
- OcgdzlsUyWtMRUn/O9w/cZVKMJ/YPINyenS6mO8BL6+Dr6Mw9amVgWvkiyyzLuVjZydE
- 5P6X1ctJ4qDUBd6lupXdPHsXvJoHgRxrYZOmIw9UItyD42j+Y4O2g8LXL2yrVbBZWOok
- avhCgDPPTqTzM0sHo33qxFJHE9Bl8W2aDU0xerZQ7uYYCvEJgdjygFGEhxJf0PT61d5B
- qKXw==
+ bh=FTp9q60rzLSN1frYIZugxdoapi1PLWWITI6bDYejvog=;
+ b=RtpNDVXbIZ5uEnXx5/MJn/iMnn9dYESgsjcvie296/COMPRpO90WiPkh5yUEKt8/d0
+ P1VAEZQDU+60BHsKPsYp3xjRe2HRv/PnPpUMydXaXson7hw2gFg/vxo3MBH6WJ7D/qj6
+ l9fqvP4GdENqym7H4Isg+NLHncgoX69SUp2ZmWByGE1/nVOw9CZTxrUAucu31K9P29Og
+ iwEWOsstXf79jqemse3DRx1+m7ZRV13ytEYPmqqCJ/9SjUdb6V1C8DLqw5nOmgH66xBk
+ dcjfxyy9x7KPGyoyNPkhLpxIJg80DhzQZxC67YTmgzACJsKhxAKLazHltJlnemCuZ93Q
+ feYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719359575; x=1719964375;
+ d=1e100.net; s=20230601; t=1719359577; x=1719964377;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jvH6ZIsZFpN93JEbkzVNomsf2DRly8nxONgN5XybNeI=;
- b=Zi5T8g+liS/B766t3P6hjzx1jkRwB2b+UgH4xdRy18342de0+2o7S6Ogm8WdyXoIv7
- ucUUcOelhCvHCM4NtvDDAkvI9mKNhnDU1aY1e69ITaAiM3FCAxSaFwHaNH6wPP1xsgU1
- kucsaNq0+EKsmjbFYTq+f0nog0myEuldQqID/SMR+i5kWIFG7rthA8FBre2Wn4sPCwrG
- Cd/gZ7dfN9Be75vjAjI1TonFR8plJYfMtkZ+8EURJm7BFnc54dsSkuUdV2dK/3sNxHQC
- 8LrmOISN6pBgau599O3YL1oXC/rWFRVyaCECXpJoqxQXIzgxorMeUaviuWyN1p+gtl/X
- Crwg==
-X-Gm-Message-State: AOJu0Yx4QFecGzorEANKQhNxvXfU2rejIgaJzXCevyHbr1F1gC9X9ase
- DkDRCTUpElcrxNJrpo+3pRrUGnPYy/hsquVvE/qOj8EBDglQDnf4EBPQCwEAVp+ybZ/g5XdKN7P
- y+25xt8egP/M14VAAWpPVVU28tTEdMHyeQi/G81yuGzun+GX9HG8zSRzwypdlX4DuXLD7T82gyo
- OcCGZdo55lkhducI86Bs7gGtnq9I6Gdx8=
-X-Google-Smtp-Source: AGHT+IFFir4rky9uC7F0dNDyKPC+EQW47kXfvNgIpW2MPfggNYFPUGk8QcaO8IZTWa4QY8ubC9SjFNmPttzb
+ bh=FTp9q60rzLSN1frYIZugxdoapi1PLWWITI6bDYejvog=;
+ b=JE7j2soHDOByoKkDNl85i4Mu5wL4oc+tHC4C26v8eDE6HkXMhVoGJ7Tj1bofu55Ayl
+ Y7TjKUcSfw35cT2o85J3Hz4Owo20ZnGE6lzVQ8ma4euBqWcVv+nZN7WKxm4iIJMDZCv/
+ DzM0sAXRg4GuSAWe+IO5WcwLOBWaIz4jxHjT55c+Yt2SXAOR2NDoyu3o0y+UvtAkFCgG
+ x7GmyCP4UyM5vAkTw7sNYdr/Ucc6N0ksZVLOAghdaLvFHd6FERUXXKEKLI/zU8I4NlU6
+ /Z4IdgjkVxD4aE5eR9l+iFZskNbbP0q0thyMirDjKDixlWtmPZXUH9h6pcw0yei8WLFB
+ skOA==
+X-Gm-Message-State: AOJu0YxFs8VzP7C18F2bRTkvJVHM7A27NMMyrV3315+bUEhI1OQ2VP0n
+ QbmvfwDm/Rqv/FLMhupSi9i52fMxLi9GPCrzJjkrvr7DV7zlVijV8OT113ueT0oX/vjD7EFwe7L
+ tzqbtly9KbPIhRgLa/Hs/z1/ARSKYC5lvSjb2vpCZftCBtGOHB0cfxpmYpPNAObBG88AEeXoonM
+ 0LWpNOWbEsoKRg3CZJARR/KeVSn11oTHA=
+X-Google-Smtp-Source: AGHT+IHTMAq5B4jby4L4d1fu9lo1u5/NG9J/4I8XIAUylSuq/8tFHK6moQy9jozi+EeXaQK8NHS7orwuhS2h
 X-Received: from jstultz-noogler2.c.googlers.com
  ([fda3:e722:ac3:cc00:24:72f4:c0a8:600])
- (user=jstultz job=sendgmr) by 2002:a25:c591:0:b0:e02:d71e:87b5 with SMTP id
- 3f1490d57ef6-e0304009b41mr315710276.6.1719359574522; Tue, 25 Jun 2024
- 16:52:54 -0700 (PDT)
-Date: Tue, 25 Jun 2024 16:52:30 -0700
+ (user=jstultz job=sendgmr) by 2002:a05:6902:2b8d:b0:e02:c619:73d with SMTP id
+ 3f1490d57ef6-e030403de41mr320987276.5.1719359576596; Tue, 25 Jun 2024
+ 16:52:56 -0700 (PDT)
+Date: Tue, 25 Jun 2024 16:52:31 -0700
 In-Reply-To: <20240625235245.2106313-1-jstultz@google.com>
 Mime-Version: 1.0
 References: <20240625235245.2106313-1-jstultz@google.com>
 X-Mailer: git-send-email 2.45.2.741.gdbec12cfda-goog
-Message-ID: <20240625235245.2106313-2-jstultz@google.com>
+Message-ID: <20240625235245.2106313-3-jstultz@google.com>
 To: ltp@lists.linux.it
 X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 1/6] sched_football: Drop use of sched_yeild()
+Subject: [LTP] [PATCH v2 2/6] sched_football: Use atomic operations for ball
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,57 +101,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-sched_yeild() just causes the SCHED_FIFO tasks to behave like
-SCHED_RR which makes analysis of the behavior more difficult to
-follow. So lets drop the calls.
-
-Also fixes up some whitespace inconsistencies in the header comment.
+Use the tst_atomic* methods for the player count and ball values,
+as we don't have any locking going on.
 
 Cc: kernel-team@android.com
 Cc: Cyril Hrubis <chrubis@suse.cz>
 Cc: Darren Hart <darren@os.amperecomputing.com>
 Signed-off-by: John Stultz <jstultz@google.com>
 ---
- .../realtime/func/sched_football/sched_football.c      | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+v2: Rework to use tst_atomic* methods instead of atomic_t, as
+    suggested by Cyril
+---
+ .../func/sched_football/sched_football.c      | 21 ++++++++++---------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
 diff --git a/testcases/realtime/func/sched_football/sched_football.c b/testcases/realtime/func/sched_football/sched_football.c
-index 6f075aea3..1e205219d 100644
+index 1e205219d..1a1bc5780 100644
 --- a/testcases/realtime/func/sched_football/sched_football.c
 +++ b/testcases/realtime/func/sched_football/sched_football.c
-@@ -32,12 +32,12 @@
-  *       - Create a fixed number of offense threads (lower priority)
-  *       - Create a referee thread (highest priority)
-  *       - Once everyone is on the field, the offense thread increments the
-- *	 value of 'the_ball' and yields. The defense thread tries to block
-- *	 the ball by never letting the offense players get the CPU (it just
-- * 	   does a sched_yield).
-+ *         value of 'the_ball'. The defense thread tries to block
-+ *         the ball by never letting the offense players get the CPU (it just
-+ *         spins).
-  *       - The refree threads wakes up regularly to check if the game is over :)
-  *       - In the end, if the value of 'the_ball' is >0, the test is considered
-- *	 to have failed.
-+ *         to have failed.
-  *
-  * USAGE:
-  *      Use run_auto.sh script in current directory to build and run test.
-@@ -113,7 +113,6 @@ void *thread_defense(void *arg)
- 	atomic_inc(&players_ready);
+@@ -67,15 +67,16 @@
+ #include <unistd.h>
+ #include <sys/time.h>
+ #include <librttest.h>
++#include <tst_atomic.h>
+ 
+ #define DEF_GAME_LENGTH 5
+ 
+ /* Here's the position of the ball */
+-volatile int the_ball;
++static int the_ball;
+ 
+ static int players_per_team = 0;
+ static int game_length = DEF_GAME_LENGTH;
+-static atomic_t players_ready;
++static int players_ready;
+ 
+ void usage(void)
+ {
+@@ -110,7 +111,7 @@ int parse_args(int c, char *v)
+ /* This is the defensive team. They're trying to block the offense */
+ void *thread_defense(void *arg)
+ {
+-	atomic_inc(&players_ready);
++	tst_atomic_add_return(1, &players_ready);
  	/*keep the ball from being moved */
  	while (1) {
--		sched_yield();	/* let other defenders run */
  	}
- 	return NULL;
- }
-@@ -124,7 +123,6 @@ void *thread_offense(void *arg)
- 	atomic_inc(&players_ready);
+@@ -120,9 +121,9 @@ void *thread_defense(void *arg)
+ /* This is the offensive team. They're trying to move the ball */
+ void *thread_offense(void *arg)
+ {
+-	atomic_inc(&players_ready);
++	tst_atomic_add_return(1, &players_ready);
  	while (1) {
- 		the_ball++;	/* move the ball ahead one yard */
--		sched_yield();	/* let other offensive players run */
+-		the_ball++;	/* move the ball ahead one yard */
++		tst_atomic_add_return(1, &the_ball); /* move the ball ahead one yard */
  	}
  	return NULL;
  }
+@@ -138,16 +139,16 @@ int referee(int game_length)
+ 	now = start;
+ 
+ 	/* Start the game! */
+-	the_ball = 0;
++	tst_atomic_store(0, &the_ball);
+ 
+ 	/* Watch the game */
+ 	while ((now.tv_sec - start.tv_sec) < game_length) {
+ 		sleep(1);
+ 		gettimeofday(&now, NULL);
+ 	}
++	final_ball = tst_atomic_load(&the_ball);
+ 	/* Blow the whistle */
+ 	printf("Game Over!\n");
+-	final_ball = the_ball;
+ 	printf("Final ball position: %d\n", final_ball);
+ 	return final_ball != 0;
+ }
+@@ -165,7 +166,7 @@ int main(int argc, char *argv[])
+ 	if (players_per_team == 0)
+ 		players_per_team = sysconf(_SC_NPROCESSORS_ONLN);
+ 
+-	atomic_set(0, &players_ready);
++	tst_atomic_store(0, &players_ready);
+ 
+ 	printf("Running with: players_per_team=%d game_length=%d\n",
+ 	       players_per_team, game_length);
+@@ -185,7 +186,7 @@ int main(int argc, char *argv[])
+ 		create_fifo_thread(thread_offense, NULL, priority);
+ 
+ 	/* Wait for the offense threads to start */
+-	while (atomic_get(&players_ready) < players_per_team)
++	while (tst_atomic_load(&players_ready) < players_per_team)
+ 		usleep(100);
+ 
+ 	/* Start the defense */
+@@ -196,7 +197,7 @@ int main(int argc, char *argv[])
+ 		create_fifo_thread(thread_defense, NULL, priority);
+ 
+ 	/* Wait for the defense threads to start */
+-	while (atomic_get(&players_ready) < players_per_team * 2)
++	while (tst_atomic_load(&players_ready) < players_per_team * 2)
+ 		usleep(100);
+ 
+ 	/* Ok, everyone is on the field, bring out the ref */
 -- 
 2.45.2.741.gdbec12cfda-goog
 
