@@ -2,93 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C954291726D
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jun 2024 22:20:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62647917507
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jun 2024 01:53:40 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1719346853; h=mime-version :
- references : in-reply-to : date : message-id : to : subject : list-id
- : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=9InRQ8Rd+UvwFRQHM81lMsIA60wlBlnaodHoDpNZ5Aw=;
- b=UrBpOe6GkB7/6mzPRxgzXajCAhtLOy+Lpxv/0PDQv3Y+JmLs9MslLtfboK/wsaA3hPUgs
- gfxdNq0db+jGh+y790XDx2B5eIAjGJvGjW4ijmlq/4efuD9Ih27Eypd7v4DcDsixC6Zlw6K
- 9rbrlk1WbovM7PTQQXquXxyhhUYFXGQ=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1719359620; h=date :
+ mime-version : message-id : to : subject : list-id : list-unsubscribe
+ : list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : cc : content-type : content-transfer-encoding : sender :
+ from; bh=pt4oxhOYHq+roh4fcPrvZrwU9SLk0wwiGb0lQQR+I30=;
+ b=RTY3b3XzyAPbFzlZqRlAFkaKWutN5V4lEZJcYTZfXHDsuMb5UsTEggFZ0xXfjhFMPu8i3
+ q2drQEFzguYAD+1BYsGzwJz+n1sSFt7ckevrU/o75wZgEMnsQG8BnFjQrJyi4qEszD155v1
+ ezGZ3owU+RJOh7mOyhbtae5ZVeGRN64=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 774793D10D0
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jun 2024 22:20:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 18CAF3D115F
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jun 2024 01:53:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A1F523C97AD
- for <ltp@lists.linux.it>; Tue, 25 Jun 2024 22:20:37 +0200 (CEST)
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
+ by picard.linux.it (Postfix) with ESMTPS id 8183A3C13C2
+ for <ltp@lists.linux.it>; Wed, 26 Jun 2024 01:52:54 +0200 (CEST)
+Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com
+ [IPv6:2607:f8b0:4864:20::114a])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E87C31A00CD9
- for <ltp@lists.linux.it>; Tue, 25 Jun 2024 22:20:36 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-422f7c7af49so5845e9.0
- for <ltp@lists.linux.it>; Tue, 25 Jun 2024 13:20:36 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 53A36207A1D
+ for <ltp@lists.linux.it>; Wed, 26 Jun 2024 01:52:54 +0200 (CEST)
+Received: by mail-yw1-x114a.google.com with SMTP id
+ 00721157ae682-62d032a07a9so130009197b3.2
+ for <ltp@lists.linux.it>; Tue, 25 Jun 2024 16:52:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1719346836; x=1719951636; darn=lists.linux.it;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=re7UKVz9NRR3DoAXdbcFEgKydTVLPhxKb3jZeJoQrXI=;
- b=TQWmFhAAUOOzMf2PEH3JY7UOSjF9TeCHMbSE52HOqO2gU6sZOFOS6L4jnHxmsKmwh1
- XTk6kf6PXd4a6XxCZChn/qiFhW8eM7mgzkHd22p5HqG7+/ua9v7+vT7dx6jx0iKMEnUY
- YF+ZcZu+67L5QQ7L2RMxHgN6B5p7w4/MKcLcev8OXG2yYSw7o3pJEfwOZxmLadV2UEMb
- 4W3qIErHeOSTxTwRR+yqpWnvfHUKv8HVmks5DW6Ia1NufJMNYdu6Ox8P4+YAp4B8Zpir
- XKvR8P/ASDlAfhXYjW8NhV/CtYgZjxLopoQX0vxAgtQFw1Ev+BkKKMWMUTBc03NvDF4E
- IF8w==
+ d=google.com; s=20230601; t=1719359573; x=1719964373; darn=lists.linux.it;
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=6rUeoyw6De79UbaVsSkcPAc2s0bQpp/qhH5Vzw9W/Uc=;
+ b=RFQR7ybKp2CzYjAxUcNEuC6zUoA6BP6YSoOSkzl6LlERMQI2euV+zYTPbxE7dnfiqU
+ 1jXwTnx7EES343nGHgVpX3WJ/vJTZusKSlCDAQ7wvVSIHkz19QwvTs/Cp1XiVAKI+JX5
+ 69Z/Ss0RJH60U3hpLpn1UutavgpjWvGWimZWVGDpGUO1xtvnpW/AONZpinGttfrunjDU
+ ZGFfTWj9jtSi9hExYPSm3elEDwT2qgQ/u8s8BM7eG3v7hiML4KH7WU7J0tkpHGpz+o6J
+ kWgz/x+D04bjKaPwSlbKGOdOYNmrVA7hMLLlZiaq3Kd75+Al5c1grSndIc/bL+ZGOpXP
+ LoUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719346836; x=1719951636;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=re7UKVz9NRR3DoAXdbcFEgKydTVLPhxKb3jZeJoQrXI=;
- b=SVtEZWhsslrdVXTaHCmA1sAdW6YVcvtYAuwgOrx/9TaTsE+S5OFcy3vmOA6F6injFJ
- WSyVDJmUSJr85Yjeu4qPSGQCu6TiIOGjK0OyCY82T/P8Fs8KPdrh7fsdQzXUz/quQ3yh
- zbDsJi9P/4i8TQlPgrvqqu+CDl9H+gEnx5JPM/XzJwxJh52qd+SjSVjSZrvfhyOOsoYt
- q79AJntqBL79Dlz+O9MUz9w7iO8B/8q8Lpmi8UDXHw42HjX3L3GFMmc5f47NzW/cY+S1
- 05ALiQKyAaoCnyUZsnU+KhPu7L2sIFCcG6LIPWUK8zMm+O+qFjofJ8DoWSyRwcYxpbwc
- 4z4Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWHgQ1tiQ2ImCTsTcSqZdEjs/Irntu+dapZS8KB7OEL/TkU8pHWEbbYKEw6lrqjpO9iRhi0TA9YCV8qzJLjymAYK1k=
-X-Gm-Message-State: AOJu0YxaWUqywCe7UtwgtMPYx+Af4nzWXHInljB4gTZNVchSEzQvdXdK
- 2KGoQjPmibDs0JhZi+Q/zVY9iFqr07k/qC4KEEP2o9/96GPJPG9EmTGpL8uOCDvXwMEq0pp4k2k
- HTOqnkKNqxIWj1OXTZkpiXTJvM0i6qiSFrq0=
-X-Google-Smtp-Source: AGHT+IF9JteV1YVi0lkVqRKbfMN3ETPiKhiR2GXSDCf3813+tJLCCPnemGDDn3vJr6k4+VXEHGlnGuxvEV+RCtyLpgE=
-X-Received: by 2002:a05:600c:1d93:b0:41a:444b:e1d9 with SMTP id
- 5b1f17b1804b1-424ad7ffe28mr470875e9.4.1719346836226; Tue, 25 Jun 2024
- 13:20:36 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240423225821.4003538-1-jstultz@google.com>
- <20240423225821.4003538-3-jstultz@google.com>
- <Zi9jL1jycx6oo37g@yuki>
- <CANDhNCq__ZY9w3Nse-+K+d9gyXhrOe_6oZ=X01x_HufZwQ_6ig@mail.gmail.com>
- <Zjn1-1YRyZGIUtEP@yuki> <ZnlORS6RGTAA4UhS@yuki>
- <CANDhNCqk-3o+Bu_c9PbqoxSacGQaGUrdTM5VDoZCOipEttXKLw@mail.gmail.com>
- <CAEemH2fT2NsoZfRvNrhRrstF=dhzF8Y90HqVQSCf1VxqpNHgEw@mail.gmail.com>
-In-Reply-To: <CAEemH2fT2NsoZfRvNrhRrstF=dhzF8Y90HqVQSCf1VxqpNHgEw@mail.gmail.com>
-Date: Tue, 25 Jun 2024 13:20:23 -0700
-Message-ID: <CANDhNCr4-cE7_Uy86Pa3kjzFG_EOOB38C_mSGSfZtc=vd7L5yQ@mail.gmail.com>
-To: Li Wang <liwang@redhat.com>
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,
- SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+ d=1e100.net; s=20230601; t=1719359573; x=1719964373;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6rUeoyw6De79UbaVsSkcPAc2s0bQpp/qhH5Vzw9W/Uc=;
+ b=hc8sl+IT369tyrMTAtwzSoImdFQiQwBUI6W+dXhwtXmJl84fcO6KGyC7szsRQDHXTU
+ jBPFjkExNF1nFUJVinOg6R+ztaNY7vsOSBBL7mbEmETlxfmr3N8KCTzw2zm55EiBXPD+
+ exyD5iFGRN+qLSGB/BXVPjELYISSOVnkumcg8ZcWJfVe+hSXCgxP+R65a0XTZu2ntuhC
+ YzxW17CYvWv1madLlWL16MRzvlOwkt9TOSubRxY9sEc2zfiC/Ijzttc12PlHSkf7nizo
+ w5Cok55CeVmnqhYbLRGIC/LXCC0IL9aXAyU8mGllgJoJfHY1GO3R+4fY6oiUSW/gQWzV
+ 8KKQ==
+X-Gm-Message-State: AOJu0YyGc8Olsx4FM90PWruUL3uOj25H1RMRtqsIUmEvHq/o7ukgj957
+ e7bqwcjpoufJCM+Y8JRsyykqJ5+DOJW1X0gJY7UKAlQJVWaYZNI1UnwjA7Uv3iIe3o/HjN0f3wK
+ KMCKVjXuO5EW7VdPZTb5GV66IqJm+c5JRlDyh/YgjcpIw1QzCnL5eFQ+kYyvE3oR81YzqxMW+U0
+ DHIS3AHrNDfQeBlAmBNDqB1b9CRu4IR3E=
+X-Google-Smtp-Source: AGHT+IH6AsZf0Z4nUPiQxNm9fCSt+O9m3Nsh+vwZ0GTyH85Zo/0k/xRlHsFk17SSS4KY5GI3/xVlxhYDSNEq
+X-Received: from jstultz-noogler2.c.googlers.com
+ ([fda3:e722:ac3:cc00:24:72f4:c0a8:600])
+ (user=jstultz job=sendgmr) by 2002:a05:690c:a94:b0:62d:fbf:920a with SMTP id
+ 00721157ae682-643ad6bc2d7mr1336927b3.10.1719359572531; Tue, 25 Jun 2024
+ 16:52:52 -0700 (PDT)
+Date: Tue, 25 Jun 2024 16:52:29 -0700
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.45.2.741.gdbec12cfda-goog
+Message-ID: <20240625235245.2106313-1-jstultz@google.com>
+To: ltp@lists.linux.it
+X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/6] sched_football: Use atomic for ball
+Subject: [LTP] [PATCH v2 0/6] sched_football: Re-add crazy fans and other
+ cleanups
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,35 +93,67 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 From: John Stultz via ltp <ltp@lists.linux.it>
 Reply-To: John Stultz <jstultz@google.com>
-Cc: Darren Hart <darren@os.amperecomputing.com>, kernel-team@android.com,
- ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: kernel-team@android.com, John Stultz <jstultz@google.com>,
+ Darren Hart <darren@os.amperecomputing.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gTW9uLCBKdW4gMjQsIDIwMjQgYXQgODoxNeKAr1BNIExpIFdhbmcgPGxpd2FuZ0ByZWRoYXQu
-Y29tPiB3cm90ZToKPiBPbiBUdWUsIEp1biAyNSwgMjAyNCBhdCA4OjA14oCvQU0gSm9obiBTdHVs
-dHogdmlhIGx0cCA8bHRwQGxpc3RzLmxpbnV4Lml0PiB3cm90ZToKPj4gSGV5IEN5cmlsIQo+Pgo+
-PiBJIHdlbnQgdG8gdGFrZSBhIHN0YWIgYXQgdGhpcywgYnV0IHRoZSBtYXN0ZXIgYnJhbmNoIG9u
-Cj4+IGh0dHBzOi8vZ2l0aHViLmNvbS9saW51eC10ZXN0LXByb2plY3QvbHRwLmdpdCBkb2Vzbid0
-IHNlZW0gdG8gYnVpbGQ6Cj4+ICAgJCAuL2NvbmZpZ3VyZSAtLXdpdGgtcmVhbHRpbWUtdGVzdHN1
-aXRlCj4+ICAgJCBtYWtlIC1qID4gL2Rldi9udWxsCj4+IG1ha2VbM106ICoqKiBObyBydWxlIHRv
-IG1ha2UgdGFyZ2V0ICdNYWtlZmlsZS5hbScsIG5lZWRlZCBieQo+PiAnTWFrZWZpbGUuaW4nLiAg
-U3RvcC4KPj4gbWFrZVsyXTogKioqIFsuLi8uLi9pbmNsdWRlL21rL2dlbmVyaWNfdHJ1bmtfdGFy
-Z2V0LmluYzoxMDg6IGFsbF0gRXJyb3IgMgo+PiBtYWtlWzFdOiAqKiogWy4uL2luY2x1ZGUvbWsv
-Z2VuZXJpY190cnVua190YXJnZXQuaW5jOjEwODogYWxsXSBFcnJvciAyCj4+IG1ha2U6ICoqKiBb
-TWFrZWZpbGU6ODU6IHRlc3RjYXNlcy1hbGxdIEVycm9yIDIKPj4KPj4gQmlzZWN0aW5nIHBvaW50
-cyB0byBjb21taXQgYTA1Mjk4ZWM0NDk0ICgidGVzdGNhc2VzOiByZWFsdGltZTogR2V0IHJpZAo+
-PiBvZiBhdXRvdG9vbHMiKQo+Pgo+PiBJJ20gdW5mb3J0dW5hdGVseSBub3Qgc2F2dnkgZW5vdWdo
-IHdpdGggYnVpbGQgc3lzdGVtcyB0byBoYXZlIG11Y2ggb2YKPj4gYW4gaWRlYSBvZiB3aGF0IGlz
-IG5lZWRlZCBoZXJlLgo+Pgo+PiBBbnkgc3VnZ2VzdGlvbnM/Cj4KPgo+IExvb2tzIGxpa2UgeW91
-IHdlcmUgdHJ5aW5nIHRvIGNvbmZpZ3VyZSByZWFsdGltZS10ZXN0c3VpdGUgaW4gTFRQIGJ1aWxk
-LgoKWWVzLCBhcyBwcmV2aW91c2x5IHRoYXQgc2VlbWVkIHRvIGJlIHJlcXVpcmVkLgoKCj4gVHJ5
-IHRoaXM6Cj4KPiAjIGNkIGx0cCBkaXIvCj4gIyBtYWtlIGF1dG90b29scwo+ICMgIC4vY29uZmln
-dXJlCj4gIyAgbWFrZSAtQyB0ZXN0Y2FzZXMvcmVhbHRpbWUvCgpUaGFuayB5b3UhIFRoYXQgZG9l
-cyBpbmRlZWQgd29yay4KCj4gU2VlOiBodHRwczovL2xpbnV4LXRlc3QtcHJvamVjdC5yZWFkdGhl
-ZG9jcy5pby9lbi9sYXRlc3QvdXNlcnMvcXVpY2tfc3RhcnQuaHRtbAoKU2hvdWxkIHRoZSBvbGQg
-LS13aXRoLXJlYWx0aW1lLXRlc3RzdWl0ZSBvcHRpb24gYmUgcmVtb3ZlZCB0aGVuPwoKdGhhbmtz
-IGFnYWluIQotam9obgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4
-Lml0L2xpc3RpbmZvL2x0cAo=
+Just the other day (~18 years ago), I had implemented the
+sched_football test to validate the RT scheduling invariant that
+we always run the top NR_CPU priority tasks at any time.
+
+That early version of the test included crazy fans, which
+disrupted the scheduling of the defensive threads. This was
+later removed from the test, likely due to occasional failures
+seen with it.
+
+Recently, in testing the behavior of a scheduler patch I was
+working on I started tinkering with this test again, and found
+when I re-added the crazy fans, I could reproduce an actual
+scheduling problem with the vanilla kernel.
+
+So I wanted to submit these changes to re-add the crazy fans
+along with some other cleanups and improvements to make it
+easier to use with tracing, so that the test can be used by
+others to reproduce this problem.
+
+New in v2 (thank you for the feedback!):
+* Rework to use tst_atomic* methods instead of atomic_t
+  suggested by Cyril
+* Remove unused variables
+* Drop changelog comment as suggested by Cyril
+* Rework to use tst_atomic_* functions as suggested by Cyril
+* Rework to use tst_timespec* functions as suggested by Cyril
+* Pulled trace marker writing out into librttest helper functions
+  as suggested by Cyril
+
+thanks
+-john
+
+Cc: kernel-team@android.com
+Cc: Cyril Hrubis <chrubis@suse.cz>
+Cc: Darren Hart <darren@os.amperecomputing.com>
+
+
+John Stultz (6):
+  sched_football: Drop use of sched_yeild()
+  sched_football: Use atomic operations for ball
+  sched_football: Re-add the crazy fans to interrupt everyone
+  sched_football: Add a sleep before the game begins to get into steady
+    state
+  sched_football: Add prctrl calls to set thread comms
+  sched_football: Add trace_marker messages if we're tracing
+
+ .../func/sched_football/sched_football.c      | 95 +++++++++++++++----
+ testcases/realtime/include/librttest.h        | 13 +++
+ testcases/realtime/lib/librttest.c            | 32 +++++++
+ 3 files changed, 119 insertions(+), 21 deletions(-)
+
+-- 
+2.45.2.741.gdbec12cfda-goog
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
