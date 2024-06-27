@@ -1,89 +1,101 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74ED8923BEE
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 13:00:41 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5467B923F09
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 15:32:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1719927173; h=to : date :
+ message-id : in-reply-to : references : mime-version : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=rWiiAYf4MgS89aT/tKv9J1C0nlcyiq8g1AhVA3B5+Ss=;
+ b=QILA4NHj3RyxM2ijDBbwGtrxl4TUxsbnA+Q7MF0EOrrcyuubNkphipt8fF2zLka4/xUy9
+ q7e3fspHmnlFrl9X8+qP68mo3mRpZhl+iSzuvFrsrgraPQLMUZUHq0Dq4SFnb9BoDtadiKw
+ 3gswYZho/+uJcYPeWVn50qrv2AHivys=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3F0FE3D3ECA
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 13:00:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 041883D3EC9
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 15:32:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BCB4A3D3EAD
- for <ltp@lists.linux.it>; Tue,  2 Jul 2024 13:00:32 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id CC8E03D0FAF
+ for <ltp@lists.linux.it>; Thu, 27 Jun 2024 11:29:14 +0200 (CEST)
 Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
+ smtp.mailfrom=mediatek.com (client-ip=210.61.82.184;
+ helo=mailgw02.mediatek.com; envelope-from=joe.liu@mediatek.com;
  receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 71C88100C1EC
- for <ltp@lists.linux.it>; Tue,  2 Jul 2024 13:00:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1719918029;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Dp8CEsdwjop6SkxqzlYzbQnMFxxVYEco4H+aCAeFEXs=;
- b=VjHd24HvuKEPi20zKmI9s+VqOq6NYWcDS9eParlBba5qoQMcYnpaohKNWk8w0hrUiYkoit
- 5dqzTCRRaSZ+d5A+62aNEeBojR0K1Oo5Nhe9pefmn8YtQMo9vFR0UEf/slWPqROFmGs4Mn
- NI3tCfgzlXl6n5wQbCSr/lghPKUPub4=
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-321-36gu0_yBOmieyQKhGvryzw-1; Tue, 02 Jul 2024 07:00:27 -0400
-X-MC-Unique: 36gu0_yBOmieyQKhGvryzw-1
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-7191a8059ffso2507557a12.3
- for <ltp@lists.linux.it>; Tue, 02 Jul 2024 04:00:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719918026; x=1720522826;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Dp8CEsdwjop6SkxqzlYzbQnMFxxVYEco4H+aCAeFEXs=;
- b=sWVveuU7/846wWcMBqG9kC4W9vmUMaK4AUHJ6jhhZPwuXjb6okWCtfAIIbGweHIZb4
- UYA7VeFfw6t9LjAFT7urIwCh8Kp/AiB5+Rmma1B7BsTYSaoVs+cw8GN7ssr4pcbA7rey
- L8cznUWrmFY6NBthVYJWx+OPNjZ24KDLzWcX5KYu9boWbbXye++Y2rQF2pIgAhZlyQZa
- PW35uqd7bfhqYxxYJ6R1EeGGCyOhdgzv9Je/c/R8kVdelxGDq3B32M6GTtYbXM8vMyM5
- 2FFmZRw5MnG49tbZZYEgAQm9L5HBe/GjKOwyfmptfmmnctQOXYIxQGJn9Jwh+JQnbe2c
- 05ZA==
-X-Gm-Message-State: AOJu0Yx6/ghGpcgUhB40o1xkAVmK5bmP+Ntg7FTTa1FGPpvSQxT9mwqH
- Ro7lu3tQo2WGRui8o3mSkS+vFu0JEhhIhlXRa/aKglKOfRe0E2RxigcERfS+INALIp8KO0hjJ16
- 6liLRxMysnPYcjqaRCub1LCXRyTqxjjnaf+t1GssH/viyQeBVChNJc64V/NQqUujuRxBfUqkCSX
- oMhHwZEft0eGPsegypR2dhgJ4=
-X-Received: by 2002:a05:6a21:196:b0:1bf:2bf:9ded with SMTP id
- adf61e73a8af0-1bf02bf9f24mr6412295637.38.1719918025906; 
- Tue, 02 Jul 2024 04:00:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGgCo60aeqrqlJOCKvJvRSQXeopxoIRgFmToh4CCBu+7hkH6/dGS50aD2L9XdUzjZIA8ltw6Cz9DGXyfB4zGHk=
-X-Received: by 2002:a05:6a21:196:b0:1bf:2bf:9ded with SMTP id
- adf61e73a8af0-1bf02bf9f24mr6412249637.38.1719918025265; Tue, 02 Jul 2024
- 04:00:25 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A918F101BB81
+ for <ltp@lists.linux.it>; Thu, 27 Jun 2024 11:29:10 +0200 (CEST)
+X-UUID: b16b2a72346711ef99dc3f8fac2c3230-20240627
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
+ bh=Gxa2od1bo4v1XSQBSppUzWH9nMviGTGaNw/uaMfAIII=; 
+ b=mqV9U364AIAM2/11BYsrL6/EcUJ91gsdiS9pKim/VDZwMEaLUCskIPD9o0tFflG7GA7jZG0LXiF2XhqyG9el7QR4QpzV8Xp1AWy+I8WIFsCkVa0pXL2M6ma7bITMZ4bgIEjR+hvgaVMOd/OP2y4jhvkhUKpvMt4s39EOYmnxOdU=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.39, REQID:3eae0b92-779b-4bf7-966e-b9be4d5b65e9, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:393d96e, CLOUDID:6ab61989-8d4f-477b-89d2-1e3bdbef96d1,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,
+ SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 1,FCT
+X-CID-BAS: 1,FCT,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-UUID: b16b2a72346711ef99dc3f8fac2c3230-20240627
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by
+ mailgw02.mediatek.com (envelope-from <joe.liu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1166797311; Thu, 27 Jun 2024 17:29:03 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.26; Thu, 27 Jun 2024 17:29:00 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Thu, 27 Jun 2024 17:29:00 +0800
+To: <chrubis@suse.cz>
+Date: Thu, 27 Jun 2024 17:28:59 +0800
+Message-ID: <20240627092900.20985-1-joe.liu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
+In-Reply-To: <20240612112311.10334-1-chrubis@suse.cz>
+References: <20240612112311.10334-1-chrubis@suse.cz>
 MIME-Version: 1.0
-References: <20240701-landlock-v1-0-58e9af649a72@suse.com>
- <20240701-landlock-v1-7-58e9af649a72@suse.com>
-In-Reply-To: <20240701-landlock-v1-7-58e9af649a72@suse.com>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 2 Jul 2024 19:00:12 +0800
-Message-ID: <CAEemH2eYpoZPJi_bRpcHb59xdHBOyG8no6=tPzv7zFr=MHpe7g@mail.gmail.com>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-TM-AS-Product-Ver: SMEX-14.0.0.3152-9.1.1006-23728.005
+X-TM-AS-Result: No-10--2.093100-8.000000
+X-TMASE-MatchedRID: VPleTT1nwdQ4HKI/yaqRm+qwWVBfMuvoe7Z0UyQO5TNh7WbOnt2TBzUi
+ 2rTIOxGG4iklOQCWq9JyxlmD3MM49eU6SuqUlqe6syw+ZJnFumQHdYH++bm0GAPYDdySm+X3ra4
+ hwGeKbvKObIAKMbDdIOwtXQyQB91DMdoq6niTi6K4jAucHcCqnTul9KNGwPY6BthzL1hCXp5Iw5
+ I+N6KsBKA8+iTsk6pAgDLqnrRlXrZ8nn9tnqel2MprJP8FBOIaimkn+s9We/F9X5QEAPKzPWPnO
+ AY0+21Z4lrKw+SpCh5FqU5d6p8JTuCokWcm+5o7At/doGVYVeNRp5EVkVADgL44wH2gofHDndCR
+ kxk0cZt0BNB20+SxH7f8mJY57oZddJaBDYald1mHO0tVYDV4T0MMprcbiest
+X-TM-AS-User-Approved-Sender: No
+X-TM-AS-User-Blocked-Sender: No
+X-TMASE-Result: 10--2.093100-8.000000
+X-TMASE-Version: SMEX-14.0.0.3152-9.1.1006-23728.005
+X-TM-SNTS-SMTP: 5F87BA15394603AC5F02BF8598FDCE00E13A602E603CC6198653FD5B97D1CBBD2000:8
+X-MTK: N
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH 07/10] Add landlock03 test
+X-Mailman-Approved-At: Tue, 02 Jul 2024 15:32:40 +0200
+Subject: Re: [LTP] [PATCH v2] sched: starvation: Autocallibrate the timeout
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,108 +107,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: "joe.liu via ltp" <ltp@lists.linux.it>
+Reply-To: "joe.liu" <joe.liu@mediatek.com>
+Cc: alix.wu@mediatek.com, xufeifei1@oppo.com, ltp@lists.linux.it,
+ joe.liu@mediatek.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-UmV2aWV3ZWQtYnk6IExpIFdhbmcgPGxpd2FuZ0ByZWRoYXQuY29tPgoKT24gTW9uLCBKdWwgMSwg
-MjAyNCBhdCAxMTo1M+KAr1BNIEFuZHJlYSBDZXJ2ZXNhdG8gPGFuZHJlYS5jZXJ2ZXNhdG9Ac3Vz
-ZS5kZT4Kd3JvdGU6Cgo+IEZyb206IEFuZHJlYSBDZXJ2ZXNhdG8gPGFuZHJlYS5jZXJ2ZXNhdG9A
-c3VzZS5jb20+Cj4KPiBUaGlzIHRlc3QgdmVyaWZpZXMgdGhhdCBsYW5kbG9ja19yZXN0cmljdF9z
-ZWxmIHN5c2NhbGwgZmFpbHMgd2l0aCB0aGUKPiByaWdodCBlcnJvciBjb2RlczoKPgo+IC0gRUlO
-VkFMIGZsYWdzIGlzIG5vdCAwCj4gLSBFQkFERiBydWxlc2V0X2ZkIGlzIG5vdCBhIGZpbGUgZGVz
-Y3JpcHRvciBmb3IgdGhlIGN1cnJlbnQgdGhyZWFkCj4gLSBFQkFERkQgcnVsZXNldF9mZCBpcyBu
-b3QgYSBydWxlc2V0IGZpbGUgZGVzY3JpcHRvcgo+IC0gRVBFUk0gcnVsZXNldCBkb2Vzbid0IGhh
-dmUgQ0FQX1NZU19BRE1JTiBpbiBpdHMgbmFtZXNwYWNlCj4gLSBFMkJJRyBUaGUgbWF4aW11bSBu
-dW1iZXIgb2Ygc3RhY2tlZCBydWxlc2V0cyBpcyByZWFjaGVkIGZvciB0aGUKPiAgIGN1cnJlbnQg
-dGhyZWFkCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbmRyZWEgQ2VydmVzYXRvIDxhbmRyZWEuY2VydmVz
-YXRvQHN1c2UuY29tPgo+IC0tLQo+ICBydW50ZXN0L3N5c2NhbGxzICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICB8ICAgMSArCj4gIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvbGFuZGxv
-Y2svLmdpdGlnbm9yZSAgIHwgICAxICsKPiAgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9sYW5k
-bG9jay9sYW5kbG9jazAzLmMgfCAxMTkKPiArKysrKysrKysrKysrKysrKysrKysrKysKPiAgMyBm
-aWxlcyBjaGFuZ2VkLCAxMjEgaW5zZXJ0aW9ucygrKQo+Cj4gZGlmZiAtLWdpdCBhL3J1bnRlc3Qv
-c3lzY2FsbHMgYi9ydW50ZXN0L3N5c2NhbGxzCj4gaW5kZXggN2Y5YzgzMjkyLi4xZTJkNjgyZTMg
-MTAwNjQ0Cj4gLS0tIGEvcnVudGVzdC9zeXNjYWxscwo+ICsrKyBiL3J1bnRlc3Qvc3lzY2FsbHMK
-PiBAQCAtNjg2LDYgKzY4Niw3IEBAIGtpbGwxMyBraWxsMTMKPgo+ICBsYW5kbG9jazAxIGxhbmRs
-b2NrMDEKPiAgbGFuZGxvY2swMiBsYW5kbG9jazAyCj4gK2xhbmRsb2NrMDMgbGFuZGxvY2swMwo+
-Cj4gIGxjaG93bjAxIGxjaG93bjAxCj4gIGxjaG93bjAxXzE2IGxjaG93bjAxXzE2Cj4gZGlmZiAt
-LWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvbGFuZGxvY2svLmdpdGlnbm9yZQo+IGIv
-dGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9sYW5kbG9jay8uZ2l0aWdub3JlCj4gaW5kZXggZmZl
-ZDRhYmQyLi5mNzljZDA5MGIgMTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy9sYW5kbG9jay8uZ2l0aWdub3JlCj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9s
-YW5kbG9jay8uZ2l0aWdub3JlCj4gQEAgLTEsMiArMSwzIEBACj4gIGxhbmRsb2NrMDEKPiAgbGFu
-ZGxvY2swMgo+ICtsYW5kbG9jazAzCj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lz
-Y2FsbHMvbGFuZGxvY2svbGFuZGxvY2swMy5jCj4gYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxz
-L2xhbmRsb2NrL2xhbmRsb2NrMDMuYwo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXggMDAw
-MDAwMDAwLi42NTExZTI0YTcKPiAtLS0gL2Rldi9udWxsCj4gKysrIGIvdGVzdGNhc2VzL2tlcm5l
-bC9zeXNjYWxscy9sYW5kbG9jay9sYW5kbG9jazAzLmMKPiBAQCAtMCwwICsxLDExOSBAQAo+ICsv
-LyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgo+ICsvKgo+ICsgKiBD
-b3B5cmlnaHQgKEMpIDIwMjQgU1VTRSBMTEMgQW5kcmVhIENlcnZlc2F0byA8Cj4gYW5kcmVhLmNl
-cnZlc2F0b0BzdXNlLmNvbT4KPiArICovCj4gKwo+ICsvKlwKPiArICogW0Rlc2NyaXB0aW9uXQo+
-ICsgKgo+ICsgKiBUaGlzIHRlc3QgdmVyaWZpZXMgdGhhdCBsYW5kbG9ja19yZXN0cmljdF9zZWxm
-IHN5c2NhbGwgZmFpbHMgd2l0aCB0aGUKPiByaWdodAo+ICsgKiBlcnJvciBjb2RlczoKPiArICoK
-PiArICogLSBFSU5WQUwgZmxhZ3MgaXMgbm90IDAKPiArICogLSBFQkFERiBydWxlc2V0X2ZkIGlz
-IG5vdCBhIGZpbGUgZGVzY3JpcHRvciBmb3IgdGhlIGN1cnJlbnQgdGhyZWFkCj4gKyAqIC0gRUJB
-REZEIHJ1bGVzZXRfZmQgaXMgbm90IGEgcnVsZXNldCBmaWxlIGRlc2NyaXB0b3IKPiArICogLSBF
-UEVSTSBydWxlc2V0IGRvZXNuJ3QgaGF2ZSBDQVBfU1lTX0FETUlOIGluIGl0cyBuYW1lc3BhY2UK
-PiArICogLSBFMkJJRyBUaGUgbWF4aW11bSBudW1iZXIgb2Ygc3RhY2tlZCBydWxlc2V0cyBpcyBy
-ZWFjaGVkIGZvciB0aGUKPiBjdXJyZW50Cj4gKyAqICAgdGhyZWFkCj4gKyAqLwo+ICsKPiArI2lu
-Y2x1ZGUgImxhbmRsb2NrX2NvbW1vbi5oIgo+ICsKPiArI2RlZmluZSBNQVhfU1RBQ0tFRF9SVUxF
-U0VUUyAxNgo+ICsKPiArc3RhdGljIHN0cnVjdCBsYW5kbG9ja19ydWxlc2V0X2F0dHIgKnJ1bGVz
-ZXRfYXR0cjsKPiArc3RhdGljIGludCBydWxlc2V0X2ZkID0gLTE7Cj4gK3N0YXRpYyBpbnQgcnVs
-ZXNldF9pbnZhbGlkID0gLTE7Cj4gK3N0YXRpYyBpbnQgZmlsZV9mZCA9IC0xOwo+ICsKPiArc3Rh
-dGljIHN0cnVjdCB0c3RfY2FwIGRyb3BhZG1pbiA9IHsKPiArICAgICAgIC5hY3Rpb24gPSBUU1Rf
-Q0FQX0RST1AsCj4gKyAgICAgICAuaWQgPSBDQVBfU1lTX0FETUlOLAo+ICsgICAgICAgLm5hbWUg
-PSAiQ0FQX1NZU19BRE1JTiIsCj4gK307Cj4gKwo+ICtzdGF0aWMgc3RydWN0IHRzdF9jYXAgbmVl
-ZGFkbWluID0gewo+ICsgICAgICAgLmFjdGlvbiA9IFRTVF9DQVBfUkVRLAo+ICsgICAgICAgLmlk
-ID0gQ0FQX1NZU19BRE1JTiwKPiArICAgICAgIC5uYW1lID0gIkNBUF9TWVNfQURNSU4iLAo+ICt9
-Owo+ICsKPiArc3RhdGljIHN0cnVjdCB0Y2FzZSB7Cj4gKyAgICAgICBpbnQgKmZkOwo+ICsgICAg
-ICAgdWludDMyX3QgZmxhZ3M7Cj4gKyAgICAgICBpbnQgZXhwX2Vycm5vOwo+ICsgICAgICAgY2hh
-ciAqbXNnOwo+ICt9IHRjYXNlc1tdID0gewo+ICsgICAgICAgeyZydWxlc2V0X2ZkLCAtMSwgRUlO
-VkFMLCAiSW52YWxpZCBmbGFncyJ9LAo+ICsgICAgICAgeyZydWxlc2V0X2ludmFsaWQsIDAsIEVC
-QURGLCAiSW52YWxpZCBmaWxlIGRlc2NyaXB0b3IifSwKPiArICAgICAgIHsmZmlsZV9mZCwgMCwg
-RUJBREZELCAiTm90IGEgcnVsZXNldCBmaWxlIGRlc2NyaXB0b3IifSwKPiArICAgICAgIHsmcnVs
-ZXNldF9mZCwgMCwgRVBFUk0sICJGaWxlIGRlc2NyaXB0b3IgZG9lc24ndCBoYXZlCj4gQ0FQX1NZ
-U19BRE1JTiJ9LAo+ICsgICAgICAgeyZydWxlc2V0X2ZkLCAwLCBFMkJJRywgIk1heGltdW0gbnVt
-YmVyIG9mIHN0YWNrZWQgcnVsZXNldHMgaXMKPiByZWFjaGVkIn0sCj4gK307Cj4gKwo+ICtzdGF0
-aWMgdm9pZCBydW4odW5zaWduZWQgaW50IG4pCj4gK3sKPiArICAgICAgIHN0cnVjdCB0Y2FzZSAq
-dGMgPSAmdGNhc2VzW25dOwo+ICsKPiArICAgICAgIGlmICh0Yy0+ZXhwX2Vycm5vID09IEVQRVJN
-KQo+ICsgICAgICAgICAgICAgICB0c3RfY2FwX2FjdGlvbigmZHJvcGFkbWluKTsKPiArCj4gKyAg
-ICAgICBpZiAodGMtPmV4cF9lcnJubyA9PSBFMkJJRykgewo+ICsgICAgICAgICAgICAgICBmb3Ig
-KGludCBpID0gMDsgaSA8IE1BWF9TVEFDS0VEX1JVTEVTRVRTOyBpKyspIHsKPiArCj4gIFRTVF9F
-WFBfUEFTU19TSUxFTlQodHN0X3N5c2NhbGwoX19OUl9sYW5kbG9ja19yZXN0cmljdF9zZWxmLAo+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKnRjLT5mZCwgdGMtPmZsYWdzKSk7Cj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgaWYgKFRTVF9SRVQgPT0gLTEpCj4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICByZXR1cm47Cj4gKyAgICAgICAgICAgICAgIH0KPiArICAgICAg
-IH0KPiArCj4gKyAgICAgICBUU1RfRVhQX0ZBSUwodHN0X3N5c2NhbGwoX19OUl9sYW5kbG9ja19y
-ZXN0cmljdF9zZWxmLCAqdGMtPmZkLAo+IHRjLT5mbGFncyksCj4gKyAgICAgICAgICAgICAgIHRj
-LT5leHBfZXJybm8sCj4gKyAgICAgICAgICAgICAgICIlcyIsIHRjLT5tc2cpOwo+ICsKPiArICAg
-ICAgIGlmICh0Yy0+ZXhwX2Vycm5vID09IEVQRVJNKQo+ICsgICAgICAgICAgICAgICB0c3RfY2Fw
-X2FjdGlvbigmbmVlZGFkbWluKTsKPiArfQo+ICsKPiArc3RhdGljIHZvaWQgc2V0dXAodm9pZCkK
-PiArewo+ICsgICAgICAgdmVyaWZ5X2xhbmRsb2NrX2lzX2VuYWJsZWQoKTsKPiArCj4gKyAgICAg
-ICBydWxlc2V0X2F0dHItPmhhbmRsZWRfYWNjZXNzX2ZzID0gTEFORExPQ0tfQUNDRVNTX0ZTX0VY
-RUNVVEU7Cj4gKwo+ICsgICAgICAgcnVsZXNldF9mZCA9Cj4gVFNUX0VYUF9GRF9TSUxFTlQodHN0
-X3N5c2NhbGwoX19OUl9sYW5kbG9ja19jcmVhdGVfcnVsZXNldCwKPiArICAgICAgICAgICAgICAg
-cnVsZXNldF9hdHRyLCBzaXplb2Yoc3RydWN0IGxhbmRsb2NrX3J1bGVzZXRfYXR0ciksIDApKTsK
-PiArCj4gKyAgICAgICBmaWxlX2ZkID0gU0FGRV9PUEVOKCJqdW5rLmJpbiIsIE9fQ1JFQVQsIDA3
-NzcpOwo+ICt9Cj4gKwo+ICtzdGF0aWMgdm9pZCBjbGVhbnVwKHZvaWQpCj4gK3sKPiArICAgICAg
-IGlmIChydWxlc2V0X2ZkICE9IC0xKQo+ICsgICAgICAgICAgICAgICBTQUZFX0NMT1NFKHJ1bGVz
-ZXRfZmQpOwo+ICsKPiArICAgICAgIGlmIChmaWxlX2ZkICE9IC0xKQo+ICsgICAgICAgICAgICAg
-ICBTQUZFX0NMT1NFKGZpbGVfZmQpOwo+ICt9Cj4gKwo+ICtzdGF0aWMgc3RydWN0IHRzdF90ZXN0
-IHRlc3QgPSB7Cj4gKyAgICAgICAudGVzdCA9IHJ1biwKPiArICAgICAgIC50Y250ID0gQVJSQVlf
-U0laRSh0Y2FzZXMpLAo+ICsgICAgICAgLnNldHVwID0gc2V0dXAsCj4gKyAgICAgICAuY2xlYW51
-cCA9IGNsZWFudXAsCj4gKyAgICAgICAubWluX2t2ZXIgPSAiNS4xMyIsCj4gKyAgICAgICAubmVl
-ZHNfdG1wZGlyID0gMSwKPiArICAgICAgIC5uZWVkc19yb290ID0gMSwKPiArICAgICAgIC5uZWVk
-c19rY29uZmlncyA9IChjb25zdCBjaGFyICpbXSkgewo+ICsgICAgICAgICAgICAgICAiQ09ORklH
-X1NFQ1VSSVRZX0xBTkRMT0NLPXkiLAo+ICsgICAgICAgICAgICAgICBOVUxMCj4gKyAgICAgICB9
-LAo+ICsgICAgICAgLmJ1ZnMgPSAoc3RydWN0IHRzdF9idWZmZXJzIFtdKSB7Cj4gKyAgICAgICAg
-ICAgICAgIHsmcnVsZXNldF9hdHRyLCAuc2l6ZSA9IHNpemVvZihzdHJ1Y3QKPiBsYW5kbG9ja19y
-dWxlc2V0X2F0dHIpfSwKPiArICAgICAgICAgICAgICAge30sCj4gKyAgICAgICB9LAo+ICsgICAg
-ICAgLmNhcHMgPSAoc3RydWN0IHRzdF9jYXAgW10pIHsKPiArICAgICAgICAgICAgICAgVFNUX0NB
-UChUU1RfQ0FQX1JFUSwgQ0FQX1NZU19BRE1JTiksCj4gKyAgICAgICAgICAgICAgIHt9Cj4gKyAg
-ICAgICB9LAo+ICt9Owo+Cj4gLS0KPiAyLjQzLjAKPgo+Cj4gLS0KPiBNYWlsaW5nIGxpc3QgaW5m
-bzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAKPgo+CgotLSAKUmVnYXJkcywK
-TGkgV2FuZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xp
-c3RpbmZvL2x0cAo=
+Hi Cyril,
+
+> Instead of hardcoding the values we attempt to measure the CPU speed and
+> set the timeout accordingly. Given that the difference in the duration
+> of the test when the kernel is buggy is about 30x we do not have to have
+> a precise callibration, just very rough estimate if we are running on a
+> server or small ARM board would suffice.
+
+> So we attempt to measure how long does a bussy loop take and base the
+> default timeout on that. On x86_64 CPUs the resulting timeout is about
+> double of the value of the actual test runtime and works fine, but we
+> need to make sure that the coeficient we divide the result from
+> callibrate works for small boards too. So please run the test on as many
+> machines as you can and report if we need to make the dividor smaller or
+> not.
+
+While applying this new patch, the test result of 32bit kernel is still failed. Please refers following log:
+
+external/ltp/lib/tst_test.c:1690: TINFO: LTP version: 20230929
+external/ltp/lib/tst_test.c:1576: TINFO: Timeout per run is 0h 00m 30s
+external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:90: TPASS: sched_setaffinity(0, sizeof(mask), &mask) returned 0
+external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:58: TINFO: CPU did 100000000 loops in 198306us
+external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:99: TINFO: cal timeout: 198
+external/ltp/lib/tst_test.c:1583: TINFO: Updating max runtime to 0h 03m 18s
+external/ltp/lib/tst_test.c:1576: TINFO: Timeout per run is 0h 03m 48s
+Test timeouted, sending SIGKILL!
+
+After using "time ./starvation" to check the timecost, we can see the timecost is about 26 mins and 48 seconds
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
