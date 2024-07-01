@@ -2,124 +2,132 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A3F191E462
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2024 17:43:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAE9591E46C
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2024 17:44:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D5F303D3FE8
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2024 17:43:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9F2123D3FEE
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2024 17:44:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 37E653D3F9D
+ by picard.linux.it (Postfix) with ESMTPS id 026FA3D3FD6
  for <ltp@lists.linux.it>; Mon,  1 Jul 2024 17:42:56 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it;
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 52A03601995
- for <ltp@lists.linux.it>; Mon,  1 Jul 2024 17:42:55 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0AC39600F9F
+ for <ltp@lists.linux.it>; Mon,  1 Jul 2024 17:42:56 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C3F421FB53;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EF35821A7B;
  Mon,  1 Jul 2024 15:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1719848574; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1719848575; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5+jdx5ITsWidb8+t43RlGHYbcIsct7mXAwhMPRzor6g=;
- b=kaleZu5rxp+DwCGAhfwWPpLrDTbWrmfhjrOJWzYw1nMs1LkqsT4EJn8QAONokTJ+GNfufv
- J8N0Fjd9V9mfi9pFYuzcomthkGHVxgjvOIEg/rp2jZPRmxCyA89/iFN2n01E9KEZLeO10A
- BNErfLurOwWPYXz2Uk8+ddVRbyyHm5o=
+ bh=vmMYXHS/ti6xRn95/EPfCTvJsV4LVm2j9KTLCro6uxQ=;
+ b=sVA1Xq5Sra59qxC91SHa5gmNTfKol+QPeXFcH3MZ02baTjY0DFK//HgvV1jV6JC52TJYeF
+ 5RmtxQIgHERJU0H8jPxpdq1i2O9Qg9k11wBOmSGP9ImLjT59uZ7yinlBsMdjhaWsLpoABw
+ kNYzV6p95kwdLVWxxHHmc4c6gfW3xsE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1719848574;
+ s=susede2_ed25519; t=1719848575;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5+jdx5ITsWidb8+t43RlGHYbcIsct7mXAwhMPRzor6g=;
- b=ioLXNM5ZP5083egrTpdHspL3AiKo4GwPQrRcmHLqPPPZPdImY0Q/W9+MXgjYR8IXF+KEgh
- vQWMtcDigwIV8+BQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
+ bh=vmMYXHS/ti6xRn95/EPfCTvJsV4LVm2j9KTLCro6uxQ=;
+ b=mle45jdlTavFfjUlY5Sme0GeLXWZej1rjze3qcE9Jjfbo0V4NwWrkWJ29FmIdBKrS0fGdo
+ 2WKQ5r+lbXteAaCA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vWMtTGTn;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=c63PpiRS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1719848574; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5+jdx5ITsWidb8+t43RlGHYbcIsct7mXAwhMPRzor6g=;
- b=kaleZu5rxp+DwCGAhfwWPpLrDTbWrmfhjrOJWzYw1nMs1LkqsT4EJn8QAONokTJ+GNfufv
- J8N0Fjd9V9mfi9pFYuzcomthkGHVxgjvOIEg/rp2jZPRmxCyA89/iFN2n01E9KEZLeO10A
- BNErfLurOwWPYXz2Uk8+ddVRbyyHm5o=
+ bh=vmMYXHS/ti6xRn95/EPfCTvJsV4LVm2j9KTLCro6uxQ=;
+ b=vWMtTGTnCItP6SPS6XtXHcuELLcq7GJ4nFnYFrNKQVy5MYsE4l8yMgV+Rx5JA7LzGLfnbZ
+ UkaKw10qk1U+u0a5DnunKSo3eH1MLH+x3DBl+yJVOgmLOyHiu1pOc7C2U4t+ubAwr/UWJY
+ UNOrwNzUTu3CymQXp6Pf7KhP6jaLXro=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1719848574;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5+jdx5ITsWidb8+t43RlGHYbcIsct7mXAwhMPRzor6g=;
- b=ioLXNM5ZP5083egrTpdHspL3AiKo4GwPQrRcmHLqPPPZPdImY0Q/W9+MXgjYR8IXF+KEgh
- vQWMtcDigwIV8+BQ==
+ bh=vmMYXHS/ti6xRn95/EPfCTvJsV4LVm2j9KTLCro6uxQ=;
+ b=c63PpiRSW9WRhjmuAM/95as/JwJC6Gc/hFdIOGfgJB5fX2k7i51bY7P3OC7nfi/itQ6gml
+ szVn4KiPioNi1xBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A4FCA13800;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CFF2413A92;
  Mon,  1 Jul 2024 15:42:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id WA4tJn7OgmZfCAAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id EOe0MH7OgmZfCAAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Mon, 01 Jul 2024 15:42:54 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 01 Jul 2024 17:42:10 +0200
+Date: Mon, 01 Jul 2024 17:42:11 +0200
 MIME-Version: 1.0
-Message-Id: <20240701-landlock-v1-5-58e9af649a72@suse.com>
+Message-Id: <20240701-landlock-v1-6-58e9af649a72@suse.com>
 References: <20240701-landlock-v1-0-58e9af649a72@suse.com>
 In-Reply-To: <20240701-landlock-v1-0-58e9af649a72@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6500;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5028;
  i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=1FAMkLeqbo98rllmd5GrPeIsgyvXSKk77/mPoVRUd6A=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmgs50lVU4diqzMxPZEyvwoKtEsBdAL7QQ5gICL
- G1PBh4r2xWJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZoLOdAAKCRDLzBqyILPm
- Rv9xC/97JtFcXJ3x/gqPlZ3l6ySDWHAJhKz6sVJy1T4/qknpdSLXXA+BQ2RO6NqNGZ53haD7LMJ
- MZ69UNzh0DpDJ18+5DS8q2eKTIRtAXDLY3QgU6MAu1bpq2rMsy/VuS0LKKLYK1GXyAPIbB8WKY/
- wnObM94GoFZfJ1ifm//vFnS60r1xwfhb6tWg2Rvv88MEyafcadciUI5zmXSGB0Dum4+zeZhKE2u
- n4PnLvr5/JbnJUAMY7czthWRTXpJtCFHhEMRIaSEELoEiobVelbakoCQwIVkdvvU9Hy9Z+gM2wr
- eA50ctUs2h6R5dMihIux/S6IRVJR2UaJZ+q8l57ejFxoAJJ9NjjP7NhtYT11NtpFZKhbdKUws3L
- 0RdT+Wx0yDVbsC9GYYFAbwUKqyJU4EgeUk7+nL3+dLs8jX2vUpyMwG3F2zWKr6umY7dXz6qpr5u
- MKu/D6vwuoUoBiNvDbFAzy0gjk7S24qIPQQgYOq18vHYsBFneR6BqqHvxR1d+96qjVZL4=
+ bh=SLsjsp+nE3n90DYcc8GA2yCV510snY7lzjXoOkV8oyI=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmgs50g7jtrC4Yitf9zUV8aNVQeSWZHPR5aDC0K
+ RDUV+ekEqGJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZoLOdAAKCRDLzBqyILPm
+ RsawC/0aKIWJSoR1n0+uw0dodFLZVMzJVbQkQiSY0BWUtqA4imhIt7Nw3DjYQ65zDvrkbUl5cX7
+ TAjjcDdrCNWD/8AhKG8ZYy/DD73F5s3PTfF6Wv1SB6MZCBk16Y1soxezfbR57pRv6+rsZ5Zcn4H
+ T0aH5JDC0Imr6MDLsshpA8DaIsKMGYgixssRa1zyToJ02IUABOkNeH0qcU1wxS7ucxvU4d1cLsk
+ 34dqOHfUouEI7h8JmK3XKJeq4YJhsHsw5VF5sBBtfjqiP2eKRrK2H3oSx4hCC6xL6EJi7msYELq
+ yEXoWgcljHlHCIsjl6lLW2bDLP18/X+GUvCHVLUm9gT6H3/HB7JNb1DnCspTX7zIG6otEym++Kq
+ 6jPuXqfMqB+X1h9XNZJNzQZ8v9lj/MggZ7wk3dEqnqGWc+4n60JRJXMof3QDuPKO4XbWzCmEAd5
+ fzUEbZpO5huPL4012fcoMzVUcBYviJzJorEstyJb2Lv76uCctn2H4PC1bZ8LSpM8eof9Q=
 X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
  fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Queue-Id: EF35821A7B
+X-Spam-Score: -4.51
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWO(0.00)[2]; MIME_TRACE(0.00)[0:+];
  RCVD_TLS_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
  TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -4.30
-X-Spam-Level: 
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ RCVD_COUNT_TWO(0.00)[2]; DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 05/10] Add landlock01 test
+Subject: [LTP] [PATCH 06/10] Add landlock02 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,65 +146,50 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-This test verifies that landlock_create_ruleset syscall fails with the
+This test verifies that landlock_add_rule syscall fails with the
 right error codes:
 
-- EINVAL Unknown flags, or unknown access, or too small size
-- E2BIG size is too big
-- EFAULT attr was not a valid address
-- ENOMSG Empty accesses (i.e., attr->handled_access_fs is 0)
+- EINVAL flags is not 0, or the rule accesses are inconsistent
+- ENOMSG Empty accesses (i.e., rule_attr->allowed_access is 0)
+- EBADF ruleset_fd  is  not  a  file  descriptor  for  the  current
+  thread, or a member of rule_attr is not a file descriptor as
+  expected
+- EBADFD ruleset_fd is not a ruleset file descriptor, or a member of
+  rule_attr is not the expected file descriptor type
+- EFAULT rule_attr was not a valid address
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- runtest/syscalls                                   |  2 +
- testcases/kernel/syscalls/landlock/.gitignore      |  1 +
- testcases/kernel/syscalls/landlock/Makefile        | 10 +++
- testcases/kernel/syscalls/landlock/landlock01.c    | 87 ++++++++++++++++++++++
- .../kernel/syscalls/landlock/landlock_common.h     | 74 ++++++++++++++++++
- 5 files changed, 174 insertions(+)
+ runtest/syscalls                                |   1 +
+ testcases/kernel/syscalls/landlock/.gitignore   |   1 +
+ testcases/kernel/syscalls/landlock/landlock02.c | 153 ++++++++++++++++++++++++
+ 3 files changed, 155 insertions(+)
 
 diff --git a/runtest/syscalls b/runtest/syscalls
-index 44a577db3..4c566d95f 100644
+index 4c566d95f..7f9c83292 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -684,6 +684,8 @@ kill11 kill11
- kill12 kill12
+@@ -685,6 +685,7 @@ kill12 kill12
  kill13 kill13
  
-+landlock01 landlock01
-+
+ landlock01 landlock01
++landlock02 landlock02
+ 
  lchown01 lchown01
  lchown01_16 lchown01_16
- lchown02  lchown02
 diff --git a/testcases/kernel/syscalls/landlock/.gitignore b/testcases/kernel/syscalls/landlock/.gitignore
-new file mode 100644
-index 000000000..b69f9b94a
---- /dev/null
+index b69f9b94a..ffed4abd2 100644
+--- a/testcases/kernel/syscalls/landlock/.gitignore
 +++ b/testcases/kernel/syscalls/landlock/.gitignore
-@@ -0,0 +1 @@
-+landlock01
-diff --git a/testcases/kernel/syscalls/landlock/Makefile b/testcases/kernel/syscalls/landlock/Makefile
+@@ -1 +1,2 @@
+ landlock01
++landlock02
+diff --git a/testcases/kernel/syscalls/landlock/landlock02.c b/testcases/kernel/syscalls/landlock/landlock02.c
 new file mode 100644
-index 000000000..4b3e3fd8f
+index 000000000..0e2da7ef5
 --- /dev/null
-+++ b/testcases/kernel/syscalls/landlock/Makefile
-@@ -0,0 +1,10 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+
-+top_srcdir		?= ../../../..
-+
-+include $(top_srcdir)/include/mk/testcases.mk
-+
-+LDLIBS	+= -lc
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/landlock/landlock01.c b/testcases/kernel/syscalls/landlock/landlock01.c
-new file mode 100644
-index 000000000..9f8c6489c
---- /dev/null
-+++ b/testcases/kernel/syscalls/landlock/landlock01.c
-@@ -0,0 +1,87 @@
++++ b/testcases/kernel/syscalls/landlock/landlock02.c
+@@ -0,0 +1,153 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
@@ -205,70 +198,135 @@ index 000000000..9f8c6489c
 +/*\
 + * [Description]
 + *
-+ * This test verifies that landlock_create_ruleset syscall fails with the right
++ * This test verifies that landlock_add_rule syscall fails with the right
 + * error codes:
 + *
-+ * - EINVAL Unknown flags, or unknown access, or too small size
-+ * - E2BIG size is too big
-+ * - EFAULT attr was not a valid address
-+ * - ENOMSG Empty accesses (i.e., attr->handled_access_fs is 0)
++ * - EINVAL flags is not 0, or the rule accesses are inconsistent
++ * - ENOMSG Empty accesses (i.e., rule_attr->allowed_access is 0)
++ * - EBADF ruleset_fd  is  not  a  file  descriptor  for  the  current  thread,
++ *   or a member of rule_attr is not a file descriptor as expected
++ * - EBADFD ruleset_fd is not a ruleset file descriptor, or a member of
++ *   rule_attr is not the expected file descriptor type
++ * - EFAULT rule_attr was not a valid address
 + */
 +
 +#include "landlock_common.h"
 +
 +static struct landlock_ruleset_attr *ruleset_attr;
-+static struct landlock_ruleset_attr *null_attr;
-+static size_t rule_size;
-+static size_t rule_small_size;
-+static size_t rule_big_size;
++static struct landlock_path_beneath_attr *path_beneath_attr;
++static struct landlock_path_beneath_attr *rule_null;
++static int ruleset_fd;
++static int invalid_fd = -1;
 +
 +static struct tcase {
-+	struct landlock_ruleset_attr **attr;
-+	uint64_t access_fs;
-+	size_t *size;
++	int *fd;
++	enum landlock_rule_type rule_type;
++	struct landlock_path_beneath_attr **attr;
++	int access;
++	int parent_fd;
 +	uint32_t flags;
 +	int exp_errno;
 +	char *msg;
 +} tcases[] = {
-+	{&ruleset_attr, -1, &rule_size, 0, EINVAL, "Unknown access"},
-+	{&ruleset_attr, 0, &rule_small_size, 0, EINVAL, "Size is too small"},
-+	{&ruleset_attr, 0, &rule_size, -1, EINVAL, "Unknown flags"},
-+	{&ruleset_attr, 0, &rule_big_size, 0, E2BIG, "Size is too big"},
-+	{&null_attr,    0, &rule_size, 0, EFAULT, "Invalid attr address"},
-+	{&ruleset_attr, 0, &rule_size, 0, ENOMSG, "Empty accesses"},
++	{
++		&ruleset_fd,
++		0,
++		&path_beneath_attr,
++		LANDLOCK_ACCESS_FS_EXECUTE,
++		0,
++		1,
++		EINVAL,
++		"Invalid flags"
++	},
++	{
++		&ruleset_fd,
++		0,
++		&path_beneath_attr,
++		LANDLOCK_ACCESS_FS_EXECUTE,
++		0,
++		0,
++		EINVAL,
++		"Invalid rule type"
++	},
++	{
++		&ruleset_fd,
++		LANDLOCK_RULE_PATH_BENEATH,
++		&path_beneath_attr,
++		0,
++		0,
++		0,
++		ENOMSG,
++		"Empty accesses"
++	},
++	{
++		&invalid_fd,
++		0,
++		&path_beneath_attr,
++		LANDLOCK_ACCESS_FS_EXECUTE,
++		0,
++		0,
++		EBADF,
++		"Invalid file descriptor"
++	},
++	{
++		&ruleset_fd,
++		LANDLOCK_RULE_PATH_BENEATH,
++		&path_beneath_attr,
++		LANDLOCK_ACCESS_FS_EXECUTE,
++		-1,
++		0,
++		EBADF,
++		"Invalid parent fd"
++	},
++	{
++		&ruleset_fd,
++		LANDLOCK_RULE_PATH_BENEATH,
++		&rule_null,
++		0,
++		0,
++		0,
++		EFAULT,
++		"Invalid rule attr"
++	},
 +};
 +
 +static void run(unsigned int n)
 +{
 +	struct tcase *tc = &tcases[n];
 +
-+	if (*tc->attr)
-+		(*tc->attr)->handled_access_fs = tc->access_fs;
++	if (*tc->attr) {
++		(*tc->attr)->allowed_access = tc->access;
++		(*tc->attr)->parent_fd = tc->parent_fd;
++	}
 +
-+	TST_EXP_FAIL(tst_syscall(__NR_landlock_create_ruleset,
-+			*tc->attr, *tc->size, tc->flags),
++	TST_EXP_FAIL(tst_syscall(__NR_landlock_add_rule,
++			*tc->fd, tc->rule_type, *tc->attr, tc->flags),
 +		tc->exp_errno,
 +		"%s",
 +		tc->msg);
-+
-+	if (TST_RET >= 0)
-+		SAFE_CLOSE(TST_RET);
 +}
 +
 +static void setup(void)
 +{
 +	verify_landlock_is_enabled();
 +
-+	rule_size = sizeof(struct landlock_ruleset_attr);
++	ruleset_attr->handled_access_fs = LANDLOCK_ACCESS_FS_EXECUTE;
 +
-+	rule_small_size = rule_size - 1;
-+	rule_big_size = SAFE_SYSCONF(_SC_PAGESIZE) + 1;
++	ruleset_fd = TST_EXP_FD_SILENT(tst_syscall(__NR_landlock_create_ruleset,
++		ruleset_attr, sizeof(struct landlock_ruleset_attr), 0));
++}
++
++static void cleanup(void)
++{
++	if (ruleset_fd != -1)
++		SAFE_CLOSE(ruleset_fd);
 +}
 +
 +static struct tst_test test = {
 +	.test = run,
 +	.tcnt = ARRAY_SIZE(tcases),
 +	.setup = setup,
++	.cleanup = cleanup,
 +	.min_kver = "5.13",
 +	.needs_root = 1,
 +	.needs_kconfigs = (const char *[]) {
@@ -277,6 +335,7 @@ index 000000000..9f8c6489c
 +	},
 +	.bufs = (struct tst_buffers []) {
 +		{&ruleset_attr, .size = sizeof(struct landlock_ruleset_attr)},
++		{&path_beneath_attr, .size = sizeof(struct landlock_path_beneath_attr)},
 +		{},
 +	},
 +	.caps = (struct tst_cap []) {
@@ -284,86 +343,6 @@ index 000000000..9f8c6489c
 +		{}
 +	},
 +};
-diff --git a/testcases/kernel/syscalls/landlock/landlock_common.h b/testcases/kernel/syscalls/landlock/landlock_common.h
-new file mode 100644
-index 000000000..66f8fd19a
---- /dev/null
-+++ b/testcases/kernel/syscalls/landlock/landlock_common.h
-@@ -0,0 +1,74 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+#ifndef LANDLOCK_COMMON_H
-+
-+#include "tst_test.h"
-+#include "lapi/prctl.h"
-+#include "lapi/fcntl.h"
-+#include "lapi/landlock.h"
-+
-+static inline void verify_landlock_is_enabled(void)
-+{
-+	int abi;
-+
-+	abi = tst_syscall(__NR_landlock_create_ruleset,
-+		NULL, 0, LANDLOCK_CREATE_RULESET_VERSION);
-+
-+	if (abi < 0) {
-+		if (errno == EOPNOTSUPP) {
-+			tst_brk(TCONF, "Landlock is currently disabled. "
-+				"Please enable it either via CONFIG_LSM or "
-+				"'lsm' kernel parameter.");
-+		}
-+
-+		tst_brk(TBROK | TERRNO, "landlock_create_ruleset error");
-+	}
-+
-+	tst_res(TINFO, "Landlock ABI v%d", abi);
-+}
-+
-+static inline void apply_landlock_rule(
-+	struct landlock_path_beneath_attr *path_beneath_attr,
-+	const int ruleset_fd,
-+	const int access,
-+	const char *path)
-+{
-+	path_beneath_attr->allowed_access = access;
-+	path_beneath_attr->parent_fd = SAFE_OPEN(path, O_PATH | O_CLOEXEC);
-+
-+	SAFE_LANDLOCK_ADD_RULE(
-+		ruleset_fd,
-+		LANDLOCK_RULE_PATH_BENEATH,
-+		path_beneath_attr,
-+		0);
-+
-+	SAFE_CLOSE(path_beneath_attr->parent_fd);
-+}
-+
-+static inline void enforce_ruleset(const int ruleset_fd)
-+{
-+	SAFE_PRCTL(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
-+	SAFE_LANDLOCK_RESTRICT_SELF(ruleset_fd, 0);
-+}
-+
-+static inline void apply_landlock_layer(
-+	struct landlock_ruleset_attr *ruleset_attr,
-+	struct landlock_path_beneath_attr *path_beneath_attr,
-+	const char *path,
-+	const int access)
-+{
-+	int ruleset_fd;
-+
-+	ruleset_fd = SAFE_LANDLOCK_CREATE_RULESET(
-+		ruleset_attr, sizeof(struct landlock_ruleset_attr), 0);
-+
-+	apply_landlock_rule(path_beneath_attr, ruleset_fd, access, path);
-+	enforce_ruleset(ruleset_fd);
-+
-+	SAFE_CLOSE(ruleset_fd);
-+}
-+
-+#endif
 
 -- 
 2.43.0
