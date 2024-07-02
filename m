@@ -2,62 +2,91 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B131923F0D
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 15:33:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17A88923E78
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 15:11:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1719925868; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-transfer-encoding :
+ content-type : sender : from;
+ bh=PKL2zkfi3qFRhgKcjPbnMDoQaFbwrq4Hdw5dDi8n/X8=;
+ b=oPk9z4adrnKePMzreBfiVS4a9s0SBJreZRAAeRayEDQ+fhN3Frcj59AGBUYFQJJ54vsXd
+ vfgDB6nRYEjNccErTBAefjX4Y9nP4/lh3+r+LnogtHwMN3VfvBqF0y9Cn20yLdjxgFJPlAh
+ MZiU7kGbk2+mrwx3obDzlhTiSA6B2g4=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DECA23D3EE3
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 15:33:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C9E433D0F60
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 15:11:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 76ABA3C8B23
- for <ltp@lists.linux.it>; Tue,  2 Jul 2024 15:00:24 +0200 (CEST)
-Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=digikod.net (client-ip=2001:1600:7:10::8fad;
- helo=smtp-8fad.mail.infomaniak.ch; envelope-from=mic@digikod.net;
- receiver=lists.linux.it)
-Received: from smtp-8fad.mail.infomaniak.ch (smtp-8fad.mail.infomaniak.ch
- [IPv6:2001:1600:7:10::8fad])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 03B403D0F60
+ for <ltp@lists.linux.it>; Tue,  2 Jul 2024 15:10:55 +0200 (CEST)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C3A8B1401704
- for <ltp@lists.linux.it>; Tue,  2 Jul 2024 15:00:22 +0200 (CEST)
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch
- [10.7.10.107])
- by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4WD3123C0hzvBv;
- Tue,  2 Jul 2024 15:00:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
- s=20191114; t=1719925222;
- bh=Ic/kjYsPEipQ9NHrPvcvu6Sb0kBMtH0ZUyIbOE9nIas=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TRxOWj+bskt0EHK1FIrQpZ64bwJIQz7yI1XvZC8jTCNbyMC0q/jJDDfbw3Zf7PDet
- bG5sJZb9hO5p5B3AMUmZBGdxk4Ow6FOwl2HpnRxNkRiUpvxm2QEyMtUK2OYDOsow4T
- nHO3QOtE7hiDtrkc1+Y/2iyMBccQ7NcoIi95iGaM=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA
- id 4WD3114kzCz153h; Tue,  2 Jul 2024 15:00:21 +0200 (CEST)
-Date: Tue, 2 Jul 2024 15:00:20 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20240702.Auya5Chaipho@digikod.net>
-References: <20240702094745.96521-1-liwang@redhat.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 88644200AEF
+ for <ltp@lists.linux.it>; Tue,  2 Jul 2024 15:10:54 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2ebec2f11b7so47304691fa.2
+ for <ltp@lists.linux.it>; Tue, 02 Jul 2024 06:10:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1719925854; x=1720530654; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=N5S4KKpfKx/swgMSnQIyK11r0SRK6Yk81BAk7irGZfg=;
+ b=Tb5Sf/dkjDRgHbbFUQC9L45vD0RkfH2hawzxspFEXu6ZlFtwWRY0Uwl7UBkIYjh2i1
+ nQ38qIm53MNNf73K7OI+BUtVrftjg9vxoL41AfNNtxjRugrrbLrbPxBW77XXNXCCKGoo
+ hYirEnI7ad54afgmBUEpwTX1nNtJGIpRm0RYCIili8qNF2bm4pXAzDMoQoBDh9epu+G7
+ /+FiEjHSf2WIR8JDRJBn7wS0WrMxOTeUdmu5D3uWsefu06M2vA53rq6oblIJW+rO7IEm
+ Q6RAUNaaCtX+tGIpPUwaUHBLcU+NTl5PP9LCw3zcZGOw+p54R4h9iyHjNF903A9cfSiy
+ RajA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719925854; x=1720530654;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=N5S4KKpfKx/swgMSnQIyK11r0SRK6Yk81BAk7irGZfg=;
+ b=QXzYJqsEDE0TYrJsT1b/EODsQ1Yr2w6NSSt8RHXFggjcj0dxpeFtitVv2zrGH/IooF
+ LejwrSk5gdzRbjROnz7LWxu2cDUuBVHH1c4neTL6vxFDfDcYovITxDoUpAliNehD4pUi
+ D5o2/2POmwo7EgeBYhvaNK9cwAGzvV/JeM6s1uDQnJNS+OUIM/B5XMbNYW/adK2rrlRb
+ 5YMyLTavyYdnxBPvIY7ifHphHeaw2mEt+lGZhikcnEKz9WLxA/+WnqsilhFmRMROAX61
+ xOwogR033IHsEP9a2CygDTKo7iWIRu2/v+9ZgQ6e9wM2muKvFqEyFFCpciBRXpnEOmEP
+ zUHA==
+X-Gm-Message-State: AOJu0Yx+005nPleUelpM5xVlX2b4pmWhJzsBXnns1L6WaqXJRB4Cveap
+ 1kc896pUlAOGs0UHJXW9Xo2gpIVq1e+AqPZS1LL+30Yd/dDgY6mkjsenFmSZC2vIfMNFMux2MYP
+ mun8=
+X-Google-Smtp-Source: AGHT+IH15longLV8ZkZllZ5E4q6GeLnKs+MbjjN2ifGqPGKeJ7iBzlESnrLdSdPs0pnF96AN1/zrNg==
+X-Received: by 2002:a05:651c:154c:b0:2ec:5dfc:a64e with SMTP id
+ 38308e7fff4ca-2ee5e2a8a4dmr76943731fa.0.1719925853289; 
+ Tue, 02 Jul 2024 06:10:53 -0700 (PDT)
+Received: from [10.232.133.69] ([88.128.88.9])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1fac15b890asm83652745ad.301.2024.07.02.06.10.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Jul 2024 06:10:52 -0700 (PDT)
+Message-ID: <9b70179d-2bfa-47e3-8ae3-5cbb971bd5c3@suse.com>
+Date: Tue, 2 Jul 2024 15:10:35 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240702094745.96521-1-liwang@redhat.com>
-X-Infomaniak-Routing: alpha
+User-Agent: Mozilla Thunderbird
+To: Cyril Hrubis <chrubis@suse.cz>, Andrea Cervesato <andrea.cervesato@suse.de>
+References: <20240417144409.11411-1-andrea.cervesato@suse.de>
+ <ZnllGpZEj6TOsWqB@yuki>
+Content-Language: en-US
+In-Reply-To: <ZnllGpZEj6TOsWqB@yuki>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Tue, 02 Jul 2024 15:32:40 +0200
-Subject: Re: [LTP] [RFC PATCH] landlock: fix minimal required size for
- landlock_ruleset_attr copying
+Subject: Re: [LTP] [PATCH v5] Add stat04 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,47 +98,97 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, ltp@lists.linux.it,
- paul@paul-moore.com, gnoack@google.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVHVlLCBKdWwgMDIsIDIwMjQgYXQgMDU6NDc6NDVQTSArMDgwMCwgTGkgV2FuZyB3cm90ZToK
-PiBBcyBrZXJuZWwgY29tbWl0IGZmZjY5ZmIwM2RkZSAoImxhbmRsb2NrOiBTdXBwb3J0IG5ldHdv
-cmsgcnVsZXMgd2l0aCBUQ1AgYmluZCBhbmQgY29ubmVjdCIpCj4gaW50cm9kdWNpbmcgYSBuZXcg
-ZmllbGQgJ2hhbmRsZWRfYWNjZXNzX25ldCcgaW4gdGhlIHN0cnVjdHVyZSBsYW5kbG9ja19ydWxl
-c2V0X2F0dHIsCj4gYnV0IGluIHRoZSBsYW5kbG9ja19jcmVhdGVfcnVsZXNldCgpIGl0IHN0aWxs
-IHVzZXMgdGhlIGZpcnN0IGZpZWxkICdoYW5kbGVkX2FjY2Vzc19mcycKPiB0byBjYWxjdWxhdGUg
-bWluaW1hbCBzaXplLCBzbyB0aGF0IG1hZGUgZGVjcmVhc2UgMSBpcyB1c2VsZXNzIGluIExUUCBs
-YW5kbG9jazAxLmMgdG8KPiB0ZXN0IHRoZSB0b28tc21hbGwtc2l6ZS4KPiAKPiBUZXN0IGNvZGU6
-Cj4gICAgcnVsZV9zbWFsbF9zaXplID0gc2l6ZW9mKHN0cnVjdCBsYW5kbG9ja19ydWxlc2V0X2F0
-dHIpIC0gMTsKPiAgICB0c3Rfc3lzY2FsbChfX05SX2xhbmRsb2NrX2NyZWF0ZV9ydWxlc2V0LCAu
-Li4sIHJ1bGVfc21hbGxfc2l6ZSwgMCkKPiAKPiBSZXN1bHQ6Cj4gICBsYW5kbG9jazAxLmM6NDk6
-IFRGQUlMOiBTaXplIGlzIHRvbyBzbWFsbCBleHBlY3RlZCBFSU5WQUw6IEVOT01TRyAoNDIpCgpJ
-bnRlcmVzdGluZywgdGhpcyBsb29rcyBsaWtlIGEgYnVnIGluIHRoZXNlIExUUCB0ZXN0cy4KCj4g
-Cj4gU2lnbmVkLW9mZi1ieTogTGkgV2FuZyA8bGl3YW5nQHJlZGhhdC5jb20+Cj4gQ2M6IE1pY2th
-w6tsIFNhbGHDvG4gPG1pY0BkaWdpa29kLm5ldD4KPiBDYzogS29uc3RhbnRpbiBNZXNraGlkemUg
-PGtvbnN0YW50aW4ubWVza2hpZHplQGh1YXdlaS5jb20+Cj4gQ2M6IFBhdWwgTW9vcmUgPHBhdWxA
-cGF1bC1tb29yZS5jb20+Cj4gLS0tCj4gCj4gTm90ZXM6Cj4gICAgIEhpIE1pY2thZWwsCj4gICAg
-ICAgIEknbSBub3QgcXVpdGUgc3VyZSBpZiB0aGF0IGlzIG9uIHB1cnBvc2UgdG8gdXNlIHRoZSBm
-aXJzdCBmaWVsZCBvciBrZXJuZWwKPiAgICAgICAgYnVnLCBjYW4geW91IHRha2UgYSBsb29rPwoK
-SGkgTGksCgpZZXMgdGhpcyBpcyBvbiBwdXJwb3NlLiAgVGhlIGhhbmRsZWRfYWNjZXNzX2ZzIG1p
-bmltYWwgc2l6ZSBjaGVjayBzaG91bGQKbmV2ZXIgY2hhbmdlIGZvciBiYWNrd2FyZCBjb21wYXRp
-YmlsaXR5IHJlYXNvbi4gIFVzZXIgc3BhY2UgYnVpbHQgd2l0aApvbGQgaGVhZGVycyBtdXN0IHN0
-aWxsIHdvcmsgd2l0aCBuZXcga2VybmVscy4gIFRoaXMgaXMgdGVzdGVkIHdpdGggdGhlCiJpbmNv
-bnNpc3RlbnRfYXR0ciIgdGVzdCBpbiB0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9sYW5kbG9jay9i
-YXNlX3Rlc3QuYwoKCj4gCj4gIHNlY3VyaXR5L2xhbmRsb2NrL3N5c2NhbGxzLmMgfCAyICstCj4g
-IDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+IAo+IGRpZmYg
-LS1naXQgYS9zZWN1cml0eS9sYW5kbG9jay9zeXNjYWxscy5jIGIvc2VjdXJpdHkvbGFuZGxvY2sv
-c3lzY2FsbHMuYwo+IGluZGV4IDAzYjQ3MGY1YTg1YS4uZjNjZDdkZWY3NjI0IDEwMDY0NAo+IC0t
-LSBhL3NlY3VyaXR5L2xhbmRsb2NrL3N5c2NhbGxzLmMKPiArKysgYi9zZWN1cml0eS9sYW5kbG9j
-ay9zeXNjYWxscy5jCj4gQEAgLTE5OCw3ICsxOTgsNyBAQCBTWVNDQUxMX0RFRklORTMobGFuZGxv
-Y2tfY3JlYXRlX3J1bGVzZXQsCj4gIAkvKiBDb3BpZXMgcmF3IHVzZXIgc3BhY2UgYnVmZmVyLiAq
-Lwo+ICAJZXJyID0gY29weV9taW5fc3RydWN0X2Zyb21fdXNlcigmcnVsZXNldF9hdHRyLCBzaXpl
-b2YocnVsZXNldF9hdHRyKSwKPiAgCQkJCQlvZmZzZXRvZmVuZCh0eXBlb2YocnVsZXNldF9hdHRy
-KSwKPiAtCQkJCQkJICAgIGhhbmRsZWRfYWNjZXNzX2ZzKSwKPiArCQkJCQkJICAgIGhhbmRsZWRf
-YWNjZXNzX25ldCksCj4gIAkJCQkJYXR0ciwgc2l6ZSk7Cj4gIAlpZiAoZXJyKQo+ICAJCXJldHVy
-biBlcnI7Cj4gLS0gCj4gMi40NS4yCj4gCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8v
-bGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Hi!
+
+This test is basically a clone of the lstat03 test. I'm wondering if it 
+makes sense to have both, when we already have that one.
+
+Andrea
+
+On 6/24/24 14:22, Cyril Hrubis wrote:
+> Hi!
+>> +/*\
+>> + * [Description]
+>> + *
+>> + * This test checks that stat() executed on file provide the same information
+>> + * of symlink linking to it.
+>> + */
+>> +
+>> +#include <stdlib.h>
+>> +#include "tst_test.h"
+>> +
+>> +static char *tmpdir;
+>> +
+>> +static void run(void)
+>> +{
+>> +	char *symname = "my_symlink0";
+>> +
+>> +	SAFE_SYMLINK(tmpdir, symname);
+>> +
+>> +	struct stat path;
+>> +	struct stat link;
+>> +
+>> +	TST_EXP_PASS(stat(tmpdir, &path));
+>> +	TST_EXP_PASS(stat(symname, &link));
+>> +
+>> +	TST_EXP_EQ_LI(path.st_dev, link.st_dev);
+>> +	TST_EXP_EQ_LI(path.st_mode, link.st_mode);
+>> +	TST_EXP_EQ_LI(path.st_nlink, link.st_nlink);
+>> +	TST_EXP_EQ_LI(path.st_uid, link.st_uid);
+>> +	TST_EXP_EQ_LI(path.st_gid, link.st_gid);
+>> +	TST_EXP_EQ_LI(path.st_size, link.st_size);
+>> +	TST_EXP_EQ_LI(path.st_atime, link.st_atime);
+>> +	TST_EXP_EQ_LI(path.st_mtime, link.st_mtime);
+>> +	TST_EXP_EQ_LI(path.st_ctime, link.st_ctime);
+> Looking at these, most of the would be the same both for the link and
+> the actual target. Maybe we should do some extra work in the test setup
+> to make sure they differ. I would create a file in the temporary
+> directory as a target for the symlink and use chown() to set a different
+> owner and group, we can use utime() to change access and modification
+> time to the beginning of the unix epoch. If we write a megabyte or so to
+> the file the size should differ as well. If we link() the file it's
+> nlink counter should increase. And I suppose that if we create either
+> the file or the symlink on a mounted loop device, it will have different
+> dev number as well.
+>
+> I think that the only part that is not changed easily is the creation
+> time (also called birth time), the rest should be under our control.
+>
+>> +	SAFE_UNLINK(symname);
+>> +}
+>> +
+>> +static void setup(void)
+>> +{
+>> +	tmpdir = tst_get_tmpdir();
+>> +}
+>> +
+>> +static void cleanup(void)
+>> +{
+>> +	free(tmpdir);
+>> +}
+>> +
+>> +static struct tst_test test = {
+>> +	.test_all = run,
+>> +	.setup = setup,
+>> +	.cleanup = cleanup,
+>> +	.needs_tmpdir = 1,
+>> +};
+>> -- 
+>> 2.35.3
+>>
+>>
+>> -- 
+>> Mailing list info: https://lists.linux.it/listinfo/ltp
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
