@@ -2,125 +2,89 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AADC991F05E
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 09:38:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E21FF91F066
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 09:41:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5D4603D3EB1
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 09:38:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A6AE03D3EB4
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 09:41:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E08773D3E95
- for <ltp@lists.linux.it>; Tue,  2 Jul 2024 09:38:38 +0200 (CEST)
-Authentication-Results: in-3.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 766663D3EA4
+ for <ltp@lists.linux.it>; Tue,  2 Jul 2024 09:41:26 +0200 (CEST)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8E6191A01926
- for <ltp@lists.linux.it>; Tue,  2 Jul 2024 09:38:37 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D724F1FB8D;
- Tue,  2 Jul 2024 07:38:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1719905916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 81D521401389
+ for <ltp@lists.linux.it>; Tue,  2 Jul 2024 09:41:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1719906083;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=PpUKm8J5eoaZ+rXe+uEff6C49GMajn50i5AOGdXTuXs=;
- b=EvolUcq3VX+hYIgBRkTTJN0DRiLi85Q7gFaEXzpypfpju1lRFk1EPbWwQDrwuritC7nqte
- NoeYnoKH7y1PAMXlAeLttlTfuo3Xh4KYxoPNLBj5ZIxCvO9H7mVUhR9ctie7xxxOI2t3Lq
- G0/DWwSnV0ylL2IJpn+v+kVflNUWp74=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1719905916;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=PpUKm8J5eoaZ+rXe+uEff6C49GMajn50i5AOGdXTuXs=;
- b=z2N8i5gz5lv2er4CcZt429C3JOh3nZbsY0Aj6rsptsI18FuZEX1IwcK+AQdaXIErbkKoE5
- cTET4KDOmR+dChCA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1719905916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=PpUKm8J5eoaZ+rXe+uEff6C49GMajn50i5AOGdXTuXs=;
- b=EvolUcq3VX+hYIgBRkTTJN0DRiLi85Q7gFaEXzpypfpju1lRFk1EPbWwQDrwuritC7nqte
- NoeYnoKH7y1PAMXlAeLttlTfuo3Xh4KYxoPNLBj5ZIxCvO9H7mVUhR9ctie7xxxOI2t3Lq
- G0/DWwSnV0ylL2IJpn+v+kVflNUWp74=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1719905916;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=PpUKm8J5eoaZ+rXe+uEff6C49GMajn50i5AOGdXTuXs=;
- b=z2N8i5gz5lv2er4CcZt429C3JOh3nZbsY0Aj6rsptsI18FuZEX1IwcK+AQdaXIErbkKoE5
- cTET4KDOmR+dChCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B78BF13ABC;
- Tue,  2 Jul 2024 07:38:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cCThKnyug2aUCAAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Tue, 02 Jul 2024 07:38:36 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Tue, 02 Jul 2024 09:38:18 +0200
+ bh=sH3CJoq9dHdKzALhvriPBIVkg/on5N8VpVoeuiYI2Ig=;
+ b=WsT9EGZhO3S+F66IV3WmacXKSacsmFG5BKe7uO+V+hm58hGSABZE/obtx8W+Cmw3MsJIQa
+ B1r4pi0TLKV38V+Y6YuFVEN8towhTUuofwIIgeaXV7kgjlv+D2KJvcuF0jYDHXyLKcUO9d
+ ++L8gJBesdxXW7MnzyuOYdYQAms1mYg=
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-340-4_RiNd3CMuuiggLj_PbsDw-1; Tue, 02 Jul 2024 03:41:19 -0400
+X-MC-Unique: 4_RiNd3CMuuiggLj_PbsDw-1
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-6fd42bf4316so1559631a12.2
+ for <ltp@lists.linux.it>; Tue, 02 Jul 2024 00:41:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719906078; x=1720510878;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=sH3CJoq9dHdKzALhvriPBIVkg/on5N8VpVoeuiYI2Ig=;
+ b=MP04XvGg/3/NU8x56yqE1NG/RUqYH0qnQyXn1nJM/hjr5kJjh9PKrEGa0pNT0x6ryU
+ K1jLhRCN3LQDwr5IqR0mRTfqbK2/3jZiJugcnwFzkxQo8H2pOOINO3907wm2v14FcWUo
+ 1Vy5dNI0ewquiAYNL+QL9eVpsV8FOKhPjllS4jyaqc+l0aI83URcaMDw68Wo/UrhDdxx
+ Q9UtxIsHHu/j6rnQueGHMZvRRmxfu0jo0y7NT48/rb5upauYDuy4Z5jihn4rGJnq2RNk
+ 1pejgs0yrjTFpklb19UOiVb3sBiu/YDJNfLHG9yaik4lLJqt484+w6Wu1iCOfo5pCP/L
+ VpaA==
+X-Gm-Message-State: AOJu0YzMx4/DgMdLVHCw/HE10cPPV/SyIEsLdf0ofXEgIwQyIs0RCGEY
+ sThntyRZG93VbLmyc4bGcp2UX0m+GVU0Rn0j5CNVLAhJ1e4Kd/6PgP6CYWhG32XJWGwt1s8v5t5
+ v2rbTRglFVTUMjXVzGvWn8Yz9rjxvItvtWNe24775BIJdFdePLkctWTUSdJm4uRCN8xw/nS0i3+
+ 1oiB5U31aU7cPPxLh/XPpEbj8+u88VONEJhlvt
+X-Received: by 2002:a05:6a21:183:b0:1bd:27be:5dca with SMTP id
+ adf61e73a8af0-1bef6190275mr7679856637.29.1719906077679; 
+ Tue, 02 Jul 2024 00:41:17 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFzE3kgIq9j2O5KuM1frlz7Xy/84aYwSmQcmbgQetPzLCI/PUwSD9MSQnqjgGkiS0mnsB17Bw5IQV8IPeDEu0E=
+X-Received: by 2002:a05:6a21:183:b0:1bd:27be:5dca with SMTP id
+ adf61e73a8af0-1bef6190275mr7679841637.29.1719906077210; Tue, 02 Jul 2024
+ 00:41:17 -0700 (PDT)
 MIME-Version: 1.0
-Message-Id: <20240702-unlink09-v4-2-d8df24772a76@suse.com>
-References: <20240702-unlink09-v4-0-d8df24772a76@suse.com>
-In-Reply-To: <20240702-unlink09-v4-0-d8df24772a76@suse.com>
-To: ltp@lists.linux.it
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2031;
- i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=dQ85XfeE5rYMsPX2eVXytvpzLMO4eHeNZ0OhR11uhoo=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmg65zEZKBFJt2mpT4sJ5HaYKEqk2iyjQ4TuL65
- 1SGwIiN5GuJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZoOucwAKCRDLzBqyILPm
- RoyGC/4yY1RLbL6uC8VwMn4ONLIfUkyVXGFh9ndsdUgTQi53LzMKqACTSMGJtBUlbDosTTGkmg7
- hQLunpGXAzh83m1cGJ+Lx1G9uq8l0qLe6x0zc6F5bXOE1Spb7DkfvNauj2j+m+x1Ph9fMekWBp1
- qnEEI8APpBUJfciDVwi7/mA8qx1BpJnCcO8KjQ8xjtM+MIQugyZEZGHuVYtE6NZq+Qex1J6tpLg
- 1Os/qFtDqypxBfkgCEususSqG+knWpdbY4WzLdFPaQDnbW3x7hmtaREPFTm9TUxENu17xCXBxIp
- 0Nb97zjROl+k3DA9zof3sALO6aGtvmYcScklYpNtITHZJ9a/gv/hYPcFVr3pBSC5mOPYoz5Yi3K
- 5eI6N8uiWEJzNhjT10V5PpQIO52DFq1f/SQo5fJuBsf8HOkdFkajB1n870TIpLuzfxlK1EptJ9k
- PClXQEQH2304szQqXQDx8P6RB/UdpDmG2bY018KX2MUqqRSk6KjmWfmNw62Th9aatd83w=
-X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
- fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.993]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email]
+References: <20240701-landlock-v1-0-58e9af649a72@suse.com>
+ <20240701-landlock-v1-2-58e9af649a72@suse.com>
+ <CAEemH2dUH+SM9_EALFtuNOq1v=1dSXOvsvxSk2pgOJknZ3VcgQ@mail.gmail.com>
+In-Reply-To: <CAEemH2dUH+SM9_EALFtuNOq1v=1dSXOvsvxSk2pgOJknZ3VcgQ@mail.gmail.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 2 Jul 2024 15:41:05 +0800
+Message-ID: <CAEemH2f3ShGqBLaZpXYcVpLO3TiOkXb2kbDPGafwwzxtSacYEg@mail.gmail.com>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4 2/2] Add unlink10 test
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: Re: [LTP] [PATCH 02/10] Add lapi/landlock.h fallback
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,87 +96,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Li Wang <liwang@redhat.com> wrote:
 
-This test verifies that unlink(2) fails with EROFS when target file
-is on a read-only filesystem.
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- runtest/syscalls                            |  1 +
- testcases/kernel/syscalls/unlink/.gitignore |  1 +
- testcases/kernel/syscalls/unlink/unlink10.c | 33 +++++++++++++++++++++++++++++
- 3 files changed, 35 insertions(+)
+> +AC_CHECK_TYPES([struct landlock_path_beneath_attr],,,[#include
+>> <linux/landlock.h>])
+>> +AC_CHECK_TYPES([struct landlock_net_port_attr],,,[#include
+>> <linux/landlock.h])
+>>
+>
+> This line misses the ), it should be:
+>
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 44a577db3..b6cadb2df 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1658,6 +1658,7 @@ unlink05 unlink05
- unlink07 unlink07
- unlink08 unlink08
- unlink09 unlink09
-+unlink10 unlink10
- 
- #unlinkat test cases
- unlinkat01 unlinkat01
-diff --git a/testcases/kernel/syscalls/unlink/.gitignore b/testcases/kernel/syscalls/unlink/.gitignore
-index 6038cc29d..4fc24059a 100644
---- a/testcases/kernel/syscalls/unlink/.gitignore
-+++ b/testcases/kernel/syscalls/unlink/.gitignore
-@@ -2,3 +2,4 @@
- /unlink07
- /unlink08
- /unlink09
-+/unlink10
-diff --git a/testcases/kernel/syscalls/unlink/unlink10.c b/testcases/kernel/syscalls/unlink/unlink10.c
-new file mode 100644
-index 000000000..861f24a50
---- /dev/null
-+++ b/testcases/kernel/syscalls/unlink/unlink10.c
-@@ -0,0 +1,33 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2024 FUJITSU LIMITED. All Rights Reserved.
-+ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-+ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that unlink(2) fails with EROFS when target file is on a read-only
-+ * filesystem.
-+ */
-+
-+#include <sys/ioctl.h>
-+#include "tst_test.h"
-+#include "lapi/fs.h"
-+
-+#define MNTPOINT "erofs"
-+#define FILENAME MNTPOINT"/file"
-+
-+static void run(void)
-+{
-+	TST_EXP_FAIL(unlink(FILENAME), EROFS,
-+		"%s", "target file in read-only filesystem");
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.needs_rofs = 1,
-+	.needs_root = 1,
-+	.mntpoint = MNTPOINT,
-+};
+Typo, I meant there was missing an angle bracket ">".
+
+
+> -AC_CHECK_TYPES([struct landlock_net_port_attr],,,[#include
+> <linux/landlock.h])
+> +AC_CHECK_TYPES([struct landlock_net_port_attr],,,[#include
+> <linux/landlock.h>])
+>
+
 
 -- 
-2.43.0
-
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
