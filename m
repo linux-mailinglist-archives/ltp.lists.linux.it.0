@@ -2,21 +2,21 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A40F4924019
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 16:13:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E8C5924025
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 16:14:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6AFB83D3EED
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 16:13:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BC45B3D3ED5
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 16:14:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BC7093D0F6E
+ by picard.linux.it (Postfix) with ESMTPS id 2ED1C3D3E8E
  for <ltp@lists.linux.it>; Tue,  2 Jul 2024 16:13:16 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it;
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
@@ -24,115 +24,115 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C7C391000B25
- for <ltp@lists.linux.it>; Tue,  2 Jul 2024 16:13:15 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4D9AC603104
+ for <ltp@lists.linux.it>; Tue,  2 Jul 2024 16:13:16 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4ED761FBA9;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CEBE11FBAB;
  Tue,  2 Jul 2024 14:13:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1719929595; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=pWn4lYeNETVXNkW8z37Fw+Uaqo1ndnBSbd86bJquFxg=;
- b=iDDBGjAoeBIHv+NMTL7Nkg35tlg6x9y+I1ICiKc7pmlA6rfJhchjH0gMPlM8pAkxpHa4jL
- QrHG0FpAePgjNkI9mNVdeKLG/vTk6E/R5ZtOpaGV3OLWxmkGN0W2AwFHR1hRQeX4MxuT5x
- WXPLnTBqdwpQsRa6a696ZgG3bibHURA=
+ bh=mxHeuRnXxYXdX9elvItdIKMayPnVv9z3LPX0rPJ4ATM=;
+ b=2CkduLsC6Wrv4mWFRQfIFpBySHZM2idYpWtLdQAC128Z/iX9mzjHoV8/PEJmfXavTHYDzx
+ +3by2tHCF7mBsh7AsSn9KPywsKegbb2ABK8GgncW1INkbeZkYKHIpD85hiZyKIZkcSVl88
+ ygauhioSSQ3DDN1WdSklVD/vOb3vy6A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1719929595;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=pWn4lYeNETVXNkW8z37Fw+Uaqo1ndnBSbd86bJquFxg=;
- b=xsK0A0yOv09sNTG8WIT4xDYGAvswnrZEMgDsuJL7UaG42reyzPgcObu7J+iZygK2aZfPHC
- Grk6XIR5MtDFqUAA==
+ bh=mxHeuRnXxYXdX9elvItdIKMayPnVv9z3LPX0rPJ4ATM=;
+ b=kwzFKkCg0KoYm0VOh5n0I1d19t9wZD3TYF83kgGR7HK2R9tDHF+aEr/9lwpGjspu7TsE7D
+ 2hu8Ib+MqoL+M3DQ==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=iDDBGjAo;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xsK0A0yO
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=2CkduLsC;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=kwzFKkCg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1719929595; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=pWn4lYeNETVXNkW8z37Fw+Uaqo1ndnBSbd86bJquFxg=;
- b=iDDBGjAoeBIHv+NMTL7Nkg35tlg6x9y+I1ICiKc7pmlA6rfJhchjH0gMPlM8pAkxpHa4jL
- QrHG0FpAePgjNkI9mNVdeKLG/vTk6E/R5ZtOpaGV3OLWxmkGN0W2AwFHR1hRQeX4MxuT5x
- WXPLnTBqdwpQsRa6a696ZgG3bibHURA=
+ bh=mxHeuRnXxYXdX9elvItdIKMayPnVv9z3LPX0rPJ4ATM=;
+ b=2CkduLsC6Wrv4mWFRQfIFpBySHZM2idYpWtLdQAC128Z/iX9mzjHoV8/PEJmfXavTHYDzx
+ +3by2tHCF7mBsh7AsSn9KPywsKegbb2ABK8GgncW1INkbeZkYKHIpD85hiZyKIZkcSVl88
+ ygauhioSSQ3DDN1WdSklVD/vOb3vy6A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1719929595;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=pWn4lYeNETVXNkW8z37Fw+Uaqo1ndnBSbd86bJquFxg=;
- b=xsK0A0yOv09sNTG8WIT4xDYGAvswnrZEMgDsuJL7UaG42reyzPgcObu7J+iZygK2aZfPHC
- Grk6XIR5MtDFqUAA==
+ bh=mxHeuRnXxYXdX9elvItdIKMayPnVv9z3LPX0rPJ4ATM=;
+ b=kwzFKkCg0KoYm0VOh5n0I1d19t9wZD3TYF83kgGR7HK2R9tDHF+aEr/9lwpGjspu7TsE7D
+ 2hu8Ib+MqoL+M3DQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0623D13AAD;
- Tue,  2 Jul 2024 14:13:14 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B13413A9A;
+ Tue,  2 Jul 2024 14:13:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id kDscO/oKhGbpDgAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Tue, 02 Jul 2024 14:13:14 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iAHwF/sKhGbpDgAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Tue, 02 Jul 2024 14:13:15 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Tue, 02 Jul 2024 16:12:48 +0200
+Date: Tue, 02 Jul 2024 16:12:49 +0200
 MIME-Version: 1.0
-Message-Id: <20240702-stat04-v1-2-e27d9953210d@suse.com>
+Message-Id: <20240702-stat04-v1-3-e27d9953210d@suse.com>
 References: <20240702-stat04-v1-0-e27d9953210d@suse.com>
 In-Reply-To: <20240702-stat04-v1-0-e27d9953210d@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2061;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4459;
  i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=ItyrmYYpGLKmEy5DEusWRssMc9Zyn59MJMhuxag0AQI=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmhArvnGOlfUvvTWxUCiRImD8GQC3LeqDJM7Moq
- H/rP4aCZtiJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZoQK7wAKCRDLzBqyILPm
- Rn6qC/9F+MDwq+GSVJ43mslEuK76aBgEf0oPajUAFrW3bdJN4Z/1aLjEfZF5baT6ZpnxaZhOPMI
- jcBK+Tqjk4C8cVzX2dVVQ8wVuprQQRbEy+u40krvEjsjXptewY9wdBxmaTjkYXxB4xe1j27E1OF
- /urVdFd5Y3owG4zQAmvWazALsCm81VtQWM1Y7g4wLPDK3Sz+Jd+3B1uoPzLx4KZ+sh1USlY+Onl
- PE4z3p4WbT//yaGGMzPZSRF9MNwucGOpoHEI1utXfcpZaoFG/BDx6dqjZapENstj99d/+/v2Gkr
- 52+EYgHGcSbKYPrmkKhwoKNd+DhT6sKrRJ3EO3ImvJru30zDxwNu3PoxUQBlVwFTbhFERj8GSR6
- dO4+0iG9s9r8WQvwPaUYsP5Q5JOMV0x2ZgrTRSY769aZMDTDu2619DCzRrMIAgBQ2FY9nUSkLaD
- rF+Yw/1sMo1MVAxqMfMQnIDAg5i8tMtsX6+wp3okXwc8zxqdQj/FeCeCfct7mZzv3z0g4=
+ bh=IYESwu8285GU9Up+TRl+58mpTq/3sTxgNiHpD46JPWU=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmhArveX8rUFu5x7Csz59HL5LPmT4o0Drd8Gs8T
+ WnamPlL1EaJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZoQK7wAKCRDLzBqyILPm
+ RgLmDACbcNbooRMqArcMFFADbU+hHyuEX3NQd5SGHpgJWM24Ag6Uo57/e061dpUw4eVfkVbznkc
+ LarS4uBelqduKfyUR5Y08dxAdiBQI3WBKyrQbEvP+G431vHsFcvbDV7GM/tC3pWssPc5J+TR1wP
+ rkf+hNSy0hLqN8n60/BLFgZn/J+wheFXjKOQQ6YpzKopkkWv4OcGi3U2TN9MuLBtfIncdu7tDzj
+ n+zYfTrDVMdYq+XgR+49LIVzSR6vS0om5en/FbC0brMMVY5H9T7K9sSSB9tnuoubLMcZrISMnBh
+ roy67ZS9LTj5vL2eKrbc0MO8mjbQMaTwaYllaub/4o3jhVn4DyzQIs3d3tVaH/T/d71MLu0yszM
+ bahNyrq9KXmt3GPNyZ+fAubbgwrTYcAGOQ4JRz5YqyjIVqiolz6oyFBZA0osJt/Q/eaKIz4MOeq
+ Lz/yFQiVk0b5rOOR47QWb2OdtU9Z95mGp0L2IAjhIlFjAs7i1+vuzcGubRWOYXL0WTNZ0=
 X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
  fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
-X-Rspamd-Queue-Id: 4ED761FBA9
-X-Spam-Score: -4.51
-X-Spam-Level: 
 X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MX_GOOD(-0.01)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
  RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
  ARC_NA(0.00)[];
  RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
  TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCPT_COUNT_TWO(0.00)[2];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_TWO(0.00)[2];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.com:email];
  DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
  DKIM_TRACE(0.00)[suse.de:+]
 X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: CEBE11FBAB
+X-Spam-Score: -4.51
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/5] Fix TST_EXP_EXTR() stringification
+Subject: [LTP] [PATCH 3/5] Add lstat03 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,62 +151,154 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Follow the TST_* macros standards when it comes to stringification of
-the expressions.
+This test has been extracted from symlink01 test and it checks that
+lstat() provides the right information, according with device, access
+time, block size, ownership, etc.
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- include/tst_test_macros.h               | 5 +++--
- testcases/kernel/syscalls/fork/fork04.c | 6 +++---
- 2 files changed, 6 insertions(+), 5 deletions(-)
+ runtest/syscalls                           |   4 +-
+ testcases/kernel/syscalls/lstat/.gitignore |   2 +
+ testcases/kernel/syscalls/lstat/lstat03.c  | 102 +++++++++++++++++++++++++++++
+ 3 files changed, 106 insertions(+), 2 deletions(-)
 
-diff --git a/include/tst_test_macros.h b/include/tst_test_macros.h
-index 22b39fb14..7a443c803 100644
---- a/include/tst_test_macros.h
-+++ b/include/tst_test_macros.h
-@@ -340,8 +340,9 @@ const char *tst_errno_names(char *buf, const int *exp_errs, int exp_errs_cnt);
- 			&tst_exp_err__, 1, ##__VA_ARGS__);                     \
- 	} while (0)
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 3e7a5ca1b..d78b6822b 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -725,12 +725,12 @@ lseek02 lseek02
+ lseek07 lseek07
+ lseek11 lseek11
  
--#define TST_EXP_EXPR(EXPR, FMT, ...)						\
--	tst_res_(__FILE__, __LINE__, (EXPR) ? TPASS : TFAIL, "Expect: " FMT, ##__VA_ARGS__);
-+#define TST_EXP_EXPR(EXPR, ...)                                              \
-+       tst_res_(__FILE__, __LINE__, (EXPR) ? TPASS : TFAIL, "Expect: "       \
-+                TST_FMT_(TST_2_(dummy, ##__VA_ARGS__, #EXPR), __VA_ARGS__));
+-lstat01A symlink01 -T lstat01
+-lstat01A_64 symlink01 -T lstat01_64
+ lstat01 lstat01
+ lstat01_64 lstat01_64
+ lstat02 lstat02
+ lstat02_64 lstat02_64
++lstat03 lstat03
++lstat03_64 lstat03_64
  
- #define TST_EXP_EQ_(VAL_A, SVAL_A, VAL_B, SVAL_B, TYPE, PFS) do {\
- 	TYPE tst_tmp_a__ = VAL_A; \
-diff --git a/testcases/kernel/syscalls/fork/fork04.c b/testcases/kernel/syscalls/fork/fork04.c
-index b0c6bebe0..413cd5eb4 100644
---- a/testcases/kernel/syscalls/fork/fork04.c
-+++ b/testcases/kernel/syscalls/fork/fork04.c
-@@ -29,7 +29,7 @@ static void run_child(void)
+ mallinfo02 mallinfo02
  
- 	TST_EXP_EXPR(strcmp(ENV_VAL0, val) == 0,
- 		"%s environ variable has been inherited by the child",
--		ENV_KEY)
-+		ENV_KEY);
- 
- 	tst_res(TINFO, "Unset %s environ variable inside child", ENV_KEY);
- 
-@@ -72,7 +72,7 @@ static void run(void)
- 	} else {
- 		TST_EXP_EXPR(strcmp(ENV_VAL0, val) == 0,
- 			"%s environ variable is still present inside parent",
--			ENV_KEY)
-+			ENV_KEY);
- 	}
- 
- 	TST_CHECKPOINT_WAKE_AND_WAIT(0);
-@@ -85,7 +85,7 @@ static void run(void)
- 	else {
- 		TST_EXP_EXPR(strcmp(ENV_VAL0, val) == 0,
- 			"%s environ variable didn't change inside parent",
--			ENV_KEY)
-+			ENV_KEY);
- 	}
- }
- 
+diff --git a/testcases/kernel/syscalls/lstat/.gitignore b/testcases/kernel/syscalls/lstat/.gitignore
+index a497a445f..72cba871f 100644
+--- a/testcases/kernel/syscalls/lstat/.gitignore
++++ b/testcases/kernel/syscalls/lstat/.gitignore
+@@ -2,3 +2,5 @@
+ /lstat01_64
+ /lstat02
+ /lstat02_64
++/lstat03
++/lstat03_64
+diff --git a/testcases/kernel/syscalls/lstat/lstat03.c b/testcases/kernel/syscalls/lstat/lstat03.c
+new file mode 100644
+index 000000000..b52ba0c35
+--- /dev/null
++++ b/testcases/kernel/syscalls/lstat/lstat03.c
+@@ -0,0 +1,102 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
++ *    Author: David Fenner, Jon Hendrickson
++ * Copyright (C) 2024 Andrea Cervesato andrea.cervesato@suse.com
++ */
++
++/*\
++ * [Description]
++ *
++ * This test verifies that lstat() provides correct information according
++ * with device, access time, block size, ownership, etc.
++ * The implementation provides a set of tests which are specific for each one
++ * of the `struct stat` used to read file and symlink information.
++ */
++
++#include "tst_test.h"
++
++#define FILENAME "file.txt"
++#define MNTPOINT "mntpoint"
++#define SYMBNAME MNTPOINT"/file_symlink"
++
++static struct stat *file_stat;
++static struct stat *symb_stat;
++
++static void run(void)
++{
++	TST_EXP_EXPR(file_stat->st_dev != symb_stat->st_dev);
++	TST_EXP_EXPR(file_stat->st_mode != symb_stat->st_mode);
++	TST_EXP_EXPR(file_stat->st_nlink != symb_stat->st_nlink);
++	TST_EXP_EXPR(file_stat->st_ino != symb_stat->st_ino);
++	TST_EXP_EXPR(file_stat->st_uid != symb_stat->st_uid);
++	TST_EXP_EXPR(file_stat->st_gid != symb_stat->st_gid);
++	TST_EXP_EXPR(file_stat->st_size != symb_stat->st_size);
++	TST_EXP_EXPR(file_stat->st_blocks != symb_stat->st_blocks);
++	TST_EXP_EXPR(file_stat->st_blksize != symb_stat->st_blksize);
++	TST_EXP_EXPR(file_stat->st_atime != symb_stat->st_atime);
++	TST_EXP_EXPR(file_stat->st_mtime != symb_stat->st_mtime);
++	TST_EXP_EXPR(file_stat->st_ctime != symb_stat->st_ctime);
++}
++
++static void setup(void)
++{
++	char opt_bsize[32];
++	const char *const fs_opts[] = {opt_bsize, NULL};
++	struct stat sb;
++	int pagesize;
++	int fd;
++
++	/* change st_blksize / st_dev */
++	SAFE_STAT(".", &sb);
++	pagesize = sb.st_blksize == 4096 ? 1024 : 4096;
++
++	snprintf(opt_bsize, sizeof(opt_bsize), "-b %i", pagesize);
++	SAFE_MKFS(tst_device->dev, tst_device->fs_type, fs_opts, NULL);
++	SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, 0);
++
++	SAFE_TOUCH(FILENAME, 0777, NULL);
++
++	/* change st_nlink */
++	SAFE_LINK(FILENAME, "linked_file");
++
++	/* change st_uid and st_gid */
++	SAFE_CHOWN(FILENAME, 1000, 1000);
++
++	/* change st_size */
++	fd = SAFE_OPEN(FILENAME, O_WRONLY, 0777);
++	tst_fill_fd(fd, 'a', TST_KB, 500);
++	SAFE_CLOSE(fd);
++
++	/* change st_atime / st_mtime / st_ctime */
++	sleep(1);
++
++	SAFE_SYMLINK(FILENAME, SYMBNAME);
++
++	SAFE_LSTAT(FILENAME, file_stat);
++	SAFE_LSTAT(SYMBNAME, symb_stat);
++}
++
++static void cleanup(void)
++{
++	SAFE_UNLINK(SYMBNAME);
++
++	if (tst_is_mounted(MNTPOINT))
++		SAFE_UMOUNT(MNTPOINT);
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = run,
++	.needs_root = 1,
++	.needs_tmpdir = 1,
++	.needs_device = 1,
++	.mntpoint = MNTPOINT,
++	.dev_fs_type = "ext2",
++	.bufs = (struct tst_buffers []) {
++		{&file_stat, .size = sizeof(struct stat)},
++		{&symb_stat, .size = sizeof(struct stat)},
++		{}
++	}
++};
 
 -- 
 2.43.0
