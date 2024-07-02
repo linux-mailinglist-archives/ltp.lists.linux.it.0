@@ -1,88 +1,91 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC595923F0A
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 15:33:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1719927186; h=to : date :
- message-id : in-reply-to : references : mime-version : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=8Yl+3B95KYRK4NO4tS/CDVHAe2BcLriXuskz4GWZLU0=;
- b=f8STXvJ+rBqA2ISvdPHaHa5Tt6DonKJCrDgkCOpF+H7MiGXO4EVrQ6PQ1pBKBQyCdcjvn
- 2mzF5w7g/uExqbIx2pcGOQ7TBbpAdNqemAays1+hMj2NCLwDpqbJMlEmfU/+6ABbjp7Mrxp
- b2wYtMPSYK/LRoHQUN8jgHM8j3e1ECY=
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BCC4923D8B
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 14:23:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7B5243D3EDD
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 15:33:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E72733D3ECB
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2024 14:23:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 761BF3D3F7E
- for <ltp@lists.linux.it>; Mon,  1 Jul 2024 11:50:47 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=mediatek.com (client-ip=60.244.123.138;
- helo=mailgw01.mediatek.com; envelope-from=joe.liu@mediatek.com;
+ by picard.linux.it (Postfix) with ESMTPS id 705FA3D3E89
+ for <ltp@lists.linux.it>; Tue,  2 Jul 2024 14:23:09 +0200 (CEST)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
  receiver=lists.linux.it)
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7F3F2600CE5
- for <ltp@lists.linux.it>; Mon,  1 Jul 2024 11:50:43 +0200 (CEST)
-X-UUID: 5c1d330a378f11ef8b8f29950b90a568-20240701
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=yaXwV3h8d29shuoGZvXY6hrRP8eWRGoRHtvp5sraY+g=; 
- b=IRrmKIWMMZxyNPXfpAy+aq4GWxhXf18fjnL7ph36lfl6jGXgYhHrdgUnrEm59GZK+Ny0SgukaHPDNXR2i4ZemwkB0HjC+7BwyFx5NZqWw0Teb4vOL4elk8kxXjRf0R0TImoUIsBfEX2UnIKfFhEu7+2PNaoJkqSAWfHd0LagIlk=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.40, REQID:2cff04be-7532-48ed-a630-750cbdb65429, IP:0,
- U
- RL:0,TC:0,Content:1,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:1
-X-CID-META: VersionHash:ba885a6, CLOUDID:b6fdf2d0-436f-4604-ad9d-558fa44a3bbe,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:817|102,TC:nil,Content:4|-5,EDM:-3,I
- P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
- ,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 1,FCT|NGT
-X-CID-BAS: 1,FCT|NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: 5c1d330a378f11ef8b8f29950b90a568-20240701
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
- mailgw01.mediatek.com (envelope-from <joe.liu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 864599554; Mon, 01 Jul 2024 17:50:33 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Mon, 1 Jul 2024 17:50:32 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Mon, 1 Jul 2024 17:50:32 +0800
-To: <chrubis@suse.cz>
-Date: Mon, 1 Jul 2024 17:50:32 +0800
-Message-ID: <20240701095032.18930-1-joe.liu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20240612112311.10334-1-chrubis@suse.cz>
-References: <20240612112311.10334-1-chrubis@suse.cz>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 53AA214044D1
+ for <ltp@lists.linux.it>; Tue,  2 Jul 2024 14:23:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1719922985;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=B1RZ0UxB1hla/r3fqOA1FLE0D7zLTLjcAAiogHByEaA=;
+ b=gVM6Wr57Q/eLIaZgGtT8tD6pBySKYoPuWr0F1tR13mUPqg49daR3GWyok5fFC7+w78BhTG
+ mhdygZppduHkcH14vjAqsi0xdQE9pAm5CL5WdRSSXuhPKU9ZefIQKGTJ92nbkL5zi+SaW6
+ /f5vPdpz/xoWnrMO4NZYINZkRn/ik8s=
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-435-WeFxSrvIP6y1k1-QKsFESQ-1; Tue, 02 Jul 2024 08:23:03 -0400
+X-MC-Unique: WeFxSrvIP6y1k1-QKsFESQ-1
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-2c924a5edaaso3775562a91.2
+ for <ltp@lists.linux.it>; Tue, 02 Jul 2024 05:23:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719922981; x=1720527781;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=B1RZ0UxB1hla/r3fqOA1FLE0D7zLTLjcAAiogHByEaA=;
+ b=py2x4JpZSPNLUI6k8I+IxESP9Z9pRkxGenallZCvFq4OQcN5jjJCs3/s3AI9VWbS2f
+ UUoxYf6kdnCcPSnimiUdI6aDVd+X+G9Vlb7JW/uygrI5mwjl7MhZuYFjcWMvA1qCAz2r
+ +OtejiGUoPnjfI5iI+LSZLQFTHGtYgCZcpczlJfzKZPcRqHOl/8NPLXumRES6yI+SBuo
+ nqQLjLgHaYFYEN+CrY97L8xfMEe+fPJGMauuwS5mPfyCSGiWAnUggjiycdz7x57zcrQF
+ UCGHvrf+Fs/+uGb8LmYtb7wjzCW/eOIqLZCPdifz0HihqgZ3YKEN7yl0maQq+Go7cItG
+ XGDA==
+X-Gm-Message-State: AOJu0YwY/qaAakF53guioBChuoHHaHKEWNlOL4MmgUevACsEG8fSVGyt
+ iXweSgUPh3D+nHJKOuhmFSv2jR3djvo4nU+k0d6C0EAvcxT9Ag7XvrjX+Hh/Z8idoqArxbudgqm
+ mGBKm+ZneuEi5SG87jnwpv0hGfTidRAGHjUTKCBGjSA0ajLe6BQwnH5FjJu6ujwluYMNAoL266H
+ WBpsEiZjl+pX1i1HXs2FddNYPjjo/eONxVEqz0
+X-Received: by 2002:a17:90a:c28d:b0:2c9:6278:27bd with SMTP id
+ 98e67ed59e1d1-2c962782978mr839175a91.3.1719922981342; 
+ Tue, 02 Jul 2024 05:23:01 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEWrIamqccCauKu0MCjaYuuyyVmOitEx8DoVOw7KL+aWfS5feNcdX/VnSsuG7ZbXS81bsPATWv893cRxEhKd7o=
+X-Received: by 2002:a17:90a:c28d:b0:2c9:6278:27bd with SMTP id
+ 98e67ed59e1d1-2c962782978mr839165a91.3.1719922980989; Tue, 02 Jul 2024
+ 05:23:00 -0700 (PDT)
 MIME-Version: 1.0
-X-MTK: N
+References: <20240701-landlock-v1-0-58e9af649a72@suse.com>
+ <20240701-landlock-v1-8-58e9af649a72@suse.com>
+ <CAEemH2f_Tq0W46x61FokVYwv4sK=8NhwfM5SY-gj1znbGnAmFg@mail.gmail.com>
+In-Reply-To: <CAEemH2f_Tq0W46x61FokVYwv4sK=8NhwfM5SY-gj1znbGnAmFg@mail.gmail.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 2 Jul 2024 20:22:48 +0800
+Message-ID: <CAEemH2cM6DMQZ-3j3sQ-0b1zD-rfeaCRTefO00wMnGqYeLn+Pw@mail.gmail.com>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Tue, 02 Jul 2024 15:32:40 +0200
-Subject: Re: [LTP] [PATCH v2] sched: starvation: Autocallibrate the timeout
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: Re: [LTP] [PATCH 08/10] Add landlock04 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,97 +97,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: "joe.liu via ltp" <ltp@lists.linux.it>
-Reply-To: "joe.liu" <joe.liu@mediatek.com>
-Cc: alix.wu@mediatek.com, xufeifei1@oppo.com, ltp@lists.linux.it,
- joe.liu@mediatek.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi!
-> > > Instead of hardcoding the values we attempt to measure the CPU speed and
-> > > set the timeout accordingly. Given that the difference in the duration
-> > > of the test when the kernel is buggy is about 30x we do not have to have
-> > > a precise callibration, just very rough estimate if we are running on a
-> > > server or small ARM board would suffice.
-
-> > > So we attempt to measure how long does a bussy loop take and base the
-> > > default timeout on that. On x86_64 CPUs the resulting timeout is about
-> > > double of the value of the actual test runtime and works fine, but we
-> > > need to make sure that the coeficient we divide the result from
-> > > callibrate works for small boards too. So please run the test on as many
-> > > machines as you can and report if we need to make the dividor smaller or
-> > > not.
- 
-> > While applying this new patch, the test result of 32bit kernel is still failed. Please refers following log:
-> > 
-> > external/ltp/lib/tst_test.c:1690: TINFO: LTP version: 20230929
-> > external/ltp/lib/tst_test.c:1576: TINFO: Timeout per run is 0h 00m 30s
-> > external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:90: TPASS: sched_setaffinity(0, sizeof(mask), &mask) returned 0
-> > external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:58: TINFO: CPU did 100000000 loops in 198306us
-> > external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:99: TINFO: cal timeout: 198
-> > external/ltp/lib/tst_test.c:1583: TINFO: Updating max runtime to 0h 03m 18s
-> > external/ltp/lib/tst_test.c:1576: TINFO: Timeout per run is 0h 03m 48s
-> > Test timeouted, sending SIGKILL!
-> > 
-> > After using "time ./starvation" to check the timecost, we can see the timecost is about 26 mins and 48 seconds
-
-> This is really strange. I tested the code on RPi Zero with 32bit BCM2835
-> where the CPU is even slower and runtime limit is set to about 5
-> minutes, yet the test finished in a minute. That's with resonably recent
-> kernel 6.1 though.
-
-> What kernel version do you use?
-We are now using kernel 5.15
-
-> Do you run LTP with background tasks to keep the CPU bussy?
-Yes, we are testing LTP with Android VTS. And the test environment is under Android Launcher.
-
-> Do you have any custom patches for kernel scheduller applied?
-I think there is no any patch applied for kernel scheduller.
-
-> It really looks like something unexpected is happening at your end.
-
-Actually, the same kernel version using 64bit kernel can pass the ltp test.
-
-
-
-1. for 32bit kernel, we have this log
-
-32bit kernel
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:161: TINFO: do_test by pid 4523
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:166: TINFO: main pid is 4523
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:167: TINFO: child pid is 4524
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:166: TINFO: main pid is 4524
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:167: TINFO: child pid is 0
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:176: TINFO: go loop, current pid is 4523
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:145: TINFO: current ppid is 4523, current pid is 4524, go to child() start
-
-main pid is 4523, child pid is 4524, and we only see child pid is working (checking by top)
-
-4524 root         20   0  14M 472K    0 R 85.7   0.0   0:14.93 starvation_v4 -t 1000000 -l 1000000 <-- cpu_load by top
-
-
-
-
-2. for 64bit kernel, we have this log
-
-64bit kernel
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:161: TINFO: do_test by pid 9753
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:166: TINFO: main pid is 9753
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:167: TINFO: child pid is 9754
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:166: TINFO: main pid is 9754
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:167: TINFO: child pid is 0
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:176: TINFO: go loop, current pid is 9753
-external/ltp/testcases/kernel/sched/cfs-scheduler/starvation.c:145: TINFO: current ppid is 9753, current pid is 9754, go to child() start
-
-main pid is 9753, child pid is 9754, and we see both main and child pid are working (checking by top)
-
-9754 root         20   0  16M 472K    0 R 51.4   0.0   0:05.51 starvation_v4 -t 1000000 -l 1000000 <-- cpu_load by top
-9753 root         20   0  16M 464K    0 R 45.7   0.0   0:05.70 starvation_v4 -t 1000000 -l 1000000 <-- cpu_load by top
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gVHVlLCBKdWwgMiwgMjAyNCBhdCA0OjAw4oCvUE0gTGkgV2FuZyA8bGl3YW5nQHJlZGhhdC5j
+b20+IHdyb3RlOgoKPgo+Cj4gT24gTW9uLCBKdWwgMSwgMjAyNCBhdCAxMTo0NOKAr1BNIEFuZHJl
+YSBDZXJ2ZXNhdG8gPGFuZHJlYS5jZXJ2ZXNhdG9Ac3VzZS5kZT4KPiB3cm90ZToKPgo+PiBGcm9t
+OiBBbmRyZWEgQ2VydmVzYXRvIDxhbmRyZWEuY2VydmVzYXRvQHN1c2UuY29tPgo+Pgo+PiBUaGlz
+IHRlc3QgdmVyaWZpZXMgdGhhdCBhbGwgbGFuZGxvY2sgcnVsZXMgYXJlIHdvcmtpbmcgcHJvcGVy
+bHkuCj4+IFRoZSB3YXkgd2UgZG8gaXQgaXMgdG8gdmVyaWZ5IHRoYXQgYWxsIGRpc2FibGVkIHN5
+c2NhbGxzIGFyZSBub3QKPj4gd29ya2luZyBidXQgdGhlIG9uZSB3ZSBlbmFibGVkIHZpYSBzcGVj
+aWZjIGxhbmRsb2NrIHJ1bGVzLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBBbmRyZWEgQ2VydmVzYXRv
+IDxhbmRyZWEuY2VydmVzYXRvQHN1c2UuY29tPgo+PiAtLS0KPj4gIHJ1bnRlc3Qvc3lzY2FsbHMg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAxICsKPj4gIHRlc3RjYXNlcy9r
+ZXJuZWwvc3lzY2FsbHMvbGFuZGxvY2svLmdpdGlnbm9yZSAgICAgIHwgICAyICsKPj4gIHRlc3Rj
+YXNlcy9rZXJuZWwvc3lzY2FsbHMvbGFuZGxvY2svTWFrZWZpbGUgICAgICAgIHwgICA1ICsKPj4g
+IHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvbGFuZGxvY2svbGFuZGxvY2swNC5jICAgIHwgMTQz
+ICsrKysrKysrKwo+PiAgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9sYW5kbG9jay9sYW5kbG9j
+a19leGVjLmMgfCAgIDkgKwo+PiAgLi4uL2tlcm5lbC9zeXNjYWxscy9sYW5kbG9jay9sYW5kbG9j
+a190ZXN0ZXIuaCAgICAgfCAzNTAKPj4gKysrKysrKysrKysrKysrKysrKysrCj4+ICA2IGZpbGVz
+IGNoYW5nZWQsIDUxMCBpbnNlcnRpb25zKCspCj4+Cj4+IGRpZmYgLS1naXQgYS9ydW50ZXN0L3N5
+c2NhbGxzIGIvcnVudGVzdC9zeXNjYWxscwo+PiBpbmRleCAxZTJkNjgyZTMuLjlhY2RhZjc2MCAx
+MDA2NDQKPj4gLS0tIGEvcnVudGVzdC9zeXNjYWxscwo+PiArKysgYi9ydW50ZXN0L3N5c2NhbGxz
+Cj4+IEBAIC02ODcsNiArNjg3LDcgQEAga2lsbDEzIGtpbGwxMwo+PiAgbGFuZGxvY2swMSBsYW5k
+bG9jazAxCj4+ICBsYW5kbG9jazAyIGxhbmRsb2NrMDIKPj4gIGxhbmRsb2NrMDMgbGFuZGxvY2sw
+Mwo+PiArbGFuZGxvY2swNCBsYW5kbG9jazA0Cj4+Cj4+ICBsY2hvd24wMSBsY2hvd24wMQo+PiAg
+bGNob3duMDFfMTYgbGNob3duMDFfMTYKPj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwv
+c3lzY2FsbHMvbGFuZGxvY2svLmdpdGlnbm9yZQo+PiBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2Fs
+bHMvbGFuZGxvY2svLmdpdGlnbm9yZQo+PiBpbmRleCBmNzljZDA5MGIuLjRmZThkN2NiYSAxMDA2
+NDQKPj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9sYW5kbG9jay8uZ2l0aWdub3Jl
+Cj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvbGFuZGxvY2svLmdpdGlnbm9yZQo+
+PiBAQCAtMSwzICsxLDUgQEAKPj4gK2xhbmRsb2NrX2V4ZWMKPj4gIGxhbmRsb2NrMDEKPj4gIGxh
+bmRsb2NrMDIKPj4gIGxhbmRsb2NrMDMKPj4gK2xhbmRsb2NrMDQKPj4gZGlmZiAtLWdpdCBhL3Rl
+c3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvbGFuZGxvY2svTWFrZWZpbGUKPj4gYi90ZXN0Y2FzZXMv
+a2VybmVsL3N5c2NhbGxzL2xhbmRsb2NrL01ha2VmaWxlCj4+IGluZGV4IDRiM2UzZmQ4Zi4uYmRj
+NmJkMmQ0IDEwMDY0NAo+PiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2xhbmRsb2Nr
+L01ha2VmaWxlCj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvbGFuZGxvY2svTWFr
+ZWZpbGUKPj4gQEAgLTgsMyArOCw4IEBAIGluY2x1ZGUgJCh0b3Bfc3JjZGlyKS9pbmNsdWRlL21r
+L3Rlc3RjYXNlcy5tawo+PiAgTERMSUJTICs9IC1sYwo+Pgo+PiAgaW5jbHVkZSAkKHRvcF9zcmNk
+aXIpL2luY2x1ZGUvbWsvZ2VuZXJpY19sZWFmX3RhcmdldC5tawo+PiArCj4+ICsjIHRoZSByZWFz
+b24gd2h5IGxhbmRsb2NrX2V4ZWMgdGVzdCBiaW5hcnkgaXMgc3RhdGljYWxseSBsaW5rZWQsIGlz
+IHRoYXQKPj4gKyMgd2UgY2FuJ3QgcmVhZCBsaWJjIG91dCBvZiB0aGUgc2FuZGJveGVkIGZvbGRl
+ciBvbmNlCj4+IExBTkRMT0NLX0FDQ0VTU19GU19FWEVDVVRFCj4+ICsjIGhhcyBiZWVuIGFjdGl2
+YXRlZAo+PiArbGFuZGxvY2tfZXhlYzogTERMSUJTICs9IC1zdGF0aWMgLWZQSUMKPj4KPgpBbmQs
+IGlmIHdlIGRlY2lkZWQgdG8gYnVpbGQgdGhlIHByb2dyYW0gYXMgc3RhdGljLCB3ZSdkIGJldHRl
+cgphZGRpbmcgZ2xpYmMtc3RhdGljIGludG8gdGhlIGRlcGVuZGVuY3kgbGlzdCwgb3RoZXJ3aXNl
+IGl0IGFsd2F5cwpmYWlsZWQgdG8gbGluayB0aGUgYmluYXJ5IG9uIFJIRUwgZGlzdHJpYnV0aW9u
+cy4KCi0tLSBhL2NpL2ZlZG9yYS5zaAorKysgYi9jaS9mZWRvcmEuc2gKQEAgLTE3LDYgKzE3LDcg
+QEAgJHl1bSBcCiAgICAgICAgbnVtYWN0bC1kZXZlbCBcCiAgICAgICAgbGlidGlycGMgXAogICAg
+ICAgIGxpYnRpcnBjLWRldmVsIFwKKyAgICAgICBsaWJjLXN0YXRpYyBcCiAgICAgICAgcGVybC1K
+U09OIFwKICAgICAgICBwZXJsLWxpYnd3dy1wZXJsIFwKICAgICAgICBwa2ctY29uZmlnIFwKCgoK
+LS0gClJlZ2FyZHMsCkxpIFdhbmcKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0
+cy5saW51eC5pdC9saXN0aW5mby9sdHAK
