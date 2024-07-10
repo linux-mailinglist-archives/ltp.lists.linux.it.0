@@ -1,127 +1,124 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA1BA92D7FB
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 20:05:02 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7773292D7F6
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 20:03:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 69D2A3D47CF
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 20:05:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3D6A23D38F6
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 20:03:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 26EAA3D388B
- for <ltp@lists.linux.it>; Wed, 10 Jul 2024 20:02:23 +0200 (CEST)
-Authentication-Results: in-5.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 3086C3D073A
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2024 20:02:21 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6DA64609A39
- for <ltp@lists.linux.it>; Wed, 10 Jul 2024 20:02:21 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 97E061007C86
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2024 20:02:20 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0203821BF3;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2420E1FCDE;
  Wed, 10 Jul 2024 18:02:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1720634540; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NiquYT62z6r7Qx4rPBHnCs6Nk9SPOFdvGBmU2MBv/Wc=;
- b=ELeUzy/JUU5I5GqM56IXmv5P7rjlMB67hduaiiNiUOLehXdhKsJvZntGiF814fNZnJazze
- osISR1KaUrFm1CS3xTAeewegJp7X0wAFLhC68ft1YGkzBlpPwdu9XZJpvsns2TjSoqnugp
- Vj3gEfIadAJpKdszSokNoFDCKJeNjao=
+ bh=REz6xYKSjt649+nIMXtZ2tSMpwkz6gP/mvw4GeuwShE=;
+ b=sZMas+HaVKtQh3zdjdxiYKdHckNNd9XVTqjbBI8CRHW9VVfvhXgezWVz+OCIOCsiTTLEis
+ VWH+/MprpfspHN9aF5efyTUNfmM00xqYRO1GJsqSzUx1fd1xMTp12LgudAIb4GAQ7ntV9i
+ VfDTzP6pb3zR8VBTEeHQm4H9iligTu0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1720634540;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NiquYT62z6r7Qx4rPBHnCs6Nk9SPOFdvGBmU2MBv/Wc=;
- b=uZWNub8cB/YYAEFbmK/Yx/8MXiEb+avd049K26UT8b+mYGL6TrZq7noCsrEk3YYAN5AecV
- s+pxJE23fAcyBRAw==
-Authentication-Results: smtp-out1.suse.de;
+ bh=REz6xYKSjt649+nIMXtZ2tSMpwkz6gP/mvw4GeuwShE=;
+ b=6HHMuh9LoJRb1wHlwP4CSLm3+1oWr2KRExRENEVxlLMfuSstRLtdm7WVXPeSlYpUyBwEsq
+ WPRBwVt2QNhzeJCw==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1720634540; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NiquYT62z6r7Qx4rPBHnCs6Nk9SPOFdvGBmU2MBv/Wc=;
- b=ELeUzy/JUU5I5GqM56IXmv5P7rjlMB67hduaiiNiUOLehXdhKsJvZntGiF814fNZnJazze
- osISR1KaUrFm1CS3xTAeewegJp7X0wAFLhC68ft1YGkzBlpPwdu9XZJpvsns2TjSoqnugp
- Vj3gEfIadAJpKdszSokNoFDCKJeNjao=
+ bh=REz6xYKSjt649+nIMXtZ2tSMpwkz6gP/mvw4GeuwShE=;
+ b=sZMas+HaVKtQh3zdjdxiYKdHckNNd9XVTqjbBI8CRHW9VVfvhXgezWVz+OCIOCsiTTLEis
+ VWH+/MprpfspHN9aF5efyTUNfmM00xqYRO1GJsqSzUx1fd1xMTp12LgudAIb4GAQ7ntV9i
+ VfDTzP6pb3zR8VBTEeHQm4H9iligTu0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1720634540;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NiquYT62z6r7Qx4rPBHnCs6Nk9SPOFdvGBmU2MBv/Wc=;
- b=uZWNub8cB/YYAEFbmK/Yx/8MXiEb+avd049K26UT8b+mYGL6TrZq7noCsrEk3YYAN5AecV
- s+pxJE23fAcyBRAw==
+ bh=REz6xYKSjt649+nIMXtZ2tSMpwkz6gP/mvw4GeuwShE=;
+ b=6HHMuh9LoJRb1wHlwP4CSLm3+1oWr2KRExRENEVxlLMfuSstRLtdm7WVXPeSlYpUyBwEsq
+ WPRBwVt2QNhzeJCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DB74513942;
- Wed, 10 Jul 2024 18:02:19 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 086D6137D2;
+ Wed, 10 Jul 2024 18:02:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id QFpKNKvMjmZJfAAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Wed, 10 Jul 2024 18:02:19 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id mE+4AKzMjmZJfAAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Wed, 10 Jul 2024 18:02:20 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 10 Jul 2024 20:02:04 +0200
+Date: Wed, 10 Jul 2024 20:02:05 +0200
 MIME-Version: 1.0
-Message-Id: <20240710-landlock-v2-9-ff79db017d57@suse.com>
+Message-Id: <20240710-landlock-v2-10-ff79db017d57@suse.com>
 References: <20240710-landlock-v2-0-ff79db017d57@suse.com>
 In-Reply-To: <20240710-landlock-v2-0-ff79db017d57@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15387;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4081;
  i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=8cGf2mIKMXNVbpT2Wr9eJmQiH/C6xjYF2sjLtmRB2uE=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmjsyeAJvkX0ilQBfmD8Al3gNDmvez3JDykE2kl
- URD4CHAtQKJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZo7MngAKCRDLzBqyILPm
- RjyTC/9OvKLy2UMuHF3P6lf0jBBnIVTysMTjpksJmZ3uzn74keYhEEEfMCxNfTTgKPH4xUjLe5W
- R4ZzH/qRRwMzkZkW2WtmqFVoy0AbqNehyDEaAbIi+vKk+lE9LIqbMhFjGS9cGC4PvDVobOmlvsr
- agZUplPi9QlsmIfgwgMKN65Iw7tiK2JqHd1hiOHnTNn2UgtEVq0/F6M1PzTd8G869TcA5pdQScM
- QG2ByKa49Mff/ODj2s7dSDGyLKH7ZtM8+LrDUvfEMRJ9yBDue78IyJm1UdtIjpST1J51iTvWW9N
- DpNllZRzobk/cAColkmByh8AHfSR1WFM+Wqg14UdFV5MNjEuL9xiQB0SXiO3xEhR8/7sNuGGn9E
- Nq2TGiYV2/PyLDW7KtjZ1qm+7PVHssBBgCPnvBKbXBvQkibijSsEzX2B4YTsGtsjijOOhs+DDfO
- dUcbUcW/uT/TfY497JQ7ohmpUqF1P8YF1Dm0og9ayPomrVvzFDK5fgI6bI5lhT8yKCtvY=
+ bh=5XlK4rtEjskkE4URmCuJ7dSUhd84VCQnT8Q0PdXWOm8=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmjsyegq4J7RI3GmAn9g3DCpMNaWsJe+5r/M9JP
+ A8riLgqf1GJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZo7MngAKCRDLzBqyILPm
+ Riu4C/4uLMW+eXOWv1JbC4HKGiPsMEE5f8Wl7Y2xu8dRdE57j+iN4Ln+8n+GFuMMfaMM+RH3Z4M
+ 34hFdgoG649hK2dg6KREm7BCm0iXo+5hQ/0ZHmgyUGaAns6q0eEeBm60SHwo8c7xOJbVPkG6krZ
+ 3So9Xua1uxBxfvYwLaua+iFy5klF9lmLpwQ5sKjSI+pwj6XcoqbgGVvB8TsqkYc+/wRPZFHYrrz
+ JH1zMEVStPwpoeMU4EOPiQ4ZTKgCkNdEcGh9glwKBiNyNWFFsW3bTndKFn4oZLmPzInFfWdHOVG
+ ce7fFWfzbboCV5U9GQL4zlOI+hNSYGX4CHv96a0Q1eKkPSb/I5LC1W3ZyT0y9UfiHNgPxeAT8GJ
+ gPNVPLSeIydOPWo59r02b4d7EdqQVBfYi3d+MH9znxQswZAQ4J6GXEizKEW5f2kvNTBDveyQOs6
+ MS2KdjXGcTAb/NmCzxJQ6M77XoFk8cpFRaJtxoUUxv8degH0nwY5axnz8UdTTwIxfCtEM=
 X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
  fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
 X-Spam-Score: -4.30
 X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 09/11] Add landlock04 test
+Subject: [LTP] [PATCH v2 10/11] Add landlock05 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,47 +137,44 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-This test verifies that all landlock rules are working properly.
-The way we do it is to verify that all disabled syscalls are not
-working but the one we enabled via specifc landlock rules.
+This test verifies LANDLOCK_ACCESS_FS_REFER access in the
+landlock sandbox. The feature is available since kernel 5.19.
 
+Reviewed-by: Li Wang <liwang@redhat.com>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- runtest/syscalls                                   |   1 +
- testcases/kernel/syscalls/landlock/.gitignore      |   2 +
- testcases/kernel/syscalls/landlock/landlock04.c    | 176 +++++++++++
- testcases/kernel/syscalls/landlock/landlock_exec.c |   9 +
- .../kernel/syscalls/landlock/landlock_tester.h     | 350 +++++++++++++++++++++
- 5 files changed, 538 insertions(+)
+ runtest/syscalls                                |   1 +
+ testcases/kernel/syscalls/landlock/.gitignore   |   1 +
+ testcases/kernel/syscalls/landlock/landlock05.c | 114 ++++++++++++++++++++++++
+ 3 files changed, 116 insertions(+)
 
 diff --git a/runtest/syscalls b/runtest/syscalls
-index 269cf24b1..10b54ae84 100644
+index 10b54ae84..bb54538ed 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -687,6 +687,7 @@ kill13 kill13
- landlock01 landlock01
+@@ -688,6 +688,7 @@ landlock01 landlock01
  landlock02 landlock02
  landlock03 landlock03
-+landlock04 landlock04
+ landlock04 landlock04
++landlock05 landlock05
  
  lchown01 lchown01
  lchown01_16 lchown01_16
 diff --git a/testcases/kernel/syscalls/landlock/.gitignore b/testcases/kernel/syscalls/landlock/.gitignore
-index f79cd090b..4fe8d7cba 100644
+index 4fe8d7cba..a7ea6be2e 100644
 --- a/testcases/kernel/syscalls/landlock/.gitignore
 +++ b/testcases/kernel/syscalls/landlock/.gitignore
-@@ -1,3 +1,5 @@
-+landlock_exec
- landlock01
+@@ -3,3 +3,4 @@ landlock01
  landlock02
  landlock03
-+landlock04
-diff --git a/testcases/kernel/syscalls/landlock/landlock04.c b/testcases/kernel/syscalls/landlock/landlock04.c
+ landlock04
++landlock05
+diff --git a/testcases/kernel/syscalls/landlock/landlock05.c b/testcases/kernel/syscalls/landlock/landlock05.c
 new file mode 100644
-index 000000000..1567328bb
+index 000000000..0ab93efbd
 --- /dev/null
-+++ b/testcases/kernel/syscalls/landlock/landlock04.c
-@@ -0,0 +1,176 @@
++++ b/testcases/kernel/syscalls/landlock/landlock05.c
+@@ -0,0 +1,114 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
@@ -189,149 +183,90 @@ index 000000000..1567328bb
 +/*\
 + * [Description]
 + *
-+ * This test verifies that all landlock rules are working properly. The way we
-+ * do it is to verify that all disabled syscalls are not working but the one we
-+ * enabled via specifc landlock rules.
++ * This test verifies LANDLOCK_ACCESS_FS_REFER access in the
++ * landlock sandbox.
++ *
++ * [Algorithm]
++ *
++ * - apply LANDLOCK_ACCESS_FS_REFER in the folder1
++ * - apply LANDLOCK_ACCESS_FS_REFER in the folder2
++ * - create folder3
++ * - verify that file can be moved from folder1 to folder2
++ * - verify that file can't be moved from folder1 to folder3
 + */
 +
 +#include "landlock_common.h"
-+#include "landlock_tester.h"
 +
-+#define ACCESS_NAME(x) #x
++#define MNTPOINT "sandbox"
++#define DIR1 MNTPOINT"/folder1"
++#define DIR2 MNTPOINT"/folder2"
++#define DIR3 MNTPOINT"/folder3"
++#define FILENAME1 DIR1"/file"
++#define FILENAME2 DIR2"/file"
++#define FILENAME3 DIR3"/file"
 +
 +static struct landlock_ruleset_attr *ruleset_attr;
 +static struct landlock_path_beneath_attr *path_beneath_attr;
 +
-+struct rule_access {
-+	char *path;
-+	int access;
-+};
-+
-+static struct tvariant {
-+	int access;
-+	char *desc;
-+} tvariants[] = {
-+	{
-+		LANDLOCK_ACCESS_FS_READ_FILE | LANDLOCK_ACCESS_FS_EXECUTE,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_EXECUTE)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_WRITE_FILE,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_WRITE_FILE)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_READ_FILE,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_READ_FILE)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_READ_DIR,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_READ_DIR)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_REMOVE_DIR,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_REMOVE_DIR)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_REMOVE_FILE,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_REMOVE_FILE)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_MAKE_CHAR,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_MAKE_CHAR)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_MAKE_BLOCK,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_MAKE_BLOCK)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_MAKE_REG,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_MAKE_REG)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_MAKE_SOCK,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_MAKE_SOCK)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_MAKE_FIFO,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_MAKE_FIFO)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_MAKE_SYM,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_MAKE_SYM)
-+	},
-+	{
-+		LANDLOCK_ACCESS_FS_WRITE_FILE | LANDLOCK_ACCESS_FS_TRUNCATE,
-+		ACCESS_NAME(LANDLOCK_ACCESS_FS_TRUNCATE)
-+	},
-+};
-+
 +static void run(void)
 +{
 +	if (!SAFE_FORK()) {
-+		struct tvariant  variant = tvariants[tst_variant];
++		TST_EXP_PASS(rename(FILENAME1, FILENAME2));
++		if (TST_RET == -1)
++			return;
 +
-+		tester_run_all_rules(variant.access);
++		TST_EXP_FAIL(rename(FILENAME2, FILENAME3), EXDEV);
++		TST_EXP_PASS(rename(FILENAME2, FILENAME1));
++
 +		_exit(0);
 +	}
 +}
 +
 +static void setup(void)
 +{
-+	struct tvariant variant = tvariants[tst_variant];
 +	int ruleset_fd;
 +
 +	verify_landlock_is_enabled();
-+	tester_create_tree();
 +
-+	tst_res(TINFO, "Testing %s", variant.desc);
++	SAFE_MKDIR(DIR1, 0640);
++	SAFE_MKDIR(DIR2, 0640);
++	SAFE_MKDIR(DIR3, 0640);
++	SAFE_TOUCH(FILENAME1, 0640, NULL);
 +
-+	ruleset_attr->handled_access_fs = tester_get_all_rules();
++	tst_res(TINFO, "Applying LANDLOCK_ACCESS_FS_REFER");
++
++	ruleset_attr->handled_access_fs =
++		LANDLOCK_ACCESS_FS_READ_FILE |
++		LANDLOCK_ACCESS_FS_WRITE_FILE |
++		LANDLOCK_ACCESS_FS_REFER;
 +
 +	ruleset_fd = SAFE_LANDLOCK_CREATE_RULESET(
 +		ruleset_attr, sizeof(struct landlock_ruleset_attr), 0);
 +
-+	/* since our binary is dynamically linked, we need to enable libraries
-+	 * to be read and executed
-+	 */
-+	struct rule_access rules[] = {
-+		{"/lib", LANDLOCK_ACCESS_FS_READ_FILE | LANDLOCK_ACCESS_FS_EXECUTE},
-+		{"/lib64", LANDLOCK_ACCESS_FS_READ_FILE | LANDLOCK_ACCESS_FS_EXECUTE},
-+		{SANDBOX_FOLDER, variant.access}
-+	};
-+	int num_of_rules = ARRAY_SIZE(rules);
++	apply_landlock_rule(
++		path_beneath_attr,
++		ruleset_fd,
++		LANDLOCK_ACCESS_FS_REFER,
++		DIR1);
 +
-+	for (int i = 0; i < num_of_rules; i++) {
-+		if (access(rules[i].path, F_OK) == -1)
-+			continue;
-+
-+		path_beneath_attr->allowed_access = rules[i].access;
-+		path_beneath_attr->parent_fd = SAFE_OPEN(rules[i].path, O_PATH | O_CLOEXEC);
-+
-+		SAFE_LANDLOCK_ADD_RULE(
-+			ruleset_fd,
-+			LANDLOCK_RULE_PATH_BENEATH,
-+			path_beneath_attr,
-+			0);
-+
-+		SAFE_CLOSE(path_beneath_attr->parent_fd);
-+	}
++	apply_landlock_rule(
++		path_beneath_attr,
++		ruleset_fd,
++		LANDLOCK_ACCESS_FS_REFER,
++		DIR2);
 +
 +	enforce_ruleset(ruleset_fd);
++
 +	SAFE_CLOSE(ruleset_fd);
 +}
 +
 +static struct tst_test test = {
 +	.test_all = run,
 +	.setup = setup,
-+	.min_kver = "5.13",
-+	.forks_child = 1,
++	.min_kver = "5.19",
 +	.needs_tmpdir = 1,
 +	.needs_root = 1,
-+	.test_variants = ARRAY_SIZE(tvariants),
-+	.resource_files = (const char *[]) {
-+		TESTAPP,
-+		NULL,
-+	},
++	.forks_child = 1,
 +	.needs_kconfigs = (const char *[]) {
 +		"CONFIG_SECURITY_LANDLOCK=y",
 +		NULL
@@ -343,391 +278,17 @@ index 000000000..1567328bb
 +	},
 +	.caps = (struct tst_cap []) {
 +		TST_CAP(TST_CAP_REQ, CAP_SYS_ADMIN),
-+		TST_CAP(TST_CAP_REQ, CAP_MKNOD),
 +		{}
 +	},
 +	.format_device = 1,
 +	.mount_device = 1,
-+	.mntpoint = SANDBOX_FOLDER,
++	.mntpoint = MNTPOINT,
 +	.all_filesystems = 1,
 +	.skip_filesystems = (const char *[]) {
 +		"vfat",
-+		"exfat",
 +		NULL
 +	},
-+	.max_runtime = 3600,
 +};
-diff --git a/testcases/kernel/syscalls/landlock/landlock_exec.c b/testcases/kernel/syscalls/landlock/landlock_exec.c
-new file mode 100644
-index 000000000..aae5c76b2
---- /dev/null
-+++ b/testcases/kernel/syscalls/landlock/landlock_exec.c
-@@ -0,0 +1,9 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+int main(void)
-+{
-+	return 0;
-+}
-diff --git a/testcases/kernel/syscalls/landlock/landlock_tester.h b/testcases/kernel/syscalls/landlock/landlock_tester.h
-new file mode 100644
-index 000000000..89ca085d7
---- /dev/null
-+++ b/testcases/kernel/syscalls/landlock/landlock_tester.h
-@@ -0,0 +1,350 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+#ifndef LANDLOCK_TESTER_H
-+
-+#include "tst_test.h"
-+#include "lapi/landlock.h"
-+#include <sys/sysmacros.h>
-+
-+#define PERM_MODE 0700
-+
-+#define SANDBOX_FOLDER	"sandbox"
-+#define TESTAPP			"landlock_exec"
-+
-+#define FILE_EXEC		SANDBOX_FOLDER"/"TESTAPP
-+#define FILE_READ		SANDBOX_FOLDER"/file_read"
-+#define FILE_WRITE		SANDBOX_FOLDER"/file_write"
-+#define FILE_REMOVE		SANDBOX_FOLDER"/file_remove"
-+#define FILE_UNLINK		SANDBOX_FOLDER"/file_unlink"
-+#define FILE_UNLINKAT	SANDBOX_FOLDER"/file_unlinkat"
-+#define FILE_TRUNCATE	SANDBOX_FOLDER"/file_truncate"
-+#define FILE_REGULAR	SANDBOX_FOLDER"/regular0"
-+#define FILE_SOCKET		SANDBOX_FOLDER"/socket0"
-+#define FILE_FIFO		SANDBOX_FOLDER"/fifo0"
-+#define FILE_SYM0		SANDBOX_FOLDER"/symbolic0"
-+#define FILE_SYM1		SANDBOX_FOLDER"/symbolic1"
-+#define DIR_READDIR		SANDBOX_FOLDER"/dir_readdir"
-+#define DIR_RMDIR		SANDBOX_FOLDER"/dir_rmdir"
-+#define DEV_CHAR0		SANDBOX_FOLDER"/chardev0"
-+#define DEV_BLK0		SANDBOX_FOLDER"/blkdev0"
-+
-+#define ALL_RULES (\
-+	LANDLOCK_ACCESS_FS_EXECUTE | \
-+	LANDLOCK_ACCESS_FS_WRITE_FILE | \
-+	LANDLOCK_ACCESS_FS_READ_FILE | \
-+	LANDLOCK_ACCESS_FS_READ_DIR | \
-+	LANDLOCK_ACCESS_FS_REMOVE_DIR | \
-+	LANDLOCK_ACCESS_FS_REMOVE_FILE | \
-+	LANDLOCK_ACCESS_FS_MAKE_CHAR | \
-+	LANDLOCK_ACCESS_FS_MAKE_DIR | \
-+	LANDLOCK_ACCESS_FS_MAKE_REG | \
-+	LANDLOCK_ACCESS_FS_MAKE_SOCK | \
-+	LANDLOCK_ACCESS_FS_MAKE_FIFO | \
-+	LANDLOCK_ACCESS_FS_MAKE_BLOCK | \
-+	LANDLOCK_ACCESS_FS_MAKE_SYM | \
-+	LANDLOCK_ACCESS_FS_REFER | \
-+	LANDLOCK_ACCESS_FS_TRUNCATE | \
-+	LANDLOCK_ACCESS_NET_BIND_TCP | \
-+	LANDLOCK_ACCESS_NET_CONNECT_TCP | \
-+	LANDLOCK_ACCESS_FS_IOCTL_DEV)
-+
-+static char *readdir_files[] = {
-+	DIR_READDIR"/file0",
-+	DIR_READDIR"/file1",
-+	DIR_READDIR"/file2",
-+};
-+
-+static int dev_chr;
-+static int dev_blk;
-+
-+static int tester_get_all_rules(void)
-+{
-+	int abi;
-+	int all_rules = ALL_RULES;
-+
-+	abi = SAFE_LANDLOCK_CREATE_RULESET(
-+		NULL, 0, LANDLOCK_CREATE_RULESET_VERSION);
-+
-+	if (abi < 2)
-+		all_rules &= ~LANDLOCK_ACCESS_FS_REFER;
-+
-+	if (abi < 3)
-+		all_rules &= ~LANDLOCK_ACCESS_FS_TRUNCATE;
-+
-+	if (abi < 4) {
-+		all_rules &= ~(LANDLOCK_ACCESS_NET_BIND_TCP |
-+			LANDLOCK_ACCESS_NET_CONNECT_TCP);
-+	}
-+
-+	if (abi < 5)
-+		all_rules &= ~LANDLOCK_ACCESS_FS_IOCTL_DEV;
-+
-+	return all_rules;
-+}
-+
-+static void tester_create_tree(void)
-+{
-+	if (access(SANDBOX_FOLDER, F_OK) == -1)
-+		SAFE_MKDIR(SANDBOX_FOLDER, PERM_MODE);
-+
-+	/* folders */
-+	SAFE_MKDIR(DIR_RMDIR, PERM_MODE);
-+	SAFE_MKDIR(DIR_READDIR, PERM_MODE);
-+	for (size_t i = 0; i < ARRAY_SIZE(readdir_files); i++)
-+		SAFE_TOUCH(readdir_files[i], PERM_MODE, NULL);
-+
-+	/* files */
-+	tst_fill_file(FILE_READ, 'a', getpagesize(), 1);
-+	SAFE_TOUCH(FILE_WRITE, PERM_MODE, NULL);
-+	SAFE_TOUCH(FILE_REMOVE, PERM_MODE, NULL);
-+	SAFE_TOUCH(FILE_UNLINK, PERM_MODE, NULL);
-+	SAFE_TOUCH(FILE_UNLINKAT, PERM_MODE, NULL);
-+	SAFE_TOUCH(FILE_TRUNCATE, PERM_MODE, NULL);
-+	SAFE_TOUCH(FILE_SYM0, PERM_MODE, NULL);
-+	SAFE_CP(TESTAPP, FILE_EXEC);
-+
-+	/* devices */
-+	dev_chr = makedev(1, 3);
-+	dev_blk = makedev(7, 0);
-+}
-+
-+static void _test_exec(const int result)
-+{
-+	int status;
-+	pid_t pid;
-+	char *const args[] = {(char *)FILE_EXEC, NULL};
-+
-+	tst_res(TINFO, "Test binary execution");
-+
-+	pid = SAFE_FORK();
-+	if (!pid) {
-+		int rval;
-+
-+		if (result == TPASS) {
-+			rval = execve(FILE_EXEC, args, NULL);
-+			if (rval == -1)
-+				tst_res(TFAIL | TERRNO, "Failed to execute test binary");
-+		} else {
-+			TST_EXP_FAIL(execve(FILE_EXEC, args, NULL), EACCES);
-+		}
-+
-+		_exit(1);
-+	}
-+
-+	SAFE_WAITPID(pid, &status, 0);
-+	if (!WIFEXITED(status) || WEXITSTATUS(status) != 0)
-+		return;
-+
-+	tst_res(result, "Test binary has been executed");
-+}
-+
-+static void _test_write(const int result)
-+{
-+	tst_res(TINFO, "Test writing file");
-+
-+	if (result == TPASS)
-+		TST_EXP_FD(open(FILE_WRITE, O_WRONLY, PERM_MODE));
-+	else
-+		TST_EXP_FAIL(open(FILE_WRITE, O_WRONLY, PERM_MODE), EACCES);
-+
-+	if (TST_RET != -1)
-+		SAFE_CLOSE(TST_RET);
-+}
-+
-+static void _test_read(const int result)
-+{
-+	tst_res(TINFO, "Test reading file");
-+
-+	if (result == TPASS)
-+		TST_EXP_FD(open(FILE_READ, O_RDONLY, PERM_MODE));
-+	else
-+		TST_EXP_FAIL(open(FILE_READ, O_RDONLY, PERM_MODE), EACCES);
-+
-+	if (TST_RET != -1)
-+		SAFE_CLOSE(TST_RET);
-+}
-+
-+static void _test_readdir(const int result)
-+{
-+	tst_res(TINFO, "Test reading directory");
-+
-+	DIR *dir;
-+	struct dirent *de;
-+	int files_counted = 0;
-+
-+	dir = opendir(DIR_READDIR);
-+	if (!dir) {
-+		tst_res(result == TPASS ? TFAIL : TPASS,
-+			"Can't read '%s' directory", DIR_READDIR);
-+
-+		return;
-+	}
-+
-+	tst_res(result, "Can read '%s' directory", DIR_READDIR);
-+	if (result == TFAIL)
-+		return;
-+
-+	while ((de = readdir(dir)) != NULL) {
-+		if (de->d_type != DT_REG)
-+			continue;
-+
-+		for (size_t i = 0; i < ARRAY_SIZE(readdir_files); i++) {
-+			if (readdir_files[i] == NULL)
-+				continue;
-+
-+			if (strstr(readdir_files[i], de->d_name) != NULL)
-+				files_counted++;
-+		}
-+	}
-+
-+	SAFE_CLOSEDIR(dir);
-+
-+	TST_EXP_EQ_LI(files_counted, ARRAY_SIZE(readdir_files));
-+}
-+
-+static void _test_rmdir(const int result)
-+{
-+	tst_res(TINFO, "Test removing directory");
-+
-+	if (result == TPASS)
-+		TST_EXP_PASS(rmdir(DIR_RMDIR));
-+	else
-+		TST_EXP_FAIL(rmdir(DIR_RMDIR), EACCES);
-+}
-+
-+static void _test_rmfile(const int result)
-+{
-+	tst_res(TINFO, "Test removing file");
-+
-+	if (result == TPASS) {
-+		TST_EXP_PASS(unlink(FILE_UNLINK));
-+		TST_EXP_PASS(remove(FILE_REMOVE));
-+	} else {
-+		TST_EXP_FAIL(unlink(FILE_UNLINK), EACCES);
-+		TST_EXP_FAIL(remove(FILE_REMOVE), EACCES);
-+	}
-+}
-+
-+static void _test_make(
-+	const char *path,
-+	const int type,
-+	const int dev,
-+	const int result)
-+{
-+	tst_res(TINFO, "Test normal or special files creation");
-+
-+	if (result == TPASS)
-+		TST_EXP_PASS(mknod(path, type | 0400, dev));
-+	else
-+		TST_EXP_FAIL(mknod(path, type | 0400, dev), EACCES);
-+}
-+
-+static void _test_symbolic(const int result)
-+{
-+	tst_res(TINFO, "Test symbolic links");
-+
-+	if (result == TPASS)
-+		TST_EXP_PASS(symlink(FILE_SYM0, FILE_SYM1));
-+	else
-+		TST_EXP_FAIL(symlink(FILE_SYM0, FILE_SYM1), EACCES);
-+}
-+
-+static void _test_truncate(const int result)
-+{
-+	int fd;
-+
-+	tst_res(TINFO, "Test truncating file");
-+
-+	if (result == TPASS) {
-+		TST_EXP_PASS(truncate(FILE_TRUNCATE, 10));
-+
-+		fd = TST_EXP_FD(open(FILE_TRUNCATE, O_WRONLY, PERM_MODE));
-+		if (fd != -1) {
-+			TST_EXP_PASS(ftruncate(fd, 10));
-+			SAFE_CLOSE(fd);
-+		}
-+
-+		fd = TST_EXP_FD(open(FILE_TRUNCATE, O_WRONLY | O_TRUNC, PERM_MODE));
-+		if (fd != -1)
-+			SAFE_CLOSE(fd);
-+	} else {
-+		TST_EXP_FAIL(truncate(FILE_TRUNCATE, 10), EACCES);
-+
-+		fd = open(FILE_TRUNCATE, O_WRONLY, PERM_MODE);
-+		if (fd != -1) {
-+			TST_EXP_FAIL(ftruncate(fd, 10), EACCES);
-+			SAFE_CLOSE(fd);
-+		}
-+
-+		TST_EXP_FAIL(open(FILE_TRUNCATE, O_WRONLY | O_TRUNC, PERM_MODE),
-+			EACCES);
-+
-+		if (TST_RET != -1)
-+			SAFE_CLOSE(TST_RET);
-+	}
-+}
-+
-+static void tester_run_rules(const int rules, const int result)
-+{
-+	if (rules & LANDLOCK_ACCESS_FS_EXECUTE)
-+		_test_exec(result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_WRITE_FILE)
-+		_test_write(result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_READ_FILE)
-+		_test_read(result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_READ_DIR)
-+		_test_readdir(result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_REMOVE_DIR)
-+		_test_rmdir(result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_REMOVE_FILE)
-+		_test_rmfile(result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_MAKE_CHAR)
-+		_test_make(DEV_CHAR0, S_IFCHR, dev_chr, result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_MAKE_BLOCK)
-+		_test_make(DEV_BLK0, S_IFBLK, dev_blk, result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_MAKE_REG)
-+		_test_make(FILE_REGULAR, S_IFREG, 0, result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_MAKE_SOCK)
-+		_test_make(FILE_SOCKET, S_IFSOCK, 0, result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_MAKE_FIFO)
-+		_test_make(FILE_FIFO, S_IFIFO, 0, result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_MAKE_SYM)
-+		_test_symbolic(result);
-+
-+	if (rules & LANDLOCK_ACCESS_FS_TRUNCATE) {
-+		if ((tst_kvercmp(6, 2, 0)) < 0) {
-+			tst_res(TINFO, "Skip truncate test. Minimum kernel version is 6.2");
-+			return;
-+		}
-+
-+		_test_truncate(result);
-+	}
-+}
-+
-+static inline void tester_run_all_rules(const int pass_rules)
-+{
-+	int fail_rules;
-+	int all_rules;
-+
-+	all_rules = tester_get_all_rules();
-+	fail_rules = all_rules & ~pass_rules;
-+
-+	tester_run_rules(pass_rules, TPASS);
-+	tester_run_rules(fail_rules, TFAIL);
-+}
-+
-+#endif
 
 -- 
 2.43.0
