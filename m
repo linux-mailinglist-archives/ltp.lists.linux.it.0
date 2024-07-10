@@ -2,88 +2,91 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2FE992CC74
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 10:05:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88AE892CCBA
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 10:18:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1720599503; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-transfer-encoding :
+ content-type : sender : from;
+ bh=zMX0FP1ffYr2aI2wBKhadj92Gy1hN2md6rIN+FD9IHg=;
+ b=qHHyDEoo98V5lZZiRKamehZKLnCisY8csB0HvaHgzkerRMZa01nwVkK5Uwsfgxb1mf8VK
+ IM5JOcleVHuYP/BQbRNaYwc7kWZrjDnpXOnipCOnhHynp/q9PXfC9h1mpnvKBPrEawvTYbR
+ 0+SmXCqWL1Kj4YLVA3XO6qwJ10RkjYI=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 889AE3D3831
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 10:05:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 401EF3D3826
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 10:18:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F05873D0F08
- for <ltp@lists.linux.it>; Wed, 10 Jul 2024 10:04:57 +0200 (CEST)
-Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=jstancek@redhat.com;
- receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 5E4263D0B06
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2024 10:18:10 +0200 (CEST)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B3ABF140121B
- for <ltp@lists.linux.it>; Wed, 10 Jul 2024 10:04:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1720598694;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JIyA4NJxjkb7vT7u1wOY07SVdFqY6NqTEfeGGdsU9Y8=;
- b=RtQImTl146FAGprwHH+1UHIxKSYnVaKzxjeo6zozBoysw17Qlxzkum8upLMO1oHWMPWP/4
- meCCOdJnSNGhpJERVR0ij+RVgtWZs2DgXWiRMprsErMxA8YNYLTfNCVFimKhrFNtWffXJF
- QhUA+EowdkzSDPObG/3dFwAZ+8pqBVk=
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-562-ET_LzXW7MeG8MqLlHAs55g-1; Wed, 10 Jul 2024 04:04:51 -0400
-X-MC-Unique: ET_LzXW7MeG8MqLlHAs55g-1
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-3d936a102acso2194787b6e.2
- for <ltp@lists.linux.it>; Wed, 10 Jul 2024 01:04:51 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 71E0D60154A
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2024 10:18:09 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2eea8ea8bb0so50294411fa.1
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2024 01:18:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1720599489; x=1721204289; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=XS+vWl5/YVhXiRyZXunJuMWFBehet0PJMPL9GFl4ynU=;
+ b=Ldwc9Vufl+LbpiCurWVm921FkWLB1Lz8wOV/R5RfIfqjemqAQjm9xOiuMTNq2ytUXg
+ 8psbQZXTamWq49hYSxluyUOg0af/cSKCoNDkeZqbl9ArQlC6N3qNVTz7KizLMf4StCEm
+ noN1Z3xnuc/YrQ6DRH9H8e3NgHeHlFBNHXdgwtOYTCeVp34K1hw9HKzhbLnxuUiEog0j
+ mIFJeLh0NllJ2DSwS7RHvEz5OE90O0p70yZKnG6x5o7gHihJkXzIZnp3NwczlXJK+Jrx
+ 2cei9xNQnCJjBZeZO2fvV5Tp2LuI2TWo2ohUxqjj++vVNWuojPxhSUtmvewhFdJc/PzA
+ IFrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720598690; x=1721203490;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JIyA4NJxjkb7vT7u1wOY07SVdFqY6NqTEfeGGdsU9Y8=;
- b=qP4+brhkYhqV0r278LwkKm/k/+nSwIkDcx7o6nJcBCkQzbscklSRQ8v4pnuyoLsSRH
- 9d6RUrqyHA8J79V0T5bOOY7HJdAbLQeuQ4o5h/rpECh4/TjNVUrn+XhGF+1WlB0bBeqP
- 4Z793ACPdZFTBgiB2DJGuangMDb7B/Vi+k3nMqb4Atny0d+6SZvECP8F0T3AV7YBUp7z
- 3Cpz1+03+Kw4kJ5p5i96X37tleNfUXp6LHN4x8f3ecqAYWHbOjPpSGO+xkeMWEwnWXy4
- Ite8M3OumY96Ti2xXPDGOPCDKdCdNjlFVPju6ddgdQN3BP6meIqgjEtcYjFEFmgLA43X
- oY1g==
-X-Gm-Message-State: AOJu0Yw2N1cssst84FVkPaKKB8CrFg2Fq25S2XVyh7sfL0B8n3nGMWGJ
- uhCZGvXEHDp3otF1R2PLqar4JMvUcsGoBsHcfvo4I41dfqv3AjJSgzUwy2pdstJLjwLD2fjLy95
- iOFqBlWEZB8NnnxT54yVJE+szVQVg7VdYuiJ7ftUlkMOt08o0cPIM/gZbyaZO7i30m4iMomPoiH
- UTLR6UivsX7cc6YrtSaJ/dCTo=
-X-Received: by 2002:a05:6808:211a:b0:3d2:1c37:25ca with SMTP id
- 5614622812f47-3d93c0b8a8amr5110027b6e.53.1720598690418; 
- Wed, 10 Jul 2024 01:04:50 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFhqcho6caZqvLdNu6vdEi6CCqcRyqat1SHFlKFEj7rEZMOfTCfvZuHLOziEq84EamX4r4acQmLDEftFUVf1Ac=
-X-Received: by 2002:a05:6808:211a:b0:3d2:1c37:25ca with SMTP id
- 5614622812f47-3d93c0b8a8amr5109991b6e.53.1720598689096; Wed, 10 Jul 2024
- 01:04:49 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1720599489; x=1721204289;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=XS+vWl5/YVhXiRyZXunJuMWFBehet0PJMPL9GFl4ynU=;
+ b=S47MfYtKGCoP8nVG7lasom5oNfDjin1IJeO3BPRy7X+xIV9p7FWPHUj91m3cdC4+tx
+ b7aig8oOBNejD+CnoKavBwFTWvn13Q7PLaUK8ZH8SUXPQFK/0dw+QkYaY7BzfXrzzjIU
+ rN8ta4CdFsbpYLM1US5/NPOMLjwvZGnUwg2lXINbfthwbxMaVqLlsBqs8qzLhRvk5sA9
+ kIO4vnLxjhT0tff5MjI178rmWWgYdxCPRr3/b25Be29Bsdo69lMH4hs5Sk8dlC5LgMTw
+ puEMrMVQKHZ+iLClom8Wt4ppV2IYsG+C/tTq0oz19zhQEDMFaR01HKbIPtZJiaogFKNQ
+ OPbA==
+X-Gm-Message-State: AOJu0YwvhxHGmlJ1l2XpJVKBkvPj01duqe9kY+m020qgU4nj0LSlaVLm
+ V8bxk3rTeOwvs012mVnYBvBK9Wzp/ZNUQgQjsNczePnV8CCRu82pElfHdBHoM2k=
+X-Google-Smtp-Source: AGHT+IFmS6+crug9DYWvw/0x7JiH+zkk6M5N4lOMrYyoZHe3Lcx8wrnPFuklrf6ZnPlOg/Ix+zmDpw==
+X-Received: by 2002:a05:651c:b94:b0:2ee:4f58:7738 with SMTP id
+ 38308e7fff4ca-2eeb30e43bfmr39304061fa.17.1720599488261; 
+ Wed, 10 Jul 2024 01:18:08 -0700 (PDT)
+Received: from [192.168.178.49] ([212.86.40.91])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-77d621c6300sm2502239a12.51.2024.07.10.01.18.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Jul 2024 01:18:07 -0700 (PDT)
+Message-ID: <c27d1b47-bfb2-46f5-93ad-a426b0925009@suse.com>
+Date: Wed, 10 Jul 2024 10:17:46 +0200
 MIME-Version: 1.0
-References: <09c8813ad86c4a8034e3e35a183355c4f887f1b4.1720527432.git.jstancek@redhat.com>
- <CAEemH2dhdUZki19_KhUO74CoQiomvn9Yo9SOdTbAttAVxLaShA@mail.gmail.com>
-In-Reply-To: <CAEemH2dhdUZki19_KhUO74CoQiomvn9Yo9SOdTbAttAVxLaShA@mail.gmail.com>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Wed, 10 Jul 2024 10:04:32 +0200
-Message-ID: <CAASaF6yzF9D3su3Hmog4infvwz3CZmF+TXsJc4+Gm5B8J8zQig@mail.gmail.com>
-To: Li Wang <liwan@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+User-Agent: Mozilla Thunderbird
+To: Petr Vorel <pvorel@suse.cz>, Andrea Cervesato <andrea.cervesato@suse.de>
+References: <20240709-stat04-v2-0-2693a473a2ab@suse.com>
+ <20240709-stat04-v2-1-2693a473a2ab@suse.com> <20240709211302.GA214763@pevik>
+Content-Language: en-US
+In-Reply-To: <20240709211302.GA214763@pevik>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] kallsyms: skip user-space mapped addresses
+Subject: Re: [LTP] [PATCH v2 1/5] Add stat04 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,106 +98,235 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gV2VkLCBKdWwgMTAsIDIwMjQgYXQgOToyNuKAr0FNIExpIFdhbmcgPGxpd2FuQHJlZGhhdC5j
-b20+IHdyb3RlOgo+Cj4KPgo+IE9uIFR1ZSwgSnVsIDksIDIwMjQgYXQgODoxOOKAr1BNIEphbiBT
-dGFuY2VrIDxqc3RhbmNla0ByZWRoYXQuY29tPiB3cm90ZToKPj4KPj4gUkhFTDkgczM5MHggd2l0
-aCBLUFRJIGVuYWJsZWQgaGFzIGJlZW4gb2JzZXJ2ZWQgdG8gc3BvcmFkaWNhbGx5Cj4+IHVzZSBz
-YW1lIGFkZHJlc3MgcmFuZ2VzIGZvciB1c2VyLXNwYWNlIGxpYnJhcmllcyBhcyB0aGUgb25lcwo+
-PiBvY2N1cGllZCBieSBrYWxsc3ltcyB3aGlsZSBpbiBrZXJuZWwtc3BhY2UuCj4+Cj4+IFRoZSB0
-ZXN0IGN1cnJlbnRseSAod3JvbmdseSkgYXNzdW1lcywgdGhhdCBhIHdyaXRlIHRvIGthbGxzeW0K
-Pj4gYWRkcmVzcyBzaG91bGQgZmFpbCBhbmQgZG9lc24ndCB0YWtlIGludG8gYWNjb3VudCB0aGF0
-IHNhbWUKPj4gbWVtb3J5IHJhbmdlcyBjb3VsZCBiZSBtYXBwZWQgZGlmZmVyZW50bHkgaW4gdXNl
-ciB2cy4ga2VybmVsLXNwYWNlLgo+Pgo+PiBBZGQgYSBjaGVjayB0byBzZWUgaWYgYSBrYWxsc3lt
-IGFkZHJlc3MgaXMgYWxyZWFkeSBtYXBwZWQgYnkgdXNlci1zcGFjZSwKPj4gYW5kIGlmIGl0IGlz
-LCBza2lwIGl0IHRvIGF2b2lkIGZhbHNlIHBvc2l0aXZlcy4KPj4KPj4gQmVmb3JlOgo+PiAgICAg
-MTMgIGthbGxzeW1zLmM6MTE1OiBURkFJTDogU3VjY2Vzc2Z1bGx5IGFjY2Vzc2VkIGtlcm5lbCBh
-ZGRyIDB4M2ZmODA2MDc4N2QgKHIpIChfX2tzdHJ0YWJuc19uZnMzX3NldF9kc19jbGllbnQpCj4+
-ICAgICAxNCAga2FsbHN5bXMuYzoxMTU6IFRGQUlMOiBTdWNjZXNzZnVsbHkgYWNjZXNzZWQga2Vy
-bmVsIGFkZHIgMHgzZmY4MDYwMDdhMCAodCkgKG5mc19pbml0X3NlcnZlcl9hY2xjbGllbnQpCj4+
-ICAgICAxNSAga2FsbHN5bXMuYzoxMTU6IFRGQUlMOiBTdWNjZXNzZnVsbHkgYWNjZXNzZWQga2Vy
-bmVsIGFkZHIgMHgzZmY4MDYwYTA1OCAoZCkgKG5mc2FjbF92ZXJzaW9uKQo+PiAgICAgMTYgIGth
-bGxzeW1zLmM6MTE1OiBURkFJTDogU3VjY2Vzc2Z1bGx5IGFjY2Vzc2VkIGtlcm5lbCBhZGRyIDB4
-M2ZmODA2MGEwNzggKGQpIChuZnNhY2xfcnBjc3RhdCkKPj4gICAgIC4uLgo+PiAgICAga2FsbHN5
-bXMuYzoxMzA6IFRGQUlMOiBDYXVnaHQgMTAzMTAyIFNJR1NFR1YgYnV0IGV4cGVjdGVkIDE1Mzcz
-OAo+Pgo+PiBBZnRlcjoKPj4gICAgIGthbGxzeW1zLmM6MTc1OiBUREVCVUc6IFNraXBwaW5nIHVz
-ZXJzcGFjZSBtYXBwZWQgYWRkcmVzcyAweDNmZjgwMjIwMDI0Cj4+ICAgICBrYWxsc3ltcy5jOjE3
-NTogVERFQlVHOiBTa2lwcGluZyB1c2Vyc3BhY2UgbWFwcGVkIGFkZHJlc3MgMHgzZmY4MDIyMDAz
-Ywo+PiAgICAga2FsbHN5bXMuYzoxNzU6IFRERUJVRzogU2tpcHBpbmcgdXNlcnNwYWNlIG1hcHBl
-ZCBhZGRyZXNzIDB4M2ZmODAyMTNiMjAKPj4gICAgIC4uLgo+PiAgICAga2FsbHN5bXMuYzoxODQ6
-IFRQQVNTOiBDYXVnaHQgMTAzNDczIFNJR1NFR1YgaW4gYWNjZXNzIGtzeW1ib2xzIGFkZHIsIHNr
-aXBwZWQgMjcyMzQKPj4KPj4gU2lnbmVkLW9mZi1ieTogSmFuIFN0YW5jZWsgPGpzdGFuY2VrQHJl
-ZGhhdC5jb20+Cj4+IC0tLQo+PiAgdGVzdGNhc2VzL2tlcm5lbC9zZWN1cml0eS9rYWxsc3ltcy9r
-YWxsc3ltcy5jIHwgNjggKysrKysrKysrKysrKysrKystLQo+PiAgMSBmaWxlIGNoYW5nZWQsIDYz
-IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2Fz
-ZXMva2VybmVsL3NlY3VyaXR5L2thbGxzeW1zL2thbGxzeW1zLmMgYi90ZXN0Y2FzZXMva2VybmVs
-L3NlY3VyaXR5L2thbGxzeW1zL2thbGxzeW1zLmMKPj4gaW5kZXggMmE1Y2JhYTMyNWVhLi5iMDdj
-YjljZGEyNjggMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc2VjdXJpdHkva2FsbHN5
-bXMva2FsbHN5bXMuYwo+PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2thbGxzeW1z
-L2thbGxzeW1zLmMKPj4gQEAgLTU0LDYgKzU0LDggQEAgc3RhdGljIHN0cnVjdCBrYWxsc3ltICpz
-eW1fdGFibGU7Cj4+ICBzdGF0aWMgdW5zaWduZWQgaW50IG5yX3N5bWJvbHM7Cj4+ICBzdGF0aWMg
-c2lnam1wX2J1ZiBqbXBidWY7Cj4+ICB2b2xhdGlsZSBzaWdfYXRvbWljX3Qgc2Vndl9jYXVnaHQ7
-Cj4+ICtzdGF0aWMgdW5zaWduZWQgbG9uZyAqcmFuZ2VzOwo+PiArc3RhdGljIGludCByYW5nZXNf
-c2l6ZSwgcmFuZ2VzX2xlbjsKPj4KPj4gIHN0YXRpYyB2b2lkIHNlZ3ZfaGFuZGxlcihpbnQgc2ln
-KQo+PiAgewo+PiBAQCAtODksNiArOTEsNDkgQEAgc3RhdGljIHVuc2lnbmVkIGludCByZWFkX2th
-bGxzeW1zKHN0cnVjdCBrYWxsc3ltICp0YWJsZSwgdW5zaWduZWQgaW50IHRhYmxlX3NpemUKPj4g
-ICAgICAgICByZXR1cm4gbnJfc3ltczsKPj4gIH0KPj4KPj4gK3N0YXRpYyB2b2lkIHJlYWRfcHJv
-Y19zZWxmX21hcHModm9pZCkKPj4gK3sKPj4gKyAgICAgICBGSUxFICpmcDsKPj4gKwo+PiArICAg
-ICAgIHJhbmdlc19sZW4gPSAwOwo+PiArICAgICAgIGZwID0gZm9wZW4oIi9wcm9jL3NlbGYvbWFw
-cyIsICJyIik7Cj4+ICsgICAgICAgaWYgKGZwID09IE5VTEwpCj4+ICsgICAgICAgICAgICAgICB0
-c3RfYnJrKFRCUk9LIHwgVEVSUk5PLCAiRmFpbGVkIHRvIG9wZW4gL3Byb2Mvc2VsZi9tYXBzLiIp
-Owo+PiArCj4+ICsgICAgICAgd2hpbGUgKCFmZW9mKGZwKSkgewo+PiArICAgICAgICAgICAgICAg
-dW5zaWduZWQgbG9uZyBzdGFydCwgZW5kOwo+PiArICAgICAgICAgICAgICAgaW50IHJldDsKPj4g
-Kwo+PiArICAgICAgICAgICAgICAgcmV0ID0gZnNjYW5mKGZwLCAiJWx4LSVseCAlKlteXG5dXG4i
-LCAmc3RhcnQsICZlbmQpOwo+PiArICAgICAgICAgICAgICAgaWYgKHJldCAhPSAyKSB7Cj4+ICsg
-ICAgICAgICAgICAgICAgICAgICAgIGZjbG9zZShmcCk7Cj4+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIHRzdF9icmsoVEJST0sgfCBURVJSTk8sICJDb3VsZG4ndCBwYXJzZSAvcHJvYy9zZWxmL21h
-cHMgbGluZS4iKTsKPj4gKyAgICAgICAgICAgICAgIH0KPj4gKwo+PiArICAgICAgICAgICAgICAg
-aWYgKHJhbmdlc19zaXplIDwgcmFuZ2VzX2xlbiArIDEpIHsKPj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgcmFuZ2VzX3NpemUgKz0gMTI4Owo+PiArICAgICAgICAgICAgICAgICAgICAgICByYW5n
-ZXMgPSByZWFsbG9jKHJhbmdlcywgMipyYW5nZXNfc2l6ZSpzaXplb2YodW5zaWduZWQgbG9uZykp
-Owo+Cj4KPiBCVFcsIHdlIGhhdmUgU0FGRV9SRUFMTE9DIG1hY3JvIG5vdy4KCkFoLCBvaywgSSBj
-YW4gdXBkYXRlIHRoYXQgaW4gdjIgLSBJJ2xsIHdhaXQgdG8gc2VlIGlmIHRoZXJlJ3MgYW55IG1v
-cmUKZmVlZGJhY2sgZm9yIGRheSBvciB0d28uCgo+Cj4+Cj4+ICsgICAgICAgICAgICAgICB9Cj4+
-ICsgICAgICAgICAgICAgICByYW5nZXNbcmFuZ2VzX2xlbioyXSA9IHN0YXJ0Owo+PiArICAgICAg
-ICAgICAgICAgcmFuZ2VzW3Jhbmdlc19sZW4qMiArIDFdID0gZW5kOwo+PiArCj4+ICsgICAgICAg
-ICAgICAgICByYW5nZXNfbGVuKys7Cj4+ICsgICAgICAgfQo+PiArCj4+ICsgICAgICAgZmNsb3Nl
-KGZwKTsKPj4gK30KPj4gKwo+PiArc3RhdGljIGludCBpc19hZGRyZXNzX21hcHBlZCh1bnNpZ25l
-ZCBsb25nIGFkZHIpCj4+ICt7Cj4+ICsgICAgICAgaW50IGk7Cj4+ICsKPj4gKyAgICAgICBmb3Ig
-KGkgPSAwOyBpIDwgcmFuZ2VzX2xlbjsgaSsrKSB7Cj4+ICsgICAgICAgICAgICAgICBpZiAocmFu
-Z2VzW2kqMl0gPD0gYWRkciAmJiBhZGRyIDwgcmFuZ2VzW2kqMiArIDFdKQo+PiArICAgICAgICAg
-ICAgICAgICAgICAgICByZXR1cm4gMTsKPj4gKyAgICAgICB9Cj4+ICsgICAgICAgcmV0dXJuIDA7
-Cj4+ICt9Cj4+ICsKPj4gIHN0YXRpYyB2b2lkIHNldHVwKHZvaWQpCj4+ICB7Cj4+ICAgICAgICAg
-c3RydWN0IHNpZ2FjdGlvbiBzYTsKPj4gQEAgLTExNywxNyArMTYyLDMwIEBAIHN0YXRpYyB2b2lk
-IGFjY2Vzc19rc3ltYm9sc19hZGRyZXNzKHN0cnVjdCBrYWxsc3ltICp0YWJsZSkKPj4gICAgICAg
-ICB9Cj4+ICB9Cj4+Cj4+ICsKPj4gIHN0YXRpYyB2b2lkIHRlc3RfYWNjZXNzX2tlcm5lbF9hZGRy
-ZXNzKHZvaWQpCj4+ICB7Cj4+IC0gICAgICAgc2Vndl9jYXVnaHQgPSAwOwo+PiArICAgICAgIGlu
-dCBza2lwcGVkID0gMDsKPj4KPj4gLSAgICAgICBmb3IgKHVuc2lnbmVkIGludCBpID0gMDsgaSA8
-IG5yX3N5bWJvbHM7IGkrKykKPj4gKyAgICAgICBzZWd2X2NhdWdodCA9IDA7Cj4+ICsgICAgICAg
-cmVhZF9wcm9jX3NlbGZfbWFwcygpOwo+PiArCj4+ICsgICAgICAgZm9yICh1bnNpZ25lZCBpbnQg
-aSA9IDA7IGkgPCBucl9zeW1ib2xzOyBpKyspIHsKPj4gKyAgICAgICAgICAgICAgIGlmIChpc19h
-ZGRyZXNzX21hcHBlZChzeW1fdGFibGVbaV0uYWRkcikpIHsKPj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgdHN0X3JlcyhUREVCVUcsICJTa2lwcGluZyB1c2Vyc3BhY2UgbWFwcGVkIGFkZHJlc3Mg
-MHglbHgiLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN5bV90YWJsZVtpXS5h
-ZGRyKTsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgc2tpcHBlZCsrOwo+PiArICAgICAgICAg
-ICAgICAgICAgICAgICBjb250aW51ZTsKPj4gKyAgICAgICAgICAgICAgIH0KPj4gICAgICAgICAg
-ICAgICAgIGFjY2Vzc19rc3ltYm9sc19hZGRyZXNzKCZzeW1fdGFibGVbaV0pOwo+PiArICAgICAg
-IH0KPj4KPj4gLSAgICAgICBpZiAoc2Vndl9jYXVnaHQgPT0gKHNpZ19hdG9taWNfdClucl9zeW1i
-b2xzKQo+PiAtICAgICAgICAgICAgICAgdHN0X3JlcyhUUEFTUywgIkNhdWdodCAlZCBTSUdTRUdW
-IGluIGFjY2VzcyBrc3ltYm9scyBhZGRyIiwgc2Vndl9jYXVnaHQpOwo+PiArICAgICAgIGlmIChz
-ZWd2X2NhdWdodCA9PSAoc2lnX2F0b21pY190KW5yX3N5bWJvbHMgLSBza2lwcGVkKQo+PiArICAg
-ICAgICAgICAgICAgdHN0X3JlcyhUUEFTUywgIkNhdWdodCAlZCBTSUdTRUdWIGluIGFjY2VzcyBr
-c3ltYm9scyBhZGRyLCBza2lwcGVkICVkIiwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgc2Vn
-dl9jYXVnaHQsIHNraXBwZWQpOwo+PiAgICAgICAgIGVsc2UKPj4gLSAgICAgICAgICAgICAgIHRz
-dF9yZXMoVEZBSUwsICJDYXVnaHQgJWQgU0lHU0VHViBidXQgZXhwZWN0ZWQgJWQiLCBzZWd2X2Nh
-dWdodCwgbnJfc3ltYm9scyk7Cj4+ICsgICAgICAgICAgICAgICB0c3RfcmVzKFRGQUlMLCAiQ2F1
-Z2h0ICVkIFNJR1NFR1YgYnV0IGV4cGVjdGVkICVkLCBza2lwcGVkICVkIiwKPj4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgc2Vndl9jYXVnaHQsIG5yX3N5bWJvbHMtc2tpcHBlZCwgc2tpcHBlZCk7
-Cj4+ICB9Cj4+Cj4+ICBzdGF0aWMgdm9pZCBjbGVhbnVwKHZvaWQpCj4+IC0tCj4+IDIuMzkuMwo+
-PgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5m
-by9sdHAK
+Hi,
+
+On 7/9/24 23:13, Petr Vorel wrote:
+> Hi all,
+>
+>> From: Andrea Cervesato <andrea.cervesato@suse.com>
+>> This test has been extracted from symlink01 test and it checks that
+>> stat() executed on file provide the same information of symlink linking
+>> to it.
+>> Reviewed-by: Li Wang <liwang@redhat.com>
+>> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+>> ---
+>>   runtest/smoketest                         |   4 +-
+>>   runtest/syscalls                          |   4 +-
+>>   testcases/kernel/syscalls/stat/.gitignore |   2 +
+>>   testcases/kernel/syscalls/stat/stat04.c   | 120 ++++++++++++++++++++++++++++++
+>>   4 files changed, 126 insertions(+), 4 deletions(-)
+>> diff --git a/runtest/smoketest b/runtest/smoketest
+>> index f6f14fd2b..5608417f9 100644
+>> --- a/runtest/smoketest
+>> +++ b/runtest/smoketest
+>> @@ -8,8 +8,8 @@ time01 time01
+>>   wait02 wait02
+>>   write01 write01
+>>   symlink01 symlink01
+>> -stat04 symlink01 -T stat04
+>> -utime07 utime07
+>> +stat04 stat04
+>> +utime01A symlink01 -T utime01
+> nit: Why replace utime07 with utime01? I suggest to merge without this change
+> (modify only stat04).
+This must be an error
+> Original test also tested ENOENT and ELOOP, but we have this in stat03.c.
+> (you probably have been discussing this previously.)
+Yeah there's no need for that since it's tested somewhere else.
+>
+> @Cyril: will you add your RBT (you reviewed v1).
+>
+>>   rename01A symlink01 -T rename01
+>>   splice02 splice02 -s 20
+>>   df01_sh df01.sh
+>> diff --git a/runtest/syscalls b/runtest/syscalls
+>> index b6cadb2df..1e1203503 100644
+>> --- a/runtest/syscalls
+>> +++ b/runtest/syscalls
+>> @@ -1535,8 +1535,8 @@ stat02 stat02
+>>   stat02_64 stat02_64
+>>   stat03 stat03
+>>   stat03_64 stat03_64
+>> -stat04 symlink01 -T stat04
+>> -stat04_64 symlink01 -T stat04_64
+>> +stat04 stat04
+>> +stat04_64 stat04_64
+> OT: Out of curiosity, I'm looking into
+> testcases/kernel/syscalls/utils/newer_64.mk, I have no idea why there is
+> utils/newer_64.h part.
+no idea...
+>>   statfs01 statfs01
+>>   statfs01_64 statfs01_64
+>> diff --git a/testcases/kernel/syscalls/stat/.gitignore b/testcases/kernel/syscalls/stat/.gitignore
+>> index fa0a4ce9f..0a62dc6ee 100644
+>> --- a/testcases/kernel/syscalls/stat/.gitignore
+>> +++ b/testcases/kernel/syscalls/stat/.gitignore
+>> @@ -4,3 +4,5 @@
+>>   /stat02_64
+>>   /stat03
+>>   /stat03_64
+>> +/stat04
+>> +/stat04_64
+>> diff --git a/testcases/kernel/syscalls/stat/stat04.c b/testcases/kernel/syscalls/stat/stat04.c
+>> new file mode 100644
+>> index 000000000..4609f02d8
+>> --- /dev/null
+>> +++ b/testcases/kernel/syscalls/stat/stat04.c
+>> @@ -0,0 +1,120 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later
+> Also, original test was GPL v2 only, but with rewrite like this I guess we can
+> have GPL v2+.
+>
+>> +/*
+>> + * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
+>> + *    Author: David Fenner, Jon Hendrickson
+>> + * Copyright (C) 2024 Andrea Cervesato <andrea.cervesato@suse.com>
+>> + */
+>> +
+>> +/*\
+>> + * [Description]
+>> + *
+>> + * This test checks that stat() executed on file provide the same information
+>> + * of symlink linking to it.
+>> + */
+>> +
+>> +#include <stdlib.h>
+>> +#include "tst_test.h"
+>> +
+>> +#define FILENAME "file.txt"
+>> +#define MNTPOINT "mntpoint"
+>> +#define SYMBNAME MNTPOINT"/file_symlink"
+>> +
+>> +static char symb_path[PATH_MAX];
+>> +static char file_path[PATH_MAX];
+>> +static struct stat *file_stat;
+>> +static struct stat *symb_stat;
+>> +static char *tmpdir;
+>> +
+>> +static void run(void)
+>> +{
+>> +	SAFE_STAT(file_path, file_stat);
+>> +	SAFE_STAT(symb_path, symb_stat);
+>> +
+>> +	TST_EXP_EQ_LI(file_stat->st_dev, symb_stat->st_dev);
+>> +	TST_EXP_EQ_LI(file_stat->st_mode, symb_stat->st_mode);
+>> +	TST_EXP_EQ_LI(file_stat->st_nlink, symb_stat->st_nlink);
+>> +	TST_EXP_EQ_LI(file_stat->st_uid, symb_stat->st_uid);
+>> +	TST_EXP_EQ_LI(file_stat->st_gid, symb_stat->st_gid);
+>> +	TST_EXP_EQ_LI(file_stat->st_size, symb_stat->st_size);
+>> +	TST_EXP_EQ_LI(file_stat->st_atime, symb_stat->st_atime);
+>> +	TST_EXP_EQ_LI(file_stat->st_mtime, symb_stat->st_mtime);
+>> +	TST_EXP_EQ_LI(file_stat->st_ctime, symb_stat->st_ctime);
+>> +}
+>> +
+>> +static void setup(void)
+>> +{
+>> +	char opt_bsize[32];
+>> +	const char *const fs_opts[] = {opt_bsize, NULL};
+>> +	struct stat sb;
+>> +	int pagesize;
+>> +	int fd;
+>> +
+>> +	tmpdir = tst_get_tmpdir();
+>> +
+>> +	if (strlen(tmpdir) >= (PATH_MAX - strlen(FILENAME))) {
+>> +		tst_brk(TCONF, "Temporary folder name is too long. "
+>> +			"Can't create file");
+>> +	}
+>> +
+>> +	if (strlen(tmpdir) >= (PATH_MAX - strlen(SYMBNAME))) {
+>> +		tst_brk(TCONF, "Temporary folder name is too long. "
+>> +			"Can't create symbolic link");
+>> +	}
+> PATH_MAX is 4096, right? Is it really needed to test the length?
+Yes, check previous conversation (easily buffer overflow).
+>> +
+>> +	/* change st_blksize / st_dev */
+>> +	SAFE_STAT(".", &sb);
+>> +	pagesize = sb.st_blksize == 4096 ? 1024 : 4096;
+>> +
+>> +	snprintf(opt_bsize, sizeof(opt_bsize), "-b %i", pagesize);
+>> +	SAFE_MKFS(tst_device->dev, tst_device->fs_type, fs_opts, NULL);
+>> +	SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, 0);
+> Isn't symlink filesystem related? Shouldn't this be run on all_filesystems?
+> But we could not force block size change.
+This was suggested by @Cyril
+>
+>> +
+>> +	SAFE_TOUCH(FILENAME, 0777, NULL);
+>> +
+>> +	/* change st_nlink */
+>> +	SAFE_LINK(FILENAME, "linked_file");
+>> +
+>> +	/* change st_uid and st_gid */
+>> +	SAFE_CHOWN(FILENAME, 1000, 1000);
+>> +
+>> +	/* change st_size */
+>> +	fd = SAFE_OPEN(FILENAME, O_WRONLY, 0777);
+>> +	tst_fill_fd(fd, 'a', TST_KB, 500);
+>> +	SAFE_CLOSE(fd);
+>> +
+>> +	/* change st_atime / st_mtime / st_ctime */
+>> +	usleep(1001000);
+>> +
+>> +	memset(file_path, 0, PATH_MAX);
+>> +	snprintf(file_path, PATH_MAX, "%s/%s", tmpdir, FILENAME);
+>> +
+>> +	memset(symb_path, 0, PATH_MAX);
+>> +	snprintf(symb_path, PATH_MAX, "%s/%s", tmpdir, SYMBNAME);
+>> +
+>> +	SAFE_SYMLINK(file_path, symb_path);
+>> +}
+>> +
+>> +static void cleanup(void)
+>> +{
+>> +	free(tmpdir);
+> nit: I know that tst_get_tmpdir() is first thing in setup(), but I would still
+> guard it with if (tmpdir) (code may change later).
+>
+>> +
+>> +	SAFE_UNLINK(SYMBNAME);
+> nit: Ideally this would be guarded by flag that SAFE_SYMLINK(file_path,
+> symb_path) got executed.
+What if it doesn't?
+>
+>> +
+>> +	if (tst_is_mounted(MNTPOINT))
+>> +		SAFE_UMOUNT(MNTPOINT);
+>> +}
+>> +
+>> +static struct tst_test test = {
+>> +	.setup = setup,
+>> +	.cleanup = cleanup,
+>> +	.test_all = run,
+>> +	.needs_root = 1,
+>> +	.needs_tmpdir = 1,
+> nit: useless tag: needs_tmpdir (can be removed before merge).
+>
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+>
+> Kind regards,
+> Petr
+>
+>> +	.needs_device = 1,
+>> +	.mntpoint = MNTPOINT,
+>> +	.bufs = (struct tst_buffers []) {
+>> +		{&file_stat, .size = sizeof(struct stat)},
+>> +		{&symb_stat, .size = sizeof(struct stat)},
+>> +		{}
+>> +	}
+>> +};
+
+Andrea
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
