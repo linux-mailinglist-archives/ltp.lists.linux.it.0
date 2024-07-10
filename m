@@ -2,21 +2,21 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78DC992D7EF
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 20:02:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2C8D92D7F3
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 20:02:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3C0483D386B
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 20:02:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7BDC73D38EC
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 20:02:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 70C743D073A
+ by picard.linux.it (Postfix) with ESMTPS id D2DDD3D0B0F
  for <ltp@lists.linux.it>; Wed, 10 Jul 2024 20:02:20 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it;
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
@@ -24,85 +24,88 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D10781007C86
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E1FA220819C
  for <ltp@lists.linux.it>; Wed, 10 Jul 2024 20:02:19 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 38E001F851;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 55F161FB55;
  Wed, 10 Jul 2024 18:02:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1720634539; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xzrWvInCh61FwiyZVot96/S93WEOFLlda4g1a8Rvbtg=;
- b=gA6baUJGd0Hj3qbXZgoeGJx8eTVZs3r6RV/r/IidlW7nZlUzuXe3uxYy3LBXUP7lWi3lnI
- yX7oldH5yK3iISGauTlYeRRCSh/e5UA9dObDoYz4QF3V03fCPBXZ2b+AsiBvtJF93isi+Z
- zvjG/axhAQNIHnjY0GD+r5Pa6FZa1C4=
+ bh=r9BvmrVXMCyppbaf5Wn62XLNZV3L5BR1kKs2XDBWFfs=;
+ b=yeHdfKpgj4w9XF2fSPDb9ZWxHQHEsfjibSFF5GaH/gV4aqtZzsH8niaK+j9eVXnWuileOG
+ rujaJZEMjCD7J49UHEkDxWOfsSS3nlZbCDoRXV3lG7mwKx8O/mgVkY/x3ELuLWWAf0XWWo
+ 21024c+irlo3Yfxpw6M6XPCQE/8mWaI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1720634539;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xzrWvInCh61FwiyZVot96/S93WEOFLlda4g1a8Rvbtg=;
- b=iJuP3j+IeICbprnkXd3nQkQNxNrPRH63/sdievmYISw6Jumo09n5zK9gN3Wb8vmi4pqp12
- 6X7sdF/DVEOfQmDg==
+ bh=r9BvmrVXMCyppbaf5Wn62XLNZV3L5BR1kKs2XDBWFfs=;
+ b=P7ycokpStNxWVjK4PLdcwPiLJgjgNSRIYiEmC0w2FLkCCOWMKrP4HeJ+n5biINjVtWB3DB
+ 7QmVQfUfEwfR+QAQ==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=gA6baUJG;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=iJuP3j+I
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=yeHdfKpg;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=P7ycokpS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1720634539; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xzrWvInCh61FwiyZVot96/S93WEOFLlda4g1a8Rvbtg=;
- b=gA6baUJGd0Hj3qbXZgoeGJx8eTVZs3r6RV/r/IidlW7nZlUzuXe3uxYy3LBXUP7lWi3lnI
- yX7oldH5yK3iISGauTlYeRRCSh/e5UA9dObDoYz4QF3V03fCPBXZ2b+AsiBvtJF93isi+Z
- zvjG/axhAQNIHnjY0GD+r5Pa6FZa1C4=
+ bh=r9BvmrVXMCyppbaf5Wn62XLNZV3L5BR1kKs2XDBWFfs=;
+ b=yeHdfKpgj4w9XF2fSPDb9ZWxHQHEsfjibSFF5GaH/gV4aqtZzsH8niaK+j9eVXnWuileOG
+ rujaJZEMjCD7J49UHEkDxWOfsSS3nlZbCDoRXV3lG7mwKx8O/mgVkY/x3ELuLWWAf0XWWo
+ 21024c+irlo3Yfxpw6M6XPCQE/8mWaI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1720634539;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xzrWvInCh61FwiyZVot96/S93WEOFLlda4g1a8Rvbtg=;
- b=iJuP3j+IeICbprnkXd3nQkQNxNrPRH63/sdievmYISw6Jumo09n5zK9gN3Wb8vmi4pqp12
- 6X7sdF/DVEOfQmDg==
+ bh=r9BvmrVXMCyppbaf5Wn62XLNZV3L5BR1kKs2XDBWFfs=;
+ b=P7ycokpStNxWVjK4PLdcwPiLJgjgNSRIYiEmC0w2FLkCCOWMKrP4HeJ+n5biINjVtWB3DB
+ 7QmVQfUfEwfR+QAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 229C413ABC;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3F01B137D2;
  Wed, 10 Jul 2024 18:02:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id kIsjB6vMjmZJfAAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id wF4UDqvMjmZJfAAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Wed, 10 Jul 2024 18:02:19 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 10 Jul 2024 20:01:58 +0200
+Date: Wed, 10 Jul 2024 20:01:59 +0200
 MIME-Version: 1.0
-Message-Id: <20240710-landlock-v2-3-ff79db017d57@suse.com>
+Message-Id: <20240710-landlock-v2-4-ff79db017d57@suse.com>
 References: <20240710-landlock-v2-0-ff79db017d57@suse.com>
 In-Reply-To: <20240710-landlock-v2-0-ff79db017d57@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2466;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1756;
  i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=ykWuBdEgfNf7D56fkwQsx2Fd28bSbk9Xmt+WjsB/+7Q=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmjsyeFSCHnVU24UjJOGG/X4Ku6v0w0cvf/kfos
- Wz2edBwx5aJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZo7MngAKCRDLzBqyILPm
- Rm3SC/0Xy/Ta3C9+1UU7lmGtcPvAvHyo/YFur2LPyVr03QW7/47znaxXZLbQkfIjlEYt3iIV2Wg
- zl/SUrtrgZoK6MYkVJx/0wN/ZKm5z+IE7gs5XAodcdfLKiBVjD9ZecraqpueKPmdLQ1Zvt8/Vhm
- CM+/A62gi4037i9p030QAXZloRy/i55EkEn3oGZoXodw6kng2W09IEoL8rkKo6RHcPQrB/nFkRx
- 73GplvK/5jZLrhhm6gSdhzEflYBG9YIIs5Cfa5ftZ8kUoKGg48FkXTmCC4pP1I2E9fgjVNft9Vn
- G6Bl1b7NuIfcwGav794Ko/0HNxc6H3eOiFw6yam4OuhX4uyGOT4+4jM0FIcOsLnumDDhh6gYAOF
- 2kLoE2vbhD5PbTxVIVNDU8ix7CuQfueRPsre8dBfSkt28szzjirLJoWHbco2dNoYOawkXrU+HR3
- omX8eYy7lKdQBmHCvPJZ+Tah7NKC1V8pIWdNRwE5Ee2ee4qZE5ixI6iaM4Di2CncNnbU0=
+ bh=T7tHaRlEgGRHiBMGbKNiyTpuc+0hqp/7GV5XapEXOls=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmjsyeAR5RZ9nWuHS/cCUd//XUARDP/7vi5vudE
+ WYzv6GEwLGJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZo7MngAKCRDLzBqyILPm
+ RrfmC/4jSfUQCbebNDSQLv5E+6N/vEngnnGxRfAxT4IeaKvfo8F4PnkkAhXtfqBnjX9LtnBqONE
+ 1z46uTZmWNKpDZH6yEGDFY3DPpJg8qLhZ77ho5t2euimLBMP3ZgC31B1MxZxScSoOO1HRBGVRTz
+ sIhFVCCLW6llH1AUZ9HBT/HZukEIev6k5Pfvgt+alXMhY2gwAE9CtG2/Cuf/W/VoAiwS3ezjwc3
+ rJeULxxmTQnMYQEq/6wBWUxsxqKSPSBQS2GC9zBgN8cph7YvdOHoCcHlJpo0kCgtbR0JvgxNFRN
+ 7gqLkpJ9VMK2US0FCxiq8tfAHDdmpIBPvNm4Y60SniGmybCCiPl/9zzRY+MteCamwvs21tSz5Wz
+ JM81Ica5x6DQ0fQ+U3dRzFIgLkJ0KXeZG1cH4IcTBw8XzN3U0YhLjR/74Kldy6rMiesEflGHxxM
+ cTSjAmbWt6KWQI9IMeG3xFZr3+ZvSvHSTWvfBwFbag61tpzw7q71OyghhZ0ZKVjIEY7u4=
 X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
  fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
+X-Rspamd-Queue-Id: 55F161FB55
+X-Spam-Score: -4.51
+X-Spam-Level: 
 X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
@@ -117,22 +120,18 @@ X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim]; RCVD_COUNT_TWO(0.00)[2];
  TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.com:email];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.de:dkim];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  DKIM_TRACE(0.00)[suse.de:+]
 X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 38E001F851
-X-Spam-Score: -4.51
-X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 03/11] Added three more SAFE_* macros for landlock
- sandbox:
+Subject: [LTP] [PATCH v2 04/11] Add SAFE_PRCTL macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,92 +150,59 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-- SAFE_LANDLOCK_CREATE_RULESET
-- SAFE_LANDLOCK_ADD_RULE
-- SAFE_LANDLOCK_RESTRICT_SELF
-
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- include/lapi/landlock.h | 61 +++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
+ include/tst_safe_macros.h |  6 ++++++
+ lib/tst_safe_macros.c     | 17 +++++++++++++++++
+ 2 files changed, 23 insertions(+)
 
-diff --git a/include/lapi/landlock.h b/include/lapi/landlock.h
-index 2ee51b340..6d85eb12e 100644
---- a/include/lapi/landlock.h
-+++ b/include/lapi/landlock.h
-@@ -12,6 +12,8 @@
- # include <linux/landlock.h>
- #endif
+diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
+index 08b8e930a..92b9bc119 100644
+--- a/include/tst_safe_macros.h
++++ b/include/tst_safe_macros.h
+@@ -503,4 +503,10 @@ int safe_sscanf(const char *file, const int lineno, const char *restrict buffer,
+ #define SAFE_SSCANF(buffer, format, ...) \
+ 	safe_sscanf(__FILE__, __LINE__, (buffer), (format),	##__VA_ARGS__)
  
-+#include "lapi/syscalls.h"
++int safe_prctl(const char *file, const int lineno,
++	int option, unsigned long arg2, unsigned long arg3,
++	unsigned long arg4, unsigned long arg5);
++#define SAFE_PRCTL(option, arg2, arg3, arg4, arg5) \
++	safe_prctl(__FILE__, __LINE__, (option), (arg2), (arg3), (arg4), (arg5))
 +
- #ifndef HAVE_STRUCT_LANDLOCK_RULESET_ATTR
- struct landlock_ruleset_attr
- {
-@@ -120,4 +122,63 @@ struct landlock_net_port_attr
- # define LANDLOCK_ACCESS_NET_CONNECT_TCP	(1ULL << 1)
- #endif
+ #endif /* TST_SAFE_MACROS_H__ */
+diff --git a/lib/tst_safe_macros.c b/lib/tst_safe_macros.c
+index 4e48c427b..9301f3dd2 100644
+--- a/lib/tst_safe_macros.c
++++ b/lib/tst_safe_macros.c
+@@ -10,6 +10,7 @@
+ #include <errno.h>
+ #include <sched.h>
+ #include <sys/ptrace.h>
++#include <sys/prctl.h>
+ #include "config.h"
+ #ifdef HAVE_SYS_FANOTIFY_H
+ # include <sys/fanotify.h>
+@@ -710,3 +711,19 @@ int safe_mprotect(const char *file, const int lineno,
  
-+static inline int safe_landlock_create_ruleset(const char *file, const int lineno,
-+	const struct landlock_ruleset_attr *attr,
-+	size_t size , uint32_t flags)
+ 	return rval;
+ }
++
++int safe_prctl(const char *file, const int lineno,
++	int option, unsigned long arg2, unsigned long arg3,
++	unsigned long arg4, unsigned long arg5)
 +{
 +	int rval;
 +
-+	rval = tst_syscall(__NR_landlock_create_ruleset, attr, size, flags);
++	rval = prctl(option, arg2, arg3, arg4, arg5);
 +	if (rval == -1) {
 +		tst_brk_(file, lineno, TBROK | TERRNO,
-+			"landlock_create_ruleset(%p, %lu, %u)",
-+			attr, size, flags);
++			"prctl(%d, %lu, %lu, %lu, %lu)",
++			option, arg2, arg3, arg4, arg5);
 +	}
 +
 +	return rval;
 +}
-+
-+static inline int safe_landlock_add_rule(const char *file, const int lineno,
-+	int ruleset_fd, enum landlock_rule_type rule_type,
-+	const void *rule_attr, uint32_t flags)
-+{
-+	int rval;
-+
-+	rval = tst_syscall(__NR_landlock_add_rule,
-+		ruleset_fd, rule_type, rule_attr, flags);
-+
-+	if (rval == -1) {
-+		tst_brk_(file, lineno, TBROK | TERRNO,
-+			"landlock_add_rule(%d, %d, %p, %u)",
-+			ruleset_fd, rule_type, rule_attr, flags);
-+	}
-+
-+	return rval;
-+}
-+
-+static inline int safe_landlock_restrict_self(const char *file, const int lineno,
-+	int ruleset_fd, int flags)
-+{
-+	int rval;
-+
-+	rval = tst_syscall(__NR_landlock_restrict_self, ruleset_fd, flags);
-+	if (rval == -1) {
-+		tst_brk_(file, lineno, TBROK | TERRNO,
-+			"landlock_restrict_self(%d, %u)",
-+			ruleset_fd, flags);
-+	}
-+
-+	return rval;
-+}
-+
-+#define SAFE_LANDLOCK_CREATE_RULESET(attr, size, flags) \
-+	safe_landlock_create_ruleset(__FILE__, __LINE__, (attr), (size), (flags))
-+
-+#define SAFE_LANDLOCK_ADD_RULE(ruleset_fd, rule_type, rule_attr, flags) \
-+	safe_landlock_add_rule(__FILE__, __LINE__, \
-+		(ruleset_fd), (rule_type), (rule_attr), (flags))
-+
-+#define SAFE_LANDLOCK_RESTRICT_SELF(ruleset_fd, flags) \
-+	safe_landlock_restrict_self(__FILE__, __LINE__, (ruleset_fd), (flags))
-+
- #endif
 
 -- 
 2.43.0
