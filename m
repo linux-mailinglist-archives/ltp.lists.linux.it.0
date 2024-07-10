@@ -2,20 +2,20 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA7E492D156
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 14:15:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CF3692D194
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 14:29:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A6DB53D3838
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 14:15:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3B0E83D3850
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 14:29:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 136F23D2BB5
- for <ltp@lists.linux.it>; Wed, 10 Jul 2024 14:15:52 +0200 (CEST)
-Authentication-Results: in-5.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 339CD3D3824
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2024 14:29:27 +0200 (CEST)
+Authentication-Results: in-3.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
@@ -24,52 +24,86 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 674FE600C86
- for <ltp@lists.linux.it>; Wed, 10 Jul 2024 14:15:51 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 933F41A01115
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2024 14:29:26 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E52381F82B;
- Wed, 10 Jul 2024 12:15:50 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F17871F82B;
+ Wed, 10 Jul 2024 12:29:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1720614565; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4tPhyT9XkP/43ggHqa+QMNbILz45q0TFsjSXlJ8IVM8=;
+ b=rmtCZdk74cBAjWRgdYFeEZQblUrjEbtnTiKH5m9NEQp39m1WlDBy5eazE/kbPXdGBhQzyO
+ +Lg0mopSWAswKe+tDRZffJ7FwNr6Xg9EU9UfebQe0BE3Hx5l7ELJM41k4ZeJQxASWdb8d/
+ zPPaZcrwmmmscz5jEyks5g/kq2GbVyc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1720614565;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4tPhyT9XkP/43ggHqa+QMNbILz45q0TFsjSXlJ8IVM8=;
+ b=pnHu2AobFULhe4HZ9GTkO1IAVBtCFCvQqeSlbyJklZNyjFY761EzBY38rP1ie6ki/jQYAz
+ IocJ9vcjJe8l/oBw==
 Authentication-Results: smtp-out2.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1720614564; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4tPhyT9XkP/43ggHqa+QMNbILz45q0TFsjSXlJ8IVM8=;
+ b=BaFtbWtFdA3Xpa62Ina//2BtdpFwTHZWq8KZBJgIM7Lwpzcm2Nqzbd8M98exlSg5K7FuHv
+ zR1oIJgqHEChNipHeZdfJUNPcGrqPm77/GEdN3WmM0IipH1HAGbRTOmjcOO+5ZwDzLvTuJ
+ v7MpYGbKoX+rdxUE6YGzpJF15uYbw5E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1720614564;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4tPhyT9XkP/43ggHqa+QMNbILz45q0TFsjSXlJ8IVM8=;
+ b=O1neoQn6eDpOu09L+GjS+qnkN1ELp5rvhnJkXC/mlwG2qea0uURevkcx9d/yTIlv8SPf9d
+ I66/OT8Wp+gz6xDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D456C137D2;
- Wed, 10 Jul 2024 12:15:50 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D4F701369A;
+ Wed, 10 Jul 2024 12:29:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cwnjMnZ7jmadDwAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Wed, 10 Jul 2024 12:15:50 +0000
-Date: Wed, 10 Jul 2024 14:15:46 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id FpkTM6R+jmaGEwAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Wed, 10 Jul 2024 12:29:24 +0000
+Date: Wed, 10 Jul 2024 14:29:12 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <Zo57ckoV1LQwjVch@yuki>
-References: <20240710-stat04-v3-0-c68a2324ad94@suse.com>
- <20240710-stat04-v3-1-c68a2324ad94@suse.com>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <Zo5-mKHmFV_Uhl3-@yuki>
+References: <20240709-stat04-v2-0-2693a473a2ab@suse.com>
+ <20240709-stat04-v2-1-2693a473a2ab@suse.com>
+ <20240709211302.GA214763@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240710-stat04-v3-1-c68a2324ad94@suse.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Score: -4.00
+In-Reply-To: <20240709211302.GA214763@pevik>
+X-Spam-Score: -3.80
 X-Spam-Level: 
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Queue-Id: E52381F82B
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spamd-Result: default: False [-3.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-0.990]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; MISSING_XM_UA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_THREE(0.00)[4]
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v3 1/4] Add stat04 test
+Subject: Re: [LTP] [PATCH v2 1/5] Add stat04 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,54 +122,75 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +static char symb_path[PATH_MAX];
-> +static char file_path[PATH_MAX];
-> +static struct stat *file_stat;
-> +static struct stat *symb_stat;
-> +static char *tmpdir;
-> +
-> +static void run(void)
-> +{
-> +	SAFE_STAT(file_path, file_stat);
-> +	SAFE_STAT(symb_path, symb_stat);
-> +
-> +	TST_EXP_EQ_LI(file_stat->st_dev, symb_stat->st_dev);
-> +	TST_EXP_EQ_LI(file_stat->st_mode, symb_stat->st_mode);
-> +	TST_EXP_EQ_LI(file_stat->st_nlink, symb_stat->st_nlink);
-> +	TST_EXP_EQ_LI(file_stat->st_uid, symb_stat->st_uid);
-> +	TST_EXP_EQ_LI(file_stat->st_gid, symb_stat->st_gid);
-> +	TST_EXP_EQ_LI(file_stat->st_size, symb_stat->st_size);
-> +	TST_EXP_EQ_LI(file_stat->st_atime, symb_stat->st_atime);
-> +	TST_EXP_EQ_LI(file_stat->st_mtime, symb_stat->st_mtime);
-> +	TST_EXP_EQ_LI(file_stat->st_ctime, symb_stat->st_ctime);
-> +}
-> +
-> +static void setup(void)
-> +{
-> +	char opt_bsize[32];
-> +	const char *const fs_opts[] = {opt_bsize, NULL};
-> +	struct stat sb;
-> +	int pagesize;
-> +	int fd;
-> +
-> +	tmpdir = tst_get_tmpdir();
-> +
-> +	if (strlen(tmpdir) >= (PATH_MAX - strlen(FILENAME))) {
-> +		tst_brk(TCONF, "Temporary folder name is too long. "
-> +			"Can't create file");
-> +	}
-> +
-> +	if (strlen(tmpdir) >= (PATH_MAX - strlen(SYMBNAME))) {
-> +		tst_brk(TCONF, "Temporary folder name is too long. "
-> +			"Can't create symbolic link");
-> +	}
+> PATH_MAX is 4096, right? Is it really needed to test the length?
 
-Uff, this is so 1990. Can we please use asprintf() instead?
+Contrary to the popular belief PATH_MAX is a limit for lenght of a
+single filesytem path component, i.e. directory or a file name. And yes
+I've seen bugreports for LTP where people pointed TMPDIR to a deep
+enough filesystem path for this to matter.
 
+Anyways I've proposed to allocate the paths instead with asprintf().
 
-Other than that this looks good to me:
+> > +
+> > +	/* change st_blksize / st_dev */
+> > +	SAFE_STAT(".", &sb);
+> > +	pagesize = sb.st_blksize == 4096 ? 1024 : 4096;
+> > +
+> > +	snprintf(opt_bsize, sizeof(opt_bsize), "-b %i", pagesize);
+> > +	SAFE_MKFS(tst_device->dev, tst_device->fs_type, fs_opts, NULL);
+> > +	SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, 0);
+> 
+> Isn't symlink filesystem related? Shouldn't this be run on all_filesystems?
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Hmm, I was assuming that symlink was a generic funcionality, but
+thinking about it the symlink data has to be stored in the filesystem so
+I suppose that there is some filesystem specific code to be tested after
+all.
+
+I guess that this could stil be implemented but we would have to add
+support for multiple devices. I can have a look later on, but I wouldn't
+block this patch because of that.
+
+> > +
+> > +	SAFE_TOUCH(FILENAME, 0777, NULL);
+> > +
+> > +	/* change st_nlink */
+> > +	SAFE_LINK(FILENAME, "linked_file");
+> > +
+> > +	/* change st_uid and st_gid */
+> > +	SAFE_CHOWN(FILENAME, 1000, 1000);
+> > +
+> > +	/* change st_size */
+> > +	fd = SAFE_OPEN(FILENAME, O_WRONLY, 0777);
+> > +	tst_fill_fd(fd, 'a', TST_KB, 500);
+> > +	SAFE_CLOSE(fd);
+> > +
+> > +	/* change st_atime / st_mtime / st_ctime */
+> > +	usleep(1001000);
+> > +
+> > +	memset(file_path, 0, PATH_MAX);
+> > +	snprintf(file_path, PATH_MAX, "%s/%s", tmpdir, FILENAME);
+> > +
+> > +	memset(symb_path, 0, PATH_MAX);
+> > +	snprintf(symb_path, PATH_MAX, "%s/%s", tmpdir, SYMBNAME);
+> > +
+> > +	SAFE_SYMLINK(file_path, symb_path);
+> > +}
+> > +
+> > +static void cleanup(void)
+> > +{
+> > +	free(tmpdir);
+> nit: I know that tst_get_tmpdir() is first thing in setup(), but I would still
+> guard it with if (tmpdir) (code may change later).
+> 
+> > +
+> > +	SAFE_UNLINK(SYMBNAME);
+> nit: Ideally this would be guarded by flag that SAFE_SYMLINK(file_path,
+> symb_path) got executed.
+
+I do not think that we need to unlink the symlink, it should be removed
+by the test library when the temorary directory is removed. Or is there
+a problem with that?
 
 -- 
 Cyril Hrubis
