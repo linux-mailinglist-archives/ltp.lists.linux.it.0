@@ -1,92 +1,86 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AB6492D898
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 20:49:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1720637365; h=date : to :
- in-reply-to : message-id : references : mime-version : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=sgOy1xfiHOEezrOaZYVVcEnnJLI4lCr8hL3HLVkn/SQ=;
- b=hOAra9jIoWBH92m3GkA1R+U8sTYl2ycjF5ZJj6LJlJ2yvudg61Bx0fMrUSZS38jmvG5E5
- DJx69vGJOvluXyE6c09uR60TYnJ0D9JZGiKBokTDr/pvsdaNA094uW+KNUiN8Fsmvf2zNYh
- gvMiQRexTzoI1EcyHHt+jTwWCv38bAQ=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C23892D8AF
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 21:02:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EB18A3D386A
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 20:49:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DA29E3D3863
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2024 21:02:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D6FD73D3860
- for <ltp@lists.linux.it>; Wed, 10 Jul 2024 20:49:22 +0200 (CEST)
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [IPv6:2001:4860:4864:20::35])
+ by picard.linux.it (Postfix) with ESMTPS id 517D83D073A
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2024 21:02:38 +0200 (CEST)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 086FD609A45
- for <ltp@lists.linux.it>; Wed, 10 Jul 2024 20:49:22 +0200 (CEST)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-25e04a7d9f1so66302fac.2
- for <ltp@lists.linux.it>; Wed, 10 Jul 2024 11:49:21 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A7EE12001D9
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2024 21:02:37 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2eea7e2b073so1140061fa.0
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2024 12:02:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1720637360; x=1721242160; darn=lists.linux.it;
- h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=CDzDoDBPrI9O45fu4nDGF7EewD4QPEbaHsgpGnRS9bA=;
- b=INotPuDo6fo5CScoiNxnOrzHJwPfgBBqqU3lSHKmorFPzYKHUXY7RUBHGidy0r4C16
- knDnp+9Orq1knXIOos7VzeNFM/0xaKrvLsUmtitf87bc0UaS8TYmT68//DNBZezLabVK
- HtoS2U4s4IQn1X1kj2VWgDtC5YKMnJzL3kB+4C08WOL7C/r7BM1pV0bGYR5MZrF+KODP
- xZq1P+phThGC/nFZI8+7d0lFsvfvVpLy/RVXTPZKN3qoTTGPoBGscZTnd43qHzVnEPMa
- gbNqMJokIqBHHpDBCt0tNkuGswK/XmCbYfrK09ulxgQEgoZH3Cxwh9MlHwuTKk4cYMcM
- bWhg==
+ d=gmail.com; s=20230601; t=1720638157; x=1721242957; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=mPZ60RuL6ih0QLl/o8/14hY+krd4EK1oz7htgw57d1A=;
+ b=ba2CbqtAiRKjsrW/qgErdmVQyNzpw79SetX7ILFsc6j1IWTWIa3e4YCohNTylcJ9qE
+ HY/gMi2/7CMHv+6/BA0KEpxhU0N8VbloY5mhoPPxyf/HaoN5RjRFflQ9wrbWoRTO/58a
+ 75CCNFpX/BwD6o7W9uBkTUWsJ7kgAwd5mx5A9CHHlbxEG32z5rnpyB7NRSAmI6oZ80+t
+ 8/FG9f7P9xIk0l6vvR8aLoCqpkLIEo1PR29OZSl3ZZTHav78SINg7hkgzAqnWxPy/r+N
+ XJVq5evHuYu0I11g32ArgfaZJwEgctnzSvtqy5fphpsToECsuSfKW+jQXC0PSfK27cst
+ WWig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720637360; x=1721242160;
- h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CDzDoDBPrI9O45fu4nDGF7EewD4QPEbaHsgpGnRS9bA=;
- b=mLt1WUb2mzscP9W5SQyF8u14Q9amB5O0RcrEV7yptBwuVm3pmRPS/ZjE0PswbgFj6k
- 794iFW9Zwi8XL3m5XbGUorPQqpjgcR+cgw1zamXl4vCyLkk6RiO+xKU89UyjDBZD3oLr
- A3AUU1gnUJRcxVoeToQdJttOZAt7HKBJ23HGzqro17SVwi42TzOr1F9wY0MZBSqxLl3G
- qz7yQ7d9uV3KW0nSnKyY/JOIavUuMjgCrA0W9Kbdt7c6/MUuBje4xQJc+97h//++Yq55
- yAv8KQ+fwvX7RVCfz3HQRInZMoNKmZJ4+XKnhUAS0X+V1TlNSZA6+VaHSmdAOrj16wyv
- rA+A==
+ d=1e100.net; s=20230601; t=1720638157; x=1721242957;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=mPZ60RuL6ih0QLl/o8/14hY+krd4EK1oz7htgw57d1A=;
+ b=O0VOpy1d4c4Sl0l8+Df6Z4f/5ExZJ2nFs1ak0IRpZmGqnnrxyARNMq/idp5RQpGfXz
+ MtG1X/zfQVQRYR/D3Z3h7xhhBO2uIJzFTrqEuzmazyerZNd+qYIxu0D9EvdSbdfqBBWT
+ PuVugcfOvNVUoCPV2jUMWAxdQ4ed3Yh/2qvKhD9swEYEBVx2njGC1MfSisaBX0SbeABI
+ 2y0ASIXwSIWbHWQlMnbWsP7mK78jHY/E8vH2hgiNvzSPpkawg5mse5NESpy2FJxq85O4
+ tEZ52J97rcLTt3OBvNcTstVcy8tEa1l4FtQOZOZlFWJyNKljc+ucNf9dLbtBeIbqkkjL
+ /f0Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWU0wDWzLxANVlKps/lp9yB/vd2DzBtDwoTVAp89zhO+B9SNJkyWDhcID66aK3SSVu9uCj1vzlue+JUHSEdebWnOX4=
-X-Gm-Message-State: AOJu0Yyg0T4kpY5qnpTv3iyjnT2XK2IkWOkeYmRFehNdURAYQyD30mx5
- 4U8Md26TTLmLGVLxvXmJaORSJyq+8LaqKMn/vMsJ7Ht7aiKJm0EiWt75b4pj+Q==
-X-Google-Smtp-Source: AGHT+IGpNu9mEuoMmeAlVedGx8Nyw0EmBMtvokuZhBygl5S2JzWgS4Wea6kyWyOlMeLcWyY/SXZaig==
-X-Received: by 2002:a05:6870:71c4:b0:254:d147:f256 with SMTP id
- 586e51a60fabf-25eae749f6dmr5489335fac.8.1720637360470; 
- Wed, 10 Jul 2024 11:49:20 -0700 (PDT)
-Received: from darker.attlocal.net
- (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+ AJvYcCXxpd0ZERXyHa6PGqEuulMFBh8QSjKGb/BuX026q+6vZMMtnx/PDUkYnbGadvvIG2o4QEoCivC78MsEExsXmm9lLiI=
+X-Gm-Message-State: AOJu0YwkrL3S30aYtEEeWrbCuLrDIxPvfkBF+H5Y0Z5DKIzYtiznf6lh
+ XxUF8TSbcXmM4WhEKnnnIIxFZoZwxPKRj8vx3F3bIoeuvKYkhi60
+X-Google-Smtp-Source: AGHT+IG1L8BlhXFrRo5w/hZ2v8OTkzJw0dc162nd8YCUmtKMgy4icMkIxWKQCufiuhXBIwUNvFBW+Q==
+X-Received: by 2002:a2e:80cd:0:b0:2ee:974c:596f with SMTP id
+ 38308e7fff4ca-2eeb30feba0mr38435041fa.28.1720638156546; 
+ Wed, 10 Jul 2024 12:02:36 -0700 (PDT)
+Received: from ?IPV6:2a01:4b00:b211:ad00:1490:6cc2:4d06:940f?
+ ([2a01:4b00:b211:ad00:1490:6cc2:4d06:940f])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-25eaa078407sm1336933fac.27.2024.07.10.11.49.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jul 2024 11:49:19 -0700 (PDT)
-Date: Wed, 10 Jul 2024 11:49:09 -0700 (PDT)
-To: Usama Arif <usamaarif642@gmail.com>
-In-Reply-To: <4bc6400e-6199-4147-9399-4a54c94613fd@gmail.com>
-Message-ID: <612af749-0a59-f91d-693a-43d6217ffebb@google.com>
+ 5b1f17b1804b1-426615876bbsm178014455e9.6.2024.07.10.12.02.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Jul 2024 12:02:36 -0700 (PDT)
+Message-ID: <2fe63ea9-613a-4904-8b68-134442c43261@gmail.com>
+Date: Wed, 10 Jul 2024 20:02:35 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Hugh Dickins <hughd@google.com>
 References: <202407101031.c6c3c651-lkp@intel.com>
  <dd08adbb-6df5-4556-9fc4-cf37b6234aa1@gmail.com>
  <053bd429-ae19-4beb-a733-a7a838b1e010@gmail.com>
  <4bc6400e-6199-4147-9399-4a54c94613fd@gmail.com>
-MIME-Version: 1.0
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,
- SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+ <612af749-0a59-f91d-693a-43d6217ffebb@google.com>
+Content-Language: en-US
+From: Usama Arif <usamaarif642@gmail.com>
+In-Reply-To: <612af749-0a59-f91d-693a-43d6217ffebb@google.com>
+X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 Subject: Re: [LTP] [linux-next:master] [mm] 47325a5c88:
  WARNING:at_mm/slub.c:#free_large_kmalloc
@@ -101,13 +95,10 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Hugh Dickins via ltp <ltp@lists.linux.it>
-Reply-To: Hugh Dickins <hughd@google.com>
 Cc: Andi Kleen <ak@linux.intel.com>, Nhat Pham <nphamcs@gmail.com>,
  lkp@intel.com, David Hildenbrand <david@redhat.com>, "Huang,
- Ying" <ying.huang@intel.com>, Hugh Dickins <hughd@google.com>,
- linux-kernel@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
- Yosry Ahmed <yosryahmed@google.com>,
+ Ying" <ying.huang@intel.com>, linux-kernel@vger.kernel.org,
+ Matthew Wilcox <willy@infradead.org>, Yosry Ahmed <yosryahmed@google.com>,
  Linux Memory Management List <linux-mm@kvack.org>,
  kernel test robot <oliver.sang@intel.com>, ltp@lists.linux.it,
  Johannes Weiner <hannes@cmpxchg.org>, oe-lkp@lists.linux.dev,
@@ -119,21 +110,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-It's a long time since I was active hereabouts, but the bot report
-and your flurry of updates make me think that you should step back,
-slow down, and look more carefully at the precedents here.
 
-IIRC, the main problem is that parts of the swap_info_struct can
-still be in use from before while you're wanting to set up new values.
-Observe how alloc_swap_info() may return a fresh or an old allocation.
-Observe how enable_swap_info() is called after getting swapon_mutex
-late in swapon(), once past all possiblities of error.
 
-I expect that your new zeromap needs to be taking the same care as is
-taken with swap_map and cluster_info: to be safe, follow their example
-in both swapon() and swapoff().
+On 10/07/2024 21:49, Hugh Dickins wrote:
+> It's a long time since I was active hereabouts, but the bot report
+> and your flurry of updates make me think that you should step back,
+> slow down, and look more carefully at the precedents here.
+> 
+> IIRC, the main problem is that parts of the swap_info_struct can
+> still be in use from before while you're wanting to set up new values.
+> Observe how alloc_swap_info() may return a fresh or an old allocation.
+> Observe how enable_swap_info() is called after getting swapon_mutex
+> late in swapon(), once past all possiblities of error.
+> 
+> I expect that your new zeromap needs to be taking the same care as is
+> taken with swap_map and cluster_info: to be safe, follow their example
+> in both swapon() and swapoff().
+> 
+> Hugh
 
-Hugh
+Thanks, yeah sent too many in quick succession :). Will be more careful next time.
+
+Both the 2nd and 3rd version are careful to solve the problem of using old allocation
+which you described.
+
+The 2nd one takes care of it in the same way as swap_map.
+
+But I believe its unnecessary to do all that change in the 2nd version, when you can just
+set it to NULL after kvfree, which is a much smaller change and takes care of reusing old
+allocation equally well.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
