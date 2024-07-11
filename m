@@ -1,93 +1,132 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 252DC92E5AD
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2024 13:14:49 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E670E92E657
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2024 13:22:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D205E3CDE63
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2024 13:14:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A537A3CE830
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2024 13:22:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 719333CBD32
- for <ltp@lists.linux.it>; Thu, 11 Jul 2024 13:14:40 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
- receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by picard.linux.it (Postfix) with ESMTPS id E56F53CDE6D
+ for <ltp@lists.linux.it>; Thu, 11 Jul 2024 13:18:48 +0200 (CEST)
+Authentication-Results: in-2.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7336710009C8
- for <ltp@lists.linux.it>; Thu, 11 Jul 2024 13:14:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1720696477;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=kL61Mumyoj4iBnyRsjPz82sjmfHzQobLE6StjLi2MQE=;
- b=RDrzoHQ5+V+YX2aq70efrydiOdimFTLrqmJ/+x2OAnDNlJa5Jj9vNWscoIzHzaHlT12E7p
- Me/lT7KuNihkuH48fCQ640AB3Hph5bBQsBMjP5ubofWPhqrb+kWPcU3OSqOqFyIdZHE8n4
- hZtS36SxqIzch7ZmmCzWGIrgvklnF/U=
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-215-3hhg7CwUPXWRbd7_egfCmQ-1; Thu, 11 Jul 2024 07:14:35 -0400
-X-MC-Unique: 3hhg7CwUPXWRbd7_egfCmQ-1
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-2c96f6bed83so693352a91.3
- for <ltp@lists.linux.it>; Thu, 11 Jul 2024 04:14:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720696473; x=1721301273;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kL61Mumyoj4iBnyRsjPz82sjmfHzQobLE6StjLi2MQE=;
- b=BSQW7FkxKkD3dfTBRQZ4wyEDW0R58L6xI0NiZIKHK4SM3NkOftGV5zGNty4Lt8iC9f
- /AE2zaldjOivtlDJGR1NXStbanqwWyCLDpsWbM6z0FFKT53JsnDpOcudAL5CefaWvzkg
- f+Of0U0lqRNNbXJWsSan/pfEq7Ix8/BuNB0sndrSlpYqrLIk/m4skzfirYNnfKWSJ/+1
- TBqVFQ9yEyt1tJqCxS78r36y++vldYmmgziMcKWPtrWp0ChSMqbE9fyIlhu2hCrWM61O
- TmtPuyDBhe7kzx7PpgGGKMRtHvJSK3TvYfGgUpuAyR7OTF3lsMpPx++YWStGsQUju3IE
- WjZA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWDlThk26dIirJ2fYYggONeiQARsQOg2Fis2i61nEEM9N1DcZCCS4BtjIBmvuFKI6fT8V5mCIZPz1p5QGnL6AE/tag=
-X-Gm-Message-State: AOJu0YxLswjdQcQmsOwnT5e8Zh+DhimUP3N9R3qlKKR2iqYWCC8GXmpR
- dTAeqM63Mu8kAQsIDKydsxJ/kveWyIhKkb3aPT+vLrZw0yFy0vCyF7eCmVYy4OQBOwsk1anErGf
- BhJmE/y+smeg59GlyHg1yxdNRE5kVuNgSTCcWQqiyA4oy81r+VeSxt0Kw5UzKDHNuQMV61pz5U5
- H3JEjLPsOAGByM/UCQLZpl/g6MdEc6asUAXg==
-X-Received: by 2002:a17:90a:c08f:b0:2c9:860c:7802 with SMTP id
- 98e67ed59e1d1-2ca35c794b2mr6122712a91.28.1720696473460; 
- Thu, 11 Jul 2024 04:14:33 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFaaxS3rDKsclqT3v1fz68VxkOWaEvFa8OcNRrQMnKS/r91PCycKA61ITSYqntnOlAteMUMFP+SzuV5ARu04Qo=
-X-Received: by 2002:a17:90a:c08f:b0:2c9:860c:7802 with SMTP id
- 98e67ed59e1d1-2ca35c794b2mr6122700a91.28.1720696473125; Thu, 11 Jul 2024
- 04:14:33 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A252A603A46
+ for <ltp@lists.linux.it>; Thu, 11 Jul 2024 13:18:38 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3B1141F7E4;
+ Thu, 11 Jul 2024 11:18:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1720696717; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dtnkb47+OExbEXK+bLpvZWzzB7RKDYdGs3rk93F4KCA=;
+ b=mD8QMPMHpt6ZVOYDNEhi7O1mDIPsNYbvbnwo5RCojCDd8wS0Emj3wklWABzW6t6WAiOcSl
+ bMAVHwXMy5QWcw6fkBPuv+WDbvv6pwIHBiJ2DmnB781mawakXiIALx1HLLZDQiIh9M6b6D
+ xy+OPogEKq97AORtaB5kuvaRxv4Brw0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1720696717;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dtnkb47+OExbEXK+bLpvZWzzB7RKDYdGs3rk93F4KCA=;
+ b=9iIxHH2Iyb7NT86HaBh2JY2L0yWWptmWU7nC6/E7wdo6AvqiIbCI/TAETJ07YvfUCl/14j
+ J1bogSmfiD32fzCw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mD8QMPMH;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=9iIxHH2I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1720696717; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dtnkb47+OExbEXK+bLpvZWzzB7RKDYdGs3rk93F4KCA=;
+ b=mD8QMPMHpt6ZVOYDNEhi7O1mDIPsNYbvbnwo5RCojCDd8wS0Emj3wklWABzW6t6WAiOcSl
+ bMAVHwXMy5QWcw6fkBPuv+WDbvv6pwIHBiJ2DmnB781mawakXiIALx1HLLZDQiIh9M6b6D
+ xy+OPogEKq97AORtaB5kuvaRxv4Brw0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1720696717;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dtnkb47+OExbEXK+bLpvZWzzB7RKDYdGs3rk93F4KCA=;
+ b=9iIxHH2Iyb7NT86HaBh2JY2L0yWWptmWU7nC6/E7wdo6AvqiIbCI/TAETJ07YvfUCl/14j
+ J1bogSmfiD32fzCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1419C139E0;
+ Thu, 11 Jul 2024 11:18:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id R3fmAo2/j2bBVAAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Thu, 11 Jul 2024 11:18:37 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Thu, 11 Jul 2024 13:18:11 +0200
+Message-Id: <20240711-landlock-v3-0-c7b0e9edf9b0@suse.com>
 MIME-Version: 1.0
-References: <20240710-landlock-v2-0-ff79db017d57@suse.com>
- <20240710-landlock-v2-9-ff79db017d57@suse.com>
- <CAEemH2crUwPREXw=QTWSNEUk-_cs0vLeg_VYAgyBuUe5Cet3ow@mail.gmail.com>
- <bddb07dc-d8a2-4946-bfba-8f476bc24613@suse.com> <Zo-7oBzMMyrrVA-Z@yuki>
-In-Reply-To: <Zo-7oBzMMyrrVA-Z@yuki>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 11 Jul 2024 19:14:20 +0800
-Message-ID: <CAEemH2ey8RbFbNPYfOM+KkqAe3sFNJAtN+wU1f+361h87H=A6Q@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-B4-Tracking: v=1; b=H4sIAHO/j2YC/02MQQ7CIBQFr9L8tRigtLSuvIdxgfCxxAoGlGia3
+ l1aF3Y5L29mgoTRYYJDNUHE7JILvkC9q0APyl+ROFMYOOWCtkySUXkzBn0jWnRKtLxWQkgo90d
+ E695r6nQuPLj0DPGzljNb1l9EUvaPZEYoaTrslW1FryQ/plfCvQ53WBqZbzxGNx4vnrWyNxfKp
+ Gnkxpvn+QvYVBWy1wAAAA==
+To: ltp@lists.linux.it
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3909;
+ i=andrea.cervesato@suse.com; h=from:subject:message-id;
+ bh=gbjNi6E6tjGQKjnO0706AHrAFXYG/oYG5EM610vnBy4=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmj7972oojUeVBG98WnI+3qW0Xa6lIECjDdLUlr
+ DC22zXOC4KJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZo+/ewAKCRDLzBqyILPm
+ Rk0KC/9Pm+C6duL7d2e6qTx6VxYXWDHj1DXt9qXKdYuR5WE+knuhauEuQatFgxWGLYC/Z3apeom
+ unmsP0lWg5eFl3hqv7y89Udhz8MXrCDQhWv6rfQ2HlFmWd822v/kqsg6LcqoVUWAMhk5VcMF94y
+ /5kG1oC7w6k82eNfFzse1IlJz0Bo6Kox/oGFxQctnXH0T/E1mmDQwqR5R2Tpb+I689DaQXKeccq
+ fCIFBVsjat6a+8URroWPI42RHzVaczLi93WJHLu42U0pI1pP4Otc8Q3SiVVRtCrad3TkBVZQJym
+ f5rChPe7mMFN5pkvMuZyRXWEVHoB3ReLRK+M7NcjcZQwXqRUy6YhsH0SNM2917qAh5lJrZaurUL
+ ETWLEDKk2DeZCR1Y29u2axPegkvb1qPFeYHcvl98UiKwu8dYrxGQWzcwbw9EafWsXqhDb28FWSi
+ xF5djYRFdzvMrMzR0mahYH88ogUccoIGPbwV/mbOaFXGKNur/uVzwXQzAlSewhEFDL2JE=
+X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
+ fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
+X-Rspamd-Queue-Id: 3B1141F7E4
+X-Spamd-Result: default: False [-1.51 / 50.00];
+ DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:email];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -1.51
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH v2 09/11] Add landlock04 test
+Subject: [LTP] [PATCH v3 00/11] landlock testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,23 +138,98 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVGh1LCBKdWwgMTEsIDIwMjQgYXQgNzowMuKAr1BNIEN5cmlsIEhydWJpcyA8Y2hydWJpc0Bz
-dXNlLmN6PiB3cm90ZToKCj4gSGkhCj4gPiBUaGUgb25seSBsaWJyYXJ5IHdlIG5lZWQgaXMgbGli
-Yy5zbywgd2hpY2ggaXMgdXN1YWxseSBpbnN0YWxsZWQgaW4gL2xpYgo+ID4gb3IgL2xpYjY0LiBJ
-IGRvbid0IHJlYWxseSBrbm93IGlmIExUUCBzdXBwb3J0ZWQgZGlzdHJvcyB3aGljaCBwbGFjZSBs
-aWJjCj4gPiBzb21ld2hlcmUgZWxzZS4KPiA+IERvIHlvdSBoYXZlIHN1Z2dlc3Rpb25zIG9uIGhv
-dyB0byBnZXQgc2hhcmVkLWxpYnMgZXZlbnR1YWxseT8gQmVjYXVzZQo+ID4gdGhlIG9ubHkgd2F5
-IEkga25vdyBpcyB0byBjYWxsIGRsYWRkcigpIGJ1dCBpdCBkb2Vzbid0IHNlZW0gdGhlIHdheSB0
-bwo+ID4gZ28gKEkgb2J0YWluIHRoZSBjdXJyZW50IGJpbmFyeSBmaWxlKQo+Cj4gSSBndWVzcyB0
-aGF0IHlvdSBjYW4gcGFyc2UgL3Byb2Mvc2VsZi9tYXBzIHRvIGdldCBwYXRocyB0byBjdXJyZW5s
-dHkKPiBsb2FkZWQgc28gZmlsZXMuCj4KClllcywgdGhhdCB3aWxsIHByZWNpc2VseSBzaG93IHRo
-ZSBjdXJyZW50IHByb2Nlc3MgbG9hZCBzbyBmaWxlcy4KCkFsc28sIHdlIGNvdWxkIGZpbmQgdGhh
-dCB2aWEgJ2xkY29uZmlnIC1wJyBidXQgdGhhdCBkb2VzIG5vdCBzZWVtCm1vcmUgZWFzaWVyIHRo
-YW4gcGFyc2luZyB0aGUgbWFwcy4KCgotLSAKUmVnYXJkcywKTGkgV2FuZwoKLS0gCk1haWxpbmcg
-bGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+This testing suite is meant to test the following syscalls:
+
+- landlock_create_ruleset
+- landlock_add_rule
+- landlock_restrict_self
+
+Documentation can be found in kernel manuals and inside the official
+kernel documentation at
+
+https://www.kernel.org/doc/html/latest/userspace-api/landlock.html
+
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+Changes in v3:
+- landlock01: 1 byte less when
+  HAVE_STRUCT_LANDLOCK_RULESET_ATTR_HANDLED_ACCESS_NET is defined
+- landlock04: dynamically assign read/exec permissions to dependences
+- landlock05: estetic fix and skip exfat
+- landlock06: estetic fix and skip exfat
+- Link to v2: https://lore.kernel.org/r/20240710-landlock-v2-0-ff79db017d57@suse.com
+
+Changes in v2:
+- remove -lc unused dependency from Makefile
+- move SAFE_LANDLOCK_* macros in lapi/landlock.h
+- define CAP_MKNOD in the lapi/capability.h
+- fix landlock fallback in order to let LTP build properly
+- fix landlock01 EINVAL test when "struct landlock_ruleset_attr" size is
+  too small
+- Link to v1: https://lore.kernel.org/r/20240701-landlock-v1-0-58e9af649a72@suse.com
+
+---
+Andrea Cervesato (11):
+      Add landlock syscalls definitions
+      Add lapi/landlock.h fallback
+      Added three more SAFE_* macros for landlock sandbox:
+      Add SAFE_PRCTL macro
+      Add landlock01 test
+      Add landlock02 test
+      Add landlock03 test
+      Add CAP_MKNOD fallback in lapi/capability.h
+      Add landlock04 test
+      Add landlock05 test
+      Add landlock06 test
+
+ configure.ac                                       |   6 +
+ include/lapi/capability.h                          |  12 +-
+ include/lapi/landlock.h                            | 184 +++++++++++
+ include/lapi/syscalls/aarch64.in                   |   3 +
+ include/lapi/syscalls/arc.in                       |   3 +
+ include/lapi/syscalls/arm.in                       |   3 +
+ include/lapi/syscalls/hppa.in                      |   3 +
+ include/lapi/syscalls/i386.in                      |   3 +
+ include/lapi/syscalls/ia64.in                      |   3 +
+ include/lapi/syscalls/mips_n32.in                  |   3 +
+ include/lapi/syscalls/mips_n64.in                  |   3 +
+ include/lapi/syscalls/mips_o32.in                  |   3 +
+ include/lapi/syscalls/powerpc.in                   |   3 +
+ include/lapi/syscalls/powerpc64.in                 |   3 +
+ include/lapi/syscalls/s390.in                      |   3 +
+ include/lapi/syscalls/s390x.in                     |   3 +
+ include/lapi/syscalls/sh.in                        |   3 +
+ include/lapi/syscalls/sparc.in                     |   3 +
+ include/lapi/syscalls/sparc64.in                   |   3 +
+ include/lapi/syscalls/x86_64.in                    |   3 +
+ include/tst_safe_macros.h                          |   6 +
+ lib/tst_safe_macros.c                              |  17 +
+ runtest/syscalls                                   |   7 +
+ testcases/kernel/syscalls/landlock/.gitignore      |   7 +
+ testcases/kernel/syscalls/landlock/Makefile        |   7 +
+ testcases/kernel/syscalls/landlock/landlock01.c    |  92 ++++++
+ testcases/kernel/syscalls/landlock/landlock02.c    | 153 +++++++++
+ testcases/kernel/syscalls/landlock/landlock03.c    | 119 +++++++
+ testcases/kernel/syscalls/landlock/landlock04.c    | 214 +++++++++++++
+ testcases/kernel/syscalls/landlock/landlock05.c    | 116 +++++++
+ testcases/kernel/syscalls/landlock/landlock06.c    | 112 +++++++
+ .../kernel/syscalls/landlock/landlock_common.h     |  74 +++++
+ testcases/kernel/syscalls/landlock/landlock_exec.c |   9 +
+ .../kernel/syscalls/landlock/landlock_tester.h     | 350 +++++++++++++++++++++
+ 34 files changed, 1532 insertions(+), 4 deletions(-)
+---
+base-commit: 591c56b045b2d44a0f4ba1a13545420b23e909b5
+change-id: 20240617-landlock-c48a4623a447
+
+Best regards,
+-- 
+Andrea Cervesato <andrea.cervesato@suse.com>
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
