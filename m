@@ -2,74 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 136AF92F057
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2024 22:33:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A70E792F06F
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2024 22:40:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C9AD63D15B8
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2024 22:33:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 62E6E3D15ED
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2024 22:40:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6DFC83C2220
- for <ltp@lists.linux.it>; Thu, 11 Jul 2024 22:33:04 +0200 (CEST)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id B2EBB3C0703
+ for <ltp@lists.linux.it>; Thu, 11 Jul 2024 22:40:17 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CBA751402F9C
- for <ltp@lists.linux.it>; Thu, 11 Jul 2024 22:33:03 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B05EA1000986
+ for <ltp@lists.linux.it>; Thu, 11 Jul 2024 22:40:16 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E4FD221A8D;
- Thu, 11 Jul 2024 20:33:02 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2BB891FB49;
+ Thu, 11 Jul 2024 20:40:15 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B638136AF;
- Thu, 11 Jul 2024 20:33:02 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 572E3136AF;
+ Thu, 11 Jul 2024 20:40:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id AtlyHH5BkGZPdAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 11 Jul 2024 20:33:02 +0000
-Date: Thu, 11 Jul 2024 22:32:56 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id YXczCS5DkGbXdQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 11 Jul 2024 20:40:14 +0000
+Date: Thu, 11 Jul 2024 22:40:07 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <20240711203256.GB85696@pevik>
+Message-ID: <20240711204007.GC85696@pevik>
 References: <20240711-landlock-v3-0-c7b0e9edf9b0@suse.com>
- <20240711-landlock-v3-6-c7b0e9edf9b0@suse.com>
+ <20240711-landlock-v3-5-c7b0e9edf9b0@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240711-landlock-v3-6-c7b0e9edf9b0@suse.com>
+In-Reply-To: <20240711-landlock-v3-5-c7b0e9edf9b0@suse.com>
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Queue-Id: E4FD221A8D
+X-Rspamd-Queue-Id: 2BB891FB49
+X-Spam-Score: -4.00
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Spam-Score: -4.00
+X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v3 06/11] Add landlock02 test
+Subject: Re: [LTP] [PATCH v3 05/11] Add landlock01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,41 +90,25 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Andrea,
 
-Thanks for whole testsuite, generally LGTM.
+again, LGTM, 2 things:
 
-For this one:
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+First, this fails at least on various kernel versions (tested: Tumbleweed
+6.10.0-rc7-3.g92abc10-default, and SLE15-SP4 5.14.21 with lsm=landlock and
+Debian 6.6.15-amd64):
 
-Reviewed-by: Li Wang <liwang@redhat.com>
-(Li added his RBTs in v1, you moved it to v2 but forget to add to v3)
+landlock01.c:49: TFAIL: Size is too small expected EINVAL: ENOMSG (42)
 
-...
-> +static struct tcase {
-> +	int *fd;
-> +	enum landlock_rule_type rule_type;
-> +	struct landlock_path_beneath_attr **attr;
-> +	int access;
-> +	int parent_fd;
-> +	uint32_t flags;
-> +	int exp_errno;
-> +	char *msg;
-> +} tcases[] = {
-> +	{
-> +		&ruleset_fd,
-> +		0,
-> +		&path_beneath_attr,
-> +		LANDLOCK_ACCESS_FS_EXECUTE,
-> +		0,
-> +		1,
-> +		EINVAL,
-> +		"Invalid flags"
-> +	},
-nit: we've been talking about it in other tests - using designated initializers
-would make things more readable and allows avoid to specify zeros (feel free to
-ignore, sure no need for yet another version).
+Is it a kernel bug or a test bug?
+
+I'm not sure if Li's concern [1] was fully addressed:
+
+	We still have to adjust the case if someone introduces one more new field
+	similar to 'handled_access_net' to the structure in the future.
 
 Kind regards,
 Petr
+
+[1] https://lore.kernel.org/ltp/CAEemH2dkKvthbx+za-rwfsmanraZuud-sq1O4FZK2zta5MBMSg@mail.gmail.com/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
