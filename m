@@ -2,19 +2,20 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9835592F69B
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2024 09:58:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB34F92F6C4
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2024 10:14:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 666E13D1993
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2024 09:58:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6E8FE3D1965
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2024 10:14:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2F1893CB579
- for <ltp@lists.linux.it>; Fri, 12 Jul 2024 09:58:05 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 62EE33C1037
+ for <ltp@lists.linux.it>; Fri, 12 Jul 2024 10:14:03 +0200 (CEST)
 Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
@@ -24,92 +25,86 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5A6671410503
- for <ltp@lists.linux.it>; Fri, 12 Jul 2024 09:58:04 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 69A8D1401191
+ for <ltp@lists.linux.it>; Fri, 12 Jul 2024 10:14:03 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id ACEFB21A49;
- Fri, 12 Jul 2024 07:58:03 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C671E211F6;
+ Fri, 12 Jul 2024 08:14:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1720771083;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/759WtNk2cVBoxt8rsNOd6tU+ntvq4vtPWUp3I7cV5k=;
- b=wfiH42KAFRji0ce9SrZdjlR4eiAxbrSU+DjYOkdJfwiJmwL0ljJF7ui6RkTQkJAqcU0rbP
- C3zflbISvuNbtsRHM3p+01b7/7CJBHVZVPPD4w6jHwf4wkx02+GwgH45dU1hxx8eRTkfy5
- PxukYqHLsvgx+brjlfXb9Si/TbWmFLQ=
+ t=1720772042; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/HoaZch0ZYL/tiZdhg/6Fq+ASG3Z3vLy3EK5q/GtE+k=;
+ b=1ggGGnOYAcr1yDXGXpU5o/G2XzqrpGZY4B+Pq4luJgOco59KLcQt7y7Kg8JftBYaXSl3NL
+ 2NwmD5CngAUCmJPSXejgiCAtSb/Kk5ednFjco0raM2QZqRgkSP502x0QJsn4B6LtzUu+aL
+ gFZEoA5ox25HO1pZONjjG63DZYkjCDk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1720771083;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/759WtNk2cVBoxt8rsNOd6tU+ntvq4vtPWUp3I7cV5k=;
- b=h0ToJ2OL3PTGHtTKofZMJgWYws969MmP5I6bNJql4m9xilblju6gl8xmOPJe04V8KxEmx7
- L7KxTxyNwk/JgqBQ==
+ s=susede2_ed25519; t=1720772042;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/HoaZch0ZYL/tiZdhg/6Fq+ASG3Z3vLy3EK5q/GtE+k=;
+ b=BU5CVXXUsz9DOU1wtoF9HV8MGMn7Lwm7NA0/6NWIyGBzp1aefaofZjCjHuOP2l3v2C+/9U
+ 5fYUgfIJKkA1l4Cw==
 Authentication-Results: smtp-out1.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=F2JlfH7s;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=P2EjOoUz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1720771083;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/759WtNk2cVBoxt8rsNOd6tU+ntvq4vtPWUp3I7cV5k=;
- b=wfiH42KAFRji0ce9SrZdjlR4eiAxbrSU+DjYOkdJfwiJmwL0ljJF7ui6RkTQkJAqcU0rbP
- C3zflbISvuNbtsRHM3p+01b7/7CJBHVZVPPD4w6jHwf4wkx02+GwgH45dU1hxx8eRTkfy5
- PxukYqHLsvgx+brjlfXb9Si/TbWmFLQ=
+ t=1720772041; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/HoaZch0ZYL/tiZdhg/6Fq+ASG3Z3vLy3EK5q/GtE+k=;
+ b=F2JlfH7sApC8KfLWj1rBS8eIszv9Ench8MzAASi6prjGXGrqZrSjYpw5oRwX5zYdbFXwhr
+ PFdBwNDVxkH2jwnIC8De6Ol76F60BOIY+dJddjgj13Uks5rkH0/ghnN7Ja31Ls7quNYR++
+ K/ZEPA63fiYDjuJHVD96un4xQTrNZ28=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1720771083;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/759WtNk2cVBoxt8rsNOd6tU+ntvq4vtPWUp3I7cV5k=;
- b=h0ToJ2OL3PTGHtTKofZMJgWYws969MmP5I6bNJql4m9xilblju6gl8xmOPJe04V8KxEmx7
- L7KxTxyNwk/JgqBQ==
+ s=susede2_ed25519; t=1720772041;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/HoaZch0ZYL/tiZdhg/6Fq+ASG3Z3vLy3EK5q/GtE+k=;
+ b=P2EjOoUzWxbSJqyULosaOO6VLPzNyVdZQ8fPSwI9CV9u32opGx3yjDEbENLwECjX5uCIDj
+ byMwJVI0kFPPKcDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8D5AE1373E;
- Fri, 12 Jul 2024 07:58:03 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 776D91373E;
+ Fri, 12 Jul 2024 08:14:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id TCOaIQvikGZ2egAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 12 Jul 2024 07:58:03 +0000
-Date: Fri, 12 Jul 2024 09:57:58 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id O9vSGsnlkGYOfwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 12 Jul 2024 08:14:01 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20240712075758.GB103986@pevik>
-References: <20240711-landlock-v3-0-c7b0e9edf9b0@suse.com>
- <20240711-landlock-v3-5-c7b0e9edf9b0@suse.com>
- <20240711204007.GC85696@pevik>
- <CAEemH2fdFsQqN3a8sZ7+oeU7w3j+X7HdnGa=zC4H4+iXO9YUAw@mail.gmail.com>
- <CAEemH2eYZ05Fn0ZYhpG16UUzYo=F3GKBpYeRG_X2BUdrLbY8PA@mail.gmail.com>
+To: ltp@lists.linux.it
+Date: Fri, 12 Jul 2024 10:13:57 +0200
+Message-ID: <20240712081359.116227-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2eYZ05Fn0ZYhpG16UUzYo=F3GKBpYeRG_X2BUdrLbY8PA@mail.gmail.com>
-X-Spam-Score: -3.50
-X-Spamd-Result: default: False [-3.50 / 50.00]; REPLY(-4.00)[];
- MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-0.992]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MISSING_XM_UA(0.00)[]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+X-Rspamd-Queue-Id: C671E211F6
+X-Spam-Score: 0.99
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [0.99 / 50.00]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- REPLYTO_EQ_FROM(0.00)[]
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCPT_COUNT_THREE(0.00)[3]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim]
 X-Spam-Level: 
+X-Spamd-Bar: /
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v3 05/11] Add landlock01 test
+Subject: [LTP] [PATCH v3 0/2] lib: Create tst_tmpdir.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,70 +116,32 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Andrea, Li,
+Hi,
 
-...
-> >> First, this fails at least on various kernel versions (tested: Tumbleweed
-> >> 6.10.0-rc7-3.g92abc10-default, and SLE15-SP4 5.14.21 with lsm=landlock and
-> >> Debian 6.6.15-amd64):
+changes v2->v3:
+* Add tst_tmpdir.h also to include/tst_test.h (Avinesh)
+* Split doc change into a separate commit
 
-> >> landlock01.c:49: TFAIL: Size is too small expected EINVAL: ENOMSG (42)
+Petr Vorel (2):
+  lib: Create tst_tmpdir.h
+  doc/C API: Add tst_tmpdir.h
 
-> >> Is it a kernel bug or a test bug?
+ doc/developers/api_c_tests.rst |  4 ++++
+ include/tst_device.h           |  6 +-----
+ include/tst_test.h             |  1 +
+ include/tst_tmpdir.h           | 19 +++++++++++++++++++
+ lib/tst_tmpdir.c               |  1 +
+ 5 files changed, 26 insertions(+), 5 deletions(-)
+ create mode 100644 include/tst_tmpdir.h
 
+-- 
+2.45.2
 
-> > You probably need to check the `/usr/include/linux/landlock.h` header file
-> > exist,
-> > and to see if 'struct landlock_ruleset_attr' contains the new field
-> > 'handled_access_net'.
-
-> > If not exist or does not contain that, the test defines 'struct
-> > landlock_ruleset_attr'
-> > in lapi/landlock.h which contains handled_access_net directly, this is
-> > likely the
-> > root cause lead test failed on your box.
-
-> And, if the header file does not exist, the macro condition will choose to
-> use 'rule_size - 1',
-> and that caused the ENOMSG error during test on the newer kernel.
-
-> #ifdef HAVE_STRUCT_LANDLOCK_RULESET_ATTR_HANDLED_ACCESS_NET
->     rule_small_size = rule_size - sizeof(uint64_t) - 1;
-> #else
->     rule_small_size = rule_size - 1;
-> #endif
-
-> So to keep the kernel-headers and running kernel version consistent should
-> be required
-> for the landlock01 test. Otherwise the #ifdef possibly won't work correctly.
-
-FYI Having inconsistent kernel headers and running kernel would be a problem for
-more LTP tests than just landlock01 (basically many tests which have autotools
-check). But this can be problematic for some development (e.g. linux-next).
-Therefore we at least assume UAPI headers shouldn't be newer than running
-kernel, see https://lore.kernel.org/ltp/ZJP_qPeJ37H4qhEN@yuki/.
-
-> I guess we might have to resolve this on the test side.
-
-Trying to compare versions <linux/version.h> could be used:
-
-#define LINUX_VERSION_CODE 395008
-#define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + ((c) > 255 ? 255 : (c)))
-#define LINUX_VERSION_MAJOR 6
-#define LINUX_VERSION_PATCHLEVEL 7
-#define LINUX_VERSION_SUBLEVEL 0
-
-We already use KERNEL_VERSION() in kdump and device-drivers tests.
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
