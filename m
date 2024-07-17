@@ -1,116 +1,110 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6FD1934156
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:18:29 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9590B934148
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:17:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 995313D1AE8
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:18:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 554F03D1AEF
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:17:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C62003D1ADB
- for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:17:20 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id B60313D1ADB
+ for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:17:19 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D7DCF601E0C
- for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:17:19 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id DA8DF101F0DC
+ for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:17:18 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9972C2199B;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EA6981FB93;
  Wed, 17 Jul 2024 17:17:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1721236637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=voVL63OrW2n69qEElvkduqbRbK9N/UPCNFknKH6yu3c=;
- b=Si8rZtueEFtgI6m0cm4gmtb8FkhuHgc/2+hcfZJOWTBiE8Gpz5QTj8GuYtVKI+BVcES859
- xtvAjGUAYR/OsgtCA1CXTlK4mf6AggbEYSxJGTZ327rPeiFqSLj572DwBTOpbhQHcobkRe
- pZ+lvavHx+4WTQoDNRIpP1/E6Nf8hEk=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qgmkoqHz3tJPDnyuyL239Hlnw44n97eZrnWeYmnHfcQ=;
+ b=bUQk4Qha5xBXq94zYShmQzzaWaGvXq2r5CHytqboUUm0ozu+xFtnUXuy5/3AyW2AI4Vtla
+ +oYp3M/UrGJIwt09BS6EM3LnlBb73Gl+eI1/J3Sl0wcL+zMu+iT04DvMH61hJKC/tbXvp3
+ 5nUUOEQAuKH85YQQz2QgqYpIlClDp2U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1721236637;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=voVL63OrW2n69qEElvkduqbRbK9N/UPCNFknKH6yu3c=;
- b=X0Go9MJzbqRyLTTn9rwqErIGk3uFiWLMtlKKTQKGqFAVX+xA1pP2gGHZbrY17lY/mrLIjZ
- FA5caefxR+yBDYCA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Si8rZtue;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=X0Go9MJz
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qgmkoqHz3tJPDnyuyL239Hlnw44n97eZrnWeYmnHfcQ=;
+ b=CjZQ7ny5d1pJvK6YmacEor2w+yj79XSwrJ0ISpd0WkAxRyNRUDswX3G9l29OtIAeWp+p3K
+ MnUHHLO33RLK0kDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1721236637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=voVL63OrW2n69qEElvkduqbRbK9N/UPCNFknKH6yu3c=;
- b=Si8rZtueEFtgI6m0cm4gmtb8FkhuHgc/2+hcfZJOWTBiE8Gpz5QTj8GuYtVKI+BVcES859
- xtvAjGUAYR/OsgtCA1CXTlK4mf6AggbEYSxJGTZ327rPeiFqSLj572DwBTOpbhQHcobkRe
- pZ+lvavHx+4WTQoDNRIpP1/E6Nf8hEk=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qgmkoqHz3tJPDnyuyL239Hlnw44n97eZrnWeYmnHfcQ=;
+ b=bUQk4Qha5xBXq94zYShmQzzaWaGvXq2r5CHytqboUUm0ozu+xFtnUXuy5/3AyW2AI4Vtla
+ +oYp3M/UrGJIwt09BS6EM3LnlBb73Gl+eI1/J3Sl0wcL+zMu+iT04DvMH61hJKC/tbXvp3
+ 5nUUOEQAuKH85YQQz2QgqYpIlClDp2U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1721236637;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=voVL63OrW2n69qEElvkduqbRbK9N/UPCNFknKH6yu3c=;
- b=X0Go9MJzbqRyLTTn9rwqErIGk3uFiWLMtlKKTQKGqFAVX+xA1pP2gGHZbrY17lY/mrLIjZ
- FA5caefxR+yBDYCA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qgmkoqHz3tJPDnyuyL239Hlnw44n97eZrnWeYmnHfcQ=;
+ b=CjZQ7ny5d1pJvK6YmacEor2w+yj79XSwrJ0ISpd0WkAxRyNRUDswX3G9l29OtIAeWp+p3K
+ MnUHHLO33RLK0kDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 62310136E5;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9FAB21396E;
  Wed, 17 Jul 2024 17:17:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id lPs2Fp38l2ZQOQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id QNplJZ38l2ZQOQAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Wed, 17 Jul 2024 17:17:17 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 17 Jul 2024 19:17:07 +0200
-Message-ID: <20240717171713.687339-1-pvorel@suse.cz>
+Date: Wed, 17 Jul 2024 19:17:08 +0200
+Message-ID: <20240717171713.687339-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240717171713.687339-1-pvorel@suse.cz>
+References: <20240717171713.687339-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; MIME_TRACE(0.00)[0:+];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_SOME(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+X-Spam-Score: 1.20
+X-Spamd-Result: default: False [1.20 / 50.00]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.999];
+ MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
  RCPT_COUNT_FIVE(0.00)[5];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 9972C2199B
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 0/6] sched_football in runtest/sched + configure
- cleanup
+Subject: [LTP] [PATCH 1/6] configure: Print info about TI-RPC testsuite in
+ summary
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,53 +121,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Petr Vorel (6):
-  configure: Print info about TI-RPC testsuite in summary
-  configure: Don't assume testcases/realtime/configure.ac
-  configure: Print info about KVM testsuite in summary
-  configure: Enable realtime testsuite by default
-  runtest/sched: Add sched_football
-  realtime: Use proper syntax for non-system include
+410ff69aa1 printed only info about libtirpc availability,
+but whole TI-RPC can be disabled (it's enabled by default).
+Print this in configure summary.
 
- configure.ac                                        | 13 +++++++++----
- include/mk/features.mk.in                           |  3 ---
- runtest/sched                                       |  2 ++
- testcases/Makefile                                  |  4 ----
- .../realtime/func/async_handler/async_handler.c     |  4 ++--
- .../realtime/func/async_handler/async_handler_jk.c  |  4 ++--
- .../realtime/func/async_handler/async_handler_tsc.c |  4 ++--
- .../realtime/func/gtod_latency/gtod_infinite.c      |  2 +-
- testcases/realtime/func/gtod_latency/gtod_latency.c |  4 ++--
- testcases/realtime/func/hrtimer-prio/hrtimer-prio.c |  4 ++--
- testcases/realtime/func/matrix_mult/matrix_mult.c   |  4 ++--
- .../realtime/func/measurement/preempt_timing.c      |  2 +-
- testcases/realtime/func/measurement/rdtsc-latency.c |  2 +-
- .../func/periodic_cpu_load/periodic_cpu_load.c      |  4 ++--
- .../periodic_cpu_load/periodic_cpu_load_single.c    |  4 ++--
- testcases/realtime/func/pi-tests/test-skeleton.c    |  2 +-
- testcases/realtime/func/pi-tests/testpi-0.c         |  2 +-
- testcases/realtime/func/pi-tests/testpi-1.c         |  2 +-
- testcases/realtime/func/pi-tests/testpi-2.c         |  2 +-
- testcases/realtime/func/pi-tests/testpi-4.c         |  2 +-
- testcases/realtime/func/pi-tests/testpi-5.c         |  2 +-
- testcases/realtime/func/pi-tests/testpi-6.c         |  2 +-
- testcases/realtime/func/pi-tests/testpi-7.c         |  2 +-
- testcases/realtime/func/pi_perf/pi_perf.c           |  4 ++--
- testcases/realtime/func/prio-preempt/prio-preempt.c |  2 +-
- testcases/realtime/func/prio-wake/prio-wake.c       |  4 ++--
- .../pthread_kill_latency/pthread_kill_latency.c     |  4 ++--
- testcases/realtime/func/rt-migrate/rt-migrate.c     |  4 ++--
- testcases/realtime/func/sched_jitter/sched_jitter.c |  4 ++--
- .../realtime/func/sched_latency/sched_latency.c     |  4 ++--
- testcases/realtime/func/thread_clock/tc-2.c         |  2 +-
- testcases/realtime/lib/librttest.c                  |  4 ++--
- testcases/realtime/lib/libstats.c                   |  4 ++--
- .../realtime/perf/latency/pthread_cond_latency.c    |  2 +-
- testcases/realtime/perf/latency/pthread_cond_many.c |  4 ++--
- .../realtime/stress/pi-tests/lookup_pi_state.c      |  2 +-
- testcases/realtime/stress/pi-tests/testpi-3.c       |  2 +-
- 37 files changed, 61 insertions(+), 61 deletions(-)
+Fixes: 410ff69aa1 ("configure.ac: Print summary")
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ configure.ac | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/configure.ac b/configure.ac
+index 1f8796c874..3958e551c0 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -447,6 +447,7 @@ cat << EOF
+ TESTSUITES
+ open posix testsuite: ${with_open_posix_testsuite:-no}
+ realtime testsuite: ${with_realtime_testsuite:-no}
++TI-RPC testsuite: ${with_tirpc:-yes}
+ 
+ LIBRARIES
+ keyutils: ${have_keyutils:-yes}
 -- 
 2.45.2
 
