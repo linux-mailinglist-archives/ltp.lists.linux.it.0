@@ -2,21 +2,20 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 962AE934150
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:17:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2E1F934159
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:19:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4CC433D1AF6
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:17:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9C0D63D1B06
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:19:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D552C3D1ADE
- for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:17:19 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 3DE1F3D1ADB
+ for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:17:21 +0200 (CEST)
+Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
@@ -24,101 +23,100 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 459F7206C42
- for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:17:19 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BE42E140051E
+ for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:17:20 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C165D1FB96;
- Wed, 17 Jul 2024 17:17:18 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0B6131FCEF;
+ Wed, 17 Jul 2024 17:17:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1721236638; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1721236640; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZmtGXl/TocvQgBtiHfLZFvZZ7zfcLEF62TqQweo897c=;
- b=cdDD6DmB50YdS5EgCN9r2iDZUaKA33hv97aZuTAYyY0h5LzIXEhaFF7bROnsxQ1u8uH3H2
- 3iC8V2swl2JfDqH4nAN2G4mgEqHdCEWY7lJ16gVAQvjz6/54WY2Hci9jspY59U5ohZRdxQ
- 9tvz1KEPequX78b9Ye4Db7TZVuDeEwU=
+ bh=+0XvSR17NMOVQQnDexVCNTXIZPs63ikJwvEMae2SAQ0=;
+ b=foIvia9aOMLb/locgsl/4dHXnzmyRLuK/XWZWGWUVU90l5kHjnxAFlfgSzYn28gQcdAWly
+ wTUVfMRVayAUuWGgGY2Qluq3IxMFThbrwYZCsTnyvuk6FVHtAv3qC7Ltmet9Ls09ba/A/q
+ YL/7aK9GNUOI8KHa/aP+1E2ldVppjP0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1721236638;
+ s=susede2_ed25519; t=1721236640;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZmtGXl/TocvQgBtiHfLZFvZZ7zfcLEF62TqQweo897c=;
- b=9MRWi2vrjiFH56cGFD/6JjsxauKni54OqYyCE7iNeRSddl6XRA99HqxHfKEFcXSZfkIyYq
- /WIp8atHCfTJLHCQ==
+ bh=+0XvSR17NMOVQQnDexVCNTXIZPs63ikJwvEMae2SAQ0=;
+ b=tFmBzS7X1z7UMXXJ5HUtWGFY2AqJrw/bE+3x/6tZ9+MedrI63+A0izNNXpDVvkfvCML5vZ
+ HnqSRMOv4Ss4CwBA==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=cdDD6DmB;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=9MRWi2vr
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=lCoXA0pz;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=lEAiATKP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1721236638; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1721236639; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZmtGXl/TocvQgBtiHfLZFvZZ7zfcLEF62TqQweo897c=;
- b=cdDD6DmB50YdS5EgCN9r2iDZUaKA33hv97aZuTAYyY0h5LzIXEhaFF7bROnsxQ1u8uH3H2
- 3iC8V2swl2JfDqH4nAN2G4mgEqHdCEWY7lJ16gVAQvjz6/54WY2Hci9jspY59U5ohZRdxQ
- 9tvz1KEPequX78b9Ye4Db7TZVuDeEwU=
+ bh=+0XvSR17NMOVQQnDexVCNTXIZPs63ikJwvEMae2SAQ0=;
+ b=lCoXA0pzNuFtUiaqbb9uV9tAaYiSsUlH0fsRaSmba+PjjZWgofgM8ZnSUZsEP79ANRYrsp
+ v+qpvG5S56TT8X45e7hNg6ZrZsM8P6D04Fe7JWV2koCeLJy1XGF4xoDuewaWRp8W2OEr08
+ NjWNlObVybvss9Oj18xH8qSy4XCWgjQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1721236638;
+ s=susede2_ed25519; t=1721236639;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZmtGXl/TocvQgBtiHfLZFvZZ7zfcLEF62TqQweo897c=;
- b=9MRWi2vrjiFH56cGFD/6JjsxauKni54OqYyCE7iNeRSddl6XRA99HqxHfKEFcXSZfkIyYq
- /WIp8atHCfTJLHCQ==
+ bh=+0XvSR17NMOVQQnDexVCNTXIZPs63ikJwvEMae2SAQ0=;
+ b=lEAiATKP7Ch5l5p/l1JD+Gq5oRL0xcc+nrlM7Oo4VNl/hd7Nm0yK+im3L1VrTDW39Twme4
+ 4V+cHRfbVxXLVYCQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6F39E1396E;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C4F14136E5;
  Wed, 17 Jul 2024 17:17:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id IH7ZGZ78l2ZQOQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +LTPLZ78l2ZQOQAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Wed, 17 Jul 2024 17:17:18 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 17 Jul 2024 19:17:11 +0200
-Message-ID: <20240717171713.687339-5-pvorel@suse.cz>
+Date: Wed, 17 Jul 2024 19:17:12 +0200
+Message-ID: <20240717171713.687339-6-pvorel@suse.cz>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240717171713.687339-1-pvorel@suse.cz>
 References: <20240717171713.687339-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: C165D1FB96
-X-Spam-Score: 0.99
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [0.99 / 50.00]; MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
  R_MISSING_CHARSET(0.50)[];
  R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- MIME_TRACE(0.00)[0:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim,suse.cz:email];
+ MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_DN_SOME(0.00)[];
  RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ MIME_TRACE(0.00)[0:+]; FUZZY_BLOCKED(0.00)[rspamd.com];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FUZZY_BLOCKED(0.00)[rspamd.com];
+ FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,sched_stress.sh:url,suse.cz:email,suse.cz:dkim,run_sched_cliserv.sh:url];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[5];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_FIVE(0.00)[5]; FROM_EQ_ENVFROM(0.00)[];
  DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
 X-Spam-Level: 
-X-Spamd-Bar: /
+X-Rspamd-Queue-Id: 0B6131FCEF
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 4/6] configure: Enable realtime testsuite by default
+Subject: [LTP] [PATCH 5/6] runtest/sched: Add sched_football
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,72 +133,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is needed because sched_football will be added to runtest/sched
-as well.
+sched_football is useful not only for testing realtime,
+therefore add it also to runtest/sched.
+
+This depends on previous commit which enabled realtime by default.
+We ignore the possibility realtime tests are disabled.
 
 Suggested-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- configure.ac              | 7 +++++--
- include/mk/features.mk.in | 3 ---
- testcases/Makefile        | 4 ----
- 3 files changed, 5 insertions(+), 9 deletions(-)
+ runtest/sched | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/configure.ac b/configure.ac
-index a8e40a5fc0..6fea710a05 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -369,7 +369,7 @@ fi
- # TODO: testcases/realtime requires bash and python.
- AC_ARG_WITH([realtime-testsuite],
-   [AS_HELP_STRING([--with-realtime-testsuite],
--    [compile and install the realtime testsuite])],
-+    [unused, kept for compatibility reason])],
-   [with_realtime_testsuite=$withval],
-   [with_realtime_testsuite=no]
- )
-@@ -447,7 +447,6 @@ cat << EOF
- TESTSUITES
- KVM testsuite: $have_kvm
- open posix testsuite: ${with_open_posix_testsuite:-no}
--realtime testsuite: ${with_realtime_testsuite:-no}
- TI-RPC testsuite: ${with_tirpc:-yes}
+diff --git a/runtest/sched b/runtest/sched
+index 5dab7a4c27..ecedd1a92b 100644
+--- a/runtest/sched
++++ b/runtest/sched
+@@ -18,3 +18,5 @@ sched_cli_serv run_sched_cliserv.sh
+ sched_stress sched_stress.sh
  
- LIBRARIES
-@@ -466,3 +465,7 @@ metadata generator: $with_metadata_generator
- HTML metadata: $with_metadata_html
- PDF metadata: $with_metadata_pdf
- EOF
+ autogroup01 autogroup01
 +
-+if test "x$with_realtime_testsuite" = xyes; then
-+    AC_MSG_WARN([--with-realtime-testsuite has no effect and is kept for compatibilty reason. It will be removed in the future.])
-+fi
-diff --git a/include/mk/features.mk.in b/include/mk/features.mk.in
-index 73a2f66587..2fc5230d49 100644
---- a/include/mk/features.mk.in
-+++ b/include/mk/features.mk.in
-@@ -39,8 +39,5 @@ WITH_METADATA_PDF		:= @WITH_METADATA_PDF@
- # Enable testcases/open_posix_testsuite's compile and install?
- WITH_OPEN_POSIX_TESTSUITE	:= @WITH_OPEN_POSIX_TESTSUITE@
- 
--# Enable testcases/realtime's compile and install?
--WITH_REALTIME_TESTSUITE		:= @WITH_REALTIME_TESTSUITE@
--
- # Enable testcases/kernel/kvm compile and install?
- WITH_KVM_TESTSUITE		:= @WITH_KVM_TESTSUITE@
-diff --git a/testcases/Makefile b/testcases/Makefile
-index 662d4b1edd..d98d79f3c1 100644
---- a/testcases/Makefile
-+++ b/testcases/Makefile
-@@ -15,8 +15,4 @@ ifneq ($(WITH_OPEN_POSIX_TESTSUITE),yes)
- FILTER_OUT_DIRS		+= open_posix_testsuite
- endif
- 
--ifneq ($(WITH_REALTIME_TESTSUITE),yes)
--FILTER_OUT_DIRS		+= realtime
--endif
--
- include $(top_srcdir)/include/mk/generic_trunk_target.mk
++sched_football sched_football
 -- 
 2.45.2
 
