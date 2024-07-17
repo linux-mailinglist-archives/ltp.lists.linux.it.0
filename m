@@ -1,22 +1,22 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 819B493418C
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:42:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id DCD059341B3
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:52:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 397253D1ADE
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:42:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A49F13D1AF8
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 19:52:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 557EB3D0C9E
- for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:42:46 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id B99B83D1AD2
+ for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:51:57 +0200 (CEST)
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
@@ -24,96 +24,55 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 53CDC2001D1
- for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:42:44 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7CA06602291
+ for <ltp@lists.linux.it>; Wed, 17 Jul 2024 19:51:55 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F1BC91FD05;
- Wed, 17 Jul 2024 17:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1721238164;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type;
- bh=SVowOqtw1c6nfq1vOgzcn/I5f66rkZ71nwx1Viu/KZ0=;
- b=1a72YFWSxBu4d4Fd7li9XwNV1BUTJ1VXn5YPRWwRM//I0v2f+i7vPJVzLOlWM4Ft8rSwTx
- QPcvYlhGoSChV32XXOaKbYOUdC3Suu66nI5Zk6XPMzJUw/RQ4rrqIDh77jKQsnkEb6+dLW
- mzowylzodVZfdOce2B/zggueT/V05u8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1721238164;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type;
- bh=SVowOqtw1c6nfq1vOgzcn/I5f66rkZ71nwx1Viu/KZ0=;
- b=hJe5U9q3+0qd7cO0QQkevoT1aEOAjGJ0vF8eYZzEQePLVWOpEI3ecCohKXJySoayjBCqgS
- SSlhA4Yv/IDGyOCQ==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8ED3E1FB96;
+ Wed, 17 Jul 2024 17:51:55 +0000 (UTC)
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=zST0YDMf;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Qp5UvRBN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1721238163;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type;
- bh=SVowOqtw1c6nfq1vOgzcn/I5f66rkZ71nwx1Viu/KZ0=;
- b=zST0YDMfY4ZNYGbSL0WpP4cC7ICKkPI93RVFBmAyWIcGNBjS3+IuOdwhe2wDD1xI5nP/uO
- nenyCjn9IY6OcPPAJS11mBg8twR3Yjpwpe5tnNi9cqK/gtbNETTgcg2mGFunjQ35zjF0+3
- l5QuWKpnfANUBDkF9te5+/LFPdnpLEs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1721238163;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type;
- bh=SVowOqtw1c6nfq1vOgzcn/I5f66rkZ71nwx1Viu/KZ0=;
- b=Qp5UvRBNoBVNREA4sFz8SYA7WOeambmR8TuKulQL+nMgMsEnKZ4KEErHSnqUzp6slpAS0f
- lTDiwbdHi8WFjYBQ==
+	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CD61A136E5;
- Wed, 17 Jul 2024 17:42:43 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 62724136E5;
+ Wed, 17 Jul 2024 17:51:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id pP2sMJMCmGbsPwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Wed, 17 Jul 2024 17:42:43 +0000
-Date: Wed, 17 Jul 2024 19:42:42 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id g4fhFrsEmGZWQgAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Wed, 17 Jul 2024 17:51:55 +0000
+Date: Wed, 17 Jul 2024 19:51:50 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>, Li Wang <liwang@redhat.com>,
- Andrea Cervesato <andrea.cervesato@suse.de>,
- Jan Stancek <jstancek@redhat.com>
-Message-ID: <20240717174242.GA687454@pevik>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20240717175150.GA690776@pevik>
+References: <20240716153604.22984-1-chrubis@suse.cz>
+ <20240716153604.22984-2-chrubis@suse.cz>
+ <CAEemH2cAfjhGLv3GWPA_5xgsFNYiRf-oQwyLPhbWWSPKn=yAhw@mail.gmail.com>
+ <ZpeGRluc-U1NHjNY@rei>
+ <CAEemH2f4sO40tJxT2wokw=SDaeAvNhR-z8NOqW0=xWSKSv3Wsg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-X-Spamd-Result: default: False [-3.71 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.cz:dkim];
- RCPT_COUNT_FIVE(0.00)[5]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
- REPLYTO_EQ_FROM(0.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+In-Reply-To: <CAEemH2f4sO40tJxT2wokw=SDaeAvNhR-z8NOqW0=xWSKSv3Wsg@mail.gmail.com>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Queue-Id: 8ED3E1FB96
+X-Spam-Score: -4.00
 X-Rspamd-Action: no action
-X-Spam-Score: -3.71
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 X-Spam-Level: 
-X-Rspamd-Queue-Id: F1BC91FD05
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=DMARC_MISSING,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] Realtime testsuite
+Subject: Re: [LTP] [RFC PATCH 1/2] Add support for mixing C and shell code
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,49 +86,29 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
-
-we have ticket about realtime testsuite evaluation [1].
-I put there some old investigation made by Mel Gorman.
-At the time we wanted to migrate everything to rt-tests.
-
-Cyril considered sched_football useful enough also for regular non-RT systems,
-thus I ported it to new library in 43dc52fafa ("sched_football: Rewrite into new
-API"). And there is a followup patchset [3] [4] which among other things always
-enables realtime and put sched_football also to runtest/sched.
-
-But we should decide what to do with the rest. Would you have time to have look
-if something else is good enough to be kept in LTP?
-
-I suggest to contribute pi_perf and prio-wake to rt-tests and ask also
-linux-rt-users community to have look on the tests (specially
-realtime/stress/pi-tests and testcases/realtime/perf/latency which Mel did not
-reviewed) and act based on their investigation (port or remove).
-
-BTW Mel reported about sched_football:
-
-	Interesting, might be worth reimplementing. The
-	concept is interesting as a test but it has
-	weaknesses. The sched_yield usage is one thing
-	but also, it only works if the number of players
-	equals the number of CPUs and small changes in
-	sched_yield semantics would break the test.
-
-IMHO we should remove -n option, so that ncpu is always used. I also wonder,
-what breaks -i2.
-
-Kind regards,
-Petr
-
-[1] https://github.com/linux-test-project/ltp/issues/1078
-[2] https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git
-[3] https://patchwork.ozlabs.org/project/ltp/list/?series=415662&state=*
-[4] https://lore.kernel.org/ltp/20240717171713.687339-1-pvorel@suse.cz/
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgYWxsLAoKPiBPbiBXZWQsIEp1bCAxNywgMjAyNCBhdCA0OjQ54oCvUE0gQ3lyaWwgSHJ1Ymlz
+IDxjaHJ1YmlzQHN1c2UuY3o+IHdyb3RlOgoKPiA+IEhpIQo+ID4gPiBTaW5jZSBleGVjdnBlKCkg
+aXMgYSBHTlUgZXh0ZW5zaW9uLCB3ZSBuZWVkIHRvIGVuc3VyZSB0aGF0Cj4gPiA+IHdlIGFyZSBj
+b21waWxpbmcgd2l0aCBHTlUgZXh0ZW5zaW9ucyBlbmFibGVkLgoKPiA+ID4gYWRkIHRoaXMgbGlu
+ZSBpbnRvIHRoZSBoZWFkIG9mIHRzdF90ZXN0LmM6Cj4gPiA+ICNkZWZpbmUgX0dOVV9TT1VSQ0UK
+Ckdvb2QsIHlvdSBhbHJlYWR5IG5vdGljZWQuCgo+ID4gQXMgZm9yIHRoZSBleGVjdnBlKCkgSSd2
+ZSB1c2VkIHRoYXQgZm9yIHRoZSBwcm90b3R5cGUgYnV0IEknbSB1bnN1cmUgaWYKPiA+IGl0IGNv
+dWxkIGJlIHVzZWQgaW4gdGhlIGZpbmFsIHByb2R1Y3QsIHNpbmNlIHRoaXMgaXMgdGhlIHRlc3Qg
+bGlicmFyeSBpdAo+ID4gaGFzIHRvIGNvbXBpbGUgb24gYWxsIGtpbmRzIG9mIGxpYmMgb3V0IHRo
+ZXJlLiBJdCBsb29rcyBsaWtlIG11c2wgZG9lcwo+ID4gc3VwcG9ydCBpdCBidXQgSSBoYXZlbid0
+IGNoZWNrZWQgQW5kcm9pZCBiaW9uaWMuCgoKPiA+IFNvIHdlIG1heSBuZWVkIHRvIHdyaXRlIG91
+ciBvd24gaW1wbGVtdGFudGlvbiBvbiB0aGUgdG9wIG9mIHRoZSBleGVjdmUoKQo+ID4gc3lzY2Fs
+bC4gQnV0IHRoYXQgc2hvdWxkIGJlIGFzIGVhc3kgYXMgZ2V0dGluZyB0aGUgcGF0aCB0byB0aGUg
+c2NyaXB0Cj4gPiBiZWZvcmUgd2UgcGFzcyBpdCB0byBleGVjdmUoKS4KCkl0IHN1cHBvcnRzIGl0
+LiBJdCBsb29rcyBsaWtlIGV2ZW4gd2l0aG91dCBfR05VX1NPVVJDRToKaHR0cHM6Ly9hbmRyb2lk
+Lmdvb2dsZXNvdXJjZS5jb20vcGxhdGZvcm0vYmlvbmljLmdpdC8rL3JlZnMvaGVhZHMvbWFpbi9s
+aWJjL2luY2x1ZGUvdW5pc3RkLmgjMTQyCgpCdXQgYmV0dGVyIHRvIGtlZXAgRWR3YXJkIGluIGxv
+b3AuCgo+IEluZGVlZC4gIFdlIG5lZWQgdG8gY3JlYXRlIGEgbHRwX2V4ZWN2cGUoKSBiYXNlZCBv
+biBleGVjdmUoKS4KClNvIHRoZXJlIHdpbGwgYmUgdjIsIHJpZ2h0PwoKS2luZCByZWdhcmRzLApQ
+ZXRyCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGlu
+Zm8vbHRwCg==
