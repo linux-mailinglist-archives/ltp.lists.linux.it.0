@@ -1,112 +1,120 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10A62933903
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 10:31:28 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 80F689338F8
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 10:28:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CD6A93D1AC0
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 10:31:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8BCE33D1ABC
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2024 10:28:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A6A6E3D0C85
- for <ltp@lists.linux.it>; Wed, 17 Jul 2024 10:31:25 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id DB81C3D1AB2
+ for <ltp@lists.linux.it>; Wed, 17 Jul 2024 10:28:47 +0200 (CEST)
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2EC4D600292
- for <ltp@lists.linux.it>; Wed, 17 Jul 2024 10:31:20 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2C40F610227
+ for <ltp@lists.linux.it>; Wed, 17 Jul 2024 10:28:46 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DD6AF1FB63;
- Wed, 17 Jul 2024 08:31:19 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1D1B51FB66;
+ Wed, 17 Jul 2024 08:28:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1721205079;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1721204926; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Dx1rRmL8k0gNEsRtWqE3pTBg0frrYwfV8SwqUwcCdnA=;
- b=yxf5ARwHfNHiApN0cXenIBj+Lk+d4+f2XiJ5LX+wjGsIfImjqSnPIilzgSutbZ9cMiN310
- frBwCEfI02cOdsAsfOO3LwzJAeZKalSsrDM2mQ1Zk1EdIZifIm9gYNVBiuSHBSJH9anHWh
- 3mWaDU0HQkBtGFEiGltmupwaKX5xJLk=
+ bh=tJ07uIqw96X4U9SqrxZYl8aPwyojvXyeOhQs6B+A1vg=;
+ b=DNKQ1G+6qKZYlFamFWdf4CtN26SDA/tgMVmjNhJ4NUQNkRfa16U0U7zOkE78zkskxX22T8
+ QsY5QFe1TiEE/fqCJXt4yWUZIDY775rupIGCHXtD58MaB+bOUIYJgWt8hs4YJbB3jLTdoV
+ v6iIYELsAtMoHHpavgCUDNdV75tQoQA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1721205079;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ s=susede2_ed25519; t=1721204926;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Dx1rRmL8k0gNEsRtWqE3pTBg0frrYwfV8SwqUwcCdnA=;
- b=iFodB0zuBDGnfRaU36KuUCSyCki5fT5SgpUfVXea9g4l0XDyTPuglgvlSbgwrZyFShK/0a
- FWDSYIHoTX29W+Bw==
+ bh=tJ07uIqw96X4U9SqrxZYl8aPwyojvXyeOhQs6B+A1vg=;
+ b=tcquKbf0BJkL1T1UAyUun9JolD0ALptyJyTat5YOlTAfGL+M2Zlp6l+BdHpwWMzYNWMXwt
+ HNeLrQyvLKLgiNDA==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=DNKQ1G+6;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=tcquKbf0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1721205079;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1721204926; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Dx1rRmL8k0gNEsRtWqE3pTBg0frrYwfV8SwqUwcCdnA=;
- b=yxf5ARwHfNHiApN0cXenIBj+Lk+d4+f2XiJ5LX+wjGsIfImjqSnPIilzgSutbZ9cMiN310
- frBwCEfI02cOdsAsfOO3LwzJAeZKalSsrDM2mQ1Zk1EdIZifIm9gYNVBiuSHBSJH9anHWh
- 3mWaDU0HQkBtGFEiGltmupwaKX5xJLk=
+ bh=tJ07uIqw96X4U9SqrxZYl8aPwyojvXyeOhQs6B+A1vg=;
+ b=DNKQ1G+6qKZYlFamFWdf4CtN26SDA/tgMVmjNhJ4NUQNkRfa16U0U7zOkE78zkskxX22T8
+ QsY5QFe1TiEE/fqCJXt4yWUZIDY775rupIGCHXtD58MaB+bOUIYJgWt8hs4YJbB3jLTdoV
+ v6iIYELsAtMoHHpavgCUDNdV75tQoQA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1721205079;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ s=susede2_ed25519; t=1721204926;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Dx1rRmL8k0gNEsRtWqE3pTBg0frrYwfV8SwqUwcCdnA=;
- b=iFodB0zuBDGnfRaU36KuUCSyCki5fT5SgpUfVXea9g4l0XDyTPuglgvlSbgwrZyFShK/0a
- FWDSYIHoTX29W+Bw==
+ bh=tJ07uIqw96X4U9SqrxZYl8aPwyojvXyeOhQs6B+A1vg=;
+ b=tcquKbf0BJkL1T1UAyUun9JolD0ALptyJyTat5YOlTAfGL+M2Zlp6l+BdHpwWMzYNWMXwt
+ HNeLrQyvLKLgiNDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6E71E1368F;
- Wed, 17 Jul 2024 08:31:19 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0C74A1368F;
+ Wed, 17 Jul 2024 08:28:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id JlkLFFeBl2YhFAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Wed, 17 Jul 2024 08:31:19 +0000
-Date: Wed, 17 Jul 2024 10:31:16 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
-Message-ID: <20240717083116.GA587967@pevik>
-References: <20240712134412.30853-1-chrubis@suse.cz>
- <20240717082547.GA584952@pevik>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id NdEGAr6Al2YXEwAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Wed, 17 Jul 2024 08:28:46 +0000
+Date: Wed, 17 Jul 2024 10:31:19 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <ZpeBVwXDVbJwLFu7@rei>
+References: <20240705031502.9041-1-liwang@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240717082547.GA584952@pevik>
-X-Spam-Score: 0.50
-X-Spamd-Result: default: False [0.50 / 50.00]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-0.992]; MIME_GOOD(-0.10)[text/plain];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[]; ARC_NA(0.00)[];
- MISSING_XM_UA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
+In-Reply-To: <20240705031502.9041-1-liwang@redhat.com>
+X-Spamd-Result: default: False [-4.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
- REPLYTO_EQ_FROM(0.00)[]
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
+ MISSING_XM_UA(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -4.01
 X-Spam-Level: 
+X-Rspamd-Queue-Id: 1D1B51FB66
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] Add tst_tmpdir_path() and tst_tmpdir_mkpath()
+Subject: Re: [LTP] [PATCH] perf_event_open: improve the memory leak detection
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,65 +126,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hi!
+> +		/*
+> +		 * Every 1200000 iterations, calculate the difference in memory
+> +		 * availability. If the difference is greater than 10 * 1024 (10MB),
+> +		 * increment the sample counter and log the event.
+> +		 */
+> +		if ((i % 1200000) == 0) {
+> +			mem_avail = SAFE_READ_MEMINFO("MemAvailable:");
+> +			diff = mem_avail_prev - mem_avail;
+> +			diff_total += diff;
+> +
+> +			if (diff > 20 * 1024) {
 
-...
-> > +/**
-> > + * tst_tmpdir_path - Returns a pointer to a tmpdir path.
-> > + *
-> > + * The returned path is allocated and initialized the first time this function is
-> > + * called, each subsequent call will return the same pointer.
-> > + *
-> > + * @return A newly allocated path. The memory is freed automatically at the end
-> Return must be 'return:', otherwise it's not recognised.
+Shouldn't this be 10 * 1024 or possibly slightly less than 10 * 1024?
 
->     * return: A newly allocated path. The memory is freed automatically at the end
+> +				sample++;
+> +				tst_res(TINFO, "MemAvailable decreased by %ld kB at iteration %d", diff, i);
+> +			}
+> +
+> +			mem_avail_prev = mem_avail;
+> +		}
+> +	}
+>  
+> -	if (diff > 50 * 1024)
+> -		tst_res(TFAIL, "Likely kernel memory leak detected");
+> +	if ((sample > 5) || (diff_total > 100 * 1024))
 
-> > + *         of the test. If allocation fails the function calls tst_brk() and
-> > + *         exits the test.
-> > + */
+Maybe this can rather be if ((sample > 5) && (diff_total > 100 * 1024))
 
-Also, formatting other lines with indent makes " A newly allocated path. The
-memory is freed automatically at the end" to be bold. The correct formatting is
-therefore without indent:
+That means that the available memory has been eaten by something and
+that it happened more or less in a linear fashion when the program was
+running.
 
-/**
- * tst_tmpdir_path - Returns a pointer to a tmpdir path.
- *
- * The returned path is allocated and initialized the first time this function is
- * called, each subsequent call will return the same pointer.
- *
- * return: A newly allocated path. The memory is freed automatically at the end
- * of the test. If allocation fails the function calls tst_brk() and
- * exits the test.
- */
-char *tst_tmpdir_path(void);
+> +		tst_res(TFAIL, "Likely kernel memory leak detected, total decrease: %ld kB", diff_total);
+>  	else
+>  		tst_res(TPASS, "No memory leak found");
+>  }
+> -- 
+> 2.45.2
+> 
 
-/**
- * tst_tmpdir_mkpath - Construct an absolute path pointing to a file inside tmpdir.
- *
- * Constructs a path inside tmpdir i.e. adds a prefix pointing to the current
- * test tmpdir to the string build by the printf-like format.
- *
- * @fmt: A printf-like format string.
- * @...: A printf-like parameter list.
- *
- * return: A newly allocated path. The memory is freed automatically at the end
- * of the test. If allocation fails the function calls tst_brk() and exits the
- * test.
- */
-char *tst_tmpdir_mkpath(const char *fmt, ...)
-	__attribute__((format(printf, 1, 2)));
-
-
-Kind regards,
-Petr
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
