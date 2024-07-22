@@ -1,137 +1,104 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FD499390A7
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2024 16:30:25 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3886E939115
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2024 16:55:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E566A3D1BF2
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2024 16:30:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E73083D1BDA
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2024 16:55:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B7D613D0BC9
- for <ltp@lists.linux.it>; Mon, 22 Jul 2024 16:29:26 +0200 (CEST)
-Authentication-Results: in-5.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 769943C74E7
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2024 16:55:08 +0200 (CEST)
+Authentication-Results: in-7.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3B4E9601400
- for <ltp@lists.linux.it>; Mon, 22 Jul 2024 16:29:26 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B56D1201170
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2024 16:55:07 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3A1C621BB1;
- Mon, 22 Jul 2024 14:29:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1721658565; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=l096ivDghQE0tjwZMlVJ9zBIef6OTR4H412lcYeZCSs=;
- b=w9jE8OMo/JHDYQ4BQpRMFdqoP8SAc8iga2ZuBCR+Rtwcozs0cHylzUR26HTIk4uBpTbIv3
- QiaaucsnbXJ5QF/G37I14SXd9onYuZPpP4KZzt2Srhr290YmE5AU59a1xWIvYlYTCTJx4o
- NmBGbgNkr5yqUT/Y0ADG1H1DJIBIGng=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1721658565;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=l096ivDghQE0tjwZMlVJ9zBIef6OTR4H412lcYeZCSs=;
- b=kSUhHlRuf5czjiiNh9I/BeleVKQL5Fg3oeCc1IPBuMEVyYx8oiBEk05ThMJYDWhsuIfP0H
- j8VZ4V+VHSvrLjDw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=w9jE8OMo;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=kSUhHlRu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1721658565; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=l096ivDghQE0tjwZMlVJ9zBIef6OTR4H412lcYeZCSs=;
- b=w9jE8OMo/JHDYQ4BQpRMFdqoP8SAc8iga2ZuBCR+Rtwcozs0cHylzUR26HTIk4uBpTbIv3
- QiaaucsnbXJ5QF/G37I14SXd9onYuZPpP4KZzt2Srhr290YmE5AU59a1xWIvYlYTCTJx4o
- NmBGbgNkr5yqUT/Y0ADG1H1DJIBIGng=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1721658565;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=l096ivDghQE0tjwZMlVJ9zBIef6OTR4H412lcYeZCSs=;
- b=kSUhHlRuf5czjiiNh9I/BeleVKQL5Fg3oeCc1IPBuMEVyYx8oiBEk05ThMJYDWhsuIfP0H
- j8VZ4V+VHSvrLjDw==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 161151F8D4
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2024 14:55:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1721660106; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=azzzEMSg9EsuQzmAnRdahBHHNg+nOC5GAkxpY96LVOw=;
+ b=E4Bx8w+DNgsF74zJXz+df5Fz7WO5fptyWf47fwNeyOn3coYnPBswKDP2Y0urEJD/Y13Xy5
+ NK3jZRp/y61n5RFptV/Wa1Pt2QAU1+20e4mF9tf4OXPQuZ52yPdy1bBYfVheJjlfKsk+F8
+ iaewrSPAgXWCHwzc92YrdbwaYmoLUHY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1721660106;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=azzzEMSg9EsuQzmAnRdahBHHNg+nOC5GAkxpY96LVOw=;
+ b=Gqvq2I4K4Ru5DN62EVTOQgXndpC7HN67s/csmENk+n0+lIQ/I34Sd311mdAdmEvcyPt/cQ
+ lzzlihUdlT/nrzAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1721660106; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=azzzEMSg9EsuQzmAnRdahBHHNg+nOC5GAkxpY96LVOw=;
+ b=E4Bx8w+DNgsF74zJXz+df5Fz7WO5fptyWf47fwNeyOn3coYnPBswKDP2Y0urEJD/Y13Xy5
+ NK3jZRp/y61n5RFptV/Wa1Pt2QAU1+20e4mF9tf4OXPQuZ52yPdy1bBYfVheJjlfKsk+F8
+ iaewrSPAgXWCHwzc92YrdbwaYmoLUHY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1721660106;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=azzzEMSg9EsuQzmAnRdahBHHNg+nOC5GAkxpY96LVOw=;
+ b=Gqvq2I4K4Ru5DN62EVTOQgXndpC7HN67s/csmENk+n0+lIQ/I34Sd311mdAdmEvcyPt/cQ
+ lzzlihUdlT/nrzAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1C4A2136A9;
- Mon, 22 Jul 2024 14:29:25 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 03C78136A9
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2024 14:55:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id uGP9BMVsnmazSwAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Mon, 22 Jul 2024 14:29:25 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 22 Jul 2024 16:28:44 +0200
-MIME-Version: 1.0
-Message-Id: <20240722-cachestat-v3-5-a0386f7cdaaa@suse.com>
-References: <20240722-cachestat-v3-0-a0386f7cdaaa@suse.com>
-In-Reply-To: <20240722-cachestat-v3-0-a0386f7cdaaa@suse.com>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 7L0PO8lynmZSVAAAD6G6ig
+ (envelope-from <chrubis@suse.cz>)
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2024 14:55:05 +0000
+From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2771;
- i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=UMbXZ66TkrbxH1wHz02kyAue2T5gN+71SHqJibR5aGY=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmnmyv0tuiObZlpUxZcBUUpOQ2WMDnKDCnxvlYp
- 8Kkm7m3YGyJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZp5srwAKCRDLzBqyILPm
- RnePC/9F+SjoFLb3cTIVdNfJgiyEFKleZ/a2WNnJ0VU7s06FyMJ05GXEGLmoLRmmAcj7jg66nmq
- pwl38GAK0OX75EU7lA4ZNfduaiQg9v/09IbKRSjXd0pEFYzMnaFeZ/1A43acFU7xtLE98gLUH0C
- tUvns9uM7xqo6M/EG72BeBYiKNxAo34qMEdje8E4P8EBTqOm0gObkZ6cFNNES0DInaJx+lbVmIS
- zN/zz2Z6BCq3Tmx2Ql+Gw3x4T3hgYu1I1PEyx4I5zTO5olHDCMzij6zdSid0OjD2pi7jLMDuKop
- f44ITNuAMEDJtyrb/etX13nbnKBa6cI84dYL2QGypYesc8uZuSD7Y7VHK3+10xQXUQA1oKukZdE
- To8U/NcD0+kkV+7YTssfuoBDNJwPugQ68QyOpKm5+tJbf5dGbeMaNB+0nIh9A4Qu70syAGUyJOn
- mp7/YNIgWWi5gC8slZkpELT+wpNcq6h1h7YZTXAdWUpNj3X4Mivl/pn/ekUyntqscpnDY=
-X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
- fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
-X-Spam-Score: -4.31
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 3A1C621BB1
-X-Spamd-Result: default: False [-4.31 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- TO_DN_SOME(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+Date: Mon, 22 Jul 2024 16:54:43 +0200
+Message-ID: <20240722145443.19104-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.44.2
+MIME-Version: 1.0
+X-Spam-Score: -2.60
+X-Spamd-Result: default: False [-2.60 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; MIME_GOOD(-0.10)[text/plain];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_ONE(0.00)[1]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ TO_DN_NONE(0.00)[]; RCVD_TLS_ALL(0.00)[]
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 5/5] Add cachestat04 test
+Subject: [LTP] [PATCH v3] sched: starvation: Autocallibrate the timeout
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,107 +115,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Instead of hardcoding the values we attempt to measure the CPU speed and
+set the runtime accordingly. Given that the difference in the duration
+of the test when the kernel is buggy is about 30x we do not have to have
+a precise callibration, just very rough estimate if we are running on a
+server or small ARM board would suffice.
 
-This test verifies cachestat() for all possible file descriptors,
-checking that returned statistics are always zero, unless file
-descriptor is unsupported and EBADF is raised.
+So we attempt to measure how long does a bussy loop take and base the
+default timeout on that. On x86_64 CPUs the resulting runtime seems to
+be between 2x and 10x of the actual runtime which seems to be in the
+required range.
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+We also make sure to check the runtime at the end of the test because
+the failures could have been masked by a timeout multiplier, i.e. if you
+set LTP_TIMEOUT_MUL=10 the test would previously pass on a buggy kernel
+as well. The side efect is that we now get better PASS/FAIL messages as
+well.
+
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- runtest/syscalls                                  |  1 +
- testcases/kernel/syscalls/cachestat/.gitignore    |  1 +
- testcases/kernel/syscalls/cachestat/cachestat04.c | 58 +++++++++++++++++++++++
- 3 files changed, 60 insertions(+)
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 8a297429b..9b041b03d 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -65,6 +65,7 @@ cacheflush01 cacheflush01
- cachestat01 cachestat01
- cachestat02 cachestat02
- cachestat03 cachestat03
-+cachestat04 cachestat04
+Changes in v3:
+
+- Increased the CALLIBRATE_LOOPS a bit, since some of the numbers
+  reported by the linaro lab had the runtime very close to the
+  calculated runtime.
+
+- Removed some curly braces, as suggested by pvorel
+
+- Added runtime check at the end of test to avoid false positives with
+  LTP_TIMEOUT_MUL.
+
+.../kernel/sched/cfs-scheduler/starvation.c   | 41 +++++++++++++++++--
+ 1 file changed, 38 insertions(+), 3 deletions(-)
+
+diff --git a/testcases/kernel/sched/cfs-scheduler/starvation.c b/testcases/kernel/sched/cfs-scheduler/starvation.c
+index 9ac388fdc..e707e0865 100644
+--- a/testcases/kernel/sched/cfs-scheduler/starvation.c
++++ b/testcases/kernel/sched/cfs-scheduler/starvation.c
+@@ -21,11 +21,38 @@
+ #include <sched.h>
  
- chdir01 chdir01
- chdir01A symlink01 -T chdir01
-diff --git a/testcases/kernel/syscalls/cachestat/.gitignore b/testcases/kernel/syscalls/cachestat/.gitignore
-index 6cfa3fa10..a3611a533 100644
---- a/testcases/kernel/syscalls/cachestat/.gitignore
-+++ b/testcases/kernel/syscalls/cachestat/.gitignore
-@@ -1,3 +1,4 @@
- cachestat01
- cachestat02
- cachestat03
-+cachestat04
-diff --git a/testcases/kernel/syscalls/cachestat/cachestat04.c b/testcases/kernel/syscalls/cachestat/cachestat04.c
-new file mode 100644
-index 000000000..0913dd57a
---- /dev/null
-+++ b/testcases/kernel/syscalls/cachestat/cachestat04.c
-@@ -0,0 +1,58 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
+ #include "tst_test.h"
++#include "tst_safe_clocks.h"
++#include "tst_timer.h"
+ 
+ static char *str_loop;
+-static long loop = 2000000;
++static long loop = 1000000;
+ static char *str_timeout;
+-static int timeout = 240;
++static int timeout;
 +
-+/*\
-+ * [Description]
-+ *
-+ * This test verifies cachestat() for all the possible file descriptors,
-+ * checking that cache statistics are always zero, except for unsupported file
-+ * descriptors which cause EBADF to be raised.
-+ */
++#define CALLIBRATE_LOOPS 120000000
 +
-+#include "tst_test.h"
-+#include "lapi/mman.h"
-+
-+#define MNTPOINT "mnt"
-+
-+static struct cachestat *cs;
-+static struct cachestat_range *cs_range;
-+
-+static void check_cachestat(struct tst_fd *fd_in)
++static int callibrate(void)
 +{
-+	int ret;
++	int i;
++	struct timespec start, stop;
++	long long diff;
 +
-+	ret = cachestat(fd_in->fd, cs_range, cs, 0);
-+	if (ret == -1) {
-+		TST_EXP_EQ_LI(errno, EBADF);
-+		return;
-+	}
++	for (i = 0; i < CALLIBRATE_LOOPS; i++)
++		__asm__ __volatile__ ("" : "+g" (i) : :);
 +
-+	TST_EXP_EQ_LI(cs->nr_cache, 0);
-+	TST_EXP_EQ_LI(cs->nr_dirty, 0);
-+	TST_EXP_EQ_LI(cs->nr_writeback, 0);
-+	TST_EXP_EQ_LI(cs->nr_evicted, 0);
-+	TST_EXP_EQ_LI(cs->nr_recently_evicted, 0);
++	SAFE_CLOCK_GETTIME(CLOCK_MONOTONIC_RAW, &start);
++
++	for (i = 0; i < CALLIBRATE_LOOPS; i++)
++		__asm__ __volatile__ ("" : "+g" (i) : :);
++
++	SAFE_CLOCK_GETTIME(CLOCK_MONOTONIC_RAW, &stop);
++
++	diff = tst_timespec_diff_us(stop, start);
++
++	tst_res(TINFO, "CPU did %i loops in %llius", CALLIBRATE_LOOPS, diff);
++
++	return diff;
 +}
+ 
+ static int wait_for_pid(pid_t pid)
+ {
+@@ -78,6 +105,8 @@ static void setup(void)
+ 
+ 	if (tst_parse_int(str_timeout, &timeout, 1, INT_MAX))
+ 		tst_brk(TBROK, "Invalid number of timeout '%s'", str_timeout);
++	else
++		timeout = callibrate() / 1000;
+ 
+ 	tst_set_max_runtime(timeout);
+ }
+@@ -114,7 +143,13 @@ static void do_test(void)
+ 		sleep(1);
+ 
+ 	SAFE_KILL(child_pid, SIGTERM);
+-	TST_EXP_PASS(wait_for_pid(child_pid));
 +
-+static void run(void)
-+{
-+	TST_FD_FOREACH(fd) {
-+		tst_res(TINFO, "%s -> ...", tst_fd_desc(&fd));
-+		check_cachestat(&fd);
-+	}
-+}
++	if (!tst_remaining_runtime())
++		tst_res(TFAIL, "Scheduller starvation reproduced.");
++	else
++		tst_res(TPASS, "Haven't reproduced scheduller starvation.");
 +
-+static struct tst_test test = {
-+	.test_all = run,
-+	.min_kver = "6.5",
-+	.mount_device = 1,
-+	.mntpoint = MNTPOINT,
-+	.bufs = (struct tst_buffers []) {
-+		{&cs, .size = sizeof(struct cachestat)},
-+		{&cs_range, .size = sizeof(struct cachestat_range)},
-+		{}
-+	},
-+};
-+
-
++	TST_EXP_PASS_SILENT(wait_for_pid(child_pid));
+ }
+ 
+ static struct tst_test test = {
 -- 
-2.43.0
+2.44.2
 
 
 -- 
