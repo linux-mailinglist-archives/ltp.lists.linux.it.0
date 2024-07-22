@@ -1,22 +1,22 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9B669390A2
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2024 16:29:28 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C5EFC9390A9
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2024 16:30:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5F5163D1BDB
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2024 16:29:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 964163D1BF4
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2024 16:30:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3D5423D0BC9
+ by picard.linux.it (Postfix) with ESMTPS id 447F23D0BC9
  for <ltp@lists.linux.it>; Mon, 22 Jul 2024 16:29:26 +0200 (CEST)
-Authentication-Results: in-3.smtp.seeweb.it;
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
@@ -24,113 +24,113 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7774C1A01936
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7657B60140B
  for <ltp@lists.linux.it>; Mon, 22 Jul 2024 16:29:25 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8B5321F8D4;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BEB871FB7D;
  Mon, 22 Jul 2024 14:29:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1721658564; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0hglHsjkXTMTxCM2mDFYEW/BeBCveLRO99csbWHIVPM=;
- b=0GJVvpIfCTrOjwMo5Z+TyNQEhnaOR3tFFIWWIW4EEx1FPj9UIJ/BtXg5ILSqZu9iEMHjAG
- I4tiSLcINan/3ELUAPDaPXVyRUceG7aPMlt7RLxJAKrkpM646RJY4tYGepDOKvI7sy6gA4
- nFcYZNVNFDqBzJlXkLbT49mLbQRoJJk=
+ bh=EvucEIdry0LYhkBykhT60oI2qMDIV/JPocWbCgODFYs=;
+ b=LVwd3j2tyzskxm7xsWtLdXceGgfCN2dMvFYXPW9Wxw66WV/MmmKK6kS0WY5q9xjTvNXhkC
+ AxNEqFfejXJ+92e3i7Qzl4HvdMMarHFEtVqaOEuc0ko+fQkadFPTM14cUGtfZvsSp1qR0g
+ 4WMMqOhE+3ZUJQUQoyQzemSpcEw4pmI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1721658564;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0hglHsjkXTMTxCM2mDFYEW/BeBCveLRO99csbWHIVPM=;
- b=adEbrOuGn7E7UgfeO3faY5++97sc5c8dDZGLZNybXSkw+feWwfkEKbYPN89ujct1QUz66I
- c5047ojEItwHpQBw==
+ bh=EvucEIdry0LYhkBykhT60oI2qMDIV/JPocWbCgODFYs=;
+ b=bRCBERv1H1bGViQDBcoX5jARbin3sWRtq7AV/3vD2pvtmFy1Q4CylfA/BfKfuu26C4sdzU
+ iDImy8M3oiDTY1Aw==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0GJVvpIf;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=adEbrOuG
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=LVwd3j2t;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=bRCBERv1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1721658564; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0hglHsjkXTMTxCM2mDFYEW/BeBCveLRO99csbWHIVPM=;
- b=0GJVvpIfCTrOjwMo5Z+TyNQEhnaOR3tFFIWWIW4EEx1FPj9UIJ/BtXg5ILSqZu9iEMHjAG
- I4tiSLcINan/3ELUAPDaPXVyRUceG7aPMlt7RLxJAKrkpM646RJY4tYGepDOKvI7sy6gA4
- nFcYZNVNFDqBzJlXkLbT49mLbQRoJJk=
+ bh=EvucEIdry0LYhkBykhT60oI2qMDIV/JPocWbCgODFYs=;
+ b=LVwd3j2tyzskxm7xsWtLdXceGgfCN2dMvFYXPW9Wxw66WV/MmmKK6kS0WY5q9xjTvNXhkC
+ AxNEqFfejXJ+92e3i7Qzl4HvdMMarHFEtVqaOEuc0ko+fQkadFPTM14cUGtfZvsSp1qR0g
+ 4WMMqOhE+3ZUJQUQoyQzemSpcEw4pmI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1721658564;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0hglHsjkXTMTxCM2mDFYEW/BeBCveLRO99csbWHIVPM=;
- b=adEbrOuGn7E7UgfeO3faY5++97sc5c8dDZGLZNybXSkw+feWwfkEKbYPN89ujct1QUz66I
- c5047ojEItwHpQBw==
+ bh=EvucEIdry0LYhkBykhT60oI2qMDIV/JPocWbCgODFYs=;
+ b=bRCBERv1H1bGViQDBcoX5jARbin3sWRtq7AV/3vD2pvtmFy1Q4CylfA/BfKfuu26C4sdzU
+ iDImy8M3oiDTY1Aw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 69D491398E;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9460113996;
  Mon, 22 Jul 2024 14:29:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id wG/qF8RsnmazSwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 2DszIsRsnmazSwAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Mon, 22 Jul 2024 14:29:24 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 22 Jul 2024 16:28:40 +0200
+Date: Mon, 22 Jul 2024 16:28:41 +0200
 MIME-Version: 1.0
-Message-Id: <20240722-cachestat-v3-1-a0386f7cdaaa@suse.com>
+Message-Id: <20240722-cachestat-v3-2-a0386f7cdaaa@suse.com>
 References: <20240722-cachestat-v3-0-a0386f7cdaaa@suse.com>
 In-Reply-To: <20240722-cachestat-v3-0-a0386f7cdaaa@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8837;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5392;
  i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=WNwA8kzJq2jKIaz7O4NBI3BpxhOOY1R8ZYipZCzbrms=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmnmyvJPft5CJdCZU8CggDT7Ub5ocYxuQ+2p6Ql
- d7oxuNt+dyJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZp5srwAKCRDLzBqyILPm
- Rv5DC/9TdM/gdbiLbOOnL3ASApX2hmzvA+tTVm/SCpJOKFgjYl04n/KkL+0g5e/F2GCfMaB603u
- vgdrZuwrFdNYTIOr9yISyWMh63opU+uIc5NwfXarBcMsXdZfXb6oJx/c5QpC+bAsUNXbBrHBaf0
- itm3BR6NslqTsoQij/gydh7vmiFeI8CHPNi8pc98ZDCR3Gy7KLKLSfdiEDWY0E7L4lY/eAcmflS
- U7F3iNRBg33bvxTwi5UJn5Xk8U86o5trQqJ5ezH1LRqI6HqfiNmf+GVgQOW0ziDwzXxyCPHVe4W
- kjpyDx253Nh071hYEbfS2u8uONYipAPcTC3ilFRFtqa7KPIROhc+4yDUtNA20/baXuzckdUy+rs
- vnOWrJa7q/36mkT6L1zxLTzHBehGCwtyrydbcrui4AslbrfJRPTWaLfCugLMygpnzH/V/fRuVLd
- zLqZcyDYx2FHJyCVltuOF7u0/NdZGz1Jz2twD3ekdHF9VT08RaunRaqzaE65uxywif2d4=
+ bh=neTU2zW/6UEhUO17K1yncvKwJtTkPTAK2HSuqsYgfO0=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmnmyvR7IPKnekL5RneSQ/pMWPMOz6G1hD7oq0u
+ S99S2hVsLeJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZp5srwAKCRDLzBqyILPm
+ RnbqC/sGVzrxmnNOMadgoNHGyyRFNptZBP7onYGjgA1Umby5lgD+HaUpF1yacZbJDQK2csTeL3X
+ 0QqLuby6cWOm0hTRalb1JoVB773wwLguaAa2sn/z3hoTvF47y4w9Mg2Kbxbh3QTnRCalD8oL1ui
+ DO1HsQ+M63u7gCyXV+ZvsbKnhbLQoQUPamikb+9yjfS6Uz8MT5keLnEEyvIXEYG6ImB4GDbP31P
+ H2vgVq9fBGF+jB7Oo+vPSzVpkA70+zucdf3Cy5RYAvdxo7JdAwihcZ6Jo73LKbZY+OW8dmh23/J
+ JaZu0br/zgQgW3QSwgi69c/9+nWbFtA34NOduc6CKqblmY4BFq89dt2vRchROh1/v+EbsiNZ+by
+ SjwjG49vkkOFeL4embiGpExxehLO6jqYdXObsVpcAfuYi1k0UCAayXtiAgmw+adJ2jfOI6H2hpK
+ VEgQw3bO8T+Y7ZFLgfAqM8sXmac65YDxO95aotsNxjAUGRDfpO5hy+C82bkObwMtBFzIk=
 X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
  fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
-X-Spam-Score: -1.31
-X-Spamd-Result: default: False [-1.31 / 50.00]; NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Spam-Score: -4.31
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: BEB871FB7D
+X-Spamd-Result: default: False [-4.31 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ TO_DN_SOME(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
  RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+]; DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
- RCVD_TLS_ALL(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  RCPT_COUNT_TWO(0.00)[2]; RCVD_COUNT_TWO(0.00)[2];
  TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 8B5321F8D4
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 1/5] Add cachestat fallback definitions
+Subject: [LTP] [PATCH v3 2/5] Add cachestat01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,268 +149,200 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
+This test verifies that cachestat() syscall is properly counting
+cached pages written inside a file. If storage device synchronization
+is requested, test will check if the number of dirty pages is zero.
+
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- configure.ac                       |  4 ++++
- include/lapi/mman.h                | 44 ++++++++++++++++++++++++++++++++++++++
- include/lapi/syscalls/aarch64.in   |  1 +
- include/lapi/syscalls/arc.in       |  1 +
- include/lapi/syscalls/arm.in       |  1 +
- include/lapi/syscalls/hppa.in      |  1 +
- include/lapi/syscalls/i386.in      |  1 +
- include/lapi/syscalls/ia64.in      |  1 +
- include/lapi/syscalls/loongarch.in |  1 +
- include/lapi/syscalls/mips_n32.in  |  1 +
- include/lapi/syscalls/mips_n64.in  |  1 +
- include/lapi/syscalls/mips_o32.in  |  1 +
- include/lapi/syscalls/powerpc.in   |  1 +
- include/lapi/syscalls/powerpc64.in |  1 +
- include/lapi/syscalls/s390.in      |  1 +
- include/lapi/syscalls/s390x.in     |  1 +
- include/lapi/syscalls/sh.in        |  1 +
- include/lapi/syscalls/sparc.in     |  1 +
- include/lapi/syscalls/sparc64.in   |  1 +
- include/lapi/syscalls/x86_64.in    |  1 +
- 20 files changed, 66 insertions(+)
+ runtest/syscalls                                  |   2 +
+ testcases/kernel/syscalls/cachestat/.gitignore    |   1 +
+ testcases/kernel/syscalls/cachestat/Makefile      |  10 ++
+ testcases/kernel/syscalls/cachestat/cachestat.h   |  27 ++++++
+ testcases/kernel/syscalls/cachestat/cachestat01.c | 106 ++++++++++++++++++++++
+ 5 files changed, 146 insertions(+)
 
-diff --git a/configure.ac b/configure.ac
-index 1f8796c87..cbcf308e5 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -91,6 +91,7 @@ AC_SUBST(HAVE_FTS_H, $have_fts)
- AC_CHECK_HEADERS(linux/vm_sockets.h, [], [], [#include <sys/socket.h>])
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 27eb9a86b..ce974b317 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -62,6 +62,8 @@ capset04 capset04
  
- AC_CHECK_FUNCS_ONCE([ \
-+    cachestat \
-     clone3 \
-     close_range \
-     copy_file_range \
-@@ -243,6 +244,9 @@ AC_CHECK_TYPES([struct mount_attr],,,[
- #endif
- ])
+ cacheflush01 cacheflush01
  
-+AC_CHECK_TYPES([struct cachestat_range],,,[#include <sys/mman.h>])
-+AC_CHECK_TYPES([struct cachestat],,,[#include <sys/mman.h>])
++cachestat01 cachestat01
 +
- # Tools knobs
- 
- # Bash
-diff --git a/include/lapi/mman.h b/include/lapi/mman.h
+ chdir01 chdir01
+ chdir01A symlink01 -T chdir01
+ chdir04 chdir04
+diff --git a/testcases/kernel/syscalls/cachestat/.gitignore b/testcases/kernel/syscalls/cachestat/.gitignore
 new file mode 100644
-index 000000000..244ad9f31
+index 000000000..daea1f4be
 --- /dev/null
-+++ b/include/lapi/mman.h
-@@ -0,0 +1,44 @@
++++ b/testcases/kernel/syscalls/cachestat/.gitignore
+@@ -0,0 +1 @@
++cachestat01
+diff --git a/testcases/kernel/syscalls/cachestat/Makefile b/testcases/kernel/syscalls/cachestat/Makefile
+new file mode 100644
+index 000000000..62b00d2f4
+--- /dev/null
++++ b/testcases/kernel/syscalls/cachestat/Makefile
+@@ -0,0 +1,10 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++
++LDLIBS += -lrt
++
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/cachestat/cachestat.h b/testcases/kernel/syscalls/cachestat/cachestat.h
+new file mode 100644
+index 000000000..efce6dc7f
+--- /dev/null
++++ b/testcases/kernel/syscalls/cachestat/cachestat.h
+@@ -0,0 +1,27 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++#ifndef CACHESTAT_H__
++#define CACHESTAT_H__
++
++#include "tst_test.h"
++#include "lapi/mman.h"
++
++static inline void print_cachestat(struct cachestat *cs)
++{
++	tst_res(TDEBUG,
++		"nr_cache=%lu "
++		"nr_dirty=%lu "
++		"nr_writeback=%lu "
++		"nr_evicted=%lu "
++		"nr_recently_evicted=%lu",
++		cs->nr_cache,
++		cs->nr_dirty,
++		cs->nr_writeback,
++		cs->nr_evicted,
++		cs->nr_recently_evicted);
++}
++
++#endif
+diff --git a/testcases/kernel/syscalls/cachestat/cachestat01.c b/testcases/kernel/syscalls/cachestat/cachestat01.c
+new file mode 100644
+index 000000000..7b0700f2c
+--- /dev/null
++++ b/testcases/kernel/syscalls/cachestat/cachestat01.c
+@@ -0,0 +1,106 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
 + */
 +
-+#ifndef LAPI_MMAN_H__
-+#define LAPI_MMAN_H__
-+
-+#include <stdint.h>
-+#include <sys/mman.h>
-+#include "config.h"
-+#include "syscalls.h"
-+
-+#ifndef HAVE_STRUCT_CACHESTAT_RANGE
-+struct cachestat_range {
-+	uint64_t off;
-+	uint64_t len;
-+};
-+#endif
-+
-+#ifndef HAVE_STRUCT_CACHESTAT
-+struct cachestat {
-+	uint64_t nr_cache;
-+	uint64_t nr_dirty;
-+	uint64_t nr_writeback;
-+	uint64_t nr_evicted;
-+	uint64_t nr_recently_evicted;
-+};
-+#endif
-+
-+#ifndef HAVE_CACHESTAT
-+/*
-+ * cachestat: wrapper function of cachestat
++/*\
++ * [Description]
 + *
-+ * Returns: It returns status of cachestat syscall
++ * This test verifies that cachestat() syscall is properly counting cached pages
++ * written inside a file. If storage device synchronization is requested, test
++ * will check if the number of dirty pages is zero.
++ *
++ * [Algorithm]
++ *
++ * - create a file with specific amount of pages
++ * - synchronize storage device, if needed
++ * - monitor file with cachestat()
++ * - check if the right amount of pages have been moved into cache
++ * - if storage device synchronization is requested, check that dirty pages is
++ *    zero
 + */
-+static inline int cachestat(int fd, struct cachestat_range *cstat_range,
-+	struct cachestat *cstat, unsigned int flags)
-+{
-+	return tst_syscall(__NR_cachestat, fd, cstat_range, cstat, flags);
-+}
-+#endif
 +
-+#endif /* LAPI_MMAN_H__ */
-diff --git a/include/lapi/syscalls/aarch64.in b/include/lapi/syscalls/aarch64.in
-index 3e7797718..ef0aa04a3 100644
---- a/include/lapi/syscalls/aarch64.in
-+++ b/include/lapi/syscalls/aarch64.in
-@@ -300,4 +300,5 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
- _sysctl 1078
-diff --git a/include/lapi/syscalls/arc.in b/include/lapi/syscalls/arc.in
-index 7fde1d263..3eaa6a8f1 100644
---- a/include/lapi/syscalls/arc.in
-+++ b/include/lapi/syscalls/arc.in
-@@ -320,3 +320,4 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
-diff --git a/include/lapi/syscalls/arm.in b/include/lapi/syscalls/arm.in
-index 8e76ad164..b52a32b6b 100644
---- a/include/lapi/syscalls/arm.in
-+++ b/include/lapi/syscalls/arm.in
-@@ -399,3 +399,4 @@ landlock_add_rule (__NR_SYSCALL_BASE+445)
- landlock_restrict_self (__NR_SYSCALL_BASE+446)
- memfd_secret (__NR_SYSCALL_BASE+447)
- futex_waitv (__NR_SYSCALL_BASE+449)
-+cachestat (__NR_SYSCALL_BASE+451)
-diff --git a/include/lapi/syscalls/hppa.in b/include/lapi/syscalls/hppa.in
-index 60c02aff2..4919ee65d 100644
---- a/include/lapi/syscalls/hppa.in
-+++ b/include/lapi/syscalls/hppa.in
-@@ -47,3 +47,4 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
-diff --git a/include/lapi/syscalls/i386.in b/include/lapi/syscalls/i386.in
-index 31ec1ecb2..cff40957a 100644
---- a/include/lapi/syscalls/i386.in
-+++ b/include/lapi/syscalls/i386.in
-@@ -434,3 +434,4 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
-diff --git a/include/lapi/syscalls/ia64.in b/include/lapi/syscalls/ia64.in
-index 2e56da7f9..11d4b46f4 100644
---- a/include/lapi/syscalls/ia64.in
-+++ b/include/lapi/syscalls/ia64.in
-@@ -347,3 +347,4 @@ landlock_create_ruleset 1468
- landlock_add_rule 1469
- landlock_restrict_self 1470
- futex_waitv 1473
-+cachestat 1475
-diff --git a/include/lapi/syscalls/loongarch.in b/include/lapi/syscalls/loongarch.in
-index 301f611f6..9bf6a7deb 100644
---- a/include/lapi/syscalls/loongarch.in
-+++ b/include/lapi/syscalls/loongarch.in
-@@ -305,3 +305,4 @@ memfd_secret 447
- process_mrelease 448
- futex_waitv 449
- set_mempolicy_home_node 450
-+cachestat 451
-diff --git a/include/lapi/syscalls/mips_n32.in b/include/lapi/syscalls/mips_n32.in
-index 5f0fe65eb..a76c82593 100644
---- a/include/lapi/syscalls/mips_n32.in
-+++ b/include/lapi/syscalls/mips_n32.in
-@@ -374,3 +374,4 @@ landlock_create_ruleset 6444
- landlock_add_rule 6445
- landlock_restrict_self 6446
- futex_waitv 6449
-+cachestat 6451
-diff --git a/include/lapi/syscalls/mips_n64.in b/include/lapi/syscalls/mips_n64.in
-index f81c60e66..df991efd5 100644
---- a/include/lapi/syscalls/mips_n64.in
-+++ b/include/lapi/syscalls/mips_n64.in
-@@ -350,3 +350,4 @@ landlock_create_ruleset 5444
- landlock_add_rule 5445
- landlock_restrict_self 5446
- futex_waitv 5449
-+cachestat 5451
-diff --git a/include/lapi/syscalls/mips_o32.in b/include/lapi/syscalls/mips_o32.in
-index c2beffb75..826b7d66e 100644
---- a/include/lapi/syscalls/mips_o32.in
-+++ b/include/lapi/syscalls/mips_o32.in
-@@ -420,3 +420,4 @@ landlock_create_ruleset 4444
- landlock_add_rule 4445
- landlock_restrict_self 4446
- futex_waitv 4449
-+cachestat 4451
-diff --git a/include/lapi/syscalls/powerpc.in b/include/lapi/syscalls/powerpc.in
-index 5460e4197..798ed9050 100644
---- a/include/lapi/syscalls/powerpc.in
-+++ b/include/lapi/syscalls/powerpc.in
-@@ -427,3 +427,4 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
-diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
-index 5460e4197..798ed9050 100644
---- a/include/lapi/syscalls/powerpc64.in
-+++ b/include/lapi/syscalls/powerpc64.in
-@@ -427,3 +427,4 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
-diff --git a/include/lapi/syscalls/s390.in b/include/lapi/syscalls/s390.in
-index 275b27f47..126938095 100644
---- a/include/lapi/syscalls/s390.in
-+++ b/include/lapi/syscalls/s390.in
-@@ -414,3 +414,4 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
-diff --git a/include/lapi/syscalls/s390x.in b/include/lapi/syscalls/s390x.in
-index c200d02b2..18f2496a0 100644
---- a/include/lapi/syscalls/s390x.in
-+++ b/include/lapi/syscalls/s390x.in
-@@ -362,3 +362,4 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
-diff --git a/include/lapi/syscalls/sh.in b/include/lapi/syscalls/sh.in
-index 6f482a77b..ae6f26050 100644
---- a/include/lapi/syscalls/sh.in
-+++ b/include/lapi/syscalls/sh.in
-@@ -408,3 +408,4 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
-diff --git a/include/lapi/syscalls/sparc.in b/include/lapi/syscalls/sparc.in
-index 7181e80a0..409fa2729 100644
---- a/include/lapi/syscalls/sparc.in
-+++ b/include/lapi/syscalls/sparc.in
-@@ -413,3 +413,4 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
-diff --git a/include/lapi/syscalls/sparc64.in b/include/lapi/syscalls/sparc64.in
-index c96ab2021..e13cf163e 100644
---- a/include/lapi/syscalls/sparc64.in
-+++ b/include/lapi/syscalls/sparc64.in
-@@ -378,3 +378,4 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
-diff --git a/include/lapi/syscalls/x86_64.in b/include/lapi/syscalls/x86_64.in
-index 3082ca110..05b1bee55 100644
---- a/include/lapi/syscalls/x86_64.in
-+++ b/include/lapi/syscalls/x86_64.in
-@@ -355,6 +355,7 @@ landlock_create_ruleset 444
- landlock_add_rule 445
- landlock_restrict_self 446
- futex_waitv 449
-+cachestat 451
- rt_sigaction 512
- rt_sigreturn 513
- ioctl 514
++#include <stdlib.h>
++#include "cachestat.h"
++
++#define MNTPOINT "mntpoint"
++#define FILENAME MNTPOINT "/myfile.bin"
++
++static int page_size;
++static char *page_data;
++static struct cachestat *cs;
++static struct cachestat_range *cs_range;
++
++static void test_cached_pages(const unsigned int use_sync, const int num_pages)
++{
++	int fd;
++
++	tst_res(TINFO, "%s file synchronization", use_sync ? "Enable" : "Disable");
++	tst_res(TINFO, "Number of pages: %d", num_pages);
++
++	memset(cs, 0, sizeof(struct cachestat));
++
++	fd = SAFE_OPEN(FILENAME, O_RDWR | O_CREAT, 0600);
++
++	for (int i = 0; i < num_pages; i++)
++		SAFE_WRITE(0, fd, page_data, page_size);
++
++	if (use_sync)
++		fsync(fd);
++
++	cs_range->off = 0;
++	cs_range->len = page_size * num_pages;
++
++	TST_EXP_PASS(cachestat(fd, cs_range, cs, 0));
++	print_cachestat(cs);
++
++	TST_EXP_EQ_LI(cs->nr_cache + cs->nr_evicted, num_pages);
++
++	if (use_sync)
++		TST_EXP_EQ_LI(cs->nr_dirty, 0);
++
++	SAFE_CLOSE(fd);
++	SAFE_UNLINK(FILENAME);
++}
++
++static void run(unsigned int use_sync)
++{
++	for (int i = 0; i < 15; i++)
++		test_cached_pages(use_sync, 1 << i);
++}
++
++static void setup(void)
++{
++	page_size = (int)sysconf(_SC_PAGESIZE);
++
++	page_data = SAFE_MALLOC(page_size);
++	memset(page_data, 'a', page_size);
++}
++
++static void cleanup(void)
++{
++	if (page_data)
++		free(page_data);
++}
++
++static struct tst_test test = {
++	.test = run,
++	.tcnt = 2,
++	.setup = setup,
++	.cleanup = cleanup,
++	.needs_tmpdir = 1,
++	.min_kver = "6.5",
++	.mount_device = 1,
++	.mntpoint = MNTPOINT,
++	.all_filesystems = 1,
++	.skip_filesystems = (const char *const []) {
++		"fuse",
++		"tmpfs",
++		NULL
++	},
++	.bufs = (struct tst_buffers []) {
++		{&cs, .size = sizeof(struct cachestat)},
++		{&cs_range, .size = sizeof(struct cachestat_range)},
++		{}
++	},
++};
 
 -- 
 2.43.0
