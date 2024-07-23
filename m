@@ -1,21 +1,21 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 772D0939B9A
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2024 09:17:11 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 080C1939CE2
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2024 10:42:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3AC383D1C45
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2024 09:17:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C30623D1C0C
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2024 10:42:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 924E33CC2E7
- for <ltp@lists.linux.it>; Tue, 23 Jul 2024 09:15:34 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id CD6223D1BEC
+ for <ltp@lists.linux.it>; Tue, 23 Jul 2024 10:41:48 +0200 (CEST)
+Authentication-Results: in-3.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
  (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
@@ -24,101 +24,106 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F40E5201DA5
- for <ltp@lists.linux.it>; Tue, 23 Jul 2024 09:15:33 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D6A201A00E0A
+ for <ltp@lists.linux.it>; Tue, 23 Jul 2024 10:41:44 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F2DE81F8BD;
- Tue, 23 Jul 2024 07:15:32 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6BD6F1FBAA;
+ Tue, 23 Jul 2024 08:41:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1721718933; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1721724103; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Hh/dJ2f1BL+kc8udVWGZU0tzFi/R8QKyhyKIfkPSHMs=;
- b=jC3FT6S+1NK3wDYIEzlSM67LI5COn/JMja4IELqRlLEqFv6HFDNbrzy3smX8j8X2PSwqYY
- GKoSLXi9Rcuo3VuBXhgTAiMJVpY7M1wabTXQahqOqauq6wNZX0cYy+umn7wwH8f3GNQOFa
- 1xeqg9D2TqN0ZTGO4bodipDE8bDrrpM=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=IlVLKWcb4j6GxjfnIB34qJM99zHuQJATyua+BXS34Oc=;
+ b=ns7Yo7MH9sBh1B+gJ4HThnXH+S+DhQx7Z0VCgmhLWm47OWzXStDOZZIlfKeqLtQYsQDlMb
+ JGyLGLPyctKWbxxhLCbY3XABDE4/5+QlUFzSBYiRD3xHEwBHz+ZzoPBlqnqRQg6h44/LW4
+ CgB6ncb/2R94JXPkIonp7j2N979t4dY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1721718933;
+ s=susede2_ed25519; t=1721724103;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Hh/dJ2f1BL+kc8udVWGZU0tzFi/R8QKyhyKIfkPSHMs=;
- b=XttJudhnywO6E/3J0BN5KbUbXH8UkpduEhaYMwvkZRyvZN5XrQRedt3GMAqitCrKjRH6jx
- paU/3dzfxtPpRvDg==
+ content-transfer-encoding:content-transfer-encoding;
+ bh=IlVLKWcb4j6GxjfnIB34qJM99zHuQJATyua+BXS34Oc=;
+ b=0LrETkm1ShnVSuC8ajHYfN8rK8tU7SizF+5eKjsrHfEWHPJtMj2p0JSzBf3swIKicOGhDO
+ uizvA9OYKzp27SDQ==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ns7Yo7MH;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=0LrETkm1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1721718932; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1721724103; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Hh/dJ2f1BL+kc8udVWGZU0tzFi/R8QKyhyKIfkPSHMs=;
- b=koizE1ymD0QR95W+OQl60AgkzTEsLzXvix7Bx+tG3mrfvhA4b+oEsN4sPJvbLYRuZSI9r6
- p0XZqIvfwOGxW2HhR6XojcqfJ/wtQCCaU7+gekbhjGgdp7mWweu22hCwA5FRKnjckSpdkV
- mzpIXQLjo6n1NIqfQNOPPp8qzDigo4Q=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=IlVLKWcb4j6GxjfnIB34qJM99zHuQJATyua+BXS34Oc=;
+ b=ns7Yo7MH9sBh1B+gJ4HThnXH+S+DhQx7Z0VCgmhLWm47OWzXStDOZZIlfKeqLtQYsQDlMb
+ JGyLGLPyctKWbxxhLCbY3XABDE4/5+QlUFzSBYiRD3xHEwBHz+ZzoPBlqnqRQg6h44/LW4
+ CgB6ncb/2R94JXPkIonp7j2N979t4dY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1721718932;
+ s=susede2_ed25519; t=1721724103;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Hh/dJ2f1BL+kc8udVWGZU0tzFi/R8QKyhyKIfkPSHMs=;
- b=fFB394ynhhM8AVnKhRoLxPSZogujKDoF/ZC86L+PkNPHq0QTSrNN9kj9+W+1vH4J+CQvAw
- 7vSX7LcvTXDp5WAg==
+ content-transfer-encoding:content-transfer-encoding;
+ bh=IlVLKWcb4j6GxjfnIB34qJM99zHuQJATyua+BXS34Oc=;
+ b=0LrETkm1ShnVSuC8ajHYfN8rK8tU7SizF+5eKjsrHfEWHPJtMj2p0JSzBf3swIKicOGhDO
+ uizvA9OYKzp27SDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D65D21393E;
- Tue, 23 Jul 2024 07:15:32 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4BBFB13888;
+ Tue, 23 Jul 2024 08:41:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ODZ4MpRYn2bKUQAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Tue, 23 Jul 2024 07:15:32 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id S6w0EMdsn2Z/bAAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Tue, 23 Jul 2024 08:41:43 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Tue, 23 Jul 2024 09:15:07 +0200
+Date: Tue, 23 Jul 2024 10:41:10 +0200
+Message-Id: <20240723-mseal-v2-0-5aa872d611bc@suse.com>
 MIME-Version: 1.0
-Message-Id: <20240723-ioctl_ficlone-v2-7-33075bbc117f@suse.com>
-References: <20240723-ioctl_ficlone-v2-0-33075bbc117f@suse.com>
-In-Reply-To: <20240723-ioctl_ficlone-v2-0-33075bbc117f@suse.com>
+X-B4-Tracking: v=1; b=H4sIAKdsn2YC/y3MQQ7CIBCF4as0sxYzEAvBlfcwXSAdLIkthlGia
+ bi72HT5v7x8KzDlSAznboVMJXJMSwt16MBPbrmTiGNrUKhOqNGImck9xBicl0qbHq2G9n1mCvG
+ zOdeh9RT5lfJ3Y4v8r7sgcReKFCiC7u3NkjUU3IXfTEefZhhqrT8rF6UvmQAAAA==
 To: ltp@lists.linux.it
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3302;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1894;
  i=andrea.cervesato@suse.com; h=from:subject:message-id;
- bh=KpkpQupmNbIiatHAaqliQTbObRxX5k9ZTFBuxWCjw6c=;
- b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmn1h+H5USHsjkyQcDqp86G0bBJoXXXyBKckll3
- w5f/M5d37qJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZp9YfgAKCRDLzBqyILPm
- RvxDC/0f6ZS+YecWlDTCIFXw9hbuVBga9BIe1GESTE2p+U0lxaziV7Fw3T4SIyZ2vmPOxPyWeGs
- zOp2apUXithk0+t9lsKynMoF/MJlckQq4bgJoD2GLC7e0oWiIZjvx0ujJlYc0mpceVQlgySNmH2
- Xy8T/2ADRXrMw7/l2xPLVBG5fWmcnLwgKX0BcnHv3a0slRXoemDE3qAEN08freYQWqCFF1hxg4M
- wiguIn10HMw9qtv8VGlGveLMo8ZbrWiplz+nMNLXAz/SYwvqfQ/EPxUzW/wG5h7ahFh4pa0Xrzz
- YAHQL41Yq6N2+v039KjgwXr2P8Dq0aP6sgZ91uMtazfAYK0VDF6NEDmAJU7w+YcyJ6nM1invv97
- 2Ynou7e3LqpAKWEpixSKvFPQIG4JWoEnCQ74OhlZWvrEiGrefLRkCFeIldi73T6qlTre2JWwuia
- FrowdHDnmRYfDsuq2UKFgR4KygHVxmALngjD45RHyqmKM/fcwg/pgcYnUp5GAlg47qIFw=
+ bh=Jf7Fut3bRc94eju04vYgLqq0irSI0PBhIbUjjA8HysU=;
+ b=owEB7QES/pANAwAIAcvMGrIgs+ZGAcsmYgBmn2yu3OrMSEmIBUcX9OxfdrwmoFKhyaSkcP1Nt
+ PxAp4yZScOJAbMEAAEIAB0WIQT1ysFzUKRW0sIb39jLzBqyILPmRgUCZp9srgAKCRDLzBqyILPm
+ RmDeC/4ukTYvlFjYTB/7TubIWjb25Nif/rIy4ZmD0FjwjDCsOvU+aoLRnu01ua+dyqflgVXwtxZ
+ r5ks+URv+WY9eDeFNFW1MzI8sxddsfy7dH6wIGkjeKlcFzHV3EakhYwL0uPuc89LXcYI6lx6T2M
+ 8dbRxMrzkiHwuYVNqHmx0JMeviLEJBUg2GmPbo05kfkBoWSgNgtpLPzQHtV1CXgmLP2QUrlASd+
+ fAS0n6pn1i9XPPYBfLwR9OZGBleJJoIsAfawbgVPKFagGmWNrggmCzjUr9YQxV03IC2mCVpGvrH
+ AjSFyr/Hn5jpAJ/Pmmnl7HC3ti9X+s+WVAY4UeIJqABigVIGw3DF802iG05ckBf3jNMfwVdUrIf
+ wX/a+SSfq1uVRBi+CgeLkLD+35xsE/GPkNiKpnGz+JKWIpcRFY2uSUuin0uVjzHvQwMkepvvzGk
+ ynKLqLKG29LH0K070Yv6mJTibJd4Bg8ZauW/0CHAcVkW2GIgY72jtLNYo4JI/H1gBxPAs=
 X-Developer-Key: i=andrea.cervesato@suse.com; a=openpgp;
  fpr=F5CAC17350A456D2C21BDFD8CBCC1AB220B3E646
-X-Spam-Score: -1.10
-X-Spamd-Result: default: False [-1.10 / 50.00]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+X-Spam-Score: -4.31
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 6BD6F1FBAA
+X-Spamd-Result: default: False [-4.31 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ RCPT_COUNT_TWO(0.00)[2]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email]
-X-Spam-Level: 
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.de:dkim];
+ RCVD_COUNT_TWO(0.00)[2]; DKIM_TRACE(0.00)[suse.de:+]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 7/7] Add ioctl_ficlone04 test
+Subject: [LTP] [PATCH v2 0/2] Add mseal() testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,145 +140,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Smoke test for mseal() syscall added in the kernel 6.10. All information
+can be found at the following link:
 
-This test verifies that ioctl() FICLONE/FICLONERANGE feature raises
-the right error according with bad file descriptors.
+https://docs.kernel.org/userspace-api/mseal.html
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/syscalls/ioctl/.gitignore        |   1 +
- testcases/kernel/syscalls/ioctl/ioctl_ficlone04.c | 108 ++++++++++++++++++++++
- 2 files changed, 109 insertions(+)
+Changes in v2:
+- don't use TST_ABI32 var anymore, but let tst_syscall handling ENOSYS 
+- call protection key syscalls via tst_syscall
+- Link to v1: https://lore.kernel.org/r/20240610-mseal-v1-0-f659b9e97efa@suse.com
 
-diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
-index 9f995b1ad..1f099ff95 100644
---- a/testcases/kernel/syscalls/ioctl/.gitignore
-+++ b/testcases/kernel/syscalls/ioctl/.gitignore
-@@ -25,5 +25,6 @@
- /ioctl_ficlone01
- /ioctl_ficlone02
- /ioctl_ficlone03
-+/ioctl_ficlone04
- /ioctl_ficlonerange01
- /ioctl_ficlonerange02
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ficlone04.c b/testcases/kernel/syscalls/ioctl/ioctl_ficlone04.c
-new file mode 100644
-index 000000000..6be0b8d41
---- /dev/null
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_ficlone04.c
-@@ -0,0 +1,108 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2024 Andrea Cervesato andrea.cervesato@suse.com
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * This test verifies that ioctl() FICLONE/FICLONERANGE feature raises the right
-+ * error according with bad file descriptors.
-+ */
-+
-+#include "tst_test.h"
-+#include "lapi/fs.h"
-+
-+static void test_bad_fd(struct tst_fd *fd_src, struct tst_fd *fd_dst)
-+{
-+	if (fd_src->type == TST_FD_FILE && fd_src->type == fd_dst->type) {
-+		tst_res(TCONF, "Skipping file: SUCCESS");
-+		return;
-+	}
-+
-+	switch (fd_src->type) {
-+	case TST_FD_DEV_ZERO:
-+	case TST_FD_PROC_MAPS:
-+	case TST_FD_PIPE_READ:
-+	case TST_FD_PIPE_WRITE:
-+	case TST_FD_UNIX_SOCK:
-+	case TST_FD_INET_SOCK:
-+	case TST_FD_EPOLL:
-+	case TST_FD_EVENTFD:
-+	case TST_FD_SIGNALFD:
-+	case TST_FD_TIMERFD:
-+	case TST_FD_PIDFD:
-+	case TST_FD_FANOTIFY:
-+	case TST_FD_INOTIFY:
-+	case TST_FD_USERFAULTFD:
-+	case TST_FD_PERF_EVENT:
-+	case TST_FD_IO_URING:
-+	case TST_FD_BPF_MAP:
-+	case TST_FD_FSOPEN:
-+	case TST_FD_FSPICK:
-+	case TST_FD_OPEN_TREE:
-+	case TST_FD_MEMFD:
-+	case TST_FD_MEMFD_SECRET:
-+		return;
-+	default:
-+		break;
-+	}
-+
-+	int exp_errnos[2];
-+
-+	switch (fd_src->type) {
-+	case TST_FD_FILE:
-+		exp_errnos[0] = 0;
-+		break;
-+	case TST_FD_DIR:
-+		exp_errnos[0] = EISDIR;
-+		break;
-+	case TST_FD_PATH:
-+	case TST_FD_OPEN_TREE:
-+		exp_errnos[0] = EBADF;
-+		break;
-+	case TST_FD_DEV_ZERO:
-+		exp_errnos[0] = EXDEV;
-+		break;
-+	default:
-+		exp_errnos[0] = EINVAL;
-+		break;
-+	}
-+
-+	switch (fd_dst->type) {
-+	case TST_FD_FILE:
-+		exp_errnos[1] = 0;
-+		break;
-+	case TST_FD_DIR:
-+		exp_errnos[1] = EISDIR;
-+		break;
-+	case TST_FD_PATH:
-+	case TST_FD_OPEN_TREE:
-+		exp_errnos[1] = EBADF;
-+		break;
-+	default:
-+		exp_errnos[1] = EXDEV;
-+		break;
-+	}
-+
-+	TST_EXP_FAIL2_ARR(ioctl(fd_dst->fd, FICLONE, fd_src->fd),
-+		exp_errnos, ARRAY_SIZE(exp_errnos),
-+		"ioctl(%s, FICLONE, %s)",
-+		tst_fd_desc(fd_src),
-+		tst_fd_desc(fd_dst));
-+}
-+
-+static void run(void)
-+{
-+	TST_FD_FOREACH(fd_src) {
-+		TST_FD_FOREACH(fd_dst)
-+			test_bad_fd(&fd_src, &fd_dst);
-+	}
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.min_kver = "4.5",
-+	.needs_root = 1,
-+	.needs_tmpdir = 1,
-+};
+---
+Andrea Cervesato (2):
+      Add mseal() syscall declaration
+      Add mseal01 test
 
+ include/lapi/syscalls/aarch64.in           |   1 +
+ include/lapi/syscalls/arc.in               |   1 +
+ include/lapi/syscalls/arm.in               |   1 +
+ include/lapi/syscalls/hppa.in              |   1 +
+ include/lapi/syscalls/i386.in              |   1 +
+ include/lapi/syscalls/ia64.in              |   1 +
+ include/lapi/syscalls/loongarch.in         |   1 +
+ include/lapi/syscalls/mips_n32.in          |   1 +
+ include/lapi/syscalls/mips_n64.in          |   1 +
+ include/lapi/syscalls/mips_o32.in          |   1 +
+ include/lapi/syscalls/powerpc.in           |   1 +
+ include/lapi/syscalls/powerpc64.in         |   1 +
+ include/lapi/syscalls/s390.in              |   1 +
+ include/lapi/syscalls/s390x.in             |   1 +
+ include/lapi/syscalls/sh.in                |   1 +
+ include/lapi/syscalls/sparc.in             |   1 +
+ include/lapi/syscalls/sparc64.in           |   1 +
+ include/lapi/syscalls/x86_64.in            |   1 +
+ testcases/kernel/syscalls/mseal/.gitignore |   1 +
+ testcases/kernel/syscalls/mseal/Makefile   |   7 ++
+ testcases/kernel/syscalls/mseal/mseal01.c  | 173 +++++++++++++++++++++++++++++
+ 21 files changed, 199 insertions(+)
+---
+base-commit: c5d95b6d34e2356bd19e6b646da06f1bce66a024
+change-id: 20240607-mseal-dfac12675096
+
+Best regards,
 -- 
-2.43.0
+Andrea Cervesato <andrea.cervesato@suse.com>
 
 
 -- 
