@@ -2,20 +2,20 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1215945D44
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2024 13:30:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40A8D945D45
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2024 13:32:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 617793D1CCA
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2024 13:30:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F2E883D1F66
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2024 13:32:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 24A913D1C3E
- for <ltp@lists.linux.it>; Fri,  2 Aug 2024 13:30:33 +0200 (CEST)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id B67763D1C3E
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2024 13:31:56 +0200 (CEST)
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
@@ -24,52 +24,90 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E5CE414001FB
- for <ltp@lists.linux.it>; Fri,  2 Aug 2024 13:30:32 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1BB3C601BD5
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2024 13:31:55 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7B834218EC;
- Fri,  2 Aug 2024 11:30:31 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B87D1218FF;
+ Fri,  2 Aug 2024 11:31:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1722598314;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=d05kLnBrlF2/NjzdS8Bs8gvLwyN7YRw/SIn5e6Gr63A=;
+ b=jx7rrBJoXeFBSgSgELbkuFcgNrLPjNXqyTadJTbHEf/LIYsg3pvPJc6ona5RWDWUnlfAr8
+ bVphgQ29f8dRzGt/DQZ+ZE43tT6fm+z3lpJPsTXwJRh3rMUHXUoJemiggKfrsVIS287xlI
+ F9qkwPfdCg5/ZeKRGUut00gqjHzH6W8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1722598314;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=d05kLnBrlF2/NjzdS8Bs8gvLwyN7YRw/SIn5e6Gr63A=;
+ b=vmFGiCLMKFsW+SVoFr7zXp+t9O8JiNVh8/FSTjUt2K0+c9xDyQ6EoAy2kcZKuWa/xK68ZA
+ coxx/wjcuL7jYACQ==
 Authentication-Results: smtp-out1.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1722598314;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=d05kLnBrlF2/NjzdS8Bs8gvLwyN7YRw/SIn5e6Gr63A=;
+ b=jx7rrBJoXeFBSgSgELbkuFcgNrLPjNXqyTadJTbHEf/LIYsg3pvPJc6ona5RWDWUnlfAr8
+ bVphgQ29f8dRzGt/DQZ+ZE43tT6fm+z3lpJPsTXwJRh3rMUHXUoJemiggKfrsVIS287xlI
+ F9qkwPfdCg5/ZeKRGUut00gqjHzH6W8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1722598314;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=d05kLnBrlF2/NjzdS8Bs8gvLwyN7YRw/SIn5e6Gr63A=;
+ b=vmFGiCLMKFsW+SVoFr7zXp+t9O8JiNVh8/FSTjUt2K0+c9xDyQ6EoAy2kcZKuWa/xK68ZA
+ coxx/wjcuL7jYACQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 52DF91388E;
- Fri,  2 Aug 2024 11:30:31 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 60B901388E;
+ Fri,  2 Aug 2024 11:31:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id OM62ElfDrGZkTAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 02 Aug 2024 11:30:31 +0000
-Date: Fri, 2 Aug 2024 13:30:32 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id zHf0EqrDrGbkTAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 02 Aug 2024 11:31:54 +0000
+Date: Fri, 2 Aug 2024 13:31:54 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <20240802113032.GA1626431@pevik>
+Message-ID: <20240802113154.GB1626431@pevik>
 References: <20240802-fchmodat2-v6-0-dcb0293979b3@suse.com>
- <20240802-fchmodat2-v6-3-dcb0293979b3@suse.com>
+ <20240802-fchmodat2-v6-1-dcb0293979b3@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240802-fchmodat2-v6-3-dcb0293979b3@suse.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 7B834218EC
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Spam-Score: -4.00
+In-Reply-To: <20240802-fchmodat2-v6-1-dcb0293979b3@suse.com>
+X-Spamd-Result: default: False [-7.50 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; ARC_NA(0.00)[]; MISSING_XM_UA(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:replyto];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ REPLYTO_EQ_FROM(0.00)[]
+X-Spam-Score: -7.50
 X-Spam-Level: 
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v6 3/5] Add fchmodat2 fallback definition
+Subject: Re: [LTP] [PATCH v6 1/5] Add SAFE_SYMLINKAT macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,37 +128,6 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Andrea,
 
-
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
-> ---
->  include/lapi/stat.h | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-
-> diff --git a/include/lapi/stat.h b/include/lapi/stat.h
-> index 3606c9eb0..8e38ecfef 100644
-> --- a/include/lapi/stat.h
-> +++ b/include/lapi/stat.h
-> @@ -229,4 +229,20 @@ static inline int statx(int dirfd, const char *pathname, unsigned int flags,
->  # define STATX_ATTR_VERITY	0x00100000
->  #endif
-
-> +#define SAFE_FCHMODAT2(dfd, filename, mode, flags) \
-> +	safe_fchmodat2(__FILE__, __LINE__, (dfd), (filename), (mode), (flags))
-> +
-> +static inline int safe_fchmodat2(const char *file, const int lineno,
-> +		int dfd, const char *filename, mode_t mode, int flags)
-> +{
-> +	int ret;
-> +
-> +	ret = tst_syscall(__NR_fchmodat2, dfd, filename, mode, flags);
-> +	if (ret == -1)
-> +		tst_brk_(file, lineno, TBROK | TERRNO, "%s(%d,%s,%d,%d) error",
-> +			__func__, dfd, filename, mode, flags);
-I'm sorry, I overlook that errno check is not needed. tst_syscall() does it
-(see include/lapi/syscalls.h). Please remove it before merge.
-
-With this:
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
 Kind regards,
