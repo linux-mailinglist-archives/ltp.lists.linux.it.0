@@ -1,50 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 389AD94FFBA
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2024 10:24:03 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD2AF94FFC1
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2024 10:24:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 021A23D2146
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2024 10:24:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 916423D2149
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2024 10:24:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A07753D1CA3
- for <ltp@lists.linux.it>; Sat, 10 Aug 2024 22:01:27 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 857293D1CA3
+ for <ltp@lists.linux.it>; Sat, 10 Aug 2024 22:01:31 +0200 (CEST)
 Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1;
- helo=dfw.source.kernel.org; envelope-from=cel@kernel.org;
- receiver=lists.linux.it)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ smtp.mailfrom=kernel.org (client-ip=145.40.73.55; helo=sin.source.kernel.org;
+ envelope-from=cel@kernel.org; receiver=lists.linux.it)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 06F3720026A
- for <ltp@lists.linux.it>; Sat, 10 Aug 2024 22:01:26 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2D4722005DB
+ for <ltp@lists.linux.it>; Sat, 10 Aug 2024 22:01:29 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id AE8F260C69;
- Sat, 10 Aug 2024 20:01:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94D93C4AF0E;
- Sat, 10 Aug 2024 20:01:24 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 0A6DACE1024;
+ Sat, 10 Aug 2024 20:01:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F7BC4AF0D;
+ Sat, 10 Aug 2024 20:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1723320085;
- bh=u+IH9tsTVs/bHPSST6zrsf9bpXULsn1VNiF0CZSuli4=;
+ s=k20201202; t=1723320087;
+ bh=UVvGKjNkfbegLXzdyWRN4cGHbBWTIrLb9AIOOzEp/d4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rIUiWLZ2Q1AX4hfG8hfJJ/GBTgqGJXX7xLTvR3L3oUUamiwYvi7WxcoLe8JnxS7R2
- 4HtUjKuV7o+dx9H4gxqA+3souUlgrD3N7mq/J9u0dVB6If5nfR//afQdzKnO9qZf6x
- yQma7cB/3vFHh76Ir8bvfy/yItZvuxwlp9s2PYZbd2Pr1idc2Edxjx8PPOxtq3GbIY
- l33B1ulgn5d3evBmVhKszKZG9GPrOD4I9VTXerYwWpnez71Zb9IEZjy+h6M5SeQhTi
- 6ULULDD2ji7ipHFvUVVsrd4TgHNNAbV9VFyu7eybMDrrdNhZqPpdmAOTgcZT7bYLwh
- C42cg+Maes7fg==
+ b=ctTWWYCow39Q1QirBTFEeg7hNPHRG5cME2PdJxqXlyUjbKJkM45kF4cQV6hBiF6fI
+ oZC/f0cRb1VfVWWDAcGSEHG41k1V1h43bQ9HQfHVNfQ2OhKVeM9yZEmtUCG0C8zRwv
+ Bm8dIwyCfHzkdaDUfA0nJpsaemnoJ2MMVo489McgsdwltNwN8ikyMQHLbi10zWVa3Y
+ wODWbKz7Je8W+fx0C0WmQ+pRX0WWKGvFF9VV7N7aywd4HCxNVUfEGGMZoYMiwH5eK+
+ dbsHX4nYdvCufVmnJrPJ5iNGwfwv/PQQIyuklsx4xtqRpU8897esTVLR4WB9BZiaQy
+ 9IiJF0eneLYBA==
 From: cel@kernel.org
 To: <stable@vger.kernel.org>
-Date: Sat, 10 Aug 2024 16:00:08 -0400
-Message-ID: <20240810200009.9882-18-cel@kernel.org>
+Date: Sat, 10 Aug 2024 16:00:09 -0400
+Message-ID: <20240810200009.9882-19-cel@kernel.org>
 X-Mailer: git-send-email 2.45.1
 In-Reply-To: <20240810200009.9882-1-cel@kernel.org>
 References: <20240810200009.9882-1-cel@kernel.org>
@@ -56,8 +55,8 @@ X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Mailman-Approved-At: Tue, 13 Aug 2024 10:19:43 +0200
-Subject: [LTP] [PATCH 6.1.y 17/18] nfsd: remove nfsd_stats,
- make th_cnt a global counter
+Subject: [LTP] [PATCH 6.1.y 18/18] nfsd: make svc_stat per-network namespace
+ instead of global
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,101 +78,119 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit e41ee44cc6a473b1f414031782c3b4283d7f3e5f ]
+[ Upstream commit 16fb9808ab2c99979f081987752abcbc5b092eac ]
 
-This is the last global stat, take it out of the nfsd_stats struct and
-make it a global part of nfsd, report it the same as always.
+The final bit of stats that is global is the rpc svc_stat.  Move this
+into the nfsd_net struct and use that everywhere instead of the global
+struct.  Remove the unused global struct.
 
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 ---
- fs/nfsd/nfsd.h   | 1 +
- fs/nfsd/nfssvc.c | 5 +++--
- fs/nfsd/stats.c  | 3 +--
- fs/nfsd/stats.h  | 6 ------
- 4 files changed, 5 insertions(+), 10 deletions(-)
+ fs/nfsd/netns.h  |  4 ++++
+ fs/nfsd/nfsctl.c |  2 ++
+ fs/nfsd/nfssvc.c |  2 +-
+ fs/nfsd/stats.c  | 10 ++++------
+ fs/nfsd/stats.h  |  2 --
+ 5 files changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/fs/nfsd/nfsd.h b/fs/nfsd/nfsd.h
-index fa0144a74267..0e557fb60a0e 100644
---- a/fs/nfsd/nfsd.h
-+++ b/fs/nfsd/nfsd.h
-@@ -69,6 +69,7 @@ extern struct mutex		nfsd_mutex;
- extern spinlock_t		nfsd_drc_lock;
- extern unsigned long		nfsd_drc_max_mem;
- extern unsigned long		nfsd_drc_mem_used;
-+extern atomic_t			nfsd_th_cnt;		/* number of available threads */
+diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+index 55ab92326384..548422b24a7d 100644
+--- a/fs/nfsd/netns.h
++++ b/fs/nfsd/netns.h
+@@ -13,6 +13,7 @@
+ #include <linux/nfs4.h>
+ #include <linux/percpu_counter.h>
+ #include <linux/siphash.h>
++#include <linux/sunrpc/stats.h>
  
- extern const struct seq_operations nfs_exports_op;
+ /* Hash tables for nfs4_clientid state */
+ #define CLIENT_HASH_BITS                 4
+@@ -183,6 +184,9 @@ struct nfsd_net {
+ 	/* Per-netns stats counters */
+ 	struct percpu_counter    counter[NFSD_STATS_COUNTERS_NUM];
  
++	/* sunrpc svc stats */
++	struct svc_stat          nfsd_svcstats;
++
+ 	/* longest hash chain seen */
+ 	unsigned int             longest_chain;
+ 
+diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
+index d7a481aa1dac..813ae75e7128 100644
+--- a/fs/nfsd/nfsctl.c
++++ b/fs/nfsd/nfsctl.c
+@@ -1453,6 +1453,8 @@ static __net_init int nfsd_init_net(struct net *net)
+ 	retval = nfsd_stat_counters_init(nn);
+ 	if (retval)
+ 		goto out_repcache_error;
++	memset(&nn->nfsd_svcstats, 0, sizeof(nn->nfsd_svcstats));
++	nn->nfsd_svcstats.program = &nfsd_program;
+ 	nn->nfsd_versions = NULL;
+ 	nn->nfsd4_minorversions = NULL;
+ 	nfsd4_init_leases_net(nn);
 diff --git a/fs/nfsd/nfssvc.c b/fs/nfsd/nfssvc.c
-index 5ddb1f36f82e..8b944620d798 100644
+index 8b944620d798..9eb529969b22 100644
 --- a/fs/nfsd/nfssvc.c
 +++ b/fs/nfsd/nfssvc.c
-@@ -34,6 +34,7 @@
- 
- #define NFSDDBG_FACILITY	NFSDDBG_SVC
- 
-+atomic_t			nfsd_th_cnt = ATOMIC_INIT(0);
- extern struct svc_program	nfsd_program;
- static int			nfsd(void *vrqstp);
- #if defined(CONFIG_NFSD_V2_ACL) || defined(CONFIG_NFSD_V3_ACL)
-@@ -955,7 +956,7 @@ nfsd(void *vrqstp)
- 
- 	current->fs->umask = 0;
- 
--	atomic_inc(&nfsdstats.th_cnt);
-+	atomic_inc(&nfsd_th_cnt);
- 
- 	set_freezable();
- 
-@@ -979,7 +980,7 @@ nfsd(void *vrqstp)
- 		validate_process_creds();
- 	}
- 
--	atomic_dec(&nfsdstats.th_cnt);
-+	atomic_dec(&nfsd_th_cnt);
- 
- out:
- 	/* Take an extra ref so that the svc_put in svc_exit_thread()
+@@ -657,7 +657,7 @@ int nfsd_create_serv(struct net *net)
+ 	if (nfsd_max_blksize == 0)
+ 		nfsd_max_blksize = nfsd_get_default_max_blksize();
+ 	nfsd_reset_versions(nn);
+-	serv = svc_create_pooled(&nfsd_program, &nfsd_svcstats,
++	serv = svc_create_pooled(&nfsd_program, &nn->nfsd_svcstats,
+ 				 nfsd_max_blksize, nfsd);
+ 	if (serv == NULL)
+ 		return -ENOMEM;
 diff --git a/fs/nfsd/stats.c b/fs/nfsd/stats.c
-index fdc090284c8d..cd5e48382fba 100644
+index cd5e48382fba..36f1373bbe3f 100644
 --- a/fs/nfsd/stats.c
 +++ b/fs/nfsd/stats.c
-@@ -27,7 +27,6 @@
+@@ -27,10 +27,6 @@
  
  #include "nfsd.h"
  
--struct nfsd_stats	nfsdstats;
- struct svc_stat		nfsd_svcstats = {
- 	.program	= &nfsd_program,
- };
-@@ -47,7 +46,7 @@ static int nfsd_show(struct seq_file *seq, void *v)
- 		   percpu_counter_sum_positive(&nn->counter[NFSD_STATS_IO_WRITE]));
+-struct svc_stat		nfsd_svcstats = {
+-	.program	= &nfsd_program,
+-};
+-
+ static int nfsd_show(struct seq_file *seq, void *v)
+ {
+ 	struct net *net = pde_data(file_inode(seq->file));
+@@ -56,7 +52,7 @@ static int nfsd_show(struct seq_file *seq, void *v)
+ 	seq_puts(seq, "\nra 0 0 0 0 0 0 0 0 0 0 0 0\n");
  
- 	/* thread usage: */
--	seq_printf(seq, "th %u 0", atomic_read(&nfsdstats.th_cnt));
-+	seq_printf(seq, "th %u 0", atomic_read(&nfsd_th_cnt));
+ 	/* show my rpc info */
+-	svc_seq_show(seq, &nfsd_svcstats);
++	svc_seq_show(seq, &nn->nfsd_svcstats);
  
- 	/* deprecated thread usage histogram stats */
- 	for (i = 0; i < 10; i++)
+ #ifdef CONFIG_NFSD_V4
+ 	/* Show count for individual nfsv4 operations */
+@@ -119,7 +115,9 @@ void nfsd_stat_counters_destroy(struct nfsd_net *nn)
+ 
+ void nfsd_proc_stat_init(struct net *net)
+ {
+-	svc_proc_register(net, &nfsd_svcstats, &nfsd_proc_ops);
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++
++	svc_proc_register(net, &nn->nfsd_svcstats, &nfsd_proc_ops);
+ }
+ 
+ void nfsd_proc_stat_shutdown(struct net *net)
 diff --git a/fs/nfsd/stats.h b/fs/nfsd/stats.h
-index 28f5c720e9b3..9b22b1ae929f 100644
+index 9b22b1ae929f..14525e854cba 100644
 --- a/fs/nfsd/stats.h
 +++ b/fs/nfsd/stats.h
-@@ -10,12 +10,6 @@
+@@ -10,8 +10,6 @@
  #include <uapi/linux/nfsd/stats.h>
  #include <linux/percpu_counter.h>
  
--struct nfsd_stats {
--	atomic_t	th_cnt;		/* number of available threads */
--};
+-extern struct svc_stat		nfsd_svcstats;
 -
--extern struct nfsd_stats	nfsdstats;
--
- extern struct svc_stat		nfsd_svcstats;
- 
  int nfsd_percpu_counters_init(struct percpu_counter *counters, int num);
+ void nfsd_percpu_counters_reset(struct percpu_counter *counters, int num);
+ void nfsd_percpu_counters_destroy(struct percpu_counter *counters, int num);
 -- 
 2.45.1
 
