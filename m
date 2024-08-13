@@ -1,96 +1,94 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 481D594FFC3
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2024 10:24:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B53494FF7C
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2024 10:19:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1723537163; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : content-transfer-encoding :
+ content-type : sender : from;
+ bh=DDAVCwyJMp483dUb6fK6gmb8mf6wMXpMDIDe77sz8T4=;
+ b=DmLCAduQDcbwjj3N6uVVwm69yidOkVOWT0URxL3epDBx/QXHFiMqgCGwPl3DukNkhptf8
+ zdDGKs+zB2LWDdtCxFyaHU8MuOZMyQHsKM6IH3HJR5wNOhFkuLIHbh2uXeig3+gl7uv65eD
+ 4NgiDVHkIw3H3LRt7uO1pFWtU5O6gwc=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0762E3D20FE
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2024 10:24:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B51E33C8914
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2024 10:19:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D3B513C8910
- for <ltp@lists.linux.it>; Tue, 13 Aug 2024 10:11:24 +0200 (CEST)
-Authentication-Results: in-3.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
- envelope-from=schwab@suse.de; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 4678B3C8910
+ for <ltp@lists.linux.it>; Tue, 13 Aug 2024 10:19:21 +0200 (CEST)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D2B661A00A5F
- for <ltp@lists.linux.it>; Tue, 13 Aug 2024 10:11:23 +0200 (CEST)
-Received: from hawking.nue2.suse.org (unknown [10.168.4.11])
- by smtp-out1.suse.de (Postfix) with ESMTP id 9E148211BF;
- Tue, 13 Aug 2024 08:11:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723536680; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=yYTUWTJpz17f7w2t2sDOJ398mJQiSnNKCuUByANBOAc=;
- b=hHfvXZjLZ3XhN++7KXKkTgik8l5VPDuRwH8IDyvDrJZv7+pp0v9dMlLAMuL6KHhz+Ve43V
- xOS4vj+BlGDgw2NQ9BAZPyIzxi23CPUA8WypYGCRQPuQgAOdLkdY1EnBdsby+Y8MNzT3jY
- 4NarRIzaKrE7ji31zs5o90zTt92lSR0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723536680;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=yYTUWTJpz17f7w2t2sDOJ398mJQiSnNKCuUByANBOAc=;
- b=PtI+n46gkK3yYJiJTyiM3+sm1efjR5f/UKEK+UadmSogPvjCr9WeyzIIbHNCHB5zIIT2JK
- b5YMhPGV88YR7CAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723536680; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=yYTUWTJpz17f7w2t2sDOJ398mJQiSnNKCuUByANBOAc=;
- b=hHfvXZjLZ3XhN++7KXKkTgik8l5VPDuRwH8IDyvDrJZv7+pp0v9dMlLAMuL6KHhz+Ve43V
- xOS4vj+BlGDgw2NQ9BAZPyIzxi23CPUA8WypYGCRQPuQgAOdLkdY1EnBdsby+Y8MNzT3jY
- 4NarRIzaKrE7ji31zs5o90zTt92lSR0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723536680;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=yYTUWTJpz17f7w2t2sDOJ398mJQiSnNKCuUByANBOAc=;
- b=PtI+n46gkK3yYJiJTyiM3+sm1efjR5f/UKEK+UadmSogPvjCr9WeyzIIbHNCHB5zIIT2JK
- b5YMhPGV88YR7CAQ==
-Received: by hawking.nue2.suse.org (Postfix, from userid 17005)
- id 8F61F4A04EA; Tue, 13 Aug 2024 10:11:20 +0200 (CEST)
-From: Andreas Schwab <schwab@suse.de>
-To: ltp@lists.linux.it
-X-Yow: If you STAY in China, I'll give you 4,000 BUSHELS of "ATOMIC MOUSE"
- pencil sharpeners!!
-Date: Tue, 13 Aug 2024 10:11:20 +0200
-Message-ID: <mvm7cckdeqf.fsf@suse.de>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 640D41400F3B
+ for <ltp@lists.linux.it>; Tue, 13 Aug 2024 10:19:20 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a7a8caef11fso587332966b.0
+ for <ltp@lists.linux.it>; Tue, 13 Aug 2024 01:19:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1723537160; x=1724141960; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=CIwkXdcG1CkXxY2dVxy/1GdgSvwKac8OSS+wA1oOTbQ=;
+ b=IzHLL7B9Z32OHjTTUYGCiReaCJUourlybZPIxvM1DrQaw56wyg3Qv46tW4+pRvWLg+
+ MMgtxfPC7NcFBrpJ+cJ/PCVocHWhDYPzX0PQcSVQ8F92mh6QrNILLmes3evCCQHvDVmo
+ U0nz8UPGsFoS19+HdemrueJYf36H2Vh786Ak0uh+A21b+vc8geZginkpSd6M9vr3svCn
+ rEV9GvdAjay99BZIsebSyNDdmlkAfQRexeo95+wwgveKmrcUeKX3CB1b2aM2UgOA2GC5
+ sdzk0KrAHynrh1mHI5l2z/E0CBYaPqXicnSUDnZP/s3hxreAShIRAJ4wmybxpESSHpHm
+ QQ3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723537160; x=1724141960;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=CIwkXdcG1CkXxY2dVxy/1GdgSvwKac8OSS+wA1oOTbQ=;
+ b=sscw198zgr79trukZLtlDrwcmAuzHi3US5QLBUk9BZrc/Cc8Oifm82FYNWl8WdkdwQ
+ Rgzoa/qcYT73fF2nompg07z3Ek8VKTtU3R7sntqKTCjiKFTGQNOzIRlY7PN2a2+1CWr8
+ uOqX2Spp0DqJZmiceMNHNJYweOaSwor+iO8GRuHkCwFs3w4DxFSoesBkMwPd339+yxW+
+ PPI1dzyjBPIVfZ9h5mljJRh62oTsM8AdlYwBRO6Vn9kG1ZJKQlU1xc5G/k5m+XMHeIrB
+ Vy5lfnuzg2ZxXCYu5qBM6lkdLb+6ort8LKKTZvBF/cV9bKJ8ZhaDEwq+oK92AZAumvTa
+ 5EvA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUDej69WgS4X27DyTsTMTruVt9sa+dWl1PtOuP3Ygz07Gm1FDf5tGfIkrEHlYt9joslxHVOpGx+h5CSo0fAxI9bhjc=
+X-Gm-Message-State: AOJu0YypMPro9pBOonY1YFcqR+oQwUSi0Ahj95Huy81wFK9SlOXpz7PI
+ UeansJQivRzorEDO/qSSGKP9iWtFV9XntkpHJ2OCOAddqNBm2U7LbOr5SXhikhuA5Kz+Xpw77GE
+ VQmVciw==
+X-Google-Smtp-Source: AGHT+IFstzGqNu9tpFD+4zRASs4tTcGm/nYM3Sq5a2mcsZTQ31aQbsQSuEL+9rPXvEz4/3LLKVRXKw==
+X-Received: by 2002:a17:907:e68b:b0:a7a:b43e:86cf with SMTP id
+ a640c23a62f3a-a80ed1cece4mr217267466b.27.1723537159037; 
+ Tue, 13 Aug 2024 01:19:19 -0700 (PDT)
+Received: from [10.232.133.86] ([88.128.88.112])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a80f3f47b26sm48914666b.41.2024.08.13.01.19.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Aug 2024 01:19:18 -0700 (PDT)
+Message-ID: <4b3c0504-93c9-4359-ab50-35fef5f7ee9c@suse.com>
+Date: Tue, 13 Aug 2024 10:19:18 +0200
 MIME-Version: 1.0
-X-Spam-Score: -4.20
-X-Spamd-Result: default: False [-4.20 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.993]; RCVD_NO_TLS_LAST(0.10)[];
- MIME_GOOD(-0.10)[text/plain]; FUZZY_BLOCKED(0.00)[rspamd.com];
- FROM_HAS_DN(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
- RCVD_COUNT_ONE(0.00)[1]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email]
-X-Spam-Level: 
+User-Agent: Mozilla Thunderbird
+To: Andreas Schwab <schwab@suse.de>, ltp@lists.linux.it
+References: <mvm7cckdeqf.fsf@suse.de>
+Content-Language: en-US
+In-Reply-To: <mvm7cckdeqf.fsf@suse.de>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Tue, 13 Aug 2024 10:19:42 +0200
-Subject: [LTP] [PATCH] Fix landlock06 test
+Subject: Re: [LTP] [PATCH] Fix landlock06 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,40 +100,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Initialize the flag variable, so that FIOASYNC does not spuriously fail
-with ENOTTY (/dev/zero has no support for FASYNC).
+Hi Andreas,
 
-Signed-off-by: Andreas Schwab <schwab@suse.de>
----
- testcases/kernel/syscalls/landlock/landlock06.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+thank you for this patch. I was just about to debug the test and to find 
+a solution :-)
+Do you have a validation test (for example in openQA) for this patch?
 
-diff --git a/testcases/kernel/syscalls/landlock/landlock06.c b/testcases/kernel/syscalls/landlock/landlock06.c
-index 4dc1f532a..1a6e59241 100644
---- a/testcases/kernel/syscalls/landlock/landlock06.c
-+++ b/testcases/kernel/syscalls/landlock/landlock06.c
-@@ -28,7 +28,7 @@ static void run(void)
- 	if (SAFE_FORK())
- 		return;
- 
--	int flag;
-+	int flag = 0;
- 	size_t sz = 0;
- 
- 	TST_EXP_PASS(ioctl(file_fd, FIONREAD, &sz));
--- 
-2.46.0
-
-
--- 
-Andreas Schwab, SUSE Labs, schwab@suse.de
-GPG Key fingerprint = 0196 BAD8 1CE9 1970 F4BE  1748 E4D4 88E3 0EEA B9D7
-"And now for something completely different."
+On 8/13/24 10:11, Andreas Schwab wrote:
+> Initialize the flag variable, so that FIOASYNC does not spuriously fail
+> with ENOTTY (/dev/zero has no support for FASYNC).
+>
+> Signed-off-by: Andreas Schwab <schwab@suse.de>
+> ---
+>   testcases/kernel/syscalls/landlock/landlock06.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/testcases/kernel/syscalls/landlock/landlock06.c b/testcases/kernel/syscalls/landlock/landlock06.c
+> index 4dc1f532a..1a6e59241 100644
+> --- a/testcases/kernel/syscalls/landlock/landlock06.c
+> +++ b/testcases/kernel/syscalls/landlock/landlock06.c
+> @@ -28,7 +28,7 @@ static void run(void)
+>   	if (SAFE_FORK())
+>   		return;
+>   
+> -	int flag;
+> +	int flag = 0;
+>   	size_t sz = 0;
+>   
+>   	TST_EXP_PASS(ioctl(file_fd, FIONREAD, &sz));
+Andrea
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
