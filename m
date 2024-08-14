@@ -2,90 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3F4E9517CB
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Aug 2024 11:36:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1723628182; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-transfer-encoding :
- content-type : sender : from;
- bh=qsGNtHKEXq67Pg6PDHrrE5f4IVpSR7sY+eKHPi+gK4c=;
- b=oEVuCKbEuB8kPQktFOKg5Vlng6ID+hDVEgC3laYzqjTF+91noHlNVWeuuHLUnNVvOsTFZ
- +fycmBYDFqnwXBaJGlqadmczs9yOotrFUuTWs8Fupq16e0ue/cLRnT5VghOXpcFL3v+TxPR
- q2ylRylnoMuymQlvR6LN13XuoB8I8o4=
+	by mail.lfdr.de (Postfix) with ESMTPS id 1879695182D
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Aug 2024 12:01:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A2A403D214F
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Aug 2024 11:36:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D465C3D2130
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Aug 2024 12:01:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0D5463D212D
- for <ltp@lists.linux.it>; Wed, 14 Aug 2024 11:36:10 +0200 (CEST)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 9D2723CBC79
+ for <ltp@lists.linux.it>; Wed, 14 Aug 2024 12:01:15 +0200 (CEST)
+Authentication-Results: in-3.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=uniontech.com (client-ip=54.254.200.128; helo=smtpbgsg2.qq.com;
+ envelope-from=lufei@uniontech.com; receiver=lists.linux.it)
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A178D140043B
- for <ltp@lists.linux.it>; Wed, 14 Aug 2024 11:36:09 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a7a83a968ddso645661566b.0
- for <ltp@lists.linux.it>; Wed, 14 Aug 2024 02:36:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1723628169; x=1724232969; darn=lists.linux.it;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Xh8Q+q0ak5N6LUPWrGQlnLeYWo7Nj/EWzO+H19/9xq8=;
- b=CGN/i6jmhzfkoE8UmjxnCdCnDcOisloWJX7Dbcl7dZK8VVdxYvvl7mfUieDVID6RcH
- +E4JPsoJCjUy0/QBRJyAAWupxXLisyhtMFlfAXMusSpNneo3V6c6pTMcInmHj1uP6G0/
- HVqzhtm/m2jotCT4Eju/O3Z+xkLtbIGC9KSe/3pNxc+eHNGmBAoJQl5EEK0Gd0vfyUF8
- UFIixoseXB9aLg98KFYHxOGNfseTpnj8LUCilff4bgv8kRWDwhuAbfhqYEa36DB5JXNg
- UWbKunBTNQ0DbZygef4FY3jjDsOWSH5BBPhMxgPkHP3yGaDueih5UqFQhOinQ8hGBtDt
- FGMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723628169; x=1724232969;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Xh8Q+q0ak5N6LUPWrGQlnLeYWo7Nj/EWzO+H19/9xq8=;
- b=l9kKytivUtkU400CsdZFY+pq+ZiPB5HNmL1MetTMGcAAPUDK6G8www3zV+Rjjpunqb
- 0sa6galZT2D/jv9p0DPjtskHQTCmtzN+kZjmdyMH4Kzrld3TdD63tZYWzfHoXn22LEi5
- q1u6HqSsWyvALrk4342xVOgvqYZdNXZRvLF7L7oV9IKR9qPV3i6bV2IUSdVx1xDC5pci
- d8tMgy9RjfF/S6YqKdl2eAidyoK7kz2WF8JfE1Rt9bmEUC0QnVcnNcgRFQrvW63yOpPh
- g2br+45DeacWjCvZ1XI1qbaG6NlgBKgDRPEg7A23SuiD1vxGUTLv9lPjdl4ifrLvK/vO
- Y4AA==
-X-Gm-Message-State: AOJu0Yzuqmq2zqZR5Rct1H2nwdeSGNoPPfBoxzaKJ6GtlvF/0FXqDfWD
- r/kj9Hda0YA7uXrSBvYOb/TUJM/HbW7BFjXTxqHE+3tJ+yNn5jPqg2giXy6keuE=
-X-Google-Smtp-Source: AGHT+IHzKdGXk+Zw64AbTaopEHHyZ3YCIxRIi1aarusetg2ROEV4MQ1vQCx05MXKBFIbr3R6z8/lxg==
-X-Received: by 2002:a17:907:e644:b0:a7a:9f0f:ab18 with SMTP id
- a640c23a62f3a-a8366c31ea8mr143792566b.20.1723628168229; 
- Wed, 14 Aug 2024 02:36:08 -0700 (PDT)
-Received: from [192.168.178.49] ([213.220.144.240])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a80f3feab58sm151028366b.95.2024.08.14.02.36.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Aug 2024 02:36:07 -0700 (PDT)
-Message-ID: <35eaf26b-386d-405f-86e9-ad085c8e9fdc@suse.com>
-Date: Wed, 14 Aug 2024 11:36:06 +0200
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 20E941A00EBB
+ for <ltp@lists.linux.it>; Wed, 14 Aug 2024 12:01:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1723629671;
+ bh=QDa+ZMJVxm60wmbzM57DNeZ5vEO/JneINC7H0YQmiFM=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=pJgGzXkKMIhG8IeQuef5rdM7GgpBnF6EYck+guwYxvkvDUVjo7MQSA2B2wRAMU5n+
+ 0kTRDq/VTjij+6duFGfNgDaT7b74TR5ATMCi597ey20nqEgKT2FRzfxi8vaXM1bkLO
+ t4ZGeDkEy7QMc5WfJQrL7p58SmnwItAP1XNMYxpM=
+X-QQ-mid: bizesmtp83t1723629667tqkm0u1g
+X-QQ-Originating-IP: OIcytaM+Peqfobi/RSo7BbGeRl5OSxqEopNJuiJ2rFw=
+Received: from localhost.localdomain ( [125.76.217.162])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 14 Aug 2024 18:01:05 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 9666637479271596458
+From: lufei <lufei@uniontech.com>
+To: ltp@lists.linux.it
+Date: Wed, 14 Aug 2024 18:00:57 +0800
+Message-Id: <20240814100059.4680-1-lufei@uniontech.com>
+X-Mailer: git-send-email 2.39.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Petr Vorel <pvorel@suse.cz>, Andrea Cervesato <andrea.cervesato@suse.de>
-References: <20240814-landlock_remove_doc_stats-v1-1-b5821d0bb3de@suse.com>
- <20240814092806.GA521753@pevik>
-Content-Language: en-US
-In-Reply-To: <20240814092806.GA521753@pevik>
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz8a-0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH RESEND] Remove landlock from coverage stats
+Subject: [LTP] [PATCH 1/3] fix make check errors: replace space with tabs,
+ remove unecessary spaces.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,62 +66,60 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Cc: ltp@lists.linux.it
+Cc: lufei <lufei@uniontech.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+replace space with tabs, remove unecessary spaces.
 
-On 8/14/24 11:28, Petr Vorel wrote:
-> Hi Andrea,
->
->> Following syscalls can be removed from the documentation coverage
->> statistics since we they are tested inside landlock testing suite:
->> - landlock_create_ruleset
->> - landlock_add_rule
->> - landlock_restrict_self
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
->
-> Thanks!
->
-> BTW for these stats, how about generating them on fly?
->
-> Take list from glibc sysdeps/unix/sysv/linux/syscall-names.list [1]
-> and git grep source code? Or do we want to add them manually to make sure we add
-> only syscalls which are really tested?
->
-> BTW this list could be also used for include/lapi/syscall/ generation
-> (Cyril asked for some automatic approach).
-I started to work on it, but I didn't find time yet. When I merge all 
-tests for increase LTP coverage I will work on it.
->
-> Kind regards,
-> Petr
->
-> [1] https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/unix/sysv/linux/syscall-names.list;h=7871f93b94d731d26928a3e12e4ca8b88606aad5;hb=2be0572f3a41d5d5a8bb3b2b04244b7c01ac0f58
->
->> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
->> ---
->>   doc/conf.py | 3 +++
->>   1 file changed, 3 insertions(+)
->> diff --git a/doc/conf.py b/doc/conf.py
->> index ac1220450..425f72257 100644
->> --- a/doc/conf.py
->> +++ b/doc/conf.py
->> @@ -88,6 +88,9 @@ def generate_syscalls_stats(_):
->>           'getpmsg',
->>           'putmsg',
->>           'putpmsg',
->> +        'landlock_create_ruleset',
->> +        'landlock_add_rule',
->> +        'landlock_restrict_self',
->>       ]
->>       # populate with not implemented, reserved, unmaintained syscalls defined
-Andrea
+Signed-off-by: lufei <lufei@uniontech.com>
+---
+ testcases/kernel/syscalls/acct/acct01.c | 6 +++---
+ testcases/kernel/syscalls/acct/acct02.c | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/acct/acct01.c b/testcases/kernel/syscalls/acct/acct01.c
+index 60cf4681e..b9b08ef67 100644
+--- a/testcases/kernel/syscalls/acct/acct01.c
++++ b/testcases/kernel/syscalls/acct/acct01.c
+@@ -73,8 +73,8 @@ static struct test_case {
+ 	char **filename;
+ 	char *desc;
+ 	int exp_errno;
+-	void (*setupfunc) ();
+-	void (*cleanfunc) ();
++	void (*setupfunc)();
++	void (*cleanfunc)();
+ } tcases[] = {
+ 	{&file_eisdir,  FILE_EISDIR,  EISDIR,  NULL,   NULL},
+ 	{&file_eaccess, FILE_EACCESS, EACCES,  NULL,   NULL},
+@@ -126,7 +126,7 @@ static void verify_acct(unsigned int nr)
+ 		tcase->setupfunc();
+ 
+ 	TST_EXP_FAIL(acct(*tcase->filename), tcase->exp_errno,
+-	             "acct(%s)", tcase->desc);
++		"acct(%s)", tcase->desc);
+ 
+ 	if (tcase->cleanfunc)
+ 		tcase->cleanfunc();
+diff --git a/testcases/kernel/syscalls/acct/acct02.c b/testcases/kernel/syscalls/acct/acct02.c
+index d3f3d9d04..74019f430 100644
+--- a/testcases/kernel/syscalls/acct/acct02.c
++++ b/testcases/kernel/syscalls/acct/acct02.c
+@@ -186,7 +186,7 @@ static void run(void)
+ 
+ 		if (read_bytes != acct_size) {
+ 			tst_res(TFAIL, "incomplete read %i bytes, expected %i",
+-			        read_bytes, acct_size);
++					read_bytes, acct_size);
+ 			goto exit;
+ 		}
+ 
+-- 
+2.39.3
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
