@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 830A8952ABC
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:41:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B94C2952AC5
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:42:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4932C3D21C5
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:41:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6F9363D21FF
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:42:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
@@ -14,37 +14,37 @@ Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6B4F63D21BD
- for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:23 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id E39D43D21B2
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:37 +0200 (CEST)
 Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=linuxfoundation.org (client-ip=145.40.73.55;
- helo=sin.source.kernel.org; envelope-from=gregkh@linuxfoundation.org;
+ smtp.mailfrom=linuxfoundation.org (client-ip=139.178.84.217;
+ helo=dfw.source.kernel.org; envelope-from=gregkh@linuxfoundation.org;
  receiver=lists.linux.it)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5B88A10007D8
- for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:22 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E47A010008F5
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:36 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 454C1CE1795;
- Thu, 15 Aug 2024 08:40:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09B4CC32786;
- Thu, 15 Aug 2024 08:40:17 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2928B61AB3;
+ Thu, 15 Aug 2024 08:40:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 769C2C32786;
+ Thu, 15 Aug 2024 08:40:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1723711218;
- bh=Fv7QtCCtRe7WC0eitE115W6AJyanb/O9poMt3VP03Yw=;
+ s=korg; t=1723711234;
+ bh=gCPiilhSRi8i/9fMJSL76YWUHNFPbcbV2yuRGLpVBPY=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=ZnZ+OemcVxPf/lcVxQ7er5/wkqomq1M1UuCoAewJURaKc+WUo/b2buX4Zlio5qAoz
- jZlshsw8w/hgyi1qTJ0TfGe2ZYMcybjkbOTD+/oEJj0xajBiZjNKisfjdPKh8WNRAd
- M6AAbEZm4jgA3oth+r+vbi95HkL23ObncrDwqPGY=
+ b=e8Rt1LkcXskkD1wOihCAS2JbBz5lULp/Y8qfekloqd95nPXRRQ6P4uyZei58e3+Sd
+ WJwfIqxiaF5pdHN3UIwbbdqbtB8iGWKphH7yztF/DcRSSSDb0lCHTzjQnx8NJc5JCi
+ jZYJpwoRuuHggeS1KSG45+/Unonz+wcn2VCypdV0=
 To: calum.mackay@oracle.com, cel@kernel.org, chuck.lever@oracle.com,
- efuller@redhat.com, gregkh@linuxfoundation.org, jlayton@kernel.org,
+ dai.ngo@oracle.com, gregkh@linuxfoundation.org, jlayton@kernel.org,
  kernel-team@fb.com, ltp@lists.linux.it, pvorel@suse.cz, sherry.yang@oracle.com
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 15 Aug 2024 10:39:57 +0200
-In-Reply-To: <20240810200009.9882-3-cel@kernel.org>
-Message-ID: <2024081557-number-bullfrog-c97f@gregkh>
+Date: Thu, 15 Aug 2024 10:39:58 +0200
+In-Reply-To: <20240810200009.9882-2-cel@kernel.org>
+Message-ID: <2024081557-sadden-applaud-3f67@gregkh>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
@@ -55,8 +55,8 @@ X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] Patch "nfsd: move init of percpu reply_cache_stats counters
- back to nfsd_init_net" has been added to the 6.1-stable tree
+Subject: [LTP] Patch "nfsd: move reply cache initialization into nfsd
+ startup" has been added to the 6.1-stable tree
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,182 +77,111 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 This is a note to let you know that I've just added the patch titled
 
-    nfsd: move init of percpu reply_cache_stats counters back to nfsd_init_net
+    nfsd: move reply cache initialization into nfsd startup
 
 to the 6.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     nfsd-move-init-of-percpu-reply_cache_stats-counters-back-to-nfsd_init_net.patch
+     nfsd-move-reply-cache-initialization-into-nfsd-startup.patch
 and it can be found in the queue-6.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From stable+bounces-66323-greg=kroah.com@vger.kernel.org Sat Aug 10 22:00:38 2024
+From stable+bounces-66322-greg=kroah.com@vger.kernel.org Sat Aug 10 22:00:30 2024
 From: cel@kernel.org
-Date: Sat, 10 Aug 2024 15:59:53 -0400
-Subject: nfsd: move init of percpu reply_cache_stats counters back to nfsd_init_net
+Date: Sat, 10 Aug 2024 15:59:52 -0400
+Subject: nfsd: move reply cache initialization into nfsd startup
 To: <stable@vger.kernel.org>
-Cc: <linux-nfs@vger.kernel.org>, pvorel@suse.cz, sherry.yang@oracle.com, calum.mackay@oracle.com, kernel-team@fb.com, ltp@lists.linux.it, Jeff Layton <jlayton@kernel.org>, Eirik Fuller <efuller@redhat.com>
-Message-ID: <20240810200009.9882-3-cel@kernel.org>
+Cc: <linux-nfs@vger.kernel.org>, pvorel@suse.cz, sherry.yang@oracle.com, calum.mackay@oracle.com, kernel-team@fb.com, ltp@lists.linux.it, Jeff Layton <jlayton@kernel.org>, Dai Ngo <dai.ngo@oracle.com>
+Message-ID: <20240810200009.9882-2-cel@kernel.org>
 
 From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit ed9ab7346e908496816cffdecd46932035f66e2e ]
+[ Upstream commit f5f9d4a314da88c0a5faa6d168bf69081b7a25ae ]
 
-Commit f5f9d4a314da ("nfsd: move reply cache initialization into nfsd
-startup") moved the initialization of the reply cache into nfsd startup,
-but didn't account for the stats counters, which can be accessed before
-nfsd is ever started. The result can be a NULL pointer dereference when
-someone accesses /proc/fs/nfsd/reply_cache_stats while nfsd is still
-shut down.
+There's no need to start the reply cache before nfsd is up and running,
+and doing so means that we register a shrinker for every net namespace
+instead of just the ones where nfsd is running.
 
-This is a regression and a user-triggerable oops in the right situation:
+Move it to the per-net nfsd startup instead.
 
-- non-x86_64 arch
-- /proc/fs/nfsd is mounted in the namespace
-- nfsd is not started in the namespace
-- unprivileged user calls "cat /proc/fs/nfsd/reply_cache_stats"
-
-Although this is easy to trigger on some arches (like aarch64), on
-x86_64, calling this_cpu_ptr(NULL) evidently returns a pointer to the
-fixed_percpu_data. That struct looks just enough like a newly
-initialized percpu var to allow nfsd_reply_cache_stats_show to access
-it without Oopsing.
-
-Move the initialization of the per-net+per-cpu reply-cache counters
-back into nfsd_init_net, while leaving the rest of the reply cache
-allocations to be done at nfsd startup time.
-
-Kudos to Eirik who did most of the legwork to track this down.
-
-Cc: stable@vger.kernel.org # v6.3+
-Fixes: f5f9d4a314da ("nfsd: move reply cache initialization into nfsd startup")
-Reported-and-tested-by: Eirik Fuller <efuller@redhat.com>
-Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2215429
+Reported-by: Dai Ngo <dai.ngo@oracle.com>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Stable-dep-of: 4b14885411f7 ("nfsd: make all of the nfsd stats per-network namespace")
+Stable-dep-of: ed9ab7346e90 ("nfsd: move init of percpu reply_cache_stats counters back to nfsd_init_net")
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/nfsd/cache.h    |    2 ++
- fs/nfsd/nfscache.c |   25 ++++++++++++++-----------
- fs/nfsd/nfsctl.c   |   10 +++++++++-
- 3 files changed, 25 insertions(+), 12 deletions(-)
+ fs/nfsd/nfsctl.c |    8 --------
+ fs/nfsd/nfssvc.c |   10 +++++++++-
+ 2 files changed, 9 insertions(+), 9 deletions(-)
 
---- a/fs/nfsd/cache.h
-+++ b/fs/nfsd/cache.h
-@@ -80,6 +80,8 @@ enum {
- 
- int	nfsd_drc_slab_create(void);
- void	nfsd_drc_slab_free(void);
-+int	nfsd_net_reply_cache_init(struct nfsd_net *nn);
-+void	nfsd_net_reply_cache_destroy(struct nfsd_net *nn);
- int	nfsd_reply_cache_init(struct nfsd_net *);
- void	nfsd_reply_cache_shutdown(struct nfsd_net *);
- int	nfsd_cache_lookup(struct svc_rqst *rqstp, unsigned int start,
---- a/fs/nfsd/nfscache.c
-+++ b/fs/nfsd/nfscache.c
-@@ -148,12 +148,23 @@ void nfsd_drc_slab_free(void)
- 	kmem_cache_destroy(drc_slab);
- }
- 
--static int nfsd_reply_cache_stats_init(struct nfsd_net *nn)
-+/**
-+ * nfsd_net_reply_cache_init - per net namespace reply cache set-up
-+ * @nn: nfsd_net being initialized
-+ *
-+ * Returns zero on succes; otherwise a negative errno is returned.
-+ */
-+int nfsd_net_reply_cache_init(struct nfsd_net *nn)
- {
- 	return nfsd_percpu_counters_init(nn->counter, NFSD_NET_COUNTERS_NUM);
- }
- 
--static void nfsd_reply_cache_stats_destroy(struct nfsd_net *nn)
-+/**
-+ * nfsd_net_reply_cache_destroy - per net namespace reply cache tear-down
-+ * @nn: nfsd_net being freed
-+ *
-+ */
-+void nfsd_net_reply_cache_destroy(struct nfsd_net *nn)
- {
- 	nfsd_percpu_counters_destroy(nn->counter, NFSD_NET_COUNTERS_NUM);
- }
-@@ -169,17 +180,13 @@ int nfsd_reply_cache_init(struct nfsd_ne
- 	hashsize = nfsd_hashsize(nn->max_drc_entries);
- 	nn->maskbits = ilog2(hashsize);
- 
--	status = nfsd_reply_cache_stats_init(nn);
--	if (status)
--		goto out_nomem;
--
- 	nn->nfsd_reply_cache_shrinker.scan_objects = nfsd_reply_cache_scan;
- 	nn->nfsd_reply_cache_shrinker.count_objects = nfsd_reply_cache_count;
- 	nn->nfsd_reply_cache_shrinker.seeks = 1;
- 	status = register_shrinker(&nn->nfsd_reply_cache_shrinker,
- 				   "nfsd-reply:%s", nn->nfsd_name);
- 	if (status)
--		goto out_stats_destroy;
-+		return status;
- 
- 	nn->drc_hashtbl = kvzalloc(array_size(hashsize,
- 				sizeof(*nn->drc_hashtbl)), GFP_KERNEL);
-@@ -195,9 +202,6 @@ int nfsd_reply_cache_init(struct nfsd_ne
- 	return 0;
- out_shrinker:
- 	unregister_shrinker(&nn->nfsd_reply_cache_shrinker);
--out_stats_destroy:
--	nfsd_reply_cache_stats_destroy(nn);
--out_nomem:
- 	printk(KERN_ERR "nfsd: failed to allocate reply cache\n");
- 	return -ENOMEM;
- }
-@@ -217,7 +221,6 @@ void nfsd_reply_cache_shutdown(struct nf
- 									rp, nn);
- 		}
- 	}
--	nfsd_reply_cache_stats_destroy(nn);
- 
- 	kvfree(nn->drc_hashtbl);
- 	nn->drc_hashtbl = NULL;
 --- a/fs/nfsd/nfsctl.c
 +++ b/fs/nfsd/nfsctl.c
-@@ -1450,6 +1450,9 @@ static __net_init int nfsd_init_net(stru
- 	retval = nfsd_idmap_init(net);
- 	if (retval)
- 		goto out_idmap_error;
-+	retval = nfsd_net_reply_cache_init(nn);
-+	if (retval)
-+		goto out_repcache_error;
+@@ -1453,16 +1453,11 @@ static __net_init int nfsd_init_net(stru
  	nn->nfsd_versions = NULL;
  	nn->nfsd4_minorversions = NULL;
  	nfsd4_init_leases_net(nn);
-@@ -1458,6 +1461,8 @@ static __net_init int nfsd_init_net(stru
+-	retval = nfsd_reply_cache_init(nn);
+-	if (retval)
+-		goto out_cache_error;
+ 	get_random_bytes(&nn->siphash_key, sizeof(nn->siphash_key));
+ 	seqlock_init(&nn->writeverf_lock);
  
  	return 0;
  
-+out_repcache_error:
-+	nfsd_idmap_shutdown(net);
+-out_cache_error:
+-	nfsd_idmap_shutdown(net);
  out_idmap_error:
  	nfsd_export_shutdown(net);
  out_export_error:
-@@ -1466,9 +1471,12 @@ out_export_error:
+@@ -1471,9 +1466,6 @@ out_export_error:
  
  static __net_exit void nfsd_exit_net(struct net *net)
  {
-+	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
-+
-+	nfsd_net_reply_cache_destroy(nn);
+-	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+-
+-	nfsd_reply_cache_shutdown(nn);
  	nfsd_idmap_shutdown(net);
  	nfsd_export_shutdown(net);
--	nfsd_netns_free_versions(net_generic(net, nfsd_net_id));
-+	nfsd_netns_free_versions(nn);
- }
+ 	nfsd_netns_free_versions(net_generic(net, nfsd_net_id));
+--- a/fs/nfsd/nfssvc.c
++++ b/fs/nfsd/nfssvc.c
+@@ -427,16 +427,23 @@ static int nfsd_startup_net(struct net *
+ 	ret = nfsd_file_cache_start_net(net);
+ 	if (ret)
+ 		goto out_lockd;
+-	ret = nfs4_state_start_net(net);
++
++	ret = nfsd_reply_cache_init(nn);
+ 	if (ret)
+ 		goto out_filecache;
  
- static struct pernet_operations nfsd_net_ops = {
++	ret = nfs4_state_start_net(net);
++	if (ret)
++		goto out_reply_cache;
++
+ #ifdef CONFIG_NFSD_V4_2_INTER_SSC
+ 	nfsd4_ssc_init_umount_work(nn);
+ #endif
+ 	nn->nfsd_net_up = true;
+ 	return 0;
+ 
++out_reply_cache:
++	nfsd_reply_cache_shutdown(nn);
+ out_filecache:
+ 	nfsd_file_cache_shutdown_net(net);
+ out_lockd:
+@@ -454,6 +461,7 @@ static void nfsd_shutdown_net(struct net
+ 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+ 
+ 	nfs4_state_shutdown_net(net);
++	nfsd_reply_cache_shutdown(nn);
+ 	nfsd_file_cache_shutdown_net(net);
+ 	if (nn->lockd_up) {
+ 		lockd_down(net);
 
 
 Patches currently in stable-queue which might be from kroah.com@vger.kernel.org are
