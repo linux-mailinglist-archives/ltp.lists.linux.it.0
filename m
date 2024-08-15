@@ -2,61 +2,62 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B94C2952AC5
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:42:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06EDC952AC2
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:42:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6F9363D21FF
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:42:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B60FC3D21C3
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:42:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E39D43D21B2
- for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:37 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ by picard.linux.it (Postfix) with ESMTPS id EC40B3D21BB
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:31 +0200 (CEST)
+Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
  smtp.mailfrom=linuxfoundation.org (client-ip=139.178.84.217;
  helo=dfw.source.kernel.org; envelope-from=gregkh@linuxfoundation.org;
  receiver=lists.linux.it)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E47A010008F5
- for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:36 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A4B3760081C
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:30 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2928B61AB3;
- Thu, 15 Aug 2024 08:40:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 769C2C32786;
- Thu, 15 Aug 2024 08:40:34 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1D39E61A3E;
+ Thu, 15 Aug 2024 08:40:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D8CC32786;
+ Thu, 15 Aug 2024 08:40:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1723711234;
- bh=gCPiilhSRi8i/9fMJSL76YWUHNFPbcbV2yuRGLpVBPY=;
+ s=korg; t=1723711228;
+ bh=bjsPa5LWmVQ3d6tc3rpmk69k3qYw8zzill5jXOwLCzg=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=e8Rt1LkcXskkD1wOihCAS2JbBz5lULp/Y8qfekloqd95nPXRRQ6P4uyZei58e3+Sd
- WJwfIqxiaF5pdHN3UIwbbdqbtB8iGWKphH7yztF/DcRSSSDb0lCHTzjQnx8NJc5JCi
- jZYJpwoRuuHggeS1KSG45+/Unonz+wcn2VCypdV0=
+ b=eSqO4wjU6FRJ+GUtxOaZBU2G0nHOK+BFXt5CNt6UmzJl5rkvtubeRNcUTb120GXZF
+ oMfA3/xBQ+pV1mIqfuhRpncIpKhwKWB0kyg+gMsAgmVf7w7pE4Fqtpv7m556uFVkG9
+ IHrdlw1Gltytu126NsGQRFoc2ACyHDfNe4o+QK5Q=
 To: calum.mackay@oracle.com, cel@kernel.org, chuck.lever@oracle.com,
- dai.ngo@oracle.com, gregkh@linuxfoundation.org, jlayton@kernel.org,
- kernel-team@fb.com, ltp@lists.linux.it, pvorel@suse.cz, sherry.yang@oracle.com
+ gregkh@linuxfoundation.org, jlayton@kernel.org, kernel-team@fb.com,
+ ltp@lists.linux.it, pvorel@suse.cz, sherry.yang@oracle.com
 From: <gregkh@linuxfoundation.org>
 Date: Thu, 15 Aug 2024 10:39:58 +0200
-In-Reply-To: <20240810200009.9882-2-cel@kernel.org>
-Message-ID: <2024081557-sadden-applaud-3f67@gregkh>
+In-Reply-To: <20240810200009.9882-7-cel@kernel.org>
+Message-ID: <2024081558-habitable-python-5e96@gregkh>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
 X-Spam-Status: No, score=2.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SORTED_RECIPS,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SORTED_RECIPS,SPF_HELO_NONE,
+ SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled
+ version=4.0.0
 X-Spam-Level: **
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] Patch "nfsd: move reply cache initialization into nfsd
- startup" has been added to the 6.1-stable tree
+Subject: [LTP] Patch "NFSD: Refactor the duplicate reply cache shrinker" has
+ been added to the 6.1-stable tree
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,111 +78,153 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 This is a note to let you know that I've just added the patch titled
 
-    nfsd: move reply cache initialization into nfsd startup
+    NFSD: Refactor the duplicate reply cache shrinker
 
 to the 6.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     nfsd-move-reply-cache-initialization-into-nfsd-startup.patch
+     nfsd-refactor-the-duplicate-reply-cache-shrinker.patch
 and it can be found in the queue-6.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From stable+bounces-66322-greg=kroah.com@vger.kernel.org Sat Aug 10 22:00:30 2024
+From stable+bounces-66327-greg=kroah.com@vger.kernel.org Sat Aug 10 22:00:59 2024
 From: cel@kernel.org
-Date: Sat, 10 Aug 2024 15:59:52 -0400
-Subject: nfsd: move reply cache initialization into nfsd startup
+Date: Sat, 10 Aug 2024 15:59:57 -0400
+Subject: NFSD: Refactor the duplicate reply cache shrinker
 To: <stable@vger.kernel.org>
-Cc: <linux-nfs@vger.kernel.org>, pvorel@suse.cz, sherry.yang@oracle.com, calum.mackay@oracle.com, kernel-team@fb.com, ltp@lists.linux.it, Jeff Layton <jlayton@kernel.org>, Dai Ngo <dai.ngo@oracle.com>
-Message-ID: <20240810200009.9882-2-cel@kernel.org>
+Cc: <linux-nfs@vger.kernel.org>, pvorel@suse.cz, sherry.yang@oracle.com, calum.mackay@oracle.com, kernel-team@fb.com, ltp@lists.linux.it, Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>
+Message-ID: <20240810200009.9882-7-cel@kernel.org>
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit f5f9d4a314da88c0a5faa6d168bf69081b7a25ae ]
+[ Upstream commit c135e1269f34dfdea4bd94c11060c83a3c0b3c12 ]
 
-There's no need to start the reply cache before nfsd is up and running,
-and doing so means that we register a shrinker for every net namespace
-instead of just the ones where nfsd is running.
+Avoid holding the bucket lock while freeing cache entries. This
+change also caps the number of entries that are freed when the
+shrinker calls to reduce the shrinker's impact on the cache's
+effectiveness.
 
-Move it to the per-net nfsd startup instead.
-
-Reported-by: Dai Ngo <dai.ngo@oracle.com>
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Stable-dep-of: ed9ab7346e90 ("nfsd: move init of percpu reply_cache_stats counters back to nfsd_init_net")
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+[ cel: adjusted to apply to v6.1.y -- this one might not be necessary ]
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/nfsd/nfsctl.c |    8 --------
- fs/nfsd/nfssvc.c |   10 +++++++++-
- 2 files changed, 9 insertions(+), 9 deletions(-)
+ fs/nfsd/nfscache.c |   83 ++++++++++++++++++++++++-----------------------------
+ 1 file changed, 39 insertions(+), 44 deletions(-)
 
---- a/fs/nfsd/nfsctl.c
-+++ b/fs/nfsd/nfsctl.c
-@@ -1453,16 +1453,11 @@ static __net_init int nfsd_init_net(stru
- 	nn->nfsd_versions = NULL;
- 	nn->nfsd4_minorversions = NULL;
- 	nfsd4_init_leases_net(nn);
--	retval = nfsd_reply_cache_init(nn);
--	if (retval)
--		goto out_cache_error;
- 	get_random_bytes(&nn->siphash_key, sizeof(nn->siphash_key));
- 	seqlock_init(&nn->writeverf_lock);
+--- a/fs/nfsd/nfscache.c
++++ b/fs/nfsd/nfscache.c
+@@ -310,67 +310,62 @@ nfsd_prune_bucket_locked(struct nfsd_net
+ 	}
+ }
  
- 	return 0;
- 
--out_cache_error:
--	nfsd_idmap_shutdown(net);
- out_idmap_error:
- 	nfsd_export_shutdown(net);
- out_export_error:
-@@ -1471,9 +1466,6 @@ out_export_error:
- 
- static __net_exit void nfsd_exit_net(struct net *net)
+-static long prune_bucket(struct nfsd_drc_bucket *b, struct nfsd_net *nn,
+-			 unsigned int max)
++/**
++ * nfsd_reply_cache_count - count_objects method for the DRC shrinker
++ * @shrink: our registered shrinker context
++ * @sc: garbage collection parameters
++ *
++ * Returns the total number of entries in the duplicate reply cache. To
++ * keep things simple and quick, this is not the number of expired entries
++ * in the cache (ie, the number that would be removed by a call to
++ * nfsd_reply_cache_scan).
++ */
++static unsigned long
++nfsd_reply_cache_count(struct shrinker *shrink, struct shrink_control *sc)
  {
--	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+-	struct svc_cacherep *rp, *tmp;
+-	long freed = 0;
++	struct nfsd_net *nn = container_of(shrink,
++				struct nfsd_net, nfsd_reply_cache_shrinker);
+ 
+-	list_for_each_entry_safe(rp, tmp, &b->lru_head, c_lru) {
+-		/*
+-		 * Don't free entries attached to calls that are still
+-		 * in-progress, but do keep scanning the list.
+-		 */
+-		if (rp->c_state == RC_INPROG)
+-			continue;
+-		if (atomic_read(&nn->num_drc_entries) <= nn->max_drc_entries &&
+-		    time_before(jiffies, rp->c_timestamp + RC_EXPIRE))
+-			break;
+-		nfsd_reply_cache_free_locked(b, rp, nn);
+-		if (max && freed++ > max)
+-			break;
+-	}
+-	return freed;
++	return atomic_read(&nn->num_drc_entries);
+ }
+ 
+-/*
+- * Walk the LRU list and prune off entries that are older than RC_EXPIRE.
+- * Also prune the oldest ones when the total exceeds the max number of entries.
++/**
++ * nfsd_reply_cache_scan - scan_objects method for the DRC shrinker
++ * @shrink: our registered shrinker context
++ * @sc: garbage collection parameters
++ *
++ * Free expired entries on each bucket's LRU list until we've released
++ * nr_to_scan freed objects. Nothing will be released if the cache
++ * has not exceeded it's max_drc_entries limit.
++ *
++ * Returns the number of entries released by this call.
+  */
+-static long
+-prune_cache_entries(struct nfsd_net *nn)
++static unsigned long
++nfsd_reply_cache_scan(struct shrinker *shrink, struct shrink_control *sc)
+ {
++	struct nfsd_net *nn = container_of(shrink,
++				struct nfsd_net, nfsd_reply_cache_shrinker);
++	unsigned long freed = 0;
++	LIST_HEAD(dispose);
+ 	unsigned int i;
+-	long freed = 0;
+ 
+ 	for (i = 0; i < nn->drc_hashsize; i++) {
+ 		struct nfsd_drc_bucket *b = &nn->drc_hashtbl[i];
+ 
+ 		if (list_empty(&b->lru_head))
+ 			continue;
++
+ 		spin_lock(&b->cache_lock);
+-		freed += prune_bucket(b, nn, 0);
++		nfsd_prune_bucket_locked(nn, b, 0, &dispose);
+ 		spin_unlock(&b->cache_lock);
+-	}
+-	return freed;
+-}
 -
--	nfsd_reply_cache_shutdown(nn);
- 	nfsd_idmap_shutdown(net);
- 	nfsd_export_shutdown(net);
- 	nfsd_netns_free_versions(net_generic(net, nfsd_net_id));
---- a/fs/nfsd/nfssvc.c
-+++ b/fs/nfsd/nfssvc.c
-@@ -427,16 +427,23 @@ static int nfsd_startup_net(struct net *
- 	ret = nfsd_file_cache_start_net(net);
- 	if (ret)
- 		goto out_lockd;
--	ret = nfs4_state_start_net(net);
-+
-+	ret = nfsd_reply_cache_init(nn);
- 	if (ret)
- 		goto out_filecache;
+-static unsigned long
+-nfsd_reply_cache_count(struct shrinker *shrink, struct shrink_control *sc)
+-{
+-	struct nfsd_net *nn = container_of(shrink,
+-				struct nfsd_net, nfsd_reply_cache_shrinker);
  
-+	ret = nfs4_state_start_net(net);
-+	if (ret)
-+		goto out_reply_cache;
-+
- #ifdef CONFIG_NFSD_V4_2_INTER_SSC
- 	nfsd4_ssc_init_umount_work(nn);
- #endif
- 	nn->nfsd_net_up = true;
- 	return 0;
+-	return atomic_read(&nn->num_drc_entries);
+-}
+-
+-static unsigned long
+-nfsd_reply_cache_scan(struct shrinker *shrink, struct shrink_control *sc)
+-{
+-	struct nfsd_net *nn = container_of(shrink,
+-				struct nfsd_net, nfsd_reply_cache_shrinker);
++		freed += nfsd_cacherep_dispose(&dispose);
++		if (freed > sc->nr_to_scan)
++			break;
++	}
  
-+out_reply_cache:
-+	nfsd_reply_cache_shutdown(nn);
- out_filecache:
- 	nfsd_file_cache_shutdown_net(net);
- out_lockd:
-@@ -454,6 +461,7 @@ static void nfsd_shutdown_net(struct net
- 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+-	return prune_cache_entries(nn);
++	trace_nfsd_drc_gc(nn, freed);
++	return freed;
+ }
  
- 	nfs4_state_shutdown_net(net);
-+	nfsd_reply_cache_shutdown(nn);
- 	nfsd_file_cache_shutdown_net(net);
- 	if (nn->lockd_up) {
- 		lockd_down(net);
+ /**
 
 
 Patches currently in stable-queue which might be from kroah.com@vger.kernel.org are
