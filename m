@@ -2,50 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A90DE952AC8
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:43:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C64B952ACA
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:43:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 603C73D221B
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:43:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 64E283D222F
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:43:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C40CD3D20CC
- for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:45 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=linuxfoundation.org (client-ip=2604:1380:40e1:4800::1;
- helo=sin.source.kernel.org; envelope-from=gregkh@linuxfoundation.org;
+ by picard.linux.it (Postfix) with ESMTPS id F18AD3D21C4
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:50 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=linuxfoundation.org (client-ip=139.178.84.217;
+ helo=dfw.source.kernel.org; envelope-from=gregkh@linuxfoundation.org;
  receiver=lists.linux.it)
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9E7FF200921
- for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:44 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2E2991000965
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:49 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 1C6B7CE0E7D;
- Thu, 15 Aug 2024 08:40:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDA78C32786;
- Thu, 15 Aug 2024 08:40:40 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id A94CB61AB3;
+ Thu, 15 Aug 2024 08:40:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0E02C32786;
+ Thu, 15 Aug 2024 08:40:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1723711241;
- bh=CXsdguGqMcdxYIOaS4nLjcNNJESaGP/OEz5T29OipNc=;
+ s=korg; t=1723711248;
+ bh=p54KPTEc1MHk5mkB8HHjZJuweZ2f3tSp/tLp+YXfwDE=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=jUT/xC9h/1VsHwUEnzlBx+b87axS1RVxW5aXpF7HxSSL+7+g0Gv8n9b7Ti8Esq4cF
- Rfuc4i6u7/qgOSBWiZu+GCEvEdzgLlagWI6EKJMr+cyhycjVE4bdx+Rator6IB9QyD
- X+HlwWNOF+JlMqjCqgcP9HzPilmfejel1mT+eg8c=
+ b=Bv/bxaRTqNy4XLQMCiYYk0LvQekibWOMAQxEykkn3jGJu6YjkbDtCOkCkCjfz2deu
+ 1Y5/rjOD9sQiemg5AESxftHt1qBGgLzVF0c+7AXobPiuWcvFf9Hls6j6Y2sHgtVSkr
+ 6M4lK9QTT0sK+/EoYP9sujLSqQsZ37CBV4HiJFo0=
 To: calum.mackay@oracle.com, cel@kernel.org, chuck.lever@oracle.com,
- gregkh@linuxfoundation.org, jlayton@kernel.org, kernel-team@fb.com,
- ltp@lists.linux.it, pvorel@suse.cz, sherry.yang@oracle.com
+ gregkh@linuxfoundation.org, jlayton@kernel.org, josef@toxicpanda.com,
+ kernel-team@fb.com, ltp@lists.linux.it, pvorel@suse.cz, sherry.yang@oracle.com
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 15 Aug 2024 10:39:59 +0200
-In-Reply-To: <20240810200009.9882-5-cel@kernel.org>
-Message-ID: <2024081559-unhappy-glaring-e4d7@gregkh>
+Date: Thu, 15 Aug 2024 10:40:00 +0200
+In-Reply-To: <20240810200009.9882-11-cel@kernel.org>
+Message-ID: <2024081500-never-buddhism-bcbf@gregkh>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
@@ -53,11 +52,11 @@ X-Spam-Status: No, score=2.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SORTED_RECIPS,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Level: **
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] Patch "NFSD: Rename nfsd_reply_cache_alloc()" has been added
- to the 6.1-stable tree
+Subject: [LTP] Patch "nfsd: stop setting ->pg_stats for unused stats" has
+ been added to the 6.1-stable tree
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,63 +77,108 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 This is a note to let you know that I've just added the patch titled
 
-    NFSD: Rename nfsd_reply_cache_alloc()
+    nfsd: stop setting ->pg_stats for unused stats
 
 to the 6.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     nfsd-rename-nfsd_reply_cache_alloc.patch
+     nfsd-stop-setting-pg_stats-for-unused-stats.patch
 and it can be found in the queue-6.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From stable+bounces-66325-greg=kroah.com@vger.kernel.org Sat Aug 10 22:00:49 2024
+From stable+bounces-66331-greg=kroah.com@vger.kernel.org Sat Aug 10 22:01:12 2024
 From: cel@kernel.org
-Date: Sat, 10 Aug 2024 15:59:55 -0400
-Subject: NFSD: Rename nfsd_reply_cache_alloc()
+Date: Sat, 10 Aug 2024 16:00:01 -0400
+Subject: nfsd: stop setting ->pg_stats for unused stats
 To: <stable@vger.kernel.org>
-Cc: <linux-nfs@vger.kernel.org>, pvorel@suse.cz, sherry.yang@oracle.com, calum.mackay@oracle.com, kernel-team@fb.com, ltp@lists.linux.it, Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>
-Message-ID: <20240810200009.9882-5-cel@kernel.org>
+Cc: <linux-nfs@vger.kernel.org>, pvorel@suse.cz, sherry.yang@oracle.com, calum.mackay@oracle.com, kernel-team@fb.com, ltp@lists.linux.it, Josef Bacik <josef@toxicpanda.com>, Jeff Layton <jlayton@kernel.org>
+Message-ID: <20240810200009.9882-11-cel@kernel.org>
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit ff0d169329768c1102b7b07eebe5a9839aa1c143 ]
+[ Upstream commit a2214ed588fb3c5b9824a21cff870482510372bb ]
 
-For readability, rename to match the other helpers.
+A lot of places are setting a blank svc_stats in ->pg_stats and never
+utilizing these stats.  Remove all of these extra structs as we're not
+reporting these stats anywhere.
 
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Stable-dep-of: 4b14885411f7 ("nfsd: make all of the nfsd stats per-network namespace")
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/nfsd/nfscache.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ fs/lockd/svc.c    |    3 ---
+ fs/nfs/callback.c |    3 ---
+ fs/nfsd/nfssvc.c  |    5 -----
+ 3 files changed, 11 deletions(-)
 
---- a/fs/nfsd/nfscache.c
-+++ b/fs/nfsd/nfscache.c
-@@ -85,8 +85,8 @@ nfsd_hashsize(unsigned int limit)
- }
+--- a/fs/lockd/svc.c
++++ b/fs/lockd/svc.c
+@@ -759,8 +759,6 @@ static const struct svc_version *nlmsvc_
+ #endif
+ };
  
- static struct svc_cacherep *
--nfsd_reply_cache_alloc(struct svc_rqst *rqstp, __wsum csum,
--			struct nfsd_net *nn)
-+nfsd_cacherep_alloc(struct svc_rqst *rqstp, __wsum csum,
-+		    struct nfsd_net *nn)
- {
- 	struct svc_cacherep	*rp;
+-static struct svc_stat		nlmsvc_stats;
+-
+ #define NLM_NRVERS	ARRAY_SIZE(nlmsvc_version)
+ static struct svc_program	nlmsvc_program = {
+ 	.pg_prog		= NLM_PROGRAM,		/* program number */
+@@ -768,7 +766,6 @@ static struct svc_program	nlmsvc_program
+ 	.pg_vers		= nlmsvc_version,	/* version table */
+ 	.pg_name		= "lockd",		/* service name */
+ 	.pg_class		= "nfsd",		/* share authentication with nfsd */
+-	.pg_stats		= &nlmsvc_stats,	/* stats table */
+ 	.pg_authenticate	= &lockd_authenticate,	/* export authentication */
+ 	.pg_init_request	= svc_generic_init_request,
+ 	.pg_rpcbind_set		= svc_generic_rpcbind_set,
+--- a/fs/nfs/callback.c
++++ b/fs/nfs/callback.c
+@@ -407,15 +407,12 @@ static const struct svc_version *nfs4_ca
+ 	[4] = &nfs4_callback_version4,
+ };
  
-@@ -481,7 +481,7 @@ int nfsd_cache_lookup(struct svc_rqst *r
- 	 * preallocate an entry.
- 	 */
- 	nn = net_generic(SVC_NET(rqstp), nfsd_net_id);
--	rp = nfsd_reply_cache_alloc(rqstp, csum, nn);
-+	rp = nfsd_cacherep_alloc(rqstp, csum, nn);
- 	if (!rp)
- 		goto out;
+-static struct svc_stat nfs4_callback_stats;
+-
+ static struct svc_program nfs4_callback_program = {
+ 	.pg_prog = NFS4_CALLBACK,			/* RPC service number */
+ 	.pg_nvers = ARRAY_SIZE(nfs4_callback_version),	/* Number of entries */
+ 	.pg_vers = nfs4_callback_version,		/* version table */
+ 	.pg_name = "NFSv4 callback",			/* service name */
+ 	.pg_class = "nfs",				/* authentication class */
+-	.pg_stats = &nfs4_callback_stats,
+ 	.pg_authenticate = nfs_callback_authenticate,
+ 	.pg_init_request = svc_generic_init_request,
+ 	.pg_rpcbind_set	= svc_generic_rpcbind_set,
+--- a/fs/nfsd/nfssvc.c
++++ b/fs/nfsd/nfssvc.c
+@@ -89,7 +89,6 @@ unsigned long	nfsd_drc_max_mem;
+ unsigned long	nfsd_drc_mem_used;
  
+ #if defined(CONFIG_NFSD_V2_ACL) || defined(CONFIG_NFSD_V3_ACL)
+-static struct svc_stat	nfsd_acl_svcstats;
+ static const struct svc_version *nfsd_acl_version[] = {
+ # if defined(CONFIG_NFSD_V2_ACL)
+ 	[2] = &nfsd_acl_version2,
+@@ -108,15 +107,11 @@ static struct svc_program	nfsd_acl_progr
+ 	.pg_vers		= nfsd_acl_version,
+ 	.pg_name		= "nfsacl",
+ 	.pg_class		= "nfsd",
+-	.pg_stats		= &nfsd_acl_svcstats,
+ 	.pg_authenticate	= &svc_set_client,
+ 	.pg_init_request	= nfsd_acl_init_request,
+ 	.pg_rpcbind_set		= nfsd_acl_rpcbind_set,
+ };
+ 
+-static struct svc_stat	nfsd_acl_svcstats = {
+-	.program	= &nfsd_acl_program,
+-};
+ #endif /* defined(CONFIG_NFSD_V2_ACL) || defined(CONFIG_NFSD_V3_ACL) */
+ 
+ static const struct svc_version *nfsd_version[] = {
 
 
 Patches currently in stable-queue which might be from kroah.com@vger.kernel.org are
