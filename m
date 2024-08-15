@@ -1,51 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFADD952AC1
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:41:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id ED441952AC4
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:42:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A47803D21E0
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:41:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B21FC3D21EF
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:42:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C7C063D21B1
- for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:28 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ by picard.linux.it (Postfix) with ESMTPS id 9D8CC3D21B8
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:34 +0200 (CEST)
+Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
  smtp.mailfrom=linuxfoundation.org (client-ip=2604:1380:4641:c500::1;
  helo=dfw.source.kernel.org; envelope-from=gregkh@linuxfoundation.org;
  receiver=lists.linux.it)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0436010008F5
- for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:27 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B75A920091E
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:40:33 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 4245361BEA;
- Thu, 15 Aug 2024 08:40:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750F8C4AF09;
- Thu, 15 Aug 2024 08:40:25 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3111F61BEA;
+ Thu, 15 Aug 2024 08:40:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B6D6C32786;
+ Thu, 15 Aug 2024 08:40:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1723711225;
- bh=ao4Oxsw6vyOqt8yYqvllWQH/fYL0HowbhlhKbSkBzYM=;
+ s=korg; t=1723711231;
+ bh=ogEsw9JH4dWW/M1IIdkV0ywEFmEry1XoInTGMfO8PhE=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=meWr5mUzLg4peJHTluTLDvRj8nFqeAnYq2ybjDq0XJ20zjrwsT/GsgA+6CDdjhMx6
- FCLPshvng7agb5k0ujP8ktcHX0XXEwGDUZilL7YAEQ+6cecfezBYTppc/19tUHFS1x
- MwiTfD041o/iIln9i7nf8xXUxuuOOibceYryg+RY=
+ b=GeRA/onZzv6k+aewFGNzrKmdeFSk+QSUZ4BJ+75H4IwDBUJSAsZFy/sJ9JIeKHMpb
+ uXhRsGGF+YSmPJGAFp/osm4yaRlt+RqQv2Wt/Cy4rni/oEayzJOA+ieIrs2EWf5ns4
+ 0cgslWUBtM2E/UndKiQCX/5FwaG5e1T/iFg6ns7Y=
 To: calum.mackay@oracle.com, cel@kernel.org, chuck.lever@oracle.com,
- gregkh@linuxfoundation.org, jlayton@kernel.org, kernel-team@fb.com,
- ltp@lists.linux.it, pvorel@suse.cz, sherry.yang@oracle.com
+ gregkh@linuxfoundation.org, jlayton@kernel.org, josef@toxicpanda.com,
+ kernel-team@fb.com, ltp@lists.linux.it, pvorel@suse.cz, sherry.yang@oracle.com
 From: <gregkh@linuxfoundation.org>
 Date: Thu, 15 Aug 2024 10:39:58 +0200
-In-Reply-To: <20240810200009.9882-4-cel@kernel.org>
-Message-ID: <2024081558-gills-cornea-f2f1@gregkh>
+In-Reply-To: <20240810200009.9882-18-cel@kernel.org>
+Message-ID: <2024081558-blend-geologist-4949@gregkh>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
@@ -53,11 +52,11 @@ X-Spam-Status: No, score=2.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SORTED_RECIPS,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Level: **
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] Patch "NFSD: Refactor nfsd_reply_cache_free_locked()" has
- been added to the 6.1-stable tree
+Subject: [LTP] Patch "nfsd: remove nfsd_stats,
+ make th_cnt a global counter" has been added to the 6.1-stable tree
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,102 +77,117 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 This is a note to let you know that I've just added the patch titled
 
-    NFSD: Refactor nfsd_reply_cache_free_locked()
+    nfsd: remove nfsd_stats, make th_cnt a global counter
 
 to the 6.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     nfsd-refactor-nfsd_reply_cache_free_locked.patch
+     nfsd-remove-nfsd_stats-make-th_cnt-a-global-counter.patch
 and it can be found in the queue-6.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From stable+bounces-66324-greg=kroah.com@vger.kernel.org Sat Aug 10 22:00:43 2024
+From stable+bounces-66338-greg=kroah.com@vger.kernel.org Sat Aug 10 22:01:30 2024
 From: cel@kernel.org
-Date: Sat, 10 Aug 2024 15:59:54 -0400
-Subject: NFSD: Refactor nfsd_reply_cache_free_locked()
+Date: Sat, 10 Aug 2024 16:00:08 -0400
+Subject: nfsd: remove nfsd_stats, make th_cnt a global counter
 To: <stable@vger.kernel.org>
-Cc: <linux-nfs@vger.kernel.org>, pvorel@suse.cz, sherry.yang@oracle.com, calum.mackay@oracle.com, kernel-team@fb.com, ltp@lists.linux.it, Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>
-Message-ID: <20240810200009.9882-4-cel@kernel.org>
+Cc: <linux-nfs@vger.kernel.org>, pvorel@suse.cz, sherry.yang@oracle.com, calum.mackay@oracle.com, kernel-team@fb.com, ltp@lists.linux.it, Josef Bacik <josef@toxicpanda.com>, Jeff Layton <jlayton@kernel.org>
+Message-ID: <20240810200009.9882-18-cel@kernel.org>
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit 35308e7f0fc3942edc87d9c6dc78c4a096428957 ]
+[ Upstream commit e41ee44cc6a473b1f414031782c3b4283d7f3e5f ]
 
-To reduce contention on the bucket locks, we must avoid calling
-kfree() while each bucket lock is held.
+This is the last global stat, take it out of the nfsd_stats struct and
+make it a global part of nfsd, report it the same as always.
 
-Start by refactoring nfsd_reply_cache_free_locked() into a helper
-that removes an entry from the bucket (and must therefore run under
-the lock) and a second helper that frees the entry (which does not
-need to hold the lock).
-
-For readability, rename the helpers nfsd_cacherep_<verb>.
-
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Stable-dep-of: a9507f6af145 ("NFSD: Replace nfsd_prune_bucket()")
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/nfsd/nfscache.c |   27 ++++++++++++++++++++-------
- 1 file changed, 20 insertions(+), 7 deletions(-)
+ fs/nfsd/nfsd.h   |    1 +
+ fs/nfsd/nfssvc.c |    5 +++--
+ fs/nfsd/stats.c  |    3 +--
+ fs/nfsd/stats.h  |    6 ------
+ 4 files changed, 5 insertions(+), 10 deletions(-)
 
---- a/fs/nfsd/nfscache.c
-+++ b/fs/nfsd/nfscache.c
-@@ -110,21 +110,33 @@ nfsd_reply_cache_alloc(struct svc_rqst *
- 	return rp;
- }
+--- a/fs/nfsd/nfsd.h
++++ b/fs/nfsd/nfsd.h
+@@ -69,6 +69,7 @@ extern struct mutex		nfsd_mutex;
+ extern spinlock_t		nfsd_drc_lock;
+ extern unsigned long		nfsd_drc_max_mem;
+ extern unsigned long		nfsd_drc_mem_used;
++extern atomic_t			nfsd_th_cnt;		/* number of available threads */
  
-+static void nfsd_cacherep_free(struct svc_cacherep *rp)
-+{
-+	if (rp->c_type == RC_REPLBUFF)
-+		kfree(rp->c_replvec.iov_base);
-+	kmem_cache_free(drc_slab, rp);
-+}
-+
- static void
--nfsd_reply_cache_free_locked(struct nfsd_drc_bucket *b, struct svc_cacherep *rp,
--				struct nfsd_net *nn)
-+nfsd_cacherep_unlink_locked(struct nfsd_net *nn, struct nfsd_drc_bucket *b,
-+			    struct svc_cacherep *rp)
- {
--	if (rp->c_type == RC_REPLBUFF && rp->c_replvec.iov_base) {
-+	if (rp->c_type == RC_REPLBUFF && rp->c_replvec.iov_base)
- 		nfsd_stats_drc_mem_usage_sub(nn, rp->c_replvec.iov_len);
--		kfree(rp->c_replvec.iov_base);
--	}
- 	if (rp->c_state != RC_UNUSED) {
- 		rb_erase(&rp->c_node, &b->rb_head);
- 		list_del(&rp->c_lru);
- 		atomic_dec(&nn->num_drc_entries);
- 		nfsd_stats_drc_mem_usage_sub(nn, sizeof(*rp));
+ extern const struct seq_operations nfs_exports_op;
+ 
+--- a/fs/nfsd/nfssvc.c
++++ b/fs/nfsd/nfssvc.c
+@@ -34,6 +34,7 @@
+ 
+ #define NFSDDBG_FACILITY	NFSDDBG_SVC
+ 
++atomic_t			nfsd_th_cnt = ATOMIC_INIT(0);
+ extern struct svc_program	nfsd_program;
+ static int			nfsd(void *vrqstp);
+ #if defined(CONFIG_NFSD_V2_ACL) || defined(CONFIG_NFSD_V3_ACL)
+@@ -955,7 +956,7 @@ nfsd(void *vrqstp)
+ 
+ 	current->fs->umask = 0;
+ 
+-	atomic_inc(&nfsdstats.th_cnt);
++	atomic_inc(&nfsd_th_cnt);
+ 
+ 	set_freezable();
+ 
+@@ -979,7 +980,7 @@ nfsd(void *vrqstp)
+ 		validate_process_creds();
  	}
--	kmem_cache_free(drc_slab, rp);
-+}
-+
-+static void
-+nfsd_reply_cache_free_locked(struct nfsd_drc_bucket *b, struct svc_cacherep *rp,
-+				struct nfsd_net *nn)
-+{
-+	nfsd_cacherep_unlink_locked(nn, b, rp);
-+	nfsd_cacherep_free(rp);
- }
  
- static void
-@@ -132,8 +144,9 @@ nfsd_reply_cache_free(struct nfsd_drc_bu
- 			struct nfsd_net *nn)
- {
- 	spin_lock(&b->cache_lock);
--	nfsd_reply_cache_free_locked(b, rp, nn);
-+	nfsd_cacherep_unlink_locked(nn, b, rp);
- 	spin_unlock(&b->cache_lock);
-+	nfsd_cacherep_free(rp);
- }
+-	atomic_dec(&nfsdstats.th_cnt);
++	atomic_dec(&nfsd_th_cnt);
  
- int nfsd_drc_slab_create(void)
+ out:
+ 	/* Take an extra ref so that the svc_put in svc_exit_thread()
+--- a/fs/nfsd/stats.c
++++ b/fs/nfsd/stats.c
+@@ -27,7 +27,6 @@
+ 
+ #include "nfsd.h"
+ 
+-struct nfsd_stats	nfsdstats;
+ struct svc_stat		nfsd_svcstats = {
+ 	.program	= &nfsd_program,
+ };
+@@ -47,7 +46,7 @@ static int nfsd_show(struct seq_file *se
+ 		   percpu_counter_sum_positive(&nn->counter[NFSD_STATS_IO_WRITE]));
+ 
+ 	/* thread usage: */
+-	seq_printf(seq, "th %u 0", atomic_read(&nfsdstats.th_cnt));
++	seq_printf(seq, "th %u 0", atomic_read(&nfsd_th_cnt));
+ 
+ 	/* deprecated thread usage histogram stats */
+ 	for (i = 0; i < 10; i++)
+--- a/fs/nfsd/stats.h
++++ b/fs/nfsd/stats.h
+@@ -10,12 +10,6 @@
+ #include <uapi/linux/nfsd/stats.h>
+ #include <linux/percpu_counter.h>
+ 
+-struct nfsd_stats {
+-	atomic_t	th_cnt;		/* number of available threads */
+-};
+-
+-extern struct nfsd_stats	nfsdstats;
+-
+ extern struct svc_stat		nfsd_svcstats;
+ 
+ int nfsd_percpu_counters_init(struct percpu_counter *counters, int num);
 
 
 Patches currently in stable-queue which might be from kroah.com@vger.kernel.org are
