@@ -2,62 +2,91 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBF8A952AD1
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:44:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AE3F952B4A
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 11:47:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8D7C93D225F
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 10:44:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D37BE3D21B8
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2024 11:47:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 919303D21B2
- for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:41:05 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=linuxfoundation.org (client-ip=2604:1380:40e1:4800::1;
- helo=sin.source.kernel.org; envelope-from=gregkh@linuxfoundation.org;
- receiver=lists.linux.it)
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+ by picard.linux.it (Postfix) with ESMTPS id BE9B83D2190
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2024 11:47:23 +0200 (CEST)
+Authentication-Results: in-7.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=schwab@suse.de; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3FAD420038E
- for <ltp@lists.linux.it>; Thu, 15 Aug 2024 10:41:03 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 54794CE19A6;
- Thu, 15 Aug 2024 08:41:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 032F0C32786;
- Thu, 15 Aug 2024 08:41:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1723711261;
- bh=WZebGvPgKHzE/Moe9ri+YHNorq+FVqvnlgozDjN/7JU=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=QkZuq7u/wORMJuDZmZ2u2SSk4WjGqHkUn3i5/wqhJCE0MLlLeaByRXDJfV6lYWzUL
- T42ricin83tZ/OTwz1WcyPHaX9pfPTJ8H4ncBPJFQEcBkZpsiaAwheJaTNUodIyNjI
- uXGrdXnFdPbPZgUrHDOMmiF71SnajK2cU9ZTN2is=
-To: calum.mackay@oracle.com, cel@kernel.org, chuck.lever@oracle.com,
- gregkh@linuxfoundation.org, jlayton@kernel.org, josef@toxicpanda.com,
- kernel-team@fb.com, ltp@lists.linux.it, pvorel@suse.cz, sherry.yang@oracle.com
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 15 Aug 2024 10:40:01 +0200
-In-Reply-To: <20240810200009.9882-13-cel@kernel.org>
-Message-ID: <2024081501-shakily-absolve-c397@gregkh>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1847E200926
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2024 11:47:22 +0200 (CEST)
+Received: from hawking.nue2.suse.org (unknown [10.168.4.11])
+ by smtp-out1.suse.de (Postfix) with ESMTP id A753A22085
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2024 09:47:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1723715241; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=s5+eTgLmMttvD7mWgBZYiECledzjIBMk0gZTthdftMw=;
+ b=Ywz0fnSyCNVhEFZFM/5jsbI934hiJRbCfJFADIDpDOqbsgAFxrFU8RmlgZPhyIeXwDFiB8
+ 5Ge5J7hPvVSY+PqZZTJGRDaBu5DRSZE7OQiz//W6zQy6tpnQRC0mHre/m2M/yZiE/NCJzi
+ BZlwkZf20EovX6+Xf3KUC1i8KX05Sx4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1723715241;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=s5+eTgLmMttvD7mWgBZYiECledzjIBMk0gZTthdftMw=;
+ b=foeZwjEd9lcUnwITtY04v3Zb4c+gXi9lk3ngYfq38yqYTu1NGsP7KQXUAiSxkOmkwjkwuh
+ pE484q4k5+3dZSDA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1723715241; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=s5+eTgLmMttvD7mWgBZYiECledzjIBMk0gZTthdftMw=;
+ b=Ywz0fnSyCNVhEFZFM/5jsbI934hiJRbCfJFADIDpDOqbsgAFxrFU8RmlgZPhyIeXwDFiB8
+ 5Ge5J7hPvVSY+PqZZTJGRDaBu5DRSZE7OQiz//W6zQy6tpnQRC0mHre/m2M/yZiE/NCJzi
+ BZlwkZf20EovX6+Xf3KUC1i8KX05Sx4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1723715241;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=s5+eTgLmMttvD7mWgBZYiECledzjIBMk0gZTthdftMw=;
+ b=foeZwjEd9lcUnwITtY04v3Zb4c+gXi9lk3ngYfq38yqYTu1NGsP7KQXUAiSxkOmkwjkwuh
+ pE484q4k5+3dZSDA==
+Received: by hawking.nue2.suse.org (Postfix, from userid 17005)
+ id 98C4A4A04EA; Thu, 15 Aug 2024 11:47:21 +0200 (CEST)
+From: Andreas Schwab <schwab@suse.de>
+To: ltp@lists.linux.it
+X-Yow: Am I in GRADUATE SCHOOL yet?
+Date: Thu, 15 Aug 2024 11:47:21 +0200
+Message-ID: <mvm34n6aziu.fsf@suse.de>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-X-stable: commit
-X-Patchwork-Hint: ignore 
-X-Spam-Status: No, score=2.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SORTED_RECIPS,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Score: -4.18
+X-Spamd-Result: default: False [-4.18 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.18)[-0.904]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_NO_TLS_LAST(0.10)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_ONE(0.00)[1]; MIME_TRACE(0.00)[0:+];
+ RCVD_COUNT_ONE(0.00)[1]; MID_RHS_MATCH_FROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ FROM_EQ_ENVFROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_DN_NONE(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email]
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] Patch "sunrpc: remove ->pg_stats from svc_program" has been
- added to the 6.1-stable tree
+Subject: [LTP] [PATCH] syscalls/perf_event_open01: Allow EINVAL
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,100 +98,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: stable-commits@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+A request for an unsupported perf event can also result in EINVAL.
 
-This is a note to let you know that I've just added the patch titled
-
-    sunrpc: remove ->pg_stats from svc_program
-
-to the 6.1-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     sunrpc-remove-pg_stats-from-svc_program.patch
-and it can be found in the queue-6.1 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From stable+bounces-66333-greg=kroah.com@vger.kernel.org Sat Aug 10 22:01:19 2024
-From: cel@kernel.org
-Date: Sat, 10 Aug 2024 16:00:03 -0400
-Subject: sunrpc: remove ->pg_stats from svc_program
-To: <stable@vger.kernel.org>
-Cc: <linux-nfs@vger.kernel.org>, pvorel@suse.cz, sherry.yang@oracle.com, calum.mackay@oracle.com, kernel-team@fb.com, ltp@lists.linux.it, Josef Bacik <josef@toxicpanda.com>, Jeff Layton <jlayton@kernel.org>
-Message-ID: <20240810200009.9882-13-cel@kernel.org>
-
-From: Josef Bacik <josef@toxicpanda.com>
-
-[ Upstream commit 3f6ef182f144dcc9a4d942f97b6a8ed969f13c95 ]
-
-Now that this isn't used anywhere, remove it.
-
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-[ cel: adjusted to apply to v6.1.y ]
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Andreas Schwab <schwab@suse.de>
 ---
- fs/nfsd/nfssvc.c           |    1 -
- include/linux/sunrpc/svc.h |    1 -
- 2 files changed, 2 deletions(-)
+ testcases/kernel/syscalls/perf_event_open/perf_event_open01.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/fs/nfsd/nfssvc.c
-+++ b/fs/nfsd/nfssvc.c
-@@ -136,7 +136,6 @@ struct svc_program		nfsd_program = {
- 	.pg_vers		= nfsd_version,		/* version table */
- 	.pg_name		= "nfsd",		/* program name */
- 	.pg_class		= "nfsd",		/* authentication class */
--	.pg_stats		= &nfsd_svcstats,	/* version table */
- 	.pg_authenticate	= &svc_set_client,	/* export authentication */
- 	.pg_init_request	= nfsd_init_request,
- 	.pg_rpcbind_set		= nfsd_rpcbind_set,
---- a/include/linux/sunrpc/svc.h
-+++ b/include/linux/sunrpc/svc.h
-@@ -422,7 +422,6 @@ struct svc_program {
- 	const struct svc_version **pg_vers;	/* version array */
- 	char *			pg_name;	/* service name */
- 	char *			pg_class;	/* class name: services sharing authentication */
--	struct svc_stat *	pg_stats;	/* rpc statistics */
- 	int			(*pg_authenticate)(struct svc_rqst *);
- 	__be32			(*pg_init_request)(struct svc_rqst *,
- 						   const struct svc_program *,
+diff --git a/testcases/kernel/syscalls/perf_event_open/perf_event_open01.c b/testcases/kernel/syscalls/perf_event_open/perf_event_open01.c
+index 30c0d7594..86a134b51 100644
+--- a/testcases/kernel/syscalls/perf_event_open/perf_event_open01.c
++++ b/testcases/kernel/syscalls/perf_event_open/perf_event_open01.c
+@@ -148,7 +148,7 @@ static void verify(struct test_case_t *tc)
+ 	TEST(perf_event_open(&pe, 0, -1, -1, 0));
+ 	if (TEST_RETURN == -1) {
+ 		if (TEST_ERRNO == ENOENT || TEST_ERRNO == EOPNOTSUPP ||
+-		    TEST_ERRNO == ENODEV) {
++		    TEST_ERRNO == ENODEV || TEST_ERRNO == EINVAL) {
+ 			tst_resm(TCONF | TTERRNO,
+ 			         "perf_event_open for %s not supported",
+ 			         tc->config_name);
+-- 
+2.46.0
 
 
-Patches currently in stable-queue which might be from kroah.com@vger.kernel.org are
-
-queue-6.1/nfsd-remove-nfsd_stats-make-th_cnt-a-global-counter.patch
-queue-6.1/nfsd-move-reply-cache-initialization-into-nfsd-startup.patch
-queue-6.1/sunrpc-remove-pg_stats-from-svc_program.patch
-queue-6.1/mptcp-pm-don-t-try-to-create-sf-if-alloc-failed.patch
-queue-6.1/nfsd-rename-nfsd_reply_cache_alloc.patch
-queue-6.1/nfsd-make-all-of-the-nfsd-stats-per-network-namespace.patch
-queue-6.1/mptcp-pass-addr-to-mptcp_pm_alloc_anno_list.patch
-queue-6.1/nfsd-move-init-of-percpu-reply_cache_stats-counters-back-to-nfsd_init_net.patch
-queue-6.1/nfsd-replace-nfsd_prune_bucket.patch
-queue-6.1/nfsd-stop-setting-pg_stats-for-unused-stats.patch
-queue-6.1/sunrpc-don-t-change-sv_stats-if-it-doesn-t-exist.patch
-queue-6.1/nfsd-make-svc_stat-per-network-namespace-instead-of-global.patch
-queue-6.1/nfsd-fix-frame-size-warning-in-svc_export_parse.patch
-queue-6.1/nfsd-rename-nfsd_net_-to-nfsd_stats_.patch
-queue-6.1/mptcp-pm-do-not-ignore-subflow-if-signal-flag-is-also-set.patch
-queue-6.1/nfsd-refactor-nfsd_reply_cache_free_locked.patch
-queue-6.1/mptcp-fully-established-after-add_addr-echo-on-mpj.patch
-queue-6.1/sunrpc-use-the-struct-net-as-the-svc-proc-private.patch
-queue-6.1/selftests-mptcp-join-test-both-signal-subflow.patch
-queue-6.1/sunrpc-pass-in-the-sv_stats-struct-through-svc_create_pooled.patch
-queue-6.1/mptcp-pm-reduce-indentation-blocks.patch
-queue-6.1/nfsd-rewrite-synopsis-of-nfsd_percpu_counters_init.patch
-queue-6.1/nfsd-expose-proc-net-sunrpc-nfsd-in-net-namespaces.patch
-queue-6.1/nfsd-refactor-the-duplicate-reply-cache-shrinker.patch
+-- 
+Andreas Schwab, SUSE Labs, schwab@suse.de
+GPG Key fingerprint = 0196 BAD8 1CE9 1970 F4BE  1748 E4D4 88E3 0EEA B9D7
+"And now for something completely different."
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
