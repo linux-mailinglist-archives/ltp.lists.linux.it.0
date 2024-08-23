@@ -2,102 +2,113 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FE9795CB98
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2024 13:42:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E69895CB9C
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2024 13:43:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 69C863D2370
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2024 13:42:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 05F1E3D2341
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2024 13:43:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8F3123D2258
- for <ltp@lists.linux.it>; Fri, 23 Aug 2024 13:42:26 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 9018C3D2332
+ for <ltp@lists.linux.it>; Fri, 23 Aug 2024 13:42:27 +0200 (CEST)
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E5E3C1000403
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DCAEB200BC0
  for <ltp@lists.linux.it>; Fri, 23 Aug 2024 13:42:25 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5AD2C223C9;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B576220308;
  Fri, 23 Aug 2024 11:42:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1724413344; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=TcW+kCAH1cL6h21dzG0D5FbGeqBLAHcdnDWuMtK6g8M=;
- b=2v02dCfLCgVzU1D0nS1sixHr66Qeniyh/xFr2bumWvpidSSxXNzmTRiyLzVczeGu0aspLl
- cwmoirOvR9v7My8SCbom1T6qfgHkhkvSuEjiPY7o3z+7rSRIdmoiZUn5sxt4Q4S+m7OHKX
- EVdDlcMImk49Cg+xBTL6l0+Q9bSBBJI=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=J8Itj+5wOtRpnisVeSWjm9aGUb6LeAh16zttx6mezmA=;
+ b=CI1oEqk2S2wCJ9qgkRTQ9E/XR0kxj1uFO+cKMXH1cALIywfJvzlFGg3pWe/yxC/k9Yi3W6
+ x+YYazJCJXA9vs14HWerLTt7OcJNdsRQSa+SjmQ8y6CZ6KUfGLYCrI14dNsThLRiyv9OcE
+ D452Ja5hLSqPWThrkSBDOQkmKFIxafM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1724413344;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=TcW+kCAH1cL6h21dzG0D5FbGeqBLAHcdnDWuMtK6g8M=;
- b=Rv9LQ0yM2jeTeKtvRJypCWaLhVKGGiD61RF26rjphEPsXQCo+OckXMOMahMkikKBYAayun
- ckv9VpbevxwRWVBQ==
-Authentication-Results: smtp-out1.suse.de;
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=J8Itj+5wOtRpnisVeSWjm9aGUb6LeAh16zttx6mezmA=;
+ b=yVVUEKBfF9XTsnzxakvu/1mDowv1QdwbtOVU17WZsH6biBptJEvkEo7nNwyHM32Wmhwwhe
+ 4dkIz3Wp4dtHHbDA==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1724413344; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=TcW+kCAH1cL6h21dzG0D5FbGeqBLAHcdnDWuMtK6g8M=;
- b=2v02dCfLCgVzU1D0nS1sixHr66Qeniyh/xFr2bumWvpidSSxXNzmTRiyLzVczeGu0aspLl
- cwmoirOvR9v7My8SCbom1T6qfgHkhkvSuEjiPY7o3z+7rSRIdmoiZUn5sxt4Q4S+m7OHKX
- EVdDlcMImk49Cg+xBTL6l0+Q9bSBBJI=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=J8Itj+5wOtRpnisVeSWjm9aGUb6LeAh16zttx6mezmA=;
+ b=CI1oEqk2S2wCJ9qgkRTQ9E/XR0kxj1uFO+cKMXH1cALIywfJvzlFGg3pWe/yxC/k9Yi3W6
+ x+YYazJCJXA9vs14HWerLTt7OcJNdsRQSa+SjmQ8y6CZ6KUfGLYCrI14dNsThLRiyv9OcE
+ D452Ja5hLSqPWThrkSBDOQkmKFIxafM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1724413344;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=TcW+kCAH1cL6h21dzG0D5FbGeqBLAHcdnDWuMtK6g8M=;
- b=Rv9LQ0yM2jeTeKtvRJypCWaLhVKGGiD61RF26rjphEPsXQCo+OckXMOMahMkikKBYAayun
- ckv9VpbevxwRWVBQ==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=J8Itj+5wOtRpnisVeSWjm9aGUb6LeAh16zttx6mezmA=;
+ b=yVVUEKBfF9XTsnzxakvu/1mDowv1QdwbtOVU17WZsH6biBptJEvkEo7nNwyHM32Wmhwwhe
+ 4dkIz3Wp4dtHHbDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 154D81398B;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6259313A61;
  Fri, 23 Aug 2024 11:42:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id sePMA6B1yGbeRAAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iJFhFqB1yGbeRAAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Fri, 23 Aug 2024 11:42:24 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 23 Aug 2024 13:42:14 +0200
-Message-ID: <20240823114217.1261861-1-pvorel@suse.cz>
+Date: Fri, 23 Aug 2024 13:42:15 +0200
+Message-ID: <20240823114217.1261861-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240823114217.1261861-1-pvorel@suse.cz>
+References: <20240823114217.1261861-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.79 / 50.00]; BAYES_HAM(-2.99)[99.96%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- TO_DN_SOME(0.00)[];
+X-Spam-Score: -6.80
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[99.99%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FROM_HAS_DN(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCPT_COUNT_FIVE(0.00)[5];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -2.79
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[5];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:mid,suse.cz:email];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[]
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 0/3] ci: Simplify and speedup minimal installation
+Subject: [LTP] [PATCH 1/3] ci/debian: Simplify dependencies installation /
+ removal
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,29 +125,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+1) Use asciidoc-base instead of asciidoc for both installation and
+   removal (it contains the asciidoc binary, asciidoc is a metapackage,
+   thus removing it would not remove the asciidoc binary).
 
-I tried to address Andrea's complain against installing and uninstalling
-(hard to debug).
+2) asciidoc-base asciidoc-dblatex and ruby-asciidoctor-pdf are available
+   on all current not yet EOL versions (from buster (oldoldstable) to
+   trixie (testing)), thus it can be safely used without '|| true' fallback.
 
-Now minimal installation is really the fastest.
+3) asciidoctor contains the asciidoctor binary and have ruby-asciidoctor
+   (ruby asciidoc library) as a dependency. It can be used instead.
 
-Tested: https://github.com/pevik/ltp/actions/runs/10525033207
+4) Remove also ruby-asciidoctor-pdf. It should be removed in flow
+   asciidoc => ruby-asciidoctor => ruby-asciidoctor-pdf, but explicit
+   remove is more obvious.
 
-Kind regards,
-Petr
+5) Don't try to install libc6 (it's an obvious base package, it cannot
+   be removed). But it's not working on Ubuntu 18.04 LTS (Bionic Beaver)
+   (package not there yet).
 
+This also unifies packages, which is a preparation for a next commit.
 
-Petr Vorel (3):
-  ci/debian: Simplify dependencies installation / removal
-  ci/debian: Speedup minimal variant installation
-  ci/debian.sh: Make dependencies really minimal
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ ci/debian.minimal.sh | 5 +++--
+ ci/debian.sh         | 6 +++---
+ 2 files changed, 6 insertions(+), 5 deletions(-)
 
- .github/workflows/ci-docker-build.yml |  2 +-
- ci/debian.minimal.sh                  | 16 +----
- ci/debian.sh                          | 88 +++++++++++++++++----------
- 3 files changed, 58 insertions(+), 48 deletions(-)
-
+diff --git a/ci/debian.minimal.sh b/ci/debian.minimal.sh
+index 0584192721..2ccd161c46 100755
+--- a/ci/debian.minimal.sh
++++ b/ci/debian.minimal.sh
+@@ -5,7 +5,7 @@
+ apt="apt remove -y"
+ 
+ $apt \
+-	asciidoc \
++	asciidoc-base \
+ 	asciidoctor \
+ 	libacl1-dev \
+ 	libaio-dev \
+@@ -16,4 +16,5 @@ $apt \
+ 	libsepol-dev \
+ 	libssl-dev
+ 
+-$apt asciidoc-base ruby-asciidoctor || true
++# Missing on Ubuntu 18.04 LTS (Bionic Beaver)
++$apt ruby-asciidoctor-pdf || true
+diff --git a/ci/debian.sh b/ci/debian.sh
+index 63cf242d2a..c413ef457b 100755
+--- a/ci/debian.sh
++++ b/ci/debian.sh
+@@ -15,7 +15,8 @@ apt="apt install -y --no-install-recommends"
+ 
+ $apt \
+ 	acl-dev \
+-	asciidoc \
++	asciidoc-base \
++	asciidoc-dblatex \
+ 	asciidoctor \
+ 	autoconf \
+ 	automake \
+@@ -29,7 +30,6 @@ $apt \
+ 	libacl1-dev \
+ 	libaio-dev \
+ 	libcap-dev \
+-	libc6 \
+ 	libc6-dev \
+ 	libjson-perl \
+ 	libkeyutils-dev \
+@@ -43,7 +43,7 @@ $apt \
+ 	lsb-release \
+ 	pkg-config
+ 
++# Missing on Ubuntu 18.04 LTS (Bionic Beaver)
+ $apt ruby-asciidoctor-pdf || true
+-$apt asciidoc-dblatex || true
+ 
+ df -hT
 -- 
 2.45.2
 
