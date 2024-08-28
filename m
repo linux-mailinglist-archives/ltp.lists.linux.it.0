@@ -2,114 +2,101 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AE85962722
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2024 14:31:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B3ED96288C
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2024 15:23:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7319B3D2792
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2024 14:31:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DAD473D2790
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2024 15:23:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3197B3C01E8
- for <ltp@lists.linux.it>; Wed, 28 Aug 2024 14:31:17 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id D72CF3D2614
+ for <ltp@lists.linux.it>; Wed, 28 Aug 2024 15:23:44 +0200 (CEST)
+Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B3ADE601983
- for <ltp@lists.linux.it>; Wed, 28 Aug 2024 14:31:16 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E10AE1400E4D
+ for <ltp@lists.linux.it>; Wed, 28 Aug 2024 15:23:43 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B64DD1FBB5;
- Wed, 28 Aug 2024 12:31:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5A57D21B75;
+ Wed, 28 Aug 2024 13:23:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1724848275;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Susn2gmtaIwbQGo1hWwZOuHakMFOfGBjTPSQiss3kNs=;
- b=xjNeN/iiJnWL0/2S4hs/ZWy391fbWxUY6vYSacx/luBsVz9DHNIWwiDnLtTcl8Z1Jzvig0
- z4rwx9Bt4KOPU8j0Uyzarn1AZVcX93ABwLQAL5r5wiK3P/QA9UlZ00HKCzaO0iuCcYm+d2
- fmruhih/LxxwLhBkaLY4N2f7sBdhs98=
+ t=1724851422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=gPnfooo3HuCquv8103azfwt+XmZHe3RDQZ1oxDTm4iQ=;
+ b=kL5nyMRa4QPH2XO9wZvH4/V5XudV8zduiABp8gEmHlpwvk8BN6z5a0XmV3luRZ36X62xcX
+ JPD8qQRTNZ1qALAPNBW2oxb2EcVNxpzFjHvsQ9HEJ17T9/HJl5OnJna9m8yNOiGRTugzno
+ UOyoB07riQfb0vgjcBcFP17g3UxhuO0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1724848275;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Susn2gmtaIwbQGo1hWwZOuHakMFOfGBjTPSQiss3kNs=;
- b=4s7J8b00+AZxmQXGAJ8bbQQooPkBr5F7ks4vLEQTAF9ZNbe+tdF7Sphu4zW4F+uDBlbDjA
- HIqS9p2YmFqJYXDQ==
-Authentication-Results: smtp-out2.suse.de;
+ s=susede2_ed25519; t=1724851422;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=gPnfooo3HuCquv8103azfwt+XmZHe3RDQZ1oxDTm4iQ=;
+ b=sBo2AH7VbPvBjwP6sTfL3cTwl0i49rLPvdXu34F4FwbhGJneP9zTkZEVEkq4GNhGlABfs6
+ 3xsQSdh6A48cgKBw==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1724848273;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Susn2gmtaIwbQGo1hWwZOuHakMFOfGBjTPSQiss3kNs=;
- b=vWBcL44viX0eTOe3b4UMN0wJGSIa74ML9c9pDirS8dEHW60m0+KDa7Nwq1FjyQhe0kcNZ6
- grtNMbFhn8tYcP7hPDZFU4pAyFE2pJsF/JdLbOIzkI4Z08P6U0x3ifYi21cy7Kw6hLs/rR
- JR/eoDOy0RFTqxFrGeOcwle8dBr0q4k=
+ t=1724851422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=gPnfooo3HuCquv8103azfwt+XmZHe3RDQZ1oxDTm4iQ=;
+ b=kL5nyMRa4QPH2XO9wZvH4/V5XudV8zduiABp8gEmHlpwvk8BN6z5a0XmV3luRZ36X62xcX
+ JPD8qQRTNZ1qALAPNBW2oxb2EcVNxpzFjHvsQ9HEJ17T9/HJl5OnJna9m8yNOiGRTugzno
+ UOyoB07riQfb0vgjcBcFP17g3UxhuO0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1724848273;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Susn2gmtaIwbQGo1hWwZOuHakMFOfGBjTPSQiss3kNs=;
- b=fpzETGX6nePCxJQ6ZMxD0yeqFJQxfPa1Y57fbReSHa7Gi95KoGa9cY4BrU7AJtNruSglbZ
- ecbfhCB23VwaS5CQ==
+ s=susede2_ed25519; t=1724851422;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=gPnfooo3HuCquv8103azfwt+XmZHe3RDQZ1oxDTm4iQ=;
+ b=sBo2AH7VbPvBjwP6sTfL3cTwl0i49rLPvdXu34F4FwbhGJneP9zTkZEVEkq4GNhGlABfs6
+ 3xsQSdh6A48cgKBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 645901398F;
- Wed, 28 Aug 2024 12:31:13 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4DA5A138D2;
+ Wed, 28 Aug 2024 13:23:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id bnv+FJEYz2YKFAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Wed, 28 Aug 2024 12:31:13 +0000
-Date: Wed, 28 Aug 2024 14:31:07 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20240828123107.GA1704700@pevik>
-References: <20240607142423.116285-1-pvorel@suse.cz>
- <20240607142423.116285-2-pvorel@suse.cz>
- <Zs7niKjYWqmHDIsk@yuki.lan>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id U+VuEt4kz2bBJQAAD6G6ig
+ (envelope-from <mdoucha@suse.cz>); Wed, 28 Aug 2024 13:23:42 +0000
+From: Martin Doucha <mdoucha@suse.cz>
+To: NeilBrown <neilb@suse.de>, Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+Date: Wed, 28 Aug 2024 15:23:05 +0200
+Message-ID: <20240828132325.23111-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Zs7niKjYWqmHDIsk@yuki.lan>
-X-Spam-Score: -3.50
-X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_TLS_ALL(0.00)[];
+X-Spam-Score: -2.80
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.979];
+ MIME_GOOD(-0.10)[text/plain]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,imap1.dmz-prg2.suse.org:helo]; 
- REPLYTO_EQ_FROM(0.00)[]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:mid,suse.cz:email];
+ RCVD_TLS_ALL(0.00)[]
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [RFC PATCH 1/3] runltp: Deprecate, add info about kirk
+Subject: [LTP] [PATCH] nfsstat01: Read client stats from netns rhost
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,24 +108,83 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it, automated-testing@lists.yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril, all,
+On newer kernels, network namespaces have separate NFS stats. Detect
+support for per-NS files and read stats from the correct NS.
 
-> Hi!
-> Back to the original patch. The runltp script has been in a maintenance
-> mode (i.e. no new features) for years now, so I think that it's
-> reasonable to add a deprecation warning.
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
 
-Thanks a lot for a review, patchset merged.
+The /proc/net/rpc/nfs file did not exist in nested network namespaces
+on older kernels. The per-NS stats patchset adds it so we need to check
+for its presence to read the correct stats on kernels where it was
+backported.
 
-Kind regards,
-Petr
+Kernel devs have also asked for a test that'll ensure the patchset doesn't
+get accidentaly reverted. Since this test uses namespaces only when
+the server and client run on the same machine, it'll be better to create
+a separate test for that. I'll send it later.
+
+ testcases/network/nfs/nfsstat01/nfsstat01.sh | 24 +++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
+
+diff --git a/testcases/network/nfs/nfsstat01/nfsstat01.sh b/testcases/network/nfs/nfsstat01/nfsstat01.sh
+index c2856eff1..8d7202cf3 100755
+--- a/testcases/network/nfs/nfsstat01/nfsstat01.sh
++++ b/testcases/network/nfs/nfsstat01/nfsstat01.sh
+@@ -3,8 +3,19 @@
+ # Copyright (c) 2016-2018 Oracle and/or its affiliates. All Rights Reserved.
+ # Copyright (c) International Business Machines  Corp., 2001
+ 
++TST_SETUP="nfsstat_setup"
+ TST_TESTFUNC="do_test"
+ TST_NEEDS_CMDS="nfsstat"
++NS_STAT_RHOST=0
++
++nfsstat_setup()
++{
++	nfs_setup
++
++	if tst_net_use_netns && [ -z "$LTP_NFS_NETNS_USE_LO" ]; then
++		tst_rhost_run -c "test -r /proc/net/rpc/nfs" && NS_STAT_RHOST=1
++	fi
++}
+ 
+ get_calls()
+ {
+@@ -15,15 +26,22 @@ get_calls()
+ 	local calls opt
+ 
+ 	[ "$name" = "rpc" ] && opt="r" || opt="n"
+-	! tst_net_use_netns && [ "$nfs_f" != "nfs" ] && type="rhost"
++	[ "$nfs_f" = "nfsd" ] && opt="-s$opt" || opt="-c$opt"
++
++	if tst_net_use_netns; then
++		# In netns setup, rhost is the client
++		[ "$nfs_f" = "nfs" ] && [ $NS_STAT_RHOST -ne 0 ] && type="rhost"
++	else
++		[ "$nfs_f" != "nfs" ] && type="rhost"
++	fi
+ 
+ 	if [ "$type" = "lhost" ]; then
+ 		calls="$(grep $name /proc/net/rpc/$nfs_f | cut -d' ' -f$field)"
+-		ROD nfsstat -c$opt | grep -q "$calls"
++		ROD nfsstat $opt | grep -q "$calls"
+ 	else
+ 		calls=$(tst_rhost_run -c "grep $name /proc/net/rpc/$nfs_f" | \
+ 			cut -d' ' -f$field)
+-		tst_rhost_run -s -c "nfsstat -s$opt" | grep -q "$calls"
++		tst_rhost_run -s -c "nfsstat $opt" | grep -q "$calls"
+ 	fi
+ 
+ 	if ! tst_is_int "$calls"; then
+-- 
+2.46.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
