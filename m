@@ -1,115 +1,115 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03F91962724
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2024 14:32:11 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AE85962722
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2024 14:31:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BF9863D2792
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2024 14:32:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7319B3D2792
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2024 14:31:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A33EB3C01E8
- for <ltp@lists.linux.it>; Wed, 28 Aug 2024 14:32:08 +0200 (CEST)
-Authentication-Results: in-4.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 3197B3C01E8
+ for <ltp@lists.linux.it>; Wed, 28 Aug 2024 14:31:17 +0200 (CEST)
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
- envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0BB39100096A
- for <ltp@lists.linux.it>; Wed, 28 Aug 2024 14:32:07 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B3ADE601983
+ for <ltp@lists.linux.it>; Wed, 28 Aug 2024 14:31:16 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2FC9721AA5;
- Wed, 28 Aug 2024 12:32:07 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B64DD1FBB5;
+ Wed, 28 Aug 2024 12:31:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1724848327; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1724848275;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fmPSln6c5B+FV+YUNh0QDolNKs8XpaxC/uEPxFy87D8=;
- b=Ylhitnryifo8LAVgCa+OweNjUUR5/KR2VsKOOOxJlqqrhpHXBohEpF7eTUPdRb9LQqlnDM
- sxSLrU5dPf/fYsWu3cNIhV4dNnhuB+cIYKBwmPrdmfweG8QjjL6X/vx+Y2rNmkGnLATNkc
- vB3VWDWCVfFQZWhs3PSaBLqZr1BVZnM=
+ bh=Susn2gmtaIwbQGo1hWwZOuHakMFOfGBjTPSQiss3kNs=;
+ b=xjNeN/iiJnWL0/2S4hs/ZWy391fbWxUY6vYSacx/luBsVz9DHNIWwiDnLtTcl8Z1Jzvig0
+ z4rwx9Bt4KOPU8j0Uyzarn1AZVcX93ABwLQAL5r5wiK3P/QA9UlZ00HKCzaO0iuCcYm+d2
+ fmruhih/LxxwLhBkaLY4N2f7sBdhs98=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1724848327;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1724848275;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fmPSln6c5B+FV+YUNh0QDolNKs8XpaxC/uEPxFy87D8=;
- b=9ef2ohahONxCCPMSHlrSjUbWygEYmBLoGzhfsHrLo50wEmdJ1WhOMp09WAcAwD+FphmEa9
- CCqva0Y2oB9bbZBQ==
-Authentication-Results: smtp-out1.suse.de;
+ bh=Susn2gmtaIwbQGo1hWwZOuHakMFOfGBjTPSQiss3kNs=;
+ b=4s7J8b00+AZxmQXGAJ8bbQQooPkBr5F7ks4vLEQTAF9ZNbe+tdF7Sphu4zW4F+uDBlbDjA
+ HIqS9p2YmFqJYXDQ==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1724848327; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1724848273;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fmPSln6c5B+FV+YUNh0QDolNKs8XpaxC/uEPxFy87D8=;
- b=Ylhitnryifo8LAVgCa+OweNjUUR5/KR2VsKOOOxJlqqrhpHXBohEpF7eTUPdRb9LQqlnDM
- sxSLrU5dPf/fYsWu3cNIhV4dNnhuB+cIYKBwmPrdmfweG8QjjL6X/vx+Y2rNmkGnLATNkc
- vB3VWDWCVfFQZWhs3PSaBLqZr1BVZnM=
+ bh=Susn2gmtaIwbQGo1hWwZOuHakMFOfGBjTPSQiss3kNs=;
+ b=vWBcL44viX0eTOe3b4UMN0wJGSIa74ML9c9pDirS8dEHW60m0+KDa7Nwq1FjyQhe0kcNZ6
+ grtNMbFhn8tYcP7hPDZFU4pAyFE2pJsF/JdLbOIzkI4Z08P6U0x3ifYi21cy7Kw6hLs/rR
+ JR/eoDOy0RFTqxFrGeOcwle8dBr0q4k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1724848327;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1724848273;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fmPSln6c5B+FV+YUNh0QDolNKs8XpaxC/uEPxFy87D8=;
- b=9ef2ohahONxCCPMSHlrSjUbWygEYmBLoGzhfsHrLo50wEmdJ1WhOMp09WAcAwD+FphmEa9
- CCqva0Y2oB9bbZBQ==
+ bh=Susn2gmtaIwbQGo1hWwZOuHakMFOfGBjTPSQiss3kNs=;
+ b=fpzETGX6nePCxJQ6ZMxD0yeqFJQxfPa1Y57fbReSHa7Gi95KoGa9cY4BrU7AJtNruSglbZ
+ ecbfhCB23VwaS5CQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1763C1398F;
- Wed, 28 Aug 2024 12:32:07 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 645901398F;
+ Wed, 28 Aug 2024 12:31:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id K3xFBMcYz2ZWFAAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Wed, 28 Aug 2024 12:32:07 +0000
-Date: Wed, 28 Aug 2024 14:30:59 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: David Hildenbrand <david@redhat.com>
-Message-ID: <Zs8Yg7nXZHG8U821@yuki.lan>
-References: <202408211026.636ade1a-oliver.sang@intel.com>
- <767d1908-dc30-42ae-9a8a-d2ad42a4d491@redhat.com>
- <8bde28af-3401-4d72-b821-d8cf01bbcd64@redhat.com>
- <Zs7-A5S_ivFlosrj@yuki.lan>
- <c6fb5f16-59bb-47a5-a2dd-3c4207d73614@redhat.com>
- <Zs8W3nQszwhbSiT9@yuki.lan>
- <4c190c79-401e-43a9-a4d1-e64f78110e0b@redhat.com>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id bnv+FJEYz2YKFAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Wed, 28 Aug 2024 12:31:13 +0000
+Date: Wed, 28 Aug 2024 14:31:07 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20240828123107.GA1704700@pevik>
+References: <20240607142423.116285-1-pvorel@suse.cz>
+ <20240607142423.116285-2-pvorel@suse.cz>
+ <Zs7niKjYWqmHDIsk@yuki.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <4c190c79-401e-43a9-a4d1-e64f78110e0b@redhat.com>
-X-Spam-Score: -4.30
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
+In-Reply-To: <Zs7niKjYWqmHDIsk@yuki.lan>
+X-Spam-Score: -3.50
+X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; MISSING_XM_UA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[19]; RCVD_TLS_ALL(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+ RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,imap1.dmz-prg2.suse.org:helo]; 
+ REPLYTO_EQ_FROM(0.00)[]
 X-Spam-Level: 
-X-Spam-Status: No, score=1.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,SUBJ_LACKS_WORDS,
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Level: *
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [linux-next:master] [mm/migrate] b28dd7507f:
- ltp.move_pages04.fail
+Subject: Re: [LTP] [RFC PATCH 1/3] runltp: Deprecate, add info about kirk
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,49 +121,24 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Ryan Roberts <ryan.roberts@arm.com>, lkp@intel.com,
- Vasily Gorbik <gor@linux.ibm.com>, Jonathan Corbet <corbet@lwn.net>,
- ltp@lists.linux.it, Matthew Wilcox <willy@infradead.org>,
- Linux Memory Management List <linux-mm@kvack.org>,
- kernel test robot <oliver.sang@intel.com>, Sven Schnelle <svens@linux.ibm.com>,
- Zi Yan <ziy@nvidia.com>, oe-lkp@lists.linux.dev,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
- Janosch Frank <frankja@linux.ibm.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it, automated-testing@lists.yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > If we are going to stick to ENOENT for page that wasn't faulted in the
-> > kernel from now on we should stick to it in the test as well.
-> 
-> Right, it will make kernels >= 4.3 fail, though, until this series is 
-> upstream. I mean, it highlights a BUG, but we had a similar condition 
-> with the zeropage and worked around it in the test to keep it passing.
+Hi Cyril, all,
 
-What we do in this case is that you are free to send a patch, we will do
-review but the final merge will happen once the code has been released
-in the upstream kernel.
+> Hi!
+> Back to the original patch. The runltp script has been in a maintenance
+> mode (i.e. no new features) for years now, so I think that it's
+> reasonable to add a deprecation warning.
 
-> > Also I think there is a third case that we do not cover either, what
-> > happens when we pass an address that is not mapped at all, e.g. NULL? Do
-> > we get EFAULT as well?
-> 
-> Yes, that's documented as EFAULT and should behave that way. I can 
-> extend the test to handle that as well.
+Thanks a lot for a review, patchset merged.
 
-Ideally the test should be ported to the new test API as well, but I can
-do that later on the top of your work.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
