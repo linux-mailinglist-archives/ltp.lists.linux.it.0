@@ -2,112 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 590C79663EF
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2024 16:15:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF68596686A
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2024 19:52:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1725040333; h=date : to :
+ message-id : references : mime-version : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=YH1tRctQv3YAy5xSBAX8ezra1kxsCqpgs9BVWEgY4es=;
+ b=Qblu7hRt1ICNm8Q5fuofcAtolZ1jkda2IFeq15PBWBMfGlwUtWF+p/26Q6Ws6YXCMB+xM
+ aD1yOEeXu2bQONI7dxj4KPgrnn3llKt01WhrG0o1noZYALJ6OzgtBbhyrXYQbaA9Y/A+L0b
+ wCg7QDf4KF9KMcNE2m8TUmOqd3ycGnM=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E559C3D2871
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2024 16:15:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 972CB3D2871
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2024 19:52:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 971B43D25FE
- for <ltp@lists.linux.it>; Fri, 30 Aug 2024 16:14:58 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
- envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 91EF63D278F
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2024 19:52:01 +0200 (CEST)
+Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1;
+ helo=dfw.source.kernel.org; envelope-from=ebiggers@kernel.org;
+ receiver=lists.linux.it)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 5842560675C
- for <ltp@lists.linux.it>; Fri, 30 Aug 2024 16:14:56 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6F5071F7D5;
- Fri, 30 Aug 2024 14:14:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1725027296; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BywUC4NDXiVaReyyQdE8Xzl7eES/4nkJYFf/Qr9NKh8=;
- b=iOSU+Uggs9PWXrWjkgwzq9ysDP4lMp9vyQiWiJIU5vuSB4vXbFs4a11DNoVWnMRJIrwJHl
- lz3hvPm1iFYMFCkd1Swm6x4Z52aFrkA6KlayiNx7hbTcDsqd7ePE3fcos6zrbNO3W703pR
- 075WY2BZvu+r61WJCLMw152uSnNf6UE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1725027296;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BywUC4NDXiVaReyyQdE8Xzl7eES/4nkJYFf/Qr9NKh8=;
- b=92wxgSlghgcFF1LUR29wPnnZHmLA88yGRHFA1VewRSXRljdfNFFj4iiIhaK6S2IbwlVwKY
- MqFmshcPXQ/bwdCw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1725027296; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BywUC4NDXiVaReyyQdE8Xzl7eES/4nkJYFf/Qr9NKh8=;
- b=iOSU+Uggs9PWXrWjkgwzq9ysDP4lMp9vyQiWiJIU5vuSB4vXbFs4a11DNoVWnMRJIrwJHl
- lz3hvPm1iFYMFCkd1Swm6x4Z52aFrkA6KlayiNx7hbTcDsqd7ePE3fcos6zrbNO3W703pR
- 075WY2BZvu+r61WJCLMw152uSnNf6UE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1725027296;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BywUC4NDXiVaReyyQdE8Xzl7eES/4nkJYFf/Qr9NKh8=;
- b=92wxgSlghgcFF1LUR29wPnnZHmLA88yGRHFA1VewRSXRljdfNFFj4iiIhaK6S2IbwlVwKY
- MqFmshcPXQ/bwdCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 57D2513A66;
- Fri, 30 Aug 2024 14:14:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id MIQ7FeDT0WaXZQAAD6G6ig
- (envelope-from <mdoucha@suse.cz>); Fri, 30 Aug 2024 14:14:56 +0000
-From: Martin Doucha <mdoucha@suse.cz>
-To: NeilBrown <neilb@suse.de>, Chuck Lever III <chuck.lever@oracle.com>,
- Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
-Date: Fri, 30 Aug 2024 16:13:40 +0200
-Message-ID: <20240830141453.28379-2-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240830141453.28379-1-mdoucha@suse.cz>
-References: <20240830141453.28379-1-mdoucha@suse.cz>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 65694201DB6
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2024 19:51:59 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id CE43F5C10B5;
+ Fri, 30 Aug 2024 17:51:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F24AC4CEC2;
+ Fri, 30 Aug 2024 17:51:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1725040316;
+ bh=uWhMmjJ50H1qYWLeYvBQd6Nv7WH9zgHdxdtD0x/kJv8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lRgzNm8+2G8pziDOMsiYugWgkPs3lXCnFeOZogB2bmerJAFS9ATZvAU8Z0LncZdq8
+ +Y9jqkfu43WNnJ9SzKGrlfsatf6adScShb6fEHaLPjljMxUEc6jXfMYMv/eQcJE2sw
+ zBAtitYvz+WV/aUZjNrXJZ3+IJ7xVsGEg9gY6QGfWBSvVslPRuTNq9is9BkxQtccTC
+ Y/evok2+IS081uo4qn941Gc87BEoBnsvLznvdeY8eyaVh6qx5kuG5jkzPG3qyV1gMS
+ frgFuWmkUbGn6t6HK68/vUqeV3fBNdtl6Ku79+5H4S0L7w77k4C/Y/CBpSkwjtcbUQ
+ Y0PvzhYWctVPQ==
+Date: Fri, 30 Aug 2024 10:51:54 -0700
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Message-ID: <20240830175154.GA48019@sol.localdomain>
+References: <ZrbTUk6DyktnO7qk@gondor.apana.org.au>
+ <202408161634.598311fd-oliver.sang@intel.com>
+ <ZsBJs_C6GdO_qgV7@gondor.apana.org.au>
+ <ZsBJ5H4JExArHGVw@gondor.apana.org.au>
+ <ZsBKG0la0m69Dyq3@gondor.apana.org.au>
+ <20240827184839.GD2049@sol.localdomain>
+ <Zs6SiBOdasO9Thd1@gondor.apana.org.au>
 MIME-Version: 1.0
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TO_DN_SOME(0.00)[]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCPT_COUNT_THREE(0.00)[4];
- FROM_HAS_DN(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -2.80
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <Zs6SiBOdasO9Thd1@gondor.apana.org.au>
+X-Spam-Status: No, score=0.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE,UPPERCASE_50_75 shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/2] nfsstat01: Check that RPC stats don't leak
- between net namespaces
+Subject: Re: [LTP] [v3 PATCH 3/3] crypto: simd - Do not call
+ crypto_alloc_tfm during registration
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,99 +85,222 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Eric Biggers via ltp <ltp@lists.linux.it>
+Reply-To: Eric Biggers <ebiggers@kernel.org>
+Cc: lkp@intel.com, Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
+ "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>,
+ kernel test robot <oliver.sang@intel.com>, linux-crypto@vger.kernel.org,
+ oe-lkp@lists.linux.dev, Linus Torvalds <torvalds@linux-foundation.org>,
+ Ard Biesheuvel <ardb@kernel.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-When the NFS server and client run on the same host in different net
-namespaces, check that RPC calls from the client namespace don't
-change RPC statistics in the root namespace.
+On Wed, Aug 28, 2024 at 10:59:20AM +0800, Herbert Xu wrote:
+> On Tue, Aug 27, 2024 at 11:48:39AM -0700, Eric Biggers wrote:
+> > On Sat, Aug 17, 2024 at 02:58:35PM +0800, Herbert Xu wrote:
+> > > Algorithm registration is usually carried out during module init,
+> > > where as little work as possible should be carried out.  The SIMD
+> > > code violated this rule by allocating a tfm, this then triggers a
+> > > full test of the algorithm which may dead-lock in certain cases.
+> > > 
+> > > SIMD is only allocating the tfm to get at the alg object, which is
+> > > in fact already available as it is what we are registering.  Use
+> > > that directly and remove the crypto_alloc_tfm call.
+> > > 
+> > > Also remove some obsolete and unused SIMD API.
+> > > 
+> > > Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+> > > ---
+> > >  arch/arm/crypto/aes-ce-glue.c     |  2 +-
+> > >  arch/arm/crypto/aes-neonbs-glue.c |  2 +-
+> > >  crypto/simd.c                     | 76 ++++++-------------------------
+> > >  include/crypto/internal/simd.h    | 12 +----
+> > >  4 files changed, 19 insertions(+), 73 deletions(-)
+> > > 
+> > 
+> > I'm getting a test failure with this series applied:
+> > 
+> > [    0.383128] alg: aead: failed to allocate transform for gcm_base(ctr(aes-generic),ghash-generic): -2
+> > [    0.383500] alg: self-tests for gcm(aes) using gcm_base(ctr(aes-generic),ghash-generic) failed (rc=-2)
+> > 
+> > This is on x86_64 with CONFIG_CRYPTO_MANAGER_EXTRA_TESTS=y.
+> 
+> Could you please send me your config file?
+> 
+> Thanks,
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
+Given below in defconfig form, use 'make olddefconfig' to apply.  The failures
+are nondeterministic and sometimes there are different ones, for example:
 
-I've initially tried to test both NFS and RPC client stats but it appears
-that NFS client stats are still shared across all namespaces. Only RPC
-client stats are separate for each net namespace. The kernel patchset[1]
-which introduced per-NS stats confirms that only RPC stats have been changed.
+[    0.358017] alg: skcipher: failed to allocate transform for cbc(twofish-generic): -2
+[    0.358365] alg: self-tests for cbc(twofish) using cbc(twofish-generic) failed (rc=-2)
+[    0.358535] alg: skcipher: failed to allocate transform for cbc(camellia-generic): -2
+[    0.358918] alg: self-tests for cbc(camellia) using cbc(camellia-generic) failed (rc=-2)
+[    0.371533] alg: skcipher: failed to allocate transform for xts(ecb(aes-generic)): -2
+[    0.371922] alg: self-tests for xts(aes) using xts(ecb(aes-generic)) failed (rc=-2)
 
-If NFS client stats should be separate for each namespace as well, let
-me know and I'll return the second set of NS checks in patch v2.
+Modules are not enabled, maybe that matters (I haven't checked yet).
 
-Tested on kernel v5.14 with Neil's backports.
-
-[1] https://lore.kernel.org/linux-nfs/cover.1708026931.git.josef@toxicpanda.com/
-
- testcases/network/nfs/nfsstat01/nfsstat01.sh | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
-
-diff --git a/testcases/network/nfs/nfsstat01/nfsstat01.sh b/testcases/network/nfs/nfsstat01/nfsstat01.sh
-index 8d7202cf3..3379c4d46 100755
---- a/testcases/network/nfs/nfsstat01/nfsstat01.sh
-+++ b/testcases/network/nfs/nfsstat01/nfsstat01.sh
-@@ -22,6 +22,7 @@ get_calls()
- 	local name=$1
- 	local field=$2
- 	local nfs_f=$3
-+	local netns=${4:-rhost}
- 	local type="lhost"
- 	local calls opt
- 
-@@ -30,7 +31,8 @@ get_calls()
- 
- 	if tst_net_use_netns; then
- 		# In netns setup, rhost is the client
--		[ "$nfs_f" = "nfs" ] && [ $NS_STAT_RHOST -ne 0 ] && type="rhost"
-+		[ "$nfs_f" = "nfs" ] && [ $NS_STAT_RHOST -ne 0 ] && \
-+			type="$netns"
- 	else
- 		[ "$nfs_f" != "nfs" ] && type="rhost"
- 	fi
-@@ -64,13 +66,14 @@ get_calls()
- do_test()
- {
- 	local client_calls server_calls new_server_calls new_client_calls
--	local client_field server_field
-+	local client_field server_field root_calls new_root_calls
- 	local client_v=$VERSION server_v=$VERSION
- 
- 	tst_res TINFO "checking RPC calls for server/client"
- 
- 	server_calls="$(get_calls rpc 2 nfsd)"
- 	client_calls="$(get_calls rpc 2 nfs)"
-+	root_calls="$(get_calls rpc 2 nfs lhost)"
- 
- 	tst_res TINFO "calls $server_calls/$client_calls"
- 
-@@ -79,6 +82,7 @@ do_test()
- 
- 	new_server_calls="$(get_calls rpc 2 nfsd)"
- 	new_client_calls="$(get_calls rpc 2 nfs)"
-+	new_root_calls="$(get_calls rpc 2 nfs lhost)"
- 	tst_res TINFO "new calls $new_server_calls/$new_client_calls"
- 
- 	if [ "$new_server_calls" -le "$server_calls" ]; then
-@@ -93,6 +97,16 @@ do_test()
- 		tst_res TPASS "client RPC calls increased"
- 	fi
- 
-+	if [ $NS_STAT_RHOST -ne 0 ]; then
-+		tst_res TINFO "Root NS client RPC calls: $root_calls => $new_root_calls"
-+
-+		if [ $root_calls -ne $new_root_calls ]; then
-+			tst_res TFAIL "RPC stats leaked between net namespaces"
-+		else
-+			tst_res TPASS "RPC stats stay within net namespaces"
-+		fi
-+	fi
-+
- 	tst_res TINFO "checking NFS calls for server/client"
- 	case $VERSION in
- 	2) client_field=13 server_field=13
--- 
-2.46.0
-
+CONFIG_SYSVIPC=y
+CONFIG_POSIX_MQUEUE=y
+CONFIG_NO_HZ=y
+CONFIG_HIGH_RES_TIMERS=y
+CONFIG_IKCONFIG=y
+CONFIG_IKCONFIG_PROC=y
+CONFIG_CGROUPS=y
+CONFIG_USER_NS=y
+CONFIG_BLK_DEV_INITRD=y
+CONFIG_SMP=y
+CONFIG_X86_X2APIC=y
+CONFIG_HYPERVISOR_GUEST=y
+CONFIG_PARAVIRT=y
+CONFIG_MCORE2=y
+CONFIG_NR_CPUS=48
+CONFIG_NUMA=y
+CONFIG_HZ_300=y
+# CONFIG_RANDOMIZE_BASE is not set
+CONFIG_IA32_EMULATION=y
+CONFIG_JUMP_LABEL=y
+CONFIG_NET=y
+CONFIG_PACKET=y
+CONFIG_PACKET_DIAG=y
+CONFIG_UNIX=y
+CONFIG_UNIX_DIAG=y
+CONFIG_INET=y
+CONFIG_PCI=y
+CONFIG_PCI_MSI=y
+CONFIG_DEVTMPFS=y
+CONFIG_BLK_DEV_LOOP=y
+CONFIG_VIRTIO_BLK=y
+CONFIG_NETDEVICES=y
+CONFIG_VIRTIO_NET=y
+CONFIG_SERIAL_8250=y
+CONFIG_SERIAL_8250_CONSOLE=y
+CONFIG_SERIAL_8250_NR_UARTS=32
+CONFIG_SERIAL_8250_RUNTIME_UARTS=32
+CONFIG_HW_RANDOM_VIRTIO=y
+CONFIG_VIRT_DRIVERS=y
+CONFIG_VIRTIO_PCI=y
+CONFIG_VIRTIO_MMIO=y
+CONFIG_EXT4_FS=y
+CONFIG_EXT4_FS_POSIX_ACL=y
+CONFIG_EXT4_FS_SECURITY=y
+CONFIG_AUTOFS_FS=y
+CONFIG_TMPFS=y
+CONFIG_TMPFS_POSIX_ACL=y
+CONFIG_CRYPTO_USER=y
+# CONFIG_CRYPTO_MANAGER_DISABLE_TESTS is not set
+CONFIG_CRYPTO_MANAGER_EXTRA_TESTS=y
+CONFIG_CRYPTO_PCRYPT=y
+CONFIG_CRYPTO_DH_RFC7919_GROUPS=y
+CONFIG_CRYPTO_ECDH=y
+CONFIG_CRYPTO_ECDSA=y
+CONFIG_CRYPTO_ECRDSA=y
+CONFIG_CRYPTO_CURVE25519=y
+CONFIG_CRYPTO_AES_TI=y
+CONFIG_CRYPTO_ANUBIS=y
+CONFIG_CRYPTO_BLOWFISH=y
+CONFIG_CRYPTO_CAMELLIA=y
+CONFIG_CRYPTO_DES=y
+CONFIG_CRYPTO_FCRYPT=y
+CONFIG_CRYPTO_KHAZAD=y
+CONFIG_CRYPTO_SEED=y
+CONFIG_CRYPTO_TEA=y
+CONFIG_CRYPTO_TWOFISH=y
+CONFIG_CRYPTO_ADIANTUM=y
+CONFIG_CRYPTO_ARC4=y
+CONFIG_CRYPTO_HCTR2=y
+CONFIG_CRYPTO_KEYWRAP=y
+CONFIG_CRYPTO_LRW=y
+CONFIG_CRYPTO_PCBC=y
+CONFIG_CRYPTO_AEGIS128=y
+CONFIG_CRYPTO_SEQIV=y
+CONFIG_CRYPTO_ECHAINIV=y
+CONFIG_CRYPTO_ESSIV=y
+CONFIG_CRYPTO_BLAKE2B=y
+CONFIG_CRYPTO_MD4=y
+CONFIG_CRYPTO_RMD160=y
+CONFIG_CRYPTO_SM3_GENERIC=y
+CONFIG_CRYPTO_VMAC=y
+CONFIG_CRYPTO_WP512=y
+CONFIG_CRYPTO_XXHASH=y
+CONFIG_CRYPTO_CRC32=y
+CONFIG_CRYPTO_DEFLATE=y
+CONFIG_CRYPTO_LZO=y
+CONFIG_CRYPTO_842=y
+CONFIG_CRYPTO_LZ4=y
+CONFIG_CRYPTO_LZ4HC=y
+CONFIG_CRYPTO_ZSTD=y
+CONFIG_CRYPTO_ANSI_CPRNG=y
+CONFIG_CRYPTO_DRBG_HASH=y
+CONFIG_CRYPTO_DRBG_CTR=y
+CONFIG_CRYPTO_USER_API_HASH=y
+CONFIG_CRYPTO_USER_API_SKCIPHER=y
+CONFIG_CRYPTO_USER_API_RNG=y
+CONFIG_CRYPTO_USER_API_RNG_CAVP=y
+CONFIG_CRYPTO_USER_API_AEAD=y
+CONFIG_CRYPTO_CURVE25519_X86=y
+CONFIG_CRYPTO_AES_NI_INTEL=y
+CONFIG_CRYPTO_BLOWFISH_X86_64=y
+CONFIG_CRYPTO_CAMELLIA_AESNI_AVX2_X86_64=y
+CONFIG_CRYPTO_CAST5_AVX_X86_64=y
+CONFIG_CRYPTO_CAST6_AVX_X86_64=y
+CONFIG_CRYPTO_DES3_EDE_X86_64=y
+CONFIG_CRYPTO_SERPENT_SSE2_X86_64=y
+CONFIG_CRYPTO_SERPENT_AVX2_X86_64=y
+CONFIG_CRYPTO_SM4_AESNI_AVX2_X86_64=y
+CONFIG_CRYPTO_TWOFISH_AVX_X86_64=y
+CONFIG_CRYPTO_ARIA_GFNI_AVX512_X86_64=y
+CONFIG_CRYPTO_CHACHA20_X86_64=y
+CONFIG_CRYPTO_AEGIS128_AESNI_SSE2=y
+CONFIG_CRYPTO_NHPOLY1305_SSE2=y
+CONFIG_CRYPTO_NHPOLY1305_AVX2=y
+CONFIG_CRYPTO_BLAKE2S_X86=y
+CONFIG_CRYPTO_POLYVAL_CLMUL_NI=y
+CONFIG_CRYPTO_POLY1305_X86_64=y
+CONFIG_CRYPTO_SHA1_SSSE3=y
+CONFIG_CRYPTO_SHA256_SSSE3=y
+CONFIG_CRYPTO_SHA512_SSSE3=y
+CONFIG_CRYPTO_SM3_AVX_X86_64=y
+CONFIG_CRYPTO_GHASH_CLMUL_NI_INTEL=y
+CONFIG_CRYPTO_CRC32C_INTEL=y
+CONFIG_CRYPTO_CRC32_PCLMUL=y
+CONFIG_CRYPTO_CRCT10DIF_PCLMUL=y
+CONFIG_CRYPTO_DEV_PADLOCK=y
+CONFIG_CRYPTO_DEV_PADLOCK_AES=y
+CONFIG_CRYPTO_DEV_PADLOCK_SHA=y
+CONFIG_CRYPTO_DEV_CCP=y
+CONFIG_CRYPTO_DEV_NITROX_CNN55XX=y
+CONFIG_CRYPTO_DEV_QAT_DH895xCC=y
+CONFIG_CRYPTO_DEV_QAT_C3XXX=y
+CONFIG_CRYPTO_DEV_QAT_C62X=y
+CONFIG_CRYPTO_DEV_QAT_4XXX=y
+CONFIG_CRYPTO_DEV_QAT_DH895xCCVF=y
+CONFIG_CRYPTO_DEV_QAT_C3XXXVF=y
+CONFIG_CRYPTO_DEV_QAT_C62XVF=y
+CONFIG_CRYPTO_DEV_VIRTIO=y
+CONFIG_CRYPTO_DEV_SAFEXCEL=y
+CONFIG_CRYPTO_DEV_AMLOGIC_GXL=y
+CONFIG_CRYPTO_DEV_AMLOGIC_GXL_DEBUG=y
+CONFIG_CRYPTO_LIB_CURVE25519=y
+CONFIG_CRYPTO_LIB_CHACHA20POLY1305=y
+CONFIG_CRC_CCITT=y
+CONFIG_CRC_T10DIF=y
+CONFIG_CRC64_ROCKSOFT=y
+CONFIG_CRC_ITU_T=y
+CONFIG_CRC32_SELFTEST=y
+CONFIG_CRC32_SLICEBY4=y
+CONFIG_CRC4=y
+CONFIG_CRC7=y
+CONFIG_LIBCRC32C=y
+CONFIG_PRINTK_TIME=y
+CONFIG_DEBUG_KERNEL=y
+CONFIG_DEBUG_FS=y
+CONFIG_PANIC_TIMEOUT=5
+CONFIG_UNWINDER_FRAME_POINTER=y
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
