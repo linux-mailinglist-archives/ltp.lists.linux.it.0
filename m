@@ -1,128 +1,130 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C8D697149E
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Sep 2024 12:00:59 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3505E9714A3
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Sep 2024 12:01:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 595EB3C1448
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Sep 2024 12:00:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E7A3F3C1825
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Sep 2024 12:01:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 42DE93C068A
- for <ltp@lists.linux.it>; Mon,  9 Sep 2024 12:00:30 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 394413C1448
+ for <ltp@lists.linux.it>; Mon,  9 Sep 2024 12:00:33 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 17F05206C25
- for <ltp@lists.linux.it>; Mon,  9 Sep 2024 12:00:30 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5F13C10009FF
+ for <ltp@lists.linux.it>; Mon,  9 Sep 2024 12:00:32 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8F9541F7AF;
- Mon,  9 Sep 2024 10:00:29 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 892F421BD9
+ for <ltp@lists.linux.it>; Mon,  9 Sep 2024 10:00:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1725876029; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1725876030; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RMKhhz4+0orzC6erq1XHyTgsxTbu7sE7U3Fuk2lfccE=;
- b=PL9OgAogvOjxEtPaWRXmtIzTMYW9G0AeM+QWSmHFv5ni1PeYGycmDSB5KLcdrLc4flwr8j
- HjgGG65qIWWBkGLID+y8QhoG+ZNm90gJX3i1cFvjXGEVjcqAyaYKyapkpGmXB2TBDN0UgC
- SIcgrWfpMwPPTkKOTfxOqlP7LeIvJx4=
+ bh=uFDjnokV03nBh1ZklTpQbjocZsKEUjaZhBngYFv1IBM=;
+ b=aUcJiRcd1vUvj23UtaU5ZmN1rb53AzH9oWYO5B2Sye5epQ5QUjWPbgLj66q4jxEdQP8fwx
+ qz/veG5owjp/dJZw9gbRH81hLbRwdUpkiI6Pzbc7k9ec01ed4CDWRAymDXFhBuaV8jqbtJ
+ 6R3As0wbhFHShYkn5CBok+5QyGYT+vk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1725876029;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ s=susede2_ed25519; t=1725876030;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RMKhhz4+0orzC6erq1XHyTgsxTbu7sE7U3Fuk2lfccE=;
- b=G87bQDbkoeaU+2TWJR6ga+t/Mu0ty9oNXZb0RHr/qVchS77C7IwIUIPOHdt2iCAfXM3Qic
- 3Vt5s8ex+na6RPCA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PL9OgAog;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=G87bQDbk
+ bh=uFDjnokV03nBh1ZklTpQbjocZsKEUjaZhBngYFv1IBM=;
+ b=L6GCir8n9hfcGBKpY7VLT7ONB6oUpfKX9AJ/2VRGUgp+Lud2kRYjZVipME4izK1HYCccqQ
+ jNac3u5IcknzwkDg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=aUcJiRcd;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=L6GCir8n
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1725876029; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1725876030; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RMKhhz4+0orzC6erq1XHyTgsxTbu7sE7U3Fuk2lfccE=;
- b=PL9OgAogvOjxEtPaWRXmtIzTMYW9G0AeM+QWSmHFv5ni1PeYGycmDSB5KLcdrLc4flwr8j
- HjgGG65qIWWBkGLID+y8QhoG+ZNm90gJX3i1cFvjXGEVjcqAyaYKyapkpGmXB2TBDN0UgC
- SIcgrWfpMwPPTkKOTfxOqlP7LeIvJx4=
+ bh=uFDjnokV03nBh1ZklTpQbjocZsKEUjaZhBngYFv1IBM=;
+ b=aUcJiRcd1vUvj23UtaU5ZmN1rb53AzH9oWYO5B2Sye5epQ5QUjWPbgLj66q4jxEdQP8fwx
+ qz/veG5owjp/dJZw9gbRH81hLbRwdUpkiI6Pzbc7k9ec01ed4CDWRAymDXFhBuaV8jqbtJ
+ 6R3As0wbhFHShYkn5CBok+5QyGYT+vk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1725876029;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ s=susede2_ed25519; t=1725876030;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RMKhhz4+0orzC6erq1XHyTgsxTbu7sE7U3Fuk2lfccE=;
- b=G87bQDbkoeaU+2TWJR6ga+t/Mu0ty9oNXZb0RHr/qVchS77C7IwIUIPOHdt2iCAfXM3Qic
- 3Vt5s8ex+na6RPCA==
+ bh=uFDjnokV03nBh1ZklTpQbjocZsKEUjaZhBngYFv1IBM=;
+ b=L6GCir8n9hfcGBKpY7VLT7ONB6oUpfKX9AJ/2VRGUgp+Lud2kRYjZVipME4izK1HYCccqQ
+ jNac3u5IcknzwkDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DFB4B13312;
- Mon,  9 Sep 2024 10:00:28 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E56BC13312
+ for <ltp@lists.linux.it>; Mon,  9 Sep 2024 10:00:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id EDILKzzH3mb+DgAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Mon, 09 Sep 2024 10:00:28 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oGUxLT3H3mb+DgAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>)
+ for <ltp@lists.linux.it>; Mon, 09 Sep 2024 10:00:29 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 09 Sep 2024 12:00:24 +0200
+Date: Mon, 09 Sep 2024 12:00:25 +0200
 MIME-Version: 1.0
-Message-Id: <20240909-listmount_statmount-v4-2-39558204ddf0@suse.com>
+Message-Id: <20240909-listmount_statmount-v4-3-39558204ddf0@suse.com>
 References: <20240909-listmount_statmount-v4-0-39558204ddf0@suse.com>
 In-Reply-To: <20240909-listmount_statmount-v4-0-39558204ddf0@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1725876026; l=6664;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1725876026; l=3037;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=gcwLSdMuVaO0WhheOTH7a37vs059FjcS7G3GIgxqx8s=;
- b=foTySqwOB5MLWMUs3kn5Q7F0RK29au+2QjgS/n+f9A06z61g9Gq4xNL9RUILvvr06Z/txF3rh
- H5yAyWZNTbxCibY/IH1gmFN8IpXnbIcXroMapnYI5RD3exWZOzBJLnV
+ bh=Wdiz+a0pzRx9vbK90VgmiNGjhMd98Xg4dHCuTgeNbhI=;
+ b=ksybPIxPMHZG6j++W0a+WFztaXBDNHHM/QHirhyaPzLr4XlLvk5SQ2viXgfllVleU13xEGCG2
+ MBgXr+7HwwSDX9C4txGyBOPNgZAvQkis/0pP6Kpdi9Ol2y1GWn7oG9o
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: 8F9541F7AF
+X-Rspamd-Queue-Id: 892F421BD9
 X-Spam-Score: -4.51
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,huawei.com:email];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- TO_DN_SOME(0.00)[]; RCPT_COUNT_TWO(0.00)[2];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
  RCVD_TLS_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:mid,suse.com:email];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
  DKIM_TRACE(0.00)[suse.de:+]
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4 02/13] Add listmount/statmount syscalls
+Subject: [LTP] [PATCH v4 03/13] Add listmount/statmount fallback declarations
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,213 +143,133 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Reviewed-by: Avinesh Kumar <akumar@suse.de>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- include/lapi/syscalls/aarch64.in   | 2 ++
- include/lapi/syscalls/arc.in       | 2 ++
- include/lapi/syscalls/arm.in       | 2 ++
- include/lapi/syscalls/hppa.in      | 2 ++
- include/lapi/syscalls/i386.in      | 2 ++
- include/lapi/syscalls/ia64.in      | 2 ++
- include/lapi/syscalls/loongarch.in | 2 ++
- include/lapi/syscalls/mips_n32.in  | 2 ++
- include/lapi/syscalls/mips_n64.in  | 2 ++
- include/lapi/syscalls/mips_o32.in  | 2 ++
- include/lapi/syscalls/powerpc.in   | 2 ++
- include/lapi/syscalls/powerpc64.in | 2 ++
- include/lapi/syscalls/s390.in      | 2 ++
- include/lapi/syscalls/s390x.in     | 2 ++
- include/lapi/syscalls/sh.in        | 2 ++
- include/lapi/syscalls/sparc.in     | 2 ++
- include/lapi/syscalls/sparc64.in   | 2 ++
- include/lapi/syscalls/x86_64.in    | 2 ++
- 18 files changed, 36 insertions(+)
+ configure.ac         |  4 +++
+ include/lapi/mount.h | 70 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 74 insertions(+)
 
-diff --git a/include/lapi/syscalls/aarch64.in b/include/lapi/syscalls/aarch64.in
-index 61d4450bf..c184f5710 100644
---- a/include/lapi/syscalls/aarch64.in
-+++ b/include/lapi/syscalls/aarch64.in
-@@ -303,4 +303,6 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
- _sysctl 1078
-diff --git a/include/lapi/syscalls/arc.in b/include/lapi/syscalls/arc.in
-index 752cc54fd..ff58f1be2 100644
---- a/include/lapi/syscalls/arc.in
-+++ b/include/lapi/syscalls/arc.in
-@@ -323,3 +323,5 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
-diff --git a/include/lapi/syscalls/arm.in b/include/lapi/syscalls/arm.in
-index 84203ca4d..ff1415f52 100644
---- a/include/lapi/syscalls/arm.in
-+++ b/include/lapi/syscalls/arm.in
-@@ -402,3 +402,5 @@ futex_waitv (__NR_SYSCALL_BASE+449)
- cachestat (__NR_SYSCALL_BASE+451)
- fchmodat2 (__NR_SYSCALL_BASE+452)
- mseal (__NR_SYSCALL_BASE+462)
-+statmount (__NR_SYSCALL_BASE+457)
-+listmount (__NR_SYSCALL_BASE+458)
-diff --git a/include/lapi/syscalls/hppa.in b/include/lapi/syscalls/hppa.in
-index 8240c69ce..ac6cd691d 100644
---- a/include/lapi/syscalls/hppa.in
-+++ b/include/lapi/syscalls/hppa.in
-@@ -50,3 +50,5 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
-diff --git a/include/lapi/syscalls/i386.in b/include/lapi/syscalls/i386.in
-index f6e8c7258..d2f8c295d 100644
---- a/include/lapi/syscalls/i386.in
-+++ b/include/lapi/syscalls/i386.in
-@@ -437,3 +437,5 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
-diff --git a/include/lapi/syscalls/ia64.in b/include/lapi/syscalls/ia64.in
-index 8f55029a9..cd770bace 100644
---- a/include/lapi/syscalls/ia64.in
-+++ b/include/lapi/syscalls/ia64.in
-@@ -350,3 +350,5 @@ futex_waitv 1473
- cachestat 1475
- fchmodat2 1476
- mseal 1486
-+statmount 1481
-+listmount 1482
-diff --git a/include/lapi/syscalls/loongarch.in b/include/lapi/syscalls/loongarch.in
-index 3df354fce..7e40e01bf 100644
---- a/include/lapi/syscalls/loongarch.in
-+++ b/include/lapi/syscalls/loongarch.in
-@@ -308,3 +308,5 @@ set_mempolicy_home_node 450
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
-diff --git a/include/lapi/syscalls/mips_n32.in b/include/lapi/syscalls/mips_n32.in
-index d85c567c7..1c64e9ab4 100644
---- a/include/lapi/syscalls/mips_n32.in
-+++ b/include/lapi/syscalls/mips_n32.in
-@@ -377,3 +377,5 @@ futex_waitv 6449
- cachestat 6451
- fchmodat2 6452
- mseal 6462
-+statmount 6457
-+listmount 6458
-diff --git a/include/lapi/syscalls/mips_n64.in b/include/lapi/syscalls/mips_n64.in
-index c34a85bbe..e3895b1ea 100644
---- a/include/lapi/syscalls/mips_n64.in
-+++ b/include/lapi/syscalls/mips_n64.in
-@@ -353,3 +353,5 @@ futex_waitv 5449
- cachestat 5451
- fchmodat2 5452
- mseal 5462
-+statmount 5457
-+listmount 5458
-diff --git a/include/lapi/syscalls/mips_o32.in b/include/lapi/syscalls/mips_o32.in
-index 10d77787b..043747da7 100644
---- a/include/lapi/syscalls/mips_o32.in
-+++ b/include/lapi/syscalls/mips_o32.in
-@@ -423,3 +423,5 @@ futex_waitv 4449
- cachestat 4451
- fchmodat2 4452
- mseal 4462
-+statmount 4457
-+listmount 4458
-diff --git a/include/lapi/syscalls/powerpc.in b/include/lapi/syscalls/powerpc.in
-index af3ae5c90..a3b8fdabf 100644
---- a/include/lapi/syscalls/powerpc.in
-+++ b/include/lapi/syscalls/powerpc.in
-@@ -430,3 +430,5 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
-diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
-index af3ae5c90..a3b8fdabf 100644
---- a/include/lapi/syscalls/powerpc64.in
-+++ b/include/lapi/syscalls/powerpc64.in
-@@ -430,3 +430,5 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
-diff --git a/include/lapi/syscalls/s390.in b/include/lapi/syscalls/s390.in
-index e8e7fff0b..bf55073d6 100644
---- a/include/lapi/syscalls/s390.in
-+++ b/include/lapi/syscalls/s390.in
-@@ -417,3 +417,5 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
-diff --git a/include/lapi/syscalls/s390x.in b/include/lapi/syscalls/s390x.in
-index 0ee3bd897..d11e22bd3 100644
---- a/include/lapi/syscalls/s390x.in
-+++ b/include/lapi/syscalls/s390x.in
-@@ -365,3 +365,5 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
-diff --git a/include/lapi/syscalls/sh.in b/include/lapi/syscalls/sh.in
-index 5701f2285..67cf85d50 100644
---- a/include/lapi/syscalls/sh.in
-+++ b/include/lapi/syscalls/sh.in
-@@ -411,3 +411,5 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
-diff --git a/include/lapi/syscalls/sparc.in b/include/lapi/syscalls/sparc.in
-index 172969f60..56e275f74 100644
---- a/include/lapi/syscalls/sparc.in
-+++ b/include/lapi/syscalls/sparc.in
-@@ -416,3 +416,5 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
-diff --git a/include/lapi/syscalls/sparc64.in b/include/lapi/syscalls/sparc64.in
-index 5b667f10f..cfe221919 100644
---- a/include/lapi/syscalls/sparc64.in
-+++ b/include/lapi/syscalls/sparc64.in
-@@ -381,3 +381,5 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
-diff --git a/include/lapi/syscalls/x86_64.in b/include/lapi/syscalls/x86_64.in
-index 1993f343a..8919487c8 100644
---- a/include/lapi/syscalls/x86_64.in
-+++ b/include/lapi/syscalls/x86_64.in
-@@ -358,6 +358,8 @@ futex_waitv 449
- cachestat 451
- fchmodat2 452
- mseal 462
-+statmount 457
-+listmount 458
- rt_sigaction 512
- rt_sigreturn 513
- ioctl 514
+diff --git a/configure.ac b/configure.ac
+index ebbf49e28..3dca7c646 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -114,6 +114,7 @@ AC_CHECK_FUNCS_ONCE([ \
+     io_uring_register \
+     io_uring_enter \
+     kcmp \
++    listmount \
+     mallinfo \
+     mallinfo2 \
+     mallopt \
+@@ -143,6 +144,7 @@ AC_CHECK_FUNCS_ONCE([ \
+     setns \
+     sigpending \
+     splice \
++    statmount \
+     statx \
+     stime \
+     sync_file_range \
+@@ -246,6 +248,8 @@ AC_CHECK_TYPES([struct mount_attr],,,[
+ 
+ AC_CHECK_TYPES([struct cachestat_range],,,[#include <sys/mman.h>])
+ AC_CHECK_TYPES([struct cachestat],,,[#include <sys/mman.h>])
++AC_CHECK_TYPES([struct mnt_id_req],,,[#include <linux/mount.h>])
++AC_CHECK_TYPES([struct statmount],,,[#include <linux/mount.h>])
+ 
+ # Tools knobs
+ 
+diff --git a/include/lapi/mount.h b/include/lapi/mount.h
+index c1af944fe..01a0fd2d6 100644
+--- a/include/lapi/mount.h
++++ b/include/lapi/mount.h
+@@ -2,12 +2,15 @@
+ /*
+  * Copyright (c) Linux Test Project, 2015-2022
+  * Copyright (c) 2015 Cui Bixuan <cuibixuan@huawei.com>
++ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+  */
+ 
+ #ifndef LAPI_MOUNT_H__
+ #define LAPI_MOUNT_H__
+ 
++#include <stdint.h>
+ #include <sys/mount.h>
++#include "config.h"
+ 
+ #ifndef MS_REC
+ # define MS_REC 16384
+@@ -37,4 +40,71 @@
+ # define MS_NOSYMFOLLOW 256
+ #endif
+ 
++#ifndef HAVE_STRUCT_MNT_ID_REQ
++struct mnt_id_req {
++	uint32_t size;
++	uint32_t spare;
++	uint64_t mnt_id;
++	uint64_t param;
++};
++#endif
++
++#ifndef HAVE_STRUCT_STATMOUNT
++struct statmount {
++	uint32_t size;
++	uint32_t __spare1;
++	uint64_t mask;
++	uint32_t sb_dev_major;
++	uint32_t sb_dev_minor;
++	uint64_t sb_magic;
++	uint32_t sb_flags;
++	uint32_t fs_type;
++	uint64_t mnt_id;
++	uint64_t mnt_parent_id;
++	uint32_t mnt_id_old;
++	uint32_t mnt_parent_id_old;
++	uint64_t mnt_attr;
++	uint64_t mnt_propagation;
++	uint64_t mnt_peer_group;
++	uint64_t mnt_master;
++	uint64_t propagate_from;
++	uint32_t mnt_root;
++	uint32_t mnt_point;
++	uint64_t __spare2[50];
++	char str[];
++};
++#endif
++
++#ifndef MNT_ID_REQ_SIZE_VER0
++# define MNT_ID_REQ_SIZE_VER0 24
++#endif
++
++#ifndef STATMOUNT_SB_BASIC
++# define STATMOUNT_SB_BASIC 0x00000001U
++#endif
++
++#ifndef STATMOUNT_MNT_BASIC
++# define STATMOUNT_MNT_BASIC 0x00000002U
++#endif
++
++#ifndef STATMOUNT_PROPAGATE_FROM
++# define STATMOUNT_PROPAGATE_FROM 0x00000004U
++#endif
++
++#ifndef STATMOUNT_MNT_ROOT
++# define STATMOUNT_MNT_ROOT 0x00000008U
++#endif
++
++#ifndef STATMOUNT_MNT_POINT
++# define STATMOUNT_MNT_POINT 0x00000010U
++#endif
++
++#ifndef STATMOUNT_FS_TYPE
++# define STATMOUNT_FS_TYPE 0x00000020U
++#endif
++
++#ifndef LSMT_ROOT
++# define LSMT_ROOT 0xffffffffffffffff
++#endif
++
+ #endif /* LAPI_MOUNT_H__ */
 
 -- 
 2.43.0
