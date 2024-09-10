@@ -1,94 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBB70977A22
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Sep 2024 09:46:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1726213579; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=Ncx9ygV2kKFhw3TZEoN2A8FVXca+5EiegXL2+s35OT8=;
- b=cP6+Bm3Lvo4D5BxaTWcu/miS5ry5lGn+7facKmPM0vGPRBhjCV9Kwm2tysy8IogOz0RQ5
- WLzhVA+Hli9m187yGVSjbocWjevAc9CEYk3knFa+1nJtwtiOw2UB6z0B/n+AAoa9/kZDEId
- azZ3W6HOZoP7H1Z/JhBJVwRo63Yfy7s=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FA15977BAF
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Sep 2024 10:57:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2F4AF3C2786
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Sep 2024 09:46:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4C7163C279E
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Sep 2024 10:57:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 700E93C1AE3
- for <ltp@lists.linux.it>; Fri, 13 Sep 2024 09:46:17 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=fujitsu.com (client-ip=68.232.139.139;
- helo=esa6.hc1455-7.c3s2.iphmx.com; envelope-from=maxj.fnst@fujitsu.com;
- receiver=lists.linux.it)
-Received: from esa6.hc1455-7.c3s2.iphmx.com (esa6.hc1455-7.c3s2.iphmx.com
- [68.232.139.139])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 462F76020A0
- for <ltp@lists.linux.it>; Fri, 13 Sep 2024 09:46:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
- t=1726213576; x=1757749576;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=XReQ5d9MtUJjv/cUf6aFPEF81dnG0mjB2B7IolaHCfE=;
- b=S1jhVkiy9IUTD0zxJQunc4rMvMqSJvQsuBKm0Xy3XDj2WcuZEQHsz0D+
- 9clGwhxj9+iPXuMr8vG8qt4sFudXlE3UfFOZFQMBj+5sy4TzTgbtKzxd5
- FnJ2YX2WPOIUrRw3COD/I8Cr+pG1QhUtCcMNr/EDvPHrsWFOVT3ycyC+7
- JQkcObbHm9xVPqHHn0jOOiH6SzGaqQgjK80p8L9HlGHBOqLx4q7+xdTL9
- HZ3rVgL7B4nWrce1hSL6A0fx9hecxnidYGcSbGn2mqVd5/LjZJzZvA58s
- bXWcVW8EaiBEaqKWJMQ6gQL7Yjq585/tEpqX/pTDVpHHaiW1TQZj7wege w==;
-X-CSE-ConnectionGUID: yNKtj888Q5igkW5TGOkU4w==
-X-CSE-MsgGUID: 67YjVSOoSKikLlO67IBuow==
-X-IronPort-AV: E=McAfee;i="6700,10204,11193"; a="175692821"
-X-IronPort-AV: E=Sophos;i="6.10,225,1719846000"; d="scan'208";a="175692821"
-Received: from unknown (HELO oym-r1.gw.nic.fujitsu.com) ([210.162.30.89])
- by esa6.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2024 16:46:14 +0900
-Received: from oym-m2.gw.nic.fujitsu.com (oym-nat-oym-m2.gw.nic.fujitsu.com
- [192.168.87.59])
- by oym-r1.gw.nic.fujitsu.com (Postfix) with ESMTP id CE0F2CC142
- for <ltp@lists.linux.it>; Fri, 13 Sep 2024 16:46:11 +0900 (JST)
-Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
- [192.51.206.21])
- by oym-m2.gw.nic.fujitsu.com (Postfix) with ESMTP id 1847EBDC8B
- for <ltp@lists.linux.it>; Fri, 13 Sep 2024 16:46:11 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id A781020086EA8
- for <ltp@lists.linux.it>; Fri, 13 Sep 2024 16:46:10 +0900 (JST)
-Received: from localhost.localdomain (unknown [10.167.135.101])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id 22D8D1A000B;
- Fri, 13 Sep 2024 15:46:10 +0800 (CST)
-To: ltp@lists.linux.it
-Date: Fri, 13 Sep 2024 15:47:43 +0800
-Message-ID: <20240913074743.171417-1-maxj.fnst@fujitsu.com>
-X-Mailer: git-send-email 2.42.0
+ by picard.linux.it (Postfix) with ESMTPS id 248F43C00BE
+ for <ltp@lists.linux.it>; Tue, 10 Sep 2024 11:49:54 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=arm.com
+ (client-ip=217.140.110.172; helo=foss.arm.com;
+ envelope-from=joey.gouly@arm.com; receiver=lists.linux.it)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 85C061000A00
+ for <ltp@lists.linux.it>; Tue, 10 Sep 2024 11:49:53 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BFB57113E;
+ Tue, 10 Sep 2024 02:50:20 -0700 (PDT)
+Received: from e124191.cambridge.arm.com (e124191.cambridge.arm.com
+ [10.1.197.45])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3D6243F66E;
+ Tue, 10 Sep 2024 02:49:50 -0700 (PDT)
+Date: Tue, 10 Sep 2024 10:49:45 +0100
+From: Joey Gouly <joey.gouly@arm.com>
+To: Naresh Kamboju <naresh.kamboju@linaro.org>
+Message-ID: <20240910094945.GA649558@e124191.cambridge.arm.com>
+References: <CA+G9fYvarKEPN3u1Ogw2pcw4h6r3OMzg+5qJpYkAXRunAEF_0Q@mail.gmail.com>
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28660.006
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28660.006
-X-TMASE-Result: 10--8.887900-10.000000
-X-TMASE-MatchedRID: QlNdUeMfyo6hhjsqgSuNbxF4zyLyne+ATJDl9FKHbrktgrJnRjazPLD7
- bvwvswdMwPjoyxtY8IAZCFRTM+r3uWshKDeAIEIiSs47mbT7SATYUDvAr2Y/1x7C++U0wwZ4o8W
- MkQWv6iXBcIE78YqRWvcUt5lc1lLgOMB0shqXhHqIn3Vd6aw/6A1rnPd07t4waS+eSRI9sRndcq
- B5Oytq1j+/LgzxCEE1
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CA+G9fYvarKEPN3u1Ogw2pcw4h6r3OMzg+5qJpYkAXRunAEF_0Q@mail.gmail.com>
+X-Spam-Status: No, score=1.2 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SUBJ_LACKS_WORDS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] splice03: Convert docs to docparse
+X-Mailman-Approved-At: Fri, 13 Sep 2024 10:57:32 +0200
+Subject: Re: [LTP] next-20240905: WARNING: at
+ arch/arm64/include/asm/pkeys.h:40 do_mmap
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,62 +58,128 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Ma Xinjian via ltp <ltp@lists.linux.it>
-Reply-To: Ma Xinjian <maxj.fnst@fujitsu.com>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>,
+ Aishwarya TCV <aishwarya.tcv@arm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Will Deacon <will@kernel.org>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Ma Xinjian <maxj.fnst@fujitsu.com>
----
- testcases/kernel/syscalls/splice/splice03.c | 30 +++++++++------------
- 1 file changed, 13 insertions(+), 17 deletions(-)
+On Tue, Sep 10, 2024 at 12:00:37PM +0530, Naresh Kamboju wrote:
+> The following kernel warning noticed while running the LTP test case
+> LTP syscalls mlock03 ( mmap03 ) on
+>   - Arm DUT Juno-r2
+>   - Qcomm DUT Dragonboard-410c
+> 
+> running Linux next-20240905, next-20240906 and next-20240909 kernel.
+> 
+> First seen on next-20240905
+>   Good: next-20240904
+>   BAD:  next-20240905..next-20240909
+> 
+> Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+> 
+> Warning log:
+> ----------
+> [    0.000000] Linux version 6.11.0-rc6-next-20240905
+> (tuxmake@tuxmake) (aarch64-linux-gnu-gcc (Debian 13.3.0-5) 13.3.0, GNU
+> ld (GNU Binutils for Debian) 2.43) #1 SMP PREEMPT @1725536306
+> [    0.000000] KASLR disabled due to lack of seed
+> [    0.000000] Machine model: ARM Juno development board (r2)
+> ..
+> mlock03.c:58: TINFO: mlock [aaaaddae1000,aaaaddafd000]
+> mlock03.c:62: TINFO: munlock [aaaaddae1000,aaaaddafd000]
+> [  795.850426] ------------[ cut here ]------------
+> [  795.857261] WARNING: CPU: 5 PID: 101577 at
+> arch/arm64/include/asm/pkeys.h:40 do_mmap
+> (arch/arm64/include/asm/pkeys.h:40 (discriminator 1) mm/mmap.c:338
+> (discriminator 1))
+> [  795.868833] Modules linked in: tun overlay btrfs blake2b_generic
+> libcrc32c xor xor_neon raid6_pq zstd_compress panfrost tda998x
+> onboard_usb_dev drm_shmem_helper hdlcd crct10dif_ce cec gpu_sched
+> drm_dma_helper drm_kms_helper fuse drm backlight dm_mod ip_tables
+> x_tables
+> [  795.895379] CPU: 5 UID: 0 PID: 101577 Comm: mmap03 Not tainted
+> 6.11.0-rc6-next-20240905 #1
+> [  795.906430] Hardware name: ARM Juno development board (r2) (DT)
+> [  795.915135] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> [  795.924881] pc : do_mmap (arch/arm64/include/asm/pkeys.h:40
+> (discriminator 1) mm/mmap.c:338 (discriminator 1))
+> [  795.931236] lr : vm_mmap_pgoff (mm/util.c:588)
+> [  795.938113] sp : ffff80008ba0bc90
+> [  795.944206] x29: ffff80008ba0bc90 x28: 0000000000000001 x27: ffff0008329cf800
+> [  795.954128] x26: ffff0008329cf800 x25: ffff000822140cc0 x24: 0000000000000000
+> [  795.964050] x23: ffff80008ba0bd20 x22: 0000000000000004 x21: 0000000000000000
+> [  795.973972] x20: 0000000000000001 x19: 0000000000001000 x18: 0000000000000000
+> [  795.983895] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+> [  795.993817] x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
+> [  796.003739] x11: 0000000000000000 x10: 0000000000000000 x9 : ffff80008032e2c4
+> [  796.013661] x8 : ffff000827e64c00 x7 : ffff80008ba0bd20 x6 : 0000000000000000
+> [  796.023583] x5 : 0000000000000000 x4 : 0000000000000001 x3 : 0000000000000004
+> [  796.033505] x2 : 0000000000001000 x1 : 0000000000000011 x0 : 000000000000fffa
+> [  796.043428] Call trace:
+> [  796.048651] do_mmap (arch/arm64/include/asm/pkeys.h:40
+> (discriminator 1) mm/mmap.c:338 (discriminator 1))
+> [  796.054658] vm_mmap_pgoff (mm/util.c:588)
+> [  796.061187] ksys_mmap_pgoff (mm/mmap.c:542)
+> [  796.067980] __arm64_sys_mmap (arch/arm64/kernel/sys.c:21)
+> [  796.074597] invoke_syscall (arch/arm64/include/asm/current.h:19
+> arch/arm64/kernel/syscall.c:54)
+> [  796.081213] el0_svc_common.constprop.0
+> (include/linux/thread_info.h:127 (discriminator 2)
+> arch/arm64/kernel/syscall.c:140 (discriminator 2))
+> [  796.088699] do_el0_svc (arch/arm64/kernel/syscall.c:152)
+> [  796.094879] el0_svc (arch/arm64/include/asm/irqflags.h:82
+> (discriminator 1) arch/arm64/include/asm/irqflags.h:123 (discriminator
+> 1) arch/arm64/include/asm/irqflags.h:136 (discriminator 1)
+> arch/arm64/kernel/entry-common.c:165 (discriminator 1)
+> arch/arm64/kernel/entry-common.c:178 (discriminator 1)
+> arch/arm64/kernel/entry-common.c:713 (discriminator 1))
+> [  796.100799] el0t_64_sync_handler (arch/arm64/kernel/entry-common.c:731)
+> [  796.108024] el0t_64_sync (arch/arm64/kernel/entry.S:598)
+> [  796.114467] ---[ end trace 0000000000000000 ]---
 
-diff --git a/testcases/kernel/syscalls/splice/splice03.c b/testcases/kernel/syscalls/splice/splice03.c
-index c054e6c1c..91e9bf9e7 100644
---- a/testcases/kernel/syscalls/splice/splice03.c
-+++ b/testcases/kernel/syscalls/splice/splice03.c
-@@ -3,23 +3,19 @@
-  * Copyright (c) 2014 Fujitsu Ltd.
-  * Author: Xing Gu <gux.fnst@cn.fujitsu.com>
-  */
--/*
-- * Description:
-- *   Verify that,
-- *   1) splice() returns -1 and sets errno to EBADF if the file
-- *      descriptor fd_in is not valid.
-- *   2) splice() returns -1 and sets errno to EBADF if the file
-- *      descriptor fd_out is not valid.
-- *   3) splice() returns -1 and sets errno to EBADF if the file
-- *      descriptor fd_in does not have proper read-write mode.
-- *   4) splice() returns -1 and sets errno to EINVAL if target
-- *      file is opened in append mode.
-- *   5) splice() returns -1 and sets errno to EINVAL if neither
-- *      of the descriptors refer to a pipe.
-- *   6) splice() returns -1 and sets errno to ESPIPE if off_in is
-- *      not NULL when the file descriptor fd_in refers to a pipe.
-- *   7) splice() returns -1 and sets errno to ESPIPE if off_out is
-- *      not NULL when the file descriptor fd_out refers to a pipe.
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that, splice(2) returns -1 and sets errno to
-+ *
-+ * 1. EBADF if the file descriptor fd_in is not valid.
-+ * 2. EBADF if the file descriptor fd_out is not valid.
-+ * 3. EBADF if the file descriptor fd_in does not have proper read-write mode.
-+ * 4. EINVAL if target file is opened in append mode.
-+ * 5. EINVAL if neither of the descriptors refer to a pipe.
-+ * 6. ESPIPE if off_in is not NULL when the file descriptor fd_in refers to a pipe.
-+ * 7. ESPIPE if off_out is not NULL when the file descriptor fd_out refers to a pipe.
-  */
- 
- #define _GNU_SOURCE
--- 
-2.42.0
+I see what has gone wrong here, it's fortunately harmless. I will send a patch
+to fix it.
 
+Thanks,
+Joey
+
+> 
+> boot Log links,
+> --------
+>   - https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20240905/testrun/25069344/suite/log-parser-test/test/check-kernel-exception-warning-cpu-pid-at-archarmincludeasmpkeysh-do_mmap/log
+>   - https://lkft.validation.linaro.org/scheduler/job/7842087#L21916
+>   - https://lkft.validation.linaro.org/scheduler/job/7847924#L23191
+> 
+> Test results history:
+> ----------
+>   - https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20240909/testrun/25081195/suite/log-parser-test/test/check-kernel-exception-warning-cpu-pid-at-archarmincludeasmpkeysh-do_mmap/history/
+> 
+> metadata:
+> ----
+>   git describe: next-20240905
+>   git repo: https://gitlab.com/Linaro/lkft/mirrors/next/linux-next
+>   git sha: ad40aff1edffeccc412cde93894196dca7bc739e
+>   kernel config:
+> https://storage.tuxsuite.com/public/linaro/lkft/builds/2leMFe4WompPEOUNN7ODxtTMCxf/config
+>   build url: https://storage.tuxsuite.com/public/linaro/lkft/builds/2leMFe4WompPEOUNN7ODxtTMCxf/
+>   toolchain: gcc-13
+> 
+> Steps to reproduce:
+> ---------
+> - https://tuxapi.tuxsuite.com/v1/groups/linaro/projects/lkft/tests/2leMISlsoJqQdTCCzBmuVwKHq9m/reproducer
+> - https://tuxapi.tuxsuite.com/v1/groups/linaro/projects/lkft/tests/2leMISlsoJqQdTCCzBmuVwKHq9m/tux_plan
+> 
+> --
+> Linaro LKFT
+> https://lkft.linaro.org
+> 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
