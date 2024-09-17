@@ -2,78 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53D1497B00D
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Sep 2024 14:23:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0E4997B012
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Sep 2024 14:23:34 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1726575791; h=message-id :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1726575814; h=message-id :
  date : mime-version : to : references : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : content-transfer-encoding :
  content-type : sender : from;
- bh=MoeMxgBXRrPofUARry4D2qvS1qH1K6AjR97XAvQ7Ttc=;
- b=NOjswjr/OtwpQyv5z2RyGQvirvC+Fv7k6sJFmi9IL2Rrnt5QmeON9NqBGwUEdLQLT62yB
- Tj5I9VSIdmHGr4av57D/NXuCbgQotNZIaFxql2gNd4ffyKgdtvUlvmv5pqMGEHnbYH/cEy+
- mOrWJsEb8dFwBnkeZbpZtrVUSnp1RBU=
+ bh=4VBupQCUf8DgPxnLw9iSeH0Dl3h9w/W9qx/q7qnM4bo=;
+ b=UMMxEOtfzqSpEe6qomjQby+N6nl4vcvt1uy06REPiW2G+eV6+F9+MTsbbVMq+n4iz5FUj
+ ULTl6oNFSlFKWCMMsqLUyAEYiWUPilATgbxoglIdyHQIBOcLgLGDhM3vrMupaVLcLTCI3ov
+ foD2GLagAAUu3lDjT+ub+cR7kLQrjN4=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 12A613C2E29
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Sep 2024 14:23:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5FB283C2E01
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Sep 2024 14:23:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 940E43C0729
- for <ltp@lists.linux.it>; Tue, 17 Sep 2024 14:22:58 +0200 (CEST)
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
+ by picard.linux.it (Postfix) with ESMTPS id 2E6CA3C2E0A
+ for <ltp@lists.linux.it>; Tue, 17 Sep 2024 14:23:10 +0200 (CEST)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0ACD82001D1
- for <ltp@lists.linux.it>; Tue, 17 Sep 2024 14:22:56 +0200 (CEST)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2f7ba97ebaaso324141fa.2
- for <ltp@lists.linux.it>; Tue, 17 Sep 2024 05:22:56 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6C3D960FB56
+ for <ltp@lists.linux.it>; Tue, 17 Sep 2024 14:23:09 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-42cbc22e1c4so35735475e9.2
+ for <ltp@lists.linux.it>; Tue, 17 Sep 2024 05:23:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1726575776; x=1727180576; darn=lists.linux.it;
+ d=suse.com; s=google; t=1726575788; x=1727180588; darn=lists.linux.it;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=lbJtxQafDnp3kwr6WO2EYxpGsV62nrJGQu2ykOKw4GA=;
- b=GwHPUqQHblXOjbGwGSc5zE98B6DA6miNePRzNO4DgjALvWG2mJIhUDGw+zmZSjhsLj
- SelGcQMtQvHfUlQMG9eNMDwUSg4JzLSv6m+hgGO/whObpxrr0fD/QJUmWXDUdfOOHdno
- CJy0RtubdNN/83y9C/zBWvDzErXcfDXk/pEg/RO2mcSOCnexsJxMwbz7FmqYYD7615hU
- nUiXAUOxraTWif8POE7FXKRC5CF9On9X+Vouf2Q76CmyJa5qgLoSQgPxWoVSrkzh9SIQ
- ZDgcl7SjRNyZw6mgq3IaxTHY2uqUmoZ9H+JKpHNTJwQHMUuweSKyi1o55w2kv2Q7i5O5
- otvw==
+ bh=HKrTKeTU5vxuXxASKcsgnsyPknPdYl8nGmHFFU7/mAw=;
+ b=SPEFD3hfiY9Sc41+vOCPcfrjVvAjYLipMaZbT7xvjja+dzitiEUdX8ZRZ+YFF4EaEJ
+ cMCnXUxJK5vE6K8cb9q7kwzjG1R3h8LcO9q+E7686bTSyjH9jYMpmObZ5JDprCHiqqlm
+ yK/H2cAWLQl8v3nLL7L+wYIuhSD7hiuCz7qqyvTwwBsRe/36w1Hbu45xWHacJ8xoInUM
+ 1pjaAAqRXmWm/smoxZy5mD0v/vXaxQnPa9w9QfpMegMuuF8cYLL9SyzUnAeyJ0brxU2B
+ pdgwzPaGDPg+HAAYKSNN+YgLD5q8q+AypdHz8OuBwSxtNwzXoMVLHTTO7aDfrtQXo7f0
+ MkbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726575776; x=1727180576;
+ d=1e100.net; s=20230601; t=1726575788; x=1727180588;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=lbJtxQafDnp3kwr6WO2EYxpGsV62nrJGQu2ykOKw4GA=;
- b=aoP/CAn124rB9Z1R56YHjbwzf/lDMj9MGt0w1J7Fdt6qIvYiEoCAyP6a3nppcrr08k
- LYneFet0w7+Hizo0NvJxqMQ4M0p7K6hbg82qvNlhUEWmlQ/sC/2qiM+C1s2LDSowc9j6
- d+3w0g0m658GgsUc07tIwHyjiDuUfHiz/ltyKS1ZSWTaV2tEUSFaa5LBau8N7PYP+LYI
- Etp1T0suFnWbb0EQHGqyehucJxIEsEo8r6mI9mwSduLZi8wAge1SrPC5nsg98V+A6gNq
- Mq13VHAQvjQo4KMXNjQJL5kU0H09nl7wM2c1GVFj0k54yfn2JJ47vZtU2GXz0j/TReYX
- Eliw==
-X-Gm-Message-State: AOJu0YzKEWrJBLiBpRa5t1XGH1fPBd/zDFYlgmCsUlelOUKr746mQtv9
- nduFO/eAzeQDMloF3ZXDhKeCcLZ5yMTSca464UvawmCQ5kI9I1LBBDwD0UgfCNjv2FP+QQX534e
- YLz0=
-X-Google-Smtp-Source: AGHT+IFROLNJpL98Ewe7GkwjP/NEuvD19me5bjy1pbNPxDOOGxw1HbyDey5sheb1sZRP//E/rnB3rA==
-X-Received: by 2002:a2e:a585:0:b0:2f4:50c:ab55 with SMTP id
- 38308e7fff4ca-2f787dbf600mr89019271fa.16.1726575775332; 
- Tue, 17 Sep 2024 05:22:55 -0700 (PDT)
+ bh=HKrTKeTU5vxuXxASKcsgnsyPknPdYl8nGmHFFU7/mAw=;
+ b=Ks8H+Ukr6tOJ8VOTEfv++9+i7HCeFBloAGzTMHiVNIQ/IEWNlvoPE7X3alw2xh9Cuz
+ k/37TKgsqkIJaypOVQxDoiANJ2vVcqVXn5y9n8OjDM+gwzXxIETJ+Xto3RjjggcOetGh
+ iXXYDaNYVx2jOrKnvwPqfEiYlPXD3ReIYwa0Reqzhiqk3fN/nv5v9iCA/gU9FBmvgpOe
+ k2gcWJIPaeXr9YQQeFIorglZXM5nZz4ItlR7/6qdGtGZbX0U8GbVflmrB4f14Yfi6cJv
+ wLnBKUWWaklbYXBIOOlFPpSSIusMJVKiUsSPImfhm+J3vhDFHCkW9uLyxs8lbuN2ubBl
+ N1Qw==
+X-Gm-Message-State: AOJu0Yx234g2Cd45dH5RGhS2dh9Miga2yq0X66V/BYv9pLi+7pwKcAJ9
+ 8E06luYNUEfI75g1ywRtG/1FGZDhLH8DXx2+e+6GreC78DDgKsyRJJKFClcrWoiqf9h4PzLSZhc
+ 1zU8=
+X-Google-Smtp-Source: AGHT+IHqbox8sNOELe1siy0TLUEBu2D22n/A/PDoGGTcFHZ9FOkzemAH6l0zrCMxrBD1U+8mZevrFg==
+X-Received: by 2002:a05:6000:1bca:b0:374:c847:85c with SMTP id
+ ffacd0b85a97d-378d61e2c1fmr7335475f8f.24.1726575788110; 
+ Tue, 17 Sep 2024 05:23:08 -0700 (PDT)
 Received: from [10.232.133.5] ([88.128.90.60])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2dbb9caafc4sm9294016a91.30.2024.09.17.05.22.52
+ 98e67ed59e1d1-2dbb9d5c9e7sm9288455a91.45.2024.09.17.05.23.05
  for <ltp@lists.linux.it>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Sep 2024 05:22:54 -0700 (PDT)
-Message-ID: <ec341aef-8b50-457b-902d-624103e8583e@suse.com>
-Date: Tue, 17 Sep 2024 14:22:49 +0200
+ Tue, 17 Sep 2024 05:23:07 -0700 (PDT)
+Message-ID: <b13bde4a-a33a-4f5b-b03c-a68ec3da94c8@suse.com>
+Date: Tue, 17 Sep 2024 14:23:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: ltp@lists.linux.it
@@ -83,8 +83,8 @@ In-Reply-To: <20240917082543.27125-1-chrubis@suse.cz>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 Subject: Re: [LTP] [PATCH] Disable failure hints before we actually run the
  test
@@ -110,7 +110,7 @@ Hi Cyril,
 
 LGTM
 
-Acked-by: Andrea Cervesato <andrea.cervesato@mailbox.org>
+Acked-by: Andrea Cervesato <andrea.cervesato@suse.com>
 
 On 9/17/24 10:25, Cyril Hrubis wrote:
 > This is patch based on a suggestion from Peter Vorel:
