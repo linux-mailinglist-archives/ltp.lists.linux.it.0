@@ -2,114 +2,93 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C45DB97C7E4
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Sep 2024 12:24:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35FE197C8F5
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Sep 2024 14:19:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 65E2B3C2F7F
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Sep 2024 12:24:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E004D3C2F92
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Sep 2024 14:19:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 849183C2F61
- for <ltp@lists.linux.it>; Thu, 19 Sep 2024 12:23:20 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id A8AB93C02CD
+ for <ltp@lists.linux.it>; Thu, 19 Sep 2024 14:19:17 +0200 (CEST)
 Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A257E6233C6
- for <ltp@lists.linux.it>; Thu, 19 Sep 2024 12:23:19 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 98DB260005C
+ for <ltp@lists.linux.it>; Thu, 19 Sep 2024 14:19:16 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1A53133870
- for <ltp@lists.linux.it>; Thu, 19 Sep 2024 10:23:18 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 96E4A20907;
+ Thu, 19 Sep 2024 12:19:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1726741398; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oSETjH3Hs6JOfN+tUbHc+Ftxt0xg6qlwuw3MQnCPMhA=;
- b=S72qy5gsteWb9cKCnCY94U7MtgmV0dH/13MTyEbTTz42EoXmBENM5N1FJLGRrryLUwhyhL
- JcKM9XwyUs5SJXziuSJ8HY96nE100weJYNi0vXqsoLT5ODznDw3BrDt/B890SGLZsLjFWU
- 2I5bqJBfJ4mqqkhFp15Dl5OlNnAur/o=
+ t=1726748355; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=aST7JWCYk8AdEGCzpYiAGuBtX/1WIAFGBABOIG0vbJ0=;
+ b=M3saoFXax/7dO1aWszTi/6SdI99q20uvlsw4FA46FL0/qIEJApx6XT4Q3qATkb59OWPLlg
+ fDBUZyAe4HrVHMZ/PPEDAblpgY7Kzc1GZ92bP1v1DgA5SObxUw1FAO4wfpkfjaZzAn/WPT
+ p+REYuioNS96LCSPAv8DmmzpaSey8tM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1726741398;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oSETjH3Hs6JOfN+tUbHc+Ftxt0xg6qlwuw3MQnCPMhA=;
- b=L6CLKsaEiRJSqO1vJfAJTe617e4pmfQYAX27B0VqUbVYWfidsFbWBnhpgKDvc6BFc03n4Z
- Jxdg7norTVPWY6BQ==
-Authentication-Results: smtp-out1.suse.de;
+ s=susede2_ed25519; t=1726748355;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=aST7JWCYk8AdEGCzpYiAGuBtX/1WIAFGBABOIG0vbJ0=;
+ b=9jDWdktnVQPzRgxMpweBDYlAC5GL0S62Ik4cfD8voLOLsB2HWoxFgiAhxhpF5MXm50J4pW
+ OUNytzj1ju34FzAw==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1726741398; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oSETjH3Hs6JOfN+tUbHc+Ftxt0xg6qlwuw3MQnCPMhA=;
- b=S72qy5gsteWb9cKCnCY94U7MtgmV0dH/13MTyEbTTz42EoXmBENM5N1FJLGRrryLUwhyhL
- JcKM9XwyUs5SJXziuSJ8HY96nE100weJYNi0vXqsoLT5ODznDw3BrDt/B890SGLZsLjFWU
- 2I5bqJBfJ4mqqkhFp15Dl5OlNnAur/o=
+ t=1726748355; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=aST7JWCYk8AdEGCzpYiAGuBtX/1WIAFGBABOIG0vbJ0=;
+ b=M3saoFXax/7dO1aWszTi/6SdI99q20uvlsw4FA46FL0/qIEJApx6XT4Q3qATkb59OWPLlg
+ fDBUZyAe4HrVHMZ/PPEDAblpgY7Kzc1GZ92bP1v1DgA5SObxUw1FAO4wfpkfjaZzAn/WPT
+ p+REYuioNS96LCSPAv8DmmzpaSey8tM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1726741398;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oSETjH3Hs6JOfN+tUbHc+Ftxt0xg6qlwuw3MQnCPMhA=;
- b=L6CLKsaEiRJSqO1vJfAJTe617e4pmfQYAX27B0VqUbVYWfidsFbWBnhpgKDvc6BFc03n4Z
- Jxdg7norTVPWY6BQ==
+ s=susede2_ed25519; t=1726748355;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=aST7JWCYk8AdEGCzpYiAGuBtX/1WIAFGBABOIG0vbJ0=;
+ b=9jDWdktnVQPzRgxMpweBDYlAC5GL0S62Ik4cfD8voLOLsB2HWoxFgiAhxhpF5MXm50J4pW
+ OUNytzj1ju34FzAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0929E13A5F
- for <ltp@lists.linux.it>; Thu, 19 Sep 2024 10:23:18 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 66D5413A5F;
+ Thu, 19 Sep 2024 12:19:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id eBLKAJb762ZkBAAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>)
- for <ltp@lists.linux.it>; Thu, 19 Sep 2024 10:23:18 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id lrRvE8MW7GYnKAAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Thu, 19 Sep 2024 12:19:15 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Thu, 19 Sep 2024 12:23:11 +0200
-MIME-Version: 1.0
-Message-Id: <20240919-landlock_network-v1-5-9c997f03bd0a@suse.com>
-References: <20240919-landlock_network-v1-0-9c997f03bd0a@suse.com>
-In-Reply-To: <20240919-landlock_network-v1-0-9c997f03bd0a@suse.com>
 To: ltp@lists.linux.it
-X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1726741397; l=4683;
- i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=ew34/z/LvkKePwM8dR19EMXZzoiwbvP3/7WzKwC2+ZM=;
- b=TcxsVAvQySsEfXVBOkuVYW2Ch3ahVZ3QGLpx1K7rqk8rXHZZ9EIEsIq+bsxlpcDcY0RKA0e0m
- akoa4WxUrYzB4kUs7rdrlPqb6lyqMaHYtDDYsh6bISdzzJNav4Z7ACd
-X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
- pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spam-Score: -4.30
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
+Date: Thu, 19 Sep 2024 14:19:08 +0200
+Message-ID: <20240919121909.15025-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+X-Spam-Score: -2.80
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; RCPT_COUNT_TWO(0.00)[2];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid, suse.com:email,
- imap1.dmz-prg2.suse.org:helo]
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.de:mid];
+ RCVD_TLS_ALL(0.00)[]
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
@@ -117,7 +96,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 5/5] Add error coverage for landlock network support
+Subject: [LTP] [PATCH v1] Ignore generated modules.livepatch in git repo
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,162 +115,94 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Add two more errors checks inside the landlock02 which is testing
-landlock_add_rule syscall. In particular, test now verifies when the
-syscall is raising EINVAL due to invalid network attributes.
+modules.livepatch files are generated during the build and they are not
+needed inside the git repo. Ignore them so they are not added by
+accident inside the git repository.
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/syscalls/landlock/landlock02.c | 71 +++++++++++++++++++------
- 1 file changed, 55 insertions(+), 16 deletions(-)
+ testcases/commands/insmod/.gitignore                       | 1 +
+ testcases/commands/lsmod/.gitignore                        | 1 +
+ testcases/kernel/device-drivers/pci/tpci_kernel/.gitignore | 1 +
+ testcases/kernel/device-drivers/uaccess/.gitignore         | 1 +
+ testcases/kernel/firmware/fw_load_kernel/.gitignore        | 1 +
+ testcases/kernel/syscalls/delete_module/.gitignore         | 1 +
+ testcases/kernel/syscalls/finit_module/.gitignore          | 1 +
+ testcases/kernel/syscalls/init_module/.gitignore           | 1 +
+ 8 files changed, 8 insertions(+)
 
-diff --git a/testcases/kernel/syscalls/landlock/landlock02.c b/testcases/kernel/syscalls/landlock/landlock02.c
-index bdef57b55..56ed9c00c 100644
---- a/testcases/kernel/syscalls/landlock/landlock02.c
-+++ b/testcases/kernel/syscalls/landlock/landlock02.c
-@@ -23,22 +23,26 @@
- static struct tst_landlock_ruleset_attr *ruleset_attr;
- static struct landlock_path_beneath_attr *path_beneath_attr;
- static struct landlock_path_beneath_attr *rule_null;
-+static struct landlock_net_port_attr *net_port_attr;
- static int ruleset_fd;
- static int invalid_fd = -1;
- 
- static struct tcase {
- 	int *fd;
- 	int rule_type;
--	struct landlock_path_beneath_attr **attr;
-+	struct landlock_path_beneath_attr **path_attr;
-+	struct landlock_net_port_attr **net_attr;
- 	int access;
- 	int parent_fd;
-+	int net_port;
- 	uint32_t flags;
- 	int exp_errno;
- 	char *msg;
- } tcases[] = {
- 	{
- 		.fd = &ruleset_fd,
--		.attr = &path_beneath_attr,
-+		.path_attr = &path_beneath_attr,
-+		.net_attr = NULL,
- 		.access = LANDLOCK_ACCESS_FS_EXECUTE,
- 		.flags = 1,
- 		.exp_errno = EINVAL,
-@@ -46,7 +50,8 @@ static struct tcase {
- 	},
- 	{
- 		.fd = &ruleset_fd,
--		.attr = &path_beneath_attr,
-+		.path_attr = &path_beneath_attr,
-+		.net_attr = NULL,
- 		.access = LANDLOCK_ACCESS_FS_EXECUTE,
- 		.exp_errno = EINVAL,
- 		.msg = "Invalid rule type"
-@@ -54,13 +59,15 @@ static struct tcase {
- 	{
- 		.fd = &ruleset_fd,
- 		.rule_type = LANDLOCK_RULE_PATH_BENEATH,
--		.attr = &path_beneath_attr,
-+		.path_attr = &path_beneath_attr,
-+		.net_attr = NULL,
- 		.exp_errno = ENOMSG,
- 		.msg = "Empty accesses"
- 	},
- 	{
- 		.fd = &invalid_fd,
--		.attr = &path_beneath_attr,
-+		.path_attr = &path_beneath_attr,
-+		.net_attr = NULL,
- 		.access = LANDLOCK_ACCESS_FS_EXECUTE,
- 		.exp_errno = EBADF,
- 		.msg = "Invalid file descriptor"
-@@ -68,7 +75,8 @@ static struct tcase {
- 	{
- 		.fd = &ruleset_fd,
- 		.rule_type = LANDLOCK_RULE_PATH_BENEATH,
--		.attr = &path_beneath_attr,
-+		.path_attr = &path_beneath_attr,
-+		.net_attr = NULL,
- 		.access = LANDLOCK_ACCESS_FS_EXECUTE,
- 		.parent_fd = -1,
- 		.exp_errno = EBADF,
-@@ -77,26 +85,56 @@ static struct tcase {
- 	{
- 		.fd = &ruleset_fd,
- 		.rule_type = LANDLOCK_RULE_PATH_BENEATH,
--		.attr = &rule_null,
-+		.path_attr = &rule_null,
-+		.net_attr = NULL,
- 		.exp_errno = EFAULT,
- 		.msg = "Invalid rule attr"
- 	},
-+	{
-+		.fd = &ruleset_fd,
-+		.rule_type = LANDLOCK_RULE_NET_PORT,
-+		.path_attr = NULL,
-+		.net_attr = &net_port_attr,
-+		.access = LANDLOCK_ACCESS_FS_EXECUTE,
-+		.net_port = 448,
-+		.exp_errno = EINVAL,
-+		.msg = "Invalid access rule for network type"
-+	},
-+	{
-+		.fd = &ruleset_fd,
-+		.rule_type = LANDLOCK_RULE_NET_PORT,
-+		.path_attr = NULL,
-+		.net_attr = &net_port_attr,
-+		.access = LANDLOCK_ACCESS_NET_BIND_TCP,
-+		.net_port = INT16_MAX + 1,
-+		.exp_errno = EINVAL,
-+		.msg = "Socket port greater than 65535"
-+	},
- };
- 
- static void run(unsigned int n)
- {
- 	struct tcase *tc = &tcases[n];
- 
--	if (*tc->attr) {
--		(*tc->attr)->allowed_access = tc->access;
--		(*tc->attr)->parent_fd = tc->parent_fd;
--	}
-+	if (tc->path_attr) {
-+		if (*tc->path_attr) {
-+			(*tc->path_attr)->allowed_access = tc->access;
-+			(*tc->path_attr)->parent_fd = tc->parent_fd;
-+		}
-+
-+		TST_EXP_FAIL(tst_syscall(__NR_landlock_add_rule,
-+			*tc->fd, tc->rule_type, *tc->path_attr, tc->flags),
-+			tc->exp_errno, "%s", tc->msg);
-+	} else if (tc->net_attr) {
-+		if (*tc->net_attr) {
-+			(*tc->net_attr)->allowed_access = tc->access;
-+			(*tc->net_attr)->port = tc->net_port;
-+		}
- 
--	TST_EXP_FAIL(tst_syscall(__NR_landlock_add_rule,
--			*tc->fd, tc->rule_type, *tc->attr, tc->flags),
--		tc->exp_errno,
--		"%s",
--		tc->msg);
-+		TST_EXP_FAIL(tst_syscall(__NR_landlock_add_rule,
-+			*tc->fd, tc->rule_type, *tc->net_attr, tc->flags),
-+			tc->exp_errno, "%s", tc->msg);
-+	}
- }
- 
- static void setup(void)
-@@ -124,6 +162,7 @@ static struct tst_test test = {
- 	.bufs = (struct tst_buffers []) {
- 		{&ruleset_attr, .size = sizeof(struct tst_landlock_ruleset_attr)},
- 		{&path_beneath_attr, .size = sizeof(struct landlock_path_beneath_attr)},
-+		{&net_port_attr, .size = sizeof(struct landlock_net_port_attr)},
- 		{},
- 	},
- 	.caps = (struct tst_cap []) {
-
+diff --git a/testcases/commands/insmod/.gitignore b/testcases/commands/insmod/.gitignore
+index 0e19fb3fd..e568d92b6 100644
+--- a/testcases/commands/insmod/.gitignore
++++ b/testcases/commands/insmod/.gitignore
+@@ -7,3 +7,4 @@
+ .built-in.a.cmd
+ Module.symvers
+ modules.order
++modules.livepatch
+diff --git a/testcases/commands/lsmod/.gitignore b/testcases/commands/lsmod/.gitignore
+index 0e19fb3fd..e568d92b6 100644
+--- a/testcases/commands/lsmod/.gitignore
++++ b/testcases/commands/lsmod/.gitignore
+@@ -7,3 +7,4 @@
+ .built-in.a.cmd
+ Module.symvers
+ modules.order
++modules.livepatch
+diff --git a/testcases/kernel/device-drivers/pci/tpci_kernel/.gitignore b/testcases/kernel/device-drivers/pci/tpci_kernel/.gitignore
+index 3e100ad5e..ed4712e3a 100644
+--- a/testcases/kernel/device-drivers/pci/tpci_kernel/.gitignore
++++ b/testcases/kernel/device-drivers/pci/tpci_kernel/.gitignore
+@@ -5,3 +5,4 @@
+ /.*.ko
+ /.*.cmd
+ /Module.symvers
++modules.livepatch
+diff --git a/testcases/kernel/device-drivers/uaccess/.gitignore b/testcases/kernel/device-drivers/uaccess/.gitignore
+index cf59b68df..c42a3fbe5 100644
+--- a/testcases/kernel/device-drivers/uaccess/.gitignore
++++ b/testcases/kernel/device-drivers/uaccess/.gitignore
+@@ -6,3 +6,4 @@
+ /.*.ko
+ /.*.cmd
+ /Module.symvers
++modules.livepatch
+diff --git a/testcases/kernel/firmware/fw_load_kernel/.gitignore b/testcases/kernel/firmware/fw_load_kernel/.gitignore
+index 180072a72..6fc82952c 100644
+--- a/testcases/kernel/firmware/fw_load_kernel/.gitignore
++++ b/testcases/kernel/firmware/fw_load_kernel/.gitignore
+@@ -4,3 +4,4 @@
+ /Module.symvers
+ /ltp_fw_load.mod.c
+ /.tmp_versions/
++modules.livepatch
+diff --git a/testcases/kernel/syscalls/delete_module/.gitignore b/testcases/kernel/syscalls/delete_module/.gitignore
+index 1a774a6d5..161aac4a2 100644
+--- a/testcases/kernel/syscalls/delete_module/.gitignore
++++ b/testcases/kernel/syscalls/delete_module/.gitignore
+@@ -10,3 +10,4 @@
+ /.built-in.a.cmd
+ /Module.symvers
+ /modules.order
++modules.livepatch
+diff --git a/testcases/kernel/syscalls/finit_module/.gitignore b/testcases/kernel/syscalls/finit_module/.gitignore
+index 5fcafdb37..59026b25c 100644
+--- a/testcases/kernel/syscalls/finit_module/.gitignore
++++ b/testcases/kernel/syscalls/finit_module/.gitignore
+@@ -1,3 +1,4 @@
+ /finit_module01
+ /finit_module02
+ /*.ko
++modules.livepatch
+diff --git a/testcases/kernel/syscalls/init_module/.gitignore b/testcases/kernel/syscalls/init_module/.gitignore
+index 23baeb651..437c79d94 100644
+--- a/testcases/kernel/syscalls/init_module/.gitignore
++++ b/testcases/kernel/syscalls/init_module/.gitignore
+@@ -9,3 +9,4 @@
+ /.built-in.a.cmd
+ /Module.symvers
+ /modules.order
++modules.livepatch
 -- 
 2.43.0
 
