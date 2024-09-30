@@ -1,90 +1,121 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 747F498A65E
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2024 15:58:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1727704702; h=to : date :
- message-id : in-reply-to : references : mime-version : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-type :
- content-transfer-encoding : sender : from;
- bh=DCRxY2UvnsjAMQmLo5uVbJ5Pdgs/KedqZR+C9zvS5Pc=;
- b=o9tBJA9DzWUFm2OGyp56HkQf14ofzdLe91sFkJH0DW8rNEYLelWnV15qlPDOT1JSUVFEL
- q1P9hJJcivKHqNoiVbY/gOnsXaBlvHH+kC+CMPBqkY7ZWkmMJd/gF49EKJiI0v2Dp6iI2Kr
- qfKJfL6H578AddJZmQGs8mr1sh8t54g=
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3552398ACBC
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2024 21:23:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 964763C569E
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2024 15:58:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C876D3C56BA
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2024 21:22:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 78D3D3C5687
- for <ltp@lists.linux.it>; Mon, 30 Sep 2024 15:58:20 +0200 (CEST)
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id BE4463C56E3
+ for <ltp@lists.linux.it>; Mon, 30 Sep 2024 21:21:47 +0200 (CEST)
+Authentication-Results: in-3.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BE5471A003FF
- for <ltp@lists.linux.it>; Mon, 30 Sep 2024 15:58:19 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-539908f238fso1555508e87.2
- for <ltp@lists.linux.it>; Mon, 30 Sep 2024 06:58:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1727704698; x=1728309498; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rh76bKx6Z4mAxL/IXG7RZ+7Sb/Dhv14GrRSRdpgU6Tg=;
- b=eEdTVXU6r0YrirppXFTKfU4tyRHlaMwnORtU2GI/kpdEF3/pBYvR15PYudBYFEJ7zj
- 9aZmUTXEXicA2K9WLyBQUkOypwxcUlSmobVk8t3iI+CVyNT5YQFn3PH0oXKW3ve2BVCd
- XrmWr8J2OAH8yyJkA/oR3Vlg0SABM+6kU4/vV7gSak+S+zsHmRYCbkEwd9Jw05HgxI2s
- dRgqjv/GmK7AXSXMLcZqo2Eg4d/IzVq+CDSpRnRKH3CSt6VP8YoxaeDh+FAlx9Po5FtH
- 1OqUCxhKaKaNvn5MC9n/H3nHOvfko1zvsLRTXiaehLTx9YfbMoAU5QBiH5+q/Refzt++
- npGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727704698; x=1728309498;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rh76bKx6Z4mAxL/IXG7RZ+7Sb/Dhv14GrRSRdpgU6Tg=;
- b=ZxCv8QC2VYl+jeRja4PfK2/WJYpm21lrhSz2WPNsMDbP+h5PO6bbCl/oars7gzzfED
- zUzyY5emG/d353cqWlRjJBgnFHlENLZPGjNH8zrAtbsIF1+Ixxku8/NBFUOggS2biIJh
- KX7wCrkJUjnj2DXphEsXBHohBP/5TxAcDuC9p+T0DiVr7QDGvfDn7/lsPPw3/YcIm/LC
- wKpdyGwd13zhucWf/RjSd7wrYhpAC3njSrK2PhhlWdP1VSd2oSUV7W2lX28Y8uz5MaSY
- uCCSVEBkopoymbPltgBXROLEFJYUyNeZee3sHYwlYwImq3zv0iCtt087kFCiiEiiDK+P
- i1Bg==
-X-Gm-Message-State: AOJu0Yzv2bJKeK67d1vUEJpTP4e1P8sRxUPplShegZrhJd3gn+c96w4B
- FQWiDqmAGZN7tU82W45pLGk/G2Ewbodv2OrsGsPtOYQ1Di4Z0l1PbsVOi+yYOTHto4RTBFngx0W
- q+A==
-X-Google-Smtp-Source: AGHT+IHcEcUh6BLe4X5Rro3WSEBAqf4yLOFvm0k6a8prlel4Xc8PKRALyv2SXwFFIC4fy8YoyEuwLw==
-X-Received: by 2002:a05:6512:3b0e:b0:533:4477:28a2 with SMTP id
- 2adb3069b0e04-5389fc3bd4cmr7406087e87.16.1727704698256; 
- Mon, 30 Sep 2024 06:58:18 -0700 (PDT)
-Received: from localhost ([202.127.77.110]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c88640fe9asm3518677a12.82.2024.09.30.06.58.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 06:58:17 -0700 (PDT)
-To: ltp@lists.linux.it
-Date: Mon, 30 Sep 2024 09:58:09 -0400
-Message-Id: <20240930135809.9300-1-wegao@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20240926061936.21499-1-wegao@suse.com>
-References: <20240926061936.21499-1-wegao@suse.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 75DBD1A0117C
+ for <ltp@lists.linux.it>; Mon, 30 Sep 2024 21:21:40 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 63F2821A68
+ for <ltp@lists.linux.it>; Mon, 30 Sep 2024 19:21:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1727724098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=OOBFk/M1tIhlXzI/Jk7w9P9mTpKASYbB1jRRn+0RNeU=;
+ b=b5Oy++Fk/ZnruTmKrzx5eZbAWfStd8YJUU4pHb2NZAMcllp0FFmbtgS+QPc4GTSR8VZFA4
+ CbVaksm10T9UDwFflA+NCXMw6JGL302bQtogTn9X9OxqIlKZRaoLD56Bt6GBtxIPsskHbb
+ P1HoASIn/u2jEmz2m+lf5kotZ8iJfb0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1727724098;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=OOBFk/M1tIhlXzI/Jk7w9P9mTpKASYbB1jRRn+0RNeU=;
+ b=cGGWyi7K22SnyCk+E7xq2MXGATWLvWeDkNL6NiWvZClgown43xdIT5FtrNLsWPli+BItBg
+ nKR1LcmUnRVjJrDQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1727724098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=OOBFk/M1tIhlXzI/Jk7w9P9mTpKASYbB1jRRn+0RNeU=;
+ b=b5Oy++Fk/ZnruTmKrzx5eZbAWfStd8YJUU4pHb2NZAMcllp0FFmbtgS+QPc4GTSR8VZFA4
+ CbVaksm10T9UDwFflA+NCXMw6JGL302bQtogTn9X9OxqIlKZRaoLD56Bt6GBtxIPsskHbb
+ P1HoASIn/u2jEmz2m+lf5kotZ8iJfb0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1727724098;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=OOBFk/M1tIhlXzI/Jk7w9P9mTpKASYbB1jRRn+0RNeU=;
+ b=cGGWyi7K22SnyCk+E7xq2MXGATWLvWeDkNL6NiWvZClgown43xdIT5FtrNLsWPli+BItBg
+ nKR1LcmUnRVjJrDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 52C49136CB
+ for <ltp@lists.linux.it>; Mon, 30 Sep 2024 19:21:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id icjNEkL6+mY3ZwAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>)
+ for <ltp@lists.linux.it>; Mon, 30 Sep 2024 19:21:38 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Mon, 30 Sep 2024 21:21:18 +0200
+Message-Id: <20240930-generate_syscalls-v3-0-e56ede4bc7f5@suse.com>
 MIME-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAC76+mYC/23NQQqDMBCF4atI1k1JRiXaVe9RSonJqAGrkrGhI
+ t69USi4cPk/mG8WRugdErslC/MYHLmhj5FeEmZa3TfInY3NQEAmSkh5gz16PeGLZjK664irQlg
+ DAKqyFYt3o8fafXfz8YzdOpoGP+8vgtzWv5adaEFywctM5kLp0lht7vQhvJrhzTYswBFQZwBEQ
+ IqizmvQNpXFAVjX9QfgOEdT8gAAAA==
+To: ltp@lists.linux.it
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1727724098; l=3406;
+ i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
+ bh=5lst0cMYubx0ND5ilH8qF9CUsL8fVjxfs+7fsdT0cwI=;
+ b=qxcdY2668CEkFczmNlSg+LoJL1+jAhvypAzZ7hCpyUbwT4dfmGeoNpjjDOwDo3bWZQYUpfPMM
+ GiUm7g2kGf5BEAxTpB/6ITcSdgI9i9pvMXRl3ebeIvN4/mUjrvszCYM
+X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
+ pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email, suse.com:mid,
+ imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -4.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4] cpuset02: Reimplementing the test6 of
- cpuset_memory_testset.sh as a separate C testcase
+Subject: [LTP] [PATCH v3 0/4] Automatically generate syscalls.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,223 +127,82 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Wei Gao <wegao@suse.com>
----
- lib/tst_cgroup.c                       |   1 +
- runtest/mm                             |   1 +
- testcases/kernel/mem/.gitignore        |   1 +
- testcases/kernel/mem/cpuset/Makefile   |   7 ++
- testcases/kernel/mem/cpuset/cpuset02.c | 140 +++++++++++++++++++++++++
- 5 files changed, 150 insertions(+)
- create mode 100644 testcases/kernel/mem/cpuset/cpuset02.c
+The problem we have at the moment is that all syscalls input files must
+be changed by hand each time we need to test a new syscall. The idea is
+to simplify this process, providing a script that is able to read from
+kernel sources and to generate all syscalls files we need.
 
-diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-index 6055015eb..1404116a5 100644
---- a/lib/tst_cgroup.c
-+++ b/lib/tst_cgroup.c
-@@ -203,6 +203,7 @@ static const struct cgroup_file cpuset_ctrl_files[] = {
- 	{ "cpuset.cpus", "cpuset.cpus", CTRL_CPUSET },
- 	{ "cpuset.mems", "cpuset.mems", CTRL_CPUSET },
- 	{ "cpuset.memory_migrate", "cpuset.memory_migrate", CTRL_CPUSET },
-+	{ "cpuset.sched_load_balance", "cpuset.sched_load_balance", CTRL_CPUSET },
- 	{ }
- };
- 
-diff --git a/runtest/mm b/runtest/mm
-index 6a8cd0b9d..845874c41 100644
---- a/runtest/mm
-+++ b/runtest/mm
-@@ -75,6 +75,7 @@ ksm06_2 ksm06 -n 8000
- ksm07 ksm07
- 
- cpuset01 cpuset01
-+cpuset02 cpuset02
- 
- oom01 oom01
- oom02 oom02
-diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
-index d88484fa1..0845297cb 100644
---- a/testcases/kernel/mem/.gitignore
-+++ b/testcases/kernel/mem/.gitignore
-@@ -1,4 +1,5 @@
- /cpuset/cpuset01
-+/cpuset/cpuset02
- /hugetlb/hugefallocate/hugefallocate01
- /hugetlb/hugefallocate/hugefallocate02
- /hugetlb/hugefork/hugefork01
-diff --git a/testcases/kernel/mem/cpuset/Makefile b/testcases/kernel/mem/cpuset/Makefile
-index 8e41c0223..366d67ce9 100644
---- a/testcases/kernel/mem/cpuset/Makefile
-+++ b/testcases/kernel/mem/cpuset/Makefile
-@@ -19,6 +19,13 @@
- 
- top_srcdir		?= ../../../..
- 
-+LTPLIBS = numa
-+
- include $(top_srcdir)/include/mk/testcases.mk
- include $(top_srcdir)/testcases/kernel/mem/include/libmem.mk
-+
-+LDLIBS  += $(NUMA_LIBS)
-+LDLIBS  += $(top_srcdir)/testcases/kernel/controllers/cpuset/cpuset_lib/libcpu_set.a
-+LTPLDLIBS = -lltpnuma
-+
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/mem/cpuset/cpuset02.c b/testcases/kernel/mem/cpuset/cpuset02.c
-new file mode 100644
-index 000000000..a62c98b3f
---- /dev/null
-+++ b/testcases/kernel/mem/cpuset/cpuset02.c
-@@ -0,0 +1,140 @@
-+// SPDX-License-Identifier: LGPL-2.1-or-later
-+/*
-+ * Copyright (c) 2009 FUJITSU LIMITED  Miao Xie <miaox@cn.fujitsu.com>
-+ * Copyright (c) 2023 SUSE LLC <wegao@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * This test check cpuset's mems work with hugepage file.
-+ *
-+ */
-+
-+#define _GNU_SOURCE
-+#include <stdio.h>
-+#include <sys/mount.h>
-+#include <limits.h>
-+#include <sys/param.h>
-+#include <sys/types.h>
-+#include "tst_test.h"
-+#include "../../controllers/cpuset/cpuset_lib/cpuset.h"
-+
-+#ifdef HAVE_NUMA_V2
-+#include <numa.h>
-+#include <numaif.h>
-+#include <errno.h>
-+#include "tst_numa.h"
-+#include "tst_safe_stdio.h"
-+#include "mem.h"
-+#include "numa_helper.h"
-+
-+#define MNTPOINT "hugetlbfs/"
-+#define HUGE_PAGE_FILE MNTPOINT "hugepagefile"
-+#define PAGES_ALLOCATED 16u
-+
-+static long hpage_size;
-+static struct tst_nodemap *node;
-+static struct tst_cg_group *cg_cpuset_0;
-+
-+static void count_cpus_mems(void)
-+{
-+	node = tst_get_nodemap(TST_NUMA_MEM, PAGES_ALLOCATED * getpagesize() / 1024);
-+	if (node->cnt <= 1)
-+		tst_brk(TCONF, "test requires NUMA system");
-+}
-+
-+static void touch_memory_and_check_node(char *p, int size)
-+{
-+	int i;
-+	int pagesize = sysconf(_SC_PAGESIZE);
-+
-+	for (i = 0; i < size; i += pagesize)
-+		p[i] = 0xef;
-+
-+	if (cpuset_addr2node(p) == 0)
-+		tst_res(TPASS, "check node pass");
-+	else
-+		tst_res(TFAIL, "check node failed");
-+}
-+
-+static void child(void)
-+{
-+	char *p;
-+	int fd_hugepage;
-+
-+	TST_CHECKPOINT_WAIT(0);
-+
-+	fd_hugepage = SAFE_OPEN(HUGE_PAGE_FILE, O_CREAT | O_RDWR, 0755);
-+	p = SAFE_MMAP(NULL, hpage_size, PROT_WRITE | PROT_READ,
-+				MAP_SHARED, fd_hugepage, 0);
-+
-+	touch_memory_and_check_node(p, hpage_size);
-+
-+	SAFE_MUNMAP(p, hpage_size);
-+	SAFE_CLOSE(fd_hugepage);
-+
-+	TST_CHECKPOINT_WAKE(1);
-+}
-+
-+static void run_test(void)
-+{
-+	int pid;
-+
-+	cg_cpuset_0 = tst_cg_group_mk(tst_cg, "0");
-+
-+	SAFE_CG_PRINT(cg_cpuset_0, "cpuset.cpus", "0");
-+	SAFE_CG_PRINT(cg_cpuset_0, "cpuset.mems", "0");
-+	SAFE_CG_PRINT(cg_cpuset_0, "cpuset.sched_load_balance", "0");
-+
-+	SAFE_FILE_PRINTF("/proc/sys/vm/nr_hugepages", "%d", 2 * node->cnt);
-+
-+	pid = SAFE_FORK();
-+	if (!pid) {
-+		child();
-+	} else {
-+		SAFE_CG_PRINTF(cg_cpuset_0, "cgroup.procs", "%d", pid);
-+
-+		TST_CHECKPOINT_WAKE(0);
-+		TST_CHECKPOINT_WAIT(1);
-+
-+		SAFE_WAITPID(pid, NULL, 0);
-+
-+		cg_cpuset_0 = tst_cg_group_rm(cg_cpuset_0);
-+	}
-+}
-+
-+static void setup(void)
-+{
-+	count_cpus_mems();
-+
-+	hpage_size = SAFE_READ_MEMINFO(MEMINFO_HPAGE_SIZE)*1024;
-+}
-+
-+static void cleanup(void)
-+{
-+	if (cg_cpuset_0)
-+		cg_cpuset_0 = tst_cg_group_rm(cg_cpuset_0);
-+}
-+
-+static struct tst_test test = {
-+	.needs_root = 1,
-+	.runs_script = 1,
-+	.mntpoint = MNTPOINT,
-+	.needs_hugetlbfs = 1,
-+	.setup = setup,
-+	.forks_child = 1,
-+	.cleanup = cleanup,
-+	.test_all = run_test,
-+	.hugepages = {3, TST_NEEDS},
-+	.needs_checkpoints = 1,
-+	.needs_cgroup_ctrls = (const char *const []){ "cpuset", NULL },
-+	.save_restore = (const struct tst_path_val[]) {
-+		{"/proc/sys/vm/nr_hugepages", NULL, TST_SR_TBROK},
-+		{}
-+	},
-+};
-+
-+#else
-+TST_TEST_TCONF(NUMA_ERROR_MSG);
-+#endif
+This patch set adds a new command inside the syscalls folder and
+it refactors the previous regen.sh code.
+The new way we have to generate the syscalls.h file is the following:
+
+	include/lapi/syscalls/generate_arch.sh 		path/to/kernel/source
+	include/lapi/syscalls/generate_syscalls.sh 	path/to/syscalls.h
+
+Scripts are independent and they can be run separately.
+generate_syscalls.sh is the equivalent of regen.sh, but its code has
+been cleaned up.
+
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+Changes in v3:
+- fix generate_arch.sh to work properly for all architectures
+- rename some arch .in files and handle renaming inside
+  generate_syscalls.sh using the right gcc directives
+- Link to v2: https://lore.kernel.org/r/20240927-generate_syscalls-v2-0-108f5f2ad318@suse.com
+
+Changes in v2:
+- refactor regen.sh
+- split syscalls.h and syscalls .in files creation
+- updated syscalls .in files
+- Link to v1: https://lore.kernel.org/r/20240924-generate_syscalls-v1-0-941507a9cdac@suse.com
+
+---
+Andrea Cervesato (4):
+      Refactor regen.sh script to generate syscalls
+      Add script to generate arch(s) dependant syscalls
+      Delete obsolete strip_syscall.awk file
+      Update syscalls files
+
+ configure.ac                                       |   2 +-
+ include/lapi/syscalls/arc.in                       |  41 +-
+ include/lapi/syscalls/arm.in                       | 819 +++++++++++----------
+ include/lapi/syscalls/{loongarch.in => arm64.in}   |  12 +-
+ include/lapi/syscalls/blacklist-syscalls.txt       |   6 +
+ include/lapi/syscalls/generate_arch.sh             | 210 ++++++
+ include/lapi/syscalls/generate_syscalls.sh         | 118 +++
+ include/lapi/syscalls/hppa.in                      |  52 --
+ include/lapi/syscalls/i386.in                      |  18 +-
+ include/lapi/syscalls/ia64.in                      |  10 +-
+ .../lapi/syscalls/{aarch64.in => loongarch64.in}   |  20 +-
+ include/lapi/syscalls/{mips_n64.in => mips64.in}   |  13 +-
+ .../lapi/syscalls/{mips_n32.in => mips64n32.in}    |  13 +-
+ include/lapi/syscalls/{mips_o32.in => mipso32.in}  |  21 +-
+ include/lapi/syscalls/parisc.in                    | 397 ++++++++++
+ include/lapi/syscalls/powerpc.in                   |  19 +-
+ include/lapi/syscalls/powerpc64.in                 |  47 +-
+ include/lapi/syscalls/regen.sh                     | 129 ----
+ include/lapi/syscalls/s390.in                      |  15 +-
+ include/lapi/syscalls/s390x.in                     |  15 +-
+ include/lapi/syscalls/sh.in                        |  15 +-
+ include/lapi/syscalls/sparc.in                     |  14 +-
+ include/lapi/syscalls/sparc64.in                   |  16 +-
+ include/lapi/syscalls/strip_syscall.awk            |  19 -
+ .../lapi/syscalls/{order => supported-arch.txt}    |  12 +-
+ include/lapi/syscalls/x86_64.in                    |  51 +-
+ 26 files changed, 1367 insertions(+), 737 deletions(-)
+---
+base-commit: 08cb938197e82eddce146662a47ff990827ff60a
+change-id: 20240923-generate_syscalls-780dc2227bdb
+
+Best regards,
 -- 
-2.35.3
+Andrea Cervesato <andrea.cervesato@suse.com>
 
 
 -- 
