@@ -1,129 +1,110 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 736369947CF
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2024 13:56:28 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D7359947FD
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2024 14:04:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0DC9D3C1C02
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2024 13:56:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AE3483C1B3A
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2024 14:04:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E5D423C14A2
- for <ltp@lists.linux.it>; Tue,  8 Oct 2024 13:55:45 +0200 (CEST)
-Authentication-Results: in-6.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
+ by picard.linux.it (Postfix) with ESMTPS id 7875F3C19F3
+ for <ltp@lists.linux.it>; Tue,  8 Oct 2024 14:04:14 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2C49D14044DE
- for <ltp@lists.linux.it>; Tue,  8 Oct 2024 13:55:44 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id AB79B1000523
+ for <ltp@lists.linux.it>; Tue,  8 Oct 2024 14:04:12 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DBD0121CFD
- for <ltp@lists.linux.it>; Tue,  8 Oct 2024 11:55:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1728388543; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C91E821B48;
+ Tue,  8 Oct 2024 12:04:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1728389051; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MMSsn1yxeU1V3opM5NCvb2nglm9ghM+TDY6AjsztQhM=;
- b=TsN/GkueOWGVMTr4KgmZulWvkoO1MG7IxVgw8vQrKp0xPFmTSFDpyGu0lzf7deHq9qRXuy
- bGxcafE4rkb7Dv9KxeR8iK/LpTgL81VUmVVgnayYQumy7jR07+vRkE5nevteom+XPpdfBW
- WVSm2QPSXlNVJk1nT/Xk0vJdMkk7fm4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1728388543;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ bh=iYqIpsVHs0vd/C0w/dhRryzX1gd0xPOIogNft75jQ+8=;
+ b=jDInvflvLeG8Mg4Au/VtDahlxc/DCE3skbzde6liFqeG7faxc/Orj0r14vimAjwem7YxGy
+ RmXSSZA0/eiwc6LLyFOX49mZvWukTNxC+ajonWiUhsg2uEgg/TALEW+A9Q8sCzEURTrMA/
+ kubl3ndwKOadyWydFS/BHdJhZncwRvU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1728389051;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MMSsn1yxeU1V3opM5NCvb2nglm9ghM+TDY6AjsztQhM=;
- b=VHEeSm67gKFfhJBHG36b7IigR8B/eZO+VLOYP9fg3ZnBFHv+fqBY3xkYS03vzwi8B65T+0
- 1DBOH6EDfkV8H2AA==
+ bh=iYqIpsVHs0vd/C0w/dhRryzX1gd0xPOIogNft75jQ+8=;
+ b=+39u2i2CuUY9kUUL86fw5rQGnpp5X2Z4FT9yuVib85qKfSdk/ZB75NLpCQUcWBzrpyTuX5
+ iRDEzr0rCklIyRDQ==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="TsN/Gkue";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=VHEeSm67
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1728388543; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1728389051; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MMSsn1yxeU1V3opM5NCvb2nglm9ghM+TDY6AjsztQhM=;
- b=TsN/GkueOWGVMTr4KgmZulWvkoO1MG7IxVgw8vQrKp0xPFmTSFDpyGu0lzf7deHq9qRXuy
- bGxcafE4rkb7Dv9KxeR8iK/LpTgL81VUmVVgnayYQumy7jR07+vRkE5nevteom+XPpdfBW
- WVSm2QPSXlNVJk1nT/Xk0vJdMkk7fm4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1728388543;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ bh=iYqIpsVHs0vd/C0w/dhRryzX1gd0xPOIogNft75jQ+8=;
+ b=jDInvflvLeG8Mg4Au/VtDahlxc/DCE3skbzde6liFqeG7faxc/Orj0r14vimAjwem7YxGy
+ RmXSSZA0/eiwc6LLyFOX49mZvWukTNxC+ajonWiUhsg2uEgg/TALEW+A9Q8sCzEURTrMA/
+ kubl3ndwKOadyWydFS/BHdJhZncwRvU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1728389051;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MMSsn1yxeU1V3opM5NCvb2nglm9ghM+TDY6AjsztQhM=;
- b=VHEeSm67gKFfhJBHG36b7IigR8B/eZO+VLOYP9fg3ZnBFHv+fqBY3xkYS03vzwi8B65T+0
- 1DBOH6EDfkV8H2AA==
+ bh=iYqIpsVHs0vd/C0w/dhRryzX1gd0xPOIogNft75jQ+8=;
+ b=+39u2i2CuUY9kUUL86fw5rQGnpp5X2Z4FT9yuVib85qKfSdk/ZB75NLpCQUcWBzrpyTuX5
+ iRDEzr0rCklIyRDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A442413A6E
- for <ltp@lists.linux.it>; Tue,  8 Oct 2024 11:55:43 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BA2F71340C;
+ Tue,  8 Oct 2024 12:04:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id AK2jIr8dBWf4aQAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>)
- for <ltp@lists.linux.it>; Tue, 08 Oct 2024 11:55:43 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Tue, 08 Oct 2024 13:55:40 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 395XLLsfBWcUbQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Tue, 08 Oct 2024 12:04:11 +0000
+Date: Tue, 8 Oct 2024 14:03:07 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Message-ID: <ZwUfe1rysrK2MfDi@yuki.lan>
+References: <20241008-listmount_statmount-v5-0-66f4e1a9e7db@suse.com>
+ <20241008-listmount_statmount-v5-11-66f4e1a9e7db@suse.com>
 MIME-Version: 1.0
-Message-Id: <20241008-ioctl_ficlone01_fix-v4-3-eae3adac33c9@suse.com>
-References: <20241008-ioctl_ficlone01_fix-v4-0-eae3adac33c9@suse.com>
-In-Reply-To: <20241008-ioctl_ficlone01_fix-v4-0-eae3adac33c9@suse.com>
-To: ltp@lists.linux.it
-X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1728388542; l=3294;
- i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=DIOX8VRE+mqbeKKXYe13LMptKXcYnmQtcAgX9Z4plfs=;
- b=3nraoz3VK/Lt6My1M59XoEkMkt8vVqKOYxrWgvS+SqVeGr2vQI+jDiISUXblxYYIW/JgcmoYV
- 5W/Mej73+7MC3FOG81/rolZaM8l5CszO+JtCpKcMXT+C1Z+mNmFSzih
-X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
- pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: DBD0121CFD
+Content-Disposition: inline
+In-Reply-To: <20241008-listmount_statmount-v5-11-66f4e1a9e7db@suse.com>
 X-Spam-Level: 
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:email,suse.com:mid];
- RCPT_COUNT_ONE(0.00)[1]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
- PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
+X-Spamd-Result: default: False [-8.30 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.990]; MIME_GOOD(-0.10)[text/plain];
+ RCPT_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; MISSING_XM_UA(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email]
+X-Spam-Score: -8.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4 3/3] Setup minimal kernel for ioctl_clone(range)
- tests
+Subject: Re: [LTP] [PATCH v5 11/16] Add statmount05 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,102 +116,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Hi!
+> +static void test_mount_root(void)
+> +{
+> +	tst_res(TINFO, "Testing STATMOUNT_MNT_ROOT");
+> +
+> +	char *last_root;
+> +
+> +	memset(st_mount, 0, SM_SIZE);
+> +
+> +	TST_EXP_PASS(statmount(root_id, STATMOUNT_MNT_ROOT, st_mount,
+> +		SM_SIZE, 0));
+> +
+> +	if (!TST_PASS)
+> +		return;
+> +
+> +	last_root = strrchr(mnt_root, '/');
 
-Some linux kernels don't support copy-on-write feature for the
-filesystems we are going to use during ioctl_ficlone and
-ioctl_ficlonerange tests. For this reason, fix the minimal kernel
-version required in order to skip test when it's needed.
+Wouldn't last_root = strrchr(DIRA, '/') produce the same result?
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- testcases/kernel/syscalls/ioctl/ioctl_ficlone01.c      | 4 +++-
- testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c      | 4 +++-
- testcases/kernel/syscalls/ioctl/ioctl_ficlonerange01.c | 4 +++-
- testcases/kernel/syscalls/ioctl/ioctl_ficlonerange02.c | 4 +++-
- 4 files changed, 12 insertions(+), 4 deletions(-)
+I'm just wondering why MNT_ROOT is relative and MNT_POINT is absolute
+here.
 
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ficlone01.c b/testcases/kernel/syscalls/ioctl/ioctl_ficlone01.c
-index f5407f789..2574bb6a2 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_ficlone01.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_ficlone01.c
-@@ -112,10 +112,12 @@ static struct tst_test test = {
- 	.mount_device = 1,
- 	.mntpoint = MNTPOINT,
- 	.filesystems = (struct tst_fs []) {
--		{.type = "bcachefs"},
- 		{.type = "btrfs"},
-+		{.type = "bcachefs"},
- 		{
- 			.type = "xfs",
-+			.min_kver = "4.16",
-+			.mkfs_ver = "mkfs.xfs >= 1.5.0",
- 			.mkfs_opts = (const char *const []) {"-m", "reflink=1", NULL},
- 		},
- 		{}
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c b/testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c
-index 3cc386c59..f12c4e7fd 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_ficlone03.c
-@@ -110,10 +110,12 @@ static struct tst_test test = {
- 	.mount_device = 1,
- 	.mntpoint = MNTPOINT,
- 	.filesystems = (struct tst_fs []) {
--		{.type = "bcachefs"},
- 		{.type = "btrfs"},
-+		{.type = "bcachefs"},
- 		{
- 			.type = "xfs",
-+			.min_kver = "4.16",
-+			.mkfs_ver = "mkfs.xfs >= 1.5.0",
- 			.mkfs_opts = (const char *const []) {"-m", "reflink=1", NULL},
- 		},
- 		{}
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ficlonerange01.c b/testcases/kernel/syscalls/ioctl/ioctl_ficlonerange01.c
-index e352c513b..8fd1d299a 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_ficlonerange01.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_ficlonerange01.c
-@@ -145,10 +145,12 @@ static struct tst_test test = {
- 	.mount_device = 1,
- 	.mntpoint = MNTPOINT,
- 	.filesystems = (struct tst_fs []) {
--		{.type = "bcachefs"},
- 		{.type = "btrfs"},
-+		{.type = "bcachefs"},
- 		{
- 			.type = "xfs",
-+			.min_kver = "4.16",
-+			.mkfs_ver = "mkfs.xfs >= 1.5.0",
- 			.mkfs_opts = (const char *const []) {"-m", "reflink=1", NULL},
- 		},
- 		{}
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ficlonerange02.c b/testcases/kernel/syscalls/ioctl/ioctl_ficlonerange02.c
-index ad36df162..eb941c3fc 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_ficlonerange02.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_ficlonerange02.c
-@@ -82,10 +82,12 @@ static struct tst_test test = {
- 	.mount_device = 1,
- 	.mntpoint = MNTPOINT,
- 	.filesystems = (struct tst_fs []) {
--		{.type = "bcachefs"},
- 		{.type = "btrfs"},
-+		{.type = "bcachefs"},
- 		{
- 			.type = "xfs",
-+			.min_kver = "4.16",
-+			.mkfs_ver = "mkfs.xfs >= 1.5.0",
- 			.mkfs_opts = (const char *const []) {"-m", "reflink=1", NULL},
- 		},
- 		{}
+> +	TST_EXP_EQ_LI(st_mount->mask, STATMOUNT_MNT_ROOT);
+> +	TST_EXP_EQ_STR(st_mount->str + st_mount->mnt_root, last_root);
+> +}
+
+Otherwise:
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
-2.43.0
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
