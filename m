@@ -2,116 +2,129 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C66789962A3
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2024 10:29:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E79E9996296
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2024 10:29:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7B49A3C2991
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2024 10:29:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0AABC3C26D0
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2024 10:29:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3D6E83C25C9
- for <ltp@lists.linux.it>; Wed,  9 Oct 2024 10:29:11 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 84BB73C1CF0
+ for <ltp@lists.linux.it>; Wed,  9 Oct 2024 10:29:10 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 24CFF6027A0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D5DF41000411
  for <ltp@lists.linux.it>; Wed,  9 Oct 2024 10:29:09 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6339A1F769;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E7B5921B7A;
  Wed,  9 Oct 2024 08:29:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1728462548; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1728462549; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Uc8hSpMtKeIw6VBs5gNZPLPZe4UpPSy2pCucKWqdc2Q=;
- b=c6SB9rgp9sE2tUx+WrsmDadTbtUMbVR+bfv5LqK5PdkQlOj4ZTifHlaKQDLVHRlk6r28F1
- bU7/q5mORbs5U7jkjH+LUbPgzlhMP3VWVkhzNbUbmZaQ9kPgY3y80O+2Uv6awUFxMwOQ9G
- xn87yki6LvwAckWcBNUwSy6EZq7FiV0=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jfR+3Edrtw6RmB//typGP6WdKlYPX1DR7jppeppsfhs=;
+ b=SRDjXfhzABJ09qwXFZoAlv7t3HGHzwCGNQve7qPorpEzocCCsLgttPTytIEgIeTIi5tcbF
+ wm+AXcGH58kKAY5oiH3a3xvUYrK+gvuWNxIBKepCbSHAbMar10c9RAXryVN1JfZpO42HfN
+ DNE+tndovO6sasQZDdafKLQbB6fgu4s=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1728462548;
+ s=susede2_ed25519; t=1728462549;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Uc8hSpMtKeIw6VBs5gNZPLPZe4UpPSy2pCucKWqdc2Q=;
- b=2m0aAOfi1hADFaeQQbqah5uwrjbRGKUiGqaEQZo0UMDwOPLGoj2FQHQQJZ3F7EVYgRTJ/N
- Pe6DW/3E8EnXnrBQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jfR+3Edrtw6RmB//typGP6WdKlYPX1DR7jppeppsfhs=;
+ b=RYH+Q6MdizZcAv3IBIq7fuGODCHoZ2VUfU7/u/l79R0bvCVRogCgxhIZ6wjK5jxtSz7rk0
+ 8DtX+HjmBtCljPDw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Pqx5MxMs;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=iKxPr+hP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1728462548; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Uc8hSpMtKeIw6VBs5gNZPLPZe4UpPSy2pCucKWqdc2Q=;
- b=c6SB9rgp9sE2tUx+WrsmDadTbtUMbVR+bfv5LqK5PdkQlOj4ZTifHlaKQDLVHRlk6r28F1
- bU7/q5mORbs5U7jkjH+LUbPgzlhMP3VWVkhzNbUbmZaQ9kPgY3y80O+2Uv6awUFxMwOQ9G
- xn87yki6LvwAckWcBNUwSy6EZq7FiV0=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jfR+3Edrtw6RmB//typGP6WdKlYPX1DR7jppeppsfhs=;
+ b=Pqx5MxMsP6cHQMm46CMpzHX80DK1+yjJJZSFu3FdqeaM4X2i+BOumys4f8uLP6gUcrp96K
+ GKmFMi2Zat5jCSkPjfjNVMcun3LAsGIGWtx4vsdyLY685YxKgADsXz2XUi6r6QPsVERhN6
+ MDlR2OeaRsdBYNg4JPzoTt1djRJ8OtM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1728462548;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Uc8hSpMtKeIw6VBs5gNZPLPZe4UpPSy2pCucKWqdc2Q=;
- b=2m0aAOfi1hADFaeQQbqah5uwrjbRGKUiGqaEQZo0UMDwOPLGoj2FQHQQJZ3F7EVYgRTJ/N
- Pe6DW/3E8EnXnrBQ==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jfR+3Edrtw6RmB//typGP6WdKlYPX1DR7jppeppsfhs=;
+ b=iKxPr+hPV6Pl+wvgZ7jB2mVmq1R7Ce1D9UDziFMQHYdh9VhLv9WVv+MFvQ4R6yuIKYVHhW
+ 2Eanyea6qofAvcBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B9AA1136BA;
- Wed,  9 Oct 2024 08:29:07 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A737C136BA;
+ Wed,  9 Oct 2024 08:29:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id A/r1I9M+BmeeTQAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Wed, 09 Oct 2024 08:29:07 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id OOwfINQ+BmeeTQAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Wed, 09 Oct 2024 08:29:08 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 09 Oct 2024 10:29:02 +0200
-Message-Id: <20241009-listmount_statmount-v7-0-d5ad31d47f68@suse.com>
+Date: Wed, 09 Oct 2024 10:29:03 +0200
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAM4+BmcC/43N0QrCIBQG4FcJrzPOnLrZVe8REZrHJrQZcxvF2
- LvnCioiorvz//B/ZyQRW4+RrBcjaXHw0YcmhWK5IIdKN0ek3qZMGDAOIpP05GNXh77p9rHTj4t
- CCUoKZK4EJGl5btH5y13d7lKu0ia01/uTIZ/b396QU6DMOW40U8boYhP7iKtDqMnMDfxFKFDfC
- Z6IXAlRMuDWOvggxJPIAMrvhEiElI5jphUW1nwQ8g9CJgKc5UIaaZRxb8Q0TTconDmifgEAAA=
- =
+Message-Id: <20241009-listmount_statmount-v7-1-d5ad31d47f68@suse.com>
+References: <20241009-listmount_statmount-v7-0-d5ad31d47f68@suse.com>
+In-Reply-To: <20241009-listmount_statmount-v7-0-d5ad31d47f68@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1728462547; l=5305;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1728462547; l=4558;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=iWNdYKtes+HNxWfvsoqvGHLdDTW6mehar1GJNL9Mi0Y=;
- b=DafjWqA6KRiORzqo0M7A/HAG6JeMs7kzgFPMwVj30i31/TeV9rw2jdti+Bjd1T1e8IPhcGQ2N
- TTj/z6+ON8VBv1NwLZzukQ1tPgLHaqhtjS4kTObzbNuvGJ4ydB+h59I
+ bh=Cx9Quw2Lv7qzSk1kd3UNtqPyhtAjsdjQMEOtq56Q1+w=;
+ b=GD/uA2JhszqjekyjVVTAcdwsDBNnJ51bd2uVbXCuY9y8HSuIyxtOOi2SS2L0gb1uug4IG4Qro
+ 9ftIPeDlijNDPeprtvYuArllRCtv6fK2yHAeZM0BaU38d3CzL+UOio/
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spam-Score: -4.30
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Queue-Id: E7B5921B7A
+X-Spam-Score: -4.51
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.995]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_TWO(0.00)[2]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,lwn.net:url]
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v7 00/16] statmount/listmount testing suites
+Subject: [LTP] [PATCH v7 01/16] Add SAFE_STATX macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,122 +141,169 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch-set is adding new testing suites for statmount() and listmount()
-syscalls, which have been recently added in kernel v6.8.
-To find out more information, please read the following documentation since
-there's no man pages yet:
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-https://lwn.net/Articles/950569/
-https://lore.kernel.org/lkml/170474400576.2602.7882507604401153304.pr-tracker-bot@kernel.org/T/
-
-Along with kernel source code:
-
-https://github.com/torvalds/linux/blob/1b294a1f35616977caddaddf3e9d28e576a1adbc/include/uapi/linux/mount.h#L155
-https://github.com/torvalds/linux/blob/1b294a1f35616977caddaddf3e9d28e576a1adbc/tools/testing/selftests/filesystems/statmount/statmount_test.c
-
+Reviewed-by: Avinesh Kumar <akumar@suse.de>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-Changes in v7:
-- fix statmount01
-- add more EOVERFLOW tests in statmount07
-- add more invalid tests in listmount04
-- Link to v6: https://lore.kernel.org/r/20241008-listmount_statmount-v6-0-0fd456b6b9bf@suse.com
+ include/lapi/stat.h | 111 +++++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 79 insertions(+), 32 deletions(-)
 
-Changes in v6:
-- fix statmount01
-- add more EOVERFLOW tests in statmount06
-- Link to v5: https://lore.kernel.org/r/20241008-listmount_statmount-v5-0-66f4e1a9e7db@suse.com
+diff --git a/include/lapi/stat.h b/include/lapi/stat.h
+index 030646a9e..1fa5f4eaf 100644
+--- a/include/lapi/stat.h
++++ b/include/lapi/stat.h
+@@ -30,6 +30,7 @@ struct statx_timestamp {
+ 	int32_t __reserved;
+ };
+ #endif
++
+ /*
+  * Structures for the extended file attribute retrieval system call
+  * (statx()).
+@@ -67,39 +68,57 @@ struct statx_timestamp {
+  * will have values installed for compatibility purposes so that stat() and
+  * co. can be emulated in userspace.
+  */
+-#ifndef HAVE_STRUCT_STATX
+-struct statx {
+-	/* 0x00 */
+-	uint32_t	stx_mask;
+-	uint32_t	stx_blksize;
+-	uint64_t	stx_attributes;
+-	/* 0x10 */
+-	uint32_t	stx_nlink;
+-	uint32_t	stx_uid;
+-	uint32_t	stx_gid;
+-	uint16_t	stx_mode;
+-	uint16_t	__spare0[1];
+-	/* 0x20 */
+-	uint64_t	stx_ino;
+-	uint64_t	stx_size;
+-	uint64_t	stx_blocks;
+-	uint64_t	stx_attributes_mask;
+-	/* 0x40 */
+-	const struct statx_timestamp	stx_atime;
+-	const struct statx_timestamp	stx_btime;
+-	const struct statx_timestamp	stx_ctime;
+-	const struct statx_timestamp	stx_mtime;
+-	/* 0x80 */
+-	uint32_t	stx_rdev_major;
+-	uint32_t	stx_rdev_minor;
+-	uint32_t	stx_dev_major;
+-	uint32_t	stx_dev_minor;
+-	/* 0x90 */
+-	uint64_t	__spare2[14];
+-	/* 0x100 */
++ #define LTP_DEFINE_STATX_STRUCT(x) \
++ 	struct x { \
++	uint32_t	stx_mask; \
++	uint32_t	stx_blksize; \
++	uint64_t	stx_attributes; \
++	uint32_t	stx_nlink; \
++	uint32_t	stx_uid; \
++	uint32_t	stx_gid; \
++	uint16_t	stx_mode; \
++	uint16_t	__spare0[1]; \
++	uint64_t	stx_ino; \
++	uint64_t	stx_size; \
++	uint64_t	stx_blocks; \
++	uint64_t	stx_attributes_mask; \
++	const struct statx_timestamp	stx_atime; \
++	const struct statx_timestamp	stx_btime; \
++	const struct statx_timestamp	stx_ctime; \
++	const struct statx_timestamp	stx_mtime; \
++	uint32_t	stx_rdev_major; \
++	uint32_t	stx_rdev_minor; \
++	uint32_t	stx_dev_major; \
++	uint32_t	stx_dev_minor; \
++	uint64_t	stx_mnt_id; \
++	uint32_t	stx_dio_mem_align; \
++	uint32_t	stx_dio_offset_align; \
++	uint64_t	__spare3[12]; \
+ };
++
++LTP_DEFINE_STATX_STRUCT(statx_fallback);
++
++#ifdef HAVE_STRUCT_STATX
++typedef struct statx ltp_statx_;
++#else
++LTP_DEFINE_STATX_STRUCT(statx);
++
++typedef struct statx_fallback ltp_statx_;
+ #endif
+ 
++/*
++ * This is the fallback statx that we pass to the safe_statx() syscall.
++ * The reason why we need it, is that statx struct is constantly changing
++ * inside the kernel and we need to extend its definition when structure
++ * changes in order to compile the tests.
++ */
++struct ltp_statx {
++	union {
++		ltp_statx_ buff;
++		struct statx_fallback data;
++	};
++};
++
+ #ifndef HAVE_STATX
+ 
+ /*
+@@ -108,9 +127,9 @@ struct statx {
+  * Returns: It returns status of statx syscall
+  */
+ static inline int statx(int dirfd, const char *pathname, unsigned int flags,
+-			unsigned int mask, struct statx *statxbuf)
++			unsigned int mask, struct statx *st)
+ {
+-	return tst_syscall(__NR_statx, dirfd, pathname, flags, mask, statxbuf);
++	return tst_syscall(__NR_statx, dirfd, pathname, flags, mask, st);
+ }
+ #endif
+ 
+@@ -229,6 +248,10 @@ static inline int statx(int dirfd, const char *pathname, unsigned int flags,
+ # define STATX_ATTR_VERITY	0x00100000
+ #endif
+ 
++#ifndef STATX_MNT_ID_UNIQUE
++# define STATX_MNT_ID_UNIQUE  0x00004000U
++#endif
++
+ #define SAFE_FCHMODAT2(dfd, filename, mode, flags) \
+ 	safe_fchmodat2(__FILE__, __LINE__, (dfd), (filename), (mode), (flags))
+ 
+@@ -251,4 +274,28 @@ static inline int safe_fchmodat2(const char *file, const int lineno,
+ 	return ret;
+ }
+ 
++#define SAFE_STATX(dirfd, pathname, flags, mask, buf) \
++	safe_statx(__FILE__, __LINE__, (dirfd), (pathname), (flags), (mask), (buf))
++
++static inline int safe_statx(const char *file, const int lineno,
++	int dirfd, const char *pathname, int flags, unsigned int mask,
++	struct ltp_statx *buf)
++{
++	int rval;
++
++	rval = statx(dirfd, pathname, flags, mask, &buf->buff);
++
++	if (rval == -1) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"statx(%d,%s,%d,%u,%p) failed", dirfd, pathname, flags, mask, buf);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid statx(%d,%s,%d,%u,%p) return value %d",
++			dirfd, pathname, flags, mask, buf,
++			rval);
++	}
++
++	return rval;
++}
++
+ #endif /* LAPI_STAT_H__ */
 
-Changes in v5:
-- usage of sx.data.stx_mask
-- use TST_EXP_EQ_STR
-- use tst_tmpdir_genpath()
-- use !TST_PASS instead of TST_RET == -1
-- listmount03
-- listmount04
-- statmount08
-- Link to v4: https://lore.kernel.org/r/20240909-listmount_statmount-v4-0-39558204ddf0@suse.com
-
-Changes in v4:
-- listmount01: remove all filesystems run
-- listmount02: better descriptions and proper unmount()
-- statmount01: check all fields are zeroed
-- statmount02: check also readonly flag
-- statmount03: now it checks for all mount flags
-- statmount04: moved read_peer_group inside statmount.h
-- statmount07: add test for invalid values
-- generic style fixes 
-- fix statx import
-- Link to v3: https://lore.kernel.org/r/20240516-listmount_statmount-v3-0-2ff4ba29bba7@suse.com
-
----
-Andrea Cervesato (16):
-      Add SAFE_STATX macro
-      Add TST_EXP_EQ_STR macro
-      Add listmount/statmount syscalls
-      Add listmount/statmount fallback declarations
-      Add listmount01 test
-      Add listmount02 test
-      Add statmount01 test
-      Add statmount02 test
-      Add statmount03 test
-      Add statmount04 test
-      Add statmount05 test
-      Add statmount06 test
-      Add statmount07 test
-      Add statmount08 test
-      Add listmount03 test
-      Add listmount04 test
-
- configure.ac                                      |   2 +
- include/lapi/mount.h                              |  70 ++++++++++
- include/lapi/stat.h                               | 111 ++++++++++-----
- include/lapi/syscalls/aarch64.in                  |   2 +
- include/lapi/syscalls/arc.in                      |   2 +
- include/lapi/syscalls/arm.in                      |   2 +
- include/lapi/syscalls/hppa.in                     |   2 +
- include/lapi/syscalls/i386.in                     |   2 +
- include/lapi/syscalls/ia64.in                     |   2 +
- include/lapi/syscalls/loongarch.in                |   2 +
- include/lapi/syscalls/mips_n32.in                 |   2 +
- include/lapi/syscalls/mips_n64.in                 |   2 +
- include/lapi/syscalls/mips_o32.in                 |   2 +
- include/lapi/syscalls/powerpc.in                  |   2 +
- include/lapi/syscalls/powerpc64.in                |   2 +
- include/lapi/syscalls/s390.in                     |   2 +
- include/lapi/syscalls/s390x.in                    |   2 +
- include/lapi/syscalls/sh.in                       |   2 +
- include/lapi/syscalls/sparc.in                    |   2 +
- include/lapi/syscalls/sparc64.in                  |   2 +
- include/lapi/syscalls/x86_64.in                   |   2 +
- include/tst_test_macros.h                         |  14 ++
- runtest/syscalls                                  |  14 ++
- testcases/kernel/syscalls/listmount/.gitignore    |   4 +
- testcases/kernel/syscalls/listmount/Makefile      |   7 +
- testcases/kernel/syscalls/listmount/listmount.h   |  27 ++++
- testcases/kernel/syscalls/listmount/listmount01.c |  63 +++++++++
- testcases/kernel/syscalls/listmount/listmount02.c | 105 ++++++++++++++
- testcases/kernel/syscalls/listmount/listmount03.c |  62 +++++++++
- testcases/kernel/syscalls/listmount/listmount04.c | 162 ++++++++++++++++++++++
- testcases/kernel/syscalls/statmount/.gitignore    |   8 ++
- testcases/kernel/syscalls/statmount/Makefile      |   7 +
- testcases/kernel/syscalls/statmount/statmount.h   |  51 +++++++
- testcases/kernel/syscalls/statmount/statmount01.c |  77 ++++++++++
- testcases/kernel/syscalls/statmount/statmount02.c |  84 +++++++++++
- testcases/kernel/syscalls/statmount/statmount03.c | 138 ++++++++++++++++++
- testcases/kernel/syscalls/statmount/statmount04.c | 105 ++++++++++++++
- testcases/kernel/syscalls/statmount/statmount05.c | 123 ++++++++++++++++
- testcases/kernel/syscalls/statmount/statmount06.c |  68 +++++++++
- testcases/kernel/syscalls/statmount/statmount07.c | 144 +++++++++++++++++++
- testcases/kernel/syscalls/statmount/statmount08.c |  65 +++++++++
- 41 files changed, 1515 insertions(+), 32 deletions(-)
----
-base-commit: 701212f08d6e850457cc2b10238f28662ef48471
-change-id: 20240516-listmount_statmount-080965e2f80e
-
-Best regards,
 -- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+2.43.0
 
 
 -- 
