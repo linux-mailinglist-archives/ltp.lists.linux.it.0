@@ -2,74 +2,93 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 040E5997FF4
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2024 10:35:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14EF39985D8
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2024 14:24:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1728549308; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1728563096; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-transfer-encoding :
  content-type : sender : from;
- bh=LIJrI5XWV7SA8E5jTExyCo9Xd+K9pSawLoYeFd+Y+7I=;
- b=plTh3KAdJAinGZP2Bpafom/rJCIanDI6Vd5+YGh6T14chBwldfzvxxg6vO8U5ZgNV5/qv
- XV64KZh01rilskpd4dSvn6Ntfnj7R6Wm4cYjka/WQd1eN4uXg1ORaDHnvIrf4hQ8Ip0JZ/M
- lYiHGl0J9SLQPFsQezlBzzIW7uS9W+w=
+ bh=dYzhQZuo97BFG7Ly+r3d/V1EvYbdD6ajehXFW5Loas4=;
+ b=i9rtnOrJsrl2qZpDLH6c76yDF0kcSmZcUIp0qb9optgb/d9GVN/lg5tSKUhUygZzJfwro
+ tlI43SYuXAdFNityLwSYHYcB2PJWvJHrzkwIbT7FYmxXdkHpuNbxGixPL45htfWmZMFx0K4
+ 2GKx7XfmUbgLubtYEpOVDKfc/V0UqDc=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 130413C267E
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2024 10:35:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4611D3C4C09
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2024 14:24:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3D4753C0368
- for <ltp@lists.linux.it>; Thu, 10 Oct 2024 00:03:23 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=kernel.org (client-ip=2604:1380:45d1:ec00::3;
- helo=nyc.source.kernel.org; envelope-from=sashal@kernel.org;
- receiver=lists.linux.it)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 5DF8E3C042F
+ for <ltp@lists.linux.it>; Thu, 10 Oct 2024 14:24:44 +0200 (CEST)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 71533205CE6
- for <ltp@lists.linux.it>; Thu, 10 Oct 2024 00:03:21 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 4AD2AA4478E;
- Wed,  9 Oct 2024 22:03:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D998C4CEC3;
- Wed,  9 Oct 2024 22:03:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1728511399;
- bh=wHu0vL5OYfmu+L39nIZU7+e1wsKSMJA58f6KwHUZgcI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WV6vF9/2fDQLRiQPFYPkhYe8w4fpee9+NbNJZy0nVD5UsYX/9qnd+VZN5aZqKkPa9
- fMNDVQcholTOjszBa+mA2ZH84jZ798H9vTL7erJBZm/O+W1DepFkMNBGeLz52Kwnpj
- fS1Gw3kxcO8cgDd5vwwko4bWQr1sHg3dGR6WvnpCUCqRw8mL5EVRy1LH9vBOnq1Oet
- mPuSzCByAW6VY9aRwT/feic4jL3wopgxfwXyYXDtoAAGMvEYKk4RFO09ffMIZG6baH
- veTgjlvlCFKSy5SMiVgCqdrmaDnB1h1MFQWxikEn+cZato8SeAGvDVcQWyTxiCMAS8
- tz8hPaEzluwmw==
-Date: Wed, 9 Oct 2024 18:03:17 -0400
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <Zwb9pbX7MnPqGPoM@sashalap>
-References: <20241008115648.280954295@linuxfoundation.org>
- <CA+G9fYv=Ld-YCpWaV2X=ErcyfEQC8DA1jy+cOhmviEHGS9mh-w@mail.gmail.com>
- <CADYN=9KBXFJA1oU6KVJU66vcEej5p+6NcVYO0=SUrWW1nqJ8jQ@mail.gmail.com>
- <ZwZuuz2jTW5evZ6v@yuki.lan>
- <CAASaF6wdvXAZyPNn-H4F8qq6MpHmOOm9R+K+ir9T_sOG-nXpoA@mail.gmail.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4FEEA140C931
+ for <ltp@lists.linux.it>; Thu, 10 Oct 2024 14:24:43 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5c90333aaf1so824134a12.0
+ for <ltp@lists.linux.it>; Thu, 10 Oct 2024 05:24:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1728563083; x=1729167883; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=GC/Fuc1xEI3bfGS26YrmXw/7prj4f0H9GfetWHvKEQ8=;
+ b=gK08NxoswEsCOWLpC6+KeFShjdMuZAM8ZSHCoA1gFmIENrPgwECHD01WvCtbzDLnWf
+ CFcFxzA0NM/uTkF7X0cPELkz1Pt0eHnRjwnmsCY1xpdWYp42ZOLMNSjkXv0M8uBThyia
+ NObXuuzabZ/UzdLs57fyCX7L7YSnKJp18JVMMvzNLKTiRGqC0LjESNMHity9oy6it+Bs
+ Wb+UBsNRuznGbc3m5VeeucPShtURK7YQc+ntIhI5o7DIidsrzUYhI85GtxqKAnlFxiEm
+ btjW+uR98Oa7h1aXAYIVwiahhK1tMCVpprpyCH53xE+LHQ/S5BUArjCs5qQekbPBCHki
+ m5zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728563083; x=1729167883;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=GC/Fuc1xEI3bfGS26YrmXw/7prj4f0H9GfetWHvKEQ8=;
+ b=U96jcOLaw9sZgQsAdoOD1f7qu47RwbaRjps67qNWMMARiE7EmSYTbpPLp3p+D8dl0K
+ cWm8fH7sFmzlHjKPLwTgCsXKWzsPMQVx6f26MzdT15F0ExtU1rjOwxvD9nu0EM+curqF
+ psC78bPs5g32XdRuqITSb/itCb3ymhyXK01gG7jfNHANhbQwLUP9+BltbRf/LP3STpkS
+ GyzEb89I+FX2XofXvphx5K58KglJpNfxGahBfobeR3si+tzQkia86QMcYv6Oagf5PkNB
+ tN+mSOmlIzpoMw0QcIiuEPG9QNScVYix+c9FmqQnQO6SxAD34lS9yzLh7fBcCAhLs1Ac
+ +dGw==
+X-Gm-Message-State: AOJu0YyfWRCxDDYXdpbjZxSv+DTiUtJ+uezWxOiy4SuWshoTPfy1S2Xj
+ ztm5GN9IVubp/JGN4xckuU7SjXguXMLOtwq17Mh7RZQXIai80NGIdRfCsYWBp30=
+X-Google-Smtp-Source: AGHT+IFqjV32Ze8hLUyVJMzJn6yj1SwdEVtgeWjsFjEU3tCRm2KEuTO7ywwQJfnHfdf8uDCYMFtWgw==
+X-Received: by 2002:a05:6402:2745:b0:5c8:84a8:5170 with SMTP id
+ 4fb4d7f45d1cf-5c91d65067cmr7592632a12.34.1728563082614; 
+ Thu, 10 Oct 2024 05:24:42 -0700 (PDT)
+Received: from ?IPV6:2a02:a31b:84a1:b780:5af0:a75d:357e:866e?
+ ([2a02:a31b:84a1:b780:5af0:a75d:357e:866e])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c93711a9e4sm702593a12.31.2024.10.10.05.24.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Oct 2024 05:24:42 -0700 (PDT)
+Message-ID: <ac7fcf96-8283-47e8-bc2c-6bc9bab0d73f@suse.com>
+Date: Thu, 10 Oct 2024 14:24:40 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAASaF6wdvXAZyPNn-H4F8qq6MpHmOOm9R+K+ir9T_sOG-nXpoA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+To: Cyril Hrubis <chrubis@suse.cz>, Andrea Cervesato <andrea.cervesato@suse.de>
+References: <20240812-process_mrelease-v2-0-e61249986a0a@suse.com>
+ <20240812-process_mrelease-v2-3-e61249986a0a@suse.com>
+ <ZwP4VxOgCOI-BWMw@yuki.lan>
+Content-Language: en-US
+In-Reply-To: <ZwP4VxOgCOI-BWMw@yuki.lan>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Thu, 10 Oct 2024 10:35:06 +0200
-Subject: Re: [LTP] [PATCH 6.10 000/482] 6.10.14-rc1 review
+Subject: Re: [LTP] [PATCH v2 3/3] Add process_mrelease02 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,28 +100,108 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Sasha Levin via ltp <ltp@lists.linux.it>
-Reply-To: Sasha Levin <sashal@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, lkft-triage@lists.linaro.org, patches@kernelci.org,
- stable@vger.kernel.org, shuah@kernel.org, f.fainelli@gmail.com,
- jonathanh@nvidia.com, linux@roeck-us.net, srw@sladewatkins.net,
- broonie@kernel.org, LTP List <ltp@lists.linux.it>,
- Christian Brauner <brauner@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
- rwarsow@gmx.de, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- allen.lkml@gmail.com, conor@kernel.org, linux-kernel@vger.kernel.org,
- pavel@denx.de, patches@lists.linux.dev, akpm@linux-foundation.org,
- torvalds@linux-foundation.org, sudipm.mukherjee@gmail.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gV2VkLCBPY3QgMDksIDIwMjQgYXQgMDI6MDM6MzFQTSArMDIwMCwgSmFuIFN0YW5jZWsgd3Jv
-dGU6Cj5PbiBXZWQsIE9jdCA5LCAyMDI0IGF0IDE6NTbigK9QTSBDeXJpbCBIcnViaXMgPGNocnVi
-aXNAc3VzZS5jej4gd3JvdGU6Cj4+Cj4+IEhpIQo+PiBXb3JrIGluIHByb2dyZXNzLCBzZWU6Cj4+
-IGh0dHBzOi8vbGlzdHMubGludXguaXQvcGlwZXJtYWlsL2x0cC8yMDI0LU9jdG9iZXIvMDQwNDMz
-Lmh0bWwKPgo+YW5kIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LWV4dDQvMjAyNDEwMDQy
-MjE1NTYuMTkyMjItMS1qYWNrQHN1c2UuY3ovCgpJJ2xsIGRyb3AgdGhlIG9mZmVuZGluZyBjb21t
-aXQsIHdlIGNhbiBncmFiIGl0IGFsb25nIHdpdGggdGhlIGZpeCBvbmNlCml0IGxhbmRzIGluIExp
-bnVzJ3MgdHJlZS4KCi0tIApUaGFua3MsClNhc2hhCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0
-dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Hi,
+
+On 10/7/24 17:03, Cyril Hrubis wrote:
+> Hi!
+>> +/*\
+>> + * [Description]
+>> + *
+>> + * This test verifies that process_mrelease() syscall is raising errors:
+>> + * * EBADF when a bad file descriptor is given
+>> + * * EINVAL when flags is not zero
+>> + * * EINVAL when memory of a task cannot be released because it's still running
+>> + * * ESRCH when child has been closed
+>> + */
+>> +
+>> +#include "tst_test.h"
+>> +#include "lapi/syscalls.h"
+>> +
+>> +static int badfd = -1;
+>> +static int pidfd;
+>> +
+>> +enum {
+>> +	NO_CHILD,
+>> +	EXIT_CHILD,
+>> +	WAIT_CHILD,
+>> +};
+>> +
+>> +static struct tcase {
+>> +	int child_type;
+>> +	int *fd;
+>> +	int flags;
+>> +	int exp_errno;
+>> +	char *msg;
+>> +} tcases[] = {
+>> +	{NO_CHILD, &badfd, 0, EBADF, "bad file descriptor"},
+>> +	{WAIT_CHILD, &pidfd, -1, EINVAL, "flags is not 0"},
+>> +	{WAIT_CHILD, &pidfd, 0, EINVAL, "task memory cannot be released"},
+>> +	{EXIT_CHILD, &pidfd, 0, ESRCH, "child is not running"},
+>> +};
+>> +
+>> +static void run(unsigned int n)
+>> +{
+>> +	struct tcase *tc = &tcases[n];
+>> +	int status;
+>> +
+>> +	if (tc->child_type != NO_CHILD) {
+>> +		pid_t pid;
+>> +
+>> +		pid = SAFE_FORK();
+>> +		if (!pid) {
+>> +			if (tc->child_type == WAIT_CHILD)
+>> +				TST_CHECKPOINT_WAIT(0);
+>> +
+>> +			exit(0);
+>> +		}
+>> +
+>> +		tst_res(TINFO, "Spawned waiting child with pid=%d", pid);
+>> +
+>> +		pidfd = SAFE_PIDFD_OPEN(pid, 0);
+>> +
+>> +		if (tc->child_type == EXIT_CHILD)
+>> +			SAFE_WAITPID(pid, &status, 0);
+>> +	}
+> Why don't we instead fork two children in the setup, one of the waits
+> and second exits and just set the pidfd once?
+At the end of each test() the library calls tst_reap_children() and the 
+waiting child will fail with ETIMEDOUT, so we need to spawn a child for 
+each new test.
+>> +	TST_EXP_FAIL(tst_syscall(__NR_process_mrelease, *tc->fd, tc->flags),
+>> +		tc->exp_errno,
+>> +		"%s", tc->msg);
+>> +
+>> +	if (tc->child_type != NO_CHILD) {
+>> +		if (tc->child_type == WAIT_CHILD)
+>> +			TST_CHECKPOINT_WAKE(0);
+>> +
+>> +		SAFE_CLOSE(pidfd);
+>> +	}
+>> +}
+>> +
+>> +static struct tst_test test = {
+>> +	.test = run,
+>> +	.tcnt = ARRAY_SIZE(tcases),
+>> +	.needs_root = 1,
+>> +	.forks_child = 1,
+>> +	.min_kver = "5.15",
+>> +	.needs_checkpoints = 1,
+>> +};
+>>
+>> -- 
+>> 2.43.0
+>>
+>>
+>> -- 
+>> Mailing list info: https://lists.linux.it/listinfo/ltp
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
