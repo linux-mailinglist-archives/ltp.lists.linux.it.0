@@ -2,21 +2,21 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DA239B6524
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2024 15:04:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C188D9B6529
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2024 15:04:53 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ADF1E3CAFE9
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2024 15:04:13 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 75EC73CB039
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2024 15:04:53 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A54B53C750C
- for <ltp@lists.linux.it>; Wed, 30 Oct 2024 15:04:11 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 33A6F3C0067
+ for <ltp@lists.linux.it>; Wed, 30 Oct 2024 15:04:44 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
@@ -24,87 +24,52 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0D518601B1B
- for <ltp@lists.linux.it>; Wed, 30 Oct 2024 15:04:10 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7F9DA143B4E5
+ for <ltp@lists.linux.it>; Wed, 30 Oct 2024 15:04:44 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B27721FDDE;
- Wed, 30 Oct 2024 14:04:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1730297049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=iFlTSvJUWi+l3ZrDyNdPAwajL5YMHrGWm5AH1zZPupw=;
- b=ugj4Py33kE5/w8a5N7syyw3X4x0B+sjaYQ1glx59V0SgRm52rz9Kq8WcM9+FiM2drYAf23
- g8UkTLnW+z8fUO7PFUUIiMhnJVzgdonOTdtlXCX0HvKyqqNHtDzmiMsz2XmTLxyYU1WxHO
- tk2yE9ZmVri65AOPMwOBTw2L2Fx8bLE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1730297049;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=iFlTSvJUWi+l3ZrDyNdPAwajL5YMHrGWm5AH1zZPupw=;
- b=sk3MTfC2nfiUCRS4Sck8ndapHfRNsegrQ3hDeiMXTj8P78qBexl4rVo8YDoeYRQpUCiCk+
- Yxkq2FOOtaZazWBQ==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CC77D1FDDF;
+ Wed, 30 Oct 2024 14:04:43 +0000 (UTC)
 Authentication-Results: smtp-out2.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1730297049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=iFlTSvJUWi+l3ZrDyNdPAwajL5YMHrGWm5AH1zZPupw=;
- b=ugj4Py33kE5/w8a5N7syyw3X4x0B+sjaYQ1glx59V0SgRm52rz9Kq8WcM9+FiM2drYAf23
- g8UkTLnW+z8fUO7PFUUIiMhnJVzgdonOTdtlXCX0HvKyqqNHtDzmiMsz2XmTLxyYU1WxHO
- tk2yE9ZmVri65AOPMwOBTw2L2Fx8bLE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1730297049;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=iFlTSvJUWi+l3ZrDyNdPAwajL5YMHrGWm5AH1zZPupw=;
- b=sk3MTfC2nfiUCRS4Sck8ndapHfRNsegrQ3hDeiMXTj8P78qBexl4rVo8YDoeYRQpUCiCk+
- Yxkq2FOOtaZazWBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9210313AD9;
- Wed, 30 Oct 2024 14:04:09 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A5BDE13AD9;
+ Wed, 30 Oct 2024 14:04:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id azM/I9k8ImdHfQAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Wed, 30 Oct 2024 14:04:09 +0000
-Date: Wed, 30 Oct 2024 15:04:13 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id b7mzJvs8ImeEfQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Wed, 30 Oct 2024 14:04:43 +0000
+Date: Wed, 30 Oct 2024 15:04:43 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <ZyI83bv3QYe64A_O@yuki.lan>
+Message-ID: <ZyI8-1prHBagsMqG@yuki.lan>
 References: <20241030-generate_syscalls-v5-0-eed6a87dc787@suse.com>
- <20241030-generate_syscalls-v5-2-eed6a87dc787@suse.com>
+ <20241030-generate_syscalls-v5-3-eed6a87dc787@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241030-generate_syscalls-v5-2-eed6a87dc787@suse.com>
-X-Spam-Score: -8.30
-X-Spamd-Result: default: False [-8.30 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; MISSING_XM_UA(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+In-Reply-To: <20241030-generate_syscalls-v5-3-eed6a87dc787@suse.com>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
+ ASN(0.00)[asn:25478, ipnet:::/0, country:RU]
+X-Spam-Score: -4.00
+X-Rspamd-Queue-Id: CC77D1FDDF
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v5 2/3] Add script to generate arch(s) dependant
- syscalls
+Subject: Re: [LTP] [PATCH v5 3/3] Delete obsolete strip_syscall.awk file
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,11 +88,6 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Uff what a monostrosity, one would have expected that this could be done
-easier...
-
-Anyways I do not see anything wrong here, so:
-
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
