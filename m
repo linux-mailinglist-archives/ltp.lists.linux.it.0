@@ -2,127 +2,128 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9A8F9B5E48
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2024 09:54:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FA4F9B5E46
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2024 09:53:48 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 805BA3CAA53
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2024 09:54:21 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 32E623CAA5A
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2024 09:53:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7805D3CAA32
- for <ltp@lists.linux.it>; Wed, 30 Oct 2024 09:53:29 +0100 (CET)
-Authentication-Results: in-4.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 242EA3C7270
+ for <ltp@lists.linux.it>; Wed, 30 Oct 2024 09:53:20 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E1CB7101BC6B
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4FF09627D30
  for <ltp@lists.linux.it>; Wed, 30 Oct 2024 09:53:19 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2264421E43;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 519661F45F;
  Wed, 30 Oct 2024 08:53:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1730278398; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=M1rx2nI1s55O3Q1QmutJgotrihpx6j42FvoHkM6R3JA=;
- b=YXNeLe8oBTtWlwk16R1QvyD2pLeYRAfCWcQtgFto6AzE1rgLUXRyHeT6VpskZQHGiO6n/E
- fHbwY2Kabby23XWUiY1cCgbYSyMJX6nYZhPPjtCYSt9SIP0UEsIgtjw2ndCoCNZpfsTCfx
- N3B1CJYe6MiKxVTVZ+xF8Ozkj4XRF30=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/iPDA0SRFf7jXN224RrCxDRW0KTnlUVEShP1Lg4vJJU=;
+ b=N3aQlB/y+4nDupqYrB9CZX4hmU/OurZGbL0ndEYDb9do/WzLsybUMGZzjda6MxQrirwp5m
+ cTkz9JnKv7HDgpeleCM158Ne3G3HWFfl0CtMmqGQN2L4R+1EuhcrzL4/6hhBDNkAfJiDbb
+ st+Be6UaEO/ot1tavC0fkYxpzdjoY7w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1730278398;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=M1rx2nI1s55O3Q1QmutJgotrihpx6j42FvoHkM6R3JA=;
- b=pIFuI2e9FxGLoUXEKJO4pBpU9yjzoJ1DHq8z7uxvXRy9CQnn/PmzX8HviJOLa0rJYhjk1X
- OYCtQoQj8bikPZCA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=YXNeLe8o;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=pIFuI2e9
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/iPDA0SRFf7jXN224RrCxDRW0KTnlUVEShP1Lg4vJJU=;
+ b=JaabVOJ5l2Iu8/Abayl2wLs4RXTHYc/RFjBKroPuRhFpqOPGDq+PsZBu4bBZHLvCYVe7rG
+ A4ebyMf8SghUDvCg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="N3aQlB/y";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=JaabVOJ5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1730278398; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=M1rx2nI1s55O3Q1QmutJgotrihpx6j42FvoHkM6R3JA=;
- b=YXNeLe8oBTtWlwk16R1QvyD2pLeYRAfCWcQtgFto6AzE1rgLUXRyHeT6VpskZQHGiO6n/E
- fHbwY2Kabby23XWUiY1cCgbYSyMJX6nYZhPPjtCYSt9SIP0UEsIgtjw2ndCoCNZpfsTCfx
- N3B1CJYe6MiKxVTVZ+xF8Ozkj4XRF30=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/iPDA0SRFf7jXN224RrCxDRW0KTnlUVEShP1Lg4vJJU=;
+ b=N3aQlB/y+4nDupqYrB9CZX4hmU/OurZGbL0ndEYDb9do/WzLsybUMGZzjda6MxQrirwp5m
+ cTkz9JnKv7HDgpeleCM158Ne3G3HWFfl0CtMmqGQN2L4R+1EuhcrzL4/6hhBDNkAfJiDbb
+ st+Be6UaEO/ot1tavC0fkYxpzdjoY7w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1730278398;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=M1rx2nI1s55O3Q1QmutJgotrihpx6j42FvoHkM6R3JA=;
- b=pIFuI2e9FxGLoUXEKJO4pBpU9yjzoJ1DHq8z7uxvXRy9CQnn/PmzX8HviJOLa0rJYhjk1X
- OYCtQoQj8bikPZCA==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/iPDA0SRFf7jXN224RrCxDRW0KTnlUVEShP1Lg4vJJU=;
+ b=JaabVOJ5l2Iu8/Abayl2wLs4RXTHYc/RFjBKroPuRhFpqOPGDq+PsZBu4bBZHLvCYVe7rG
+ A4ebyMf8SghUDvCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EDB28136A5;
- Wed, 30 Oct 2024 08:53:17 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 28B1913ADE;
+ Wed, 30 Oct 2024 08:53:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id euDsN/3zIWdCGQAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Wed, 30 Oct 2024 08:53:17 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id CDwnCP7zIWdCGQAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Wed, 30 Oct 2024 08:53:18 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 30 Oct 2024 09:52:59 +0100
-Message-Id: <20241030-generate_syscalls-v5-0-eed6a87dc787@suse.com>
+Date: Wed, 30 Oct 2024 09:53:00 +0100
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAOvzIWcC/23N3WoCMRCG4VuRHDcymSRN1qPeRymSn1kN2N2Ss
- UtF9t6NgmWRPXw/mGeugqkWYrHbXEWlqXAZhxb2bSPSMQwHkiW3FghooEMtDzRQDWfa84VTOJ1
- YOg85IaKLOYp291OpL38P8/Or9bHweayXx4tJ3denZla0SUmQnVEWXOhSDumDf5m2afwWd2zCJ
- eDWAGyAAt/bHkPWyr8AegFoWAN0A8i+UyYTk+vtC2D+AQXQrQGmAVajD87bGENeAPM83wARwPQ
- 0dAEAAA==
-X-Change-ID: 20240923-generate_syscalls-780dc2227bdb
+Message-Id: <20241030-generate_syscalls-v5-1-eed6a87dc787@suse.com>
+References: <20241030-generate_syscalls-v5-0-eed6a87dc787@suse.com>
+In-Reply-To: <20241030-generate_syscalls-v5-0-eed6a87dc787@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1730278397; l=2879;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1730278397; l=8523;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=bdJfvU6+EeRbuv3D6V1+IKr4ivSCpY1RUTqa4jHhqyU=;
- b=wFK7bSGRlftWqZK0jG7un8xc+VIVClZv6yRRZUbYRHb7kLRfBTpF5ZaTpoR/O9Z3vZMmXuzLy
- SH5wvV5IXedDkOXjVZVz6h2pN512/L8ZE2pE2SDkYr1YKT4RIkvWpNv
+ bh=ijfTnczOzEM9HaXbiChBSdaAG7SmasRnu7+zRTZiS64=;
+ b=a18stfTSvyoJ/9ciHfZ+/YHFBu5z1N47hOkXCCCsDOy+MRVXh0aarWwdLmxwBPWeZx1NO8iNY
+ +F3nYZlX33YBKG8PDPQBIYWP8QNclAU2e4s7zsl2wXQHl9HIMGmf75w
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: 2264421E43
-X-Spam-Level: 
+X-Rspamd-Queue-Id: 519661F45F
+X-Spam-Score: -4.51
+X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
  RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+];
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.cz:email];
  DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v5 0/3] Automatically generate syscalls.h
+Subject: [LTP] [PATCH v5 1/3] Refactor regen.sh script to generate syscalls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,73 +140,301 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The problem we have at the moment is that all syscalls input files must
-be changed by hand each time we need to test a new syscall. The idea is
-to simplify this process, providing a script that is able to read from
-kernel sources and to generate all syscalls files we need.
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-This patch set adds a new command inside the syscalls folder and
-it refactors the previous regen.sh code.
-The new way we have to generate the syscalls.h file is the following:
+Rename regen.sh into a more meaningful generate_syscalls.sh name, rename
+order into a more meaningful supported-syscalls.txt name and rewrite
+part of the regen.sh script code in order to execute it from anywhere in
+the filesystem, without need to be in its own folder. The new code is
+also more clear and concise, using native sh features which are
+simplifying the code.
 
-	include/lapi/syscalls/generate_arch.sh 		path/to/kernel/source
-	include/lapi/syscalls/generate_syscalls.sh 	path/to/syscalls.h
-
-Scripts are independent and they can be run separately.
-generate_syscalls.sh is the equivalent of regen.sh, but its code has
-been cleaned up.
-
+Reviewed-by: Li Wang <liwang@redhat.com>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-Changes in v5:
-- license SPDX inside scripts files
-- quote shell variables inside scripts
-- some generic code cleanup
-- Link to v4: https://lore.kernel.org/r/20241009-generate_syscalls-v4-0-5328a785bbad@suse.com
-
-Changes in v4:
-- remove blacklist file
-- update syscalls files
-- Link to v3: https://lore.kernel.org/r/20240930-generate_syscalls-v3-0-e56ede4bc7f5@suse.com
-
-Changes in v3:
-- fix generate_arch.sh to work properly for all architectures
-- rename some arch .in files and handle renaming inside
-  generate_syscalls.sh using the right gcc directives
-- Link to v2: https://lore.kernel.org/r/20240927-generate_syscalls-v2-0-108f5f2ad318@suse.com
-
-Changes in v2:
-- refactor regen.sh
-- split syscalls.h and syscalls .in files creation
-- updated syscalls .in files
-- Link to v1: https://lore.kernel.org/r/20240924-generate_syscalls-v1-0-941507a9cdac@suse.com
-
----
-Andrea Cervesato (3):
-      Refactor regen.sh script to generate syscalls
-      Add script to generate arch(s) dependant syscalls
-      Delete obsolete strip_syscall.awk file
-
  configure.ac                                       |   2 +-
- include/lapi/syscalls/{aarch64.in => arm64.in}     |   0
- include/lapi/syscalls/generate_arch.sh             | 211 +++++++++++++++++++++
- include/lapi/syscalls/generate_syscalls.sh         | 115 +++++++++++
- .../lapi/syscalls/{loongarch.in => loongarch64.in} |   0
- include/lapi/syscalls/{mips_n64.in => mips64.in}   |   0
- .../lapi/syscalls/{mips_n32.in => mips64n32.in}    |   0
- include/lapi/syscalls/{mips_o32.in => mipso32.in}  |   0
- include/lapi/syscalls/{hppa.in => parisc.in}       |   0
- include/lapi/syscalls/regen.sh                     | 129 -------------
- include/lapi/syscalls/strip_syscall.awk            |  19 --
- .../lapi/syscalls/{order => supported-arch.txt}    |  12 +-
- 12 files changed, 333 insertions(+), 155 deletions(-)
----
-base-commit: 34e6dd2d233abcebae435d34d793b6a49d08c190
-change-id: 20240923-generate_syscalls-780dc2227bdb
+ include/lapi/syscalls/generate_syscalls.sh         | 115 ++++++++++++++++++
+ include/lapi/syscalls/regen.sh                     | 129 ---------------------
+ .../lapi/syscalls/{order => supported-arch.txt}    |   0
+ 4 files changed, 116 insertions(+), 130 deletions(-)
 
-Best regards,
+diff --git a/configure.ac b/configure.ac
+index d327974efa71f263d7f7f5aec9d2c5831d53dd0e..cd1233d19fad376973fc880d6689859845613fb0 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -386,7 +386,7 @@ else
+     AC_SUBST([WITH_REALTIME_TESTSUITE],["no"])
+ fi
+ 
+-AC_CONFIG_COMMANDS([syscalls.h], [cd ${ac_top_srcdir}/include/lapi/syscalls; ./regen.sh; cd - >/dev/null])
++AC_CONFIG_COMMANDS([syscalls.h], [cd ${ac_top_srcdir}/include/lapi/syscalls; ./generate_syscalls.sh ../syscalls.h; cd - >/dev/null])
+ 
+ # custom functions
+ # NOTE: don't create custom functions for simple checks, put them into this file
+diff --git a/include/lapi/syscalls/generate_syscalls.sh b/include/lapi/syscalls/generate_syscalls.sh
+new file mode 100755
+index 0000000000000000000000000000000000000000..2bcb10b5d1bb67704f51e1a81ec979725353b692
+--- /dev/null
++++ b/include/lapi/syscalls/generate_syscalls.sh
+@@ -0,0 +1,115 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++#
++# Generate the syscalls.h file, merging all architectures syscalls input file
++# which are in the current folder and defined inside supported-arch.txt file.
++
++SYSCALLS_FILE="$1"
++
++if [ -z "${SYSCALLS_FILE}" ]; then
++	echo "Please provide the syscalls.h directory:"
++	echo ""
++	echo "$0 path/of/syscalls.h"
++	echo ""
++	exit 1
++fi
++
++SCRIPT_DIR="$(realpath $(dirname "$0"))"
++SUPPORTED_ARCH="${SCRIPT_DIR}/supported-arch.txt"
++
++echo '
++/************************************************
++* GENERATED FILE: DO NOT EDIT/PATCH THIS FILE  *
++*  change your arch specific .in file instead  *
++************************************************/
++
++/*
++* Here we stick all the ugly *fallback* logic for linux
++* system call numbers (those __NR_ thingies).
++*
++* Licensed under the GPLv2 or later, see the COPYING file.
++*/
++
++#ifndef LAPI_SYSCALLS_H__
++#define LAPI_SYSCALLS_H__
++
++#include <errno.h>
++#include <sys/syscall.h>
++#include <asm/unistd.h>
++
++#ifdef TST_TEST_H__
++#define TST_SYSCALL_BRK__(NR, SNR) ({ \
++tst_brk(TCONF, \
++	"syscall(%d) " SNR " not supported on your arch", NR); \
++})
++#else
++inline static void dummy_cleanup(void) {}
++
++#define TST_SYSCALL_BRK__(NR, SNR) ({ \
++tst_brkm(TCONF, dummy_cleanup, \
++	"syscall(%d) " SNR " not supported on your arch", NR); \
++})
++#endif
++
++#define tst_syscall(NR, ...) ({ \
++intptr_t tst_ret; \
++if (NR == __LTP__NR_INVALID_SYSCALL) { \
++	errno = ENOSYS; \
++	tst_ret = -1; \
++} else { \
++	tst_ret = syscall(NR, ##__VA_ARGS__); \
++} \
++if (tst_ret == -1 && errno == ENOSYS) { \
++	TST_SYSCALL_BRK__(NR, #NR); \
++} \
++tst_ret; \
++})
++
++#define __LTP__NR_INVALID_SYSCALL -1' >${SYSCALLS_FILE}
++
++while IFS= read -r arch; do
++	(
++		echo
++		case ${arch} in
++		sparc64) echo "#if defined(__sparc__) && defined(__arch64__)" ;;
++		sparc) echo "#if defined(__sparc__) && !defined(__arch64__)" ;;
++		s390) echo "#if defined(__s390__) && !defined(__s390x__)" ;;
++		mips64n32) echo "#if defined(__mips__) && defined(_ABIN32)" ;;
++		mips64) echo "#if defined(__mips__) && defined(_ABI64)" ;;
++		mipso32) echo "#if defined(__mips__) && defined(_ABIO32) && _MIPS_SZLONG == 32" ;;
++		parisc) echo "#ifdef __hppa__" ;;
++		loongarch64) echo "#ifdef __loongarch__" ;;
++		arm64) echo "#ifdef __aarch64__" ;;
++		*) echo "#ifdef __${arch}__" ;;
++		esac
++
++		while read -r line; do
++			set -- ${line}
++			syscall_nr="__NR_$1"
++			shift
++
++			echo "# ifndef ${syscall_nr}"
++			echo "#  define ${syscall_nr} $*"
++			echo "# endif"
++		done <"${SCRIPT_DIR}/${arch}.in"
++		echo "#endif"
++		echo
++	) >>${SYSCALLS_FILE}
++done <${SUPPORTED_ARCH}
++
++(
++	echo
++	echo "/* Common stubs */"
++	while IFS= read -r arch; do
++		while IFS= read -r line; do
++			set -- ${line}
++			syscall_nr="__NR_$1"
++			shift
++
++			echo "# ifndef ${syscall_nr}"
++			echo "#  define ${syscall_nr} __LTP__NR_INVALID_SYSCALL"
++			echo "# endif"
++		done <"${SCRIPT_DIR}/${arch}.in"
++	done <${SUPPORTED_ARCH}
++	echo "#endif"
++) >>${SYSCALLS_FILE}
+diff --git a/include/lapi/syscalls/regen.sh b/include/lapi/syscalls/regen.sh
+deleted file mode 100755
+index 663ce4458bbc67c3a9e8073dfe8359164a9da0ee..0000000000000000000000000000000000000000
+--- a/include/lapi/syscalls/regen.sh
++++ /dev/null
+@@ -1,129 +0,0 @@
+-#!/bin/sh
+-
+-output="syscalls.h"
+-rm -f "${output}".[1-9]*
+-output_pid="${output}.$$"
+-
+-max_jobs=$(getconf _NPROCESSORS_ONLN 2>/dev/null)
+-: ${max_jobs:=1}
+-
+-srcdir=${0%/*}
+-
+-err() {
+-	echo "$*" 1>&2
+-	exit 1
+-}
+-
+-cat << EOF > "${output_pid}"
+-/************************************************
+- * GENERATED FILE: DO NOT EDIT/PATCH THIS FILE  *
+- *  change your arch specific .in file instead  *
+- ************************************************/
+-
+-/*
+- * Here we stick all the ugly *fallback* logic for linux
+- * system call numbers (those __NR_ thingies).
+- *
+- * Licensed under the GPLv2 or later, see the COPYING file.
+- */
+-
+-#ifndef LAPI_SYSCALLS_H__
+-#define LAPI_SYSCALLS_H__
+-
+-#include <errno.h>
+-#include <sys/syscall.h>
+-#include <asm/unistd.h>
+-
+-#ifdef TST_TEST_H__
+-#define TST_SYSCALL_BRK__(NR, SNR) ({ \\
+-	tst_brk(TCONF, \\
+-		"syscall(%d) " SNR " not supported on your arch", NR); \\
+-})
+-#else
+-inline static void dummy_cleanup(void) {}
+-
+-#define TST_SYSCALL_BRK__(NR, SNR) ({ \\
+-	tst_brkm(TCONF, dummy_cleanup, \\
+-		"syscall(%d) " SNR " not supported on your arch", NR); \\
+-})
+-#endif
+-
+-#define tst_syscall(NR, ...) ({ \\
+-	intptr_t tst_ret; \\
+-	if (NR == __LTP__NR_INVALID_SYSCALL) { \\
+-		errno = ENOSYS; \\
+-		tst_ret = -1; \\
+-	} else { \\
+-		tst_ret = syscall(NR, ##__VA_ARGS__); \\
+-	} \\
+-	if (tst_ret == -1 && errno == ENOSYS) { \\
+-		TST_SYSCALL_BRK__(NR, #NR); \\
+-	} \\
+-	tst_ret; \\
+-})
+-
+-EOF
+-
+-jobs=0
+-for arch in $(cat "${srcdir}/order") ; do
+-	(
+-	echo "Generating data for arch $arch ... "
+-
+-	(
+-	echo
+-	case ${arch} in
+-		sparc64) echo "#if defined(__sparc__) && defined(__arch64__)" ;;
+-		sparc) echo "#if defined(__sparc__) && !defined(__arch64__)" ;;
+-		s390) echo "#if defined(__s390__) && !defined(__s390x__)" ;;
+-		mips_n32) echo "#if defined(__mips__) && defined(_ABIN32)" ;;
+-		mips_n64) echo "#if defined(__mips__) && defined(_ABI64)" ;;
+-		mips_o32) echo "#if defined(__mips__) && defined(_ABIO32) && _MIPS_SZLONG == 32" ;;
+-		*) echo "#ifdef __${arch}__" ;;
+-	esac
+-	while read line ; do
+-		set -- ${line}
+-		nr="__NR_$1"
+-		shift
+-		if [ $# -eq 0 ] ; then
+-			err "invalid line found: $line"
+-		fi
+-		echo "# ifndef ${nr}"
+-		echo "#  define ${nr} $*"
+-		echo "# endif"
+-	done < "${srcdir}/${arch}.in"
+-	echo "#endif"
+-	echo
+-	) >> "${output_pid}.${arch}"
+-
+-	) &
+-
+-	jobs=$(( jobs + 1 ))
+-	if [ ${jobs} -ge ${max_jobs} ] ; then
+-		wait || exit 1
+-		jobs=0
+-	fi
+-done
+-
+-echo "Generating stub list ... "
+-(
+-echo
+-echo "/* Common stubs */"
+-echo "#define __LTP__NR_INVALID_SYSCALL -1" >> "${output_pid}"
+-for nr in $(awk '{print $1}' "${srcdir}/"*.in | sort -u) ; do
+-	nr="__NR_${nr}"
+-	echo "# ifndef ${nr}"
+-	echo "#  define ${nr} __LTP__NR_INVALID_SYSCALL"
+-	echo "# endif"
+-done
+-echo "#endif"
+-) >> "${output_pid}._footer"
+-
+-wait || exit 1
+-
+-printf "Combining them all ... "
+-for arch in $(cat "${srcdir}/order") _footer ; do
+-	cat "${output_pid}.${arch}"
+-done >> "${output_pid}"
+-mv "${output_pid}" "../${output}"
+-rm -f "${output_pid}"*
+-echo "OK!"
+diff --git a/include/lapi/syscalls/order b/include/lapi/syscalls/supported-arch.txt
+similarity index 100%
+rename from include/lapi/syscalls/order
+rename to include/lapi/syscalls/supported-arch.txt
+
 -- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+2.43.0
 
 
 -- 
