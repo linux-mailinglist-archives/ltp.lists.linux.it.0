@@ -1,131 +1,132 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B58B89B7F8B
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2024 17:01:56 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A93479B7F89
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2024 17:01:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7038E3CC3A1
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2024 17:01:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2A9A73CC385
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2024 17:01:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4062B3CC36E
- for <ltp@lists.linux.it>; Thu, 31 Oct 2024 17:01:14 +0100 (CET)
-Authentication-Results: in-3.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 0352F3CBCC1
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2024 17:01:12 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 533F71A007AB
- for <ltp@lists.linux.it>; Thu, 31 Oct 2024 17:01:13 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 384C910338F8
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2024 17:01:12 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9D1C821CDE;
- Thu, 31 Oct 2024 16:01:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D35AD1FC0D
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2024 16:01:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1730390471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1730390471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SdI0qDpKUOs2XaSh+hPyt9S2Rfdj5WQxJEo08i3e1rE=;
- b=PZt9CYIeH0ZHUbOEuFx3AjbdGrVodSr/1sLf3nvJ5fxspaq+c7lObr6saJUDvzf3/KPK4L
- 8+rtvCT2KJWejwE6K6l/UITAvCFjtwxN6iHZJCGF38y4ea5F26tKEl2hForVF2L5pLjKcX
- dJab0z4Rrm46NSLuhJYnm46fpOeKkc0=
+ bh=JiN7MmbmKOXBZoM3hrYgvl9qvrKK1URIbuaj05lmFYg=;
+ b=JehbIN7uKMGFr8QBy6vUFiamRI9FcufTzrQXovlG7pljst9J2qhwragzU1m4GRER/i3l4t
+ t8cW8IOoZ1HnDYskEEayOrPqTiHyd6fpR5Ayu6m3ySpMsSKNQPsER1nsALcaTeiw4htril
+ FJ/4r2Rvj7SCaZpMnYKjWw2sbuMiBUM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1730390471;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SdI0qDpKUOs2XaSh+hPyt9S2Rfdj5WQxJEo08i3e1rE=;
- b=07fpNUCsC8e+vuWH6nkgLfPgIcWfP6DiR19b44s5Eodmt3hcVdzQnUCuDq8O7RrfqkGQOt
- nlIw1HhnsuaQoeAw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PZt9CYIe;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=07fpNUCs
+ bh=JiN7MmbmKOXBZoM3hrYgvl9qvrKK1URIbuaj05lmFYg=;
+ b=7NsEzWON6w1J3Ri8InuTukhgbcne6nc20y0bIvm0GWTPRAUhjwZZjKiUYf70LVEpHCy3/L
+ u3481r5rULmjABDQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JehbIN7u;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=7NsEzWON
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1730390471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1730390471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SdI0qDpKUOs2XaSh+hPyt9S2Rfdj5WQxJEo08i3e1rE=;
- b=PZt9CYIeH0ZHUbOEuFx3AjbdGrVodSr/1sLf3nvJ5fxspaq+c7lObr6saJUDvzf3/KPK4L
- 8+rtvCT2KJWejwE6K6l/UITAvCFjtwxN6iHZJCGF38y4ea5F26tKEl2hForVF2L5pLjKcX
- dJab0z4Rrm46NSLuhJYnm46fpOeKkc0=
+ bh=JiN7MmbmKOXBZoM3hrYgvl9qvrKK1URIbuaj05lmFYg=;
+ b=JehbIN7uKMGFr8QBy6vUFiamRI9FcufTzrQXovlG7pljst9J2qhwragzU1m4GRER/i3l4t
+ t8cW8IOoZ1HnDYskEEayOrPqTiHyd6fpR5Ayu6m3ySpMsSKNQPsER1nsALcaTeiw4htril
+ FJ/4r2Rvj7SCaZpMnYKjWw2sbuMiBUM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1730390471;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SdI0qDpKUOs2XaSh+hPyt9S2Rfdj5WQxJEo08i3e1rE=;
- b=07fpNUCsC8e+vuWH6nkgLfPgIcWfP6DiR19b44s5Eodmt3hcVdzQnUCuDq8O7RrfqkGQOt
- nlIw1HhnsuaQoeAw==
+ bh=JiN7MmbmKOXBZoM3hrYgvl9qvrKK1URIbuaj05lmFYg=;
+ b=7NsEzWON6w1J3Ri8InuTukhgbcne6nc20y0bIvm0GWTPRAUhjwZZjKiUYf70LVEpHCy3/L
+ u3481r5rULmjABDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 653FD13B01;
- Thu, 31 Oct 2024 16:01:11 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ACE3113A53
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2024 16:01:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id uE1rFsepI2eNLAAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Thu, 31 Oct 2024 16:01:11 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id YOX2J8epI2eNLAAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>)
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2024 16:01:11 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Thu, 31 Oct 2024 17:01:09 +0100
+Date: Thu, 31 Oct 2024 17:01:10 +0100
 MIME-Version: 1.0
-Message-Id: <20241031-generate_syscalls-v8-3-8e35a9d6783b@suse.com>
+Message-Id: <20241031-generate_syscalls-v8-4-8e35a9d6783b@suse.com>
 References: <20241031-generate_syscalls-v8-0-8e35a9d6783b@suse.com>
 In-Reply-To: <20241031-generate_syscalls-v8-0-8e35a9d6783b@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1730390470; l=1094;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1730390470; l=2647;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=F7I1keLFvhriKu4IZMOwZ51V8RIvSwlzc5gA76cLfTQ=;
- b=IdRgqddp+5HL1na0HN+nE67XWyQNFNdPBpXdcBHqNEaJL25wISIBoBaG/O6P7v8mImdftbW7D
- XJVWVZLz7iJBRLheShMMpEboX5VpEyIBt3YDHehjxLy5qVghXsd3IYx
+ bh=3XQkoRbEpDQSeykAdArghNEG6x1l25QJsrILZcYybpo=;
+ b=Zp6j7mL1Fu8Ryn6Cj6yD1MRFS8ZzSFZrPQtbZlxi15ysOQ/UUn8YtpAcPpELsEyvc0ZQOqRtO
+ 9FI6IkLTG77D4cgp4FFmge5gpm4M+wjRc8oCgkyA+1t1OlK6UCzXPqw
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: 9D1C821CDE
-X-Spam-Level: 
+X-Rspamd-Queue-Id: D35AD1FC0D
+X-Spam-Score: -4.51
+X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ MX_GOOD(-0.01)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FUZZY_BLOCKED(0.00)[rspamd.com];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_ONE(0.00)[1];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:mid,suse.com:email];
+ RCVD_TLS_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[4]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.de:dkim];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ TO_DN_NONE(0.00)[];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
  DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v8 3/4] Delete obsolete strip_syscall.awk file
+Subject: [LTP] [PATCH v8 4/4] Add documentation about syscalls.h generator
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,39 +145,54 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Reviewed-by: Li Wang <liwang@redhat.com>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- include/lapi/syscalls/strip_syscall.awk | 19 -------------------
- 1 file changed, 19 deletions(-)
+ doc/developers/test_case_tutorial.rst | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
 
-diff --git a/include/lapi/syscalls/strip_syscall.awk b/include/lapi/syscalls/strip_syscall.awk
-deleted file mode 100755
-index e8dff422e2667745c144ed984a4d66461fcce0c6..0000000000000000000000000000000000000000
---- a/include/lapi/syscalls/strip_syscall.awk
-+++ /dev/null
-@@ -1,19 +0,0 @@
--#!/usr/bin/awk -f
--#
--# Dumb script that can be used to strip all of the syscall information from
--# the arch-respective unistd*.h.
--#
--# Examples:
--#
--# 1. Grab the i386 32-bit syscalls from unistd_32.h and put them in i386.in
--# strip_syscall.awk arch/x86/include/asm/unistd_32.h > i386.in
--#
--
--/^#define[[:space:]]+__NR_[0-9a-z]+/ {
--
--	sub (/#define[[:space:]]+__NR_/, "", $0);
--	sub (/[[:space:]]*(\/\*.*)/, "", $0);
--	sub (/[[:space:]]+/, " ", $0);
--
--	print
--}
+diff --git a/doc/developers/test_case_tutorial.rst b/doc/developers/test_case_tutorial.rst
+index be9a0ea8bac1d690b4ed4879d110f87c3f2a381a..b48ea4a7a3594266466fcca364f5d0ff1e42d235 100644
+--- a/doc/developers/test_case_tutorial.rst
++++ b/doc/developers/test_case_tutorial.rst
+@@ -302,24 +302,25 @@ for a distribution's C library version to be older than its kernel or it may use
+ cut down C library in comparison to the GNU one. So we must call ``statx()``
+ using the general ``syscall()`` interface.
+ 
+-The LTP contains a library for dealing with the ``syscall`` interface, which is
++LTP contains a library for dealing with the ``syscall`` interface, which is
+ located in :master:`include/lapi`. System call numbers are listed against the relevant
+ call in the ``*.in`` files (e.g. ``x86_64.in``) which are used to generate
+-``syscalls.h``, which is the header you should include. On rare occasions you
+-may find the system call number is missing from the ``*.in`` files and will need
+-to add it (see :master:`include/lapi/syscalls/strip_syscall.awk`).
++``syscalls.h``, the header you should include.
+ 
+-System call numbers vary between architectures, hence there are multiple
+-``*.in`` files for each architecture. You can find the various values for the
+-``statx`` system call across a number of ``unistd.h`` files in the Linux kernel.
++On rare occasions, you may find that system call number is missing from ``*.in``
++files. In these cases, they will need to be updated using
++`include/lapi/syscalls/generate_arch.sh` script as following:
+ 
+-Note that we don't use the system-call-identifier value available in
+-``/usr/include/linux/uinstd.h`` because the kernel might be much newer than the
+-user land development packages.
++.. code-block:: bash
++
++    $ include/lapi/syscalls/generate_arch.sh /path/of/linux/sources
++
++The script will generate all the needed ``*.in`` files according to the Linux
++source code which has been used. Make sure that your Linux source code has
++been updated to the latest version.
+ 
+-For ``statx`` we had to add ``statx 332`` to :master:`include/lapi/syscalls/x86_64.in`,
+-``statx 383`` to :master:`include/lapi/syscalls/powerpc.in`, etc.  Now lets look at
+-the code, which I will explain in more detail further down.
++Once the new syscalls files have been updated, to rebuild our ``syscalls.h``
++file, please use ``./configure`` command.
+ 
+ .. code-block:: c
+ 
 
 -- 
 2.43.0
