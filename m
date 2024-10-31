@@ -1,130 +1,93 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54AE39B7557
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2024 08:28:12 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 746ED9B76E9
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2024 09:56:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1730365011; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-type : content-transfer-encoding : sender : from;
+ bh=MCPQYlz+jpp1Y4hHW+dPbzWCPbtJg3mX5vEOZbVQzQY=;
+ b=EosynvGO8Hf9N2a3RGFKe4C9eby5347TJ/SVOeBb3gbc2uHNNIodvqCJnvFewi0YY+0Ev
+ CEVLfgj8eZbp+JBca/2YyENd3xtfArwmWVQH0UL7/01s7Ju7mdnBXw8RCw4phJcuD9q9GeX
+ dzLG1JkTXd6CgFOIc6SydmTr9M2Wu1s=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 644A83CBBFA
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2024 08:28:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AAD323CBCE9
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2024 09:56:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 841573CBBF5
- for <ltp@lists.linux.it>; Thu, 31 Oct 2024 08:28:09 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 069393C7E0B
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2024 09:56:48 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fujitsu.com (client-ip=207.54.90.48;
+ helo=esa2.hc1455-7.c3s2.iphmx.com; envelope-from=maxj.fnst@fujitsu.com;
+ receiver=lists.linux.it)
+Received: from esa2.hc1455-7.c3s2.iphmx.com (esa2.hc1455-7.c3s2.iphmx.com
+ [207.54.90.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0B400140E5E9
- for <ltp@lists.linux.it>; Thu, 31 Oct 2024 08:28:09 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7894E1FBB5;
- Thu, 31 Oct 2024 07:28:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1730359688; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=SdI0qDpKUOs2XaSh+hPyt9S2Rfdj5WQxJEo08i3e1rE=;
- b=mZRURMR36f+qDMT3lx1y/HMNvGx20AsSr3MuTKD8cIOAAt/+7rbMYSQKadUhQ/5/i0jfYG
- F/ns94lzhKhMsnBWUPXJRSgabA4fCi8HDnsa8qVjwwTZN2/ISGw56cQK0ETZFG57v6cZvI
- 6lSWUWnulDzCdP6926Cn7EGUp3tJoa4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1730359688;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=SdI0qDpKUOs2XaSh+hPyt9S2Rfdj5WQxJEo08i3e1rE=;
- b=EnpTJ+V4mWENpSjmanb5qdbwjLM49THOWtNyJpjk+h3jI1vqh8zr0LJ1DCz7ytNiR5ZwJ1
- 1rBHuF1NlmGTo/AA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mZRURMR3;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=EnpTJ+V4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1730359688; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=SdI0qDpKUOs2XaSh+hPyt9S2Rfdj5WQxJEo08i3e1rE=;
- b=mZRURMR36f+qDMT3lx1y/HMNvGx20AsSr3MuTKD8cIOAAt/+7rbMYSQKadUhQ/5/i0jfYG
- F/ns94lzhKhMsnBWUPXJRSgabA4fCi8HDnsa8qVjwwTZN2/ISGw56cQK0ETZFG57v6cZvI
- 6lSWUWnulDzCdP6926Cn7EGUp3tJoa4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1730359688;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=SdI0qDpKUOs2XaSh+hPyt9S2Rfdj5WQxJEo08i3e1rE=;
- b=EnpTJ+V4mWENpSjmanb5qdbwjLM49THOWtNyJpjk+h3jI1vqh8zr0LJ1DCz7ytNiR5ZwJ1
- 1rBHuF1NlmGTo/AA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DD9B113B01;
- Thu, 31 Oct 2024 07:28:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id SAzWL4cxI2fLBQAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Thu, 31 Oct 2024 07:28:07 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Thu, 31 Oct 2024 08:27:08 +0100
-MIME-Version: 1.0
-Message-Id: <20241031-generate_syscalls-v6-3-1ad86a33ce2d@suse.com>
-References: <20241031-generate_syscalls-v6-0-1ad86a33ce2d@suse.com>
-In-Reply-To: <20241031-generate_syscalls-v6-0-1ad86a33ce2d@suse.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 302741430CFD
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2024 09:56:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+ t=1730365009; x=1761901009;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=VPKzMSIkmT3q29a40wN9+u7fYTZhTPDrBXuGhI8YcEM=;
+ b=TyjI47+XCGA0EzQpqObjRMkKuw+nbmmltoLBEB2HX7ZS+cECdZ/x3MNS
+ jz8MONoX39QkY1fKPIQQiIcBc8pGQus8kwPTAQ07XAUTyY3LJMvwI4516
+ sYdvQdU+jh8hY0W43DHnEYFdQkk+uDEICrjbMfEsjCNLAro9OpSPbnhSX
+ 6rBhmBa1KdtsWYFjzBCWpKMyA25J1aHfpylnZVgqJKPcbFnCbOlgxLH7B
+ 014UQXJDuU4d47NA5jQQCwh9tKNB1zRK/Q2KOWKo4GQ8gyy2V9tU0ZBoB
+ 3mjYFgv10Iv57ZjkgjcPEIr1ONQjDtP0dsKIuxS+LDmprOjNoOZbrF3/N w==;
+X-CSE-ConnectionGUID: 4ZktNMbDRc+pZqVOrA284Q==
+X-CSE-MsgGUID: 9VLTNDWxR7KHx3fdEeb3Og==
+X-IronPort-AV: E=McAfee;i="6700,10204,11241"; a="178706367"
+X-IronPort-AV: E=Sophos;i="6.11,247,1725289200"; d="scan'208";a="178706367"
+Received: from unknown (HELO oym-r3.gw.nic.fujitsu.com) ([210.162.30.91])
+ by esa2.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2024 17:56:47 +0900
+Received: from oym-m4.gw.nic.fujitsu.com (oym-nat-oym-m4.gw.nic.fujitsu.com
+ [192.168.87.61])
+ by oym-r3.gw.nic.fujitsu.com (Postfix) with ESMTP id 2CDA6D64A6
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2024 17:56:44 +0900 (JST)
+Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
+ [192.51.206.22])
+ by oym-m4.gw.nic.fujitsu.com (Postfix) with ESMTP id 74541D4C13
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2024 17:56:43 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+ by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id 11486411AB
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2024 17:56:43 +0900 (JST)
+Received: from localhost.localdomain (unknown [10.167.135.101])
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id 794FE1A000B;
+ Thu, 31 Oct 2024 16:56:42 +0800 (CST)
 To: ltp@lists.linux.it
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1730359657; l=1094;
- i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=F7I1keLFvhriKu4IZMOwZ51V8RIvSwlzc5gA76cLfTQ=;
- b=HcuFg540/fWV1Jvf13BqxP3RNNAfFf0thRKr1RAb3zubKi78WEV/7UWR+atKQvycTk6GgDM7/
- OQw0irGbdhWC07sBcdBT93CCP8ayXIqzIgFzgfK9BQWoNfitmPoFdS2
-X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
- pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: 7894E1FBB5
-X-Spam-Score: -4.51
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.996]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[4]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:mid,suse.com:email,suse.cz:email,suse.de:dkim];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
+Date: Thu, 31 Oct 2024 16:58:09 +0800
+Message-ID: <20241031085809.56982-1-maxj.fnst@fujitsu.com>
+X-Mailer: git-send-email 2.42.0
+MIME-Version: 1.0
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28764.006
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28764.006
+X-TMASE-Result: 10--8.039100-10.000000
+X-TMASE-MatchedRID: cisyxejsi47yq/cli2hvDU7nLUqYrlslFIuBIWrdOeMnyU5/nZpxUEWY
+ FvwCgnnKtyjUMgzCwc1+NZ4lfSspsx8TzIzimOwPbyHxYOKot3xp9JuvPBKN/Cq2rl3dzGQ1il/
+ Tr8kJxaUP2cTHQ7hZTCoWl1qCopLK1ylwGnFm0BShdONI86j2Hg==
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v6 3/3] Delete obsolete strip_syscall.awk file
+Subject: [LTP] [PATCH] llistxattr01: Convert docs to docparse
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,49 +99,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Ma Xinjian via ltp <ltp@lists.linux.it>
+Reply-To: Ma Xinjian <maxj.fnst@fujitsu.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
-
-Reviewed-by: Li Wang <liwang@redhat.com>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+Signed-off-by: Ma Xinjian <maxj.fnst@fujitsu.com>
 ---
- include/lapi/syscalls/strip_syscall.awk | 19 -------------------
- 1 file changed, 19 deletions(-)
+ .../kernel/syscalls/llistxattr/llistxattr01.c | 23 ++++++++-----------
+ 1 file changed, 10 insertions(+), 13 deletions(-)
 
-diff --git a/include/lapi/syscalls/strip_syscall.awk b/include/lapi/syscalls/strip_syscall.awk
-deleted file mode 100755
-index e8dff422e2667745c144ed984a4d66461fcce0c6..0000000000000000000000000000000000000000
---- a/include/lapi/syscalls/strip_syscall.awk
-+++ /dev/null
-@@ -1,19 +0,0 @@
--#!/usr/bin/awk -f
--#
--# Dumb script that can be used to strip all of the syscall information from
--# the arch-respective unistd*.h.
--#
--# Examples:
--#
--# 1. Grab the i386 32-bit syscalls from unistd_32.h and put them in i386.in
--# strip_syscall.awk arch/x86/include/asm/unistd_32.h > i386.in
--#
+diff --git a/testcases/kernel/syscalls/llistxattr/llistxattr01.c b/testcases/kernel/syscalls/llistxattr/llistxattr01.c
+index f59413265..5002fe96f 100644
+--- a/testcases/kernel/syscalls/llistxattr/llistxattr01.c
++++ b/testcases/kernel/syscalls/llistxattr/llistxattr01.c
+@@ -1,18 +1,15 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+-* Copyright (c) 2016 Fujitsu Ltd.
+-* Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
+-*/
 -
--/^#define[[:space:]]+__NR_[0-9a-z]+/ {
--
--	sub (/#define[[:space:]]+__NR_/, "", $0);
--	sub (/[[:space:]]*(\/\*.*)/, "", $0);
--	sub (/[[:space:]]+/, " ", $0);
--
--	print
--}
-
+-/*
+-* Test Name: llistxattr01
+-*
+-* Description:
+-* The testcase checks the basic functionality of the llistxattr(2).
+-* llistxattr(2) retrieves the list of extended attribute names
+-* associated with the link itself in the filesystem.
+-*
+-*/
++ * Copyright (c) 2016 Fujitsu Ltd.
++ * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Basic test for llistxattr(2), retrieves the list of extended attribute names
++ * associated with the link itself in the filesystem.
++ */
+ 
+ #include "config.h"
+ #include <errno.h>
 -- 
-2.43.0
+2.42.0
 
 
 -- 
