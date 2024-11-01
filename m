@@ -1,126 +1,109 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D372F9B92DB
-	for <lists+linux-ltp@lfdr.de>; Fri,  1 Nov 2024 15:11:50 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 224A79B936F
+	for <lists+linux-ltp@lfdr.de>; Fri,  1 Nov 2024 15:38:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 884633CD6BC
-	for <lists+linux-ltp@lfdr.de>; Fri,  1 Nov 2024 15:11:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BCF293CD740
+	for <lists+linux-ltp@lfdr.de>; Fri,  1 Nov 2024 15:38:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B569D3CD6B6
- for <ltp@lists.linux.it>; Fri,  1 Nov 2024 15:11:31 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 3A0573CD537
+ for <ltp@lists.linux.it>; Fri,  1 Nov 2024 15:37:38 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 17841140E94E
- for <ltp@lists.linux.it>; Fri,  1 Nov 2024 15:11:30 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9BC276068CE
+ for <ltp@lists.linux.it>; Fri,  1 Nov 2024 15:37:36 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BF2311FECF
- for <ltp@lists.linux.it>; Fri,  1 Nov 2024 14:11:29 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F2E3F21C5B;
+ Fri,  1 Nov 2024 14:37:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1730470289; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=FOu3XfXk0/3QePjYbag/+L1gt2KzQkJpn4UPjNtijBc=;
- b=yoyo0x1naORecUlAG5AiI5+XNqoiCF8n5KZwU4DdrFf1y9YzKXtQGgObjDiobKwsgeNaY5
- 2/iJzoAwgS0m868NwBegktL2/vO+zpdb+8j4LO1I9P5+2QonDm6XiFPfr+LxTD226RZ5Ra
- gYzpdHDdmerl8TzKmlXZbWRwmXXY9C8=
+ t=1730471856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=kgQnsygS2WZdQQfVxbZvwRKERagfjDRkXQjp6aZIpKs=;
+ b=mTCVXdiXX1bOYLoHnFrvOUdItpPNyiYEhOXCSqEU/8KYG/aSt+zcdrQryNsOkMXajzdib7
+ zXEVB6TZjVtr1/HZC0daFsIrIH1l/aBNh6Vr0wcp9xBH5ZZTNorKl+rKtmBZtz4GFORvhK
+ 0is5/18b0FrRNHpAR4IHPLXWrNQ6/NQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1730470289;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=FOu3XfXk0/3QePjYbag/+L1gt2KzQkJpn4UPjNtijBc=;
- b=DycH9yOyR04HdOBoyJWoDCe683NELnnS6V1J3jQL0/AE89+zgMuNxGxf6CRDN1Nlu4xcLC
- PVdO0q+B3daiozDA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=yoyo0x1n;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=DycH9yOy
+ s=susede2_ed25519; t=1730471856;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=kgQnsygS2WZdQQfVxbZvwRKERagfjDRkXQjp6aZIpKs=;
+ b=1e8g5RvLk4gdjILop5Hva2J6D5mXf+h9XbQxlHmwus3Qwj0F+XSSVMzxv4gX4XKMVpFcxr
+ /qdCbsX2Bq690qBQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=mTCVXdiX;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=1e8g5RvL
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1730470289; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=FOu3XfXk0/3QePjYbag/+L1gt2KzQkJpn4UPjNtijBc=;
- b=yoyo0x1naORecUlAG5AiI5+XNqoiCF8n5KZwU4DdrFf1y9YzKXtQGgObjDiobKwsgeNaY5
- 2/iJzoAwgS0m868NwBegktL2/vO+zpdb+8j4LO1I9P5+2QonDm6XiFPfr+LxTD226RZ5Ra
- gYzpdHDdmerl8TzKmlXZbWRwmXXY9C8=
+ t=1730471856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=kgQnsygS2WZdQQfVxbZvwRKERagfjDRkXQjp6aZIpKs=;
+ b=mTCVXdiXX1bOYLoHnFrvOUdItpPNyiYEhOXCSqEU/8KYG/aSt+zcdrQryNsOkMXajzdib7
+ zXEVB6TZjVtr1/HZC0daFsIrIH1l/aBNh6Vr0wcp9xBH5ZZTNorKl+rKtmBZtz4GFORvhK
+ 0is5/18b0FrRNHpAR4IHPLXWrNQ6/NQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1730470289;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=FOu3XfXk0/3QePjYbag/+L1gt2KzQkJpn4UPjNtijBc=;
- b=DycH9yOyR04HdOBoyJWoDCe683NELnnS6V1J3jQL0/AE89+zgMuNxGxf6CRDN1Nlu4xcLC
- PVdO0q+B3daiozDA==
+ s=susede2_ed25519; t=1730471856;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=kgQnsygS2WZdQQfVxbZvwRKERagfjDRkXQjp6aZIpKs=;
+ b=1e8g5RvLk4gdjILop5Hva2J6D5mXf+h9XbQxlHmwus3Qwj0F+XSSVMzxv4gX4XKMVpFcxr
+ /qdCbsX2Bq690qBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9884713B22
- for <ltp@lists.linux.it>; Fri,  1 Nov 2024 14:11:29 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CC11613722;
+ Fri,  1 Nov 2024 14:37:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id kEgMJZHhJGf1BAAAD6G6ig
- (envelope-from <mdoucha@suse.cz>)
- for <ltp@lists.linux.it>; Fri, 01 Nov 2024 14:11:29 +0000
-From: Martin Doucha <mdoucha@suse.cz>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Hi6IMK/nJGeICwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 01 Nov 2024 14:37:35 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri,  1 Nov 2024 15:11:10 +0100
-Message-ID: <20241101141111.104803-6-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20241101141111.104803-1-mdoucha@suse.cz>
-References: <20241101141111.104803-1-mdoucha@suse.cz>
+Date: Fri,  1 Nov 2024 15:37:25 +0100
+Message-ID: <20241101143726.1278291-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: BF2311FECF
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Queue-Id: F2E3F21C5B
+X-Spam-Score: -3.01
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_MISSING_CHARSET(0.50)[];
  R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MX_GOOD(-0.01)[]; RCVD_COUNT_TWO(0.00)[2];
+ ASN(0.00)[asn:25478, ipnet:::/0, country:RU]; ARC_NA(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_ONE(0.00)[1]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.cz:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_NONE(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.cz:email, suse.cz:dkim, suse.cz:mid]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
+ RCPT_COUNT_THREE(0.00)[4]; DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 5/5] Add test for data integrity over NFS
+Subject: [LTP] [PATCH 1/2] ima_boot_aggregate: Fix openssl 3.0 deprecation
+ warnings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,92 +115,108 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: linux-integrity@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add NFS test which checks data integrity of random writes into a file,
-with both buffered and direct I/O.
+From the docs:
+https://docs.openssl.org/3.0/man7/migration_guide/#deprecated-low-level-digest-functions
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+    Use of low-level digest functions such as SHA1_Init(3) have been
+    informally discouraged from use for a long time. Applications should
+    instead use the high level EVP APIs EVP_DigestInit_ex(3),
+    EVP_DigestUpdate(3) and EVP_DigestFinal_ex(3), or the quick one-shot
+    EVP_Q_digest(3).
+
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
+ .../integrity/ima/src/ima_boot_aggregate.c    | 32 +++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-The lower loop count is necessary because NFS has very large block size,
-up to 256KB on x86_64. The new tests take ~50 minutes to complete in total
-on my laptop. With the default loop count, the TCP tests would all time out.
-
- runtest/net.nfs                           | 11 +++++++
- testcases/network/nfs/nfs_stress/nfs10.sh | 36 +++++++++++++++++++++++
- 2 files changed, 47 insertions(+)
- create mode 100755 testcases/network/nfs/nfs_stress/nfs10.sh
-
-diff --git a/runtest/net.nfs b/runtest/net.nfs
-index 7f84457bc..fef993da8 100644
---- a/runtest/net.nfs
-+++ b/runtest/net.nfs
-@@ -94,6 +94,17 @@ nfs09_v40_ip6t nfs09.sh -6 -v 4 -t tcp
- nfs09_v41_ip6t nfs09.sh -6 -v 4.1 -t tcp
- nfs09_v42_ip6t nfs09.sh -6 -v 4.2 -t tcp
+diff --git a/testcases/kernel/security/integrity/ima/src/ima_boot_aggregate.c b/testcases/kernel/security/integrity/ima/src/ima_boot_aggregate.c
+index 62468e0d19..68d12fc3c2 100644
+--- a/testcases/kernel/security/integrity/ima/src/ima_boot_aggregate.c
++++ b/testcases/kernel/security/integrity/ima/src/ima_boot_aggregate.c
+@@ -24,6 +24,7 @@
  
-+nfs10_v30_ip4u nfs10.sh -v 3 -t udp
-+nfs10_v30_ip4t nfs10.sh -v 3 -t tcp
-+nfs10_v40_ip4t nfs10.sh -v 4 -t tcp
-+nfs10_v41_ip4t nfs10.sh -v 4.1 -t tcp
-+nfs10_v42_ip4t nfs10.sh -v 4.2 -t tcp
-+nfs10_v30_ip6u nfs10.sh -6 -v 3 -t udp
-+nfs10_v30_ip6t nfs10.sh -6 -v 3 -t tcp
-+nfs10_v40_ip6t nfs10.sh -6 -v 4 -t tcp
-+nfs10_v41_ip6t nfs10.sh -6 -v 4.1 -t tcp
-+nfs10_v42_ip6t nfs10.sh -6 -v 4.2 -t tcp
+ #if HAVE_LIBCRYPTO
+ #include <openssl/sha.h>
++#include <openssl/evp.h>
+ 
+ #define MAX_EVENT_SIZE (1024*1024)
+ #define EVENT_HEADER_SIZE 32
+@@ -61,7 +62,11 @@ static void display_sha1_digest(unsigned char *pcr)
+ static void do_test(void)
+ {
+ 	FILE *fp;
++#if OPENSSL_VERSION_NUMBER > 0x030000000L
++	EVP_MD_CTX *c = NULL;
++#else
+ 	SHA_CTX c;
++#endif
+ 	int i;
+ 
+ 	if (!file)
+@@ -85,12 +90,24 @@ static void do_test(void)
+ 		}
+ 
+ 		if (event.header.pcr < NUM_PCRS) {
++#if OPENSSL_VERSION_NUMBER > 0x030000000L
++			if ((c = EVP_MD_CTX_new()) == NULL)
++				tst_brk(TBROK, "can't get new context");
 +
- nfslock01_v30_ip4u nfslock01.sh -v 3 -t udp
- nfslock01_v30_ip4t nfslock01.sh -v 3 -t tcp
- nfslock01_v40_ip4t nfslock01.sh -v 4 -t tcp
-diff --git a/testcases/network/nfs/nfs_stress/nfs10.sh b/testcases/network/nfs/nfs_stress/nfs10.sh
-new file mode 100755
-index 000000000..b4e777285
---- /dev/null
-+++ b/testcases/network/nfs/nfs_stress/nfs10.sh
-@@ -0,0 +1,36 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (C) 2024 SUSE LLC <mdoucha@suse.cz>
-+#
-+# DESCRIPTION: Verify data integrity over NFS, with and without O_DIRECT
++			EVP_DigestInit_ex(c, EVP_sha1(), NULL);
++			EVP_DigestUpdate(c, pcr[event.header.pcr].digest,
++					 SHA_DIGEST_LENGTH);
++			EVP_DigestUpdate(c, event.header.digest, SHA_DIGEST_LENGTH);
++			EVP_DigestFinal_ex(c, pcr[event.header.pcr].digest, NULL);
++			EVP_MD_CTX_free(c);
++#else
+ 			SHA1_Init(&c);
+ 			SHA1_Update(&c, pcr[event.header.pcr].digest,
+ 				    SHA_DIGEST_LENGTH);
+ 			SHA1_Update(&c, event.header.digest,
+ 				    SHA_DIGEST_LENGTH);
+ 			SHA1_Final(pcr[event.header.pcr].digest, &c);
++#endif
+ 		}
+ 
+ #if MAX_EVENT_DATA_SIZE < USHRT_MAX
+@@ -107,15 +124,30 @@ static void do_test(void)
+ 
+ 	/* Extend the boot aggregate with the pseudo PCR digest values */
+ 	memset(&boot_aggregate, 0, SHA_DIGEST_LENGTH);
 +
-+TST_CNT=4
-+TST_TESTFUNC="do_test"
-+TST_DEVICE_SIZE=1024
++#if OPENSSL_VERSION_NUMBER > 0x030000000L
++	EVP_DigestInit_ex(c, EVP_sha1(), NULL);
++#else
+ 	SHA1_Init(&c);
++#endif
 +
-+do_test1()
-+{
-+	tst_res TINFO "Testing buffered write, buffered read"
-+	EXPECT_PASS fsplough -c 512 -d "$PWD"
-+}
+ 	for (i = 0; i < NUM_PCRS; i++) {
+ 		if (debug) {
+ 			printf("PCR-%2.2x: ", i);
+ 			display_sha1_digest(pcr[i].digest);
+ 		}
++#if OPENSSL_VERSION_NUMBER > 0x030000000L
++		EVP_DigestUpdate(c, pcr[i].digest, SHA_DIGEST_LENGTH);
++#else
+ 		SHA1_Update(&c, pcr[i].digest, SHA_DIGEST_LENGTH);
++#endif
+ 	}
 +
-+do_test2()
-+{
-+	tst_res TINFO "Testing buffered write, direct read"
-+	EXPECT_PASS fsplough -c 512 -R -d "$PWD"
-+}
-+
-+do_test3()
-+{
-+	tst_res TINFO "Testing direct write, buffered read"
-+	EXPECT_PASS fsplough -c 512 -W -d "$PWD"
-+}
-+
-+do_test4()
-+{
-+	tst_res TINFO "Testing direct write, direct read"
-+	EXPECT_PASS fsplough -c 512 -RW -d "$PWD"
-+}
-+
-+. nfs_lib.sh
-+tst_run
++#if OPENSSL_VERSION_NUMBER > 0x030000000L
++	EVP_MD_CTX_free(c);
++#else
+ 	SHA1_Final(boot_aggregate, &c);
++#endif
+ 
+ 	printf("sha1:");
+ 	display_sha1_digest(boot_aggregate);
 -- 
-2.46.0
+2.45.2
 
 
 -- 
