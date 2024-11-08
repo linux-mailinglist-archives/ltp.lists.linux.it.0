@@ -2,90 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD02E9BFD5A
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Nov 2024 05:21:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71F429C1600
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Nov 2024 06:37:37 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1730953279; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=ddF0Rh3WV3s0pGSdcIKtk8AhE/Lzn4ENsrW+FYkuq1E=;
- b=PtQCeNn5q28UHACb+C/0rv3Ti/Avm7Cao0syqHp3KpLFRDFhCu9oElGk+bqaSe6Ei9Px8
- 4t1v9jsxg2jggPzBP1+byjCvHC83PPyDH+EiPvGedIkmRMeQB54Ze48lREM6BRYLrueoZGl
- 6qpFUmfjRn+LlpFNY8+23Y8i4o9zze0=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1731044256; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-type : content-transfer-encoding : sender : from;
+ bh=iEh855ZbLIfdxJ2hw+nPpzIyrxS3PzREBqDEygcERC4=;
+ b=FdOBoZBVEQ9pQAWjEI/ssygWeXBJTI4nMybb80c6p/ZUTvVeM9EP2EeWqh9lOIPJ0THEf
+ rkYnSl4MG2OlK6b6YpeGhD83xayKYJprd4lsUOdYctkqg4Mo9ZKZ/KDzXlqSoB23XsUyPeX
+ luSX/uuLKmwC1ZOn9cq01WXu2rRM8a4=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 77CB13D3E56
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Nov 2024 05:21:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D1B2B3D4700
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Nov 2024 06:37:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9074A3C0571
- for <ltp@lists.linux.it>; Thu,  7 Nov 2024 05:21:07 +0100 (CET)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
+ by picard.linux.it (Postfix) with ESMTPS id 00DF73D46D6
+ for <ltp@lists.linux.it>; Fri,  8 Nov 2024 06:37:24 +0100 (CET)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3B7BE209E3D
- for <ltp@lists.linux.it>; Thu,  7 Nov 2024 05:21:05 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-37d63a79bb6so317375f8f.0
- for <ltp@lists.linux.it>; Wed, 06 Nov 2024 20:21:05 -0800 (PST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8A106100861F
+ for <ltp@lists.linux.it>; Fri,  8 Nov 2024 06:37:22 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a9a0ec0a94fso269433766b.1
+ for <ltp@lists.linux.it>; Thu, 07 Nov 2024 21:37:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1730953264; x=1731558064; darn=lists.linux.it;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=uGWe2EipTYKQ92hKnd3RC18yuqjJauPuF1KOrls5zew=;
- b=fOxLRsSui/dKAEmhWBQ5wt3NzJIuMtAJn7nxspqC+VDO6YHPS6qcM6k+wf+M1DdDS+
- fT1l1KM9rx0GXftVIQJ6dOYR+efZmAFJtZ+I3RUGFH1DUqKmj3tjOvGhfl3zUyWuhiLH
- GxLiQG8QwNgjKWmh6IYZneGygRoWQlFA5wnIt3X2qAJkMEx6XmWmU8vkfB6j7QwuXiY2
- tXhYLYIfkD/QPQmeacpsPfhkUangWmyRox0qVJUeVmlcS5UjTA2kb9C0TNSKLac5eQ1/
- dEvSNdnddZ4DmgirXUvfayysk3De4beJolEI0Z41pGyeRu9hlJB0OrfllxVZpoaV/Ioh
- 8QaQ==
+ d=suse.com; s=google; t=1731044241; x=1731649041; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=6MtlBgH9BPpKz+Ovu/i9TWDSZHUsnPHnApGNyZc6H/E=;
+ b=L3JDfv4dV7XIuRzigMMBVSFdez8zLqf0uqXZP9XynNObSZH0x60Ogbf6IpoZA3mLtw
+ A7/Yc3efBlYHEi23KEtZrxxASEjnDcuVyrJJ6bSMmK4XTAm0VGsczQFdB7oTZ8z+Hk3P
+ OYazhNym7MxAwFZghm0iOM8hZ6YTDMSnzo0Pj0kbqYBB82zV9zCCnDLtRucIx2KKpI6g
+ Basgy7X5GoZq6A/1Oi9L/25lNnYmh3NJQk85s11pWG9qNShT2/CFa9dofARyRhGf/gYL
+ 8J/LjL1i1KQXvL2hlYS3j2tEtoSkAUWQctboCQj6AOgPshekjocCQPSFawG4JnwrM+Rw
+ lI4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730953264; x=1731558064;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uGWe2EipTYKQ92hKnd3RC18yuqjJauPuF1KOrls5zew=;
- b=Jtr+Q7KcwUwvQgg0DJ2ftYZd35a1S+RCUur2uIY/H90Uw7NDkAViDHLMMxIM398Uhy
- UTJOQ+qRlHRzL8thM3Fzsi9Ew5mcKhUeBdXykX71hX2ygTzUV8D8wizE1gdxiTtkM+jW
- rrIicCCQn3gNLNlhLUhMNRKunCvmg4bSOqmuV3IiM8/miwCBsxPivPB6G3FibMKsLf/r
- LeSq8foPH9msw+nF/J2jNID2YYvLeHQ/6Ow9DcH5W6msa8P/XIsnq+pXKyVmgDRIdYrB
- akQAtBud6V9wBbLYisilTCy0tRUR7pUqmj/4pJ0yJbcqbkXBosQoIztqXyBupQQecoHp
- gPWw==
-X-Gm-Message-State: AOJu0YwNEzD/MROAlOwRPsPnpixggz5BJvZx9CWI6+HPUfKwydtZ9C1B
- rle1AnEBcLDrqXORaEeEPk18QpF4Zna30V+auHswZXJHAvDp7ffYWAkg+fkZrQ==
-X-Google-Smtp-Source: AGHT+IFc906G+yJf5ATxzvggP/FUQPHAPY43V9UUg+rQ/VKjErNoJ/rZ0mxxvD+33JQoZjjXRyugIg==
-X-Received: by 2002:a05:6000:471c:b0:37e:f8a1:596e with SMTP id
- ffacd0b85a97d-381edac9b18mr504110f8f.11.1730953264591; 
- Wed, 06 Nov 2024 20:21:04 -0800 (PST)
-Received: from wegao ([202.127.77.110]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2e99a62bfb6sm2448555a91.43.2024.11.06.20.21.03
+ d=1e100.net; s=20230601; t=1731044241; x=1731649041;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6MtlBgH9BPpKz+Ovu/i9TWDSZHUsnPHnApGNyZc6H/E=;
+ b=KP8x4k8hH8DbUgFHpNkydtY6dYSgoMHK8/4bcKI8HIZfH+PSbiNcOW/lN5d5ocwZJH
+ 8hMpu/AapwDjkjVlMhsUFi2INQtaSnhNF5TpzL7huH23auBZmm4plwtZ6Hn+WLFhH+p0
+ FB2YVBnPIM9EDFrP3YyKNLacfmK+eVvN9Jx0CxDuGbzUwwhxRcXciQRWlArKWo1FvP7c
+ j95cMVnij86O4tTQ4uA43N6TthuagOABvV9mEs75WELPBMceA/cwXP6VURm3KLuDfTgz
+ T5Nz4/dm4nDHi8cNdVrZLE66FdTxsbB/FAqB/w7JrdvUe+7I41uSAKjlcYExliuOaD8P
+ JYhg==
+X-Gm-Message-State: AOJu0Yx2uE5n2U+a1b3gUp+vdlldgWNWKmqbaVw8BRl3zNAuP1DT5b5g
+ fjV6zKhNwTK7SO1IOsZbtfd5OfCkzohu/iVpIgtcf690yI9sJdasUgVDpxISyDEugnBQgws9Vxs
+ =
+X-Google-Smtp-Source: AGHT+IF3igPnXCNYRgBYMuG3zhYJQDXH5+7H9M3qZWeoYG9tFI53d2hyGR8LEK4Fobr4PbRgd8NAoQ==
+X-Received: by 2002:a17:907:e93:b0:a99:d308:926 with SMTP id
+ a640c23a62f3a-a9ef0009df1mr112487566b.57.1731044241023; 
+ Thu, 07 Nov 2024 21:37:21 -0800 (PST)
+Received: from localhost ([202.127.77.110]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5cf03c4ed43sm1581211a12.65.2024.11.07.21.37.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Nov 2024 20:21:04 -0800 (PST)
-Date: Wed, 6 Nov 2024 23:20:59 -0500
-To: Petr Vorel <pvorel@suse.cz>, Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <ZyxAK7qa4GgYcrE7@wegao>
-References: <20240926061936.21499-1-wegao@suse.com>
- <20240930135809.9300-1-wegao@suse.com>
- <20241105114427.GB1576432@pevik>
+ Thu, 07 Nov 2024 21:37:20 -0800 (PST)
+To: ltp@lists.linux.it
+Date: Fri,  8 Nov 2024 00:37:10 -0500
+Message-Id: <20241108053710.8639-1-wegao@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241105114427.GB1576432@pevik>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v4] cpuset02: Reimplementing the test6 of
- cpuset_memory_testset.sh as a separate C testcase
+Subject: [LTP] [PATCH v1] tst_cgroup.c: Force tst_cg_scan only scan specific
+ cgroup version if needs_ver exist
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,41 +94,149 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 From: Wei Gao via ltp <ltp@lists.linux.it>
 Reply-To: Wei Gao <wegao@suse.com>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Nov 05, 2024 at 12:44:27PM +0100, Petr Vorel wrote:
-> Hi Wei,
-> 
-> This fails to build.
-> https://github.com/pevik/ltp/actions/runs/11628250882
-> 
-> Kind regards,
-> Petr
+tst_cgroup.c will scan cgroup mount point and check system's cgroup support status, both
+cgroupv1 and cgroupv2, if your case only need check cgroupv1(such as needs_cgroup_ver = TST_CG_V1)
+but your system contain cgroupv2 mount point, then TCONF will happen tell you your system already
+mount cgroupv2, so test case will be skipped.
 
-Hi Cyril / Petr
+This change will fix above scenario, force check specific version of cgroup once you set needs_ver,
+then test will continue try to create needs_ver of cgroup mount point.
 
-I have a question before my next patch.
+This patch can be used by following cpuset02 case:
+https://patchwork.ozlabs.org/project/ltp/patch/20240930135809.9300-1-wegao@suse.com/
 
-The old cpuset_memory_testset.sh test is focus ONLY on cgroupv1 test, 
-it setup cgroupv1 mnt point on /dev/cpuset, even on cgroupv2 support system.
+Signed-off-by: Wei Gao <wegao@suse.com>
+---
+ include/tst_cgroup.h            |  2 +-
+ lib/newlib_tests/tst_cgroup01.c |  2 +-
+ lib/newlib_tests/tst_cgroup02.c |  2 +-
+ lib/tst_cgroup.c                | 15 +++++++--------
+ testcases/lib/tst_cgctl.c       |  4 ++--
+ 5 files changed, 12 insertions(+), 13 deletions(-)
 
-If i add needs_cgroup_ver = TST_CG_V1 on current v4 patch, this test will be
-skipped on system which support cgroupv2, since current cgroup framework will 
-detect cgroupv2 mount point and skip test.
+diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h
+index d23a8e652..ff1c4ece0 100644
+--- a/include/tst_cgroup.h
++++ b/include/tst_cgroup.h
+@@ -117,7 +117,7 @@ extern const struct tst_cg_group *const tst_cg_drain;
+ /* Search the system for mounted cgroups and available
+  * controllers. Called automatically by tst_cg_require.
+  */
+-void tst_cg_scan(void);
++void tst_cg_scan(enum tst_cg_ver needs_ver);
+ /* Print the config detected by tst_cg_scan and print the internal
+  * state associated with each controller. Output can be passed to
+  * tst_cg_load_config to configure the internal state to that of the
+diff --git a/lib/newlib_tests/tst_cgroup01.c b/lib/newlib_tests/tst_cgroup01.c
+index eda0c548d..00bced72b 100644
+--- a/lib/newlib_tests/tst_cgroup01.c
++++ b/lib/newlib_tests/tst_cgroup01.c
+@@ -23,7 +23,7 @@ static void setup(void)
+ {
+ 	cgopts.needs_ver = !!only_mount_v1 ? TST_CG_V1 : 0;
+ 
+-	tst_cg_scan();
++	tst_cg_scan(0);
+ 	tst_cg_print_config();
+ 
+ 	tst_cg_require("memory", &cgopts);
+diff --git a/lib/newlib_tests/tst_cgroup02.c b/lib/newlib_tests/tst_cgroup02.c
+index de2ca1812..47d1c6b2a 100644
+--- a/lib/newlib_tests/tst_cgroup02.c
++++ b/lib/newlib_tests/tst_cgroup02.c
+@@ -58,7 +58,7 @@ static void setup(void)
+ {
+ 	cgopts.needs_ver = !!only_mount_v1 ? TST_CG_V1 : 0;
+ 
+-	tst_cg_scan();
++	tst_cg_scan(0);
+ 	tst_cg_print_config();
+ 
+ 	tst_cg_require("memory", &cgopts);
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+index 1404116a5..652bb70b5 100644
+--- a/lib/tst_cgroup.c
++++ b/lib/tst_cgroup.c
+@@ -657,7 +657,7 @@ discard:
+ 	close(mnt_dfd);
+ }
+ 
+-void tst_cg_scan(void)
++void tst_cg_scan(enum tst_cg_ver needs_ver)
+ {
+ 	struct mntent *mnt;
+ 	FILE *f = setmntent("/proc/self/mounts", "r");
+@@ -674,10 +674,9 @@ void tst_cg_scan(void)
+ 	}
+ 
+ 	do {
+-		if (strncmp(mnt->mnt_type, "cgroup", 6))
+-			continue;
+-
+-		cgroup_root_scan(mnt->mnt_type, mnt->mnt_dir, mnt->mnt_opts);
++		if ((!strcmp(mnt->mnt_type, "cgroup") && (needs_ver != TST_CG_V2)) ||
++			(!strcmp(mnt->mnt_type, "cgroup2") && (needs_ver != TST_CG_V1)))
++			cgroup_root_scan(mnt->mnt_type, mnt->mnt_dir, mnt->mnt_opts);
+ 	} while ((mnt = getmntent(f)));
+ }
+ 
+@@ -717,7 +716,7 @@ mount:
+ 
+ 	if (!ret) {
+ 		tst_res(TINFO, "Mounted V2 CGroups on %s", mnt_path);
+-		tst_cg_scan();
++		tst_cg_scan(TST_CG_V2);
+ 		roots[0].we_mounted_it = 1;
+ 		return;
+ 	}
+@@ -775,7 +774,7 @@ mount:
+ 	}
+ 
+ 	tst_res(TINFO, "Mounted V1 %s CGroup on %s", ctrl->ctrl_name, mnt_path);
+-	tst_cg_scan();
++	tst_cg_scan(TST_CG_V1);
+ 	if (!ctrl->ctrl_root)
+ 		return;
+ 
+@@ -856,7 +855,7 @@ void tst_cg_require(const char *const ctrl_name,
+ 	if (ctrl->ctrl_root)
+ 		goto mkdirs;
+ 
+-	tst_cg_scan();
++	tst_cg_scan(options->needs_ver);
+ 
+ 	if (ctrl->ctrl_root)
+ 		goto mkdirs;
+diff --git a/testcases/lib/tst_cgctl.c b/testcases/lib/tst_cgctl.c
+index 2685bef81..6f324f780 100644
+--- a/testcases/lib/tst_cgctl.c
++++ b/testcases/lib/tst_cgctl.c
+@@ -30,7 +30,7 @@ static int cgctl_require(const char *ctrl, int test_pid)
+ 
+ static int cgctl_cleanup(const char *const config)
+ {
+-	tst_cg_scan();
++	tst_cg_scan(0);
+ 	tst_cg_load_config(config);
+ 	tst_cg_cleanup();
+ 
+@@ -39,7 +39,7 @@ static int cgctl_cleanup(const char *const config)
+ 
+ static int cgctl_print(void)
+ {
+-	tst_cg_scan();
++	tst_cg_scan(0);
+ 	tst_cg_print_config();
+ 
+ 	return 0;
+-- 
+2.35.3
 
-If i do not add needs_cgroup_ver = TST_CG_V1 then error will happen since cgroupv2
-does not support cpuset.sched_load_balance anymore.
-
-Finally i have to add new flag such as force_cgroup_ver = TST_CG_V1, so the test
-case can continue create cgroupv1 mnt point to continue cgroupv1 test regardless 
-detect cgroupv2 or not. What's your suggestion? Thanks.
-
-Regards
-Gao Wei
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
