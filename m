@@ -2,122 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AB879C7014
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Nov 2024 14:02:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBE2C9C70E8
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Nov 2024 14:39:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4DCCF3D66A4
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Nov 2024 14:02:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7DEAD3D66E9
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Nov 2024 14:39:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 302753C7457
- for <ltp@lists.linux.it>; Wed, 13 Nov 2024 14:02:21 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by picard.linux.it (Postfix) with ESMTPS id 03D683D66DA
+ for <ltp@lists.linux.it>; Wed, 13 Nov 2024 14:39:01 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1FAB927443D
- for <ltp@lists.linux.it>; Wed, 13 Nov 2024 14:02:20 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6F063632B48
+ for <ltp@lists.linux.it>; Wed, 13 Nov 2024 14:38:58 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A97691F399
- for <ltp@lists.linux.it>; Wed, 13 Nov 2024 13:02:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1731502939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2tVy8Xmi9QGLUMXRYNNh30PngZUzenpnK1/fgBqcbMg=;
- b=ia/KrzwVIQ+Qs2A/ysc+NZsiCb8XhLUXP0uI3SBZDKfca1BYvmbf8+ZDk0U7nFVK4sgJpp
- C2MSpA5xuacJdTBEpOuz9B2cM1eOe/1nllmhgbZaKuPgxyxWm3r9bO/KdaGObyJuZr7Yzq
- MgdgDBEge8WfTtUC4/YdpgYuaDa7ESs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1731502939;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2tVy8Xmi9QGLUMXRYNNh30PngZUzenpnK1/fgBqcbMg=;
- b=LOLzEjfHLJ/zw6TWLzfHj2tXGULQIa5f0v8jRQ0CmkM4x2PhccZHeespnJaUgjHpdQj5U6
- jDKByLq4EORIRsBg==
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E23BA2119F;
+ Wed, 13 Nov 2024 13:38:57 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1731502939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2tVy8Xmi9QGLUMXRYNNh30PngZUzenpnK1/fgBqcbMg=;
- b=ia/KrzwVIQ+Qs2A/ysc+NZsiCb8XhLUXP0uI3SBZDKfca1BYvmbf8+ZDk0U7nFVK4sgJpp
- C2MSpA5xuacJdTBEpOuz9B2cM1eOe/1nllmhgbZaKuPgxyxWm3r9bO/KdaGObyJuZr7Yzq
- MgdgDBEge8WfTtUC4/YdpgYuaDa7ESs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1731502939;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2tVy8Xmi9QGLUMXRYNNh30PngZUzenpnK1/fgBqcbMg=;
- b=LOLzEjfHLJ/zw6TWLzfHj2tXGULQIa5f0v8jRQ0CmkM4x2PhccZHeespnJaUgjHpdQj5U6
- jDKByLq4EORIRsBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9316413301
- for <ltp@lists.linux.it>; Wed, 13 Nov 2024 13:02:19 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CBDAC13301;
+ Wed, 13 Nov 2024 13:38:57 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gK9IHlujNGfrPgAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>)
- for <ltp@lists.linux.it>; Wed, 13 Nov 2024 13:02:19 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 13 Nov 2024 14:02:12 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id VvtKMPGrNGeCWAAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Wed, 13 Nov 2024 13:38:57 +0000
+Date: Wed, 13 Nov 2024 14:39:05 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <ZzSr-X47F4MfM831@yuki.lan>
+References: <20241113105925.295697-1-pvorel@suse.cz>
 MIME-Version: 1.0
-Message-Id: <20241113-setresgid_refactoring-v1-2-b6d07400e374@suse.com>
-References: <20241113-setresgid_refactoring-v1-0-b6d07400e374@suse.com>
-In-Reply-To: <20241113-setresgid_refactoring-v1-0-b6d07400e374@suse.com>
-To: ltp@lists.linux.it
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1731502939; l=3817;
- i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=D0+FAhQ8aid55KCaPaNBEKrqBNYlVJsMxPgvRAJ9Hj0=;
- b=WhIGil9d9ggGcLTQErmo1EGjWwHLd6651EGgDPyPswyi6WevUl0ePP/zDCt+xx/jIVZCZLBSn
- P7WOAJk0PO8BAS5IHBghNV6FeWUC+w2U3LMOTx6CPVCaYoYzFg5x3Bd
-X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
- pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spam-Score: -4.30
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid, suse.com:email,
- imap1.dmz-prg2.suse.org:helo]
+Content-Disposition: inline
+In-Reply-To: <20241113105925.295697-1-pvorel@suse.cz>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
+ ASN(0.00)[asn:25478, ipnet:::/0, country:RU]
+X-Spam-Score: -4.00
+X-Rspamd-Queue-Id: E23BA2119F
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=DMARC_MISSING,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/2] Refactor setresgit04 test
+Subject: Re: [LTP] [PATCH 1/1] select03: Fix false positive on TCONF
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,155 +80,48 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Dominique Leuenberger <dleuenberger@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Hi!
+> ---
+> Alternatively, we could revert to previous state (remove
+> "!WEXITSTATUS(status)" check), if we really don't care about any other
+> exit code.
+> 
+> Kind regards,
+> Petr
+> 
+>  testcases/kernel/syscalls/select/select03.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/testcases/kernel/syscalls/select/select03.c b/testcases/kernel/syscalls/select/select03.c
+> index 216b22104f..34aea12603 100644
+> --- a/testcases/kernel/syscalls/select/select03.c
+> +++ b/testcases/kernel/syscalls/select/select03.c
+> @@ -77,8 +77,10 @@ static void run(unsigned int n)
+>  
+>  	SAFE_WAITPID(pid, &status, 0);
+>  
+> -	if (WIFEXITED(status) && !WEXITSTATUS(status))
+> +	if (WIFEXITED(status) &&
+> +		(WEXITSTATUS(status) == 0 || WEXITSTATUS(status) == TCONF)) {
+>  		return;
 
-Simplify the overall structure using newest LTP API.
-
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- testcases/kernel/syscalls/setresgid/setresgid04.c | 104 ++++++----------------
- 1 file changed, 25 insertions(+), 79 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/setresgid/setresgid04.c b/testcases/kernel/syscalls/setresgid/setresgid04.c
-index 4d8e9685efac4fd5f53358ed29a603d0fb01702a..46c0ca341568cd8de2c590af248ad0db5916b815 100644
---- a/testcases/kernel/syscalls/setresgid/setresgid04.c
-+++ b/testcases/kernel/syscalls/setresgid/setresgid04.c
-@@ -1,101 +1,47 @@
-+// SPDX-License-Identifier: GPL-2.0-only
- /*
-  * Copyright (c) 2014 Fujitsu Ltd.
-- * Author: Zeng Linggang <zenglg.jy@cn.fujitsu.com>
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-+ * Copyright (c) Zeng Linggang <zenglg.jy@cn.fujitsu.com>
-+ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-  */
--/*
-- * Test Description:
-- *  Verify that,
-- *	File system GID is always set to the same value as the (possibly new)
-- *	effective GID.
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that setresgid() syscall always sets the file system GID to the same
-+ * value as the new effective GID.
-  */
- 
- #define _GNU_SOURCE
- 
--#include <errno.h>
--#include <unistd.h>
- #include <pwd.h>
--#include <sys/stat.h>
--#include "test.h"
--#include "safe_macros.h"
--#include "compat_16.h"
-+#include "tst_test.h"
-+#include "compat_tst_16.h"
- 
--TCID_DEFINE(setresgid04);
--int TST_TOTAL = 1;
- static struct passwd *ltpuser;
--static void setup(void);
--static void setresgid_verify(void);
--static void cleanup(void);
- 
--int main(int argc, char **argv)
-+static void run(void)
- {
--	int i, lc;
--
--	tst_parse_opts(argc, argv, NULL, NULL);
-+	struct stat buf;
- 
--	setup();
-+	TST_EXP_PASS(setresgid(-1, ltpuser->pw_gid, -1));
- 
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--		for (i = 0; i < TST_TOTAL; i++)
--			setresgid_verify();
--	}
-+	SAFE_TOUCH("test_file", 0644, NULL);
-+	SAFE_STAT("test_file", &buf);
- 
--	cleanup();
--	tst_exit();
-+	TST_EXP_EQ_LI(ltpuser->pw_gid, buf.st_gid);
- }
- 
- static void setup(void)
- {
--	tst_require_root();
--
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--
--	tst_tmpdir();
--
--	ltpuser = SAFE_GETPWNAM(cleanup, "nobody");
-+	ltpuser = SAFE_GETPWNAM("nobody");
- 
--	GID16_CHECK(ltpuser->pw_gid, "setresgid", cleanup)
-+	GID16_CHECK(ltpuser->pw_gid, "setresgid");
- }
- 
--static void setresgid_verify(void)
--{
--	struct stat buf;
--
--	TEST(SETRESGID(cleanup, -1, ltpuser->pw_gid, -1));
--
--	if (TEST_RETURN != 0) {
--		tst_resm(TFAIL | TTERRNO, "setresgid failed unexpectedly");
--		return;
--	}
--
--	SAFE_TOUCH(cleanup, "test_file", 0644, NULL);
--
--	SAFE_STAT(cleanup, "test_file", &buf);
--
--	if (ltpuser->pw_gid == buf.st_gid) {
--		tst_resm(TPASS, "setresgid succeeded as expected");
--	} else {
--		tst_resm(TFAIL,
--			 "setresgid failed unexpectedly; egid(%d) - st_gid(%d)",
--			 ltpuser->pw_gid, buf.st_gid);
--	}
--}
--
--static void cleanup(void)
--{
--	tst_rmdir();
--}
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.needs_root = 1,
-+	.needs_tmpdir = 1,
-+};
+I think that the main mistake here is that I kept the code in
+tst_vbrk_() that exits the test with a return value in the case of a
+child processes. So ideal fix would be to change the test library not to
+do that, but that would require a bit more work, especially we would
+have to look at all WAITPID() usages in newlib tests and make sure that
+there are not tests that depends on such behavior. If there are none it
+would stil require a few changes in the test library.
 
 -- 
-2.43.0
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
