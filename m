@@ -1,104 +1,102 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C423B9C8D15
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Nov 2024 15:42:19 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 936459C8D10
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Nov 2024 15:41:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8DF0F3D6F3F
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Nov 2024 15:42:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 477753D6F57
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Nov 2024 15:41:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E55E73D6F13
- for <ltp@lists.linux.it>; Thu, 14 Nov 2024 15:40:38 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id B36383D6F3E
+ for <ltp@lists.linux.it>; Thu, 14 Nov 2024 15:40:37 +0100 (CET)
 Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2E74F1432433
- for <ltp@lists.linux.it>; Thu, 14 Nov 2024 15:40:37 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C35C01432422
+ for <ltp@lists.linux.it>; Thu, 14 Nov 2024 15:40:36 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B123921134;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E51351F443;
  Thu, 14 Nov 2024 14:40:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1731595235; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1731595236; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0HTgewww/sgPI0gpyUKDhwsrWEzTQOw3/WnS9+3wEhM=;
- b=lWxW9c4wCGG0jRW7ONXeRfJDjZssd5XnHRuA+ekkgs5v3M5c+pf5twcdiZXCPhLdTq7TUI
- ANiVJ7i6lSiLySUB/+CeFYB0ojqC0ibB7mgj/HMRr5DGWfGn/+UDqn050jSiboMwsZjCSY
- i6et5odP67bYAI6nBgrD0KHfpR53Y3k=
+ bh=SRuDJscJqxBjidntgTE0NHmGZdjp8e6xsjKhX13I9tk=;
+ b=f9G/YNKsKa1JLuG0EHgK/FNBLOhNlJVXRnEq9pLCP4MOQ/AlI6ircR4xSUEcWL5dejhhd9
+ gZ7T64o47CwDkgQSCk/Lg7XQbNGYFeR6Zd1zx1bkjx0cOCxrx1y9M/C6M3bqUL5AJc5A3w
+ 6hqLE3QJz/Xs/FADyRWWaEv/7dFVpw0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1731595235;
+ s=susede2_ed25519; t=1731595236;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0HTgewww/sgPI0gpyUKDhwsrWEzTQOw3/WnS9+3wEhM=;
- b=/g0FvZ7LWEnLeufUbsbFMwHlgYszFLLNMVNcnWylrENnG8EartKL8NwOoq5JLbwgoY/NSW
- X/wwvX6MloerZiCg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=lWxW9c4w;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="/g0FvZ7L"
+ bh=SRuDJscJqxBjidntgTE0NHmGZdjp8e6xsjKhX13I9tk=;
+ b=bZqBIz0uHXItNq8leT9C1emtrZIdTWlUu78Z/eDUpkpXR5qkBAaBpDScBkdnB0ykOostp1
+ owyMB8cTKNZp1vAQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="rVh+/dxN";
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=mMd58s2q
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1731595235; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0HTgewww/sgPI0gpyUKDhwsrWEzTQOw3/WnS9+3wEhM=;
- b=lWxW9c4wCGG0jRW7ONXeRfJDjZssd5XnHRuA+ekkgs5v3M5c+pf5twcdiZXCPhLdTq7TUI
- ANiVJ7i6lSiLySUB/+CeFYB0ojqC0ibB7mgj/HMRr5DGWfGn/+UDqn050jSiboMwsZjCSY
- i6et5odP67bYAI6nBgrD0KHfpR53Y3k=
+ bh=SRuDJscJqxBjidntgTE0NHmGZdjp8e6xsjKhX13I9tk=;
+ b=rVh+/dxNiLo9iFWsrdhyXVMBF8a3Qm7rJKspnl/CM2IlsFQcW2/8OmO71S9k8ReoGO67Jd
+ Lq08Slqrnkk63XddYdhDV9q8HeaHD3jTiuVBumkpdhiGkXrI8b2p9CdwrAj3rwVeOUYoHr
+ vyx6PJ/npQsPJp+eNRmj+PT+iCLWzWY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1731595235;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0HTgewww/sgPI0gpyUKDhwsrWEzTQOw3/WnS9+3wEhM=;
- b=/g0FvZ7LWEnLeufUbsbFMwHlgYszFLLNMVNcnWylrENnG8EartKL8NwOoq5JLbwgoY/NSW
- X/wwvX6MloerZiCg==
+ bh=SRuDJscJqxBjidntgTE0NHmGZdjp8e6xsjKhX13I9tk=;
+ b=mMd58s2q9xCZgy24kvRip24VFJsVelEfoFAvjtplHndLqEAtBOE7044t39LB6AlEeC7p36
+ LfsgSSQhyFFYZECQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8E6D613721;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B8A3913ACF;
  Thu, 14 Nov 2024 14:40:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 8OQxIeMLNmeSdwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id mOnAK+MLNmeSdwAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 14 Nov 2024 14:40:35 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 14 Nov 2024 15:40:27 +0100
-Message-ID: <20241114144029.349559-4-pvorel@suse.cz>
+Date: Thu, 14 Nov 2024 15:40:28 +0100
+Message-ID: <20241114144029.349559-5-pvorel@suse.cz>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241114144029.349559-1-pvorel@suse.cz>
 References: <20241114144029.349559-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: B123921134
-X-Spam-Score: -3.01
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Queue-Id: E51351F443
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_MISSING_CHARSET(0.50)[];
  R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
  MX_GOOD(-0.01)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:mid,suse.cz:email];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,suse.cz:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
  ASN(0.00)[asn:25478, ipnet:::/0, country:RU]; ARC_NA(0.00)[];
  FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -107,16 +105,17 @@ X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_COUNT_TWO(0.00)[2];
  RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
  DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 3/5] mq_timedsend01: Workaround segfault on libc
- variant on 32 bit
+Subject: [LTP] [PATCH 4/5] libs/sigwait: Workaround segfault on libc variant
+ on 32 bit
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,84 +132,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-EFAULT test segfaults on newer kernels (e.g. 6.4) on libc variant on
-32bit.  Similarly to 1d4d5a0750 use typical LTP workaround to test by
-forked child + checking the terminating signal.
+test_bad_address3() test which tests EFAULT segfaults on newer kernels
+(e.g. 6.4) on libc variant on 32bit.  Similarly to 1d4d5a0750 use
+typical LTP workaround to test by forked child + checking the
+terminating signal.
+
+This got broken on sigtimedwait01.c (but not on rt_sigtimedwait01.c).
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- .../syscalls/mq_timedsend/mq_timedsend01.c    | 87 ++++++++++++++-----
- 1 file changed, 63 insertions(+), 24 deletions(-)
+ libs/sigwait/sigwait.c | 28 +++++++++++++++++++---------
+ 1 file changed, 19 insertions(+), 9 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/mq_timedsend/mq_timedsend01.c b/testcases/kernel/syscalls/mq_timedsend/mq_timedsend01.c
-index 35bf4445f5..2cec749f48 100644
---- a/testcases/kernel/syscalls/mq_timedsend/mq_timedsend01.c
-+++ b/testcases/kernel/syscalls/mq_timedsend/mq_timedsend01.c
-@@ -143,34 +143,15 @@ static void setup(void)
- 	setup_common();
- }
- 
--static void do_test(unsigned int i)
-+static void verify_mqt_send_receive(unsigned int i, pid_t pid)
+diff --git a/libs/sigwait/sigwait.c b/libs/sigwait/sigwait.c
+index 86899954d7..cf3c445b4a 100644
+--- a/libs/sigwait/sigwait.c
++++ b/libs/sigwait/sigwait.c
+@@ -359,17 +359,27 @@ void test_bad_address3(swi_func sigwaitinfo, int signo LTP_ATTRIBUTE_UNUSED,
+ 		       enum tst_ts_type type LTP_ATTRIBUTE_UNUSED)
  {
- 	struct time64_variants *tv = &variants[tst_variant];
- 	const struct test_case *tc = &tcase[i];
- 	unsigned int j;
- 	unsigned int prio;
--	size_t len = MAX_MSGSIZE;
--	char rmsg[len];
--	pid_t pid = -1;
-+	char rmsg[MAX_MSGSIZE];
- 	void *msg_ptr, *abs_timeout;
- 
--	tst_ts_set_sec(&ts, tc->tv_sec);
--	tst_ts_set_nsec(&ts, tc->tv_nsec);
--
--	if (tc->signal)
--		pid = set_sig(tc->rq, tv->clock_gettime);
--
--	if (tc->timeout)
--		set_timeout(tc->rq, tv->clock_gettime);
--
--	if (tc->send) {
--		for (j = 0; j < MSG_LENGTH; j++)
--			if (tv->mqt_send(*tc->fd, smsg, tc->len, tc->prio, NULL) < 0) {
--				tst_res(TFAIL | TTERRNO, "mq_timedsend() failed");
--				return;
--			}
--	}
--
- 	if (tc->bad_msg_addr)
- 		msg_ptr = bad_addr;
- 	else
-@@ -200,7 +181,7 @@ static void do_test(unsigned int i)
- 		return;
- 	}
- 
--	TEST(tv->mqt_receive(*tc->fd, rmsg, len, &prio, tst_ts_get(tc->rq)));
-+	TEST(tv->mqt_receive(*tc->fd, rmsg, MAX_MSGSIZE, &prio, tst_ts_get(tc->rq)));
- 
- 	if (*tc->fd == fd)
- 		cleanup_queue(fd);
-@@ -241,8 +222,66 @@ static void do_test(unsigned int i)
- 		}
- 	}
- 
--	tst_res(TPASS, "mq_timedreceive() returned %ld, priority %u, length: %zu",
--			TST_RET, prio, len);
-+	tst_res(TPASS, "mq_timedreceive() returned %ld, priority %u, length: %i",
-+			TST_RET, prio, MAX_MSGSIZE);
-+}
-+
-+static void test_bad_addr(unsigned int i)
-+{
-+	struct time64_variants *tv = &variants[tst_variant];
+ 	sigset_t sigs;
 +	pid_t pid;
 +	int status;
-+
+ 
+-	SAFE_SIGEMPTYSET(&sigs);
+-	TEST(sigwaitinfo(&sigs, NULL, (void *)1));
+-	if (TST_RET == -1) {
+-		if (TST_ERR == EFAULT)
+-			tst_res(TPASS, "Fault occurred while accessing the buffers");
+-		else
+-			tst_res(TFAIL | TTERRNO, "Expected error number EFAULT, got");
+-	} else {
+-		tst_res(TFAIL, "Expected return value -1, got: %ld", TST_RET);
 +	pid = SAFE_FORK();
-+	if (!pid) {
-+		verify_mqt_send_receive(i, pid);
++	if (pid == 0) {
++		SAFE_SIGEMPTYSET(&sigs);
++		TST_EXP_FAIL(sigwaitinfo(&sigs, NULL, (void *)1), EFAULT);
 +		_exit(0);
 +	}
 +
@@ -219,48 +176,15 @@ index 35bf4445f5..2cec749f48 100644
 +	if (WIFEXITED(status) && !WEXITSTATUS(status))
 +		return;
 +
-+	if (tv->ts_type == TST_LIBC_TIMESPEC &&
-+		WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV) {
++	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV) {
 +		tst_res(TPASS, "Child killed by expected signal");
 +		return;
-+	}
+ 	}
 +
 +	tst_res(TFAIL, "Child %s", tst_strstatus(status));
-+}
-+
-+static void do_test(unsigned int i)
-+{
-+	struct time64_variants *tv = &variants[tst_variant];
-+	const struct test_case *tc = &tcase[i];
-+	unsigned int j;
-+	pid_t pid = -1;
-+
-+	tst_ts_set_sec(&ts, tc->tv_sec);
-+	tst_ts_set_nsec(&ts, tc->tv_nsec);
-+
-+	if (tc->bad_ts_addr) {
-+		test_bad_addr(i);
-+		return;
-+	}
-+
-+	if (tc->signal)
-+		pid = set_sig(tc->rq, tv->clock_gettime);
-+
-+	if (tc->timeout)
-+		set_timeout(tc->rq, tv->clock_gettime);
-+
-+	if (tc->send) {
-+		for (j = 0; j < MSG_LENGTH; j++)
-+			if (tv->mqt_send(*tc->fd, smsg, tc->len, tc->prio, NULL) < 0) {
-+				tst_res(TFAIL | TTERRNO, "mq_timedsend() failed");
-+				return;
-+			}
-+	}
-+
-+	verify_mqt_send_receive(i, pid);
  }
  
- static struct tst_test test = {
+ static void empty_handler(int sig LTP_ATTRIBUTE_UNUSED)
 -- 
 2.45.2
 
