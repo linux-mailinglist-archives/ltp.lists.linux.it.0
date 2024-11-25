@@ -2,177 +2,98 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7833A9D8636
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2024 14:22:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B27FB9DB518
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2024 10:51:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1BE233DAB1F
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2024 14:22:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5A3113DBB2A
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2024 10:51:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D37813DAB1D
- for <ltp@lists.linux.it>; Mon, 25 Nov 2024 14:22:07 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=intel.com (client-ip=198.175.65.13; helo=mgamail.intel.com;
- envelope-from=oliver.sang@intel.com; receiver=lists.linux.it)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by picard.linux.it (Postfix) with ESMTPS id 30ECC3DABC5
+ for <ltp@lists.linux.it>; Mon, 25 Nov 2024 15:29:43 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it; spf=none (no SPF record)
+ smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.158.5;
+ helo=mx0b-001b2d01.pphosted.com; envelope-from=pavrampu@linux.vnet.ibm.com;
+ receiver=lists.linux.it)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2786D6443AE
- for <ltp@lists.linux.it>; Mon, 25 Nov 2024 14:22:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732540927; x=1764076927;
- h=date:from:to:cc:subject:message-id:in-reply-to: mime-version;
- bh=Gla6/ielZQ4/SsAaYMAGZdQX5nbjx+ShD65Y+UTgyDc=;
- b=C21Gzk8ex6/Z2r++LAWvserWkMF2JgvKwPuunNZU0amu40aTQZafEpPa
- H+z0oyzeuHFGU0cya4CcmjlmNHMRLG5j89uRjNw7CE2nn21IALQXyqt4F
- ciEfpCjQcsbodQ0oLTYKDeu1Df2wdmH3dILpHWWhp2I3R45srZJkCugp7
- jP6oIQ7OL8cee63NXSSWpjj8t/JCc5KBi69rrQiXojTBiPKWkcECV/VxZ
- CalvlIx2P9elIZwQQRY0p2iH2FpcAYwqkGdhO5yH8nqSXFw0vHBnXSkVc
- pFYBE3e7BtxJ9/idHz/1vFtjZF8AX/xxbozUrSW9KUYFFCAyI4BqyI+Zq g==;
-X-CSE-ConnectionGUID: JIB/t2vkQH2gPSmwAYU7EQ==
-X-CSE-MsgGUID: h+1IBSbJT42B5XLLT9XUCA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11267"; a="43710025"
-X-IronPort-AV: E=Sophos;i="6.12,182,1728975600"; d="scan'208";a="43710025"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2024 05:22:02 -0800
-X-CSE-ConnectionGUID: vSAVgRWuRi2cKyUYV+jWlg==
-X-CSE-MsgGUID: 4F9rG4AUSNKqD0m3ctdc0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="96320934"
-Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
- by orviesa003.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 25 Nov 2024 05:22:01 -0800
-Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 25 Nov 2024 05:22:01 -0800
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39 via Frontend Transport; Mon, 25 Nov 2024 05:22:01 -0800
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.169)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Mon, 25 Nov 2024 05:22:01 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jdqU1v0arJdmP9uKkF2am4yGeWKkkIWe/H7I068Iy84hCvBkEdZ4CumLF87n2af4nvy5obmqAPDPB/pw320Yz6jESR4pc5MzfrbeJSyDpKmTx5x77m51PFyMVZhNh3t8DFiyPKMjYQlV0oBtmGpmnge8EVCcPI8ThPI8/gWYfdK8yHg4ahesGeCVwcRu9jDwAI+nn4kd7goB+JpfOILk3sVbHJrL92CF58jBVAhcpS/iDaSnDcwzy6DyP0HvrT44id4b6S9R1j+OX7n5D3b7k+lmM3+jrK0jZBJ/7pU+EVimAtX3GnZuxXkMt0sULjvMise8pg98r7ililZYY+HAHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IDYJh9z6hxAxzN1hgD04cA90lEa+jjZmXo3PfNrI0TY=;
- b=ZJc2AqBS2ueJfXJj7xsdWmkzUJZSwQ//MoWzHjir0A36sxNhV6HmvYLjPzwOGCacmHvsgrDzm4mtod3Tsde2pw0eepgdIN6Ch5V1O8Ret+TS4mZL264HitzF0q1P5wFh1ABLUmZ6TgcSaAskHOt4Wmg2wRt46IS39YWeBWuKLkUEiP/He5kNjpsM3DUzYdfZ1YX37Mxcb4BOfmEKMq8atpWBKCw1EbAoBA/W9E5b5hCII6mfmLfgQmrwUdlCOpk+5p3lpNbF37oxo3MSbl0Wuv3wj+EkSBmJNQXQiaUZYSHs+Vnw12CbYBTU6pw+GhjangVvwwlvIqfXG2hBzJsR7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from LV3PR11MB8603.namprd11.prod.outlook.com (2603:10b6:408:1b6::9)
- by MW3PR11MB4602.namprd11.prod.outlook.com (2603:10b6:303:52::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8182.21; Mon, 25 Nov
- 2024 13:21:58 +0000
-Received: from LV3PR11MB8603.namprd11.prod.outlook.com
- ([fe80::4622:29cf:32b:7e5c]) by LV3PR11MB8603.namprd11.prod.outlook.com
- ([fe80::4622:29cf:32b:7e5c%5]) with mapi id 15.20.8182.019; Mon, 25 Nov 2024
- 13:21:58 +0000
-Date: Mon, 25 Nov 2024 21:21:48 +0800
-From: kernel test robot <oliver.sang@intel.com>
-To: Song Chen <chensong_2000@189.cn>
-Message-ID: <202411252134.27764973-lkp@intel.com>
-Content-Disposition: inline
-In-Reply-To: <20241117045512.111515-1-chensong_2000@189.cn>
-X-ClientProxiedBy: TYWP286CA0018.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:178::8) To LV3PR11MB8603.namprd11.prod.outlook.com
- (2603:10b6:408:1b6::9)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 41AC120FF26
+ for <ltp@lists.linux.it>; Mon, 25 Nov 2024 15:29:41 +0100 (CET)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4APC7H4t014634;
+ Mon, 25 Nov 2024 14:29:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=pp1; bh=wXcyJK1+4y5GTIcMnIJbYtYp4PncKBx+BQRdP/Bzh
+ xI=; b=nslO7L3jMl3TRRajaXup0yrNbA11mgSxOb8u9+uZrUKdrPiKpES4PEyJN
+ 27lxoZ9nt0G7c4gKzCRfuZ/UZI5mgOm9l4z90FJb96c6NLAqz44HEQ6t/8jz88sr
+ ARNZgawUtGZblp93JJglNz7SPbfHXMS8IBWggZrFFXmOdsTkIC633/jfclvvW+Zd
+ os8VEhISyEgX67ZjIBODbpXBrpfQlBGJhBgj5N5ZXBtrHwej2eOcjeUlWdvuGnbm
+ RTVD7kFxd5UHFjGipWvNoTPRw1YEBtxn/8cc664QPeeOthZuIeXNq3Oy4DtLPqTQ
+ gMIx7ONs0m1XtQJH+M93yEbr7Sbhw==
+Received: from ppma11.dal12v.mail.ibm.com
+ (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 43386jrmpt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 25 Nov 2024 14:29:40 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 4AP5dWo6026370;
+ Mon, 25 Nov 2024 14:29:39 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+ by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 433v30tgsp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 25 Nov 2024 14:29:39 +0000
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
+ [10.20.54.101])
+ by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 4APETbDD20971956
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 25 Nov 2024 14:29:37 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A57C020043;
+ Mon, 25 Nov 2024 14:29:37 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A731820040;
+ Mon, 25 Nov 2024 14:29:36 +0000 (GMT)
+Received: from li-6442e9cc-24ed-11b2-a85c-915a5b5fa426.ibm.com.com (unknown
+ [9.124.220.116])
+ by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Mon, 25 Nov 2024 14:29:36 +0000 (GMT)
+From: Pavithra <pavrampu@linux.vnet.ibm.com>
+To: ltp@lists.linux.it
+Date: Mon, 25 Nov 2024 19:59:32 +0530
+Message-ID: <20241125142932.760643-1-pavrampu@linux.vnet.ibm.com>
+X-Mailer: git-send-email 2.43.5
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR11MB8603:EE_|MW3PR11MB4602:EE_
-X-MS-Office365-Filtering-Correlation-Id: f59c3e78-84fd-4e2b-dd60-08dd0d54236b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NUm21R/jEo6TAmL+fvT/bOggTAW+68xf+xCVMvQR4ftA0bPoYq4HkvJChfNl?=
- =?us-ascii?Q?y9W/gEHMuo+cAF2/mIwqY92xT4DjBLS6eSxqCM9b93vYyZA5k3Px7NLhZLvE?=
- =?us-ascii?Q?ovuWZ+fB4mJRdlQ8j99i3ls9iyXNLH/21bAzgYccmyIkIKj9JJc4MdbGMb+V?=
- =?us-ascii?Q?ML9wwTXxtLCUBt77+2qSQzRgdIeWNbamMyec44SCfyUU9GauheYWFfjH2kYL?=
- =?us-ascii?Q?pcV/vXg0DFu7kPEl7rRQGBLkiydNEjNLzIp0C8uuuKyk6kYOcnrY5ZSNjspC?=
- =?us-ascii?Q?EJjVaLSZpvf3zFp0uGiqa2XqrkHFwCDvuqureUUbGENTbKnLJffCILkX/Lwu?=
- =?us-ascii?Q?fDCN7hNW+6oA9wXW5+szNtWQtJUSFRL9W3O0lEJfGHSvoa6hQG4+dorFnmKp?=
- =?us-ascii?Q?XCntGAH6scAZKQFcwxlgbz/ZlYOhoeWy4SoTWerTiDJOQAja2Rlb/tKKzkPz?=
- =?us-ascii?Q?MS+z0eyO3wHmx6xhJXns8vl6UTThHmgojKO/zpoUsvtpYGxOBeK8h+qTFQ0r?=
- =?us-ascii?Q?/l918mFg3Um1npmyiiCUIsl4Lc3C9Bybm5Yv4BzCMAm/PmTHA+y+OKaWYjuW?=
- =?us-ascii?Q?LKnB0/DGsuETGhH202mj5UCQZ3X5PSSY7Ndc7XlXtgppyqVyS7baIGO1GqKd?=
- =?us-ascii?Q?sPFvwkQZF7l+wIfKg4oJ06oSVIzItX/2v4J6qCeVSz3o4vGA5Zp/rcXJD3FC?=
- =?us-ascii?Q?PjGvNB96dsVo1sNxyuWpeRLA2y9YmPlvY2tygSUbO7QiAkcR4n7319NklN3C?=
- =?us-ascii?Q?4grJHQAITuSxLyG+QxdNeUzNYKAaVI1C6hhrMA+RUc3nbNefufGoAARf7FTG?=
- =?us-ascii?Q?QPfFcA1dL1cNK3Vjs2b8xVZXS9b+oDFWxdzb/gZyhlvBY95HNoG8NBuqf8jU?=
- =?us-ascii?Q?9HPQ1WfGygZSuzUX3xZefoC8EgX6GO5PGJ6KSERn0qvXaa9kQKZZWPqzjPQO?=
- =?us-ascii?Q?tO8LpHPpGW44Vz3bTocs67wcKoHFR0KLvHj4y9yHAa0NOpfWg13L9B5/z//p?=
- =?us-ascii?Q?kNDPXI8vcUQrQLMoRCr7Rn3nYNo8RMlPu79YpnII1rxGUEQW0TEgxOLQs1+w?=
- =?us-ascii?Q?3QebEJy5MH9EW5vKwM9yw3r//8BPaiqgzZf+DAS5a6MyP5aIDUvJmUAgXjO5?=
- =?us-ascii?Q?uhI2Xb32+uq1gibe6sOUCs067Oh/Nf7ZBcK0uD3JI2fY8+gH4aqQ5VVESPZw?=
- =?us-ascii?Q?tbzlr81Pgb1QoVakDJnXLaZ738UcwflClh0UVMIDyf7El+3A3pXJaOxtM4Ip?=
- =?us-ascii?Q?2KKvrE2ZXAG5KsnQgg3J4eV8i+X5NGt3ksTbccqB7K/VPkKkB5XazhHbZEjm?=
- =?us-ascii?Q?0rnLR3BvZGidrPz8BhWVTuK0?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV3PR11MB8603.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?FRuFiWPhag5/xeKUlg1WcKXc3pF+nMUkmLd0SgiBK0IAxZBTUiVuK+Tj2KwT?=
- =?us-ascii?Q?mm+uccpV0z98e+sN4WPSS/RWCvNL4LayPhTw0RK57F/u32PDfckKaH35UsV2?=
- =?us-ascii?Q?yZrw7WXFwptT2WztAiej1eWy11aP56dizq9ex9PblS62/1ccyerOLexDGfBt?=
- =?us-ascii?Q?ptArNFHzV7n3DNnlG51+4uiLioPNdIPNnekWJ7A9a98tqOqgGJS0S0hO1NON?=
- =?us-ascii?Q?u/pSHUZqcBlFmah1AboJV1wlC7CcqCNcODxGCyZaCvhvH2UiHMkL8t9n6kaw?=
- =?us-ascii?Q?3ICNFePIjKlp+EmmomXNe4dHwMpk5Wg4GlXQVcNO4Iz02yqJ3FlrMI6EYoQ6?=
- =?us-ascii?Q?48AvYHXX6YOo5/X7/gISLJNuH2r6DPd7K10tfi6vt5FT8uZCa8OWu/Ic6mSN?=
- =?us-ascii?Q?jTa6+APReJw9PljrTKWxDj1hOE86rG5iogNnCq7oEO6x4hhKuSqnnfyOUBam?=
- =?us-ascii?Q?WJxOCpkWoTnCXvS7bEzFmtPOp2+fuBduKyr2JCMXtGMv8GyvhkYxyFn3SXR8?=
- =?us-ascii?Q?jTchYP/pqmudVYWr1P5XbueRR6xgTi0ySHr+SVXwgvyX2vb6P4D6hmoa67fN?=
- =?us-ascii?Q?PsOKKoES9+AQ4DPeGskKk1c6mvhFssGsuhZF6G6EbO8l2aWlTe6NyLkOGdJH?=
- =?us-ascii?Q?yAm5ECT8QcJa/Z8khDUZjJBV3caMcSyfuEWlygZ8lqkJTaqW8j/DQcVPEUsi?=
- =?us-ascii?Q?zeMrSkYwZ+WB8Q/S7jQBGxXt7VfeuQwKUMXbCWlmsNtwIbGcn+9mYPEESflF?=
- =?us-ascii?Q?t51w0pwNbDud19SLZBRTInLi0vfH/0pyMtv7OWB39mdRZ5SsA7Q5RRbZ//cT?=
- =?us-ascii?Q?GgNeRuHN2UjoSbTRhw/+8gEk2xfelwKEMNJih47ykA15hDOZcHv4Duf2ZTPO?=
- =?us-ascii?Q?PygVWgCEANoDN6bY3IROLwJ5bFsTzOuLr2qw4xaqTcsdHQeNh2vpJDe3sPrB?=
- =?us-ascii?Q?xChI5jN2pI37JoZ6fQOU9dpitMHoMEc8TZuGiOrsa6vIn/2GHomSjuyn+7rG?=
- =?us-ascii?Q?mWgPSSIPTo+djDca08J/5gF0TEWTmsBWuzMeoQkwjJBQrfC1dh8hL5BOWtQd?=
- =?us-ascii?Q?NU8qK61u0EJdGUd7SFbmc5llVtaDzPIRdTrR1ZjGCe8cNUcrnKmRylKnmNLC?=
- =?us-ascii?Q?ghkMMF2P8kdX92wcj9Hu5tCIUzO5mDuTdzoBGDS0LF07ciiOaUufQMkfTqwX?=
- =?us-ascii?Q?s8xd74o6BSywm3i0rh3fx6Da/1b1o02/sdvF64nsVy40Ipdru+CMkPScij8S?=
- =?us-ascii?Q?mrzXZnqQ3U3OvpS7d/JqVbxe9etjkkZA4ceSMx0dX0tetmgedCPoPl7mJ0ZX?=
- =?us-ascii?Q?JCX3gU9U6EyJysSSjlKnPnRIiZaf0SnFSNoEz2KKRwqrjVhKx9eplmDFSvrT?=
- =?us-ascii?Q?qI1uPCk9rL/gBPbQrPFXTLgK2Dq1pDYZllljqa03i1TH9Ehv/x84H1Sku+gQ?=
- =?us-ascii?Q?2L1UEnA/58IqtBZd/fMI4u7IRiAHZANMwVRm9oUyguXN0XDjzf1ZPC43Y+0M?=
- =?us-ascii?Q?sMp70Ae8Ja3HtG5WxvqJJgpWuIhcHSMxWqEgp77KepAVYpBASFj5P5mVKQJs?=
- =?us-ascii?Q?pG6IUmcDufrj3iaxOyDHfsZgdbvrHmSYxKRqokXXEw7UCzLKFSLiya+iOngG?=
- =?us-ascii?Q?og=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: f59c3e78-84fd-4e2b-dd60-08dd0d54236b
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR11MB8603.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2024 13:21:58.0460 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MRvtzHaS856afeCUznU82+eMlRiur7cZiaEQX2ZfhofUahotAV/mgftQTGJzLPRw6SMUyUTwzuVft4IpwwjZ4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4602
-X-OriginatorOrg: intel.com
-X-Spam-Status: No, score=-0.0 required=7.0 tests=ARC_SIGNED,ARC_VALID,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: 7ZamjFBldmkoVqEEoGOOdwLk_K_SCqBI
+X-Proofpoint-GUID: 7ZamjFBldmkoVqEEoGOOdwLk_K_SCqBI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1051,Hydra:6.0.680,FMLib:17.12.62.30
+ definitions=2024-10-15_01,2024-10-11_01,2024-09-30_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0
+ mlxlogscore=999 spamscore=0 suspectscore=0 phishscore=0 clxscore=1011
+ mlxscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2411250123
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] net/core/dev_ioctl: avoid invoking modprobe with
- empty ifr_name
+X-Mailman-Approved-At: Thu, 28 Nov 2024 10:49:51 +0100
+Subject: [LTP] [PATCH v3] This test stress tests fallocate. This test starts
+ three threads. First thread will continually punch/fill holes via falloc.
+ Second thread will continually fault in those same pages. Third thread will
+ continually mmap/munmap that page range.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -184,96 +105,261 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: willemb@google.com, lkp@intel.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Song Chen <chensong_2000@189.cn>,
- aleksander.lobakin@intel.com, edumazet@google.com, oliver.sang@intel.com,
- oe-lkp@lists.linux.dev, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, ltp@lists.linux.it
+Cc: Pavithra <pavrampu@linux.vnet.ibm.com>, rnsastry@linux.ibm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Changes in v3:
+- Used MIN() macro instead of defining min function.
+- struch ts initialization done at the declaration.
+- Added memory unmap before pthread_cleanup_pop.
+- Removed if (falloc_th_ret)
 
+Signed-off-by: Pavithra <pavrampu@linux.vnet.ibm.com>
+---
+ runtest/hugetlb                               |   1 +
+ testcases/kernel/mem/.gitignore               |   1 +
+ .../hugetlb/hugefallocate/hugefallocate03.c   | 204 ++++++++++++++++++
+ 3 files changed, 206 insertions(+)
+ create mode 100644 testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c
 
-Hello,
-
-kernel test robot noticed "ltp.sockioctl01.fail" on:
-
-commit: 903558372166a07179510dc222f7360583a9ad0b ("[PATCH] net/core/dev_ioctl: avoid invoking modprobe with empty ifr_name")
-url: https://github.com/intel-lab-lkp/linux/commits/Song-Chen/net-core-dev_ioctl-avoid-invoking-modprobe-with-empty-ifr_name/20241121-093707
-base: https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git 43fb83c17ba2d63dfb798f0be7453ed55ca3f9c2
-patch link: https://lore.kernel.org/all/20241117045512.111515-1-chensong_2000@189.cn/
-patch subject: [PATCH] net/core/dev_ioctl: avoid invoking modprobe with empty ifr_name
-
-in testcase: ltp
-version: ltp-x86_64-14c1f76-1_20241111
-with following parameters:
-
-	disk: 1HDD
-	fs: btrfs
-	test: syscalls-05/sockioctl01
-
-
-
-config: x86_64-rhel-9.4-ltp
-compiler: gcc-12
-test machine: 36 threads 1 sockets Intel(R) Core(TM) i9-10980XE CPU @ 3.00GHz (Cascade Lake) with 128G memory
-
-(please refer to attached dmesg/kmsg for entire log/backtrace)
-
-
-
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <oliver.sang@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202411252134.27764973-lkp@intel.com
-
-
-
-Running tests.......
-<<<test_start>>>
-tag=sockioctl01 stime=1732585843
-cmdline="sockioctl01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sockioctl01    0  TINFO  :  Using /fs/sda1/tmpdir/ltp-9HFOb999pn/LTP_soc6SpZTX as tmpdir (btrfs filesystem)
-sockioctl01    1  TPASS  :  bad file descriptor successful
-sockioctl01    2  TPASS  :  not a socket successful
-sockioctl01    3  TPASS  :  invalid option buffer successful
-sockioctl01    4  TFAIL  :  sockioctl01.c:136: ATMARK on UDP ; returned -1 (expected -1), errno 22 (expected 25)
-sockioctl01    5  TPASS  :  SIOCGIFCONF successful
-sockioctl01    6  TPASS  :  SIOCGIFFLAGS successful
-sockioctl01    7  TPASS  :  SIOCGIFFLAGS with invalid ifr successful
-sockioctl01    8  TPASS  :  SIOCSIFFLAGS with invalid ifr successful
-incrementing stop
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=1 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-INFO: ltp-pan reported some tests FAIL
-LTP Version: 20240930-63-g6408294d8
-
-       ###############################################################
-
-            Done executing testcases.
-            LTP Version:  20240930-63-g6408294d8
-       ###############################################################
-
-
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20241125/202411252134.27764973-lkp@intel.com
-
-
-
+diff --git a/runtest/hugetlb b/runtest/hugetlb
+index f294e9aaa..bba2460ff 100644
+--- a/runtest/hugetlb
++++ b/runtest/hugetlb
+@@ -1,5 +1,6 @@
+ hugefallocate01 hugefallocate01
+ hugefallocate02 hugefallocate02
++hugefallocate03 hugefallocate03
+ 
+ hugefork01 hugefork01
+ hugefork02 hugefork02
+diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
+index d88484fa1..2b84ac3b9 100644
+--- a/testcases/kernel/mem/.gitignore
++++ b/testcases/kernel/mem/.gitignore
+@@ -1,6 +1,7 @@
+ /cpuset/cpuset01
+ /hugetlb/hugefallocate/hugefallocate01
+ /hugetlb/hugefallocate/hugefallocate02
++/hugetlb/hugefallocate/hugefallocate03
+ /hugetlb/hugefork/hugefork01
+ /hugetlb/hugefork/hugefork02
+ /hugetlb/hugemmap/hugemmap01
+diff --git a/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c b/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c
+new file mode 100644
+index 000000000..824816161
+--- /dev/null
++++ b/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c
+@@ -0,0 +1,204 @@
++// SPDX-License-Identifier: LGPL-2.1-or-later
++/*
++ * Copyright (C) 2015 Oracle Corporation
++ * Author: Mike Kravetz
++ */
++
++/*\
++ * [Description]
++ *
++ * Stress test fallocate.  This test starts three threads.
++ * Thread one will continually punch/fill holes via falloc.
++ * Thread two will continually fault in those same pages.
++ * Thread three will continually mmap/munmap that page range.
++ *
++ */
++
++#define _GNU_SOURCE
++#include <stdio.h>
++#include <sys/mount.h>
++#include <limits.h>
++#include <sys/param.h>
++#include <sys/types.h>
++#include <pthread.h>
++
++#include "hugetlb.h"
++#include "lapi/fallocate.h"
++#include "tst_safe_pthread.h"
++
++#define MNTPOINT "hugetlbfs/"
++#define MAX_PAGES_TO_USE 100
++#define FALLOCATE_ITERATIONS 100000
++
++static int fd = -1;
++static long nr_hpages_free;
++static unsigned long max_hpages;
++static int err;
++static long hpage_size;
++static unsigned long free_before, free_after;
++static unsigned long rsvd_before, rsvd_after;
++
++static void *thread_fallocate(void *)
++{
++	int i, err;
++	long tpage;
++
++	for (i = 0; i < FALLOCATE_ITERATIONS; i++) {
++		tpage = ((long long)random()) % (max_hpages);
++		err = fallocate(fd,
++				FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
++				tpage * hpage_size, hpage_size);
++		if (err)
++			tst_res(TFAIL|TERRNO, "fallocate():");
++		err = fallocate(fd, 0, tpage * hpage_size, hpage_size);
++		if (err)
++			tst_res(TFAIL|TERRNO, "fallocate():");
++	}
++	return NULL;
++}
++
++static void *fault_mmap_addr;
++
++static void thread_fault_cleanup(void *)
++{
++	if (fault_mmap_addr)
++		munmap(fault_mmap_addr, max_hpages * hpage_size);
++}
++
++static void *thread_fault(void *)
++{
++	long tpage;
++	char foo;
++	struct timespec ts = {};
++
++	fault_mmap_addr = SAFE_MMAP(NULL, max_hpages * hpage_size,
++			PROT_READ | PROT_WRITE, MAP_SHARED,
++			fd, 0);
++
++	pthread_cleanup_push(thread_fault_cleanup, NULL);
++
++	while (1) {
++		tpage = ((long long)random()) % (max_hpages);
++		foo = *((char *)(fault_mmap_addr + (tpage * hpage_size)));
++		*((char *)(fault_mmap_addr + (tpage * hpage_size))) = foo;
++
++		nanosleep(&ts, NULL); /* thread cancellation point */
++	}
++
++	thread_fault_cleanup(NULL);
++
++	pthread_cleanup_pop(1);
++
++	return NULL;
++}
++
++static void *mmap_munmap_addr;
++
++static void thread_mmap_munmap_cleanup(void *)
++{
++	if (mmap_munmap_addr)
++		munmap(mmap_munmap_addr, max_hpages * hpage_size);
++}
++
++static void *thread_mmap_munmap(void *)
++{
++	struct timespec ts = {};
++
++	pthread_cleanup_push(thread_mmap_munmap_cleanup, NULL);
++
++	while (1) {
++		mmap_munmap_addr = SAFE_MMAP(NULL, max_hpages * hpage_size,
++				PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
++		SAFE_MUNMAP(mmap_munmap_addr, max_hpages * hpage_size);
++		mmap_munmap_addr = NULL;
++
++		nanosleep(&ts, NULL);   /* thread cancellation point */
++	}
++
++	thread_mmap_munmap_cleanup(NULL);
++
++	pthread_cleanup_pop(1);
++	return NULL;
++}
++
++static void run_test(void)
++{
++	fd = tst_creat_unlinked(MNTPOINT, 0);
++	pthread_t falloc_th, fault_th, mmap_munmap_th;
++	void *falloc_th_ret, *fault_th_ret, *mmap_munmap_th_ret;
++
++	unsigned int seed = (int)getpid() * time(NULL);
++
++	srandom(seed);
++	tst_res(TINFO, "Seed = %d", seed);
++	nr_hpages_free = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
++	max_hpages = MIN(nr_hpages_free, MAX_PAGES_TO_USE);
++	free_before = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
++	rsvd_before = SAFE_READ_MEMINFO(MEMINFO_HPAGE_RSVD);
++
++	/* First preallocate file with max_hpages pages */
++	err = fallocate(fd, 0, 0, hpage_size * max_hpages);
++	if (err) {
++		if (errno == EOPNOTSUPP)
++			tst_brk(TCONF, "fallocate() Operation is not supported");
++		if (err) {
++			tst_res(TFAIL|TERRNO, "fallocate():");
++			goto windup;
++		}
++	}
++
++	free_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
++	if (free_before - free_after != max_hpages) {
++		tst_res(TFAIL, "fallocate did not preallocate %ld huge pages\n",
++				max_hpages);
++		goto windup;
++	}
++
++	SAFE_PTHREAD_CREATE(&falloc_th, NULL, thread_fallocate, NULL);
++
++	SAFE_PTHREAD_CREATE(&fault_th, NULL, thread_fault, NULL);
++
++	SAFE_PTHREAD_CREATE(&mmap_munmap_th, NULL, thread_mmap_munmap, NULL);
++
++	SAFE_PTHREAD_JOIN(falloc_th, &falloc_th_ret);
++
++	SAFE_PTHREAD_CANCEL(fault_th);
++
++	SAFE_PTHREAD_JOIN(fault_th, &fault_th_ret);
++
++	SAFE_PTHREAD_CANCEL(mmap_munmap_th);
++
++	SAFE_PTHREAD_JOIN(mmap_munmap_th, &mmap_munmap_th_ret);
++
++windup:
++	SAFE_CLOSE(fd);
++
++	free_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
++	rsvd_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_RSVD);
++	if (free_after != free_before || rsvd_after != rsvd_before)
++		tst_res(TFAIL, "free or reserve counts incorrect after fallocate stress test");
++	else
++		tst_res(TPASS, "fallocate stress test passed");
++}
++
++static void setup(void)
++{
++	hpage_size = tst_get_hugepage_size();
++}
++
++static void cleanup(void)
++{
++	if (fd > 0)
++		SAFE_CLOSE(fd);
++}
++
++static struct tst_test test = {
++	.needs_root = 1,
++	.mntpoint = MNTPOINT,
++	.needs_hugetlbfs = 1,
++	.needs_tmpdir = 1,
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = run_test,
++	.hugepages = {2, TST_NEEDS},
++};
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.43.5
 
 
 -- 
