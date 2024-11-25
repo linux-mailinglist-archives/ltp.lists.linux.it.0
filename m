@@ -1,106 +1,104 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A6159D854F
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2024 13:20:56 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E8C49D8546
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2024 13:19:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CD1713DAAB4
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2024 13:20:55 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 724563DAACA
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2024 13:19:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 85DEB3D6A4D
- for <ltp@lists.linux.it>; Mon, 25 Nov 2024 13:19:02 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id EAA2F3D6A4D
+ for <ltp@lists.linux.it>; Mon, 25 Nov 2024 13:19:01 +0100 (CET)
+Authentication-Results: in-3.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A797F64AD2B
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 637731BD4E92
  for <ltp@lists.linux.it>; Mon, 25 Nov 2024 13:19:01 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A16731F397
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D4D521F399
  for <ltp@lists.linux.it>; Mon, 25 Nov 2024 12:19:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1732537140; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fdr/LVU4Gea4b8hiCStPTIlSOTeV5wjRXe2Rhc+z8is=;
- b=wdO4hMZ2QgblAA/VlMkGSj5MTYCJ2L6Q2uhXKDatTJanE5BXGpMS+eQO+sRS2YNeNNVx2L
- +oWIi5rEWXPhb6bjQOfBCCJCCpf4XNN8Pb+Z92fB2XYK22d6ERr4OCQtsr578BXomhnsEK
- UUX4aOBT4KeqBo4U+HaUGQCcv63AeOc=
+ bh=X6r//Pea7dlAS37UqvJUOQQH3jrxSlgm/WzIDs6qT+U=;
+ b=KXjDYBgNikOCD8muuJfXDuZhajVDTt1VfOb3Wn3W/v+Sk3vPYu8lqpczM82szcf090v3St
+ DfJCp1/NkzaLPdpuRtKcBbfLJS/GMfRdEuF/8m6J6RsxFojsVAggklMW6nFBsidTxQWbma
+ rbfmi8jHa0+vfjmFJvcSkLPN4GGSXn0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1732537140;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fdr/LVU4Gea4b8hiCStPTIlSOTeV5wjRXe2Rhc+z8is=;
- b=JDk/CmLiXICtVjL+BXzFcUE1jbZmraLJ8AoqpAwV01Tu3IWoDd20Mtq0JfCq9gHcu3CV7l
- IBN9pMRzUv6X7HDQ==
+ bh=X6r//Pea7dlAS37UqvJUOQQH3jrxSlgm/WzIDs6qT+U=;
+ b=5Oh0O5qeMDDGpUOIChfQKtMcLm3T0Fe1NXcLrP9EIMBHNGC1tU9OWMe+xbH92l/R/5x9UM
+ SbWQEJd3WIVBENBg==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=wdO4hMZ2;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="JDk/CmLi"
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KXjDYBgN;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=5Oh0O5qe
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1732537140; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fdr/LVU4Gea4b8hiCStPTIlSOTeV5wjRXe2Rhc+z8is=;
- b=wdO4hMZ2QgblAA/VlMkGSj5MTYCJ2L6Q2uhXKDatTJanE5BXGpMS+eQO+sRS2YNeNNVx2L
- +oWIi5rEWXPhb6bjQOfBCCJCCpf4XNN8Pb+Z92fB2XYK22d6ERr4OCQtsr578BXomhnsEK
- UUX4aOBT4KeqBo4U+HaUGQCcv63AeOc=
+ bh=X6r//Pea7dlAS37UqvJUOQQH3jrxSlgm/WzIDs6qT+U=;
+ b=KXjDYBgNikOCD8muuJfXDuZhajVDTt1VfOb3Wn3W/v+Sk3vPYu8lqpczM82szcf090v3St
+ DfJCp1/NkzaLPdpuRtKcBbfLJS/GMfRdEuF/8m6J6RsxFojsVAggklMW6nFBsidTxQWbma
+ rbfmi8jHa0+vfjmFJvcSkLPN4GGSXn0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1732537140;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fdr/LVU4Gea4b8hiCStPTIlSOTeV5wjRXe2Rhc+z8is=;
- b=JDk/CmLiXICtVjL+BXzFcUE1jbZmraLJ8AoqpAwV01Tu3IWoDd20Mtq0JfCq9gHcu3CV7l
- IBN9pMRzUv6X7HDQ==
+ bh=X6r//Pea7dlAS37UqvJUOQQH3jrxSlgm/WzIDs6qT+U=;
+ b=5Oh0O5qeMDDGpUOIChfQKtMcLm3T0Fe1NXcLrP9EIMBHNGC1tU9OWMe+xbH92l/R/5x9UM
+ SbWQEJd3WIVBENBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8526213890
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B287D13A73
  for <ltp@lists.linux.it>; Mon, 25 Nov 2024 12:19:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id eEy5HTRrRGepGwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0CDrKDRrRGepGwAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>)
  for <ltp@lists.linux.it>; Mon, 25 Nov 2024 12:19:00 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 25 Nov 2024 13:19:00 +0100
+Date: Mon, 25 Nov 2024 13:19:01 +0100
 MIME-Version: 1.0
-Message-Id: <20241125-input_refactoring-v1-4-b622b3aa698d@suse.com>
+Message-Id: <20241125-input_refactoring-v1-5-b622b3aa698d@suse.com>
 References: <20241125-input_refactoring-v1-0-b622b3aa698d@suse.com>
 In-Reply-To: <20241125-input_refactoring-v1-0-b622b3aa698d@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1732537139; l=4478;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732537139; l=4836;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=wYnhdNByvclG+Jfy//xlu9Lw2cU4aNGa/QxlnXmrtNo=;
- b=eKHD/AkzmNHyRzzoa6PFjREgxutd/g9Lao+516s+AahafKJEjn7R9nEQ+1SGGnMLY6MR7Um9L
- FX1hnYqT0+0DLhEAWpAuDK4e0gy2Ksz60Hti0uW3SZaY3Rgseu8xbC1
+ bh=wIoRGs4VVH0vTDhki/NaNPzIOrcdmraRbjkck/HWw2k=;
+ b=JQT9OErKFfEKVNXrJ7suTBKYD4bMPLxY/UHhfSMPBgml0bLfYbqQUL8P9GFmNhcOLa3Raglgo
+ dSltAopnD2SAZ7gkTcIFuYcgIHEgfiG3vMQBBMCOe2mKhVqCAIPLNDr
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: A16731F397
-X-Spam-Score: -4.51
-X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: D4D521F399
+X-Spam-Level: 
 X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
@@ -116,21 +114,22 @@ X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
  RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
  FROM_HAS_DN(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.com:mid];
  TO_DN_NONE(0.00)[];
  PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
  TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -4.51
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 4/7] Refactor input04 test
+Subject: [LTP] [PATCH 5/7] Refactor input05 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,30 +150,31 @@ From: Andrea Cervesato <andrea.cervesato@suse.com>
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/input/Makefile  |   4 +-
- testcases/kernel/input/input04.c | 113 ++++++++++++---------------------------
- 2 files changed, 35 insertions(+), 82 deletions(-)
+ testcases/kernel/input/Makefile  |   6 +-
+ testcases/kernel/input/input05.c | 119 ++++++++++++---------------------------
+ 2 files changed, 40 insertions(+), 85 deletions(-)
 
 diff --git a/testcases/kernel/input/Makefile b/testcases/kernel/input/Makefile
-index 8c302dbc8c75cf4fd42bc162b4bb8a9882237164..cf35e1bfc150a6c1556ef796d4858c0df9020131 100644
+index cf35e1bfc150a6c1556ef796d4858c0df9020131..a37aa28fc27688901e0555a0338395a681b45b39 100644
 --- a/testcases/kernel/input/Makefile
 +++ b/testcases/kernel/input/Makefile
 @@ -8,8 +8,8 @@ LTPLIBS = uinput
  include $(top_srcdir)/include/mk/testcases.mk
  
  FILTER_OUT_MAKE_TARGETS		:= input_helper
--input01 input02 input03: LDLIBS += -lltpuinput
-+input01 input02 input03 input04: LDLIBS += -lltpuinput
+-input01 input02 input03 input04: LDLIBS += -lltpuinput
++input01 input02 input03 input04 input05: LDLIBS += -lltpuinput
  
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
+-include $(top_srcdir)/include/mk/generic_leaf_target.mk
++input06: %: input_helper.o
  
--input04 input05 input06: %: input_helper.o
-+input05 input06: %: input_helper.o
-diff --git a/testcases/kernel/input/input04.c b/testcases/kernel/input/input04.c
-index e57b76b0b40f8be4f851137f1a9185b37c6e64c0..3c76d7c82ad7fe76f35f5a4ecfc78f27069d3fa0 100644
---- a/testcases/kernel/input/input04.c
-+++ b/testcases/kernel/input/input04.c
-@@ -1,103 +1,56 @@
+-input05 input06: %: input_helper.o
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/input/input05.c b/testcases/kernel/input/input05.c
+index 46b4fe8b27cfcfe2d025d84c4dc005e528d46dae..4e5072a038ea8e4f7b8e0899d88a58bdf18e9e94 100644
+--- a/testcases/kernel/input/input05.c
++++ b/testcases/kernel/input/input05.c
+@@ -1,107 +1,62 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
   * Copyright (c) 2015 Cedric Hnyda <chnyda@suse.com>
@@ -196,37 +196,46 @@ index e57b76b0b40f8be4f851137f1a9185b37c6e64c0..3c76d7c82ad7fe76f35f5a4ecfc78f27
   */
  
 - /*
--  *  Create a virtual device (mouse), send empty events to /dev/uinput
--  *  and check that the events are not received in /dev/inputX
+-  *  Create a virtual device (mouse), send events to /dev/uinput
+-  *  and Check that events not advertised in the input device bits
+-  *  are filtered.
 -  */
--
++/*\
++ * [Description]
++ *
++ * Verify that /dev/input/eventX doesn't receive any event sent from a virtual
++ * device, that in our case is a mouse, when events not advertised in the input
++ * device bits are filtered.
++ */
+ 
 -#include <linux/input.h>
--
+ #include <linux/uinput.h>
+ 
 -#include "test.h"
 -#include "safe_macros.h"
 -#include "lapi/fcntl.h"
 -#include "input_helper.h"
 -
+-#define X_VALUE 10
+-#define Y_VALUE 10
++#include "input_common.h"
+ 
 -#define NB_TEST 20
-+/*\
-+ * [Description]
-+ *
-+ * Verify that /dev/input/eventX doesn't receive any event sent from a virtual
-+ * device, that in our case is a mouse, when relative move is (0, 0)
-+ */
++#define NUM_EVENTS 20
++#define MOVE_X 10
++#define MOVE_Y 10
  
 -static void setup(void);
 -static void send_events(void);
 -static void cleanup(void);
-+#include "input_common.h"
- 
--static int fd, fd2;
-+#define NUM_EVENTS 20
- 
--char *TCID = "input04";
 +static int fd_send = -1;
 +static int fd_recv = -1;
  
+-static int fd;
+-static int fd2;
+-
+-char *TCID = "input05";
+-
 -int main(int ac, char **av)
 +static void run(void)
  {
@@ -239,7 +248,7 @@ index e57b76b0b40f8be4f851137f1a9185b37c6e64c0..3c76d7c82ad7fe76f35f5a4ecfc78f27
 -
 -	for (lc = 0; TEST_LOOPING(lc); ++lc) {
 -		pid = tst_fork();
-+	tst_res(TINFO, "Sending empty relative move");
++	tst_res(TINFO, "Sending relative mouse move (%i, %i)", MOVE_X, MOVE_Y);
  
 -		switch (pid) {
 -		case 0:
@@ -249,17 +258,15 @@ index e57b76b0b40f8be4f851137f1a9185b37c6e64c0..3c76d7c82ad7fe76f35f5a4ecfc78f27
 -			tst_brkm(TBROK | TERRNO, cleanup, "fork() failed");
 -		default:
 -			if (no_events_queued(fd2, 1))
--				tst_resm(TPASS,
--					"No data received in /dev/inputX");
+-				tst_resm(TPASS, "No data received in eventX");
 -			else
--				tst_resm(TFAIL,
--					"Data received /dev/inputX");
+-				tst_resm(TFAIL, "Data received in eventX");
 -		break;
 -		}
 -
 -		SAFE_WAITPID(NULL, pid, NULL, 0);
 +	for (int i = 0; i < NUM_EVENTS; i++) {
-+		send_relative_move(fd_send, 0, 0);
++		send_relative_move(fd_send, MOVE_X, MOVE_Y);
 +		usleep(1000);
  	}
  
@@ -273,38 +280,39 @@ index e57b76b0b40f8be4f851137f1a9185b37c6e64c0..3c76d7c82ad7fe76f35f5a4ecfc78f27
 -	tst_require_root();
 -
 -	fd = open_uinput();
--	setup_mouse_events(fd);
++	fd_send = open_uinput();
++	SAFE_IOCTL(fd_send, UI_SET_EVBIT, EV_KEY);
++	SAFE_IOCTL(fd_send, UI_SET_KEYBIT, BTN_LEFT);
++	create_input_device(fd_send);
+ 
+-	SAFE_IOCTL(NULL, fd, UI_SET_EVBIT, EV_KEY);
+-	SAFE_IOCTL(NULL, fd, UI_SET_KEYBIT, BTN_LEFT);
+-
 -	create_device(fd);
 -
 -	fd2 = open_device();
--}
--
--static void send_events(void)
--{
--	int nb;
-+	fd_send = open_uinput();
-+	setup_mouse_events(fd_send);
-+	create_input_device(fd_send);
- 
--	for (nb = 0; nb < NB_TEST; ++nb) {
--		send_rel_move(fd, 0, 0);
--		usleep(1000);
--	}
 +	fd_recv = open_event_device();
  }
  
- static void cleanup(void)
+-static void send_events(void)
++static void cleanup(void)
  {
--	if (fd2 > 0 && close(fd2))
--		tst_resm(TWARN | TERRNO, "close(fd2)");
+-	int nb;
 +	if (fd_send != -1)
 +		destroy_input_device(fd_send);
  
--	destroy_device(fd);
+-	for (nb = 0; nb < NB_TEST; ++nb) {
+-		send_rel_move(fd, X_VALUE, Y_VALUE);
+-		usleep(1000);
+-	}
 +	if (fd_recv != -1)
 +		SAFE_CLOSE(fd_recv);
  }
-+
+ 
+-static void cleanup(void)
+-{
+-	destroy_device(fd);
+-}
 +static struct tst_test test = {
 +	.test_all = run,
 +	.setup = setup,
