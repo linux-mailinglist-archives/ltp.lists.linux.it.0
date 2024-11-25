@@ -1,99 +1,177 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B27FB9DB518
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2024 10:51:11 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 228859D8821
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2024 15:34:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5A3113DBB2A
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2024 10:51:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B5DA93DABEA
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2024 15:34:28 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 30ECC3DABC5
- for <ltp@lists.linux.it>; Mon, 25 Nov 2024 15:29:43 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it; spf=none (no SPF record)
- smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.158.5;
- helo=mx0b-001b2d01.pphosted.com; envelope-from=pavrampu@linux.vnet.ibm.com;
- receiver=lists.linux.it)
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ by picard.linux.it (Postfix) with ESMTPS id 579093DABC5
+ for <ltp@lists.linux.it>; Mon, 25 Nov 2024 15:34:18 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=intel.com (client-ip=192.198.163.17; helo=mgamail.intel.com;
+ envelope-from=oliver.sang@intel.com; receiver=lists.linux.it)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 41AC120FF26
- for <ltp@lists.linux.it>; Mon, 25 Nov 2024 15:29:41 +0100 (CET)
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4APC7H4t014634;
- Mon, 25 Nov 2024 14:29:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=pp1; bh=wXcyJK1+4y5GTIcMnIJbYtYp4PncKBx+BQRdP/Bzh
- xI=; b=nslO7L3jMl3TRRajaXup0yrNbA11mgSxOb8u9+uZrUKdrPiKpES4PEyJN
- 27lxoZ9nt0G7c4gKzCRfuZ/UZI5mgOm9l4z90FJb96c6NLAqz44HEQ6t/8jz88sr
- ARNZgawUtGZblp93JJglNz7SPbfHXMS8IBWggZrFFXmOdsTkIC633/jfclvvW+Zd
- os8VEhISyEgX67ZjIBODbpXBrpfQlBGJhBgj5N5ZXBtrHwej2eOcjeUlWdvuGnbm
- RTVD7kFxd5UHFjGipWvNoTPRw1YEBtxn/8cc664QPeeOthZuIeXNq3Oy4DtLPqTQ
- gMIx7ONs0m1XtQJH+M93yEbr7Sbhw==
-Received: from ppma11.dal12v.mail.ibm.com
- (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 43386jrmpt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Nov 2024 14:29:40 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
- by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 4AP5dWo6026370;
- Mon, 25 Nov 2024 14:29:39 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 433v30tgsp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Nov 2024 14:29:39 +0000
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
- [10.20.54.101])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 4APETbDD20971956
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 25 Nov 2024 14:29:37 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A57C020043;
- Mon, 25 Nov 2024 14:29:37 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A731820040;
- Mon, 25 Nov 2024 14:29:36 +0000 (GMT)
-Received: from li-6442e9cc-24ed-11b2-a85c-915a5b5fa426.ibm.com.com (unknown
- [9.124.220.116])
- by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Mon, 25 Nov 2024 14:29:36 +0000 (GMT)
-From: Pavithra <pavrampu@linux.vnet.ibm.com>
-To: ltp@lists.linux.it
-Date: Mon, 25 Nov 2024 19:59:32 +0530
-Message-ID: <20241125142932.760643-1-pavrampu@linux.vnet.ibm.com>
-X-Mailer: git-send-email 2.43.5
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 53EC3101291F
+ for <ltp@lists.linux.it>; Mon, 25 Nov 2024 15:34:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1732545256; x=1764081256;
+ h=date:from:to:cc:subject:message-id:in-reply-to: mime-version;
+ bh=0PfcMqEE26pyAJv1aw1B4go6mBAZ5WKw4kuAfQ9/ZZM=;
+ b=RQVy+Bfezojq3898JiJLUn+GdkaRs7497/QhU0tXAMoRuGnH+UZXw1Hf
+ qextbZMOh0RqQGSLdLDXpzr9mdQzOt5sHiy27ZW7Lj/52JePeOQjF10Y4
+ XhHaj0oP/5cTFdxhoFpDy/kxGOTQoQFsbkbN5/3ndLk1oro1hMuQxQ5cQ
+ ajSQOKig2GF9SDecGbgfqKaAGn0V6KtLhmrZiYMjwVc9s4/9O47ieLp2H
+ kecO3gOZ0pKYsXmt4oT7Z0aZAINSZzatuSM2+stmjv1WwGkU1W9QE0m9B
+ Q/yK6g3/5f+kKghklu3jlzOTwwepVICOrmtYWa29Klv74Ax/YV1sf5a7y A==;
+X-CSE-ConnectionGUID: l9ygN0A4R1qr8fmp+qfO0A==
+X-CSE-MsgGUID: KOpRefMHRNq7Sr+QSI1HvA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11267"; a="32595336"
+X-IronPort-AV: E=Sophos;i="6.12,183,1728975600"; d="scan'208";a="32595336"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2024 06:34:11 -0800
+X-CSE-ConnectionGUID: E6S1BWwxRf+TlMb2P4M9QA==
+X-CSE-MsgGUID: KQFGf5n+T7a1Zz5uaBYbEw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,183,1728975600"; d="scan'208";a="90906127"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 25 Nov 2024 06:34:12 -0800
+Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Mon, 25 Nov 2024 06:34:11 -0800
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39 via Frontend Transport; Mon, 25 Nov 2024 06:34:11 -0800
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.41) by
+ edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Mon, 25 Nov 2024 06:34:11 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n//62M1kiuhaXBbnNm+GT1ZZ1Z76HkLqVyikxpnS7ZK/IfvHPeyRQFa8Qzi1ijlKwKWeriGJYTDQkMEhOAEq1pKeO3PmhYY7Rt2Yrlh0CJrA+x61SYY6wws2KGefAr4l3Kd4wwALIhlCfyonPH/FFqfyUnpgznON0r3MVhOdEh2JnnEmh8IUQVQXN+M/4BapIyxCTOJuPK3Dog8we1PQ7v8nTrNJG/T+M5+aE+Skr2F7OSvNxypO3Y6nOq7T2ZFE0yy90aYOQ2d6fCZq5MujHUkq6ueaooGQsF8r80c8+RnV5k+8T0Oyfo9eL04/ZfMuCx3J6dtThpogV3tbX0qegA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zRSdjTmFqAh9xONowZulaTDdP64uSrgwxs2mdF2wZyY=;
+ b=ZddRPbDKXVaEwIg15ldxAxv3xCrBAKU8HtM/kvYt8gQyh8rZw1VzJMiOkq8lRR+7uKpVqQ0E7YNTtf35dNFvzVbOL54rpkxVKEMPXqAGYgyATOe5O+uFr+jPpyY0c6ENQzf1udWubrgfW+s944bLyRVpiWYNCE7Z7B1PFkPuUCd9u5J1+4360xlsA/FncpAnktBfCMqdB7TKEYlbgVRMWHbjceZos5bBkXOHYxqx7OaPUJMj2j7Fj7rl/pNUOR47NcvfwgECCbqVuazK33Rzog3d7h/4DWWM6760amkwDGa8EG040cnSUl8mUECFc7zGGXceYy6LJmdtjQKZwQHN5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from LV3PR11MB8603.namprd11.prod.outlook.com (2603:10b6:408:1b6::9)
+ by CH0PR11MB5236.namprd11.prod.outlook.com (2603:10b6:610:e3::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8182.20; Mon, 25 Nov
+ 2024 14:34:06 +0000
+Received: from LV3PR11MB8603.namprd11.prod.outlook.com
+ ([fe80::4622:29cf:32b:7e5c]) by LV3PR11MB8603.namprd11.prod.outlook.com
+ ([fe80::4622:29cf:32b:7e5c%5]) with mapi id 15.20.8182.019; Mon, 25 Nov 2024
+ 14:34:06 +0000
+Date: Mon, 25 Nov 2024 22:33:53 +0800
+From: kernel test robot <oliver.sang@intel.com>
+To: "Michael C. Pratt" <mcpratt@pm.me>
+Message-ID: <202411252241.2d75c2f6-lkp@intel.com>
+Content-Disposition: inline
+In-Reply-To: <20241111070152.9781-2-mcpratt@pm.me>
+X-ClientProxiedBy: SGXP274CA0002.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b8::14)
+ To LV3PR11MB8603.namprd11.prod.outlook.com
+ (2603:10b6:408:1b6::9)
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: 7ZamjFBldmkoVqEEoGOOdwLk_K_SCqBI
-X-Proofpoint-GUID: 7ZamjFBldmkoVqEEoGOOdwLk_K_SCqBI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1051,Hydra:6.0.680,FMLib:17.12.62.30
- definitions=2024-10-15_01,2024-10-11_01,2024-09-30_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0
- mlxlogscore=999 spamscore=0 suspectscore=0 phishscore=0 clxscore=1011
- mlxscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2411250123
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR11MB8603:EE_|CH0PR11MB5236:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab90484f-945e-46b7-0e85-08dd0d5e3752
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lVBuqjvFBAXlUhP4nD49oa99SKs26P18t/3RkkEuUZnAKkaLonWHHKsCI1dT?=
+ =?us-ascii?Q?DCYEncb61FO/FwsH3iehsun5BRNUBX0IjVJvuTFv1356mThTvsYqJpi5YftY?=
+ =?us-ascii?Q?5zy9m89CXVMv5cHDifSkZ46+vVQabzn6T3szXatdLDqoc8cqMBnoSH+ePXX7?=
+ =?us-ascii?Q?anP+DwMivRW6BwNSQ5mDEuzTuTUGRhtpH3c9uuHk83xASt/fcbYVmEIAiov4?=
+ =?us-ascii?Q?00jqXfBAZ8D+FKlC9caEdbzM+xGMZFKN+vdg4jZn59BjmSSO/UfEkF2XTytw?=
+ =?us-ascii?Q?xuVei3IPEn9NpZL3Xa+6ZGxv0O4V04gd0svmVUWn9gX2l/Avy9EQckeUCFPG?=
+ =?us-ascii?Q?owFQOqlgvA+L0UKAfZZTr/66X6JNkGo8lDlTcC5hlhTaPCU7Jj0AYuDSfb/n?=
+ =?us-ascii?Q?uTqPnv3YudueVL3qb6hSTFFeGu6XNNezBo5VzWUEOC5pevU2pMdDbvXSKdtx?=
+ =?us-ascii?Q?LuBC8+KOEKsvwjvAXxQdJs+3+0mU/4gYP9gZUL+dxyGiHLTRnoFLVkeTsX69?=
+ =?us-ascii?Q?X2E/7hMk2Pro+YEQ7HmvndvuN3mM0mVtFV0adksjj/q1A2ZFpeJMfINxBcrR?=
+ =?us-ascii?Q?QCA3oO9Z11XWqVOFNP2CJMC5wK9N47W9woCiXmOBYJ+bAaJ9pQCqQ7s7YhQc?=
+ =?us-ascii?Q?9JrqazbWlHyW8z33a0ID9kHVFHYwTMiI+1N4is+AOzzPn9vkLg2Vzr3HxB16?=
+ =?us-ascii?Q?cna4d42NXbYQODMqt5zmKouCOiOcjatDuOUdpFYtt8keW1nhau+NrJCkz7xt?=
+ =?us-ascii?Q?gtKp6fSQl3p9Gdb49maC4KJ0skCfZlC4i21Nb0OeUtfd7evQRjnrmUmWxYxW?=
+ =?us-ascii?Q?1AnKR+Kv3xht9KQOodg7F7nALswe22IIOpqd4AZ7berq66KITMYh3yW+m6Xz?=
+ =?us-ascii?Q?1SvZPPBRHd58WsL7U4Jqxre9q/3XGuuMygO3ynBVaOWqJcoTefxaEjrY0iH2?=
+ =?us-ascii?Q?w/g9BbC/aVLbOdAOy/7yebTvpnJywAl+wJVzNurGkP4V/ZoM8zjFmiVgOwDY?=
+ =?us-ascii?Q?JeEMRa3Wq0a/m4NoHiuyhVPoyHo6oFmfJnoWAabS0dxBnq5oVHFqeGXElynx?=
+ =?us-ascii?Q?CEmuL6T7KPJVTVqA6ut2q2BFhe3QQjtd1lQsDQTYwHMKHw2SiTnSj3UK6TEb?=
+ =?us-ascii?Q?rKwLCi/bq0nKGFUUPtoGe6we3LFY9twQ892JmGq0f0Yd3hHNSwH895vvcaOd?=
+ =?us-ascii?Q?aXSrrR91K++//gteA6/YiyBQrXkS/Uo9+e0ywbqe9k5dr25ukSfjxDs8LwUi?=
+ =?us-ascii?Q?IJX8CrLHDulGb+MN0qHioaar2C6MmtZl+pK6Y8KKyR+cHZJI5V/gZ12U2MLR?=
+ =?us-ascii?Q?QYg=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV3PR11MB8603.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?EOjDLu6hNYwr6n1AxSzCYbnLrsefZmmLa7PdvRnicinecVIbGOtUxOpIsgPp?=
+ =?us-ascii?Q?iwrqUxApsOu4qz9sR0ogX23O7Le442suyxPJeOmcW+uJR0hI+6OWv6jNNPS8?=
+ =?us-ascii?Q?B5uchDSQXqSxZ5gAfZLYX7OriLmNhjJ5IjpygdayRQQL6Y8GZRIkYAuxC5me?=
+ =?us-ascii?Q?m+ETvCBoPJNZS23CS1gAEdl+ZkbWixbJsKDIMruMUA/GhGeScV3hstcP7Qi4?=
+ =?us-ascii?Q?MRYcrqtDPs0Zd0OkaOGmPeZ1QVkIODdFuErvpcAe1/Ix4PBsU+6HSvNofndf?=
+ =?us-ascii?Q?D60EQ9NCGZBeQYuL98Q8srA44XJPz//DsPnZSzE9AuX+cyxaah8owtngwGwN?=
+ =?us-ascii?Q?16I4DFftng4PMk/6lH5GLE7QGZWkrBg8lCL6DnZnVJFNRs4SSoCVuzATZD2/?=
+ =?us-ascii?Q?dyxqJJz5QSxToYfDkBIX1W0xN5w1VMwgZ2em8yr8vCxwLQDY/MT/dpdTUPYa?=
+ =?us-ascii?Q?Uy3q3qt4Ir/G/xm1Y3/zKp2J+/8IjHmthrct7vsMj64fYWxVytH1EpLmshsY?=
+ =?us-ascii?Q?1h2y2RCpCfVB6Gd7dP/e/y1zUkhxv2EJ+Vz0qvSnhu/hp55wEs7x+1p/3WDn?=
+ =?us-ascii?Q?u7XQGbaX2iBwBtKMnEfn7Q8D8qVTdkTsO9vTgPskxVacgR7Ej+5fz+8XQHLH?=
+ =?us-ascii?Q?HSRZJ+Qtz2KycFMI2+rFowhCDiqAUDJC8R7KDG5jXJvzde+PyxHsfNVfmrCc?=
+ =?us-ascii?Q?3FtEXAhHAyxTdl/sVfcPGpTQAA/FNlB771Y1pvVLcfkm0w+MIs4uFCVdkGiJ?=
+ =?us-ascii?Q?kNkMAVTTiFVJrw3ng07GnMvKfiLtWoIWIEU5Xnu2U93+6nxfZ1KT4MnUfqgz?=
+ =?us-ascii?Q?HrsMcHZd2toCIX/mgustEK/Xez4tDKjU1xvTwi4Nfae+zmkTpN+gxgqIcgY/?=
+ =?us-ascii?Q?AAFiyxRbCNIdZ4+V5atjRDsEWYA/ChRLJ3tGtBiHZAIf2Uyssy6BoFJunIs/?=
+ =?us-ascii?Q?y/qDH83LgPQDe/wePP3U8yps0HHoUz1hfIV59DIqkpQwvPNcBZOk4i+VS4AI?=
+ =?us-ascii?Q?dPC4inT59zbOyqQ1Lz8SHU02ECbx8H6uPORpl8ZrAsSkTxrpqQEIKiuzTGS8?=
+ =?us-ascii?Q?MMpylbYkXimOYz4x8QausvQE9s0ggMUaiazFXQ6byxlh8Z/FspfqH6VnTDVQ?=
+ =?us-ascii?Q?TOMELv1B9oRy3yS5Bs4aWML1LRPPlp9Y5kicyDg8QjtnBUp2PRIZEiP2ubAq?=
+ =?us-ascii?Q?McBsiLwcosmkPjszOmOPjyIKaId1JpdGhAOv2p5CLs7XH2CvAxm+t7q/HbfH?=
+ =?us-ascii?Q?1e+mx9IXvAaVVB9x/5H6viQlJ4qxDCevZj0m5Fe30FQpbTRpJDGdYzP1iGoL?=
+ =?us-ascii?Q?0L4fkREJHY89eo3XWQifwYaNEqvF9IFvn40kE3BQkuwo2LG0RrkT+7g9C8Ja?=
+ =?us-ascii?Q?kGgiSol/m1xNzEUdyESNqjIrC4fB7WfMt9cutw2kOvW9/DcVtaLVIn0aBH63?=
+ =?us-ascii?Q?GwbfJx6UweV7xdWl4y3zGNKi1uDCr2OHvASjgyjMEE0DFFBOCz1Gy/HeUu2D?=
+ =?us-ascii?Q?bZwwyZPi5dpsoSxQ+Y8Esw3PrA1nhAGIXyvNpszdV+nWKvuncwArAq9o+dRo?=
+ =?us-ascii?Q?gpJycsdhedyqKKkATuI+J9viKaeWY9Z3J2EFQz9R5DzgZub7VFEFxPsCJgbL?=
+ =?us-ascii?Q?Ow=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab90484f-945e-46b7-0e85-08dd0d5e3752
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR11MB8603.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2024 14:34:06.4343 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZgkgarhhvmNO/2g4GbGLpZy/OhEhZ0mnADeZLq6m3jePn0DehSnYGuevCXkieohkfEgxY+8+GkIwj4dyF5HS1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB5236
+X-OriginatorOrg: intel.com
+X-Spam-Status: No, score=-0.0 required=7.0 tests=ARC_SIGNED,ARC_VALID,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Thu, 28 Nov 2024 10:49:51 +0100
-Subject: [LTP] [PATCH v3] This test stress tests fallocate. This test starts
- three threads. First thread will continually punch/fill holes via falloc.
- Second thread will continually fault in those same pages. Third thread will
- continually mmap/munmap that page range.
+Subject: Re: [LTP] [PATCH RESEND 2 1/1] sched/syscalls: Allow setting
+ niceness using sched_param struct
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,261 +183,98 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Pavithra <pavrampu@linux.vnet.ibm.com>, rnsastry@linux.ibm.com
+Cc: Juri Lelli <juri.lelli@redhat.com>, "Michael C .
+ Pratt" <mcpratt@pm.me>, Valentin Schneider <vschneid@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>, yu.c.chen@intel.com, Peter
+ Zijlstra <peterz@infradead.org>, aubrey.li@linux.intel.com,
+ linux-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>,
+ Ingo Molnar <mingo@redhat.com>, oliver.sang@intel.com,
+ Mel Gorman <mgorman@suse.de>, oe-lkp@lists.linux.dev, stable@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Thomas Gleixner <tglx@linutronix.de>, ltp@lists.linux.it, lkp@intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Changes in v3:
-- Used MIN() macro instead of defining min function.
-- struch ts initialization done at the declaration.
-- Added memory unmap before pthread_cleanup_pop.
-- Removed if (falloc_th_ret)
 
-Signed-off-by: Pavithra <pavrampu@linux.vnet.ibm.com>
----
- runtest/hugetlb                               |   1 +
- testcases/kernel/mem/.gitignore               |   1 +
- .../hugetlb/hugefallocate/hugefallocate03.c   | 204 ++++++++++++++++++
- 3 files changed, 206 insertions(+)
- create mode 100644 testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c
 
-diff --git a/runtest/hugetlb b/runtest/hugetlb
-index f294e9aaa..bba2460ff 100644
---- a/runtest/hugetlb
-+++ b/runtest/hugetlb
-@@ -1,5 +1,6 @@
- hugefallocate01 hugefallocate01
- hugefallocate02 hugefallocate02
-+hugefallocate03 hugefallocate03
- 
- hugefork01 hugefork01
- hugefork02 hugefork02
-diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
-index d88484fa1..2b84ac3b9 100644
---- a/testcases/kernel/mem/.gitignore
-+++ b/testcases/kernel/mem/.gitignore
-@@ -1,6 +1,7 @@
- /cpuset/cpuset01
- /hugetlb/hugefallocate/hugefallocate01
- /hugetlb/hugefallocate/hugefallocate02
-+/hugetlb/hugefallocate/hugefallocate03
- /hugetlb/hugefork/hugefork01
- /hugetlb/hugefork/hugefork02
- /hugetlb/hugemmap/hugemmap01
-diff --git a/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c b/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c
-new file mode 100644
-index 000000000..824816161
---- /dev/null
-+++ b/testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate03.c
-@@ -0,0 +1,204 @@
-+// SPDX-License-Identifier: LGPL-2.1-or-later
-+/*
-+ * Copyright (C) 2015 Oracle Corporation
-+ * Author: Mike Kravetz
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Stress test fallocate.  This test starts three threads.
-+ * Thread one will continually punch/fill holes via falloc.
-+ * Thread two will continually fault in those same pages.
-+ * Thread three will continually mmap/munmap that page range.
-+ *
-+ */
-+
-+#define _GNU_SOURCE
-+#include <stdio.h>
-+#include <sys/mount.h>
-+#include <limits.h>
-+#include <sys/param.h>
-+#include <sys/types.h>
-+#include <pthread.h>
-+
-+#include "hugetlb.h"
-+#include "lapi/fallocate.h"
-+#include "tst_safe_pthread.h"
-+
-+#define MNTPOINT "hugetlbfs/"
-+#define MAX_PAGES_TO_USE 100
-+#define FALLOCATE_ITERATIONS 100000
-+
-+static int fd = -1;
-+static long nr_hpages_free;
-+static unsigned long max_hpages;
-+static int err;
-+static long hpage_size;
-+static unsigned long free_before, free_after;
-+static unsigned long rsvd_before, rsvd_after;
-+
-+static void *thread_fallocate(void *)
-+{
-+	int i, err;
-+	long tpage;
-+
-+	for (i = 0; i < FALLOCATE_ITERATIONS; i++) {
-+		tpage = ((long long)random()) % (max_hpages);
-+		err = fallocate(fd,
-+				FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
-+				tpage * hpage_size, hpage_size);
-+		if (err)
-+			tst_res(TFAIL|TERRNO, "fallocate():");
-+		err = fallocate(fd, 0, tpage * hpage_size, hpage_size);
-+		if (err)
-+			tst_res(TFAIL|TERRNO, "fallocate():");
-+	}
-+	return NULL;
-+}
-+
-+static void *fault_mmap_addr;
-+
-+static void thread_fault_cleanup(void *)
-+{
-+	if (fault_mmap_addr)
-+		munmap(fault_mmap_addr, max_hpages * hpage_size);
-+}
-+
-+static void *thread_fault(void *)
-+{
-+	long tpage;
-+	char foo;
-+	struct timespec ts = {};
-+
-+	fault_mmap_addr = SAFE_MMAP(NULL, max_hpages * hpage_size,
-+			PROT_READ | PROT_WRITE, MAP_SHARED,
-+			fd, 0);
-+
-+	pthread_cleanup_push(thread_fault_cleanup, NULL);
-+
-+	while (1) {
-+		tpage = ((long long)random()) % (max_hpages);
-+		foo = *((char *)(fault_mmap_addr + (tpage * hpage_size)));
-+		*((char *)(fault_mmap_addr + (tpage * hpage_size))) = foo;
-+
-+		nanosleep(&ts, NULL); /* thread cancellation point */
-+	}
-+
-+	thread_fault_cleanup(NULL);
-+
-+	pthread_cleanup_pop(1);
-+
-+	return NULL;
-+}
-+
-+static void *mmap_munmap_addr;
-+
-+static void thread_mmap_munmap_cleanup(void *)
-+{
-+	if (mmap_munmap_addr)
-+		munmap(mmap_munmap_addr, max_hpages * hpage_size);
-+}
-+
-+static void *thread_mmap_munmap(void *)
-+{
-+	struct timespec ts = {};
-+
-+	pthread_cleanup_push(thread_mmap_munmap_cleanup, NULL);
-+
-+	while (1) {
-+		mmap_munmap_addr = SAFE_MMAP(NULL, max_hpages * hpage_size,
-+				PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-+		SAFE_MUNMAP(mmap_munmap_addr, max_hpages * hpage_size);
-+		mmap_munmap_addr = NULL;
-+
-+		nanosleep(&ts, NULL);   /* thread cancellation point */
-+	}
-+
-+	thread_mmap_munmap_cleanup(NULL);
-+
-+	pthread_cleanup_pop(1);
-+	return NULL;
-+}
-+
-+static void run_test(void)
-+{
-+	fd = tst_creat_unlinked(MNTPOINT, 0);
-+	pthread_t falloc_th, fault_th, mmap_munmap_th;
-+	void *falloc_th_ret, *fault_th_ret, *mmap_munmap_th_ret;
-+
-+	unsigned int seed = (int)getpid() * time(NULL);
-+
-+	srandom(seed);
-+	tst_res(TINFO, "Seed = %d", seed);
-+	nr_hpages_free = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
-+	max_hpages = MIN(nr_hpages_free, MAX_PAGES_TO_USE);
-+	free_before = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
-+	rsvd_before = SAFE_READ_MEMINFO(MEMINFO_HPAGE_RSVD);
-+
-+	/* First preallocate file with max_hpages pages */
-+	err = fallocate(fd, 0, 0, hpage_size * max_hpages);
-+	if (err) {
-+		if (errno == EOPNOTSUPP)
-+			tst_brk(TCONF, "fallocate() Operation is not supported");
-+		if (err) {
-+			tst_res(TFAIL|TERRNO, "fallocate():");
-+			goto windup;
-+		}
-+	}
-+
-+	free_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
-+	if (free_before - free_after != max_hpages) {
-+		tst_res(TFAIL, "fallocate did not preallocate %ld huge pages\n",
-+				max_hpages);
-+		goto windup;
-+	}
-+
-+	SAFE_PTHREAD_CREATE(&falloc_th, NULL, thread_fallocate, NULL);
-+
-+	SAFE_PTHREAD_CREATE(&fault_th, NULL, thread_fault, NULL);
-+
-+	SAFE_PTHREAD_CREATE(&mmap_munmap_th, NULL, thread_mmap_munmap, NULL);
-+
-+	SAFE_PTHREAD_JOIN(falloc_th, &falloc_th_ret);
-+
-+	SAFE_PTHREAD_CANCEL(fault_th);
-+
-+	SAFE_PTHREAD_JOIN(fault_th, &fault_th_ret);
-+
-+	SAFE_PTHREAD_CANCEL(mmap_munmap_th);
-+
-+	SAFE_PTHREAD_JOIN(mmap_munmap_th, &mmap_munmap_th_ret);
-+
-+windup:
-+	SAFE_CLOSE(fd);
-+
-+	free_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_FREE);
-+	rsvd_after = SAFE_READ_MEMINFO(MEMINFO_HPAGE_RSVD);
-+	if (free_after != free_before || rsvd_after != rsvd_before)
-+		tst_res(TFAIL, "free or reserve counts incorrect after fallocate stress test");
-+	else
-+		tst_res(TPASS, "fallocate stress test passed");
-+}
-+
-+static void setup(void)
-+{
-+	hpage_size = tst_get_hugepage_size();
-+}
-+
-+static void cleanup(void)
-+{
-+	if (fd > 0)
-+		SAFE_CLOSE(fd);
-+}
-+
-+static struct tst_test test = {
-+	.needs_root = 1,
-+	.mntpoint = MNTPOINT,
-+	.needs_hugetlbfs = 1,
-+	.needs_tmpdir = 1,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = run_test,
-+	.hugepages = {2, TST_NEEDS},
-+};
+Hello,
+
+kernel test robot noticed "ltp.sched_get_priority_min01.fail" on:
+
+commit: ecd04eb1e1d00bbd158b2f7d1353af709d8131a7 ("[PATCH RESEND 2 1/1] sched/syscalls: Allow setting niceness using sched_param struct")
+url: https://github.com/intel-lab-lkp/linux/commits/Michael-C-Pratt/sched-syscalls-Allow-setting-niceness-using-sched_param-struct/20241111-150517
+base: https://git.kernel.org/cgit/linux/kernel/git/tip/tip.git fe9beaaa802d44d881b165430b3239a9d7bebf30
+patch link: https://lore.kernel.org/all/20241111070152.9781-2-mcpratt@pm.me/
+patch subject: [PATCH RESEND 2 1/1] sched/syscalls: Allow setting niceness using sched_param struct
+
+in testcase: ltp
+version: ltp-x86_64-14c1f76-1_20241111
+with following parameters:
+
+	disk: 1HDD
+	fs: xfs
+	test: syscalls-07
+
+
+
+config: x86_64-rhel-8.3-ltp
+compiler: gcc-12
+test machine: 4 threads 1 sockets Intel(R) Core(TM) i3-3220 CPU @ 3.30GHz (Ivy Bridge) with 8G memory
+
+(please refer to attached dmesg/kmsg for entire log/backtrace)
+
+
+
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <oliver.sang@intel.com>
+| Closes: https://lore.kernel.org/oe-lkp/202411252241.2d75c2f6-lkp@intel.com
+
+
+
+<<<test_start>>>
+tag=sched_get_priority_min01 stime=1732078544
+cmdline="sched_get_priority_min01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1890: TINFO: LTP version: 20240930-63-g6408294d8
+tst_test.c:1894: TINFO: Tested kernel: 6.12.0-rc4-00035-gecd04eb1e1d0 #1 SMP PREEMPT_DYNAMIC Sun Nov 17 15:27:30 CST 2024 x86_64
+tst_test.c:1725: TINFO: Timeout per run is 0h 02m 30s
+sched_get_priority_min01.c:42: TFAIL: SCHED_BATCH retval 100 != 0: SUCCESS (0)
+sched_get_priority_min01.c:42: TPASS: SCHED_DEADLINE passed
+sched_get_priority_min01.c:42: TPASS: SCHED_FIFO passed
+sched_get_priority_min01.c:42: TPASS: SCHED_IDLE passed
+sched_get_priority_min01.c:42: TFAIL: SCHED_OTHER retval 100 != 0: SUCCESS (0)
+sched_get_priority_min01.c:42: TPASS: SCHED_RR passed
+
+Summary:
+passed   4
+failed   2
+broken   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=1 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20241125/202411252241.2d75c2f6-lkp@intel.com
+
+
+
 -- 
-2.43.5
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
 
 -- 
