@@ -2,104 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 013609D9CAD
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2024 18:38:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11B7C9D9CB5
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2024 18:39:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 24F5C3DB2E6
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2024 18:38:37 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B88183DB2F5
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2024 18:39:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6618F3DB2DC
+ by picard.linux.it (Postfix) with ESMTPS id AEC3A3DB2DF
  for <ltp@lists.linux.it>; Tue, 26 Nov 2024 18:38:35 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it;
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5587F20F5C8
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 72664630F9D
  for <ltp@lists.linux.it>; Tue, 26 Nov 2024 18:38:34 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E83321F74D;
- Tue, 26 Nov 2024 17:38:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1732642713; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=fx6DRM8qIUzT8avrFzQ2pTwHoO30bEvRwWkQP/XWKrE=;
- b=JQIKK73hLP4QT8cbgvvvE04fmJVniSDF37wuBHOIZrmFoTswkiaZrW6OPJjMnI+7hJHFC3
- GpFmKcO2wnuLwTDP2YBUfOtTnQFzAUsKLJ2BG6PH136+4yI6VFxmLKACLP26nRg8bNJH7q
- DMx0QHZHzVHyJRehKFB5T57HMQ9YBdg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1732642713;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=fx6DRM8qIUzT8avrFzQ2pTwHoO30bEvRwWkQP/XWKrE=;
- b=pVHJUYKJvnuwJTRU6x9VWFSxufNCkH7m7maOdru1PNq0ASRkFHMvVFHaF17eKh2w+61V1/
- ng21h39mQUMrpWBg==
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 21FE72115C;
+ Tue, 26 Nov 2024 17:38:33 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1732642712; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=fx6DRM8qIUzT8avrFzQ2pTwHoO30bEvRwWkQP/XWKrE=;
- b=ExgUgwuuuII29GFMzdZO0R6UJq449K5lqA6Y/s56l9palfKh6RFHFUTaj18M7Nwy3R1R31
- VEGLi3xXotU4vPruKZzVF+QpLDpzwChQT/doDKxM+KIp1vUfzzqqm/YQrdfUMkAIv6FTLA
- p0MOlYyv6TEJGT447W3uwb0fkVh4g8U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1732642712;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=fx6DRM8qIUzT8avrFzQ2pTwHoO30bEvRwWkQP/XWKrE=;
- b=yBM65ZHwD6AuVnTXZu7k2GK822INQ4kDsH74A53Q9vAPYDZH3AaRW9C0A8jQ2aGGFuKspL
- wAFeyH4AEm1+FxCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C2E6C13890;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F0CF213A27;
  Tue, 26 Nov 2024 17:38:32 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 5A4/LpgHRmf2OAAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 4HspOZgHRmf2OAAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Tue, 26 Nov 2024 17:38:32 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 26 Nov 2024 18:38:27 +0100
-Message-ID: <20241126173830.98960-1-pvorel@suse.cz>
+Date: Tue, 26 Nov 2024 18:38:28 +0100
+Message-ID: <20241126173830.98960-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20241126173830.98960-1-pvorel@suse.cz>
+References: <20241126173830.98960-1-pvorel@suse.cz>
 MIME-Version: 1.0
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Spam-Score: -4.00
+X-Rspamd-Queue-Id: 21FE72115C
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
-X-Spamd-Result: default: False [-1.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- SUSPICIOUS_RECIPS(1.50)[]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:mid];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
- ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_CC(0.00)[gmail.com,linux.ibm.com,vger.kernel.org];
- RCVD_TLS_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCPT_COUNT_THREE(0.00)[4];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Score: -1.30
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 0/3] LTP tests: load predefined policy
+Subject: [LTP] [PATCH 1/3] ima: Add TCB policy as an example
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,35 +87,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Petr Vorel <petr.vorel@gmail.com>
-
-Hi Mimi, all,
-
-this effort allows to load policy LTP provides as example
-via LTP_IMA_LOAD_POLICY=1 environment variable (off by default).
-
-This should allow better coverage for these who just run runtest/ima.
-But it requires tooling which runs LTP to do the restart after each
-test.
-
-Kind regards,
-Petr
-
-Petr Vorel (3):
-  ima: Add TCB policy as an example
-  ima_setup.sh: Allow to load predefined policy
-  ima_{kexec,keys,selinux}: Set minimal kernel version
-
- .../kernel/security/integrity/ima/README.md   |  6 +++
- .../ima/datafiles/ima_measurements/tcb.policy | 20 +++++++
- .../security/integrity/ima/tests/ima_kexec.sh |  1 +
- .../security/integrity/ima/tests/ima_keys.sh  |  1 +
- .../integrity/ima/tests/ima_measurements.sh   | 17 +++++-
- .../integrity/ima/tests/ima_selinux.sh        |  1 +
- .../security/integrity/ima/tests/ima_setup.sh | 52 ++++++++++++++++---
- 7 files changed, 89 insertions(+), 9 deletions(-)
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ .../ima/datafiles/ima_measurements/tcb.policy | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
  create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_measurements/tcb.policy
 
+diff --git a/testcases/kernel/security/integrity/ima/datafiles/ima_measurements/tcb.policy b/testcases/kernel/security/integrity/ima/datafiles/ima_measurements/tcb.policy
+new file mode 100644
+index 0000000000..280e6af87c
+--- /dev/null
++++ b/testcases/kernel/security/integrity/ima/datafiles/ima_measurements/tcb.policy
+@@ -0,0 +1,20 @@
++dont_measure fsmagic=0x9fa0
++dont_measure fsmagic=0x62656572
++dont_measure fsmagic=0x64626720
++dont_measure fsmagic=0x1021994
++dont_measure fsmagic=0x1cd1
++dont_measure fsmagic=0x42494e4d
++dont_measure fsmagic=0x73636673
++dont_measure fsmagic=0xf97cff8c
++dont_measure fsmagic=0x43415d53
++dont_measure fsmagic=0x27e0eb
++dont_measure fsmagic=0x63677270
++dont_measure fsmagic=0x6e736673
++dont_measure fsmagic=0xde5e81e4
++measure func=MMAP_CHECK mask=MAY_EXEC
++measure func=BPRM_CHECK mask=MAY_EXEC
++measure func=FILE_CHECK mask=^MAY_READ euid=0
++measure func=FILE_CHECK mask=^MAY_READ uid=0
++measure func=MODULE_CHECK
++measure func=FIRMWARE_CHECK
++measure func=POLICY_CHECK
 -- 
 2.45.2
 
