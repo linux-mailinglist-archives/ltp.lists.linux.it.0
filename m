@@ -1,155 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 966E19DB51A
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2024 10:51:46 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 70BD39DA77B
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Nov 2024 13:12:55 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1D8533DBB70
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2024 10:51:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 86ECF3DB687
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Nov 2024 13:12:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 09D523DB666
- for <ltp@lists.linux.it>; Wed, 27 Nov 2024 13:05:05 +0100 (CET)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2072f.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2418::72f])
+ by picard.linux.it (Postfix) with ESMTPS id 25D303C724A
+ for <ltp@lists.linux.it>; Wed, 27 Nov 2024 13:12:45 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwang@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (secp384r1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3198563CF19
- for <ltp@lists.linux.it>; Wed, 27 Nov 2024 13:05:05 +0100 (CET)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KKjbbxWDQ0TgMcp/UEOuZY0ogfPuc4+GkiI+pSjNatwWi2E3+y38i+H0GKBl0AMj3UNh4QK7Cz0OYPKo8s3aCblBJTWXcLnFwzwUNYITvgT0oKUjrXCcZIVw8VcLFGwgTsxJborOFdGyhsC/FP+Lh8IgyXKi9DcJOiE8+Xu4C+bDr4pZmhZyj34g0/J+uFPy4EvA7Jif/XN0J+7fDOsQGlzccv0WSyJYuTothyg9x4hZkou5dB2uNdhwM1VFZS++kUMyZqDbDXZga7qf5fvk4TqbjPnHDqIq2FRVn0ROZWK1Fovzgsug9SbHBaeSzbipB670JzL/CozHLcmkkjZY/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ulYBEeSxQJjc8WkgUM9QYua1OAqpq1YXfvHaPpthCkU=;
- b=KzQX2SvIFi+j1BdjkXolpK9VzjugslVFrxtRQSkIabXUA9ze2hutZcg1Nzw7NE1C/EiizYykHNvilTHbLrUsjcyyuirkDGOXXQ+47D1UH6agQSTXodm5657GqGw4bxyCma/CmUFDOPLgiBVYQ9LH9sHw2v2npXnezBKq4qc9d6HO8ktQwuAQWzF0njbB3AHipZQCfkaUeFtI5YXcRjWVUHC5yRATcmux9tb7HYGLYZpa3B0NJFldlujX5JiG+imFtCwD4KlMUh317uxXqHOaYGN34Pexbe9kdhwiXnnm0ygTG6Xl1B4RrPTiNlr20oPCObHC8/zOGdm3YQmXb4FXTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=alifsemi.com; dmarc=pass action=none header.from=alifsemi.com;
- dkim=pass header.d=alifsemi.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=alifsemi.onmicrosoft.com; s=selector2-alifsemi-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ulYBEeSxQJjc8WkgUM9QYua1OAqpq1YXfvHaPpthCkU=;
- b=LqTbMDFDx+iOis/2Z5oXaZXe8rHv3l2RuV38HQ+9MrtIEXaODv7/r+8ueV8kys5HKIRomasBdcgV/F9VX9UminjPQEZW9LbV/YkLqlEmeFEJbzRsTFQ/crm+AHWPz0w3B4niHJ8WXyUaf1/RG17+erIREQmN3XWQAV2sF54ZZ5Y=
-Received: from LV1PR22MB6014.namprd22.prod.outlook.com (2603:10b6:408:2b4::11)
- by MW4PR22MB3740.namprd22.prod.outlook.com (2603:10b6:303:1bb::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.23; Wed, 27 Nov
- 2024 12:05:00 +0000
-Received: from LV1PR22MB6014.namprd22.prod.outlook.com
- ([fe80::ec4a:ae17:b696:7dc8]) by LV1PR22MB6014.namprd22.prod.outlook.com
- ([fe80::ec4a:ae17:b696:7dc8%4]) with mapi id 15.20.8182.019; Wed, 27 Nov 2024
- 12:05:00 +0000
-From: R Akshay Dharmapuri <raghavendra.akshay@alifsemi.com>
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: Regarding the Musl C library for using Linux Test Project on our
- Board linux kernel 5.4.25
-Thread-Index: AQHbQMNPi2gyC6xx0U6l8eYU9cdevg==
-Date: Wed, 27 Nov 2024 12:04:59 +0000
-Message-ID: <LV1PR22MB601444E2D0CA1619E19EAE2BF5282@LV1PR22MB6014.namprd22.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=alifsemi.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV1PR22MB6014:EE_|MW4PR22MB3740:EE_
-x-ms-office365-filtering-correlation-id: 6fcd3ea1-5e40-4959-d215-08dd0edbb7b7
-x-ms-exchange-atpmessageproperties: SA
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700018|8096899003; 
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?DsIEW/NPo1A4oas3HjdXpVf1dc87Q9pjynxYxiZ+rOtMCSM2IpFPPA0s+b?=
- =?iso-8859-1?Q?4GgXTbnIR5WxbVOc2/jzvGozo1o5oF6CktRaNmJfQZHdTXJfAkUQF4BtpX?=
- =?iso-8859-1?Q?asYtzSx6NkAKztRYZ/JtjKUMuD/zcAcxL/A5jnkxPz2A5d920Z6jUw2Pat?=
- =?iso-8859-1?Q?GiTN+x9axhY6NrKqCeAaLxGmXtLUzpWi8CQ8m8/jnT3myTFU9kyjWjkymL?=
- =?iso-8859-1?Q?IXh94AXBVyhPxg8MojyIshT5VKA4AGJ3sxbXbaLf/nUHFcAadPsZqCViv7?=
- =?iso-8859-1?Q?SdfGO5xpl4veohxRCZUcXooLdDOFkJUaJqO2fkuaVQr2pdcv0Htb7OUgGG?=
- =?iso-8859-1?Q?e9nw3MHOJrKGRsm2I5/oDqRnnKih31yREQBwRbqX6fmxPMB5C1MFw+2Wya?=
- =?iso-8859-1?Q?pu8EIJgC3zwtWrtcHgIjYrTVQxSTfUSURyCNtGdXjYmF0oeMa8uQZnU7Ct?=
- =?iso-8859-1?Q?GJ+8nvS2NNbN1HQ4BHE1rUIkZ6nZB5TNQnrdiiEnxg1OsOxXbdDwH3OGRx?=
- =?iso-8859-1?Q?Xu8E4tWqvSk1dUpbROK1sNX2571+5aqe3M77KE14YE4gpKWeMUZkEC5674?=
- =?iso-8859-1?Q?IQWZD3alcDC+tIxPWIm3NcH8A0HRySlaOz33ZkVmyBeFvrgpsjD3/qG8At?=
- =?iso-8859-1?Q?1XHPK5RDx06JJaQq1djpanP6RTAbzvhVGmzdXRn5KSxG3SFA5JvE9qBts6?=
- =?iso-8859-1?Q?ObuVV7YP9JCtkjBxAHSSxXt4uZTF+Orl88U9LJG/ePnIUMgLMpL8JSp8bC?=
- =?iso-8859-1?Q?rhr0jMqR2IuQp6fNjF5CUf8AftRA3lpSG0XksYAlhZ5SHnELXfJpP9Gs57?=
- =?iso-8859-1?Q?+ywZzzvKL+7+pAfHLd212LTyzDp/TKthgDBm5G1J88YPH+qeubwAZ1S0aX?=
- =?iso-8859-1?Q?b3eJGdlmTkx+AYVynx6DiN5Oh9QwoJ/lq83iF2OohO5Wsktd0cm7xPvqRU?=
- =?iso-8859-1?Q?sTMyptMprzQVuFLq9xE56eGY4CkcYQPKmuP2lCOXsKH+CMj4W6xEUIDgw3?=
- =?iso-8859-1?Q?jvdpv16trHCZTSnCF+0MKiqVupRNZ3SOmZMyn7bXX4r5GaVZ0MThCQRHj4?=
- =?iso-8859-1?Q?Pz/kceZwvsP/W8Tq58dLl9ORwvYhzckk+Qe+hgN/czfUcW/8k9bBlNFi1k?=
- =?iso-8859-1?Q?NrodDid7jaHUd0RYem+DWZLHnW83SlTXh3JtYmNRWYrMXLH02t3JrX9n0V?=
- =?iso-8859-1?Q?prrq/R32jqkBtrEi/XjU4dEzQmRt4mbxP01D/EG6n6TdFhsWlDYerD8D5U?=
- =?iso-8859-1?Q?7tEjcNpyiZJ7XmzVyYtlXadlsKfw9fNq1NiLlZKKq12pFznqORzNsZoOHh?=
- =?iso-8859-1?Q?iUJSZZqJrinZIp/hcYVxeiiRzdu0NOkbU8SE2XofzAmIQlxXxaw9/u13BO?=
- =?iso-8859-1?Q?6jZOeCKJ+4ZAFbPPGL/252odelsUlntRyKjG9oRdPKvi3mnqlpJ9ExLYan?=
- =?iso-8859-1?Q?qqqJkRGQUkXiRsTZx7FxKaTY+5MVWozfctekzw=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV1PR22MB6014.namprd22.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700018)(8096899003); DIR:OUT;
- SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?KFgk26dbQQkG/NE0aQSCHoxyseYYTB9jsBn9h6bID0smEGgqhrPIERpQX9?=
- =?iso-8859-1?Q?xGuhyTXgN4loNjEEMeoZXsC+U7fhZ75OIZEISo1UYa4aafz1gJVf+HxM4D?=
- =?iso-8859-1?Q?T7XAH4D3P2Wu6P6L1FUN3mV2rvt3l/v2Ue568ea2Y/JJVz4uFHK2/cI3HU?=
- =?iso-8859-1?Q?ugafZrbOLWSjQT0n1C2T0EESX7HKha3RwyGLijSZHAhjlWuYHOyBH5+7ZB?=
- =?iso-8859-1?Q?DapIBzxlsJcfiqbuxfGPQ3T+aAztGOjQWe1Y3GuAYfJaMCF8TrheM1ni5Q?=
- =?iso-8859-1?Q?g9iiysROWXZg4D6+Z0v/X+pth7jh+HGIfQjqT+agydy5+fd0xb7VaCjMXI?=
- =?iso-8859-1?Q?kfllOW+XGvadohBgy/aB76Fx6hBdowsacHShqfJ3XGLBP2ItaRZwQUB1Yb?=
- =?iso-8859-1?Q?re9LCX/fg9kEk99GkI1rYP81rri7Bdb4B901+LIrCts4i29Elezgv7/Lwe?=
- =?iso-8859-1?Q?QPbqMopZED0Abk4EFUlycjGO8cwEdXwp1ju7ZHGp0wYV/tPj6kmVpjnRiJ?=
- =?iso-8859-1?Q?Tm+vS8locQAwnFEuT+ka3BXGHNc3xl8DTOXdLo8CevXZeWS2RrpzeWtvg5?=
- =?iso-8859-1?Q?rxyvjCnxalKfdyuFBRAoE/QnjkDndCCFRtZ8uQBCiMx068akeC8En6QF7a?=
- =?iso-8859-1?Q?Y+QoNV60Ee785x6BhzsF+ExHJzS2rLBMXtK/4NlVFSpWMzOEZhSFqtgljF?=
- =?iso-8859-1?Q?1/3Ulv39GzdhYF3QLgon0AvpFRTLaWe0n2RqaeTh237X8TiZT3EvZmUwp/?=
- =?iso-8859-1?Q?A8JmEd0eK8nGrhbAz+Xl1Sh77IVVN8FsEASZPrEEq5MamsFnuXzfPk+esC?=
- =?iso-8859-1?Q?Xjwcy6nTZ8oImWdrggtgyOPgzud1XhhbDticcHb6QjyGyiNczY4kDCR6AA?=
- =?iso-8859-1?Q?P6F59DLIA8BKDRCezvYdY5k1paAtfqlTqphdHg8MA8lJ4pe77lvY1hRPzk?=
- =?iso-8859-1?Q?Jf4bTBnsC7d/WSv1KrT95wcpd/2J2o5xSdTnDKfSVPTReyQjYjZhin/qgD?=
- =?iso-8859-1?Q?LoRHceF5caXMSQaIffellAQIEcjw+n3kSYimRT94M69AjEYeGtKukLB2ek?=
- =?iso-8859-1?Q?BC5YY7fI2nZJkID/7/J4vrvSSK7sUZLc6dEPdsUA19SY+ekr0lLASNQdtR?=
- =?iso-8859-1?Q?I+y86k/DVmai/mYOuLXKUO1Ls4paaYPMtjWl34QBk0cTw509mkHdFK8zzI?=
- =?iso-8859-1?Q?Gj7B9TBpG+A2P+ycVtBF3tH0YPyGUQZYqPLxW5becrlncIEqdqVNLFHvZN?=
- =?iso-8859-1?Q?Q28SSMLVc2EwPNgU2TzSbzLN3z1fORvH2QJMSjqX2ZIgFoB8KpSbmQoPhA?=
- =?iso-8859-1?Q?yesYq9CR/0u5E4SU4twH3Z3Gb9hNPtV6P8q2YxsaJjqgq8D/iss6xw9jNU?=
- =?iso-8859-1?Q?amDwFqEVhpI1llSh763PEruZOAodJMhsnM18K8cnamgb0KnIpX2YvPNaN4?=
- =?iso-8859-1?Q?0wlekU6bHPSZrubcn9fR3Brfu5jn94K5VAxrXIuN8EIzca12Fjs5lCg+n3?=
- =?iso-8859-1?Q?Zhx8Nhp4GqTfFCMNM7owCFDWC/p6udV5zzqdVnhvyUl3pnjugbkWsD3Rx3?=
- =?iso-8859-1?Q?zAK8wq2UzuJN3D9qxUsFkDPxRBtITgFzPP4YZna/XRVFMUb+IqmLInjQT/?=
- =?iso-8859-1?Q?7I/K7+jt8Hr8zqnCaUFXnIwID4yJikM1lo3mY7t7j0oZDZT7BSGWniKQ?=
- =?iso-8859-1?Q?=3D=3D?=
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 554A2100E338
+ for <ltp@lists.linux.it>; Wed, 27 Nov 2024 13:12:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1732709562;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=bA7wa30jvq9JO9aLoVki3boPGgrzTgLlcuLGO6/hqw8=;
+ b=bd1ibfNbF8dLMlHM80jIrpmiWd4+emKXcjBhqFYj0W5jIAOmP/Crb4PoxV2ky9M/4KLJc1
+ zSDc4DfPLlEHUKg4gZLeW211CKKibeKzwR+3TzvbhQs9D437c+1rtkNGi7FkS9H9XtQe08
+ RgptamZ1jYdcSkCr6My992ZO1CV6Y00=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-617-zA1D9MlXP-qxpht_ycR7qg-1; Wed,
+ 27 Nov 2024 07:12:41 -0500
+X-MC-Unique: zA1D9MlXP-qxpht_ycR7qg-1
+X-Mimecast-MFC-AGG-ID: zA1D9MlXP-qxpht_ycR7qg
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 40BCD19560AA
+ for <ltp@lists.linux.it>; Wed, 27 Nov 2024 12:12:40 +0000 (UTC)
+Received: from dell-per7425-02.rhts.eng.pek2.redhat.com
+ (dell-per7425-02.rhts.eng.pek2.redhat.com [10.73.116.18])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 02F4E300019E
+ for <ltp@lists.linux.it>; Wed, 27 Nov 2024 12:12:38 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Wed, 27 Nov 2024 20:12:32 +0800
+Message-ID: <20241127121233.14638-1-liwang@redhat.com>
 MIME-Version: 1.0
-X-OriginatorOrg: alifsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV1PR22MB6014.namprd22.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fcd3ea1-5e40-4959-d215-08dd0edbb7b7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2024 12:04:59.9285 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b00baf25-129f-4e99-a1ef-bdc77ebabee5
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FtepZGTzd0+Ty2KBKxa2C8KdLux5UDc/7R9t5YQJVxzRe+7lo5lVwFEBd3jvUBzlsOgboYSAKx4zNppFHnbRpNcAsS8RfuMsyz32apKYKFM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR22MB3740
-X-Spam-Status: No, score=0.1 required=7.0 tests=ARC_SIGNED,ARC_VALID,
- DKIM_SIGNED,DKIM_VALID,HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: ACo4QIQW22WsVnndGL3qttDBpNJRT8Er09g1c7Sl1dw_1732709560
+X-Mimecast-Originator: redhat.com
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Thu, 28 Nov 2024 10:49:51 +0100
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: [LTP] Regarding the Musl C library for using Linux Test Project on
- our Board linux kernel 5.4.25
+Subject: [LTP] [PATCH 1/2] lib: add extra calibrated runtime to slow tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,15 +88,137 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi All,
+This patch inspired by Cyril's work ec14f4572d ("sched:
+starvation: Autocallibrate the timeout"), introduces a CPU
+calibration mechanism to enhance test runtime calculations.
 
-Myself Akshay from Alif Semiconductor working on LTP(Linux Test Project).I am using environment-setup-cortexa32hf-neon-poky-linux-musleabi (Musl C) for our target board.
-I wanted to enquire how to test LTP on Arm 32 architecture(board architecture).We are using linux kernel 5.4.25 to deploy onto the target hardware.
-Also wanted to enquire if musl C (above toolchain) is fully supported as I checked onto the documentation link of Linux Test Project(Its not yet fully supported)
+The new tst_callibrate function measures CPU performance,
+and in combination with tst_kconfig_debug_matches which
+detects enabled debug-kernel configurations, computes an
+extra_runtime adjustment.
 
-Thanks and Regards
-Akshay Dharmapuri
+The multiply_runtime function now incorporates this adjustment
+to account for debug overhead, reducing the likelihood of
+timeouts while maintaining adaptability for slower systems.
 
+Signed-off-by: Li Wang <liwang@redhat.com>
+---
+ include/tst_kconfig.h | 32 ++++++++++++++++++++++++++++++++
+ include/tst_timer.h   | 30 ++++++++++++++++++++++++++++++
+ lib/tst_test.c        |  5 ++++-
+ 3 files changed, 66 insertions(+), 1 deletion(-)
+
+diff --git a/include/tst_kconfig.h b/include/tst_kconfig.h
+index 23f807409..5746925df 100644
+--- a/include/tst_kconfig.h
++++ b/include/tst_kconfig.h
+@@ -98,4 +98,36 @@ struct tst_kcmdline_var {
+  */
+ void tst_kcmdline_parse(struct tst_kcmdline_var params[], size_t params_len);
+ 
++/*
++ * List of debug-kernel config options that may degrade performance when enabled.
++ */
++static const char * const tst_kconf_debug_options[][2] = {
++	{"CONFIG_PROVE_LOCKING=y", NULL},
++	{"CONFIG_LOCKDEP=y", NULL},
++	{"CONFIG_DEBUG_SPINLOCK=y", NULL},
++	{"CONFIG_DEBUG_RT_MUTEXES=y", NULL},
++	{"CONFIG_DEBUG_MUTEXES=y", NULL},
++	{"CONFIG_DEBUG_PAGEALLOC=y", NULL},
++	{"CONFIG_KASAN=y", NULL},
++	{"CONFIG_SLUB_RCU_DEBUG=y", NULL},
++	{"CONFIG_TRACE_IRQFLAGS=y", NULL},
++	{"CONFIG_LATENCYTOP=y", NULL},
++	{"CONFIG_DEBUG_NET=y", NULL},
++	{"CONFIG_EXT4_DEBUG=y", NULL},
++	{"CONFIG_QUOTA_DEBUG=y", NULL},
++	{"CONFIG_FAULT_INJECTION=y", NULL},
++	{"CONFIG_DEBUG_OBJECTS=y", NULL},
++	{NULL, NULL}
++};
++
++static inline int tst_kconfig_debug_matches(void)
++{
++	int i, num = 1;
++
++	for (i = 0; tst_kconf_debug_options[i][0] != NULL; i++)
++		num += !tst_kconfig_check(tst_kconf_debug_options[i]);
++
++	return num;
++}
++
+ #endif	/* TST_KCONFIG_H__ */
+diff --git a/include/tst_timer.h b/include/tst_timer.h
+index 6fb940020..268fc8389 100644
+--- a/include/tst_timer.h
++++ b/include/tst_timer.h
+@@ -17,6 +17,7 @@
+ #include <mqueue.h>
+ #include <time.h>
+ #include "tst_test.h"
++#include "tst_clocks.h"
+ #include "lapi/common_timers.h"
+ #include "lapi/posix_types.h"
+ #include "lapi/syscalls.h"
+@@ -1074,4 +1075,33 @@ static inline long long tst_timer_elapsed_us(void)
+ 	return tst_timespec_to_us(tst_timer_elapsed());
+ }
+ 
++#define CALLIBRATE_LOOPS 120000000
++
++/*
++ * Measures the time taken by the CPU to perform a specified
++ * number of empty loops for calibration.
++ */
++static inline int tst_callibrate(void)
++{
++	int i;
++	struct timespec start, stop;
++	long long diff;
++
++	for (i = 0; i < CALLIBRATE_LOOPS; i++)
++		__asm__ __volatile__ ("" : "+g" (i) : :);
++
++	tst_clock_gettime(CLOCK_MONOTONIC_RAW, &start);
++
++	for (i = 0; i < CALLIBRATE_LOOPS; i++)
++		__asm__ __volatile__ ("" : "+g" (i) : :);
++
++	tst_clock_gettime(CLOCK_MONOTONIC_RAW, &stop);
++
++	diff = tst_timespec_diff_us(stop, start);
++
++	tst_res(TINFO, "CPU did %i loops in %llius", CALLIBRATE_LOOPS, diff);
++
++	return diff;
++}
++
+ #endif /* TST_TIMER */
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index 8db554dea..296683ffb 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -549,13 +549,16 @@ static void parse_mul(float *mul, const char *env_name, float min, float max)
+ static int multiply_runtime(int max_runtime)
+ {
+ 	static float runtime_mul = -1;
++	static int extra_runtime = 0;
+ 
+ 	if (max_runtime <= 0)
+ 		return max_runtime;
+ 
+ 	parse_mul(&runtime_mul, "LTP_RUNTIME_MUL", 0.0099, 100);
+ 
+-	return max_runtime * runtime_mul;
++	extra_runtime = (tst_callibrate() / 1000) * tst_kconfig_debug_matches();
++
++	return (max_runtime + extra_runtime) * runtime_mul;
+ }
+ 
+ static struct option {
+-- 
+2.47.0
 
 
 -- 
