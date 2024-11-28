@@ -2,93 +2,123 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABBB89DB4EE
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2024 10:43:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4587F9DB538
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2024 11:06:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E11C73DBB4F
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2024 10:43:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E030E3DBAA1
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2024 11:06:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CA3BC3C589F
- for <ltp@lists.linux.it>; Thu, 28 Nov 2024 10:43:54 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
- receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id E41823DBAA1
+ for <ltp@lists.linux.it>; Thu, 28 Nov 2024 11:06:03 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7EF4C61BD1F
- for <ltp@lists.linux.it>; Thu, 28 Nov 2024 10:43:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1732787031;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 34820142FCE2
+ for <ltp@lists.linux.it>; Thu, 28 Nov 2024 11:06:01 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A35F621190;
+ Thu, 28 Nov 2024 10:06:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1732788360; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iW3K3JUJwUGO5BFEM21ycJG9ihSZvecCj7eAznbh5gg=;
- b=bdm+TwVeldBRUI6o20mOm9aMCa8EycyT85J5+fNcpJUyMoRz0jjxeaQcdT4hwf+e0MNZq1
- 65JRcGAZMelJirA7fNCwC5a71Rm2qhiVhfQEHEwjcPrOKFQYiIzRgEafPSgP7F17iTZC98
- bnJj8zjbTy5CfRVfctbdjp79LBVjWYc=
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-124-EZB2T2dFOrayua5SZLQv6Q-1; Thu, 28 Nov 2024 04:43:48 -0500
-X-MC-Unique: EZB2T2dFOrayua5SZLQv6Q-1
-X-Mimecast-MFC-AGG-ID: EZB2T2dFOrayua5SZLQv6Q
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-2ea45ba6b9aso809343a91.0
- for <ltp@lists.linux.it>; Thu, 28 Nov 2024 01:43:48 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732787026; x=1733391826;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=iW3K3JUJwUGO5BFEM21ycJG9ihSZvecCj7eAznbh5gg=;
- b=H/XWhuakiMGfu4GwwCgAS0mnCAmXmNpOOLujfS5fs8E89YGt4NIOTez8SfGAlO+21c
- jg4LbKHe6F9ti9kMWLRfNjEpqwRgTqC2SGpdgKzFuNyBTKpL/Sq0J0DIQJ5llcC3+kjJ
- qbj3Uk6jufYY4s/dihVzM+csWxs+g7deEUt1F+pjdS+LwarJKpGNk+lekfo+amxDlh9q
- E44EXu8PwUSSSlHUTZ9KyRwnLmE78SGDTb0KqpJEEBpjCSHVCR6uGBtyI3BbekkdF3dp
- ybgdKU+vKsRaT5D803exfE1nTuYmSBKODrYBhMC3Z/l+uwIYkgLZhTXEmCuzCe1IcZdI
- dyFw==
-X-Gm-Message-State: AOJu0YwJCBOS7pAd0fdzMBySSfaVdczwe+4npeC3OwT9L/36VXOfzJKZ
- kIneY/621cN2DcwnKtvbT4QQcjqsHks/rbr/+Oi+XwrFAasmh8Yy/4VdffAYPIeeNOY4SkPBO4K
- 4G/84kl3y8fMnO9f4G/Kxu9yqJAYbaYOl6am3smrCYJ2NUHRCB+ZBkwtHFj8ijbWREWeq0eNadN
- Lyc36Z2Ig6uNS+Z2FGmX113mXkr+qQ+PJVIu1S
-X-Gm-Gg: ASbGncuU2y/VV1yd5KcsqcEdvPq5qzL9mPAPnpBVBl6ngkZUEilNc5CACa/q3vtAKyG
- OqsLRyfPVi0pUKPRxAFkh3v32YcMSIQ1v
-X-Received: by 2002:a17:90b:4b8e:b0:2ea:696d:732f with SMTP id
- 98e67ed59e1d1-2ee094caf27mr8067347a91.29.1732787026381; 
- Thu, 28 Nov 2024 01:43:46 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IF2jHC99ARxfChUvBgVZnzDXlpFpVRs527u4hz/bss26OH5J2QWJaXgEZ0AOl4xYmSNhX4KZEn4nUtLgQHh2e8=
-X-Received: by 2002:a17:90b:4b8e:b0:2ea:696d:732f with SMTP id
- 98e67ed59e1d1-2ee094caf27mr8067332a91.29.1732787025931; Thu, 28 Nov 2024
- 01:43:45 -0800 (PST)
+ bh=B7L7vcvyFAJdh+sZbYOSX1pSNjDWIOc/VQRTGZD7Xzc=;
+ b=263QqLqYcLJTd+92TWTLJmafPZYqU6NEiRVMxDBtDiQAOf0OE8Ot17LoeocV1Emguxl23N
+ OpQylhiKXaeB7/HdOczPOtbdt10bOwJvO18AY56imC96TvIs3dOj4XJN8oHBNgzLTTex/Y
+ 6ISBrUU9eKLXhyxX9kVUscVuZKcFq3A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1732788360;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=B7L7vcvyFAJdh+sZbYOSX1pSNjDWIOc/VQRTGZD7Xzc=;
+ b=5AQifgxlXwMtmnkYsM748WMBdQMPIUFZWc+2VvPHYGOQNzW7hDzzAU/QpUGosEi8CfhFuq
+ 6Z6/ZT9suHFfpWBg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=263QqLqY;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=5AQifgxl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1732788360; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=B7L7vcvyFAJdh+sZbYOSX1pSNjDWIOc/VQRTGZD7Xzc=;
+ b=263QqLqYcLJTd+92TWTLJmafPZYqU6NEiRVMxDBtDiQAOf0OE8Ot17LoeocV1Emguxl23N
+ OpQylhiKXaeB7/HdOczPOtbdt10bOwJvO18AY56imC96TvIs3dOj4XJN8oHBNgzLTTex/Y
+ 6ISBrUU9eKLXhyxX9kVUscVuZKcFq3A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1732788360;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=B7L7vcvyFAJdh+sZbYOSX1pSNjDWIOc/VQRTGZD7Xzc=;
+ b=5AQifgxlXwMtmnkYsM748WMBdQMPIUFZWc+2VvPHYGOQNzW7hDzzAU/QpUGosEi8CfhFuq
+ 6Z6/ZT9suHFfpWBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8C94413974;
+ Thu, 28 Nov 2024 10:06:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id SGQ7IYhASGd3PwAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Thu, 28 Nov 2024 10:06:00 +0000
+Date: Thu, 28 Nov 2024 11:04:38 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: R Akshay Dharmapuri <raghavendra.akshay@alifsemi.com>
+Message-ID: <Z0hANm7UAsbFF1s0@rei>
+References: <LV1PR22MB601444E2D0CA1619E19EAE2BF5282@LV1PR22MB6014.namprd22.prod.outlook.com>
 MIME-Version: 1.0
-References: <20241125-input_refactoring-v1-0-b622b3aa698d@suse.com>
- <20241125-input_refactoring-v1-3-b622b3aa698d@suse.com>
-In-Reply-To: <20241125-input_refactoring-v1-3-b622b3aa698d@suse.com>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 28 Nov 2024 17:43:33 +0800
-Message-ID: <CAEemH2czNqbc_1Mbnkte5t2-a7q-YCUJBhOv1VWiAtavCHqfrA@mail.gmail.com>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: RNLfJLIaek-tZKwvbC9_QP9XdRt--L_CwoKnYMmBW64_1732787028
-X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+In-Reply-To: <LV1PR22MB601444E2D0CA1619E19EAE2BF5282@LV1PR22MB6014.namprd22.prod.outlook.com>
+X-Rspamd-Queue-Id: A35F621190
+X-Spam-Score: -4.01
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCPT_COUNT_TWO(0.00)[2];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_EQ_ADDR_SOME(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MISSING_XM_UA(0.00)[];
+ ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
+ DKIM_TRACE(0.00)[suse.cz:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH 3/7] Refactor input03 test
+Subject: Re: [LTP] Regarding the Musl C library for using Linux Test Project
+ on our Board linux kernel 5.4.25
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,139 +130,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gTW9uLCBOb3YgMjUsIDIwMjQgYXQgODoxOeKAr1BNIEFuZHJlYSBDZXJ2ZXNhdG8gPGFuZHJl
-YS5jZXJ2ZXNhdG9Ac3VzZS5kZT4Kd3JvdGU6Cgo+IEZyb206IEFuZHJlYSBDZXJ2ZXNhdG8gPGFu
-ZHJlYS5jZXJ2ZXNhdG9Ac3VzZS5jb20+Cj4KPiBTaWduZWQtb2ZmLWJ5OiBBbmRyZWEgQ2VydmVz
-YXRvIDxhbmRyZWEuY2VydmVzYXRvQHN1c2UuY29tPgo+IC0tLQo+ICB0ZXN0Y2FzZXMva2VybmVs
-L2lucHV0L01ha2VmaWxlICB8ICAgNCArLQo+ICB0ZXN0Y2FzZXMva2VybmVsL2lucHV0L2lucHV0
-MDMuYyB8IDE3NAo+ICsrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ICAy
-IGZpbGVzIGNoYW5nZWQsIDcwIGluc2VydGlvbnMoKyksIDEwOCBkZWxldGlvbnMoLSkKPgo+IGRp
-ZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL2lucHV0L01ha2VmaWxlCj4gYi90ZXN0Y2FzZXMv
-a2VybmVsL2lucHV0L01ha2VmaWxlCj4gaW5kZXgKPiA1YmM3Mjk4MDJkMWUzMDJkN2Q1MmQ3MWJl
-MGI2YjIyYTIwZWZiODUyLi44YzMwMmRiYzhjNzVjZjRmZDQyYmMxNjJiNGJiOGE5ODgyMjM3MTY0
-Cj4gMTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9pbnB1dC9NYWtlZmlsZQo+ICsrKyBi
-L3Rlc3RjYXNlcy9rZXJuZWwvaW5wdXQvTWFrZWZpbGUKPiBAQCAtOCw4ICs4LDggQEAgTFRQTElC
-UyA9IHVpbnB1dAo+ICBpbmNsdWRlICQodG9wX3NyY2RpcikvaW5jbHVkZS9tay90ZXN0Y2FzZXMu
-bWsKPgo+ICBGSUxURVJfT1VUX01BS0VfVEFSR0VUUyAgICAgICAgICAgICAgICA6PSBpbnB1dF9o
-ZWxwZXIKPiAtaW5wdXQwMSBpbnB1dDAyOiBMRExJQlMgKz0gLWxsdHB1aW5wdXQKPiAraW5wdXQw
-MSBpbnB1dDAyIGlucHV0MDM6IExETElCUyArPSAtbGx0cHVpbnB1dAo+Cj4gIGluY2x1ZGUgJCh0
-b3Bfc3JjZGlyKS9pbmNsdWRlL21rL2dlbmVyaWNfbGVhZl90YXJnZXQubWsKPgo+IC1pbnB1dDAz
-IGlucHV0MDQgaW5wdXQwNSBpbnB1dDA2OiAlOiBpbnB1dF9oZWxwZXIubwo+ICtpbnB1dDA0IGlu
-cHV0MDUgaW5wdXQwNjogJTogaW5wdXRfaGVscGVyLm8KPiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2Vz
-L2tlcm5lbC9pbnB1dC9pbnB1dDAzLmMKPiBiL3Rlc3RjYXNlcy9rZXJuZWwvaW5wdXQvaW5wdXQw
-My5jCj4gaW5kZXgKPiA2Y2Q3NTNkMGIxYmY5OGNlNjcxZGZhNzM5Y2RlODE3YjRjNTJjNTQ3Li5m
-NjZhNWIxZTUwNGNhNjNhMDMyZWM5YjQ5YjVhYjFlNjlhNGJjMmNlCj4gMTAwNjQ0Cj4gLS0tIGEv
-dGVzdGNhc2VzL2tlcm5lbC9pbnB1dC9pbnB1dDAzLmMKPiArKysgYi90ZXN0Y2FzZXMva2VybmVs
-L2lucHV0L2lucHV0MDMuYwo+IEBAIC0xLDE0NSArMSwxMDcgQEAKPiArLy8gU1BEWC1MaWNlbnNl
-LUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPiAgLyoKPiAgICogQ29weXJpZ2h0IChjKSAy
-MDE1IENlZHJpYyBIbnlkYSA8Y2hueWRhQHN1c2UuY29tPgo+IC0gKgo+IC0gKiBUaGlzIHByb2dy
-YW0gaXMgZnJlZSBzb2Z0d2FyZTsgeW91IGNhbiByZWRpc3RyaWJ1dGUgaXQgYW5kL29yCj4gLSAq
-IG1vZGlmeSBpdCB1bmRlciB0aGUgdGVybXMgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNl
-bnNlIGFzCj4gLSAqIHB1Ymxpc2hlZCBieSB0aGUgRnJlZSBTb2Z0d2FyZSBGb3VuZGF0aW9uOyBl
-aXRoZXIgdmVyc2lvbiAyIG9mCj4gLSAqIHRoZSBMaWNlbnNlLCBvciAoYXQgeW91ciBvcHRpb24p
-IGFueSBsYXRlciB2ZXJzaW9uLgo+IC0gKgo+IC0gKiBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0
-ZWQgaW4gdGhlIGhvcGUgdGhhdCBpdCB3b3VsZCBiZSB1c2VmdWwsCj4gLSAqIGJ1dCBXSVRIT1VU
-IEFOWSBXQVJSQU5UWTsgd2l0aG91dCBldmVuIHRoZSBpbXBsaWVkIHdhcnJhbnR5IG9mCj4gLSAq
-IE1FUkNIQU5UQUJJTElUWSBvciBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRS4gIFNl
-ZSB0aGUKPiAtICogR05VIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgZm9yIG1vcmUgZGV0YWlscy4K
-PiAtICoKPiAtICogWW91IHNob3VsZCBoYXZlIHJlY2VpdmVkIGEgY29weSBvZiB0aGUgR05VIEdl
-bmVyYWwgUHVibGljIExpY2Vuc2UKPiAtICogYWxvbmcgd2l0aCB0aGlzIHByb2dyYW07IGlmIG5v
-dCwgd3JpdGUgdGhlIEZyZWUgU29mdHdhcmUgRm91bmRhdGlvbiwKPiAtICogSW5jLiwgIDUxIEZy
-YW5rbGluIFN0LCBGaWZ0aCBGbG9vciwgQm9zdG9uLCBNQSAgMDIxMTAtMTMwMSAgVVNBCj4gKyAq
-IENvcHlyaWdodCAoQykgMjAyNCBTVVNFIExMQyBBbmRyZWEgQ2VydmVzYXRvIDwKPiBhbmRyZWEu
-Y2VydmVzYXRvQHN1c2UuY29tPgo+ICAgKi8KPgo+IC0gLyoKPiAtICAqICBDcmVhdGUgYSB2aXJ0
-dWFsIGRldmljZSAobW91c2UpLCBzZW5kIGV2ZW50cyB0byAvZGV2L3VpbnB1dAo+IC0gICogIGFu
-ZCBjaGVjayB0aGF0IHRoZSBldmVudHMgYXJlIHdlbGwgcmVjZWl2ZWQgaW4gL2Rldi9pbnB1dC9t
-aWNlCj4gLSAgKi8KPiArLypcCj4gKyAqIFtEZXNjcmlwdGlvbl0KPiArICoKPiArICogVmVyaWZ5
-IHRoYXQgL2Rldi9pbnB1dC9taWNlIHJlY2VpdmUgZXZlbnRzIHNlbnQgZnJvbSBhIHZpcnR1YWwg
-ZGV2aWNlLAo+ICsgKiB0aGF0IGluIG91ciBjYXNlIGlzIGEgbW91c2UuIFRoZSBldmVudHMgYXJl
-IGEgc2VxdWVuY2Ugb2YgbW91c2UgcmlnaHQKPiBjbGljay4KPiArICovCj4KPiAtI2luY2x1ZGUg
-PGxpbnV4L2lucHV0Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC91aW5wdXQuaD4KPgo+IC0jaW5jbHVk
-ZSAidGVzdC5oIgo+IC0jaW5jbHVkZSAic2FmZV9tYWNyb3MuaCIKPiAtI2luY2x1ZGUgImxhcGkv
-ZmNudGwuaCIKPiAtI2luY2x1ZGUgImlucHV0X2hlbHBlci5oIgo+ICsjaW5jbHVkZSAiaW5wdXRf
-Y29tbW9uLmgiCj4KPiAtI2RlZmluZSBOQl9URVNUIDEwCj4gKyNkZWZpbmUgTlVNX0VWRU5UUyAx
-MAo+ICAjZGVmaW5lIFBTMl9SSUdIVF9CVE4gMHgwMgo+ICsjZGVmaW5lIE1PVVNFX0RFViAiL2Rl
-di9pbnB1dC9taWNlIgo+Cj4gLXN0YXRpYyB2b2lkIHNldHVwKHZvaWQpOwo+IC1zdGF0aWMgdm9p
-ZCBzZW5kX2V2ZW50cyh2b2lkKTsKPiAtc3RhdGljIGludCBjaGVja19ldmVudHModm9pZCk7Cj4g
-LXN0YXRpYyB2b2lkIGNsZWFudXAodm9pZCk7Cj4gK3N0YXRpYyBpbnQgZmRfc2VuZCA9IC0xOwo+
-ICtzdGF0aWMgaW50IGZkX3JlY3YgPSAtMTsKPgo+IC1zdGF0aWMgaW50IGZkLCBmZDI7Cj4gLQo+
-IC1jaGFyICpUQ0lEID0gImlucHV0MDMiOwo+IC0KPiAtaW50IG1haW4oaW50IGFjLCBjaGFyICoq
-YXYpCj4gK3N0YXRpYyB2b2lkIHJlY3ZfZGF0YSh2b2lkKQo+ICB7Cj4gLSAgICAgICBpbnQgbGM7
-Cj4gLSAgICAgICBpbnQgcGlkOwo+IC0KPiAtICAgICAgIHRzdF9wYXJzZV9vcHRzKGFjLCBhdiwg
-TlVMTCwgTlVMTCk7Cj4gLQo+IC0gICAgICAgc2V0dXAoKTsKPiAtCj4gLSAgICAgICBmb3IgKGxj
-ID0gMDsgVEVTVF9MT09QSU5HKGxjKTsgKytsYykgewo+IC0gICAgICAgICAgICAgICBwaWQgPSB0
-c3RfZm9yaygpOwo+IC0KPiAtICAgICAgICAgICAgICAgc3dpdGNoIChwaWQpIHsKPiAtICAgICAg
-ICAgICAgICAgY2FzZSAwOgo+IC0gICAgICAgICAgICAgICAgICAgICAgIHNlbmRfZXZlbnRzKCk7
-Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgZXhpdCgwKTsKPiAtICAgICAgICAgICAgICAgY2Fz
-ZSAtMToKPiAtICAgICAgICAgICAgICAgICAgICAgICB0c3RfYnJrbShUQlJPSyB8IFRFUlJOTywg
-Y2xlYW51cCwgImZvcmsoKSBmYWlsZWQiKTsKPiAtICAgICAgICAgICAgICAgZGVmYXVsdDoKPiAt
-ICAgICAgICAgICAgICAgICAgICAgICBpZiAoY2hlY2tfZXZlbnRzKCkpCj4gLSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICB0c3RfcmVzbShURkFJTCwgIldyb25nIGRhdGEgcmVjZWl2ZWQi
-KTsKPiAtICAgICAgICAgICAgICAgICAgICAgICBlbHNlCj4gLSAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICB0c3RfcmVzbShUUEFTUywKPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIkRhdGEgcmVjZWl2ZWQgaW4KPiAvZGV2L2lucHV0L21pY2UiKTsKPiAtICAg
-ICAgICAgICAgICAgYnJlYWs7Cj4gLSAgICAgICAgICAgICAgIH0KPiAtCj4gLSAgICAgICAgICAg
-ICAgIFNBRkVfV0FJVFBJRChOVUxMLCBwaWQsIE5VTEwsIDApOwo+IC0gICAgICAgfQo+ICsgICAg
-ICAgdHN0X3JlcyhUSU5GTywgIlJlYWRpbmcgZXZlbnRzIGJhY2siKTsKPgo+IC0gICAgICAgY2xl
-YW51cCgpOwo+IC0gICAgICAgdHN0X2V4aXQoKTsKPiAtfQo+ICsgICAgICAgY2hhciBidWZbMzBd
-Owo+ICsgICAgICAgaW50IGV2ZW50cyA9IDA7Cj4gKyAgICAgICBpbnQgcHJlc3NlZCA9IDA7Cj4g
-KyAgICAgICBpbnQgbnVtX2J5dGVzID0gMDsKPgo+IC1zdGF0aWMgdm9pZCBzZXR1cCh2b2lkKQo+
-IC17Cj4gLSAgICAgICB0c3RfcmVxdWlyZV9yb290KCk7Cj4gKyAgICAgICB3aGlsZSAoZXZlbnRz
-IDwgTlVNX0VWRU5UUykgewo+ICsgICAgICAgICAgICAgICBtZW1zZXQoYnVmLCAwLCBzaXplb2Yo
-YnVmKSk7Cj4KPiAtICAgICAgIGZkID0gb3Blbl91aW5wdXQoKTsKPiArICAgICAgICAgICAgICAg
-bnVtX2J5dGVzID0gU0FGRV9SRUFEKDAsIGZkX3JlY3YsIGJ1Ziwgc2l6ZW9mKGJ1ZikpOwo+Cj4g
-LSAgICAgICBzZXR1cF9tb3VzZV9ldmVudHMoZmQpOwo+IC0gICAgICAgU0FGRV9JT0NUTChOVUxM
-LCBmZCwgVUlfU0VUX0VWQklULCBFVl9LRVkpOwo+IC0gICAgICAgU0FGRV9JT0NUTChOVUxMLCBm
-ZCwgVUlfU0VUX0tFWUJJVCwgQlROX1JJR0hUKTsKPiArICAgICAgICAgICAgICAgZm9yIChpbnQg
-aSA9IDA7IGkgPCBudW1fYnl0ZXMgLyAzOyBpKyspIHsKPiArICAgICAgICAgICAgICAgICAgICAg
-ICBpZiAoYnVmWzMqaV0gJiBQUzJfUklHSFRfQlROKQo+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcHJlc3NlZCA9IDE7Cj4KPiAtICAgICAgIGNyZWF0ZV9kZXZpY2UoZmQpOwo+ICsg
-ICAgICAgICAgICAgICAgICAgICAgIGlmIChwcmVzc2VkID09IDEgJiYgIShidWZbMyppXSAmIFBT
-Ml9SSUdIVF9CVE4pKSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcmVzc2Vk
-ID0gMDsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGV2ZW50cysrOwo+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIH0KPiArICAgICAgICAgICAgICAgfQo+ICsgICAgICAgfQo+Cj4g
-LSAgICAgICBmZDIgPSBTQUZFX09QRU4oTlVMTCwgIi9kZXYvaW5wdXQvbWljZSIsIE9fUkRPTkxZ
-KTsKPiArICAgICAgIFRTVF9FWFBfRVFfTEkoZXZlbnRzLCBOVU1fRVZFTlRTKTsKPiAgfQo+Cj4g
-LXN0YXRpYyB2b2lkIHNlbmRfZXZlbnRzKHZvaWQpCj4gK3N0YXRpYyB2b2lkIHNlbmRfbW91c2Vf
-ZXZlbnRzKHZvaWQpCj4gIHsKPiAtICAgICAgIGludCBuYjsKPiArICAgICAgIHRzdF9yZXMoVElO
-Rk8sICJTZW5kaW5nIHJpZ2h0IGNsaWNrIik7Cj4KPiAtICAgICAgIGZvciAobmIgPSAwOyBuYiA8
-IE5CX1RFU1Q7ICsrbmIpIHsKPiAtICAgICAgICAgICAgICAgc2VuZF9ldmVudChmZCwgRVZfS0VZ
-LCBCVE5fUklHSFQsIDEpOwo+IC0gICAgICAgICAgICAgICBzZW5kX2V2ZW50KGZkLCBFVl9TWU4s
-IDAsIDApOwo+ICsgICAgICAgZm9yIChpbnQgaSA9IDA7IGkgPCBOVU1fRVZFTlRTOyBpKyspIHsK
-PiArICAgICAgICAgICAgICAgc2VuZF9ldmVudChmZF9zZW5kLCBFVl9LRVksIEJUTl9SSUdIVCwg
-MSk7Cj4gKyAgICAgICAgICAgICAgIHNlbmRfZXZlbnQoZmRfc2VuZCwgRVZfU1lOLCAwLCAwKTsK
-PiAgICAgICAgICAgICAgICAgdXNsZWVwKDEwMDApOwo+IC0gICAgICAgICAgICAgICBzZW5kX2V2
-ZW50KGZkLCBFVl9LRVksIEJUTl9SSUdIVCwgMCk7Cj4gLSAgICAgICAgICAgICAgIHNlbmRfZXZl
-bnQoZmQsIEVWX1NZTiwgMCwgMCk7Cj4gKwo+ICsgICAgICAgICAgICAgICBzZW5kX2V2ZW50KGZk
-X3NlbmQsIEVWX0tFWSwgQlROX1JJR0hULCAwKTsKPiArICAgICAgICAgICAgICAgc2VuZF9ldmVu
-dChmZF9zZW5kLCBFVl9TWU4sIDAsIDApOwo+ICAgICAgICAgICAgICAgICB1c2xlZXAoMTAwMCk7
-Cj4gICAgICAgICB9Cj4gIH0KPgo+IC1zdGF0aWMgaW50IGNoZWNrX2V2ZW50cyh2b2lkKQo+ICtz
-dGF0aWMgdm9pZCBydW4odm9pZCkKPiAgewo+IC0gICAgICAgaW50IG5iLCByZCwgaSwgcHJlc3Nl
-ZCA9IDA7Cj4gLSAgICAgICBjaGFyIGJ1ZlszMF07Cj4gKyAgICAgICBpZiAoIVNBRkVfRk9SSygp
-KSB7Cj4gKyAgICAgICAgICAgICAgIHNlbmRfbW91c2VfZXZlbnRzKCk7Cj4gKyAgICAgICAgICAg
-ICAgIGV4aXQoMCk7Cj4gKyAgICAgICB9Cj4KPiAtICAgICAgIG5iID0gMDsKPiArICAgICAgIHJl
-Y3ZfZGF0YSgpOwo+CgpXZSBoYXZlIHRvIG1ha2Ugc3VyZSByZWN2X2RhdGEoKSBpcyBwZXJmb3Jt
-ZWQgZmlyc3QgdGhlbiBzZW5kaW5nIG1vdXNlCmV2ZW50cywKT3RoZXJ3aXNlLCBpdCB3aWxsIGJl
-IG1vcmUgZWFzaWx5IHN0dWNrIGhlcmUgZm9yZXZlci4KCi0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwv
-aW5wdXQvaW5wdXQwMy5jCisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvaW5wdXQvaW5wdXQwMy5jCkBA
-IC0zMSw2ICszMSw4IEBAIHN0YXRpYyB2b2lkIHJlY3ZfZGF0YSh2b2lkKQogICAgICAgIGludCBw
-cmVzc2VkID0gMDsKICAgICAgICBpbnQgbnVtX2J5dGVzID0gMDsKCisgICAgICAgVFNUX0NIRUNL
-UE9JTlRfV0FLRSgwKTsKKwogICAgICAgIHdoaWxlIChldmVudHMgPCBOVU1fRVZFTlRTKSB7CiAg
-ICAgICAgICAgICAgICBtZW1zZXQoYnVmLCAwLCBzaXplb2YoYnVmKSk7CgpAQCAtNTQsNiArNTYs
-OCBAQCBzdGF0aWMgdm9pZCBzZW5kX21vdXNlX2V2ZW50cyh2b2lkKQogewogICAgICAgIHRzdF9y
-ZXMoVElORk8sICJTZW5kaW5nIHJpZ2h0IGNsaWNrIik7CgorICAgICAgIFRTVF9DSEVDS1BPSU5U
-X1dBSVQoMCk7CisKICAgICAgICBmb3IgKGludCBpID0gMDsgaSA8IE5VTV9FVkVOVFM7IGkrKykg
-ewogICAgICAgICAgICAgICAgc2VuZF9ldmVudChmZF9zZW5kLCBFVl9LRVksIEJUTl9SSUdIVCwg
-MSk7CiAgICAgICAgICAgICAgICBzZW5kX2V2ZW50KGZkX3NlbmQsIEVWX1NZTiwgMCwgMCk7CkBA
-IC0xMDMsNSArMTA3LDYgQEAgc3RhdGljIHN0cnVjdCB0c3RfdGVzdCB0ZXN0ID0gewogICAgICAg
-IC5jbGVhbnVwID0gY2xlYW51cCwKICAgICAgICAuZm9ya3NfY2hpbGQgPSAxLAogICAgICAgIC5u
-ZWVkc19yb290ID0gMSwKKyAgICAgICAubmVlZHNfY2hlY2twb2ludHMgPSAxLAogfTsKClRoZSBy
-ZXNldCBsb29rcyBnb29kLgpSZXZpZXdlZC1ieTogTGkgV2FuZyA8bGl3YW5nQHJlZGhhdC5jb20+
-CgoKLS0gClJlZ2FyZHMsCkxpIFdhbmcKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9s
-aXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Hi!
+> Myself Akshay from Alif Semiconductor working on LTP(Linux Test
+> Project).I am using
+> environment-setup-cortexa32hf-neon-poky-linux-musleabi (Musl C) for
+> our target board.  I wanted to enquire how to test LTP on Arm 32
+> architecture(board architecture).We are using linux kernel 5.4.25 to
+> deploy onto the target hardware.
+
+Most of LTP should work fine on 32bit arm. We we do run 32bit LTP on
+64bit kernel at least for x86, so there shouldn't be that much 32bit
+related problems. There may be stil few arm related or Musl related test
+failures though.
+
+> Also wanted to enquire if musl C (above toolchain) is fully supported
+> as I checked onto the documentation link of Linux Test Project(Its not
+> yet fully supported)
+
+The documentation links to a ci/alpine.sh script that lists four tests
+that are not supported on Musl (does not compile) and skipped in our CI.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
