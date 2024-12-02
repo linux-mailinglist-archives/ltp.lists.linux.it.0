@@ -1,103 +1,108 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A51C09E0390
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Dec 2024 14:34:19 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C1FF9E039F
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Dec 2024 14:36:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 337293CE808
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Dec 2024 14:34:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DA2943DD3D0
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Dec 2024 14:36:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DE0CD3DD053
- for <ltp@lists.linux.it>; Mon,  2 Dec 2024 02:16:48 +0100 (CET)
-Authentication-Results: in-3.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=xiubli@redhat.com;
- receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id 9F74B3DD2F5
+ for <ltp@lists.linux.it>; Mon,  2 Dec 2024 14:36:21 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C71C11BC09C1
- for <ltp@lists.linux.it>; Mon,  2 Dec 2024 02:16:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733102206;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CBB57140FBD3
+ for <ltp@lists.linux.it>; Mon,  2 Dec 2024 14:36:19 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D21A421175;
+ Mon,  2 Dec 2024 13:36:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1733146579; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8/6MnNg5l3sSP+EaErq6fiK52g1SIbAbRkJqLczW120=;
- b=NqABEkSsv1uKeV7CF4xNzzNPBLfAcAhiZBZl5uhVx3pKEVFaGvDyBfXLBj28XoDBKSh6cE
- oZtJ/wmPJtqmkN+BB5Db1QmThI/iJ/WBbmIK0f6OXJeeGp1ZOYAirNjW+8p0UsEiF4acwB
- 7d7NUaJ6v4i7N1LyzWEFiaBfMCKwwuI=
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-252-wkPITwrkO1imVGImsyRmwA-1; Sun, 01 Dec 2024 20:16:45 -0500
-X-MC-Unique: wkPITwrkO1imVGImsyRmwA-1
-X-Mimecast-MFC-AGG-ID: wkPITwrkO1imVGImsyRmwA
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-215609eed66so11321335ad.3
- for <ltp@lists.linux.it>; Sun, 01 Dec 2024 17:16:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733102202; x=1733707002;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8/6MnNg5l3sSP+EaErq6fiK52g1SIbAbRkJqLczW120=;
- b=nYo/tj7LEKRcRKmCehB1KzT56/VfU38XTjlNDQtGY/h/eBPzDj6TS1FqPmjF2wQtWG
- Vg4PQ0Q9Yb/7vgaY4HfNLax7QzNiHQrc8/0G0dXw3aQHiX+L9nQFz4W0H13tUl3IVFCK
- z7qjOOsL3JJbWDAH25zdTG/pS5okAQARC+fBR5BIBfwduLUtz8w8T/9gejThE19z/SQ9
- FQcDIbzSMRZgHUzM6L5WNbc1ecnO2M0tz1GY7uS69vMzfqfOT7+3r2oyw4yK5OkYxHFt
- MU3a0FTFL4IBpTgvYCD1NsSICNXCSNV9mypgza0aQyxkzRNHBMskRn/xL/NGmDSIik7R
- ucWA==
-X-Gm-Message-State: AOJu0YzhzeV4TWqF2/9tdJ+wEF9Lp/qyeLNMHVLvVBiUj3cn04DI81xd
- 0aKK9FEW9mx53kgYbp4biBIzZ/ynKd8fZ5ksR+jANb14z1+wuOlMYx/IJ7nTMyZHo9durMc0emP
- /aPv3QOl1OAlJ0t9yWwONeuJ7sqDFDI/1QX2eeztHBbH7ju0dUGfvWkq3IdEE2lFRDHBs1WpQzE
- GHzFxd8TGHIQf2MP2jfNmL4oCxbb8uLg==
-X-Gm-Gg: ASbGncuU+UjBwFmBZnkbpALxLZ7G9wRpgkt6NxjHVcoQuzkBacadK3rl+fAZatcNmv6
- yAbkMFzFU2iGuIc4Xg46ZxakgklN5R6eottOqjsott5PHvppyb0zA3QRKBfK31ZGHWu4LdnYq0C
- 8Hl0xiFKsSIUmQO+Hu0n3RO0hkjyJkjnbnYoPMXII/pex3mn2Mbr+Uz49E5zNI/MoNJ5YaKbfxD
- 94e2zQKzDzDMqxt8ToXn+mJFExshcxDIW7SMjO2UAdB71OIGtQ=
-X-Received: by 2002:a17:902:ce05:b0:215:9ea1:e95e with SMTP id
- d9443c01a7336-2159ea1f165mr10346645ad.13.1733102202418; 
- Sun, 01 Dec 2024 17:16:42 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHdo1IRK4QsahuSkUap52DApEedDEzSlALQzgg+guZJqRNIEVNXJK75esVMQ+fkKQEkeL4deA==
-X-Received: by 2002:a17:902:ce05:b0:215:9ea1:e95e with SMTP id
- d9443c01a7336-2159ea1f165mr10346265ad.13.1733102202025; 
- Sun, 01 Dec 2024 17:16:42 -0800 (PST)
-Received: from [10.72.112.98] ([43.228.180.230])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-21566738ea7sm27004195ad.31.2024.12.01.17.16.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 01 Dec 2024 17:16:41 -0800 (PST)
-Message-ID: <bd3640a6-c2ac-4ede-a00e-a92e7c7910d1@redhat.com>
-Date: Mon, 2 Dec 2024 09:16:31 +0800
+ bh=W2TdmFco01BeDwftSq3BLWXddYdaOwqRbhohesYHKds=;
+ b=RZ8YeOCBbgtGm6+cfhAl9MZFTAFI+iU4Xvv65JEZ/hdVqrFwkJK3Ci/fK4DCn/x1YAK7S5
+ TOfCxzUSOfooiMXD5TOJS0cODDvYczz6gU5sHJdtofzHcGYFFGT0WR9C9MpMdLsiyPVvKZ
+ u6VqpG20GlIf8EeodgeVi0uwJZ0eYNQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1733146579;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=W2TdmFco01BeDwftSq3BLWXddYdaOwqRbhohesYHKds=;
+ b=GUUmWvSLYCdj/As8FQkYIz0Txh7bGyI7t/8eKEeOtM5V6q4SwC/xGI442DyshuC5fyEDsJ
+ RpxshSWiZvN9McAw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1733146576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=W2TdmFco01BeDwftSq3BLWXddYdaOwqRbhohesYHKds=;
+ b=tzwQcI8MyCz59DmBiZ0AlnZhbZAZOHHPzDM3bDLyZRzIxzE8+TSK7fI99Jwi56VG/xQdkn
+ loXRbbB+9j4hJLJLk1bBTWfaXuz8GZdNtiDjHT54ChS04v8eEHBjdLUWSnbSPBY6efQog1
+ lfx05xYqZK8ZczLirWls0spKDaTY1lU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1733146576;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=W2TdmFco01BeDwftSq3BLWXddYdaOwqRbhohesYHKds=;
+ b=Nb1efb/x5Iq0/+E/zxrJAmQ+i/9Y7RZprvL2fOdlHUSPOa04p/rqqw5wKpgd8lPZDTnWeM
+ ATSOjuSo6X/SdLCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C0C9B139C2;
+ Mon,  2 Dec 2024 13:36:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id HJQALdC3TWfUDQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Mon, 02 Dec 2024 13:36:16 +0000
+Date: Mon, 2 Dec 2024 14:36:31 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Zorro Lang <zlang@kernel.org>
+Message-ID: <Z02337yqxrfeZxIn@yuki.lan>
+References: <20241201093606.68993-1-zlang@kernel.org>
+ <20241201093606.68993-2-zlang@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: ltp@lists.linux.it
-References: <20241202010012.1266775-1-xiubli@redhat.com>
-From: Xiubo Li <xiubli@redhat.com>
-In-Reply-To: <20241202010012.1266775-1-xiubli@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: -ACHzdQiSFFDaJ_UHekYSdYJzTnytdpdBiTRmxwQjH4_1733102202
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <20241201093606.68993-2-zlang@kernel.org>
+X-Spam-Score: -8.30
+X-Spamd-Result: default: False [-8.30 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; MISSING_XM_UA(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Mon, 02 Dec 2024 14:31:52 +0100
-Subject: Re: [LTP] [PATCH v2] doc: correct the build steps for
- open_posix_testsuite
+Subject: Re: [LTP] [PATCH 1/3] ioctl_ficlone02.c: set all_filesystems to zero
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,43 +114,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-integrity@vger.kernel.org
+Cc: linux-btrfs@vger.kernel.org, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Please ignore this.
+Hi!
+> This test need to skip test known filesystems, but according to below
+> code logic (in lib/tst_test.c):
+> 
+>   if (!tst_test->all_filesystems && tst_test->skip_filesystems) {
+>         long fs_type = tst_fs_type(".");
+>         const char *fs_name = tst_fs_type_name(fs_type);
+> 
+>         if (tst_fs_in_skiplist(fs_name, tst_test->skip_filesystems)) {
+>             tst_brk(TCONF, "%s is not supported by the test",
+>             fs_name);
+>         }
+>
+>         tst_res(TINFO, "%s is supported by the test", fs_name);
+>   }
+> 
+> if all_filesystems is 1, the skip_filesystems doesn't work. So set
+> all_filesystems to 0.
 
-Thanks.
+The code to skip filesystems in the case of all filesystems is in the
+run_tcase_per_fs() function:
 
-On 12/2/24 09:00, xiubli@redhat.com wrote:
-> From: Xiubo Li <xiubli@redhat.com>
->
-> './configure' is needed just before generating the Makefiles.
->
-> Signed-off-by: Xiubo Li <xiubli@redhat.com>
-> ---
->
-> V2:
-> - a minor fixing about the order, thanks Cyril.
->
->   doc/users/quick_start.rst | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/doc/users/quick_start.rst b/doc/users/quick_start.rst
-> index 1581b1f0c..598a95e2a 100644
-> --- a/doc/users/quick_start.rst
-> +++ b/doc/users/quick_start.rst
-> @@ -53,6 +53,7 @@ generated first:
->   
->   .. code-block:: console
->   
-> +   $ ./configure
->      $ cd testcases/open_posix_testsuite/
->      $ make generate-makefiles
->      $ cd conformance/interfaces/foo
+static int run_tcases_per_fs(void)
+{
+        int ret = 0;
+        unsigned int i;
+        const char *const *filesystems = tst_get_supported_fs_types(tst_test->skip_filesystems);
 
+The skip_filesystems array is passed to the tst_get_supporte_fs_types()
+function which filters out them.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
