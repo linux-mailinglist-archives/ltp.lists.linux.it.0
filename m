@@ -2,127 +2,120 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AD629E1DAD
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 14:36:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F7169E1DB6
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 14:37:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2039C3DE0BA
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 14:36:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 647DB3DE0C3
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 14:37:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E64C63DE094
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 14:36:46 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 601D33DE0C0
+ for <ltp@lists.linux.it>; Tue,  3 Dec 2024 14:36:47 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E53EF67E24C
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 14:36:45 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6792511E551C
+ for <ltp@lists.linux.it>; Tue,  3 Dec 2024 14:36:47 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 858631F453
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 13:36:44 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 44C202116D
+ for <ltp@lists.linux.it>; Tue,  3 Dec 2024 13:36:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1733233004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1733233006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lLSirjAbEYMZXCmUNi95rixxB7rG24N7n0PEby1Ha5g=;
- b=zx1/W3MpKcUQtC0HVDBq2QUAr14hJmXlQVvkt4wzmmL6FyYBYyRk7quQKSZO/QoNPkJ6RK
- uWzJvS3Fk2n3a+tuyHrlWVcl37Tcn5I1vERgyxFxN3UUkoa4OGVIs8gJ4kjaZoRmE4oYHX
- s2h8oKAUOW+8Bjkwz4izMqIvdhxmGKc=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vTX/nS0yeDFC5CeZ8bgm8DuLKijPoTYTrpo6dciPl0I=;
+ b=rymTXwB9RTJmaF9mUqKYy8Fuad8x15vRpgW9F23KaVEdEjk+u8SoyCbMf5WT3BEnJ1DEpc
+ iDlc8/ZUvyZIPeiuyLzgoqirOyYBo+FUFcHNMpbAzf3PSlq+X3o9zNCTsrC9eKQeu6ak9b
+ r5furw5k5IcRS/RF+LMmJ2in7p+CUqE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1733233004;
+ s=susede2_ed25519; t=1733233006;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lLSirjAbEYMZXCmUNi95rixxB7rG24N7n0PEby1Ha5g=;
- b=gy8Ik0B62Ypd9bRsT1vfjHasA/IqpP1K3dzcPbRbqMsdkYOBfyMg5MrvBvHhvqfADNlH0k
- Fyx+S+LyEJVQ+8AQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="zx1/W3Mp";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=gy8Ik0B6
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vTX/nS0yeDFC5CeZ8bgm8DuLKijPoTYTrpo6dciPl0I=;
+ b=leQS98YRnQRSf0wKySuebcdHSxKcGzwtO6/WJrL/+deBlbtpOJMrkPCe9o0Tuoyn8nJLAX
+ +IBXBEm70PBm7oAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1733233004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1733233006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lLSirjAbEYMZXCmUNi95rixxB7rG24N7n0PEby1Ha5g=;
- b=zx1/W3MpKcUQtC0HVDBq2QUAr14hJmXlQVvkt4wzmmL6FyYBYyRk7quQKSZO/QoNPkJ6RK
- uWzJvS3Fk2n3a+tuyHrlWVcl37Tcn5I1vERgyxFxN3UUkoa4OGVIs8gJ4kjaZoRmE4oYHX
- s2h8oKAUOW+8Bjkwz4izMqIvdhxmGKc=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vTX/nS0yeDFC5CeZ8bgm8DuLKijPoTYTrpo6dciPl0I=;
+ b=rymTXwB9RTJmaF9mUqKYy8Fuad8x15vRpgW9F23KaVEdEjk+u8SoyCbMf5WT3BEnJ1DEpc
+ iDlc8/ZUvyZIPeiuyLzgoqirOyYBo+FUFcHNMpbAzf3PSlq+X3o9zNCTsrC9eKQeu6ak9b
+ r5furw5k5IcRS/RF+LMmJ2in7p+CUqE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1733233004;
+ s=susede2_ed25519; t=1733233006;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lLSirjAbEYMZXCmUNi95rixxB7rG24N7n0PEby1Ha5g=;
- b=gy8Ik0B62Ypd9bRsT1vfjHasA/IqpP1K3dzcPbRbqMsdkYOBfyMg5MrvBvHhvqfADNlH0k
- Fyx+S+LyEJVQ+8AQ==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vTX/nS0yeDFC5CeZ8bgm8DuLKijPoTYTrpo6dciPl0I=;
+ b=leQS98YRnQRSf0wKySuebcdHSxKcGzwtO6/WJrL/+deBlbtpOJMrkPCe9o0Tuoyn8nJLAX
+ +IBXBEm70PBm7oAA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3518813A15
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 13:36:44 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C2E4213A15
+ for <ltp@lists.linux.it>; Tue,  3 Dec 2024 13:36:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id csclC2wJT2fbIgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yEGlLW0JT2fbIgAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>)
- for <ltp@lists.linux.it>; Tue, 03 Dec 2024 13:36:44 +0000
+ for <ltp@lists.linux.it>; Tue, 03 Dec 2024 13:36:45 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Tue, 03 Dec 2024 14:36:35 +0100
-Message-Id: <20241203-madvise_guard_install-v1-0-c0485abbfc73@suse.com>
+Date: Tue, 03 Dec 2024 14:36:36 +0100
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAGMJT2cC/x2MQQqAIBAAvxJ7TlAzqL4SEUuutlAWWhFEf086D
- szMA4kiU4KueCDSxYm3kEGVBUwzBk+CbWbQUhulZSVWtNmi0Z8Y7cghHbgswpnW1cZVDRoFud0
- jOb7/bz+87wexaZ3pZwAAAA==
-X-Change-ID: 20241203-madvise_guard_install-f49f54f38a41
+Message-Id: <20241203-madvise_guard_install-v1-1-c0485abbfc73@suse.com>
+References: <20241203-madvise_guard_install-v1-0-c0485abbfc73@suse.com>
+In-Reply-To: <20241203-madvise_guard_install-v1-0-c0485abbfc73@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1733233004; l=1028;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1733233004; l=637;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=3YogPXDIBtP3m571e5qMdZRGgrh0a4b5/a7bCuWSpO4=;
- b=/wenHbFJxtLllvl0B20z/nsveAoDX7i9319tES7ei2a+woXJcCFzIhU27j0mKvIHornx7B3lI
- zSR6Dfwp8HZDuG3oIHFi7HpX+A1Pw8M35Qjpr7Xq2c1H1rlROVHM9VT
+ bh=L2S9YhIv97Kzy9Y+qRqKRWcxvvbL5NVx0UQA5xRfU1c=;
+ b=RiMaqJSQHXfogys7VaWi8uaoggHiuhqy6O/FB2iGA/JM5BW1BUAJdIPdER0UDfMXJAJVQZs9n
+ 45w/yUOAnluAQmLHQepZgmOSnkaY+WlN8ualYaVWuwwRsfirNmJuvqk
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: 858631F453
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+X-Spam-Score: -4.30
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:email,suse.com:mid];
- MIME_TRACE(0.00)[0:+];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU]; ARC_NA(0.00)[];
- RCVD_TLS_ALL(0.00)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_ONE(0.00)[1]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FROM_HAS_DN(0.00)[];
  PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
+ FROM_EQ_ENVFROM(0.00)[]; TO_DN_NONE(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; MIME_TRACE(0.00)[0:+]
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 0/2] Coverage for MADV_GUARD_* features
+Subject: [LTP] [PATCH 1/2] Fallback for MADV_GUARD_* definitions
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,34 +132,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Kernel 6.13 has introduced a new feature for madvise() which causes
-SIGSEGV when a memory advised with MADV_GUARD_INSTALL has been used.
-To release memory, MADV_GUARD_REMOVE must be used.
-
-This patch series adds coverage for both MADV_GUARD_INSTALL and
-MADV_GUARD_REMOVE in madvise12.
-
-More information at:
-https://lore.kernel.org/linux-ia64/20240430100902.iwmeszr2jzv4wyo7@quack3/T/
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-Andrea Cervesato (2):
-      Fallback for MADV_GUARD_* definitions
-      Add madvise12 test
+ include/lapi/mmap.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
- include/lapi/mmap.h                           |   8 ++
- runtest/syscalls                              |   1 +
- testcases/kernel/syscalls/madvise/.gitignore  |   1 +
- testcases/kernel/syscalls/madvise/madvise12.c | 102 ++++++++++++++++++++++++++
- 4 files changed, 112 insertions(+)
----
-base-commit: 5c108380e95266cd747b81a6c051b5b10be29352
-change-id: 20241203-madvise_guard_install-f49f54f38a41
+diff --git a/include/lapi/mmap.h b/include/lapi/mmap.h
+index 7512e9f812a065e5485e042ef0eadd1a05e6b63c..ea9730586234eb0ab4d38ba7450a1e3a30dd49b9 100644
+--- a/include/lapi/mmap.h
++++ b/include/lapi/mmap.h
+@@ -38,6 +38,14 @@
+ # define MADV_SOFT_OFFLINE 101
+ #endif
+ 
++#ifndef MADV_GUARD_INSTALL
++# define MADV_GUARD_INSTALL 102
++#endif
++
++#ifndef MADV_GUARD_REMOVE
++# define MADV_GUARD_REMOVE 103
++#endif
++
+ #ifndef MADV_MERGEABLE
+ # define MADV_MERGEABLE   12
+ #endif
 
-Best regards,
 -- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+2.43.0
 
 
 -- 
