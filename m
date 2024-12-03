@@ -1,114 +1,127 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD8559E218E
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 16:15:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 571019E21A4
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 16:16:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 861BC3DE2FB
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 16:15:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 059193DE308
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 16:16:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0DA663DE2BE
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 16:15:21 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 5048D3DE306
+ for <ltp@lists.linux.it>; Tue,  3 Dec 2024 16:15:30 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EF29066FD9E
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 16:15:20 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DAB55231817
+ for <ltp@lists.linux.it>; Tue,  3 Dec 2024 16:15:29 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 153A01F445
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 15:15:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 80CC9210F6
+ for <ltp@lists.linux.it>; Tue,  3 Dec 2024 15:15:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1733238920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1733238928; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kBAace4V3ZWzoOGHlrX8t30mXrSXiRiyxCqVzZRPJqU=;
- b=QSfttG7k2iqxWhimpXJmH9dm8RkOU9Do9kVSpQ0ZZt8SSPuFhwm4khTGFD+OGlCaLyHTlC
- xOuMF6pqG9JZEB8nqpYeNhsE0lq58xs7XhzGFjtMRzOGDOfCGBNE85REkJxsNK5NMTDulF
- iIyLAM2wS2SgKgJ3xvR4fmi3zYMC3Ig=
+ bh=IaguDI3fwH1HmXGXIZVeUjhDGc94CZDIE3Z5jol8uQY=;
+ b=wR7TDRElGk7a1uJwO1KXRtY2EqkA55nGEYwGlDaE0MmNjC1PyqH5mtHyITgB9nq318VwLG
+ Aa4w5KuVsCWAbbVIJQTL6dHEr7hu7ToTOWkcNBD/lbO/wxviSfPyXY0stPOiIDn6stf32D
+ IdvexWN4RJb/lMIlI1k/KIQVgAtmRxM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1733238920;
+ s=susede2_ed25519; t=1733238928;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kBAace4V3ZWzoOGHlrX8t30mXrSXiRiyxCqVzZRPJqU=;
- b=DrVOyxs+soibAVUw1uOfau0/t2MvQPwFbs8EXE/2JotXp9MKMlY3pQ8nIRnPLah8uXct75
- 0XFo9nTvuuMVdjDw==
-Authentication-Results: smtp-out2.suse.de;
-	none
+ bh=IaguDI3fwH1HmXGXIZVeUjhDGc94CZDIE3Z5jol8uQY=;
+ b=dLF9jcyhgQvt/hOEyqaZW8+IAwnCRGUu+saUwzGbQ4uavzxjSvCBP4UGqhI4CIIOKrDCCz
+ i7QMu1vUipbz4CDQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=wR7TDREl;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=dLF9jcyh
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1733238920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1733238928; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kBAace4V3ZWzoOGHlrX8t30mXrSXiRiyxCqVzZRPJqU=;
- b=QSfttG7k2iqxWhimpXJmH9dm8RkOU9Do9kVSpQ0ZZt8SSPuFhwm4khTGFD+OGlCaLyHTlC
- xOuMF6pqG9JZEB8nqpYeNhsE0lq58xs7XhzGFjtMRzOGDOfCGBNE85REkJxsNK5NMTDulF
- iIyLAM2wS2SgKgJ3xvR4fmi3zYMC3Ig=
+ bh=IaguDI3fwH1HmXGXIZVeUjhDGc94CZDIE3Z5jol8uQY=;
+ b=wR7TDRElGk7a1uJwO1KXRtY2EqkA55nGEYwGlDaE0MmNjC1PyqH5mtHyITgB9nq318VwLG
+ Aa4w5KuVsCWAbbVIJQTL6dHEr7hu7ToTOWkcNBD/lbO/wxviSfPyXY0stPOiIDn6stf32D
+ IdvexWN4RJb/lMIlI1k/KIQVgAtmRxM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1733238920;
+ s=susede2_ed25519; t=1733238928;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kBAace4V3ZWzoOGHlrX8t30mXrSXiRiyxCqVzZRPJqU=;
- b=DrVOyxs+soibAVUw1uOfau0/t2MvQPwFbs8EXE/2JotXp9MKMlY3pQ8nIRnPLah8uXct75
- 0XFo9nTvuuMVdjDw==
+ bh=IaguDI3fwH1HmXGXIZVeUjhDGc94CZDIE3Z5jol8uQY=;
+ b=dLF9jcyhgQvt/hOEyqaZW8+IAwnCRGUu+saUwzGbQ4uavzxjSvCBP4UGqhI4CIIOKrDCCz
+ i7QMu1vUipbz4CDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0258B13A2E
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 15:15:19 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6FD54139C2
+ for <ltp@lists.linux.it>; Tue,  3 Dec 2024 15:15:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 5h8YO4cgT2eiQwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id HaFSGpAgT2erQwAAD6G6ig
  (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Tue, 03 Dec 2024 15:15:19 +0000
+ for <ltp@lists.linux.it>; Tue, 03 Dec 2024 15:15:28 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  3 Dec 2024 16:15:26 +0100
-Message-ID: <20241203151530.16882-2-chrubis@suse.cz>
+Date: Tue,  3 Dec 2024 16:15:27 +0100
+Message-ID: <20241203151530.16882-3-chrubis@suse.cz>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241203151530.16882-1-chrubis@suse.cz>
 References: <20241203151530.16882-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: -2.80
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Queue-Id: 80CC9210F6
+X-Spam-Score: -3.01
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
- ARC_NA(0.00)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ SUBJECT_HAS_EXCLAIM(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[]; RCPT_COUNT_ONE(0.00)[1]; MIME_TRACE(0.00)[0:+];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
  PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
- RCVD_TLS_ALL(0.00)[]
+ TO_DN_NONE(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.cz:+];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/5] tst_run_shell: Add save_restore parser
+Subject: [LTP] [PATCH 2/5] libs/ujson: Fix "Garbage after JSON string!" in
+ strict mode
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,115 +138,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+In strict mode warnings are converted into errors and filled into the
+error buffer rather than being printed right away. That means that we
+have to print error buffer after we issue a warning so that it's printed
+in the strict mode (UJSON_READER_STRICT) as well.
+
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/lib/tst_run_shell.c | 72 +++++++++++++++++++++++++++++++++++
- 1 file changed, 72 insertions(+)
+ libs/ujson/ujson_reader.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/testcases/lib/tst_run_shell.c b/testcases/lib/tst_run_shell.c
-index 95cac0d60..836e01f18 100644
---- a/testcases/lib/tst_run_shell.c
-+++ b/testcases/lib/tst_run_shell.c
-@@ -74,6 +74,7 @@ enum test_attr_ids {
- 	NEEDS_ROOT,
- 	NEEDS_TMPDIR,
- 	RESTORE_WALLCLOCK,
-+	SAVE_RESTORE,
- 	SKIP_FILESYSTEMS,
- 	SKIP_IN_COMPAT,
- 	SKIP_IN_LOCKDOWN,
-@@ -106,6 +107,7 @@ static ujson_obj_attr test_attrs[] = {
- 	UJSON_OBJ_ATTR_IDX(NEEDS_ROOT, "needs_root", UJSON_BOOL),
- 	UJSON_OBJ_ATTR_IDX(NEEDS_TMPDIR, "needs_tmpdir", UJSON_BOOL),
- 	UJSON_OBJ_ATTR_IDX(RESTORE_WALLCLOCK, "restore_wallclock", UJSON_BOOL),
-+	UJSON_OBJ_ATTR_IDX(SAVE_RESTORE, "save_restore", UJSON_ARR),
- 	UJSON_OBJ_ATTR_IDX(SKIP_FILESYSTEMS, "skip_filesystems", UJSON_ARR),
- 	UJSON_OBJ_ATTR_IDX(SKIP_IN_COMPAT, "skip_in_compat", UJSON_BOOL),
- 	UJSON_OBJ_ATTR_IDX(SKIP_IN_LOCKDOWN, "skip_in_lockdown", UJSON_BOOL),
-@@ -299,6 +301,73 @@ static struct tst_tag *parse_tags(ujson_reader *reader, ujson_val *val)
- 	return ret;
+diff --git a/libs/ujson/ujson_reader.c b/libs/ujson/ujson_reader.c
+index d508f00d3..9f86f25b7 100644
+--- a/libs/ujson/ujson_reader.c
++++ b/libs/ujson/ujson_reader.c
+@@ -1049,8 +1049,12 @@ void ujson_reader_finish(ujson_reader *self)
+ {
+ 	if (ujson_reader_err(self))
+ 		ujson_err_print(self);
+-	else if (!ujson_reader_consumed(self))
++	else if (!ujson_reader_consumed(self)) {
+ 		ujson_warn(self, "Garbage after JSON string!");
++
++		if (ujson_reader_err(self))
++			ujson_err_print(self);
++	}
  }
  
-+static struct tst_path_val *parse_save_restore(ujson_reader *reader, ujson_val *val)
-+{
-+	unsigned int i = 0, cnt = 0;
-+	struct tst_path_val *ret;
-+
-+	ujson_reader_state state = ujson_reader_state_save(reader);
-+
-+	UJSON_ARR_FOREACH(reader, val) {
-+		if (val->type != UJSON_ARR) {
-+			ujson_err(reader, "Expected array!");
-+			return NULL;
-+		}
-+		ujson_arr_skip(reader);
-+		cnt++;
-+	}
-+
-+	ujson_reader_state_load(reader, state);
-+
-+	ret = SAFE_MALLOC(sizeof(struct tst_path_val) * (cnt + 1));
-+	memset(&ret[cnt], 0, sizeof(ret[cnt]));
-+
-+	UJSON_ARR_FOREACH(reader, val) {
-+		char *path = NULL;
-+		int flags_set = 0;
-+		unsigned int flags = 0;
-+
-+		UJSON_ARR_FOREACH(reader, val) {
-+			if (val->type != UJSON_STR) {
-+				ujson_err(reader, "Expected string!");
-+				return NULL;
-+			}
-+
-+			if (!path) {
-+				path = strdup(val->val_str);
-+			} else if (!flags_set) {
-+				if (!strcmp(val->val_str, "TCONF")) {
-+					flags = TST_SR_TCONF;
-+				} else if (!strcmp(val->val_str, "TBROK")) {
-+					flags = TST_SR_TBROK;
-+				} else if (!strcmp(val->val_str, "SKIP")) {
-+					flags = TST_SR_SKIP;
-+				} else {
-+					ujson_err(reader, "Invalid flags!");
-+					return NULL;
-+				}
-+
-+				flags_set = 1;
-+			} else {
-+				ujson_err(reader, "Expected only two members!");
-+				return NULL;
-+			}
-+		}
-+
-+		if (!path || !flags_set) {
-+			ujson_err(reader, "Expected [\"/{proc,sys}/path\", {\"TCONF\", \"TBROK\", \"TSKIP\"}]!");
-+			return NULL;
-+		}
-+
-+		ret[i].path = path;
-+		ret[i].val = NULL;
-+		ret[i].flags = flags;
-+		i++;
-+	}
-+
-+	return ret;
-+}
-+
- static void parse_metadata(void)
- {
- 	ujson_reader reader = UJSON_READER_INIT(metadata, metadata_used, UJSON_READER_STRICT);
-@@ -385,6 +454,9 @@ static void parse_metadata(void)
- 		case RESTORE_WALLCLOCK:
- 			test.restore_wallclock = val.val_bool;
- 		break;
-+		case SAVE_RESTORE:
-+			test.save_restore = parse_save_restore(&reader, &val);
-+		break;
- 		case SKIP_FILESYSTEMS:
- 			test.skip_filesystems = parse_strarr(&reader, &val);
- 		break;
+ void ujson_reader_free(ujson_reader *buf)
 -- 
 2.45.2
 
