@@ -2,128 +2,112 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 666F89E1DB3
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 14:37:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27F109E1DE4
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 14:43:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1CF743DE0C5
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 14:37:06 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E373D3DE0C2
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Dec 2024 14:42:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E2DF53DE0BA
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 14:36:47 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 404E73DE063
+ for <ltp@lists.linux.it>; Tue,  3 Dec 2024 14:42:58 +0100 (CET)
 Authentication-Results: in-3.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 77E991A0D2F7
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 14:36:47 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A2AE01A0D2F7
+ for <ltp@lists.linux.it>; Tue,  3 Dec 2024 14:42:57 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 07DFA1F45E
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 13:36:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1733233007; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 314BB2116D;
+ Tue,  3 Dec 2024 13:42:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1733233376;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=M+U5RJVIqFwZWD12oJEmRUhCdLb4Rz2bAhslQHFoCQM=;
- b=KR+RYWPKoedyaFyODqMtLBKoXVAag9eOiomADdQIkw9VhIs/N7gqmTnxF3cPLbiw7vTaQs
- GhSg9RJh1uKnnCHYzsZ/o0Fsv+j/ZatPOKofUu5QYwLV6xcShrTu+KCpYlq2kcxJ2MSjOB
- bacCk+BQC+rwd9B1TUXdEeJkz97Fg1E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1733233007;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ bh=0WKLS7sU+/rp9/vz9VqjkLY/DNsvBPjdZuvR2yW9rQM=;
+ b=eWsoigwAAWo4F+eXTojbRzuXtQ2NVp3VBN+P09q18jFEGAlTTuFyljI+xR1m23p32BvRQK
+ dqG5QpbP7pPP3JMBzEXWeFDU+hs8WCoE9dFx3GrhaVhgRtRkyhSnCxxk7GERbDh7elPKXF
+ ndP75oOPgZYaCp53f+BV4o0aCOQ/FHA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1733233376;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=M+U5RJVIqFwZWD12oJEmRUhCdLb4Rz2bAhslQHFoCQM=;
- b=/HQ3DPM/r56hc1Ch6mNaJgoGycULVDxCq0IhiHGZflvsVBPN1G9wlUGVDC7A4fal2c7hut
- UB5IJh6tRB5+Q4Ag==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KR+RYWPK;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="/HQ3DPM/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1733233007; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ bh=0WKLS7sU+/rp9/vz9VqjkLY/DNsvBPjdZuvR2yW9rQM=;
+ b=Qqczmw6+fjI5DzLKQ8mMeC+/lF0ZV0tMCURhkdRIqiQW96YKNYF9xg32GSTPX9JGdMpfVc
+ a2qXKL/aFMgRb9Dg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1733233376;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=M+U5RJVIqFwZWD12oJEmRUhCdLb4Rz2bAhslQHFoCQM=;
- b=KR+RYWPKoedyaFyODqMtLBKoXVAag9eOiomADdQIkw9VhIs/N7gqmTnxF3cPLbiw7vTaQs
- GhSg9RJh1uKnnCHYzsZ/o0Fsv+j/ZatPOKofUu5QYwLV6xcShrTu+KCpYlq2kcxJ2MSjOB
- bacCk+BQC+rwd9B1TUXdEeJkz97Fg1E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1733233007;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ bh=0WKLS7sU+/rp9/vz9VqjkLY/DNsvBPjdZuvR2yW9rQM=;
+ b=eWsoigwAAWo4F+eXTojbRzuXtQ2NVp3VBN+P09q18jFEGAlTTuFyljI+xR1m23p32BvRQK
+ dqG5QpbP7pPP3JMBzEXWeFDU+hs8WCoE9dFx3GrhaVhgRtRkyhSnCxxk7GERbDh7elPKXF
+ ndP75oOPgZYaCp53f+BV4o0aCOQ/FHA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1733233376;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=M+U5RJVIqFwZWD12oJEmRUhCdLb4Rz2bAhslQHFoCQM=;
- b=/HQ3DPM/r56hc1Ch6mNaJgoGycULVDxCq0IhiHGZflvsVBPN1G9wlUGVDC7A4fal2c7hut
- UB5IJh6tRB5+Q4Ag==
+ bh=0WKLS7sU+/rp9/vz9VqjkLY/DNsvBPjdZuvR2yW9rQM=;
+ b=Qqczmw6+fjI5DzLKQ8mMeC+/lF0ZV0tMCURhkdRIqiQW96YKNYF9xg32GSTPX9JGdMpfVc
+ a2qXKL/aFMgRb9Dg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E7FA913A15
- for <ltp@lists.linux.it>; Tue,  3 Dec 2024 13:36:46 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0198513A15;
+ Tue,  3 Dec 2024 13:42:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 0E65Nm4JT2fbIgAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>)
- for <ltp@lists.linux.it>; Tue, 03 Dec 2024 13:36:46 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Tue, 03 Dec 2024 14:36:37 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id EasHOt8KT2fkJAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Tue, 03 Dec 2024 13:42:55 +0000
+Date: Tue, 3 Dec 2024 14:42:48 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20241203134248.GA462334@pevik>
+References: <20241112233554.280518-1-pvorel@suse.cz>
+ <20241112233554.280518-2-pvorel@suse.cz>
+ <Z08CmGicxMbZMX8n@yuki.lan>
 MIME-Version: 1.0
-Message-Id: <20241203-madvise_guard_install-v1-2-c0485abbfc73@suse.com>
-References: <20241203-madvise_guard_install-v1-0-c0485abbfc73@suse.com>
-In-Reply-To: <20241203-madvise_guard_install-v1-0-c0485abbfc73@suse.com>
-To: ltp@lists.linux.it
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1733233004; l=3817;
- i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=s22ytwC5nmhKK99Y3cEz5llT1dJfb+WZxjgpi9ymCF0=;
- b=aeh+S1hexywtagCW127hT/8t1SowQpJBMRd6w0A79pDJt8j3z7zVA5BI25qsTC5BwAWpgGUBk
- gs3SqXqRcnFB1AToiOQNLE6ERoW1Jjxfvz6nTRYHFenkbenmTp508Ie
-X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
- pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: 07DFA1F45E
-X-Spam-Score: -4.51
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
- MIME_TRACE(0.00)[0:+];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU]; ARC_NA(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_ONE(0.00)[1]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
- PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Disposition: inline
+In-Reply-To: <Z08CmGicxMbZMX8n@yuki.lan>
 X-Spam-Level: 
+X-Spamd-Result: default: False [-7.50 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
+ TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ ARC_NA(0.00)[]; FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; MISSING_XM_UA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; REPLYTO_EQ_FROM(0.00)[]
+X-Spam-Score: -7.50
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/2] Add madvise12 test
+Subject: Re: [LTP] [PATCH 2/2] kcmp02: Use TST_EXP_FAIL + print more info
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,156 +119,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Hi Cyril,
 
-Verify that MADV_GUARD_INSTALL is causing SIGSEGV when someone is
-trying to access memory advised with it.
+merged. Thanks for your review!
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- runtest/syscalls                              |   1 +
- testcases/kernel/syscalls/madvise/.gitignore  |   1 +
- testcases/kernel/syscalls/madvise/madvise12.c | 102 ++++++++++++++++++++++++++
- 3 files changed, 104 insertions(+)
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 5fd62617df1a116b1d94c57ff30f74693320a2ab..ded035ee82d0e97c67cc1e7c487b010634b2d1a0 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1000,6 +1000,7 @@ madvise08 madvise08
- madvise09 madvise09
- madvise10 madvise10
- madvise11 madvise11
-+madvise12 madvise12
- 
- newuname01 newuname01
- 
-diff --git a/testcases/kernel/syscalls/madvise/.gitignore b/testcases/kernel/syscalls/madvise/.gitignore
-index 722ac3c34306bac414313f1ce36ca98d715cd04c..758e601a9c4e7682a925f16184d14f2357009bc2 100644
---- a/testcases/kernel/syscalls/madvise/.gitignore
-+++ b/testcases/kernel/syscalls/madvise/.gitignore
-@@ -8,3 +8,4 @@
- /madvise09
- /madvise10
- /madvise11
-+/madvise12
-diff --git a/testcases/kernel/syscalls/madvise/madvise12.c b/testcases/kernel/syscalls/madvise/madvise12.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..2bdf843f016a7c9d175a31b76ae805d63c4cbc80
---- /dev/null
-+++ b/testcases/kernel/syscalls/madvise/madvise12.c
-@@ -0,0 +1,102 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2024 Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that MADV_GUARD_INSTALL is causing SIGSEGV when someone is accessing
-+ * memory advised with it.
-+ *
-+ * [Algorithm]
-+ *
-+ * - allocate a certain amount of memory
-+ * - advise memory with MADV_GUARD_INSTALL
-+ * - access to memory from within a child and verify it gets killed by SIGSEGV
-+ * - release memory with MADV_GUARD_REMOVE
-+ * - verify that memory has not been modified before child got killed
-+ * - modify memory within a new child
-+ * - verify that memory is accessable and child was not killed by SIGSEGV
-+ */
-+
-+#include "tst_test.h"
-+#include "lapi/mmap.h"
-+
-+#define MAP_SIZE (8 * TST_KB)
-+
-+static char *addr;
-+
-+static void run(void)
-+{
-+	pid_t pid;
-+	int status;
-+
-+	memset(addr, 0, MAP_SIZE);
-+
-+	TST_EXP_PASS(madvise(addr, MAP_SIZE, MADV_GUARD_INSTALL));
-+
-+	pid = SAFE_FORK();
-+	if (!pid) {
-+		tst_res(TINFO, "Modifying memory content");
-+
-+		memset(addr, 'a', MAP_SIZE);
-+		exit(0);
-+	}
-+
-+	SAFE_WAITPID(pid, &status, 0);
-+
-+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
-+		tst_res(TPASS, "Child ended by SIGSEGV as expected");
-+	else
-+		tst_res(TFAIL, "Child: %s", tst_strstatus(status));
-+
-+	TST_EXP_PASS(madvise(addr, MAP_SIZE, MADV_GUARD_REMOVE));
-+
-+	for (int i = 0; i < MAP_SIZE; i++) {
-+		if (addr[i] == 'a') {
-+			tst_res(TFAIL, "Memory content has been modified");
-+			return;
-+		}
-+	}
-+
-+	tst_res(TPASS, "Memory content didn't change");
-+
-+	pid = SAFE_FORK();
-+	if (!pid) {
-+		tst_res(TINFO, "Modifying memory content");
-+
-+		memset(addr, 'b', MAP_SIZE);
-+		exit(0);
-+	}
-+
-+	SAFE_WAITPID(pid, &status, 0);
-+
-+	if (!WIFSIGNALED(status))
-+		tst_res(TPASS, "Child ended without being signaled");
-+	else
-+		tst_res(TFAIL, "Child ended with %s", tst_strstatus(status));
-+}
-+
-+static void setup(void)
-+{
-+	addr = SAFE_MMAP(NULL, MAP_SIZE,
-+			PROT_READ | PROT_WRITE,
-+			MAP_PRIVATE | MAP_ANONYMOUS,
-+			-1, 0);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (addr)
-+		SAFE_MUNMAP(addr, MAP_SIZE);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_root = 1,
-+	.forks_child = 1,
-+	.min_kver = "6.13",
-+};
-
--- 
-2.43.0
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
