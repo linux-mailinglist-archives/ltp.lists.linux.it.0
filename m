@@ -1,111 +1,117 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A3419E6B15
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Dec 2024 10:51:08 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF3639E6B11
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Dec 2024 10:50:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2C0773E6863
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Dec 2024 10:51:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A5CCE3E6268
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Dec 2024 10:50:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 335DC3E65F4
+ by picard.linux.it (Postfix) with ESMTPS id 24D193CEFC7
  for <ltp@lists.linux.it>; Fri,  6 Dec 2024 10:49:59 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it;
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8F7CE204732
- for <ltp@lists.linux.it>; Fri,  6 Dec 2024 10:49:58 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3CD9D1034D62
+ for <ltp@lists.linux.it>; Fri,  6 Dec 2024 10:49:57 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 56E8B21193;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7D3C11F394;
  Fri,  6 Dec 2024 09:49:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1733478597; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BC4dHMhL1Rs0cforGD3TawUyIAKubm1dPDNVkj3b9qk=;
- b=Qq3xj84nh4qQ3OTI9ZUHztRCB3eCrwbrgqwTqoWPvWx6sKVxIcBTZ9pFRNstn4PtEeY7aR
- 4u14unxhffyKx268FVCtQq0Q7A2H7mFlKVTxs5QcWPOfYii3g8E8P/6Q/CFxCGbCxJeh8N
- quTV74rq+GtyyLYE/RGmNHQwz02tkjk=
+ bh=ey1oe6zdyy+mXOXW/sdDdmXXCl266X4GW0KF+5btraI=;
+ b=d6tzUHnP+OluW+i4WiN1sakmafhBcBpq/OyWXdQnp1hYT5EXSE7WAaDcc38r0cxWMrCu3h
+ vpiCewr926BbtEPBw3wHAuqlLkmHNgG4ilASF42TPIhiIHDgqgynzztNeQj1UgmRosAY4c
+ fKUCLwquQad5Pruuven0TPKzU6uM6OA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1733478597;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BC4dHMhL1Rs0cforGD3TawUyIAKubm1dPDNVkj3b9qk=;
- b=uo5v9jp8JuLjZEImFFOONV9bZcyyljZ0v7pDoCDHKR8EKCEImwjyj3vjlsRKoYnOoiPOv4
- lPAyc3KIMdVn8MAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
+ bh=ey1oe6zdyy+mXOXW/sdDdmXXCl266X4GW0KF+5btraI=;
+ b=YZlgAc7sH1YmtYc98M11l0aKQNdfAFN3KJXPfSvLg1aqx2FUCAKAfpaLLNlDQ2SYhLgD2a
+ XWVC+mXNFQtB4BAw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=d6tzUHnP;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=YZlgAc7s
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1733478597; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BC4dHMhL1Rs0cforGD3TawUyIAKubm1dPDNVkj3b9qk=;
- b=Qq3xj84nh4qQ3OTI9ZUHztRCB3eCrwbrgqwTqoWPvWx6sKVxIcBTZ9pFRNstn4PtEeY7aR
- 4u14unxhffyKx268FVCtQq0Q7A2H7mFlKVTxs5QcWPOfYii3g8E8P/6Q/CFxCGbCxJeh8N
- quTV74rq+GtyyLYE/RGmNHQwz02tkjk=
+ bh=ey1oe6zdyy+mXOXW/sdDdmXXCl266X4GW0KF+5btraI=;
+ b=d6tzUHnP+OluW+i4WiN1sakmafhBcBpq/OyWXdQnp1hYT5EXSE7WAaDcc38r0cxWMrCu3h
+ vpiCewr926BbtEPBw3wHAuqlLkmHNgG4ilASF42TPIhiIHDgqgynzztNeQj1UgmRosAY4c
+ fKUCLwquQad5Pruuven0TPKzU6uM6OA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1733478597;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BC4dHMhL1Rs0cforGD3TawUyIAKubm1dPDNVkj3b9qk=;
- b=uo5v9jp8JuLjZEImFFOONV9bZcyyljZ0v7pDoCDHKR8EKCEImwjyj3vjlsRKoYnOoiPOv4
- lPAyc3KIMdVn8MAQ==
+ bh=ey1oe6zdyy+mXOXW/sdDdmXXCl266X4GW0KF+5btraI=;
+ b=YZlgAc7sH1YmtYc98M11l0aKQNdfAFN3KJXPfSvLg1aqx2FUCAKAfpaLLNlDQ2SYhLgD2a
+ XWVC+mXNFQtB4BAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2B53513A15;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56FD713A79;
  Fri,  6 Dec 2024 09:49:57 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id wMD4CMXIUmehEwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id APBaFMXIUmehEwAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Fri, 06 Dec 2024 09:49:57 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri,  6 Dec 2024 10:49:35 +0100
-Message-ID: <20241206094938.92895-2-pvorel@suse.cz>
+Date: Fri,  6 Dec 2024 10:49:36 +0100
+Message-ID: <20241206094938.92895-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241206094938.92895-1-pvorel@suse.cz>
 References: <20241206094938.92895-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Queue-Id: 7D3C11F394
+X-Spam-Score: -3.01
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TO_DN_SOME(0.00)[]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCPT_COUNT_THREE(0.00)[4];
- FROM_HAS_DN(0.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_COUNT_TWO(0.00)[2]; ARC_NA(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -2.80
+ RCPT_COUNT_THREE(0.00)[4]; DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/4] testcases/lib/run_tests.sh: Check expected results
+Subject: [LTP] [PATCH 2/4] Makefile: Add target to run shell loader
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,168 +128,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This verification helps 1) see if anything broke 2) be able to run in CI.
-
-Also:
-1) Allow to run tests outside of the test directory (call just by
-relative PATH).
-2) Allow to pass build directory (useful for out of tree build).
-3) Allow to skip tests (useful for github CI).
-
-shell_loader_all_filesystems.sh shell_loader_supported_archs.sh
-shell_loader_filesystems.sh fails on Github Actions due broken loop
-device therefore skip them:
-
-tst_tmpdir.c:317: TINFO: Using /tmp/LTP_sheHtNv5R as tmpdir (overlayfs filesystem)
-tst_device.c:147: TINFO: No free devices found
-tst_device.c:360: TBROK: Failed to acquire device
-
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-NOTE: it's not perfect (we could finally add check which compares whole
-output), but checking exit code is better than nothing.
+ Makefile | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-lib/newlib_tests/runtest.sh uses a different approach, but I did not
-bother trying to unify them. But it would be worth to add support for
-tests which TBROK on GitHub also to lib/newlib_tests/runtest.sh. That
-allows us to easily run 'make test' locally to get higher coverage (e.g.
-before the release).
-
- testcases/lib/run_tests.sh | 115 ++++++++++++++++++++++++++++++-------
- 1 file changed, 95 insertions(+), 20 deletions(-)
-
-diff --git a/testcases/lib/run_tests.sh b/testcases/lib/run_tests.sh
-index 40d415e6c4..380870ae55 100755
---- a/testcases/lib/run_tests.sh
-+++ b/testcases/lib/run_tests.sh
-@@ -1,32 +1,107 @@
- #!/bin/sh
+diff --git a/Makefile b/Makefile
+index ae0247761c..5066789349 100644
+--- a/Makefile
++++ b/Makefile
+@@ -188,6 +188,7 @@ ifneq ($(build),$(host))
+ 	$(error running tests on cross-compile build not supported)
+ endif
+ 	$(call _test)
++	$(MAKE) test-shell-loader
+ 	$(MAKE) test-metadata
  
--testdir=$(realpath $(dirname $0))
--export PATH="$PATH:$testdir:$testdir/tests/"
--
--for i in `seq -w 01 06`; do
--	echo
--	echo "*** Running shell_test$i ***"
--	echo
--	./tests/shell_test$i
--done
-+TESTS_PASS="shell_test01 shell_test02 shell_test03 shell_test04 shell_test05
-+shell_loader.sh shell_loader_tcnt.sh shell_loader_c_child.sh"
-+
-+TESTS_PASS_GITHUB_TBROK="shell_loader_all_filesystems.sh shell_loader_supported_archs.sh shell_loader_filesystems.sh shell_loader_kconfigs.sh"
-+
-+TESTS_FAIL="shell_loader_tags.sh"
-+
-+TESTS_TBROK="shell_loader_wrong_metadata.sh shell_loader_no_metadata.sh
-+shell_loader_invalid_metadata.sh shell_loader_invalid_block.sh"
-+
-+TESTS_TCONF="shell_test06"
+ test-c: lib-all
+@@ -202,6 +203,12 @@ ifneq ($(build),$(host))
+ endif
+ 	$(call _test,-s)
  
--for i in shell_loader.sh shell_loader_all_filesystems.sh shell_loader_no_metadata.sh \
--	 shell_loader_wrong_metadata.sh shell_loader_invalid_metadata.sh\
--	 shell_loader_supported_archs.sh shell_loader_filesystems.sh\
--	 shell_loader_tcnt.sh shell_loader_kconfigs.sh shell_loader_tags.sh \
--	 shell_loader_invalid_block.sh shell_loader_c_child.sh; do
--	echo
--	echo "*** Running $i ***"
--	echo
--	$i
-+SKIP_GITHUB=
-+FAIL=
++test-shell-loader: lib-all
++ifneq ($(build),$(host))
++	$(error running tests on cross-compile build not supported)
++endif
++	$(top_srcdir)/testcases/lib/run_tests.sh -b $(abs_builddir)
 +
-+srcdir="$(realpath $(dirname $0))"
-+builddir="$srcdir"
-+
-+usage()
-+{
-+	cat << EOF
-+Usage: $0 [-b DIR ] [-s TESTS]
-+-b DIR   build directory (required for out-of-tree build)
-+-h       print this help
-+EOF
-+}
-+
-+while getopts b:h opt; do
-+	case $opt in
-+		'h') usage; exit 0;;
-+		'b')
-+			builddir="$OPTARG/testcases/lib/"
-+			if [ ! -d "$builddir" ]; then
-+				echo "directory '$builddir' does not exist!" >&2
-+				exit 1
-+			fi
-+			;;
-+		*) usage; runtest_brk TBROK "Error: invalid option";;
-+	esac
- done
+ test-metadata: metadata-all
+ 	$(MAKE) -C $(abs_srcdir)/metadata test
  
-+# srcdir is for *.sh, builddir for *.c
-+export PATH="$PATH:$srcdir:$builddir:$srcdir/tests/:$builddir/tests/"
-+
-+
-+tst_mask2flag()
-+{
-+	case "$1" in
-+	0) echo TPASS;;
-+	1) echo TFAIL;;
-+	2) echo TBROK;;
-+	4) echo TWARN;;
-+	16) echo TINFO;;
-+	32) echo TCONF;;
-+	esac
-+}
-+
-+run_tests()
-+{
-+	local exp="$1"
-+	local test rc
-+	shift
-+
-+	for test in "$@"; do
-+		echo "*** Running '$test' (exp: $(tst_mask2flag $exp)) ***"
-+		$test
-+		rc=$?
-+		if [ $rc = 127 ]; then
-+			echo "Test '$test' not found, maybe out-of-tree build and unset builddir?" >&2
-+			exit 1
-+		elif [ $rc = 2 -a $WHITELIST_GITHUB = 1 -a "$GITHUB_ACTIONS" ]; then
-+			SKIP_GITHUB="$SKIP_GITHUB\n*$test"
-+		elif [ $rc != $exp ]; then
-+			FAIL="$FAIL\n* $test ($(tst_mask2flag $rc), exp: $(tst_mask2flag $exp))"
-+		fi
-+	done
-+}
-+
-+run_tests 0 $TESTS_PASS
-+WHITELIST_GITHUB=1 run_tests 0 $TESTS_PASS_GITHUB_TBROK
-+run_tests 32 $TESTS_TCONF
-+
- echo
- echo "*** Testing LTP test -h option ***"
- echo
--shell_loader.sh -h
-+run_tests 0 "shell_loader.sh -h"
- 
- echo
- echo "*** Testing LTP test -i option ***"
- echo
--shell_loader.sh -i 2
-+run_tests 0 "shell_loader.sh -i 2"
-+
-+echo
-+echo "***** RESULTS *****"
-+
-+if [ "$SKIP_GITHUB" ]; then
-+	printf "Test skipped on GitHub Actions:$SKIP_GITHUB\n"
-+fi
-+
-+if [ "$FAIL" ]; then
-+	printf "Failed tests:$FAIL\n"
-+	exit 1
-+fi
-+
-+echo "All tests passed"
 -- 
 2.45.2
 
