@@ -2,72 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87DF59EBEBC
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2024 23:59:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6F59EBEC3
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2024 23:59:53 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 081B23E943F
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2024 23:59:13 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 419D03E9449
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2024 23:59:52 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CDF2D3E9426
+ by picard.linux.it (Postfix) with ESMTPS id 3E1AE3E9426
  for <ltp@lists.linux.it>; Tue, 10 Dec 2024 23:58:01 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it;
+Authentication-Results: in-3.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 527F7600832
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7F0391BCD8DE
  for <ltp@lists.linux.it>; Tue, 10 Dec 2024 23:58:01 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 08127210F5;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 374641F460;
  Tue, 10 Dec 2024 22:58:01 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+Authentication-Results: smtp-out2.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B92AC138D2;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 03DD413A3D;
  Tue, 10 Dec 2024 22:58:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 2OPbK3jHWGd9KQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iA5+O3jHWGd9KQAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Tue, 10 Dec 2024 22:58:00 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 10 Dec 2024 23:57:52 +0100
-Message-ID: <20241210225753.381770-7-pvorel@suse.cz>
+Date: Tue, 10 Dec 2024 23:57:53 +0100
+Message-ID: <20241210225753.381770-8-pvorel@suse.cz>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241210225753.381770-1-pvorel@suse.cz>
 References: <20241210225753.381770-1-pvorel@suse.cz>
 MIME-Version: 1.0
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Spam-Level: 
 X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
  ASN(0.00)[asn:25478, ipnet:::/0, country:RU]
 X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 08127210F5
+X-Rspamd-Queue-Id: 374641F460
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 6/7] ci: Add shell loader tests
+Subject: [LTP] [PATCH v2 7/7] shell API: Add test for TST_DEVICE_SIZE
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,30 +85,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Reviewed-by: Li Wang <liwang@redhat.com>
+Added recently in 8532eb2c61.
+overlayfs workaround is used in GitHub Actions.
+
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-The same as in v1.
+New in v2.
 
- .github/workflows/ci-docker-build.yml | 5 +++++
- 1 file changed, 5 insertions(+)
+ lib/newlib_tests/runtest.sh               |  1 +
+ lib/newlib_tests/shell/tst_device_size.sh | 17 +++++++++++++++++
+ 2 files changed, 18 insertions(+)
+ create mode 100755 lib/newlib_tests/shell/tst_device_size.sh
 
-diff --git a/.github/workflows/ci-docker-build.yml b/.github/workflows/ci-docker-build.yml
-index efe318e334..f33dd83566 100644
---- a/.github/workflows/ci-docker-build.yml
-+++ b/.github/workflows/ci-docker-build.yml
-@@ -161,6 +161,11 @@ jobs:
-         case "$VARIANT" in cross-compile*) BUILD="cross";; i386) BUILD="32";; *) BUILD="native";; esac
-         ./build.sh -r test-shell -o ${TREE:-in} -t $BUILD
- 
-+    - name: Test shell loader
-+      run: |
-+        case "$VARIANT" in cross-compile*) BUILD="cross";; i386) BUILD="32";; *) BUILD="native";; esac
-+        ./build.sh -r test-shell-loader -o ${TREE:-in} -t $BUILD
+diff --git a/lib/newlib_tests/runtest.sh b/lib/newlib_tests/runtest.sh
+index 68f8af7606..66aaa9361f 100755
+--- a/lib/newlib_tests/runtest.sh
++++ b/lib/newlib_tests/runtest.sh
+@@ -32,6 +32,7 @@ LTP_SHELL_API_TESTS="${LTP_SHELL_API_TESTS:-
+ shell/timeout0[1-2].sh
+ shell/tst_all_filesystems.sh
+ shell/tst_all_filesystems_skip.sh
++shell/tst_device_size.sh
+ shell/tst_errexit.sh
+ shell/tst_format_device.sh
+ shell/tst_check_driver.sh
+diff --git a/lib/newlib_tests/shell/tst_device_size.sh b/lib/newlib_tests/shell/tst_device_size.sh
+new file mode 100755
+index 0000000000..7514379729
+--- /dev/null
++++ b/lib/newlib_tests/shell/tst_device_size.sh
+@@ -0,0 +1,17 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2024 Petr Vorel <pvorel@suse.cz>
 +
-     - name: Install
-       run: |
-         if [ "$MAKE_INSTALL" = 1 ]; then INSTALL_OPT="-i"; fi
++TST_NEEDS_DEVICE=1
++TST_DEVICE_SIZE=10
++TST_TESTFUNC=test
++
++test()
++{
++	tst_res TPASS "TST_DEVICE_SIZE=$TST_DEVICE_SIZE"
++	# overlayfs adds 1 MB
++	EXPECT_PASS "du -ms . | grep -qw -e $TST_DEVICE_SIZE -e $(($TST_DEVICE_SIZE + 1))"
++}
++
++. tst_test.sh
++tst_run
 -- 
 2.45.2
 
