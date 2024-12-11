@@ -1,22 +1,21 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77F459ECBDC
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2024 13:20:30 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3001B9ECBF1
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2024 13:23:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F0B523E88FD
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2024 13:20:29 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3C2B03E88F8
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2024 13:23:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6AD8D3E7D06
- for <ltp@lists.linux.it>; Wed, 11 Dec 2024 13:20:28 +0100 (CET)
-Authentication-Results: in-3.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id E30AE3E88F5
+ for <ltp@lists.linux.it>; Wed, 11 Dec 2024 13:20:29 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
  (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
@@ -25,32 +24,32 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EBDB01BCC62A
- for <ltp@lists.linux.it>; Wed, 11 Dec 2024 13:20:27 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 38B9D100BA64
+ for <ltp@lists.linux.it>; Wed, 11 Dec 2024 13:20:29 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D4C0A1F6E6
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DEB6F1F74A
  for <ltp@lists.linux.it>; Wed, 11 Dec 2024 12:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1733919626; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=l8tPganWo9JIps/RyvipT0fZuBhvu32c99HoNwqO8mo=;
- b=NnqBXoWlPMPfBrSRpvru7Jup7KLfOPOSzFj1W51GsgvCuf83A+wkfOFTEZMEMEUd+/RGaQ
- sRr5FZxKITmE6NrgjLNIuOM4ulTxfBw/cKnYaqHVZ/dhX5BozQEC1FdvusCSlfP6rFoI4u
- V6oYK3r1pdXy4ZRiqphwBC5Q/XesMPo=
+ bh=fn31eTE0G3TjWjqpZnxlaXUlE9ERe+88q2FdEd3GWKg=;
+ b=hOsgwZiI2BgPYFev837m6NaNSM2Y1VztaRAcqeRLJfIB9QOekEprb5lcvm+xH5QeuIZAZ+
+ KIYOOvmZTGgH7i8T9txUwVAX6rDTDlqPYlMSwHXiyIa9QHAQJ7KVLV+L5px49kjbm2+CYM
+ RJ3Vb9i73esHgn1x/G+9EdW7XDXDa00=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1733919626;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=l8tPganWo9JIps/RyvipT0fZuBhvu32c99HoNwqO8mo=;
- b=0EuLdidhGcBbleg1wdDGgeX6dJIteayIst2Ip8ekrZ5NJLtYMOf4ZHFeCQZtBxjht5kikM
- ygrbXRYV9VTDtdCg==
+ bh=fn31eTE0G3TjWjqpZnxlaXUlE9ERe+88q2FdEd3GWKg=;
+ b=UmA0JbzTc1yTxMTtANiP2sl/jVrj0eN5gEKbZMBYtPYdofKnLBEc7v8bVd/6uNY1/n1Cxw
+ ShffokJgJu9/mMDQ==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
@@ -58,42 +57,42 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=l8tPganWo9JIps/RyvipT0fZuBhvu32c99HoNwqO8mo=;
- b=NnqBXoWlPMPfBrSRpvru7Jup7KLfOPOSzFj1W51GsgvCuf83A+wkfOFTEZMEMEUd+/RGaQ
- sRr5FZxKITmE6NrgjLNIuOM4ulTxfBw/cKnYaqHVZ/dhX5BozQEC1FdvusCSlfP6rFoI4u
- V6oYK3r1pdXy4ZRiqphwBC5Q/XesMPo=
+ bh=fn31eTE0G3TjWjqpZnxlaXUlE9ERe+88q2FdEd3GWKg=;
+ b=hOsgwZiI2BgPYFev837m6NaNSM2Y1VztaRAcqeRLJfIB9QOekEprb5lcvm+xH5QeuIZAZ+
+ KIYOOvmZTGgH7i8T9txUwVAX6rDTDlqPYlMSwHXiyIa9QHAQJ7KVLV+L5px49kjbm2+CYM
+ RJ3Vb9i73esHgn1x/G+9EdW7XDXDa00=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1733919626;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=l8tPganWo9JIps/RyvipT0fZuBhvu32c99HoNwqO8mo=;
- b=0EuLdidhGcBbleg1wdDGgeX6dJIteayIst2Ip8ekrZ5NJLtYMOf4ZHFeCQZtBxjht5kikM
- ygrbXRYV9VTDtdCg==
+ bh=fn31eTE0G3TjWjqpZnxlaXUlE9ERe+88q2FdEd3GWKg=;
+ b=UmA0JbzTc1yTxMTtANiP2sl/jVrj0eN5gEKbZMBYtPYdofKnLBEc7v8bVd/6uNY1/n1Cxw
+ ShffokJgJu9/mMDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C67F713AD3
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CE61F13AD4
  for <ltp@lists.linux.it>; Wed, 11 Dec 2024 12:20:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +B3xL4qDWWdNAwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id sEoeMoqDWWdNAwAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>)
  for <ltp@lists.linux.it>; Wed, 11 Dec 2024 12:20:26 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 11 Dec 2024 13:20:27 +0100
+Date: Wed, 11 Dec 2024 13:20:28 +0100
 MIME-Version: 1.0
-Message-Id: <20241211-fix_setsid_tests-v1-4-e103f36c6462@suse.com>
+Message-Id: <20241211-fix_setsid_tests-v1-5-e103f36c6462@suse.com>
 References: <20241211-fix_setsid_tests-v1-0-e103f36c6462@suse.com>
 In-Reply-To: <20241211-fix_setsid_tests-v1-0-e103f36c6462@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1733919626; l=2649;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1733919626; l=2700;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=4jqt6mVmZh6o5Evr0obzjvwrsiuBLgKIr4j+QTDtT54=;
- b=ITwyppsVWvFlIbK1KTAcw6BgL2QeipqIgG91fmbA3OGeeQ3z0xTe7uw/rTYF1O4FHucVTpli+
- cmJlW103ZriByn/YyvxABoiUChcKOx5cBt4C0M9oefIzz3k8tvCnSX4
+ bh=7yU30Gz510cpPLJcm0dh86l7z7mYvF6gUD+gyqisKJc=;
+ b=rTN/9xbqciI3i9MnyopJnDe6lSrVUGt4Bhf7wQx6bkQ2zgccjlrjAPYKQLCnew1nsCNOXEqg1
+ 1OMgW9bj3yYClBiCci96KEtuhouX6+luYDm9FFR2JvxRaBnyEEpYdeZ
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
 X-Spam-Score: -4.30
@@ -113,10 +112,10 @@ X-Spam-Level:
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 04/10] Add ptem03 test
+Subject: [LTP] [PATCH 05/10] Add ptem04 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,44 +135,45 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
 Verify that it's possible to open a pseudo-terminal via /dev/ptmx,
-obtain a slave device and to send a break to both master and slave.
+obtain a slave device and to check if it's possible to open it
+multiple times.
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
  runtest/pty                     |  1 +
  testcases/kernel/pty/.gitignore |  1 +
- testcases/kernel/pty/ptem03.c   | 56 +++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 58 insertions(+)
+ testcases/kernel/pty/ptem04.c   | 57 +++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 59 insertions(+)
 
 diff --git a/runtest/pty b/runtest/pty
-index 3ce7160e2776e58973def5893fc269ed035376c0..329cc84cdc107ab8e814fea72a8088ea62d5ad25 100644
+index 329cc84cdc107ab8e814fea72a8088ea62d5ad25..63d927eca07aa3dbd312d5c5cc6b6681dbf3627d 100644
 --- a/runtest/pty
 +++ b/runtest/pty
-@@ -8,5 +8,6 @@ pty06 pty06
- pty07 pty07
+@@ -9,5 +9,6 @@ pty07 pty07
  ptem01 ptem01
  ptem02 ptem02
-+ptem03 ptem03
+ ptem03 ptem03
++ptem04 ptem04
  hangup01 hangup01
  
 diff --git a/testcases/kernel/pty/.gitignore b/testcases/kernel/pty/.gitignore
-index e638413a127fad65ed2f58c24dc1ae718219e518..61fec1ddae3ea39d20e97123e34888708050c25c 100644
+index 61fec1ddae3ea39d20e97123e34888708050c25c..c9bb33664f9de55038f4638406841f403f1a86c4 100644
 --- a/testcases/kernel/pty/.gitignore
 +++ b/testcases/kernel/pty/.gitignore
-@@ -1,6 +1,7 @@
- /hangup01
+@@ -2,6 +2,7 @@
  /ptem01
  /ptem02
-+/ptem03
+ /ptem03
++/ptem04
  /pty01
  /pty02
  /pty03
-diff --git a/testcases/kernel/pty/ptem03.c b/testcases/kernel/pty/ptem03.c
+diff --git a/testcases/kernel/pty/ptem04.c b/testcases/kernel/pty/ptem04.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..e12ebe27dfe952a2d085205bff1b25ea3709fbba
+index 0000000000000000000000000000000000000000..ff91616db9d0d54b0a40477867ce30fff24cae00
 --- /dev/null
-+++ b/testcases/kernel/pty/ptem03.c
-@@ -0,0 +1,56 @@
++++ b/testcases/kernel/pty/ptem04.c
+@@ -0,0 +1,57 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) International Business Machines  Corp., 2002
@@ -185,19 +185,20 @@ index 0000000000000000000000000000000000000000..e12ebe27dfe952a2d085205bff1b25ea
 + * [Description]
 + *
 + * Verify that it's possible to open a pseudo-terminal via /dev/ptmx, obtain a
-+ * slave device and to send a break to both master and slave.
++ * slave device and to check if it's possible to open it multiple times.
 + */
 +
 +#define _GNU_SOURCE
 +
-+#include <termios.h>
 +#include "tst_test.h"
 +
 +#define MASTERCLONE "/dev/ptmx"
++#define NUM_SLAVES 10
 +
 +static void run(void)
 +{
-+	int masterfd, slavefd;
++	int masterfd;
++	int slavefd[NUM_SLAVES];
 +	char *slavename;
 +
 +	masterfd = SAFE_OPEN(MASTERCLONE, O_RDWR);
@@ -211,12 +212,12 @@ index 0000000000000000000000000000000000000000..e12ebe27dfe952a2d085205bff1b25ea
 +	TST_EXP_PASS(grantpt(masterfd));
 +	TST_EXP_PASS(unlockpt(masterfd));
 +
-+	slavefd = SAFE_OPEN(slavename, O_RDWR);
++	for (int i = 0; i < NUM_SLAVES; i++)
++		slavefd[i] = TST_EXP_FD(open(slavename, O_RDWR));
 +
-+	TST_EXP_PASS(tcsendbreak(masterfd, 10));
-+	TST_EXP_PASS(tcsendbreak(slavefd, 10));
++	for (int i = 0; i < NUM_SLAVES; i++)
++		SAFE_CLOSE(slavefd[i]);
 +
-+	SAFE_CLOSE(slavefd);
 +	SAFE_CLOSE(masterfd);
 +}
 +
