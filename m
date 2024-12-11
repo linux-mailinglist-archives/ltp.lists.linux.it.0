@@ -2,120 +2,96 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E7D49ECBF0
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2024 13:22:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6DD59ECC09
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2024 13:26:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8D9E53E890B
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2024 13:22:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AC89D3E890A
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2024 13:26:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C2C853E88FB
- for <ltp@lists.linux.it>; Wed, 11 Dec 2024 13:20:29 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id EB9383E88F8
+ for <ltp@lists.linux.it>; Wed, 11 Dec 2024 13:26:40 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=zohar@linux.ibm.com;
+ receiver=lists.linux.it)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2DE98140B5A9
- for <ltp@lists.linux.it>; Wed, 11 Dec 2024 13:20:29 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 046401F74B
- for <ltp@lists.linux.it>; Wed, 11 Dec 2024 12:20:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1733919627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=U58GSWe4DdDcBPWWrN1BkeneKex/aMiVeJ5yVCTsTxQ=;
- b=ZJNYlrI8iys60DdZ3HRMxilcnhJ/IHKRP5NRoAqQ1idj8O3wbIfHwz/I/DkJYWIsEeWQ3B
- fXCi9yxK/C0M+Bs1+EVVCkkm7rk7RHji+rgawwxXjfTgOaOXDTVbLJaSPHn2KlxkZHHG2c
- 5bcEC9TDMxUssotYVivU+wyj9JK+ppI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1733919627;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=U58GSWe4DdDcBPWWrN1BkeneKex/aMiVeJ5yVCTsTxQ=;
- b=pUR3rCCG6WgyP66ZEI2tzAAcn27JNnY2mv9xHI4NcUnGRK/e7JvaC0hSaJGZiGD3EfXgCL
- rh22IgUyi92knXAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1733919627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=U58GSWe4DdDcBPWWrN1BkeneKex/aMiVeJ5yVCTsTxQ=;
- b=ZJNYlrI8iys60DdZ3HRMxilcnhJ/IHKRP5NRoAqQ1idj8O3wbIfHwz/I/DkJYWIsEeWQ3B
- fXCi9yxK/C0M+Bs1+EVVCkkm7rk7RHji+rgawwxXjfTgOaOXDTVbLJaSPHn2KlxkZHHG2c
- 5bcEC9TDMxUssotYVivU+wyj9JK+ppI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1733919627;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=U58GSWe4DdDcBPWWrN1BkeneKex/aMiVeJ5yVCTsTxQ=;
- b=pUR3rCCG6WgyP66ZEI2tzAAcn27JNnY2mv9xHI4NcUnGRK/e7JvaC0hSaJGZiGD3EfXgCL
- rh22IgUyi92knXAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F051213998
- for <ltp@lists.linux.it>; Wed, 11 Dec 2024 12:20:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yC9aOoqDWWdNAwAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>)
- for <ltp@lists.linux.it>; Wed, 11 Dec 2024 12:20:26 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 11 Dec 2024 13:20:33 +0100
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CE92463281E
+ for <ltp@lists.linux.it>; Wed, 11 Dec 2024 13:26:38 +0100 (CET)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BBB5ihV008120;
+ Wed, 11 Dec 2024 12:26:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=98ILy9
+ FXd3s+YnzM+DjxOSnqwZtrFBOsdam8JBqVAsE=; b=LTs51K+Shqf084UQG1lr8D
+ zFhZw0FRr1nI3fS2maNDWy1YfVma068yudfi0SJQfItrAk20Bo95Xu8yvWwWU0Hw
+ VhOooNMeqxh2uM+fK0cIbG9As9XJVTYuoxNflniLFgF+IZjGkjDBidtzLg1Lhr5R
+ TCW9eedNvCj5NoLBU7u80+lF5bI2k8N7IpN7+213M+Hld34vkLBakqrG9aT00SNW
+ SRhXrOWydsQ782mJXIpC2V1DsJeT1O7NZzsVkLDN36IKa5/tK3j8TspLiBLCDEBP
+ s1/koERYYci2joZgCNFcbwWgoqkhK/iP3CN93AyMSr4mqY+XcfMMqbuQJvjZKHag
+ ==
+Received: from ppma11.dal12v.mail.ibm.com
+ (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 43cdv8w6g5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 11 Dec 2024 12:26:36 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 4BBBRGI6017376;
+ Wed, 11 Dec 2024 12:26:35 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+ by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 43d3d1s0x1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 11 Dec 2024 12:26:35 +0000
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com
+ [10.39.53.232])
+ by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 4BBCQYbo23790194
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 11 Dec 2024 12:26:35 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C05AD58053;
+ Wed, 11 Dec 2024 12:26:34 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4D1C658059;
+ Wed, 11 Dec 2024 12:26:34 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown
+ [9.61.71.1]) by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Wed, 11 Dec 2024 12:26:34 +0000 (GMT)
+Message-ID: <007bb56c0ed893e6b53d31efee1276e7bb91a557.camel@linux.ibm.com>
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+Date: Wed, 11 Dec 2024 07:26:33 -0500
+In-Reply-To: <20241126173830.98960-2-pvorel@suse.cz>
+References: <20241126173830.98960-1-pvorel@suse.cz>
+ <20241126173830.98960-2-pvorel@suse.cz>
+User-Agent: Evolution 3.52.4 (3.52.4-2.fc40) 
 MIME-Version: 1.0
-Message-Id: <20241211-fix_setsid_tests-v1-10-e103f36c6462@suse.com>
-References: <20241211-fix_setsid_tests-v1-0-e103f36c6462@suse.com>
-In-Reply-To: <20241211-fix_setsid_tests-v1-0-e103f36c6462@suse.com>
-To: ltp@lists.linux.it
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1733919626; l=3265;
- i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=IKg+lBwFGbHy86VIvjdWZm4lIKxTlK9YtqFa7OaaRFw=;
- b=Yk2hwcjhW1FcCFzPTaW43pqHJjIX0Wlq2589GN4M/LN9gtHSaJ1rguQLdt3iNiiCg2/oVnUz5
- odkTot2zAAnCaknTdjc68M/oqDBCvK3sYP637KrHq4V7UTviWFl58Fo
-X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
- pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spam-Score: -4.30
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email]
-X-Spam-Level: 
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: dTMCDa90AAR0I-w2CcqThRvscFCvOcc3
+X-Proofpoint-ORIG-GUID: dTMCDa90AAR0I-w2CcqThRvscFCvOcc3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1051,Hydra:6.0.680,FMLib:17.12.62.30
+ definitions=2024-10-15_01,2024-10-11_01,2024-09-30_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 mlxscore=0
+ malwarescore=0 adultscore=0 phishscore=0 suspectscore=0 mlxlogscore=999
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412110087
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 10/10] Add pty09 test
+Subject: Re: [LTP] [PATCH 1/3] ima: Add TCB policy as an example
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,143 +103,67 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: linux-integrity@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Hi Petr,
 
-Verify that slave pseudo-terminal can be opened multiple times
-in parallel.
+On Tue, 2024-11-26 at 18:38 +0100, Petr Vorel wrote:
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- runtest/pty                     |  1 +
- testcases/kernel/pty/.gitignore |  1 +
- testcases/kernel/pty/pty09.c    | 89 +++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 91 insertions(+)
+Except for the "dont_measure <tmpfs>" rule, the "dont_measure" rules are for
+pseudo filesystems.  Including a "dont_measure <tmpfs>" policy rule was suppose
+to be limited to the initramfs, and then replaced with an IMA custom policy. I
+would either re-order the rules so that the "dont_measure" rules are only before
+the two "func=FILE_CHECK" rules or perhaps remove the "dont_measure <tmpfs>"
+policy rule.  The kernel builtin "tcb" policy should be updated as described
+below.
 
-diff --git a/runtest/pty b/runtest/pty
-index 365a46ee9730aa36b22dbbdbfba82ac0d491ac94..4b1abe7a602a14456877f3bc42f2275a3be0f8f0 100644
---- a/runtest/pty
-+++ b/runtest/pty
-@@ -7,6 +7,7 @@ pty05 pty05
- pty06 pty06
- pty07 pty07
- pty08 pty08
-+pty09 pty09
- ptem01 ptem01
- ptem02 ptem02
- ptem03 ptem03
-diff --git a/testcases/kernel/pty/.gitignore b/testcases/kernel/pty/.gitignore
-index 7d8d4dceda84f2e2695a8bee39abfe894288b8b6..2d0c8bb6ff7d6883abfc7838e257b9be50244b69 100644
---- a/testcases/kernel/pty/.gitignore
-+++ b/testcases/kernel/pty/.gitignore
-@@ -13,3 +13,4 @@
- /pty06
- /pty07
- /pty08
-+/pty09
-diff --git a/testcases/kernel/pty/pty09.c b/testcases/kernel/pty/pty09.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..a9adf6ef619334b858fb99d5c388c0adac3976f5
---- /dev/null
-+++ b/testcases/kernel/pty/pty09.c
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) International Business Machines  Corp., 2002
-+ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that slave pseudo-terminal can be opened multiple times in parallel.
-+ */
-+
-+#define _GNU_SOURCE
-+
-+#include "tst_test.h"
-+
-+#define MASTERCLONE "/dev/ptmx"
-+
-+static unsigned int count_avail_pid(void)
-+{
-+	DIR *dir;
-+	struct dirent *ent;
-+	struct rlimit limit;
-+	unsigned int count = 0;
-+	unsigned int max_pid_num;
-+
-+	if (access(MASTERCLONE, F_OK))
-+		tst_brk(TBROK, "%s device doesn't exist", MASTERCLONE);
-+
-+	SAFE_GETRLIMIT(RLIMIT_NOFILE, &limit);
-+
-+	dir = SAFE_OPENDIR("/proc/self/fd");
-+	while ((ent = SAFE_READDIR(dir)))
-+		count++;
-+
-+	SAFE_CLOSEDIR(dir);
-+
-+	max_pid_num = limit.rlim_cur - count;
-+
-+	tst_res(TINFO, "Available number of pids: %u", max_pid_num);
-+
-+	return max_pid_num;
-+}
-+
-+static void run(void)
-+{
-+	int masterfd;
-+	char *slavename;
-+	unsigned int max_pid_num;
-+
-+	masterfd = SAFE_OPEN(MASTERCLONE, O_RDWR);
-+
-+	slavename = ptsname(masterfd);
-+	if (slavename == NULL)
-+		tst_brk(TBROK | TERRNO, "ptsname() error");
-+
-+	tst_res(TINFO, "pts device location is %s", slavename);
-+
-+	if (grantpt(masterfd) == -1)
-+		tst_brk(TBROK | TERRNO, "grantpt() error");
-+
-+	if (unlockpt(masterfd) == -1)
-+		tst_brk(TBROK | TERRNO, "unlockpt() error");
-+
-+	max_pid_num = count_avail_pid();
-+
-+	int slavefd[max_pid_num];
-+
-+	for (uint32_t i = 0; i < max_pid_num; i++)
-+		slavefd[i] = SAFE_OPEN(slavename, O_RDWR);
-+
-+	tst_res(TPASS, "%s has been opened %d times", slavename, max_pid_num);
-+
-+	for (uint32_t i = 0; i < max_pid_num; i++)
-+		SAFE_CLOSE(slavefd[i]);
-+
-+	SAFE_CLOSE(masterfd);
-+}
-+
-+static void setup(void)
-+{
-+	if (access(MASTERCLONE, F_OK))
-+		tst_brk(TBROK, "%s device doesn't exist", MASTERCLONE);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+};
+> ---
+>  .../ima/datafiles/ima_measurements/tcb.policy | 20 +++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>  create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_measurements/tcb.policy
+> 
+> diff --git a/testcases/kernel/security/integrity/ima/datafiles/ima_measurements/tcb.policy b/testcases/kernel/security/integrity/ima/datafiles/ima_measurements/tcb.policy
+> new file mode 100644
+> index 0000000000..280e6af87c
+> --- /dev/null
+> +++ b/testcases/kernel/security/integrity/ima/datafiles/ima_measurements/tcb.policy
+> @@ -0,0 +1,20 @@
+> +dont_measure fsmagic=0x9fa0
+> +dont_measure fsmagic=0x62656572
+> +dont_measure fsmagic=0x64626720
+> +dont_measure fsmagic=0x1021994
+> +dont_measure fsmagic=0x1cd1
+> +dont_measure fsmagic=0x42494e4d
+> +dont_measure fsmagic=0x73636673
+> +dont_measure fsmagic=0xf97cff8c
+> +dont_measure fsmagic=0x43415d53
+> +dont_measure fsmagic=0x27e0eb
+> +dont_measure fsmagic=0x63677270
+> +dont_measure fsmagic=0x6e736673
+> +dont_measure fsmagic=0xde5e81e4
 
--- 
-2.43.0
+Limit the affect of "dont_measure" rules to just the "func=FILE_CHECK" rules, by
+moving them to before the "func=FILE_CHECK" rules.
 
+> +measure func=MMAP_CHECK mask=MAY_EXEC
+> +measure func=BPRM_CHECK mask=MAY_EXEC
+> +measure func=FILE_CHECK mask=^MAY_READ euid=0
+> +measure func=FILE_CHECK mask=^MAY_READ uid=0
+
+Move above two "func=FILE_CHECK" rules to the end.
+
+> +measure func=MODULE_CHECK
+> +measure func=FIRMWARE_CHECK
+> +measure func=POLICY_CHECK
+
+thanks,
+
+Mimi
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
