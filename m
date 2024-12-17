@@ -2,94 +2,101 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F16259F4615
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Dec 2024 09:31:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1734424283; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=2lZY8GvVZwdk0IefkEN6MiboG+yrycoQxNn7UJMpKfM=;
- b=JUk2s6UyMCc5gLtqY9KGGKNbghPyZtgvaRY9xBp9dY6UpyMvtlpDAR5bUCw6RiwFksNw/
- vCcfmq2KGW7Qa3AzSrO8NOzKVggAN7+Ex1aE+Nv809y7oUAqUd4PMLRRrgQ8eq/AcpjSLMV
- k5sMC9I0vWUUke7D+jOD2BLryVbLMNg=
+	by mail.lfdr.de (Postfix) with ESMTPS id 08A9B9F4E4A
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Dec 2024 15:51:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 47D4B3EB33B
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Dec 2024 09:31:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C66B73ECB39
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Dec 2024 15:51:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BBDC73E5232
- for <ltp@lists.linux.it>; Tue, 17 Dec 2024 09:31:20 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=fujitsu.com (client-ip=68.232.139.117;
- helo=esa4.hc1455-7.c3s2.iphmx.com; envelope-from=maxj.fnst@fujitsu.com;
- receiver=lists.linux.it)
-Received: from esa4.hc1455-7.c3s2.iphmx.com (esa4.hc1455-7.c3s2.iphmx.com
- [68.232.139.117])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id EF1923EBEDA
+ for <ltp@lists.linux.it>; Tue, 17 Dec 2024 15:50:50 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2629463A4FC
- for <ltp@lists.linux.it>; Tue, 17 Dec 2024 09:31:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
- t=1734424279; x=1765960279;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=OOoOBH9c87vI1geQ6ccaUCcXlRX+riSsrbT86nt9iZc=;
- b=h6c41X5Qs5chI68rbUHw7x95tHLjf0ckqrMeJQ4fTSH0SObTJVIS8d8p
- +gk6S1GUTvyW/QGe+ieY7jlSPnsl1wHuz475Xaw6aSf3raT9dvKnp4Pof
- HvbNTO2FDk+GFfezGXpL9ydaONwSMETvP+A/F67uUzaNA7sZNi4AXtAdY
- 7OOGqufiESY4I12Ww8C/19UfaeeM13BZLCuXzk8zHtn7CUu/q5I2FrEHf
- Ji0RYMS/wvvUEpCt56O6hnriDSnZyAUBjr1ntxbocfBbvAYuas9y6lJyH
- tOuSOaYWd0wP/T0qZ6JFIQFUAEI+ux4FfjrLAZIVle2HZ+hcX8doGIyOW g==;
-X-CSE-ConnectionGUID: jMBfKGbmT0yibpBgsTBekw==
-X-CSE-MsgGUID: A+p6OFPLSZyCgplNiR9TLw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11288"; a="184235599"
-X-IronPort-AV: E=Sophos;i="6.12,241,1728918000"; d="scan'208";a="184235599"
-Received: from unknown (HELO yto-r4.gw.nic.fujitsu.com) ([218.44.52.220])
- by esa4.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2024 17:31:16 +0900
-Received: from yto-m2.gw.nic.fujitsu.com (yto-nat-yto-m2.gw.nic.fujitsu.com
- [192.168.83.65])
- by yto-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id 7300BD5019
- for <ltp@lists.linux.it>; Tue, 17 Dec 2024 17:31:14 +0900 (JST)
-Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
- [192.51.206.22])
- by yto-m2.gw.nic.fujitsu.com (Postfix) with ESMTP id 44AEED50E3
- for <ltp@lists.linux.it>; Tue, 17 Dec 2024 17:31:14 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id CDB8A3479C
- for <ltp@lists.linux.it>; Tue, 17 Dec 2024 17:31:13 +0900 (JST)
-Received: from localhost.localdomain (unknown [10.167.135.101])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id 3964D1A000B;
- Tue, 17 Dec 2024 16:31:13 +0800 (CST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id ACDFA61D9AB
+ for <ltp@lists.linux.it>; Tue, 17 Dec 2024 15:50:49 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7395B2115B;
+ Tue, 17 Dec 2024 14:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1734447048; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jOMtDaZp1WJDko9xi+SxlF/LFq0fEivIz0il7YpdXY0=;
+ b=a8+Wa3NaxifjOFZXxoov8Y3+HwpwZJD4BioHpFf5Fo1jiPx/FnYgrB63o3pjdHfhkV2X2K
+ 7OszMyMlpCYYvThiH8v+qf4CZuXOzdIx4BQ3uwmRQQsfD+Z/H7nuTHK3bMAz842IylK8j4
+ 5QGiOYGsim8f6NQn8CZxX1bEaciLA+8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1734447048;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jOMtDaZp1WJDko9xi+SxlF/LFq0fEivIz0il7YpdXY0=;
+ b=oZ0uejplZrfIhFTA/mXqQZJZPMsPFDgimgZ57QtNjKi58b6GwLi08DV6pkhwk8WTDW/icR
+ MdK2Y0RMxdfzmJBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1734447047; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jOMtDaZp1WJDko9xi+SxlF/LFq0fEivIz0il7YpdXY0=;
+ b=J6HuzMgUSjE30SZTENPl+D5sPQ449k3NHsm105eTA3HfZHOL+wm+GsloZbmPDldgYbDmeo
+ uDtfr663qQgLv2pgqPGSUFSdm1ZagWBgYS1uXqx/TOhW2PHypdDKSDuMBGRzoJg0N29vnM
+ Ml3yqNv3Z57H1H4rI8mv1z8YEeugC0A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1734447047;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jOMtDaZp1WJDko9xi+SxlF/LFq0fEivIz0il7YpdXY0=;
+ b=U555g/T6+iPDgqDA4+gR7nHicWCY4qSIANBk0dNLaxOWLg/U2kikGECAmBEgvN0ANU+Z0h
+ VcnNfnZufhnJb6Cw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 092DF132EA;
+ Tue, 17 Dec 2024 14:50:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id dM6QO8aPYWfJFwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Tue, 17 Dec 2024 14:50:46 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 17 Dec 2024 16:30:55 +0800
-Message-ID: <20241217083055.2995853-1-maxj.fnst@fujitsu.com>
-X-Mailer: git-send-email 2.47.0
+Date: Tue, 17 Dec 2024 15:50:40 +0100
+Message-ID: <20241217145041.44600-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28864.006
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28864.006
-X-TMASE-Result: 10--4.337700-10.000000
-X-TMASE-MatchedRID: BrApPpprBkTyq/cli2hvDU7nLUqYrlslNmVjpriVEtmmOWRsO8Mnh6Jf
- gPmvd/XOQDpE8046et1gRWLzgh5fxo9oUcx9VMLgFEUknJ/kEl6YwzE9E8g5OfoLR4+zsDTthUf
- R2rvBju5fM4b1zazFrQ/LoyBXG0xsO6un6n0klX9sQMCzouJ+J1uk4WADmyiX9K3hyhvaFS1Utb
- 1m4P8/hyrYb2mwfcv6Ti/P/Uh+rWNYOUxqOZP8HxXFEH92Kf64nTtPxlIuIBW9Hzj86YHXBCnif
- x5AGfCL
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[6];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -2.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] vmsplice02: Convert docs to docparse
+Subject: [LTP] [PATCH 1/2] ip_tests.sh: Iprove grep count
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,49 +108,47 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Ma Xinjian via ltp <ltp@lists.linux.it>
-Reply-To: Ma Xinjian <maxj.fnst@fujitsu.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Ma Xinjian <maxj.fnst@fujitsu.com>
----
- .../kernel/syscalls/vmsplice/vmsplice02.c      | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+Some systems have already defined another route with src 127.0.0.1,
+therefore more exact pattern is needed.
 
-diff --git a/testcases/kernel/syscalls/vmsplice/vmsplice02.c b/testcases/kernel/syscalls/vmsplice/vmsplice02.c
-index 8f1965c2e..24ff3c0f8 100644
---- a/testcases/kernel/syscalls/vmsplice/vmsplice02.c
-+++ b/testcases/kernel/syscalls/vmsplice/vmsplice02.c
-@@ -3,15 +3,15 @@
-  * Copyright (c) 2014 Fujitsu Ltd.
-  * Author: Xing Gu <gux.fnst@cn.fujitsu.com>
-  */
--/*
-- * Description:
-- *   Verify that,
-- *   1) vmsplice() returns -1 and sets errno to EBADF if fd
-- *      is not valid.
-- *   2) vmsplice() returns -1 and sets errno to EBADF if fd
-- *      doesn't refer to a pipe.
-- *   3) vmsplice() returns -1 and sets errno to EINVAL if
-- *      nr_segs is greater than IOV_MAX.
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that, vmsplice(2) returns -1 and sets errno to:
-+ *
-+ * - EBADF if fd is not valid.
-+ * - EBADF if fd doesn't refer to a pipe.
-+ * - EINVAL if nr_segs is greater than IOV_MAX.
-  */
+Also 1) escape '.' (dot) in regex 2) use '-q' instead of redirecting
+stdout to /dev/null.
+
+Reported-by: Petr Cervinka <pcervinka@suse.com>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/network/iproute/ip_tests.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/testcases/network/iproute/ip_tests.sh b/testcases/network/iproute/ip_tests.sh
+index ee9768073f..0b1d5a85e6 100755
+--- a/testcases/network/iproute/ip_tests.sh
++++ b/testcases/network/iproute/ip_tests.sh
+@@ -179,7 +179,7 @@ test5()
+ $ip4_addr via 127.0.0.1 dev lo
+ 	EOF
  
- #define _GNU_SOURCE
+-	ip route show | grep "$ip4_addr via 127.0.0.1 dev lo" > tst_ip.out 2>&1
++	ip route show | grep "$ip4_addr via 127\.0\.0\.1 dev lo" > tst_ip\.out 2>&1
+ 	if [ $? -ne 0 ]; then
+ 		tst_res TFAIL "'ip route show' command failed"
+ 		return
+@@ -195,7 +195,7 @@ $ip4_addr via 127.0.0.1 dev lo
+ 
+ 	ROD ip route del $ip4_addr via 127.0.0.1
+ 
+-	ip route show | grep 127.0.0.1 > /dev/null
++	ip route show | grep -q "$ip4_addr via 127\.0\.0\.1 dev lo"
+ 	if [ $? -eq 0 ]; then
+ 		tst_res TFAIL "route not deleted"
+ 		return
 -- 
-2.47.0
+2.47.1
 
 
 -- 
