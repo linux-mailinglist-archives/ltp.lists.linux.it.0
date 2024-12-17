@@ -1,98 +1,95 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390A29F45AB
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Dec 2024 09:06:08 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id F16259F4615
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Dec 2024 09:31:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1734422761; h=to : date :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1734424283; h=to : date :
  message-id : mime-version : subject : list-id : list-unsubscribe :
  list-archive : list-post : list-help : list-subscribe : from :
  reply-to : content-type : content-transfer-encoding : sender : from;
- bh=NqSGK858cVB6E+IWTH30UCw+IGvn6ppMFkY1cy1ds6g=;
- b=KO7ZeNklYeTMAXdMkCGKi11FFdwDwErXLS7KuLPny4p+oiDlCkrwjiAmNw2Rezrd6UncT
- epNlGovnCg8QbGLozJajMdliQYooH6m/TCEVG5qmMbddqXdaArdUU5uXODRwL1a20xqnvSy
- kk1y2FwVGX7rBzkmAC+WlWvlN2hGPH4=
+ bh=2lZY8GvVZwdk0IefkEN6MiboG+yrycoQxNn7UJMpKfM=;
+ b=JUk2s6UyMCc5gLtqY9KGGKNbghPyZtgvaRY9xBp9dY6UpyMvtlpDAR5bUCw6RiwFksNw/
+ vCcfmq2KGW7Qa3AzSrO8NOzKVggAN7+Ex1aE+Nv809y7oUAqUd4PMLRRrgQ8eq/AcpjSLMV
+ k5sMC9I0vWUUke7D+jOD2BLryVbLMNg=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A4EF93E6283
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Dec 2024 09:06:01 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 47D4B3EB33B
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Dec 2024 09:31:23 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 495583E2990
- for <ltp@lists.linux.it>; Tue, 17 Dec 2024 09:06:00 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=fujitsu.com (client-ip=139.138.37.100;
- helo=esa12.hc1455-7.c3s2.iphmx.com; envelope-from=maxj.fnst@fujitsu.com;
+ by picard.linux.it (Postfix) with ESMTPS id BBDC73E5232
+ for <ltp@lists.linux.it>; Tue, 17 Dec 2024 09:31:20 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fujitsu.com (client-ip=68.232.139.117;
+ helo=esa4.hc1455-7.c3s2.iphmx.com; envelope-from=maxj.fnst@fujitsu.com;
  receiver=lists.linux.it)
-Received: from esa12.hc1455-7.c3s2.iphmx.com (esa12.hc1455-7.c3s2.iphmx.com
- [139.138.37.100])
+Received: from esa4.hc1455-7.c3s2.iphmx.com (esa4.hc1455-7.c3s2.iphmx.com
+ [68.232.139.117])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DD6261431293
- for <ltp@lists.linux.it>; Tue, 17 Dec 2024 09:05:58 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2629463A4FC
+ for <ltp@lists.linux.it>; Tue, 17 Dec 2024 09:31:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
- t=1734422759; x=1765958759;
+ t=1734424279; x=1765960279;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=cNYM9NtPi4Q/xxmRGm7YySiuXtSVE7zIAsiMx9v3Q48=;
- b=oZctYlqZLt8bBy31iLkKoHuA7r+Xc8vZiDktyo7vlmFOUII9/siqv1SH
- KCR/xFleaHBMrGtJ9ZaLyVoNwapAP5ji6D22DPmdILUUau50TgKAxuvL9
- 78WnXZ4vQZq6djQK0H0DrvM8jaypvPt+tEouWmkTtP5rilf/RPzEgOe+g
- y0zQC+iaDdQnEeBa3LXnVudDMlCr8JsKxAmg/SLsKyRz9SgbOslFevFTw
- pFAMzyHlSKS42ULo3u0QfymGLwIDwQukVG4HYJNHQjN29+TLdmsDdHPmr
- OWpnXd58m2aXx8oHf53A6o61O7IbsBsotNhEKnGtNdMcQiMo7i8Dqp0Xk g==;
-X-CSE-ConnectionGUID: MkeQOsR5Svmwnwa9Sl67Ww==
-X-CSE-MsgGUID: cbRjhNVMSXWeWoSvDefiTg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11288"; a="162947888"
-X-IronPort-AV: E=Sophos;i="6.12,241,1728918000"; d="scan'208";a="162947888"
-Received: from unknown (HELO oym-r2.gw.nic.fujitsu.com) ([210.162.30.90])
- by esa12.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2024 17:05:56 +0900
-Received: from oym-m3.gw.nic.fujitsu.com (oym-nat-oym-m3.gw.nic.fujitsu.com
- [192.168.87.60])
- by oym-r2.gw.nic.fujitsu.com (Postfix) with ESMTP id 67281D4C39
- for <ltp@lists.linux.it>; Tue, 17 Dec 2024 17:05:54 +0900 (JST)
-Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
- [192.51.206.21])
- by oym-m3.gw.nic.fujitsu.com (Postfix) with ESMTP id 38A4FD6FF3
- for <ltp@lists.linux.it>; Tue, 17 Dec 2024 17:05:54 +0900 (JST)
+ bh=OOoOBH9c87vI1geQ6ccaUCcXlRX+riSsrbT86nt9iZc=;
+ b=h6c41X5Qs5chI68rbUHw7x95tHLjf0ckqrMeJQ4fTSH0SObTJVIS8d8p
+ +gk6S1GUTvyW/QGe+ieY7jlSPnsl1wHuz475Xaw6aSf3raT9dvKnp4Pof
+ HvbNTO2FDk+GFfezGXpL9ydaONwSMETvP+A/F67uUzaNA7sZNi4AXtAdY
+ 7OOGqufiESY4I12Ww8C/19UfaeeM13BZLCuXzk8zHtn7CUu/q5I2FrEHf
+ Ji0RYMS/wvvUEpCt56O6hnriDSnZyAUBjr1ntxbocfBbvAYuas9y6lJyH
+ tOuSOaYWd0wP/T0qZ6JFIQFUAEI+ux4FfjrLAZIVle2HZ+hcX8doGIyOW g==;
+X-CSE-ConnectionGUID: jMBfKGbmT0yibpBgsTBekw==
+X-CSE-MsgGUID: A+p6OFPLSZyCgplNiR9TLw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11288"; a="184235599"
+X-IronPort-AV: E=Sophos;i="6.12,241,1728918000"; d="scan'208";a="184235599"
+Received: from unknown (HELO yto-r4.gw.nic.fujitsu.com) ([218.44.52.220])
+ by esa4.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2024 17:31:16 +0900
+Received: from yto-m2.gw.nic.fujitsu.com (yto-nat-yto-m2.gw.nic.fujitsu.com
+ [192.168.83.65])
+ by yto-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id 7300BD5019
+ for <ltp@lists.linux.it>; Tue, 17 Dec 2024 17:31:14 +0900 (JST)
+Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
+ [192.51.206.22])
+ by yto-m2.gw.nic.fujitsu.com (Postfix) with ESMTP id 44AEED50E3
+ for <ltp@lists.linux.it>; Tue, 17 Dec 2024 17:31:14 +0900 (JST)
 Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id B62992007FAD3
- for <ltp@lists.linux.it>; Tue, 17 Dec 2024 17:05:53 +0900 (JST)
+ by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id CDB8A3479C
+ for <ltp@lists.linux.it>; Tue, 17 Dec 2024 17:31:13 +0900 (JST)
 Received: from localhost.localdomain (unknown [10.167.135.101])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id 5683F1A000B;
- Tue, 17 Dec 2024 16:05:53 +0800 (CST)
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id 3964D1A000B;
+ Tue, 17 Dec 2024 16:31:13 +0800 (CST)
 To: ltp@lists.linux.it
-Date: Tue, 17 Dec 2024 16:05:22 +0800
-Message-ID: <20241217080522.2993992-1-maxj.fnst@fujitsu.com>
+Date: Tue, 17 Dec 2024 16:30:55 +0800
+Message-ID: <20241217083055.2995853-1-maxj.fnst@fujitsu.com>
 X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
 X-TM-AS-GCONF: 00
 X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28864.006
 X-TM-AS-User-Approved-Sender: Yes
 X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28864.006
-X-TMASE-Result: 10--2.572900-10.000000
-X-TMASE-MatchedRID: mLEC5fZiOdAB90FcL1q4MKzGfgakLdjaNmVjpriVEtlRTd1AeDAt7zib
- ESY8R8hiQMOJEqjTDACHzK4exfm8m04GO5MhEQotqug9vIA2WODTAe9FsgbYxxd+xtxH8FsxqCf
- eIlEscU5KU23a3Z4Sgl9QwtoILPgbYwBIYRLig/YTMSg6oABUszaEg2r8izCUTPm/MsQarwMsjs
- Y5yg0AYwm6uSKbYHiD3f+upNqH8RFJ6sKfyz0AbW03YawHJvPCHJJXhOFmNVtULhp+W/a9megoS
- vaKsl/kTWffQzmh43jUf0qVquiKqOQu+8z9/q/ltPYfgFJ3kY/1q+x7zkhJWpyG1Z7KRwOKpTac
- d14H2kiLVDMXzEGmRY/WTtrhCSgoNyl1nd9CIt0URSScn+QSXt0H8LFZNFG7/nnwJ52QYi+Std8
- 3kHCpUWpGI/X5iJebAc1RJZA2k3LWwsva9wHkEDnhduaamnEG/xuuHCs/5/k07/CzMXl4sCT7RS
- Yv3Tgfaz38LS2gFGId5LRa9em2y1uMG6V02+QySir3tZId0WN+6klq53W5kJ9Gzq4huQVX
+X-TMASE-Result: 10--4.337700-10.000000
+X-TMASE-MatchedRID: BrApPpprBkTyq/cli2hvDU7nLUqYrlslNmVjpriVEtmmOWRsO8Mnh6Jf
+ gPmvd/XOQDpE8046et1gRWLzgh5fxo9oUcx9VMLgFEUknJ/kEl6YwzE9E8g5OfoLR4+zsDTthUf
+ R2rvBju5fM4b1zazFrQ/LoyBXG0xsO6un6n0klX9sQMCzouJ+J1uk4WADmyiX9K3hyhvaFS1Utb
+ 1m4P8/hyrYb2mwfcv6Ti/P/Uh+rWNYOUxqOZP8HxXFEH92Kf64nTtPxlIuIBW9Hzj86YHXBCnif
+ x5AGfCL
 X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] set_tid_address01: refactor with new LTP API
+Subject: [LTP] [PATCH] vmsplice02: Convert docs to docparse
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,166 +110,38 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Ma Xinjian <maxj.fnst@fujitsu.com>
 ---
- .../set_tid_address/set_tid_address01.c       | 146 +++---------------
- 1 file changed, 23 insertions(+), 123 deletions(-)
+ .../kernel/syscalls/vmsplice/vmsplice02.c      | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/set_tid_address/set_tid_address01.c b/testcases/kernel/syscalls/set_tid_address/set_tid_address01.c
-index 11fa27540..fa03a1489 100644
---- a/testcases/kernel/syscalls/set_tid_address/set_tid_address01.c
-+++ b/testcases/kernel/syscalls/set_tid_address/set_tid_address01.c
-@@ -1,129 +1,29 @@
--/******************************************************************************/
--/* Copyright (c) Crackerjack Project., 2007                                   */
--/*                                                                            */
--/* This program is free software;  you can redistribute it and/or modify      */
--/* it under the terms of the GNU General Public License as published by       */
--/* the Free Software Foundation; either version 2 of the License, or          */
--/* (at your option) any later version.                                        */
--/*                                                                            */
--/* This program is distributed in the hope that it will be useful,            */
--/* but WITHOUT ANY WARRANTY;  without even the implied warranty of            */
--/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See                  */
--/* the GNU General Public License for more details.                           */
--/*                                                                            */
--/* You should have received a copy of the GNU General Public License          */
--/* along with this program;  if not, write to the Free Software               */
--/* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    */
--/*                                                                            */
--/******************************************************************************/
--/******************************************************************************/
--/*                                                                            */
--/* File:        set_tid_address01.c                                           */
--/*                                                                            */
--/* Description: This tests the set_tid_address() syscall                      */
--/*                                                                            */
--/* Usage:  <for command-line>                                                 */
--/* set_tid_address01 [-c n] [-e][-i n] [-I x] [-p x] [-t]                     */
--/*      where,  -c n : Run n copies concurrently.                             */
--/*              -e   : Turn on errno logging.                                 */
--/*              -i n : Execute test n times.                                  */
--/*              -I x : Execute test for x seconds.                            */
--/*              -P x : Pause for x seconds between iterations.                */
--/*              -t   : Turn on syscall timing.                                */
--/*                                                                            */
--/* Total Tests: 1                                                             */
--/*                                                                            */
--/* Test Name:   set_tid_address01                                             */
--/* History:     Porting from Crackerjack to LTP is done by                    */
--/*              Manas Kumar Nayak maknayak@in.ibm.com>                        */
--/******************************************************************************/
--
--#include <stdio.h>
--#include <errno.h>
--
--#include "test.h"
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/* Copyright (c) Crackerjack Project., 2007
-+ * Copyright (c) Linux Test Project, 2007-2024
-+ */
+diff --git a/testcases/kernel/syscalls/vmsplice/vmsplice02.c b/testcases/kernel/syscalls/vmsplice/vmsplice02.c
+index 8f1965c2e..24ff3c0f8 100644
+--- a/testcases/kernel/syscalls/vmsplice/vmsplice02.c
++++ b/testcases/kernel/syscalls/vmsplice/vmsplice02.c
+@@ -3,15 +3,15 @@
+  * Copyright (c) 2014 Fujitsu Ltd.
+  * Author: Xing Gu <gux.fnst@cn.fujitsu.com>
+  */
+-/*
+- * Description:
+- *   Verify that,
+- *   1) vmsplice() returns -1 and sets errno to EBADF if fd
+- *      is not valid.
+- *   2) vmsplice() returns -1 and sets errno to EBADF if fd
+- *      doesn't refer to a pipe.
+- *   3) vmsplice() returns -1 and sets errno to EINVAL if
+- *      nr_segs is greater than IOV_MAX.
 +
 +/*\
 + * [Description]
 + *
-+ * Verify the basic functionality of set_tid_address() syscall.
-+ */
-+
-+#include "tst_test.h"
- #include "lapi/syscalls.h"
++ * Verify that, vmsplice(2) returns -1 and sets errno to:
++ *
++ * - EBADF if fd is not valid.
++ * - EBADF if fd doesn't refer to a pipe.
++ * - EINVAL if nr_segs is greater than IOV_MAX.
+  */
  
--char *TCID = "set_tid_address01";
--int testno;
--int TST_TOTAL = 1;
--
--/* Extern Global Functions */
--/******************************************************************************/
--/*                                                                            */
--/* Function:    cleanup                                                       */
--/*                                                                            */
--/* Description: Performs all one time clean up for this test on successful    */
--/*              completion,  premature exit or  failure. Closes all temporary */
--/*              files, removes all temporary directories exits the test with  */
--/*              appropriate return code by calling tst_exit() function.       */
--/*                                                                            */
--/* Input:       None.                                                         */
--/*                                                                            */
--/* Output:      None.                                                         */
--/*                                                                            */
--/* Return:      On failure - Exits calling tst_exit(). Non '0' return code.   */
--/*              On success - Exits calling tst_exit(). With '0' return code.  */
--/*                                                                            */
--/******************************************************************************/
--void cleanup(void)
--{
--
--	tst_rmdir();
--
--	tst_exit();
--}
--
--/* Local  Functions */
--/******************************************************************************/
--/*                                                                            */
--/* Function:    setup                                                         */
--/*                                                                            */
--/* Description: Performs all one time setup for this test. This function is   */
--/*              typically used to capture signals, create temporary dirs      */
--/*              and temporary files that may be used in the course of this    */
--/*              test.                                                         */
--/*                                                                            */
--/* Input:       None.                                                         */
--/*                                                                            */
--/* Output:      None.                                                         */
--/*                                                                            */
--/* Return:      On failure - Exits by calling cleanup().                      */
--/*              On success - returns 0.                                       */
--/*                                                                            */
--/******************************************************************************/
--void setup(void)
--{
--	/* Capture signals if any */
--	/* Create temporary directories */
--	TEST_PAUSE;
--	tst_tmpdir();
--}
--
--int main(int ac, char **av)
-+static void verify_set_tid_address(void)
- {
- 	int newtid = -1;
--	int lc;
- 
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); ++lc) {
--		tst_count = 0;
--		for (testno = 0; testno < TST_TOTAL; ++testno) {
--			TEST(tst_syscall(__NR_set_tid_address, &newtid));
--			if (TEST_RETURN == getpid()) {
--				tst_resm(TPASS,
--					 "set_tid_address call succeeded:  as expected %ld",
--					 TEST_RETURN);
--			} else {
--				tst_brkm(TFAIL, cleanup, "%s failed - errno = %d : %s",
--					 TCID, TEST_ERRNO,
--					 strerror(TEST_ERRNO));
--			}
--		}
--	}
--	cleanup();
--	tst_exit();
-+	TEST(tst_syscall(__NR_set_tid_address, &newtid));
-+	if (TST_RET == getpid())
-+		tst_res(TPASS, "set_tid_address call succeeded: as expected %ld", TST_RET);
-+	else
-+		tst_res(TFAIL | TTERRNO, "set_tid_address call failed: expected %ld, but got %ld", getpid(), TST_RET);
- }
-+
-+static struct tst_test test = {
-+	.test_all = verify_set_tid_address,
-+	.needs_tmpdir = 1,
-+};
+ #define _GNU_SOURCE
 -- 
 2.47.0
 
