@@ -2,96 +2,96 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAF349F6D96
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 19:46:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A31099F6D98
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 19:47:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 336923ED627
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 19:46:36 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 513623ED622
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 19:47:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3EF163EBA21
- for <ltp@lists.linux.it>; Wed, 18 Dec 2024 19:45:20 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id F2D133ED61F
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2024 19:45:21 +0100 (CET)
+Authentication-Results: in-3.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5F8CF63006F
- for <ltp@lists.linux.it>; Wed, 18 Dec 2024 19:45:20 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4EA3E1BCC64B
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2024 19:45:21 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6132921164;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C1D961F449;
  Wed, 18 Dec 2024 18:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1734547519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1734547520; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Cxhl837/hk70TsoGXM2gGAfBqi/PRQiUuaYZoyrthi4=;
- b=eZ1aa4OSVn/0rDOMl/xPomOAUTBhF086wJlQrR6wj7A1j2wrLB/fcE+uni+6jqpglQzMxa
- pnfEYUICJVBRvdwyBXWYZEbEHqEKtlKLu15C0zN8OzSlcp0lX0XQGXs0Ma7lE5dYEEdolq
- 1vQF0kjYS1SYiceIRdKsF/AtWT3Q2rQ=
+ bh=VVfQI2fDa05LUzm4jfWMIGPYYMVOtaUlifsACIxtp+k=;
+ b=1saCVs2mUGRH6f8Z/jX+lwnS7kVou6WPyAQps/iLm5ZY89AiezEaH1cMcbuPE52YyuVLgj
+ rVXU9QpmBwmM5sE3JCFBRcq/HctJogPRreDWiPEpyCRj6AYXBiEXOXDuHpeztDNHuD80hj
+ grvFeKzYHgt5i+4bcCQaz/nZXOujZUk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1734547519;
+ s=susede2_ed25519; t=1734547520;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Cxhl837/hk70TsoGXM2gGAfBqi/PRQiUuaYZoyrthi4=;
- b=gi9xSwnJiKGUCXKk6qKTi9V+ZOwi7FbRK9xFjRRQBolIhp39wnCI07ADlNqUME6YvhMO+9
- Tr54ahUZBaQ3iMAQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=eZ1aa4OS;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=gi9xSwnJ
+ bh=VVfQI2fDa05LUzm4jfWMIGPYYMVOtaUlifsACIxtp+k=;
+ b=oJycmauBYo2Ml8M6IRGe4jIVAed5maOwuB8p8wMzFoeZmTrj53vgsuF3w8Cw5GqUYE+tA6
+ UmVmHrH3IQ8P3yCg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=iW8Ez0Ae;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Xs9kRYAa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1734547519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Cxhl837/hk70TsoGXM2gGAfBqi/PRQiUuaYZoyrthi4=;
- b=eZ1aa4OSVn/0rDOMl/xPomOAUTBhF086wJlQrR6wj7A1j2wrLB/fcE+uni+6jqpglQzMxa
- pnfEYUICJVBRvdwyBXWYZEbEHqEKtlKLu15C0zN8OzSlcp0lX0XQGXs0Ma7lE5dYEEdolq
- 1vQF0kjYS1SYiceIRdKsF/AtWT3Q2rQ=
+ bh=VVfQI2fDa05LUzm4jfWMIGPYYMVOtaUlifsACIxtp+k=;
+ b=iW8Ez0AeCeJyV07Db1DR1H5CT6GuDRB6uwiRgzxeiXnw7Tdcq/ejHUPmhLaluB2NAXsIXS
+ Q2le7yVXEGhakgUmxM84cpGEC80Yqj+irlaOgPH7JmNlMTA2WhHTDUz2hDDToGJyN4pr2r
+ s/mSEVSlzZ/n2JWd5aIUzb40NY+a0bc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1734547519;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Cxhl837/hk70TsoGXM2gGAfBqi/PRQiUuaYZoyrthi4=;
- b=gi9xSwnJiKGUCXKk6qKTi9V+ZOwi7FbRK9xFjRRQBolIhp39wnCI07ADlNqUME6YvhMO+9
- Tr54ahUZBaQ3iMAQ==
+ bh=VVfQI2fDa05LUzm4jfWMIGPYYMVOtaUlifsACIxtp+k=;
+ b=Xs9kRYAaNt1JpucI9B629MO1OHIKo+3XqqXTQIrw22PGn231m85sl/10kRCmkpfnfriuRy
+ 1T8Y3IE+5FQBcrCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4EF23137CF;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B2730137CF;
  Wed, 18 Dec 2024 18:45:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id n/n+ET8YY2dqcQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id TMAUKj8YY2dscQAAD6G6ig
  (envelope-from <chrubis@suse.cz>); Wed, 18 Dec 2024 18:45:19 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 18 Dec 2024 19:45:09 +0100
-Message-ID: <20241218184518.16190-5-chrubis@suse.cz>
+Date: Wed, 18 Dec 2024 19:45:10 +0100
+Message-ID: <20241218184518.16190-6-chrubis@suse.cz>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241218184518.16190-1-chrubis@suse.cz>
 References: <20241218184518.16190-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: 6132921164
-X-Spam-Level: 
+X-Rspamd-Queue-Id: C1D961F449
+X-Spam-Score: -3.01
+X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
  R_MISSING_CHARSET(0.50)[];
@@ -102,20 +102,19 @@ X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
  RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,suse.cz:mid];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:mid,suse.cz:email];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  RCPT_COUNT_TWO(0.00)[2]; MIME_TRACE(0.00)[0:+];
  DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 04/13] testcases/kernel/mem: Move get_a_numa_node()
+Subject: [LTP] [PATCH 05/13] testcases/kernel/mem: Move update_shm_size()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,125 +131,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Move get_a_numa_node() from the library to the ksm_common.h since the
-function is used only by the ksm testcases.
+Move update_shm_size() from the lib to the libhugetlb.c since the
+function is used only by the hugetlb testcases.
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/kernel/mem/include/mem.h    |  3 ---
- testcases/kernel/mem/ksm/ksm_common.h | 35 +++++++++++++++++++++++++++
- testcases/kernel/mem/lib/mem.c        | 33 -------------------------
- 3 files changed, 35 insertions(+), 36 deletions(-)
+ testcases/kernel/mem/hugetlb/lib/hugetlb.c | 11 +++++++++++
+ testcases/kernel/mem/hugetlb/lib/hugetlb.h |  3 +++
+ testcases/kernel/mem/include/mem.h         |  2 --
+ testcases/kernel/mem/lib/mem.c             | 13 -------------
+ 4 files changed, 14 insertions(+), 15 deletions(-)
 
+diff --git a/testcases/kernel/mem/hugetlb/lib/hugetlb.c b/testcases/kernel/mem/hugetlb/lib/hugetlb.c
+index 43a677ce9..6a2976a53 100644
+--- a/testcases/kernel/mem/hugetlb/lib/hugetlb.c
++++ b/testcases/kernel/mem/hugetlb/lib/hugetlb.c
+@@ -130,3 +130,14 @@ int do_readback(void *p, size_t size, char *desc)
+ 	}
+ 	return 0;
+ }
++
++void update_shm_size(size_t * shm_size)
++{
++	size_t shmmax;
++
++	SAFE_FILE_SCANF(PATH_SHMMAX, "%zu", &shmmax);
++	if (*shm_size > shmmax) {
++		tst_res(TINFO, "Set shm_size to shmmax: %zu", shmmax);
++		*shm_size = shmmax;
++	}
++}
+diff --git a/testcases/kernel/mem/hugetlb/lib/hugetlb.h b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
+index a694514d2..abc88e25e 100644
+--- a/testcases/kernel/mem/hugetlb/lib/hugetlb.h
++++ b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
+@@ -56,4 +56,7 @@ int getipckey(void);
+ int getuserid(char *user);
+ void rm_shm(int shm_id);
+ int do_readback(void *p, size_t size, char *desc);
++
++void update_shm_size(size_t *shm_size);
++
+ #endif /* hugetlb.h */
 diff --git a/testcases/kernel/mem/include/mem.h b/testcases/kernel/mem/include/mem.h
-index 7251a8839..35a1f0834 100644
+index 35a1f0834..03dbe91d7 100644
 --- a/testcases/kernel/mem/include/mem.h
 +++ b/testcases/kernel/mem/include/mem.h
-@@ -68,9 +68,6 @@ void write_memcg(void);
+@@ -68,6 +68,4 @@ void write_memcg(void);
  /* cpuset/memcg - include/tst_cgroup.h */
  void write_cpusets(const struct tst_cg_group *cg, long nd);
  
--/* shared */
--unsigned int get_a_numa_node(void);
+-void update_shm_size(size_t *shm_size);
 -
- void update_shm_size(size_t *shm_size);
- 
  #endif
-diff --git a/testcases/kernel/mem/ksm/ksm_common.h b/testcases/kernel/mem/ksm/ksm_common.h
-index 489d34ae0..43ea8f8c2 100644
---- a/testcases/kernel/mem/ksm/ksm_common.h
-+++ b/testcases/kernel/mem/ksm/ksm_common.h
-@@ -11,6 +11,7 @@
- #define KSM_COMMON_H__
- 
- #include "tst_test.h"
-+#include "numa_helper.h"
- 
- #define DEFAULT_MEMSIZE 128
- 
-@@ -33,4 +34,38 @@ static inline void parse_ksm_options(char *str_size, int *size,
- 		tst_brk(TBROK, "the remainder of division of size by unit is not zero.");
- }
- 
-+/* Warning: *DO NOT* use this function in child */
-+static inline unsigned int get_a_numa_node(void)
-+{
-+	unsigned int nd1, nd2;
-+	int ret;
-+
-+	ret = get_allowed_nodes(0, 2, &nd1, &nd2);
-+	switch (ret) {
-+	case 0:
-+		break;
-+	case -3:
-+		tst_brk(TCONF, "requires a NUMA system.");
-+	default:
-+		tst_brk(TBROK | TERRNO, "1st get_allowed_nodes");
-+	}
-+
-+	ret = get_allowed_nodes(NH_MEMS | NH_CPUS, 1, &nd1);
-+	switch (ret) {
-+	case 0:
-+		tst_res(TINFO, "get node%u.", nd1);
-+		return nd1;
-+	case -3:
-+		tst_brk(TCONF, "requires a NUMA system that has "
-+			 "at least one node with both memory and CPU "
-+			 "available.");
-+	default:
-+		tst_brk(TBROK | TERRNO, "2nd get_allowed_nodes");
-+	}
-+
-+	/* not reached */
-+	abort();
-+}
-+
-+
- #endif /* KSM_COMMON_H__ */
 diff --git a/testcases/kernel/mem/lib/mem.c b/testcases/kernel/mem/lib/mem.c
-index 16eb39cba..06271f5d3 100644
+index 06271f5d3..de9388a80 100644
 --- a/testcases/kernel/mem/lib/mem.c
 +++ b/testcases/kernel/mem/lib/mem.c
-@@ -593,39 +593,6 @@ void write_cpusets(const struct tst_cg_group *cg, long nd)
- 
- /* shared */
- 
--/* Warning: *DO NOT* use this function in child */
--unsigned int get_a_numa_node(void)
+@@ -590,16 +590,3 @@ void write_cpusets(const struct tst_cg_group *cg, long nd)
+ 		SAFE_CG_PRINT(cg, "cpuset.cpus", "0");
+ 	}
+ }
+-
+-/* shared */
+-
+-void update_shm_size(size_t * shm_size)
 -{
--	unsigned int nd1, nd2;
--	int ret;
+-	size_t shmmax;
 -
--	ret = get_allowed_nodes(0, 2, &nd1, &nd2);
--	switch (ret) {
--	case 0:
--		break;
--	case -3:
--		tst_brk(TCONF, "requires a NUMA system.");
--	default:
--		tst_brk(TBROK | TERRNO, "1st get_allowed_nodes");
+-	SAFE_FILE_SCANF(PATH_SHMMAX, "%zu", &shmmax);
+-	if (*shm_size > shmmax) {
+-		tst_res(TINFO, "Set shm_size to shmmax: %zu", shmmax);
+-		*shm_size = shmmax;
 -	}
--
--	ret = get_allowed_nodes(NH_MEMS | NH_CPUS, 1, &nd1);
--	switch (ret) {
--	case 0:
--		tst_res(TINFO, "get node%u.", nd1);
--		return nd1;
--	case -3:
--		tst_brk(TCONF, "requires a NUMA system that has "
--			 "at least one node with both memory and CPU "
--			 "available.");
--	default:
--		tst_brk(TBROK | TERRNO, "2nd get_allowed_nodes");
--	}
--
--	/* not reached */
--	abort();
 -}
--
- void update_shm_size(size_t * shm_size)
- {
- 	size_t shmmax;
 -- 
 2.45.2
 
