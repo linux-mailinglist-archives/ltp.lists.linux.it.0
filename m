@@ -1,94 +1,94 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C06B59F6DB5
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 20:01:42 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 15A459F6DBB
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 20:02:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7B7123ED62B
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 20:01:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id ABE633ED62D
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 20:02:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1C2573ED633
- for <ltp@lists.linux.it>; Wed, 18 Dec 2024 20:00:52 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id EDBA23ED62B
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2024 20:00:54 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1F29622B5B3
- for <ltp@lists.linux.it>; Wed, 18 Dec 2024 20:00:52 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6641C63398B
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2024 20:00:53 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A75F721165;
- Wed, 18 Dec 2024 19:00:51 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1EEA91F396;
+ Wed, 18 Dec 2024 19:00:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1734548451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1734548452; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=u7H8uApi5otOLdvHzPwY/GMX6IVGhISbYK0KckFZB8Y=;
- b=uXPyo15ErilF28MVtIOnWUx6KOTsP5/0+VRFcakiRfzlutG7sWW1SlyV/FsfnGf0KKaOp2
- t/7vEEr69PJiF3kN6iN1upYv2yGCqsGa64hu886hf3wKsosTmXdaGKyWDWOAcMeQ4oTala
- 1m6JUFqvsszpamlp1vq0D9F64HCe4EA=
+ bh=OE16X8Q8zwz+kcshvMRsIuYHhGONAa7heFzqljPmBQU=;
+ b=DDJT5L2Iytq4BSnv7u1UIVCTvB8O0RzR24sYS+MyrwwM+hOCgLOml/rtUr/pQgxmm166GA
+ Qo79GwgamEe7ZUKs3B8e9ys1bUeHsH/ToyeKNrH6ilJ/BlWYlxz/5vLm+jae26xQiO74iy
+ /8duY+3Vfs35lvFa266ji1OiFP2c4F0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1734548451;
+ s=susede2_ed25519; t=1734548452;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=u7H8uApi5otOLdvHzPwY/GMX6IVGhISbYK0KckFZB8Y=;
- b=YEvk77eo/nvOF5rfWZlyjI+vUG5C+n2qxwmI9AwS84IRtRTGU0UFq38kSOnPshhg6Xtx3a
- Bt6pSdhDK8JZRKCw==
-Authentication-Results: smtp-out1.suse.de;
+ bh=OE16X8Q8zwz+kcshvMRsIuYHhGONAa7heFzqljPmBQU=;
+ b=acgOLmExCAdRqGTfhfqlLwsg3Iz9Swoi/dm8zQup0iADiGq7hQoSKr6JAU1stEn6z/z94R
+ WjI2xBrfW6xvSQCQ==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1734548451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1734548452; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=u7H8uApi5otOLdvHzPwY/GMX6IVGhISbYK0KckFZB8Y=;
- b=uXPyo15ErilF28MVtIOnWUx6KOTsP5/0+VRFcakiRfzlutG7sWW1SlyV/FsfnGf0KKaOp2
- t/7vEEr69PJiF3kN6iN1upYv2yGCqsGa64hu886hf3wKsosTmXdaGKyWDWOAcMeQ4oTala
- 1m6JUFqvsszpamlp1vq0D9F64HCe4EA=
+ bh=OE16X8Q8zwz+kcshvMRsIuYHhGONAa7heFzqljPmBQU=;
+ b=DDJT5L2Iytq4BSnv7u1UIVCTvB8O0RzR24sYS+MyrwwM+hOCgLOml/rtUr/pQgxmm166GA
+ Qo79GwgamEe7ZUKs3B8e9ys1bUeHsH/ToyeKNrH6ilJ/BlWYlxz/5vLm+jae26xQiO74iy
+ /8duY+3Vfs35lvFa266ji1OiFP2c4F0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1734548451;
+ s=susede2_ed25519; t=1734548452;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=u7H8uApi5otOLdvHzPwY/GMX6IVGhISbYK0KckFZB8Y=;
- b=YEvk77eo/nvOF5rfWZlyjI+vUG5C+n2qxwmI9AwS84IRtRTGU0UFq38kSOnPshhg6Xtx3a
- Bt6pSdhDK8JZRKCw==
+ bh=OE16X8Q8zwz+kcshvMRsIuYHhGONAa7heFzqljPmBQU=;
+ b=acgOLmExCAdRqGTfhfqlLwsg3Iz9Swoi/dm8zQup0iADiGq7hQoSKr6JAU1stEn6z/z94R
+ WjI2xBrfW6xvSQCQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 96B1A132EA;
- Wed, 18 Dec 2024 19:00:51 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0CDF1132EA;
+ Wed, 18 Dec 2024 19:00:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id okm/I+MbY2fpdQAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Wed, 18 Dec 2024 19:00:51 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id O9y7AeQbY2frdQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Wed, 18 Dec 2024 19:00:52 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 18 Dec 2024 20:00:25 +0100
-Message-ID: <20241218190029.15015-6-chrubis@suse.cz>
+Date: Wed, 18 Dec 2024 20:00:26 +0100
+Message-ID: <20241218190029.15015-7-chrubis@suse.cz>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241218190029.15015-1-chrubis@suse.cz>
 References: <20241218190029.15015-1-chrubis@suse.cz>
 MIME-Version: 1.0
 X-Spam-Score: -2.80
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
  MIME_GOOD(-0.10)[text/plain]; RCPT_COUNT_TWO(0.00)[2];
@@ -104,10 +104,10 @@ X-Spam-Level:
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 5/9] metadata: data_storage: Add two array functions
+Subject: [LTP] [PATCH 6/9] metadata: metaparse: Better array parsing.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,54 +124,126 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-- data_node_array_last() returns last element in an array or NULL if empty
+Changes the array parser to concatenate array mebers i.e. everything
+between ',' is concatenated to a single string.
 
-- data_node_array_last_rem() removes and frees last element from an array
+We also convert NULL in the middle anonymous structure initialization
+into JSON null. With this the save_restore generates a proper arrays.
+
+This fixes a few problems such as:
+
+...
+    "hugepages": [
+-     "(",
+-     "50",
+-     "+"
+-     "1",
+-     ")",
+-     "*",
+-     "5",
++     "(50+1)*5",
+      "TST_NEEDS"
+     ],
+...
+    "save_restore": [
+      [
+       "PATH_OC_HPAGES",
++      null,
+       "TST_SR_TCONF"
+      ]
+...
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- metadata/data_storage.h | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ metadata/metaparse.c | 58 ++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 51 insertions(+), 7 deletions(-)
 
-diff --git a/metadata/data_storage.h b/metadata/data_storage.h
-index e72be6187..6427ea1ed 100644
---- a/metadata/data_storage.h
-+++ b/metadata/data_storage.h
-@@ -251,6 +251,34 @@ static inline unsigned int data_node_array_len(struct data_node *self)
- 	return self->array.array_used;
+diff --git a/metadata/metaparse.c b/metadata/metaparse.c
+index 969293cfc..f133a65d6 100644
+--- a/metadata/metaparse.c
++++ b/metadata/metaparse.c
+@@ -336,9 +336,42 @@ static void try_apply_macro(char **res)
+ 	*res = ret->data;
  }
  
-+
-+static inline struct data_node *data_node_array_last(struct data_node *self)
++static void finalize_array_entry(char **entry, struct data_node *node)
 +{
-+	if (self->type != DATA_ARRAY)
-+		return NULL;
-+
-+	unsigned int array_used = self->array.array_used;
-+	if (!array_used)
-+		return NULL;
-+
-+	return self->array.array[array_used-1];
-+}
-+
-+static inline void data_node_array_last_rem(struct data_node *self)
-+{
-+	if (self->type != DATA_ARRAY)
++	if (!*entry)
 +		return;
 +
-+	unsigned int array_used = self->array.array_used;
-+	if (!array_used)
-+		return;
++	data_node_array_add(node, data_node_string(*entry));
 +
-+	data_node_free(self->array.array[array_used-1]);
-+
-+	self->array.array[array_used-1] = NULL;
-+	self->array.array_used--;
++	free(*entry);
++	*entry = NULL;
 +}
 +
- static inline void data_print_padd(unsigned int i)
++static void str_append(char **res, char *append)
++{
++	char *cur_str = *res;
++
++	if (!cur_str) {
++		*res = strdup(append);
++		if (!*res)
++			goto err;
++		return;
++	}
++
++	if (asprintf(res, "%s%s", cur_str, append) < 0)
++		goto err;
++
++	free(cur_str);
++	return;
++err:
++	fprintf(stderr, "Allocation failed :(\n");
++	exit(1);
++}
++
+ static int parse_array(FILE *f, struct data_node *node)
  {
- 	while (i-- > 0)
+ 	char *token;
++	char *entry = NULL;
+ 
+ 	for (;;) {
+ 		if (!(token = next_token(f, NULL)))
+@@ -356,20 +389,31 @@ static int parse_array(FILE *f, struct data_node *node)
+ 			continue;
+ 		}
+ 
+-		if (!strcmp(token, "}"))
++		if (!strcmp(token, "}")) {
++			struct data_node *arr_last;
++
++			finalize_array_entry(&entry, node);
++
++			/* Remove NULL terminating entry, if present. */
++			arr_last = data_node_array_last(node);
++			if (arr_last && arr_last->type == DATA_NULL)
++				data_node_array_last_rem(node);
++
+ 			return 0;
++		}
+ 
+-		if (!strcmp(token, ","))
++		if (!strcmp(token, ",")) {
++			finalize_array_entry(&entry, node);
+ 			continue;
++		}
+ 
+-		if (!strcmp(token, "NULL"))
++		if (!strcmp(token, "NULL")) {
++			data_node_array_add(node, data_node_null());
+ 			continue;
++		}
+ 
+ 		try_apply_macro(&token);
+-
+-		struct data_node *str = data_node_string(token);
+-
+-		data_node_array_add(node, str);
++		str_append(&entry, token);
+ 	}
+ 
+ 	return 0;
 -- 
 2.45.2
 
