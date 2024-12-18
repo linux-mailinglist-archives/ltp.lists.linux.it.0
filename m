@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BB1A9F6DBA
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 20:02:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 959429F6DBE
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 20:03:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CB05C3ED624
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 20:02:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3A2683ED5EA
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 20:03:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
@@ -14,76 +14,76 @@ Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BC6713ED626
- for <ltp@lists.linux.it>; Wed, 18 Dec 2024 20:00:54 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 359283ED622
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2024 20:00:55 +0100 (CET)
 Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8F354635838
- for <ltp@lists.linux.it>; Wed, 18 Dec 2024 20:00:53 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 493D364C2BB
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2024 20:00:54 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 996FD1F397;
- Wed, 18 Dec 2024 19:00:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 26CA721166;
+ Wed, 18 Dec 2024 19:00:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1734548452; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1734548453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=p2GrVlQAYJkzgKoMydHXI9AgVusmXG899sCk8sMWbPA=;
- b=joWbIdeJLLWiiO+z3J8lf5zvasjwrLnvixy5pGjS6s5fxcdPwgPOOpGtAuLGDLqtLK2dgr
- VdjGjPBoLtVt/NOo+NbT4SKWeXdVgJtjbJlJqbID/JHdXvaHniIs/5JvzvENvWY+VFru9j
- Ar+f9ZMOhF1FhWHdLaPK7221iWgIQu0=
+ bh=ziHxd6gVwh718GjwfmIoVcfeiNbb3AqZ6pOOP4qxduU=;
+ b=iAEm3wUlZ/GvYpJPuZqbSwDyIdAFLqaL8EMk4MjvX2yR00vZdrpQPHmJomiQkh/h2L1BIW
+ vSj0k5LbggPQc+48lcOLIKQLduYPZM/z6bO+aUNaOo6ppYDo83RLJzfzpeU5LFkPvce9CW
+ r8VSnMGZ79+mHopxQxhKyCYavN1rC24=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1734548452;
+ s=susede2_ed25519; t=1734548453;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=p2GrVlQAYJkzgKoMydHXI9AgVusmXG899sCk8sMWbPA=;
- b=3eZsSiZd+Y4aSvhgzzPfNTW2XB7DMpfY216qDtlMvqP5bd2wXygrotLLy8EgJyd9wATGNV
- WvHKTQUb2nQgg+Ag==
-Authentication-Results: smtp-out2.suse.de;
+ bh=ziHxd6gVwh718GjwfmIoVcfeiNbb3AqZ6pOOP4qxduU=;
+ b=66br4xkOFr7J8ilgR5ckK3JYFCn8WCUHXiBQDGljwuM5GPNUaTqlAuS/ITaLl4kRhWVDFM
+ Rren48CsONUQVOCA==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1734548452; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1734548453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=p2GrVlQAYJkzgKoMydHXI9AgVusmXG899sCk8sMWbPA=;
- b=joWbIdeJLLWiiO+z3J8lf5zvasjwrLnvixy5pGjS6s5fxcdPwgPOOpGtAuLGDLqtLK2dgr
- VdjGjPBoLtVt/NOo+NbT4SKWeXdVgJtjbJlJqbID/JHdXvaHniIs/5JvzvENvWY+VFru9j
- Ar+f9ZMOhF1FhWHdLaPK7221iWgIQu0=
+ bh=ziHxd6gVwh718GjwfmIoVcfeiNbb3AqZ6pOOP4qxduU=;
+ b=iAEm3wUlZ/GvYpJPuZqbSwDyIdAFLqaL8EMk4MjvX2yR00vZdrpQPHmJomiQkh/h2L1BIW
+ vSj0k5LbggPQc+48lcOLIKQLduYPZM/z6bO+aUNaOo6ppYDo83RLJzfzpeU5LFkPvce9CW
+ r8VSnMGZ79+mHopxQxhKyCYavN1rC24=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1734548452;
+ s=susede2_ed25519; t=1734548453;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=p2GrVlQAYJkzgKoMydHXI9AgVusmXG899sCk8sMWbPA=;
- b=3eZsSiZd+Y4aSvhgzzPfNTW2XB7DMpfY216qDtlMvqP5bd2wXygrotLLy8EgJyd9wATGNV
- WvHKTQUb2nQgg+Ag==
+ bh=ziHxd6gVwh718GjwfmIoVcfeiNbb3AqZ6pOOP4qxduU=;
+ b=66br4xkOFr7J8ilgR5ckK3JYFCn8WCUHXiBQDGljwuM5GPNUaTqlAuS/ITaLl4kRhWVDFM
+ Rren48CsONUQVOCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 83ACD132EA;
- Wed, 18 Dec 2024 19:00:52 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0E626132EA;
+ Wed, 18 Dec 2024 19:00:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id okTWHuQbY2fudQAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Wed, 18 Dec 2024 19:00:52 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id tulAAuUbY2fxdQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Wed, 18 Dec 2024 19:00:53 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 18 Dec 2024 20:00:27 +0100
-Message-ID: <20241218190029.15015-8-chrubis@suse.cz>
+Date: Wed, 18 Dec 2024 20:00:28 +0100
+Message-ID: <20241218190029.15015-9-chrubis@suse.cz>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241218190029.15015-1-chrubis@suse.cz>
 References: <20241218190029.15015-1-chrubis@suse.cz>
@@ -108,8 +108,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 7/9] metadata: metaparse: Ignore ',
- ' in array inside parenthesis
+Subject: [LTP] [PATCH 8/9] metadata: metaparse: Add a few pre-defined macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,53 +125,91 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This fixes the TST_CAP() macros:
+This is used mostly for stripping macro prefixes such as:
 
-    "caps": [
--     "TST_CAP("TST_CAP_DROP",
--     "CAP_NET_RAW")"
-+     "TST_CAP(TST_CAP_DROP,CAP_NET_RAW)"
-     ],
+...
+    "save_restore": [
+      [
+       "/proc/sys/user/max_user_namespaces",
+       null,
+-      "TST_SR_SKIP"
++      "SKIP"
+      ],
+...
+-   "needs_cgroup_ver": "TST_CG_V2",
++   "needs_cgroup_ver": "2",
+...
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- metadata/metaparse.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ metadata/metaparse.c | 47 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
 diff --git a/metadata/metaparse.c b/metadata/metaparse.c
-index f133a65d6..29c03e5c3 100644
+index 29c03e5c3..fa30be727 100644
 --- a/metadata/metaparse.c
 +++ b/metadata/metaparse.c
-@@ -372,6 +372,7 @@ static int parse_array(FILE *f, struct data_node *node)
+@@ -760,6 +760,51 @@ static void parse_include_macros(FILE *f, int level)
+ 	close_include(inc);
+ }
+ 
++/* pre-defined macros that makes the output cleaner. */
++static const struct macro {
++	char *from;
++	char *to;
++} internal_macros[] = {
++	{"TST_CG_V2", "2"},
++	{"TST_CG_V1", "1"},
++	{"TST_KB", "1024"},
++	{"TST_MB", "1048576"},
++	{"TST_GB", "1073741824"},
++	{"TST_SR_TBROK", "TBROK"},
++	{"TST_SR_TCONF", "TCONF"},
++	{"TST_SR_SKIP", "SKIP"},
++	{"TST_SR_TBROK_MISSING", "TBROK_MISSING"},
++	{"TST_SR_TCONF_MISSING", "TCONF_MISSING"},
++	{"TST_SR_SKIP_MISSING", "SKIP_MISSING"},
++	{"TST_SR_TBROK_RO", "TBROK_RO"},
++	{"TST_SR_TCONF_RO", "TCONF_RO"},
++	{"TST_SR_SKIP_RO", "SKIP_RO"},
++	{}
++};
++
++static void load_internal_macros(void)
++{
++	unsigned int i;
++
++	if (verbose)
++		fprintf(stderr, "PREDEFINED MACROS\n");
++
++	for (i = 0; internal_macros[i].from; i++) {
++		ENTRY e = {
++			.key = internal_macros[i].from,
++			.data = internal_macros[i].to,
++		};
++
++		if (verbose)
++			fprintf(stderr, " MACRO %s=%s\n", e.key, (char*)e.data);
++
++		hsearch(e, ENTER);
++	}
++
++	if (verbose)
++		fprintf(stderr, "END PREDEFINED MACROS\n");
++}
++
+ static struct data_node *parse_file(const char *fname)
  {
- 	char *token;
- 	char *entry = NULL;
-+	int parent_cnt = 0;
+ 	int state = 0, found = 0;
+@@ -777,6 +822,8 @@ static struct data_node *parse_file(const char *fname)
+ 	struct data_node *res = data_node_hash();
+ 	struct data_node *doc = data_node_array();
  
- 	for (;;) {
- 		if (!(token = next_token(f, NULL)))
-@@ -402,7 +403,7 @@ static int parse_array(FILE *f, struct data_node *node)
- 			return 0;
- 		}
- 
--		if (!strcmp(token, ",")) {
-+		if (!strcmp(token, ",") && parent_cnt <= 0) {
- 			finalize_array_entry(&entry, node);
- 			continue;
- 		}
-@@ -412,6 +413,12 @@ static int parse_array(FILE *f, struct data_node *node)
- 			continue;
- 		}
- 
-+		if (!strcmp(token, "("))
-+			parent_cnt++;
++	load_internal_macros();
 +
-+		if (!strcmp(token, ")"))
-+			parent_cnt--;
-+
- 		try_apply_macro(&token);
- 		str_append(&entry, token);
- 	}
+ 	while ((token = next_token(f, doc))) {
+ 		if (state < 6 && !strcmp(tokens[state], token)) {
+ 			state++;
 -- 
 2.45.2
 
