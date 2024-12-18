@@ -2,111 +2,118 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F14AE9F6D9D
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 19:48:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 167109F6DA1
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 19:49:09 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A34333ED632
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 19:48:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BEAF43ED62B
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2024 19:49:08 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6501C3ED628
- for <ltp@lists.linux.it>; Wed, 18 Dec 2024 19:45:27 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id AEC313ED5EB
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2024 19:45:31 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DC2AE141CE92
- for <ltp@lists.linux.it>; Wed, 18 Dec 2024 19:45:26 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 34DE165E7F1
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2024 19:45:31 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4E17D1F396;
- Wed, 18 Dec 2024 18:45:26 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AF7AE21164;
+ Wed, 18 Dec 2024 18:45:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1734547526; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1734547530; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jsFVNW9UtYEsWvMBWeEOn5c8UMloCKmE95uHrhBvk5w=;
- b=JgEXF2lLTqsIrn01u4GWJ6uDxj6zgjlJWOTUfPIzSKlAxZLmcRYNrJcZnpDAmhvq6eFKA9
- rz12aWVmwmxqC3NgogpFVBPqPaCTLMuVV568RbAgJIOL+BzO0BHyflsNVZCKRaK2ovutkb
- 5TaoHVJMW+TRwNYRVMDZTBXiJW6zZKU=
+ bh=wuQvwkAmHuUwbQQsqB9nwMGAXXGONCb4XT3/IoQJZGk=;
+ b=DqHPCviN8YogO3X0pLQIGqBCG1JYfPBrLxSd4RL8BNcKpyV9rJ8vYVBJD9ZLSVsjBuyv4h
+ prRs/BWrDCwCmr+vknPkDjhwk27lqlAYH55+xHCWWVUMsKqcfGwYRdR5yJQ0AZW+3fXeQi
+ Fr7s32FOb4oQyb6GrQJ4LMHGv57tIyw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1734547526;
+ s=susede2_ed25519; t=1734547530;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jsFVNW9UtYEsWvMBWeEOn5c8UMloCKmE95uHrhBvk5w=;
- b=GD246S0ryRj8fUir1FVPwl3YukekXXDXKcTBGPDuFkZzmOpTv/tGkEEz3PjSp4dS0lGYzg
- kn0GEvFFap2PI7BA==
-Authentication-Results: smtp-out2.suse.de;
-	none
+ bh=wuQvwkAmHuUwbQQsqB9nwMGAXXGONCb4XT3/IoQJZGk=;
+ b=pxNKzIhiF/kUl4B1ENHCcvqdB0fObuqZFg2bCgAWtG302W48eLTLc7cclLFSmBV/frW7PN
+ AhfEab0qkZE+FgCQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=DqHPCviN;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=pxNKzIhi
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1734547526; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1734547530; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jsFVNW9UtYEsWvMBWeEOn5c8UMloCKmE95uHrhBvk5w=;
- b=JgEXF2lLTqsIrn01u4GWJ6uDxj6zgjlJWOTUfPIzSKlAxZLmcRYNrJcZnpDAmhvq6eFKA9
- rz12aWVmwmxqC3NgogpFVBPqPaCTLMuVV568RbAgJIOL+BzO0BHyflsNVZCKRaK2ovutkb
- 5TaoHVJMW+TRwNYRVMDZTBXiJW6zZKU=
+ bh=wuQvwkAmHuUwbQQsqB9nwMGAXXGONCb4XT3/IoQJZGk=;
+ b=DqHPCviN8YogO3X0pLQIGqBCG1JYfPBrLxSd4RL8BNcKpyV9rJ8vYVBJD9ZLSVsjBuyv4h
+ prRs/BWrDCwCmr+vknPkDjhwk27lqlAYH55+xHCWWVUMsKqcfGwYRdR5yJQ0AZW+3fXeQi
+ Fr7s32FOb4oQyb6GrQJ4LMHGv57tIyw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1734547526;
+ s=susede2_ed25519; t=1734547530;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jsFVNW9UtYEsWvMBWeEOn5c8UMloCKmE95uHrhBvk5w=;
- b=GD246S0ryRj8fUir1FVPwl3YukekXXDXKcTBGPDuFkZzmOpTv/tGkEEz3PjSp4dS0lGYzg
- kn0GEvFFap2PI7BA==
+ bh=wuQvwkAmHuUwbQQsqB9nwMGAXXGONCb4XT3/IoQJZGk=;
+ b=pxNKzIhiF/kUl4B1ENHCcvqdB0fObuqZFg2bCgAWtG302W48eLTLc7cclLFSmBV/frW7PN
+ AhfEab0qkZE+FgCQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3C8F4137CF;
- Wed, 18 Dec 2024 18:45:26 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9EE43137CF;
+ Wed, 18 Dec 2024 18:45:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 2dqhDUYYY2d6cQAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Wed, 18 Dec 2024 18:45:26 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id gm22JUoYY2eCcQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Wed, 18 Dec 2024 18:45:30 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 18 Dec 2024 19:45:16 +0100
-Message-ID: <20241218184518.16190-12-chrubis@suse.cz>
+Date: Wed, 18 Dec 2024 19:45:17 +0100
+Message-ID: <20241218184518.16190-13-chrubis@suse.cz>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241218184518.16190-1-chrubis@suse.cz>
 References: <20241218184518.16190-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+X-Rspamd-Queue-Id: AF7AE21164
+X-Spam-Score: -3.01
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- ARC_NA(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_HAS_DN(0.00)[]; MIME_TRACE(0.00)[0:+];
- FROM_EQ_ENVFROM(0.00)[]; TO_DN_NONE(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:mid]
-X-Spam-Score: -2.80
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCPT_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_NONE(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:mid,suse.cz:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 11/13] mem/vma: Remove mem/lib dependency
+Subject: [LTP] [PATCH 12/13] mem/hugetlb: Remove mem/lib depenency
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,26 +130,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The test does just use the testcases/lib/ instead.
+The last bit used from the library PATH_SHMMAX macro.
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/kernel/mem/vma/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ testcases/kernel/mem/hugetlb/Makefile.inc          | 3 ---
+ testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c | 1 -
+ testcases/kernel/mem/hugetlb/lib/Makefile          | 1 -
+ testcases/kernel/mem/hugetlb/lib/hugetlb.h         | 3 ++-
+ 4 files changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/testcases/kernel/mem/vma/Makefile b/testcases/kernel/mem/vma/Makefile
-index 057091e16..badec593f 100644
---- a/testcases/kernel/mem/vma/Makefile
-+++ b/testcases/kernel/mem/vma/Makefile
-@@ -6,7 +6,7 @@ top_srcdir              ?= ../../../..
- vma05_vdso: CFLAGS+=-ggdb3
- 
- include $(top_srcdir)/include/mk/testcases.mk
+diff --git a/testcases/kernel/mem/hugetlb/Makefile.inc b/testcases/kernel/mem/hugetlb/Makefile.inc
+index 9a4aa8795..b272e62a8 100644
+--- a/testcases/kernel/mem/hugetlb/Makefile.inc
++++ b/testcases/kernel/mem/hugetlb/Makefile.inc
+@@ -33,6 +33,3 @@ CPPFLAGS		+= -I$(abs_srcdir)/$(LIBIPCDIR)
+ LDFLAGS			+= -L$(abs_builddir)/$(LIBIPCDIR)
+ LDLIBS			+= -lhugetlb
+ MAKE_DEPS		+= $(LIBIPC)
+-
 -include $(top_srcdir)/testcases/kernel/mem/include/libmem.mk
-+include $(top_srcdir)/testcases/kernel/include/lib.mk
+-# vim: syntax=make
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c
+index d5983fc55..75f28102d 100644
+--- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c
+@@ -34,7 +34,6 @@ static char path_sys_sz_huge[BUFSIZ];
+ #define PATH_PROC_VM		"/proc/sys/vm/"
+ #define PATH_PROC_OVER		PATH_PROC_VM "nr_overcommit_hugepages"
+ #define PATH_PROC_HUGE		PATH_PROC_VM "nr_hugepages"
+-#define PATH_SHMMAX		"/proc/sys/kernel/shmmax"
  
- INSTALL_TARGETS		:= vma05.sh
+ /* Only ia64 requires this */
+ #ifdef __ia64__
+diff --git a/testcases/kernel/mem/hugetlb/lib/Makefile b/testcases/kernel/mem/hugetlb/lib/Makefile
+index ceccd2615..45606b17f 100644
+--- a/testcases/kernel/mem/hugetlb/lib/Makefile
++++ b/testcases/kernel/mem/hugetlb/lib/Makefile
+@@ -4,7 +4,6 @@
+ top_srcdir		?= ../../../../..
  
+ include $(top_srcdir)/include/mk/env_pre.mk
+-include $(top_srcdir)/testcases/kernel/mem/include/libmem.mk
+ 
+ INTERNAL_LIB		:= libhugetlb.a
+ 
+diff --git a/testcases/kernel/mem/hugetlb/lib/hugetlb.h b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
+index abc88e25e..22975c99a 100644
+--- a/testcases/kernel/mem/hugetlb/lib/hugetlb.h
++++ b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
+@@ -17,7 +17,6 @@
+ #include <errno.h>
+ #include <sys/wait.h>
+ #include "tst_test.h"
+-#include "mem.h"
+ 
+ #define PALIGN(p, a) ((void *)LTP_ALIGN((unsigned long)(p), (a)))
+ 
+@@ -29,6 +28,8 @@
+ #define SHM_HUGETLB	04000	/* segment is mapped via hugetlb */
+ #endif
+ 
++#define PATH_SHMMAX "/proc/sys/kernel/shmmax"
++
+ #ifndef barrier
+ # ifdef mb
+ 	/* Redefining the mb() */
 -- 
 2.45.2
 
