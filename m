@@ -2,79 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA1C59FA482
-	for <lists+linux-ltp@lfdr.de>; Sun, 22 Dec 2024 08:23:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64D1C9FA495
+	for <lists+linux-ltp@lfdr.de>; Sun, 22 Dec 2024 08:51:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6687B3E280B
-	for <lists+linux-ltp@lfdr.de>; Sun, 22 Dec 2024 08:23:15 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 257C53E57BB
+	for <lists+linux-ltp@lfdr.de>; Sun, 22 Dec 2024 08:51:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A90303E27EE
- for <ltp@lists.linux.it>; Sun, 22 Dec 2024 08:23:06 +0100 (CET)
-Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
+ by picard.linux.it (Postfix) with ESMTPS id AB6A83E281F
+ for <ltp@lists.linux.it>; Sun, 22 Dec 2024 08:51:15 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
  helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwang@redhat.com;
  receiver=lists.linux.it)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C6CA2101197B
- for <ltp@lists.linux.it>; Sun, 22 Dec 2024 08:23:04 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C6046628588
+ for <ltp@lists.linux.it>; Sun, 22 Dec 2024 08:51:14 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1734852183;
+ s=mimecast20190719; t=1734853872;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/8/v4qwvxAGk5vR/HyKi8NRPILiA8YgPlta9Y/YjJpE=;
- b=XsI4gFKjOopL/C7Vn1mulhoSNFGP64HoUV9l6YMUV27PPSf1GbwHcgUCJqFXqT94AfHVpI
- 1c50N7vo9LKyI0GR3N4EH46TbYvX5DcmJ3KVYqdE2lw7vu/O5dQCjaFvucSez81Ba+zBch
- 9hU9rbZAATZ7X+Mu5qbFQJz8UouEbOg=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ content-transfer-encoding:content-transfer-encoding;
+ bh=mal/KmyBSsjIUm65sym7CEhdFHsNV3wnJjmun/ktKeE=;
+ b=KZXnh/fQ6K7V5Q89+GKB9lQ9GsfF7t5wMbWUwNenNoTUCyC2XigK2TNLg2rICke0aLfl6B
+ uwftsoJmAowjefmkH/5PsxN4bz/CHsX18X1mizIit9ovZ6yajvN4NxRcTDygmtbIVJ+oeo
+ tiR4H/OyaFMJE+vwnyu9uprUieXr45w=
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-553-jNZsqHElPvy5nLcb69TYIg-1; Sun,
- 22 Dec 2024 02:23:01 -0500
-X-MC-Unique: jNZsqHElPvy5nLcb69TYIg-1
-X-Mimecast-MFC-AGG-ID: jNZsqHElPvy5nLcb69TYIg
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-454-oO_wcDodOOuKwTnHmCToQA-1; Sun,
+ 22 Dec 2024 02:51:10 -0500
+X-MC-Unique: oO_wcDodOOuKwTnHmCToQA-1
+X-Mimecast-MFC-AGG-ID: oO_wcDodOOuKwTnHmCToQA
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7405F1956088
- for <ltp@lists.linux.it>; Sun, 22 Dec 2024 07:23:00 +0000 (UTC)
+ by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 987471956086
+ for <ltp@lists.linux.it>; Sun, 22 Dec 2024 07:51:09 +0000 (UTC)
 Received: from dell-per7425-02.rhts.eng.pek2.redhat.com
  (dell-per7425-02.rhts.eng.pek2.redhat.com [10.73.116.18])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 1D2E119560A2
- for <ltp@lists.linux.it>; Sun, 22 Dec 2024 07:22:58 +0000 (UTC)
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 415B91956052
+ for <ltp@lists.linux.it>; Sun, 22 Dec 2024 07:51:07 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Sun, 22 Dec 2024 15:22:50 +0800
-Message-ID: <20241222072251.13150-2-liwang@redhat.com>
-In-Reply-To: <20241222072251.13150-1-liwang@redhat.com>
-References: <20241222072251.13150-1-liwang@redhat.com>
+Date: Sun, 22 Dec 2024 15:51:00 +0800
+Message-ID: <20241222075102.14536-1-liwang@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: BGa7gnM9TbJG6F1C9e7K4Q1bwgtwIXiS-B86zCUcQWc_1734852180
+X-Mimecast-MFC-PROC-ID: 12apM-sQUybQ0pw2eR36HbXRPGogcXpdJ78KYx7yvWM_1734853870
 X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/2] starvation: skip test on slow kernel
+Subject: [LTP] [PATCH 1/3] tst_fuzzy_sync: refine code and comment
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,39 +87,197 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Systems with slow kernel configurations may not meet
-the performance requirements necessary for the starvation
-test to produce valid results.
-
-Skipping the test ensures that it runs only on systems
-where its results are meaningful.
+I just polished some things preventing me from understanding the
+test logic. Hopefully, it makes things easier to read.
 
 Signed-off-by: Li Wang <liwang@redhat.com>
 ---
- testcases/kernel/sched/cfs-scheduler/starvation.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ lib/newlib_tests/tst_fuzzy_sync01.c | 22 ++++++------
+ lib/newlib_tests/tst_fuzzy_sync02.c | 53 ++++++++++++++++++++++++-----
+ 2 files changed, 55 insertions(+), 20 deletions(-)
 
-diff --git a/testcases/kernel/sched/cfs-scheduler/starvation.c b/testcases/kernel/sched/cfs-scheduler/starvation.c
-index e707e0865..0fd53a0ca 100644
---- a/testcases/kernel/sched/cfs-scheduler/starvation.c
-+++ b/testcases/kernel/sched/cfs-scheduler/starvation.c
-@@ -21,6 +21,7 @@
- #include <sched.h>
+diff --git a/lib/newlib_tests/tst_fuzzy_sync01.c b/lib/newlib_tests/tst_fuzzy_sync01.c
+index d0748958c..d510bd2dd 100644
+--- a/lib/newlib_tests/tst_fuzzy_sync01.c
++++ b/lib/newlib_tests/tst_fuzzy_sync01.c
+@@ -10,7 +10,7 @@
+  *
+  * We make the simplifying assumptions that:
+  * - Each thread contains a single contiguous critical section.
+- * - The threads only interact through a single variable.
++ * - The threads only interact through a single variable(H: Hit).
+  * - The various timings are constant except for variations introduced
+  *   by the environment.
+  *
+@@ -50,9 +50,9 @@
+  * range is required.
+  *
+  * When entering their critical sections, both threads increment the
+- * 'c' counter variable atomically. They both also increment it when
+- * leaving their critical sections. We record the value of 'c' when A
+- * increments it. From the recorded values of 'c' we can deduce if the
++ * 'H' counter variable atomically. They both also increment it when
++ * leaving their critical sections. We record the value of 'H' when A
++ * increments it. From the recorded values of 'H' we can deduce if the
+  * critical sections overlap and their ordering.
+  *
+  * 	Start (cs)	| End (ct)	| Ordering
+@@ -90,7 +90,7 @@ struct race {
+ 	const struct window b;
+ };
  
- #include "tst_test.h"
-+#include "tst_kconfig.h"
- #include "tst_safe_clocks.h"
- #include "tst_timer.h"
+-static int c;
++static int H;
+ static struct tst_fzsync_pair pair;
  
-@@ -108,6 +109,9 @@ static void setup(void)
- 	else
- 		timeout = callibrate() / 1000;
+ static const struct race races[] = {
+@@ -162,15 +162,15 @@ static void *worker(void *v)
+ 	const struct window b = races[i].b;
  
-+	if (tst_has_slow_kconfig())
-+		tst_brk(TCONF, "Skip test due to slow kernel configuration");
+ 	while (tst_fzsync_run_b(&pair)) {
+-		if (tst_atomic_load(&c))
++		if (tst_atomic_load(&H))
+ 			tst_brk(TBROK, "Counter should now be zero");
+ 
+ 		tst_fzsync_start_race_b(&pair);
+ 		delay(b.critical_s);
+ 
+-		tst_atomic_add_return(1, &c);
++		tst_atomic_add_return(1, &H);
+ 		delay(b.critical_t);
+-		tst_atomic_add_return(1, &c);
++		tst_atomic_add_return(1, &H);
+ 
+ 		delay(b.return_t);
+ 		tst_fzsync_end_race_b(&pair);
+@@ -192,9 +192,9 @@ static void run(unsigned int i)
+ 		tst_fzsync_start_race_a(&pair);
+ 		delay(a.critical_s);
+ 
+-		cs = tst_atomic_add_return(1, &c);
++		cs = tst_atomic_add_return(1, &H);
+ 		delay(a.critical_t);
+-		ct = tst_atomic_add_return(1, &c);
++		ct = tst_atomic_add_return(1, &H);
+ 
+ 		delay(a.return_t);
+ 		tst_fzsync_end_race_a(&pair);
+@@ -206,7 +206,7 @@ static void run(unsigned int i)
+ 		else
+ 			critical++;
+ 
+-		r = tst_atomic_add_return(-4, &c);
++		r = tst_atomic_add_return(-4, &H);
+ 		if (r)
+ 			tst_brk(TBROK, "cs = %d, ct = %d, r = %d", cs, ct, r);
+ 
+diff --git a/lib/newlib_tests/tst_fuzzy_sync02.c b/lib/newlib_tests/tst_fuzzy_sync02.c
+index afe4973b5..f95394371 100644
+--- a/lib/newlib_tests/tst_fuzzy_sync02.c
++++ b/lib/newlib_tests/tst_fuzzy_sync02.c
+@@ -11,7 +11,7 @@
+  * We make the simplifying assumptions that:
+  * - There is one data race we want to hit and one to avoid.
+  * - Each thread contains two contiguous critical sections. One for each race.
+- * - The threads only interact through two variables, one for each race.
++ * - The threads only interact through two variables(H: Hit, D: Avoid), one for each race.
+  * - If we hit the race we want to avoid then it causes thread A to exit early.
+  *
+  * We don't consider more complicated dynamic interactions between the
+@@ -63,14 +63,35 @@ struct race {
+ 	const struct window b;
+ };
+ 
+-static int c, d;
++static int H, D;
+ static struct tst_fzsync_pair pair;
+ 
++/**
++ * Race 1:
++ *  Thread A:   |---(1)--|[1]|---(1)---|
++ *  Thread B:   |---(1)--|[1]|---(1)---|
++ *  ad (A):     |---(0)|[1]|(0)---|
++ *  bd (B):     |---(0)|[1]|(0)---|
++ *
++ * Race 2:
++ *  Thread A:   |------------------(30)------------------|[1]|---(1)---|
++ *  Thread B:   |---(1)--|[1]|---(1)---|
++ *  ad (A):     |---(0)|[1]|--(0)---|
++ *  bd (B):     |---(0)|[20]|--(0)---|
++ *
++ * Race 3:
++ *  Thread A:   |--------------------(40)--------------------|[1]|---(0)---|
++ *  Thread B:   |---(1)--|[1]|------------------(20)------------------|
++ *  ad (A):     |---(1)--|[10]|--(0)---|
++ *  bd (B):     |---(1)--|[10]|--(0)---|
++ */
+ static const struct race races[] = {
+ 	{ .a =  { 1, 1, 1 }, .b =  { 1, 1, 1 },
+ 	  .ad = { 0, 1, 0 }, .bd = { 0, 1, 0 } },
 +
- 	tst_set_max_runtime(timeout);
+ 	{ .a =  { 30, 1, 1 }, .b =  { 1, 1,  1 },
+ 	  .ad = { 0,  1, 0 }, .bd = { 0, 20, 0 } },
++
+ 	{ .a =  { 40, 1,  0 }, .b =  { 1, 1,  20 },
+ 	  .ad = { 1,  10, 0 }, .bd = { 1, 10, 0 } },
+ };
+@@ -87,6 +108,20 @@ static void setup(void)
+ 	tst_fzsync_pair_init(&pair);
  }
+ 
++/**
++ * to_abs() - Convert relative time intervals to absolute time points
++ * @w: The input window structure containing relative time intervals
++ *
++ * This function converts relative time intervals (represented in the
++ * struct window) into absolute time points, where:
++ *
++ * - The start of the critical section is `critical_s`.
++ * - The end of the critical section is calculated as `critical_s + critical_t`.
++ * - The end of execution is calculated as `critical_s + critical_t + return_t`.
++ *
++ * Return:
++ * A new window structure (`wc`) with absolute time points.
++ */
+ static struct window to_abs(const struct window w)
+ {
+ 	const struct window wc = {
+@@ -109,9 +144,9 @@ static void *worker(void *v)
+ 		tst_fzsync_start_race_b(&pair);
+ 		for (now = 0; now <= fin; now++) {
+ 			if (now == b.critical_s || now == b.critical_t)
+-				tst_atomic_add_return(1, &c);
++				tst_atomic_add_return(1, &H);
+ 			if (now == bd.critical_s || now == bd.critical_t)
+-				tst_atomic_add_return(1, &d);
++				tst_atomic_add_return(1, &D);
+ 
+ 			sched_yield();
+ 		}
+@@ -132,19 +167,19 @@ static void run(unsigned int i)
+ 	SAFE_PTHREAD_CREATE(&pair.thread_b, 0, worker, &i);
+ 
+ 	while (tst_fzsync_run_a(&pair)) {
+-		c = 0;
+-		d = 0;
++		H = 0;
++		D = 0;
+ 		fin = a.return_t;
+ 
+ 		tst_fzsync_start_race_a(&pair);
+ 		for (now = 0; now <= fin; now++) {
+ 			if (now >= ad.critical_s &&
+-			    now <= ad.critical_t && tst_atomic_load(&d) > 0)
++			    now <= ad.critical_t && tst_atomic_load(&D) > 0)
+ 				fin = ad.return_t;
+ 
+ 			if (now >= a.critical_s &&
+-			    now <= a.critical_t && tst_atomic_load(&c) == 1) {
+-				tst_atomic_add_return(1, &c);
++			    now <= a.critical_t && tst_atomic_load(&H) == 1) {
++				tst_atomic_add_return(1, &H);
+ 				critical++;
+ 			}
  
 -- 
 2.47.1
