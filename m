@@ -2,79 +2,61 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 728639FA496
-	for <lists+linux-ltp@lfdr.de>; Sun, 22 Dec 2024 08:51:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 854199FA9DD
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Dec 2024 05:19:48 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 032613E57B6
-	for <lists+linux-ltp@lfdr.de>; Sun, 22 Dec 2024 08:51:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id F14C63EE8B5
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Dec 2024 05:19:47 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 999953E55EF
- for <ltp@lists.linux.it>; Sun, 22 Dec 2024 08:51:19 +0100 (CET)
-Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwang@redhat.com;
- receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id 4573E3EE165
+ for <ltp@lists.linux.it>; Mon, 23 Dec 2024 05:19:45 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=canonical.com (client-ip=185.125.188.120;
+ helo=smtp-relay-canonical-0.canonical.com;
+ envelope-from=po-hsu.lin@canonical.com; receiver=lists.linux.it)
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 53EE5101B456
- for <ltp@lists.linux.it>; Sun, 22 Dec 2024 08:51:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1734853876;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XT72Gt7fBzbwW0EKFLk841YUVD+aOHg3wU2zTd7g16o=;
- b=EZrbcg69ZjIEqpVVP09z4/5KQdxr8N32YkHrhUsaFth/mUXrLdTUl10MPBjjWbBzxqA0jy
- MTontwbhGl1AxBqQIG0o/baGjkBJ9sjE9vIM60/DUZlL/gBMVfO+hLVCF+aK5IaoRXbLp5
- O0cE5V59uKeNe2m1EwQ1ogcXIzzs2Nc=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-42-QDGTn6TCMLuGGoPbGEyY5A-1; Sun,
- 22 Dec 2024 02:51:14 -0500
-X-MC-Unique: QDGTn6TCMLuGGoPbGEyY5A-1
-X-Mimecast-MFC-AGG-ID: QDGTn6TCMLuGGoPbGEyY5A
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 10B44141CBF8
+ for <ltp@lists.linux.it>; Mon, 23 Dec 2024 05:19:44 +0100 (CET)
+Received: from Phocidae.conference (1.general.phlin.uk.vpn [10.172.194.38])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 04EC819560B1
- for <ltp@lists.linux.it>; Sun, 22 Dec 2024 07:51:14 +0000 (UTC)
-Received: from dell-per7425-02.rhts.eng.pek2.redhat.com
- (dell-per7425-02.rhts.eng.pek2.redhat.com [10.73.116.18])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C25761956053
- for <ltp@lists.linux.it>; Sun, 22 Dec 2024 07:51:12 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 3E26C3F0EB; 
+ Mon, 23 Dec 2024 04:19:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1734927583;
+ bh=OQy+ccfVt4Ukkzrs7A0b8u7XmGVZhUtEUk5dUzrISTw=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=ZPtEOkTklIaoEAVUbMOgPciorUs9gw1FxihSsM6kvgKcttUeS7jO1VA62jOkYl8de
+ Zo7ywD0gyl7jWy9+AStK5XxYR1KvBbhpJ0U/DrypKq4sDSrK2+vrzxCUK0IA5n/6Rw
+ 8r8UpTDXvXVZUwwIAYXdqDU9Z+XMzW9OUop74OwuMLkXFlA4c6ukWSIv4GJ+erfRCV
+ ZNPzGFHpLY7fraFoTcLWiYKeBmm8vmOcyoX9NLkeYcGMnPQJGsGQffZowJUMfyGp47
+ 0iZih/uRMrgjlgjv9jQaHeyHHM2Kph8ZXggSYtrBsxq+J3Jc70Aklrj30+K1On3j2+
+ hEyDON7Zoo80A==
+From: Po-Hsu Lin <po-hsu.lin@canonical.com>
 To: ltp@lists.linux.it
-Date: Sun, 22 Dec 2024 15:51:02 +0800
-Message-ID: <20241222075102.14536-3-liwang@redhat.com>
-In-Reply-To: <20241222075102.14536-1-liwang@redhat.com>
-References: <20241222075102.14536-1-liwang@redhat.com>
+Date: Mon, 23 Dec 2024 12:19:21 +0800
+Message-Id: <20241223041921.143620-1-po-hsu.lin@canonical.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: T4aE-2rz1lde1-PlqVQRcYsh-o9q-5DdCRzo2U4Pd7w_1734853874
-X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 3/3] newlib_test: enable all tst_fuzzy_sync tests
+Subject: [LTP] [PATCH] {delete, finit,
+ init}_module0[1-3]: Handle CONFIG_MODULE_SIG_FORCE
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,47 +68,141 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: po-hsu.lin@canonical.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Li Wang <liwang@redhat.com>
+The patch adds parsing for CONFIG_MODULE_SIG_FORCE kernel config,
+which will make tests expect an EKEYREJECTED error like using the
+'module.sig_enforce' parameter.
+
+Patch tested on kernel with CONFIG_MODULE_SIG_FORCE=y and it's
+working as expected.
+
+Signed-off-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
 ---
+ testcases/kernel/syscalls/delete_module/delete_module01.c | 4 +++-
+ testcases/kernel/syscalls/delete_module/delete_module03.c | 4 +++-
+ testcases/kernel/syscalls/finit_module/finit_module01.c   | 6 ++++--
+ testcases/kernel/syscalls/finit_module/finit_module02.c   | 6 ++++--
+ testcases/kernel/syscalls/init_module/init_module01.c     | 6 ++++--
+ testcases/kernel/syscalls/init_module/init_module02.c     | 6 ++++--
+ 6 files changed, 22 insertions(+), 10 deletions(-)
 
-Notes:
-    This patch based on Peter's work:
-    Message-ID: <20241210225753.381770-1-pvorel@suse.cz>
-    
-    CI: https://github.com/wangli5665/ltp/actions/runs/12452324779/
-
- lib/newlib_tests/runtest.sh | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/lib/newlib_tests/runtest.sh b/lib/newlib_tests/runtest.sh
-index 66aaa9361..b00965b16 100755
---- a/lib/newlib_tests/runtest.sh
-+++ b/lib/newlib_tests/runtest.sh
-@@ -2,7 +2,7 @@
- # Copyright (c) 2021-2024 Petr Vorel <pvorel@suse.cz>
+diff --git a/testcases/kernel/syscalls/delete_module/delete_module01.c b/testcases/kernel/syscalls/delete_module/delete_module01.c
+index 11c4eae58..5ccbe6fd5 100644
+--- a/testcases/kernel/syscalls/delete_module/delete_module01.c
++++ b/testcases/kernel/syscalls/delete_module/delete_module01.c
+@@ -28,9 +28,11 @@ static int module_loaded;
+ static void do_delete_module(void)
+ {
+ 	struct tst_kcmdline_var params = TST_KCMDLINE_INIT("module.sig_enforce");
++	struct tst_kconfig_var kconfig = TST_KCONFIG_INIT("CONFIG_MODULE_SIG_FORCE");
  
- # TODO "unknown failure, exit code": test_assert test08 tst_cgroup01 tst_cgroup02 tst_res_flags variant
--# TODO TFAIL: tst_fuzzy_sync01 tst_fuzzy_sync02 test_macros0[1-6] test23 test26
-+# TODO TFAIL: test_macros0[1-6] test23 test26
- # TODO TBROK: test_exec_child test_kconfig01 test_kconfig02 tst_needs_cmds04 tst_needs_cmds05 test_runtime02 test01 test02 test03 test04 test06 test11 test13 test22 test25 tst_safe_fileops
- # TODO TWARN: test_guarded_buf test14 tst_capability01 tst_print_result
- LTP_C_API_TESTS="${LTP_C_API_TESTS:-
-@@ -20,6 +20,8 @@ tst_bool_expr
- tst_capability02
- tst_device
- tst_expiration_timer
-+tst_fuzzy_sync01
-+tst_fuzzy_sync02
- tst_fuzzy_sync03
- tst_needs_cmds0[1-36-8]
- tst_res_hexd
+ 	tst_kcmdline_parse(&params, 1);
+-	if (atoi(params.value) == 1)
++	tst_kconfig_read(&kconfig, 1);
++	if (params.found || kconfig.choice == 'y')
+ 		tst_brk(TCONF, "module signature is enforced, skip test");
+ 
+ 	if (!module_loaded) {
+diff --git a/testcases/kernel/syscalls/delete_module/delete_module03.c b/testcases/kernel/syscalls/delete_module/delete_module03.c
+index fdf0c293d..76ccfb1e2 100644
+--- a/testcases/kernel/syscalls/delete_module/delete_module03.c
++++ b/testcases/kernel/syscalls/delete_module/delete_module03.c
+@@ -53,9 +53,11 @@ static void do_delete_module(void)
+ static void setup(void)
+ {
+ 	struct tst_kcmdline_var params = TST_KCMDLINE_INIT("module.sig_enforce");
++	struct tst_kconfig_var kconfig = TST_KCONFIG_INIT("CONFIG_MODULE_SIG_FORCE");
+ 
+ 	tst_kcmdline_parse(&params, 1);
+-	if (atoi(params.value) == 1)
++	tst_kconfig_read(&kconfig, 1);
++	if (params.found || kconfig.choice == 'y')
+ 		tst_brk(TCONF, "module signature is enforced, skip test");
+ 
+ 	/* Load first kernel module */
+diff --git a/testcases/kernel/syscalls/finit_module/finit_module01.c b/testcases/kernel/syscalls/finit_module/finit_module01.c
+index 1546d4fb7..d75e5e475 100644
+--- a/testcases/kernel/syscalls/finit_module/finit_module01.c
++++ b/testcases/kernel/syscalls/finit_module/finit_module01.c
+@@ -28,10 +28,12 @@ static char *mod_path;
+ static void setup(void)
+ {
+ 	struct tst_kcmdline_var params = TST_KCMDLINE_INIT("module.sig_enforce");
++	struct tst_kconfig_var kconfig = TST_KCONFIG_INIT("CONFIG_MODULE_SIG_FORCE");
+ 
+ 	tst_kcmdline_parse(&params, 1);
+-	if (params.found)
+-		sig_enforce = atoi(params.value);
++	tst_kconfig_read(&kconfig, 1);
++	if (params.found || kconfig.choice == 'y')
++		sig_enforce = 1;
+ 
+ 	tst_module_exists(MODULE_NAME, &mod_path);
+ 
+diff --git a/testcases/kernel/syscalls/finit_module/finit_module02.c b/testcases/kernel/syscalls/finit_module/finit_module02.c
+index 2fe70af4d..dc81ae727 100644
+--- a/testcases/kernel/syscalls/finit_module/finit_module02.c
++++ b/testcases/kernel/syscalls/finit_module/finit_module02.c
+@@ -78,10 +78,12 @@ static void setup(void)
+ {
+ 	unsigned long int i;
+ 	struct tst_kcmdline_var params = TST_KCMDLINE_INIT("module.sig_enforce");
++	struct tst_kconfig_var kconfig = TST_KCONFIG_INIT("CONFIG_MODULE_SIG_FORCE");
+ 
+ 	tst_kcmdline_parse(&params, 1);
+-	if (params.found)
+-		sig_enforce = atoi(params.value);
++	tst_kconfig_read(&kconfig, 1);
++	if (params.found || kconfig.choice == 'y')
++		sig_enforce = 1;
+ 
+ 	tst_module_exists(MODULE_NAME, &mod_path);
+ 
+diff --git a/testcases/kernel/syscalls/init_module/init_module01.c b/testcases/kernel/syscalls/init_module/init_module01.c
+index 27a1fc627..d7ed08b14 100644
+--- a/testcases/kernel/syscalls/init_module/init_module01.c
++++ b/testcases/kernel/syscalls/init_module/init_module01.c
+@@ -29,10 +29,12 @@ static void setup(void)
+ {
+ 	int fd;
+ 	struct tst_kcmdline_var params = TST_KCMDLINE_INIT("module.sig_enforce");
++	struct tst_kconfig_var kconfig = TST_KCONFIG_INIT("CONFIG_MODULE_SIG_FORCE");
+ 
+ 	tst_kcmdline_parse(&params, 1);
+-	if (params.found)
+-		sig_enforce = atoi(params.value);
++	tst_kconfig_read(&kconfig, 1);
++	if (params.found || kconfig.choice == 'y')
++		sig_enforce = 1;
+ 
+ 	tst_module_exists(MODULE_NAME, NULL);
+ 
+diff --git a/testcases/kernel/syscalls/init_module/init_module02.c b/testcases/kernel/syscalls/init_module/init_module02.c
+index 68d9ff16b..3eb99574d 100644
+--- a/testcases/kernel/syscalls/init_module/init_module02.c
++++ b/testcases/kernel/syscalls/init_module/init_module02.c
+@@ -54,10 +54,12 @@ static void setup(void)
+ 	struct stat sb;
+ 	int fd;
+ 	struct tst_kcmdline_var params = TST_KCMDLINE_INIT("module.sig_enforce");
++	struct tst_kconfig_var kconfig = TST_KCONFIG_INIT("CONFIG_MODULE_SIG_FORCE");
+ 
+ 	tst_kcmdline_parse(&params, 1);
+-	if (params.found)
+-		sig_enforce = atoi(params.value);
++	tst_kconfig_read(&kconfig, 1);
++	if (params.found || kconfig.choice == 'y')
++		sig_enforce = 1;
+ 
+ 	tst_module_exists(MODULE_NAME, NULL);
+ 
 -- 
-2.47.1
+2.25.1
 
 
 -- 
