@@ -2,125 +2,113 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D59CEA02685
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2025 14:26:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20722A0268D
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2025 14:27:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 49A0D3C4C03
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2025 14:26:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BACD13C4C0B
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2025 14:27:40 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 56F2E3C4BC7
- for <ltp@lists.linux.it>; Mon,  6 Jan 2025 14:26:24 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id B7F703C4C16
+ for <ltp@lists.linux.it>; Mon,  6 Jan 2025 14:26:28 +0100 (CET)
+Authentication-Results: in-3.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BD34663CB2A
- for <ltp@lists.linux.it>; Mon,  6 Jan 2025 14:26:23 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 526E21BCD10E
+ for <ltp@lists.linux.it>; Mon,  6 Jan 2025 14:26:28 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E048D21161;
- Mon,  6 Jan 2025 13:26:22 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4647421161;
+ Mon,  6 Jan 2025 13:26:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1736169983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1736169987; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cJXvCOGRRI6ySQwzzy/r2pe2GRoLQINgsrPQIdFM7x4=;
- b=xWAEOi2StKaqwizlgMauIjN+3yR9ZKOlVaX/Ik06sx64eYAYxBvJ/r4GR3DxBk2TGbLmCL
- 1L8eY27KXz2lZZQgOA2x84ZoF2q4Bw496peGI/j4pqKy6Z5Y8Iv274v32Vb8f1hRY9qaYc
- +fovXwmqHonSJHEsTUO4hUvq3iff6K4=
+ bh=WDv7KozbrcIJx8S+F4mHIsNj+zkKMh/Div0xyX+6hno=;
+ b=bM7PZe+zJ4+G04mQm25KZ5bjMNKWraPr9u/E65P6JiGPpu7cLEQhVqJcEsz3rWiNaJhBVA
+ OJ2AkGLV5hfaPp6gXlejjChi4gulI9uUsBA8HQephHsGujONzLA3o0W5IOD0FyIGGFQRsa
+ eY5L1Q0CliXSgLRcX6Nv8x96Hn6MAqk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1736169983;
+ s=susede2_ed25519; t=1736169987;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cJXvCOGRRI6ySQwzzy/r2pe2GRoLQINgsrPQIdFM7x4=;
- b=CxhwsjSDMpY9adamU/uq3DHJkm3/cF55aTpJd/bFDtqqmhL/a8+bGAW/ZHrQ8EQ5ZwWF+r
- D//CSgKosqv/nwAw==
+ bh=WDv7KozbrcIJx8S+F4mHIsNj+zkKMh/Div0xyX+6hno=;
+ b=L1i5+VqSuHzM/nmwwt09rO7r9vOWp+Vq2B8k1hGrWeyh7wPv1JocDxfgJJVwDlkj4XDc2X
+ /qHOW6AJpNcKtTAw==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=QXVqjQed;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=hSMt70Jr
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1736169982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1736169987; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cJXvCOGRRI6ySQwzzy/r2pe2GRoLQINgsrPQIdFM7x4=;
- b=QXVqjQedt9ZuzcIT1ldhzEeW0H6lbLNu0+tJQ8yp16XIKV7w1yooIMiyi5hSUqpGdhY2QU
- JepSTDsOtDa9ixMaCK/s5WAGnoSOwpGJs7qv4ziF/HA5l2Ts+byFbfOEDyNj2Q99+nhEeW
- 7CGM8RTR+69O5qqbupIJe5nH/BFBB/Q=
+ bh=WDv7KozbrcIJx8S+F4mHIsNj+zkKMh/Div0xyX+6hno=;
+ b=bM7PZe+zJ4+G04mQm25KZ5bjMNKWraPr9u/E65P6JiGPpu7cLEQhVqJcEsz3rWiNaJhBVA
+ OJ2AkGLV5hfaPp6gXlejjChi4gulI9uUsBA8HQephHsGujONzLA3o0W5IOD0FyIGGFQRsa
+ eY5L1Q0CliXSgLRcX6Nv8x96Hn6MAqk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1736169982;
+ s=susede2_ed25519; t=1736169987;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cJXvCOGRRI6ySQwzzy/r2pe2GRoLQINgsrPQIdFM7x4=;
- b=hSMt70Jrvsa4Cvhq6a3ukMcxPSkbwpRWRodkeSu5jWwAPVbTXcZIDH4yPaXqC0Fv5uwNcW
- XJx7i0NG4y1Tr3BA==
+ bh=WDv7KozbrcIJx8S+F4mHIsNj+zkKMh/Div0xyX+6hno=;
+ b=L1i5+VqSuHzM/nmwwt09rO7r9vOWp+Vq2B8k1hGrWeyh7wPv1JocDxfgJJVwDlkj4XDc2X
+ /qHOW6AJpNcKtTAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BF74413ABF;
- Mon,  6 Jan 2025 13:26:22 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 365F6139AB;
+ Mon,  6 Jan 2025 13:26:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id udmpLf7Ze2fMKgAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Mon, 06 Jan 2025 13:26:22 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iJRFDAPae2fRKgAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Mon, 06 Jan 2025 13:26:27 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon,  6 Jan 2025 14:26:04 +0100
-Message-ID: <20250106132607.25627-4-chrubis@suse.cz>
+Date: Mon,  6 Jan 2025 14:26:05 +0100
+Message-ID: <20250106132607.25627-5-chrubis@suse.cz>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250106132607.25627-1-chrubis@suse.cz>
 References: <20250106132607.25627-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: E048D21161
-X-Spam-Score: -3.01
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- SUBJECT_HAS_EXCLAIM(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- ARC_NA(0.00)[]; RCPT_COUNT_TWO(0.00)[2]; MIME_TRACE(0.00)[0:+];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- TO_DN_NONE(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.cz:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim, suse.cz:mid, suse.cz:email,
- imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; RCPT_COUNT_TWO(0.00)[2];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:mid,imap1.dmz-prg2.suse.org:helo];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -2.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 3/6] libs/ujson: Fix "Garbage after JSON string!"
- in strict mode
+Subject: [LTP] [PATCH v2 4/6] tst_run_shell: Better errors for metadata
+ extractor
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,36 +125,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-In strict mode warnings are converted into errors and filled into the
-error buffer rather than being printed right away. That means that we
-have to print error buffer after we issue a warning so that it's printed
-in the strict mode (UJSON_READER_STRICT) as well.
+- Add filename and lineno to error messages
+
+- Make sure that we are still in the comment part and TBROK if any of the
+  block wasn't terminated properly
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-Acked-by: Petr Vorel <pvorel@suse.cz>
-Fixes: c50a0e0751c8 ("libs: Vendor ujson library")
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 ---
- libs/ujson/ujson_reader.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ testcases/lib/tst_run_shell.c | 25 +++++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
 
-diff --git a/libs/ujson/ujson_reader.c b/libs/ujson/ujson_reader.c
-index d508f00d3..9f86f25b7 100644
---- a/libs/ujson/ujson_reader.c
-+++ b/libs/ujson/ujson_reader.c
-@@ -1049,8 +1049,12 @@ void ujson_reader_finish(ujson_reader *self)
- {
- 	if (ujson_reader_err(self))
- 		ujson_err_print(self);
--	else if (!ujson_reader_consumed(self))
-+	else if (!ujson_reader_consumed(self)) {
- 		ujson_warn(self, "Garbage after JSON string!");
-+
-+		if (ujson_reader_err(self))
-+			ujson_err_print(self);
-+	}
- }
+diff --git a/testcases/lib/tst_run_shell.c b/testcases/lib/tst_run_shell.c
+index 54463c04d..8760ea43e 100644
+--- a/testcases/lib/tst_run_shell.c
++++ b/testcases/lib/tst_run_shell.c
+@@ -521,6 +521,7 @@ static void extract_metadata(void)
+ 	char line[4096];
+ 	char path[4096];
+ 	enum parser_state state = PAR_NONE;
++	unsigned int lineno = 1;
  
- void ujson_reader_free(ujson_reader *buf)
+ 	if (tst_get_path(shell_filename, path, sizeof(path)) == -1)
+ 		tst_brk(TBROK, "Failed to find %s in $PATH", shell_filename);
+@@ -534,24 +535,40 @@ static void extract_metadata(void)
+ 				state = PAR_ESC;
+ 		break;
+ 		case PAR_ESC:
+-			if (!strcmp(line, "# env\n"))
++			if (!strcmp(line, "# env\n")) {
+ 				state = PAR_ENV;
+-			else if (!strcmp(line, "# doc\n"))
++			} else if (!strcmp(line, "# doc\n")) {
+ 				state = PAR_DOC;
+-			else
+-				tst_brk(TBROK, "Unknown comment block %s", line);
++			} else {
++				tst_brk(TBROK, "%s: %u: Unknown comment block %s",
++				        path, lineno, line);
++			}
+ 		break;
+ 		case PAR_ENV:
++			if (line[0] != '#') {
++				tst_brk(TBROK,
++					"%s: %u: Unexpected end of comment block!",
++					path, lineno);
++			}
++
+ 			if (!strcmp(line, "# ---\n"))
+ 				state = PAR_NONE;
+ 			else
+ 				metadata_append(line + 2);
+ 		break;
+ 		case PAR_DOC:
++			if (line[0] != '#') {
++				tst_brk(TBROK,
++					"%s: %u: Unexpected end of comment block!",
++					path, lineno);
++			}
++
+ 			if (!strcmp(line, "# ---\n"))
+ 				state = PAR_NONE;
+ 		break;
+ 		}
++
++		lineno++;
+ 	}
+ 
+ 	fclose(f);
 -- 
 2.45.2
 
