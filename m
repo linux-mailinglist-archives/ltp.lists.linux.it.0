@@ -1,127 +1,104 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCC5DA02608
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2025 13:53:10 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AAE1A0268C
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2025 14:27:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6CE343C4BE7
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2025 13:53:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B849F3C4C48
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2025 14:27:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C15CC3C4B8B
- for <ltp@lists.linux.it>; Mon,  6 Jan 2025 13:53:07 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 4F0C13C4BC7
+ for <ltp@lists.linux.it>; Mon,  6 Jan 2025 14:26:24 +0100 (CET)
 Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D59B021CBFA
- for <ltp@lists.linux.it>; Mon,  6 Jan 2025 13:53:06 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 16A2E225B7C
+ for <ltp@lists.linux.it>; Mon,  6 Jan 2025 14:26:24 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5B7F31F399;
- Mon,  6 Jan 2025 12:53:05 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9C0F21F399;
+ Mon,  6 Jan 2025 13:26:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1736167985;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xT+ilnngS6o3iZ8UaUAO8mbNcZ0W75Q21cX66Dz8hBI=;
- b=AfhdUuvjYPzEoNa+uWFlxhYQoD/rl3hbtMlxtyFQ0QgQFDoCzopASrXUX4OjOmS0RDv9YW
- vCYP6B9rv2pMUo7ghFeb/OjBQrACuHMgheYa+6IvVr1pTmwFmTQZ4x452PgEtaYnozF8cE
- F56kkNxrdDyAKJcAQZgnLY2WmhV9TY4=
+ t=1736169983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=wm9KQcMBUln+PpRhHhihlqx8UeV9AF36ixy+v9c35OM=;
+ b=YzlAL+Q2ZjhFm61uj8Jhwbl0YtEayXtnDo6wgpAxsDb/CeDcqam2nCXgi67vtP/JbxPlxi
+ bRBl8oaIB5Xp4w5Ypt47ff05ePUlwJXvS3eFk7rS/C/usxb/xCVjk8DNv+IO9ihrjRydeH
+ 53FYr7M/ZHB6CL29rmLqurOsntyTBBM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1736167985;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xT+ilnngS6o3iZ8UaUAO8mbNcZ0W75Q21cX66Dz8hBI=;
- b=a7j/oo03Seedtk4l9yKc4dgM2eZuVBrGDe+5KnG2+27mqxRg+0zsrKkLCy9iuUDVz/eHfc
- A65VUOU/pqS/tUBQ==
+ s=susede2_ed25519; t=1736169983;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=wm9KQcMBUln+PpRhHhihlqx8UeV9AF36ixy+v9c35OM=;
+ b=9+8rNPsnW4D2z4i/dKl+XdI5FMoI62wEvnFHoq1eeYZetsKy1BnhRrPWQSHAXGcFAXVU8I
+ NNCDCfnGmDqZfFBQ==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=AfhdUuvj;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="a7j/oo03"
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1736167985;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xT+ilnngS6o3iZ8UaUAO8mbNcZ0W75Q21cX66Dz8hBI=;
- b=AfhdUuvjYPzEoNa+uWFlxhYQoD/rl3hbtMlxtyFQ0QgQFDoCzopASrXUX4OjOmS0RDv9YW
- vCYP6B9rv2pMUo7ghFeb/OjBQrACuHMgheYa+6IvVr1pTmwFmTQZ4x452PgEtaYnozF8cE
- F56kkNxrdDyAKJcAQZgnLY2WmhV9TY4=
+ t=1736169981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=wm9KQcMBUln+PpRhHhihlqx8UeV9AF36ixy+v9c35OM=;
+ b=WUXxg7FOsDLSDTg36IhIhj8gtNZjmzMVuOiFDoALwCGWKm/lzW8540lb74atHq/XNPK/SW
+ HQfH97BuDQhVcn6t5Usa0aJ4CEyQF0SoNJ9mC6O5NRe5BX4ZZbJ9/9J6oU1ycLs+MPNAGh
+ 8f+pIseXmU/uXGGldLrJsOpUlcjGCVk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1736167985;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xT+ilnngS6o3iZ8UaUAO8mbNcZ0W75Q21cX66Dz8hBI=;
- b=a7j/oo03Seedtk4l9yKc4dgM2eZuVBrGDe+5KnG2+27mqxRg+0zsrKkLCy9iuUDVz/eHfc
- A65VUOU/pqS/tUBQ==
+ s=susede2_ed25519; t=1736169981;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=wm9KQcMBUln+PpRhHhihlqx8UeV9AF36ixy+v9c35OM=;
+ b=s5ZRnEQdWe9EAiwy64Tl9sDE2T0M09fy06o2jc0lHlwRSqbx3IjhLw+qXPmO46JT8d85uS
+ Ka9vXxfjUxfVP6BA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1D279137DA;
- Mon,  6 Jan 2025 12:53:05 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 88603139AB;
+ Mon,  6 Jan 2025 13:26:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +WxsBTHSe2fJIgAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Mon, 06 Jan 2025 12:53:05 +0000
-Date: Mon, 6 Jan 2025 13:52:55 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20250106125255.GC302614@pevik>
-References: <20241222072251.13150-1-liwang@redhat.com>
- <20250102124319.GA81987@pevik>
- <CAEemH2cXL8yu0jhHz7wefvBbDGy-wXcz8Mw1JZv8FqLAXHKm9Q@mail.gmail.com>
- <Z3gGuFHey5qgQ__6@yuki.lan>
- <CAEemH2cawEE9=-3=QUScg+K4JYe5hqhYMtUManS_8JsBfG30AQ@mail.gmail.com>
- <Z3vII4tENjV4G6GQ@yuki.lan>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id HHQAIf3Ze2e8KgAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Mon, 06 Jan 2025 13:26:21 +0000
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon,  6 Jan 2025 14:26:01 +0100
+Message-ID: <20250106132607.25627-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Z3vII4tENjV4G6GQ@yuki.lan>
-X-Rspamd-Queue-Id: 5B7F31F399
 X-Spam-Level: 
-X-Spamd-Result: default: False [-3.71 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; RCPT_COUNT_TWO(0.00)[2];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:replyto];
- ARC_NA(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- MISSING_XM_UA(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_FIVE(0.00)[6];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
- REPLYTO_EQ_FROM(0.00)[]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.71
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,vma05.sh:url,suse.cz:mid];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -2.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 1/2] lib: multiply the timeout if detect slow
- kconfigsD
+Subject: [LTP] [PATCH v2 0/6] First new shell library converted test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,69 +110,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Martin Doucha <martin.doucha@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi!
-> > I did a quick grep that some ltp-aiodio tests set it to 1800 sec, which
-> > only 8/91 occupation in the LTP testcases/, I'm not sure if it's worth
-> > adding a new field for those few stress tests.
+This patchset contains a few fixes for the new shell library and first
+converted test.
 
-> > And with the previous method, the multiple 4 max_runtime for 1800s
-> > is 2hours per test up limit, I can't imagine how long we will get eventually
-> > in the whole test time.
+Changes in v2:
 
-> > Maybe another way is to create a separate function in a header
-> > like aio_common.h (or in high-level dir) for handling that significantly
-> > larger runtime tests.
+- The save_restore parser now matches the C metadata format
+  (after the metadata metaparse fixes I've send in another patchset)
 
-> > BTW, we have TST_UNLIMITED_RUNTIME choice or, invoke
-> > tst_set_max_runtime() in somehow.
+- Added one more patch to make the tst_test structure in tst_res_ static
 
-> I stil think that misusing max_runtime, which is supposed to be upper
-> bound for the actual test runtime was a mistake.
+- the vma05.sh now uses the second argument for the values that are
+  supposed to be written to these files
 
-Do you want to separate timeout for setup() and for actual test run?
-Which one would be prolonged in case of "slow" kernels? (e.g. this patch).
+- restored the unset DEBUGINFOD_URLS in vma05.sh added by an accident
+  (this may possibly fix the timeouts reported by pvorel)
 
-Or you want to fix -iN?
+Cyril Hrubis (6):
+  tst_run_shell: Add save_restore parser
+  tst_run_shell: Make the tst_test struct static
+  libs/ujson: Fix "Garbage after JSON string!" in strict mode
+  tst_run_shell: Better errors for metadata extractor
+  lib/tst_res_.c: Add TBROK handler + more verbose errors
+  mem/vma05.sh: Convert to the new shell library
 
-Also for docs purposes it might be useful to list long running tests.
-Fortunately there are just few tests which calls tst_set_max_runtime()
-for dynamically set timeout.
+ libs/ujson/ujson_reader.c         |   6 +-
+ testcases/kernel/mem/vma/vma05.sh |  96 +++++++++++++------------
+ testcases/lib/tst_res_.c          |  22 +++---
+ testcases/lib/tst_run_shell.c     | 114 ++++++++++++++++++++++++++++--
+ 4 files changed, 177 insertions(+), 61 deletions(-)
 
-> Maybe we should have called the max_runtime a timeout and add runtime
-> for tests that needs it. That way we would have timeout compromising of
-> two parts, one would be the 30s that is used for all tests and second
-> part from the tst_test structure. And then the sum of these two would be
-> multiplied by the timeout multipliers. Then we would have a runtime,
-> which would be used only by tests that call tst_remaining_runtime().
+-- 
+2.45.2
 
-> The overall test timeout would be then:
-
-> (default_30s_timeout + tst_test->timeout) * TIMEOUT_MUL + tst_test->runtime * RUNTIME_MUL
-
-> What do you think?
-
-Timeout is for setup function, right? e.g. for ioctl_sg01? If yes, timeout is
-too generic, IMHO many people will think that it's a general test timeout.
-I would think about general name.
-
-The above formula should be written in the docs in the separate description and
-this section should be linked in TIMEOUT_MUL and RUNTIME_MUL description [1].
-
-Maybe part of library README.md [2], which itself should be also moved to sphinx
-docs.
-
-Kind regards,
-Petr
-
-[1] https://linux-test-project.readthedocs.io/en/latest/users/setup_tests.html#library-environment-variables
-[2] https://github.com/linux-test-project/ltp/blob/master/lib/README.md
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
