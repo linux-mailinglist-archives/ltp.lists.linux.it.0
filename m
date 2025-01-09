@@ -2,99 +2,99 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E26A5A078C8
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 15:13:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75A84A078B2
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 15:11:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9BB913C25F1
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 15:13:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id F40483C2573
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 15:11:21 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BF3143C259D
+ by picard.linux.it (Postfix) with ESMTPS id 3F7D63C2573
  for <ltp@lists.linux.it>; Thu,  9 Jan 2025 15:11:19 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it;
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3012B200AE0
- for <ltp@lists.linux.it>; Thu,  9 Jan 2025 15:11:17 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3AE9863CCFA
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2025 15:11:18 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 73EA82116D;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AD86D1F393;
  Thu,  9 Jan 2025 14:11:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1736431877; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GuPdYADzhVYdoIfZRO3yBAdoncv8J7qyRjmGtY9swJY=;
- b=fA86kys0G6OVgp/zv2POEXo8CgUQJdnCNTE4e+E0DgcbAct0PI+/6htqcZh9g85chXmpoZ
- ZpJnnIaK7CuAM4f1FPF3+xsLHegDKXquSTd9mMJo9GVWirwXaE4kSwnHzTn+JPXaMwnVJ8
- xx+WMXUiyHqRnBKbbBSOyOu/yBMoQwU=
+ bh=PYVSBUMX28aqh7I5zfU3eeday7L7osifNsxtslrwFoE=;
+ b=nJLhshHgklbVFt5fY0h8FtH5b3aDzr1+avidusf4BZXE0fG7rOC0AYP1dCLKj2TC00/4EW
+ XBVZWiNc1+qRsg4neIrHl+FUEY/Ew+cIBZUSExM0mba+qpUyvAp1LBRhaFrXEJjuAQtbnh
+ bJ3f06mihtd3w+4vVirNScdx5iWe3pw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1736431877;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GuPdYADzhVYdoIfZRO3yBAdoncv8J7qyRjmGtY9swJY=;
- b=SUe/9jMnfKxocz1LXaMPQTPvs7RiOmp4rQDDqYEQbu+URN9kMubP0F4cFHXPKoVHMj7woK
- Z90+a1sSSaka+QDA==
-Authentication-Results: smtp-out1.suse.de;
+ bh=PYVSBUMX28aqh7I5zfU3eeday7L7osifNsxtslrwFoE=;
+ b=Yn+pJgULeIs5SrV34MN2V8migS10n2bjQEgL9bqXTVyIFnJyp9GCI+4iyned1F6R4iQrHJ
+ GMUULzNH2zBNEwDA==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1736431877; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GuPdYADzhVYdoIfZRO3yBAdoncv8J7qyRjmGtY9swJY=;
- b=fA86kys0G6OVgp/zv2POEXo8CgUQJdnCNTE4e+E0DgcbAct0PI+/6htqcZh9g85chXmpoZ
- ZpJnnIaK7CuAM4f1FPF3+xsLHegDKXquSTd9mMJo9GVWirwXaE4kSwnHzTn+JPXaMwnVJ8
- xx+WMXUiyHqRnBKbbBSOyOu/yBMoQwU=
+ bh=PYVSBUMX28aqh7I5zfU3eeday7L7osifNsxtslrwFoE=;
+ b=nJLhshHgklbVFt5fY0h8FtH5b3aDzr1+avidusf4BZXE0fG7rOC0AYP1dCLKj2TC00/4EW
+ XBVZWiNc1+qRsg4neIrHl+FUEY/Ew+cIBZUSExM0mba+qpUyvAp1LBRhaFrXEJjuAQtbnh
+ bJ3f06mihtd3w+4vVirNScdx5iWe3pw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1736431877;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GuPdYADzhVYdoIfZRO3yBAdoncv8J7qyRjmGtY9swJY=;
- b=SUe/9jMnfKxocz1LXaMPQTPvs7RiOmp4rQDDqYEQbu+URN9kMubP0F4cFHXPKoVHMj7woK
- Z90+a1sSSaka+QDA==
+ bh=PYVSBUMX28aqh7I5zfU3eeday7L7osifNsxtslrwFoE=;
+ b=Yn+pJgULeIs5SrV34MN2V8migS10n2bjQEgL9bqXTVyIFnJyp9GCI+4iyned1F6R4iQrHJ
+ GMUULzNH2zBNEwDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3C34713A8B;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7F62C13A9E;
  Thu,  9 Jan 2025 14:11:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iPTLDAXZf2eVWgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id QHk9HQXZf2eVWgAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Thu, 09 Jan 2025 14:11:17 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Thu, 09 Jan 2025 15:11:04 +0100
+Date: Thu, 09 Jan 2025 15:11:05 +0100
 MIME-Version: 1.0
-Message-Id: <20250109-fix_setsid_tests-v3-1-2ce60c904019@suse.com>
+Message-Id: <20250109-fix_setsid_tests-v3-2-2ce60c904019@suse.com>
 References: <20250109-fix_setsid_tests-v3-0-2ce60c904019@suse.com>
 In-Reply-To: <20250109-fix_setsid_tests-v3-0-2ce60c904019@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1736431876; l=5521;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1736431876; l=1493;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=VibXPUc+nfncm3L5qTH58PsHZj/vWH6Ru5fmgvokSws=;
- b=LWwB70jaAGW15IfueqhqaSUjCEURkJ18ab8qNNfigNRkBSBvvUf3im+CYhbQW+b2hGh7ZKugI
- qJkDd4KFzXFAIWUowGE5nzoAf6xgHn8VQS8Pqho9ySU7B9ydyMwOMlt
+ bh=MOW9g7ThrqyeXo3INqKzpNnj2Sx+zobF04WcJfdPnws=;
+ b=SPWLhbO5Z3ajf/BE85aL69cpF+JNq8BCjSv3n8s6EYOiO6qwpUZwQOgmZfBnAX1yq/7Y0tNiX
+ xltHb6qIQ58DjqjSiHuOw1eojAxQa2+jkWZ7GZHtkCnGa6WmBc20SHe
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spam-Score: -4.30
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
  RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
@@ -103,16 +103,16 @@ X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
  RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
- suse.com:mid, suse.cz:email]
-X-Spam-Score: -4.30
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid, suse.com:email,
+ imap1.dmz-prg2.suse.org:helo, suse.cz:email]
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 01/12] Refactor setpgid01 test
+Subject: [LTP] [PATCH v3 02/12] Add SAFE_PTSNAME macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,199 +131,49 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Test used to fail when running inside an executor that is setting a
-new session via setsid(). By using the new LTP library, we fix this
-issue since it forks parent first, then execute it, enabling any
-setsid() to be run in the main process before execution.
-
-Fixes: https://github.com/linux-test-project/kirk/issues/28
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/syscalls/setpgid/setpgid01.c | 152 +++++---------------------
- 1 file changed, 25 insertions(+), 127 deletions(-)
+ include/tst_safe_macros.h |  4 ++++
+ lib/tst_safe_macros.c     | 14 ++++++++++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/testcases/kernel/syscalls/setpgid/setpgid01.c b/testcases/kernel/syscalls/setpgid/setpgid01.c
-index 60034e01660d5c3aebe8ca960ff64c03f2b539e5..c976c3a5138ce7bca9f92a7d624797a9f2a08154 100644
---- a/testcases/kernel/syscalls/setpgid/setpgid01.c
-+++ b/testcases/kernel/syscalls/setpgid/setpgid01.c
-@@ -1,150 +1,48 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * Further, this software is distributed without any warranty that it is
-- * free of the rightful claim of any third person regarding infringement
-- * or the like.  Any license provided herein, whether implied or
-- * otherwise, applies only to this software file.  Patent licenses, if
-- * any, provided herein do not apply to combinations of this program with
-- * other software, or any other product whatsoever.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
-- * Mountain View, CA  94043, or:
-- *
-- * http://www.sgi.com
-- *
-- * For further information regarding this notice, see:
-- *
-- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
-- *
-+ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-  */
--/* $Id: setpgid01.c,v 1.7 2009/11/02 13:57:18 subrata_modak Exp $ */
+diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
+index a9fa7dbe128f17eace381fdf9f2795684e55969b..6985aa4bd80af2ff8a7c606fdba9830bb5ccd195 100644
+--- a/include/tst_safe_macros.h
++++ b/include/tst_safe_macros.h
+@@ -528,4 +528,8 @@ ssize_t safe_writev(const char *file, const int lineno, char len_strict,
+ 	safe_writev(__FILE__, __LINE__, (len_strict), (fildes), \
+ 		(iov), (iovcnt))
  
--/*
-- * Description:
-- * Verify that:
-- *   1. Basic functionality test for setpgid(2).
-- *   2. Check functioning of setpgid(2) with pid = 0 and pgid = 0.
-+/*\
-+ * [Description]
-+ *
-+ * Verify basic setpgid() functionality, re-setting group ID inside both parent
-+ * and child. In the first case, we obtain getpgrp() and set it. In the second
-+ * case, we use setpgid(0, 0).
-  */
++char *safe_ptsname(const char *const file, const int lineno, int masterfd);
++#define SAFE_PTSNAME(masterfd) \
++	safe_ptsname(__FILE__, __LINE__, (masterfd))
++
+ #endif /* TST_SAFE_MACROS_H__ */
+diff --git a/lib/tst_safe_macros.c b/lib/tst_safe_macros.c
+index 633b00404a56aafce6322e43bd614070d085e643..ba095a6215a8a053ad7397b4a541b26f02439b0f 100644
+--- a/lib/tst_safe_macros.c
++++ b/lib/tst_safe_macros.c
+@@ -796,3 +796,17 @@ ssize_t safe_writev(const char *file, const int lineno, char len_strict,
  
--#include <errno.h>
--#include <string.h>
--#include <signal.h>
--#include <stdlib.h>
--#include <sys/wait.h>
--#include "test.h"
--
--static void setup(void);
--static void cleanup(void);
--
--char *TCID = "setpgid01";
--
--static void setpgid_test1(void);
--static void setpgid_test2(void);
--static void (*testfunc[])(void) = { setpgid_test1, setpgid_test2};
--int TST_TOTAL = ARRAY_SIZE(testfunc);
--
--int main(int ac, char **av)
--{
--	int i, lc;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--
--		for (i = 0; i < TST_TOTAL; i++)
--			(*testfunc[i])();
--	}
--
--	cleanup();
--	tst_exit();
--}
-+#include "tst_test.h"
- 
- static void setpgid_test1(void)
- {
- 	pid_t pgid, pid;
- 
--	pgid = getpgrp();
--	pid = getpid();
-+	pgid = TST_EXP_PID(getpgrp());
-+	pid = TST_EXP_PID(getpid());
- 
--	TEST(setpgid(pid, pgid));
--	if (TEST_RETURN == -1 || getpgrp() != pgid) {
--		tst_resm(TFAIL | TTERRNO, "test setpgid(%d, %d) fail",
--			 pid, pgid);
--	} else {
--		tst_resm(TPASS, "test setpgid(%d, %d) success", pid, pgid);
--	}
--}
--
--static int wait4child(pid_t child)
--{
--	int status;
--
--	if (waitpid(child, &status, 0) == -1)
--		tst_resm(TBROK|TERRNO, "waitpid");
--	if (WIFEXITED(status))
--		return WEXITSTATUS(status);
--	else
--		return status;
-+	TST_EXP_PASS(setpgid(pid, pgid));
-+	TST_EXP_EQ_LI(pgid, getpgrp());
+ 	return rval;
  }
- 
- static void setpgid_test2(void)
- {
--	int ret;
--	pid_t pgid, pid;
-+	pid_t pgid;
- 
--	pid = tst_fork();
--	if (pid == -1)
--		tst_brkm(TBROK | TERRNO, cleanup, "fork()");
--
--	if (pid != 0) {
--		ret = wait4child(pid);
--	} else {
--		pid = getpid();
--		TEST(setpgid(0, 0));
--		pgid = getpgrp();
--		if (TEST_RETURN == -1) {
--			fprintf(stderr, "setpgid(0, 0) fails in "
--				"child process: %s\n", strerror(TEST_ERRNO));
--			exit(1);
--		} else if (pgid != pid) {
--			fprintf(stderr, "setpgid(0, 0) fails to make PGID"
--				"equal to PID\n");
--			exit(1);
--		} else {
--			exit(0);
--		}
-+	if (!SAFE_FORK()) {
-+		pgid = TST_EXP_PID(getpid());
-+		TST_EXP_PASS(setpgid(0, 0));
-+		TST_EXP_EQ_LI(pgid, getpgrp());
- 	}
--
--	if (ret == 0)
--		tst_resm(TPASS, "test setpgid(0, 0) success");
--	else
--		tst_resm(TFAIL, "test setpgid(0, 0) fail");
- }
- 
--
--static void setup(void)
-+static void run(void)
- {
--	tst_sig(FORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
-+	setpgid_test1();
-+	setpgid_test2();
- }
- 
--static void cleanup(void)
--{
--}
-+static struct tst_test test = {
-+	.test_all = run,
-+	.forks_child = 1,
-+};
++
++char *safe_ptsname(const char *const file, const int lineno, int masterfd)
++{
++	char *name;
++
++	name = ptsname(masterfd);
++
++	if (!name) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"ptsname(%d) failed", masterfd);
++	}
++
++	return name;
++}
 
 -- 
 2.43.0
