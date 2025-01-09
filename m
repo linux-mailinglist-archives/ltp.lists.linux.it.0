@@ -2,20 +2,20 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB63CA07A82
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 16:03:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C0BEA07B44
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 16:09:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1357A3C25E9
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 16:03:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6547E3C26EE
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 16:09:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4FF683C20E2
- for <ltp@lists.linux.it>; Thu,  9 Jan 2025 16:03:52 +0100 (CET)
-Authentication-Results: in-3.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 6F0D33C2653
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2025 16:09:43 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
@@ -23,89 +23,51 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 439B61BD1705
- for <ltp@lists.linux.it>; Thu,  9 Jan 2025 16:03:50 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0080F140E60E
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2025 16:09:42 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 997A31F456;
- Thu,  9 Jan 2025 15:03:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1736435029; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=sHm4O6v/VYHYNnPX6Uu6qCqU7V/BNsI3z1yeH9D52+k=;
- b=VLET3hOhbx+tig2kYPzNTVeccnLrC2xM7mKIkqAHyfGhLpuIYpYVHgG60DaEVfWeuqfLKM
- hKPtFuKpK4OM4cx/yysbPIe30ZDqZfIluGfYnbdHY+fdQ7D9Ybx0tkT/uy3cnqAXjjW1mM
- MlgGB1+Ljs6SYO8DKOzxv+8IHL+ipvM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1736435029;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=sHm4O6v/VYHYNnPX6Uu6qCqU7V/BNsI3z1yeH9D52+k=;
- b=XswuSRHKk0vEA4N5eOL8wI6Dm/QeIZmSjEMJ32jEtShuVL0hdVPPnSIlNCuTNvdNi6dDXd
- VHuYheD2QTolLmBA==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 554E51F453;
+ Thu,  9 Jan 2025 15:09:42 +0000 (UTC)
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=VLET3hOh;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=XswuSRHK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1736435029; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=sHm4O6v/VYHYNnPX6Uu6qCqU7V/BNsI3z1yeH9D52+k=;
- b=VLET3hOhbx+tig2kYPzNTVeccnLrC2xM7mKIkqAHyfGhLpuIYpYVHgG60DaEVfWeuqfLKM
- hKPtFuKpK4OM4cx/yysbPIe30ZDqZfIluGfYnbdHY+fdQ7D9Ybx0tkT/uy3cnqAXjjW1mM
- MlgGB1+Ljs6SYO8DKOzxv+8IHL+ipvM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1736435029;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=sHm4O6v/VYHYNnPX6Uu6qCqU7V/BNsI3z1yeH9D52+k=;
- b=XswuSRHKk0vEA4N5eOL8wI6Dm/QeIZmSjEMJ32jEtShuVL0hdVPPnSIlNCuTNvdNi6dDXd
- VHuYheD2QTolLmBA==
+	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 827B2139AB;
- Thu,  9 Jan 2025 15:03:49 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 43A6D139AB;
+ Thu,  9 Jan 2025 15:09:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ndwoHlXlf2dsawAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Thu, 09 Jan 2025 15:03:49 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Q2qnD7bmf2csbQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Thu, 09 Jan 2025 15:09:42 +0000
+Date: Thu, 9 Jan 2025 16:09:25 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu,  9 Jan 2025 16:03:36 +0100
-Message-ID: <20250109150336.25235-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.45.2
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <Z3_mpfCMSJVlUsrn@yuki.lan>
+References: <20250109142847.326936-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: 997A31F456
-X-Spam-Score: -3.01
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- ARC_NA(0.00)[]; RCPT_COUNT_TWO(0.00)[2];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- DKIM_TRACE(0.00)[suse.cz:+]; TO_DN_SOME(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email, imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.cz:dkim, suse.cz:mid, suse.cz:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Disposition: inline
+In-Reply-To: <20250109142847.326936-1-pvorel@suse.cz>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
+ ASN(0.00)[asn:25478, ipnet:::/0, country:RU]
+X-Spam-Score: -4.00
+X-Rspamd-Queue-Id: 554E51F453
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] safe_macros: Fix confusing safe_read() failure output
+Subject: Re: [LTP] [PATCH 1/1] testinfo.pl: Properly handle NULL
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,50 +79,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-In the case that we read() less bytes than expected in the strict mode
-we used the same tst_brk() as for the case when read() fails. However
-for short reads the errno is in an udefined state and we possibly end up
-with confusing TBROK message. Andrea reported EACESS ernno in the TBROK
-message on a short read() while developing tests.
+Hi!
+> While at it, add missing comma to the arguments.
+> 
+> Fixes: 946d20bdaf ("metadata: metaparse: Better array parsing.")
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> NOTE: if we don't want to have NULL in the docs (see e.g. hugemmap10),
+> we can simply filer it:
 
-Reported-by: Andrea Cervesato <andrea.cervesato@suse.com>
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- lib/safe_macros.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+That is a question on how should be the save_restore formatted in the
+docs. I guess that as a quick fix this is fine.
 
-diff --git a/lib/safe_macros.c b/lib/safe_macros.c
-index 109268587..b224a5861 100644
---- a/lib/safe_macros.c
-+++ b/lib/safe_macros.c
-@@ -293,7 +293,7 @@ ssize_t safe_read(const char *file, const int lineno, void (*cleanup_fn) (void),
- 
- 	rval = read(fildes, buf, nbyte);
- 
--	if (rval == -1 || (len_strict && (size_t)rval != nbyte)) {
-+	if (rval == -1) {
- 		tst_brkm_(file, lineno, TBROK | TERRNO, cleanup_fn,
- 			"read(%d,%p,%zu) failed, returned %zd", fildes, buf,
- 			nbyte, rval);
-@@ -301,6 +301,10 @@ ssize_t safe_read(const char *file, const int lineno, void (*cleanup_fn) (void),
- 		tst_brkm_(file, lineno, TBROK | TERRNO, cleanup_fn,
- 			"Invalid read(%d,%p,%zu) return value %zd", fildes,
- 			buf, nbyte, rval);
-+	} else if (len_strict && (size_t)rval != nbyte) {
-+		tst_brkm_(file, lineno, TBROK, cleanup_fn,
-+			  "Short read(%d,%p,%zu) returned only %zd",
-+			  fildes, buf, nbyte, rval);
- 	}
- 
- 	return rval;
+Acked-by: Cyril Hrubis <chrubis@suse.cz>
+
+> $content .= paragraph(table_escape(join(', ', grep defined, @$v2)));
+> 
+>  docparse/testinfo.pl | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/docparse/testinfo.pl b/docparse/testinfo.pl
+> index 78433c40a3..487b7d5f22 100755
+> --- a/docparse/testinfo.pl
+> +++ b/docparse/testinfo.pl
+> @@ -408,7 +408,11 @@ sub content_all_tests
+>  				# two dimensional array
+>  				if (ref(@$v[0]) eq 'ARRAY') {
+>  					for my $v2 (@$v) {
+> -						$content .= paragraph(table_escape(join(' ', @$v2)));
+> +						# convert NULL to "NULL" string to be printed
+> +						for my $v3 (@$v2) {
+> +							$v3 = "NULL" if (!defined $v3);
+> +						}
+> +						$content .= paragraph(table_escape(join(', ', @$v2)));
+>  					}
+>  				} else {
+>  					# one dimensional array
+> -- 
+> 2.47.1
+> 
+
 -- 
-2.45.2
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
