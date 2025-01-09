@@ -2,20 +2,21 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED1DCA06D4F
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 05:56:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47359A06D51
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 05:56:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AEDD43C1BD1
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 05:56:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0CBDF3C1D89
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 05:56:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 26DB83C1DE2
- for <ltp@lists.linux.it>; Thu,  9 Jan 2025 05:55:53 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ by picard.linux.it (Postfix) with ESMTPS id 800E53C1DEB
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2025 05:55:54 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
  smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
  helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwang@redhat.com;
  receiver=lists.linux.it)
@@ -24,56 +25,57 @@ Received: from us-smtp-delivery-124.mimecast.com
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7186B64E8FB
- for <ltp@lists.linux.it>; Thu,  9 Jan 2025 05:55:52 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 61E5F141CBCB
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2025 05:55:54 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1736398551;
+ s=mimecast20190719; t=1736398552;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=V1/CU+iXD7usHeJtqo9WPeoaw0qwJ/K7vdsQX30C9mM=;
- b=OfCrohbQKnl/u42jFCUuKKKRHu2bCr4TtsoWic7eaGcBJBdlZpf2rNliilDIhaFoOMG63z
- 56h4KqSibMhasbtgI5gpCcGOCJld9Bwl4mg5LE4nX2l0RhsMvf0uzDAstamueSyfGc9sCv
- JPVQx+9S/v1+3okKmFOx4w3BuhTPLcE=
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
+ bh=+rGMUpeimPaJ9dBFw2wtV7SK7xtvWNjj/0nwP8IL4GM=;
+ b=gbZoTinZIm50lwl5OgYeFkW52YUnR85NMI8GNZxdNlXMyIF9Emi7k8twTX4b3dJgutRZBf
+ mgruV7MgXTMLOPgCd/6g2xOyXHEvl/ehhhOkS5wa9GPbRK2Iq+PwhLUnxwDA8jjQ9YhSqW
+ XGMes7N4BT3ymBQB1aNtTaCTRxoNKOk=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-1-jTR6G-NZNFeY2U9Q0dKKgA-1; Wed,
- 08 Jan 2025 23:55:49 -0500
-X-MC-Unique: jTR6G-NZNFeY2U9Q0dKKgA-1
-X-Mimecast-MFC-AGG-ID: jTR6G-NZNFeY2U9Q0dKKgA
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-29-wpeXbylkM8qoMsdNoeZNdA-1; Wed,
+ 08 Jan 2025 23:55:51 -0500
+X-MC-Unique: wpeXbylkM8qoMsdNoeZNdA-1
+X-Mimecast-MFC-AGG-ID: wpeXbylkM8qoMsdNoeZNdA
 Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A67531955BED
- for <ltp@lists.linux.it>; Thu,  9 Jan 2025 04:55:48 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id BDF171955F2D
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2025 04:55:50 +0000 (UTC)
 Received: from dell-per7425-02.rhts.eng.pek2.redhat.com
  (dell-per7425-02.rhts.eng.pek2.redhat.com [10.73.116.18])
  by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7C6A119560AA
- for <ltp@lists.linux.it>; Thu,  9 Jan 2025 04:55:47 +0000 (UTC)
+ id 9578C19560AA
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2025 04:55:49 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Thu,  9 Jan 2025 12:55:31 +0800
-Message-ID: <20250109045532.43017-4-liwang@redhat.com>
+Date: Thu,  9 Jan 2025 12:55:32 +0800
+Message-ID: <20250109045532.43017-5-liwang@redhat.com>
 In-Reply-To: <20250109045532.43017-1-liwang@redhat.com>
 References: <20250109045532.43017-1-liwang@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 1QlILkHhgZ7_v__iHVJ4cKiEjRa_L_kiYIM1lcGN8ns_1736398549
+X-Mimecast-MFC-PROC-ID: LLtabRWzldhT4uZuyxGk1BR3zM5zgfFtoMID8NcCJOU_1736398550
 X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 3/4] set_mempolicy01: make use of tst_set_timeout
+Subject: [LTP] [PATCH v2 4/4] readahead02: reset timeout based the IO test
+ elapsed
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,34 +94,42 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Li Wang <liwang@redhat.com>
 ---
- testcases/kernel/syscalls/set_mempolicy/set_mempolicy01.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ testcases/kernel/syscalls/readahead/readahead02.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/set_mempolicy/set_mempolicy01.c b/testcases/kernel/syscalls/set_mempolicy/set_mempolicy01.c
-index cd39c6c41..39e7156d0 100644
---- a/testcases/kernel/syscalls/set_mempolicy/set_mempolicy01.c
-+++ b/testcases/kernel/syscalls/set_mempolicy/set_mempolicy01.c
-@@ -41,9 +41,9 @@ static void setup(void)
- 	 * has multiple NUMA nodes, the test matrix combination grows exponentially
- 	 * and bring about test time to increase extremely fast.
+diff --git a/testcases/kernel/syscalls/readahead/readahead02.c b/testcases/kernel/syscalls/readahead/readahead02.c
+index de4eb406c..850866c28 100644
+--- a/testcases/kernel/syscalls/readahead/readahead02.c
++++ b/testcases/kernel/syscalls/readahead/readahead02.c
+@@ -321,16 +321,16 @@ static void test_readahead(unsigned int n)
+ 
+ 	/*
+ 	 * The time consuming of readahead quite depending on the platform IO
+-	 * speed, sometime test timeout when the default runtime is used up.
++	 * speed, sometime test timed out when the default timeout is used up.
  	 *
--	 * Here reset the maximum runtime according to the NUMA nodes.
-+	 * Here reset the entire timeout according to the NUMA nodes.
+ 	 *  readahead02.c:221: TINFO: Test #2: POSIX_FADV_WILLNEED on file
+ 	 *  readahead02.c:285: TINFO: read_testfile(0) took: 26317623 usec
+ 	 *  readahead02.c:286: TINFO: read_testfile(1) took: 26101484 usec
+ 	 *
+-	 * Here raise the maximum runtime dynamically.
++	 * Here extend the entire timeout dynamically.
  	 */
--	tst_set_runtime(test.runtime * (1 << nodes->cnt/16));
-+	tst_set_timeout(test.timeout * (1 << nodes->cnt/16));
+ 	if ((tc+1)->readahead)
+-		tst_set_runtime(test.runtime + (usec + usec_ra) / 1000000);
++		tst_set_timeout(test.timeout + (usec + usec_ra) / 1000000);
  }
  
- static void cleanup(void)
-@@ -119,7 +119,7 @@ static struct tst_test test = {
- 	.tcnt = 2,
- 	.forks_child = 1,
- 	.needs_checkpoints = 1,
--	.runtime = 600,
-+	.timeout = 600,
- };
  
- #else
+@@ -422,7 +422,7 @@ static struct tst_test test = {
+ 	},
+ 	.test = test_readahead,
+ 	.tcnt = ARRAY_SIZE(tcases),
+-	.runtime = 30,
++	.timeout = 30,
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "b833a3660394"},
+ 		{"linux-git", "5b910bd615ba"},
 -- 
 2.47.1
 
