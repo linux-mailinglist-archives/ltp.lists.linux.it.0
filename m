@@ -1,22 +1,21 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D476A078BE
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 15:12:21 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E26A5A078C8
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 15:13:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3B9833C265F
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 15:12:21 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9BB913C25F1
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2025 15:13:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6099F3C2577
- for <ltp@lists.linux.it>; Thu,  9 Jan 2025 15:11:18 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id BF3143C259D
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2025 15:11:19 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
  (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
@@ -24,103 +23,96 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2F72A63CCF2
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3012B200AE0
  for <ltp@lists.linux.it>; Thu,  9 Jan 2025 15:11:17 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 292192111F;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 73EA82116D;
  Thu,  9 Jan 2025 14:11:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1736431877; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=StAZTXAi5mp6Z0LMxOmbglAmsrl8uu4ujJ70Vf/smHY=;
- b=QjydXioYGhleiz8X5S9deOwBv1Sfv9Mfb72OoJysf+a5Li9Iuij3sLGeCepiImIZgDylC5
- iRKo8Fc9ruzY7GQd/H4inYj84SXf+6hJxoDg7viEr00yCtsGb+DBK7EQnRKJL2vtVAFpCG
- IKxtLthoGfIh2d2rVMItsaMdutigEsg=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=GuPdYADzhVYdoIfZRO3yBAdoncv8J7qyRjmGtY9swJY=;
+ b=fA86kys0G6OVgp/zv2POEXo8CgUQJdnCNTE4e+E0DgcbAct0PI+/6htqcZh9g85chXmpoZ
+ ZpJnnIaK7CuAM4f1FPF3+xsLHegDKXquSTd9mMJo9GVWirwXaE4kSwnHzTn+JPXaMwnVJ8
+ xx+WMXUiyHqRnBKbbBSOyOu/yBMoQwU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1736431877;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=StAZTXAi5mp6Z0LMxOmbglAmsrl8uu4ujJ70Vf/smHY=;
- b=fFstxqrEC4NmYw/qJlp29Sai7qfXkvBb14o3dFAPSf/5YVWfmAxdGnbm/bgONCG6712hCu
- A/lHBZNUMPvDf/Bw==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=GuPdYADzhVYdoIfZRO3yBAdoncv8J7qyRjmGtY9swJY=;
+ b=SUe/9jMnfKxocz1LXaMPQTPvs7RiOmp4rQDDqYEQbu+URN9kMubP0F4cFHXPKoVHMj7woK
+ Z90+a1sSSaka+QDA==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QjydXioY;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fFstxqrE
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1736431877; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=StAZTXAi5mp6Z0LMxOmbglAmsrl8uu4ujJ70Vf/smHY=;
- b=QjydXioYGhleiz8X5S9deOwBv1Sfv9Mfb72OoJysf+a5Li9Iuij3sLGeCepiImIZgDylC5
- iRKo8Fc9ruzY7GQd/H4inYj84SXf+6hJxoDg7viEr00yCtsGb+DBK7EQnRKJL2vtVAFpCG
- IKxtLthoGfIh2d2rVMItsaMdutigEsg=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=GuPdYADzhVYdoIfZRO3yBAdoncv8J7qyRjmGtY9swJY=;
+ b=fA86kys0G6OVgp/zv2POEXo8CgUQJdnCNTE4e+E0DgcbAct0PI+/6htqcZh9g85chXmpoZ
+ ZpJnnIaK7CuAM4f1FPF3+xsLHegDKXquSTd9mMJo9GVWirwXaE4kSwnHzTn+JPXaMwnVJ8
+ xx+WMXUiyHqRnBKbbBSOyOu/yBMoQwU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1736431877;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=StAZTXAi5mp6Z0LMxOmbglAmsrl8uu4ujJ70Vf/smHY=;
- b=fFstxqrEC4NmYw/qJlp29Sai7qfXkvBb14o3dFAPSf/5YVWfmAxdGnbm/bgONCG6712hCu
- A/lHBZNUMPvDf/Bw==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=GuPdYADzhVYdoIfZRO3yBAdoncv8J7qyRjmGtY9swJY=;
+ b=SUe/9jMnfKxocz1LXaMPQTPvs7RiOmp4rQDDqYEQbu+URN9kMubP0F4cFHXPKoVHMj7woK
+ Z90+a1sSSaka+QDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E6A7C13876;
- Thu,  9 Jan 2025 14:11:16 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3C34713A8B;
+ Thu,  9 Jan 2025 14:11:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id pYLLNQTZf2eVWgAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Thu, 09 Jan 2025 14:11:16 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iPTLDAXZf2eVWgAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Thu, 09 Jan 2025 14:11:17 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Thu, 09 Jan 2025 15:11:03 +0100
-Message-Id: <20250109-fix_setsid_tests-v3-0-2ce60c904019@suse.com>
+Date: Thu, 09 Jan 2025 15:11:04 +0100
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAPfYf2cC/22NQQrCMBBFr1KyNpJM0rS48h4iJU2nNgtbycSgl
- N7dtCgIunyfeW9mRhg8EjsUMwuYPPlpzKB2BXODHS/IfZeZgQAtQWje+0dDGMl3TUSKxOvKWG3
- AVFCXLGu3gPlmS57OmQdPcQrP7UOS6/qOSfkbS5ILjlKoXhlncvZId8K9m65sbSX4+KWQwvzxI
- ftOq76sLLS2NV/+siwvGAu+mu8AAAA=
-X-Change-ID: 20241204-fix_setsid_tests-876a46267285
+Message-Id: <20250109-fix_setsid_tests-v3-1-2ce60c904019@suse.com>
+References: <20250109-fix_setsid_tests-v3-0-2ce60c904019@suse.com>
+In-Reply-To: <20250109-fix_setsid_tests-v3-0-2ce60c904019@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1736431876; l=2525;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1736431876; l=5521;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=RCxxxD7lcf+QpZftG8iqiVkqVLvPnCdElzlh3QyVWoI=;
- b=RaxZvrywCh8CuslhWGycgX0HDTS73EnOyoF16USq+kDoVhXCNfkrU9l+s9/EvIt45tkwe32PD
- bIJjfbRgdCjDhyvnA3wZe/JtVPK/TnJW7/Rr05Y3BeOXfRiiIV8nmbs
+ bh=VibXPUc+nfncm3L5qTH58PsHZj/vWH6Ru5fmgvokSws=;
+ b=LWwB70jaAGW15IfueqhqaSUjCEURkJ18ab8qNNfigNRkBSBvvUf3im+CYhbQW+b2hGh7ZKugI
+ qJkDd4KFzXFAIWUowGE5nzoAf6xgHn8VQS8Pqho9ySU7B9ydyMwOMlt
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: 292192111F
-X-Spam-Score: -4.51
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[3]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
+ suse.com:mid, suse.cz:email]
+X-Spam-Score: -4.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 00/12] Fix tests failing with setsid
+Subject: [LTP] [PATCH v3 01/12] Refactor setpgid01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,69 +129,204 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Following tests are failing when running on a new session started with
-setsid command/syscall: pty01, ptem01, setpgid01.
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Tihs patch-set refactor them in order to fix this issue. Some tests like
-pty01 and ptem01 have been split into multiple files due to their
-complexity.
+Test used to fail when running inside an executor that is setting a
+new session via setsid(). By using the new LTP library, we fix this
+issue since it forks parent first, then execute it, enabling any
+setsid() to be run in the main process before execution.
 
 Fixes: https://github.com/linux-test-project/kirk/issues/28
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-Changes in v3:
-- move slave/master opening in common.h
-- check if master device exists inside open_master()
-- check if slave device has right permissions inside open_slave()
-- add TST_EXP_EQ_STRN macro
-- fix SAFE_PTSNAME macro
-- move master handling inside setup/cleanup in most of the test
-- Link to v2: https://lore.kernel.org/r/20250106-fix_setsid_tests-v2-0-c43f57a2bab6@suse.com
+ testcases/kernel/syscalls/setpgid/setpgid01.c | 152 +++++---------------------
+ 1 file changed, 25 insertions(+), 127 deletions(-)
 
-Changes in v2:
-- add SAFE_PTSNAME macro
-- ptem01: check ptsname() with TBROK
-- Link to v1: https://lore.kernel.org/r/20241211-fix_setsid_tests-v1-0-e103f36c6462@suse.com
+diff --git a/testcases/kernel/syscalls/setpgid/setpgid01.c b/testcases/kernel/syscalls/setpgid/setpgid01.c
+index 60034e01660d5c3aebe8ca960ff64c03f2b539e5..c976c3a5138ce7bca9f92a7d624797a9f2a08154 100644
+--- a/testcases/kernel/syscalls/setpgid/setpgid01.c
++++ b/testcases/kernel/syscalls/setpgid/setpgid01.c
+@@ -1,150 +1,48 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * Further, this software is distributed without any warranty that it is
+- * free of the rightful claim of any third person regarding infringement
+- * or the like.  Any license provided herein, whether implied or
+- * otherwise, applies only to this software file.  Patent licenses, if
+- * any, provided herein do not apply to combinations of this program with
+- * other software, or any other product whatsoever.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
+- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+- * Mountain View, CA  94043, or:
+- *
+- * http://www.sgi.com
+- *
+- * For further information regarding this notice, see:
+- *
+- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
+- *
++ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+  */
+-/* $Id: setpgid01.c,v 1.7 2009/11/02 13:57:18 subrata_modak Exp $ */
+ 
+-/*
+- * Description:
+- * Verify that:
+- *   1. Basic functionality test for setpgid(2).
+- *   2. Check functioning of setpgid(2) with pid = 0 and pgid = 0.
++/*\
++ * [Description]
++ *
++ * Verify basic setpgid() functionality, re-setting group ID inside both parent
++ * and child. In the first case, we obtain getpgrp() and set it. In the second
++ * case, we use setpgid(0, 0).
+  */
+ 
+-#include <errno.h>
+-#include <string.h>
+-#include <signal.h>
+-#include <stdlib.h>
+-#include <sys/wait.h>
+-#include "test.h"
+-
+-static void setup(void);
+-static void cleanup(void);
+-
+-char *TCID = "setpgid01";
+-
+-static void setpgid_test1(void);
+-static void setpgid_test2(void);
+-static void (*testfunc[])(void) = { setpgid_test1, setpgid_test2};
+-int TST_TOTAL = ARRAY_SIZE(testfunc);
+-
+-int main(int ac, char **av)
+-{
+-	int i, lc;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		for (i = 0; i < TST_TOTAL; i++)
+-			(*testfunc[i])();
+-	}
+-
+-	cleanup();
+-	tst_exit();
+-}
++#include "tst_test.h"
+ 
+ static void setpgid_test1(void)
+ {
+ 	pid_t pgid, pid;
+ 
+-	pgid = getpgrp();
+-	pid = getpid();
++	pgid = TST_EXP_PID(getpgrp());
++	pid = TST_EXP_PID(getpid());
+ 
+-	TEST(setpgid(pid, pgid));
+-	if (TEST_RETURN == -1 || getpgrp() != pgid) {
+-		tst_resm(TFAIL | TTERRNO, "test setpgid(%d, %d) fail",
+-			 pid, pgid);
+-	} else {
+-		tst_resm(TPASS, "test setpgid(%d, %d) success", pid, pgid);
+-	}
+-}
+-
+-static int wait4child(pid_t child)
+-{
+-	int status;
+-
+-	if (waitpid(child, &status, 0) == -1)
+-		tst_resm(TBROK|TERRNO, "waitpid");
+-	if (WIFEXITED(status))
+-		return WEXITSTATUS(status);
+-	else
+-		return status;
++	TST_EXP_PASS(setpgid(pid, pgid));
++	TST_EXP_EQ_LI(pgid, getpgrp());
+ }
+ 
+ static void setpgid_test2(void)
+ {
+-	int ret;
+-	pid_t pgid, pid;
++	pid_t pgid;
+ 
+-	pid = tst_fork();
+-	if (pid == -1)
+-		tst_brkm(TBROK | TERRNO, cleanup, "fork()");
+-
+-	if (pid != 0) {
+-		ret = wait4child(pid);
+-	} else {
+-		pid = getpid();
+-		TEST(setpgid(0, 0));
+-		pgid = getpgrp();
+-		if (TEST_RETURN == -1) {
+-			fprintf(stderr, "setpgid(0, 0) fails in "
+-				"child process: %s\n", strerror(TEST_ERRNO));
+-			exit(1);
+-		} else if (pgid != pid) {
+-			fprintf(stderr, "setpgid(0, 0) fails to make PGID"
+-				"equal to PID\n");
+-			exit(1);
+-		} else {
+-			exit(0);
+-		}
++	if (!SAFE_FORK()) {
++		pgid = TST_EXP_PID(getpid());
++		TST_EXP_PASS(setpgid(0, 0));
++		TST_EXP_EQ_LI(pgid, getpgrp());
+ 	}
+-
+-	if (ret == 0)
+-		tst_resm(TPASS, "test setpgid(0, 0) success");
+-	else
+-		tst_resm(TFAIL, "test setpgid(0, 0) fail");
+ }
+ 
+-
+-static void setup(void)
++static void run(void)
+ {
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
++	setpgid_test1();
++	setpgid_test2();
+ }
+ 
+-static void cleanup(void)
+-{
+-}
++static struct tst_test test = {
++	.test_all = run,
++	.forks_child = 1,
++};
 
----
-Andrea Cervesato (12):
-      Refactor setpgid01 test
-      Add SAFE_PTSNAME macro
-      Refactor ptem01 test
-      Add ptem02 test
-      Add ptem03 test
-      Add ptem04 test
-      Add ptem05 test
-      Add ptem06 test
-      Add TST_EXP_EQ_STRN macro
-      Refactor pty01 test
-      Add pty08 test
-      Add pty09 test
-
- include/tst_safe_macros.h                     |   4 +
- include/tst_test_macros.h                     |  21 ++
- lib/tst_safe_macros.c                         |  14 +
- runtest/pty                                   |   7 +
- testcases/kernel/pty/.gitignore               |   7 +
- testcases/kernel/pty/common.h                 |  68 ++++
- testcases/kernel/pty/ptem01.c                 | 456 +++-----------------------
- testcases/kernel/pty/ptem02.c                 |  71 ++++
- testcases/kernel/pty/ptem03.c                 |  49 +++
- testcases/kernel/pty/ptem04.c                 |  49 +++
- testcases/kernel/pty/ptem05.c                 |  55 ++++
- testcases/kernel/pty/ptem06.c                 |  52 +++
- testcases/kernel/pty/pty01.c                  | 409 +++--------------------
- testcases/kernel/pty/pty08.c                  |  38 +++
- testcases/kernel/pty/pty09.c                  |  74 +++++
- testcases/kernel/syscalls/setpgid/setpgid01.c | 152 ++-------
- 16 files changed, 610 insertions(+), 916 deletions(-)
----
-base-commit: 546ad9ccc9c61bf848cb0eadc24203202b20b08c
-change-id: 20241204-fix_setsid_tests-876a46267285
-
-Best regards,
 -- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+2.43.0
 
 
 -- 
