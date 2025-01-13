@@ -1,110 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44190A0BBDB
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Jan 2025 16:27:25 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 121C9A0BCD4
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Jan 2025 17:03:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E44193C7989
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Jan 2025 16:27:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BD1373C7973
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Jan 2025 17:03:35 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5D6D83C78DA
- for <ltp@lists.linux.it>; Mon, 13 Jan 2025 16:27:16 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
- envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 59B593C06C1
+ for <ltp@lists.linux.it>; Mon, 13 Jan 2025 17:02:11 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=afazekas@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 10805222364
- for <ltp@lists.linux.it>; Mon, 13 Jan 2025 16:27:14 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8E86862A34A
+ for <ltp@lists.linux.it>; Mon, 13 Jan 2025 17:02:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1736784128;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=HuXuitCvWC3SWJo38qVbqMoA87ljzOsHRcz/kaxKGIo=;
+ b=a8eY7TURJhMnTUZJHxy6saeFmLHjp0hwR4ZNYTK21FE0QwTnj2EqaCyoCrzkNS9OmtKqXX
+ bUNYcll9mDqcceecgUlZ8EPkD/8QDZHSai7ZKD5NXKIBh6DVR2dOW+M1GDozJge3AG7SPO
+ rLVx+B9l2mV4iRTZWpF4KWdv0JmCQDE=
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-128-JqmyuU-1Of61Fq-vfz1gsA-1; Mon,
+ 13 Jan 2025 11:02:07 -0500
+X-MC-Unique: JqmyuU-1Of61Fq-vfz1gsA-1
+X-Mimecast-MFC-AGG-ID: JqmyuU-1Of61Fq-vfz1gsA
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2C6B01F37E;
- Mon, 13 Jan 2025 15:27:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1736782034; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=VcymEQFiH4exhFNXrgnCY7DM8Ah4/RBOmY51ZBVOhNo=;
- b=X8cZzwx2sAgdWo3cZWbMr8jYdMzM0+2oUljqIH8JgKJiNIEG0rKzy+7C79l5fNSBkjHDME
- f0N0W5y10jmZzOldXjR9elbbY7AICo648btDK/UwJPS18p22PeaoKyRe5MpWY+w4HQ1FDP
- CEddqKc7NU0i/fc/cjmxDDCZx4+9Dlg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1736782034;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=VcymEQFiH4exhFNXrgnCY7DM8Ah4/RBOmY51ZBVOhNo=;
- b=iADR/8XXH8mrwjO/0Vkd9VmLaw/gUmtRWQcAOvDOEuwW0lxRhK6GLHP9R26KfwayIqWkQo
- lUsP1bhmMbnH+KAQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1736782034; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=VcymEQFiH4exhFNXrgnCY7DM8Ah4/RBOmY51ZBVOhNo=;
- b=X8cZzwx2sAgdWo3cZWbMr8jYdMzM0+2oUljqIH8JgKJiNIEG0rKzy+7C79l5fNSBkjHDME
- f0N0W5y10jmZzOldXjR9elbbY7AICo648btDK/UwJPS18p22PeaoKyRe5MpWY+w4HQ1FDP
- CEddqKc7NU0i/fc/cjmxDDCZx4+9Dlg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1736782034;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=VcymEQFiH4exhFNXrgnCY7DM8Ah4/RBOmY51ZBVOhNo=;
- b=iADR/8XXH8mrwjO/0Vkd9VmLaw/gUmtRWQcAOvDOEuwW0lxRhK6GLHP9R26KfwayIqWkQo
- lUsP1bhmMbnH+KAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1237613876;
- Mon, 13 Jan 2025 15:27:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id oJDsAtIwhWduTQAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Mon, 13 Jan 2025 15:27:14 +0000
-Date: Mon, 13 Jan 2025 16:26:59 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Message-ID: <Z4Uww0K9AGOneb8D@yuki.lan>
-References: <20250109-fix_setsid_tests-v3-0-2ce60c904019@suse.com>
- <20250109-fix_setsid_tests-v3-9-2ce60c904019@suse.com>
- <Z4T-0Xk9-sKfPfR-@rei>
- <9fc8d352-b74a-4493-8336-bb3de7908815@suse.com>
+ by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 029A81955DCC
+ for <ltp@lists.linux.it>; Mon, 13 Jan 2025 16:02:06 +0000 (UTC)
+Received: from interceptor.brq.redhat.com (unknown [10.43.2.84])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 10E1C195608E; Mon, 13 Jan 2025 16:02:04 +0000 (UTC)
+From: Attila Fazekas <afazekas@redhat.com>
+To: ltp@lists.linux.it
+Date: Mon, 13 Jan 2025 17:00:40 +0100
+Message-ID: <20250113160040.670737-1-afazekas@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <9fc8d352-b74a-4493-8336-bb3de7908815@suse.com>
-X-Spam-Score: -8.30
-X-Spamd-Result: default: False [-8.30 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
- MIME_TRACE(0.00)[0:+]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TO_DN_SOME(0.00)[]
-X-Spam-Level: 
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: -cWTlAxDoKr4OxsFph1FzNfnDxkG-kdw9SQvt72hocU_1736784126
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v3 09/12] Add TST_EXP_EQ_STRN macro
+X-Mailman-Approved-At: Mon, 13 Jan 2025 17:03:25 +0100
+Subject: [LTP] [PATCH] sched_football: isolcpus handling
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,22 +81,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Attila Fazekas <afazekas@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> I guess this is affecting also TST_EXP_EQ_STR then.. I will need to fix 
-> that one as well.
+sched_football expects each player thread is scheduleable
+to all of the physical CPU threads, however for example
+when you are using isolcpus by default you threads are
+not scheduled to some CPU. It leads to the test hangs.
+591c56b045b2d44a0f4ba1a13545420b23e909b5solved was asimilar issue
+in realtime/prio-preempt .
 
-Not really, because if you do not pass string lenght the string must be
-nul terminated.
+Signed-off-by: Attila Fazekas <afazekas@redhat.com>
+---
+ .../realtime/func/sched_football/sched_football.c  | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
+diff --git a/testcases/realtime/func/sched_football/sched_football.c b/testcases/realtime/func/sched_football/sched_football.c
+index 763b41f23..e4ae6a027 100644
+--- a/testcases/realtime/func/sched_football/sched_football.c
++++ b/testcases/realtime/func/sched_football/sched_football.c
+@@ -133,6 +133,18 @@ void referee(int game_length)
+ 	TST_EXP_EXPR(final_ball == 0);
+ }
+ 
++static inline int get_numcpus(void)
++{
++	cpu_set_t mask;
++
++	CPU_ZERO(&mask);
++
++	/* Get the number of cpus accessible to the current process */
++	sched_getaffinity(getpid(), sizeof(mask), &mask);
++
++	return CPU_COUNT(&mask);
++}
++
+ static void do_test(void)
+ {
+ 	struct sched_param param;
+@@ -140,7 +152,7 @@ static void do_test(void)
+ 	int i;
+ 
+ 	if (players_per_team == 0)
+-		players_per_team = sysconf(_SC_NPROCESSORS_ONLN);
++		players_per_team = get_numcpus();
+ 
+ 	tst_atomic_store(0, &players_ready);
+ 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.47.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
