@@ -2,100 +2,98 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F6FFA11CFE
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2025 10:10:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3A0CA11D0B
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2025 10:13:02 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1736932225; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-transfer-encoding :
- content-type : sender : from;
- bh=KSEvrEB/P/yhzzDe4OCyymTXuBWV33V5XxeY/Bj7zMQ=;
- b=G+Ye8862t7QsP2lWKAnotoxqNjYUdvCHHui495YpSc7CF4Eelbspc8jte3A+NVWTPWZBm
- QV24jV9wfrZ+6LrCPeWclZytK9xjgkVy/2y/rut5cZMQJn2XhPm0uudo7bntx3nLAQtDHq3
- hViKdlTkAKuBVm4YlLFJfkicJdgl82c=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1736932382; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-type : content-transfer-encoding : sender : from;
+ bh=nV9oBe548q4qAj1F5T2dklhoigvgEw7UBTZsP8ot9wA=;
+ b=DQqTuF+2eqKvuTyWb2/xc4huVw/V9S8T1uNPFhMHz20adEfMX99S7GliaQONsq3bOKHzO
+ Qezn/1GrfHL1D+mskSd43v4K+jdZgTB5cOKaK9XOoALcF8FDQVn222TLXa6jFXyo88Lx5x6
+ Fl5L4/aTk+d/GisU4T3rrC0dA5r1igU=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D95B03C7B46
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2025 10:10:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6F5B33C7B56
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2025 10:13:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8F2253C1D15
- for <ltp@lists.linux.it>; Wed, 15 Jan 2025 10:10:23 +0100 (CET)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 5E1A43C7A3C
+ for <ltp@lists.linux.it>; Wed, 15 Jan 2025 10:12:26 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fujitsu.com (client-ip=207.54.90.49;
+ helo=esa3.hc1455-7.c3s2.iphmx.com; envelope-from=ruansy.fnst@fujitsu.com;
+ receiver=lists.linux.it)
+Received: from esa3.hc1455-7.c3s2.iphmx.com (esa3.hc1455-7.c3s2.iphmx.com
+ [207.54.90.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E6FA51000C30
- for <ltp@lists.linux.it>; Wed, 15 Jan 2025 10:10:22 +0100 (CET)
-Received: by mail-wr1-x441.google.com with SMTP id
- ffacd0b85a97d-38a8b17d7a7so3291120f8f.2
- for <ltp@lists.linux.it>; Wed, 15 Jan 2025 01:10:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1736932222; x=1737537022; darn=lists.linux.it;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=r5NAIMa9PDhqlykNBJc9hBarzpMLMVPvg8mAtYNQxiU=;
- b=R85bWDulccXGzgxY8T8f/80PzfKOG+MODvuejcFVR1+DyCli+ikl5H08BLPhmuLIk6
- y08QbhcpGlB/W1TKGFBNRsCLCtYZJWgGKFSkus+rgaDvrtGVMwBBARgPL+LmjWDQ0XWb
- HAn0TkpBSWqOsZFmklyDyxIIC0vSm2KNY9y2qFfru7YEKH/ldOtFRmO8/s+PxWth3d/g
- mlhFwYOQyWtXsHOhGRRC5XtBdcelWEpE0lz1nKSj0mRKFhChhEf+o/EQUwY30LRSv5Xj
- +N1RmrB9mDwoqDzj7WlY4SpRsyV8jbjWQ6n+nt2UJUZPgjbMSaR70aUsp5tA0TykAh9M
- kcag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736932222; x=1737537022;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=r5NAIMa9PDhqlykNBJc9hBarzpMLMVPvg8mAtYNQxiU=;
- b=Sz0+ijnYlbeotJGu2vu+qpLrbRy4jNhIfOob05EcnSpPDxjfCMHHNrH3zudUv1pbOn
- 9Vm5V/E2NaTM0HwotlIVn+QM/cotRrAeHSGUDWmLxd/CttYFEERZ76z9Hlk/VmZYMISW
- fa73nK+Bb0PrGrNKdArUJKvWhLGV5HWyo504CmUvQRBOjF6MrYqVSnTgutndccSM4juU
- zN+f8GpYeJVhh4yKNpQkLvTYr7QBjeZIlVYUhWsnM9wvAES2nMHqQDtQrQiW22xChpHM
- 1XxGJxAHlzIhuOOivOwmfudQ7ac9PUce1CMA7MEynnXOUg9hnkG2obF5AfYhClhrOB1p
- /CTg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU6a1AMjwW+oWyBHWU5QIJ9mJTeLQhVlTQkRNNJkv6mnRN0bveMKOef9pRoh1dOFVZZkIo=@lists.linux.it
-X-Gm-Message-State: AOJu0Yzdxt9TcJQSPLJzyp3bQ4eez5/xmcfYiOmj84qWVf0TPen+om0c
- Eh1QJn3RkmcchaNEmkHkWUQWZF9P9mzIZC0hk576EA8yai2Nxx6LqgQsYrKJ7FE=
-X-Gm-Gg: ASbGnctkkfsQrMWCLliDU/YQmJf/1E5AELKnFDQEz3ugE+5zvQNmwzkxYTZvq/VpC1c
- NocVUK2aSWJBP8Ughx0vvYM9kVcSz3O8nr8t6EqFFsmjE1C052pNSWmcUoEz9MC8o+QcUmDycPO
- ruk1225IyE8+h0Nw8plcNs9bK7ptY2Dl1fFccPvKOLYuuz90wo3KwH0aHhJBXtcKdXfRmau0EQ3
- OIkQEsX+o3pTy9Iz2poj5RmtguBgDDYudYpq8ML/CMRgjC8sTrTGpyK+Z+Dvm5bqLjXWAYdm1KD
- D5dUB2fnt1wHdUJpq0r36Ck/9QRhKr+x0W0HIp4C3nUPF/BNUtSLVno0tyinDt6EEdBz5X479S5
- 5ZR546Hj+7jihxjmw6dY=
-X-Google-Smtp-Source: AGHT+IFtLXk0i0kxkN+6Odg58Hz4ZtGVK8jijYrTWF1txMh3SyNW62vs92cAtt2MZ6WuimRekKdH7g==
-X-Received: by 2002:a05:6000:144f:b0:386:3b93:6cc6 with SMTP id
- ffacd0b85a97d-38a87303dd6mr26165368f8f.15.1736932222296; 
- Wed, 15 Jan 2025 01:10:22 -0800 (PST)
-Received: from ?IPV6:2003:ef:2f2b:3f00:7ee6:22e7:e7ef:afd4?
- (p200300ef2f2b3f007ee622e7e7efafd4.dip0.t-ipconnect.de.
- [2003:ef:2f2b:3f00:7ee6:22e7:e7ef:afd4])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a8e3834fbsm16864296f8f.26.2025.01.15.01.10.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jan 2025 01:10:22 -0800 (PST)
-Message-ID: <78aa2033-384c-4e15-9bad-2c104526bef9@suse.com>
-Date: Wed, 15 Jan 2025 10:10:20 +0100
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3A55065616C
+ for <ltp@lists.linux.it>; Wed, 15 Jan 2025 10:12:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+ t=1736932345; x=1768468345;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=NtZKE8OFTKGxUvMBw7hjyrp7si3fYdkA5+48mdVlFMY=;
+ b=dPc5MeCBNCvlzo4pbQTuWB6w9+NOI3dolxTRuedzdGXHr3q3qc6j9cly
+ F92EayMa2zPbQGjfIbL3nvPugzqu+dBWb2Xwsynq3zOsBEQO5SzhRKRpK
+ q+vBYZtCr5T25+J20Br0LjUSpRo+bGLmtDBLjNCIkEghyj9aeIZo1ZNM/
+ xSbc9FJJvXiZdckFbCfMMujIJqvF83bHkYVnRqpJziMAYQr8osdPmdSB6
+ Q9ijMZRQPU2zfx+t9xYFlmD2HWYa1wiDrvD2u2knxpwxlsYvC/bH6FqcQ
+ e9j+tcvNuLxPe+W1tAU6MYVuB0lodWZv/s2blAdfe6Hv867bq6sYxnvV4 w==;
+X-CSE-ConnectionGUID: dSp0d47VT5iZdW2omLKf+g==
+X-CSE-MsgGUID: cUS7OuugRjyNUPPNbFVF9w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11315"; a="186576231"
+X-IronPort-AV: E=Sophos;i="6.12,316,1728918000"; d="scan'208";a="186576231"
+Received: from unknown (HELO oym-r4.gw.nic.fujitsu.com) ([210.162.30.92])
+ by esa3.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jan 2025 18:12:22 +0900
+Received: from oym-m1.gw.nic.fujitsu.com (oym-nat-oym-m1.gw.nic.fujitsu.com
+ [192.168.87.58])
+ by oym-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id 089D0DE67A
+ for <ltp@lists.linux.it>; Wed, 15 Jan 2025 18:12:20 +0900 (JST)
+Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com
+ [192.51.206.21])
+ by oym-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id D611BD88D9
+ for <ltp@lists.linux.it>; Wed, 15 Jan 2025 18:12:19 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+ by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id 6E97920071A37
+ for <ltp@lists.linux.it>; Wed, 15 Jan 2025 18:12:19 +0900 (JST)
+Received: from localhost.localdomain (unknown [10.167.135.81])
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id DECB01A000B;
+ Wed, 15 Jan 2025 17:12:18 +0800 (CST)
+To: ltp@lists.linux.it,
+	liwang@redhat.com
+Date: Wed, 15 Jan 2025 17:12:16 +0800
+Message-ID: <20250115091218.2630891-1-ruansy.fnst@fujitsu.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Ricardo B. Marliere" <rbm@suse.com>,
- Linux Test Project <ltp@lists.linux.it>
-References: <20250114-fix_b4-config-v1-1-e03eff794599@suse.com>
-Content-Language: en-US
-In-Reply-To: <20250114-fix_b4-config-v1-1-e03eff794599@suse.com>
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28924.006
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28924.006
+X-TMASE-Result: 10--10.855600-10.000000
+X-TMASE-MatchedRID: I8bbGwZUBfT5hD2hwXOXS0hwlOfYeSqx+KgiyLtJrSBjtMlSv+S5nHv3
+ EJJrdBuxTOCZcxBO5FhrW/tgjC4+AS/7QU2czuUNtw+xHnsmQjM8V13UNOVlwWPZr2NA6vZGzEB
+ dkYlGYZRFFrjTpX9jDBP91RdGQH6y2DJQA8IHlR37IK6Q1+r9ntmhsJODizUsvnhgJqkfm0BexH
+ VWV7Fz7/hck8AZNqI8q4tDHpM//bIvt8akOOKRVm03YawHJvPCSLyuC617NWmcpGufbGiAqNTnG
+ wqnA9/JQdPidGokcMNLwDFQTTd3sDa7IBuOPthEXYWcmn4D4qsfimmlcABuNyS30GKAkBxWF9Vs
+ 0wSXPdZ/sjVG8keo4hAvQkLParmrT1Kh7SiNNRuVF2HD8EHNp5Ry1HDTPOXax2rmrhwncOoYQb1
+ oGZV/vOLzNWBegCW2wgn7iDBesS3fd+P6wwCt84RtqopBKUBln9FRkwO5e2DpWBiooOggjYd2V7
+ TsTXKx4EO6FZVg1Q2aOfAjZhyWcg==
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] .b4-config: Add checkpatch.pl default commands
+Subject: [LTP] [PATCH v2 1/3] fchownat01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,49 +105,221 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+From: Shiyang Ruan via ltp <ltp@lists.linux.it>
+Reply-To: Shiyang Ruan <ruansy.fnst@fujitsu.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi again,
+1. convert to new API
+2. move error tests to fchownat03
+3. check if uid/gid is correctly set
 
-On 1/14/25 23:43, Ricardo B. Marliere via ltp wrote:
-> From: Ricardo B. Marliere <rbm@suse.com>
->
-> Blend b4 default checkpatch.pl flags with the ones defined in
-> include/mk/env_post.mk in .b4-config so that a contributor may use `b4 prep
-> --check` and `b4 am --check` in his workflow.
->
-> Signed-off-by: Ricardo B. Marliere <rbm@suse.com>
-> ---
->   .b4-config | 3 +++
->   1 file changed, 3 insertions(+)
->
-> diff --git a/.b4-config b/.b4-config
-> index 2efdf2273240dcf57bd5cab174ff6c7a1952dd5b..5a16bd64ec98b91e17386c0eadc7ef0de54d86f3 100644
-> --- a/.b4-config
-> +++ b/.b4-config
-> @@ -4,3 +4,6 @@
->       send-series-to = Linux Test Project <ltp@lists.linux.it>
->       pw-url = https://patchwork.ozlabs.org/
->       pw-project = ltp
-> +    prep-perpatch-check-cmd = ./scripts/checkpatch.pl -q --terse --no-summary --mailback --showfile --no-tree --ignore CONST_STRUCT,VOLATILE,SPLIT_STRING
-According to checkpatch.pl documentation [1] , we should probably ignore 
-the FILE_PATH_CHANGES here, since MAINTAINERS file is not splitting any 
-responsibility towards LTP folders and maintenance. After disabling this 
-check, warnings around file add/move/delete disappears.
-> +    am-perpatch-check-cmd = ./scripts/checkpatch.pl -q --terse --no-summary --mailback --no-tree --ignore CONST_STRUCT,VOLATILE,SPLIT_STRING
-> +
->
-> ---
-> base-commit: 6fe8aa186559784f0394cd449cba6c53342790ec
-> change-id: 20250114-fix_b4-config-1ab84320000a
->
-> Best regards,
-Andrea
+---
+V1: https://lore.kernel.org/ltp/20240126062540.2596279-1-ruansy.fnst@fujitsu.com/T/#u
+
+Changes:
+ * Move error tests from fchownat01 to fchownat03
+ * fchownat01: Add check if file's ownership changed successfully
+ * fchownat02: Use AT_FDCWD instead of dir_fd
+
+Signed-off-by: Shiyang Ruan <ruansy.fnst@fujitsu.com>
+---
+ .../kernel/syscalls/fchownat/fchownat01.c     | 160 ++++++------------
+ 1 file changed, 50 insertions(+), 110 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/fchownat/fchownat01.c b/testcases/kernel/syscalls/fchownat/fchownat01.c
+index 7771c111a..6768fdd77 100644
+--- a/testcases/kernel/syscalls/fchownat/fchownat01.c
++++ b/testcases/kernel/syscalls/fchownat/fchownat01.c
+@@ -1,133 +1,73 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- *   Copyright (c) International Business Machines  Corp., 2006
+- *   AUTHOR: Yi Yang <yyangcdl@cn.ibm.com>
+- *
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software Foundation,
+- *   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ * Copyright (c) International Business Machines  Corp., 2006
++ * Copyright (c) Linux Test Project, 2007-2025
+  */
+-/*
+- * DESCRIPTION
+- *	This test case will verify basic function of fchownat
+- *	added by kernel 2.6.16 or up.
++
++/*\
++ * [Description]
++ *
++ * Verify basic function of fchownat() added by kernel 2.6.16 or up.
+  */
+ 
+ #define _GNU_SOURCE
++#include "tst_test.h"
+ 
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <unistd.h>
+-#include <stdlib.h>
+-#include <errno.h>
+-#include <string.h>
+-#include <signal.h>
+-
+-#include "test.h"
+-#include "safe_macros.h"
+-#include "lapi/fcntl.h"
+-
+-#define TESTFILE	"testfile"
+-
+-static void setup(void);
+-static void cleanup(void);
++#define TESTFILE1	"testfile1"
++#define TESTFILE2	"testfile2"
+ 
++static uid_t set_uid = 1000;
++static gid_t set_gid = 1000;
+ static int dir_fd;
+-static int fd;
+-static int no_fd = -1;
+ static int cu_fd = AT_FDCWD;
+ 
+-static struct test_case_t {
+-	int exp_ret;
+-	int exp_errno;
+-	int flag;
+-	int *fds;
+-	char *filenames;
+-} test_cases[] = {
+-	{0, 0, 0, &dir_fd, TESTFILE},
+-	{-1, ENOTDIR, 0, &fd, TESTFILE},
+-	{-1, EBADF, 0, &no_fd, TESTFILE},
+-	{-1, EINVAL, 9999, &dir_fd, TESTFILE},
+-	{0, 0, 0, &cu_fd, TESTFILE},
++static struct tcase {
++	int *fd;
++	char *filename;
++} tcases[] = {
++	{ &dir_fd, TESTFILE1, },
++	{ &cu_fd, TESTFILE2, },
+ };
+ 
+-char *TCID = "fchownat01";
+-int TST_TOTAL = ARRAY_SIZE(test_cases);
+-static void fchownat_verify(const struct test_case_t *);
+-
+-int main(int ac, char **av)
++static void fchownat_verify(unsigned int n)
+ {
+-	int lc;
+-	int i;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-		for (i = 0; i < TST_TOTAL; i++)
+-			fchownat_verify(&test_cases[i]);
+-	}
+-
+-	cleanup();
+-	tst_exit();
++	struct tcase *tc = &tcases[n];
++	struct stat stat_buf;
++	int fd = *tc->fd;
++	const char *filename = tc->filename;
++
++	TST_EXP_PASS_SILENT(fchownat(fd, filename, set_uid, set_gid, 0));
++
++	/* check if the file's ownership changed successfully */
++	SAFE_STAT(filename, &stat_buf);
++	if (stat_buf.st_uid == set_uid && stat_buf.st_gid == set_gid)
++		tst_res(TPASS, "fchownat(%d, %s, %d, %d, 0)",
++			fd, filename, set_uid, set_gid);
++	else
++		tst_res(TFAIL, "fchownat() fails because uid(%d) != set(%d) || "
++			"gid(%d) != set(%d)",
++			stat_buf.st_uid, set_uid,
++			stat_buf.st_gid, set_gid);
+ }
+ 
+ static void setup(void)
+ {
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-
+-	tst_tmpdir();
+-
+-	dir_fd = SAFE_OPEN(cleanup, "./", O_DIRECTORY);
+-
+-	SAFE_TOUCH(cleanup, TESTFILE, 0600, NULL);
+-
+-	fd = SAFE_OPEN(cleanup, "testfile2", O_CREAT | O_RDWR, 0600);
+-}
+-
+-static void fchownat_verify(const struct test_case_t *test)
+-{
+-	TEST(fchownat(*(test->fds), test->filenames, geteuid(),
+-		      getegid(), test->flag));
+-
+-	if (TEST_RETURN != test->exp_ret) {
+-		tst_resm(TFAIL | TTERRNO,
+-			 "fchownat() returned %ld, expected %d, errno=%d",
+-			 TEST_RETURN, test->exp_ret, test->exp_errno);
+-		return;
+-	}
+-
+-	if (TEST_ERRNO == test->exp_errno) {
+-		tst_resm(TPASS | TTERRNO,
+-			 "fchownat() returned the expected errno %d: %s",
+-			 test->exp_ret, strerror(test->exp_errno));
+-	} else {
+-		tst_resm(TFAIL | TTERRNO,
+-			 "fchownat() failed unexpectedly; expected: %d - %s",
+-			 test->exp_errno, strerror(test->exp_errno));
+-	}
++	dir_fd = SAFE_OPEN("./", O_DIRECTORY);
++	SAFE_TOUCH(TESTFILE1, 0600, NULL);
++	SAFE_TOUCH(TESTFILE2, 0600, NULL);
+ }
+ 
+ static void cleanup(void)
+ {
+-	if (fd > 0)
+-		close(fd);
+-
+ 	if (dir_fd > 0)
+-		close(dir_fd);
+-
+-	tst_rmdir();
++		SAFE_CLOSE(dir_fd);
+ }
++
++static struct tst_test test = {
++	.needs_tmpdir = 1,
++	.needs_root = 1,
++	.test = fchownat_verify,
++	.tcnt = ARRAY_SIZE(tcases),
++	.setup = setup,
++	.cleanup = cleanup,
++};
+-- 
+2.43.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
