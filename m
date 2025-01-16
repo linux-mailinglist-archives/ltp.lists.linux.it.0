@@ -1,78 +1,101 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C568A13588
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2025 09:38:30 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F021A1359A
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2025 09:41:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1737016862; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-type : content-transfer-encoding : sender : from;
+ bh=nHsKzq+A4j7E2svoFA/HwEbx6StF/z4QasxWL4cwtUs=;
+ b=iG5dfTEtQaHOkzWPIffoaQGsKSSTsM+MFO+sLuYfaY/xFXfzPeZ1/rNFLwhtIeLvabd9r
+ K3RLL9GwE9NGMzNXdhYW/EIKnvoIdQouazLVTGlVYoGkOvOzy4N+jrJnQmWiQtNMkYOozh/
+ uE2goeQ6Y5wvwLopxqeFBpP/1GeeAnc=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CAA8A3C7B93
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2025 09:38:29 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1BB093C7B9B
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2025 09:41:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 259603C7827
- for <ltp@lists.linux.it>; Thu, 16 Jan 2025 09:38:20 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 7DCFF3C7B73
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2025 09:40:22 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fujitsu.com (client-ip=207.54.90.137;
+ helo=esa11.hc1455-7.c3s2.iphmx.com; envelope-from=ruansy.fnst@fujitsu.com;
+ receiver=lists.linux.it)
+Received: from esa11.hc1455-7.c3s2.iphmx.com (esa11.hc1455-7.c3s2.iphmx.com
+ [207.54.90.137])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1A86D658F2D
- for <ltp@lists.linux.it>; Thu, 16 Jan 2025 09:38:19 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 50B53211D7;
- Thu, 16 Jan 2025 08:38:18 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 10BFA13A57;
- Thu, 16 Jan 2025 08:38:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id b92hAnrFiGcnIwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 16 Jan 2025 08:38:18 +0000
-Date: Thu, 16 Jan 2025 09:38:12 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20250116083812.GB670376@pevik>
-References: <20241222072251.13150-1-liwang@redhat.com>
- <20250115224154.GA664782@pevik>
- <CAEemH2e+Cb8R0kS5a8FnETcMiafWeD529CO3=AtHk310vyckbg@mail.gmail.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 920ED20BCD0
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2025 09:40:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+ t=1737016820; x=1768552820;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Dwrid3zOc7/qSHPLMrcI/3yf6qP189+D8B+DunngL5c=;
+ b=l9Y2qv96h3+9r946ufmoIdvc08d5NzK6diSWRivzP/LYK1eKSzgTxxtI
+ OIBFk3PpRUx7iwBjE0B5flEKUKkuEZuLeD5/mhk8yBHphsOFyoMFQvoxw
+ gFjvpp4bG1SSnPU9gXO+UA+ob2+4yiFMAyx40Do/RyVBtAZxV8kgUdqua
+ ZIf4EB+2LLqtJSSLvxEkvDRZKPsOG722PdmfPca1sowa6LTcL2pEZfFqa
+ cPuF1xQXwW1T5bXq7Bf1U+rP3MfFhV80JpsH5KvuqNsyKzu914IWnBk9c
+ pRWHexluDwuWwqSlhuOL+TpB6MOiMRezrRawvSMiq8+krCqSutMJ3btr6 w==;
+X-CSE-ConnectionGUID: fQ2V+ej6S/SadjTbUmXQfw==
+X-CSE-MsgGUID: 2+4ElR0hTeC6/SKAjyRCZg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11316"; a="166219833"
+X-IronPort-AV: E=Sophos;i="6.13,208,1732546800"; d="scan'208";a="166219833"
+Received: from unknown (HELO yto-r1.gw.nic.fujitsu.com) ([218.44.52.217])
+ by esa11.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2025 17:40:17 +0900
+Received: from yto-m1.gw.nic.fujitsu.com (yto-nat-yto-m1.gw.nic.fujitsu.com
+ [192.168.83.64])
+ by yto-r1.gw.nic.fujitsu.com (Postfix) with ESMTP id 63A8DD6EA5
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2025 17:40:15 +0900 (JST)
+Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com
+ [192.51.206.22])
+ by yto-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 2AD6BD0905
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2025 17:40:15 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+ by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id 9F3766B9AD
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2025 17:40:14 +0900 (JST)
+Received: from localhost.localdomain (unknown [10.167.135.81])
+ by edo.cn.fujitsu.com (Postfix) with ESMTP id 208421A0073;
+ Thu, 16 Jan 2025 16:40:14 +0800 (CST)
+To: ltp@lists.linux.it,
+	andrea.cervesato@suse.com,
+	pvorel@suse.cz
+Date: Thu, 16 Jan 2025 16:40:11 +0800
+Message-ID: <20250116084013.503341-1-ruansy.fnst@fujitsu.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2e+Cb8R0kS5a8FnETcMiafWeD529CO3=AtHk310vyckbg@mail.gmail.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 50B53211D7
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spam-Status: No, score=0.0 required=7.0 tests=DMARC_MISSING,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28926.006
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28926.006
+X-TMASE-Result: 10--13.307000-10.000000
+X-TMASE-MatchedRID: kjrT4dFmkw75hD2hwXOXS0hwlOfYeSqx+KgiyLtJrSChuT/MQ6uAV3Ht
+ NWFgCzPSvnCllUJsUcsLdJYj5o/ZfeyFp77aPvWdqoeab9Xgz8+fmd9HsjZ0U6ILsEPieIGYE2G
+ 7Tdxp4Puk+SAURDRhmWtb+2CMLj4BL/tBTZzO5Q23D7EeeyZCMzxXXdQ05WXBY9mvY0Dq9kbMQF
+ 2RiUZhlEUWuNOlf2MME/3VF0ZAfrLYMlADwgeVHfsgrpDX6v2e2aGwk4OLNSy+eGAmqR+bQKfxD
+ YuLPebIrE1r27NixU39k/FBDAgpqDeTbFNCkkUz5CghTisABMxIvK4LrXs1aZyka59saICooonz
+ J5ed8cBlnUu9VvrsFbwHFSeVLhE6R+vpYbhOH1pdhZyafgPiqx+KaaVwAG43JLfQYoCQHFaYnwB
+ r+v+Q9p1GPljPaVOq9HG0nDNJvfkXHLPN9+q8eYvefyp1glN0rzl8sNiWClKbKItl61J/yZ+inT
+ K0bC9eKrauXd3MZDUMFsa+1wyh/CHKckT5veLfnEhnF6p9CagHtlmgqGWKR9ysL6j/pLak4Irjt
+ o8WcYI=
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [REGRESSION] Broken tests using tst_net.sh by 893ca0abe7
- (was: [PATCH 1/2] lib: multiply the timeout if detect slow kconfigs)
+Subject: [LTP] [PATCH v3 1/3] fchownat01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,36 +107,217 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it, Martin Doucha <martin.doucha@suse.com>
+From: Shiyang Ruan via ltp <ltp@lists.linux.it>
+Reply-To: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-...
-> > init_ltp_netspace()
-> > {
-> >         ...
-> >                 pid="$(ROD tst_ns_create net,mnt)"
-> >         ...
-> >         export LTP_NETNS="${LTP_NETNS:-tst_ns_exec $pid net,mnt}"
+1. convert to new API
+2. move error tests to fchownat03
+3. check if uid/gid is correctly set
 
-> > I will probably solve it by adding yet another parameter to
-> > tst_rhost_run(),
-> > which ignores stderr and use it for tst_ns_{create,exec}. But maybe there
-> > is
-> > another solution (or another problem).
+Signed-off-by: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 
+---
+V2: https://lore.kernel.org/ltp/20250115091218.2630891-1-ruansy.fnst@fujitsu.com/
 
-> Or, another way is just to set 'tst_test->timeout == TST_UNLIMITED_TIMEOUT'
-> in those testcase/lib tools.
+Changes:
+ * Initialize fd to -1, and check fd != -1 when cleanup
+ * Do not use TST_*_SILENT()
+ * fchownat01: describe what this case does in DESCRIPTION
+ * fchownat01: use TST_EXP_EQ_LI(); do not use test case struct
+ * fchownat02: use TST_EXP_EXPR()
+ * fchownat03: write a proper commit message, add more errnos to test
 
-Or, we could have yet another flag TST_SKIP_SLOW_DETECTION which could be used
-for these tools.
+---
+ .../kernel/syscalls/fchownat/fchownat01.c     | 153 +++++-------------
+ 1 file changed, 42 insertions(+), 111 deletions(-)
 
-Kind regards,
-Petr
+diff --git a/testcases/kernel/syscalls/fchownat/fchownat01.c b/testcases/kernel/syscalls/fchownat/fchownat01.c
+index 7771c111a..fedcb8ab2 100644
+--- a/testcases/kernel/syscalls/fchownat/fchownat01.c
++++ b/testcases/kernel/syscalls/fchownat/fchownat01.c
+@@ -1,133 +1,64 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- *   Copyright (c) International Business Machines  Corp., 2006
+- *   AUTHOR: Yi Yang <yyangcdl@cn.ibm.com>
+- *
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software Foundation,
+- *   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ * Copyright (c) International Business Machines  Corp., 2006
++ * Copyright (c) Linux Test Project, 2007-2025
+  */
+-/*
+- * DESCRIPTION
+- *	This test case will verify basic function of fchownat
+- *	added by kernel 2.6.16 or up.
++
++/*\
++ * [Description]
++ *
++ * Verify that fchownat() succeeds to change file's ownership if the file
++ * descriptor is AT_FDCWD or set by opening a directory.
+  */
+ 
+ #define _GNU_SOURCE
++#include "tst_test.h"
+ 
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <unistd.h>
+-#include <stdlib.h>
+-#include <errno.h>
+-#include <string.h>
+-#include <signal.h>
+-
+-#include "test.h"
+-#include "safe_macros.h"
+-#include "lapi/fcntl.h"
++#define TESTFILE1	"testfile1"
++#define TESTFILE2	"testfile2"
+ 
+-#define TESTFILE	"testfile"
++static uid_t set_uid = 1000;
++static gid_t set_gid = 1000;
++static int dir_fd = -1;
+ 
+-static void setup(void);
+-static void cleanup(void);
+-
+-static int dir_fd;
+-static int fd;
+-static int no_fd = -1;
+-static int cu_fd = AT_FDCWD;
+-
+-static struct test_case_t {
+-	int exp_ret;
+-	int exp_errno;
+-	int flag;
+-	int *fds;
+-	char *filenames;
+-} test_cases[] = {
+-	{0, 0, 0, &dir_fd, TESTFILE},
+-	{-1, ENOTDIR, 0, &fd, TESTFILE},
+-	{-1, EBADF, 0, &no_fd, TESTFILE},
+-	{-1, EINVAL, 9999, &dir_fd, TESTFILE},
+-	{0, 0, 0, &cu_fd, TESTFILE},
+-};
+-
+-char *TCID = "fchownat01";
+-int TST_TOTAL = ARRAY_SIZE(test_cases);
+-static void fchownat_verify(const struct test_case_t *);
+-
+-int main(int ac, char **av)
++static void fchownat_verify(void)
+ {
+-	int lc;
+-	int i;
++	struct stat stat_buf;
+ 
+-	tst_parse_opts(ac, av, NULL, NULL);
++	TST_EXP_PASS(fchownat(AT_FDCWD, TESTFILE1, set_uid, set_gid, 0),
++		     "fchownat(%d, %s, %d, %d, 0)",
++		     AT_FDCWD, TESTFILE1, set_uid, set_gid);
+ 
+-	setup();
++	SAFE_STAT(TESTFILE1, &stat_buf);
++	TST_EXP_EQ_LI(stat_buf.st_uid, set_uid);
++	TST_EXP_EQ_LI(stat_buf.st_gid, set_gid);
+ 
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-		for (i = 0; i < TST_TOTAL; i++)
+-			fchownat_verify(&test_cases[i]);
+-	}
++	TST_EXP_PASS(fchownat(dir_fd, TESTFILE2, set_uid, set_gid, 0),
++		     "fchownat(%d, %s, %d, %d, 0)",
++		     dir_fd, TESTFILE2, set_uid, set_gid);
+ 
+-	cleanup();
+-	tst_exit();
++	SAFE_STAT(TESTFILE2, &stat_buf);
++	TST_EXP_EQ_LI(stat_buf.st_uid, set_uid);
++	TST_EXP_EQ_LI(stat_buf.st_gid, set_gid);
+ }
+ 
+ static void setup(void)
+ {
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-
+-	tst_tmpdir();
+-
+-	dir_fd = SAFE_OPEN(cleanup, "./", O_DIRECTORY);
+-
+-	SAFE_TOUCH(cleanup, TESTFILE, 0600, NULL);
+-
+-	fd = SAFE_OPEN(cleanup, "testfile2", O_CREAT | O_RDWR, 0600);
+-}
+-
+-static void fchownat_verify(const struct test_case_t *test)
+-{
+-	TEST(fchownat(*(test->fds), test->filenames, geteuid(),
+-		      getegid(), test->flag));
+-
+-	if (TEST_RETURN != test->exp_ret) {
+-		tst_resm(TFAIL | TTERRNO,
+-			 "fchownat() returned %ld, expected %d, errno=%d",
+-			 TEST_RETURN, test->exp_ret, test->exp_errno);
+-		return;
+-	}
+-
+-	if (TEST_ERRNO == test->exp_errno) {
+-		tst_resm(TPASS | TTERRNO,
+-			 "fchownat() returned the expected errno %d: %s",
+-			 test->exp_ret, strerror(test->exp_errno));
+-	} else {
+-		tst_resm(TFAIL | TTERRNO,
+-			 "fchownat() failed unexpectedly; expected: %d - %s",
+-			 test->exp_errno, strerror(test->exp_errno));
+-	}
++	dir_fd = SAFE_OPEN("./", O_DIRECTORY);
++	SAFE_TOUCH(TESTFILE1, 0600, NULL);
++	SAFE_TOUCH(TESTFILE2, 0600, NULL);
+ }
+ 
+ static void cleanup(void)
+ {
+-	if (fd > 0)
+-		close(fd);
+-
+-	if (dir_fd > 0)
+-		close(dir_fd);
+-
+-	tst_rmdir();
++	if (dir_fd != -1)
++		SAFE_CLOSE(dir_fd);
+ }
++
++static struct tst_test test = {
++	.needs_tmpdir = 1,
++	.needs_root = 1,
++	.test_all = fchownat_verify,
++	.setup = setup,
++	.cleanup = cleanup,
++};
+-- 
+2.43.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
