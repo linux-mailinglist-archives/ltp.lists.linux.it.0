@@ -2,72 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7FD1A13E30
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2025 16:50:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB902A13E70
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2025 16:56:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 99AB03C7C15
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2025 16:50:22 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AF3F33C7C0D
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2025 16:56:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0C75B3C7BD0
- for <ltp@lists.linux.it>; Thu, 16 Jan 2025 16:50:12 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id E64793C7BFD
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2025 16:56:04 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6F46E140B5B4
- for <ltp@lists.linux.it>; Thu, 16 Jan 2025 16:50:10 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7ED431016546
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2025 16:56:04 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E37C621164;
- Thu, 16 Jan 2025 15:50:09 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B061421167;
+ Thu, 16 Jan 2025 15:56:03 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D274F13332;
- Thu, 16 Jan 2025 15:50:09 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9F86113332;
+ Thu, 16 Jan 2025 15:56:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id p5U+MrEqiWe9dwAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Thu, 16 Jan 2025 15:50:09 +0000
-Date: Thu, 16 Jan 2025 16:50:00 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WcGNJRMsiWeYZgAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Thu, 16 Jan 2025 15:56:03 +0000
+Date: Thu, 16 Jan 2025 16:55:50 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <Z4kqqIQlgj4QF21X@yuki.lan>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <Z4ksBgLo5fG_VA1T@yuki.lan>
 References: <1b9d04fe8d4f0f386398216b9a5c172bb010c97f.1737029809.git.jstancek@redhat.com>
+ <c49d20e1-8b05-4003-aaf9-99c9c18043f8@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1b9d04fe8d4f0f386398216b9a5c172bb010c97f.1737029809.git.jstancek@redhat.com>
+In-Reply-To: <c49d20e1-8b05-4003-aaf9-99c9c18043f8@suse.com>
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Spam-Level: 
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
 X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: E37C621164
+X-Rspamd-Queue-Id: B061421167
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 Subject: Re: [LTP] [PATCH] aio-stress: fix opened fd leak
 X-BeenThere: ltp@lists.linux.it
@@ -88,52 +87,27 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> In cases where worker completes specified number of `iterations` before
-> oper completes all `total_ios`, such oper remains on active_list.
-> This is a problem because cleanup only walks over finished list,
-> and closes fds only for items on this list. So it's possible for
-> test to exhaust ulimit for open files and fail:
-> 
-> $ ./aio-stress -a1 -I100 -o2 -r4 -f1 -d1^
-> aio-stress.c:1347: TPASS: Test passed
-> aio-stress.c:1285: TINFO: starting with random write
-> aio-stress.c:1296: TINFO: file size 1024MB, record size 0KB, depth 1, I/O per iteration 1
-> aio-stress.c:1298: TINFO: max io_submit 1, buffer alignment set to 4KB
-> aio-stress.c:1300: TINFO: threads 1 files 1 contexts 1 context offset 2MB verification off
-> aio-stress.c:1314: TBROK: open(file0.bin,1052738,0600) failed: EMFILE (24)
+> The patch seems ok, but we should probably end all active operations 
+> before finished operations.
 
-Looks like the test has many options and some combinations may set
-things in a way that does not make much sense.
+Which we do by finish_oper(t, oper) I suppose. At least that should wait
+for the current in-flight IO operation to finish.
 
-> Clean/free also items from active_list. Also don't let `status` from cleanup
-> be set to zero once it becomes non-zero.
-> 
-> Signed-off-by: Jan Stancek <jstancek@redhat.com>
-> ---
->  testcases/kernel/io/ltp-aiodio/aio-stress.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/testcases/kernel/io/ltp-aiodio/aio-stress.c b/testcases/kernel/io/ltp-aiodio/aio-stress.c
-> index 419fc2cd25a4..e84308d1d0e8 100644
-> --- a/testcases/kernel/io/ltp-aiodio/aio-stress.c
-> +++ b/testcases/kernel/io/ltp-aiodio/aio-stress.c
-> @@ -1122,7 +1122,12 @@ restart:
->  	while (t->finished_opers) {
->  		oper = t->finished_opers;
->  		oper_list_del(oper, &t->finished_opers);
-> -		status = finish_oper(t, oper);
-> +		status = finish_oper(t, oper) ? : status;
-> +	}
-> +	while (t->active_opers) {
-> +		oper = t->active_opers;
-> +		oper_list_del(oper, &t->active_opers);
-> +		status = finish_oper(t, oper) ? : status;
->  	}
+If we wanted to finish all operations that were supposed to be done by
+the rest of the parameters we would have to do:
 
+	while (t->active_opers) {
+		run_active_list(t, io_iter, max_io_submit):
+	}
 
-I guess that this works as a minimal fix.
+Instead of:
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+	while (t->active_opers && cnt < iterations) {
+		run_active_list(t, io_iter, max_io_submit);
+		cnt++;
+	}
+
+Which would mean that the iterations parameter would became useless.
 
 -- 
 Cyril Hrubis
