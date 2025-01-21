@@ -2,96 +2,104 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57594A17D82
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2025 13:07:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F4FEA17DD6
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2025 13:35:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EC7D13C2731
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2025 13:07:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 01B053C2785
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2025 13:35:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BBFF83C1C95
- for <ltp@lists.linux.it>; Tue, 21 Jan 2025 13:07:55 +0100 (CET)
-Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
- receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id A1FFB3C2621
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2025 13:34:53 +0100 (CET)
+Authentication-Results: in-3.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E7FDC1037B59
- for <ltp@lists.linux.it>; Tue, 21 Jan 2025 13:07:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1737461273;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=fHioWFmAT3HUYphdlzMeJFk3mfVaujQulkJGksXsx4Y=;
- b=WYFg8Y207GQmSDC6b3rK2EryuY5DEO3mEM+kN51el5bvh27Izl9iI5omweYmMmro9Law2p
- 4RHiFtFw7uPSpyFlb9LCEDMME5vNOeacnxeoz5xgfCw89mTt2Nnsb1okOy/kgubXh7yoqj
- 2m2v8d61GvuwBugrApsfkLeEawa3ZK8=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-482-HBgDouLpP0aueKQuiuI4hg-1; Tue, 21 Jan 2025 07:07:51 -0500
-X-MC-Unique: HBgDouLpP0aueKQuiuI4hg-1
-X-Mimecast-MFC-AGG-ID: HBgDouLpP0aueKQuiuI4hg
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-2ee5616e986so15979053a91.2
- for <ltp@lists.linux.it>; Tue, 21 Jan 2025 04:07:51 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737461270; x=1738066070;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=fHioWFmAT3HUYphdlzMeJFk3mfVaujQulkJGksXsx4Y=;
- b=gw18J4Z+Y7iFoeUk17DqAS3Ves/3i48QTJjkNVflJCDBcV0HIH+SDHfAdcs+a7WHQ6
- NKK9UuPH7F1MpxRK4FcftU0LuDWhCoV3BL0H9+bi5q/8wvZvZmeBwzuWXpd52IJvSNTe
- 4RckyLIlYrV9zIXeRU/e6LKBLJTh2evU0C7E3Hx3pxzDCF5BcH6WOYg8j/xtElfpkuEi
- rBhrzDHw+NQvpstLFyBCEcRxV7CQfsnhwwqcl6eO3+9CbUdg16W/wUqeTI9HlVpklXFA
- vwUyzpP7UTa7v+Af74GotKwLX8mMP3gAZt8Fg/CmPm8Q8ejNWX2/c7JLdRdU07J3mSoV
- +xjg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUG0INVtMfyjzt8ESheamJFU8WFpjjHIIEt1Xv5RbDQNpjRLy3MiNuN/PT4InfXDp4ZJTk=@lists.linux.it
-X-Gm-Message-State: AOJu0YwmGo3HAxtTqxtSzShaHKzx2IlG6hfrTgzlvcwGX8HLTq4Q8IrR
- KiR9XeqZoXUmd+L9GJWrqrJ+Su5LLN4vFk3i0K2AIvqpU4/PzMiU5BWTEcHLQ6Eg+c0H6ggBaOn
- RW9HDoRdR0tO4VlUF8rym2f8DCukFdPphZ0CXYymo/AI1ktfE9Uha2cu/3LUR10j0IWhBQz4YJk
- kRrs/hSTh1tuIi8+06Q7cw65k=
-X-Gm-Gg: ASbGncvZLby2aSudMeTrN0pC5b7iA+RsqCEaoFnMY5bRN9jvCp5aM3zG86DDnnb4t+v
- e3yWHBSp9YDk6HMskaQsi83143pZS4onQqQYQwdcvuvuZQOXgrhGV
-X-Received: by 2002:a17:90b:524d:b0:2ee:b26c:1099 with SMTP id
- 98e67ed59e1d1-2f782d99563mr22163074a91.34.1737461270335; 
- Tue, 21 Jan 2025 04:07:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFsla6C156f+VGw4L1+eai7IdUmgBLFMWm8xFn5xtMe+0HXj5fDTJJbfzuaG6P+HqZAiUKO2x6FLGSEZJ9YsG8=
-X-Received: by 2002:a17:90b:524d:b0:2ee:b26c:1099 with SMTP id
- 98e67ed59e1d1-2f782d99563mr22163043a91.34.1737461269956; Tue, 21 Jan 2025
- 04:07:49 -0800 (PST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 11B111A003D0
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2025 13:34:52 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id ABC7E1F7C8
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2025 12:34:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1737462890; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=JSKykoHkyRvfwCFj+EvrIo72mJdNqTNpKWcApdsjvjQ=;
+ b=USC0i/2CnuG0VhLewLqjnvjPLhaYz8j4mcOfNftjNnijTapHFTsXj4IR9sOKsTu89wnwRy
+ O0AkJ1O9Fn7OPY6UVlnafIc/nDkGDl2TxC2XelkA+GxUH5p9zUOADuCzbht4Zgxk2jZ/7+
+ AUN1TmpVGycENY/gkdQ9UjjN8ZYD1X0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1737462890;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=JSKykoHkyRvfwCFj+EvrIo72mJdNqTNpKWcApdsjvjQ=;
+ b=OyA4xF9Gfhe09/zOQCgY3pq+QozIQwzreWXTTUR0WgYs92b9rLhAadyoQMEoV1LlmN0L43
+ 56cZd2RwyIkCaMAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1737462890; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=JSKykoHkyRvfwCFj+EvrIo72mJdNqTNpKWcApdsjvjQ=;
+ b=USC0i/2CnuG0VhLewLqjnvjPLhaYz8j4mcOfNftjNnijTapHFTsXj4IR9sOKsTu89wnwRy
+ O0AkJ1O9Fn7OPY6UVlnafIc/nDkGDl2TxC2XelkA+GxUH5p9zUOADuCzbht4Zgxk2jZ/7+
+ AUN1TmpVGycENY/gkdQ9UjjN8ZYD1X0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1737462890;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=JSKykoHkyRvfwCFj+EvrIo72mJdNqTNpKWcApdsjvjQ=;
+ b=OyA4xF9Gfhe09/zOQCgY3pq+QozIQwzreWXTTUR0WgYs92b9rLhAadyoQMEoV1LlmN0L43
+ 56cZd2RwyIkCaMAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D8A31387C
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2025 12:34:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id w2ObJWqUj2cIVAAAD6G6ig
+ (envelope-from <chrubis@suse.cz>)
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2025 12:34:50 +0000
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue, 21 Jan 2025 13:34:42 +0100
+Message-ID: <20250121123444.5380-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <20250121111909.66487-1-acarmina@redhat.com>
-In-Reply-To: <20250121111909.66487-1-acarmina@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 21 Jan 2025 20:07:38 +0800
-X-Gm-Features: AbW1kvY1o2thFrlvnoMiAlJCbnRap5vwE3EvumrFLIO459igg4pViWlxfjo-hQc
-Message-ID: <CAEemH2ddReqpm0F=f82yd8RPo1JAXEErcJzdbJy4CYxMt3857g@mail.gmail.com>
-To: Alessandro Carminati <acarmina@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Vom5VCmouOUpH3xylvB1e9RD6vBWEJ8CItZBVrK4-04_1737461270
-X-Mimecast-Originator: redhat.com
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
+ ARC_NA(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
+ RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -2.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH v2] cfs-scheduler/starvation.c: Skip test on
- realtime kernels
+Subject: [LTP] [PATCH 0/2] Update test timeouts in an automated way
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,57 +111,93 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Alessandro Carminati <alessandro.carminati@gmail.com>, ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVHVlLCBKYW4gMjEsIDIwMjUgYXQgNzoyMuKAr1BNIEFsZXNzYW5kcm8gQ2FybWluYXRpIDxh
-Y2FybWluYUByZWRoYXQuY29tPgp3cm90ZToKCj4gVGhpcyBjb21taXQgaW50cm9kdWNlcyBhIGNo
-ZWNrIGluIHRoZSBzdGFydmF0aW9uIHRlc3QgY2FzZSB0byBkZXRlY3QgYW5kCj4gc2tpcCBleGVj
-dXRpb24gb24gcmVhbHRpbWUga2VybmVscy4gVGhlIHRlc3QgaXMgZGVzaWduZWQgZm9yIHVzZSB3
-aXRoIHRoZQo+IENvbXBsZXRlbHkgRmFpciBTY2hlZHVsZXIgYW5kIHByb2R1Y2VzIG1lYW5pbmds
-ZXNzIHJlc3VsdHMgd2hlbiBydW4gb24KPiByZWFsdGltZSBrZXJuZWxzLgo+Cj4gQnkgc2tpcHBp
-bmcgdGhlIHRlc3Qgb24gcmVhbHRpbWUga2VybmVscywgd2UgYXZvaWQgY29uZnVzaW9uIGNhdXNl
-ZCBieQo+IG1pc2xlYWRpbmcgcmVzdWx0cy4KPgo+IENoYW5nZXMgaW5jbHVkZToKPiAtIEFkZGVk
-IGEgZGV0ZWN0aW9uIG1lY2hhbmlzbSBmb3IgcmVhbHRpbWUga2VybmVscy4KPiAtIExvZ2ljIHRv
-IHNraXAgdGhlIHRlc3QgZXhlY3V0aW9uIGlmIHRoZSBrZXJuZWwgaXMgaWRlbnRpZmllZCBhcwo+
-ICAgcmVhbHRpbWUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbGVzc2FuZHJvIENhcm1pbmF0aSA8YWNh
-cm1pbmFAcmVkaGF0LmNvbT4KPgoKUmV2aWV3ZWQtYnk6IExpIFdhbmcgPGxpd2FuZ0ByZWRoYXQu
-Y29tPgoKCgo+IC0tLQo+Cj4gVjE6Cj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbHRwLzIwMjUw
-MTIwMDg1MDE3LjYzNDQyLTEtYWNhcm1pbmFAcmVkaGF0LmNvbS8KPgo+ICBpbmNsdWRlL3RzdF9r
-ZXJuZWwuaCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDkgKysrKysrKysrCj4gIGxp
-Yi90c3Rfa2VybmVsLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxMCArKysr
-KysrKysrCj4gIHRlc3RjYXNlcy9rZXJuZWwvc2NoZWQvY2ZzLXNjaGVkdWxlci9zdGFydmF0aW9u
-LmMgfCAgMyArKysKPiAgMyBmaWxlcyBjaGFuZ2VkLCAyMiBpbnNlcnRpb25zKCspCj4KPiBkaWZm
-IC0tZ2l0IGEvaW5jbHVkZS90c3Rfa2VybmVsLmggYi9pbmNsdWRlL3RzdF9rZXJuZWwuaAo+IGlu
-ZGV4IDVmNDk5NTJiNy4uNjNlY2IxOWE0IDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvdHN0X2tlcm5l
-bC5oCj4gKysrIGIvaW5jbHVkZS90c3Rfa2VybmVsLmgKPiBAQCAtNTgsNCArNTgsMTMgQEAgaW50
-IHRzdF9jaGVja19idWlsdGluX2RyaXZlcihjb25zdCBjaGFyICpkcml2ZXIpOwo+ICAgKi8KPiAg
-aW50IHRzdF9jaGVja19kcml2ZXIoY29uc3QgY2hhciAqZHJpdmVyKTsKPgo+ICsvKioKPiArICog
-dHN0X2NoZWNrX3ByZWVtcHRfcnQoKSAtIENoZWNrIGlmIHRoZSBydW5uaW5nIGtlcm5lbCBpcyBS
-VC4KPiArICoKPiArICogQ2hlY2sgc3VwcG9ydCBmb3IgdGhlIGtlcm5lbCBtb2R1bGUgKGJvdGgg
-YnVpbHQtaW4gYW5kIGxvYWRhYmxlKS4KPiArICoKPiArICogUmV0dXJuOiAtMSBpZiB0aGUga2Vy
-bmVsIGlzIFJULCAwIG90aGVyd2lzZS4KPiArICovCj4gK2ludCB0c3RfY2hlY2tfcHJlZW1wdF9y
-dCh2b2lkKTsKPiArCj4gICNlbmRpZiAvKiBUU1RfS0VSTkVMX0hfXyAqLwo+IGRpZmYgLS1naXQg
-YS9saWIvdHN0X2tlcm5lbC5jIGIvbGliL3RzdF9rZXJuZWwuYwo+IGluZGV4IDhkYWJmZWJhMi4u
-NzA4NDI4OWMzIDEwMDY0NAo+IC0tLSBhL2xpYi90c3Rfa2VybmVsLmMKPiArKysgYi9saWIvdHN0
-X2tlcm5lbC5jCj4gQEAgLTIxNCwzICsyMTQsMTMgQEAgaW50IHRzdF9jaGVja19kcml2ZXIoY29u
-c3QgY2hhciAqZHJpdmVyKQo+Cj4gICAgICAgICByZXR1cm4gLTE7Cj4gIH0KPiArCj4gK2ludCB0
-c3RfY2hlY2tfcHJlZW1wdF9ydCh2b2lkKQo+ICt7Cj4gKyAgICAgICBzdHJ1Y3QgdXRzbmFtZSB1
-dmFsOwo+ICsKPiArICAgICAgIHVuYW1lKCZ1dmFsKTsKPiArICAgICAgIGlmIChzdHJzdHIodXZh
-bC52ZXJzaW9uLCAiUFJFRU1QVF9SVCIpKQo+ICsgICAgICAgICAgICAgICByZXR1cm4gLTE7Cj4g
-KyAgICAgICByZXR1cm4gMDsKPiArfQo+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3Nj
-aGVkL2Nmcy1zY2hlZHVsZXIvc3RhcnZhdGlvbi5jCj4gYi90ZXN0Y2FzZXMva2VybmVsL3NjaGVk
-L2Nmcy1zY2hlZHVsZXIvc3RhcnZhdGlvbi5jCj4gaW5kZXggOTAxNTU2YTdiLi4yN2JmNzdmMzkg
-MTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zY2hlZC9jZnMtc2NoZWR1bGVyL3N0YXJ2
-YXRpb24uYwo+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc2NoZWQvY2ZzLXNjaGVkdWxlci9zdGFy
-dmF0aW9uLmMKPiBAQCAtODAsNiArODAsOSBAQCBzdGF0aWMgdm9pZCBzZXR1cCh2b2lkKQo+ICAg
-ICAgICAgaW50IGNwdSA9IDA7Cj4gICAgICAgICBsb25nIG5jcHVzID0gdHN0X25jcHVzX2NvbmYo
-KTsKPgo+ICsgICAgICAgaWYgKHRzdF9jaGVja19wcmVlbXB0X3J0KCkpCj4gKyAgICAgICAgICAg
-ICAgIHRzdF9icmsoVENPTkYsICJUaGlzIHRlc3QgaXMgbm90IGRlc2lnbmVkIGZvciB0aGUgUlQK
-PiBrZXJuZWwiKTsKPiArCj4gICAgICAgICBDUFVfWkVSTygmbWFzayk7Cj4KPiAgICAgICAgIC8q
-IFJlc3RyaWN0IHRlc3QgdG8gYSBzaW5nbGUgY3B1ICovCj4gLS0KPiAyLjM0LjEKPgo+CgotLSAK
-UmVnYXJkcywKTGkgV2FuZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxp
-bnV4Lml0L2xpc3RpbmZvL2x0cAo=
+First patch adds a script that can parse kirk test results, calculate
+timeouts and patch tests with the newly calculated timeouts.
+
+Second patch updates tests timeouts using this script with a results
+captured on RPi zero.
+
+Cyril Hrubis (2):
+  scripts: Add simple script for calculating timeouts
+  syscalls: Update test timeouts
+
+ scripts/calc_timeouts.py                      | 133 ++++++++++++++++++
+ testcases/kernel/syscalls/access/access01.c   |   1 +
+ testcases/kernel/syscalls/add_key/add_key05.c |   1 +
+ testcases/kernel/syscalls/alarm/alarm05.c     |   1 +
+ testcases/kernel/syscalls/alarm/alarm06.c     |   1 +
+ testcases/kernel/syscalls/alarm/alarm07.c     |   1 +
+ testcases/kernel/syscalls/bind/bind04.c       |   1 +
+ testcases/kernel/syscalls/bpf/bpf_prog05.c    |   1 +
+ testcases/kernel/syscalls/bpf/bpf_prog06.c    |   1 +
+ testcases/kernel/syscalls/bpf/bpf_prog07.c    |   1 +
+ .../kernel/syscalls/cachestat/cachestat01.c   |   1 +
+ .../kernel/syscalls/cachestat/cachestat04.c   |   1 +
+ testcases/kernel/syscalls/chdir/chdir01.c     |   1 +
+ .../kernel/syscalls/clock_gettime/leapsec01.c |   1 +
+ .../clock_nanosleep/clock_nanosleep01.c       |   1 +
+ .../syscalls/clock_settime/clock_settime03.c  |   1 +
+ .../syscalls/close_range/close_range01.c      |   1 +
+ testcases/kernel/syscalls/connect/connect02.c |   1 +
+ testcases/kernel/syscalls/creat/creat05.c     |   1 +
+ testcases/kernel/syscalls/creat/creat09.c     |   1 +
+ testcases/kernel/syscalls/execve/execve05.c   |   1 +
+ .../kernel/syscalls/execveat/execveat03.c     |   1 +
+ .../kernel/syscalls/fallocate/fallocate04.c   |   1 +
+ .../kernel/syscalls/fallocate/fallocate05.c   |   1 +
+ .../kernel/syscalls/fallocate/fallocate06.c   |   2 +-
+ .../kernel/syscalls/fanotify/fanotify01.c     |   1 +
+ .../kernel/syscalls/fanotify/fanotify03.c     |   1 +
+ .../kernel/syscalls/fanotify/fanotify05.c     |   1 +
+ .../kernel/syscalls/fanotify/fanotify06.c     |   1 +
+ .../kernel/syscalls/fanotify/fanotify09.c     |   1 +
+ .../kernel/syscalls/fanotify/fanotify10.c     |   1 +
+ .../kernel/syscalls/fchmodat2/fchmodat2_01.c  |   1 +
+ testcases/kernel/syscalls/fcntl/fcntl14.c     |   1 +
+ testcases/kernel/syscalls/fcntl/fcntl36.c     |   1 +
+ .../kernel/syscalls/fdatasync/fdatasync03.c   |   1 +
+ .../kernel/syscalls/fgetxattr/fgetxattr01.c   |   1 +
+ .../syscalls/fremovexattr/fremovexattr01.c    |   1 +
+ .../syscalls/fremovexattr/fremovexattr02.c    |   1 +
+ .../kernel/syscalls/fsconfig/fsconfig01.c     |   1 +
+ .../kernel/syscalls/fsconfig/fsconfig03.c     |   1 +
+ .../kernel/syscalls/fsetxattr/fsetxattr01.c   |   1 +
+ testcases/kernel/syscalls/fsmount/fsmount01.c |   1 +
+ testcases/kernel/syscalls/fsmount/fsmount02.c |   1 +
+ testcases/kernel/syscalls/fsopen/fsopen01.c   |   1 +
+ testcases/kernel/syscalls/fspick/fspick01.c   |   1 +
+ testcases/kernel/syscalls/fspick/fspick02.c   |   1 +
+ testcases/kernel/syscalls/fstatfs/fstatfs01.c |   1 +
+ testcases/kernel/syscalls/fsync/fsync01.c     |   1 +
+ testcases/kernel/syscalls/fsync/fsync04.c     |   1 +
+ testcases/kernel/syscalls/getpid/getpid01.c   |   1 +
+ .../kernel/syscalls/getxattr/getxattr02.c     |   1 +
+ .../kernel/syscalls/getxattr/getxattr03.c     |   1 +
+ testcases/kernel/syscalls/inotify/inotify03.c |   1 +
+ testcases/kernel/syscalls/inotify/inotify05.c |   1 +
+ testcases/kernel/syscalls/inotify/inotify07.c |   1 +
+ testcases/kernel/syscalls/inotify/inotify08.c |   1 +
+ testcases/kernel/syscalls/inotify/inotify11.c |   1 +
+ testcases/kernel/syscalls/ioctl/ioctl02.c     |   1 +
+ testcases/kernel/syscalls/ioctl/ioctl04.c     |   1 +
+ testcases/kernel/syscalls/ioctl/ioctl08.c     |   1 +
+ testcases/kernel/syscalls/ioctl/ioctl09.c     |   1 +
+ .../kernel/syscalls/ioctl/ioctl_ficlone02.c   |   1 +
+ .../kernel/syscalls/ioctl/ioctl_ficlone03.c   |   1 +
+ .../syscalls/ioctl/ioctl_ficlonerange01.c     |   1 +
+ .../syscalls/ioctl/ioctl_ficlonerange02.c     |   1 +
+ .../kernel/syscalls/ioctl/ioctl_loop01.c      |   1 +
+ 66 files changed, 198 insertions(+), 1 deletion(-)
+ create mode 100755 scripts/calc_timeouts.py
+
+-- 
+2.45.2
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
