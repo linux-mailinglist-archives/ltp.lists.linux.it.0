@@ -2,108 +2,104 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7001A181CE
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2025 17:14:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ADC8A18238
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2025 17:45:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9421A3C2A8C
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2025 17:14:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 06C943C2BB9
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2025 17:45:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5FE753C0229
- for <ltp@lists.linux.it>; Tue, 21 Jan 2025 17:14:26 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 059503C29D3
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2025 17:44:31 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
- envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BA3FF6609F2
- for <ltp@lists.linux.it>; Tue, 21 Jan 2025 17:14:24 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8DEDF1020C20
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2025 17:44:29 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1DAE421153;
- Tue, 21 Jan 2025 16:14:23 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 34F142110B
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2025 16:44:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1737476063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EsiZynk9Fl25bJ7AbsCKhItZIvNYKqf3NOWu8AzjLEE=;
- b=sD1EzUT6VAyjuB6pl4h+1BVgyCLxEkB+xd66zWn8Oh7rheq2nJ1K+Tmxiinw8OLn6nATuP
- 7kvY/fbsPcvzrkviac5XST7fhjI8L/T/KfyjNyQboxNEXQxokG0ShbAyodnJ7DcOc2eUR8
- rKdDP+2QX0X4WYd1GFjpt0bVMLtQjOU=
+ t=1737477869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=t+YBCJeLedKtkTefMIrVyPMmcDIzIctYtOStsSRYlwQ=;
+ b=aV7HYzJtJ4YXwacs68bv/ujhoVvvs54zni+bTbCRJ3FUf5E9rEKgrk5V5AoS9zQOgAKDMj
+ 7f3pL+ngRQz+Rjf3bG4Rn9GvAu9ETM5xLUndbEknDMApmOBlZqKCL4k3o7GjKmLvISy7uq
+ riaIxOyrvjqQ9OTmn1dKmlkPgGFuTSM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1737476063;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EsiZynk9Fl25bJ7AbsCKhItZIvNYKqf3NOWu8AzjLEE=;
- b=F6LRprjV1Z3lV0NmNETT/g228C+xfeENRGWrdCQI1GI9o08l5utubJHWXe7jN5KRU1Q8xT
- SLtv1R0RbSvy7ODA==
+ s=susede2_ed25519; t=1737477869;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=t+YBCJeLedKtkTefMIrVyPMmcDIzIctYtOStsSRYlwQ=;
+ b=08zJ/OBll8x5hNWu9ZTWKAH6xjgMGyzSYAayt38J6DLUMUenWx889emcZAplvygvSY/1I5
+ VHgs3+hT7jnXtMAQ==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1737476063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EsiZynk9Fl25bJ7AbsCKhItZIvNYKqf3NOWu8AzjLEE=;
- b=sD1EzUT6VAyjuB6pl4h+1BVgyCLxEkB+xd66zWn8Oh7rheq2nJ1K+Tmxiinw8OLn6nATuP
- 7kvY/fbsPcvzrkviac5XST7fhjI8L/T/KfyjNyQboxNEXQxokG0ShbAyodnJ7DcOc2eUR8
- rKdDP+2QX0X4WYd1GFjpt0bVMLtQjOU=
+ t=1737477869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=t+YBCJeLedKtkTefMIrVyPMmcDIzIctYtOStsSRYlwQ=;
+ b=aV7HYzJtJ4YXwacs68bv/ujhoVvvs54zni+bTbCRJ3FUf5E9rEKgrk5V5AoS9zQOgAKDMj
+ 7f3pL+ngRQz+Rjf3bG4Rn9GvAu9ETM5xLUndbEknDMApmOBlZqKCL4k3o7GjKmLvISy7uq
+ riaIxOyrvjqQ9OTmn1dKmlkPgGFuTSM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1737476063;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EsiZynk9Fl25bJ7AbsCKhItZIvNYKqf3NOWu8AzjLEE=;
- b=F6LRprjV1Z3lV0NmNETT/g228C+xfeENRGWrdCQI1GI9o08l5utubJHWXe7jN5KRU1Q8xT
- SLtv1R0RbSvy7ODA==
+ s=susede2_ed25519; t=1737477869;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=t+YBCJeLedKtkTefMIrVyPMmcDIzIctYtOStsSRYlwQ=;
+ b=08zJ/OBll8x5hNWu9ZTWKAH6xjgMGyzSYAayt38J6DLUMUenWx889emcZAplvygvSY/1I5
+ VHgs3+hT7jnXtMAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C435D13963;
- Tue, 21 Jan 2025 16:14:22 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E5B61387C
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2025 16:44:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id urWeLd7Hj2cpBgAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Tue, 21 Jan 2025 16:14:22 +0000
-Date: Tue, 21 Jan 2025 17:14:15 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <Z4_H15ZITj4QVWea@yuki.lan>
-References: <20250121082236.5247-1-liwang@redhat.com>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id IfWvBu3Oj2erPQAAD6G6ig
+ (envelope-from <mdoucha@suse.cz>)
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2025 16:44:29 +0000
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue, 21 Jan 2025 17:44:14 +0100
+Message-ID: <20250121164426.27977-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250121082236.5247-1-liwang@redhat.com>
 X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MISSING_XM_UA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
+ ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email]
-X-Spam-Score: -4.30
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
+ RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -2.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] eventfd06: add AIO support check
+Subject: [LTP] [PATCH 00/10] Basic KVM test for Intel VMX
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,42 +111,51 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Just like what we did for io_setup01.c to avoid ENOSYS error:
->   eventfd06.c:140: TBROK: io_setup() failed: ENOSYS
-> 
-> Signed-off-by: Li Wang <liwang@redhat.com>
-> ---
->  testcases/kernel/syscalls/eventfd/eventfd06.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/testcases/kernel/syscalls/eventfd/eventfd06.c b/testcases/kernel/syscalls/eventfd/eventfd06.c
-> index 7339dd471..46d7f73d3 100644
-> --- a/testcases/kernel/syscalls/eventfd/eventfd06.c
-> +++ b/testcases/kernel/syscalls/eventfd/eventfd06.c
-> @@ -136,6 +136,8 @@ static void test_poll(void)
->  static void setup(void)
->  {
->  	TEST(io_setup(MAXEVENTS, &ctx));
-> +	if (TST_RET == -ENOSYS)
-> +		tst_brk(TCONF | TRERRNO, "io_setup(): AIO not supported by kernel");
->  	if (TST_RET < 0)
->  		tst_brk(TBROK, "io_setup() failed: %s", tst_strerrno(-TST_RET));
->  
+Since we already have some functional and CVE tests for AMD SVM, we should
+also add tests for Intel VMX. This patchset adds the necessary support code
+for creating nested VMs on Intel VMX and a simple functional test
+for VMREAD/VMWRITE instructions similar to kvm_svm04.
 
-Alternatively we can add CONFIG_AIO to the needs_kconfigs but anyways:
+The changes include refactoring of existing tests so let's merge it
+after the upcoming LTP release.
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Martin Doucha (10):
+  kvm_read_sregs(): Read the TR segment register
+  kvm_svm_vmrun(): Simplify VM state save/load with macros
+  kvm_x86: Define CR0 flags and additional CPUID/MSR constants
+  KVM: Implement helper functions for setting x86 control registers
+  KVM: Add memcmp() helper function
+  KVM: Add helper functions for nested Intel VMX virtualization
+  lib: Add helper function for reloading kernel modules
+  lib: Add helper function for reading boolean sysconf files
+  kvm_pagefault01: Use library functions to reload KVM modules
+  KVM: Add functional test for emulated VMREAD/VMWRITE instructions
+
+ include/tst_module.h                       |   3 +
+ include/tst_sys_conf.h                     |   2 +
+ lib/tst_module.c                           |  28 ++
+ lib/tst_sys_conf.c                         |  35 ++
+ testcases/kernel/kvm/bootstrap_x86.S       | 123 ++++-
+ testcases/kernel/kvm/bootstrap_x86_64.S    | 153 ++++--
+ testcases/kernel/kvm/include/kvm_guest.h   |   2 +
+ testcases/kernel/kvm/include/kvm_x86.h     |  19 +-
+ testcases/kernel/kvm/include/kvm_x86_vmx.h | 201 ++++++++
+ testcases/kernel/kvm/kvm_pagefault01.c     |  59 +--
+ testcases/kernel/kvm/kvm_vmx01.c           | 282 +++++++++++
+ testcases/kernel/kvm/lib_guest.c           |  12 +
+ testcases/kernel/kvm/lib_x86.c             | 515 +++++++++++++++++++++
+ 13 files changed, 1322 insertions(+), 112 deletions(-)
+ create mode 100644 testcases/kernel/kvm/include/kvm_x86_vmx.h
+ create mode 100644 testcases/kernel/kvm/kvm_vmx01.c
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.47.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
