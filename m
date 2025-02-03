@@ -1,110 +1,78 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 624C2A26537
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 Feb 2025 22:02:44 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0930A26668
+	for <lists+linux-ltp@lfdr.de>; Mon,  3 Feb 2025 23:10:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 14DC33C8F7E
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 Feb 2025 22:02:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 65CD23C6508
+	for <lists+linux-ltp@lfdr.de>; Mon,  3 Feb 2025 23:10:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A22003C6F70
- for <ltp@lists.linux.it>; Mon,  3 Feb 2025 22:02:41 +0100 (CET)
-Authentication-Results: in-3.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by picard.linux.it (Postfix) with ESMTPS id 4DF683C8ED5
+ for <ltp@lists.linux.it>; Mon,  3 Feb 2025 23:09:13 +0100 (CET)
+Authentication-Results: in-3.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=jmoyer@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id F0AC11BD7DBC
- for <ltp@lists.linux.it>; Mon,  3 Feb 2025 22:02:40 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2DEBD1BD50CB
+ for <ltp@lists.linux.it>; Mon,  3 Feb 2025 23:09:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1738620551;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=JUJivSwhgQFXh5t/oZ9XjF9XdI+8VqiBDr+myqg6P+c=;
+ b=GOTIorrDubaoSskisk3o8C14pWcloXV5ECp8jaUC4NcgxgHtjReiAZQfleAv/fVUCr1w/S
+ 6LkiCvjnwWxSSzUIyxSR0VbMnJyOROOpiZ66O329dmO6P8hdIUzON86xZ8bXU/lSE0+32A
+ 2RoNzpO0bD1VUVzRwWvfFpkuJ/L78mI=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-496-YPf3GvL0PWGv4SG1vfI0Ng-1; Mon,
+ 03 Feb 2025 17:09:10 -0500
+X-MC-Unique: YPf3GvL0PWGv4SG1vfI0Ng-1
+X-Mimecast-MFC-AGG-ID: YPf3GvL0PWGv4SG1vfI0Ng
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A7F3E1F381;
- Mon,  3 Feb 2025 21:02:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1738616557; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=gLxzwgBHzYgiD3SLge84bxTTGCKKHZsRNmfmfnMgEd8=;
- b=KwBOLN4zPfkBTD8wnGTE+DNlEI8LzHYPsvUnVLW0PBeUT8gPWJEUAla84gkmvZgVyfVIO+
- nLMTvNzNnxl2g0TaBcj7k4WXucl4+o+pVcS7Ar5hUEWN1phWhJvyFxZkN8IXbJuPOL731y
- TzkJTbl6qZWmOFcOKty6Dla9S033A/8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1738616557;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=gLxzwgBHzYgiD3SLge84bxTTGCKKHZsRNmfmfnMgEd8=;
- b=JjF1T9uW14iLbkYTaPlUonguQ0RKXOaw/4p070szSyU7/q/YYT+Wcukr+piwzFSYXOFi4c
- ZFwh1tQH8gYv1HAA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=KwBOLN4z;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=JjF1T9uW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1738616557; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=gLxzwgBHzYgiD3SLge84bxTTGCKKHZsRNmfmfnMgEd8=;
- b=KwBOLN4zPfkBTD8wnGTE+DNlEI8LzHYPsvUnVLW0PBeUT8gPWJEUAla84gkmvZgVyfVIO+
- nLMTvNzNnxl2g0TaBcj7k4WXucl4+o+pVcS7Ar5hUEWN1phWhJvyFxZkN8IXbJuPOL731y
- TzkJTbl6qZWmOFcOKty6Dla9S033A/8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1738616557;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=gLxzwgBHzYgiD3SLge84bxTTGCKKHZsRNmfmfnMgEd8=;
- b=JjF1T9uW14iLbkYTaPlUonguQ0RKXOaw/4p070szSyU7/q/YYT+Wcukr+piwzFSYXOFi4c
- ZFwh1tQH8gYv1HAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4173913A78;
- Mon,  3 Feb 2025 21:02:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id VA4HC+0uoWfXMwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Mon, 03 Feb 2025 21:02:37 +0000
-From: Petr Vorel <pvorel@suse.cz>
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 7B0181801F1D
+ for <ltp@lists.linux.it>; Mon,  3 Feb 2025 22:09:09 +0000 (UTC)
+Received: from segfault.usersys.redhat.com (unknown [10.22.65.155])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 504AE1800268
+ for <ltp@lists.linux.it>; Mon,  3 Feb 2025 22:09:09 +0000 (UTC)
+Received: by segfault.usersys.redhat.com (Postfix, from userid 3734)
+ id 72C0F24EA204; Mon,  3 Feb 2025 17:09:06 -0500 (EST)
+From: Jeff Moyer <jmoyer@redhat.com>
 To: ltp@lists.linux.it
-Date: Mon,  3 Feb 2025 22:02:33 +0100
-Message-ID: <20250203210233.1407530-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.47.2
+Date: Mon,  3 Feb 2025 17:05:57 -0500
+Message-ID: <20250203220903.399544-1-jmoyer@redhat.com>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: A7F3E1F381
-X-Spam-Score: -3.01
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[4]; FROM_EQ_ENVFROM(0.00)[];
- DKIM_TRACE(0.00)[suse.cz:+]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: BrsX5XcQhvZXw0FIOUAAvGZvz72ZG9GeNnLYg4V42uc_1738620549
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] IMA: measure.policy: limit dont_measure tmpfs policy
- to func=FILE_CHECK
+Subject: [LTP] [PATCH 0/3] tst_device: add support for overlayfs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,43 +84,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-integrity@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-add func=FILE_CHECK to dont_measure tmpfs
+When running ltp-aiodio on an overlay file system, the following error
+occurs:
 
-Similarly to tcb.policy limit dont_measure tmpfs policy to func=FILE_CHECK.
-This allows to do extra measurements, e.g. kexec boot command line, see
-kernel commit
+tst_tmpdir.c:316: TINFO: Using /mnt/fstests/TEST_DIR/ovl-mnt/ltp-hSHEHy5M0s/LTP_aio4q4GMW as tmpdir (overlayfs filesystem)
+tst_test.c:1888: TINFO: LTP version: 20220121-2271-g91a10df22
+tst_test.c:1892: TINFO: Tested kernel: vendor kernel
+tst_test.c:1723: TINFO: Timeout per run is 0h 40m 00s
+aiocp.c:211: TINFO: Maximum AIO blocks: 65536
+tst_device.c:551: TINFO: Use BTRFS specific strategy
+tst_device.c:569: TBROK: BTRFS ioctl failed. Is . on a tmpfs?: ENOTTY (25)
 
-7eef7c8bac9a ("ima: limit the builtin 'tcb' dont_measure tmpfs policy rule")
+The issue is that stat(2) on an overlayfs mount point will return a
+major device number of 0.  The code assumes this is btrfs, and tries
+to issue a btrfs-specific ioctl.  When that fails, the final message is
+printed that suggests this might be tmpfs.
 
-Also remove leading 0 from tmpfs magic (to match IMA docs and tcb.policy).
+I modified the code to use statfs(2) to get the file system type, and
+use that to determine which file system specific code to call.  Finally, I
+added code to parse out the upper directory from the overlayfs mount options
+using libmount.  libmount is part of util-linux, so it should be fairly
+ubiquitous.  stat(2) is then called on the upper directory to get to the
+underlying device node.
 
-Suggested-by: Mimi Zohar <zohar@linux.ibm.com>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- .../security/integrity/ima/datafiles/ima_policy/measure.policy  | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Review of the series is greatly appreciated.
 
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/ima_policy/measure.policy b/testcases/kernel/security/integrity/ima/datafiles/ima_policy/measure.policy
-index 9976ddf2de..8abd05fb1a 100644
---- a/testcases/kernel/security/integrity/ima/datafiles/ima_policy/measure.policy
-+++ b/testcases/kernel/security/integrity/ima/datafiles/ima_policy/measure.policy
-@@ -8,7 +8,7 @@ dont_measure fsmagic=0x62656572
- # DEBUGFS_MAGIC
- dont_measure fsmagic=0x64626720
- # TMPFS_MAGIC
--dont_measure fsmagic=0x01021994
-+dont_measure fsmagic=0x1021994 func=FILE_CHECK
- # SECURITYFS_MAGIC
- dont_measure fsmagic=0x73636673
- measure func=FILE_MMAP mask=MAY_EXEC
--- 
-2.47.2
+Thanks in advance!
+Jeff
+
+[PATCH 1/3] lib/tst_device.c: factor out btrfs-specific logic from
+[PATCH 2/3] lib/tst_device.c: check for BTRFS_SUPER_MAGIC instead of
+[PATCH 3/3] lib/tst_device.c: add support for overlayfs
 
 
 -- 
