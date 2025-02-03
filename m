@@ -1,79 +1,98 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA29A26667
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 Feb 2025 23:09:50 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4704AA268F7
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Feb 2025 01:50:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8653B3C6508
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 Feb 2025 23:09:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A2AB63C8F99
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Feb 2025 01:50:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4177E3C6508
- for <ltp@lists.linux.it>; Mon,  3 Feb 2025 23:09:14 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=jmoyer@redhat.com;
+ by picard.linux.it (Postfix) with ESMTPS id CED6A3C54B2
+ for <ltp@lists.linux.it>; Tue,  4 Feb 2025 01:50:20 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=zohar@linux.ibm.com;
  receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 74912600C84
- for <ltp@lists.linux.it>; Mon,  3 Feb 2025 23:09:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738620552;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Rp8XvtwzteaLfDRMh0cNxJdjYKssFfX8wyTZ+dvBEKI=;
- b=IzqEJf/+ucQrBaXIvOkfbo8t51cu9ottrIKnAU3U/3PkWKdhBYmZQgPpOMrI2FutEnP8iZ
- 0P0BJfstyCHgzKGAIxgXel7NR3muKGYMEXKBToXgcTIUGWOhhzD06Ryz/c3FVBITTflCDS
- wC5ItWidyA5+anid5VPj7a23IJSPjWs=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-470-UO5KCw5BPMuycjp6Va5fBw-1; Mon,
- 03 Feb 2025 17:09:10 -0500
-X-MC-Unique: UO5KCw5BPMuycjp6Va5fBw-1
-X-Mimecast-MFC-AGG-ID: UO5KCw5BPMuycjp6Va5fBw
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id CB38E1800370
- for <ltp@lists.linux.it>; Mon,  3 Feb 2025 22:09:09 +0000 (UTC)
-Received: from segfault.usersys.redhat.com (unknown [10.22.65.155])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 567EE18008C0; Mon,  3 Feb 2025 22:09:09 +0000 (UTC)
-Received: by segfault.usersys.redhat.com (Postfix, from userid 3734)
- id 78CBD24EA207; Mon,  3 Feb 2025 17:09:06 -0500 (EST)
-From: Jeff Moyer <jmoyer@redhat.com>
-To: ltp@lists.linux.it
-Date: Mon,  3 Feb 2025 17:06:00 -0500
-Message-ID: <20250203220903.399544-4-jmoyer@redhat.com>
-In-Reply-To: <20250203220903.399544-1-jmoyer@redhat.com>
-References: <20250203220903.399544-1-jmoyer@redhat.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A3F2C64F649
+ for <ltp@lists.linux.it>; Tue,  4 Feb 2025 01:50:18 +0100 (CET)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 513MvaiK027290;
+ Tue, 4 Feb 2025 00:50:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=iFD7h3
+ eA60RTkB1tif+Q3mte1FUD/lUZQjV+uaohdwk=; b=JqzDLA8kb8QTFeSl+MtUjh
+ yZ24+8vdg4GjNbh35wfmQSfKSFeqmUoa9jq3pIy3yVy09tiUfPDqSBYleI8WIHGQ
+ TQFPtJY9ALgAzm16UExvZ8kSkBZPqRTbP77QhR/B0tTkgG7ZSGMgTvSkD2uoGVbU
+ kBq5j9HrZGCR0EnJY5dwrDZpUOS/fjVQD0kTzfdhjQnvuKQbf5kh9ZfUyBq39Zsy
+ Upgwc05HT11S+XamWH0TKOZL5t0wvK9/FsDUi+0Lp9X0xdzo9tikxloFJxP/SMAP
+ IX5sSf5Zrjbsq62WvRyt0SR5B5FIt47UAT/2f/2BXpeaQSMWqOkPJpIYMoIem1sA
+ ==
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 44jkv961ke-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Feb 2025 00:50:16 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 513NPWWD024635;
+ Tue, 4 Feb 2025 00:50:15 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 44hxxn11p1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Feb 2025 00:50:15 +0000
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com
+ [10.241.53.100])
+ by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 5140oFmI19923702
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 4 Feb 2025 00:50:15 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E06A85806D;
+ Tue,  4 Feb 2025 00:50:14 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9E9E258068;
+ Tue,  4 Feb 2025 00:50:14 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown
+ [9.61.18.96]) by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+ Tue,  4 Feb 2025 00:50:14 +0000 (GMT)
+Message-ID: <4e4fb197b7127f8d82705ec441e8a273cd237b7f.camel@linux.ibm.com>
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+In-Reply-To: <20250203210233.1407530-1-pvorel@suse.cz>
+References: <20250203210233.1407530-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: bjgkPn-UF7GrjkOX38mdDVsdcac1oiJIsrxRnqYUhEg_1738620549
-X-Mimecast-Originator: redhat.com
+Date: Mon, 03 Feb 2025 18:48:10 -0500
+User-Agent: Evolution 3.52.4 (3.52.4-2.fc40) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: OSMniuTFzQyC2Z-dKRU-m4GR0-1MMSrz
+X-Proofpoint-ORIG-GUID: OSMniuTFzQyC2Z-dKRU-m4GR0-1MMSrz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-03_10,2025-01-31_02,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 mlxlogscore=999
+ priorityscore=1501 impostorscore=0 mlxscore=0 suspectscore=0
+ malwarescore=0 clxscore=1015 lowpriorityscore=0 spamscore=0 phishscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2501170000 definitions=main-2502040002
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+ DMARC_PASS,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled
+ version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 3/3] lib/tst_device.c: add support for overlayfs
+Subject: Re: [LTP] [PATCH] IMA: measure.policy: limit dont_measure tmpfs
+ policy to func=FILE_CHECK
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,171 +104,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jeff Moyer <jmoyer@redhat.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-integrity@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add checks for overlayfs in tst_find_backing_dev.  As with btrfs, only
-a single device is checked (the upper one) and returned from
-tst_find_backing_dev().
-
-Signed-off-by: Jeff Moyer <jmoyer@redhat.com>
----
- .gitignore       |  1 +
- INSTALL          |  6 ++---
- lib/Makefile     |  2 +-
- lib/libltp.a     |  1 +
- lib/tst_device.c | 62 ++++++++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 68 insertions(+), 4 deletions(-)
- create mode 100644 lib/libltp.a
-
-diff --git a/.gitignore b/.gitignore
-index 24f4a4ea8..38bf1fab9 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -9,6 +9,7 @@ core
- .gdb_history
- .gdbinit
- lib*.a
-+!libltp.a
- .cache.mk
- *.dwo
- *.mod
-diff --git a/INSTALL b/INSTALL
-index ad43514d4..557cf4abc 100644
---- a/INSTALL
-+++ b/INSTALL
-@@ -6,15 +6,15 @@ package in any Linux distribution (no specific version is required).
- 
- Debian / Ubuntu
- 
--	# apt install gcc git make pkgconf autoconf automake bison flex m4 linux-headers-$(uname -r) libc6-dev
-+	# apt install gcc git make pkgconf autoconf automake bison flex m4 linux-headers-$(uname -r) libc6-dev libmount-dev
- 
- openSUSE / SLES
- 
--	# zypper install gcc git make pkg-config autoconf automake bison flex m4 linux-glibc-devel glibc-devel
-+	# zypper install gcc git make pkg-config autoconf automake bison flex m4 linux-glibc-devel glibc-devel libmount-devel
- 
- Fedora / CentOS / RHEL
- 
--	# yum install gcc git make pkgconf autoconf automake bison flex m4 kernel-headers glibc-headers
-+	# yum install gcc git make pkgconf autoconf automake bison flex m4 kernel-headers glibc-headers libmount-devel
- 
- These are minimal build requirements for git compilation. Some tests require
- extra development files of some libraries, see ci/*.sh. There is also
-diff --git a/lib/Makefile b/lib/Makefile
-index 67169f149..2f180405e 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -14,7 +14,7 @@ else
- FILTER_OUT_LIBSRCS	+= tlibio.c tst_safe_sysv_ipc.c
- endif
- 
--INTERNAL_LIB		:= libltp.a
-+INTERNAL_LIB		:= libltp_internal.a
- 
- pc_file			:= $(DESTDIR)/$(datarootdir)/pkgconfig/ltp.pc
- 
-diff --git a/lib/libltp.a b/lib/libltp.a
-new file mode 100644
-index 000000000..006f3557e
---- /dev/null
-+++ b/lib/libltp.a
-@@ -0,0 +1 @@
-+INPUT (libltp_internal.a -lmount)
-diff --git a/lib/tst_device.c b/lib/tst_device.c
-index 744e08a68..d99da1c51 100644
---- a/lib/tst_device.c
-+++ b/lib/tst_device.c
-@@ -19,6 +19,7 @@
- #include <linux/limits.h>
- #include <sys/vfs.h>
- #include <linux/magic.h>
-+#include <libmount/libmount.h>
- #include "lapi/syscalls.h"
- #include "test.h"
- #include "safe_macros.h"
-@@ -573,6 +574,65 @@ static void btrfs_get_uevent_path(char *tmp_path, char *uevent_path)
- 	SAFE_CLOSEDIR(NULL, dir);
- }
- 
-+static void overlay_get_dev(struct libmnt_fs *fs, const char *dir_opt,
-+			    dev_t *dev)
-+{
-+	int ret;
-+	char *value, *dir_name;
-+	size_t val_size;
-+	struct stat st;
-+
-+	ret = mnt_fs_get_option(fs, dir_opt, &value, &val_size);
-+	if (ret)
-+		tst_brkm(TBROK, NULL,
-+			 "overlayfs: no %s in mount options", dir_opt);
-+
-+	dir_name = calloc(val_size + 1, 1);
-+	if (!dir_name)
-+		tst_brkm(TBROK | TERRNO, NULL, "calloc failed");
-+
-+	memcpy(dir_name, value, val_size);
-+	if (stat(dir_name, &st) < 0)
-+		tst_brkm(TBROK | TERRNO, NULL, "stat failed");
-+
-+	*dev = st.st_dev;
-+	free(dir_name);
-+}
-+
-+/*
-+ * NOTE: this will not work for stacked overlay mounts.
-+ */
-+static void overlay_get_uevent_path(char *tmp_path, char *uevent_path)
-+{
-+	struct libmnt_table *mtab;
-+	struct libmnt_fs *fs;
-+	struct stat st;
-+	dev_t upper_dev;
-+
-+	tst_resm(TINFO, "Use OVERLAYFS specific strategy");
-+
-+	mtab = mnt_new_table();
-+	if (!mtab)
-+		tst_brkm(TBROK | TERRNO, NULL, "mnt_new_table failed");
-+
-+	if (mnt_table_parse_file(mtab, "/proc/self/mountinfo") != 0)
-+		tst_brkm(TBROK, NULL, "mnt_table_parse_file failed");
-+
-+	if (stat(tmp_path, &st) < 0)
-+		tst_brkm(TBROK | TERRNO, NULL, "stat failed");
-+
-+	fs = mnt_table_find_devno(mtab, st.st_dev, MNT_ITER_FORWARD);
-+	if (!fs)
-+		tst_brkm(TBROK, NULL, "mnt_table_find_devno failed");
-+
-+	overlay_get_dev(fs, "upperdir", &upper_dev);
-+	mnt_unref_table(mtab);
-+
-+	tst_resm(TINFO, "Warning: used first of multiple backing devices.");
-+	sprintf(uevent_path, "/sys/dev/block/%d:%d/uevent",
-+		major(upper_dev), minor(upper_dev));
-+}
-+
- __attribute__((nonnull))
- void tst_find_backing_dev(const char *path, char *dev, size_t dev_size)
- {
-@@ -600,6 +660,8 @@ void tst_find_backing_dev(const char *path, char *dev, size_t dev_size)
- 
- 	if (fsbuf.f_type == BTRFS_SUPER_MAGIC) {
- 		btrfs_get_uevent_path(tmp_path, uevent_path);
-+	} else if (fsbuf.f_type == OVERLAYFS_SUPER_MAGIC) {
-+		overlay_get_uevent_path(tmp_path, uevent_path);
- 	} else if (dev_major == 0) {
- 		tst_brkm(TBROK, NULL, "%s resides on an unsupported pseudo-file system.", path);
- 	} else {
--- 
-2.43.5
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gTW9uLCAyMDI1LTAyLTAzIGF0IDIyOjAyICswMTAwLCBQZXRyIFZvcmVsIHdyb3RlOgo+IGFk
+ZCBmdW5jPUZJTEVfQ0hFQ0sgdG8gZG9udF9tZWFzdXJlIHRtcGZzCj4gCj4gU2ltaWxhcmx5IHRv
+IHRjYi5wb2xpY3kgbGltaXQgZG9udF9tZWFzdXJlIHRtcGZzIHBvbGljeSB0byBmdW5jPUZJTEVf
+Q0hFQ0suCj4gVGhpcyBhbGxvd3MgdG8gZG8gZXh0cmEgbWVhc3VyZW1lbnRzLCBlLmcuIGtleGVj
+IGJvb3QgY29tbWFuZCBsaW5lLCBzZWUKPiBrZXJuZWwgY29tbWl0Cj4gCj4gN2VlZjdjOGJhYzlh
+ICgiaW1hOiBsaW1pdCB0aGUgYnVpbHRpbiAndGNiJyBkb250X21lYXN1cmUgdG1wZnMgcG9saWN5
+IHJ1bGUiKQo+IAo+IEFsc28gcmVtb3ZlIGxlYWRpbmcgMCBmcm9tIHRtcGZzIG1hZ2ljICh0byBt
+YXRjaCBJTUEgZG9jcyBhbmQgdGNiLnBvbGljeSkuCj4gCj4gU3VnZ2VzdGVkLWJ5OiBNaW1pIFpv
+aGFyIDx6b2hhckBsaW51eC5pYm0uY29tPgo+IFNpZ25lZC1vZmYtYnk6IFBldHIgVm9yZWwgPHB2
+b3JlbEBzdXNlLmN6PgoKUmV2aWV3ZWQtYnk6IE1pbWkgWm9oYXIgPHpvaGFyQGxpbnV4LmlibS5j
+b20+Cgo+IC0tLQo+IMKgLi4uL3NlY3VyaXR5L2ludGVncml0eS9pbWEvZGF0YWZpbGVzL2ltYV9w
+b2xpY3kvbWVhc3VyZS5wb2xpY3nCoCB8IDIgKy0KPiDCoDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
+dGlvbigrKSwgMSBkZWxldGlvbigtKQo+IAo+IGRpZmYgLS1naXQKPiBhL3Rlc3RjYXNlcy9rZXJu
+ZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9kYXRhZmlsZXMvaW1hX3BvbGljeS9tZWFzdXJlLnBv
+bGljeQo+IGIvdGVzdGNhc2VzL2tlcm5lbC9zZWN1cml0eS9pbnRlZ3JpdHkvaW1hL2RhdGFmaWxl
+cy9pbWFfcG9saWN5L21lYXN1cmUucG9saWN5Cj4gaW5kZXggOTk3NmRkZjJkZS4uOGFiZDA1ZmIx
+YSAxMDA2NDQKPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEv
+ZGF0YWZpbGVzL2ltYV9wb2xpY3kvbWVhc3VyZS5wb2xpY3kKPiArKysgYi90ZXN0Y2FzZXMva2Vy
+bmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEvZGF0YWZpbGVzL2ltYV9wb2xpY3kvbWVhc3VyZS5w
+b2xpY3kKPiBAQCAtOCw3ICs4LDcgQEAgZG9udF9tZWFzdXJlIGZzbWFnaWM9MHg2MjY1NjU3Mgo+
+IMKgIyBERUJVR0ZTX01BR0lDCj4gwqBkb250X21lYXN1cmUgZnNtYWdpYz0weDY0NjI2NzIwCj4g
+wqAjIFRNUEZTX01BR0lDCj4gLWRvbnRfbWVhc3VyZSBmc21hZ2ljPTB4MDEwMjE5OTQKPiArZG9u
+dF9tZWFzdXJlIGZzbWFnaWM9MHgxMDIxOTk0IGZ1bmM9RklMRV9DSEVDSwo+IMKgIyBTRUNVUklU
+WUZTX01BR0lDCj4gwqBkb250X21lYXN1cmUgZnNtYWdpYz0weDczNjM2NjczCj4gwqBtZWFzdXJl
+IGZ1bmM9RklMRV9NTUFQIG1hc2s9TUFZX0VYRUMKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0
+dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
