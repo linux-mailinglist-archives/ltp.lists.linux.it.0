@@ -2,116 +2,104 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF5DBA29535
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Feb 2025 16:50:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C277FA29C3D
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Feb 2025 22:57:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EDB1A3C9237
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Feb 2025 16:50:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8544D3C928D
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Feb 2025 22:57:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B783D3C813C
- for <ltp@lists.linux.it>; Wed,  5 Feb 2025 16:50:41 +0100 (CET)
-Authentication-Results: in-4.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
- envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 5476C3C813C
+ for <ltp@lists.linux.it>; Wed,  5 Feb 2025 22:57:17 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E67511000992
- for <ltp@lists.linux.it>; Wed,  5 Feb 2025 16:50:39 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 77586220F61
+ for <ltp@lists.linux.it>; Wed,  5 Feb 2025 22:57:17 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E7F541F7B8;
- Wed,  5 Feb 2025 15:50:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1738770639; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lyrq5sjXp0eTNjJqCN7X1PG6wTm5nEKlYOw3OWBMQqM=;
- b=h0i/4Gy9VltvgWN8xc7+x4rbVKFUKNGlgvo2zrDognYUeCSNgq7j6ZHFQS8swpiiC9AUoC
- A1F/gLseaZGJVZFwYfd4jEAwe9z5QVkui+SYQHLp1JSGtrFkssvpgNUsEiGP5kKFWsmvyj
- mvX38mkn8WNsyYJWgInTe9kSAPfykyw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1738770639;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 637202115F;
+ Wed,  5 Feb 2025 21:57:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1738792636; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=HsHo8dFaL4DkJpAWMBaFNOZLzkThz9YBRSOpnv7mD8M=;
+ b=EIW9tM9Bl5IKeT/eQvoP23Mb1TR7vTrPspefpHJ/3Mlww7Xpk61aaia4XMfiz7TCiI6Rkd
+ yVDFnoWXjQ1yTdk607HGyEH40L7jWcfR46Yq0xvAwyOqNmu3u8bGruF+IKel5QaA9PgETk
+ f19RMdfqt3zWGrsGAPPq8CEYEuJTELU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1738792636;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lyrq5sjXp0eTNjJqCN7X1PG6wTm5nEKlYOw3OWBMQqM=;
- b=GWM4malhaPuoV3XdKX4KArej5w4reZSHijKvTyjkGK9DTGy+8neCXwJJPJOj3qy8ta/mPj
- SmAkwlO5+yTnGNCg==
-Authentication-Results: smtp-out2.suse.de;
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=HsHo8dFaL4DkJpAWMBaFNOZLzkThz9YBRSOpnv7mD8M=;
+ b=l7yG4bGo3LlSP72NprLNgmX7ln9Z0aPjPFMFCxsHIdYssz8AGrUXQDR/3nH+kle2UHWYGU
+ QnLwF5jfISLBbHAg==
+Authentication-Results: smtp-out1.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1738770638; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lyrq5sjXp0eTNjJqCN7X1PG6wTm5nEKlYOw3OWBMQqM=;
- b=OIa70JcznTf+4/zcHxYVY2qDpgeLU7vGwVSzXIt1GLzyJDwlQhMKs88L1wNsZto62gvDtt
- FnXMLHRlus8JYe7m+fl8a7qRmq/QGtAx//XS/prFQsL7zlFXC2EvDiNefGoqzBDYL/lGMn
- LsaHnq4Wzeq3QMVh881KM/lAyPUJ5+E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1738770638;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1738792636; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=HsHo8dFaL4DkJpAWMBaFNOZLzkThz9YBRSOpnv7mD8M=;
+ b=EIW9tM9Bl5IKeT/eQvoP23Mb1TR7vTrPspefpHJ/3Mlww7Xpk61aaia4XMfiz7TCiI6Rkd
+ yVDFnoWXjQ1yTdk607HGyEH40L7jWcfR46Yq0xvAwyOqNmu3u8bGruF+IKel5QaA9PgETk
+ f19RMdfqt3zWGrsGAPPq8CEYEuJTELU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1738792636;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lyrq5sjXp0eTNjJqCN7X1PG6wTm5nEKlYOw3OWBMQqM=;
- b=oq4FOsphmJI083N3GdY5S6haaWBv7v4lZ72MS4sDdqkqhtWh+x2BFlpetyFTbnwYCSOmqs
- JxDYMDVo7zk4MgDQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=HsHo8dFaL4DkJpAWMBaFNOZLzkThz9YBRSOpnv7mD8M=;
+ b=l7yG4bGo3LlSP72NprLNgmX7ln9Z0aPjPFMFCxsHIdYssz8AGrUXQDR/3nH+kle2UHWYGU
+ QnLwF5jfISLBbHAg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C5501139D8;
- Wed,  5 Feb 2025 15:50:38 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2DEF9139D8;
+ Wed,  5 Feb 2025 21:57:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id a5J1Ls6Io2d/KgAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Wed, 05 Feb 2025 15:50:38 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 05 Feb 2025 16:50:34 +0100
-MIME-Version: 1.0
-Message-Id: <20250205-doc_tests_list-v4-1-ae46e56073bb@suse.com>
-X-B4-Tracking: v=1; b=H4sIAMmIo2cC/2XMSwrCMBSF4a1Ixkby1jhyHyIljxsb0FaaGpTSv
- ZvWSWmH53K/f0AJuggJnXcD6iDHFNumDLHfIVeb5g44+rIRI0wSyin2rat6SH2qHjH1mNoTC5K
- C4MGjgl4dhPiZg9db2XV5arvv3M90uv5TjPB1KlNMsQygtCNHS429pHeCg2ufaCplttRio1nR2
- jNtwDjHA19pvtRyo3nRVhEltPNglFnocRx/BhpMuicBAAA=
-X-Change-ID: 20250131-doc_tests_list-1b82f51e43fd
+ by imap1.dmz-prg2.suse.org with ESMTPSA id HLiUCbzeo2eYEQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Wed, 05 Feb 2025 21:57:16 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1738770638; l=12088;
- i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=nzeXbKC3AGzzYKbYdLSWjteOFvszf9Jf5I6IUUxMvrY=;
- b=hL6eAAqXbfoIerh1Sny3WGxeixII+JrP/0y6pUFEGDE+XkK9hLEn8N2qHDNh0BfaMXyTUr7Yd
- wufwvhwkLkqDmWx0fjIBJMfk/xywll1EkwA66u5dw2a9bcW3Ss0H1Uv
-X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
- pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
+Date: Wed,  5 Feb 2025 22:57:06 +0100
+Message-ID: <20250205215709.1526151-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.47.2
+MIME-Version: 1.0
 X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Spamd-Result: default: False [-1.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid]
-X-Spam-Score: -4.30
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FREEMAIL_CC(0.00)[gmail.com,linux.ibm.com,vger.kernel.org];
+ RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TAGGED_RCPT(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:mid];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Score: -1.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4] doc: add tests catalog page
+Subject: [LTP] [PATCH COMMITTED 0/2] IMA test fixes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,430 +111,87 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: linux-integrity@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+From: Petr Vorel <petr.vorel@gmail.com>
 
-Add a new section in the LTP documentation website, where we list all
-tests which are available in LTP and supporting new API.
+Hi Mimi, all,
 
-Acked-by: Cyril Hrubis <chrubis@suse.cz>
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
-This patch-set is meant to introduce a new page in the LTP
-documentation, showing tests which are currently available with their
-description and information.
----
-Changes in v4:
-- show maximum runtime with timeout text
-- correct timeout text
-- Link to v3: https://lore.kernel.org/r/20250205-doc_tests_list-v3-1-b60649cdea6a@suse.com
+I fixed 2 regressions I found in the previous implementation.
 
-Changes in v3:
-- fix table widths alignment
-- add warning at the beginning of the test catalog
-- Link to v2: https://lore.kernel.org/r/20250204-doc_tests_list-v2-1-9d29aeacc3f3@suse.com
+I'm planning to solve problem with ima_measurements.sh (second commit).
 
-Changes in v2:
-- add setup
-- cleanup code
-- Link to v1: https://lore.kernel.org/r/20250203-doc_tests_list-v1-1-5fe69c07b1ab@suse.com
----
- doc/.gitignore             |   1 +
- doc/conf.py                | 276 ++++++++++++++++++++++++++++++++++++++++++++-
- doc/index.rst              |   4 +
- doc/users/test_catalog.rst |   7 ++
- 4 files changed, 284 insertions(+), 4 deletions(-)
+There is also other problem with loading kexec.policy and then running
+ima_measurements.sh on SUT with ima_policy=tcb. The latest line in
+ascii_runtime_measurements_sha1 was made by ima_kexec.sh:
 
-diff --git a/doc/.gitignore b/doc/.gitignore
-index 173179852070f25acb6a729975df9d52d171b422..2b05a1ec368573778cfe7ee6a1cb5d6c5ecb0b5a 100644
---- a/doc/.gitignore
-+++ b/doc/.gitignore
-@@ -1,4 +1,5 @@
- html/
- build/
- _static/syscalls.rst
-+_static/tests.rst
- syscalls.tbl
-diff --git a/doc/conf.py b/doc/conf.py
-index c6a84ea5810424ce6e1c21d81946c1819f10a3cc..96ace4c588198ca0184ff7a7460220dfd7c4dcd5 100644
---- a/doc/conf.py
-+++ b/doc/conf.py
-@@ -5,6 +5,7 @@
- 
- import os
- import re
-+import json
- import socket
- import urllib.request
- import sphinx
-@@ -17,6 +18,7 @@ copyright = '2024, Linux Test Project'
- author = 'Linux Test Project'
- release = '1.0'
- ltp_repo = 'https://github.com/linux-test-project/ltp'
-+ltp_repo_base_url = f"{ltp_repo}/tree/master"
- 
- # -- General configuration ---------------------------------------------------
- # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-@@ -25,7 +27,7 @@ extensions = [
-     'linuxdoc.rstKernelDoc',
-     'sphinxcontrib.spelling',
-     'sphinx.ext.autosectionlabel',
--    'sphinx.ext.extlinks'
-+    'sphinx.ext.extlinks',
- ]
- 
- exclude_patterns = ["html*", '_static*']
-@@ -138,7 +140,6 @@ def generate_syscalls_stats(_):
-     if error:
-         return
- 
--    syscalls_base_url = f"{ltp_repo}/tree/master"
-     text = [
-         'Syscalls\n',
-         '--------\n\n',
-@@ -176,7 +177,7 @@ def generate_syscalls_stats(_):
-             path = dirpath.replace('../', '')
-             name = match.group('name')
- 
--            ltp_syscalls[name] = f'{syscalls_base_url}/{path}'
-+            ltp_syscalls[name] = f'{ltp_repo_base_url}/{path}'
- 
-     # compare kernel syscalls with LTP tested syscalls
-     syscalls = {}
-@@ -186,7 +187,7 @@ def generate_syscalls_stats(_):
- 
-         if kersc not in syscalls:
-             if kersc in white_list:
--                syscalls[kersc] = f'{syscalls_base_url}/{white_list[kersc]}'
-+                syscalls[kersc] = f'{ltp_repo_base_url}/{white_list[kersc]}'
-                 continue
- 
-             syscalls[kersc] = None
-@@ -256,6 +257,272 @@ def generate_syscalls_stats(_):
-         stats.writelines(text)
- 
- 
-+def _generate_tags_table(tags):
-+    """
-+    Generate the tags table from tags hash.
-+    """
-+    supported_url_ref = {
-+        "linux-git": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=",
-+        "linux-stable-git": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=",
-+        "glibc-git": "https://sourceware.org/git/?p=glibc.git;a=commit;h=",
-+        "musl-git": "https://git.musl-libc.org/cgit/musl/commit/src/linux/clone.c?id=",
-+        "CVE": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-",
-+    }
-+
-+    table = [
-+        '.. list-table::',
-+        '   :header-rows: 1',
-+        '',
-+        '   * - Tag',
-+        '     - Info',
-+    ]
-+
-+    for tag in tags:
-+        tag_key = tag[0]
-+        tag_val = tag[1]
-+
-+        tag_url = supported_url_ref.get(tag_key, None)
-+        if tag_url:
-+            tag_val = f'`{tag_val} <{tag_url}{tag_val}>`_'
-+
-+        table.extend([
-+            f'   * - {tag_key}',
-+            f'     - {tag_val}',
-+        ])
-+
-+    return table
-+
-+
-+def _generate_options_table(options):
-+    """
-+    Generate the options table from the options hash.
-+    """
-+    table = [
-+        '.. list-table::',
-+        '   :header-rows: 1',
-+        '',
-+        '   * - Option',
-+        '     - Description',
-+    ]
-+
-+    for opt in options:
-+        if not isinstance(opt, list):
-+            table.clear()
-+            break
-+
-+        key = opt[0]
-+        val = opt[2]
-+
-+        if key.endswith(':'):
-+            key = key[:-1] if key.endswith(':') else key
-+
-+        key = f'-{key}'
-+
-+        table.extend([
-+            f'   * - {key}',
-+            f'     - {val}',
-+        ])
-+
-+    return table
-+
-+
-+def _generate_setup_table(keys):
-+    """
-+    Generate the table with test setup configuration.
-+    """
-+    exclude = [
-+        'child_needs_reinit',
-+        'needs_checkpoints',
-+        'resource_files',
-+        'save_restore',
-+        'forks_child',
-+        'hugepages',
-+        'options',
-+        'timeout',
-+        'runtime',
-+        'ulimit',
-+        'fname',
-+        'tags',
-+        'doc',
-+    ]
-+    my_keys = {k: v for k, v in keys.items() if k not in exclude}
-+    if len(my_keys) == 0:
-+        return []
-+
-+    table = [
-+        '.. list-table::',
-+        '   :header-rows: 1',
-+        '',
-+        '   * - Key',
-+        '     - Value',
-+    ]
-+
-+    keys_list = [
-+        'needs_cgroup_ctrls',
-+        'skip_filesystems',
-+        'supported_archs',
-+        'needs_kconfigs',
-+        'needs_drivers',
-+        'needs_cmds',
-+        'caps',
-+    ]
-+
-+    for key, value in my_keys.items():
-+        if key in exclude:
-+            continue
-+
-+        if key in keys_list:
-+            if len(value) > 1:
-+                table.extend([
-+                    f'   * - {key}',
-+                    f'     - | {value[0]}',
-+                ])
-+
-+                for item in value[1:]:
-+                    table.append(f'       | {item}')
-+            else:
-+                table.extend([
-+                    f'   * - {key}',
-+                    f'     - {value[0]}',
-+                ])
-+        elif key == 'filesystems':
-+            values = []
-+            for v in value:
-+                for item in v:
-+                    if isinstance(item, list):
-+                        continue
-+
-+                    if item.startswith('.type'):
-+                        values.append(item.replace('.type=', ''))
-+
-+            if len(values) > 1:
-+                table.extend([
-+                    f'   * - {key}',
-+                    f'     - | {values[0]}',
-+                ])
-+
-+                for item in values[1:]:
-+                    table.append(f'       | {item}')
-+            else:
-+                table.extend([
-+                    f'   * - {key}',
-+                    f'     - {values[0]}',
-+                ])
-+        else:
-+            table.extend([
-+                f'   * - {key}',
-+                f'     - {value}'
-+            ])
-+
-+    return table
-+
-+
-+def generate_test_catalog(_):
-+    """
-+    Generate the test catalog from ltp.json metadata file.
-+    """
-+    output = '_static/tests.rst'
-+    metadata_file = '../metadata/ltp.json'
-+    text = [
-+        '.. warning::',
-+        '    The following catalog has been generated using LTP metadata',
-+        '    which is including only tests using the new :ref:`LTP C API`.',
-+        '    For this reason, some old tests might be missing from the list.',
-+        ''
-+    ]
-+
-+    metadata = None
-+    with open(metadata_file, 'r', encoding='utf-8') as data:
-+        metadata = json.load(data)
-+
-+    timeout_def = metadata['defaults']['timeout']
-+
-+    for test_name, conf in metadata['tests'].items():
-+        text.extend([
-+            f'{test_name}',
-+            len(test_name) * '-'
-+        ])
-+
-+        # source url location
-+        test_fname = conf.get('fname', None)
-+        if test_fname:
-+            text.extend([
-+                '',
-+                f"`source <{ltp_repo_base_url}/{test_fname}>`__",
-+                ''
-+            ])
-+
-+        # test description
-+        desc = conf.get('doc', None)
-+        if desc:
-+            desc_text = []
-+            for line in desc:
-+                if line.startswith("[Description]"):
-+                    desc_text.append("**Description**")
-+                elif line.startswith("[Algorithm]"):
-+                    desc_text.append("**Algorithm**")
-+                else:
-+                    desc_text.append(line)
-+
-+            text.extend([
-+                '\n'.join(desc_text),
-+            ])
-+
-+        # timeout information
-+        timeout = conf.get('timeout', None)
-+        if timeout:
-+            text.extend([
-+                '',
-+                f'Test timeout is {timeout} seconds.',
-+            ])
-+        else:
-+            text.extend([
-+                '',
-+                f'Test timeout defaults is {timeout_def} seconds.',
-+            ])
-+
-+        # runtime information
-+        runtime = conf.get('runtime', None)
-+        if runtime:
-+            text.extend([
-+                f'Maximum runtime is {runtime} seconds.',
-+                ''
-+            ])
-+        else:
-+            text.append('')
-+
-+        # options information
-+        opts = conf.get('options', None)
-+        if opts:
-+            text.append('')
-+            text.extend(_generate_options_table(opts))
-+            text.append('')
-+
-+        # tags information
-+        tags = conf.get('tags', None)
-+        if tags:
-+            text.append('')
-+            text.extend(_generate_tags_table(tags))
-+            text.append('')
-+
-+        # developer information
-+        text.append('')
-+        text.extend(_generate_setup_table(conf))
-+        text.append('')
-+
-+        # small separator between tests
-+        text.extend([
-+            '',
-+            '.. raw:: html',
-+            '',
-+            '    <hr>',
-+            '',
-+        ])
-+
-+    with open(output, 'w+', encoding='utf-8') as new_tests:
-+        new_tests.write('\n'.join(text))
-+
-+
- def setup(app):
-     """
-     Setup the current documentation, using self generated data and graphics
-@@ -263,3 +530,4 @@ def setup(app):
-     """
-     app.add_css_file('custom.css')
-     app.connect('builder-inited', generate_syscalls_stats)
-+    app.connect('builder-inited', generate_test_catalog)
-diff --git a/doc/index.rst b/doc/index.rst
-index b907ac36f0c9328c576d25dee5777d808c2e5119..c00a59d31345142e78deb74eacc9da2941291d76 100644
---- a/doc/index.rst
-+++ b/doc/index.rst
-@@ -11,6 +11,7 @@
-    users/setup_tests
-    users/supported_systems
-    users/stats
-+   users/test_catalog
- 
- .. toctree::
-    :maxdepth: 3
-@@ -54,6 +55,9 @@ For users
- :doc:`users/stats`
-    Some LTP statistics
- 
-+:doc:`users/test_catalog`
-+   The LTP test catalog
-+
- For developers
- --------------
- 
-diff --git a/doc/users/test_catalog.rst b/doc/users/test_catalog.rst
-new file mode 100644
-index 0000000000000000000000000000000000000000..b1674f9dc614ea04a89cf084e92b72c6862a5f48
---- /dev/null
-+++ b/doc/users/test_catalog.rst
-@@ -0,0 +1,7 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
-+
-+Test catalog
-+============
-+
-+.. include:: ../_static/tests.rst
-+
+10 b3c3b7b9da36d5cd992272d3384a783b450ce304 ima-buf sha256:ac8bd67bdaded63be9231c495585fd88edce0812d9b677e1e1e219e2dd3bcd60 key_import_test 30820286308201efa00302010202145be0234ff3adf050349b33
+30820286308201efa00302010202145be0234ff3adf050349b33b89465a6aab6e339f7300d06092a864886f70d01010b050030503111300f060355040a0c08686f73746e616d65311b301906035504030c1277686f616d69207369676e696e67206b6579311e301c06092a864886f70d010901160f77686f616d6940686f73746e616d65301e170d3139303832323032323930325a170d3230303832313032323930325a30503111300f060355040a0c08686f73746e616d65311b301906035504030c1277686f616d69207369676e696e67206b6579311e301c06092a864886f70d010901160f77686f616d6940686f73746e616d6530819f300d06092a864886f70d010101050003818d0030818902818100ee96b264072a42888f78a2f9b8198467a3ad97d126f3d1cc1c24d23e7185cc743b04d4a54254ca16e1e11ed4450deb98b1f7bb4288424570fabcfc6d5aa93a2a14fa2b7835ac877cfea761e5ff414c6ee274eff26f8bd6c484312e56619299acf0dbd224b87c3883b66a9393d21af8962458663b0ac1706c63773cd50e8236270203010001a35d305b300c0603551d130101ff04023000300b0603551d0f040403020780301d0603551d0e04160414052dd247dc3c36d6d60675fe7ae869790be56171301f0603551d23041830168014e36710f0834c973ed94a186fbcd22375
+ b45e2454300d06092a864886f70d01010b050003818100b12faeff1e0e390cfd5eb7140af3b7a653cb49c6ab0a23be24c035331d7600c8f758f9df7fdfc5eeb6fec35859203eca0e4f01f9a79a58be630947cb959a52d3f2de96f210d49247c33a6226dc2a52ee541069ed3c621f8767fd36a061e9a61adb5d1dd34499d99a1ce6baa496b4f5e2268bfc52c3eea4a6b7b5181f08524aee
 
----
-base-commit: 07d79673a65f0f5f06c19507df4a15ceab22f2f9
-change-id: 20250131-doc_tests_list-1b82f51e43fd
+# LTP_IMA_LOAD_POLICY=1 LTPROOT=/opt/ltp PATH="/opt/ltp/testcases/bin:$PATH" ima_kexec.sh
+ima_kexec 1 TINFO: Running: ima_kexec.sh
+ima_kexec 1 TINFO: Tested kernel: Linux ts 6.13.0-2.g0127a37-default #1 SMP PREEMPT_DYNAMIC Thu Jan 23 11:21:55 UTC 2025 (0127a37) x86_64 x86_64 x86_64 GNU/Linux
+ima_kexec 1 TINFO: Using /tmp/LTP_ima_kexec.9B6OvGtNZh as tmpdir (tmpfs filesystem)
+tst_device.c:96: TINFO: Found free device 0 '/dev/loop0'
+ima_kexec 1 TINFO: Formatting ext3 with opts='/dev/loop0'
+ima_kexec 1 TINFO: Mounting device: mount -t ext3 /dev/loop0 /tmp/LTP_ima_kexec.9B6OvGtNZh/mntpoint
+ima_kexec 1 TINFO: timeout per run is 0h 5m 0s
+ima_kexec 1 TINFO: IMA kernel config:
+ima_kexec 1 TINFO: CONFIG_IMA=y
+ima_kexec 1 TINFO: CONFIG_IMA_MEASURE_PCR_IDX=10
+ima_kexec 1 TINFO: CONFIG_IMA_LSM_RULES=y
+ima_kexec 1 TINFO: CONFIG_IMA_NG_TEMPLATE=y
+ima_kexec 1 TINFO: CONFIG_IMA_DEFAULT_TEMPLATE="ima-ng"
+ima_kexec 1 TINFO: CONFIG_IMA_DEFAULT_HASH_SHA256=y
+ima_kexec 1 TINFO: CONFIG_IMA_DEFAULT_HASH="sha256"
+ima_kexec 1 TINFO: CONFIG_IMA_READ_POLICY=y
+ima_kexec 1 TINFO: CONFIG_IMA_APPRAISE=y
+ima_kexec 1 TINFO: CONFIG_IMA_ARCH_POLICY=y
+ima_kexec 1 TINFO: CONFIG_IMA_APPRAISE_BOOTPARAM=y
+ima_kexec 1 TINFO: CONFIG_IMA_APPRAISE_MODSIG=y
+ima_kexec 1 TINFO: CONFIG_IMA_MEASURE_ASYMMETRIC_KEYS=y
+ima_kexec 1 TINFO: CONFIG_IMA_QUEUE_EARLY_BOOT_KEYS=y
+ima_kexec 1 TINFO: CONFIG_IMA_SECURE_AND_OR_TRUSTED_BOOT=y
+ima_kexec 1 TINFO: CONFIG_IMA_DISABLE_HTABLE=y
+ima_kexec 1 TINFO: /proc/cmdline: BOOT_IMAGE=/boot/vmlinuz-6.13.0-2.g0127a37-default root=UUID=e36b2366-1af2-4408-903c-1fca82c60f4c splash=silent video=1024x768 plymouth.ignore-serial-consoles console=ttyS0 console=tty kernel.softlockup_panic=1 resume=/dev/disk/by-uuid/c3b865f9-5d5b-410e-a6d1-9ebcf721584c mitigations=auto security=apparmor ignore_loglevel ima_policy=tcb
+ima_kexec 1 TINFO: $TMPDIR is on tmpfs => run on loop device
+ima_kexec 1 TINFO: test requires IMA policy:
+measure func=KEXEC_CMDLINE
+ima_kexec 1 TINFO: WARNING: missing required policy content: 'measure func=KEXEC_CMDLINE'
+ima_kexec 1 TINFO: trying to load '/opt/ltp/testcases/data/ima_kexec/kexec.policy' policy:
+measure func=KEXEC_CMDLINE
+ima_kexec 1 TINFO: example policy successfully loaded
+ima_kexec 1 TINFO: using kernel /boot/vmlinuz-6.13.0-2.g0127a37-default
+ima_kexec 1 TINFO: testing kexec -s -l /boot/vmlinuz-6.13.0-2.g0127a37-default --reuse-cmdline
+ima_kexec 1 TPASS: kexec cmdline was measured correctly
+ima_kexec 2 TINFO: testing kexec -s -l /boot/vmlinuz-6.13.0-2.g0127a37-default --append=foo
+ima_kexec 2 TPASS: kexec cmdline was measured correctly
+ima_kexec 3 TINFO: testing kexec -s -l /boot/vmlinuz-6.13.0-2.g0127a37-default --command-line=bar
+ima_kexec 3 TPASS: kexec cmdline was measured correctly
+ima_kexec 4 TINFO: WARNING: policy loaded via LTP_IMA_LOAD_POLICY=1, reboot recommended
+...
 
-Best regards,
--- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+# LTPROOT=/opt/ltp PATH="/opt/ltp/testcases/bin:$PATH" ima_measurements.sh
+...
+ima_measurements 1 TINFO: booted with IMA policy: tcb
+ima_measurements 1 TINFO: verify adding record to the IMA measurement list
+ima_measurements 1 TBROK: failed to get algorithm/digest for '/tmp/LTP_ima_measurements.GwyPzk6lb8/mntpoint/test.txt'
+
+Kind regards,
+Petr
+
+Petr Vorel (2):
+  ima_measurements.sh: Fix exit code condition
+  ima_setup.sh: Quit the test on unsuitable IMA policy
+
+ .../integrity/ima/tests/ima_measurements.sh        |  4 ++--
+ .../security/integrity/ima/tests/ima_setup.sh      | 14 ++++++--------
+ 2 files changed, 8 insertions(+), 10 deletions(-)
 
 
 -- 
