@@ -1,77 +1,119 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91DDDA2A51A
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 10:50:37 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2055A2A5AB
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 11:17:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4D6513C3055
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 10:50:37 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 99F913C2DA5
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 11:17:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 331DB3C12C2
- for <ltp@lists.linux.it>; Thu,  6 Feb 2025 10:50:34 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=jstancek@redhat.com;
- receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by picard.linux.it (Postfix) with ESMTPS id 61EC73C02C9
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2025 11:16:43 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id F277065F21C
- for <ltp@lists.linux.it>; Thu,  6 Feb 2025 10:50:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738835432;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5DEF463D7CC
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2025 11:16:42 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5F1F11F381;
+ Thu,  6 Feb 2025 10:16:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1738837000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=B/vHz4Pif5VXZEnu91dy6zglfxXZB/acWexoct0M4ms=;
- b=YmVvLKxZDzQ7K+HktyvwuAvUlxvau6zEmHc938X/lYpC03aek59xnJEiyBGmLrdNNxmxj1
- PUvqOaaopqrTemqFU6n4Umzu/bo9x+b/nlYgFarP+WzB8TCfFT6N39n9LyNLJKIo97ewqC
- 0nTOQTaFcQ1hv8zbWfcptjUWr7NeBxY=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-75-qaFJSD3APr6ZE06gtmdw8g-1; Thu,
- 06 Feb 2025 04:50:30 -0500
-X-MC-Unique: qaFJSD3APr6ZE06gtmdw8g-1
-X-Mimecast-MFC-AGG-ID: qaFJSD3APr6ZE06gtmdw8g
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ bh=up14e0WkPOieelwsFtoSRwQvMhFlCEyvnBvHknYEn6Y=;
+ b=hhyt7RHB8GEc7Q3ClyxqTvzphlYpOJZ755ELULqJp8ZZlvUT81O78oxuVOfVzdMAEbYlQH
+ iQlUAGlIZaRVOhAnSbELLr2M7car+NPm/PUyfsKRa8kuqKwhh8XADf8WHPLpk8ch24L2Dk
+ Re7Yv8f0PRAGXDr4bgdD5mnRiIDRMd8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1738837000;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=up14e0WkPOieelwsFtoSRwQvMhFlCEyvnBvHknYEn6Y=;
+ b=DlIKX99eh7QSQ3FlkAhKFOy2idLrVPRbvoKtsMB/KaM4KKm6/tlvObec2hDcujCsh6H/Xg
+ 2JaeGxfNAdJiKkDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1738837000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=up14e0WkPOieelwsFtoSRwQvMhFlCEyvnBvHknYEn6Y=;
+ b=hhyt7RHB8GEc7Q3ClyxqTvzphlYpOJZ755ELULqJp8ZZlvUT81O78oxuVOfVzdMAEbYlQH
+ iQlUAGlIZaRVOhAnSbELLr2M7car+NPm/PUyfsKRa8kuqKwhh8XADf8WHPLpk8ch24L2Dk
+ Re7Yv8f0PRAGXDr4bgdD5mnRiIDRMd8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1738837000;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=up14e0WkPOieelwsFtoSRwQvMhFlCEyvnBvHknYEn6Y=;
+ b=DlIKX99eh7QSQ3FlkAhKFOy2idLrVPRbvoKtsMB/KaM4KKm6/tlvObec2hDcujCsh6H/Xg
+ 2JaeGxfNAdJiKkDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 91D3D1956096
- for <ltp@lists.linux.it>; Thu,  6 Feb 2025 09:50:29 +0000 (UTC)
-Received: from t14s.redhat.com (unknown [10.45.224.64])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id B5D6C1800570
- for <ltp@lists.linux.it>; Thu,  6 Feb 2025 09:50:28 +0000 (UTC)
-From: Jan Stancek <jstancek@redhat.com>
-To: ltp@lists.linux.it
-Date: Thu,  6 Feb 2025 10:49:26 +0100
-Message-ID: <700f4d3bc73f0deebe7fe0e41305d365135c53eb.1738835278.git.jstancek@redhat.com>
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0F25A13697;
+ Thu,  6 Feb 2025 10:16:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id DndoOAeMpGccVQAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Thu, 06 Feb 2025 10:16:39 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Thu, 06 Feb 2025 11:16:32 +0100
+Message-Id: <20250206-doc_tests_list-v5-0-52110e1421a9@suse.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: n-dbxuW0_Keeb2fzW3usRwTJTVFkt_OqK8UCzA-uB90_1738835429
-X-Mimecast-Originator: redhat.com
+X-B4-Tracking: v=1; b=H4sIAACMpGcC/33O3QqCMBjG8VuJHbfYt9lR9xEh+3iXg3LhTArx3
+ pt2IgodPi/7/dmAErQBEjrtBtRCH1KITR5yv0O21s0NcHB5I0aYJJRT7KKtOkhdqu4hdZiaI/O
+ SguDeoYyeLfjwnoOXa951fhTbz9zv6XT9pRjh61RPMcXSgyotKQzV5pxeCQ42PtBU6tlSi41mW
+ ZeOlRq0tdzzleZLLTeaZ20UUaK0DrTSKy3+a5G1BqFAKlJws/z5OI5fv87x82UBAAA=
+X-Change-ID: 20250131-doc_tests_list-1b82f51e43fd
+To: ltp@lists.linux.it
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1738836999; l=1534;
+ i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
+ bh=Dc3N9c0wvdGOjKK2EWZ745tqE68P2qL8mcs95GL1VM4=;
+ b=EG0zLkVLDm5T8RuPVLByH1BM2Edy10a0j1AzHbaL8kZ+enpesFkPp2V50r857CPn+foirCoJM
+ 6ExpUtbphFmCqO5E/fXNE+xIHqMSRAePSLpV2v/v2jCAr8d22Zw/kae
+X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
+ pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid]
+X-Spam-Score: -4.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] syscalls/mallinfo02: introduce LTP_VAR_USED to avoid
- optimization
+Subject: [LTP] [PATCH v5 0/2] Tests catalog
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,48 +130,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-gcc 15 is a bit more clever and noticed that 'buf' isn't used
-for anything so it optimized it out, including call to malloc.
-So, there's also no mmap() call behind it and test fails,
-because nothing was allocated.
+This patch-set is meant to introduce a new page in the LTP
+documentation, showing tests which are currently available with their
+description and information.
 
-Introduce LTP_VAR_USED macro, that makes compiler aware of the
-variable and doesn't optimize it out.
-
-Signed-off-by: Jan Stancek <jstancek@redhat.com>
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- include/tst_common.h                               | 2 ++
- testcases/kernel/syscalls/mallinfo2/mallinfo2_01.c | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+Changes in v5:
+- add hugepages, ulimit, resource_files, save_restore
+- add more comments in the code
+- fix multiline table cells
+- Link to v4: https://lore.kernel.org/r/20250205-doc_tests_list-v4-1-ae46e56073bb@suse.com
 
-diff --git a/include/tst_common.h b/include/tst_common.h
-index b14bbae04077..3de826acd0ec 100644
---- a/include/tst_common.h
-+++ b/include/tst_common.h
-@@ -13,6 +13,8 @@
- #define LTP_ATTRIBUTE_UNUSED		__attribute__((unused))
- #define LTP_ATTRIBUTE_UNUSED_RESULT	__attribute__((warn_unused_result))
- 
-+#define LTP_VAR_USED(p) asm volatile("" :: "m"(p)); p
-+
- #ifndef ARRAY_SIZE
- # define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
- #endif
-diff --git a/testcases/kernel/syscalls/mallinfo2/mallinfo2_01.c b/testcases/kernel/syscalls/mallinfo2/mallinfo2_01.c
-index 90cf4fcb3b89..51783fc22b80 100644
---- a/testcases/kernel/syscalls/mallinfo2/mallinfo2_01.c
-+++ b/testcases/kernel/syscalls/mallinfo2/mallinfo2_01.c
-@@ -26,7 +26,7 @@ void test_mallinfo2(void)
- 	char *buf;
- 	size_t size = 2UL * 1024UL * 1024UL * 1024UL;
- 
--	buf = malloc(size);
-+	LTP_VAR_USED(buf) = malloc(size);
- 
- 	if (!buf)
- 		tst_brk(TCONF, "Current system can not malloc 2G space, skip it");
+Changes in v4:
+- show maximum runtime with timeout text
+- correct timeout text
+- Link to v3: https://lore.kernel.org/r/20250205-doc_tests_list-v3-1-b60649cdea6a@suse.com
+
+Changes in v3:
+- fix table widths alignment
+- add warning at the beginning of the test catalog
+- Link to v2: https://lore.kernel.org/r/20250204-doc_tests_list-v2-1-9d29aeacc3f3@suse.com
+
+Changes in v2:
+- add setup
+- cleanup code
+- Link to v1: https://lore.kernel.org/r/20250203-doc_tests_list-v1-1-5fe69c07b1ab@suse.com
+
+---
+Andrea Cervesato (2):
+      doc: remove margin for multiline cells
+      doc: add tests catalog page
+
+ doc/.gitignore             |   1 +
+ doc/_static/custom.css     |   5 +
+ doc/conf.py                | 274 ++++++++++++++++++++++++++++++++++++++++++++-
+ doc/index.rst              |   4 +
+ doc/users/test_catalog.rst |   7 ++
+ 5 files changed, 287 insertions(+), 4 deletions(-)
+---
+base-commit: 7f3922a2499ebff6134c37a17a0de6012a318fb4
+change-id: 20250131-doc_tests_list-1b82f51e43fd
+
+Best regards,
 -- 
-2.43.0
+Andrea Cervesato <andrea.cervesato@suse.com>
 
 
 -- 
