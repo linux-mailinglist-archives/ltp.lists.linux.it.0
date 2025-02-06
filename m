@@ -1,113 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E69EA2AB84
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 15:36:30 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6A0A2AB7F
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 15:36:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F19983C9283
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 15:36:29 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B97FE3C9277
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 15:35:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4A47A3C91BA
- for <ltp@lists.linux.it>; Thu,  6 Feb 2025 15:34:47 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 250953C12C2
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2025 15:34:48 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0DD57142509A
- for <ltp@lists.linux.it>; Thu,  6 Feb 2025 15:34:46 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AE65F620DC3
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2025 15:34:47 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 794012115F;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BFBD821164;
  Thu,  6 Feb 2025 14:34:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1738852486; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oT+WZp7huMKadRIfQCaJsezzT8wqum4RSkww7ZJt0bs=;
- b=tMxxXJkv3gGy4GzMsYUvOYBZWpzf8w8CCUe5+Oh6B4BAlUo8rWrPAi6DYchzl4CT/PTngO
- fgjqVfho4KZ+INF2GgzbDD+cSAN6gmX4CkWoit8wEeoOE0FAp6ml6A2cQK3R46Qd7DZ6OI
- RNZ0o28t2k+1RqOTnAdKWgYFtVL3sEY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1738852486;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oT+WZp7huMKadRIfQCaJsezzT8wqum4RSkww7ZJt0bs=;
- b=wUrCEFTzCkETTfFdIZJ4lzS2cE+iGK6WZouiau6A0ufyCKy34D2s1YFftZ4qqwUk2o4HOV
- ByoR7wnCcMLlr0Aw==
 Authentication-Results: smtp-out1.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1738852486; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oT+WZp7huMKadRIfQCaJsezzT8wqum4RSkww7ZJt0bs=;
- b=tMxxXJkv3gGy4GzMsYUvOYBZWpzf8w8CCUe5+Oh6B4BAlUo8rWrPAi6DYchzl4CT/PTngO
- fgjqVfho4KZ+INF2GgzbDD+cSAN6gmX4CkWoit8wEeoOE0FAp6ml6A2cQK3R46Qd7DZ6OI
- RNZ0o28t2k+1RqOTnAdKWgYFtVL3sEY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1738852486;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oT+WZp7huMKadRIfQCaJsezzT8wqum4RSkww7ZJt0bs=;
- b=wUrCEFTzCkETTfFdIZJ4lzS2cE+iGK6WZouiau6A0ufyCKy34D2s1YFftZ4qqwUk2o4HOV
- ByoR7wnCcMLlr0Aw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 44ABE13A7F;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 899E813694;
  Thu,  6 Feb 2025 14:34:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id uLezDobIpGfvJwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 8HQmH4bIpGfvJwAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 06 Feb 2025 14:34:46 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  6 Feb 2025 15:34:18 +0100
-Message-ID: <20250206143421.1571918-5-pvorel@suse.cz>
+Date: Thu,  6 Feb 2025 15:34:19 +0100
+Message-ID: <20250206143421.1571918-6-pvorel@suse.cz>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250206143421.1571918-1-pvorel@suse.cz>
 References: <20250206143421.1571918-1-pvorel@suse.cz>
 MIME-Version: 1.0
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Spam-Score: -4.00
+X-Rspamd-Queue-Id: BFBD821164
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
-X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[99.99%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCPT_COUNT_THREE(0.00)[4]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:mid]
-X-Spam-Score: -6.80
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 4/7] doc: documentation.rst: Update build instructions
+Subject: [LTP] [PATCH 5/7] .github: ci-sphinx-doc: Use make for building doc
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,44 +85,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Makefile now supports building docs, use it.
+Instead of defining commands directly run docs via make to verify it's
+working.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- doc/developers/documentation.rst | 16 +++-------------
- 1 file changed, 3 insertions(+), 13 deletions(-)
+ .github/workflows/ci-sphinx-doc.yml | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/doc/developers/documentation.rst b/doc/developers/documentation.rst
-index 0cd3173fa7..ccee461379 100644
---- a/doc/developers/documentation.rst
-+++ b/doc/developers/documentation.rst
-@@ -11,23 +11,13 @@ and it's built on top of `Sphinx <https://www.sphinx-doc.org/en/master/>`_.
- Building documentation
- ~~~~~~~~~~~~~~~~~~~~~~
+diff --git a/.github/workflows/ci-sphinx-doc.yml b/.github/workflows/ci-sphinx-doc.yml
+index 9b1f4f34f8..866e349ee2 100644
+--- a/.github/workflows/ci-sphinx-doc.yml
++++ b/.github/workflows/ci-sphinx-doc.yml
+@@ -20,20 +20,17 @@ jobs:
+         with:
+           path: ltp
  
--First of all, to build the documentation we must be sure that all dependencies
--have been installed (please check :master:`doc/requirements.txt` file). Sometimes the
--Linux distros are providing them, but the best way is to use ``virtualenv``
--command as following:
-+Before building, make sure you have python3 ``virtualenv`` module installed.
+-      - name: Install sphinx
++      - name: Install configure dependencies
+         run: |
+           sudo apt update
+-          sudo apt install python3-sphinx python3-virtualenv
++          sudo apt install autoconf make python3-virtualenv
  
- .. code-block:: bash
+       - name: Install sphinx dependencies
+         run: |
+-          cd "$GITHUB_WORKSPACE/ltp/doc/"
+-          python3 -m virtualenv .venv
+-          . .venv/bin/activate
+-          pip install -r requirements.txt
++          cd "$GITHUB_WORKSPACE/ltp/"
++          make autotools && ./configure
  
-+    make autotools
-+    ./configure
-     cd doc
--
--    # prepare virtual environment
--    python3 -m virtualenv .venv
--    . .venv/bin/activate
--
--    pip install sphinx # usually packaged in distros
--    pip install -r requirements.txt
--
--    # build documentation
-     make
- 
- Once the procedure has been completed, documentation will be visible at
+       - name: Build doc
+         run: |
+           cd "$GITHUB_WORKSPACE/ltp/doc/"
+-          . .venv/bin/activate
+           make
 -- 
 2.47.2
 
