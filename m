@@ -1,20 +1,20 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EB00A2AB2B
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 15:27:02 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 88988A2AB7D
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 15:35:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BC2073C67D8
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 15:27:01 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3A4213C9283
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 15:35:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8E1123C12C2
- for <ltp@lists.linux.it>; Thu,  6 Feb 2025 15:26:59 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 570BB3C12C2
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2025 15:34:47 +0100 (CET)
 Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
@@ -23,90 +23,79 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E19A464807B
- for <ltp@lists.linux.it>; Thu,  6 Feb 2025 15:26:58 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 428B2600202
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2025 15:34:44 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 129871F38D;
- Thu,  6 Feb 2025 14:26:58 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 35D731F44B;
+ Thu,  6 Feb 2025 14:34:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1738852018;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gHqx8bV/f3zzsDzAVR5ed+xJaTGyRQ4eNJg1PnsYnIE=;
- b=g7kJc5cnGucfOmqBihnlT+EOWkZ8ZVx0WbJtO9pBnTStsX0WzO2usl9WVXNsk0T9NdCJcP
- iQNRuu8nfHb1+uuqpfawhKWKG3DSrNWAgOD0WNIB6VlJgnJboDD6LkKA37dCNHXf8Qyado
- Ou5RYEhMYXuHaSD13KRZnnLzHou7E6U=
+ t=1738852484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=G228UpwGTYSjE7qnW48Tz54K5s3odHilj7WV1uzZnLg=;
+ b=M2BY4Pt2WXYP7s3PdzcpNtxUouv3Harc7w5je/hK9/GrDBtdkNGvslbjlU40Psen6G6H6A
+ q2o5NfnbZ1Vla1m+MPye/Pbiz+P4EN46sWpwryEGri8Br7qb4DZATWrGpayf8jxMRQfM/K
+ 6cUy4AuUCBcOPAZHTBMKG+kfEVnOi/E=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1738852018;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gHqx8bV/f3zzsDzAVR5ed+xJaTGyRQ4eNJg1PnsYnIE=;
- b=na2Sj5ujENQY1ZSro5lqGndtYB9xCZpzhBgwqVh2YoB88BVTCpJpoq0X+GBHO+yQak8kHx
- q8sZ6lP7GrTlR7AA==
+ s=susede2_ed25519; t=1738852484;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=G228UpwGTYSjE7qnW48Tz54K5s3odHilj7WV1uzZnLg=;
+ b=7Gn/Yb8wMp1NjAVxYW1T0Bzh4lOoyyNJ+v+IfiOmnfbbCznQ/LVKboid0RJjGncHyWGi7n
+ FW2g0tCCpwxKDjAQ==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1738852018;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gHqx8bV/f3zzsDzAVR5ed+xJaTGyRQ4eNJg1PnsYnIE=;
- b=g7kJc5cnGucfOmqBihnlT+EOWkZ8ZVx0WbJtO9pBnTStsX0WzO2usl9WVXNsk0T9NdCJcP
- iQNRuu8nfHb1+uuqpfawhKWKG3DSrNWAgOD0WNIB6VlJgnJboDD6LkKA37dCNHXf8Qyado
- Ou5RYEhMYXuHaSD13KRZnnLzHou7E6U=
+ t=1738852484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=G228UpwGTYSjE7qnW48Tz54K5s3odHilj7WV1uzZnLg=;
+ b=M2BY4Pt2WXYP7s3PdzcpNtxUouv3Harc7w5je/hK9/GrDBtdkNGvslbjlU40Psen6G6H6A
+ q2o5NfnbZ1Vla1m+MPye/Pbiz+P4EN46sWpwryEGri8Br7qb4DZATWrGpayf8jxMRQfM/K
+ 6cUy4AuUCBcOPAZHTBMKG+kfEVnOi/E=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1738852018;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gHqx8bV/f3zzsDzAVR5ed+xJaTGyRQ4eNJg1PnsYnIE=;
- b=na2Sj5ujENQY1ZSro5lqGndtYB9xCZpzhBgwqVh2YoB88BVTCpJpoq0X+GBHO+yQak8kHx
- q8sZ6lP7GrTlR7AA==
+ s=susede2_ed25519; t=1738852484;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=G228UpwGTYSjE7qnW48Tz54K5s3odHilj7WV1uzZnLg=;
+ b=7Gn/Yb8wMp1NjAVxYW1T0Bzh4lOoyyNJ+v+IfiOmnfbbCznQ/LVKboid0RJjGncHyWGi7n
+ FW2g0tCCpwxKDjAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E527F13697;
- Thu,  6 Feb 2025 14:26:57 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5902713694;
+ Thu,  6 Feb 2025 14:34:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ClNtNrHGpGdiJQAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 06 Feb 2025 14:26:57 +0000
-Date: Thu, 6 Feb 2025 15:26:56 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id N/SYFIPIpGfvJwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 06 Feb 2025 14:34:43 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <20250206142656.GB1566904@pevik>
-References: <20250206-doc_tests_list-v5-0-52110e1421a9@suse.com>
- <20250206-doc_tests_list-v5-2-52110e1421a9@suse.com>
+To: ltp@lists.linux.it
+Date: Thu,  6 Feb 2025 15:34:14 +0100
+Message-ID: <20250206143421.1571918-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250206-doc_tests_list-v5-2-52110e1421a9@suse.com>
 X-Spam-Level: 
-X-Spamd-Result: default: False [-7.50 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_TLS_ALL(0.00)[];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:replyto];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- REPLYTO_EQ_FROM(0.00)[]
-X-Spam-Score: -7.50
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid];
+ RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -2.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v5 2/2] doc: add tests catalog page
+Subject: [LTP] [PATCH 0/7] configure.ac and make cleanup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,97 +107,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Andrea,
+Hi,
 
-Acked-by: Petr Vorel <pvorel@suse.cz>
-
-Thanks for extra comments to _generate_setup_table().
-
-There is quite a lot of warnings. I'm not suggesting we should fix them (I don't
-want to block this, let's merge it today), but more warnings and errors we get
-the worse is to find a real problem which might appear in the future.
-
-I might take time in the future to fix them - some of them could be easily
-fixed and some of the warning means part of the description got lost, e.g.
-"1. First test case" and "2. Second test case" in mountns0[1-3].c is not
-followed by the actual description "X: bind mounts DIR_B to DIR_A", indent is
-also wrong. This means sphinx syntax (reST) is not 100% compatible to
-asciidoc{,tor} syntax. Syntax problems are also visible in Vim with highlighting
-on.
-
-_static/tests.rst:557: WARNING: Inline interpreted text or phrase reference start-string without end-string.
-
-The code `mmap(2)`s reg
-=> using unnecessary `...` (for formatting as code it would be ``..``, but I
-would just remove it.
-
-_static/tests.rst:693: WARNING: Bullet list ends without a blank line; unexpected unindent.
-_static/tests.rst:694: WARNING: Enumerated list ends without a blank line; unexpected unindent.
-_static/tests.rst:697: WARNING: Block quote ends without a blank line; unexpected unindent.
-_static/tests.rst:698: WARNING: Enumerated list ends without a blank line; unexpected unindent.
-
-_static/tests.rst:742: WARNING: Bullet list ends without a blank line; unexpected unindent.
-_static/tests.rst:743: WARNING: Enumerated list ends without a blank line; unexpected unindent.
-_static/tests.rst:746: WARNING: Block quote ends without a blank line; unexpected unindent.
-_static/tests.rst:747: WARNING: Enumerated list ends without a blank line; unexpected unindent.
-_static/tests.rst:792: WARNING: Bullet list ends without a blank line; unexpected unindent.
-_static/tests.rst:793: WARNING: Enumerated list ends without a blank line; unexpected unindent.
-
-These are the lost description.
-
-_static/tests.rst:796: WARNING: Block quote ends without a blank line; unexpected unindent.
-_static/tests.rst:797: WARNING: Enumerated list ends without a blank line; unexpected unindent.
-
-_static/tests.rst:2530: ERROR: Unexpected indentation.
-
-=> FYI  this one might be '.' instead of '*'
-
-. It writes instead of reads to fill the page cache. Because no
-  pages were allocated on tmpfs.
-
-_static/tests.rst:2531: WARNING: Block quote ends without a blank line; unexpected unindent.
-_static/tests.rst:2533: ERROR: Unexpected indentation.
-_static/tests.rst:9425: WARNING: Inline emphasis start-string without end-string.
-_static/tests.rst:11685: WARNING: Bullet list ends without a blank line; unexpected unindent.
-_static/tests.rst:12122: WARNING: Bullet list ends without a blank line; unexpected unindent.
-_static/tests.rst:14986: ERROR: Unexpected indentation.
-_static/tests.rst:14987: WARNING: Block quote ends without a blank line; unexpected unindent.
-_static/tests.rst:15779: ERROR: Unexpected indentation.
-_static/tests.rst:15781: WARNING: Block quote ends without a blank line; unexpected unindent.
-_static/tests.rst:15787: WARNING: Definition list ends without a blank line; unexpected unindent.
-_static/tests.rst:17886: WARNING: Enumerated list ends without a blank line; unexpected unindent.
-_static/tests.rst:17887: WARNING: Block quote ends without a blank line; unexpected unindent.
-_static/tests.rst:17888: WARNING: Enumerated list ends without a blank line; unexpected unindent.
-_static/tests.rst:24631: ERROR: Unexpected indentation.
-_static/tests.rst:24632: WARNING: Block quote ends without a blank line; unexpected unindent.
-_static/tests.rst:24766: ERROR: Unexpected indentation.
-_static/tests.rst:27685: WARNING: Enumerated list ends without a blank line; unexpected unindent.
-_static/tests.rst:27820: WARNING: Bullet list ends without a blank line; unexpected unindent.
-_static/tests.rst:33084: WARNING: Bullet list ends without a blank line; unexpected unindent.
-_static/tests.rst:33085: WARNING: Block quote ends without a blank line; unexpected unindent.
-_static/tests.rst:33610: WARNING: Bullet list ends without a blank line; unexpected unindent.
-_static/tests.rst:34692: ERROR: Unexpected indentation.
-_static/tests.rst:34694: WARNING: Block quote ends without a blank line; unexpected unindent.
-_static/tests.rst:34722: ERROR: Unexpected indentation.
-_static/tests.rst:35279: WARNING: Bullet list ends without a blank line; unexpected unindent.
-_static/tests.rst:35309: WARNING: Bullet list ends without a blank line; unexpected unindent.
-_static/tests.rst:39506: WARNING: Bullet list ends without a blank line; unexpected unindent.
-_static/tests.rst:41852: WARNING: Inline emphasis start-string without end-string.
-_static/tests.rst:41855: WARNING: Inline emphasis start-string without end-string.
-_static/tests.rst:41858: WARNING: Inline emphasis start-string without end-string.
-_static/tests.rst:41862: WARNING: Inline emphasis start-string without end-string.
-_static/tests.rst:41866: WARNING: Inline emphasis start-string without end-string.
-_static/tests.rst:41869: WARNING: Inline emphasis start-string without end-string.
+cleanup of configure.ac and make related to realtime and sphinx
+makefile.
 
 Kind regards,
 Petr
+
+Petr Vorel (7):
+  realtime: Document bash and python3 dependencies
+  configure: Ignore --with-{bash,python} knobs
+  doc/Makefile: Improve make targets
+  doc: documentation.rst: Update build instructions
+  .github: ci-sphinx-doc: Use make for building doc
+  configure: make: Add SPDX, update copyright
+  doc/Makefile: Add dependency on metadata/ltp.json
+
+ .github/workflows/ci-sphinx-doc.yml | 11 ++++-------
+ configure.ac                        | 17 +++++-----------
+ doc/Makefile                        | 30 +++++++++++++++++++++++++----
+ doc/developers/documentation.rst    | 16 +++------------
+ include/mk/automake.mk              | 24 ++++-------------------
+ include/mk/config-openposix.mk.in   |  2 ++
+ include/mk/config.mk.in             | 23 +++-------------------
+ include/mk/env_post.mk              | 25 ++++--------------------
+ include/mk/env_pre.mk               | 26 ++++---------------------
+ include/mk/features.mk.in           | 24 ++---------------------
+ include/mk/functions.mk             | 25 ++++--------------------
+ include/mk/generic_leaf_target.inc  | 24 ++++-------------------
+ include/mk/generic_leaf_target.mk   | 24 ++++-------------------
+ include/mk/generic_trunk_target.inc | 24 ++++-------------------
+ include/mk/generic_trunk_target.mk  | 24 ++++-------------------
+ include/mk/lib.mk                   | 27 ++++----------------------
+ include/mk/man.mk                   | 23 +++-------------------
+ include/mk/module.mk                | 18 ++---------------
+ include/mk/rules.mk                 |  3 +++
+ include/mk/sparse.mk                |  2 ++
+ include/mk/testcases.mk             | 22 ++-------------------
+ testcases/realtime/README           |  4 +++-
+ 22 files changed, 96 insertions(+), 322 deletions(-)
+
+-- 
+2.47.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
