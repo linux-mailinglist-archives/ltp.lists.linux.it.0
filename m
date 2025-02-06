@@ -2,118 +2,120 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2055A2A5AB
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 11:17:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AF81A2A5A9
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 11:16:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 99F913C2DA5
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 11:17:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 511A83C3338
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2025 11:16:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 61EC73C02C9
- for <ltp@lists.linux.it>; Thu,  6 Feb 2025 11:16:43 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 738543C02C9
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2025 11:16:42 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5DEF463D7CC
- for <ltp@lists.linux.it>; Thu,  6 Feb 2025 11:16:42 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7B83110136BF
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2025 11:16:41 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5F1F11F381;
- Thu,  6 Feb 2025 10:16:40 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C18241F38D
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2025 10:16:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1738837000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1738837000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=up14e0WkPOieelwsFtoSRwQvMhFlCEyvnBvHknYEn6Y=;
- b=hhyt7RHB8GEc7Q3ClyxqTvzphlYpOJZ755ELULqJp8ZZlvUT81O78oxuVOfVzdMAEbYlQH
- iQlUAGlIZaRVOhAnSbELLr2M7car+NPm/PUyfsKRa8kuqKwhh8XADf8WHPLpk8ch24L2Dk
- Re7Yv8f0PRAGXDr4bgdD5mnRiIDRMd8=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+igzDG5ce7+zTATuwxXV7u+Ye4uygawrT1xGBz0WjI4=;
+ b=P7NBjIQJvkJaqlrQEqvgtu1fKEggeu6efUqilfyxEu6jSPNrU0kfi367PC2xil5O8AbWu8
+ nVNxnwH0QK9dE6G3R7Fd1tQ2AgXjYs4kHGqbh74LDusJ924YELjRYMwuxjoVXmB8CD2L+F
+ sPllyqn4pHAqZXWa5Z9s39E+6B+TooU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1738837000;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=up14e0WkPOieelwsFtoSRwQvMhFlCEyvnBvHknYEn6Y=;
- b=DlIKX99eh7QSQ3FlkAhKFOy2idLrVPRbvoKtsMB/KaM4KKm6/tlvObec2hDcujCsh6H/Xg
- 2JaeGxfNAdJiKkDA==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+igzDG5ce7+zTATuwxXV7u+Ye4uygawrT1xGBz0WjI4=;
+ b=Twb+LIcmivEgAz5Nd5Tp2NvE/PFEKBcXxdaYLHCJqcbX1VoZaBIiwPH7pe52r50YsSMh/h
+ Zto+bsI7Nr5QJzCg==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1738837000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1738837000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=up14e0WkPOieelwsFtoSRwQvMhFlCEyvnBvHknYEn6Y=;
- b=hhyt7RHB8GEc7Q3ClyxqTvzphlYpOJZ755ELULqJp8ZZlvUT81O78oxuVOfVzdMAEbYlQH
- iQlUAGlIZaRVOhAnSbELLr2M7car+NPm/PUyfsKRa8kuqKwhh8XADf8WHPLpk8ch24L2Dk
- Re7Yv8f0PRAGXDr4bgdD5mnRiIDRMd8=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+igzDG5ce7+zTATuwxXV7u+Ye4uygawrT1xGBz0WjI4=;
+ b=P7NBjIQJvkJaqlrQEqvgtu1fKEggeu6efUqilfyxEu6jSPNrU0kfi367PC2xil5O8AbWu8
+ nVNxnwH0QK9dE6G3R7Fd1tQ2AgXjYs4kHGqbh74LDusJ924YELjRYMwuxjoVXmB8CD2L+F
+ sPllyqn4pHAqZXWa5Z9s39E+6B+TooU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1738837000;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=up14e0WkPOieelwsFtoSRwQvMhFlCEyvnBvHknYEn6Y=;
- b=DlIKX99eh7QSQ3FlkAhKFOy2idLrVPRbvoKtsMB/KaM4KKm6/tlvObec2hDcujCsh6H/Xg
- 2JaeGxfNAdJiKkDA==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+igzDG5ce7+zTATuwxXV7u+Ye4uygawrT1xGBz0WjI4=;
+ b=Twb+LIcmivEgAz5Nd5Tp2NvE/PFEKBcXxdaYLHCJqcbX1VoZaBIiwPH7pe52r50YsSMh/h
+ Zto+bsI7Nr5QJzCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0F25A13697;
- Thu,  6 Feb 2025 10:16:39 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8A44C13A7F
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2025 10:16:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id DndoOAeMpGccVQAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Thu, 06 Feb 2025 10:16:39 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kEScGwiMpGccVQAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>)
+ for <ltp@lists.linux.it>; Thu, 06 Feb 2025 10:16:40 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Thu, 06 Feb 2025 11:16:32 +0100
-Message-Id: <20250206-doc_tests_list-v5-0-52110e1421a9@suse.com>
+Date: Thu, 06 Feb 2025 11:16:33 +0100
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAACMpGcC/33O3QqCMBjG8VuJHbfYt9lR9xEh+3iXg3LhTArx3
- pt2IgodPi/7/dmAErQBEjrtBtRCH1KITR5yv0O21s0NcHB5I0aYJJRT7KKtOkhdqu4hdZiaI/O
- SguDeoYyeLfjwnoOXa951fhTbz9zv6XT9pRjh61RPMcXSgyotKQzV5pxeCQ42PtBU6tlSi41mW
- ZeOlRq0tdzzleZLLTeaZ20UUaK0DrTSKy3+a5G1BqFAKlJws/z5OI5fv87x82UBAAA=
-X-Change-ID: 20250131-doc_tests_list-1b82f51e43fd
+Message-Id: <20250206-doc_tests_list-v5-1-52110e1421a9@suse.com>
+References: <20250206-doc_tests_list-v5-0-52110e1421a9@suse.com>
+In-Reply-To: <20250206-doc_tests_list-v5-0-52110e1421a9@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1738836999; l=1534;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1738836999; l=714;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=Dc3N9c0wvdGOjKK2EWZ745tqE68P2qL8mcs95GL1VM4=;
- b=EG0zLkVLDm5T8RuPVLByH1BM2Edy10a0j1AzHbaL8kZ+enpesFkPp2V50r857CPn+foirCoJM
- 6ExpUtbphFmCqO5E/fXNE+xIHqMSRAePSLpV2v/v2jCAr8d22Zw/kae
+ bh=xIxBi+p3aLafzYaXkWW6uwH/V/fEZ/BbxKrndtRGtgc=;
+ b=0psGiz78tUjhGaUMQ43zhliOu8Es+trM3D4WAg3+qzkOuvTu3C6QYVsqTnbfgwyKVIiek3oUQ
+ /MkvGzdirVnDlWPP0dWnKr8AvfR8Ag7WpZ7ZrPNEvZIzd/cVkyvn408
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spam-Score: -4.30
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid]
-X-Spam-Score: -4.30
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email]
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v5 0/2] Tests catalog
+Subject: [LTP] [PATCH v5 1/2] doc: remove margin for multiline cells
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,51 +132,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch-set is meant to introduce a new page in the LTP
-documentation, showing tests which are currently available with their
-description and information.
+From: Andrea Cervesato <andrea.cervesato@suse.com>
+
+Multiline table's cells show a margin at the end of them. Remove the
+margin by setting 'margin-bottom: 0' in the CSS table declaration
+style.
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-Changes in v5:
-- add hugepages, ulimit, resource_files, save_restore
-- add more comments in the code
-- fix multiline table cells
-- Link to v4: https://lore.kernel.org/r/20250205-doc_tests_list-v4-1-ae46e56073bb@suse.com
+ doc/_static/custom.css | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Changes in v4:
-- show maximum runtime with timeout text
-- correct timeout text
-- Link to v3: https://lore.kernel.org/r/20250205-doc_tests_list-v3-1-b60649cdea6a@suse.com
+diff --git a/doc/_static/custom.css b/doc/_static/custom.css
+index cb4d3821dc65f9f904cd90951f968bc90d8798c1..c5816a55346fa28416377375bc91966780075dc3 100644
+--- a/doc/_static/custom.css
++++ b/doc/_static/custom.css
+@@ -2,3 +2,8 @@
+ .wy-table-responsive table td {
+     white-space: normal;
+ }
++
++/* remove margin for multiline cells */
++.rst-content table td div.line-block {
++    margin-bottom: 0;
++}
 
-Changes in v3:
-- fix table widths alignment
-- add warning at the beginning of the test catalog
-- Link to v2: https://lore.kernel.org/r/20250204-doc_tests_list-v2-1-9d29aeacc3f3@suse.com
-
-Changes in v2:
-- add setup
-- cleanup code
-- Link to v1: https://lore.kernel.org/r/20250203-doc_tests_list-v1-1-5fe69c07b1ab@suse.com
-
----
-Andrea Cervesato (2):
-      doc: remove margin for multiline cells
-      doc: add tests catalog page
-
- doc/.gitignore             |   1 +
- doc/_static/custom.css     |   5 +
- doc/conf.py                | 274 ++++++++++++++++++++++++++++++++++++++++++++-
- doc/index.rst              |   4 +
- doc/users/test_catalog.rst |   7 ++
- 5 files changed, 287 insertions(+), 4 deletions(-)
----
-base-commit: 7f3922a2499ebff6134c37a17a0de6012a318fb4
-change-id: 20250131-doc_tests_list-1b82f51e43fd
-
-Best regards,
 -- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+2.43.0
 
 
 -- 
