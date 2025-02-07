@@ -2,51 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2415A2C107
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2025 11:56:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBA5EA2C115
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2025 11:57:42 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 709253C9374
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2025 11:56:06 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4263B3C2F48
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2025 11:57:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B1BC13C2F48
- for <ltp@lists.linux.it>; Fri,  7 Feb 2025 11:56:04 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 1256B3C9365
+ for <ltp@lists.linux.it>; Fri,  7 Feb 2025 11:56:06 +0100 (CET)
+Authentication-Results: in-3.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F2096201105
- for <ltp@lists.linux.it>; Fri,  7 Feb 2025 11:56:03 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 840861BDC582
+ for <ltp@lists.linux.it>; Fri,  7 Feb 2025 11:56:05 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5C18C1F443;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 90FD621161;
  Fri,  7 Feb 2025 10:56:03 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3242F13AC1;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 651D513694;
  Fri,  7 Feb 2025 10:56:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id EMI2C8PmpWddeQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id sNADF8PmpWddeQAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Fri, 07 Feb 2025 10:56:03 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri,  7 Feb 2025 11:55:47 +0100
-Message-ID: <20250207105551.1736356-3-pvorel@suse.cz>
+Date: Fri,  7 Feb 2025 11:55:48 +0100
+Message-ID: <20250207105551.1736356-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250207105551.1736356-1-pvorel@suse.cz>
 References: <20250207105551.1736356-1-pvorel@suse.cz>
@@ -57,18 +58,17 @@ X-Spam-Level:
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
 X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 5C18C1F443
+X-Rspamd-Queue-Id: 90FD621161
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/6] github: Stop building asciidoc{,
- tor} documentation
+Subject: [LTP] [PATCH 3/6] ci: Don't install asciidoc{,tor}
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,89 +85,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-It will be removed.
-
-$CONFIGURE_OPT_EXTRA is kept in build.sh, if somebody wants to use it
-for a local build (unused in CI).
+It was removed from GitHub Actions build previous commit.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- .github/workflows/ci-docker-build.yml | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
+ ci/alpine.sh     | 2 --
+ ci/debian.sh     | 8 --------
+ ci/fedora.sh     | 2 --
+ ci/tumbleweed.sh | 3 ---
+ 4 files changed, 15 deletions(-)
 
-diff --git a/.github/workflows/ci-docker-build.yml b/.github/workflows/ci-docker-build.yml
-index f33dd83566..44dcca0550 100644
---- a/.github/workflows/ci-docker-build.yml
-+++ b/.github/workflows/ci-docker-build.yml
-@@ -49,7 +49,6 @@ jobs:
-           - container: "alpine:latest"
-             env:
-               CC: gcc
--              METADATA: asciidoctor
+diff --git a/ci/alpine.sh b/ci/alpine.sh
+index 93acd6267b..f486cd51ea 100755
+--- a/ci/alpine.sh
++++ b/ci/alpine.sh
+@@ -6,8 +6,6 @@ apk update
  
-           # build with minimal dependencies
-           - container: "debian:stable"
-@@ -66,13 +65,11 @@ jobs:
-           - container: "quay.io/centos/centos:stream9"
-             env:
-               CC: gcc
--              METADATA: asciidoc-pdf
-               TREE: out
+ apk add \
+ 	acl-dev \
+-	asciidoc \
+-	asciidoctor \
+ 	autoconf \
+ 	automake \
+ 	clang \
+diff --git a/ci/debian.sh b/ci/debian.sh
+index fc1c1b3ec6..06eedb47c9 100755
+--- a/ci/debian.sh
++++ b/ci/debian.sh
+@@ -35,9 +35,6 @@ pkg_minimal="
  
-           - container: "debian:testing"
-             env:
-               CC: gcc
--              METADATA: asciidoctor-pdf
+ pkg_nonessential="
+ 	acl-dev
+-	asciidoc-base
+-	asciidoc-dblatex
+-	asciidoctor
+ 	libacl1-dev
+ 	libaio-dev
+ 	libcap-dev
+@@ -50,9 +47,6 @@ pkg_nonessential="
+ 	libssl-dev
+ "
  
-           - container: "debian:oldstable"
-             env:
-@@ -83,33 +80,27 @@ jobs:
-             env:
-               CC: clang
-               MAKE_INSTALL: 1
--              METADATA: asciidoctor-pdf
+-# Missing on Ubuntu 18.04 LTS (Bionic Beaver)
+-pkg_maybe_nonessential="ruby-asciidoctor-pdf"
+-
+ case "$ACTION" in
+ 	minimal)
+ 		echo "=== Installing only minimal dependencies ==="
+@@ -61,12 +55,10 @@ case "$ACTION" in
+ 	remove-nonessential)
+ 		echo "=== Make sure devel libraries are removed ==="
+ 		$remove $pkg_nonessential
+-		$remove $pkg_maybe_nonessential || true
+ 		;;
+ 	*)
+ 		echo "=== Installing dependencies ==="
+ 		$install $pkg_minimal $pkg_nonessential
+-		$install $pkg_maybe_nonessential || true
+ 		;;
+ esac
  
-           - container: "opensuse/leap:latest"
-             env:
-               CC: gcc
--              METADATA: asciidoc-pdf
+diff --git a/ci/fedora.sh b/ci/fedora.sh
+index 623dbb5cb6..d1f3c78113 100755
+--- a/ci/fedora.sh
++++ b/ci/fedora.sh
+@@ -5,7 +5,6 @@
+ yum="yum -y install --skip-broken"
  
-           - container: "debian:oldstable"
-             env:
-               CC: gcc
--              METADATA: asciidoctor
+ $yum \
+-	asciidoc \
+ 	autoconf \
+ 	automake \
+ 	make \
+@@ -24,4 +23,3 @@ $yum \
  
-           - container: "debian:testing"
-             env:
-               CC: clang
--              METADATA: asciidoctor-pdf
+ # CentOS 8 fixes
+ $yum libmnl-devel || $yum libmnl
+-$yum rubygem-asciidoctor || true
+diff --git a/ci/tumbleweed.sh b/ci/tumbleweed.sh
+index 42d62c0e05..841ed67869 100755
+--- a/ci/tumbleweed.sh
++++ b/ci/tumbleweed.sh
+@@ -5,7 +5,6 @@
+ zyp="zypper --non-interactive install --force-resolution --no-recommends"
  
-           - container: "ubuntu:jammy"
-             env:
-               CC: gcc
--              METADATA: asciidoctor
-               TREE: out
- 
-           - container: "ubuntu:bionic"
-             env:
-               CC: gcc
--              METADATA: asciidoc-pdf
- 
-     container:
-       image: ${{ matrix.container }}
-@@ -142,11 +133,8 @@ jobs:
- 
-     - name: Configure
-       run: |
--        if [ "$METADATA" = "asciidoc-pdf" ]; then CONFIGURE_OPT_EXTRA="--with-metadata-generator=asciidoc --enable-metadata-pdf"; fi
--        if [ "$METADATA" = "asciidoctor" ]; then CONFIGURE_OPT_EXTRA="--with-metadata-generator=asciidoctor"; fi
--        if [ "$METADATA" = "asciidoctor-pdf" ]; then CONFIGURE_OPT_EXTRA="--with-metadata-generator=asciidoctor --enable-metadata-pdf"; fi
-         case "$VARIANT" in cross-compile*) BUILD="cross";; i386) BUILD="32";; *) BUILD="native";; esac
--        CONFIGURE_OPT_EXTRA="$CONFIGURE_OPT_EXTRA" ./build.sh -r configure -o ${TREE:-in} -t $BUILD -c $CC
-+        ./build.sh -r configure -o ${TREE:-in} -t $BUILD -c $CC
- 
-     - name: Compile
-       run: ./build.sh -r build -o ${TREE:-in}
+ $zyp \
+-	asciidoc \
+ 	autoconf \
+ 	automake \
+ 	clang \
+@@ -29,5 +28,3 @@ $zyp \
+ 	lsb-release \
+ 	perl-JSON \
+ 	pkg-config
+-
+-$zyp ruby2.7-rubygem-asciidoctor || $zyp ruby2.5-rubygem-asciidoctor || true
 -- 
 2.47.2
 
