@@ -2,19 +2,18 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97F68A2C10C
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2025 11:56:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2415A2C107
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2025 11:56:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 027463C9388
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2025 11:56:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 709253C9374
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2025 11:56:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5932C3C2F48
+ by picard.linux.it (Postfix) with ESMTPS id B1BC13C2F48
  for <ltp@lists.linux.it>; Fri,  7 Feb 2025 11:56:04 +0100 (CET)
 Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
@@ -24,91 +23,52 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 00BC120A082
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F2096201105
  for <ltp@lists.linux.it>; Fri,  7 Feb 2025 11:56:03 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 324E81F397;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5C18C1F443;
  Fri,  7 Feb 2025 10:56:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1738925763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2kR00DMFA9Q4e+x/1yaoeh0hH8ayrfPEYY4Qh/a2HMg=;
- b=Lo1SFNKY1PlTuBpskHHUUljOXuOETv1qHuh+Ngn1UXdqcxb1FNaC3fng/zYZ4YeaQSc9H8
- 2iVeaZU98Vss09OZUI27JXZy6MjT/Qo+dQ7deivqsczwHiZ5sBTb+nN9J1NM7MgAo7KUhT
- 2AoSXzRf4P+MFVj9pZeOmwNY6zU16dg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1738925763;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2kR00DMFA9Q4e+x/1yaoeh0hH8ayrfPEYY4Qh/a2HMg=;
- b=J9OiVncVuCFESXu/AmM9o3mE8/1N7e5SCaCTSzPsrk/NswRWMPovvt1dgU9+oVc1eGYBaS
- xJNDVRNV1T4NsICw==
 Authentication-Results: smtp-out2.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1738925763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2kR00DMFA9Q4e+x/1yaoeh0hH8ayrfPEYY4Qh/a2HMg=;
- b=Lo1SFNKY1PlTuBpskHHUUljOXuOETv1qHuh+Ngn1UXdqcxb1FNaC3fng/zYZ4YeaQSc9H8
- 2iVeaZU98Vss09OZUI27JXZy6MjT/Qo+dQ7deivqsczwHiZ5sBTb+nN9J1NM7MgAo7KUhT
- 2AoSXzRf4P+MFVj9pZeOmwNY6zU16dg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1738925763;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2kR00DMFA9Q4e+x/1yaoeh0hH8ayrfPEYY4Qh/a2HMg=;
- b=J9OiVncVuCFESXu/AmM9o3mE8/1N7e5SCaCTSzPsrk/NswRWMPovvt1dgU9+oVc1eGYBaS
- xJNDVRNV1T4NsICw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0F58413AC0;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3242F13AC1;
  Fri,  7 Feb 2025 10:56:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yFi+AsPmpWddeQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id EMI2C8PmpWddeQAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Fri, 07 Feb 2025 10:56:03 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri,  7 Feb 2025 11:55:46 +0100
-Message-ID: <20250207105551.1736356-2-pvorel@suse.cz>
+Date: Fri,  7 Feb 2025 11:55:47 +0100
+Message-ID: <20250207105551.1736356-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250207105551.1736356-1-pvorel@suse.cz>
 References: <20250207105551.1736356-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: -6.80
-X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[99.99%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,suse.cz:email];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_TLS_ALL(0.00)[]
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Spam-Score: -4.00
+X-Rspamd-Queue-Id: 5C18C1F443
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/6] create-tarballs-metadata.sh: Remove metadata
- generation
+Subject: [LTP] [PATCH 2/6] github: Stop building asciidoc{,
+ tor} documentation
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,43 +85,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-1bf344a3db started to generate test catalog as part of online sphinx
-documentation, which replaces metadata generation done with
-asciidoc{,tor} and docparse/testinfo.pl.
+It will be removed.
 
-This means that whole docparse/ will be deleted, but tools in metadata/
-will stay (JSON is input also for sphinx).
+$CONFIGURE_OPT_EXTRA is kept in build.sh, if somebody wants to use it
+for a local build (unused in CI).
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- tools/create-tarballs-metadata.sh | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+ .github/workflows/ci-docker-build.yml | 14 +-------------
+ 1 file changed, 1 insertion(+), 13 deletions(-)
 
-diff --git a/tools/create-tarballs-metadata.sh b/tools/create-tarballs-metadata.sh
-index d0b9d0d97b..227f7e69f8 100755
---- a/tools/create-tarballs-metadata.sh
-+++ b/tools/create-tarballs-metadata.sh
-@@ -1,7 +1,7 @@
- #!/bin/sh -eu
- # SPDX-License-Identifier: GPL-2.0-or-later
- # Copyright (c) 2023 Petr Vorel <pvorel@suse.cz>
--# Create tarballs and metadata for uploading after tagging release.
-+# Create tarballs for uploading after tagging release.
- # https://github.com/linux-test-project/ltp/wiki/LTP-Release-Procedure
+diff --git a/.github/workflows/ci-docker-build.yml b/.github/workflows/ci-docker-build.yml
+index f33dd83566..44dcca0550 100644
+--- a/.github/workflows/ci-docker-build.yml
++++ b/.github/workflows/ci-docker-build.yml
+@@ -49,7 +49,6 @@ jobs:
+           - container: "alpine:latest"
+             env:
+               CC: gcc
+-              METADATA: asciidoctor
  
- basedir="$(dirname "$0")"
-@@ -47,11 +47,4 @@ for alg in $checksums; do
- 	done
- done
+           # build with minimal dependencies
+           - container: "debian:stable"
+@@ -66,13 +65,11 @@ jobs:
+           - container: "quay.io/centos/centos:stream9"
+             env:
+               CC: gcc
+-              METADATA: asciidoc-pdf
+               TREE: out
  
--# metadata documentation
--title "Generate metadata documentation"
--cd $tarball_dir
--rod ./configure --with-metadata-generator=asciidoctor
--rod make -C metadata
--cp -v docparse/metadata.html $dir/metadata.$tag.html
--
- echo "Generated files are in '$dir', upload them to github"
+           - container: "debian:testing"
+             env:
+               CC: gcc
+-              METADATA: asciidoctor-pdf
+ 
+           - container: "debian:oldstable"
+             env:
+@@ -83,33 +80,27 @@ jobs:
+             env:
+               CC: clang
+               MAKE_INSTALL: 1
+-              METADATA: asciidoctor-pdf
+ 
+           - container: "opensuse/leap:latest"
+             env:
+               CC: gcc
+-              METADATA: asciidoc-pdf
+ 
+           - container: "debian:oldstable"
+             env:
+               CC: gcc
+-              METADATA: asciidoctor
+ 
+           - container: "debian:testing"
+             env:
+               CC: clang
+-              METADATA: asciidoctor-pdf
+ 
+           - container: "ubuntu:jammy"
+             env:
+               CC: gcc
+-              METADATA: asciidoctor
+               TREE: out
+ 
+           - container: "ubuntu:bionic"
+             env:
+               CC: gcc
+-              METADATA: asciidoc-pdf
+ 
+     container:
+       image: ${{ matrix.container }}
+@@ -142,11 +133,8 @@ jobs:
+ 
+     - name: Configure
+       run: |
+-        if [ "$METADATA" = "asciidoc-pdf" ]; then CONFIGURE_OPT_EXTRA="--with-metadata-generator=asciidoc --enable-metadata-pdf"; fi
+-        if [ "$METADATA" = "asciidoctor" ]; then CONFIGURE_OPT_EXTRA="--with-metadata-generator=asciidoctor"; fi
+-        if [ "$METADATA" = "asciidoctor-pdf" ]; then CONFIGURE_OPT_EXTRA="--with-metadata-generator=asciidoctor --enable-metadata-pdf"; fi
+         case "$VARIANT" in cross-compile*) BUILD="cross";; i386) BUILD="32";; *) BUILD="native";; esac
+-        CONFIGURE_OPT_EXTRA="$CONFIGURE_OPT_EXTRA" ./build.sh -r configure -o ${TREE:-in} -t $BUILD -c $CC
++        ./build.sh -r configure -o ${TREE:-in} -t $BUILD -c $CC
+ 
+     - name: Compile
+       run: ./build.sh -r build -o ${TREE:-in}
 -- 
 2.47.2
 
