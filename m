@@ -2,125 +2,113 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 173E6A2EAEC
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 12:17:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 550E5A2EB26
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 12:32:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AE3293C91BE
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 12:17:39 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1ADB43C989E
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 12:32:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B1E923C2F65
- for <ltp@lists.linux.it>; Mon, 10 Feb 2025 12:17:29 +0100 (CET)
-Authentication-Results: in-3.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 4C6343C984C
+ for <ltp@lists.linux.it>; Mon, 10 Feb 2025 12:32:11 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 370FB1BCFDDD
- for <ltp@lists.linux.it>; Mon, 10 Feb 2025 12:17:28 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9862E60208B
+ for <ltp@lists.linux.it>; Mon, 10 Feb 2025 12:32:10 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EB0EA21157;
- Mon, 10 Feb 2025 11:17:27 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 20845210FB
+ for <ltp@lists.linux.it>; Mon, 10 Feb 2025 11:32:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1739186248; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=q7zTV/vjQ4jsxuMxqxLoYJim6In2nFVCpwfllVy4KSc=;
- b=xhoWtcSFe2aFlrT0U9OV5fWVlFdfkBfok+S8dDvQqBrZEJU37riGBunUz59Ufs18upkDjH
- g1m0NlHM0K7TYzfl8NChJpaDkXD9yiy1IooZyTz+bzhyXFqVj9bizx20EU46DqBhP8I9lo
- TxsFwAnC9LBW9VfTVnEYf5C9hCcw3RY=
+ t=1739187129; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=n2OZc/OKPKr36fK07zcty5pYDbBoKIdBse1koRRJNpI=;
+ b=Pn9d0O777d3QCmaEGMrcutSy9tyEmfkNAkyyExAoA/7AFqCVmN9Nl8UxqXXVHvrlS7LjT2
+ 0hV1U/lO8Xee/TQ1vJwLTgGYAM6QWWP7G6fTed6+vffTAds6GoYwouDyiNsDqw7U1e2acy
+ oDLQ9R9kdlaTyvrpNhX+w7tVM/6b1O4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1739186248;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=q7zTV/vjQ4jsxuMxqxLoYJim6In2nFVCpwfllVy4KSc=;
- b=QH9ldNX60t3UQkapXJV5wnDXpw4v60wG7pKo1GplhLBsJ1uebvYsp2LHZKhJUeMrCpHDyU
- SdpTlKQg/+SZo6Bw==
+ s=susede2_ed25519; t=1739187129;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=n2OZc/OKPKr36fK07zcty5pYDbBoKIdBse1koRRJNpI=;
+ b=SFFn2NZyOfVK8C4ZlDgwUEX7jUARg/DsFaAXEmjXxgvdntftRHs/sZnVvXlD6vxfuvczK1
+ XkHLOjHc0evhxpAw==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=zXK0I88P;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=5U0G5sj+
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Pn9d0O77;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=SFFn2NZy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1739186247; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=q7zTV/vjQ4jsxuMxqxLoYJim6In2nFVCpwfllVy4KSc=;
- b=zXK0I88Pr7wNQgrp09gofbGE+bPCc2MGH5KGvcO3ADIRofUho34vf13jRocMPV7jqYXy64
- 7Aq4b3QsPda5BGekvdET4oWsE3UpUL6caMnwXL+OFqNZO5djSlGL2xS8GSKH1WBRbJz5rc
- 0bsJTD+glF4NqR/f4uGaps1OU0nGouM=
+ t=1739187129; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=n2OZc/OKPKr36fK07zcty5pYDbBoKIdBse1koRRJNpI=;
+ b=Pn9d0O777d3QCmaEGMrcutSy9tyEmfkNAkyyExAoA/7AFqCVmN9Nl8UxqXXVHvrlS7LjT2
+ 0hV1U/lO8Xee/TQ1vJwLTgGYAM6QWWP7G6fTed6+vffTAds6GoYwouDyiNsDqw7U1e2acy
+ oDLQ9R9kdlaTyvrpNhX+w7tVM/6b1O4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1739186247;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=q7zTV/vjQ4jsxuMxqxLoYJim6In2nFVCpwfllVy4KSc=;
- b=5U0G5sj+aYUcj/zvtaNWTNhb0QoJ+xlcVhr0OTXpiI2aUpTTEq6J+Y65GctHJIksdzYY9o
- 2jRqIvB/1VA2UcCA==
+ s=susede2_ed25519; t=1739187129;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=n2OZc/OKPKr36fK07zcty5pYDbBoKIdBse1koRRJNpI=;
+ b=SFFn2NZyOfVK8C4ZlDgwUEX7jUARg/DsFaAXEmjXxgvdntftRHs/sZnVvXlD6vxfuvczK1
+ XkHLOjHc0evhxpAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DAE9E13A62;
- Mon, 10 Feb 2025 11:17:27 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 103D613A62
+ for <ltp@lists.linux.it>; Mon, 10 Feb 2025 11:32:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id n6OdNEfgqWfsXAAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Mon, 10 Feb 2025 11:17:27 +0000
-Date: Mon, 10 Feb 2025 12:17:31 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id /2oRA7njqWfgYQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>)
+ for <ltp@lists.linux.it>; Mon, 10 Feb 2025 11:32:09 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <Z6ngS8alAdHF95kP@yuki.lan>
-References: <20241218184518.16190-1-chrubis@suse.cz>
- <20241218184518.16190-10-chrubis@suse.cz>
- <20241227113648.GI317565@pevik>
+To: ltp@lists.linux.it
+Date: Mon, 10 Feb 2025 12:31:59 +0100
+Message-ID: <20250210113212.29520-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.45.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241227113648.GI317565@pevik>
-X-Rspamd-Queue-Id: EB0EA21157
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Rspamd-Queue-Id: 20845210FB
+X-Spam-Score: -2.51
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[]; SUBJECT_ENDS_SPACES(0.50)[];
  R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
  ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
- MISSING_XM_UA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
  RCVD_TLS_ALL(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,suse.cz:dkim];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCPT_COUNT_TWO(0.00)[2];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; TO_DN_NONE(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_ONE(0.00)[1];
  DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 09/13] testcases/kernel/mem: Move KSM bits to ksm
- tests
+Subject: [LTP] [PATCH v2 00/13]
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,60 +120,114 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkhCj4gPiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+ID4gaW5kZXggMDAwMDAwMDAwLi5lYmNlODE5
-N2MKPiA+IC0tLSAvZGV2L251bGwKPiA+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvbWVtL2tzbS9r
-c21fdGVzdC5oCj4gLi4uCj4gPiArc3RhdGljIGlubGluZSB2b2lkIGtzbV9jaGlsZF9tZW1zZXQo
-aW50IGNoaWxkX251bSwgaW50IHNpemUsIGludCB0b3RhbF91bml0LAo+ID4gKwkJIHN0cnVjdCBr
-c21fbWVyZ2VfZGF0YSBrc21fbWVyZ2VfZGF0YSwgY2hhciAqKm1lbW9yeSkKPiA+ICt7Cj4gPiAr
-CWludCBpID0gMCwgajsKPiA+ICsJaW50IHVuaXQgPSBzaXplIC8gdG90YWxfdW5pdDsKPiA+ICsK
-PiA+ICsJdHN0X3JlcyhUSU5GTywgImNoaWxkICVkIGNvbnRpbnVlcy4uLiIsIGNoaWxkX251bSk7
-Cj4gPiArCj4gPiArCWlmIChrc21fbWVyZ2VfZGF0YS5tZXJnZWFibGVfc2l6ZSA9PSBzaXplICog
-VFNUX01CKSB7Cj4gVGhpcyBpbnRyb2R1Y2VzIG5ldyB3YXJuaW5ncywgYmVjYXVzZSB0aGUgb3Jp
-Z2luYWwgY29kZSB1c2VkIE1CIHdoaWNoIGlzIGxvbmcuIAo+IAo+ICNkZWZpbmUgTUIgICAgICAg
-ICAgICAgICAgICAoMVVMPDwyMCkKPiAKPiBOb3cgd2UgdXNlIFRTVF9NQiwgd2hpY2ggaXMgcGxh
-aW4gaW50Lgo+IAo+IEluIGZpbGUgaW5jbHVkZWQgZnJvbSBrc21fY29tbW9uLmg6MTYsCj4gICAg
-ICAgICAgICAgICAgICBmcm9tIGtzbTA0LmM6NDI6Cj4ga3NtX3Rlc3QuaDogSW4gZnVuY3Rpb24g
-4oCYa3NtX2NoaWxkX21lbXNldOKAmToKPiBrc21fdGVzdC5oOjEwODo0Mzogd2FybmluZzogY29t
-cGFyaXNvbiBvZiBpbnRlZ2VyIGV4cHJlc3Npb25zIG9mIGRpZmZlcmVudCBzaWduZWRuZXNzOiDi
-gJh1bnNpZ25lZCBpbnTigJkgYW5kIOKAmGludOKAmSBbLVdzaWduLWNvbXBhcmVdCj4gICAxMDgg
-fCAgICAgICAgIGlmIChrc21fbWVyZ2VfZGF0YS5tZXJnZWFibGVfc2l6ZSA9PSBzaXplICogVFNU
-X01CKSB7Cj4gICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBefgo+IGtzbV90ZXN0Lmg6MTE5OjQ1OiB3YXJuaW5nOiBjb21wYXJpc29uIG9mIGludGVnZXIg
-ZXhwcmVzc2lvbnMgb2YgZGlmZmVyZW50IHNpZ25lZG5lc3M6IOKAmHVuc2lnbmVkIGludOKAmSBh
-bmQg4oCYaW504oCZIFstV3NpZ24tY29tcGFyZV0KPiAgIDExOSB8ICAgICAgICAgICAgICAgICBm
-b3IgKGkgPSAwOyAodW5zaWduZWQgaW50KWkgPCB1bml0ICogVFNUX01COyBpKyspCj4gICAgICAg
-fCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF4KPiBrc21fdGVz
-dC5oOjEyNjo0Mzogd2FybmluZzogY29tcGFyaXNvbiBvZiBpbnRlZ2VyIGV4cHJlc3Npb25zIG9m
-IGRpZmZlcmVudCBzaWduZWRuZXNzOiDigJh1bnNpZ25lZCBpbnTigJkgYW5kIOKAmGludOKAmSBb
-LVdzaWduLWNvbXBhcmVdCj4gICAxMjYgfCAgICAgICAgIGlmIChrc21fbWVyZ2VfZGF0YS5tZXJn
-ZWFibGVfc2l6ZSA8IHNpemUgKiBUU1RfTUIpCj4gICAgICAgfCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBeCj4ga3NtX3Rlc3QuaDogSW4gZnVuY3Rpb24g4oCYY3Jl
-YXRlX2tzbV9jaGlsZOKAmToKPiBrc21fdGVzdC5oOjE2Njo1NDogd2FybmluZzogY29tcGFyaXNv
-biBvZiBpbnRlZ2VyIGV4cHJlc3Npb25zIG9mIGRpZmZlcmVudCBzaWduZWRuZXNzOiDigJh1bnNp
-Z25lZCBpbnTigJkgYW5kIOKAmGludOKAmSBbLVdzaWduLWNvbXBhcmVdCj4gICAxNjYgfCAgICAg
-ICAgICAgICAgICAgaWYgKGtzbV9tZXJnZV9kYXRhW2pdLm1lcmdlYWJsZV9zaXplIDwgc2l6ZSAq
-IFRTVF9NQikgewo+ICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBeCj4gSXQgd291bGQgYmUgbmljZSB0byBhZGQgY2FzdCBiZWZvcmUg
-bWVyZ2UuCgpTbyB0aGUgc2l6ZSBpcyBzaWduZWQgYnV0IGl0IHdhcyBpbXBsaWNpdGx5IGNhc3Rl
-ZCB0byB1bnNpZ25lZCBieSB0aGUKVFNUX01CIGJlaW5nIHVuc2lnbmVkLiBJIGd1ZXNzIHRoYXQg
-dGhlIGJlc3QgZml4IGhlcmUgaXMgdG8gbWFrZSB0aGUKc2l6ZSBhbmQgdW5pdCB1bnNpZ25lZCB0
-byBiZWdpbiB3aXRoIHNpbmNlIHRoZXNlIGFyZSBudW1iZXJzIHRoYXQgc2hvdWxkCm5vdCBiZSBu
-ZWdhdGl2ZSBhdCBhbGwuCgo+ID4gKwkJdHN0X3JlcyhUSU5GTywgImNoaWxkICVkIGFsbG9jYXRl
-cyAlZCBUU1RfTUIgZmlsbGVkIHdpdGggJyVjJyIsCj4gCj4gVGhpcyBzaG91bGQgdXNlIE1CIChy
-ZXBsYWNlIHRvIHdob2xlIGZpbGUgb2J2aW91c2x5IHNob3VsZCBleGNsdWRlIHN0cmluZ3MpOgo+
-IAo+IAkJdHN0X3JlcyhUSU5GTywgImNoaWxkICVkIGFsbG9jYXRlcyAlZCBNQiBmaWxsZWQgd2l0
-aCAnJWMnIiwKPiAKPiA+ICsJCQljaGlsZF9udW0sIHNpemUsIGtzbV9tZXJnZV9kYXRhLmRhdGEp
-Owo+ID4gKwo+ID4gKwl9IGVsc2Ugewo+ID4gKwkJdHN0X3JlcyhUSU5GTywgImNoaWxkICVkIGFs
-bG9jYXRlcyAlZCBUU1RfTUIgZmlsbGVkIHdpdGggJyVjJyIKPiAKPiBBbmQgaGVyZSBhcyB3ZWxs
-Lgo+IAkJdHN0X3JlcyhUSU5GTywgImNoaWxkICVkIGFsbG9jYXRlcyAlZCBNQiBmaWxsZWQgd2l0
-aCAnJWMnIgo+ID4gKwkJCQkiIGV4Y2VwdCBvbmUgcGFnZSB3aXRoICdlJyIsCj4gPiArCQkJCWNo
-aWxkX251bSwgc2l6ZSwga3NtX21lcmdlX2RhdGEuZGF0YSk7Cj4gPiArCX0KCkFoLCBzb3JyeSwg
-dGhhdCBpcyBhIHJlc3VsdCBmcm9tIGJsaW5kbHkgZG9pbmcgc2VkIHMvLi4uCgotLSAKQ3lyaWwg
-SHJ1YmlzCmNocnViaXNAc3VzZS5jegoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xp
-c3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+This patchset slowly untangles the mess called kernel/mem/lib/ library.
+
+The library is split into several places, functions that are used by
+more than one group of tests are either reimplemented in the top level
+library or in the case of numa moved into numa_helper library in
+testcases/kerne/include/ and testcases/kernel/lib/.
+
+The rest of the code is either moved into respective test directories or
+in the case of unused code removed.
+
+This is not a coplete cleanup of the mem/ testcases as it mostly just
+moves code, but it's a nice first step that removes most of the unneeded
+dependencies and prepares for a possible refactoring later on.
+
+v2:
+    - Rebased the patchset
+    - Fixed doc comments in headers
+      (decided to add short descriptions for functions after all)
+    - Fixed TST_MB in strings
+    - Fixed warnings introduced in ksm tests
+
+
+Cyril Hrubis (13):
+  lib: tst_sys_conf: Add two functions
+  lib: Replace path_exist() with tst_path_exists()
+  lib: Add tst_mapping_in_range()
+  testcases/kernel/mem: Move get_a_numa_node()
+  testcases/kernel/mem: Move update_shm_size()
+  testcases/kernel/mem: Move check_hugepage() + PATH_THP
+  testcases/kernel/mem: Move NUMA bits to numa_helper.h
+  testcases/kernel/mem: Move oom() fucntions to oom tests
+  testcases/kernel/mem: Move KSM bits to ksm tests
+  mem/swapping: Remove mem/lib refrence
+  mem/vma: Remove mem/lib dependency
+  mem/hugetlb: Remove mem/lib depenency
+  testcases/kernel/mem: Remove library
+
+ include/tst_fs.h                              |  10 +
+ include/tst_memutils.h                        |  11 +
+ include/tst_sys_conf.h                        |  32 +
+ lib/tst_memutils.c                            |  31 +
+ lib/tst_path_exists.c                         |  23 +
+ lib/tst_sys_conf.c                            |  29 +
+ testcases/kernel/include/numa_helper.h        |  21 +
+ testcases/kernel/lib/numa_cpuset.c            |  64 ++
+ testcases/kernel/mem/cpuset/Makefile          |   2 +-
+ testcases/kernel/mem/cpuset/cpuset01.c        |   4 +-
+ testcases/kernel/mem/hugetlb/Makefile.inc     |   3 -
+ .../kernel/mem/hugetlb/hugemmap/hugemmap02.c  |   4 +-
+ .../kernel/mem/hugetlb/hugemmap/hugemmap05.c  |   1 -
+ .../kernel/mem/hugetlb/hugemmap/hugemmap13.c  |   4 +-
+ .../kernel/mem/hugetlb/hugemmap/hugemmap14.c  |   6 +-
+ .../mem/hugetlb/hugeshmat/hugeshmat04.c       |   4 +-
+ testcases/kernel/mem/hugetlb/lib/Makefile     |   1 -
+ testcases/kernel/mem/hugetlb/lib/hugetlb.c    |  11 +
+ testcases/kernel/mem/hugetlb/lib/hugetlb.h    |   6 +-
+ testcases/kernel/mem/include/libmem.mk        |  43 --
+ testcases/kernel/mem/include/mem.h            |  81 --
+ testcases/kernel/mem/ksm/Makefile             |   2 +-
+ testcases/kernel/mem/ksm/ksm01.c              |   2 +-
+ testcases/kernel/mem/ksm/ksm02.c              |   4 +-
+ testcases/kernel/mem/ksm/ksm03.c              |   2 +-
+ testcases/kernel/mem/ksm/ksm04.c              |   4 +-
+ testcases/kernel/mem/ksm/ksm05.c              |   2 +-
+ testcases/kernel/mem/ksm/ksm06.c              |   4 +-
+ testcases/kernel/mem/ksm/ksm07.c              |   3 +-
+ testcases/kernel/mem/ksm/ksm_common.h         |  36 +
+ testcases/kernel/mem/ksm/ksm_test.h           | 302 ++++++++
+ testcases/kernel/mem/lib/Makefile             |  27 -
+ testcases/kernel/mem/lib/mem.c                | 711 ------------------
+ testcases/kernel/mem/oom/Makefile             |   7 +-
+ testcases/kernel/mem/oom/oom.h                | 231 ++++++
+ testcases/kernel/mem/oom/oom01.c              |  13 +-
+ testcases/kernel/mem/oom/oom02.c              |   5 +-
+ testcases/kernel/mem/oom/oom03.c              |  11 +-
+ testcases/kernel/mem/oom/oom04.c              |   7 +-
+ testcases/kernel/mem/oom/oom05.c              |  11 +-
+ testcases/kernel/mem/swapping/Makefile        |   1 -
+ testcases/kernel/mem/swapping/swapping01.c    |   2 +-
+ testcases/kernel/mem/thp/Makefile             |   2 +-
+ testcases/kernel/mem/thp/thp.h                |  17 +
+ testcases/kernel/mem/thp/thp01.c              |   1 -
+ testcases/kernel/mem/thp/thp02.c              |   3 +-
+ testcases/kernel/mem/thp/thp03.c              |   5 +-
+ testcases/kernel/mem/tunable/Makefile         |   1 -
+ testcases/kernel/mem/tunable/max_map_count.c  |  17 +-
+ .../kernel/mem/tunable/min_free_kbytes.c      |  27 +-
+ .../kernel/mem/tunable/overcommit_memory.c    |  23 +-
+ testcases/kernel/mem/vma/Makefile             |   2 +-
+ 52 files changed, 926 insertions(+), 950 deletions(-)
+ create mode 100644 lib/tst_path_exists.c
+ create mode 100644 testcases/kernel/lib/numa_cpuset.c
+ delete mode 100644 testcases/kernel/mem/include/libmem.mk
+ delete mode 100644 testcases/kernel/mem/include/mem.h
+ create mode 100644 testcases/kernel/mem/ksm/ksm_test.h
+ delete mode 100644 testcases/kernel/mem/lib/Makefile
+ delete mode 100644 testcases/kernel/mem/lib/mem.c
+ create mode 100644 testcases/kernel/mem/oom/oom.h
+ create mode 100644 testcases/kernel/mem/thp/thp.h
+
+-- 
+2.45.3
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
