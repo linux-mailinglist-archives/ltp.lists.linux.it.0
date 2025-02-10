@@ -1,99 +1,101 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22471A2E733
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 10:07:58 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 36CF8A2E74B
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 10:09:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A42F03C9880
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 10:07:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E1A8E3C988A
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 10:09:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1F3E13C9878
- for <ltp@lists.linux.it>; Mon, 10 Feb 2025 10:07:12 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 5EBCB3C987D
+ for <ltp@lists.linux.it>; Mon, 10 Feb 2025 10:07:13 +0100 (CET)
+Authentication-Results: in-5.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 98FBA142FCE7
- for <ltp@lists.linux.it>; Mon, 10 Feb 2025 10:07:11 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8D1E3609195
+ for <ltp@lists.linux.it>; Mon, 10 Feb 2025 10:07:12 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E3E2521137;
- Mon, 10 Feb 2025 09:07:10 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6DDD621108;
+ Mon, 10 Feb 2025 09:07:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1739178431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dEIG0PYcT8whlyMAISm0+9V3adTesBXo4Hmh0ft1TBE=;
- b=soC9jgwr2MXRfur3iUq+UkLDK7AQsQ20eW0mFdNsb2fYeDSDVRFq46JHeAJiSUV6ooV36I
- JwjrGgrots6lNbOVG4/HOShesSSMw7rX3cv66MrIYsCztPM5CYqX4MgBjRBcqsy6/Fv/Qn
- HL67Jpn3/eytI8NLlG7fMwk/ExZgRPg=
+ bh=OXkl0GO7Pmm3fR+seRR2ICDdr41pXWhL7Tzf3UqlbBY=;
+ b=p9cpAKJgTrIvqTGR5e3YThO41cGzO0tPdta1G2ylAhLlKdE6RVhkNWCHPAGX2p/7RUJEEN
+ RRZj1lPB7BaJSQ8DLwEUAd4xdIfdb4GKUDJbBYrNFmZ/8YF/57MFJPvIzkLNAdX1jIlpW8
+ 8VW8xEZKSlhWCjMJkQ4HHdF+nvwd1rg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1739178431;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dEIG0PYcT8whlyMAISm0+9V3adTesBXo4Hmh0ft1TBE=;
- b=2gbtfSHKIq2aX7byFvhftJ9amCzYK1FSG7I6DYA0MlbHUVk7MaGKx+A8OwueEj5F3r8LQW
- XyMVa+7AXXA9RPDw==
+ bh=OXkl0GO7Pmm3fR+seRR2ICDdr41pXWhL7Tzf3UqlbBY=;
+ b=otr0pi+xuo4GZZh1lOLdV5lq6s674VYHz6da3NArPQuepPM1OgZYSphJOi/O68QYm4f/Sk
+ PlBYh8TzS35oYNCw==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1739178430; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1739178431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dEIG0PYcT8whlyMAISm0+9V3adTesBXo4Hmh0ft1TBE=;
- b=BHYDk5ongGPzhShTrFEvRo6KxvoUMh6NDJ5KXrkssbcMTeHcowVXxLUbMgNWjd7C4L81fB
- jwRuvnTUFiRjeRDLO7aGEIBTPzoBnLNjf0frLKxK5YEhP1r+4Hrqd7r4SA5GameGhB7B7P
- JA1QCKSa5tZnHwwN/MLtyiZAGO0KVaQ=
+ bh=OXkl0GO7Pmm3fR+seRR2ICDdr41pXWhL7Tzf3UqlbBY=;
+ b=p9cpAKJgTrIvqTGR5e3YThO41cGzO0tPdta1G2ylAhLlKdE6RVhkNWCHPAGX2p/7RUJEEN
+ RRZj1lPB7BaJSQ8DLwEUAd4xdIfdb4GKUDJbBYrNFmZ/8YF/57MFJPvIzkLNAdX1jIlpW8
+ 8VW8xEZKSlhWCjMJkQ4HHdF+nvwd1rg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1739178430;
+ s=susede2_ed25519; t=1739178431;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dEIG0PYcT8whlyMAISm0+9V3adTesBXo4Hmh0ft1TBE=;
- b=Bst4lJQCicwK84DUbc89jRd36yD9/gWsLuZnFx5nBVOMewBc/pkxsIh9U13Ib+hL6Vn3+0
- 0jXY7IBap+h3vpCw==
+ bh=OXkl0GO7Pmm3fR+seRR2ICDdr41pXWhL7Tzf3UqlbBY=;
+ b=otr0pi+xuo4GZZh1lOLdV5lq6s674VYHz6da3NArPQuepPM1OgZYSphJOi/O68QYm4f/Sk
+ PlBYh8TzS35oYNCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9400413AF6;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 036BE13707;
  Mon, 10 Feb 2025 09:07:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +ISoIL7BqWdQLwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WHx/OL7BqWdQLwAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Mon, 10 Feb 2025 09:07:10 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 10 Feb 2025 10:07:08 +0100
+Date: Mon, 10 Feb 2025 10:07:09 +0100
 MIME-Version: 1.0
-Message-Id: <20250210-mmap_suite_refactoring-v2-3-6edea3a4363a@suse.com>
+Message-Id: <20250210-mmap_suite_refactoring-v2-4-6edea3a4363a@suse.com>
 References: <20250210-mmap_suite_refactoring-v2-0-6edea3a4363a@suse.com>
 In-Reply-To: <20250210-mmap_suite_refactoring-v2-0-6edea3a4363a@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1739178429; l=1934;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1739178429; l=1613;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=REFeB7ZOazFlYsySQb27h5bkZpfH+IbuMkhb3XsryhI=;
- b=RlQVJaSf8HJ4tRg1NRbOClcaImVRHjBEyBcp6q91QSmTWvakpHr7PLC+eWNkoas7sNgCw23Zc
- CTsYGz19iHMCWMdI2P+sYamkTE7B2qLQyC0gDwXCjHLjSH/nagS90ov
+ bh=3zyyacJZPeQJmFUYVbt6nJEcUohHFBgiI4br87SbMlQ=;
+ b=jay+FIRdwVHkKhTlGiaLQ1mNE909z4sY7t+pOWufA4FDgfjxz9SVY9ralncM3KYs3iCu09//x
+ /8U0a3qtq5/DxrDVTfeXne/VB1YvX3ed4VhkEpBlLELX3X5cQnVsxl3
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spam-Level: 
+X-Spam-Score: -4.30
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
@@ -104,16 +106,16 @@ X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  FROM_HAS_DN(0.00)[]; MIME_TRACE(0.00)[0:+];
  FROM_EQ_ENVFROM(0.00)[]; TO_DN_NONE(0.00)[];
  RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
- suse.com:mid]
-X-Spam-Score: -4.30
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid, suse.com:email,
+ imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 3/8] Cleanup mmap12 test
+Subject: [LTP] [PATCH v2 4/8] Cleanup mmap17 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,62 +137,51 @@ From: Andrea Cervesato <andrea.cervesato@suse.com>
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/syscalls/mmap/mmap12.c | 30 +++++++-----------------------
- 1 file changed, 7 insertions(+), 23 deletions(-)
+ testcases/kernel/syscalls/mmap/mmap17.c | 23 +++++++++--------------
+ 1 file changed, 9 insertions(+), 14 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/mmap/mmap12.c b/testcases/kernel/syscalls/mmap/mmap12.c
-index 995a2bab091a745dd7332fe919c1ea38b25641e3..7a3dd2e1731efcfde499b7ae72d6805475889b27 100644
---- a/testcases/kernel/syscalls/mmap/mmap12.c
-+++ b/testcases/kernel/syscalls/mmap/mmap12.c
-@@ -1,31 +1,15 @@
+diff --git a/testcases/kernel/syscalls/mmap/mmap17.c b/testcases/kernel/syscalls/mmap/mmap17.c
+index 39703fbd397d33fe549b1c9a52db62f763e146dd..0d2ed9ccf7928f960f8bfa5e31604e840c6939a8 100644
+--- a/testcases/kernel/syscalls/mmap/mmap17.c
++++ b/testcases/kernel/syscalls/mmap/mmap17.c
+@@ -1,28 +1,23 @@
  // SPDX-License-Identifier: GPL-2.0-or-later
  /*
-  * Copyright (c) 2013 FNST, DAN LI <li.dan@cn.fujitsu.com>
+  * Copyright (c) Zilogic Systems Pvt. Ltd., 2020
+- * Email: code@zilogic.com
++ *	Email: code@zilogic.com
 + * Copyright (C) 2025 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
   */
  
 -/*
-- * Test Description:
-- *  Verify MAP_POPULATE works fine.
-- *  "For a file mapping, this causes read-ahead on the file.
-- *   Later accesses to the mapping will not be blocked by page faults"
+- * Test mmap with MAP_FIXED_NOREPLACE flag
 +/*\
 + * [Description]
   *
-- * Expected Result:
-- *  mmap() with MAP_POPULATE should succeed returning the address of the
-- *  mapped region and this file has been read into RAM, so pages should
-- *  be present.
-+ * Verify that mmap() with MAP_POPULATE succeed returning the address of the
-+ * mapped region. The file should be read into RAM, and pages should be present.
+- * We are testing the MAP_FIXED_NOREPLACE flag of mmap() syscall. To check
++ * Verify MAP_FIXED_NOREPLACE flag for the mmap() syscall and check
+  * if an attempt to mmap at an exisiting mapping fails with EEXIST.
++ *
++ * [Algorithm]
++ *
+  * The code allocates a free address by passing NULL to first mmap call
+- * Then tries to mmap with the same address using MAP_FIXED_NOREPLACE flag
++ * then tries to mmap with the same address using MAP_FIXED_NOREPLACE flag
+  * and the mapping fails as expected.
   */
--#include <stdio.h>
--#include <stdlib.h>
--#include <sys/types.h>
--#include <errno.h>
--#include <unistd.h>
--#include <fcntl.h>
--#include <string.h>
--#include <signal.h>
--#include <stdint.h>
--#include <sys/stat.h>
--#include <sys/mman.h>
--#include <sys/shm.h>
  
+-#include <stdio.h>
+-#include <fcntl.h>
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <unistd.h>
+-#include <errno.h>
+-#include <string.h>
+-#include <stdlib.h>
+-#include "lapi/mmap.h"
  #include "tst_test.h"
  
-@@ -60,9 +44,9 @@ static void page_check(void)
- 			tst_res(TCONF | TERRNO,
- 				"don't have permission to open dev pagemap");
- 			return;
--		} else {
--			tst_brk(TFAIL | TERRNO, "pen dev pagemap failed");
- 		}
-+
-+		tst_brk(TFAIL | TERRNO, "pen dev pagemap failed");
- 	}
- 
- 	offset = SAFE_LSEEK(pm, index, SEEK_SET);
+ static int fd_file1;
 
 -- 
 2.43.0
