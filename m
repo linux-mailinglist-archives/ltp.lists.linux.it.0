@@ -2,77 +2,96 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E48E5A2EBE6
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 12:53:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC7AEA2EC6B
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 13:26:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1739190365; h=message-id :
+ date : mime-version : to : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-transfer-encoding : content-type : sender : from;
+ bh=YmtdIwS7a0O4M8CQ/efV1/4CTxPTqKUllI+EOYifFu0=;
+ b=imdggHvRLlaBoHEQ5z7eK19T8bwbrsFuGkoQSxvFxtvDHOzXMe1YeF5Xl3EnrAmhpSbBM
+ YPNQQXOrpynzrT2DruZv0xqmJiyemvdS8KfqjBZI7IYe2yZpqpiHF+UPVIpDsINVkN0prMh
+ C81wh0m+0ucPT7RFpHBKCwPKrFTGRVc=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A33AF3C98CD
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 12:53:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B0F6E3C98D0
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Feb 2025 13:26:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EEC533C2CCA
- for <ltp@lists.linux.it>; Mon, 10 Feb 2025 12:53:47 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
- envelope-from=pvorel@suse.de; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 3B32F3C9363
+ for <ltp@lists.linux.it>; Mon, 10 Feb 2025 13:25:52 +0100 (CET)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5FF03140112E
- for <ltp@lists.linux.it>; Mon, 10 Feb 2025 12:53:47 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D2A881F38F;
- Mon, 10 Feb 2025 11:53:45 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C81C213AAB;
- Mon, 10 Feb 2025 11:53:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4OK/MMnoqWcRaQAAD6G6ig
- (envelope-from <pvorel@suse.de>); Mon, 10 Feb 2025 11:53:45 +0000
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 066D91A0111F
+ for <ltp@lists.linux.it>; Mon, 10 Feb 2025 13:25:51 +0100 (CET)
+Received: by mail-wm1-x341.google.com with SMTP id
+ 5b1f17b1804b1-436345cc17bso29151545e9.0
+ for <ltp@lists.linux.it>; Mon, 10 Feb 2025 04:25:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1739190350; x=1739795150; darn=lists.linux.it;
+ h=content-transfer-encoding:subject:from:to:content-language
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YfRHx4k7PD/e+hDxstqu9cZPhncAg+U4HdQu075jFj8=;
+ b=ebn1VAEEl9w4TfnM/6+LTboP1uaZ0v1YyXPyOWoJuFq4iZAmJVsof/7Mv8A2mOGm2Z
+ i7c7bOpyJbmoV7I2VWuL4nqqIxWUQKHTNNwtbd7zvAp81OstI8ly1amYjyYkOGdYhn2L
+ aHP/BTZF1yZnR84liMudVVJIh+M80CQY69H4DARbZFpYrhj0EGtmwlouUD1STO3pljPL
+ f/zX38Ehw1uKAp5jeHKA0K7eeic/NymxfHiNHTGCWShmMMj/EIedla8MNyL9y2RqdAyw
+ mIqLwE8kPqktP0dn2h0UUOesWmPWqD33tuvBCD+lBhczOYU5c3Y6/eu80ta7xyWN5o9o
+ eGOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739190350; x=1739795150;
+ h=content-transfer-encoding:subject:from:to:content-language
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=YfRHx4k7PD/e+hDxstqu9cZPhncAg+U4HdQu075jFj8=;
+ b=FMC0S7YmyZNLhtHe1HuQpcp0neeHiSKAe5CuiLjwIeC1KlJA5vttxTBbqm9eEPAkEY
+ OaNiWfOvSjWjrdXwS73WZlGj+TgDiSknppVXXHh6evtjAD5Cp1/MQhjF6XORz/SANLlR
+ 4l8VfDeagJkVthrI0XBf63ielSpzDiW0vNVsboOXHATLMCydDtw/yx5T7993x+qG6N/6
+ BudYMcnAAVvxom+VFZUHi0rUdr6uCjIemL0SmQKdykAuj5dwrpZHGLuy1PeledrOGIgS
+ gpUFiF8Gu0y9X0W3HmhBcGkyrXCILCw098m/8iviuJxn6R8iEvvCfwQWq1PeuePWpB26
+ I7dw==
+X-Gm-Message-State: AOJu0Yxe+xOI8SpcbTvB2A00ASxV9oF4oIY6qw5Aq9LY2HSLz+NZ59YI
+ WxxV+GKU9wtVOXBVa+1004g/kXH2SoesI0kx6KXs4t/Fl2vh4X4BZewhLEP99/61Nk5c9vjCWUm
+ zeZI3Ew==
+X-Gm-Gg: ASbGncs9uG3EgBxLL+8kVhIjpMHAV9/5gYr3vGyDgsw82E63w/0GxPUSpEVseHY7i+q
+ nyeijWeIumqbOKHUIhqhZFgMev0EojtWYPdAcRzxNKhMzM9uIW/1l2QtgGZnU3zH6jWEQj79LpY
+ ewanrSHjzd5pe1kDhtc4L41TZUC/VVJAUPhnm6IQOKii19/Q+a+IhNdJ7MCmx16usvS63weGKFe
+ mGYY///Zx9K5TGkyimz3ubVGMhF3rq+2SaqogQN68ha3nTd7ESu9ipp7fjDTTNlA/qcHBMkc/mC
+ 2KlpTw63ha0mlbQ6X61wsSBnyCxlDLip0XZnAnP0BCGOvQTjZUoVp4h2geYkcKyvWEDF6gb66gf
+ eI6BuN8TkrDFLpgFIV3wPi3UdQ5sHyV0HYR0mP6iC+NsRSPHkSdM=
+X-Google-Smtp-Source: AGHT+IHNdFGyyjVvyuLLzYh/E/MG9+TvKBeYPp0BNhQnb8qIJDOEpToaXe0Y+grPKPMxpBIJTQJeMw==
+X-Received: by 2002:a05:600c:4f90:b0:434:a4b3:5ebe with SMTP id
+ 5b1f17b1804b1-439249b2aecmr100573835e9.24.1739190349875; 
+ Mon, 10 Feb 2025 04:25:49 -0800 (PST)
+Received: from ?IPV6:2003:ef:2f02:800:9162:c8ad:3b21:a399?
+ (p200300ef2f0208009162c8ad3b21a399.dip0.t-ipconnect.de.
+ [2003:ef:2f02:800:9162:c8ad:3b21:a399])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4390db11750sm183172865e9.40.2025.02.10.04.25.49
+ for <ltp@lists.linux.it>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Feb 2025 04:25:49 -0800 (PST)
+Message-ID: <34c1451a-2adb-4efd-874b-e2d9b660e56f@suse.com>
+Date: Mon, 10 Feb 2025 13:25:49 +0100
 MIME-Version: 1.0
-Date: Mon, 10 Feb 2025 12:53:45 +0100
-From: pvorel <pvorel@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>
-In-Reply-To: <20250210113212.29520-3-chrubis@suse.cz>
-References: <20250210113212.29520-1-chrubis@suse.cz>
- <20250210113212.29520-3-chrubis@suse.cz>
-User-Agent: Roundcube Webmail
-Message-ID: <01a16c47a0920ed4c60db277087f9ea7@suse.de>
-X-Sender: pvorel@suse.de
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: D2A881F38F
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Linux Test Project <ltp@lists.linux.it>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2 02/13] lib: Replace path_exist() with
- tst_path_exists()
+Subject: [LTP] [Open discussion] docparse handling
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,32 +103,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hi all,
 
-On 2025-02-10 12:32, Cyril Hrubis wrote:
-> Move and rename the path_exist() function from
-> testcases/kernel/mem/lib/ to the to level library.
-> 
-> This removes mem.h dependency from mem/cpuset/ test.
-> 
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> ---
->  include/tst_fs.h                       | 10 ++++++++++
->  lib/tst_path_exists.c                  | 23 +++++++++++++++++++++++
+we just added a test catalog in the LTP documentation [1], but most of 
+the tests are still using asciidoc as the main tests' description 
+syntax. Obviously, we need to switch to RST [2] syntax, that is now used 
+in the whole LTP documentation along with sphinx [3] support.
 
-The only thing I don't like is creating file for single functions.
-My long term plan was to have fewer files with more functions.
-I'm sorry I did not point this out in v1, thus feel free to ignore it.
+I would like to introduce a discussion on this topic, since I seen a few 
+patches meant to adapt old tests' descriptions [4] into asciidoc and we 
+don't really want to double our job. In particular:
 
-Kind regards,
-Petr
+- is [Description] tag still needed? Shall we use **Description** instead?
+- shall we start to convert all tests' descriptions into asciidoc? If 
+yes, how? Automatically or manually?
+
+Best regards,
+Andrea Cervesato
+
+[1] 
+https://linux-test-project.readthedocs.io/en/latest/users/test_catalog.html
+[2] https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
+[3] https://www.sphinx-doc.org/en/master/index.html
+[4] 
+https://patchwork.ozlabs.org/project/ltp/patch/20250210091044.359274-1-maxj.fnst@fujitsu.com/
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
