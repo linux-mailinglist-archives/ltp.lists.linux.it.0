@@ -1,85 +1,104 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB29A31672
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 21:12:31 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 130AAA316FC
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 21:58:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4BBF73C997F
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 21:12:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C0B433C9989
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 21:57:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 42E143C2C01
- for <ltp@lists.linux.it>; Tue, 11 Feb 2025 21:12:29 +0100 (CET)
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 663B33C769D
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2025 21:57:40 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
+ envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 5EDA562EE11
- for <ltp@lists.linux.it>; Tue, 11 Feb 2025 21:12:28 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5de6e26d4e4so6098959a12.1
- for <ltp@lists.linux.it>; Tue, 11 Feb 2025 12:12:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739304748; x=1739909548; darn=lists.linux.it;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=b9f+NRr5uiorh1YIioPTAo2rztE5Iqho3se8zyDF4f0=;
- b=kTunUVS/HtJHsYmBZC40yrRyyZ4cnFdsHU5zpyIQWoRKo8vSd82572vzxEgyzLWijD
- hCSmgLXbiYoiP7Cgp1RgVhx0g3CV+s8LGQ03o9hHeLD+oHQ6Iw6G3hqiBt+NQ6OLCZq/
- TRSd6u8TS6NIxHdwoZ+mXP6KjYZggydM81lIyrtLzyXftHldCMH172PW2wY8agOwKLge
- 09Iu9a+uhSTmvKrj/+euDcwijy9e+rTeT3sSS/tAanhfhA9hjevJCbEmIlPp+piaC10f
- 5V42onSiqyJlNMklyBP9NFKyg4RFXloRedoVEIssvMOZ8F94WkGGAR/d07cbGzBn0kcs
- HMSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739304748; x=1739909548;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=b9f+NRr5uiorh1YIioPTAo2rztE5Iqho3se8zyDF4f0=;
- b=lM2xD/mWRK2zmUp4d3vylWYDTrMnNpeVIemOK/10fcpvSzhAvX6Z7MhzqXJwQQT20M
- zGfPZSQI+D9zMgQPQFcQmCA8UbuY3ZzOtkmCY89BUGinEcTMk4+pDbtvVSZzUSVoAXHJ
- Ak+5SgU4o71jZ7VWbwD4ChPCNLl1/2fbofWxKFtJi7VEPbe+IugjCJ/F4o3/e4IpZ0FT
- xDqXfIlKruMbVxIPx/qhaxtD2cHf6l6Zrj1fY9SuR9s7hmsxiGuOuNuwHkTOp+0HVSVK
- 93izQkmgV9WVMOakoGAKtKmMusYrnbLUgx5sHx6m0rhs05saxTfT5MHWqktqXhsMJXE+
- Tk8A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXwAs4/PiaBVxBERiVMjNjPksY9a8qO3MIG37H5tMUfywIlRKHA8H38o1xztr6c2vQZgiE=@lists.linux.it
-X-Gm-Message-State: AOJu0YwMYpUewgAYQFKdmrtdRQP80Xr9y2Q3ZKBqV7JrfVJO/1+qqQf1
- T3Xzva+i8GjNftw46rmClo10uTb0jwE0oWmgsNMF+SF7/id3JbuVimwk4iDdn0MPAXSIQGT3gUQ
- qAcsintWcvZpvdLvsmQNEoB1Nwc4=
-X-Gm-Gg: ASbGncubPtgmT48rLkEaipX7XOCVaqYGOEbna3UspO688hlN24t8JtZO2ib2chQxrco
- rTFgIOQJfh6vKxSNhP5ZuPCU60Of3SH533iN95WncnRW/uQPIAuT2yTvrbbzoS8+KkutANRkj
-X-Google-Smtp-Source: AGHT+IFczjNI46o/5NoX9RrDAX85XDWGg4tDOiwEtSlYb3mYTM1JOx2FOkIEtTm5VHa6LwryihQqbh/sNQGg5YwRG1Y=
-X-Received: by 2002:a05:6402:5109:b0:5dc:90e7:d43 with SMTP id
- 4fb4d7f45d1cf-5deadde7cd0mr437082a12.26.1739304747343; Tue, 11 Feb 2025
- 12:12:27 -0800 (PST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7F18D205CF5
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2025 21:57:37 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 07765336A9;
+ Tue, 11 Feb 2025 20:57:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1739307457; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=NbHOf2hh4pZfD6uP3ZhFPeuiB6mdoR499zz2rT4nQ2E=;
+ b=G3ZqwtgycoxER43GeTnhKbBPFuhphI/1cC4S+pckabjxKHsEiT3uAaQAObEJ5gW26A7rVO
+ +EFfsV7fU9ArTzFd/Z4W0nad+eTvUr3NHfveHYNeXCwP2YKW05v2K1wz0l1puwlvnWnYdb
+ HSME85rJUOiZDJU+Oqnp2ToEzvSs5/M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1739307457;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=NbHOf2hh4pZfD6uP3ZhFPeuiB6mdoR499zz2rT4nQ2E=;
+ b=EusRzXSLW9k+/zefHusI7RvfkXL146h821esGlHfbBiBVWvBtR5qDOKJZ2G7pKjutRvgG1
+ 433yqFqZJ/pu9sAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1739307457; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=NbHOf2hh4pZfD6uP3ZhFPeuiB6mdoR499zz2rT4nQ2E=;
+ b=G3ZqwtgycoxER43GeTnhKbBPFuhphI/1cC4S+pckabjxKHsEiT3uAaQAObEJ5gW26A7rVO
+ +EFfsV7fU9ArTzFd/Z4W0nad+eTvUr3NHfveHYNeXCwP2YKW05v2K1wz0l1puwlvnWnYdb
+ HSME85rJUOiZDJU+Oqnp2ToEzvSs5/M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1739307457;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=NbHOf2hh4pZfD6uP3ZhFPeuiB6mdoR499zz2rT4nQ2E=;
+ b=EusRzXSLW9k+/zefHusI7RvfkXL146h821esGlHfbBiBVWvBtR5qDOKJZ2G7pKjutRvgG1
+ 433yqFqZJ/pu9sAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BDF7013782;
+ Tue, 11 Feb 2025 20:57:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id K0guLMC5q2doSgAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Tue, 11 Feb 2025 20:57:36 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue, 11 Feb 2025 21:57:33 +0100
+Message-ID: <20250211205734.1932275-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
-References: <20250210151316.246079-1-amir73il@gmail.com>
- <20250210151316.246079-4-amir73il@gmail.com>
- <yvpm5aiigldl2ftkatepoddjitxs64r6n2igcatetyukpbp3re@35yc3muudqdf>
- <CAOQ4uxhex0Dz+c-DM9emgqhsYMar08NC4JSuc9TkiDujmN7h6A@mail.gmail.com>
- <20250211190943.GC1911494@pevik>
-In-Reply-To: <20250211190943.GC1911494@pevik>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Tue, 11 Feb 2025 21:12:15 +0100
-X-Gm-Features: AWEUYZl4fLfO6v4jn7PsmFXNy8MXMzOZiYhotQQ70AmHYOmExQCe7wYGtGAeYT0
-Message-ID: <CAOQ4uxg6T+oO-RUcs+AA2W2emC18hboQMec7NUnQ=zFqoNPjbA@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TAGGED_RCPT(0.00)[]; FREEMAIL_CC(0.00)[gmail.com,suse.cz];
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:mid];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_HAS_DN(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCPT_COUNT_THREE(0.00)[4];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Score: -2.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,FREEMAIL_FROM,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 3/4] fanotify24: Add test for FAN_PRE_ACCESS and
- FAN_DENY_ERRNO
+Subject: [LTP] [PATCH v2 1/2] tst_test.sh: Fix TBROK => TWARN evaluation in
+ tst_brk()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,104 +110,159 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Martin Doucha <martin.doucha@suse.com>, Jan Kara <jack@suse.cz>,
- ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVHVlLCBGZWIgMTEsIDIwMjUgYXQgODowOeKAr1BNIFBldHIgVm9yZWwgPHB2b3JlbEBzdXNl
-LmN6PiB3cm90ZToKPgo+ID4gT24gTW9uLCBGZWIgMTAsIDIwMjUgYXQgNDo0M+KAr1BNIEphbiBL
-YXJhIDxqYWNrQHN1c2UuY3o+IHdyb3RlOgo+Cj4gPiA+IE9uIE1vbiAxMC0wMi0yNSAxNjoxMzox
-NSwgQW1pciBHb2xkc3RlaW4gd3JvdGU6Cj4gPiA+ID4gRm9yayB0aGUgdGVzdCBmYW5vdGlmeTI0
-IGZyb20gdGVzdCBmYW5vdGlmeTAzLCByZXBsYWNpbmcgdGhlCj4gPiA+ID4gcGVybWlzc2lvbiBl
-dmVudCBGQU5fQUNDRVNTX1BFUk0gd2l0aCB0aGUgbmV3IHByZS1jb250ZW50IGV2ZW50Cj4gPiA+
-ID4gRkFOX1BSRV9BQ0NFU1MuCj4KPiA+ID4gPiBUaGUgdGVzdCBpcyBjaGFuZ2VkIHRvIHVzZSBj
-bGFzcyBGQU5fQ0xBU1NfUFJFX0NPTlRFTlQsIHdoaWNoIGlzCj4gPiA+ID4gcmVxdWlyZWQgZm9y
-IEZBTl9QUkVfQUNDRVNTIGFuZCB0aGlzIGNsYXNzIGFsc28gZW5hYmxlZCB0aGUgcmVzcG9uc2UK
-PiA+ID4gPiB3aXRoIGN1dG9tZXIgZXJyb3IgY29kZSBGQU5fREVOWV9FUlJOTy4KPgo+ID4gPiA+
-IFVubGlrZSBGQU5fQUNDRVNTX1BFUk0sIEZBTl9QUkVfQUNDRVNTIGlzIGFsc28gY3JlYXRlZCBv
-biB3cml0ZSgpCj4gPiA+ID4gc3lzdGVtIGNhbGwuICBUaGUgdGVzdCBjYXNlIGV4cGVjdGVkIHJl
-c3VsdHMgYXJlIGFkanVzdGVkIHRvCj4gPiA+ID4gcmVzcG9uZCB3aXRoIHRoZSBkZWZhdWx0IGVy
-cm9yIChFUEVSTSkgdG8gb3BlbigpIGFuZCB3cml0ZSgpIGFuZAo+ID4gPiA+IHRvIHJlc3BvbmQg
-d2l0aCBjdXN0b20gZXJyb3JzIChFSU8sIEVCVVNZKSB0byByZWFkKCkgYW5kIGV4ZWN2ZSgpLgo+
-Cj4gPiA+ID4gTm90IGFsbCBmcyBzdXBwb3J0IHByZS1jb250ZW50IGV2ZW50cywgc28gcnVuIG9u
-IGFsbCBmaWxlc3lzdGVtcwo+ID4gPiA+IHRvIGV4Y2VyY2lzZSBGQU5fUFJFX0FDQ0VTUyBvbiBh
-bGwgc3VwcG9ydGVkIGZpbGVzeXN0ZW1zLgo+Cj4gPiA+ID4gU2lnbmVkLW9mZi1ieTogQW1pciBH
-b2xkc3RlaW4gPGFtaXI3M2lsQGdtYWlsLmNvbT4KPgo+ID4gPiBMb29rcyBnb29kIHRvIG1lLiBJ
-IHdhcyBqdXN0IHdvbmRlcmluZyB3aGV0aGVyIHNvbWUgYml0cyBsaWtlCj4gPiA+IGdlbmVyYXRl
-X2V2ZW50cygpLCBtYXJrIHNldHVwLCBjaGlsZCBzZXR1cCwgbWFpbiB0ZXN0IGxvb3AgY291bGQg
-bm90IGJlCj4gPiA+IGZhY3RvcmVkIG91dCBpbnRvIGEgaGVscGVyIGZ1bmN0aW9ucyB1c2VkIGJ5
-IGJvdGggb2xkIGFuZCBuZXcgdGVzdHM/Cj4KPiA+IFllcywgSSBhZ3JlZSB0aGF0IGZvcmtpbmcg
-dGhlIHRlc3RzIGlzIGJhZCBhbmQgdGhhdCB3ZSBuZWVkIG11Y2gKPiA+IG1vcmUgY29tbW9uIGhl
-bHBlcnMuCj4KPiA+IElJVUMsIExUUCBkZXZlbG9wZXJzIGFyZSBnb2luZyB0byB0cnkgdG8gY29t
-ZSB1cCB3aXRoIHNvbWUgcHJvcG9zYWxzCj4gPiBmb3IgcmVmYWN0b3JpbmcgaGVscGVycyB0byBz
-cGxpdCBzb21lIGxhcmdlIGZhbm90aWZ5IHRlc3RzIFsxXVsyXS4KPgo+ID4gTXkgb3BpbmlvbiBp
-cyB0aGF0IGZhY3RvcmluZyBvdXQgaGVscGVycyB0aGF0IGFyZSB1c2VmdWwgb25seSBmb3IKPiA+
-IGZhbm90aWZ5MDMsZmFub3RpZnkyNCBpcyBzdWJvcHRpbWFsIGFuZCB3ZSBuZWVkIHRvIHNlZSBp
-ZiB3ZSBjYW4KPiA+IGNyZWF0ZSBtdWNoIG1vcmUgZ2VuZXJpYyBoZWxwZXJzIHRoYXQgY291bGQg
-YmUgc2hhcmVkIGJ5IG1vcmUgdGVzdHMuCj4KPiA+IEJUVywgaWYgeW91IGxvb2sgY2xvc2VyLCB5
-b3Ugd2lsbCBzZWUgdGhhdCBnZW5lcmF0ZV9ldmVudHMoKSBpcyBxdWl0ZQo+ID4gZGlmZmVyZW50
-IGJldHdlZW4gZmFub3RpZnkwMyBhbmQgZmFub3RpZnkyNCwgYWx0aG91Z2ggaXQgaXMgdHJ1ZSB0
-aGF0Cj4gPiBmYW5vdGlmeTI0IGhhcyBhIG1vcmUgZ2VuZXJhbGl6ZWQgdmVyc2lvbiB0aGF0IGZv
-bGxvd3MgdGhlIGV4cGVjdGVkCj4gPiBldmVudHMgbW9yZSBjbG9zZWx5Lgo+Cj4gPiBJIGRpZCBz
-dGFydCB3aXRoIGV4dGVuZGluZyBmYW5vdGlmeTAzIGJlZm9yZSBJIGZvcmtlZCBpdCBhbmQgYmVm
-b3JlIHRoZQo+ID4gZm9yayBnZW5lcmF0ZV9ldmVudHMoKSB3YXMgZXZlbiBtb3JlIGhhcmQgdG8g
-Zm9sbG93IGJlY2F1c2Ugb2YKPiA+IHRoZSBkaWZmZXJlbmNlIGluIGV4cGVjdGVkIGV2ZW50cyBm
-b3Igd3JpdGUoKSBiZXR3ZWVuIHBlcm1pc3Npb24KPiA+IGFuZCBwcmUtY29udGVudCBldmVudHMu
-Cj4KPiBJJ20gbm90IGhhcHB5IHRoYXQgdGVzdHMgYXJlIG5lYXJseSBpZGVudGljYWwsIGJ1dCBh
-Z3JlZSB0aGF0IG1lcmdpbmcgdGhlbSB3b3VsZAo+IG1ha2UgcmVhZGFiaWxpdHkgZXZlbiBoYXJk
-ZXIuIEFsc28gaWYgdGhlcmUgaXMgcmVhbGx5IG5vIHZhbHVlIHRvIHJ1bgo+IEZBTl9BQ0NFU1Nf
-UEVSTSAoZmFub3RpZnkwMy5jKSBvbiBhbGwgZmlsZXN5c3RlbXMgaXQgd291bGQgcHJvbG9uZyB0
-ZXN0aW5nLgo+Cj4gVGhlIG9ubHkgZG93bnNpZGUgb2Ygbm90IGZhY3RvcmluZyBvdXQgY29tbW9u
-IGNvZGUgaXMgdGhhdCBmaXggaW4gb25lIHRlc3Qgd2lsbAo+IG5vdCBhcHBlYXIgaW4gdGhlIG90
-aGVyIHRlc3QgKGl0IGxvb2tzIHRvIG1lIGZyb20gd2hhdCB5b3Ugd3JvdGUgdGhhdCB5b3UKPiBp
-bXByb3ZlZCBnZW5lcmF0ZV9ldmVudHMoKSBmb3IgZmFub3RpZnkyNC5jIGJ1dCBub3QgZm9yIGZh
-bm90aWZ5MDMuYy4gQWxzbyBub3cKPiBpcyBmb3IgbWUgdG8gcmVtZW1iZXIgcmVtb3ZlIGVsc2Ug
-aWYgKGVycm5vID09IGV4cF9lcnJubykgWzFdIGFsc28gZm9yCj4gZmFub3RpZnkyNC5jKS4KClBs
-ZWFzZSBkb24ndCByZW1vdmUgdGhlc2UgZWxzZSBmcm9tIGZhbm90aWZ5MjQuCkkgbWVhbnQgdGhh
-dCB0aGUgZWxzZSBpbiBmYW5vdGlmeTAzLmMgYXJlIG5vdCBuZWVkZWQgYmVjYXVzZSB0aGV5IGNh
-bWUKCmZyb20gdGhlIGdlbmVyaWMgZ2VuZXJhdGVfZXZlbnRzKCkgb2YgZmFub3RpZnkyNC5jIHdo
-aWNoIHN1cHBvcnRzCmRpZmZlcmVudCBleHBlY3RlZCBlcnJubyB2YWx1ZXMgKEZBTl9ERU5ZX0VS
-Uk5PKHh4eCkpLgpmYW5vdGlmeTAzIGRvZXMgbm90IGhhdmUgRkFOX0RFTllfRVJSTk8oeHh4KSwg
-c28gY29tcGFyaW5nIGV4cF9lcnJubwppcyBub3QgbmVlZGVkIGluIGZhbmJvdGlmeTAzLiBJdCBp
-cyBuZWVkZWQgaW4gZmFub3RpZnkyNC4KCj4gV2UgaGF2ZSBsb25nIGhpc3Rvcnkgb2YgdGhpcyBp
-biBMVFAuICBCdXQgSSdtIGFsc28gbm90IHN1cmUgaWYKPiBpdCdzIHdvcnRoIGZhY3RvcmluZyBv
-dXQgY29kZSBqdXN0IGZvciAyIHRlc3RzLiBXZSBtaWdodCByZWNvbnNpZGVyIGZhY3RvcmluZwo+
-IG91dCwgYnV0IHVubGVzcyBNYXJ0aW4gb3IgQ3lyaWwgb2JqZWN0cyBJIHdvdWxkIGtlZXAgaXQg
-Zm9yIG5vdy4KPgo+IEkgd2FzIGxvb2tpbmcgYnJpZWZseSBmb3IgY29kZSB3aGljaCBjb3VsZCBi
-ZSB0dXJuZWQgaW50byBtb3JlIGdlbmVyaWMgaGVscGVycywKPiBidXQgc28gZmFyIEkgaGF2ZW4n
-dCBmb3VuZCBhbnl0aGluZy4gTWF5YmUgeW91IGhhdmUgYmV0dGVyIGlkZWEuCj4KCkkgZG8gbm90
-IGhhdmUgYSBiZXR0ZXIgaWRlYS4KZmFub3RpZnkwMyBhbmQgZmFub3RpZnkyNCBhcmUgc3VmZmlj
-aWVudGx5IHNpbWlsYXIgdG8gZHVwIGEgbG90IG9mIGNvZGUKYW5kIHN1ZmZpY2llbnRseSBkaWZm
-ZXJlbnQgdG8gbWFrZSBjb21tb24gY29kZSBoYXJkIG9yIG1vcmUKY29tcGxleC4KCklNTywgdGhl
-IGNvZGUgdGhhdCBpcyByZWxhdGl2ZWx5IGNvbW1vbiB0byBtYW55IGZhbm90aWZ5IHRlc3RzIGlz
-IHRoZQpldmVudCByZWFkIGFuZCBwcm9jZXNzIGxvb3AuCgpJIHRoaW5rIGl0IHNob3VsZCBiZSBk
-b2FibGUgdG8gbWFrZSB0aGVzZSBsb29wcyB1c2UgY29tbW9uIGhlbHBlcnMgZm9yCnJlYWRpbmcg
-YW5kIHZlcmlmeWluZyB0aGUgZXhwZWN0ZWQgZXZlbnRzLCBidXQgaXQgaXMgbm90IGEgc21hbGwg
-am9iIHRvIG1ha2UKdGhvc2UgaGVscGVycyBnZW5lcmljIGVub3VnaCB0byBjYXRlciBhbGwgdGhl
-IGRpZmZlcmVudCB0ZXN0cyB0aGF0IGNoZWNrCmRpZmZlcmVudCBldmVudCBmb3JtYXRzLgoKVGhh
-bmtzLApBbWlyLgoKPiBGWUkgdGhlcmUgaXMgbm90IG9ubHkgdGVzdCBjb2RlIGFuZCB0ZXN0IG91
-dHB1dCByZWFkYWJpbGl0eSwgYnV0IGFsc28gYWJpbGl0eSB0bwo+IGZpbHRlciBvdXQgY2VydGFp
-biBmaXguIElmIHBhcnRpY3VsYXIgZml4IGlzIG5vdCBiYWNrcG9ydGVkIHRvIGVudGVycHJpc2Ug
-a2VybmVsCj4gKFdPTlRGSVgpLiBXaXRoIG9uZSBvZiBtYW55IHRlc3RzIGZhaWxzIHdlIGhhdmUg
-bm8gd2F5IHRvIGRpc3Rpbmd1aXNoIGl0IGluIHRoZQo+IGN1cnJlbnQgY29kZSAodHN0X2t2ZXJj
-bXAyKCkgZG9lcyBub3QgYWx3YXlzIGhlbHApLiBUaGVyZWZvcmUgd2UgcHJlZmVyIHRvIGhhdmUK
-PiByZWdyZXNzaW9uIHRlc3RzIGluIHNlcGFyYXRlIGZpbGVzIChkb24ndCBtaXggdGhlbSB3aXRo
-IHRlc3RzIGZvciBiYXNpYwo+IGZ1bmN0aW9uYWxpdHkpLiBCdXQgdGhhdCB3b3VsZCBwcm9iYWJs
-eSBsZWFkIHRvIGV2ZW4gbW9yZSBjb2RlIGR1cGxpY2l0eS4KPgo+IEkgd2FzIHRoaW5raW5nIHdo
-ZXRoZXIgd2UgY291bGQgdHJ5IGFsbG93IHRvIHJ1biBvbmx5IHN1YnNldCBvZiBzdHJ1Y3QgdGNh
-c2UKPiBpdGVtcywgYmFzZWQgb24gZ2V0b3B0IHBhcmFtZXRlci4gRS5nLiBydW4gb25seSAiaW5v
-ZGUiIG1hcmtzIChmaXJzdCB0d28gaXRlbXMpLAo+IG9yIG1vdW50IG1hcmtzICgzcmQgYW5kIDR0
-aCksIC4uLiAgcnVudGVzdC9zeXNjYWxscyB3b3VsZCBnZXQgbW9yZSBpdGVtcyBvZgo+IHBhcnRp
-Y3VsYXIgdGVzdC4gSXQgd291bGQgcHJvbG9uZyB0ZXN0aW5nIChmb3IgYWxsX2ZpbGVzeXN0ZW1z
-IHF1aXRlIHNpZ25pZmljYW50bHkpCj4gYnV0IGJlc2lkZXMgYmV0dGVyIHRlc3Qgb3V0cHV0IHJl
-YWRhYmlsaXR5ICsgYWxsb3cgdG8gZmlsdGVyIG91dCBmaXhlcy4KPgo+IEtpbmQgcmVnYXJkcywK
-PiBQZXRyCj4KPiBbMV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbHRwL0NBT1E0dXhndTE2ZE9z
-VTR1dXE2NkNHcVh3NndZOGM4aks3c0wxUWhlQjhrVFBVPVgrZ0BtYWlsLmdtYWlsLmNvbS8KPgo+
-ID4gVGhhbmtzLAo+ID4gQW1pci4KPgo+ID4gWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2x0
-cC83MWQ0NDE0Yi04MDJmLTQwMTktODUyNy1lODg4NmUyZDFhZWJAc3VzZS5jei8KPiA+IFsyXSBo
-dHRwczovL2xvcmUua2VybmVsLm9yZy9sdHAvMjAyNTAxMzExNjQyMTcuR0ExMTM1Njk0QHBldmlr
-LwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZv
-L2x0cAo=
+From: Petr Vorel <petr.vorel@gmail.com>
+
+This partly reverts commit 55bfa08e179de16773f19b703de70262896383ea
+and setting TST_DO_EXIT=1 before _tst_do_cleanup() and unset it
+afterwards inside of the _tst_run_iterations().
+
+Also rename variable to be more descriptive: TST_DO_EXIT => TST_TBROK_TO_TWARN.
+
+This fixes e.g. problem with not exiting test on too small $TMPDIR.
+Before the fix:
+
+    # ./nfs10.sh -v 3 -t udp
+
+    nfs10 1 TINFO: Running: nfs10.sh -v 3 -t udp
+    ...
+    nfs10 1 TINFO: Using /tmp/LTP_nfs10.LWDMqeJ74S as tmpdir (tmpfs filesystem)
+    tst_device.c:299: TWARN: Failed to create test_dev.img: ENOSPC (28)
+
+    Usage:
+    tst_device acquire [size [filename]]
+    tst_device release /path/to/device
+    tst_device clear /path/to/device
+
+    nfs10 1 TWARN: Failed to acquire device
+    tst_supported_fs_types.c:169: TINFO: Skipping ext2 as requested by the test
+    tst_supported_fs_types.c:169: TINFO: Skipping ext3 as requested by the test
+    tst_supported_fs_types.c:97: TINFO: Kernel supports ext4
+    ...
+    nfs10 1 TINFO: === Testing on ext4 ===
+    tst_device.c:389: TWARN: Failed to clear 512k block on
+
+    Usage:
+    tst_device acquire [size [filename]]
+    tst_device release /path/to/device
+    tst_device clear /path/to/device
+
+    nfs10 1 TINFO: Formatting ext4 with opts=''
+    Usage: mkfs.ext4 [-c|-l filename] [-b block-size] [-C cluster-size]
+	    [-i bytes-per-inode] [-I inode-size] [-J journal-options]
+	    [-G flex-group-size] [-N number-of-inodes] [-d root-directory]
+	    [-m reserved-blocks-percentage] [-o creator-os]
+	    [-g blocks-per-group] [-L volume-label] [-M last-mounted-directory]
+	    [-O feature[,...]] [-r fs-revision] [-E extended-option[,...]]
+	    [-t fs-type] [-T usage-type ] [-U UUID] [-e errors_behavior][-z undo_file]
+	    [-jnqvDFSV] device [blocks-count]
+    nfs10 1 TWARN: mkfs.ext4 failed
+    nfs10 1 TINFO: Mounting device: mount -t ext4  /tmp/LTP_nfs10.LWDMqeJ74S/mntpoint
+    mount: /tmp/LTP_nfs10.LWDMqeJ74S/mntpoint: can't find in /etc/fstab.
+    nfs10 1 TWARN: Failed to mount device ext4 type: mount exit = 1
+    nfs10 1 TINFO: timeout per run is 0h 11m 0s
+    nfs10 1 TCONF: rpc.mountd not running
+    nfs10 1 TINFO: Cleaning up testcase
+    nfs10 1 TINFO: The '/tmp/LTP_nfs10.LWDMqeJ74S/mntpoint' is not mounted, skipping umount
+    tst_device.c:281: TWARN: open() failed: ENOENT (2)
+
+    Usage:
+    tst_device acquire [size [filename]]
+    tst_device release /path/to/device
+    tst_device clear /path/to/device
+
+    nfs10 1 TWARN: Failed to release device ''
+    nfs10 1 TINFO: AppArmor enabled, this may affect test results
+    nfs10 1 TINFO: it can be disabled with TST_DISABLE_APPARMOR=1 (requires super/root)
+    nfs10 1 TINFO: loaded AppArmor profiles: none
+
+After the fix:
+
+    # ./nfs10.sh -v 3 -t udp
+    nfs10 1 TINFO: Running: nfs10.sh -v 3 -t udp
+    ...
+    nfs10 1 TINFO: Using /tmp/LTP_nfs10.34K5E5pjxY as tmpdir (tmpfs filesystem)
+    tst_device.c:299: TWARN: Failed to create test_dev.img: ENOSPC (28)
+
+    Usage:
+    tst_device acquire [size [filename]]
+    tst_device release /path/to/device
+    tst_device clear /path/to/device
+
+    nfs10 1 TBROK: Failed to acquire device
+    nfs10 1 TINFO: AppArmor enabled, this may affect test results
+    nfs10 1 TINFO: it can be disabled with TST_DISABLE_APPARMOR=1 (requires super/root)
+    nfs10 1 TINFO: loaded AppArmor profiles: none
+
+Fixes: 55bfa08e17 ("tst_test.sh/tst_brk(): Convert only TBROK to TWARN in cleanup")
+Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+v1: https://patchwork.ozlabs.org/project/ltp/patch/20241211001418.392890-1-pvorel@suse.cz/
+Changes v1-v2:
+* set guarder in _tst_do_cleanup() (Cyril)
+* rename variable (Cyril)
+
+ testcases/lib/tst_test.sh | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
+
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index 2b797705e3..5a6e34473f 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -28,7 +28,6 @@ _tst_do_cleanup()
+ {
+ 	if [ -n "$TST_DO_CLEANUP" -a -n "$TST_CLEANUP" -a -z "$LTP_NO_CLEANUP" ]; then
+ 		if command -v $TST_CLEANUP >/dev/null 2>/dev/null; then
+-			TST_DO_CLEANUP=
+ 			$TST_CLEANUP
+ 		else
+ 			tst_res TWARN "TST_CLEANUP=$TST_CLEANUP declared, but function not defined (or cmd not found)"
+@@ -40,7 +39,7 @@ _tst_do_cleanup()
+ _tst_do_exit()
+ {
+ 	local ret=0
+-	TST_DO_EXIT=1
++	TST_TBROK_TO_TWARN=1
+ 
+ 	_tst_do_cleanup
+ 
+@@ -127,15 +126,11 @@ tst_brk()
+ 	local res=$1
+ 	shift
+ 
+-	# TBROK => TWARN on cleanup or exit
+-	if [ "$res" = TBROK ] && [ "$TST_DO_EXIT" = 1 -o -z "$TST_DO_CLEANUP" -a -n "$TST_CLEANUP" ]; then
+-		tst_res TWARN "$@"
+-		TST_DO_CLEANUP=
+-		return
+-	fi
+-
+ 	if [ "$res" != TBROK -a "$res" != TCONF ]; then
+ 		tst_res TBROK "tst_brk can be called only with TBROK or TCONF ($res)"
++	elif [ "$TST_TBROK_TO_TWARN" = 1 ]; then
++		tst_res TWARN "$@"
++		return
+ 	else
+ 		tst_res "$res" "$@"
+ 	fi
+@@ -820,7 +815,9 @@ _tst_run_iterations()
+ 		_tst_i=$((_tst_i-1))
+ 	done
+ 
++	TST_TBROK_TO_TWARN=1
+ 	_tst_do_cleanup
++	unset TST_TBROK_TO_TWARN
+ 
+ 	if [ "$TST_MOUNT_FLAG" = 1 ]; then
+ 		cd "$LTPROOT"
+-- 
+2.47.2
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
