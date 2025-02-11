@@ -2,73 +2,110 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 211B3A316FB
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 21:57:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 345ADA3172D
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 22:04:47 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 44E5C3C9987
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 21:57:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E18DC3C9987
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 22:04:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id ECD4A3C769D
- for <ltp@lists.linux.it>; Tue, 11 Feb 2025 21:57:39 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 8B97B3C98F3
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2025 22:04:44 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8E2D061E248
- for <ltp@lists.linux.it>; Tue, 11 Feb 2025 21:57:37 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E4730101F0E5
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2025 22:04:43 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 424F71F7DF;
- Tue, 11 Feb 2025 20:57:37 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 073E82258A;
+ Tue, 11 Feb 2025 21:04:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1739307883;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wXF6niIBl9VCFnk0p1QibjdC9dGmec8FWELt6PwlJY4=;
+ b=c85j5rdfVTv4CZIKFGgxKtDsbYa7KMUQav1cDUJ11LTsYNBsVeJs3uWP/TnSiYyQCTpZog
+ S91zGRlZbJF8qu3IhAfPU3GKilaUBZYMi1V9Wb3dFEUnMv2+IyyuzlFyf/LQDQlX2kP7is
+ u0h7v/V/19MABx+WYv3KVn6cV8bwrHk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1739307883;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wXF6niIBl9VCFnk0p1QibjdC9dGmec8FWELt6PwlJY4=;
+ b=INAndNtzFnvQ94YBbr+GTiIzmRImSxAgzFdWNN3J67IHRdwlj8ORIzY/chuuo8mfd7zvrx
+ SpJA9OP0nz6NuMDw==
+Authentication-Results: smtp-out1.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1739307883;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wXF6niIBl9VCFnk0p1QibjdC9dGmec8FWELt6PwlJY4=;
+ b=c85j5rdfVTv4CZIKFGgxKtDsbYa7KMUQav1cDUJ11LTsYNBsVeJs3uWP/TnSiYyQCTpZog
+ S91zGRlZbJF8qu3IhAfPU3GKilaUBZYMi1V9Wb3dFEUnMv2+IyyuzlFyf/LQDQlX2kP7is
+ u0h7v/V/19MABx+WYv3KVn6cV8bwrHk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1739307883;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wXF6niIBl9VCFnk0p1QibjdC9dGmec8FWELt6PwlJY4=;
+ b=INAndNtzFnvQ94YBbr+GTiIzmRImSxAgzFdWNN3J67IHRdwlj8ORIzY/chuuo8mfd7zvrx
+ SpJA9OP0nz6NuMDw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 13A5313AA6;
- Tue, 11 Feb 2025 20:57:37 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C1E9813782;
+ Tue, 11 Feb 2025 21:04:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iB5+A8G5q2doSgAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Tue, 11 Feb 2025 20:57:37 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id zkyvLGq7q2egTAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Tue, 11 Feb 2025 21:04:42 +0000
+Date: Tue, 11 Feb 2025 22:04:41 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 11 Feb 2025 21:57:34 +0100
-Message-ID: <20250211205734.1932275-2-pvorel@suse.cz>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250211205734.1932275-1-pvorel@suse.cz>
-References: <20250211205734.1932275-1-pvorel@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20250211210441.GA1933342@pevik>
+References: <20250211122354.18324-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU]
-X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 424F71F7DF
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Disposition: inline
+In-Reply-To: <20250211122354.18324-1-mdoucha@suse.cz>
+X-Spam-Score: -7.50
+X-Spamd-Result: default: False [-7.50 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MISSING_XM_UA(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ REPLYTO_EQ_FROM(0.00)[]
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=7.0 tests=DMARC_MISSING,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 2/2] tst_test.sh: Convert only TBROK/TCONF to TWARN
- in cleanup
+Subject: Re: [LTP] [PATCH 1/2] fsplough: Implement runtime awareness
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,53 +117,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Second attempt to convert only TBROK/TCONF to TWARN in cleanup().
+Hi Martin,
 
-Also print original message to help find function call with wrong
-parameter.
+> Switch fsplough test to run for 30 seconds by default, with the option
+> to set a fixed number of loops on command line instead. The test will
+> always exit when runtime expires and a warning will be printed
+> if there were too few iterations due to expired runtime.
 
-Fixes: 55bfa08e17 ("tst_test.sh/tst_brk(): Convert only TBROK to TWARN in cleanup")
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-New in v2.
++1
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
- testcases/lib/tst_test.sh | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+> +	if (i < loop_count / 2) {
+> +		tst_res(TWARN, "Runtime expired, exiting early after %d loops",
+> +			i);
+> +		tst_res(TINFO, "If you are running on slow machine, "
+> +			"try exporting LTP_TIMEOUT_MUL > 1");
+> +	} else if (i < loop_count) {
+> +		tst_res(TINFO, "Runtime expired, exiting early after %d loops",
+> +			i);
+> +	} else if (!loop_arg && i < 10) {
+> +		tst_res(TWARN, "Slow sytem: test performed only %d loops!", i);
+s/sytem/system/
 
-diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index 5a6e34473f..0747f7aaf4 100644
---- a/testcases/lib/tst_test.sh
-+++ b/testcases/lib/tst_test.sh
-@@ -126,11 +126,17 @@ tst_brk()
- 	local res=$1
- 	shift
- 
--	if [ "$res" != TBROK -a "$res" != TCONF ]; then
--		tst_res TBROK "tst_brk can be called only with TBROK or TCONF ($res)"
--	elif [ "$TST_TBROK_TO_TWARN" = 1 ]; then
--		tst_res TWARN "$@"
-+	if [ "$TST_TBROK_TO_TWARN" = 1 ]; then
-+		if [ "$res" != TBROK -a "$res" != TCONF ]; then
-+			tst_res TWARN "tst_brk can be called only with TBROK or TCONF ($res, msg: '$@')"
-+		else
-+			tst_res TWARN "$@"
-+		fi
- 		return
-+	fi
-+
-+	if [ "$res" != TBROK -a "$res" != TCONF ]; then
-+		tst_res TBROK "tst_brk can be called only with TBROK or TCONF ($res, msg: '$@')"
- 	else
- 		tst_res "$res" "$@"
- 	fi
--- 
-2.47.2
+I'll fix this before merge.
 
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
