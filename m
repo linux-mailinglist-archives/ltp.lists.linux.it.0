@@ -1,114 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86AAEA31733
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 22:06:56 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A44EBA31820
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 22:46:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3ECEF3C9987
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 22:06:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id F2DE83C9980
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2025 22:46:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 67AAF3C98F3
- for <ltp@lists.linux.it>; Tue, 11 Feb 2025 22:06:54 +0100 (CET)
-Authentication-Results: in-6.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 4D5643C995D
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2025 22:46:37 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=jmoyer@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 779B5141ECA3
- for <ltp@lists.linux.it>; Tue, 11 Feb 2025 22:06:52 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BD4B5240374
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2025 22:46:36 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1739310395;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Q64uKb272l+BNCdvE8NsPTFgu15F93xEYjCxhqlCh2g=;
+ b=OgWn/ILj6ZriQ/OXp17eWzqGBAbsQ4RUylV5YLw92Z8Rw2S5oR5Z99efE/7/Tm0b6AKq0H
+ N5HIHZwLbIcZap8SeA1ZwTi1NupGx+B2NiAKTZ305osnLw7EmBlIF5koqHhLyVwARgIiTP
+ HTSvfFEkahtiXWoHDvbYEegpwoWwW/U=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-302-_ux_4YYpM1qCZDUwMe5CPw-1; Tue,
+ 11 Feb 2025 16:46:33 -0500
+X-MC-Unique: _ux_4YYpM1qCZDUwMe5CPw-1
+X-Mimecast-MFC-AGG-ID: _ux_4YYpM1qCZDUwMe5CPw
+Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D7B052258A;
- Tue, 11 Feb 2025 21:06:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1739308011;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=59h0EiQX47WbaA7nnMCyfYG4dhZVEqBplOPw46p2n2E=;
- b=k8pRFLyO0WpwEuWsOpZLBwlhfE5l6Uks2Bs6+s+AgjS+1qcxbVB+Gt1a0U1uZQQv7a6ASC
- wqSgFD6ThpQaZXOlKaGSgSmRhehJPaSwVvf9GWo906VB/w0l4ovJ9+FB4iK/tMpHVjIOAM
- ZeU4Ec63dZFDrVI3tjS/EberMcpVaGk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1739308011;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=59h0EiQX47WbaA7nnMCyfYG4dhZVEqBplOPw46p2n2E=;
- b=WsLyY6+eHY2efrsTU0WePAUFjXzhLw5fIeVC7C2BZ4wdaUx+PIzBiFqd5UdePZ7VK3ZqOe
- EmVmyAU9KQ+KMRDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1739308010;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=59h0EiQX47WbaA7nnMCyfYG4dhZVEqBplOPw46p2n2E=;
- b=MygRR2zIAiPx+T9XWGHMhGacchrc4UadJ1CZJFQGIUS3qbM0oLxcRlP+wTXRyb0+gIBpBJ
- 4aNJUa5P3YOGGUCeqBItg4Fum47UykBxme0yfsyZzLI8adXuoZteeaWsmAG2ZGnwOD//cZ
- OG+TxfxqCjj9www3WcbjvLVLCawYLT8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1739308010;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=59h0EiQX47WbaA7nnMCyfYG4dhZVEqBplOPw46p2n2E=;
- b=YwsAFNgEpiUdr8o4vazdlguE2ddPGc21UsicQLhkirWhVvp4BRTaSSKWYKCNXYy6dl+EkZ
- pcRuG4UpA6ujE/Aw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 63C3A13782;
- Tue, 11 Feb 2025 21:06:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id jdmiD+q7q2dGTQAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Tue, 11 Feb 2025 21:06:50 +0000
-Date: Tue, 11 Feb 2025 22:06:44 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20250211210644.GB1933342@pevik>
-References: <20250211122354.18324-1-mdoucha@suse.cz>
- <20250211122354.18324-2-mdoucha@suse.cz>
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id A94881800989
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2025 21:46:32 +0000 (UTC)
+Received: from segfault.usersys.redhat.com (unknown [10.22.80.78])
+ by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6AB601955F21
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2025 21:46:32 +0000 (UTC)
+Received: by segfault.usersys.redhat.com (Postfix, from userid 3734)
+ id 50C7A229DBA0; Tue, 11 Feb 2025 16:46:30 -0500 (EST)
+From: Jeff Moyer <jmoyer@redhat.com>
+To: ltp@lists.linux.it
+Date: Tue, 11 Feb 2025 16:42:12 -0500
+Message-ID: <20250211214627.152634-1-jmoyer@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250211122354.18324-2-mdoucha@suse.cz>
-X-Spam-Level: 
-X-Spamd-Result: default: False [-7.50 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- ARC_NA(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCPT_COUNT_TWO(0.00)[2]; FROM_HAS_DN(0.00)[];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- REPLYTO_EQ_FROM(0.00)[]
-X-Spam-Score: -7.50
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: rN3PNZMPxJg6Zd5CCjFwAsZgf5QoyRDFo7lcHUvsMx0_1739310393
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/2] nfs10.sh: Remove fixed loop count from
- fsplough command
+Subject: [LTP] [PATCH v2 0/3] tst_device: add support for overlayfs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,23 +83,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
+tst_tmpdir.c:316: TINFO: Using /mnt/fstests/TEST_DIR/ovl-mnt/ltp-hSHEHy5M0s/LTP_aio4q4GMW as tmpdir (overlayfs filesystem)
+tst_test.c:1888: TINFO: LTP version: 20220121-2271-g91a10df22
+tst_test.c:1892: TINFO: Tested kernel: vendor kernel
+tst_test.c:1723: TINFO: Timeout per run is 0h 40m 00s
+aiocp.c:211: TINFO: Maximum AIO blocks: 65536
+tst_device.c:551: TINFO: Use BTRFS specific strategy
+tst_device.c:569: TBROK: BTRFS ioctl failed. Is . on a tmpfs?: ENOTTY (25)
 
-> The fsplough test now runs for 30 seconds by default. Remove the fixed
-> number of loops from the NFS variant and use the safer default behavior.
+The issue is that stat(2) on an overlayfs mount point will return a
+major device number of 0.  The code assumes this is btrfs, and tries
+to issue a btrfs-specific ioctl.  When that fails, the final message is
+printed that suggests this might be tmpfs.
 
-Obviously correct, thanks!
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+I modified the code to use statfs(2) to get the file system type, and
+use that to determine which file system specific code to call.
+Finally, I added code to parse out the upper directory from the
+overlayfs mount options using a combination of /proc/self/mountinfo
+and /proc/self/mounts, as explained in patch 3.  stat(2) is then
+called on the upper directory to get to the underlying device node.
 
-Kind regards,
-Petr
+I tested this on xfs, btrfs, a btrfs subvolume and overlayfs.  Review
+of the series is greatly appreciated.
+
+Thanks in advance!
+Jeff
+
+[PATCH v2 1/3] lib/tst_device.c: factor out btrfs-specific logic from
+[PATCH v2 2/3] lib/tst_device.c: check for BTRFS_SUPER_MAGIC instead
+[PATCH v2 3/3] tst_find_backing_dev(): add support for overlayfs
+
+---
+Changes since v1:
+- Remove dependency on libmount in patch 3.  Patches 1 and 2 are
+  unchanged.
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
