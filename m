@@ -1,79 +1,95 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0F25A3235F
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 Feb 2025 11:19:54 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B18EA31B70
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 Feb 2025 02:45:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7B3083C99DD
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 Feb 2025 11:19:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 10A293C99DF
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 Feb 2025 02:45:22 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 933B03C8E63
- for <ltp@lists.linux.it>; Wed, 12 Feb 2025 02:08:08 +0100 (CET)
-Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ by picard.linux.it (Postfix) with ESMTPS id 87DC93C010E
+ for <ltp@lists.linux.it>; Wed, 12 Feb 2025 02:45:11 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
  smtp.mailfrom=redhat.com (client-ip=170.10.133.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=yoyang@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=liwan@redhat.com;
  receiver=lists.linux.it)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6F2CE61EDA8
- for <ltp@lists.linux.it>; Wed, 12 Feb 2025 02:08:06 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 32A4A140FBB2
+ for <ltp@lists.linux.it>; Wed, 12 Feb 2025 02:45:09 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739322485;
+ s=mimecast20190719; t=1739324708;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=hPpev8pGGuMItNXO6iyQ+L0lnktTz9rAognaEBnFAAw=;
- b=LoyBZaaXo/WwnNs3R2Z/yhzGMoRG+6zr1wZqxtlp4X9VA4ILW1XzTPH9Z8XS4/eglNZn7Z
- SmHZXjTx13vaVYx5jooTXuEZqvqMQ6keYMtu9NDYFehpSu4jKfFBEOqIQAFe/nHErvDWWF
- EgZHIqfuOwjDYnOBxPSwgfKYrpuoEHk=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-626-is3uXLIzPk-tC2iNkUbAjA-1; Tue,
- 11 Feb 2025 20:08:01 -0500
-X-MC-Unique: is3uXLIzPk-tC2iNkUbAjA-1
-X-Mimecast-MFC-AGG-ID: is3uXLIzPk-tC2iNkUbAjA
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8069319560AA; Wed, 12 Feb 2025 01:08:00 +0000 (UTC)
-Received: from dell-per750-06-vm-07.rhts.eng.pek2.redhat.com
- (dell-per750-06-vm-07.rhts.eng.pek2.redhat.com [10.73.180.56])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id F15BB19560A3; Wed, 12 Feb 2025 01:07:56 +0000 (UTC)
-Date: Wed, 12 Feb 2025 09:07:51 +0800
-From: Yongcheng Yang <yoyang@redhat.com>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <Z6v0Z486y3h4IvKC@dell-per750-06-vm-07.rhts.eng.pek2.redhat.com>
+ bh=x2hNBlcILxTfvdvgTRcWzu4zjEKw5+Wmo6ndXU23nEg=;
+ b=PR19M+4QX2O8TRp+kwy/PSB8Sf2sLySLp6Xb+8CSs6QsUJz/MjW7aosbz3IoOgt57Ooy7u
+ kgd8rKiKJd03GHorKSbQLsir5r9LN6dgmFZLG58hnR9PI1ear1LnzezWWtgR75odouB0uW
+ oKrfcjTGfeavkjpiFEerWVSLr/t9KcM=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-586-SRVAswA-PfSg7buj6V9Wag-1; Tue, 11 Feb 2025 20:45:06 -0500
+X-MC-Unique: SRVAswA-PfSg7buj6V9Wag-1
+X-Mimecast-MFC-AGG-ID: SRVAswA-PfSg7buj6V9Wag
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-ab7bb1b91fdso231608366b.1
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2025 17:45:06 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739324705; x=1739929505;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=x2hNBlcILxTfvdvgTRcWzu4zjEKw5+Wmo6ndXU23nEg=;
+ b=ujDTbCkVh3ADBxcjpOhBmVCH29+HwgdpUOatjIFJp5B6luEh+0qeYLzmD2ND4NZvR1
+ Mue9TPKPQzj+KyWyDguipHExO5TySKKZ5OglTuhmP6XSieJwePr9kwgeK8j6yQ4TbZSe
+ taoWpbqdxXyCCVKLpd1564r7DB+vzMIrCNENANcW1/r0ycqJ5HaGuHe19AT7tz/v+TUc
+ w7KVRyRjlOTdfqxfsA3tgJtrkVo27f7NNszbWvBuxIKhDcIjrwsn3lw4cIyKpnTazppD
+ SBzl2wxXBwbqetgclxYrapstQYsvv4QnQeJQ2I4Qf+AsnkhwTiDJpbPIz5UFHZsduEV+
+ 9P9w==
+X-Gm-Message-State: AOJu0Yy8fJGUqziRTbUq4sINqV0ctZACcKFk5SmremeeXlPCOSH1Spxn
+ xkWooqb5ZaPI+3P4WtIjjlU5YWMY4vDCff6wQCD5+9lgK9JXncWBfatcQKteZSggDjP3wh2b4i3
+ tfHexGBjoVGLf14pUzEVwPmeD+bQ4UJqjmDUokE4SssW23MlFZ0fcpQccWk9aDtQPk6An8RBq2n
+ yR0oJa4YN9pi8ljocwNbQoKvU=
+X-Gm-Gg: ASbGncv/EviIbaimi4vu1Fy631Y94CqLwxxWJVjh0A3B8AW+dfDKHD/uhegrf747ADq
+ zr/HpNKe6d4KEJU7QSIcla4QUG0n1nhUDRHmNclBy5Tnw7PFGXjkRQ96B5k8nzqo=
+X-Received: by 2002:a17:907:971c:b0:ab7:851d:4718 with SMTP id
+ a640c23a62f3a-ab7f34aec59mr99484466b.36.1739324705070; 
+ Tue, 11 Feb 2025 17:45:05 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFE0j63FjPxdvs3B15k5wIdFNCVcud7IdM/KsPZDL2c+nUsCshHcH+SQItup3uizXPhMQFtAC0Pp2/e1vbNzlA=
+X-Received: by 2002:a17:907:971c:b0:ab7:851d:4718 with SMTP id
+ a640c23a62f3a-ab7f34aec59mr99482966b.36.1739324704578; Tue, 11 Feb 2025
+ 17:45:04 -0800 (PST)
+MIME-Version: 1.0
 References: <20250211032457.7396-1-liwang@redhat.com>
  <20250211172019.GA1906142@pevik>
-MIME-Version: 1.0
-In-Reply-To: <20250211172019.GA1906142@pevik>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+ <Z6v0Z486y3h4IvKC@dell-per750-06-vm-07.rhts.eng.pek2.redhat.com>
+In-Reply-To: <Z6v0Z486y3h4IvKC@dell-per750-06-vm-07.rhts.eng.pek2.redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 12 Feb 2025 09:44:44 +0800
+X-Gm-Features: AWEUYZm8u6Mfq3ewvgpjNNg9k-YOv0JqDz0nm8c21r87ralS6d60Vgza7uVlWrE
+Message-ID: <CAEemH2c6qa8BGOoqPyXn7J9fTXnbY8CK6N8=mW+a3qEp5P_pxg@mail.gmail.com>
+To: Yongcheng Yang <yoyang@redhat.com>, Petr Vorel <pvorel@suse.cz>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: oGwJAgiS903SjiT4GwTRmC-v0J9--cZM4x8ySD2I4mU_1739322480
+X-Mimecast-MFC-PROC-ID: krpHXfzQTB9D7ARI2zO2b3eb4QaZ3wn1WRtKb3XQx64_1739324705
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Wed, 12 Feb 2025 11:18:57 +0100
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 Subject: Re: [LTP] [PATCH] statx07: Skip test if NFS server is never enabled
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -87,88 +103,67 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: smayhew@redhat.com, Martin Doucha <martin.doucha@suse.com>,
- Yongcheng Yang <yoyang@redhat.com>, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
-
-On Tue, Feb 11, 2025 at 06:20:19PM +0100, Petr Vorel wrote:
-> Hi Li, all,
-> 
-> > The statx07 test requires an active NFS server, as it relies on
-> > exportfs, which reads from '/var/lib/nfs/etab'. By default, etab
-> > file does not exist unless the NFS server is started at least once
-> > (since new version nfs-utils-2.5.4-32.el9).
-> 
-> > This causing the test to fail when etab is missing:
-> 
-> >   tst_test.c:1722: TINFO: Overall timeout per run is 0h 00m 30s
-> >   tst_buffers.c:57: TINFO: Test is using guarded buffers
-> >   exportfs: can't open /var/lib/nfs/etab for reading
-> >   statx07.c:136: TBROK: failed to exportfs
-> 
-> > This patch adds a check using access("/var/lib/nfs/etab", F_OK)
-> > before running the test. If the file does not exist, the test
-> > is skipped (TCONF) instead of failing, preventing misleading
-> > test failures.
-> 
-> > Signed-off-by: Li Wang <liwang@redhat.com>
-> > Cc: Yongcheng Yang <yoyang@redhat.com>
-> > ---
-> >  testcases/kernel/syscalls/statx/statx07.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> 
-> > diff --git a/testcases/kernel/syscalls/statx/statx07.c b/testcases/kernel/syscalls/statx/statx07.c
-> > index 968174330..bc8e6fd65 100644
-> > --- a/testcases/kernel/syscalls/statx/statx07.c
-> > +++ b/testcases/kernel/syscalls/statx/statx07.c
-> > @@ -115,6 +115,9 @@ static void setup(void)
-> >  	int ret;
-> >  	char server_path[BUFF_SIZE];
-> 
-> > +	if (access("/var/lib/nfs/etab", F_OK) < 0)
-> > +		tst_brk(TCONF, "nfs-server might not set up");
-> 
-> On Tumbleweed with nfs-client-2.8.1-44.2.x86_64:
-> 
-> # systemctl stop nfs-server.service
-> # ./statx07
-> ...
-> tst_test.c:1904: TINFO: Tested kernel: 6.13.0-2.g0127a37-default #1 SMP PREEMPT_DYNAMIC Thu Jan 23 11:21:55 UTC 2025 (0127a37) x86_64
-> ...
-> statx07.c:141: TCONF: nfs server not set up?: EOPNOTSUPP (95)
-> 
-> $ ls -la /var/lib/nfs/etab
-> 
-> The same behavior is on older systems (I checked SLE15-SP4 with 5.14 based
-> kernel and nfs-client-2.1.1).
-> 
-> There is a working detection. I wonder what is different on the system you test.
-> OTOH fortunately this patch would not break SLES/openSUSE (it would just not
-> help to detect), therefore I'm not against it.
-
-This is for an update of the nfs-utils spec file, see
-https://src.fedoraproject.org/rpms/nfs-utils/c/eea36e50024efbac78514f96a29f05306905118b?//branch=rawhide
-
-Now /var/lib/nfs/etab and /var/lib/nfs/rmtab are marked as %config files
-and they will not be created when nfs-utils is just installed.
-
-Best Regards,
-Yongcheng
-
-> 
-> Kind regards,
-> Petr
-> 
-> > +
-> >  	mode_t old_umask = umask(0);
-> 
-> >  	SAFE_MKDIR(SERV_PATH, DEFAULT_MODE);
-> 
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gV2VkLCBGZWIgMTIsIDIwMjUgYXQgOTowOOKAr0FNIFlvbmdjaGVuZyBZYW5nIDx5b3lhbmdA
+cmVkaGF0LmNvbT4gd3JvdGU6Cgo+IEhpIFBldHIsCj4KPiBPbiBUdWUsIEZlYiAxMSwgMjAyNSBh
+dCAwNjoyMDoxOVBNICswMTAwLCBQZXRyIFZvcmVsIHdyb3RlOgo+ID4gSGkgTGksIGFsbCwKPiA+
+Cj4gPiA+IFRoZSBzdGF0eDA3IHRlc3QgcmVxdWlyZXMgYW4gYWN0aXZlIE5GUyBzZXJ2ZXIsIGFz
+IGl0IHJlbGllcyBvbgo+ID4gPiBleHBvcnRmcywgd2hpY2ggcmVhZHMgZnJvbSAnL3Zhci9saWIv
+bmZzL2V0YWInLiBCeSBkZWZhdWx0LCBldGFiCj4gPiA+IGZpbGUgZG9lcyBub3QgZXhpc3QgdW5s
+ZXNzIHRoZSBORlMgc2VydmVyIGlzIHN0YXJ0ZWQgYXQgbGVhc3Qgb25jZQo+ID4gPiAoc2luY2Ug
+bmV3IHZlcnNpb24gbmZzLXV0aWxzLTIuNS40LTMyLmVsOSkuCj4gPgo+ID4gPiBUaGlzIGNhdXNp
+bmcgdGhlIHRlc3QgdG8gZmFpbCB3aGVuIGV0YWIgaXMgbWlzc2luZzoKPiA+Cj4gPiA+ICAgdHN0
+X3Rlc3QuYzoxNzIyOiBUSU5GTzogT3ZlcmFsbCB0aW1lb3V0IHBlciBydW4gaXMgMGggMDBtIDMw
+cwo+ID4gPiAgIHRzdF9idWZmZXJzLmM6NTc6IFRJTkZPOiBUZXN0IGlzIHVzaW5nIGd1YXJkZWQg
+YnVmZmVycwo+ID4gPiAgIGV4cG9ydGZzOiBjYW4ndCBvcGVuIC92YXIvbGliL25mcy9ldGFiIGZv
+ciByZWFkaW5nCj4gPiA+ICAgc3RhdHgwNy5jOjEzNjogVEJST0s6IGZhaWxlZCB0byBleHBvcnRm
+cwo+ID4KPiA+ID4gVGhpcyBwYXRjaCBhZGRzIGEgY2hlY2sgdXNpbmcgYWNjZXNzKCIvdmFyL2xp
+Yi9uZnMvZXRhYiIsIEZfT0spCj4gPiA+IGJlZm9yZSBydW5uaW5nIHRoZSB0ZXN0LiBJZiB0aGUg
+ZmlsZSBkb2VzIG5vdCBleGlzdCwgdGhlIHRlc3QKPiA+ID4gaXMgc2tpcHBlZCAoVENPTkYpIGlu
+c3RlYWQgb2YgZmFpbGluZywgcHJldmVudGluZyBtaXNsZWFkaW5nCj4gPiA+IHRlc3QgZmFpbHVy
+ZXMuCj4gPgo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBMaSBXYW5nIDxsaXdhbmdAcmVkaGF0LmNvbT4K
+PiA+ID4gQ2M6IFlvbmdjaGVuZyBZYW5nIDx5b3lhbmdAcmVkaGF0LmNvbT4KPiA+ID4gLS0tCj4g
+PiA+ICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N0YXR4L3N0YXR4MDcuYyB8IDMgKysrCj4g
+PiA+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspCj4gPgo+ID4gPiBkaWZmIC0tZ2l0
+IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zdGF0eC9zdGF0eDA3LmMKPiBiL3Rlc3RjYXNl
+cy9rZXJuZWwvc3lzY2FsbHMvc3RhdHgvc3RhdHgwNy5jCj4gPiA+IGluZGV4IDk2ODE3NDMzMC4u
+YmM4ZTZmZDY1IDEwMDY0NAo+ID4gPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N0
+YXR4L3N0YXR4MDcuYwo+ID4gPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N0YXR4
+L3N0YXR4MDcuYwo+ID4gPiBAQCAtMTE1LDYgKzExNSw5IEBAIHN0YXRpYyB2b2lkIHNldHVwKHZv
+aWQpCj4gPiA+ICAgICBpbnQgcmV0Owo+ID4gPiAgICAgY2hhciBzZXJ2ZXJfcGF0aFtCVUZGX1NJ
+WkVdOwo+ID4KPiA+ID4gKyAgIGlmIChhY2Nlc3MoIi92YXIvbGliL25mcy9ldGFiIiwgRl9PSykg
+PCAwKQo+ID4gPiArICAgICAgICAgICB0c3RfYnJrKFRDT05GLCAibmZzLXNlcnZlciBtaWdodCBu
+b3Qgc2V0IHVwIik7Cj4gPgo+ID4gT24gVHVtYmxld2VlZCB3aXRoIG5mcy1jbGllbnQtMi44LjEt
+NDQuMi54ODZfNjQ6Cj4gPgo+ID4gIyBzeXN0ZW1jdGwgc3RvcCBuZnMtc2VydmVyLnNlcnZpY2UK
+PiA+ICMgLi9zdGF0eDA3Cj4gPiAuLi4KPiA+IHRzdF90ZXN0LmM6MTkwNDogVElORk86IFRlc3Rl
+ZCBrZXJuZWw6IDYuMTMuMC0yLmcwMTI3YTM3LWRlZmF1bHQgIzEgU01QCj4gUFJFRU1QVF9EWU5B
+TUlDIFRodSBKYW4gMjMgMTE6MjE6NTUgVVRDIDIwMjUgKDAxMjdhMzcpIHg4Nl82NAo+ID4gLi4u
+Cj4gPiBzdGF0eDA3LmM6MTQxOiBUQ09ORjogbmZzIHNlcnZlciBub3Qgc2V0IHVwPzogRU9QTk9U
+U1VQUCAoOTUpCj4gPgo+ID4gJCBscyAtbGEgL3Zhci9saWIvbmZzL2V0YWIKPiA+Cj4gPiBUaGUg
+c2FtZSBiZWhhdmlvciBpcyBvbiBvbGRlciBzeXN0ZW1zIChJIGNoZWNrZWQgU0xFMTUtU1A0IHdp
+dGggNS4xNAo+IGJhc2VkCj4gPiBrZXJuZWwgYW5kIG5mcy1jbGllbnQtMi4xLjEpLgo+ID4KPiA+
+IFRoZXJlIGlzIGEgd29ya2luZyBkZXRlY3Rpb24uIEkgd29uZGVyIHdoYXQgaXMgZGlmZmVyZW50
+IG9uIHRoZSBzeXN0ZW0KPiB5b3UgdGVzdC4KPiA+IE9UT0ggZm9ydHVuYXRlbHkgdGhpcyBwYXRj
+aCB3b3VsZCBub3QgYnJlYWsgU0xFUy9vcGVuU1VTRSAoaXQgd291bGQganVzdAo+IG5vdAo+ID4g
+aGVscCB0byBkZXRlY3QpLCB0aGVyZWZvcmUgSSdtIG5vdCBhZ2FpbnN0IGl0Lgo+Cj4gVGhpcyBp
+cyBmb3IgYW4gdXBkYXRlIG9mIHRoZSBuZnMtdXRpbHMgc3BlYyBmaWxlLCBzZWUKPgo+IGh0dHBz
+Oi8vc3JjLmZlZG9yYXByb2plY3Qub3JnL3JwbXMvbmZzLXV0aWxzL2MvZWVhMzZlNTAwMjRlZmJh
+Yzc4NTE0Zjk2YTI5ZjA1MzA2OTA1MTE4Yj8vL2JyYW5jaD1yYXdoaWRlCj4KPiBOb3cgL3Zhci9s
+aWIvbmZzL2V0YWIgYW5kIC92YXIvbGliL25mcy9ybXRhYiBhcmUgbWFya2VkIGFzICVjb25maWcg
+ZmlsZXMKPiBhbmQgdGhleSB3aWxsIG5vdCBiZSBjcmVhdGVkIHdoZW4gbmZzLXV0aWxzIGlzIGp1
+c3QgaW5zdGFsbGVkLgo+CgpUdXJlLCBzbyBpZiBzdGF0eDA3IHRlc3Qgb24gYSBzeXN0ZW0gbmV2
+ZXIgc3RhcnRzIG5mcyBzZXJ2aWNlLAp3aGljaCB0aGUgZXRhYiBmaWxlIGlzIG5vdCBiZWluZyBj
+cmVhdGVkLCBpdCB3b3VsZCBiZSBmYWlsZWQgbGlrZSB0aGF0LgoKT25jZSB3ZSBzdGFydCBhbmQg
+dGhlbiBzdG9wIHRoZSBuZnMgc2VydmljZSB0aGUgcHJvYmxlbSBkaXNhcHBlYXJzCmJlY2F1c2Ug
+ZXRhYiBmaWxlIGlzIGNyZWF0ZWQgYnkgdGhlIHN0YXJ0aW5nIHByb2Nlc3MuCgpUaGF0J3Mgd2h5
+IEkgc2VudCB0aGUgY29uZmlnIGZpbGUgZGV0ZWN0aW9uIGFkZGl0aW9uYWxseS4KCgoKPgo+IEJl
+c3QgUmVnYXJkcywKPiBZb25nY2hlbmcKPgo+ID4KPiA+IEtpbmQgcmVnYXJkcywKPiA+IFBldHIK
+PiA+Cj4gPiA+ICsKPiA+ID4gICAgIG1vZGVfdCBvbGRfdW1hc2sgPSB1bWFzaygwKTsKPiA+Cj4g
+PiA+ICAgICBTQUZFX01LRElSKFNFUlZfUEFUSCwgREVGQVVMVF9NT0RFKTsKPiA+Cj4KPgoKLS0g
+ClJlZ2FyZHMsCkxpIFdhbmcKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5s
+aW51eC5pdC9saXN0aW5mby9sdHAK
