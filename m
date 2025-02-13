@@ -2,197 +2,114 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 471DCA35B1C
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2025 11:06:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1739527559; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : cc : content-type : content-transfer-encoding : sender :
- from; bh=r2yM5d57jZ/UP6xbllrU3LPqfmya7l4f6BxJ3hJCBEU=;
- b=KntTSTQU8iZTa7msNV93j8tH1wwWuxHwStCuDkOigAGLvwLC8new5coHzSb2rM85AQg/x
- RtHBLPvTjD1ZT8RqjT27Zd+QHqqG2mws+xNvKLXa+IltkZzBvrpsLw6STTprnGqBX6q+GRk
- PM4uI7pxCBD69tnUt0LytYUWvHwh9nY=
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C3AEA3407E
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Feb 2025 14:37:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DCC8A3C9AE2
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2025 11:05:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4970D3C9AA2
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Feb 2025 14:37:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 644043C9A6B
- for <ltp@lists.linux.it>; Thu, 13 Feb 2025 14:29:44 +0100 (CET)
-Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=oracle.com (client-ip=205.220.165.32;
- helo=mx0a-00069f02.pphosted.com; envelope-from=rhythm.m.mahajan@oracle.com;
- receiver=lists.linux.it)
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 360A63C974A
+ for <ltp@lists.linux.it>; Thu, 13 Feb 2025 14:37:36 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
+ (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 63D7210231DB
- for <ltp@lists.linux.it>; Thu, 13 Feb 2025 14:29:42 +0100 (CET)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51D8fcUp015106;
- Thu, 13 Feb 2025 13:29:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
- :content-type:date:from:message-id:mime-version:subject:to; s=
- corp-2023-11-20; bh=StIe2U1jO6Oiu6QMKds6JcCdENUgcBXuUCFWq9Zdv2M=; b=
- RqJT/YMCbVf7z964kxhZaD08pCPMiVu49s42R5BGgrYmH4ILGiFrvSirAX9mwUNR
- 862axxjmZ5p7gCFgh9jT5IjGpkX0QIDqvWRASI6idjQIbVllDoFK5a+lBA+XV8Pl
- QIP2Q/iixtAiIozPJqRT+QuvlrFRmZP2fEDKLWIefRYoRz4Nq8FunNzRCqqZ4oIV
- IY8C69BPOOC2SAlLhNr0r2m073KKYmwoCMsf/KHF+DQ4R5CGD6BvJk6VajuX/5GE
- VmHi2m9Zd99ixU5mDdiyBhUpl1Jtn9EP/9D3DX36GDpMc3teWxwsUBL36ZzLzvKV
- nLIunIyYBqGmMNDTlZ5GYQ==
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 44p0q2hm2n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 13 Feb 2025 13:29:39 +0000 (GMT)
-Received: from pps.filterd
- (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 51DC0cN0012623; Thu, 13 Feb 2025 13:29:39 GMT
-Received: from nam12-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam12lp2171.outbound.protection.outlook.com [104.47.59.171])
- by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 44nwqbpmdk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 13 Feb 2025 13:29:39 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e6Qyaz5glsllcR0nvK7nar8XHzmL0e5+z8Zw6E++l2y6a06PwMWzWLVzMMpBnbYc9GearqyMr1MdVH/ngo7pZC2v7cINee+AnH85rnJSH6ieOLtaITEuOyvkbo84TckABXhwPVwDZMVQQSjmH9XULJemxcpJK+8ZjoUkZs6/3DicjN23DlpBNnvO1P5rUHbeD8l3vonwqttPK4NJK/cL1NTAoNiXUMSzL/vLPR1GW8MFnCXpchkA2sj8rXYnlRy1znl+LIJEY+Ga6wrr/Kh642YJx51Nl1hjuuWH9ZZJEmzSx94SV7uAjRODjp+Mc6u0XrXYh4zckeFKPCz+pkPvNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=StIe2U1jO6Oiu6QMKds6JcCdENUgcBXuUCFWq9Zdv2M=;
- b=F8kkz247BpS1ZaDol1nd/+Kz0a/8bkpFCM1nvBRtLEz9Foxj5XJ5TkNkRH/4xWoespoSxfKyiiNx85NUaTqOdw1Oxz7dfLxGTIfHXg8+owu/401Mjyee00U7NC6pfkMIO5OVsSLjsL2bThGe8fXlFHAlgvRIQ3axjC1GDislXv/ecWBkMmOqQi8aCxUjkFmRvK2LEqsVDoXIqe8oHEP9WYZk/oZ5+EtIwulNlvJYlz/i8fOpx0IkDBeq6PgaCm2+GHKcXfN+FM8RABstxLZcEcmUSRE6K0D0JrN1AFAWEFaFcMRHvLfiEVH5JEOGb1NdXi/FiPfDbOhw0TNnS02Ldg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=StIe2U1jO6Oiu6QMKds6JcCdENUgcBXuUCFWq9Zdv2M=;
- b=lke9hf/wViGr8pmoxgxkLSKgsKqyQLoEGiAf5ZeOkkZVDgleGst2VsGbzGBaZeyjhc1vbaf4YN/NM8hV+NhR6WmZ3dlWlMGm05E0BRMrh+l+GmO8AVuC+hPCJWFXn8lTuQcQ7PEgCY2yhhQlPnW0IVl3wcXdjiLf1Y1Ih265hfc=
-Received: from BLAPR10MB5380.namprd10.prod.outlook.com (2603:10b6:208:333::14)
- by PH0PR10MB5872.namprd10.prod.outlook.com (2603:10b6:510:146::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.13; Thu, 13 Feb
- 2025 13:29:35 +0000
-Received: from BLAPR10MB5380.namprd10.prod.outlook.com
- ([fe80::ef73:6117:7d5b:3227]) by BLAPR10MB5380.namprd10.prod.outlook.com
- ([fe80::ef73:6117:7d5b:3227%5]) with mapi id 15.20.8445.015; Thu, 13 Feb 2025
- 13:29:35 +0000
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: fanotify01 test fails on nfsv3& nfsv4
-Thread-Index: AQHbfhjii/4a5jDfbEujkblJZpzNZQ==
-Date: Thu, 13 Feb 2025 13:29:35 +0000
-Message-ID: <BLAPR10MB5380CCF4F8E99589DF0312EBBCFF2@BLAPR10MB5380.namprd10.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-IN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-reactions: allow
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BLAPR10MB5380:EE_|PH0PR10MB5872:EE_
-x-ms-office365-filtering-correlation-id: ab274012-b918-48ff-1684-08dd4c327519
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|13003099007|38070700018|8096899003; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?UVdh1RoKnxYsHjXAmDSxuJMoLmIwDOlTfytGr1KiCL5OoIzhS08BncJO7zns?=
- =?us-ascii?Q?GaBfd8xIynu8heg1sJihRInw4QwNKjtS4Ly/hC12aDw7AxKcGrj21hEEe6m2?=
- =?us-ascii?Q?1430O8IfSJgYmmS4e73ehHh7iNpNjVMogj3ihICj7YCKzo5v9Fy4nE68Tpgf?=
- =?us-ascii?Q?kW8A2SZBY8FBruE8aCGtl5AQ4T1Tj3AjQYaTYRjBwL19xZnSj5IVRu5Y623b?=
- =?us-ascii?Q?W5fzRZ6OHNemIc4/rhcH0yI4VPOSmAgSPeUguwZsYQQ8cF/E3NGMzBZZm1Hc?=
- =?us-ascii?Q?mWW+GvSqOTbXTZ0rYlZssL0n311nChplri2pozNzDu95ldwbs2r0R9K/N750?=
- =?us-ascii?Q?ayzNchXAgBbDG2Nc0KGGSR82Kv9yizWFeL+c85JPxQtVJLOfplU+6D2Bjrju?=
- =?us-ascii?Q?q4uyglVnrCs5lwKWJ3NaSTVC0/vE6EzzEGzf7XOEVSqtWInHyBAuSeRMFjNK?=
- =?us-ascii?Q?YqDua2iIdGXCaRefENW5Zu30qkkNyjpGM0k59NCexZaDgPp2A/Kjjmp+rN2A?=
- =?us-ascii?Q?71+sQH8CtURPuWgMiYipYYhiBfZSyZQXf64GQQNqFp6RMpu/FAlhk5xDrrYJ?=
- =?us-ascii?Q?Y0uNdzL5Dx2Gn5eEFLLAcyHeARwTqa282zmUSD341j6WPpvN6O34+ex9h02R?=
- =?us-ascii?Q?6TCrMLL17GwV4aaQPoHAawRIJneE/19Ur1J0k3QH+HHFKfUfOd0B5gRGHpee?=
- =?us-ascii?Q?Sd3aL4oLJlIf6r92WIRZOKUjcg1qAGPq1VJE55V+wKhCrFMhPlO35P2Vc4pj?=
- =?us-ascii?Q?mef/VF7c2IaxFUbGEUG43bGFpyn272a6fLrzzWwO8tRRu9F5x01W1pcqvrYC?=
- =?us-ascii?Q?qfnln83uJ776CZ5KE0m1kHh7cA968wUoX5KtB/AR/YzOIPRkrTyhVRNXvMAC?=
- =?us-ascii?Q?x4sT+LaxL5Ii/pyi7xt6qJ23mTCY8SgNiH7jSMSgZjVjWo4KKkoEoGH9xKmR?=
- =?us-ascii?Q?zgt3dJVIS1Xf8SSBR5gWtU9bZGsGZoxe7bcqKNx2ww/GaRsoKOWptW3HpsrZ?=
- =?us-ascii?Q?lOa3gXV4m4Hi3UQdZ7elnUYVOMU/Wvu/e5ESECYPb7/sC4PWguOk+2UynTLJ?=
- =?us-ascii?Q?GvU5ofSeyQjT/RGaFydqw+oS/ZQke88FWDY0EbCPUrNzSUPkEgrW5tKnAOMN?=
- =?us-ascii?Q?mGoNQHLchkCdRvd04RdvVt7UAiUD1JIb3V5omAetzz4jqZzAcURzV9diSazK?=
- =?us-ascii?Q?km9OdrHISC+hCw7lth6Ejdjaal+aJTGWaong8ZU8ZrzP2mWbdUZ5AYwzsD65?=
- =?us-ascii?Q?G1/8tdFFY5nL5iKqIY5wQGIlK9k5HTgVNzncUGs+Kwgtwp0CGKILts5KFA8e?=
- =?us-ascii?Q?qATMD4CvBpP/A4zZMny2EX1xYNb5E2KCjKZTiAKIG+xlkvkOOOTr6dqkapf7?=
- =?us-ascii?Q?G4D3JxNM1tBo+oLmiRqD9PJmjdrqHFIhAaLwZoRQ8z89cM7Lj/FLYuyJK6T+?=
- =?us-ascii?Q?APNOGt/GlgAAW7KU6HpKtsS+JuOJ1Z00?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BLAPR10MB5380.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(13003099007)(38070700018)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?IRFD4+dWwjJUJgNgPXyChpv+9UYinx0AyY8B6580jPbYvTe+x9RmOZDBUhle?=
- =?us-ascii?Q?TsiuHPhBkjLG/ol87XVLNLn6dfzNPRxW5wylXXyknb3Z+A5sr/BeYLXOu4aB?=
- =?us-ascii?Q?43/iEznvQETyPtUacAuuDVWND0ZD1NIF9jcYz5epQo+Bzj9xRHk0hXWnrddq?=
- =?us-ascii?Q?WeuS/YiZMB3bmdKMlfIu+WFh1f9za7Rz//LvrHIixzXpr+m7cTwqtG4tmvB2?=
- =?us-ascii?Q?RCf94dSZnNzYClpmpDB9jW1Ysl/lIuvd1TLnTAB5nTX0o7HcJ8q8JMUcv1mv?=
- =?us-ascii?Q?2VESYLQRJUuTq6DZrMK+6L/Aq8vnq01z44fRi3uaUYQPwMTxzrBEDkf6WRv4?=
- =?us-ascii?Q?mZ+8tpGAxeVhyb8df1Gdjqu3PfjO5Yt8fMM2IRBe3p9kz8oga8LE5r5vmD9i?=
- =?us-ascii?Q?U3KdBouaTERzYt4sauqxlFTUeJnl3tRfGQA0xs5uUhA6Igun0bejA91T5CZM?=
- =?us-ascii?Q?xR+aBvKkZsR4HRQCgjJQbA61duefeqq9iKl/Ivi+5x5dwiJSHeHQ3rXt8nrl?=
- =?us-ascii?Q?AEvP7zHbh/56CTCCTDCUnOT3CgK7/cXuBxCfwOMpD0XtBPHUD25+8B8ITeAy?=
- =?us-ascii?Q?o9d9p8NZMQo9xKUHYNulXIQROGAJIrs5KllVe8BgN/XGROcjLGA/bdDU9Vrd?=
- =?us-ascii?Q?7Kei/G0Zyv5yD5KLOvNnUuQDzHuK7F+GwnwMZfroHYb8Wdutfu2V3f25AWjC?=
- =?us-ascii?Q?6dhExmZ26e2R/OO/e/Vjzrwwv6+AgTlR/6dFPh+2q9gAHEv4mCsHGlfLvHBf?=
- =?us-ascii?Q?iqfKIvnYbvhyRd+vX6Uo4s5rYPV9LkxCqlTlT5NCo4rg2VwxMfTKwTcsEcjZ?=
- =?us-ascii?Q?GonmBKQ3CJBsjOG63kg1Zdsp9Z3+IFActMhECQ4vVd+QjlahvnYleAPvdXxQ?=
- =?us-ascii?Q?3NDucokUWaVgIFHyBx63kibMlQ8jCTddVmU8mDGqkn7ubwxH54XhhPqKj8Od?=
- =?us-ascii?Q?KBJ4LVbqicSHR00zEV5tF6aqpcoeZY5jCE47U/COQc82ILR++dzU8gnhFwz6?=
- =?us-ascii?Q?JRmWUbiuHSHCGdOiyXDI9S7ApB+owhbfOl7FM/wjbG/8/10CfhKDwkm5cJVA?=
- =?us-ascii?Q?NmUsVhMQ2+1l3Ex9uwqipu2ZAAQNZrbltkPe+S0I2gAzZM4UqH6WkzyyDMDg?=
- =?us-ascii?Q?wi9yHTqSCKDFXqVSDKQ8TSWGpL8WxdtTlZB3aBKLshmjQuCXf0cIZrQcY9Jj?=
- =?us-ascii?Q?ivHx0fhSKDOLCpbn+97j4pXNi6t1wGAmuBmhO9RPoCsr5QA9xMUAdeqNFnYi?=
- =?us-ascii?Q?7whJmaBotFPJ1d/8cgQUwIdn0TKSwKyMNMSGyLCyRN+3QNBvo8mFwSNZoOR5?=
- =?us-ascii?Q?zu4WTblbFGNpU8YugLIido6sAKYaf0PlNGIKaLT8RpiikJflx7DhrJB36+YX?=
- =?us-ascii?Q?NiO42Jnbl3XXgQO0CtCx8eXm8TrOGt4fUHbGkBT9wAg1dv+462TEtTS+VeWr?=
- =?us-ascii?Q?D/qqbqwn47KzhGSM+KoljepNhKFaKxBKi2W8QsmcZln+oOvJAz3AatV7CuXo?=
- =?us-ascii?Q?fU96I7QWqECSCds/dt38eoFDYEvRlo1Irl1c9hmunLa9p0P9llXhIVSOmimM?=
- =?us-ascii?Q?fw4MvmklLlH5JsiwhTZtEWovn3r7DSAWmVBBIKZufw7GY+zUle+D6xv1CMDP?=
- =?us-ascii?Q?z2U+c7fINLPoznxjhpwbUyQ=3D?=
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 761E9141CE83
+ for <ltp@lists.linux.it>; Thu, 13 Feb 2025 14:37:35 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2A74E1F86A;
+ Thu, 13 Feb 2025 13:37:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1739453853; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=40cH/2VswWnTx2zI9WPtHuJb1AWb5CGaMnce0LLyhr8=;
+ b=bYGd39Jo5n9LT8dK6LtYjWp+m1f0F+mgI52sZuhamD+ftPxpNdQ8oXP94x0FJtfsEg1eud
+ G0xqNIyd4EswLgWZKksVeNViBcsWAWYgjc99gui9h1rkbNjE6qIxaHL01kVcJO1sVd25QQ
+ BEDVAd0gc7R6itTeX2yQjT7PisKXSqA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1739453853;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=40cH/2VswWnTx2zI9WPtHuJb1AWb5CGaMnce0LLyhr8=;
+ b=t/mFHv+nqDvhKJJqZ1m2eNl2ojHzT3dWhbtfRTwSUDiQTfLwR7BdAadWkTR44txbhdjjQR
+ AtsF1LzoVUxSIPCQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=bYGd39Jo;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="t/mFHv+n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1739453853; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=40cH/2VswWnTx2zI9WPtHuJb1AWb5CGaMnce0LLyhr8=;
+ b=bYGd39Jo5n9LT8dK6LtYjWp+m1f0F+mgI52sZuhamD+ftPxpNdQ8oXP94x0FJtfsEg1eud
+ G0xqNIyd4EswLgWZKksVeNViBcsWAWYgjc99gui9h1rkbNjE6qIxaHL01kVcJO1sVd25QQ
+ BEDVAd0gc7R6itTeX2yQjT7PisKXSqA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1739453853;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=40cH/2VswWnTx2zI9WPtHuJb1AWb5CGaMnce0LLyhr8=;
+ b=t/mFHv+nqDvhKJJqZ1m2eNl2ojHzT3dWhbtfRTwSUDiQTfLwR7BdAadWkTR44txbhdjjQR
+ AtsF1LzoVUxSIPCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CA3A913874;
+ Thu, 13 Feb 2025 13:37:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id jUe8K5z1rWdSVgAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Thu, 13 Feb 2025 13:37:32 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+To: ltp@lists.linux.it
+Date: Thu, 13 Feb 2025 14:37:27 +0100
+Message-ID: <20250213133730.27999-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: ppetL7tV+dr1UsZxgAM52GDOZKC8/6CmH7x8qJbkLNhF+wSjoKPrWRqebYemxuIZSMJBLhOjSb6zkYcS2rZXH22sK4AavwTc58DIjCIzhmNqDZhCcKt7xuHBRCBNcCp56WNgwSfQkLT5kEsNa+8PGbfSeWvRh95eSpDh6W8DoPuaewI2X2ZWYuahBrGJqYoJv2n8mB6ll85+nPRYE7WP9jqxjBtWyHw/vbr/11zIn4EkTWFEEvXUJj0JyJQAuzq2GKCq7p+J+NE7ukaB3m0bb0svv3yfqi2qshxkAsgNdzpO1CvmI+ykvsqEawwbw8fBXzeeJWL2SPAtMNQA0aeZnwxZs3tP42zRA8SlftBdeXJiQNwNilf2W+lNxilRJ8+iQNGPPGvlRELbjaBgXUNX/P8t+TCUwuBLt4IdDxDEQP8Q9n5ALrHCoTW5yvgzqEAy8+qXoWPiQuOkaKnnAjshSYx5yMftBmIr8tGOhNmh6BFpQKniqn2mc1pIWzugbLU3CDozU3RQrrlI0ZXxGODLxOBSd9fbgrnXZe1rnhwtcWkA/o2Tkn1oKbgeAikK60+VqLCZK2f23uqE3cX0abN/m75u3im+vBS4ykGmLau62DI=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5380.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab274012-b918-48ff-1684-08dd4c327519
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Feb 2025 13:29:35.3079 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 22hEXK6YC8BU5JXC5kFT8ChTA0DpiHLeg57Dd18A1iiskoqdnCr0hcsokWisTh/qV1HF+udpk2HRGhQBaYYGz598xbRDqVu0Bsoi8WnFq+g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB5872
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-13_06,2025-02-13_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- malwarescore=0
- mlxlogscore=999 mlxscore=0 spamscore=0 suspectscore=0 adultscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2501170000 definitions=main-2502130103
-X-Proofpoint-GUID: j2jpVu25gzXsmbwgrzMPoPASTIXHbihA
-X-Proofpoint-ORIG-GUID: j2jpVu25gzXsmbwgrzMPoPASTIXHbihA
-X-Spam-Status: No, score=0.1 required=7.0 tests=ARC_SIGNED,ARC_VALID,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,
- SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Rspamd-Queue-Id: 2A74E1F86A
+X-Spam-Score: -2.61
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.61 / 50.00]; BAYES_HAM(-2.60)[98.23%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCPT_COUNT_TWO(0.00)[2];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ TO_DN_SOME(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FROM_EQ_ENVFROM(0.00)[];
+ ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:dkim, suse.com:email,
+ imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Fri, 14 Feb 2025 11:05:57 +0100
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: [LTP] fanotify01 test fails on nfsv3& nfsv4
+Subject: [LTP] [PATCH v1 0/2] kirk: add --run-pattern option
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -204,60 +121,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Rhythm Mahajan via ltp <ltp@lists.linux.it>
-Reply-To: Rhythm Mahajan <rhythm.m.mahajan@oracle.com>
-Cc: "jack@suse.cz" <jack@suse.cz>, Darren Kenny <darren.kenny@oracle.com>,
- Ramanan Govindarajan <ramanan.govindarajan@oracle.com>,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
-fanotify01 test fails on nfsv3& nfsv4 for mainline 6.14 kernels.
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-mkdir /tmpdir
-yum install nfs-utils  -y
-echo "/media *(rw,no_root_squash,sync)" >/etc/exports
-systemctl start nfs-server.service
-mount -o rw,nfsvers=3 127.0.0.1:/media /tmpdir
+Add a new option --run-pattern to execute tests which are matching a
+certain name pattern. For example, "sendfile" will execute all tests
+which have "sendfile" inside their name.
 
-cd /opt/ltp
-./runltp -d /tmpdir  -s fanotify01
+This patch-set also removes some linting tests on multiple python
+versions, since we always test the same linging configurations over
+all python versions and that's not really needed.
 
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
-fanotify01.c:340: TFAIL: fanotify_mark(fd_notify, 0x00000001, 0x00000008, -100, ".") expected ENODEV: EXDEV (18)
+Andrea Cervesato (2):
+  ci: test linting only with python 3.9
+  options: add new --run-pattern
 
-We have been seeing this failure since 6.9
+ .github/workflows/linting.yml | 11 +------
+ libkirk/main.py               |  8 +++++-
+ libkirk/session.py            | 54 ++++++++++++++++++++++++++++++++---
+ libkirk/tests/test_session.py | 13 +++++++++
+ 4 files changed, 71 insertions(+), 15 deletions(-)
 
-The test no longer fails with the revert of the commit
-359047c97 fanotify01: Test setting two marks on different filesystems
-https://github.com/linux-test-project/ltp/commit/359047c97
+-- 
+2.43.0
 
-Could you please confirm if this is a test case issue or a kernel issue?
-
-Thanks,
-Rhythm
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
