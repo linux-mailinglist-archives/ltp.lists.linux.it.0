@@ -1,76 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 937E9A35E2C
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2025 14:01:43 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 78740A35F53
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2025 14:37:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8E8AB3C9B03
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2025 14:01:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 33D0E3C9AEA
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2025 14:37:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0CE673C1AFC
- for <ltp@lists.linux.it>; Fri, 14 Feb 2025 14:01:32 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 8FD5D3C7A25
+ for <ltp@lists.linux.it>; Fri, 14 Feb 2025 14:37:30 +0100 (CET)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=permerror (SPF Permanent Error: Unknown mechanism
  found: ipv4:195.135.223.131/32) smtp.mailfrom=suse.cz
  (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
- envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
+ envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 66977622483
- for <ltp@lists.linux.it>; Fri, 14 Feb 2025 14:01:31 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 07877101E0CE
+ for <ltp@lists.linux.it>; Fri, 14 Feb 2025 14:37:29 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A29992118B;
- Fri, 14 Feb 2025 13:01:31 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 41F2721160;
+ Fri, 14 Feb 2025 13:37:29 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 92D87137DB;
- Fri, 14 Feb 2025 13:01:31 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 29DCF13285;
+ Fri, 14 Feb 2025 13:37:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id K3rKIqs+r2caAwAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Fri, 14 Feb 2025 13:01:31 +0000
-Date: Fri, 14 Feb 2025 14:01:33 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Rhythm Mahajan <rhythm.m.mahajan@oracle.com>
-Message-ID: <Z68-rXnMHNi2LEY3@yuki.lan>
-References: <BLAPR10MB53806691A64D8003A5D0FD5CBCFF2@BLAPR10MB5380.namprd10.prod.outlook.com>
- <40043b19-65a9-47b1-a759-4f1478d3faba@oracle.com>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yUswCRlHr2eXDwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 14 Feb 2025 13:37:29 +0000
+Date: Fri, 14 Feb 2025 14:37:27 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20250214133727.GA2221874@pevik>
+References: <20250214112135.18947-1-chrubis@suse.cz>
+ <20250214112135.18947-2-chrubis@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <40043b19-65a9-47b1-a759-4f1478d3faba@oracle.com>
+In-Reply-To: <20250214112135.18947-2-chrubis@suse.cz>
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
+X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
+ ASN(0.00)[asn:25478, ipnet:::/0, country:RU]
 X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: A29992118B
+X-Rspamd-Queue-Id: 41F2721160
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=7.0 tests=DMARC_MISSING,SPF_HELO_NONE,
- T_SPF_PERMERROR shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE, T_SPF_PERMERROR
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] fcntl27 and fcntl27_64 tests fail on nfsv3& nfsv4 for
- mainline 6.14 kernels
+Subject: Re: [LTP] [PATCH 1/2] testcases/lib/run_tests.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,34 +81,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "andrea.manzini@suse.com" <andrea.manzini@suse.com>,
- Darren Kenny <darren.kenny@oracle.com>,
- Ramanan Govindarajan <ramanan.govindarajan@oracle.com>,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > The test no longer fails with the revert of the commit
-> >
-> > cce93d3a3 Refactor with new API and merge fcntl27 + fcntl28
-> >
-> > https://github.com/linux-test-project/ltp/commit/cce93d3a3 <https://github.com/
-> > linux-test-project/ltp/commit/cce93d3a3>
-> >
-> > Could you please confirm if this is a test case issue or a kernel issue?
+> Enable TESTS_TBROK
 
-Before the test cleanup it did only check if an attempt to set read
-lease on a file opened for writing failed. Now the test checks that it
-fails with a specific errno i.e. EAGAIN, since that is returned by the
-rest of the filesystems.
+> diff --git a/testcases/lib/run_tests.sh b/testcases/lib/run_tests.sh
+> index 0abca2f3c..168dbb451 100755
+> --- a/testcases/lib/run_tests.sh
+> +++ b/testcases/lib/run_tests.sh
+> @@ -90,6 +90,7 @@ run_tests()
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+>  run_tests 0 $TESTS_PASS
+>  run_tests 32 $TESTS_TCONF
+> +run_tests 2 $TESTS_TBROK
+
+Maybe also add $TESTS_FAIL (untested)?
+run_tests 1 $TESTS_FAIL
+
+Fixes: 29d8613dbd ("testcases/lib/run_tests.sh: Check expected results")
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+Thanks!
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
