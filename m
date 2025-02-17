@@ -2,100 +2,99 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE4A5A38404
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 14:09:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62750A38453
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 14:17:21 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1739797763; h=message-id :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1739798211; h=message-id :
  date : mime-version : to : references : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-transfer-encoding :
+ list-subscribe : from : reply-to : cc : content-transfer-encoding :
  content-type : sender : from;
- bh=1mo5VYLUjrOba00LCn32raa3wfyF5psdtF3Qk8Xsn/M=;
- b=pUsxO/BjMqiU3GX3fGmnH0IyZTVILN2zxDKQFXqoHb0WQJxd7sZVe7pXHPWPPjP5cPgo9
- lDtpkybvxwEjjCCDk9HrMdHiK9lcW+q3xSlmFka+QwFvtvfMlKSxuceejST37Fi5P1M+Pvd
- YoYQntAnX0jD22l/gNZviLCSVzp2T6Q=
+ bh=MgpY88vhjPcIyY4iJKa1r96iER2d1Ep21ElZO3YukEI=;
+ b=FRcA4Y77GoHtXusGo+SnWoVcUxWalo9L0SBGOz9xv1a4stI9Xfuk8pV/ad4Kk3Ycs5o7g
+ RdnSNGsDU6ea3555w6BkFdqMIVBXrs+qm/+8oIL1nph8Zmd8L/xzeYlevNhfciopBkNcrir
+ Car+P/ndVJi2xQBz9BTMkd4NJgBTAE0=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4B02E3C9C4D
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 14:09:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0F75A3C9C13
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 14:16:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 752473C4C99
- for <ltp@lists.linux.it>; Mon, 17 Feb 2025 14:09:10 +0100 (CET)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
+ by picard.linux.it (Postfix) with ESMTPS id 9ED9B3C99E9
+ for <ltp@lists.linux.it>; Mon, 17 Feb 2025 14:16:37 +0100 (CET)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 016DD6BFB3D
- for <ltp@lists.linux.it>; Mon, 17 Feb 2025 14:09:10 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-ab7483b9bf7so551834066b.3
- for <ltp@lists.linux.it>; Mon, 17 Feb 2025 05:09:09 -0800 (PST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 786F820E5B9
+ for <ltp@lists.linux.it>; Mon, 17 Feb 2025 14:16:06 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5e05780509dso1574828a12.2
+ for <ltp@lists.linux.it>; Mon, 17 Feb 2025 05:16:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1739797749; x=1740402549; darn=lists.linux.it;
+ d=suse.com; s=google; t=1739798166; x=1740402966; darn=lists.linux.it;
  h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=5HBxqCkRaiT4g0PptgAPXoxKOvsLSAkmbqRGD+cFlDs=;
- b=EVtAWPU0AqUaXaAHD3Sk+LR+udcj2iOZouyg5WVlIgZVzphFR1+nYUwQLHg9Nepf6M
- mmQVzGicnyGWcnKjuHAxmAwa3ASGlkpMd2gb6/PIrpZEOEjubudD7BYAGg/QXaAESpGj
- Q14BhNiJINfYQO+2ILQUu0kjBrTRVRuLjP3IEge/LpcE2lRNJs/l+BFdgjEwCiosT3Ng
- doxkznwh8UrbrD28CPhFPXz3a/yy5MpEek6fyqS2GfIu0xgmhIIF5ODV+PLNP+ESwsB1
- UHoa/fykZat2bPt5sWe/EuY3ifwRHqcrgC1Va9kzeYUpbY+Tt/wfvRgb3F6i+5e1JcU2
- AYlA==
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=633yEiwb0ZImCydcK293f789q+xD+CAtlXEq4SPAfcI=;
+ b=TwVvcBL8wUgo8OEob3muAf+SEa2jby2vvS6QsqSU/bqqrSaZ1bg+Ar8M4wE0tngsJf
+ 33XNkuozbNchR1Z951snDWnZSrLUdxt/ZUK2ur6l11YWoqp+yZUzE9TmQGAIbU1inbbt
+ 5vA3HQRkKfFQTr1LtufErLO3DsV797O7YK/BigKGXyLQ/O7ilFmIP/TdYooR1jw1tQ69
+ 407xSujhaGi1nWFOeEXSeNE8wGrc8CuOEsnx+dxMO8nWs08znGB5wEXIf/V2IkXcVJMi
+ qbKMeGPqeP67q8SkWMDhlq4Wmg77cBCD9d2ZK9IHOI0SRWgd+5JTKk2JM+uX8aV6lfXZ
+ 3RaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739797749; x=1740402549;
+ d=1e100.net; s=20230601; t=1739798166; x=1740402966;
  h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5HBxqCkRaiT4g0PptgAPXoxKOvsLSAkmbqRGD+cFlDs=;
- b=gtgxp4JtaZbcfRqbSeRRPqprh/lFXexhBD7dLQQ0p4Eh5MctoVo0wFAQa17znpN3Ei
- W9e5HaQfVBga1sg3Ty7By8Nq2K5SuLM4aZpVZbnwon0oSxCQfNMoMzkv1fh0M1uzNraH
- 7IvE2CxNkMhokDdQnSdmiICSrnZg/RS+dzjbkBzOJM5Z7wn2HNCJ41fFqJ05L9oojRHS
- xlojk77t5QOsoW9RvH+D6inZ4ik7X24hfUZ+czSccGz2sjvJz6en8KpBGWbp1QMT8Mka
- xhXLBbJLboymg6DBreKnK9xbizcTTz4lEdocTOS5imFbxVmRuPYGtdcYAc5gE6jOSH7H
- xXWg==
+ bh=633yEiwb0ZImCydcK293f789q+xD+CAtlXEq4SPAfcI=;
+ b=Mbmkhd56nd+3fOz0M8ZYoMI62BAtHsYy2f7zE00bXHC8cobYJBeI+Fn7VvVQRyC3PV
+ H6riK1xu1EmJ+cj7kYFVn3HC2TBCFXl9ZULQGe1F3i7wI6cj4CGQxVRolMX2+OjZtcvu
+ TEgvujbYl3TrtwuDeeq54KesoyqlAjYbMwRl/rUZiUHwhdKC90aleuhTBRCB4xxtyKsm
+ 7tRZ+GktJBW6lDWhyOT9YWtnNS7EC4cUr9B1WKG9RxXdc/SC8dNzXVUkknU1dR54EvQ/
+ 84jHN4hem9K3cawH7an6R87qstP8Ihzb/PDgCObLJMX4jywfXvIe11grbjm8T6+51Dz8
+ YH+g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUh8eABcPYIMElOEPaaXSy/B4RbNuoaRE6dzDnub/IvtYdMtdwcJTjG57hz+wbqlK2jfrM=@lists.linux.it
-X-Gm-Message-State: AOJu0YwprXY+U2U4ocyhyFFjSOv5u6ffu0H2OpSVaGq4YFBO71mY6boo
- KXpD8khasf9jqbcCorY3NBhxlpKD/S8eGJ+kQxzyOpu7jU7V8FTfz88WyLzdCEk=
-X-Gm-Gg: ASbGncuofER4ASM95cZk0LsZ77qA1hcazKB1WBpaiM+57kIjLScOiG4xg+QQ79DPX77
- nfSxA7aAdd90frqhHJknTs7vkaMJiKtlhaJ3S/vLmtxWtGCEWupZRqjwedENgsQofUYkUsgo2jW
- oVW9koWcesaKHEHX3QoJMliOmvavHWWglwm6nJB7Zf7mGM3HItvXuPlwqPD+DKaJpN6jKoGPTHk
- O+yG6Fht9cIGrsZxI/4K7h11kGeORZUpoiOZqfTG584IwEwKmfxMQ0hkdTlNIRpvq33txAPmS0V
- n74/mMPY28RbzmHEW9Xw/8b5alfu9sIHS2ZtMzYbJRID5Dcsp4JaYoUWOt0fn69T5Di5HZ2Uh8D
- e/PbIMZe0bjCO6GrxZmrUPU/Nl7J6Dmmq2YtBb5t0NbEdpCfHCaU=
-X-Google-Smtp-Source: AGHT+IFao7FuQLf+s1gTi0XSu+B5gF9YwIbFV79KG8lFPt8mZjw3VikDnheRkBTa0M92WZ1I2h7gng==
-X-Received: by 2002:a17:907:9494:b0:ab7:d537:91cb with SMTP id
- a640c23a62f3a-abb70aa6217mr1022429766b.7.1739797749351; 
- Mon, 17 Feb 2025 05:09:09 -0800 (PST)
+ AJvYcCUsZMJ/1BGMCKR2kfQNs+HKTSFKu6vJCYjOtTGBRK4cV/fgWg94X9jbU3f0rOK7urJ+mfs=@lists.linux.it
+X-Gm-Message-State: AOJu0YxTvy+8d2irEtFSO10I7OkuFw8leCCjOs14jupPcMuLIqCRUf8r
+ haPFkDvO4fsmzQByc1gQ+F+TQMd4eXoHec9AKWZ0Xz1B8m2IDBPAMsLopQT76dM=
+X-Gm-Gg: ASbGnctozPb84Mv6kJyWmgGG3TB0O90iu1PMS45Qvs5izjr8cfeVWCRqMDmtFqenKpI
+ l0IOvjXk6QvccSx0GDV82t5HtAG1cmU/m3WpOwdMO+2qlfdg4cCh28VD7TD3Ev8lMuhOtyMoLpE
+ eZBifymN4P9AjEs66KmNGDINsKNsKnAm1BqZUF7r2ZuuzxXHcofLqMcZxBMmkar9mvvX69KrErX
+ Aa3Pn8EIVDoEQuOq9o9ZZyjjsj21GDj40nRFykzQIQAH6NlZSs8w12OOhJUXcxT/RMDjVVvvQ+2
+ iVf3/oSoC2N1Sf5w+zbEHe1x9cgDAVwymhAh5XXNpsgRdBou1vvPyUadbd64NH0kq4qDv4lEn9K
+ Bo/Jo3S73dsWSp1ehAPyuIKMYF6ZEX52GfY/v8EQsQvu3w6LR7kg=
+X-Google-Smtp-Source: AGHT+IG/ixv4XfgO+GhXzBReL/4kbqvALq5gidmjoDKhsUheWYGjETOjdVEv2JjINY2oS0n51tyaXA==
+X-Received: by 2002:a05:6402:2384:b0:5e0:36c0:7b00 with SMTP id
+ 4fb4d7f45d1cf-5e036c07d5fmr8098648a12.31.1739798165875; 
+ Mon, 17 Feb 2025 05:16:05 -0800 (PST)
 Received: from ?IPV6:2003:ef:2f02:800:9162:c8ad:3b21:a399?
  (p200300ef2f0208009162c8ad3b21a399.dip0.t-ipconnect.de.
  [2003:ef:2f02:800:9162:c8ad:3b21:a399])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abba316dc67sm127040366b.43.2025.02.17.05.09.08
+ 4fb4d7f45d1cf-5decdfe758asm7219295a12.0.2025.02.17.05.16.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 05:09:08 -0800 (PST)
-Message-ID: <ec5c8dc6-1d3b-4005-8d0c-78b879dc00ad@suse.com>
-Date: Mon, 17 Feb 2025 14:09:08 +0100
+ Mon, 17 Feb 2025 05:16:04 -0800 (PST)
+Message-ID: <f8d6c3fd-7b1d-4d16-b034-a2b01f956870@suse.com>
+Date: Mon, 17 Feb 2025 14:16:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Ricardo_B=2E_Marli=C3=A8re?= <ricardo@marliere.net>,
- Linux Test Project <ltp@lists.linux.it>
-References: <20250217-clear_descriptions-v1-0-90e8229d52b4@marliere.net>
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20250217130839.2392666-1-pvorel@suse.cz>
 Content-Language: en-US
-In-Reply-To: <20250217-clear_descriptions-v1-0-90e8229d52b4@marliere.net>
+In-Reply-To: <20250217130839.2392666-1-pvorel@suse.cz>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 0/2] Clean [Description] leftovers
+Subject: Re: [LTP] [PATCH 1/2] tst_security.sh: Fix SELinux detection
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,28 +108,47 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 From: Andrea Cervesato via ltp <ltp@lists.linux.it>
 Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: linux-integrity@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-TWVyZ2VkLCB0aGFua3MhCgpBbmRyZWEKCk9uIDIvMTcvMjUgMTM6NTksIFJpY2FyZG8gQi4gTWFy
-bGnDqHJlIHdyb3RlOgo+IEhpLCBwbGVhc2UgY29uc2lkZXIgcHVsbGluZyB0aGlzIHNtYWxsIGNs
-ZWFudXAgc2VyaWVzLgo+Cj4gVGhhbmsgeW91LAo+IC0JUmljYXJkby4KPgo+IFNpZ25lZC1vZmYt
-Ynk6IFJpY2FyZG8gQi4gTWFybGnDqHJlIDxyaWNhcmRvQG1hcmxpZXJlLm5ldD4KPiAtLS0KPiBS
-aWNhcmRvIEIuIE1hcmxpw6hyZSAoMik6Cj4gICAgICAgIGRvYzogUmVtb3ZlIFtEZXNjcmlwdGlv
-bl0gdGl0bGUKPiAgICAgICAgc3lzY2FsbHMvZm9yazAxOiBJbXByb3ZlIHRlc3QgZGVzY3JpcHRp
-b24KPgo+ICAgdGVzdGNhc2VzL2tlcm5lbC9tZW0vaHVnZXRsYi9odWdlbW1hcC9odWdlbW1hcDE3
-LmMgfCAyIC0tCj4gICB0ZXN0Y2FzZXMva2VybmVsL21lbS9odWdldGxiL2h1Z2VtbWFwL2h1Z2Vt
-bWFwMTkuYyB8IDIgLS0KPiAgIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZm9yay9mb3JrMDEu
-YyAgICAgICAgICAgIHwgNiArKy0tLS0KPiAgIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZm9y
-ay9mb3JrMDMuYyAgICAgICAgICAgIHwgMiAtLQo+ICAgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy9mb3JrL2ZvcmswNC5jICAgICAgICAgICAgfCAyIC0tCj4gICB0ZXN0Y2FzZXMva2VybmVsL3N5
-c2NhbGxzL2ZvcmsvZm9ya19wcm9jcy5jICAgICAgICB8IDIgLS0KPiAgIHRlc3RjYXNlcy9rZXJu
-ZWwvc3lzY2FsbHMvZ2V0ZXVpZC9nZXRldWlkMDEuYyAgICAgIHwgMiAtLQo+ICAgdGVzdGNhc2Vz
-L2tlcm5lbC9zeXNjYWxscy9nZXRldWlkL2dldGV1aWQwMi5jICAgICAgfCAyIC0tCj4gICA4IGZp
-bGVzIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMTggZGVsZXRpb25zKC0pCj4gLS0tCj4gYmFz
-ZS1jb21taXQ6IGEzZTI3ZGYzNGQ2Y2I0OTQ3N2M5YmQ2ZjliYmFhMWNlNGRlMTU1ZjkKPiBjaGFu
-Z2UtaWQ6IDIwMjUwMjE3LWNsZWFyX2Rlc2NyaXB0aW9ucy0wOGY4MDAwZTcwODIKPgo+IEJlc3Qg
-cmVnYXJkcywKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9s
-aXN0aW5mby9sdHAK
+Hi!
+
+Reviewed-by: Andrea Cervesato <andrea.cervesato@suse.com>
+
+On 2/17/25 14:08, Petr Vorel wrote:
+> Some SLES15 versions create /selinux directory which fails the detection
+> if SELinux is actually not enabled. Therefore detect if directory
+> actually contains the 'enforce' file.
+>
+> Also drop /selinux directory detection and detect only /sys/fs/selinux,
+> /sys/fs/selinux mount point was added in kernel 3.0 in commit
+> 7a627e3b9a2b ("SELINUX: add /sys/fs/selinux mount point to put selinuxfs")
+> 14 years is enough, kernel 3.0 is not even supported in current LTP and
+> we don't even support /selinux in C API (tst_security.c).
+>
+> Fixes: e7b804df65 ("shell: Add tst_security.sh helper")
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+>   testcases/lib/tst_security.sh | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/testcases/lib/tst_security.sh b/testcases/lib/tst_security.sh
+> index 05640234ea..356c28fc73 100644
+> --- a/testcases/lib/tst_security.sh
+> +++ b/testcases/lib/tst_security.sh
+> @@ -127,8 +127,7 @@ tst_get_selinux_dir()
+>   {
+>   	local dir="/sys/fs/selinux"
+>   
+> -	[ -d "$dir" ] || dir="/selinux"
+> -	[ -d "$dir" ] && echo "$dir"
+> +	[ -f "$dir/enforce" ] && echo "$dir"
+>   }
+>   
+>   # Get SELinux enforce file path
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
