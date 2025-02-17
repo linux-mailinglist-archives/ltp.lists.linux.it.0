@@ -2,20 +2,19 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A78C2A38E4D
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 22:51:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15FF5A38E4A
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 22:51:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5BB503C9C06
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 22:51:52 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C96763C9C0B
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 22:51:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AD2613C9C4D
- for <ltp@lists.linux.it>; Mon, 17 Feb 2025 22:50:58 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id C09B43C093B
+ for <ltp@lists.linux.it>; Mon, 17 Feb 2025 22:50:53 +0100 (CET)
 Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
  smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
  helo=us-smtp-delivery-124.mimecast.com; envelope-from=jmoyer@redhat.com;
@@ -25,49 +24,49 @@ Received: from us-smtp-delivery-124.mimecast.com
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D1A0C141A280
- for <ltp@lists.linux.it>; Mon, 17 Feb 2025 22:50:56 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A293C141787C
+ for <ltp@lists.linux.it>; Mon, 17 Feb 2025 22:50:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739829055;
+ s=mimecast20190719; t=1739829051;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xnQQFL3EicyDJTYD9AO1mmL7kclmPMTbgHMhj1+ehBE=;
- b=VJAjjWP2pj6NRW6yzSx7z9oI4AF9I9ev/BnumqZZJ7G4jQQksM7FE6x0hxS9Lnc4GPp2hY
- bRelWwcVb94sXUV/Y7KZtbmbmmdoOui9ZlH4gyco8ge8ArZgNaxuaGoyRvUplpKA283xgG
- J+UfakFS7LyjZPi355ItBISUGZ5ODh4=
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=5PRxOyKMPWJtNPa8+cWD6dS91VDhKMwV85ZbRxgeLo8=;
+ b=Y9bmtOG+K3UhnNK1JxsjhVKad9t4wbMAQGf86frMt6XqvxoaUmemqjZyYpA7H11hMYD4HA
+ PiGOXV3lnRQAFN+NwsOPopyqBf2H6t9vpUMM1bGUP8ZUfemfVPcHg2f5vHolFQ1iFn2s3D
+ Ok2bPraW5zfX8dspQOAun1MpjX/qFk8=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-301-cywiiD0rOhWoWewLNTULOQ-1; Mon,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-691-pN6bm1b9PNKQxx149aex1Q-1; Mon,
  17 Feb 2025 16:50:49 -0500
-X-MC-Unique: cywiiD0rOhWoWewLNTULOQ-1
-X-Mimecast-MFC-AGG-ID: cywiiD0rOhWoWewLNTULOQ_1739829048
-Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
+X-MC-Unique: pN6bm1b9PNKQxx149aex1Q-1
+X-Mimecast-MFC-AGG-ID: pN6bm1b9PNKQxx149aex1Q_1739829048
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 537121903085
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 8473A180087C
  for <ltp@lists.linux.it>; Mon, 17 Feb 2025 21:50:48 +0000 (UTC)
 Received: from segfault.usersys.redhat.com (unknown [10.22.64.50])
- by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 0CDD51956094
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 33A741956054
  for <ltp@lists.linux.it>; Mon, 17 Feb 2025 21:50:47 +0000 (UTC)
 Received: by segfault.usersys.redhat.com (Postfix, from userid 3734)
- id 8DD7322AF2C9; Mon, 17 Feb 2025 16:50:45 -0500 (EST)
+ id 8FED422AF2CA; Mon, 17 Feb 2025 16:50:45 -0500 (EST)
 From: Jeff Moyer <jmoyer@redhat.com>
 To: ltp@lists.linux.it
-Date: Mon, 17 Feb 2025 16:46:28 -0500
-Message-ID: <20250217215038.177250-3-jmoyer@redhat.com>
+Date: Mon, 17 Feb 2025 16:46:29 -0500
+Message-ID: <20250217215038.177250-4-jmoyer@redhat.com>
 In-Reply-To: <20250217215038.177250-1-jmoyer@redhat.com>
 References: <20250217215038.177250-1-jmoyer@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 98qqC4bX9WSZGOYJdNNELeYm71MUCgU7-pLLsbfsmBM_1739829048
+X-Mimecast-MFC-PROC-ID: wrxZpAx9DRNiGMvgWORzaHB2exBbjetNL1ppLuv8s8E_1739829048
 X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
@@ -75,8 +74,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 2/3] lib/tst_device.c: check for BTRFS_SUPER_MAGIC
- instead of device major of 0
+Subject: [LTP] [PATCH v3 3/3] tst_find_backing_dev(): add support for
+ overlayfs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,65 +92,192 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-stat() may return a major number of 0 in st_dev for any number of
-pseudo file systems.  Check for the exact file system instead.  There
-should be no change in behavior with this patch.
+Add checks for overlayfs in tst_find_backing_dev.  As with btrfs, only
+a single device is checked (the upper one) and returned from
+tst_find_backing_dev().
+
+The implementation uses both /proc/self/mountinfo and /proc/self/mounts.
+The former is used to map a device to a mountpoint, and the latter is
+used to get the file system options for the mountpoint.  All of the
+information is present in mountinfo, but the file format is more complex,
+and there are no glibc helpers for parsing it.
+
+The '#define _GNU_SOURCE' was added for the use of the strchrnul(3)
+function.
 
 Signed-off-by: Jeff Moyer <jmoyer@redhat.com>
+
 ---
 v3: Address review comments from Petr:
-    - use test-defined file system magic numbers
-    - use statfs.h instead of vfs.h
-v2: unchanged
+    - Don't split long strings across lines
+    - use TST_OVERLAYFS_MAGIC instead of the kernel's definition
+    Note that I did not use SAFE_SSCANF, as tst_device.c uses the old
+    style safe macros, and that function is not covered.
+v2: Don't use libmount.  Instead, map from device number to mount-point
+    using /proc/self/mountinfo, and then use the mntent.h helpers to get
+    the mount options for the mountpoint from /proc/self/mounts.
 ---
- lib/tst_device.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ lib/tst_device.c | 133 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 133 insertions(+)
 
 diff --git a/lib/tst_device.c b/lib/tst_device.c
-index 70234a83c..76c3a3e1e 100644
+index 76c3a3e1e..29dc6974f 100644
 --- a/lib/tst_device.c
 +++ b/lib/tst_device.c
-@@ -17,6 +17,7 @@
- #include <sys/sysmacros.h>
- #include <linux/btrfs.h>
- #include <linux/limits.h>
-+#include <sys/statfs.h>
- #include "lapi/syscalls.h"
- #include "test.h"
- #include "safe_macros.h"
-@@ -546,9 +547,6 @@ static void btrfs_get_uevent_path(char *tmp_path, char *uevent_path)
- 		sprintf(bdev_path,
- 			"/sys/fs/btrfs/%s/devices", btrfs_uuid_str);
- 	} else {
--		if (errno == ENOTTY)
--			tst_brkm(TBROK | TERRNO, NULL, "BTRFS ioctl failed. Is %s on a tmpfs?", tmp_path);
--
- 		tst_brkm(TBROK | TERRNO, NULL, "BTRFS ioctl on %s failed.", tmp_path);
- 	}
- 	SAFE_CLOSE(NULL, fd);
-@@ -578,6 +576,7 @@ __attribute__((nonnull))
+@@ -3,6 +3,7 @@
+  * Copyright (C) 2014 Cyril Hrubis chrubis@suse.cz
+  */
+ 
++#define _GNU_SOURCE
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/ioctl.h>
+@@ -572,6 +573,136 @@ static void btrfs_get_uevent_path(char *tmp_path, char *uevent_path)
+ 	SAFE_CLOSEDIR(NULL, dir);
+ }
+ 
++static char *overlay_mount_from_dev(dev_t dev)
++{
++	unsigned dev_major, dev_minor, mnt_major, mnt_minor;
++	FILE *fp;
++	char line[PATH_MAX];
++	char *mountpoint;
++	int ret;
++
++	dev_major = major(dev);
++	dev_minor = minor(dev);
++
++	fp = SAFE_FOPEN(NULL, "/proc/self/mountinfo", "r");
++	while (fgets(line, sizeof(line), fp) != NULL) {
++		ret = sscanf(line, "%*d %*d %u:%u %*s %ms",
++			     &mnt_major, &mnt_minor, &mountpoint);
++		if (ret != 3)
++			tst_brkm(TBROK, NULL,
++				 "failed to parse mountinfo line: \"%s\"",
++				 line);
++		if (mnt_major == dev_major && mnt_minor == dev_minor)
++			break;
++		free(mountpoint);
++		mountpoint = NULL;
++	}
++	SAFE_FCLOSE(NULL, fp);
++	if (!mountpoint)
++		tst_brkm(TBROK, NULL,
++			 "Unable to find mount entry for device %u:%u\n",
++			 dev_major, dev_minor);
++
++	return mountpoint;
++}
++
++static char *overlay_get_upperdir(char *mountpoint)
++{
++	FILE *mntf;
++	struct mntent *mnt;
++	char *optstr, *optstart, *optend;
++	char *upperdir = NULL;
++
++	mntf = setmntent("/proc/self/mounts", "r");
++	if (!mntf)
++		tst_brkm(TBROK | TERRNO, NULL, "Can't open /proc/self/mounts");
++
++	while ((mnt = getmntent(mntf)) != NULL) {
++		if (strncmp(mnt->mnt_dir, mountpoint, strlen(mountpoint)))
++			continue;
++
++		if (strncmp(mnt->mnt_type, "overlay", strlen("overlay")))
++			tst_brkm(TBROK, NULL,
++				 "expected overlayfs on mount point \"%s\", but it is of type %s.",
++				 mountpoint, mnt->mnt_type);
++
++		optstr = hasmntopt(mnt, "upperdir");
++		if (optstr) {
++			optstart = strchr(optstr, '=');
++			optstart++;
++			optend = strchrnul(optstr, ',');
++			upperdir = calloc(optend - optstart + 1, 1);
++			memcpy(upperdir, optstart, optend - optstart);
++			break;
++		} else {
++			tst_brkm(TBROK, NULL,
++				 "mount point %s does not contain an upperdir",
++				 mountpoint);
++		}
++	}
++	endmntent(mntf);
++
++	if (!upperdir)
++		tst_brkm(TBROK, NULL,
++			 "Unable to find mount point \"%s\" in mount table",
++			 mountpoint);
++
++	return upperdir;
++}
++
++/*
++ * To get from a file or directory on an overlayfs to a device
++ * for an underlying mountpoint requires the following steps:
++ *
++ * 1. stat() the pathname and pick out st_dev.
++ * 2. use the st_dev to look up the mount point of the file
++ *    system in /proc/self/mountinfo
++ *
++ * Because 'mountinfo' is a much more complicated file format than
++ * 'mounts', we switch to looking up the mount point in /proc/mounts,
++ * and use the mntent.h helpers to parse the entries.
++ *
++ * 3. Using getmntent(), find the entry for the mount point identified
++ *    in step 2.
++ * 4. Call hasmntopt() to find the upperdir option, and parse that
++ *    option to get to the path name for the upper directory.
++ * 5. Call stat on the upper directory.  This should now contain
++ *    the major and minor number for the underlying device (assuming
++ *    that there aren't nested overlay file systems).
++ * 6. Populate the uevent path.
++ *
++ * Example /proc/self/mountinfo line for overlayfs:
++ *    471 69 0:48 / /tmp rw,relatime shared:242 - overlay overlay rw,seclabel,lowerdir=/tmp,upperdir=/mnt/upper/upper,workdir=/mnt/upper/work,uuid=null
++ *
++ * See section 3.5 of the kernel's Documentation/filesystems/proc.rst file
++ * for a detailed explanation of the mountinfo format.
++ */
++static void overlay_get_uevent_path(char *tmp_path, char *uevent_path)
++{
++	int ret;
++	struct stat st;
++	char *mountpoint, *upperdir;
++
++	tst_resm(TINFO, "Use OVERLAYFS specific strategy");
++
++	ret = stat(tmp_path, &st);
++	if (ret)
++		tst_brkm(TBROK | TERRNO, NULL, "stat failed");
++
++	mountpoint = overlay_mount_from_dev(st.st_dev);
++	upperdir = overlay_get_upperdir(mountpoint);
++	free(mountpoint);
++
++	ret = stat(upperdir, &st);
++	free(upperdir);
++	if (ret)
++		tst_brkm(TBROK | TERRNO, NULL, "stat failed");
++
++	tst_resm(TINFO, "Warning: used first of multiple backing devices.");
++	sprintf(uevent_path, "/sys/dev/block/%d:%d/uevent",
++		major(st.st_dev), minor(st.st_dev));
++}
++
+ __attribute__((nonnull))
  void tst_find_backing_dev(const char *path, char *dev, size_t dev_size)
  {
- 	struct stat buf;
-+	struct statfs fsbuf;
- 	char uevent_path[PATH_MAX+PATH_MAX+10]; //10 is for the static uevent path
- 	char dev_name[NAME_MAX];
- 	char tmp_path[PATH_MAX];
-@@ -595,8 +594,13 @@ void tst_find_backing_dev(const char *path, char *dev, size_t dev_size)
- 	dev_minor = minor(buf.st_dev);
- 	*dev = '\0';
+@@ -599,6 +730,8 @@ void tst_find_backing_dev(const char *path, char *dev, size_t dev_size)
  
--	if (dev_major == 0) {
-+	if (statfs(path, &fsbuf) < 0)
-+		tst_brkm(TBROK | TERRNO, NULL, "statfs() failed");
-+
-+	if (fsbuf.f_type == TST_BTRFS_MAGIC) {
+ 	if (fsbuf.f_type == TST_BTRFS_MAGIC) {
  		btrfs_get_uevent_path(tmp_path, uevent_path);
-+	} else if (dev_major == 0) {
-+		tst_brkm(TBROK, NULL, "%s resides on an unsupported pseudo-file system.", path);
++	} else if (fsbuf.f_type == TST_OVERLAYFS_MAGIC) {
++		overlay_get_uevent_path(tmp_path, uevent_path);
+ 	} else if (dev_major == 0) {
+ 		tst_brkm(TBROK, NULL, "%s resides on an unsupported pseudo-file system.", path);
  	} else {
- 		tst_resm(TINFO, "Use uevent strategy");
- 		sprintf(uevent_path,
 -- 
 2.43.5
 
