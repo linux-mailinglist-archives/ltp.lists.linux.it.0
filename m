@@ -2,18 +2,19 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25B16A38E49
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 22:50:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DEE2A38E4B
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 22:51:30 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C70063C9C21
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 22:50:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 48A183C9C2A
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 22:51:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 75F293C093B
+ by picard.linux.it (Postfix) with ESMTPS id CB3F43C9BCF
  for <ltp@lists.linux.it>; Mon, 17 Feb 2025 22:50:53 +0100 (CET)
 Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
  smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
@@ -24,46 +25,49 @@ Received: from us-smtp-delivery-124.mimecast.com
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A01AB101D633
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A2360101E03E
  for <ltp@lists.linux.it>; Mon, 17 Feb 2025 22:50:51 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  s=mimecast20190719; t=1739829050;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=c3B2SXmYY4rVbru3n8z0r/9zTRGUhutNmfwcYTn0jQQ=;
- b=Vb5iV8V2IoOJzNLH6CgNmDQV2HdXT8V/KQLtitj2fhju+/SG8+N/i8XMAsAHwBkP61PKhi
- 6chAcInxfz8dMaeCggg9BlayYiEUcYtfx6b5xOXQdk4BNuMp5+B4iMb+qwIoo0wj/4++Xi
- QQ/L6/ZWh267Na98aVFM+2oKJfMXz4k=
-Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=TNXnymP7IS2i/AvoD7UEZA5G+JiA+x+33TMDE0on80k=;
+ b=J3TYXeZcwbW8HED93umrzk4AsaCMyExD+rYu7vF7Mdqh5n9AET2LzVE+rlJFnDRKeztYkf
+ sjDngM+1P/ogocJjtIe5zW/2lf4CUkIjdADh06JXQn8pnNp6OBuIxUIRk9vsAEuGl87mBS
+ 5hY66jdg03qm24NK9Srk62V44Fa9FBQ=
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-299-ScQQM1AxPWqKn-H8KRXvkg-1; Mon,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-299-TmK3JjKNN3GGA5odFTHQtQ-1; Mon,
  17 Feb 2025 16:50:49 -0500
-X-MC-Unique: ScQQM1AxPWqKn-H8KRXvkg-1
-X-Mimecast-MFC-AGG-ID: ScQQM1AxPWqKn-H8KRXvkg_1739829048
+X-MC-Unique: TmK3JjKNN3GGA5odFTHQtQ-1
+X-Mimecast-MFC-AGG-ID: TmK3JjKNN3GGA5odFTHQtQ_1739829048
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 5292F18EB2C3
+ by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 584801903092
  for <ltp@lists.linux.it>; Mon, 17 Feb 2025 21:50:48 +0000 (UTC)
 Received: from segfault.usersys.redhat.com (unknown [10.22.64.50])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 1162A19560A3
+ id 2A53B1956048
  for <ltp@lists.linux.it>; Mon, 17 Feb 2025 21:50:47 +0000 (UTC)
 Received: by segfault.usersys.redhat.com (Postfix, from userid 3734)
- id 8A22E22AF2C7; Mon, 17 Feb 2025 16:50:45 -0500 (EST)
+ id 8C05D22AF2C8; Mon, 17 Feb 2025 16:50:45 -0500 (EST)
 From: Jeff Moyer <jmoyer@redhat.com>
 To: ltp@lists.linux.it
-Date: Mon, 17 Feb 2025 16:46:26 -0500
-Message-ID: <20250217215038.177250-1-jmoyer@redhat.com>
+Date: Mon, 17 Feb 2025 16:46:27 -0500
+Message-ID: <20250217215038.177250-2-jmoyer@redhat.com>
+In-Reply-To: <20250217215038.177250-1-jmoyer@redhat.com>
+References: <20250217215038.177250-1-jmoyer@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: KmkstShvk3t0ME9qfEGQ78ft0Jt0LB4PytmGLD1BaJw_1739829048
+X-Mimecast-MFC-PROC-ID: mvVi32F0A1juMt2_IUnZb9vZ6wsIFTYyKB88KWBGgNA_1739829048
 X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
@@ -71,7 +75,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 0/3] tst_device: add support for overlayfs
+Subject: [LTP] [PATCH v3 1/3] lib/tst_device.c: factor out btrfs-specific
+ logic from tst_find_backing_dev
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,49 +93,147 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-When running ltp-aiodio on an overlay file system, the following error
-occurs:
+In preparation for handling overlayfs (which also has a major device
+number of 0), factor out the btrfs logic.
 
-tst_tmpdir.c:316: TINFO: Using /mnt/fstests/TEST_DIR/ovl-mnt/ltp-hSHEHy5M0s/LTP_aio4q4GMW as tmpdir (overlayfs filesystem)
-tst_test.c:1888: TINFO: LTP version: 20220121-2271-g91a10df22
-tst_test.c:1892: TINFO: Tested kernel: vendor kernel
-tst_test.c:1723: TINFO: Timeout per run is 0h 40m 00s
-aiocp.c:211: TINFO: Maximum AIO blocks: 65536
-tst_device.c:551: TINFO: Use BTRFS specific strategy
-tst_device.c:569: TBROK: BTRFS ioctl failed. Is . on a tmpfs?: ENOTTY (25)
-
-The issue is that stat(2) on an overlayfs mount point will return a
-major device number of 0.  The code assumes this is btrfs, and tries
-to issue a btrfs-specific ioctl.  When that fails, the final message is
-printed that suggests this might be tmpfs.
-
-I modified the code to use statfs(2) to get the file system type, and
-use that to determine which file system specific code to call.
-Finally, I added code to parse out the upper directory from the
-overlayfs mount options using a combination of /proc/self/mountinfo
-and /proc/self/mounts, as explained in patch 3.  stat(2) is then
-called on the upper directory to get to the underlying device node.
-
-I tested this on xfs, btrfs, a btrfs subvolume and overlayfs.  Review
-of the series is greatly appreciated.
-
-Thanks in advance!
-Jeff
-
-[PATCH v3 1/3] lib/tst_device.c: factor out btrfs-specific logic from
-[PATCH v3 2/3] lib/tst_device.c: check for BTRFS_SUPER_MAGIC instead
-[PATCH v3 3/3] tst_find_backing_dev(): add support for overlayfs
+Signed-off-by: Jeff Moyer <jmoyer@redhat.com>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 ---
-Changes since v2:
-- Address review comments from Petr:
-  - Use test-defined magic numbers
-  - #include statfs.h instead of vfs.h.
-  - Don't split long strings across lines
-- Add Reviewed-by tag for patch 1.
+ lib/tst_device.c | 104 +++++++++++++++++++++++++----------------------
+ 1 file changed, 55 insertions(+), 49 deletions(-)
 
-Changes since v1:
-- Remove dependency on libmount in patch 3.  Patches 1 and 2 are
-  unchanged.
+diff --git a/lib/tst_device.c b/lib/tst_device.c
+index 723f6ca06..70234a83c 100644
+--- a/lib/tst_device.c
++++ b/lib/tst_device.c
+@@ -520,20 +520,68 @@ unsigned long tst_dev_bytes_written(const char *dev)
+ 	return dev_bytes_written;
+ }
+ 
++static void btrfs_get_uevent_path(char *tmp_path, char *uevent_path)
++{
++	int fd;
++	struct btrfs_ioctl_fs_info_args args = {0};
++	char btrfs_uuid_str[UUID_STR_SZ];
++	struct dirent *d;
++	char bdev_path[PATH_MAX];
++	DIR *dir;
++
++	tst_resm(TINFO, "Use BTRFS specific strategy");
++
++	fd = SAFE_OPEN(NULL, tmp_path, O_DIRECTORY);
++	if (!ioctl(fd, BTRFS_IOC_FS_INFO, &args)) {
++		sprintf(btrfs_uuid_str,
++			UUID_FMT,
++			args.fsid[0], args.fsid[1],
++			args.fsid[2], args.fsid[3],
++			args.fsid[4], args.fsid[5],
++			args.fsid[6], args.fsid[7],
++			args.fsid[8], args.fsid[9],
++			args.fsid[10], args.fsid[11],
++			args.fsid[12], args.fsid[13],
++			args.fsid[14], args.fsid[15]);
++		sprintf(bdev_path,
++			"/sys/fs/btrfs/%s/devices", btrfs_uuid_str);
++	} else {
++		if (errno == ENOTTY)
++			tst_brkm(TBROK | TERRNO, NULL, "BTRFS ioctl failed. Is %s on a tmpfs?", tmp_path);
++
++		tst_brkm(TBROK | TERRNO, NULL, "BTRFS ioctl on %s failed.", tmp_path);
++	}
++	SAFE_CLOSE(NULL, fd);
++
++	dir = SAFE_OPENDIR(NULL, bdev_path);
++	while ((d = SAFE_READDIR(NULL, dir))) {
++		if (d->d_name[0] != '.')
++			break;
++	}
++
++	uevent_path[0] = '\0';
++
++	if (d) {
++		sprintf(uevent_path, "%s/%s/uevent",
++			bdev_path, d->d_name);
++	} else {
++		tst_brkm(TBROK | TERRNO, NULL, "No backing device found while looking in %s.", bdev_path);
++	}
++
++	if (SAFE_READDIR(NULL, dir))
++		tst_resm(TINFO, "Warning: used first of multiple backing device.");
++
++	SAFE_CLOSEDIR(NULL, dir);
++}
++
+ __attribute__((nonnull))
+ void tst_find_backing_dev(const char *path, char *dev, size_t dev_size)
+ {
+ 	struct stat buf;
+-	struct btrfs_ioctl_fs_info_args args = {0};
+-	struct dirent *d;
+ 	char uevent_path[PATH_MAX+PATH_MAX+10]; //10 is for the static uevent path
+ 	char dev_name[NAME_MAX];
+-	char bdev_path[PATH_MAX];
+ 	char tmp_path[PATH_MAX];
+-	char btrfs_uuid_str[UUID_STR_SZ];
+-	DIR *dir;
+ 	unsigned int dev_major, dev_minor;
+-	int fd;
+ 
+ 	if (stat(path, &buf) < 0)
+ 		tst_brkm(TWARN | TERRNO, NULL, "stat() failed");
+@@ -548,49 +596,7 @@ void tst_find_backing_dev(const char *path, char *dev, size_t dev_size)
+ 	*dev = '\0';
+ 
+ 	if (dev_major == 0) {
+-		tst_resm(TINFO, "Use BTRFS specific strategy");
+-
+-		fd = SAFE_OPEN(NULL, tmp_path, O_DIRECTORY);
+-		if (!ioctl(fd, BTRFS_IOC_FS_INFO, &args)) {
+-			sprintf(btrfs_uuid_str,
+-				UUID_FMT,
+-				args.fsid[0], args.fsid[1],
+-				args.fsid[2], args.fsid[3],
+-				args.fsid[4], args.fsid[5],
+-				args.fsid[6], args.fsid[7],
+-				args.fsid[8], args.fsid[9],
+-				args.fsid[10], args.fsid[11],
+-				args.fsid[12], args.fsid[13],
+-				args.fsid[14], args.fsid[15]);
+-			sprintf(bdev_path,
+-				"/sys/fs/btrfs/%s/devices", btrfs_uuid_str);
+-		} else {
+-			if (errno == ENOTTY)
+-				tst_brkm(TBROK | TERRNO, NULL, "BTRFS ioctl failed. Is %s on a tmpfs?", path);
+-
+-			tst_brkm(TBROK | TERRNO, NULL, "BTRFS ioctl on %s failed.", tmp_path);
+-		}
+-		SAFE_CLOSE(NULL, fd);
+-
+-		dir = SAFE_OPENDIR(NULL, bdev_path);
+-		while ((d = SAFE_READDIR(NULL, dir))) {
+-			if (d->d_name[0] != '.')
+-				break;
+-		}
+-
+-		uevent_path[0] = '\0';
+-
+-		if (d) {
+-			sprintf(uevent_path, "%s/%s/uevent",
+-				bdev_path, d->d_name);
+-		} else {
+-			tst_brkm(TBROK | TERRNO, NULL, "No backing device found while looking in %s.", bdev_path);
+-		}
+-
+-		if (SAFE_READDIR(NULL, dir))
+-			tst_resm(TINFO, "Warning: used first of multiple backing device.");
+-
+-		SAFE_CLOSEDIR(NULL, dir);
++		btrfs_get_uevent_path(tmp_path, uevent_path);
+ 	} else {
+ 		tst_resm(TINFO, "Use uevent strategy");
+ 		sprintf(uevent_path,
+-- 
+2.43.5
 
 
 -- 
