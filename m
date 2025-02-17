@@ -1,83 +1,102 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56F88A37E1B
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 10:12:49 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 636FCA37EB5
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 10:36:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1739783569; h=to : date :
- message-id : in-reply-to : references : mime-version : subject :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1739784982; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-type :
- content-transfer-encoding : sender : from;
- bh=rpeHA/c6FOtAeHYtpwWXDQGKXmUC69y6VtwI7zBQ47U=;
- b=iwnP+WdvdWRwDyM4kOKo1vEQie2GQbfPSE2HOugG/U5fY82C0Zx7A9G8KeHEPI7H5ItcS
- vIzVqWTGtG4lLrzmaEVFFDdkG0aGo8B9X/QAxhtK56W3dPUZ08sUDJCg/c3f34z2EnZnacW
- J3vy6ZfsF+A5e/gMzBe5dQOb5zAN3bk=
+ list-subscribe : from : reply-to : content-transfer-encoding :
+ content-type : sender : from;
+ bh=ha/l/CfSU2+WBLrkIdfSAXklT5RnJE2OVz7KsqlRzKg=;
+ b=BuOdx4IxcNZqsItR5t6zVDpp7qiONz9Lt1CBfjgxgxmgpvB6AAKmm2iaJWS3bgbiolJWy
+ xH47/wR/UKLFXZYPt/+qb+I0mG/t+8sWmE0fo6ZnXZdd0PTRc4nc2Ic55NfaiGcV1dqq7vd
+ CGdso5/rNCXqbB06nDqthM6o30+7DEQ=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0BA483C9BB9
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 10:12:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 936AF3C9BBE
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2025 10:36:22 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1FACC3C9BA3
- for <ltp@lists.linux.it>; Mon, 17 Feb 2025 10:12:47 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=fujitsu.com (client-ip=207.54.90.48;
- helo=esa2.hc1455-7.c3s2.iphmx.com; envelope-from=maxj.fnst@fujitsu.com;
- receiver=lists.linux.it)
-Received: from esa2.hc1455-7.c3s2.iphmx.com (esa2.hc1455-7.c3s2.iphmx.com
- [207.54.90.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 11A313C926D
+ for <ltp@lists.linux.it>; Mon, 17 Feb 2025 10:36:20 +0100 (CET)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 442AC633C45
- for <ltp@lists.linux.it>; Mon, 17 Feb 2025 10:12:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
- t=1739783565; x=1771319565;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=NoaLDdoI8o1EyB4ImmFfpzSRWBCraYtwnPLTSFMXIGc=;
- b=t3PKjSp0ILPEi9h52jKyJlwhJxBSZUOB664kW87MAzOfdhIgPJxAOfGr
- HwUcEHmfxLQARDslD2LGbCvb+6TUto5tpWJ6A+WmCuRvxX/ZhutwS8Sam
- 1Y0PXMGUwBu/grkBoJoPGzUBr+5VkjMCLj0EJLW2cPzx66DBc4Vz70C+2
- CVS3YcEpMc07WkbforhLujtG+kTgezxEFKAyXIj3KsL52rq8MAztOpW61
- 9XWpOFgVoZbVXPT1XWdTX+W39tYm+lxyqBum3t8e9rWEzadeZlu94wLj9
- w88VRBCzA30MFVkai89SvlqMb2Nc/xygFx40GzYTK9R2wP5Y77VVFBiBt A==;
-X-CSE-ConnectionGUID: NJ5uBeuCSMmLJIchFSZgHQ==
-X-CSE-MsgGUID: 721CykgISnGSr9rfmhDh1A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11347"; a="190250629"
-X-IronPort-AV: E=Sophos;i="6.13,292,1732546800"; d="scan'208";a="190250629"
-Received: from unknown (HELO yto-r4.gw.nic.fujitsu.com) ([218.44.52.220])
- by esa2.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2025 18:12:42 +0900
-Received: from yto-m1.gw.nic.fujitsu.com (yto-nat-yto-m1.gw.nic.fujitsu.com
- [192.168.83.64])
- by yto-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id 5378DD500F
- for <ltp@lists.linux.it>; Mon, 17 Feb 2025 18:12:40 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by yto-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 12DF8CFB96
- for <ltp@lists.linux.it>; Mon, 17 Feb 2025 18:12:40 +0900 (JST)
-Received: from localhost.localdomain (unknown [10.167.135.101])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id A31EE1A000B;
- Mon, 17 Feb 2025 17:12:38 +0800 (CST)
-To: ltp@lists.linux.it
-Date: Mon, 17 Feb 2025 17:11:44 +0800
-Message-ID: <20250217091144.827361-1-maxj.fnst@fujitsu.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20250210084310.357516-1-maxj.fnst@fujitsu.com>
-References: <20250210084310.357516-1-maxj.fnst@fujitsu.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 9193A1A0043E
+ for <ltp@lists.linux.it>; Mon, 17 Feb 2025 10:36:19 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-abb90f68f8cso194245766b.3
+ for <ltp@lists.linux.it>; Mon, 17 Feb 2025 01:36:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1739784979; x=1740389779; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=r0Yr3vZvwaTnNNiIJYRJUJP/jbS2cd/qCzvhmr5HqPU=;
+ b=CGdElh9+JC/J10jJvutBiO8cChGDzC8qJAGiWYeE6ZMSMzUze5/N7tHozD5Fsyo0wb
+ OTN5bxRdOCNfHHBYrTTxtoDW+G1/iQgOmhRcZFpj6cPaLhAVyspGJHNSWiJ/iJfI6mRt
+ 2Qb01n8a1F7gNQob6FqjOyb4pc3GKt7PPDsRYnFX9+LTi0+6Jy24pjl4uRjckvI5tfw7
+ cp51iynCy/SJMUcrtCRkCFPZh5EJo6YeBlrjbZZ3oTrLbyF4aF8Jst5s5Do2UCKjnyhY
+ Ih+vKBfRji2i8ubRxwdvW/yVTRGzRbhwfCge+anMIBe1L+NKIjc6Li/6IopJxSGc8TIj
+ vUtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739784979; x=1740389779;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=r0Yr3vZvwaTnNNiIJYRJUJP/jbS2cd/qCzvhmr5HqPU=;
+ b=wR/FzaFHdBwJ6XlnjVcEjcc0XXsm4ZYLVjGwCD5+dIQs7fppG/6bORznaT+0BaexFf
+ +68gB7ttDlXgCqUJGT5pb9mjfdfmgKHdVsV8PPxmsx4q8J+V7NpFqZwIB5vjliXw0uoJ
+ dKCylJXXY+SMNu9ILgHZfyL3nPBnYk6zs+gfkJLOVrrtZpV32PUsyrsB9GExv3Wj3/uF
+ /qVAFu2i4+8cFrCJc6iy5ki5hLX0IJDlasxTIkWEVdCl524qK0MZcRH1Rt1F/rErMnUs
+ p7TaAnf8DRdzXp+Pvcd+DnkpvJKvu94NkhKUeuleV5yIYDoPT0TbPAFUEzg8zWWFow0w
+ lNyA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVgU5lRZLpXySUtjEiSehQcxzSVn5vIIhjF1eIQxQpTW2+tQ5oa0ajnJxaRmsXRJq1ojzo=@lists.linux.it
+X-Gm-Message-State: AOJu0YyYA4DTAC+SCQrSKfc96Ngsx5Bf2LLyhvhSL9O1qASOeXfGwX7e
+ h8GW5DwJTBq+i822yOgcYCli/qsaKz3Bdedmt1j0RlT+0I5ILvbIKaixUih+bO0=
+X-Gm-Gg: ASbGncvBqOcDid8p2iTUsbngbylJYXMqctWxu/oT/D5iIgbM2M4S4ZM09QUU3g8x2hU
+ Lqdlwi3Pqbi52iahbWuiC8NBFiTta/aEb0StgAkgTVMCQu35aBmOdX6rtpb6tOLXkuSDF6jN4cw
+ 6WSl2quj4yVo8M5hTH5DoT1arJvxXnpxwkK0dhfnWHW0BKVhDzzmfP1pCOWQJADan0NsFOeQbjz
+ DalRjT9M9uRqMxPWziinv8ZZtgNmjfiElOWnyj8Fn9U9Bf5oS+IPHvOYIqIj2V6VncRYYsJMYZI
+ qM7ySlY/Gf0syguRS3bolXTlDHCzfDfLtunSICqKWjZlcTWIS+lrqGdyDaFVOMf7iOIg9h6UZ2J
+ d0xiIN5wU3PRPDN3AAlHi3is6ckhKA2SLHblZZkLrl9CNu6yspKU=
+X-Google-Smtp-Source: AGHT+IH/4o3aj9PlKONsfJuZMN/D2uvzUx51gU0sBAbknk3u6BhomBBm+qgqDqwrXjHRUwCIjieLFA==
+X-Received: by 2002:a17:906:4786:b0:aa6:9503:aa73 with SMTP id
+ a640c23a62f3a-abb70df5273mr811201266b.51.1739784978902; 
+ Mon, 17 Feb 2025 01:36:18 -0800 (PST)
+Received: from ?IPV6:2003:ef:2f02:800:9162:c8ad:3b21:a399?
+ (p200300ef2f0208009162c8ad3b21a399.dip0.t-ipconnect.de.
+ [2003:ef:2f02:800:9162:c8ad:3b21:a399])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-abb74534a70sm446633366b.82.2025.02.17.01.36.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Feb 2025 01:36:18 -0800 (PST)
+Message-ID: <db9ee8a7-c6b2-4edf-8758-13f923d68f7d@suse.com>
+Date: Mon, 17 Feb 2025 10:36:17 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Ma Xinjian <maxj.fnst@fujitsu.com>, ltp@lists.linux.it
+References: <20250210084310.357516-1-maxj.fnst@fujitsu.com>
+ <20250217091144.827361-1-maxj.fnst@fujitsu.com>
+Content-Language: en-US
+In-Reply-To: <20250217091144.827361-1-maxj.fnst@fujitsu.com>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2] fsync03: Convert docs to docparse
+Subject: Re: [LTP] [PATCH v2] fsync03: Convert docs to docparse
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,47 +108,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Ma Xinjian via ltp <ltp@lists.linux.it>
-Reply-To: Ma Xinjian <maxj.fnst@fujitsu.com>
-Content-Type: text/plain; charset="us-ascii"
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Ma Xinjian <maxj.fnst@fujitsu.com>
----
- testcases/kernel/syscalls/fsync/fsync03.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+Hi Ma,
 
-diff --git a/testcases/kernel/syscalls/fsync/fsync03.c b/testcases/kernel/syscalls/fsync/fsync03.c
-index d32c4a3e7..d8c321b85 100644
---- a/testcases/kernel/syscalls/fsync/fsync03.c
-+++ b/testcases/kernel/syscalls/fsync/fsync03.c
-@@ -4,14 +4,13 @@
-  *   Copyright (c) 2019 SUSE LLC <mdoucha@suse.cz>
-  */
- 
--/*
-- * Test Description:
-- *  Testcase to check that fsync(2) sets errno correctly.
-- *  1. Call fsync() on a pipe(fd), and expect EINVAL.
-- *  2. Call fsync() on a socket(fd), and expect EINVAL.
-- *  3. Call fsync() on a closed fd, and test for EBADF.
-- *  4. Call fsync() on an invalid fd, and test for EBADF.
-- *  5. Call fsync() on a fifo(fd), and expect EINVAL.
-+/*\
-+ * Verify that fsync(2) sets errno to:
-+ * 1. EINVAL if calling fsync() on a pipe(fd).
-+ * 2. EINVAL if calling fsync() on a socket(fd).
-+ * 3. EBADF if calling fsync() on a closed fd.
-+ * 4. EBADF if calling fsync() on an invalid fd.
-+ * 5. EINVAL if calling fsync() on a fifo(fd).
-  */
- 
- #include <unistd.h>
--- 
-2.47.0
+we are currently moving from docparse to RST format [1], so if you want, 
+you can already update to it.
+Thanks,
 
+Andrea
+
+
+[1] https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
+
+On 2/17/25 10:11, Ma Xinjian via ltp wrote:
+> Signed-off-by: Ma Xinjian <maxj.fnst@fujitsu.com>
+> ---
+>   testcases/kernel/syscalls/fsync/fsync03.c | 15 +++++++--------
+>   1 file changed, 7 insertions(+), 8 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/fsync/fsync03.c b/testcases/kernel/syscalls/fsync/fsync03.c
+> index d32c4a3e7..d8c321b85 100644
+> --- a/testcases/kernel/syscalls/fsync/fsync03.c
+> +++ b/testcases/kernel/syscalls/fsync/fsync03.c
+> @@ -4,14 +4,13 @@
+>    *   Copyright (c) 2019 SUSE LLC <mdoucha@suse.cz>
+>    */
+>   
+> -/*
+> - * Test Description:
+> - *  Testcase to check that fsync(2) sets errno correctly.
+> - *  1. Call fsync() on a pipe(fd), and expect EINVAL.
+> - *  2. Call fsync() on a socket(fd), and expect EINVAL.
+> - *  3. Call fsync() on a closed fd, and test for EBADF.
+> - *  4. Call fsync() on an invalid fd, and test for EBADF.
+> - *  5. Call fsync() on a fifo(fd), and expect EINVAL.
+> +/*\
+> + * Verify that fsync(2) sets errno to:
+> + * 1. EINVAL if calling fsync() on a pipe(fd).
+> + * 2. EINVAL if calling fsync() on a socket(fd).
+> + * 3. EBADF if calling fsync() on a closed fd.
+> + * 4. EBADF if calling fsync() on an invalid fd.
+> + * 5. EINVAL if calling fsync() on a fifo(fd).
+>    */
+>   
+>   #include <unistd.h>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
