@@ -1,126 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AD3CA43C7E
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2025 12:00:27 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A23AA43E05
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2025 12:45:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BA4A03C9B0F
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2025 12:00:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1136D3C9B18
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2025 12:45:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 03FF53C9AC5
- for <ltp@lists.linux.it>; Tue, 25 Feb 2025 12:00:24 +0100 (CET)
-Authentication-Results: in-4.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by picard.linux.it (Postfix) with ESMTPS id D53133C9B21
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2025 12:45:04 +0100 (CET)
+Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
+ helo=us-smtp-delivery-124.mimecast.com; envelope-from=jstancek@redhat.com;
+ receiver=lists.linux.it)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D3320101734B
- for <ltp@lists.linux.it>; Tue, 25 Feb 2025 12:00:23 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 13FBF6688BD
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2025 12:45:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1740483902;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7FKzajwLxKs46WPhQoovSWeL+CDN6sEGD/DCv6fSUf8=;
+ b=Q/05BL/chINcPxLFlO1soBvmqrq7k67yKOihuhwZOeR4qeCom0T429bV7iHQFzcwoz4Gv4
+ VOG0/FXD7dayBUikWqiOTiRGz/yU1lVUZPVVmewlSdYoWPlwnvOwzEqIZ4O7JbWHIC5w8z
+ ZOhxeN9QqpNAsg/CEFMXA7kQrD/a9ac=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-49-Bi7D_j2eNz6xLd4EoYwtwQ-1; Tue,
+ 25 Feb 2025 06:45:00 -0500
+X-MC-Unique: Bi7D_j2eNz6xLd4EoYwtwQ-1
+X-Mimecast-MFC-AGG-ID: Bi7D_j2eNz6xLd4EoYwtwQ_1740483899
+Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A9D6921167;
- Tue, 25 Feb 2025 11:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1740481222;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EtdOJi4w9E9/OgneyIkMwu4IghGS5sQyZYmVohqp4FI=;
- b=plTg/J4b5P7d40RId9mFCKIfbf2D88MN3s7EsQqT5mypiZYUoBZtBOHeDS5pnfLGRH0sGN
- oiTB7SGn7cG0YNNusJ0FqIFt17G6c8W8kxj/X1+/Gnx7MZZZmvvmO0uFM4k221etdUkVEy
- /5oKY4vlkAcvNQsxmk/Wc3I/5q74xSI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1740481222;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EtdOJi4w9E9/OgneyIkMwu4IghGS5sQyZYmVohqp4FI=;
- b=UFXahiDaVouyRv0NqREzFAZf6YCSWjX/Mv9U1qDg9jSc2SI7GzHET4gvnxCj71PZin5qp/
- wTHC5vRaI2XinLBQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="plTg/J4b";
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=UFXahiDa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1740481222;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EtdOJi4w9E9/OgneyIkMwu4IghGS5sQyZYmVohqp4FI=;
- b=plTg/J4b5P7d40RId9mFCKIfbf2D88MN3s7EsQqT5mypiZYUoBZtBOHeDS5pnfLGRH0sGN
- oiTB7SGn7cG0YNNusJ0FqIFt17G6c8W8kxj/X1+/Gnx7MZZZmvvmO0uFM4k221etdUkVEy
- /5oKY4vlkAcvNQsxmk/Wc3I/5q74xSI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1740481222;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EtdOJi4w9E9/OgneyIkMwu4IghGS5sQyZYmVohqp4FI=;
- b=UFXahiDaVouyRv0NqREzFAZf6YCSWjX/Mv9U1qDg9jSc2SI7GzHET4gvnxCj71PZin5qp/
- wTHC5vRaI2XinLBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7FD3413332;
- Tue, 25 Feb 2025 11:00:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id FETOHcaivWdCMwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Tue, 25 Feb 2025 11:00:22 +0000
-Date: Tue, 25 Feb 2025 12:00:17 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20250225110017.GA2932346@pevik>
-References: <20250214112135.18947-1-chrubis@suse.cz>
- <20250214112135.18947-3-chrubis@suse.cz>
- <20250217074413.GA2350499@pevik> <Z72anBFr2n4REM3E@yuki.lan>
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 901D31800873
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2025 11:44:59 +0000 (UTC)
+Received: from t14s.redhat.com (unknown [10.45.225.85])
+ by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id A661B19560AA
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2025 11:44:58 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: ltp@lists.linux.it
+Date: Tue, 25 Feb 2025 12:39:04 +0100
+Message-ID: <76a95636d3519b759cca00fc6883957f9b8e50ef.1740482145.git.jstancek@redhat.com>
+In-Reply-To: <Z7yTEEf-BR3qnpz9@yuki.lan>
+References: <Z7yTEEf-BR3qnpz9@yuki.lan>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Z72anBFr2n4REM3E@yuki.lan>
-X-Rspamd-Queue-Id: A9D6921167
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.71 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_TWO(0.00)[2];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FUZZY_BLOCKED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:replyto,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
- RCVD_VIA_SMTP_AUTH(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
- MISSING_XM_UA(0.00)[]; REPLYTO_EQ_FROM(0.00)[]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.71
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: jSH5sKR8071TscmVuzbkHhEZ3HlJ4doOfuU6ZK9dH_A_1740483899
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/2] shell lib: Add support for test cleanup
+Subject: [LTP] [PATCH v3] provide separate functions for getting start and
+ end fs timestamps
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,52 +85,246 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Tests using tst_get_fs_timestamp() rarely fail with recent kernels,
+for example (after 6.13-rc1):
+  tst_test.c:1833: TINFO: === Testing on ext4 ===
+  tst_test.c:1170: TINFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+  mke2fs 1.47.2 (1-Jan-2025)
+  tst_test.c:1182: TINFO: Mounting /dev/loop0 to /tmp/LTP_uti42UpHj/mntpoint fstyp=ext4 flags=0
+  utime03.c:74: TPASS: utime(TEMP_FILE, NULL) passed
+  utime03.c:80: TFAIL: utime() did not set expected atime, mintime: 1738291930, maxtime: 1738291930, st_atime: 1738291931
+  utime03.c:85: TFAIL: utime() did not set expected mtime, mintime: 1738291930, maxtime: 1738291930, st_mtime: 1738291931
 
-> Hi!
-> > could we get check for file existence, the same way it's done in metaparse.c?
+Since 4e40eff0b573 ("fs: add infrastructure for multigrain timestamps"),
+filesystem can use more precise clock to update the inode.
 
-> > Also, I'd prefer if both tools exit 1 in case of missing file (so that CI
-> > notifies the problem).
+Provide two versions of the function, for collecting start and end
+timestamp, where latter one uses more precise clock.
 
-> Will do.
+Old function is renamed to tst_clock_get_timestamp() and used as
+a helper function.
 
-> > +++ metadata/metaparse-sh.c
-> > @@ -6,6 +6,7 @@
-> >  #include <stdio.h>
-> >  #include <string.h>
-> >  #include <libgen.h>
-> > +#include <unistd.h>
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
+---
+ include/tst_clocks.h                          | 21 +++++++++++++++++--
+ lib/tst_clocks.c                              | 20 ++++++++++++++----
+ .../kernel/syscalls/ipc/msgrcv/msgrcv01.c     |  4 ++--
+ .../kernel/syscalls/ipc/msgsnd/msgsnd01.c     |  4 ++--
+ .../kernel/syscalls/ipc/shmctl/shmctl01.c     |  4 ++--
+ testcases/kernel/syscalls/utime/utime01.c     |  6 +++---
+ testcases/kernel/syscalls/utime/utime02.c     |  6 +++---
+ testcases/kernel/syscalls/utime/utime03.c     |  4 ++--
+ 8 files changed, 49 insertions(+), 20 deletions(-)
 
-> >  #include "data_storage.h"
+diff --git a/include/tst_clocks.h b/include/tst_clocks.h
+index 06d2d03bef33..8b7f33d4f387 100644
+--- a/include/tst_clocks.h
++++ b/include/tst_clocks.h
+@@ -20,15 +20,32 @@ int tst_clock_settime(clockid_t clk_id, struct timespec *ts);
+  */
+ const char *tst_clock_name(clockid_t clk_id);
+ 
++/*
++ * Returns timestamp (seconds passed) for the specified clock.
++ * TBROKs on error.
++ */
++time_t tst_clock_get_timestamp(clockid_t clk_id);
++
+ /*
+  * Returns current system time for file/IPC operations, which may slightly lag
+- * behind time() return values.
++ * behind time() return values. Meant to be used as lower bound in atime/mtime
++ * checks.
+  *
+  * The reason for this is that the time() syscall reads the nanosecond timer at
+  * the time of the call and adds it to the kernel current time, because of that
+  * accumulation may cause it jump one second ahead compared to the kernel time
+  * stamp that is used for IPC and filesystems.
+  */
+-time_t tst_get_fs_timestamp(void);
++time_t tst_fs_timestamp_start(void);
++
++/*
++ * Returns current system time for file/IPC operation, using clock
++ * which has higher precision. Meant to be used as higher bound in atime/mtime
++ * checks.
++ *
++ * The reason for separate start/end functions is to cover features like
++ * multigrain timestamps, which update atime/mtime using more precise clock.
++ */
++time_t tst_fs_timestamp_end(void);
+ 
+ #endif /* TST_CLOCKS__ */
+diff --git a/lib/tst_clocks.c b/lib/tst_clocks.c
+index 29f4b420c373..fba4a4f7ba51 100644
+--- a/lib/tst_clocks.c
++++ b/lib/tst_clocks.c
+@@ -144,15 +144,27 @@ const char *tst_clock_name(clockid_t clk_id)
+ 	}
+ }
+ 
+-time_t tst_get_fs_timestamp(void)
++time_t tst_clock_get_timestamp(clockid_t clk_id)
+ {
+ 	struct timespec ts;
+ 	int ret;
+ 
+-	ret = tst_clock_gettime(CLOCK_REALTIME_COARSE, &ts);
++	ret = tst_clock_gettime(clk_id, &ts);
+ 
+-	if (ret < 0)
+-		tst_brk(TBROK | TERRNO, "clock_gettime(CLOCK_REALTIME_COARSE)");
++	if (ret < 0) {
++		tst_brk(TBROK | TERRNO, "clock_gettime(%s)",
++			tst_clock_name(clk_id));
++	}
+ 
+ 	return ts.tv_sec;
+ }
++
++time_t tst_fs_timestamp_start(void)
++{
++	return tst_clock_get_timestamp(CLOCK_REALTIME_COARSE);
++}
++
++time_t tst_fs_timestamp_end(void)
++{
++	return tst_clock_get_timestamp(CLOCK_REALTIME);
++}
+diff --git a/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
+index 9df20a61e38e..58bfd27716a2 100644
+--- a/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
++++ b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
+@@ -26,13 +26,13 @@ static void verify_msgrcv(void)
+ 
+ 	SAFE_MSGSND(queue_id, &snd_buf, MSGSIZE, 0);
+ 
+-	before_rcv = tst_get_fs_timestamp();
++	before_rcv = tst_fs_timestamp_start();
+ 	TEST(msgrcv(queue_id, &rcv_buf, MSGSIZE, 1, 0));
+ 	if (TST_RET == -1) {
+ 		tst_res(TFAIL | TTERRNO, "msgrcv failed");
+ 		return;
+ 	}
+-	after_rcv = tst_get_fs_timestamp();
++	after_rcv = tst_fs_timestamp_end();
+ 
+ 	if (strcmp(rcv_buf.mtext, snd_buf.mtext) == 0)
+ 		tst_res(TPASS, "message received(%s) = message sent(%s)",
+diff --git a/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c b/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c
+index 60936be8a355..6d92f3dece11 100644
+--- a/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c
++++ b/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c
+@@ -30,13 +30,13 @@ static void verify_msgsnd(void)
+ 	struct msqid_ds qs_buf;
+ 	time_t before_snd, after_snd;
+ 
+-	before_snd = tst_get_fs_timestamp();
++	before_snd = tst_fs_timestamp_start();
+ 	TEST(msgsnd(queue_id, &snd_buf, MSGSIZE, 0));
+ 	if (TST_RET == -1) {
+ 		tst_res(TFAIL | TTERRNO, "msgsnd() failed");
+ 		return;
+ 	}
+-	after_snd = tst_get_fs_timestamp();
++	after_snd = tst_fs_timestamp_end();
+ 
+ 	SAFE_MSGCTL(queue_id, IPC_STAT, &qs_buf);
+ 
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
+index 1eec0798930f..e86cd71031af 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
+@@ -242,9 +242,9 @@ static int get_shm_idx_from_id(int shm_id)
+ 
+ static void setup(void)
+ {
+-	ctime_min = tst_get_fs_timestamp();
++	ctime_min = tst_fs_timestamp_start();
+ 	shm_id = SAFE_SHMGET(IPC_PRIVATE, SHM_SIZE, IPC_CREAT | SHM_RW);
+-	ctime_max = tst_get_fs_timestamp();
++	ctime_max = tst_fs_timestamp_end();
+ 
+ 	shm_idx = get_shm_idx_from_id(shm_id);
+ 
+diff --git a/testcases/kernel/syscalls/utime/utime01.c b/testcases/kernel/syscalls/utime/utime01.c
+index 2a74f8952d64..9e985ec3761d 100644
+--- a/testcases/kernel/syscalls/utime/utime01.c
++++ b/testcases/kernel/syscalls/utime/utime01.c
+@@ -31,7 +31,7 @@ static void run(void)
+ 	struct stat stat_buf;
+ 	time_t pre_time, post_time;
+ 
+-	utbuf.modtime = tst_get_fs_timestamp() - 5;
++	utbuf.modtime = tst_fs_timestamp_start() - 5;
+ 	utbuf.actime = utbuf.modtime + 1;
+ 	TST_EXP_PASS_SILENT(utime(TEMP_FILE, &utbuf));
+ 	SAFE_STAT(TEMP_FILE, &stat_buf);
+@@ -39,11 +39,11 @@ static void run(void)
+ 	TST_EXP_EQ_LI(stat_buf.st_atime, utbuf.actime);
+ 	TST_EXP_EQ_LI(stat_buf.st_mtime, utbuf.modtime);
+ 
+-	pre_time = tst_get_fs_timestamp();
++	pre_time = tst_fs_timestamp_start();
+ 	TST_EXP_PASS(utime(TEMP_FILE, NULL), "utime(%s, NULL)", TEMP_FILE);
+ 	if (!TST_PASS)
+ 		return;
+-	post_time = tst_get_fs_timestamp();
++	post_time = tst_fs_timestamp_end();
+ 	SAFE_STAT(TEMP_FILE, &stat_buf);
+ 
+ 	if (stat_buf.st_mtime < pre_time || stat_buf.st_mtime > post_time)
+diff --git a/testcases/kernel/syscalls/utime/utime02.c b/testcases/kernel/syscalls/utime/utime02.c
+index 52185d839e65..5ed83298796d 100644
+--- a/testcases/kernel/syscalls/utime/utime02.c
++++ b/testcases/kernel/syscalls/utime/utime02.c
+@@ -48,7 +48,7 @@ static void run(void)
+ 	struct stat stat_buf;
+ 	time_t pre_time, post_time;
+ 
+-	utbuf.modtime = tst_get_fs_timestamp() - 5;
++	utbuf.modtime = tst_fs_timestamp_start() - 5;
+ 	utbuf.actime = utbuf.modtime + 1;
+ 	TST_EXP_PASS_SILENT(utime(TEMP_FILE, &utbuf));
+ 	SAFE_STAT(TEMP_FILE, &stat_buf);
+@@ -56,11 +56,11 @@ static void run(void)
+ 	TST_EXP_EQ_LI(stat_buf.st_atime, utbuf.actime);
+ 	TST_EXP_EQ_LI(stat_buf.st_mtime, utbuf.modtime);
+ 
+-	pre_time = tst_get_fs_timestamp();
++	pre_time = tst_fs_timestamp_start();
+ 	TST_EXP_PASS(utime(TEMP_FILE, NULL), "utime(%s, NULL)", TEMP_FILE);
+ 	if (!TST_PASS)
+ 		return;
+-	post_time = tst_get_fs_timestamp();
++	post_time = tst_fs_timestamp_end();
+ 	SAFE_STAT(TEMP_FILE, &stat_buf);
+ 
+ 	if (stat_buf.st_mtime < pre_time || stat_buf.st_mtime > post_time)
+diff --git a/testcases/kernel/syscalls/utime/utime03.c b/testcases/kernel/syscalls/utime/utime03.c
+index 564e1de3dd77..aa0dcef250c8 100644
+--- a/testcases/kernel/syscalls/utime/utime03.c
++++ b/testcases/kernel/syscalls/utime/utime03.c
+@@ -68,9 +68,9 @@ static void run(void)
+ 	}
+ 
+ 	SAFE_SETEUID(user_uid);
+-	mintime = tst_get_fs_timestamp();
++	mintime = tst_fs_timestamp_start();
+ 	TST_EXP_PASS(utime(TEMP_FILE, NULL));
+-	maxtime = tst_get_fs_timestamp();
++	maxtime = tst_fs_timestamp_end();
+ 	SAFE_SETEUID(root_uid);
+ 	SAFE_STAT(TEMP_FILE, &statbuf);
+ 
+-- 
+2.43.0
 
-> > @@ -46,6 +47,11 @@ static void parse_shell(char *path)
-> >  	FILE *f = fopen(path, "r");
-> >  	enum state state = NONE;
-
-> > +	if (access(path, F_OK)) {
-> > +		fprintf(stderr, "file %s does not exist\n", path);
-> > +		return;
-> > +	}
-
-> I guess that I should check the f instead:
-
-> 	if (!f) {
-> 		fprintf(stderr, "Failed to open '%s': %s", path, strerror(errno));
-> 		exit(1);
-> 	}
-
-Yes, that's it. Thanks for both.
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
