@@ -2,75 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AD64A479D3
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2025 11:11:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 985F6A4820E
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2025 15:52:49 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9B73C3C9DEB
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2025 11:11:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C292A3C9DED
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2025 15:52:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 847BE3C262F
- for <ltp@lists.linux.it>; Thu, 27 Feb 2025 11:11:34 +0100 (CET)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=170.10.129.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=jstancek@redhat.com;
- receiver=lists.linux.it)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8AC9365BE3E
- for <ltp@lists.linux.it>; Thu, 27 Feb 2025 11:11:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1740651091;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=JO4kNd1rUFw2ZG0PG41P1U1uQr3Eyf4YODBf0hX55k8=;
- b=Bh2Nez9hNHJZOgO4Wai+pG5KLCnVLcho1SxS+KqQG8JOK2BNvDsq8lSprzRY7mopyzo0WY
- IQYK99ovi6+kb34xHR7Xy4Q9LlseYRt/QR6TV20NbE776Mqmxl9T4eIVjrN27125IpdKMX
- +BhYLkOR+jm72jKL2d0Ymu2S/zcoNNQ=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-171-b2a9OwltNUKvFI79tCPncg-1; Thu,
- 27 Feb 2025 05:11:29 -0500
-X-MC-Unique: b2a9OwltNUKvFI79tCPncg-1
-X-Mimecast-MFC-AGG-ID: b2a9OwltNUKvFI79tCPncg_1740651088
-Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8568D180087E
- for <ltp@lists.linux.it>; Thu, 27 Feb 2025 10:11:28 +0000 (UTC)
-Received: from t14s.redhat.com (unknown [10.45.225.85])
- by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id A325819560AE
- for <ltp@lists.linux.it>; Thu, 27 Feb 2025 10:11:27 +0000 (UTC)
-From: Jan Stancek <jstancek@redhat.com>
+ by picard.linux.it (Postfix) with ESMTPS id 4F2483C9D44
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2025 13:43:40 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=arm.com
+ (client-ip=217.140.110.172; helo=foss.arm.com;
+ envelope-from=ross.burton@arm.com; receiver=lists.linux.it)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 5177C20D1B7
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2025 13:43:39 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AD8102BCA
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2025 04:43:53 -0800 (PST)
+Received: from cesw-amp-gbt-1s-m12830-04.lab.cambridge.arm.com
+ (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id BCDA13F673
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2025 04:43:37 -0800 (PST)
+From: Ross Burton <ross.burton@arm.com>
 To: ltp@lists.linux.it
-Date: Thu, 27 Feb 2025 11:10:17 +0100
-Message-ID: <18cb6752b375941581aa66617e52edad0913344e.1740650948.git.jstancek@redhat.com>
+Date: Thu, 27 Feb 2025 12:43:30 +0000
+Message-ID: <20250227124330.949015-1-ross.burton@arm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: vy99DUJZWsO99-SBANMupjfzKVSTKB5MUhe24KpdvYA_1740651088
-X-Mimecast-Originator: redhat.com
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] openposix: sem_timedwait: replace sleep with
- tst_process_state_wait3
+X-Mailman-Approved-At: Thu, 27 Feb 2025 15:52:46 +0100
+Subject: [LTP] [PATCH] kernel/kvm: don't hardcode objcopy
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,62 +58,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This makes the test faster and also avoids a small race - when the
-time is very close to starting new second, this makes the test use
-timeout that's effectively just slightly over one second, because
-nanosecond portion is always set to 0. And previously child would
-sleep roughly one second.
+testcases/kernel/kvm uses objcopy to contruct a payload binary, but in
+cross builds the host objcopy may not know how to handle target
+binaries:
 
-Signed-off-by: Jan Stancek <jstancek@redhat.com>
+ CC testcases/kernel/kvm/lib_host.o
+ objcopy: Unable to recognise the format of the input file `kvm_svm03-payload.elf'
+ make[3]: *** [ltp/testcases/kernel/kvm/Makefile:67: kvm_svm03-payload.o] Error 1
+
+This is trivially fixed by searching for an objcopy tool (so
+host-prefixed in cross builds) and using that instead.
+
+Signed-off-by: Ross Burton <ross.burton@arm.com>
 ---
- .../conformance/interfaces/sem_timedwait/2-1.c                | 4 +++-
- .../conformance/interfaces/sem_timedwait/9-1.c                | 4 +++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+ configure.ac                  | 1 +
+ include/mk/config.mk.in       | 1 +
+ testcases/kernel/kvm/Makefile | 4 ++--
+ 3 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/sem_timedwait/2-1.c b/testcases/open_posix_testsuite/conformance/interfaces/sem_timedwait/2-1.c
-index d9012cc5ed1a..61603cee56b1 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/sem_timedwait/2-1.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/sem_timedwait/2-1.c
-@@ -22,6 +22,7 @@
- #include <time.h>
- #include <sys/mman.h>
- #include "posixtest.h"
-+#include "proc.h"
+diff --git a/configure.ac b/configure.ac
+index 344b2ae2c..0f2b6f332 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -30,6 +30,7 @@ AC_PROG_RANLIB
+ AC_DEFUN([AC_PROG_STRIP], [AC_CHECK_TOOL(STRIP, strip, :)])
+ AC_PROG_STRIP
+ AC_PROG_YACC
++AC_CHECK_TOOL([OBJCOPY], [objcopy], [:])
  
- #define TEST "2-1"
- #define SHM_NAME "/posixtest_2-1"
-@@ -79,7 +80,8 @@ int main(void)
- 	} else if (pid > 0)	// parent to unlock semaphore
- 	{
- 		int i;
--		sleep(1);
-+
-+		tst_process_state_wait3(pid, 'S', 1);
- 		if (sem_post(mysemp) == -1) {
- 			perror(ERROR_PREFIX "sem_post");
- 			return PTS_FAIL;
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/sem_timedwait/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/sem_timedwait/9-1.c
-index f9175839dab3..ee7ad7aefe26 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/sem_timedwait/9-1.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/sem_timedwait/9-1.c
-@@ -21,6 +21,7 @@
- #include <sys/wait.h>
- #include <time.h>
- #include "posixtest.h"
-+#include "proc.h"
+ m4_ifndef([PKG_CHECK_EXISTS],
+ 	[m4_fatal([must install pkg-config or pkgconfig and pkg.m4 macro (usual dependency), see INSTALL])])
+diff --git a/include/mk/config.mk.in b/include/mk/config.mk.in
+index 2b7c8a071..4c3da304f 100644
+--- a/include/mk/config.mk.in
++++ b/include/mk/config.mk.in
+@@ -11,6 +11,7 @@ AR			:= @AR@
+ CC			:= @CC@
+ LEX			:= @LEX@
+ RANLIB			:= @RANLIB@
++OBJCOPY			:= @OBJCOPY@
+ STRIP			:= @STRIP@
+ YACC			:= @YACC@
  
- #define TEST "9-1"
- #define FUNCTION "sem_timedwait"
-@@ -79,7 +80,8 @@ int main(void)
- 
- 	} else {		// parent to send a signal to child
- 		int i;
--		sleep(1);
-+
-+		tst_process_state_wait3(pid, 'S', 1);
- 		(void)kill(pid, SIGABRT);	// send signal to child
- 		if (wait(&i) == -1) {
- 			perror("Error waiting for child to exit\n");
+diff --git a/testcases/kernel/kvm/Makefile b/testcases/kernel/kvm/Makefile
+index 07bdd9705..e93528a33 100644
+--- a/testcases/kernel/kvm/Makefile
++++ b/testcases/kernel/kvm/Makefile
+@@ -60,11 +60,11 @@ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+ %-payload.o: %.c lib_guest.o $(ARCH_OBJ)
+ ifdef VERBOSE
+ 	$(CC) $(GUEST_CPPFLAGS) $(GUEST_CFLAGS) $(GUEST_LDFLAGS) -o $*-payload.elf $^ $(GUEST_LDLIBS)
+-	objcopy -O binary -j .init.boot -j .text -j .data -j .init -j .preinit_array -j .init_array --gap-fill=0 $*-payload.elf $*-payload.bin
++	$(OBJCOPY) -O binary -j .init.boot -j .text -j .data -j .init -j .preinit_array -j .init_array --gap-fill=0 $*-payload.elf $*-payload.bin
+ 	$(KVM_LD) -z noexecstack -r -T $(abs_srcdir)/linker/payload.lds --oformat=$(BIN_FORMAT) -o $@ $*-payload.bin
+ else
+ 	@$(CC) $(GUEST_CPPFLAGS) $(GUEST_CFLAGS) $(GUEST_LDFLAGS) -o $*-payload.elf $^ $(GUEST_LDLIBS)
+-	@objcopy -O binary -j .init.boot -j .text -j .data -j .init -j .preinit_array -j .init_array --gap-fill=0 $*-payload.elf $*-payload.bin
++	@$(OBJCOPY) -O binary -j .init.boot -j .text -j .data -j .init -j .preinit_array -j .init_array --gap-fill=0 $*-payload.elf $*-payload.bin
+ 	@$(KVM_LD) -z noexecstack -r -T $(abs_srcdir)/linker/payload.lds --oformat=$(BIN_FORMAT) -o $@ $*-payload.bin
+ 	@echo KVM_CC $(target_rel_dir)$@
+ endif
 -- 
 2.43.0
 
