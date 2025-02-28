@@ -1,74 +1,111 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEA2EA4A047
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2025 18:25:25 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 68FC7A4A043
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2025 18:25:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2471C3C9E96
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2025 18:25:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2124D3C9E96
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2025 18:25:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3A80E3C9EAF
- for <ltp@lists.linux.it>; Fri, 28 Feb 2025 18:24:50 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id D34273C9E90
+ for <ltp@lists.linux.it>; Fri, 28 Feb 2025 18:24:46 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2E4B42195AC
- for <ltp@lists.linux.it>; Fri, 28 Feb 2025 18:24:48 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1108C1425B56
+ for <ltp@lists.linux.it>; Fri, 28 Feb 2025 18:24:45 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5369E1F6E6;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A284D2115A;
  Fri, 28 Feb 2025 17:24:43 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1740763484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Va4bn1snZleqRyy5b77QALH3ZaH/cTdS6dh+AuIf21g=;
+ b=K/y6XEuwjAPm4eWKhn0VCIbk1XqRSipXodfH2qOU83Thw8BlF643VpRDJparXSlD15Zcq+
+ veDcnyq5tJuwt0TJe1NqOmdzUuw9iRV/Z3kI+ninnrupskkc1Fz9zd4e4q8YJUhYcafp8T
+ Vm2nv77gm5aPPUnGTA9rNsg3kCk/jfM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1740763484;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Va4bn1snZleqRyy5b77QALH3ZaH/cTdS6dh+AuIf21g=;
+ b=Z6683YqGvaYo4kLNAbrrYWAsfwdO88L1B2/jBw4YD5qqPmgGp6vaiF1xdrM3LMhBNrcDF0
+ PAz5o75xMQJQ8uCA==
+Authentication-Results: smtp-out1.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1740763483; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Va4bn1snZleqRyy5b77QALH3ZaH/cTdS6dh+AuIf21g=;
+ b=C/zF0sucD93s/GV0dt2lI2QKW35/nUxwROMTP1S5v1KaUTyibuYWnJwAEXswsNQfapgmMr
+ br2v2APgWESl6zPMXoiutTYuP9rth5GMf/iBD71O7gvv9e5xxFI4wDC+xf3Y45FJ+3B377
+ IVeYX4Y+ecCymr6EtZBPi/UFJj7of/0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1740763483;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Va4bn1snZleqRyy5b77QALH3ZaH/cTdS6dh+AuIf21g=;
+ b=RUp8KN5KJFvfllszJwYTM7zCJvt5BpMfVJRuN8eNVI+byG0MUCXuem7rMPLtEzxh0m7lJh
+ 3sksILIhWO5qiMDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 26F6213888;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5D20B1344A;
  Fri, 28 Feb 2025 17:24:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +HoWCFvxwWeQcQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +KwTFVvxwWeQcQAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Fri, 28 Feb 2025 17:24:43 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 28 Feb 2025 18:24:34 +0100
-Message-ID: <20250228172439.3276777-2-pvorel@suse.cz>
+Date: Fri, 28 Feb 2025 18:24:35 +0100
+Message-ID: <20250228172439.3276777-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250228172439.3276777-1-pvorel@suse.cz>
 References: <20250228172439.3276777-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
 X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 5369E1F6E6
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -6.80
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [RFC PATCH 1/5] shell lib: Add support for test cleanup
+Subject: [LTP] [RFC PATCH 2/5] lib: Allow test to have positional args
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,108 +122,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Cyril Hrubis <chrubis@suse.cz>
+Similar to $TST_POS_ARGS in shell API. This will be used in
+testcases/lib/tst_run_shell.c.
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-The same as in:
-https://patchwork.ozlabs.org/project/ltp/patch/20250214112135.18947-3-chrubis@suse.cz/
+I'm not really sure if this is a good approach.
+But bounding the +1 value to .runs_script does not look to me good
+either.
 
- testcases/lib/run_tests.sh                    |  4 +++-
- .../lib/tests/shell_loader_brk_cleanup.sh     | 20 +++++++++++++++++++
- testcases/lib/tests/shell_loader_cleanup.sh   | 20 +++++++++++++++++++
- testcases/lib/tst_env.sh                      |  4 ++++
- 4 files changed, 47 insertions(+), 1 deletion(-)
- create mode 100755 testcases/lib/tests/shell_loader_brk_cleanup.sh
- create mode 100755 testcases/lib/tests/shell_loader_cleanup.sh
+ doc/developers/writing_tests.rst | 2 +-
+ include/tst_test.h               | 5 ++++-
+ lib/tst_test.c                   | 9 +++++++--
+ 3 files changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/testcases/lib/run_tests.sh b/testcases/lib/run_tests.sh
-index 321f74e5fe..128cee3377 100755
---- a/testcases/lib/run_tests.sh
-+++ b/testcases/lib/run_tests.sh
-@@ -9,6 +9,7 @@ shell_loader_filesystems.sh
- shell_loader_kconfigs.sh
- shell_loader_supported_archs.sh
- shell_loader_tcnt.sh
-+shell_loader_cleanup.sh
- shell_test01
- shell_test02
- shell_test03
-@@ -21,7 +22,8 @@ TESTS_TBROK="
- shell_loader_invalid_block.sh
- shell_loader_invalid_metadata.sh
- shell_loader_no_metadata.sh
--shell_loader_wrong_metadata.sh"
-+shell_loader_wrong_metadata.sh
-+shell_loader_brk_cleanup.sh"
+diff --git a/doc/developers/writing_tests.rst b/doc/developers/writing_tests.rst
+index 9b18ec059c..f5796ddc49 100644
+--- a/doc/developers/writing_tests.rst
++++ b/doc/developers/writing_tests.rst
+@@ -521,7 +521,7 @@ LTP C And Shell Test API Comparison
+     * - not applicable
+       - TST_NEEDS_MODULE
  
- TESTS_TCONF="shell_test06"
+-    * - not applicable
++    * - .pos_args (internal use for tst_run_shell.c)
+       - TST_POS_ARGS
  
-diff --git a/testcases/lib/tests/shell_loader_brk_cleanup.sh b/testcases/lib/tests/shell_loader_brk_cleanup.sh
-new file mode 100755
-index 0000000000..8c704a5406
---- /dev/null
-+++ b/testcases/lib/tests/shell_loader_brk_cleanup.sh
-@@ -0,0 +1,20 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2024-2025 Cyril Hrubis <chrubis@suse.cz>
-+#
-+# ---
-+# env
-+# {
-+# }
-+# ---
-+
-+TST_CLEANUP=cleanup
-+
-+. tst_loader.sh
-+
-+cleanup()
-+{
-+	tst_res TINFO "Cleanup runs"
-+}
-+
-+tst_brk TBROK "Test exits"
-diff --git a/testcases/lib/tests/shell_loader_cleanup.sh b/testcases/lib/tests/shell_loader_cleanup.sh
-new file mode 100755
-index 0000000000..fb7bbdf5a9
---- /dev/null
-+++ b/testcases/lib/tests/shell_loader_cleanup.sh
-@@ -0,0 +1,20 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2024-2025 Cyril Hrubis <chrubis@suse.cz>
-+#
-+# ---
-+# env
-+# {
-+# }
-+# ---
-+
-+TST_CLEANUP=do_cleanup
-+
-+. tst_loader.sh
-+
-+do_cleanup()
-+{
-+	tst_res TINFO "Cleanup executed"
-+}
-+
-+tst_res TPASS "Test is executed"
-diff --git a/testcases/lib/tst_env.sh b/testcases/lib/tst_env.sh
-index 68f9a0daa9..b13bab37c3 100644
---- a/testcases/lib/tst_env.sh
-+++ b/testcases/lib/tst_env.sh
-@@ -35,3 +35,7 @@ tst_brk_()
+     * - not applicable
+diff --git a/include/tst_test.h b/include/tst_test.h
+index eb73cd593c..b249f833ab 100644
+--- a/include/tst_test.h
++++ b/include/tst_test.h
+@@ -292,8 +292,11 @@ struct tst_fs {
+  *
+  * @tcnt: A number of tests. If set the test() callback is called tcnt times
+  *        and each time passed an increasing counter value.
++ *
+  * @options: An NULL optstr terminated array of struct tst_option.
+  *
++ * @pos_args: An number of positional parameters passed to tst_run_shell.c.
++ *
+  * @min_kver: A minimal kernel version the test can run on. e.g. "3.10".
+  *
+  * @supported_archs: A NULL terminated array of architectures the test runs on
+@@ -528,6 +531,7 @@ struct tst_fs {
+ 	unsigned int tcnt;
  
- alias tst_res="tst_res_ $tst_script_name \$LINENO"
- alias tst_brk="tst_brk_ $tst_script_name \$LINENO"
+ 	struct tst_option *options;
++	int pos_args;
+ 
+ 	const char *min_kver;
+ 
+@@ -555,7 +559,6 @@ struct tst_fs {
+ 	unsigned int skip_in_secureboot:1;
+ 	unsigned int skip_in_compat:1;
+ 
+-
+ 	int needs_abi_bits;
+ 
+ 	unsigned int needs_hugetlbfs:1;
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index 3823ea109e..1c2cc5e3b2 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -711,6 +711,9 @@ static void parse_opts(int argc, char *argv[])
+ 
+ 	check_option_collision();
+ 
++	if (tst_test->pos_args < 0)
++		tst_brk(TBROK, ".pos_args must be >= 0");
 +
-+if [ -n "$TST_CLEANUP" ]; then
-+	trap $TST_CLEANUP EXIT
-+fi
+ 	optstr[0] = 0;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(options); i++)
+@@ -751,8 +754,10 @@ static void parse_opts(int argc, char *argv[])
+ 		}
+ 	}
+ 
+-	if (optind < argc)
+-		tst_brk(TBROK, "Unexpected argument(s) '%s'...", argv[optind]);
++	if (optind + tst_test->pos_args < argc) {
++		tst_brk(TBROK, "Unexpected argument(s) '%s' (%d + %d < %d)",
++			argv[optind], optind, tst_test->pos_args, argc);
++	}
+ }
+ 
+ int tst_parse_int(const char *str, int *val, int min, int max)
 -- 
 2.47.2
 
