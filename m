@@ -1,110 +1,96 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2EEBA4DE85
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Mar 2025 13:58:04 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A708CA4DEA5
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Mar 2025 14:06:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 686DB3C9D55
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Mar 2025 13:58:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 50E4B3CA060
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Mar 2025 14:06:21 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 98A9B3C9D55
- for <ltp@lists.linux.it>; Tue,  4 Mar 2025 13:57:53 +0100 (CET)
-Authentication-Results: in-7.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 47A2E3C7B04
+ for <ltp@lists.linux.it>; Tue,  4 Mar 2025 14:06:11 +0100 (CET)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
+ helo=mx0b-001b2d01.pphosted.com; envelope-from=zohar@linux.ibm.com;
+ receiver=lists.linux.it)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E212C219646
- for <ltp@lists.linux.it>; Tue,  4 Mar 2025 13:57:52 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 127F921190;
- Tue,  4 Mar 2025 12:57:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1741093071;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=87zAOwEdaCcmKqN1c4wbkJqYWFYitpjRDie2jchQ710=;
- b=tAVuru5krXb+Xk2l10WLjHGMJKouBox6M4ZM9tIXRNc34yry28/Y5bGeYOn5fRMTl6KGZQ
- ci3vJV01UY90jd8DR94JNEqnu1bs8IMLRJWMfiFxYqxVMQP4XZJINnvaXhJ6Z4moVOW9Wg
- HdWq9xqCiurA9nTB3brJqDYGYwPKLFc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1741093071;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=87zAOwEdaCcmKqN1c4wbkJqYWFYitpjRDie2jchQ710=;
- b=bPWNnAOIV44TBVxZSAPcVOu8Zq9+qH+oABRpbq/NwUH6yALxoetGPDLYl3rRKe9kq4rDpM
- fc58oKH02QmhyVBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1741093071;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=87zAOwEdaCcmKqN1c4wbkJqYWFYitpjRDie2jchQ710=;
- b=tAVuru5krXb+Xk2l10WLjHGMJKouBox6M4ZM9tIXRNc34yry28/Y5bGeYOn5fRMTl6KGZQ
- ci3vJV01UY90jd8DR94JNEqnu1bs8IMLRJWMfiFxYqxVMQP4XZJINnvaXhJ6Z4moVOW9Wg
- HdWq9xqCiurA9nTB3brJqDYGYwPKLFc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1741093071;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=87zAOwEdaCcmKqN1c4wbkJqYWFYitpjRDie2jchQ710=;
- b=bPWNnAOIV44TBVxZSAPcVOu8Zq9+qH+oABRpbq/NwUH6yALxoetGPDLYl3rRKe9kq4rDpM
- fc58oKH02QmhyVBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D9B1B1393C;
- Tue,  4 Mar 2025 12:57:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id xRFtM874xmc1FAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Tue, 04 Mar 2025 12:57:50 +0000
-Date: Tue, 4 Mar 2025 13:57:49 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Mimi Zohar <zohar@linux.ibm.com>
-Message-ID: <20250304125749.GA81126@pevik>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 481391423DD5
+ for <ltp@lists.linux.it>; Tue,  4 Mar 2025 14:06:10 +0100 (CET)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5249qUk4018564;
+ Tue, 4 Mar 2025 13:06:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=5NhgvE
+ mB//JwLWrL4p9NVehytXsQmTIfoqR3DznckAw=; b=BKw/QOzlCIUUbi/j7Z5X7L
+ p8kjlE35oZ/jBgpLkHkkU1GAgAMAsfH1UHGktnsD2eqteNjIlE/PJLnDcPHpjcoj
+ H/2TF52BdvXC+1j7sVBJfVQWcTiJvv7r75/HsKmDGHPwOxbSKIvNF5gF6Gbk/+Wo
+ rI2Zy4qxuH+emtWj2F8r5XMWlX5milKNOD43nP2BNOpYQhJ89yS5nyGNlHOMPdDt
+ hGkzhKYBzlJDD617h/F3KxLqnQ3vGDRybGl5OkkV5u/y7tTsIhRz5mGod0hr/gwO
+ l0fQ2P5bWPLZFrVkckDYSNWzCbj8fuVv3aIpkeg8ftvQ+w12zE4vLmZV98HK6z9w
+ ==
+Received: from ppma12.dal12v.mail.ibm.com
+ (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 455kmyky3s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Mar 2025 13:06:08 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma12.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 524AkFkb032216;
+ Tue, 4 Mar 2025 13:06:08 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+ by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 454cjswpck-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Mar 2025 13:06:08 +0000
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com
+ [10.39.53.232])
+ by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 524D67o420906696
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 4 Mar 2025 13:06:07 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6D51C58059;
+ Tue,  4 Mar 2025 13:06:07 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id ACFCA58043;
+ Tue,  4 Mar 2025 13:06:06 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown
+ [9.61.57.16]) by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Tue,  4 Mar 2025 13:06:06 +0000 (GMT)
+Message-ID: <30769565910b3198fa8d714b5edb25419fcb1457.camel@linux.ibm.com>
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Petr Vorel <pvorel@suse.cz>
+Date: Tue, 04 Mar 2025 08:06:06 -0500
+In-Reply-To: <20250304125749.GA81126@pevik>
 References: <20250304115331.524842-1-zohar@linux.ibm.com>
+ <20250304125749.GA81126@pevik>
+User-Agent: Evolution 3.52.4 (3.52.4-2.fc40) 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250304115331.524842-1-zohar@linux.ibm.com>
-X-Spam-Score: -6.24
-X-Spamd-Result: default: False [-6.24 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; SUBJECT_HAS_CURRENCY(1.00)[];
- NEURAL_HAM_LONG(-0.75)[-0.753]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.19)[-0.954]; MIME_GOOD(-0.10)[text/plain];
- RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; MISSING_XM_UA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_THREE(0.00)[4]; FROM_HAS_DN(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- REPLYTO_EQ_FROM(0.00)[]
-X-Spam-Level: 
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: _8Zetb3FGGs-Lk1GJLKif6CTulfkSx2O
+X-Proofpoint-GUID: _8Zetb3FGGs-Lk1GJLKif6CTulfkSx2O
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-04_05,2025-03-03_04,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 mlxlogscore=954
+ priorityscore=1501 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ mlxscore=0 malwarescore=0 clxscore=1015 phishscore=0 suspectscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2502100000 definitions=main-2503040106
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 Subject: Re: [LTP] [PATCH v2 1/4] ima_violations.sh: force $LOG ToMToU
  violation earlier
@@ -119,7 +105,6 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: linux-integrity@vger.kernel.org, ltp@lists.linux.it,
  Stefan Berger <stefanb@linux.ibm.com>
 Content-Type: text/plain; charset="us-ascii"
@@ -127,45 +112,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Mimi,
+On Tue, 2025-03-04 at 13:57 +0100, Petr Vorel wrote:
+> Hi Mimi,
+> 
+> > Violation tests are dependent on searching the $LOG file, which may
+> > itself result in a ToMToU violation.  Preempt getting an additional
+> > violation during the tests by forcing the $LOG ToMToU violation
+> > earlier.
+> 
+> > Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
+> > ---
+> >  testcases/kernel/security/integrity/ima/tests/ima_violations.sh | 1 +
+> >  1 file changed, 1 insertion(+)
+> 
+> > diff --git a/testcases/kernel/security/integrity/ima/tests/ima_violations.sh b/testcases/kernel/security/integrity/ima/tests/ima_violations.sh
+> > index 37d8d473c..22863fb72 100755
+> > --- a/testcases/kernel/security/integrity/ima/tests/ima_violations.sh
+> > +++ b/testcases/kernel/security/integrity/ima/tests/ima_violations.sh
+> > @@ -30,6 +30,7 @@ setup()
+> >  	if [ ! -e "$LOG" ]; then
+> >  		tst_brk TCONF "log file not found, install auditd"
+> >  	fi
+> > +	exec 3< $LOG || tst_brk TBROK "failed to read log file"
+> >  	tst_res TINFO "using log $LOG"
+> 
+> If you don't mind, I would reverse the order to get info about which log is
+> used:
+> 
+> 	tst_res TINFO "using log $LOG"
+> 	exec 3< $LOG || tst_brk TBROK "failed to read log file"
 
-> Violation tests are dependent on searching the $LOG file, which may
-> itself result in a ToMToU violation.  Preempt getting an additional
-> violation during the tests by forcing the $LOG ToMToU violation
-> earlier.
+Oh, I see what you mean.  All of the TINFO come first and then an error, if
+there is one.  That's fine.
 
-> Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
-> ---
->  testcases/kernel/security/integrity/ima/tests/ima_violations.sh | 1 +
->  1 file changed, 1 insertion(+)
+> 
+> Or, if it's needed to for some reason to run it before (no idea why, but I might
+> miss something), I would merge it as:
+> 
+> 	exec 3< $LOG || tst_brk TBROK "failed to read $LOG"
+> 	tst_res TINFO "using log $LOG"
+> 
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-> diff --git a/testcases/kernel/security/integrity/ima/tests/ima_violations.sh b/testcases/kernel/security/integrity/ima/tests/ima_violations.sh
-> index 37d8d473c..22863fb72 100755
-> --- a/testcases/kernel/security/integrity/ima/tests/ima_violations.sh
-> +++ b/testcases/kernel/security/integrity/ima/tests/ima_violations.sh
-> @@ -30,6 +30,7 @@ setup()
->  	if [ ! -e "$LOG" ]; then
->  		tst_brk TCONF "log file not found, install auditd"
->  	fi
-> +	exec 3< $LOG || tst_brk TBROK "failed to read log file"
->  	tst_res TINFO "using log $LOG"
+thanks,
 
-If you don't mind, I would reverse the order to get info about which log is
-used:
+Mimi
 
-	tst_res TINFO "using log $LOG"
-	exec 3< $LOG || tst_brk TBROK "failed to read log file"
-
-Or, if it's needed to for some reason to run it before (no idea why, but I might
-miss something), I would merge it as:
-
-	exec 3< $LOG || tst_brk TBROK "failed to read $LOG"
-	tst_res TINFO "using log $LOG"
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
