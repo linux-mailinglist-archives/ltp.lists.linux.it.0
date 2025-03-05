@@ -2,21 +2,20 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72406A502CC
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Mar 2025 15:55:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4C43A502D3
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Mar 2025 15:55:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2B8F53CA0B2
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Mar 2025 15:55:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 94B3A3CA0CB
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Mar 2025 15:55:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3D5593CA0A7
- for <ltp@lists.linux.it>; Wed,  5 Mar 2025 15:54:37 +0100 (CET)
-Authentication-Results: in-4.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ by picard.linux.it (Postfix) with ESMTPS id 2A5B33CA093
+ for <ltp@lists.linux.it>; Wed,  5 Mar 2025 15:54:40 +0100 (CET)
+Authentication-Results: in-3.smtp.seeweb.it; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
  helo=mx0b-001b2d01.pphosted.com; envelope-from=zohar@linux.ibm.com;
  receiver=lists.linux.it)
@@ -24,74 +23,74 @@ Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 50BAE101D8D4
- for <ltp@lists.linux.it>; Wed,  5 Mar 2025 15:54:36 +0100 (CET)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 525AsFCZ028235;
- Wed, 5 Mar 2025 14:54:35 GMT
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 75B691BD2578
+ for <ltp@lists.linux.it>; Wed,  5 Mar 2025 15:54:39 +0100 (CET)
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 525ArSPg008101;
+ Wed, 5 Mar 2025 14:54:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
  :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=K3BIVVofhQVjkD+94
- 1L35A8B/+mxTg7bA9YUtM1C09s=; b=Bqdr6cPynsjhT51Xb1QX0jCLKbQbZrtUG
- Utqr6ZqKsJWnhmIjU3ce2mpPnol9ZjiQhD6h3jTXsWhrAGZggbLKUEyAqoCeo4ck
- eCQ6rYqTQ9DSnYHLPjBT6PgMGHoso3x6XHypsvDhodFH84hxFHhSJE5RcmXNcfsa
- szP+zWogqFXedIOHbQlW0Q6VCFIhRU7CrPzvit6vZRXKUpJWd8E8kzM6pANXxKhq
- 4db1iE2mEOux0wWIKwS4hU5YuFHbdqsgqygRtc3+GGUGAb6mqtddp03NuBXDd1TQ
- lb3Ri71/K0NaZzpYX+DgtyoZujGBdYMMQT9RkxAu+RRyGw9Dm/4dw==
-Received: from ppma12.dal12v.mail.ibm.com
- (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4568x545s4-1
+ :mime-version:references:subject:to; s=pp1; bh=yHHRBDZIJVgbFSknx
+ YrXzeJC0MQmU4oIq3enwGgiPx8=; b=KsCJJDF7LrwhTFUDWgme2BrM0WaiOSB7E
+ rpY+WFnzoeaotqTkhPvuUfVjjPOpX8AmSa9FStCZX98wGo8Sz2r2XJ8Av+DoGPOe
+ cVllZrCMaQQzcmRyRIbxHantxLeSTJVilCSXHB3yNuDgrH5u71Y94fVBvzKEWqjC
+ 95l4NVH91sAVHdJCHHtc9CNNAzhysnPIStfuCSV1/Z/Ma/UdOC3G4TUcfqztpAms
+ 1RkZ4O2mTNz/W4NTEFy0Xqpx4CbK/r675FvqhzY8IkLE4i5LLqQTjubXeBEAXXFK
+ RxqPDMHGN8IskIMxkUhXMSKdXvfxYOt+qssSkpzzAUmm1Ul1yjVew==
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4568ppc75q-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 05 Mar 2025 14:54:35 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
- by ppma12.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 525EMo6o032219;
- Wed, 5 Mar 2025 14:54:34 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
- by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 454cjt3gyn-1
+ Wed, 05 Mar 2025 14:54:37 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 525BLN9v020841;
+ Wed, 5 Mar 2025 14:54:37 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 454djnkanu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 05 Mar 2025 14:54:34 +0000
+ Wed, 05 Mar 2025 14:54:37 +0000
 Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
  [10.20.54.101])
- by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 525EsVNv31654350
+ by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 525EsXED13304092
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 5 Mar 2025 14:54:31 GMT
+ Wed, 5 Mar 2025 14:54:33 GMT
 Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 51DA520043;
+ by IMSVA (Postfix) with ESMTP id 7734F20043;
+ Wed,  5 Mar 2025 14:54:33 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B55D220040;
  Wed,  5 Mar 2025 14:54:31 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DB66920040;
- Wed,  5 Mar 2025 14:54:29 +0000 (GMT)
 Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com.com (unknown
  [9.61.124.31]) by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Wed,  5 Mar 2025 14:54:29 +0000 (GMT)
+ Wed,  5 Mar 2025 14:54:31 +0000 (GMT)
 From: Mimi Zohar <zohar@linux.ibm.com>
 To: ltp@lists.linux.it
-Date: Wed,  5 Mar 2025 09:54:20 -0500
-Message-ID: <20250305145421.638857-4-zohar@linux.ibm.com>
+Date: Wed,  5 Mar 2025 09:54:21 -0500
+Message-ID: <20250305145421.638857-5-zohar@linux.ibm.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250305145421.638857-1-zohar@linux.ibm.com>
 References: <20250305145421.638857-1-zohar@linux.ibm.com>
 MIME-Version: 1.0
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: n8T14XmXTmSQFopoHdMl1jOLZIdc_dkW
-X-Proofpoint-ORIG-GUID: n8T14XmXTmSQFopoHdMl1jOLZIdc_dkW
+X-Proofpoint-GUID: 4KSx66GJD6S1wY-3ISK4BhfUVdxi_uHn
+X-Proofpoint-ORIG-GUID: 4KSx66GJD6S1wY-3ISK4BhfUVdxi_uHn
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-03-05_06,2025-03-05_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0
- lowpriorityscore=0 adultscore=0 phishscore=0 mlxlogscore=649
- suspectscore=0 impostorscore=0 priorityscore=1501 malwarescore=0
- bulkscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2502100000 definitions=main-2503050114
+ spamscore=0 phishscore=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 malwarescore=0
+ mlxscore=0 impostorscore=0 adultscore=0 priorityscore=1501 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2502100000
+ definitions=main-2503050114
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 4/5] ima_violations.sh: additional ToMToU violation
- tests
+Subject: [LTP] [PATCH v3 5/5] ima_violations.sh: require kernel v6.14 for
+ minimizing violations tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,79 +108,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Kernel patch "ima: limit the number of ToMToU integrity violations"
-prevents superfluous ToMToU violations.  Add corresponding LTP tests.
+Depending on the IMA policy and the number of violations, the kernel
+patches for minimizing the number of open-writers and ToMToU (Time of
+Measure Time of Use) violations may be a major performance improvement.
 
-Link: https://lore.kernel.org/linux-integrity/20250228205505.476845-3-zohar@linux.ibm.com/
+Most likely the kernel patches will be back ported, but for now limit
+the new tests to new kernels with the applied patches.  Bail after the
+first new test.
+
 Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
 ---
- .../integrity/ima/tests/ima_violations.sh     | 46 ++++++++++++++++++-
- 1 file changed, 45 insertions(+), 1 deletion(-)
+ .../kernel/security/integrity/ima/tests/ima_violations.sh     | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/testcases/kernel/security/integrity/ima/tests/ima_violations.sh b/testcases/kernel/security/integrity/ima/tests/ima_violations.sh
-index d3081a4d1..0395f8d0a 100755
+index 0395f8d0a..8e988fca6 100755
 --- a/testcases/kernel/security/integrity/ima/tests/ima_violations.sh
 +++ b/testcases/kernel/security/integrity/ima/tests/ima_violations.sh
-@@ -8,7 +8,7 @@
+@@ -177,6 +177,10 @@ test4()
+ {
+ 	tst_res TINFO "verify limiting single open writer violation"
  
- TST_SETUP="setup"
- TST_CLEANUP="cleanup"
--TST_CNT=6
-+TST_CNT=8
++	if tst_kvcmp -lt 6.14; then
++		tst_brk TCONF "Minimizing violations requires kernel 6.14 or newer"
++	fi
++
+ 	local search="open_writers"
+ 	local count num_violations
  
- REQUIRED_BUILTIN_POLICY="tcb"
- REQUIRED_POLICY_CONTENT='violations.policy'
-@@ -247,6 +247,50 @@ test6()
- 	validate "$num_violations" "$count" "$search" 2
- }
- 
-+test7()
-+{
-+	tst_res TINFO "verify limiting single open reader ToMToU violations"
-+
-+	local search="ToMToU"
-+	local count num_violations
-+
-+	read num_violations < $IMA_VIOLATIONS
-+	count="$(get_count $search)"
-+
-+	open_file_read
-+	open_file_write
-+	close_file_write
-+
-+	open_file_write
-+	close_file_write
-+	close_file_read
-+
-+	validate "$num_violations" "$count" "$search" 1
-+}
-+
-+test8()
-+{
-+	tst_res TINFO "verify new open reader causes additional violation"
-+
-+	local search="ToMToU"
-+	local count num_violations
-+
-+	read num_violations < $IMA_VIOLATIONS
-+	count="$(get_count $search)"
-+
-+	open_file_read
-+	open_file_write
-+	close_file_write
-+	close_file_read
-+
-+	open_file_read
-+	open_file_write
-+	close_file_write
-+	close_file_read
-+
-+	validate "$num_violations" "$count" "$search" 2
-+}
-+
- . ima_setup.sh
- . daemonlib.sh
- tst_run
 -- 
 2.48.1
 
