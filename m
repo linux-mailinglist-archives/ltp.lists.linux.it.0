@@ -1,131 +1,119 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BCB4A5EF5B
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Mar 2025 10:17:03 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 263DDA5EF60
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Mar 2025 10:17:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D47133CA4E5
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Mar 2025 10:17:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CE3A33CA4D9
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Mar 2025 10:17:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 023413CA4D1
- for <ltp@lists.linux.it>; Thu, 13 Mar 2025 10:15:58 +0100 (CET)
-Authentication-Results: in-3.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 82EBD3CA504
+ for <ltp@lists.linux.it>; Thu, 13 Mar 2025 10:16:01 +0100 (CET)
+Authentication-Results: in-7.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ (client-ip=195.135.223.130; helo=smtp-out1.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D74E31A00807
- for <ltp@lists.linux.it>; Thu, 13 Mar 2025 10:15:56 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 22DE4200906
+ for <ltp@lists.linux.it>; Thu, 13 Mar 2025 10:16:00 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 721BC21191;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 969F021192;
  Thu, 13 Mar 2025 09:15:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1741857350; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=j7jtPKl8Q84shSUwa4HFsE7f2BD5l518AIwhs/AK+ks=;
- b=1NFCNaAf0ylTpuNrzRdEAT9M1lSpxzr+eJ7trn9U7RntfpJXhoqqlBSGBOWbGRtIhZOOSd
- erHPsYFu15wLnrXhvYEyn8Ii80x7JlVyP1w2L6PmM6WyK0uYXvioU73iGl3TS/1apwqsHS
- tLD51z4hX/l0slavPG1Log2gpFpL59k=
+ bh=xJ4QVP/d6B9J8K0gaSqCwmZBUVwxf/LJ5wmSzLjnt2M=;
+ b=I/IB7iTrjebz26PJIC6TKkNSgMDdTrA1ZI5UpzfzLVBF6SB6tiQCJVpmcPMIJURkeDJWA/
+ plhyhPtWDVPc4m1J5Toy1x1H8acMDPa7+pPcf3oZLMI2XiujdLZqT3xufnjm2m74Z2akrb
+ DgKpU93wJoJXM8fh+fZn31B1DNN9RNo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1741857350;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=j7jtPKl8Q84shSUwa4HFsE7f2BD5l518AIwhs/AK+ks=;
- b=u6/yvEtUrwXaFVuc8kdNuzxgYxDPE5IeC6bcLD2tclDP1+r3qwUhTJ6benDfsGH76srw+b
- PfB1/gUVNeHTc3Dg==
+ bh=xJ4QVP/d6B9J8K0gaSqCwmZBUVwxf/LJ5wmSzLjnt2M=;
+ b=p3GKDEW4N3RcR4nV+CFqJApc4c7GBrM04StCdv+it6R2p8JFpAIU+76DpODcQPoDqgQyN+
+ lzMSp7CR+sjhelCw==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=1NFCNaAf;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="u6/yvEtU"
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1741857350; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=j7jtPKl8Q84shSUwa4HFsE7f2BD5l518AIwhs/AK+ks=;
- b=1NFCNaAf0ylTpuNrzRdEAT9M1lSpxzr+eJ7trn9U7RntfpJXhoqqlBSGBOWbGRtIhZOOSd
- erHPsYFu15wLnrXhvYEyn8Ii80x7JlVyP1w2L6PmM6WyK0uYXvioU73iGl3TS/1apwqsHS
- tLD51z4hX/l0slavPG1Log2gpFpL59k=
+ bh=xJ4QVP/d6B9J8K0gaSqCwmZBUVwxf/LJ5wmSzLjnt2M=;
+ b=I/IB7iTrjebz26PJIC6TKkNSgMDdTrA1ZI5UpzfzLVBF6SB6tiQCJVpmcPMIJURkeDJWA/
+ plhyhPtWDVPc4m1J5Toy1x1H8acMDPa7+pPcf3oZLMI2XiujdLZqT3xufnjm2m74Z2akrb
+ DgKpU93wJoJXM8fh+fZn31B1DNN9RNo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1741857350;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=j7jtPKl8Q84shSUwa4HFsE7f2BD5l518AIwhs/AK+ks=;
- b=u6/yvEtUrwXaFVuc8kdNuzxgYxDPE5IeC6bcLD2tclDP1+r3qwUhTJ6benDfsGH76srw+b
- PfB1/gUVNeHTc3Dg==
+ bh=xJ4QVP/d6B9J8K0gaSqCwmZBUVwxf/LJ5wmSzLjnt2M=;
+ b=p3GKDEW4N3RcR4nV+CFqJApc4c7GBrM04StCdv+it6R2p8JFpAIU+76DpODcQPoDqgQyN+
+ lzMSp7CR+sjhelCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1D9BD13A5E;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 70E4A137BA;
  Thu, 13 Mar 2025 09:15:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id EAPcBkai0mczNQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id MJo9G0ai0mczNQAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Thu, 13 Mar 2025 09:15:50 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Thu, 13 Mar 2025 10:15:36 +0100
+Date: Thu, 13 Mar 2025 10:15:37 +0100
 MIME-Version: 1.0
-Message-Id: <20250313-mmap_suite_refactoring-v3-3-eb9172686230@suse.com>
+Message-Id: <20250313-mmap_suite_refactoring-v3-4-eb9172686230@suse.com>
 References: <20250313-mmap_suite_refactoring-v3-0-eb9172686230@suse.com>
 In-Reply-To: <20250313-mmap_suite_refactoring-v3-0-eb9172686230@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1741857349; l=1960;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1741857349; l=3127;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=/PjBRxoHFpG8ADG2LQxGMg7sDs6hAQ8M/vTvFkpCzpY=;
- b=Wab9L8kCtoud0Ku1fL2WUoU9Yoe6eCPSdytLuKwfCVCAJs9HYhz3wXoYDWyoJxXuvB4FRMwSP
- cxXCN6S//VjDYHyPNwEWHJXvCei/9nr9oEj+hDuTRD5BHXmOQI7MAbo
+ bh=Vlhlo+VoStKrLvCA8Ousvd+7gNRlolx+gzqXKma4Gfs=;
+ b=vQM4Bvs85RnTQZAfYcT4UyujvnT7Ovvv5+OpKyms02FDBwaSKK/MudxmOSYuZ8jR3X1iO4z7B
+ h4q8g5RaO1jA+OLAlXpTEBCWa70C+bNL4FlCrLIN/Podhn6l+xpEXDf
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: 721BC21191
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spam-Score: -4.30
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
  RCVD_TLS_ALL(0.00)[];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCPT_COUNT_THREE(0.00)[3];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:email,suse.com:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid, suse.com:email,
+ imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 3/8] Cleanup mmap12 test
+Subject: [LTP] [PATCH v3 4/8] Cleanup mmap17 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,64 +132,110 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/syscalls/mmap/mmap12.c | 30 ++++++------------------------
- 1 file changed, 6 insertions(+), 24 deletions(-)
+ testcases/kernel/syscalls/mmap/mmap17.c | 52 +++++++++++++--------------------
+ 1 file changed, 21 insertions(+), 31 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/mmap/mmap12.c b/testcases/kernel/syscalls/mmap/mmap12.c
-index 995a2bab091a745dd7332fe919c1ea38b25641e3..043218834ca8c5284e6d25c7018faa0d09460f67 100644
---- a/testcases/kernel/syscalls/mmap/mmap12.c
-+++ b/testcases/kernel/syscalls/mmap/mmap12.c
-@@ -1,31 +1,13 @@
+diff --git a/testcases/kernel/syscalls/mmap/mmap17.c b/testcases/kernel/syscalls/mmap/mmap17.c
+index 39703fbd397d33fe549b1c9a52db62f763e146dd..c7b12f0fe9607afed7a934cceff1a8f643757b54 100644
+--- a/testcases/kernel/syscalls/mmap/mmap17.c
++++ b/testcases/kernel/syscalls/mmap/mmap17.c
+@@ -1,73 +1,63 @@
  // SPDX-License-Identifier: GPL-2.0-or-later
  /*
-  * Copyright (c) 2013 FNST, DAN LI <li.dan@cn.fujitsu.com>
+  * Copyright (c) Zilogic Systems Pvt. Ltd., 2020
+- * Email: code@zilogic.com
++ *	Email: code@zilogic.com
 + * Copyright (C) 2025 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
   */
  
 -/*
-- * Test Description:
-- *  Verify MAP_POPULATE works fine.
-- *  "For a file mapping, this causes read-ahead on the file.
-- *   Later accesses to the mapping will not be blocked by page faults"
+- * Test mmap with MAP_FIXED_NOREPLACE flag
 - *
-- * Expected Result:
-- *  mmap() with MAP_POPULATE should succeed returning the address of the
-- *  mapped region and this file has been read into RAM, so pages should
-- *  be present.
+- * We are testing the MAP_FIXED_NOREPLACE flag of mmap() syscall. To check
 +/*\
-+ * Verify that mmap() with MAP_POPULATE succeed returning the address of the
-+ * mapped region. The file should be read into RAM, and pages should be present.
++ * Verify MAP_FIXED_NOREPLACE flag for the mmap() syscall and check
+  * if an attempt to mmap at an exisiting mapping fails with EEXIST.
++ *
++ * [Algorithm]
++ *
+  * The code allocates a free address by passing NULL to first mmap call
+- * Then tries to mmap with the same address using MAP_FIXED_NOREPLACE flag
++ * then tries to mmap with the same address using MAP_FIXED_NOREPLACE flag
+  * and the mapping fails as expected.
   */
--#include <stdio.h>
--#include <stdlib.h>
--#include <sys/types.h>
--#include <errno.h>
--#include <unistd.h>
--#include <fcntl.h>
--#include <string.h>
--#include <signal.h>
--#include <stdint.h>
--#include <sys/stat.h>
--#include <sys/mman.h>
--#include <sys/shm.h>
  
+-#include <stdio.h>
+-#include <fcntl.h>
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <unistd.h>
+-#include <errno.h>
+-#include <string.h>
+-#include <stdlib.h>
+-#include "lapi/mmap.h"
  #include "tst_test.h"
  
-@@ -60,9 +42,9 @@ static void page_check(void)
- 			tst_res(TCONF | TERRNO,
- 				"don't have permission to open dev pagemap");
- 			return;
--		} else {
--			tst_brk(TFAIL | TERRNO, "pen dev pagemap failed");
- 		}
-+
-+		tst_brk(TFAIL | TERRNO, "pen dev pagemap failed");
- 	}
+ static int fd_file1;
+ static int fd_file2;
+ static void *mapped_address;
+-static const char str[] = "Writing to mapped file";
++static const char msg[] = "Writing to mapped file";
++static int msg_len;
  
- 	offset = SAFE_LSEEK(pm, index, SEEK_SET);
+ #define FNAME1 "file1_to_mmap"
+ #define FNAME2 "file2_to_mmap"
+ 
+ static void setup(void)
+ {
++	msg_len = strlen(msg);
++
+ 	fd_file1 = SAFE_OPEN(FNAME1, O_CREAT | O_RDWR, 0600);
+ 	fd_file2 = SAFE_OPEN(FNAME2, O_CREAT | O_RDWR, 0600);
++
++	SAFE_WRITE(SAFE_WRITE_ALL, fd_file1, msg, msg_len);
++	SAFE_WRITE(SAFE_WRITE_ALL, fd_file2, msg, msg_len);
++
++	mapped_address = SAFE_MMAP(NULL, msg_len,
++		PROT_WRITE, MAP_PRIVATE, fd_file1, 0);
+ }
+ 
+ static void cleanup(void)
+ {
+-	int str_len;
+-
+-	str_len = strlen(str);
+-
+ 	if (fd_file2 > 0)
+ 		SAFE_CLOSE(fd_file2);
+ 	if (fd_file1 > 0)
+ 		SAFE_CLOSE(fd_file1);
+ 	if (mapped_address)
+-		SAFE_MUNMAP(mapped_address, str_len);
++		SAFE_MUNMAP(mapped_address, msg_len);
+ }
+ 
+ static void test_mmap(void)
+ {
+-	int str_len;
+ 	void *address;
+ 
+-	str_len = strlen(str);
+-
+-	SAFE_WRITE(SAFE_WRITE_ALL, fd_file1, str, str_len);
+-	mapped_address = SAFE_MMAP(NULL, str_len, PROT_WRITE,
+-				   MAP_PRIVATE, fd_file1, 0);
+-
+-	SAFE_WRITE(SAFE_WRITE_ALL, fd_file2, str, str_len);
+-
+-	address = mmap(mapped_address, str_len, PROT_WRITE,
++	address = mmap(mapped_address, msg_len, PROT_WRITE,
+ 		  MAP_PRIVATE | MAP_FIXED_NOREPLACE, fd_file2, 0);
++
+ 	if (address == MAP_FAILED && errno == EEXIST)
+ 		tst_res(TPASS, "mmap set errno to EEXIST as expected");
+ 	else
 
 -- 
 2.43.0
