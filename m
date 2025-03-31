@@ -1,113 +1,96 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AFECA76666
-	for <lists+linux-ltp@lfdr.de>; Mon, 31 Mar 2025 14:56:50 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6CECA766CE
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 Mar 2025 15:26:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1743427560; h=to : date :
+ message-id : in-reply-to : references : mime-version : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : content-type :
+ content-transfer-encoding : sender : from;
+ bh=vj4xJgjieeXeljWHAHC2+22XHsrPuct7UcYyrpaGo/A=;
+ b=qmDda2GCYAFRIWmBMpb53Uot1sYm+Ued8u6RoFbZ7uaAWjzyg3/WJ8HExmrVd+AQpi8KV
+ /G7vk1bikGVIcb7fc9RSBXcynuPEmV1mrAky0XipOHGiZXx1K1uSYMYe5m6/3gwIqsjq2mt
+ 8A8z+gLYpOdUwL98a9yOl25r/5QbcpU=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0665E3CABEA
-	for <lists+linux-ltp@lfdr.de>; Mon, 31 Mar 2025 14:56:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9888A3CAC30
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 Mar 2025 15:26:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AD9463CABC3
- for <ltp@lists.linux.it>; Mon, 31 Mar 2025 14:56:47 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 030AF3C024C
+ for <ltp@lists.linux.it>; Mon, 31 Mar 2025 15:25:46 +0200 (CEST)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 061BA2005F5
- for <ltp@lists.linux.it>; Mon, 31 Mar 2025 14:56:46 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 614E02117C;
- Mon, 31 Mar 2025 12:56:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1743425805;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NpDbFYmBnBTFZ5BBUJsifqVepyo2RmsDjQr3K7upm8w=;
- b=FPOpdtdwxCDkUg2xw76kEVgqDI6jd3LGKC7UskNqwUV6ixFrxVrtvlOp+NhP8qcka9xCU2
- vBPDDn/jszX7ULvhFuSAyLVn41oy8T/j/cnEjllQbx0x1qHfo5LFuqbbuaVnpVeaV4j6X6
- S/yR3M38d4p90xNSudqNsydINiX61FA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1743425805;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NpDbFYmBnBTFZ5BBUJsifqVepyo2RmsDjQr3K7upm8w=;
- b=U9hltwUf7NUpjvHP1YGJZ9+6GGke1j0BQWly61CLSuV2mE6knfY83lULaIfQmiaJQ7qVQf
- EZA7E4mtwPliU5CQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1743425805;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NpDbFYmBnBTFZ5BBUJsifqVepyo2RmsDjQr3K7upm8w=;
- b=FPOpdtdwxCDkUg2xw76kEVgqDI6jd3LGKC7UskNqwUV6ixFrxVrtvlOp+NhP8qcka9xCU2
- vBPDDn/jszX7ULvhFuSAyLVn41oy8T/j/cnEjllQbx0x1qHfo5LFuqbbuaVnpVeaV4j6X6
- S/yR3M38d4p90xNSudqNsydINiX61FA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1743425805;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NpDbFYmBnBTFZ5BBUJsifqVepyo2RmsDjQr3K7upm8w=;
- b=U9hltwUf7NUpjvHP1YGJZ9+6GGke1j0BQWly61CLSuV2mE6knfY83lULaIfQmiaJQ7qVQf
- EZA7E4mtwPliU5CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F2814139A1;
- Mon, 31 Mar 2025 12:56:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 7AqBMQqR6mdlFwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Mon, 31 Mar 2025 12:56:42 +0000
-Date: Mon, 31 Mar 2025 14:56:40 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20250331125640.GA215711@pevik>
-References: <Z-pP_i-Iq4PSjoT3@stanley.mountain>
- <Z-p-7Q8OIJYai2Xp@yuki.lan>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EF406140025F
+ for <ltp@lists.linux.it>; Mon, 31 Mar 2025 15:25:45 +0200 (CEST)
+Received: by mail-wm1-x343.google.com with SMTP id
+ 5b1f17b1804b1-4394036c0efso28709985e9.2
+ for <ltp@lists.linux.it>; Mon, 31 Mar 2025 06:25:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1743427545; x=1744032345; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Gpyz4v6LSZjj5bHSPxbXtzezR1vg1RYAAgnU9MXDL6k=;
+ b=ADgkN3hRjaGOR9T/nAWJnRzNKCIUti4/aRS+vsl7NOmIFrqEZiMSfEY70ztdFMypcc
+ 3ywXeEIx6Gg3MqTsTB1vSdSeYpHH9bXgEGtoGK3IT0iSMOA4tzvzWuSLrf9wgsCUf/HH
+ KePB7RXoa/Josik5DkMuDq5obbwcwfaWylY02Ob03iUD2OIPDCmRoB6/f9cQ8+KGy+cR
+ h395OJCkO4TaN864th/tpUEfDKt9NziHexH7kRQsIRjJTY96E8Kt3s5kVtb2pJhAOEaS
+ yC1Itf9gesGMkva/QucqpV2ov8VMDEdO30F3ZVQ+YcNFzOXDBG/HnxwaPzjoIdYhT2pm
+ eNFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743427545; x=1744032345;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Gpyz4v6LSZjj5bHSPxbXtzezR1vg1RYAAgnU9MXDL6k=;
+ b=usuiuVfuvLs6zwl+rUN0d9mz2xqeBwbb/+0d5vjKoH8z7bMS0rVS1xJP5UIQX1Zias
+ qdDEOzYah2BukYQehTfUZnAgU3pAQ/ufA3yXqCveDQtImKSAUJRUqdunWScjmtcYwx/G
+ 4/TUtA6C4osY5DoMUbH0q/TXocySDeAQxGuQEqufpuB410tackO04iqNsh+27jJobbDl
+ UURzCO8/gRSPzzW/Bq7nfsSm0g/3qORogIqyJTzNBPec6P4e1B8Ewjujk0at080Hhrs6
+ EExUt1HxaOTkYLztxBqFAdByxoAUF6NI3m8Ag0gFnZPFaLgoDlq92SLYzHvMCpKfEEHb
+ Jo6Q==
+X-Gm-Message-State: AOJu0YxRyHc45T0LfsDPAJAyF2Tjiwp0m12cyAi0AJdPEHnCqCOSfY05
+ VWujjsDtjM8n2yc40caJylNuBXHgdRJmSqzEUK919sX2x5Y3R1O3xGRfHJuqAe1+LLWUSYVXf2H
+ ROr0pBYE=
+X-Gm-Gg: ASbGncvmwtWXDqGk+ViOaH8dNUyUqGUVgbQpNM54uqfTJ+P0y2ozntyyuILsUu1R/Z0
+ 93jUQ+JakJFGtPCi6XvbqrqtfFWpqAouL3MwSjN3Wa0zoBw2lNdOvyMQlaRGrd4S4GIgwLONnNU
+ 6txOVwK06dxpPsYj2JqU9v0ay1sdjx1QdqzWnk4lYidgmNHWF2lvsPzpaAxswFmtlzZ7rwY8FqG
+ nUixa+ed1rmuoIEwylXrughFqShat1KkM6Wlw/Z1lsrzc394TYlKSsZ+F+gv40nGE6PCpNLMXTu
+ m34wkQX3x3hXDqbPxEvmWxyi7YEkgQXTLg==
+X-Google-Smtp-Source: AGHT+IFEeP0mBzzPhbWVGtK8TcAvf9F0ntQg2j69JZd1au55iv2DOUTjBOa6+JDygvhVQto23YwDMg==
+X-Received: by 2002:a5d:5f42:0:b0:391:2889:4ea4 with SMTP id
+ ffacd0b85a97d-39c120ca29cmr7811986f8f.9.1743427545097; 
+ Mon, 31 Mar 2025 06:25:45 -0700 (PDT)
+Received: from localhost ([202.127.77.110]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c0b658803sm11087522f8f.6.2025.03.31.06.25.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Mar 2025 06:25:44 -0700 (PDT)
+To: ltp@lists.linux.it
+Date: Mon, 31 Mar 2025 09:25:35 -0400
+Message-Id: <20250331132537.26417-1-wegao@suse.com>
+X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20250331031945.5948-1-wegao@suse.com>
+References: <20250331031945.5948-1-wegao@suse.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Z-p-7Q8OIJYai2Xp@yuki.lan>
-X-Spam-Score: -7.50
-X-Spamd-Result: default: False [-7.50 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_FIVE(0.00)[6]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,linaro.org:email]; 
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- REPLYTO_EQ_FROM(0.00)[]
-X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] pty: Update slave device permission check to allow 0600
+Subject: [LTP] [PATCH v10 0/2] cpuset02: Convert the test6 from
+ cpuset_memory_testset.sh to C code
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,56 +102,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it, Dan Carpenter <dan.carpenter@linaro.org>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Changes v9-v10:
+* Remove debug line
+* Remove whole test6(), renumber tests and set TST_TOTAL=17
 
-> Hi!
-> > Systemd changed the default permissions for PTY slave devices from 0620
-> > to 0600 in response to CVE-2024-28085.  Allow either 0620 or 0600 as
-> > valid permissions.
+link to v9:
+https://patchwork.ozlabs.org/project/ltp/cover/20250331031945.5948-1-wegao@suse.com/
 
-> > Link: https://security-tracker.debian.org/tracker/CVE-2024-28085
-> > Link: https://github.com/systemd/systemd/commit/a4d18914751e687c9e44f22fe4e5f95b843a45c8
-> > Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-> > Tested-by: Anders Roxell <anders.roxell@linaro.org>
+Wei Gao (2):
+  cpuset02: Convert the test6 from cpuset_memory_testset.sh to C code
+  cpuset_memory_testset.sh: Remove test6
 
-> > diff --git a/testcases/kernel/pty/common.h b/testcases/kernel/pty/common.h
-> > index 51760b1d39fa..7cda16096d4d 100644
-> > --- a/testcases/kernel/pty/common.h
-> > +++ b/testcases/kernel/pty/common.h
-> > @@ -54,7 +54,8 @@ static inline int open_slave(const int masterfd)
-> >  			st.st_uid, uid);
-> >  	}
+ runtest/mm                                    |   1 +
+ .../cpuset_memory_testset.sh                  |  63 ++------
+ testcases/kernel/mem/.gitignore               |   1 +
+ testcases/kernel/mem/cpuset/Makefile          |   5 +
+ testcases/kernel/mem/cpuset/cpuset02.c        | 139 ++++++++++++++++++
+ 5 files changed, 158 insertions(+), 51 deletions(-)
+ create mode 100644 testcases/kernel/mem/cpuset/cpuset02.c
 
-> > -	if (st.st_mode != (S_IFCHR | 0620)) {
-> > +	if (st.st_mode != (S_IFCHR | 0620) &&
-> > +	    st.st_mode != (S_IFCHR | 0600)) {
-> >  		tst_brk(TBROK, "unexpected slave device permission: %o",
-> >  			st.st_mode);
-> >  	}
+-- 
+2.35.3
 
-> Looks good to me:
-
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-
-LGTM as well.
-
-I was thinking a bit if whether to check just for owner
-permission and ignore group or other, e.g.:
-
-st.st_mode != (S_IFCHR | S_ISUID | S_ISGID)) {
-
-But we probably want strict permission checking, thus:
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
