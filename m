@@ -1,84 +1,103 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E9CBA7869D
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Apr 2025 04:50:03 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E46D5A787F2
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Apr 2025 08:13:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1743562203; h=to : date :
- message-id : in-reply-to : references : mime-version : subject :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1743574421; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-type :
- content-transfer-encoding : sender : from;
- bh=8ojOtkG6DTEOa8hbdE51Z3ZonWWkQcAWRpI2ysumqTI=;
- b=rnfRzvZ8pCEDG6AzXIbOqNehLFRSrWq49+3ocjNUF1DVddPiLEP56uZ9g/qQw+JnWMa/9
- wQgR1ZNufBuZDUs21rsl59qXaml2L8fjUhiKNdAhsyrSpk3xacTFuvgk2E9erY2/Mr12CPl
- 9mY7p5QBajwRizmX56n+EOlGv0EU2FU=
+ list-subscribe : from : reply-to : content-transfer-encoding :
+ content-type : sender : from;
+ bh=1jgr66nQ+pskxwKBDtoBhocRcQ9ygLAaoCnAkCGCLjc=;
+ b=ThwmpVqPTbezh3Mzfz9LHxHPcj9CSEQ1zgGDRB5bnpIdf41hmu7w9qkD9mH1niIOAKf7x
+ wuK2shaxB0TSBEGEb7Hbh9ud+39rx114Li+JyWGhMN6CRoFpk+q5RdcYJlaGdvqcxNa5RCD
+ 22r/c9CW4PwDHcoSqP4QWZiuVHVI+RU=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2CBCD3CB098
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Apr 2025 04:50:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9CA4C3CB098
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Apr 2025 08:13:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AAFFF3CA03B
- for <ltp@lists.linux.it>; Wed,  2 Apr 2025 04:49:50 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=fujitsu.com (client-ip=139.138.36.225;
- helo=esa10.hc1455-7.c3s2.iphmx.com; envelope-from=maxj.fnst@fujitsu.com;
- receiver=lists.linux.it)
-Received: from esa10.hc1455-7.c3s2.iphmx.com (esa10.hc1455-7.c3s2.iphmx.com
- [139.138.36.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 56E7A3CAE10
+ for <ltp@lists.linux.it>; Wed,  2 Apr 2025 08:13:39 +0200 (CEST)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BCE382009E0
- for <ltp@lists.linux.it>; Wed,  2 Apr 2025 04:49:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
- t=1743562189; x=1775098189;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=usm7vyWd3/bJc9mE90m7m6OFGUzUWm+W4OT9Snb2rc0=;
- b=FEyHxAeNbIbt2EX3m038FK+dXJ0eJtES4JyVmKKxeR1FFfl/1eqbGEMf
- 0uxg54tU0OVJKgN5MeTpyYoAKHspQ4yIIFKU5JH7e5ZP2c5Hq2ORsFLEU
- 4s/kH3cc+NQQx8G0JQb3M3a5HMdSp8xqduEIy/XDrMN8V8uTi20zO8S36
- MbpO136GYY1ihyGAOqcAcPQKCKfyEn+mFiMLhmsMhj3sddjHdNJy2e8+K
- Fb2jQDpvIIC854te/NdmVGNBpD6jn3rd6av/RjDXYQ6S8HYeGBEat8dzo
- svpLueUddlYG5HG1t7O0zRX7GE8ySZHJRjkyjNJ2SzpgNi90zxUNujGTM A==;
-X-CSE-ConnectionGUID: 3R6joxZORLig3mg9PsmnZA==
-X-CSE-MsgGUID: IOf4OO6TT/60Y+Rsb1oD1g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11391"; a="182522824"
-X-IronPort-AV: E=Sophos;i="6.14,295,1736780400"; d="scan'208";a="182522824"
-Received: from unknown (HELO yto-r4.gw.nic.fujitsu.com) ([218.44.52.220])
- by esa10.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Apr 2025 11:49:45 +0900
-Received: from yto-m3.gw.nic.fujitsu.com (yto-nat-yto-m3.gw.nic.fujitsu.com
- [192.168.83.66])
- by yto-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id B6760D4F67
- for <ltp@lists.linux.it>; Wed,  2 Apr 2025 11:49:43 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
- by yto-m3.gw.nic.fujitsu.com (Postfix) with ESMTP id 7421FD9719
- for <ltp@lists.linux.it>; Wed,  2 Apr 2025 11:49:43 +0900 (JST)
-Received: from localhost.localdomain (unknown [10.167.135.101])
- by edo.cn.fujitsu.com (Postfix) with ESMTP id A5BDB1A0071;
- Wed,  2 Apr 2025 10:49:42 +0800 (CST)
-To: andrea.cervesato@suse.com,
-	ltp@lists.linux.it
-Date: Wed,  2 Apr 2025 10:49:29 +0800
-Message-ID: <20250402024929.177892-1-maxj.fnst@fujitsu.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <54c380d2-7221-4302-8fa1-ba280610cc4e@suse.com>
-References: <54c380d2-7221-4302-8fa1-ba280610cc4e@suse.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 965CD600A09
+ for <ltp@lists.linux.it>; Wed,  2 Apr 2025 08:13:38 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5e66407963fso12015127a12.2
+ for <ltp@lists.linux.it>; Tue, 01 Apr 2025 23:13:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1743574418; x=1744179218; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Qb/INOR8TEGPE6WsfI8e4AqA17UK3+xpILD5SY4ZQ1Y=;
+ b=I/Hrm2SmjiyFCejpwfeYi7jGSqPPeO14v9cOcVZjSRGhDxb/Enz0PMfu13uwEJv5eb
+ lU2NYF8yvr8Mh7cjlUl70O266aFuQ/5r7EtiRTSJ9UWuSi2F4xOQfDuWQKUAkEMYqZjP
+ rYEAtOG1VNhBgaslnEnWsFlrI8HldJBzHv511peGAuED4kZsOoUNVB0TQX1CTk+Lr+aZ
+ 69YHQhm2z1/MBTH4BqcmkNXUkYNnpmUS2zOYKGXMyVUEz0fTi6e6lzINePWfBESRPunp
+ k062eEaZteoS5Z8jYB8Ee5NwNmrVjlnUAEDInYs95ROk9ivhnZWd3WHbfqcwKq8QfdZY
+ 2XlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743574418; x=1744179218;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Qb/INOR8TEGPE6WsfI8e4AqA17UK3+xpILD5SY4ZQ1Y=;
+ b=hP0jUmTbsHizy+Y+yjzT61IBT8AaZKfMkWjLYVvtuCuLwbOg93LfP+O2a142v8RIFT
+ 78c71PmE6I8r6ROWTJPaWr342AsazwuPlXfgAmZr6jWK5tE95lLOHnD8Ziu22AgBqKbo
+ EDcIb4qcquq5cqdMWX7mlE6poWRDqL9vYIEkkR9Mrz6447oH4Bmsb9S4mI+gm6DrsOh0
+ b5z/MoQH0VUngS/X6EG790Cqn5FSLhClmrGVZpihLSw7pvyFbXBildOZSPs8Wxp9q8WF
+ zpGZKo8jYj3+YIvPvUCEaVQgjxKUQ8nbAGJerT+KENlpZKmUPb2ybe3kdBDbmkO920w2
+ hAKw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWTFQVAcAOzgxxsuTKZ52pV9Z1WF4iPBYeet7SIrc4/3XcJo8Nfhc+RYhiCG5DJG5+Tqy4=@lists.linux.it
+X-Gm-Message-State: AOJu0Yz19FJER2Efs0PtzzX81x7tW4QWcHeyifnfx20+x/0irUhAWpkh
+ Hu9XrR9pz+EVEyHBMirooB55Ce03A/2JTO56IFPbivaNjbTxOaEt0PbbRwCzRwByM51KxcuUwcf
+ qhrg=
+X-Gm-Gg: ASbGnctzqErzfm6B0qSSdT8Vc0FrtIMktQmAblqCEplFyMZY2R6LrWDAjgPokK9vuxJ
+ igN9Qi+p0YUlTW5viokllZTi6byDFoK5b1M1iECqUtoy1ELdUH5x9H3v6M0H7y8UKmf63iHYRew
+ iRm2XZEJKetiL5NS9XebH5eJ1wA2y28wuS+lCJj8Bkz81ImanpZxBhXRxC6mSWABG+EZzXpoXQR
+ bpMstHFcQFtq4x+fKgxAajPSI9k2a7CGK6ynLWt+iEfdQewXw5VUNNCOuW9qim5xw5Km0x4X0GF
+ 6u/zU1cS8vgKR8X2OIyrHVTsADZ87Zz3+5Xyhiphi+0MUCNvFmOa7KUbSTK6sMVQHOHgJpajPCr
+ Q7TcOo2jTDdKHPE/gH5ZHnZlsVWs=
+X-Google-Smtp-Source: AGHT+IE+LgU8Piqmz9h+TMB30diI5z3xrbMskS80C4jQCHvx8BbByyieEXaITLEWbs/aqS3UbcwSdA==
+X-Received: by 2002:a05:6402:34d4:b0:5e6:1352:c53d with SMTP id
+ 4fb4d7f45d1cf-5edfdd15461mr16366772a12.28.1743574417714; 
+ Tue, 01 Apr 2025 23:13:37 -0700 (PDT)
+Received: from ?IPV6:2a02:a31b:84a1:b780:5af0:a75d:357e:866e?
+ ([2a02:a31b:84a1:b780:5af0:a75d:357e:866e])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5edc16d3634sm7983561a12.19.2025.04.01.23.13.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 01 Apr 2025 23:13:37 -0700 (PDT)
+Message-ID: <14712086-654e-4567-873d-f9bdf7f43c54@suse.com>
+Date: Wed, 2 Apr 2025 08:13:36 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: "Xinjian Ma (Fujitsu)" <maxj.fnst@fujitsu.com>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
+References: <20250401092913.135745-1-maxj.fnst@fujitsu.com>
+ <54c380d2-7221-4302-8fa1-ba280610cc4e@suse.com>
+ <TY3PR01MB1207138B56801633191996B04E8AF2@TY3PR01MB12071.jpnprd01.prod.outlook.com>
+Content-Language: en-US
+In-Reply-To: <TY3PR01MB1207138B56801633191996B04E8AF2@TY3PR01MB12071.jpnprd01.prod.outlook.com>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2] move_pages04: Fix the doc to fit RST format
+Subject: Re: [LTP] [PATCH] move_pages04: Fix the doc to fit RST format
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,60 +109,28 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Ma Xinjian via ltp <ltp@lists.linux.it>
-Reply-To: Ma Xinjian <maxj.fnst@fujitsu.com>
-Content-Type: text/plain; charset="us-ascii"
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Ma Xinjian <maxj.fnst@fujitsu.com>
----
- .../kernel/syscalls/move_pages/move_pages04.c | 28 +++++++++----------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+Hi Ma,
 
-diff --git a/testcases/kernel/syscalls/move_pages/move_pages04.c b/testcases/kernel/syscalls/move_pages/move_pages04.c
-index e1ee733f0..e2a1fc4fb 100644
---- a/testcases/kernel/syscalls/move_pages/move_pages04.c
-+++ b/testcases/kernel/syscalls/move_pages/move_pages04.c
-@@ -10,21 +10,21 @@
-  *
-  * [Algorithm]
-  *
-- *      1. Pass the address of a valid memory area where no page is
-- *         mapped yet (not read/written), the address of a valid memory area
-- *         where the shared zero page is mapped (read, but not written to)
-- *         and the address of an invalid memory area as page addresses to
-- *         move_pages().
-- *      2. Check if the corresponding status for "no page mapped" is set to
-- *         -ENOENT. Note that kernels >= 4.3 [1] and < 6.12 [2] wrongly returned
-- *         -EFAULT by accident.
-- *      3. Check if the corresponding status for "shared zero page" is set to:
-- *         -EFAULT. Note that kernels < 4.3 [1] wrongly returned -ENOENT.
-- *      4. Check if the corresponding status for "invalid memory area" is set
-- *         to -EFAULT.
-+ * #. Pass the address of a valid memory area where no page is
-+ *    mapped yet (not read/written), the address of a valid memory area
-+ *    where the shared zero page is mapped (read, but not written to)
-+ *    and the address of an invalid memory area as page addresses to
-+ *    move_pages().
-+ * #. Check if the corresponding status for "no page mapped" is set to
-+ *    -ENOENT. Note that kernels >= 4.3 [1] and < 6.12 [2] wrongly returned
-+ *    -EFAULT by accident.
-+ * #. Check if the corresponding status for "shared zero page" is set to:
-+ *    -EFAULT. Note that kernels < 4.3 [1] wrongly returned -ENOENT.
-+ * #. Check if the corresponding status for "invalid memory area" is set
-+ *    to -EFAULT.
-  *
-- *   [1] d899844e9c98 "mm: fix status code which move_pages() returns for zero page"
-- *   [2] 7dff875c9436 "mm/migrate: convert add_page_for_migration() from follow_page() to folio_walk"
-+ * - [1] d899844e9c98 "mm: fix status code which move_pages() returns for zero page"
-+ * - [2] 7dff875c9436 "mm/migrate: convert add_page_for_migration() from follow_page() to folio_walk"
-  */
- 
- #include <sys/mman.h>
--- 
-2.47.0
+On 4/2/25 04:35, Xinjian Ma (Fujitsu) wrote:
+> Thanks for the review. IMO, It might be better to keep these two lines. This way, users can more intuitively match the kernel commits with the description.
+>
+> Best regards
+> Ma
+
+Sure. There's also an ongoing idea to integrate the commit comment in 
+the table by fetching it automatically from the official kernel 
+repository. I will implement that soon.
+
+I will merge this patch as it is, thanks!
+
+Andrea
 
 
 -- 
