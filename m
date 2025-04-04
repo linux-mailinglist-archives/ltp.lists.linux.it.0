@@ -2,104 +2,103 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2741A7C31E
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Apr 2025 20:14:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4625CA7C31D
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Apr 2025 20:14:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5FC093CB352
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Apr 2025 20:14:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DACC73CB362
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Apr 2025 20:14:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5C7823CAF0B
- for <ltp@lists.linux.it>; Fri,  4 Apr 2025 20:14:27 +0200 (CEST)
-Authentication-Results: in-5.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=gotplt.org (client-ip=23.83.209.82;
- helo=heron.birch.relay.mailchannels.net; envelope-from=siddhesh@gotplt.org;
+ by picard.linux.it (Postfix) with ESMTPS id 48A613CAD8B
+ for <ltp@lists.linux.it>; Fri,  4 Apr 2025 20:14:28 +0200 (CEST)
+Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gotplt.org (client-ip=23.83.223.166;
+ helo=silver.cherry.relay.mailchannels.net; envelope-from=siddhesh@gotplt.org;
  receiver=lists.linux.it)
-Received: from heron.birch.relay.mailchannels.net
- (heron.birch.relay.mailchannels.net [23.83.209.82])
+Received: from silver.cherry.relay.mailchannels.net
+ (silver.cherry.relay.mailchannels.net [23.83.223.166])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CC0AA600A12
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2E61760090B
  for <ltp@lists.linux.it>; Fri,  4 Apr 2025 20:14:26 +0200 (CEST)
 X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
 Received: from relay.mailchannels.net (localhost [127.0.0.1])
- by relay.mailchannels.net (Postfix) with ESMTP id 95B0B9027C5;
- Fri,  4 Apr 2025 18:14:24 +0000 (UTC)
+ by relay.mailchannels.net (Postfix) with ESMTP id 280157826FE
+ for <ltp@lists.linux.it>; Fri,  4 Apr 2025 18:14:25 +0000 (UTC)
 Received: from pdx1-sub0-mail-a298.dreamhost.com
- (trex-3.trex.outbound.svc.cluster.local [100.97.35.35])
+ (100-126-123-60.trex-nlb.outbound.svc.cluster.local [100.126.123.60])
  (Authenticated sender: dreamhost)
- by relay.mailchannels.net (Postfix) with ESMTPA id 43987901E29;
- Fri,  4 Apr 2025 18:14:24 +0000 (UTC)
+ by relay.mailchannels.net (Postfix) with ESMTPA id CFCDE78271F
+ for <ltp@lists.linux.it>; Fri,  4 Apr 2025 18:14:24 +0000 (UTC)
 ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1743790464; a=rsa-sha256;
  cv=none;
- b=ugjORicQ73Xp06Fg4YaTVaSFfjxqzgGOTNmnjWcvREeF5demqn7WXyBNDLqXi0fIpsSb4Q
- NfoGRixy+4NU/uWlsrTGECi7B2XjZjkZ8ELvwtDQUkMqqF3ieZhBjG3kgEwxWpUAK+BQOR
- eHauTuy/bToU0bm1pa+0KO4LrtvKW4XYiE3RIpr+PjQLc0zNLm3NraKpXTCORi1kE0SUhx
- WhO7W/hfnBvtBR7O/pbJnQ6G75qRQFxndUSaRKeVWv05WzzonoIOEeHjlEXfzFK5JRTy5D
- Nxb0GWnHwIUEXRf8beOFYIC7iffM4g98gt9nJ5lS480DMNUmEjIbxNScJ4Ppqw==
+ b=S5xZAJMC3D6L/nqI9F7MHyne0TxIS2nkYVI6pCvh1S1pBhsCMkt2Ftm8fcnEps1mXdfkP7
+ a5h1pHbzcrWGf5JMs9msS2p1DkucF8OueJB3QvTSWYVDNQ/qMEJ8Qc5RWnTIpr2wwao3an
+ Z8VB0jZHb2DyPpcdbwBL8NH/PmDSxKzzjRMdoX77LxKXEWrVV3TE/Vf4XJ56Q2eskNYUfA
+ l3cWxwulNUBMJ4ra8/aDrf2e1MbPl9ZrXNVR5+srLlB8TzGfahJOQK4JMYM7b6wT7ADLdx
+ z252fbn1PTBPZbNbmFj6Zso1FOyzo/EX1l457UiAaNYl7K9qnr0QT8T6rZ7jiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
  d=mailchannels.net; s=arc-2022; t=1743790464;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
+ to:to:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:dkim-signature;
- bh=6sgilhf7uY4R4wdB6qs3qkfW1CnLEIjqNkbJ1ggTGmY=;
- b=EQ5ub+RYXOEAJ3a9ltzZG0fF+Q55brNdchuD1lm0WHcXTepYo+87H35h8pAyj3e2tF9j52
- zMlFPpjWnS4xEBTSUg6AHz18Vb9hOa6v7nZlKsI8fLrzeLgUVRdpvXsZ88x80Npv4i8y9L
- eY1GSbUhs7/j1Sylc58b7V5iKsvAcZnFmDEUEmmwVmk3g1BRlmhbQ3AYOUytofojpetQU2
- /4iRbwUjNNOgR46Gmo9NZG4cUFzD/Uku/b+7+CRzbgbddRB7AMFdN6HR3duyuz4Xv6l3Qf
- xtqZAQx9mSiJ6snijvVdGEqZIT83WOo0FkLugwvpnVRPekAKt6mOcN4wTL+XtA==
-ARC-Authentication-Results: i=1; rspamd-6c88b8f79f-2p85h;
+ bh=b6s3tZ4AEdGrD0yS09FNf10FfpN993f6YVdDseSnIjQ=;
+ b=+L5nF/8q2BVqvXq0W5JOdAl/pRgNbzzbIqcdNdoy5BOtGayouGiDmUUjS1viAL2/h9EI+Z
+ O/M6FGL6qoJLtEbOCD4sIrA6YNY5DPA/rJ3o7VWmREUpJxOfcWK9yZ0e6k3lvX+cpl8sLI
+ kJrS/LpncKzH41vPBVxLu/A18KwhQWA6A9KVhY/eIJZse5uAFOH8Y7clG45q7rzWMaMPPN
+ qM6p2q0GpRHRV15A+Lafa9/+igfvxKXUCfYO+s//nedH2P1eQjPHwJtswKdD6+S9QsOFj6
+ gsH9yKIRDyikfjVmsFSLa77XeB+QgAvjdHRhgRY2oxxUGFF6XYIH5ZB2mQA7bg==
+ARC-Authentication-Results: i=1; rspamd-6c88b8f79f-thj5h;
  auth=pass smtp.auth=dreamhost smtp.mailfrom=siddhesh@gotplt.org
 X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
 X-MC-Relay: Neutral
 X-MailChannels-SenderId: dreamhost|x-authsender|siddhesh@gotplt.org
 X-MailChannels-Auth-Id: dreamhost
-X-Chemical-Fumbling: 701775283c305133_1743790464489_868102920
-X-MC-Loop-Signature: 1743790464489:4087978526
-X-MC-Ingress-Time: 1743790464489
+X-Stretch-Illustrious: 5df2d7d163f38df1_1743790465052_1052954860
+X-MC-Loop-Signature: 1743790465052:2040200311
+X-MC-Ingress-Time: 1743790465052
 Received: from pdx1-sub0-mail-a298.dreamhost.com (pop.dreamhost.com
  [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
- by 100.97.35.35 (trex/7.0.3); Fri, 04 Apr 2025 18:14:24 +0000
+ by 100.126.123.60 (trex/7.0.3); Fri, 04 Apr 2025 18:14:25 +0000
 Received: from fedora.redhat.com (unknown [38.23.181.90])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: siddhesh@gotplt.org)
- by pdx1-sub0-mail-a298.dreamhost.com (Postfix) with ESMTPSA id 4ZTmvz5YRzz8m; 
- Fri,  4 Apr 2025 11:14:23 -0700 (PDT)
+ by pdx1-sub0-mail-a298.dreamhost.com (Postfix) with ESMTPSA id 4ZTmw02qSFz9G
+ for <ltp@lists.linux.it>; Fri,  4 Apr 2025 11:14:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gotplt.org;
  s=dreamhost; t=1743790464;
- bh=6sgilhf7uY4R4wdB6qs3qkfW1CnLEIjqNkbJ1ggTGmY=;
- h=From:To:Cc:Subject:Date:Content-Transfer-Encoding;
- b=xVlA0SIRT7L3iBzNjk+1uIuED4UQb0fAQgXt8EsHSkB0SdqS0eDpL5ktg94H5kSdb
- NZVhs//uXjlw9246ozMTJbBbwFrbR9c0HbCVH2gE9tWDCQYGtAWpRGNGy35C7blvZz
- FxYvrXmMg1R/8UArlPGwHleIk1HYD9ff2b8kYQiK5TABVV2ODj5KPt0lKLeXUN/y0L
- vyR36QWhQkvhsgr1zTO6rdVU/xTbJGwG0Lwjz6fLdRaorkVq9P1yoc4Py+5TR1+kxg
- z8Ml/5LViQyw+cYliKiXzp9GbVWI6Y64wbiv8FDUowa621KsvBqJ00VKprwkYpezt0
- WkxGqAk9k5tAQ==
+ bh=b6s3tZ4AEdGrD0yS09FNf10FfpN993f6YVdDseSnIjQ=;
+ h=From:To:Subject:Date:Content-Transfer-Encoding;
+ b=D8mOQMeAccr08CzQ7203yhCW6ex+plRgmsPH+Tmy7yC38tWG4ewRS/p80YRWEkFWs
+ ijMR8GZdQ1NF6TViwfAaRYYsDWwZhFo/I2HdzhX4lU6B5zcarqebBZIUpdwLkxsOaj
+ 0dlslF37rJzPOR0MKgPD0/X3PDoj0ivG6URIE30rJz/99tE7HouXdDEP4lD/qyv+LV
+ mVhLQ9fKqkwey4FI1R5HcdT4Qka9KlB/mEbR9PM+f1Psn3Bhm9tsDeGQ21BX95WbpL
+ O4z0MlpC3ZL5dXAu0dpolJkx1ey08yJznqS7kvxgUhKby3tPejHmQYD/939h9AQQ8S
+ G47mf6IKQoG4g==
 From: Siddhesh Poyarekar <siddhesh@gotplt.org>
 To: ltp@lists.linux.it
-Date: Fri,  4 Apr 2025 14:14:05 -0400
-Message-ID: <20250404181406.2385612-2-siddhesh@gotplt.org>
+Date: Fri,  4 Apr 2025 14:14:06 -0400
+Message-ID: <20250404181406.2385612-3-siddhesh@gotplt.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250404181406.2385612-1-siddhesh@gotplt.org>
 References: <20250402170718.1710388-1-siddhesh@gotplt.org>
  <20250404181406.2385612-1-siddhesh@gotplt.org>
 MIME-Version: 1.0
 X-Spam-Status: No, score=0.1 required=7.0 tests=ARC_SIGNED,ARC_VALID,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 1/2] cve-2015-3290: Disable AVX for x86_64
+Subject: [LTP] [PATCH v2 2/2] Add centos10 to test matrix
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,34 +115,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-When the input compiler enables AVX, stack realignment requirements
-causes gcc to fail to omit %rbp use, due to which the test fails to
-clobber %rbp in inline asm.  Disable AVX to build the test on x86_64 so
-that the test continues working.
+gcc on CentOS 10 is configured to build with AVX on by default
+(specifically, -march=x86-64-v3), unlike other compilers, so it should
+be a useful addition to the test matrix.
+
+cve-2015-3290 for example fails to build on this without `-mno-avx` in
+the build flags.
 
 Signed-off-by: Siddhesh Poyarekar <siddhesh@gotplt.org>
-Reviewed-by: Martin Doucha <mdoucha@suse.cz>
 ---
- testcases/cve/Makefile | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .github/workflows/ci-docker-build.yml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/testcases/cve/Makefile b/testcases/cve/Makefile
-index 01b9b9ccb..d545a7f93 100644
---- a/testcases/cve/Makefile
-+++ b/testcases/cve/Makefile
-@@ -22,6 +22,12 @@ ifneq (,$(filter $(HOST_CPU),x86 x86_64))
- meltdown: CFLAGS += -msse2
- endif
+diff --git a/.github/workflows/ci-docker-build.yml b/.github/workflows/ci-docker-build.yml
+index 44dcca055..310d8c3a3 100644
+--- a/.github/workflows/ci-docker-build.yml
++++ b/.github/workflows/ci-docker-build.yml
+@@ -67,6 +67,11 @@ jobs:
+               CC: gcc
+               TREE: out
  
-+# The test needs to clobber %rbp, which requires frame pointer omission.  Also
-+# for x86_64, disable AVX since that could sometimes require a stack
-+# realignment, which gets in the way of frame pointer omission.
- cve-2015-3290:	CFLAGS += -pthread -fomit-frame-pointer
-+ifneq (,$(filter $(HOST_CPU),x86_64))
-+cve-2015-3290: CFLAGS += -mno-avx
-+endif
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
++          - container: "quay.io/centos/centos:stream10"
++            env:
++              CC: gcc
++              TREE: out
++
+           - container: "debian:testing"
+             env:
+               CC: gcc
 -- 
 2.49.0
 
