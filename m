@@ -1,22 +1,22 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7D85A7E113
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Apr 2025 16:24:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 31BB9A7E151
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Apr 2025 16:25:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9C7943CB0F3
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Apr 2025 16:24:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D15F73CB2CC
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Apr 2025 16:25:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5265E3C9E40
- for <ltp@lists.linux.it>; Mon,  7 Apr 2025 16:24:01 +0200 (CEST)
-Authentication-Results: in-7.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 88B563CB2CC
+ for <ltp@lists.linux.it>; Mon,  7 Apr 2025 16:24:10 +0200 (CEST)
+Authentication-Results: in-2.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
  (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
  envelope-from=mdoucha@suse.cz; receiver=lists.linux.it)
@@ -24,63 +24,73 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B18272009A2
- for <ltp@lists.linux.it>; Mon,  7 Apr 2025 16:24:00 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 86FD16003AC
+ for <ltp@lists.linux.it>; Mon,  7 Apr 2025 16:24:08 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7CBC61F388
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8E18A1F38D
  for <ltp@lists.linux.it>; Mon,  7 Apr 2025 14:23:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1744035839; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=/lCcz/n97jPYC6gJ8rxCRHCN6ddwFpolOlyT9Bg5FKs=;
- b=hZuHdq3nY3/Tp1RRYkatU0qNF0J5mH8guIpvEtreu+WQe/K0VLt+VCeilOXKwtxLeFTY9o
- SKvbd5VhrWwiOF/0V6rdzPiQiNbbp74ICObY5iZHr+eLghfgs/mAZVq42C+JuQjPXmZRdI
- FJMnR1749oWwfRwGd4wK8Qr6NnjgKjk=
+ t=1744035840; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5TAWq4d5zvlatDWEK96+zQhnR6c98isfbXENiGQNmrg=;
+ b=rkuXljSoUKYXh/QaYd3ClpGGMh2zBJfcbbhHBdU5P3ACsP8+y1hi6fR1oP5iuwIUDFGJWG
+ ul3Ml+rWHj2J8R/RzEP+158l5FsqDCm0ddVzmkFUMrGoWb0f77QDuGx6U3v6/hxWfYCPth
+ dQfJ/O51H0ROFHb7ECzWHx/ND//BVxY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1744035839;
+ s=susede2_ed25519; t=1744035840;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=/lCcz/n97jPYC6gJ8rxCRHCN6ddwFpolOlyT9Bg5FKs=;
- b=eEkESlnzsLvg+SYyWH6baf1yk6dg1DS/UnxX3KMd3OCcEV7qY+4DnG775lOg1Pf6CZWu1q
- k+Yo/Cc0okSyV7DQ==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5TAWq4d5zvlatDWEK96+zQhnR6c98isfbXENiGQNmrg=;
+ b=RKtx9KNdz8IQbm9jtyWZAzPYTGknFfoSNpkl5Tolm3MYNLnrVGOlnrSS+9pLrxolrpXHNJ
+ w7t2opdeV+dZqlBA==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=hZuHdq3n;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=eEkESlnz
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=2mPWNR3R;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=IV0RzkHZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1744035839; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=/lCcz/n97jPYC6gJ8rxCRHCN6ddwFpolOlyT9Bg5FKs=;
- b=hZuHdq3nY3/Tp1RRYkatU0qNF0J5mH8guIpvEtreu+WQe/K0VLt+VCeilOXKwtxLeFTY9o
- SKvbd5VhrWwiOF/0V6rdzPiQiNbbp74ICObY5iZHr+eLghfgs/mAZVq42C+JuQjPXmZRdI
- FJMnR1749oWwfRwGd4wK8Qr6NnjgKjk=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5TAWq4d5zvlatDWEK96+zQhnR6c98isfbXENiGQNmrg=;
+ b=2mPWNR3RYS9LIGWb2k6TYaq8cQparcRGsA4NxszJuei7c7NHA9CvPXtDxAjozxGcqbRQtI
+ za+ybGhUWXl1IITtbPnxmyKnxVy8WpGen0HdgSEnGB53S1dHjfmN3gJl1hA+pbH/KdDOjY
+ elwmqtNHPh/en5Vs2IkhOrkc1K7jq9Q=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1744035839;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=/lCcz/n97jPYC6gJ8rxCRHCN6ddwFpolOlyT9Bg5FKs=;
- b=eEkESlnzsLvg+SYyWH6baf1yk6dg1DS/UnxX3KMd3OCcEV7qY+4DnG775lOg1Pf6CZWu1q
- k+Yo/Cc0okSyV7DQ==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5TAWq4d5zvlatDWEK96+zQhnR6c98isfbXENiGQNmrg=;
+ b=IV0RzkHZVFb+UWjlHWq1DB/KYV32+OoGPkMWZ93ptFXTQKaC2hYICGSpi3IL8RWbi3Ouz2
+ pYH1x+h/O/EMBoCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7452D13691
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7A2B313AB8
  for <ltp@lists.linux.it>; Mon,  7 Apr 2025 14:23:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id V6AqHP/f82e5KAAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iICiHf/f82e5KAAAD6G6ig
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Mon, 07 Apr 2025 14:23:59 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon,  7 Apr 2025 16:23:44 +0200
-Message-ID: <20250407142351.25900-1-mdoucha@suse.cz>
+Date: Mon,  7 Apr 2025 16:23:45 +0200
+Message-ID: <20250407142351.25900-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250407142351.25900-1-mdoucha@suse.cz>
+References: <20250407142351.25900-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: 7CBC61F388
+X-Rspamd-Queue-Id: 8E18A1F38D
 X-Spam-Level: 
 X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
@@ -101,18 +111,18 @@ X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
  ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
  RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim, suse.cz:mid,
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email, suse.cz:dkim, suse.cz:mid,
  imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Rspamd-Action: no action
 X-Spam-Score: -3.01
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 0/5] KVM test for Intel VMX vAPIC
+Subject: [LTP] [PATCH 1/5] kvm_vmx01: Fix 32bit compiler warnings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,26 +139,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-We already have a CVE test for AMD SVM which checks that access to virtual
-APIC in nested VMs is correctly redirected to the backing page allocated
-by the parent VM. Add a similar test for Intel VMX.
+Fix printf formatting warnings due to type mismatch during 32bit
+compilation.
 
-Martin Doucha (5):
-  kvm_vmx01: Fix 32bit compiler warnings
-  KVM: Add kvm_vmx01 to the runtest file
-  KVM: Simplify reading VMX control field masks
-  KVM: Add constants for Intel VMX vAPIC control
-  Add test for Intel VMX virtualized APIC
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+ testcases/kernel/kvm/kvm_vmx01.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
- runtest/kvm                                |   2 +
- testcases/kernel/kvm/.gitignore            |   1 +
- testcases/kernel/kvm/include/kvm_x86_vmx.h |  22 ++-
- testcases/kernel/kvm/kvm_vmx01.c           |  15 +-
- testcases/kernel/kvm/kvm_vmx02.c           | 193 +++++++++++++++++++++
- testcases/kernel/kvm/lib_x86.c             |  48 +++--
- 6 files changed, 260 insertions(+), 21 deletions(-)
- create mode 100644 testcases/kernel/kvm/kvm_vmx02.c
-
+diff --git a/testcases/kernel/kvm/kvm_vmx01.c b/testcases/kernel/kvm/kvm_vmx01.c
+index c413b4148..31ad75137 100644
+--- a/testcases/kernel/kvm/kvm_vmx01.c
++++ b/testcases/kernel/kvm/kvm_vmx01.c
+@@ -25,7 +25,7 @@
+ struct vmcs_field_table {
+ 	unsigned long field_id;
+ 	const char *name;
+-	uint64_t value;
++	unsigned long value;
+ };
+ 
+ /* Data written into shadow VMCS by the parent VM and read by the nested VM */
+@@ -110,7 +110,7 @@ static struct vmcs_field_table guest_data[SHADOW_DATA_LENGTH] = {
+ 	{VMCS_FIELD(VMX_VMCS_GUEST_LDTR_BASE), 0xb1d72}
+ };
+ 
+-static uint64_t vmread_buffer[SHADOW_DATA_LENGTH];
++static unsigned long vmread_buffer[SHADOW_DATA_LENGTH];
+ 
+ int guest_main(void)
+ {
+@@ -221,7 +221,7 @@ void main(void)
+ 			continue;
+ 
+ 		errors++;
+-		tst_res(TFAIL, "Shadow %s guest mismatch: %llx != %llx",
++		tst_res(TFAIL, "Shadow %s guest mismatch: %lx != %lx",
+ 			host_data[i].name, vmread_buffer[i],
+ 			host_data[i].value);
+ 	}
+@@ -239,7 +239,7 @@ void main(void)
+ 			continue;
+ 
+ 		errors++;
+-		tst_res(TFAIL, "Shadow %s parent mismatch: %llx != %llx",
++		tst_res(TFAIL, "Shadow %s parent mismatch: %llx != %lx",
+ 			guest_data[i].name, val, guest_data[i].value);
+ 	}
+ 
 -- 
 2.49.0
 
