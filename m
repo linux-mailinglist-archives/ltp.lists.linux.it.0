@@ -1,70 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D939A81465
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:18:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 74253A81440
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:07:01 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1744136313; h=date : to :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1744135621; h=date : to :
  message-id : references : mime-version : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=uVvqRn5twgAEKLR31Qn7gVjL9qqup2tJhBhoKF2OfL4=;
- b=p2prMeu6SacY3qhKhHvXfWb2BzQDisJdtnHNHNfZkn5eZV8DvijQfmpLRlHwh0DZaqcT6
- YcvOh6ySAUj/AutNTpDt6XqSeiHVFz3wKKi+J6xAG8OG0FHYuAKskVQXsjSBNIEI6dPQmpO
- Sjtet8yXSUwzGl5PsWJPI+WgMR3aWtY=
+ bh=2MJFczpKVSMNYsRFAS6ioRD2Do+e/iPyq/ffTXMk5uc=;
+ b=gGKT7eHzAIdEImVVLW+/bmoOhjzML9zkOLDg5eq804SHZetaimr/99NNhvh9XClPGiDTo
+ ejc+QoBRlJWnIwwr0UUeQPdmn/G9diTDUQqmoTLSQtcrcaZy+HpGtehRsU2WeB5BRxiN8SI
+ L6N8q/UJWoEG6gUbjJI3ZPRrCRLgasM=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0BC853CB3CC
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:18:33 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2B4903CB3C3
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:07:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D7B143CB379
- for <ltp@lists.linux.it>; Tue,  8 Apr 2025 19:06:50 +0200 (CEST)
-Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org;
- envelope-from=mcgrof@kernel.org; receiver=lists.linux.it)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by picard.linux.it (Postfix) with ESMTPS id 79DAD3C048F
+ for <ltp@lists.linux.it>; Tue,  8 Apr 2025 20:06:46 +0200 (CEST)
+Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1;
+ helo=dfw.source.kernel.org; envelope-from=mcgrof@kernel.org;
+ receiver=lists.linux.it)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 16B541400F3F
- for <ltp@lists.linux.it>; Tue,  8 Apr 2025 19:06:49 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9DF01601025
+ for <ltp@lists.linux.it>; Tue,  8 Apr 2025 20:06:44 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 80D145C3994;
- Tue,  8 Apr 2025 17:04:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A75D0C4CEE5;
- Tue,  8 Apr 2025 17:06:46 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 206915C3AD7;
+ Tue,  8 Apr 2025 18:04:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4529EC4CEE5;
+ Tue,  8 Apr 2025 18:06:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744132007;
- bh=/3eBMgubv0Yka0P/WzdDOXB50+TOIWFo5UCsRYv5O6Y=;
+ s=k20201202; t=1744135602;
+ bh=Tp1KLkGydqnHF26lk/Kt0Weyj/mcdsm8Zy6mmUhq+L8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RwD72MB+BLnSoW4IRomJp7Ix0Bjzj4kV+VhvB0wuUGsxqlzuVsRsQsocnqYiQUwdt
- +31xpEKLmAjD/rDiUgNxpng4/1mhIqwM0gmMZgoBDuQdFhb3OILdr9wPBtIcwi6WGd
- KQuiv/YxK6+xoFs1un5HzHmCG5i2X2L/p/USUzcH60z1/4nmmEDKI8gCy+9KbAtjen
- o83YtH3vHx4ew7p5JAkCmQ0sQvzLVGhyDm7PA6YEc9Xi0HPweYqtgNtcB3RMcVBjd9
- cdIIlqMXA+tuhAkRqxDvAHIRZ95wXGWoDHFD66LrEThTktBuifVsVEb/82Oo8mKM4D
- GmfjnfjwmCVCQ==
-Date: Tue, 8 Apr 2025 10:06:44 -0700
-To: "Darrick J. Wong" <djwong@kernel.org>, David Bueso <dave@stgolabs.net>
-Message-ID: <Z_VXpD-d8iC57dBc@bombadil.infradead.org>
+ b=qZTRLlZsgsR2ikOa/87ONS7coMzrc9mQFK88J/FCDu4fbyg4rMW9QHcYs0EyeojPA
+ p8B9V7aznJ0rCr2wJXhiLnnxpcXNCwhAXxafIFjA3lRZCTjsDLD8nLDe5i+cfymVzC
+ AbrGm890ErR1Jysv/8XD9PVOvKMjI4Uga2lTWuW08MoRdNofGbbSLpg6bstfH1ss1U
+ 9wtvy8mePK/+dINHjjT4qdRqwEJClrtoxctv4cAPzd3A4vt5K3OApxB1GLk1Uo62SB
+ bhzDWg3AS7cyKAHBlYSWGtvy0smd656QjTCkiWR+n9s1wjoJ7UrRMLDNCP1H63vfrD
+ Mh2rhPNo0BuOQ==
+Date: Tue, 8 Apr 2025 11:06:40 -0700
+To: "Darrick J. Wong" <djwong@kernel.org>
+Message-ID: <Z_VlsLGTbx9Ub843@bombadil.infradead.org>
 References: <20250331074541.gK4N_A2Q@linutronix.de>
  <20250408164307.GK6266@frogsfrogsfrogs>
+ <Z_VXpD-d8iC57dBc@bombadil.infradead.org>
+ <CAB=NE6X2QztC4OGnJwxRWdeCVEekLBcnFf7JcgV1pKDn6DqhcA@mail.gmail.com>
+ <20250408174855.GI6307@frogsfrogsfrogs>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250408164307.GK6266@frogsfrogsfrogs>
+In-Reply-To: <20250408174855.GI6307@frogsfrogsfrogs>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Tue, 08 Apr 2025 20:18:21 +0200
 Subject: Re: [LTP] [linux-next:master] [block/bdev] 3c20917120:
  BUG:sleeping_function_called_from_invalid_context_at_mm/util.c
 X-BeenThere: ltp@lists.linux.it
@@ -92,48 +95,36 @@ Cc: Ritesh Harjani <ritesh.list@gmail.com>,
  Christian Brauner <brauner@kernel.org>, Tso Ted <tytso@mit.edu>,
  Oliver Sang <oliver.sang@intel.com>, Johannes Weiner <hannes@cmpxchg.org>,
  oe-lkp@lists.linux.dev
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Apr 08, 2025 at 09:43:07AM -0700, Darrick J. Wong wrote:
-> Hi Luis,
-> 
-> I'm not sure if this is related, but I'm seeing the same "BUG: sleeping
-> function called from invalid context at mm/util.c:743" message when
-> running fstests on XFS.  Nothing exciting with fstests here other than
-> the machine is arm64 with 64k basepages and 4k fsblock size:
-
-How exotic :D
-
-> MKFS_OPTIONS="-m metadir=1,autofsck=1,uquota,gquota,pquota"
-> 
-> --D
-> 
-> [18182.889554] run fstests generic/457 at 2025-04-07 23:06:25
-
-Me and Davidlohr have some fixes brewed up now, before we post we just
-want to run one more test for metrics on success rate analysis for folio
-migration. Other than that, given the exotic nature of your system we'll
-Cc you on preliminary patches, in case you can test to see if it also
-fixes your issue. It should given your splat is on the buffer-head side
-of things! See _buffer_migrate_folio() reference on the splat. Fun
-puzzle for the community is figuring out *why* oh why did a large folio
-end up being used on buffer-heads for your use case *without* an LBS
-device (logical block size) being present, as I assume you didn't have
-one, ie say a nvme or virtio block device with logical block size  >
-PAGE_SIZE. The area in question would trigger on folio migration *only*
-if you are migrating large buffer-head folios. We only create those if
-you have an LBS device and are leveragin the block device cache or a
-filesystem with buffer-heads with LBS (they don't exist yet other than
-the block device cache).
-
-Regardless, the patches we have brewed up should fix this, regardless
-of the puzzle described above. We'll cc you for testing before we
-post patches to address this.
-
-  Luis
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gVHVlLCBBcHIgMDgsIDIwMjUgYXQgMTA6NDg6NTVBTSAtMDcwMCwgRGFycmljayBKLiBXb25n
+IHdyb3RlOgo+IE9uIFR1ZSwgQXByIDA4LCAyMDI1IGF0IDEwOjI0OjQwQU0gLTA3MDAsIEx1aXMg
+Q2hhbWJlcmxhaW4gd3JvdGU6Cj4gPiBPbiBUdWUsIEFwciA4LCAyMDI1IGF0IDEwOjA24oCvQU0g
+THVpcyBDaGFtYmVybGFpbiA8bWNncm9mQGtlcm5lbC5vcmc+IHdyb3RlOgo+ID4gPiBGdW4KPiA+
+ID4gcHV6emxlIGZvciB0aGUgY29tbXVuaXR5IGlzIGZpZ3VyaW5nIG91dCAqd2h5KiBvaCB3aHkg
+ZGlkIGEgbGFyZ2UgZm9saW8KPiA+ID4gZW5kIHVwIGJlaW5nIHVzZWQgb24gYnVmZmVyLWhlYWRz
+IGZvciB5b3VyIHVzZSBjYXNlICp3aXRob3V0KiBhbiBMQlMKPiA+ID4gZGV2aWNlIChsb2dpY2Fs
+IGJsb2NrIHNpemUpIGJlaW5nIHByZXNlbnQsIGFzIEkgYXNzdW1lIHlvdSBkaWRuJ3QgaGF2ZQo+
+ID4gPiBvbmUsIGllIHNheSBhIG52bWUgb3IgdmlydGlvIGJsb2NrIGRldmljZSB3aXRoIGxvZ2lj
+YWwgYmxvY2sgc2l6ZSAgPgo+ID4gPiBQQUdFX1NJWkUuIFRoZSBhcmVhIGluIHF1ZXN0aW9uIHdv
+dWxkIHRyaWdnZXIgb24gZm9saW8gbWlncmF0aW9uICpvbmx5Kgo+ID4gPiBpZiB5b3UgYXJlIG1p
+Z3JhdGluZyBsYXJnZSBidWZmZXItaGVhZCBmb2xpb3MuIFdlIG9ubHkgY3JlYXRlIHRob3NlCj4g
+PiAKPiA+IFRvIGJlIGNsZWFyLCBsYXJnZSBmb2xpb3MgZm9yIGJ1ZmZlci1oZWFkcy4KPiA+ID4g
+aWYKPiA+ID4geW91IGhhdmUgYW4gTEJTIGRldmljZSBhbmQgYXJlIGxldmVyYWdpbmcgdGhlIGJs
+b2NrIGRldmljZSBjYWNoZSBvciBhCj4gPiA+IGZpbGVzeXN0ZW0gd2l0aCBidWZmZXItaGVhZHMg
+d2l0aCBMQlMgKHRoZXkgZG9uJ3QgZXhpc3QgeWV0IG90aGVyIHRoYW4KPiA+ID4gdGhlIGJsb2Nr
+IGRldmljZSBjYWNoZSkuCj4gCj4gTXkgZ3Vlc3MgaXMgdGhhdCB1ZGV2IG9yIHNvbWV0aGluZyB0
+cmllcyB0byByZWFkIHRoZSBkaXNrIGxhYmVsIGluCj4gcmVzcG9uc2UgdG8gc29tZSB1ZXZlbnQg
+KG1rZnMsIG1vdW50LCB1bm1vdW50LCBldGMpLCB3aGljaCBjcmVhdGVzIGEKPiBsYXJnZSBmb2xp
+byBiZWNhdXNlIG1pbl9vcmRlciA+IDAsIGFuZCBhdHRhY2hlcyBhIGJ1ZmZlciBoZWFkLiAgVGhl
+cmUncwo+IGEgc2VwYXJhdGUgY3Jhc2ggcmVwb3J0IHRoYXQgSSdsbCBjYyB5b3Ugb24uCgpPSyBz
+byBhcyB3aWxseSBwb2ludGVkIG91dCBJIGJ1eSB0aGF0IGZvciB4ODZfNjQgKmlmZiogd2UgZG8g
+YWxyZWFkeQpoYXZlIG9wcG9ydHVuaXN0aWMgbGFyZ2UgZm9saW8gc3VwcG9ydCBmb3IgdGhlIGJ1
+ZmZlci1oZWFkIHJlYWQvd3JpdGUKcGF0aC4gQnV0IGFsc28sIEkgZG9uJ3QgdGhpbmsgd2UgZW5h
+YmxlIGxhcmdlIGZvbGlvcyB5ZXQgb24gdGhlIGJsb2NrCmRldmljZSBjYWNoZSBhb3BzIHVubGVz
+cyB3ZSBoYXZlIGEgbWluIG9yZGVyIGJsb2NrIGRldmljZS4uLiBzbyB3aGF0CmdpdmVzPwoKICBM
+dWlzCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGlu
+Zm8vbHRwCg==
