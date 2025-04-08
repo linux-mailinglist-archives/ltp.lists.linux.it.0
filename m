@@ -1,75 +1,110 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74253A81440
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:07:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1744135621; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=2MJFczpKVSMNYsRFAS6ioRD2Do+e/iPyq/ffTXMk5uc=;
- b=gGKT7eHzAIdEImVVLW+/bmoOhjzML9zkOLDg5eq804SHZetaimr/99NNhvh9XClPGiDTo
- ejc+QoBRlJWnIwwr0UUeQPdmn/G9diTDUQqmoTLSQtcrcaZy+HpGtehRsU2WeB5BRxiN8SI
- L6N8q/UJWoEG6gUbjJI3ZPRrCRLgasM=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B92FA814BF
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:37:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2B4903CB3C3
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:07:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5868C3CB3BD
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:37:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 79DAD3C048F
- for <ltp@lists.linux.it>; Tue,  8 Apr 2025 20:06:46 +0200 (CEST)
-Authentication-Results: in-2.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1;
- helo=dfw.source.kernel.org; envelope-from=mcgrof@kernel.org;
- receiver=lists.linux.it)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ by picard.linux.it (Postfix) with ESMTPS id C03323CB379
+ for <ltp@lists.linux.it>; Tue,  8 Apr 2025 20:37:04 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
+ spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
+ (client-ip=2a07:de40:b251:101:10:150:64:1; helo=smtp-out1.suse.de;
+ envelope-from=chrubis@suse.cz; receiver=lists.linux.it)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9DF01601025
- for <ltp@lists.linux.it>; Tue,  8 Apr 2025 20:06:44 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 206915C3AD7;
- Tue,  8 Apr 2025 18:04:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4529EC4CEE5;
- Tue,  8 Apr 2025 18:06:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744135602;
- bh=Tp1KLkGydqnHF26lk/Kt0Weyj/mcdsm8Zy6mmUhq+L8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qZTRLlZsgsR2ikOa/87ONS7coMzrc9mQFK88J/FCDu4fbyg4rMW9QHcYs0EyeojPA
- p8B9V7aznJ0rCr2wJXhiLnnxpcXNCwhAXxafIFjA3lRZCTjsDLD8nLDe5i+cfymVzC
- AbrGm890ErR1Jysv/8XD9PVOvKMjI4Uga2lTWuW08MoRdNofGbbSLpg6bstfH1ss1U
- 9wtvy8mePK/+dINHjjT4qdRqwEJClrtoxctv4cAPzd3A4vt5K3OApxB1GLk1Uo62SB
- bhzDWg3AS7cyKAHBlYSWGtvy0smd656QjTCkiWR+n9s1wjoJ7UrRMLDNCP1H63vfrD
- Mh2rhPNo0BuOQ==
-Date: Tue, 8 Apr 2025 11:06:40 -0700
-To: "Darrick J. Wong" <djwong@kernel.org>
-Message-ID: <Z_VlsLGTbx9Ub843@bombadil.infradead.org>
-References: <20250331074541.gK4N_A2Q@linutronix.de>
- <20250408164307.GK6266@frogsfrogsfrogs>
- <Z_VXpD-d8iC57dBc@bombadil.infradead.org>
- <CAB=NE6X2QztC4OGnJwxRWdeCVEekLBcnFf7JcgV1pKDn6DqhcA@mail.gmail.com>
- <20250408174855.GI6307@frogsfrogsfrogs>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B91C21000D0B
+ for <ltp@lists.linux.it>; Tue,  8 Apr 2025 20:37:03 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E93FD2116E;
+ Tue,  8 Apr 2025 18:37:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1744137422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=3UbDizKsrqaHg/wLg7WkwAnMvZAQjreVLQWJbHJ7sCE=;
+ b=cUlE6LlCxS94Vq5k7UyvN4XeEGNQh4omEUFq6DfnO8+ueg8mBHIDvDnhLxwZbq4iYGKFV3
+ 7fTgzvPXUEuOObyHg3fLyVAPF0l2l6HMYldfwzRqs87wU4eFNGy/yYGKzvyDQ3oCH3IZWa
+ 0l+55BZf4g705TEloPFOfLxZrdd9GRw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1744137422;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=3UbDizKsrqaHg/wLg7WkwAnMvZAQjreVLQWJbHJ7sCE=;
+ b=gsPjeGpE8IvVUplmlDggQij4ppF1R06PGTYJ7iCY8xCdaRsB44CKOfSXGyFF+I/DYBZdQe
+ YfGmIJXacq0aC4DA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1744137421; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=3UbDizKsrqaHg/wLg7WkwAnMvZAQjreVLQWJbHJ7sCE=;
+ b=WEN4iKBuq2Xv5eqf9+wWZJeyo0c4PgiBrhxH5OubT7Q1A2H0wybkQzTH37/Ga83hp2Nhbm
+ XXjzMXtWiwRyqDmEN62KO5bgEgLPRI+uJtxlMZY1RqqSI0X0efqvsBIUi6Bh8VvAgayev4
+ TrODAFknzLl3nBKiW+MDXoAYSSQyp/o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1744137421;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=3UbDizKsrqaHg/wLg7WkwAnMvZAQjreVLQWJbHJ7sCE=;
+ b=36reuFKiY9NQUcDawxg7lKL5mEROgbi8mPZKtrmNdR4xZCFMdyO9KAznnYRxJNqk62omcT
+ 2M18X2ppiGWhWBBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CD53A13691;
+ Tue,  8 Apr 2025 18:37:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id rzkHMc1s9WenDwAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Tue, 08 Apr 2025 18:37:01 +0000
+Date: Tue, 8 Apr 2025 20:37:26 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <Z_Vs5oeKp1KJo0fx@yuki.lan>
+References: <20250403101912.459507-1-pvorel@suse.cz>
+ <20250403101912.459507-2-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250408174855.GI6307@frogsfrogsfrogs>
+In-Reply-To: <20250403101912.459507-2-pvorel@suse.cz>
+X-Spam-Score: -4.30
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; MISSING_XM_UA(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[5]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [linux-next:master] [block/bdev] 3c20917120:
- BUG:sleeping_function_called_from_invalid_context_at_mm/util.c
+Subject: Re: [LTP] [RFC][PATCH 1/2] runtest/ipc: Enable named pipes on
+ non-blocking IO
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,50 +116,67 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Luis Chamberlain via ltp <ltp@lists.linux.it>
-Reply-To: Luis Chamberlain <mcgrof@kernel.org>
-Cc: Ritesh Harjani <ritesh.list@gmail.com>,
- Kefeng Wang <wangkefeng.wang@huawei.com>, Jan Kara <jack@suse.cz>,
- David Hildenbrand <david@redhat.com>, Dave Chinner <david@fromorbit.com>,
- linux-mm@kvack.org, David Bueso <dave@stgolabs.net>, lkp@intel.com,
- gost.dev@samsung.com, Alistair Popple <apopple@nvidia.com>,
- Matthew Wilcox <willy@infradead.org>, Pankaj Raghav <p.raghav@samsung.com>,
- John Garry <john.g.garry@oracle.com>, Daniel Gomez <da.gomez@samsung.com>,
- linux-fsdevel <linux-fsdevel@vger.kernel.org>, Hannes Reinecke <hare@suse.de>,
- ltp@lists.linux.it, linux-block@vger.kernel.org,
- Christian Brauner <brauner@kernel.org>, Tso Ted <tytso@mit.edu>,
- Oliver Sang <oliver.sang@intel.com>, Johannes Weiner <hannes@cmpxchg.org>,
- oe-lkp@lists.linux.dev
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVHVlLCBBcHIgMDgsIDIwMjUgYXQgMTA6NDg6NTVBTSAtMDcwMCwgRGFycmljayBKLiBXb25n
-IHdyb3RlOgo+IE9uIFR1ZSwgQXByIDA4LCAyMDI1IGF0IDEwOjI0OjQwQU0gLTA3MDAsIEx1aXMg
-Q2hhbWJlcmxhaW4gd3JvdGU6Cj4gPiBPbiBUdWUsIEFwciA4LCAyMDI1IGF0IDEwOjA24oCvQU0g
-THVpcyBDaGFtYmVybGFpbiA8bWNncm9mQGtlcm5lbC5vcmc+IHdyb3RlOgo+ID4gPiBGdW4KPiA+
-ID4gcHV6emxlIGZvciB0aGUgY29tbXVuaXR5IGlzIGZpZ3VyaW5nIG91dCAqd2h5KiBvaCB3aHkg
-ZGlkIGEgbGFyZ2UgZm9saW8KPiA+ID4gZW5kIHVwIGJlaW5nIHVzZWQgb24gYnVmZmVyLWhlYWRz
-IGZvciB5b3VyIHVzZSBjYXNlICp3aXRob3V0KiBhbiBMQlMKPiA+ID4gZGV2aWNlIChsb2dpY2Fs
-IGJsb2NrIHNpemUpIGJlaW5nIHByZXNlbnQsIGFzIEkgYXNzdW1lIHlvdSBkaWRuJ3QgaGF2ZQo+
-ID4gPiBvbmUsIGllIHNheSBhIG52bWUgb3IgdmlydGlvIGJsb2NrIGRldmljZSB3aXRoIGxvZ2lj
-YWwgYmxvY2sgc2l6ZSAgPgo+ID4gPiBQQUdFX1NJWkUuIFRoZSBhcmVhIGluIHF1ZXN0aW9uIHdv
-dWxkIHRyaWdnZXIgb24gZm9saW8gbWlncmF0aW9uICpvbmx5Kgo+ID4gPiBpZiB5b3UgYXJlIG1p
-Z3JhdGluZyBsYXJnZSBidWZmZXItaGVhZCBmb2xpb3MuIFdlIG9ubHkgY3JlYXRlIHRob3NlCj4g
-PiAKPiA+IFRvIGJlIGNsZWFyLCBsYXJnZSBmb2xpb3MgZm9yIGJ1ZmZlci1oZWFkcy4KPiA+ID4g
-aWYKPiA+ID4geW91IGhhdmUgYW4gTEJTIGRldmljZSBhbmQgYXJlIGxldmVyYWdpbmcgdGhlIGJs
-b2NrIGRldmljZSBjYWNoZSBvciBhCj4gPiA+IGZpbGVzeXN0ZW0gd2l0aCBidWZmZXItaGVhZHMg
-d2l0aCBMQlMgKHRoZXkgZG9uJ3QgZXhpc3QgeWV0IG90aGVyIHRoYW4KPiA+ID4gdGhlIGJsb2Nr
-IGRldmljZSBjYWNoZSkuCj4gCj4gTXkgZ3Vlc3MgaXMgdGhhdCB1ZGV2IG9yIHNvbWV0aGluZyB0
-cmllcyB0byByZWFkIHRoZSBkaXNrIGxhYmVsIGluCj4gcmVzcG9uc2UgdG8gc29tZSB1ZXZlbnQg
-KG1rZnMsIG1vdW50LCB1bm1vdW50LCBldGMpLCB3aGljaCBjcmVhdGVzIGEKPiBsYXJnZSBmb2xp
-byBiZWNhdXNlIG1pbl9vcmRlciA+IDAsIGFuZCBhdHRhY2hlcyBhIGJ1ZmZlciBoZWFkLiAgVGhl
-cmUncwo+IGEgc2VwYXJhdGUgY3Jhc2ggcmVwb3J0IHRoYXQgSSdsbCBjYyB5b3Ugb24uCgpPSyBz
-byBhcyB3aWxseSBwb2ludGVkIG91dCBJIGJ1eSB0aGF0IGZvciB4ODZfNjQgKmlmZiogd2UgZG8g
-YWxyZWFkeQpoYXZlIG9wcG9ydHVuaXN0aWMgbGFyZ2UgZm9saW8gc3VwcG9ydCBmb3IgdGhlIGJ1
-ZmZlci1oZWFkIHJlYWQvd3JpdGUKcGF0aC4gQnV0IGFsc28sIEkgZG9uJ3QgdGhpbmsgd2UgZW5h
-YmxlIGxhcmdlIGZvbGlvcyB5ZXQgb24gdGhlIGJsb2NrCmRldmljZSBjYWNoZSBhb3BzIHVubGVz
-cyB3ZSBoYXZlIGEgbWluIG9yZGVyIGJsb2NrIGRldmljZS4uLiBzbyB3aGF0CmdpdmVzPwoKICBM
-dWlzCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGlu
-Zm8vbHRwCg==
+Hi!
+> Tests were disabled from the start (edab67b3a0 in 2001) due EAGAIN.
+> Tests are working now even on very old SLE12-SP3 based 4.4 kernel,
+> therefore enable them.
+
+My guess is that it much more depends on number of CPUs. It's more
+likely that reader/write would starve on single CPU system.
+
+But I've spend quite a bit of time reading the tlibio.c code (after I've
+cleaned up the messy ifdefs) and the test (by default) passes method =
+0. Which means that for write we do:
+
+                while (1) {
+                        if (((ret = write(fd, buffer, size)) == -1)
+                            && errno != EAGAIN && errno != EINTR) {
+                                sprintf(Errormsg,
+                                        "%s/%d write(%d, buf, %d) ret:-1, errno=%d %s",
+                                        __FILE__, __LINE__, fd, size, errno,
+                                        strerror(errno));
+                                return -errno;
+                        }
+
+                        if (ret != -1) {
+                                if (ret != size) {
+                                        sprintf(Errormsg,
+                                                "%s/%d write(%d, buf, %d) returned=%d",
+                                                __FILE__, __LINE__,
+                                                fd, size, ret);
+                                        size -= ret;
+                                        buffer += ret;
+                                        totally_written += ret;
+                                } else {
+                                        if (Debug_level > 1)
+                                                printf
+                                                    ("DEBUG %s/%d: write completed without error (ret %d)\n",
+                                                     __FILE__, __LINE__, ret);
+
+                                        return totally_written + ret;
+                                }
+                        }
+                        wait4sync_io(fd, 0);
+                }
+
+
+And wait4sync_io() does select() to wait for the file descriptor to
+became ready for reading. The corresponding part that reads look
+similar. So it at least looks like the code properly handles the EAGAIN
+case in the tlibio.c library and that it should be safe to enable the
+non-blocking case.
+
+Acked-by: Cyril Hrubis <chrubis@suse.cz>
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
