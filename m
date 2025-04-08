@@ -2,73 +2,102 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEDA2A7E2F1
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Apr 2025 17:02:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF722A7F509
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 08:33:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1744094001; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-transfer-encoding :
+ content-type : sender : from;
+ bh=nL65MrEf/IG4aNuyVsPcM0cGwr0GEJVljqx4kZ3NzP8=;
+ b=mXuj0P0oPz4dxMr1/VL0MVer91qmVBnApRjNrdajJcyI46Y6z2xMIkCcxO6vNAVGy8IAF
+ I5ja6JDz2Wnhl4/7aBW5VGLZYlcxnnj2xlwdARctcpenglZYW49MNbgzxKF1UAFkxqxOaPy
+ jf7iVg+2GcOZUECzNzi7e69PgNGd2F0=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 67DEC3CB1AA
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Apr 2025 17:02:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9E0993CB36F
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 08:33:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E72633C071D
- for <ltp@lists.linux.it>; Mon,  7 Apr 2025 17:01:43 +0200 (CEST)
-Authentication-Results: in-3.smtp.seeweb.it;
- spf=pass (sender SPF authorized) smtp.mailfrom=suse.cz
- (client-ip=195.135.223.131; helo=smtp-out2.suse.de;
- envelope-from=pvorel@suse.cz; receiver=lists.linux.it)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id E2C1A3CA6BB
+ for <ltp@lists.linux.it>; Tue,  8 Apr 2025 08:33:08 +0200 (CEST)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 082331A00CC2
- for <ltp@lists.linux.it>; Mon,  7 Apr 2025 17:01:42 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 91E7C1F393;
- Mon,  7 Apr 2025 15:01:42 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1DC6313AB8;
- Mon,  7 Apr 2025 15:01:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 8PQMBNbo82dhNQAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Mon, 07 Apr 2025 15:01:42 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon,  7 Apr 2025 17:01:32 +0200
-Message-ID: <20250407150133.115790-4-pvorel@suse.cz>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250407150133.115790-1-pvorel@suse.cz>
-References: <20250407150133.115790-1-pvorel@suse.cz>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 00B6E200398
+ for <ltp@lists.linux.it>; Tue,  8 Apr 2025 08:33:06 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43d07ca6a80so26234945e9.1
+ for <ltp@lists.linux.it>; Mon, 07 Apr 2025 23:33:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1744093985; x=1744698785; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=dCWZP90vK21XxEg5Dw3cnCA4ERoyFGITAZYN2TqcgC0=;
+ b=YRVs/l/OeZC5C2/v9Y47zB4or8y1U0Z6Qobx9EXvPmhmYYn0NATJagyTB93+23KNZg
+ 4UwKbmErmccss6OD1MqWa7+Ey37KAPtSZbdROjU0lwhl8J68V+6PW0HgzZ1/qzhmgP5u
+ G3xZ2fNgUjitXRBFrce66snQLOQN6UaI1kLLRnPiT1mGEHyYh7vVp6w2Evop8tq3+AUi
+ if1mXsUTNtH4ipCuS8ubZsiNTVffkqFOGm2pLTaQqCGBhDzk0uRN9s2r9uFMQNkF/X7I
+ jhPfUv0PMAhERs5/PZWoa7AgTL0GTh4I2TJwrqzsItH0xgM5rcj/aGpLd6k37mfVGfN9
+ ZtmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744093985; x=1744698785;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=dCWZP90vK21XxEg5Dw3cnCA4ERoyFGITAZYN2TqcgC0=;
+ b=ToRHR8Xo5Dk1QkvXZI6+uDMNbldTVnnSWLaeh4CW1yHUoKggCKTGCWJ9flPo5HblZl
+ 4TZhqTJArpHn6kJFg5KhOMKjw1xMUf/W0/78x4ybV2qi39FxxsfL7sNb3TifNKXRngVG
+ iZnmzJ2TizLX/nViuA8AYaNP93OsBu+1+JmFkUpaswckph/1Lm/y8nlIEf4m29256ScM
+ ULNPksevh4pqMunalmK9MUHKpoRtC2PHbTmoJQRT2B4UB8042gZ7ZYWBoMOzBcvPkEA2
+ PqDrG6snwLd8pxKDGcQHAzVqILS5dAAz9Mus+Jj6Q0wvZizCnORiWaKka5nGUhYFVQuh
+ D8lg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUlVO85tw12Yu4POqvIzIgVdJTvJkFAYCDPqwyWXMRtEznprVaD1HAnd/GcNWVufl9OQJ0=@lists.linux.it
+X-Gm-Message-State: AOJu0YxH9R2dyJvsF27Xv72MPItHuoPcbZyjcbdaPjM+BiggZllhEVK1
+ G3UDkcBxn/Lp2goRrhJovq2C9JxkKp55HLKwcSVsi3MR5A4w4Qs7nNqv3Z1l6u0=
+X-Gm-Gg: ASbGnctpa527vAOLVU0vGkhg328Nf2iH/Sf2wkkIJPbkF3RuvtSQinBfMOKjJzY60NG
+ ApzqQ+Fd7Pib5LuWFYH45DtBtAVLid93JkIX8nKHUPIl5HO0zrxkzquXRoQ7gH527GrV9H5dP8q
+ GJK2xolvk2oHj2LPl8h7a1ehyJUImRUVoMIGN3TxWV6xSapGpqrgA7fgcO8CyOuCL7o72U6Y7uk
+ U0lel/8BGt6U3ppOxKbASl4FpukuXoLLEfq0s7lJamKJ/B8jcZz5DkO7P251YAm3aLylkaiRC9s
+ k4T/ZFxYpvptR3f24GRRkmw7ncou77j2tVe4wUuu25hgHSN6orwupi+w7tgCOjov/HHgwDZmC40
+ zWSmsHqt464SqabmRCKQ6p+e5WS8I7NQDy/3K5WusTDy26euUyoLy7IP5hDlKJxInJ5AhI5m+pc
+ /5oa/DxHQ=
+X-Google-Smtp-Source: AGHT+IHnX+MV0SjlM08jbpxXLuJn9OMFmCtSISEUe5xoIphv+JdGOND8zu+kRwRkSLxrR86O3UE3gQ==
+X-Received: by 2002:a05:600c:3505:b0:43d:cc9:b0a3 with SMTP id
+ 5b1f17b1804b1-43ecf9fed8fmr103595425e9.22.1744093985330; 
+ Mon, 07 Apr 2025 23:33:05 -0700 (PDT)
+Received: from ?IPV6:2003:ef:2f1a:ea00:b220:7501:321e:5c31?
+ (p200300ef2f1aea00b2207501321e5c31.dip0.t-ipconnect.de.
+ [2003:ef:2f1a:ea00:b220:7501:321e:5c31])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43ec34a75fcsm148945955e9.11.2025.04.07.23.33.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Apr 2025 23:33:04 -0700 (PDT)
+Message-ID: <a2197905-94b2-4f84-a19a-fb26b2ff65f4@suse.com>
+Date: Tue, 8 Apr 2025 08:33:04 +0200
 MIME-Version: 1.0
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU]
-X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 91E7C1F393
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+User-Agent: Mozilla Thunderbird
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20250407150133.115790-1-pvorel@suse.cz>
+ <20250407150133.115790-4-pvorel@suse.cz>
+Content-Language: en-US
+In-Reply-To: <20250407150133.115790-4-pvorel@suse.cz>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v5 3/3] doc/Makefile: Allow to create and use .venv
+Subject: Re: [LTP] [PATCH v5 3/3] doc/Makefile: Allow to create and use .venv
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,77 +109,91 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: =?UTF-8?q?Ricardo=20B=20=2E=20Marli=C3=A8re?= <rbm@suse.com>
-Content-Type: text/plain; charset="us-ascii"
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: =?UTF-8?Q?Ricardo_B_=2E_Marli=C3=A8re?= <rbm@suse.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add 'setup' target (alias to '.venv') to create virtualenv directory.
-This is an optional target (not run by default).
-If .venv exists, it's used in other targets, activation supports only
-fish and bash/zsh (known shells used by LTP developers, csh/tcsh is
-ignored atm).
+Hi Petr,
 
-This helps to use virtualenv for development, but avoid using it by
-default (readthedoc uses container with virtualenv, creating it would be
-waste of time).
+some comments below.
 
-Add 'distclean' target which removes also .venv/ directory.
+On 4/7/25 17:01, Petr Vorel wrote:
+> Add 'setup' target (alias to '.venv') to create virtualenv directory.
+> This is an optional target (not run by default).
+> If .venv exists, it's used in other targets, activation supports only
+> fish and bash/zsh (known shells used by LTP developers, csh/tcsh is
+> ignored atm).
+>
+> This helps to use virtualenv for development, but avoid using it by
+> default (readthedoc uses container with virtualenv, creating it would be
+> waste of time).
+>
+> Add 'distclean' target which removes also .venv/ directory.
+>
+> Reviewed-by: Andrea Cervesato <andrea.cervesato@suse.com>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> * The same as v4
+>
+> NOTE: doc/Makefile should be rewritten to use generic_leaf_target.mk,
+> then integration to the top level Makefile will not be a hack).
+>
+>   doc/Makefile | 22 ++++++++++++++++++++--
+>   1 file changed, 20 insertions(+), 2 deletions(-)
+>
+> diff --git a/doc/Makefile b/doc/Makefile
+> index 3c5682ad00..2062d6e935 100644
+> --- a/doc/Makefile
+> +++ b/doc/Makefile
+> @@ -5,15 +5,33 @@ top_srcdir		?= ..
+>   
+>   include $(top_srcdir)/include/mk/env_pre.mk
+>   
+> +PYTHON := python3
+> +VENV_DIR := .venv
+> +
+> +# only fish and bash/zsh supported
+> +VENV_CMD := if [ "x${FISH_VERSION}" != "x" ]; then . $(VENV_DIR)/bin/activate.fish; else . $(VENV_DIR)/bin/activate; fi
+I had to think carefully about this, but I think you are right. It's 
+better not to over-complicate this and to support other shells but bash.
+make command can override environment variables, so it's better to use 
+that feature instead of complicating Makefile that can be really messy 
+when adding new features.
+> +
+> +RUN_VENV := if [ -d $(VENV_DIR) ]; then $(VENV_CMD); fi
+> +
+> +$(VENV_DIR):
+> +	$(PYTHON) -m virtualenv $(VENV_DIR)
+> +	$(VENV_CMD) && pip install -r requirements.txt
+> +
+> +.PHONY: setup
+> +setup: $(VENV_DIR)
+> +
+>   ${abs_top_builddir}/metadata/ltp.json:
+>   	$(MAKE) -C ${abs_top_builddir}/metadata
+>   
+>   all: ${abs_top_builddir}/metadata/ltp.json
+> -	sphinx-build -b html . html
+> +	$(RUN_VENV); sphinx-build -b html . html
+>   
+>   spelling:
+> -	sphinx-build -b spelling -d build/doctree . build/spelling
+> +	$(RUN_VENV); sphinx-build -b spelling -d build/doctree . build/spelling
+>   
+>   clean:
+>   	rm -rf html/ build/ _static/syscalls.rst _static/tests.rst syscalls.tbl \
+>   		${abs_top_builddir}/metadata/ltp.json
+> +
+> +distclean: clean
+> +	rm -rf $(VENV_DIR)
 
-Reviewed-by: Andrea Cervesato <andrea.cervesato@suse.com>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-* The same as v4
+The rest looks fine.
 
-NOTE: doc/Makefile should be rewritten to use generic_leaf_target.mk,
-then integration to the top level Makefile will not be a hack).
-
- doc/Makefile | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
-
-diff --git a/doc/Makefile b/doc/Makefile
-index 3c5682ad00..2062d6e935 100644
---- a/doc/Makefile
-+++ b/doc/Makefile
-@@ -5,15 +5,33 @@ top_srcdir		?= ..
- 
- include $(top_srcdir)/include/mk/env_pre.mk
- 
-+PYTHON := python3
-+VENV_DIR := .venv
-+
-+# only fish and bash/zsh supported
-+VENV_CMD := if [ "x${FISH_VERSION}" != "x" ]; then . $(VENV_DIR)/bin/activate.fish; else . $(VENV_DIR)/bin/activate; fi
-+
-+RUN_VENV := if [ -d $(VENV_DIR) ]; then $(VENV_CMD); fi
-+
-+$(VENV_DIR):
-+	$(PYTHON) -m virtualenv $(VENV_DIR)
-+	$(VENV_CMD) && pip install -r requirements.txt
-+
-+.PHONY: setup
-+setup: $(VENV_DIR)
-+
- ${abs_top_builddir}/metadata/ltp.json:
- 	$(MAKE) -C ${abs_top_builddir}/metadata
- 
- all: ${abs_top_builddir}/metadata/ltp.json
--	sphinx-build -b html . html
-+	$(RUN_VENV); sphinx-build -b html . html
- 
- spelling:
--	sphinx-build -b spelling -d build/doctree . build/spelling
-+	$(RUN_VENV); sphinx-build -b spelling -d build/doctree . build/spelling
- 
- clean:
- 	rm -rf html/ build/ _static/syscalls.rst _static/tests.rst syscalls.tbl \
- 		${abs_top_builddir}/metadata/ltp.json
-+
-+distclean: clean
-+	rm -rf $(VENV_DIR)
--- 
-2.49.0
+Andrea
 
 
 -- 
