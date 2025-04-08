@@ -1,73 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B3C0A81438
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:02:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D939A81465
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:18:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1744135376; h=date : to :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1744136313; h=date : to :
  message-id : references : mime-version : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=GcgFgbdNYD+7QsYojcju7yNDxOASibfvHBf3oFpR4e8=;
- b=qlJCghHAzFm11OmoocFHd6j1QD+xcM5M+NKiQBYN9ohpHaGp9sPVCbVaar6JhhM7NrBX3
- 93BO3I8MWZy79I5N79NuE+u2pBEe6ejqFRqEOVrB+023eEX3WJpNNjqgvEpqB7FukKzLotw
- oMP8SqywcZqgTZti789YSSwR9kz4Poc=
+ bh=uVvqRn5twgAEKLR31Qn7gVjL9qqup2tJhBhoKF2OfL4=;
+ b=p2prMeu6SacY3qhKhHvXfWb2BzQDisJdtnHNHNfZkn5eZV8DvijQfmpLRlHwh0DZaqcT6
+ YcvOh6ySAUj/AutNTpDt6XqSeiHVFz3wKKi+J6xAG8OG0FHYuAKskVQXsjSBNIEI6dPQmpO
+ Sjtet8yXSUwzGl5PsWJPI+WgMR3aWtY=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CABF73CB3BF
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:02:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0BC853CB3CC
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Apr 2025 20:18:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 371F53C048F
- for <ltp@lists.linux.it>; Tue,  8 Apr 2025 20:02:44 +0200 (CEST)
-Authentication-Results: in-3.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ by picard.linux.it (Postfix) with ESMTPS id D7B143CB379
+ for <ltp@lists.linux.it>; Tue,  8 Apr 2025 19:06:50 +0200 (CEST)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
  smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org;
- envelope-from=djwong@kernel.org; receiver=lists.linux.it)
+ envelope-from=mcgrof@kernel.org; receiver=lists.linux.it)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4EDCF1A00FA0
- for <ltp@lists.linux.it>; Tue,  8 Apr 2025 20:02:42 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 16B541400F3F
+ for <ltp@lists.linux.it>; Tue,  8 Apr 2025 19:06:49 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2CD685C3F98;
- Tue,  8 Apr 2025 18:00:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBA02C4CEEA;
- Tue,  8 Apr 2025 18:02:40 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 80D145C3994;
+ Tue,  8 Apr 2025 17:04:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A75D0C4CEE5;
+ Tue,  8 Apr 2025 17:06:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744135360;
- bh=07hatUbfr/QmTsLAp8mRuajmYal+iTkS5lG3koX3sYk=;
+ s=k20201202; t=1744132007;
+ bh=/3eBMgubv0Yka0P/WzdDOXB50+TOIWFo5UCsRYv5O6Y=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gJ9isBnvY2+6BFEV76kbWaDeok+wm2ofnWbwGUqwgTl2wxqX/BGlrvL8ULraweZPl
- i+MMspSS9DWV2ks9l5Lx4C4O6Fm33t0cuJzO++P3z49w3gD56+lZKZQpx8luT04Cp2
- RcWRuhE9VVXE9uoGUhApmz3SqvwdHQuY8ERxxU8UTlG/5vEutUmxTYTaSyowy+pYlj
- MWR21BXSD6n575rQfnQwae8Gft+3db/7XU/qN+ijRWyt99Cq87tUn4FdaMAehgVQik
- SWAEtv4mGHyRc7RmQ4gFag7HX/oxBn6eZ8ckFaSZW6q0ii7xTZX3KOn60C9v8CrDLI
- CgZWrYs4A6XYA==
-Date: Tue, 8 Apr 2025 11:02:40 -0700
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <20250408180240.GM6266@frogsfrogsfrogs>
+ b=RwD72MB+BLnSoW4IRomJp7Ix0Bjzj4kV+VhvB0wuUGsxqlzuVsRsQsocnqYiQUwdt
+ +31xpEKLmAjD/rDiUgNxpng4/1mhIqwM0gmMZgoBDuQdFhb3OILdr9wPBtIcwi6WGd
+ KQuiv/YxK6+xoFs1un5HzHmCG5i2X2L/p/USUzcH60z1/4nmmEDKI8gCy+9KbAtjen
+ o83YtH3vHx4ew7p5JAkCmQ0sQvzLVGhyDm7PA6YEc9Xi0HPweYqtgNtcB3RMcVBjd9
+ cdIIlqMXA+tuhAkRqxDvAHIRZ95wXGWoDHFD66LrEThTktBuifVsVEb/82Oo8mKM4D
+ GmfjnfjwmCVCQ==
+Date: Tue, 8 Apr 2025 10:06:44 -0700
+To: "Darrick J. Wong" <djwong@kernel.org>, David Bueso <dave@stgolabs.net>
+Message-ID: <Z_VXpD-d8iC57dBc@bombadil.infradead.org>
 References: <20250331074541.gK4N_A2Q@linutronix.de>
  <20250408164307.GK6266@frogsfrogsfrogs>
- <Z_VXpD-d8iC57dBc@bombadil.infradead.org>
- <CAB=NE6X2QztC4OGnJwxRWdeCVEekLBcnFf7JcgV1pKDn6DqhcA@mail.gmail.com>
- <20250408174855.GI6307@frogsfrogsfrogs>
- <Z_ViElxiCcDNpUW8@casper.infradead.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Z_ViElxiCcDNpUW8@casper.infradead.org>
+In-Reply-To: <20250408164307.GK6266@frogsfrogsfrogs>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Mailman-Approved-At: Tue, 08 Apr 2025 20:18:21 +0200
 Subject: Re: [LTP] [linux-next:master] [block/bdev] 3c20917120:
  BUG:sleeping_function_called_from_invalid_context_at_mm/util.c
 X-BeenThere: ltp@lists.linux.it
@@ -81,60 +78,62 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: "Darrick J. Wong via ltp" <ltp@lists.linux.it>
-Reply-To: "Darrick J. Wong" <djwong@kernel.org>
+From: Luis Chamberlain via ltp <ltp@lists.linux.it>
+Reply-To: Luis Chamberlain <mcgrof@kernel.org>
 Cc: Ritesh Harjani <ritesh.list@gmail.com>,
  Kefeng Wang <wangkefeng.wang@huawei.com>, Jan Kara <jack@suse.cz>,
  David Hildenbrand <david@redhat.com>, Dave Chinner <david@fromorbit.com>,
  linux-mm@kvack.org, David Bueso <dave@stgolabs.net>, lkp@intel.com,
  gost.dev@samsung.com, Alistair Popple <apopple@nvidia.com>,
- Pankaj Raghav <p.raghav@samsung.com>, John Garry <john.g.garry@oracle.com>,
- Daniel Gomez <da.gomez@samsung.com>,
+ Matthew Wilcox <willy@infradead.org>, Pankaj Raghav <p.raghav@samsung.com>,
+ John Garry <john.g.garry@oracle.com>, Daniel Gomez <da.gomez@samsung.com>,
  linux-fsdevel <linux-fsdevel@vger.kernel.org>, Hannes Reinecke <hare@suse.de>,
  ltp@lists.linux.it, linux-block@vger.kernel.org,
  Christian Brauner <brauner@kernel.org>, Tso Ted <tytso@mit.edu>,
- Luis Chamberlain <mcgrof@kernel.org>, Oliver Sang <oliver.sang@intel.com>,
- Johannes Weiner <hannes@cmpxchg.org>, oe-lkp@lists.linux.dev
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Oliver Sang <oliver.sang@intel.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ oe-lkp@lists.linux.dev
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVHVlLCBBcHIgMDgsIDIwMjUgYXQgMDY6NTE6MTRQTSArMDEwMCwgTWF0dGhldyBXaWxjb3gg
-d3JvdGU6Cj4gT24gVHVlLCBBcHIgMDgsIDIwMjUgYXQgMTA6NDg6NTVBTSAtMDcwMCwgRGFycmlj
-ayBKLiBXb25nIHdyb3RlOgo+ID4gT24gVHVlLCBBcHIgMDgsIDIwMjUgYXQgMTA6MjQ6NDBBTSAt
-MDcwMCwgTHVpcyBDaGFtYmVybGFpbiB3cm90ZToKPiA+ID4gT24gVHVlLCBBcHIgOCwgMjAyNSBh
-dCAxMDowNuKAr0FNIEx1aXMgQ2hhbWJlcmxhaW4gPG1jZ3JvZkBrZXJuZWwub3JnPiB3cm90ZToK
-PiA+ID4gPiBGdW4KPiA+ID4gPiBwdXp6bGUgZm9yIHRoZSBjb21tdW5pdHkgaXMgZmlndXJpbmcg
-b3V0ICp3aHkqIG9oIHdoeSBkaWQgYSBsYXJnZSBmb2xpbwo+ID4gPiA+IGVuZCB1cCBiZWluZyB1
-c2VkIG9uIGJ1ZmZlci1oZWFkcyBmb3IgeW91ciB1c2UgY2FzZSAqd2l0aG91dCogYW4gTEJTCj4g
-PiA+ID4gZGV2aWNlIChsb2dpY2FsIGJsb2NrIHNpemUpIGJlaW5nIHByZXNlbnQsIGFzIEkgYXNz
-dW1lIHlvdSBkaWRuJ3QgaGF2ZQo+ID4gPiA+IG9uZSwgaWUgc2F5IGEgbnZtZSBvciB2aXJ0aW8g
-YmxvY2sgZGV2aWNlIHdpdGggbG9naWNhbCBibG9jayBzaXplICA+Cj4gPiA+ID4gUEFHRV9TSVpF
-LiBUaGUgYXJlYSBpbiBxdWVzdGlvbiB3b3VsZCB0cmlnZ2VyIG9uIGZvbGlvIG1pZ3JhdGlvbiAq
-b25seSoKPiA+ID4gPiBpZiB5b3UgYXJlIG1pZ3JhdGluZyBsYXJnZSBidWZmZXItaGVhZCBmb2xp
-b3MuIFdlIG9ubHkgY3JlYXRlIHRob3NlCj4gPiA+IAo+ID4gPiBUbyBiZSBjbGVhciwgbGFyZ2Ug
-Zm9saW9zIGZvciBidWZmZXItaGVhZHMuCj4gPiA+ID4gaWYKPiA+ID4gPiB5b3UgaGF2ZSBhbiBM
-QlMgZGV2aWNlIGFuZCBhcmUgbGV2ZXJhZ2luZyB0aGUgYmxvY2sgZGV2aWNlIGNhY2hlIG9yIGEK
-PiA+ID4gPiBmaWxlc3lzdGVtIHdpdGggYnVmZmVyLWhlYWRzIHdpdGggTEJTICh0aGV5IGRvbid0
-IGV4aXN0IHlldCBvdGhlciB0aGFuCj4gPiA+ID4gdGhlIGJsb2NrIGRldmljZSBjYWNoZSkuCj4g
-PiAKPiA+IE15IGd1ZXNzIGlzIHRoYXQgdWRldiBvciBzb21ldGhpbmcgdHJpZXMgdG8gcmVhZCB0
-aGUgZGlzayBsYWJlbCBpbgo+ID4gcmVzcG9uc2UgdG8gc29tZSB1ZXZlbnQgKG1rZnMsIG1vdW50
-LCB1bm1vdW50LCBldGMpLCB3aGljaCBjcmVhdGVzIGEKPiA+IGxhcmdlIGZvbGlvIGJlY2F1c2Ug
-bWluX29yZGVyID4gMCwgYW5kIGF0dGFjaGVzIGEgYnVmZmVyIGhlYWQuICBUaGVyZSdzCj4gPiBh
-IHNlcGFyYXRlIGNyYXNoIHJlcG9ydCB0aGF0IEknbGwgY2MgeW91IG9uLgo+IAo+IEJ1dCB5b3Ug
-c2FpZDoKPiAKPiA+IHRoZSBtYWNoaW5lIGlzIGFybTY0IHdpdGggNjRrIGJhc2VwYWdlcyBhbmQg
-NGsgZnNibG9jayBzaXplOgo+IAo+IHNvIHRoYXQgc2hvdWxkbid0IGJlIHVzaW5nIGxhcmdlIGZv
-bGlvcyBiZWNhdXNlIHlvdSBzaG91bGQgaGF2ZSBzZXQgdGhlCj4gb3JkZXIgdG8gMC4gIFJpZ2h0
-PyAgT3IgZGlkIHlvdSBtaXMtc3BlYWsgYW5kIHVzZSBhIDRLIFBBR0VfU0laRSBrZXJuZWwKPiB3
-aXRoIGEgNjRrIGZzYmxvY2tzaXplPwoKVGhpcyBwYXJ0aWN1bGFyIGtlcm5lbCB3YXJuaW5nIGlz
-IGFybTY0IHdpdGggNjRrIGJhc2UgcGFnZXMgYW5kIGEgNGsKZnNibG9jayBzaXplLCBhbmQgbXkg
-c3VzcGljaW9uIGlzIHRoYXQgdWRldi9saWJibGtpZCBhcmUgY3JlYXRpbmcgdGhlCmJ1ZmZlciBo
-ZWFkcyBvciBzb21ldGhpbmcgd2VpcmQgbGlrZSB0aGF0LgoKT24geDY0IHdpdGggNGsgYmFzZSBw
-YWdlcywgeGZzLzAzMiBjcmVhdGVzIGEgZmlsZXN5c3RlbSB3aXRoIDY0ayBzZWN0b3IKc2l6ZSBh
-bmQgdGhlcmUncyBhbiBhY3R1YWwga2VybmVsIGNyYXNoIHJlc3VsdGluZyBmcm9tIGEgdWRldiB3
-b3JrZXI6Cmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LWZzZGV2ZWwvMjAyNTA0MDgxNzUx
-MjUuR0w2MjY2QGZyb2dzZnJvZ3Nmcm9ncy9ULyN1CgpTbyBJIGRpZG4ndCBtaXNzcGVhaywgSSBq
-dXN0IGhhdmUgdHdvIHByb2JsZW1zLiAgSSBhY3R1YWxseSBoYXZlIGZvdXIKcHJvYmxlbXMsIGJ1
-dCB0aGUgb3RoZXJzIGFyZSBsb29wIGRldmljZSBiZWhhdmlvciBjaGFuZ2VzLgoKLS1ECgotLSAK
-TWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+On Tue, Apr 08, 2025 at 09:43:07AM -0700, Darrick J. Wong wrote:
+> Hi Luis,
+> 
+> I'm not sure if this is related, but I'm seeing the same "BUG: sleeping
+> function called from invalid context at mm/util.c:743" message when
+> running fstests on XFS.  Nothing exciting with fstests here other than
+> the machine is arm64 with 64k basepages and 4k fsblock size:
+
+How exotic :D
+
+> MKFS_OPTIONS="-m metadir=1,autofsck=1,uquota,gquota,pquota"
+> 
+> --D
+> 
+> [18182.889554] run fstests generic/457 at 2025-04-07 23:06:25
+
+Me and Davidlohr have some fixes brewed up now, before we post we just
+want to run one more test for metrics on success rate analysis for folio
+migration. Other than that, given the exotic nature of your system we'll
+Cc you on preliminary patches, in case you can test to see if it also
+fixes your issue. It should given your splat is on the buffer-head side
+of things! See _buffer_migrate_folio() reference on the splat. Fun
+puzzle for the community is figuring out *why* oh why did a large folio
+end up being used on buffer-heads for your use case *without* an LBS
+device (logical block size) being present, as I assume you didn't have
+one, ie say a nvme or virtio block device with logical block size  >
+PAGE_SIZE. The area in question would trigger on folio migration *only*
+if you are migrating large buffer-head folios. We only create those if
+you have an LBS device and are leveragin the block device cache or a
+filesystem with buffer-heads with LBS (they don't exist yet other than
+the block device cache).
+
+Regardless, the patches we have brewed up should fix this, regardless
+of the puzzle described above. We'll cc you for testing before we
+post patches to address this.
+
+  Luis
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
