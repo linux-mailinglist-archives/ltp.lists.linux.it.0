@@ -1,80 +1,156 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96832A853D2
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Apr 2025 08:02:18 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FC05A85561
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Apr 2025 09:25:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1744356300; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-type : content-transfer-encoding : sender : from;
+ bh=ZT42cO6H0INRpoMDTn2nArDFt9wX8jk0n2LBBLW+CGg=;
+ b=eRrEMKnJKceyigtdkmgsE50FcvQX+jgENS6WfTKfzbAil58IByTcli6XpA8F1v3/qIV2e
+ EqpobFGXSxcdRjGnRPZ0faX6qv/OFfWuUzSXN1JRJMKYENPpNgJ0R+U39B9zgJXo4WWgGKb
+ ZeS7wImftaWrhaC/TD6Fi0sqFARuC9I=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 542A23CB58E
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Apr 2025 08:02:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 137653CB58E
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Apr 2025 09:25:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0EE623CB355
- for <ltp@lists.linux.it>; Fri, 11 Apr 2025 08:02:07 +0200 (CEST)
-Authentication-Results: in-3.smtp.seeweb.it; spf=pass (sender SPF authorized)
- smtp.mailfrom=uniontech.com (client-ip=18.169.211.239; helo=smtpbg151.qq.com;
- envelope-from=lufei@uniontech.com; receiver=lists.linux.it)
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 4A8A63CABDF
+ for <ltp@lists.linux.it>; Thu, 10 Apr 2025 23:22:18 +0200 (CEST)
+Authentication-Results: in-6.smtp.seeweb.it; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gd-ms.com (client-ip=137.100.132.43; helo=vadc01-egs01.gd-ms.com;
+ envelope-from=john.morin@gd-ms.com; receiver=lists.linux.it)
+Received: from vadc01-egs01.gd-ms.com (vadc01-egs01.gd-ms.com [137.100.132.43])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7C2B91A0079C
- for <ltp@lists.linux.it>; Fri, 11 Apr 2025 08:02:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1744351323;
- bh=b6gOVEWIrAss549szBwVbpxMv09YBMgxWBcTYpqEEgk=;
- h=Date:From:To:Subject:Message-ID:MIME-Version;
- b=Ne/OL1xCvg3ZC8xbiTDA7l5rGcPh9GeoZHKfCr4/CmQYA1NURUhu9TmDVGjWgNzr6
- AmM09Gv48coyBteNhE1+KSGi4Dz+xIx3TMaC7RLmqQql0GVFmI/fTHUGa0e6nCsSRk
- nqF9xpurLGggWA2BV6Gu9LqskRyrG1nS/RX/Nd1Y=
-X-QQ-mid: bizesmtpsz4t1744351320t3235f4
-X-QQ-Originating-IP: 9SsId1247/YlSeyPt+pRNNC9kb2tZQfpjgIoKyQ3dIA=
-Received: from rocky ( [125.76.217.162]) by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 11 Apr 2025 14:01:56 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10255719200985136271
-Date: Fri, 11 Apr 2025 14:01:56 +0800
-From: Lu Fei <lufei@uniontech.com>
-To: Li Wang <liwang@redhat.com>, Jan Stancek <jstancek@redhat.com>
-Message-ID: <E235D2DBCAA80A8D+Z/iwVNmdnxoxZyrN@rocky>
-References: <20250314044257.1673303-1-lufei@uniontech.com>
- <20250409074906.128290-1-lufei@uniontech.com>
- <CAEemH2ef7SZ_U5Z-rHst3Wcg-+fuRjSSOU9NxZOSW2Hjx3kiEg@mail.gmail.com>
- <CAEemH2ciHq6EVe8ChfJrHCx=FXRsxUpgbCR=9d5QsgX_K_Fjpw@mail.gmail.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id AAAB3140004B
+ for <ltp@lists.linux.it>; Thu, 10 Apr 2025 23:22:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=gd-ms.com; i=@gd-ms.com; q=dns/txt; s=esa;
+ t=1744320136; x=1775856136;
+ h=from:to:subject:date:message-id:mime-version;
+ bh=Y7uxw5tzn5VNuERdTmFQiUoFF0G1w7z9ORwWDv7xWwM=;
+ b=sggXL3oshXi8CpddHErKu4Iauj7kSWBaJkNdL1Mmjii693yoZgfOy/3J
+ pq4pMYGofs0rzqu7RsOAYKbSQR1zoGshW4DuDwySpaKAURW35ELsW0r7L
+ 6ovG3kRbRyQyZ1DSf68WdYkk6WZaYIyzKtIoqhVYj8ar5WDTmWVjfhV4j
+ AZ+z/czbIOxkyplASTPuVnVunGwr1PaxJNImrfpyaIk/BXLNUGxAQ2BMN
+ 7X5zr/l8aOmSqz2RT4fFxkloLxhygpZB8yhKEUFsyHfkryjXZQGM+E/Kk
+ 5UpI+YwrTa8gwgHPmvKCT+rAvnlNsP67Acp73yw9wfQRadHYWpv9VNhTK w==;
+X-CSE-ConnectionGUID: dL7zCwd0Qmu75v9FlsAJ3w==
+X-CSE-MsgGUID: VhKLgua6RvGsXGHJkSwS6g==
+X-IronPort-AV: E=Sophos;i="6.15,203,1739854800"; d="scan'208,217";a="10119955"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector5401; d=microsoft.com; cv=none;
+ b=Lm9n4twtcb0WKraXf4Vm6Ty0Qxikv26rHSxzK4dd/Og4992iGZw4xxAjc2SUwK6+X2Wtzx/cdXK4wdE1TGW5eV2qH22R9Ib2cOZ7BCA3/ZVIYdCQDlpN4053W7+SzJIq4tPzWzCRdI1KrtdmeOffxKaLyxwiFU43f9AqEFGSLiYykiRk9pMto+iR92LI4395asJNmCsOO7Rdou7iss8N7VE7zuy4tXmOCz3uzLHodSbLSKvItcDc6spg12njZ4wpm+tKXQnmbMVkOxdRX8U0z0sgDuuUhMmVK0uIFhFST6aLXsdtDHfvHdrd7GRINs+gqnyJnhhG1zzRP4iiMzqdDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector5401;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ehq5aWh+UwJfirBIAPLWq11kpuhC6vVj54y+AW3cqQM=;
+ b=WKKXJHQ0OSBVmn6IOR6yux+twV739RuRsr8+8/bYCVKkovoy5EpqsR5Y2nvVo7XAQpobIiW1U3b9VfUKoddqtUKxrtMCE8bWhDPw8j0ezWxyJgiPwzRf4y4wAFNXdCtccxOd+MlZezcqUphkqZhpts5Cu3C/yqYzwRxJkaW2i4zu15TtTD3tnYqlLiGL94U1vc0gfAYQ0HAyglK58N1oK5BVuBtYwSVPYVYHMy8VC0ZMpWiLBbdd6kOuqirIZdifO6bPxwNKTZVvf0WNMjAgSbM5xytGVltG7/rbH6AoMEH/8ICSyRVfUp+WdL91l5YNvyyeHvToaTjNPAc6aYh66Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=gd-ms.com; dmarc=pass action=none header.from=gd-ms.com;
+ dkim=pass header.d=gd-ms.com; arc=none
+To: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Thread-Topic: Bug: ROD_SILENT does not preserve its argument list
+Thread-Index: AduqXLatYYKK666VQemanz5d0/l82A==
+Date: Thu, 10 Apr 2025 21:22:11 +0000
+Message-ID: <BN1P110MB067481F2145E0C1A6A34240CDFB7A@BN1P110MB0674.NAMP110.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=gd-ms.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN1P110MB0674:EE_|BN0P110MB1787:EE_
+x-ms-office365-filtering-correlation-id: 0e8bb198-b72d-4179-0748-08dd7875c1c3
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|38070700018|8096899003; 
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?tk+2FPXHraTY4TZbRN6xRDhZOa719pXqF4eKFNZaxqctD0fdfEf+ktiZ3Z?=
+ =?iso-8859-1?Q?li4gRRKzhImbk+LZN81NgDSJl/iZRU47VTDjp9I1ac+nKTscCK6OyCSU0s?=
+ =?iso-8859-1?Q?KSgwndqraMgZSSgPplObGQhdSHVU+wrCBzMwPaJI0m7n6vtji/tX58R0cx?=
+ =?iso-8859-1?Q?Eu2903CztirwIEzP+v55sbHH8boVFVjVxATAOJpni4SVUUpCHciMa6mFnF?=
+ =?iso-8859-1?Q?pOxl0lBL/tZ38zhgxqB4FPYWDvqHbbX29Kyk1EjtYMCd2PXSX9vibBmBLn?=
+ =?iso-8859-1?Q?L3tmFDSUg60fB0NBrW6JtKGQA86nLOQRowz3GILpUKS4qCorJQ6NJEvWQ2?=
+ =?iso-8859-1?Q?jL4FyM8ep5/agZXPfKXbACyw9cbVjsMuYlSPFCFNbSCxPZX/XHItUOcv9w?=
+ =?iso-8859-1?Q?iX8X3IclxnkIkOFh+PrDZLLdLGbNBPtzEpYJCBZSi2ZAb/nVFqxm6WuczP?=
+ =?iso-8859-1?Q?2vOJ5QGG9bESMGOdjK104m6rIUiI5qWwm+4eq3PN5eK9XyZNr5LD5zVXIH?=
+ =?iso-8859-1?Q?y27e8B4fSPqmATnKM21WTCtFcD0z4pj0vPCl8wl5Ou8FqjdCLQJs1cO3Lw?=
+ =?iso-8859-1?Q?PEfBk47X5UbMVgTfG8XLJ0Ov61mqtPWX3AVIi3hQi4QbRAJFNn/oA27rPA?=
+ =?iso-8859-1?Q?3MaGkGln6cr8BiRMgqYGMbjHqq++73MKqGO/a/g+Y2DBsEh8O3SJHwC9TK?=
+ =?iso-8859-1?Q?eXhGxip/1w5rpb+4jepMZ5XeqRavKWHFXucL0MPsGQ2g9/jZ655EZKbCks?=
+ =?iso-8859-1?Q?3fcPUDwQaqDLDIhQtdZKq+dHPi7CuCaUDI/qmpNy26fjXydPsS7+WMnfzE?=
+ =?iso-8859-1?Q?1H0yLdkERg972sUpsw5+XXrTN2stccWanfDUpIIvKfP3Sq3XQulnlUJa8E?=
+ =?iso-8859-1?Q?k/r0a1X8IU/9XN82H1UOSE5Ls1PcHfjpFy2ngiOnv9ElWVL9zGV5ItK3S5?=
+ =?iso-8859-1?Q?9XEukMXhb+pL8lrJu9uHoxH5tuEQI4VIa761P1BdQkYx2Ojyi1psmKlxvO?=
+ =?iso-8859-1?Q?ynykJHLo0eMtbGCrC19+Y7NJ+JtwWVeCALw3r3Yw4QqxpX6ZgXHdUMYbZC?=
+ =?iso-8859-1?Q?uUroe7F6BZfvybwptHqWs83wGK4qomlLqKHFWY3RDh3wR8DVtsxK5RGqC0?=
+ =?iso-8859-1?Q?Gcpaq8WVI1eDPs0Wv6ys0Gkg6rbouWAHBgHDpsBDXqzaPeSd7u35rVnYta?=
+ =?iso-8859-1?Q?deTRy0yimfQatzCAn2zDkpWyP96UgHxcee+dpCfucvI1Uv5A5Zxl9BRoEU?=
+ =?iso-8859-1?Q?V5LGtx7kMMZufCfPXcF6t3Xa/SmrEAj6U6lfqY6sq98+P3iR/bzkQKt9Vn?=
+ =?iso-8859-1?Q?f1QeZg4qIBB+wegmq7rBBcQKCIqQX3bEaFEjvEXBlaw1Gix6Tz7DviSgk6?=
+ =?iso-8859-1?Q?DROYOnRWs9HwTtjUBvnFJC4SlSsCjrUN6Kl69CaDR5adh5xiti3D7/pp5J?=
+ =?iso-8859-1?Q?TYkW82rsYqRvTHgCZBgP0NtSmbRUSFsiYX9RctCG67/+X+q5hG+j/uXMTK?=
+ =?iso-8859-1?Q?kEtWgqo/26j7mZ5N0XaW5xv91Gpgw7JXSaJgpCRThAOA=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN1P110MB0674.NAMP110.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(38070700018)(8096899003); DIR:OUT; SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?P/TwCOJemHyABgQh6LI73wYV3MZ/0tNBA99Uu16ht3CVux21ymIlAYqEbu?=
+ =?iso-8859-1?Q?k2956m2axylG5+kRflvJSVIPnRg1FThpWqTPxi31BVMwcJc9u14aQ+9QqP?=
+ =?iso-8859-1?Q?pYlNLmI+gp90AhZbWL7JmAxHPQ9rfI3z4jFb/GwFPcBpM9zX7k9v/e/uG0?=
+ =?iso-8859-1?Q?dIiRWxf54HwC3Eiu77+VSd9aeVBCSnHhxaZOaXOXVQgml7tNEZhXrvJRNK?=
+ =?iso-8859-1?Q?F60K6bz46ICcaaigDIFZvqh6uhFQH47rawu2lmtcfiqgW1m9B7YPZpIExy?=
+ =?iso-8859-1?Q?YQDdvlTfbs65Fmis1WctRCJAvXJt3dzbrsG4Rm4zBj4Oo3CDyGBTuPl2kk?=
+ =?iso-8859-1?Q?GYkfZv+eWw0CIpijFUSUc9Ln6InQ7vkZ629i9kBqvxApI4mBZRY/AmX5yp?=
+ =?iso-8859-1?Q?cEtbWnLfDFqMrhPddZLkkTwzWWpz1djtSsJwjajFV1Ng+ApFva3qiP/wFZ?=
+ =?iso-8859-1?Q?1ocCMUZhPAii3dQgpl0/kYD2MxX2q8xDaUdFfVYsJAVOf0ImUxAUxcDSKE?=
+ =?iso-8859-1?Q?HniH7/whGMWMamanX4Rl94QjP3JzN/4xfuTpSAydaiaftamvXkAQ9rbp04?=
+ =?iso-8859-1?Q?lDRzE9tKX+9A5xi9oQveMV/seDYLsuv1DNxm2S0YEmHg5ggH4x/5enCRqA?=
+ =?iso-8859-1?Q?ntGe9w12DgGfTeUb+IVcYDSTgSrQXCF27+aw8QkylI1F2KfdUQV6bHmfiN?=
+ =?iso-8859-1?Q?K1jBAsTN/QKXBlzPGEcS9LRrkrT9ecf4OLrySJQHQUJbzBHWYngtUQUBcD?=
+ =?iso-8859-1?Q?0Da55U+8IbVkrESGYn502JIdNNOASTzDpj10a0+NlTuKNP6HArAEEPEZdi?=
+ =?iso-8859-1?Q?r/u9fUJl74lh21ARuuAF+6z2f+ae7MMlmjHu3JHmogElCqNNSLcRhPTA83?=
+ =?iso-8859-1?Q?hBnxivjyTO4OBZ27n3l63FQSnN6q0dFi7asqxx8Kw6636X+jWr6tU17fcC?=
+ =?iso-8859-1?Q?9Uen8rrNZQc5Z4nspHCzDr7Teb8SncVnDUk+3Gb0dCh1c1UB39A3oxYsJx?=
+ =?iso-8859-1?Q?fYjIMJiflZYmYigx9qLPTHGi3tm/KxjviEpTz66EZjuVSgM6RFRLLfdkrV?=
+ =?iso-8859-1?Q?glqJZ48rCp0jASgvQFlXHSNosasjCJ/owdkHsJ2Lg+gIQLT1aTibFgTBlA?=
+ =?iso-8859-1?Q?t4ovP0w37hC7rXEtrBQhbbKOrJwtD8tC5V36w2jH7Eou2gLtrjsUSLAmRE?=
+ =?iso-8859-1?Q?sjOZnlPqvWCIJVHMnN0gsnSsnNVrXauDfo6pjPr4LMjHbJKNWrxgb/BFOQ?=
+ =?iso-8859-1?Q?CfCJyYB7jpAPT3A+Xdr6y3vQYYGsv+Qdj9/8iPBIK1XZXWvWLEVjNJAnFL?=
+ =?iso-8859-1?Q?1HT53Ch+3WhEFJPJvJPPg4zq1FNzwgD3iJ1rljbFnvi3IkJQup5iMFBS8/?=
+ =?iso-8859-1?Q?EuNheNF3TRGA9tbj5TSwOE9TIUFFe1PU3Rc9q7lAi/MhnUS/lmKF/RrXBS?=
+ =?iso-8859-1?Q?Ux/l7qASIIF6zliXTv4m1hshsKIGZi8FdN/ZWsn5Co4n69KVZmIjPPGgez?=
+ =?iso-8859-1?Q?VhjxFpYTFMC+BPaxsLhIZmSam8/fiVqmegRdbng1m8V1tOtLjv2CBPhq8D?=
+ =?iso-8859-1?Q?Fc+vL70=3D?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2ciHq6EVe8ChfJrHCx=FXRsxUpgbCR=9d5QsgX_K_Fjpw@mail.gmail.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz8a-0
-X-QQ-XMAILINFO: NDxI9psdf3YV1jrDUP7A8SGE8R1optLr791vw74v9hOfcFUm9hH1gBBz
- vV72psr8LG7H6RgxA1hC+wawStGf2ij88jVEbL1xrlRsq4KXOf4rrKJBxaKyX52V6EgSyg4
- kaDhS/UU4BR/eHvnzeyGsLvt/to01xeKM3Nx4Yu8ktI+TIYM/ZarTU8BjeKNKVW7ShLXjsd
- J7hhnBg4Fjhv4ny1CSBcqVg7wUW5ZFWko9QwY5nxfySO9O9f0jzsBU3X/mlyPrQxGqpildh
- JqYnDe0v77oyCjtOsZ9Zuzn07mBrBcZk9eks0Oi9aBQ1yfl5Af79nViS+pW+fmoD0YT8wRd
- BnTXg0qpC70kwHy8IbCBxpTB99mz9mGm722/xgSKr/V0j6vPtMWmU36aZXjrdIN5tqcyQ+B
- /00Z2PC276xmnKZxQMfwZAdyt6pkEXVz57yjBp1Y0N+KeIbCYcYNn/whtMGc8t5zFaeczwL
- PcEc6xS/B3FBmAUhqzuEC0qIf48mOdjntJTwrA+KhIx5116CzFTIZUzNJ+F28fm0KQvNtbS
- eaBQJ4qLmFdw7cB8eEKhGWJwbEyX5U702vyD0vXmlMevQHuSfeLaEka5aTc4fWkHzp/J/Yn
- +V1SerlbV2xOUKSBbsCqO5xAzqEWqWYJEkTznz+uYiRvG9WKu1NEYN0rOW1u+uF4eqSYNTG
- NX7OBuBdD+wN7EAA0PhrHU8o8QFxciYWoNCLV0GN4LYzhq7am9lTCRNeeIpXe8UMhmUeWkd
- ABxmRxy0O7WX08TldluRThy7BIxIIvpJ3E1/ymtN68WcsjmhvSFGztAxFvoi04vIjlMXPAQ
- R2Mxem6NcAy7Rz8V3S8yf0Qn22BzdLovXgI0y5CroL2FH67ueYEDMAQJiDm+cCaWLuMxop6
- j59EXHoxqUfjsy1KcYyQYmxF2Y+0XStCK/zzAYW+lnWFC5pT6esnYm85EBFQRvVPEiNlQL4
- Ocd5KH+d+x5ZhP96BYG1Bbuqh
-X-QQ-XMRINFO: M/715EihBoGSf6IYSX1iLFg=
-X-QQ-RECHKSPAM: 0
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-3.smtp.seeweb.it
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN1P110MB0674.NAMP110.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e8bb198-b72d-4179-0748-08dd7875c1c3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2025 21:22:11.3553 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7c5a26cf-ddf0-400c-9703-4070b4e3a54d
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0P110MB1787
+X-OriginatorOrg: gd-ms.com
+X-Content-Scanned: Fidelis Mail
+X-Spam-Status: No, score=0.1 required=7.0 tests=ARC_SIGNED,ARC_VALID,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] unshare03: set nr_open with sizeof(long)*8
+X-Mailman-Approved-At: Fri, 11 Apr 2025 09:24:58 +0200
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: [LTP] Bug: ROD_SILENT does not preserve its argument list
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,84 +162,72 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: viro <viro@zeniv.linux.org.uk>, ltp <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: "John.Morin--- via ltp" <ltp@lists.linux.it>
+Reply-To: "John.Morin@gd-ms.com" <John.Morin@gd-ms.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksIExpLCBKYW4uCgpTb3JyeSBmb3Igc28gZmV3IGRldGFpbHMgYWJvdXQgdGhlIHBhdGNoLgoK
-VGhlIG9yaWdpbiBjb2RlIGlzIHVzaW5nIG5yX29wZW4gKzEwMjQgYXMgZmQgbnVtYmVyIGxpbWl0
-IGFuZCB0aGVuIHNldApmZCB0byBucl9vcGVuICsgNjQsIHRoZW4gc2V0IG5yX29wZW4gdG8gb3Jp
-Z2luIG5yX29wZW4gaW4gY2hpbGQgcHJvY2Vzcwp0byBtYWtlIHVuc2hhcmUoQ0xPTkVfRklMRVMp
-IGZhaWxzIHdpdGggRU1GSUxFLiBJIHRlc3RlZCB0aGlzIG9uIG15IHZtCigxY3B1LCAyR0IgbWVt
-KSwgbWV0IGR1cDIgZmFpbHMgd2l0aCBFTk9NRU0sIHRoaXMgbWFrZSB0aGUgdGVzdCBjYXNlCkJS
-T0tFTi4gSSB3YXMgdHJ5IHRvIGZpeCB0aGlzLgoKSW4gcGF0Y2ggdjIsIEkgd2FzIHRyeSB0byB1
-c2UgcmxpbWl0LnJsaW1fbWF4IGluc3RlYWQgb2YgdXNpbmcKbnJfb3BlbihyZWFkIGZyb20gL3By
-b2Mvc3lzL2ZzL25yX29wZW4pLCB0aGlzIHdvcmtzIHdlbGwuIEJ1dCBDeXJpbApnaXZlcyBhIGJl
-dHRlciBhcHByb2NoLCBzbywgSSBzdWJtaXQgcGF0Y2ggdjMuCgpRdW90ZWQgZnJvbSBDeXJpbCdz
-IGNvbW1lbnQ6Cj4KPkFoLCB3ZSBjYW5ub3Qgc2V0IG5yX29wZW4gdG8gYW55dGhpbmcgdGhhdCBp
-cyBzbWFsbGVyIHRoYW4gQklUU19QRVJfTE9ORzoKPi4uLgo+dW5zaWduZWQgaW50IHN5c2N0bF9u
-cl9vcGVuIF9fcmVhZF9tb3N0bHkgPSAxMDI0KjEwMjQ7Cj51bnNpZ25lZCBpbnQgc3lzY3RsX25y
-X29wZW5fbWluID0gQklUU19QRVJfTE9ORzsKPi8qIG91ciBtaW4oKSBpcyB1bnVzYWJsZSBpbiBj
-b25zdGFudCBleHByZXNzaW9ucyA7LS8gKi8KPiNkZWZpbmUgX19jb25zdF9taW4oeCwgeSkgKCh4
-KSA8ICh5KSA/ICh4KSA6ICh5KSkKPnVuc2lnbmVkIGludCBzeXNjdGxfbnJfb3Blbl9tYXggPQo+
-ICAgICAgICBfX2NvbnN0X21pbihJTlRfTUFYLCB+KHNpemVfdCkwL3NpemVvZih2b2lkICopKSAm
-IC1CSVRTX1BFUl9MT05HOwo+Li4uCgo+VGhlbiB3ZSBuZWVkIGEgZmlsZWRlc2NyaXB0b3IgdGhh
-dCBpcyA+PSA2NCBhbmQgc2V0IHRoZSBucl9vcGVuIHRvIDY0LgoKSSdtIHVzaW5nIHNpemVvZihs
-b25nKSo4IGlzIGJlY2F1c2UgSSB3YXMgdGhpbmtpbmcgb25seSBzZXQKZmlsZWRpc2NyaXB0b3Ig
-Pj0gQklUU19QRVJfTE9ORyBhbmQgdGhlbiBzZXQgbnJfb3BlbiA9IEJJVFNfUEVSX0xPTkcKY291
-bGQgbWFrZSBFTUZJTEUgaGFwcGVuLiBMZXNzIHRoYW4gQklUU19QRVJfTE9ORyB3b3VsZCB0cmln
-Z2VyIG90aGVyIAplcnJvciB0aGFuIEVNRklMRS4KCkFtIEkgbWlzdW5kZXJzdG9vZCBDeXJpbD8K
-ClRoYW5rcyBmb3IgcmVwbHkuCgpPbiBGcmksIEFwciAxMSwgMjAyNSBhdCAxMToyMToyM0FNICsw
-ODAwLCBMaSBXYW5nIHdyb3RlOgo+IE9uIEZyaSwgQXByIDExLCAyMDI1IGF0IDExOjA54oCvQU0g
-TGkgV2FuZyA8bGl3YW5nQHJlZGhhdC5jb20+IHdyb3RlOgo+IAo+ID4KPiA+Cj4gPiBPbiBXZWQs
-IEFwciA5LCAyMDI1IGF0IDM6NTDigK9QTSBsdWZlaSA8bHVmZWlAdW5pb250ZWNoLmNvbT4gd3Jv
-dGU6Cj4gPgo+ID4+IFNldCBucl9vcGVuIHdpdGggc2l6ZW9mKGxvbmcpKjggdG8gdHJpZ2dlciBF
-TUZJTEUsIGluc3RlYWQgb2YgcmVhZGluZwo+ID4+IG51bWJlciBvZiBmaWxlZGVzY3JpcHRvcnMg
-bGltaXQuCj4gPj4KPiA+Cj4gPiBBbnkgbmV3IGNoYW5nZXMgaW4gTGludXggdGhhdCBoYXZlIG1h
-ZGUgdGhlIHByZXZpb3VzIHdheSBub3Qgd29yayBub3c/Cj4gPgo+IAo+IEFoLCBJIHNlZS4gQXMg
-eW91IHBvaW50ZWQgb3V0IGluIHYxLCB0aGF0IGhhcmQgbGltaXQgbWF5IGxlYWQgdG8gZHVwMgo+
-IEVOT01FTSBlcnJvciB3aGljaCBicmluZ3MgdGhlIHJlc3VsdCB0byBUQlJPSyBvbmEgc21hbGwg
-UkFNIHN5c3RlbS4KPiAKPiBTbywgSSBhZ3JlZSBKYW4sIHdlJ2QgYmV0dGVyIGFkZCBtb3JlIGRl
-c2NyaXB0aW9uIHRvIHRoZSBwYXRjaC4KPiAKPiBSZXZpZXdlZC1ieTogTGkgV2FuZyA8bGl3YW5n
-QHJlZGhhdC5jb20+Cj4gCj4gCj4gCj4gPgo+ID4KPiA+Cj4gPj4KPiA+PiBTaWduZWQtb2ZmLWJ5
-OiBsdWZlaSA8bHVmZWlAdW5pb250ZWNoLmNvbT4KPiA+PiAtLS0KPiA+PiAgdGVzdGNhc2VzL2tl
-cm5lbC9zeXNjYWxscy91bnNoYXJlL3Vuc2hhcmUwMy5jIHwgMjMgKystLS0tLS0tLS0tLS0tLS0t
-LQo+ID4+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyMSBkZWxldGlvbnMoLSkK
-PiA+Pgo+ID4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3Vuc2hhcmUv
-dW5zaGFyZTAzLmMKPiA+PiBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvdW5zaGFyZS91bnNo
-YXJlMDMuYwo+ID4+IGluZGV4IDdjNWU3MWM0ZS4uYzNiOTg5MzBkIDEwMDY0NAo+ID4+IC0tLSBh
-L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvdW5zaGFyZS91bnNoYXJlMDMuYwo+ID4+ICsrKyBi
-L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvdW5zaGFyZS91bnNoYXJlMDMuYwo+ID4+IEBAIC0x
-Nyw0NCArMTcsMjUgQEAKPiA+PiAgI2luY2x1ZGUgImxhcGkvc2NoZWQuaCIKPiA+Pgo+ID4+ICAj
-ZGVmaW5lIEZTX05SX09QRU4gIi9wcm9jL3N5cy9mcy9ucl9vcGVuIgo+ID4+IC0jZGVmaW5lIE5S
-X09QRU5fTElNSVQgMTAyNAo+ID4+IC0jZGVmaW5lIE5SX09QRU5fRFVQIDY0Cj4gPj4KPiA+PiAg
-I2lmZGVmIEhBVkVfVU5TSEFSRQo+ID4+Cj4gPj4gIHN0YXRpYyB2b2lkIHJ1bih2b2lkKQo+ID4+
-ICB7Cj4gPj4gLSAgICAgICBpbnQgbnJfb3BlbjsKPiA+PiAtICAgICAgIGludCBucl9saW1pdDsK
-PiA+PiAtICAgICAgIHN0cnVjdCBybGltaXQgcmxpbWl0Owo+ID4+ICAgICAgICAgc3RydWN0IHRz
-dF9jbG9uZV9hcmdzIGFyZ3MgPSB7Cj4gPj4gICAgICAgICAgICAgICAgIC5mbGFncyA9IENMT05F
-X0ZJTEVTLAo+ID4+ICAgICAgICAgICAgICAgICAuZXhpdF9zaWduYWwgPSBTSUdDSExELAo+ID4+
-ICAgICAgICAgfTsKPiA+Pgo+ID4+IC0gICAgICAgU0FGRV9GSUxFX1NDQU5GKEZTX05SX09QRU4s
-ICIlZCIsICZucl9vcGVuKTsKPiA+PiAtICAgICAgIHRzdF9yZXMoVERFQlVHLCAiTWF4aW11bSBu
-dW1iZXIgb2YgZmlsZSBkZXNjcmlwdG9yczogJWQiLAo+ID4+IG5yX29wZW4pOwo+ID4+ICsgICAg
-ICAgaW50IG5yX29wZW4gPSBzaXplb2YobG9uZykgKiA4Owo+ID4+Cj4gPj4gLSAgICAgICBucl9s
-aW1pdCA9IG5yX29wZW4gKyBOUl9PUEVOX0xJTUlUOwo+ID4+IC0gICAgICAgU0FGRV9GSUxFX1BS
-SU5URihGU19OUl9PUEVOLCAiJWQiLCBucl9saW1pdCk7Cj4gPj4gLQo+ID4+IC0gICAgICAgU0FG
-RV9HRVRSTElNSVQoUkxJTUlUX05PRklMRSwgJnJsaW1pdCk7Cj4gPj4gLQo+ID4+IC0gICAgICAg
-cmxpbWl0LnJsaW1fY3VyID0gbnJfbGltaXQ7Cj4gPj4gLSAgICAgICBybGltaXQucmxpbV9tYXgg
-PSBucl9saW1pdDsKPiA+PiAtCj4gPj4gLSAgICAgICBTQUZFX1NFVFJMSU1JVChSTElNSVRfTk9G
-SUxFLCAmcmxpbWl0KTsKPiA+PiAtICAgICAgIHRzdF9yZXMoVERFQlVHLCAiU2V0IG5ldyBtYXhp
-bXVtIG51bWJlciBvZiBmaWxlIGRlc2NyaXB0b3JzIHRvIDoKPiA+PiAlZCIsCj4gPj4gLSAgICAg
-ICAgICAgICAgIG5yX2xpbWl0KTsKPiA+PiAtCj4gPj4gLSAgICAgICBTQUZFX0RVUDIoMiwgbnJf
-b3BlbiArIE5SX09QRU5fRFVQKTsKPiA+PiArICAgICAgIFNBRkVfRFVQMigyLCBucl9vcGVuICsg
-MSk7Cj4gPj4KPiA+PiAgICAgICAgIGlmICghU0FGRV9DTE9ORSgmYXJncykpIHsKPiA+PiAgICAg
-ICAgICAgICAgICAgU0FGRV9GSUxFX1BSSU5URihGU19OUl9PUEVOLCAiJWQiLCBucl9vcGVuKTsK
-PiA+PiAgICAgICAgICAgICAgICAgVFNUX0VYUF9GQUlMKHVuc2hhcmUoQ0xPTkVfRklMRVMpLCBF
-TUZJTEUpOwo+ID4+ICAgICAgICAgICAgICAgICBleGl0KDApOwo+ID4+ICAgICAgICAgfQo+ID4+
-IC0KPiA+PiAgfQo+ID4+Cj4gPj4gIHN0YXRpYyB2b2lkIHNldHVwKHZvaWQpCj4gPj4gLS0KPiA+
-PiAyLjM5LjMKPiA+Pgo+ID4+Cj4gPj4gLS0KPiA+PiBNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6
-Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAKPiA+Pgo+ID4+Cj4gPgo+ID4gLS0KPiA+IFJl
-Z2FyZHMsCj4gPiBMaSBXYW5nCj4gPgo+IAo+IAo+IC0tIAo+IFJlZ2FyZHMsCj4gTGkgV2FuZwoK
-LS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
-cAo=
+Hello:
+Submitting bug against ROD_SILENT.
+Sincerely,
+
+  *   John Morin.
+
+==== Bug in ROD_SILENT ====
+Need to quote "$@" in ROD_SILENT so each parameter is individually quoted. Otherwise, the original structure of its arguments is lost.
+
+==== Fix ====
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index 718a6b0ca..cfa327a8a 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -153,7 +153,7 @@ ROD_SILENT()
+{
+        local tst_out
+
+-       tst_out="$(tst_rod $@ 2>&1)"
++       tst_out=$(tst_rod "$@" 2>&1)
+        if [ $? -ne 0 ]; then
+                echo "$tst_out"
+                tst_brk TBROK "$@ failed"
+
+==== Test showing bug ====
+Test "test1" is an LTP tests. The runs the same command using ROD and ROD_SILENT. The command it runs simply greps for string "blah1 blah2" in file data2. When run, ROD passes while ROD_SILENT fails. This is because ROD_SILENT does not preserve quoted arguments.
+
+% cat data2
+--- blah1 blah2 blah3 ---
+
+% cat test1
+#!/bin/bash
+TST_TESTFUNC="do_test"
+do_test()
+{
+    ROD        grep "blah1 blah2" data2
+    ROD_SILENT grep "blah1 blah2" data2
+    tst_res TPASS "pass"
+}
+. tst_test.sh
+tst_run
+
+% ./test1 # Note ROD passes while ROD_SILENT fails
+> ./test1
+test1 1 TINFO: Running: test1
+test1 1 TINFO: Tested kernel: ...
+test1 1 TINFO: timeout per run is 0h 5m 0s
+--- blah1 blah2 blah3 ---
+grep: blah2: No such file or directory
+data2:--- blah1 blah2 blah3 ---
+test1 1 TBROK: grep blah1 blah2 data2 failed
+
+Summary:
+passed   0
+failed   0
+broken   1
+skipped  0
+warnings 0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
