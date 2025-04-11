@@ -2,21 +2,20 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99AB1A85C19
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Apr 2025 13:44:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69EF5A85C1C
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Apr 2025 13:44:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1438B3CB5BF
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Apr 2025 13:43:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1B37D3CB5DA
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Apr 2025 13:44:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E2A633CA320
- for <ltp@lists.linux.it>; Fri, 11 Apr 2025 13:43:41 +0200 (CEST)
-Authentication-Results: in-5.smtp.seeweb.it;
+ by picard.linux.it (Postfix) with ESMTPS id 204E73CAEB7
+ for <ltp@lists.linux.it>; Fri, 11 Apr 2025 13:43:55 +0200 (CEST)
+Authentication-Results: in-4.smtp.seeweb.it;
  spf=pass (sender SPF authorized) smtp.mailfrom=suse.de
  (client-ip=2a07:de40:b251:101:10:150:64:2; helo=smtp-out2.suse.de;
  envelope-from=andrea.cervesato@suse.de; receiver=lists.linux.it)
@@ -25,64 +24,74 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0DFA9600BB9
- for <ltp@lists.linux.it>; Fri, 11 Apr 2025 13:43:40 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6B4F2100075B
+ for <ltp@lists.linux.it>; Fri, 11 Apr 2025 13:43:54 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5C91D1F74D;
- Fri, 11 Apr 2025 11:43:39 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B7A4B1F45F;
+ Fri, 11 Apr 2025 11:43:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1744371819; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=rlsyjQVDk7Ffp0WML90hVZ586rHyXSJy986irJUxJYk=;
- b=hLSCimKAx+xv5wEjUU2PiCs1MgzRVKm0XoZYjjMsyHdDtI2TJG9iiA8Hntu7GH8mzNpEVU
- 4r1JQLj93sHOccswG+GpRo9Mnlu3qy5z2vW8avqvOONUmIhuLlGnceOHvfdDKNm9KZWs4r
- m9BxCtdfl4TsFaGicKgCXRzEJywtoTY=
+ t=1744371822; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ikv4afPFihvXVq/f946eDIOthwdKtPc+dtbBHBrMVWk=;
+ b=jDySw8LC7icbugZlUvIqvYD1FA/go2zE5f6XIDDmx23tb8xiOzKAg853jwyDlvwTSJtSgK
+ +i3Zn4jLvfGE87Q0qNLoyk4tbETk/UzncRkSpieKiHc3JCXFcstuDfMcQ9QyEtKX3YJ9gb
+ kAjqMkiMB8KOlHNsLIY3UMo4l9Hfv7Q=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1744371819;
+ s=susede2_ed25519; t=1744371822;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=rlsyjQVDk7Ffp0WML90hVZ586rHyXSJy986irJUxJYk=;
- b=S7BDVuTjyo9Fv5YX8DgW/DTimRFwvRese8iyyofJdhnF5//gCzosehbkFo/8cvxQiDA06S
- 5Sln8A4qN59/dSCw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ikv4afPFihvXVq/f946eDIOthwdKtPc+dtbBHBrMVWk=;
+ b=MSJNys1NpvIqvgc+OJ+ZH3qQzSYRNw15/YSH/DE3O7dJ8yUDv92/KyI7LaI1ueZhnRRl+P
+ 6biQ/cb/bT+IRcDA==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=hLSCimKA;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=S7BDVuTj
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pIGMeu7X;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=36XTf9F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1744371819; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=rlsyjQVDk7Ffp0WML90hVZ586rHyXSJy986irJUxJYk=;
- b=hLSCimKAx+xv5wEjUU2PiCs1MgzRVKm0XoZYjjMsyHdDtI2TJG9iiA8Hntu7GH8mzNpEVU
- 4r1JQLj93sHOccswG+GpRo9Mnlu3qy5z2vW8avqvOONUmIhuLlGnceOHvfdDKNm9KZWs4r
- m9BxCtdfl4TsFaGicKgCXRzEJywtoTY=
+ t=1744371821; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ikv4afPFihvXVq/f946eDIOthwdKtPc+dtbBHBrMVWk=;
+ b=pIGMeu7XMizGr0Bs6jJsUfK+zdjaHT6PdOuIZ7QlGGdxDv5IJkOIbpnurTlD0ObpXCYET9
+ 5jzuQiTahnB0KcWbBcaceS/ilenn1EvyZIBSNf/elX9GG+P8MOpI/IfPxPuDd0bol7yxN6
+ UP/XAuzQ47AmfP2mA8tCPKyBWaROEOU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1744371819;
+ s=susede2_ed25519; t=1744371821;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=rlsyjQVDk7Ffp0WML90hVZ586rHyXSJy986irJUxJYk=;
- b=S7BDVuTjyo9Fv5YX8DgW/DTimRFwvRese8iyyofJdhnF5//gCzosehbkFo/8cvxQiDA06S
- 5Sln8A4qN59/dSCw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ikv4afPFihvXVq/f946eDIOthwdKtPc+dtbBHBrMVWk=;
+ b=36XTf9F90HMe2DEqHGc0FaOdatocSc9B7mFD3wZoXleqCrGHcC4ZBHnmR3BR+9uCN8fvcE
+ cwc6QmrJI1zYdhDw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2B9FA13886;
- Fri, 11 Apr 2025 11:43:39 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 855E713886;
+ Fri, 11 Apr 2025 11:43:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 2inFCGsA+WcmVAAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Fri, 11 Apr 2025 11:43:39 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oLXRHm0A+WcmVAAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Fri, 11 Apr 2025 11:43:41 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Fri, 11 Apr 2025 13:43:20 +0200
-Message-ID: <20250411114326.526-1-andrea.cervesato@suse.de>
+Date: Fri, 11 Apr 2025 13:43:21 +0200
+Message-ID: <20250411114326.526-2-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250411114326.526-1-andrea.cervesato@suse.de>
+References: <20250411114326.526-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: 5C91D1F74D
+X-Rspamd-Queue-Id: B7A4B1F45F
 X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
  R_MISSING_CHARSET(0.50)[];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
@@ -93,7 +102,7 @@ X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
  FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email];
  RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
  DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
@@ -104,10 +113,10 @@ X-Spam-Score: -3.01
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v5 0/4] Support for Patchwork CI
+Subject: [LTP] [PATCH v5 1/4] ci: install dependences for patchwork-ci script
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,51 +135,134 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Add support for patch-series validation in the patchwork ML.
-We use Github to schedule a trigger every 30 minutes, checking for new
-patche-series in parchwork which has not been tested yet.
-
-The way we decide if a patch-series has been tested in patchwork, is
-by looking at its status (in particular, if it's "Needs Review / ACK"),
-as well as checking if test report has been uploaded to any of the
-series patches.
-
-All communication to Patchwrok is done via REST API, using curl and js
-tools.
-
-First, we create a script called patchwork-ci.sh that provides all the
-commands to read new untested patch-series, set their status and testing
-report. Then, we create a scheduled workflow in Gitlab, checking every
-30 minutes if there are new untested patch-series. At the end, we
-trigger the main build workflow, used to validate LTP commits in our
-Github mainline. All the times we trigger the build workflow, we also
-provide the patch-series ID, that will be fetched and applied on the
-current branch before running the tests.
-
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-Changes in v4:
-- patchwork script is now a tool that can be used independently to ci
+ ci/alpine-runtime.sh |  2 ++
+ ci/alpine.sh         |  2 ++
+ ci/debian.i386.sh    |  2 ++
+ ci/debian.sh         | 28 +++++++++++++++-------------
+ ci/fedora.sh         |  2 ++
+ ci/tumbleweed.sh     |  2 ++
+ 6 files changed, 25 insertions(+), 13 deletions(-)
 
-Andrea Cervesato (4):
-  ci: install dependences for patchwork-ci script
-  ci: add patchwork communication script
-  ci: add ci-patchwork-trigger workflow
-  ci: apply patchwork series in ci-docker-build workflow
-
- .github/workflows/ci-docker-build.yml      |  39 +++-
- .github/workflows/ci-patchwork-trigger.yml |  63 +++++++
- ci/alpine-runtime.sh                       |   2 +
- ci/alpine.sh                               |   2 +
- ci/debian.i386.sh                          |   2 +
- ci/debian.sh                               |  28 +--
- ci/fedora.sh                               |   2 +
- ci/tools/patchwork.sh                      | 197 +++++++++++++++++++++
- ci/tumbleweed.sh                           |   2 +
- 9 files changed, 323 insertions(+), 14 deletions(-)
- create mode 100644 .github/workflows/ci-patchwork-trigger.yml
- create mode 100755 ci/tools/patchwork.sh
-
+diff --git a/ci/alpine-runtime.sh b/ci/alpine-runtime.sh
+index 3bff42770..d0e1990d2 100755
+--- a/ci/alpine-runtime.sh
++++ b/ci/alpine-runtime.sh
+@@ -4,6 +4,8 @@
+ 
+ apk add \
+         acl \
++        curl \
++        jq \
+         keyutils \
+         libaio \
+         libacl \
+diff --git a/ci/alpine.sh b/ci/alpine.sh
+index 5a44a6687..254f4aaec 100755
+--- a/ci/alpine.sh
++++ b/ci/alpine.sh
+@@ -9,6 +9,8 @@ apk add \
+ 	autoconf \
+ 	automake \
+ 	clang \
++	curl \
++	jq \
+ 	gcc \
+ 	git \
+ 	acl-dev \
+diff --git a/ci/debian.i386.sh b/ci/debian.i386.sh
+index 284605309..44c7ddf2f 100755
+--- a/ci/debian.i386.sh
++++ b/ci/debian.i386.sh
+@@ -6,6 +6,8 @@ dpkg --add-architecture i386
+ apt update
+ 
+ apt install -y --no-install-recommends \
++	curl \
++	jq \
+ 	linux-libc-dev:i386 \
+ 	gcc-multilib \
+ 	libacl1-dev:i386 \
+diff --git a/ci/debian.sh b/ci/debian.sh
+index f590b4b9a..96c2651b3 100755
+--- a/ci/debian.sh
++++ b/ci/debian.sh
+@@ -4,7 +4,7 @@
+ 
+ # workaround for missing oldstable-updates repository
+ # W: Failed to fetch http://deb.debian.org/debian/dists/oldstable-updates/main/binary-amd64/Packages
+-grep -v oldstable-updates /etc/apt/sources.list > /tmp/sources.list && mv /tmp/sources.list /etc/apt/sources.list
++grep -v oldstable-updates /etc/apt/sources.list >/tmp/sources.list && mv /tmp/sources.list /etc/apt/sources.list
+ 
+ apt update
+ 
+@@ -23,6 +23,8 @@ pkg_minimal="
+ 	debhelper
+ 	devscripts
+ 	clang
++	curl
++	jq
+ 	gcc
+ 	git
+ 	iproute2
+@@ -47,18 +49,18 @@ pkg_nonessential="
+ "
+ 
+ case "$ACTION" in
+-	minimal)
+-		echo "=== Installing only minimal dependencies ==="
+-		$install $pkg_minimal
+-		;;
+-	remove-nonessential)
+-		echo "=== Make sure devel libraries are removed ==="
+-		$remove $pkg_nonessential
+-		;;
+-	*)
+-		echo "=== Installing dependencies ==="
+-		$install $pkg_minimal $pkg_nonessential
+-		;;
++minimal)
++	echo "=== Installing only minimal dependencies ==="
++	$install $pkg_minimal
++	;;
++remove-nonessential)
++	echo "=== Make sure devel libraries are removed ==="
++	$remove $pkg_nonessential
++	;;
++*)
++	echo "=== Installing dependencies ==="
++	$install $pkg_minimal $pkg_nonessential
++	;;
+ esac
+ 
+ df -hT
+diff --git a/ci/fedora.sh b/ci/fedora.sh
+index bef5bcd2b..494de928f 100755
+--- a/ci/fedora.sh
++++ b/ci/fedora.sh
+@@ -9,6 +9,8 @@ $yum \
+ 	automake \
+ 	make \
+ 	clang \
++	curl \
++	jq \
+ 	gcc \
+ 	git \
+ 	findutils \
+diff --git a/ci/tumbleweed.sh b/ci/tumbleweed.sh
+index 33937ec63..d0607eed2 100755
+--- a/ci/tumbleweed.sh
++++ b/ci/tumbleweed.sh
+@@ -8,6 +8,8 @@ $zyp \
+ 	autoconf \
+ 	automake \
+ 	clang \
++	curl \
++	jq \
+ 	findutils \
+ 	gcc \
+ 	git \
 -- 
 2.43.0
 
