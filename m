@@ -2,100 +2,94 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33EE8A903A2
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Apr 2025 15:11:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A3C8A8B1C7
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Apr 2025 09:17:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1744809061; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1744787819; h=to : date :
+ message-id : in-reply-to : references : mime-version : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-transfer-encoding :
- content-type : sender : from;
- bh=UQBUBzUz4l0fbzEjX5474iEueRVXwtBUJ2aWZS1DjWE=;
- b=Ik7S+jL71utqBf52dF09Wy7Xiy5nA6WreL6myi0uPSqSiuZjXPjtd7XdOupsvRuOe7YxU
- yes8jpCtwU2sqPoD8tl7aOjKXnWp3FWCqbUVnZYepXgZr8KaB2XUsNMuBcIQ2xjrLKGxRD5
- YBydPtQGqfiQLmHl+X7RgWk9M6TbdmY=
+ list-subscribe : from : reply-to : content-type :
+ content-transfer-encoding : sender : from;
+ bh=Q6jmWywvloZBg9MT0eH2iy72k/OTFRdrjTJWlRhX3sw=;
+ b=aK6dfuArP5gAF7iECh2Udq0hDMMV5ivsZgfvBl2Yd1h71c0MdSemOy7zxokdIp6cxBqcX
+ gL1lVvYhWWlHD5pEDMtyMLiRKw6yc550AVsuolQiqz0IHUvyk0uMnreng9eDoNEAArM+AaX
+ /Qp8JFmjz7KflQomyTyguZ5LzJKfcCs=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DFF923CB965
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Apr 2025 15:11:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C62C23CB94E
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Apr 2025 09:16:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C65023CB94A
- for <ltp@lists.linux.it>; Wed, 16 Apr 2025 15:10:59 +0200 (CEST)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
+ by picard.linux.it (Postfix) with ESMTPS id C28323CB947
+ for <ltp@lists.linux.it>; Wed, 16 Apr 2025 09:16:51 +0200 (CEST)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0B4C56005C7
- for <ltp@lists.linux.it>; Wed, 16 Apr 2025 15:10:59 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43ed8d32a95so57088465e9.3
- for <ltp@lists.linux.it>; Wed, 16 Apr 2025 06:10:59 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A3D59200755
+ for <ltp@lists.linux.it>; Wed, 16 Apr 2025 09:16:50 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-39c0dfba946so4701524f8f.3
+ for <ltp@lists.linux.it>; Wed, 16 Apr 2025 00:16:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1744809058; x=1745413858; darn=lists.linux.it;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=UwPOljDPuORWTQLPU0+Q2W0q27PkiGKAZAee7Tbze3M=;
- b=ALMFNSxy+PM4P4a/2+SImuJJhiu+Qr28Mws0hs92IfFa56u2wUAhdpug/G52TViDh7
- 1hRU0sAA3Lh7YI+JCG2eBZlcho02ZmtPYnYlNO15D54gZTCYSIwQ//p/gbVKthdbbPay
- gVdEuC0dxB3jEwDjfsFl455jb3qp7rfRlj3knV36V8xCGKRHuJWEJEFbs/eZsabISRBS
- oDbhytZqmXyydJInNlxnEecDYb9ztimLyq+SEiINxm6nWAqU2HADB7+Udk1u1tKVKwbo
- 9auF7YLaEWwG5VRb8oz2K4WHyDtT0zNb4jMnHDGQr1kg+wkV4yV/4ac1TIc2LKzXEk8P
- 2log==
+ d=suse.com; s=google; t=1744787810; x=1745392610; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ot4D3IoyK8Dsq+TbQvIXGjH4A8kL0D5bJyFLZq1uF2U=;
+ b=bJU1hexzPkDu+IVoh5Lh/6t4QQi66Bsf/GNh8jWiEhq5SpfnuEgwfI7hPVv8wrdmsy
+ TkXj/KEclkDrNh2todtvl2+TOG1MFXAVM2VbaxgYTW+Tul/+7K72RkLvBXcBn4WF57c+
+ TkDd0Dz4M2QD4bCCBRzXk7T8vUNektG/XxJkapSE5fvfNVnTuQVIc0/OirPIgqLICeT5
+ R62LW0pGTzF312IJeN5gk1EssNk/zKRRzmF+Fpg+zifkRhGVTNwhAbYFg2FuCXUXJ10j
+ /6IdlvitcVVDYrLY7wPaAGO9eXQTC4pb6finPrtR//fIuPxDRL0Isb/iU0T5o/Kma7Nb
+ Dpfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744809058; x=1745413858;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UwPOljDPuORWTQLPU0+Q2W0q27PkiGKAZAee7Tbze3M=;
- b=gpgFxvRI3fpfi5/Epq9ZxKFw7L6et5HjNzex6BBq3/rOtRy6EpdcRVDWnr9o44A5KY
- w9jzqylY3F57MJJ/XmTfWAG/zFVJsW1WvY66XB82KCtGfTJ030bSRZTqtcGYOsOhmhYQ
- 68su6xZNwm3zj8TPE2ZHxbvvUEvBorRcW0Yg9TL/xNb/dVzFHnzVLZte18hoept51xLf
- 95WnRzFxuma7HNtDTT1hcQBOtnKrT2elFGWakf3stp6aLury381Adx8rulxePFZe+ieC
- NWA/2CZbZMVZADwTNbZ+DB20WVTQKrRH0H0KLCQoXk3pf8dIxW2YWH7uoCHg5YYdgyDf
- fQgw==
-X-Gm-Message-State: AOJu0YwI8nK26Li2JIR+QmtTZ8KLxwbMKM/DrRMqTUcQIOyynOioafHm
- MlhKUXEXiSFtrIaSXQOSyx/9GI8nO2wEqPdyZAwfSdcwGeDqrZhw1R5fTclTLMU=
-X-Gm-Gg: ASbGncv3b5JlGfQDmizucvXvTCXbKR4cShpecmY73pKlEsBYhVEUeQM/Z+PzXnCFPvb
- AgB0nDpD+1yd0/3E7cDe8RKY4tT6uhulUBuF04koqCc+ZD2vUIpaa+36xM6fbPotRoZrvIfgZHE
- nUgJceD1dABCkmQUuVP8JuVbqLIHjJgoNxberXkDNNKnZxYu0vjKqiLKIV0W9du6WEH4X3tIcCT
- l2vLisvjD/PJawxp+TRIFwuqVgXhfxfEiZSdpiomSrRUrMwbxXBifn8+py826ZgavA0DlbRctH6
- sDiRR93VFfTL9/yJE0KnY1zaMc2gacyQ8xIMCxinI+opBYSAVY4l2sPsoU2iLnoeTG3nR3GSIIu
- sZC9fUBQ5fbfENRNbbyyegVn76tkZTFOEClrEApAxVHdX+nYZJ2BjDDLudlwvf1tC+ICpYNfcoM
- zdj698Xw61avwXaA==
-X-Google-Smtp-Source: AGHT+IHbwrt04xnlQXWWn+6TCJURwcskFXKG+vr71QR8Wh6EsIK3rh9DYRfA4vAI3Z/SOuQJ0N7dpw==
-X-Received: by 2002:a05:600c:3151:b0:43b:b756:f0a9 with SMTP id
- 5b1f17b1804b1-4405d61d03cmr18581795e9.11.1744809058369; 
- Wed, 16 Apr 2025 06:10:58 -0700 (PDT)
-Received: from ?IPV6:2003:ef:2f1a:ea00:b220:7501:321e:5c31?
- (p200300ef2f1aea00b2207501321e5c31.dip0.t-ipconnect.de.
- [2003:ef:2f1a:ea00:b220:7501:321e:5c31])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4405b50b897sm20841745e9.26.2025.04.16.06.10.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Apr 2025 06:10:58 -0700 (PDT)
-Message-ID: <f6632800-7344-4cfb-b8d2-60fd0affd71e@suse.com>
-Date: Wed, 16 Apr 2025 15:10:57 +0200
+ d=1e100.net; s=20230601; t=1744787810; x=1745392610;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Ot4D3IoyK8Dsq+TbQvIXGjH4A8kL0D5bJyFLZq1uF2U=;
+ b=tjsOnfCpC8IgOcMJNj3icswEqiktKXdR9GsjcS/Y05h7h3WKbHLIS7aq9TvrZYx+Lq
+ aBWxRctppu2qK6oiR1mk9YINND9406R6tlg6ShSMTUH7k9MVOp8ykxoPgOKiDOwWWavJ
+ kfhU0gyf0ScEprCg8JwgEiIj2N/DKHRDpN9+lXX+TAI1S7qM1b8+Wo3DqTPWOBm9ycwP
+ hJPcBjQ/oewesnlykOLwfC77NYJUD3w3k44vv78UZkRg4Xd3y9hzJj7sO3adK7AcCtzo
+ lByORWC8qKuDEEk//ZdsPZWfAN9NwEMoxsN633l+Mit1o0DCONMkvikreZVoxuvx10t2
+ JzUQ==
+X-Gm-Message-State: AOJu0Yz+XCFDnsRejSBMuXTfL1BIFLzRHWFRSF0TI89fKf3pWJKtkE/L
+ umZMlH0TBh6Dx6DqWpoLgriEDRjVAN9+OApAHDw80tkqtENpf4K550XhZ1eJZ8RO50Uu1knrtYw
+ 32A==
+X-Gm-Gg: ASbGncu+bphoqVW1+S2XvGUu1nnX698GHHIsIYMPug5GA/ll769/PZ4HZY0RkZh9LIT
+ Y1kIalwYdftX3cMLyRzyXyN9S9jFHsFBizTEwsK3qhK6GilqnVpsFOGWvN5gG5hwGCEFLWnFHsx
+ IevHlRsVKT6j73RMo8JHScix8NLPXXm1D8ZyFDrDkvAgOv4iWdfTu7TwJIPngoiFJpPSbL6nwoa
+ SwZseJfFETKitMFLvcyRzgvYZNceoCW5VVttBZ18cXZRE86rL6Jlwh18zu47sDrze3w57yb6PID
+ +KbyH+9hvcIVMBC/ks4tuXu7wcHipg==
+X-Google-Smtp-Source: AGHT+IF3qPisHYzfK6CjKD4koZalwe9Ad6YgBP7Vj9PdtR1gNMQMQfTelfXHOv86cvpDGteGL37p8w==
+X-Received: by 2002:a5d:5f82:0:b0:390:f6aa:4e72 with SMTP id
+ ffacd0b85a97d-39ee5b16e7bmr690784f8f.18.1744787809720; 
+ Wed, 16 Apr 2025 00:16:49 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+ by smtp.gmail.com with UTF8SMTPSA id
+ d9443c01a7336-22c33ef0e83sm7131215ad.35.2025.04.16.00.16.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Apr 2025 00:16:49 -0700 (PDT)
+To: ltp@lists.linux.it
+Date: Wed, 16 Apr 2025 15:16:44 -0400
+Message-ID: <20250416191645.355088-1-wegao@suse.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250103135626.28672-1-wegao@suse.com>
+References: <20250103135626.28672-1-wegao@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Petr Vorel <pvorel@suse.cz>, Andrea Cervesato <andrea.cervesato@suse.de>
-References: <20250416-fix_docs_stats-v1-1-2423b7602690@suse.com>
- <20250416123035.GA602141@pevik>
-Content-Language: en-US
-In-Reply-To: <20250416123035.GA602141@pevik>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.3 at in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.3 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] doc: fix stats page
+Subject: [LTP] [PATCH v3] mmap22.c: Test for new MAP_DROPPABLE flag for mmap
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,38 +101,162 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Cc: ltp@lists.linux.it
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Pushed thanks.
+Signed-off-by: Wei Gao <wegao@suse.com>
+---
+ include/lapi/mmap.h                       |  4 +
+ runtest/syscalls                          |  1 +
+ testcases/kernel/syscalls/mmap/.gitignore |  1 +
+ testcases/kernel/syscalls/mmap/mmap22.c   | 95 +++++++++++++++++++++++
+ 4 files changed, 101 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/mmap/mmap22.c
 
-- Andrea
+diff --git a/include/lapi/mmap.h b/include/lapi/mmap.h
+index ea9730586..248b64564 100644
+--- a/include/lapi/mmap.h
++++ b/include/lapi/mmap.h
+@@ -87,6 +87,10 @@
+ # define MADV_PAGEOUT	21
+ #endif
+ 
++#ifndef MAP_DROPPABLE
++# define MAP_DROPPABLE 0x08
++#endif
++
+ #ifndef MAP_FIXED_NOREPLACE
+ 
+ #ifdef __alpha__
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 932b7030c..e369536ea 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -844,6 +844,7 @@ mmap19 mmap19
+ mmap20 mmap20
+ mmap21_01 mmap21 -m 1
+ mmap21_02 mmap21
++mmap22 mmap22
+ 
+ modify_ldt01 modify_ldt01
+ modify_ldt02 modify_ldt02
+diff --git a/testcases/kernel/syscalls/mmap/.gitignore b/testcases/kernel/syscalls/mmap/.gitignore
+index 850284d86..075be933d 100644
+--- a/testcases/kernel/syscalls/mmap/.gitignore
++++ b/testcases/kernel/syscalls/mmap/.gitignore
+@@ -18,3 +18,4 @@
+ /mmap19
+ /mmap20
+ /mmap21
++/mmap22
+diff --git a/testcases/kernel/syscalls/mmap/mmap22.c b/testcases/kernel/syscalls/mmap/mmap22.c
+new file mode 100644
+index 000000000..31414896c
+--- /dev/null
++++ b/testcases/kernel/syscalls/mmap/mmap22.c
+@@ -0,0 +1,95 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2025 Wei Gao <wegao@suse.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Test mmap(2) with MAP_DROPPABLE flag.
++ *
++ * Test base on kernel selftests/mm/droppable.c
++ */
++
++#define _GNU_SOURCE
++#include <errno.h>
++#include <stdio.h>
++#include <sys/types.h>
++#include "tst_test.h"
++#include "lapi/mmap.h"
++
++#define MEM_LIMIT (256 * TST_MB)
++#define ALLOC_SIZE (128 * TST_MB)
++
++static struct tst_cg_group *cg_child;
++
++static void test_mmap(void)
++{
++	size_t alloc_size = ALLOC_SIZE;
++	size_t page_size = getpagesize();
++	void *alloc;
++	pid_t child;
++
++	cg_child = tst_cg_group_mk(tst_cg, "child");
++	SAFE_CG_PRINTF(tst_cg, "memory.max", "%d", MEM_LIMIT);
++	SAFE_CG_PRINTF(cg_child, "cgroup.procs", "%d", getpid());
++
++	alloc = SAFE_MMAP(0, alloc_size, PROT_READ | PROT_WRITE,
++			MAP_ANONYMOUS | MAP_DROPPABLE, -1, 0);
++
++	memset(alloc, 'A', alloc_size);
++	for (size_t i = 0; i < alloc_size; i += page_size) {
++		if (*(char *)(alloc + i) != 'A')
++			tst_res(TFAIL, "memset failed");
++	}
++
++	child = SAFE_FORK();
++	if (!child) {
++		for (;;)
++			*(char *)malloc(page_size) = 'B';
++	}
++
++	while (1) {
++		for (size_t i = 0; i < alloc_size; i += page_size) {
++			if (!tst_remaining_runtime())
++				tst_brk(TBROK, "MAP_DROPPABLE did not drop memory within the timeout period.");
++			if (!*(uint8_t *)(alloc + i)) {
++				tst_res(TPASS, "MAP_DROPPABLE test pass.");
++				goto kill_child;
++			}
++		}
++	}
++
++kill_child:
++	SAFE_KILL(child, SIGKILL);
++	SAFE_WAITPID(child, NULL, 0);
++	SAFE_MUNMAP(alloc, alloc_size);
++}
++
++static void setup(void)
++{
++	void *addr = mmap(0, 1, PROT_READ | PROT_WRITE,
++			MAP_ANONYMOUS | MAP_DROPPABLE, -1, 0);
++	if (addr == MAP_FAILED && errno == EINVAL)
++		tst_brk(TCONF, "MAP_DROPPABLE not support");
++}
++
++static void cleanup(void)
++{
++	if (cg_child) {
++		SAFE_CG_PRINTF(tst_cg_drain, "cgroup.procs", "%d", getpid());
++		cg_child = tst_cg_group_rm(cg_child);
++	}
++}
++
++static struct tst_test test = {
++	.test_all = test_mmap,
++	.needs_tmpdir = 1,
++	.forks_child = 1,
++	.needs_cgroup_ctrls = (const char *const []){ "memory", NULL },
++	.needs_root = 1,
++	.cleanup = cleanup,
++	.setup = setup,
++	.runtime = 30,
++	.min_mem_avail = 300,
++};
+-- 
+2.49.0
 
-On 4/16/25 14:30, Petr Vorel wrote:
-> Hi Andrea,
->
->> In the last documentation builds we faced syscalls file download error.
->> In particular, git.kernel.org communication started to fail with 403.
->> The reason seems to be realted to the server configuration, that is now
->> requiring a specific User-Agent. Set User-Agent to 'curl/8.6.0' to avoid
->> this issue.
-> Thanks for fixing this! I also noticed this, was in my TODO.
-> I also prefer to keep using korg if possible than start using
-> github/torvalds/linux (which is not official, might be outdated or also limited
-> similar way for bots).
->
-> IMHO this is part of the changes in the korg infrastructure detecting bots.
-> I guess they need to reduce the traffic.
->
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
->
-> Kind regards,
-> Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
