@@ -1,80 +1,81 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76527A9168B
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Apr 2025 10:36:38 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D5E9DA91742
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Apr 2025 11:05:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1744878998; h=to : date :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1744880729; h=to : date :
  message-id : mime-version : subject : list-id : list-unsubscribe :
  list-archive : list-post : list-help : list-subscribe : from :
  reply-to : content-type : content-transfer-encoding : sender : from;
- bh=Aq3poldKU0UHfVAmgyBq5+KlPyltuhzKfN6GLwKXUcE=;
- b=f8cTcQ1a+nfj9HAwoySYf0Rd4YlK3JpBaDcUYx14ansy4+EQRphCtwif5aCzIj9k2KExd
- dRbt6xxqm41EzEnPtQQ7lN/sP69/No5FwbdQWt10IeEIK15iCkOX/zx8Ix+SxF/vWDLK2V3
- /yCahC5V5HOorjplMmVKF5naJ0h8AXQ=
+ bh=Ma+lUdajcIGIipNPkBiPp5Ep1BDV7hiADWRSL6+EyYw=;
+ b=CCSYR2JXeJqQ5ZEJ67CBP7Ev5gh8Q1RiDsv2MqlpaM+0/Vy3Q+MhYDjhKfWPBL+nSL9Ue
+ nhSb1L2nN7tRsU+DxFcj8musWiiC9ZftHEAjadMss7v5iCMNc+VNO8XlYdcFj1b995Wek10
+ Dp+DwowqFZUr9hx4f8KOei+CqVz9JXo=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 05E7B3CB9F7
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Apr 2025 10:36:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AC55A3CB9E1
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Apr 2025 11:05:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C51043C0B7C
- for <ltp@lists.linux.it>; Thu, 17 Apr 2025 10:36:24 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 1E8CF3CB9BE
+ for <ltp@lists.linux.it>; Thu, 17 Apr 2025 11:05:17 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id DADBE600C99
- for <ltp@lists.linux.it>; Thu, 17 Apr 2025 10:36:22 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id F1851600055
+ for <ltp@lists.linux.it>; Thu, 17 Apr 2025 11:05:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1744878981;
+ s=mimecast20190719; t=1744880714;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=AectQK+U5Q3lcjTAJSU9robbmYAeb6737Q60Rixa1gA=;
- b=d2rDj9IRflExcZ69yXiof5uyqDH1dLC4qEpL2l6PrJE0iwfQeAvBflZA7qH8pOQZdLFjtQ
- esibDeYJGTeY/qPc5saUZNKg+UrGBPWysHA2t4zaWCr9+88t1h719nFrXH6fEFFYslm41I
- zf7FTIsr5r1IX2g7E+drQ9ig7Mdzh5A=
+ bh=K5uIHrztNU8cWqugNhQ80/8EamxKxgJwana+yG/r6Wo=;
+ b=PGPYfUsNAupLjlx7KAzrJdcqp/0DzL4IkMn55CzX1odo+32P//sbDWXUIMbKxtpJxvFHN4
+ 5eQSQ+7LlVVg8ufmhAgtKO7dU1btxUA6MGPtRqMe0eL3MEHVRyCWlBrup32DgIHgH7mdaZ
+ clx6JPukigY1PxZDSObFIx+JIYLZoUU=
 Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-547-D1KSo5SwPVq4mJ0zGNY66w-1; Thu,
- 17 Apr 2025 04:36:17 -0400
-X-MC-Unique: D1KSo5SwPVq4mJ0zGNY66w-1
-X-Mimecast-MFC-AGG-ID: D1KSo5SwPVq4mJ0zGNY66w_1744878977
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-607-n2CZ6azgM1Gn6eatufZC2g-1; Thu,
+ 17 Apr 2025 05:05:13 -0400
+X-MC-Unique: n2CZ6azgM1Gn6eatufZC2g-1
+X-Mimecast-MFC-AGG-ID: n2CZ6azgM1Gn6eatufZC2g_1744880712
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E87511800570
- for <ltp@lists.linux.it>; Thu, 17 Apr 2025 08:36:16 +0000 (UTC)
+ id 1E7161801A04
+ for <ltp@lists.linux.it>; Thu, 17 Apr 2025 09:05:12 +0000 (UTC)
 Received: from t14ultra.redhat.com (unknown [10.44.32.38])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id ECDD11800362
- for <ltp@lists.linux.it>; Thu, 17 Apr 2025 08:36:15 +0000 (UTC)
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 25B77180045B
+ for <ltp@lists.linux.it>; Thu, 17 Apr 2025 09:05:10 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Thu, 17 Apr 2025 10:36:21 +0200
-Message-ID: <8c3549cbda426969943a2beefa4f50f214b1a8c4.1744878941.git.jstancek@redhat.com>
+Date: Thu, 17 Apr 2025 11:05:29 +0200
+Message-ID: <a2bdb9dc2d4160f11751053c4c047bb302d0c1a1.1744880683.git.jstancek@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: bLcBD9P0C7Tv7pb8qVbJSENK2SCTqrPn7HZbJGmsj6I_1744878977
+X-Mimecast-MFC-PROC-ID: fxzBqPJrVEmvQoJW46PL1lpCoUtiPRYJF_NTMTdGAq8_1744880712
 X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] libswap: 6.15 supports one more swapfile with
- CONFIG_DEVICE_PRIVATE
+Subject: [LTP] [PATCH] syscalls/setsockopt10: handle explicit disallow of
+ disconnect
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,28 +94,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Since c25465eb7630 ("mm: use single SWP_DEVICE_EXCLUSIVE entry type")
-kernel supports onre more swap file.
+Since commit 5071a1e606b3 ("net: tls: explicitly disallow disconnect") in
+6.15 kernel, disconnect is now explicitly disallowed.
 
-Link: https://lore.kernel.org/all/73bea938-15a2-4b4a-8d31-0db9f9c476e0@redhat.com/#t
 Signed-off-by: Jan Stancek <jstancek@redhat.com>
 ---
- libs/swap/libswap.c | 2 ++
- 1 file changed, 2 insertions(+)
+ testcases/kernel/syscalls/setsockopt/setsockopt10.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/libs/swap/libswap.c b/libs/swap/libswap.c
-index 63a995f4e31e..e10355502916 100644
---- a/libs/swap/libswap.c
-+++ b/libs/swap/libswap.c
-@@ -288,6 +288,8 @@ int tst_max_swapfiles(void)
- 			swp_device_num = 2;
- 		if (tst_kvercmp(5, 14, 0) >= 0)
- 			swp_device_num = 4;
-+		if (tst_kvercmp(6, 15, 0) >= 0)
-+			swp_device_num = 3;
- 	}
+diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt10.c b/testcases/kernel/syscalls/setsockopt/setsockopt10.c
+index e52c6cd9338f..f955f4e83a44 100644
+--- a/testcases/kernel/syscalls/setsockopt/setsockopt10.c
++++ b/testcases/kernel/syscalls/setsockopt/setsockopt10.c
+@@ -145,7 +145,16 @@ static void run(void)
+ 	TST_CHECKPOINT_WAKE(1);
  
- 	if ((marker.choice == 'y' &&
+ 	tst_res(TINFO, "parent: Disconnect by setting unspec address");
+-	SAFE_CONNECT(tcp1_sk, &unspec_addr, sizeof(unspec_addr));
++	TEST(connect(tcp1_sk, &unspec_addr, sizeof(unspec_addr)));
++	if (TST_RET == -1) {
++		if (TST_ERR == EOPNOTSUPP)
++			tst_res(TPASS | TTERRNO, "parent: tls disallows disconnect");
++		else
++			tst_res(TFAIL | TTERRNO, "parent: unexpected errno from connect");
++		TST_CHECKPOINT_WAKE(2);
++		tst_reap_children();
++		return;
++	}
+ 	SAFE_BIND(tcp1_sk, (struct sockaddr *)&tcp1_addr, sizeof(tcp1_addr));
+ 
+ 	TEST(listen(tcp1_sk, 1));
 -- 
 2.47.1
 
