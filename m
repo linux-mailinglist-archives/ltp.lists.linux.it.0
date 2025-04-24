@@ -2,107 +2,97 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21517A9AB5D
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Apr 2025 13:05:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45C27A9AB90
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Apr 2025 13:19:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1745493543; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-transfer-encoding :
+ content-type : sender : from;
+ bh=1xb7JWkvcIjYpfW/KWToNQG/Hhn+x21tcrI3rBazWck=;
+ b=mzCe1hrd/AEK7axL0yrtFpTaei/7EZBzmKJQmSmrBTG3F7D6OJe6pEH7UfK78l5oeUv9+
+ zANTWj2tulnze+NYrgKbu6kgeA933X4DfYMkfb9GomcPWUoH366/o0sJ5HVl0r0+FAcEicT
+ /OL7cge1Qg3BVitDmRtpVdsifdbqQRU=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D73D53CB324
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Apr 2025 13:05:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 069AC3CB398
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Apr 2025 13:19:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3CF4F3CB2EC
- for <ltp@lists.linux.it>; Thu, 24 Apr 2025 13:05:05 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id ADE683CB2D0
+ for <ltp@lists.linux.it>; Thu, 24 Apr 2025 13:18:50 +0200 (CEST)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 794C220038B
- for <ltp@lists.linux.it>; Thu, 24 Apr 2025 13:05:04 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7EAC91F44E;
- Thu, 24 Apr 2025 11:05:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1745492702;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WxDOmrXcYPpHqPBsi5cJIzNnSHfyuSVhuBJSZ8XkcTY=;
- b=ybBYTzv6XOb5pS1L6hMohcGO3FJrsIWut+s6bS5cv4qywumbdqa69inQYeYEyA4GO+maT9
- YMWm3tibJxmx6jG8Hx9/thQt1qdqG2VMqj+9qPuTSg7drqCWhy0qvOhEIw6lqfDyQLKoYe
- rONtZYKhL7JYmwhmdUBO5XMAQ1X9Xt8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1745492702;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WxDOmrXcYPpHqPBsi5cJIzNnSHfyuSVhuBJSZ8XkcTY=;
- b=OBu7oFHlWm1DnL86Sqsuh/2brEgO5J3Tuymi69H4kAzg+urhV/LE2i7tiHajh7gt19WpGd
- WR3B2EvVzgAtEeBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1745492702;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WxDOmrXcYPpHqPBsi5cJIzNnSHfyuSVhuBJSZ8XkcTY=;
- b=ybBYTzv6XOb5pS1L6hMohcGO3FJrsIWut+s6bS5cv4qywumbdqa69inQYeYEyA4GO+maT9
- YMWm3tibJxmx6jG8Hx9/thQt1qdqG2VMqj+9qPuTSg7drqCWhy0qvOhEIw6lqfDyQLKoYe
- rONtZYKhL7JYmwhmdUBO5XMAQ1X9Xt8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1745492702;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WxDOmrXcYPpHqPBsi5cJIzNnSHfyuSVhuBJSZ8XkcTY=;
- b=OBu7oFHlWm1DnL86Sqsuh/2brEgO5J3Tuymi69H4kAzg+urhV/LE2i7tiHajh7gt19WpGd
- WR3B2EvVzgAtEeBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56CC7139D0;
- Thu, 24 Apr 2025 11:05:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id f2uEEN4aCmi9NQAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 24 Apr 2025 11:05:02 +0000
-Date: Thu, 24 Apr 2025 13:04:56 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Avinesh Kumar <akumar@suse.de>
-Message-ID: <20250424110456.GA1078321@pevik>
-References: <20250424105536.21645-1-akumar@suse.de>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9527010007BD
+ for <ltp@lists.linux.it>; Thu, 24 Apr 2025 13:18:49 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43cebe06e9eso5924675e9.3
+ for <ltp@lists.linux.it>; Thu, 24 Apr 2025 04:18:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1745493529; x=1746098329; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Mf0EEKL/XtyY1dPbo/2UwvIF28TNpVXG7GwvSg3cgP8=;
+ b=g22WRupps954VHGLYHZo6xf8Kn2Q2G8PARnQ+fnuzm2YyIIvTL1GY+nP8UDAV1tXUw
+ 5S6Puohwf8IRkqr9G0h+ueZdQRHWwP8Z27SNXltcckNH0MwVQyBs4WOam6DAJtb+cTml
+ w+QTaWoPuhdpphb5EjwAG5h+3DVIle4cmyGD81ZO4WcAnFUkk50qdpABsGqfTIRFtyw2
+ rKrYE0De27XXLD0i4pBUb/rhvWbuRQiQDVDS6G6wjlL3bcS6j3vNcvB33XIa7+86uZJd
+ Lc4310eq0Y5whif87P9+wgDqHn9cW+t2VcSFSf3beIthQtbuFEuLX5HQXgjmyj5dpVPf
+ 7Gbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745493529; x=1746098329;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Mf0EEKL/XtyY1dPbo/2UwvIF28TNpVXG7GwvSg3cgP8=;
+ b=MyD/gdygvNJWIULwqYOy9VXBqSsOERT9jfLbZy5ZHMT0TaPTcQ2dmX0w2p8RwxDu60
+ Md6crWPBjW89ynxUlnSHmOGbla9m2B4Ls9HiW/6Q/C5phTZ+7P3rnIhs8hkrIFdksFx/
+ J6ta8Jkg1z23jvPYESjV93eEe2P61FO1PtK2G+LVyNmQj1xkkqCl5a5z8MhVqDQzmSCa
+ HK0ZQmqt7sO7Sc+HMNO8nhCjM9bpOalaxynou4KWUyr0wmCMarj7zuK3QlOvkSWalHhW
+ bSVlQdVdiXcn2uia6GFa9R2jXlZysk4lUuom1p0CUW+ZXccB2TdSqFa9t2ACwHO+FkUz
+ aLLA==
+X-Gm-Message-State: AOJu0Yw7HBqKD618GEQI0QXOOgG+Ezcbh/oBEqfS07N8fFTMHpjwKhi6
+ MA9TJrs55A/Ug9ytTHA8tmNAfQEgiu03FdvJI1mBBSoPpiqsgYlkIiRzjTAHDOo=
+X-Gm-Gg: ASbGnctHhOIpFcSOMEXSbUoDciAiszF3+n8ES4rk+rOihVAMLT9cajMaP9s14VTNID8
+ 3o3l+jGtESpzsgGOx4Qphm7vForb5pTJ8UWfuP1zhaqk3+NXHfvcEMUDa0UiMnz+Oxg+U/BcTVb
+ S7cPcog0cdLQ6ovxFBZYklhID060YyngqP1N8QoxIEi+TXDzolT+w4LDUWaSZIgNg6YNVGtTnVY
+ lSIBvyga7g9QzhY9Vv8TNecL89/lk5xHjGgb/0yviZE6URtkARKplSg7ljwr7+ql4WCnci9XPbT
+ 0LB2ZS13/js0uUCQPMO9et2KuP5c/nLrFnaKlPIjhb92VTOxsQ==
+X-Google-Smtp-Source: AGHT+IH7wftDG/6ojw/LMczqhWCoc+MDs2HwMA1HOEjuKKymCfJLfR9vBtDxws/gAiTKcjcvltkanw==
+X-Received: by 2002:a05:600c:4e52:b0:43d:26e3:f2f6 with SMTP id
+ 5b1f17b1804b1-4409bd052a1mr19072615e9.5.1745493529039; 
+ Thu, 24 Apr 2025 04:18:49 -0700 (PDT)
+Received: from [10.232.133.71] ([88.128.90.4])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4409d29bf7csm18650645e9.4.2025.04.24.04.18.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Apr 2025 04:18:48 -0700 (PDT)
+Message-ID: <1368c2fa-7e0f-49d3-b04a-e13020ae2512@suse.com>
+Date: Thu, 24 Apr 2025 13:18:47 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250424105536.21645-1-akumar@suse.de>
-X-Spam-Score: -3.50
-X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.de:email];
- REPLYTO_EQ_FROM(0.00)[]
-X-Spam-Level: 
+User-Agent: Mozilla Thunderbird
+To: Petr Vorel <pvorel@suse.cz>, Andrea Cervesato <andrea.cervesato@suse.de>
+References: <20250424-fix_ci_results_pipeline-v1-1-f880fe011b89@suse.com>
+ <20250424103331.GA1075853@pevik>
+Content-Language: en-US
+In-Reply-To: <20250424103331.GA1075853@pevik>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] unshare03: use sizeof(long long) to fix for 32bit
+Subject: Re: [LTP] [PATCH] ci: fix results being sent while patchwork.sh
+ exit 1
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,45 +104,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Avinesh,
+Merged with suggested Fixes tag.
 
-> when executing on 32bit compat layer
-> "nr_open = sizeof(long) * 8" does not evaluate to a large enough value
-> for /proc/sys/fs/nr_open.
-> unshare03.c:38: TBROK: Failed to close FILE '/proc/sys/fs/nr_open': EINVAL (22)
-> Use (long long) instead.
+- Andrea
 
-> Fixes: fc8be6ed4 ("unshare03: Simplify EMFILE test by using fixed fd limit (sizeof(long) * 8)")
-> Suggested-by: Petr Vorel <pvorel@suse.cz>
-> Signed-off-by: Avinesh Kumar <akumar@suse.de>
-> ---
->  testcases/kernel/syscalls/unshare/unshare03.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-
-> diff --git a/testcases/kernel/syscalls/unshare/unshare03.c b/testcases/kernel/syscalls/unshare/unshare03.c
-> index c3b98930d..7128b3b97 100644
-> --- a/testcases/kernel/syscalls/unshare/unshare03.c
-> +++ b/testcases/kernel/syscalls/unshare/unshare03.c
-> @@ -27,7 +27,7 @@ static void run(void)
->  		.exit_signal = SIGCHLD,
->  	};
-
-> -	int nr_open = sizeof(long) * 8;
-> +	int nr_open = sizeof(long long) * 8;
-
-Thank you!
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
-Kind regards,
-Petr
+On 4/24/25 12:33, Petr Vorel wrote:
+> Hi Andrea,
+>
+>> -                [ $? -eq 0 ] && exit 1
+>> +                [ $? -eq 0 ] || exit 1
+> Thanks for a quick fix!
+>
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+>
+> Please add also:
+>
+> Fixes: d8348be27b ("ci: add patchwork communication script")
+> Reported-by: Li Wang <liwang@redhat.com>
+>
+> Kind regards,
+> Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
