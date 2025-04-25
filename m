@@ -2,121 +2,97 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47E87A9CA0D
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 15:20:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F111A9CD0A
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 17:31:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F31953CB928
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 15:20:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 46F303CB96B
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 17:31:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 125FB3CB7C1
- for <ltp@lists.linux.it>; Fri, 25 Apr 2025 15:20:30 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 086F63CB903
+ for <ltp@lists.linux.it>; Fri, 25 Apr 2025 17:30:55 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2AA0110009A7
- for <ltp@lists.linux.it>; Fri, 25 Apr 2025 15:20:29 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4FDB120017B
+ for <ltp@lists.linux.it>; Fri, 25 Apr 2025 17:30:53 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6771A2116C;
- Fri, 25 Apr 2025 13:20:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1745587228; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=bWWG5wAD2yj5xrZClLx7DjP7AHdWZBceSX+xDCHso3w=;
- b=RlA1H0o3B1Lg0gjgIx+X1b4xAyDEpDaAOv2LlnFB+vpblrpAPcQAhkE4/cRLx/Qm6U3DUH
- /Eya075akCKVf4wJRakutPggUtLZu76XbEe/2SYPra94LK6c31AXk01ZheoKWqUnc1U9qY
- gFSTsgVUsD1QVqM1zo/zntJBzq8GMp0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1745587228;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3B06A1F394;
+ Fri, 25 Apr 2025 15:30:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1745595049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=e8YsMv/Txv3aHKWv/Agg5s8b9R/Bt3tU9G30SKvW24c=;
+ b=ME7CpQvE22G/8L8/LRGodPi+IPq29lx5FC/TKQCLHwZsRe4e1/5MRuGbxmfh42c4fRq7FD
+ Dn7MDCegYW+Ql06UN5h08aeFugN1UFEla6EeBAECIZzn3pvroUEuFZdcqbO1e3ZcmcN4OZ
+ FFWyZU+6MdUy6qbQWIufJQcCIRVr354=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1745595049;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=bWWG5wAD2yj5xrZClLx7DjP7AHdWZBceSX+xDCHso3w=;
- b=n3jFISJ7JEVVCv/l6LweLUz7Cst9mzRdkRtLl5LvUpFGrzPT5y1lWUKLo+h01/E9/mOj6G
- 9ejl1BzI+y5ZyaDA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=RlA1H0o3;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=n3jFISJ7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1745587228; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=bWWG5wAD2yj5xrZClLx7DjP7AHdWZBceSX+xDCHso3w=;
- b=RlA1H0o3B1Lg0gjgIx+X1b4xAyDEpDaAOv2LlnFB+vpblrpAPcQAhkE4/cRLx/Qm6U3DUH
- /Eya075akCKVf4wJRakutPggUtLZu76XbEe/2SYPra94LK6c31AXk01ZheoKWqUnc1U9qY
- gFSTsgVUsD1QVqM1zo/zntJBzq8GMp0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1745587228;
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=e8YsMv/Txv3aHKWv/Agg5s8b9R/Bt3tU9G30SKvW24c=;
+ b=uwt9SuZsP8ViD3O//BpQpgsG2KIySqpzopJbHiji4hNURJqls5NUfUB4PXUxoilQCQF1Tc
+ hnuGl5VzyUY7gQBQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1745595049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=e8YsMv/Txv3aHKWv/Agg5s8b9R/Bt3tU9G30SKvW24c=;
+ b=ME7CpQvE22G/8L8/LRGodPi+IPq29lx5FC/TKQCLHwZsRe4e1/5MRuGbxmfh42c4fRq7FD
+ Dn7MDCegYW+Ql06UN5h08aeFugN1UFEla6EeBAECIZzn3pvroUEuFZdcqbO1e3ZcmcN4OZ
+ FFWyZU+6MdUy6qbQWIufJQcCIRVr354=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1745595049;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=bWWG5wAD2yj5xrZClLx7DjP7AHdWZBceSX+xDCHso3w=;
- b=n3jFISJ7JEVVCv/l6LweLUz7Cst9mzRdkRtLl5LvUpFGrzPT5y1lWUKLo+h01/E9/mOj6G
- 9ejl1BzI+y5ZyaDA==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=e8YsMv/Txv3aHKWv/Agg5s8b9R/Bt3tU9G30SKvW24c=;
+ b=uwt9SuZsP8ViD3O//BpQpgsG2KIySqpzopJbHiji4hNURJqls5NUfUB4PXUxoilQCQF1Tc
+ hnuGl5VzyUY7gQBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4D7581388F;
- Fri, 25 Apr 2025 13:20:28 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 047351388F;
+ Fri, 25 Apr 2025 15:30:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 9g9CERyMC2j3UQAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Fri, 25 Apr 2025 13:20:28 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Fri, 25 Apr 2025 15:19:42 +0200
-MIME-Version: 1.0
-Message-Id: <20250425-ci_enable_sphinx_doc-v2-1-3322c6b9117a@suse.com>
-X-B4-Tracking: v=1; b=H4sIAO2LC2gC/4WNQQ6CMBBFr0JmbU1bQIor72EIwXawk2hLOkowh
- LtbuYDL95L//gqMiZDhXKyQcCamGDLoQwHWD+GOglxm0FLXstK1sNRjGG4P7HnyFJbeRStK0za
- mLaWRiJCnU8KRlj177TJ74ldMn/1lVj/7JzgroYQ7oZbN6FRb1Rd+Mx5tfEK3bdsXT2g6n7cAA
- AA=
-X-Change-ID: 20250425-ci_enable_sphinx_doc-3897893080ee
+ by imap1.dmz-prg2.suse.org with ESMTPSA id wwt0O6iqC2gSdAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 25 Apr 2025 15:30:48 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1745587228; l=4593;
- i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=keSuoup/qqb00wsOm2qKjAkWO+nSWMPTEqvW7fJ+p+A=;
- b=lStz/phiaAVfu9siIqPkj5vHTgbEdbXb2HWXF45K1nPkhfknCK7S2Sspwcin1BZR4he3igVfL
- HkN+NGJDK6dAwi83jmR9bOaDMxRoCP5uAoBnpN2VRggZai95M5N5wT2
-X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
- pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: 6771A2116C
+Date: Fri, 25 Apr 2025 17:30:41 +0200
+Message-ID: <20250425153046.63853-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.49.0
+MIME-Version: 1.0
+X-Spam-Score: -2.80
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[5];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,ozlabs.org:url,imap1.dmz-prg2.suse.org:helo];
+ RCVD_TLS_ALL(0.00)[]
 X-Spam-Level: 
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- ARC_NA(0.00)[]; ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[user.name:url,suse.com:email,suse.com:mid,suse.de:dkim];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2] ci: enable doc testing for new patchwork patches
+Subject: [LTP] [PATCH 0/4] Workaround broken openSUSE repositories
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,132 +109,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Hi,
 
-Run documentation build in the ci-patchwork-trigger GitHub
-workflow when new patchwork patches arrive in the ML.
+patchwork.sh tested manually - see the last "ltpci/opensuse-leap_latest"
+line in:
+https://patchwork.ozlabs.org/project/ltp/patch/20250425125057.38992-1-pvorel@suse.cz/
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
-Changes in v2:
-- run multiple workflows by taking an array for workflows to run
-- Link to v1: https://lore.kernel.org/r/20250425-ci_enable_sphinx_doc-v1-1-d6e207fd1945@suse.com
----
- .github/workflows/ci-patchwork-trigger.yml | 29 +++++++++++++++----------
- .github/workflows/ci-sphinx-doc.yml        | 35 ++++++++++++++++++++++++++++++
- 2 files changed, 53 insertions(+), 11 deletions(-)
+Kind regards,
+Petr
 
-diff --git a/.github/workflows/ci-patchwork-trigger.yml b/.github/workflows/ci-patchwork-trigger.yml
-index 0938aed5ad0df8af8e2e575283b56475ff219ff3..0f4581c1813eb0194226a95a1c3486abb98879ca 100644
---- a/.github/workflows/ci-patchwork-trigger.yml
-+++ b/.github/workflows/ci-patchwork-trigger.yml
-@@ -43,6 +43,11 @@ jobs:
-               return;
-             }
- 
-+            const workflows = [
-+              'ci-docker-build.yml',
-+              'ci-sphinx-doc.yml'
-+            ];
-+
-             for (const data of lines) {
-               const [series_id, series_mbox] = data.split('|');
-               if (series_id.length === 0 || series_mbox.length === 0) {
-@@ -50,16 +55,18 @@ jobs:
-                 continue;
-               }
- 
--              const response = await github.rest.actions.createWorkflowDispatch({
--                owner: context.repo.owner,
--                repo: context.repo.repo,
--                ref: context.ref,
--                workflow_id: 'ci-docker-build.yml',
--                inputs: {
--                  SERIES_ID: series_id,
--                  SERIES_MBOX: series_mbox,
--                }
--              });
-+              for (const workflow in workflows) {
-+                const response = await github.rest.actions.createWorkflowDispatch({
-+                  owner: context.repo.owner,
-+                  repo: context.repo.repo,
-+                  ref: context.ref,
-+                  workflow_id: workflow,
-+                  inputs: {
-+                    SERIES_ID: series_id,
-+                    SERIES_MBOX: series_mbox,
-+                  }
-+                });
- 
--              console.log(response);
-+                console.log(response);
-+              }
-             }
-diff --git a/.github/workflows/ci-sphinx-doc.yml b/.github/workflows/ci-sphinx-doc.yml
-index e77c766871b98114417dc7d8d1cb108afe885735..61a593d0aad50ed622a92bfa17681e19a6e2608e 100644
---- a/.github/workflows/ci-sphinx-doc.yml
-+++ b/.github/workflows/ci-sphinx-doc.yml
-@@ -8,6 +8,16 @@ on:
-     paths: ['doc/**']
-   pull_request:
-     paths: ['doc/**']
-+  workflow_dispatch:
-+    inputs:
-+      SERIES_ID:
-+        description: LTP patch series ID
-+        required: false
-+        default: ''
-+      SERIES_MBOX:
-+        description: LTP patch series URL
-+        required: false
-+        default: ''
- 
- permissions: {}
- 
-@@ -25,6 +35,20 @@ jobs:
-           sudo apt update
-           sudo apt install autoconf make python3-virtualenv
- 
-+      - name: Apply Patchwork series
-+        if: inputs.SERIES_ID != '' && inputs.SERIES_MBOX != ''
-+        env:
-+          PATCHWORK_TOKEN: ${{ secrets.PATCHWORK_TOKEN }}
-+        run: |
-+          git config --global user.name 'GitHub CI'
-+          git config --global user.email 'github@example.com'
-+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-+
-+          git checkout -b review_patch_series_"${{ inputs.SERIES_ID }}"
-+          curl -k "${{ inputs.SERIES_MBOX }}" | git am
-+
-+          ./ci/tools/patchwork.sh state "${{ inputs.SERIES_ID }}" "needs-review-ack"
-+
-       - name: Run configure
-         run: |
-           cd "$GITHUB_WORKSPACE/ltp/"
-@@ -42,3 +66,14 @@ jobs:
-           cd "$GITHUB_WORKSPACE/ltp/doc/"
-           . .venv/bin/activate
-           make
-+
-+      - name: Send results to Patchwork
-+        if: always() && inputs.SERIES_ID != '' && inputs.SERIES_MBOX != ''
-+        env:
-+          PATCHWORK_TOKEN: ${{ secrets.PATCHWORK_TOKEN }}
-+        run: |
-+          ./ci/tools/patchwork.sh check \
-+            "${{ inputs.SERIES_ID }}" \
-+            "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-+            "${{ matrix.container }}" \
-+            "${{ job.status }}"
+Petr Vorel (4):
+  ci: patchwork.sh: Add check for number of parameters
+  ci: patchwork.sh: Add optional 5th parameter
+  ci/tumbleweed.sh: Retry on broken repos
+  ci: Skip openSUSE builds on broken repositories
 
----
-base-commit: 037cb53e353abb571e52b52cbaa6b569ac28c50c
-change-id: 20250425-ci_enable_sphinx_doc-3897893080ee
+ .github/workflows/ci-docker-build.yml | 10 +++-
+ ci/tools/patchwork.sh                 | 24 ++++++++--
+ ci/tumbleweed.sh                      | 67 ++++++++++++++++-----------
+ 3 files changed, 71 insertions(+), 30 deletions(-)
 
-Best regards,
 -- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+2.49.0
 
 
 -- 
