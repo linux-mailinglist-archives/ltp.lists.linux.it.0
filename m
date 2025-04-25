@@ -2,31 +2,31 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BD04A9CD03
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 17:31:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D388A9CD0D
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 17:31:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BFDCD3CB915
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 17:30:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D842B3CB84E
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 17:31:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2590F3CB6D4
- for <ltp@lists.linux.it>; Fri, 25 Apr 2025 17:30:50 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 8EFEA3CB915
+ for <ltp@lists.linux.it>; Fri, 25 Apr 2025 17:30:59 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6FF1C600542
- for <ltp@lists.linux.it>; Fri, 25 Apr 2025 17:30:50 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E4F6D100035A
+ for <ltp@lists.linux.it>; Fri, 25 Apr 2025 17:30:58 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6C80A1F399;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9AFFF1F44E;
  Fri, 25 Apr 2025 15:30:49 +0000 (UTC)
 Authentication-Results: smtp-out2.suse.de;
 	none
@@ -34,15 +34,15 @@ Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 441A113A79;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 72E451388F;
  Fri, 25 Apr 2025 15:30:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id uN7rDqmqC2gSdAAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0H3xGqmqC2gSdAAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Fri, 25 Apr 2025 15:30:49 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 25 Apr 2025 17:30:42 +0200
-Message-ID: <20250425153046.63853-2-pvorel@suse.cz>
+Date: Fri, 25 Apr 2025 17:30:43 +0200
+Message-ID: <20250425153046.63853-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250425153046.63853-1-pvorel@suse.cz>
 References: <20250425153046.63853-1-pvorel@suse.cz>
@@ -53,18 +53,17 @@ X-Spam-Level:
 X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
  ASN(0.00)[asn:25478, ipnet:::/0, country:RU]
 X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 6C80A1F399
+X-Rspamd-Queue-Id: 9AFFF1F44E
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/4] ci: patchwork.sh: Add check for number of
- parameters
+Subject: [LTP] [PATCH 2/4] ci: patchwork.sh: Add optional 5th parameter
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,44 +80,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Checking user input is always good to avoid unexpected results
-(e.g. setting patchwork state without a description).
+Allows to set a specific description (as 5th parameter),
+fallback to result (4th parameter).
+
+This is a preparation for a next commit.
+
+Also, while at it, document possible result states.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-Minor cleanup before modifying the file.
-
- ci/tools/patchwork.sh | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ ci/tools/patchwork.sh | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
 diff --git a/ci/tools/patchwork.sh b/ci/tools/patchwork.sh
-index 83ef0bb220..fe6c049aca 100755
+index fe6c049aca..3e18ee9480 100755
 --- a/ci/tools/patchwork.sh
 +++ b/ci/tools/patchwork.sh
-@@ -76,6 +76,11 @@ set_patch_state() {
- }
- 
- set_series_state() {
-+        if [ $# -ne 2 ]; then
-+            echo "'state' command expects 2 parameters ($#)"
-+            exit 1
-+        fi
-+
-         local series_id="$1"
-         local state="$2"
- 
-@@ -131,6 +136,11 @@ verify_new_patches() {
+@@ -136,8 +136,8 @@ verify_new_patches() {
  }
  
  send_results() {
-+        if [ $# -ne 4 ]; then
-+            echo "'check' command expects 4 parameters ($#)"
-+            exit 1
-+        fi
-+
-         local series_id="$1"
-         local target_url="$2"
+-        if [ $# -ne 4 ]; then
+-            echo "'check' command expects 4 parameters ($#)"
++        if [ $# -ne 4 -a $# -ne 5 ]; then
++            echo "'check' command expects 4 or 5 parameters ($#)"
+             exit 1
+         fi
  
+@@ -154,8 +154,16 @@ send_results() {
+         local result="$4"
+         [ "$result" = "cancelled" ] && return
+ 
++        local description="${5:-$result}"
++
+         local state="fail"
+-        [ "$result" = "success" ] && state="success"
++
++        # patchwork REST API allowed states: pending, success, warning, fail.
++        # https://github.com/getpatchwork/patchwork/blob/main/docs/api/schemas/v1.2/patchwork.yaml#L708
++        # https://patchwork.readthedocs.io/en/latest/api/rest/schemas/v1.2/#get--api-1.2-patches-patch_id-checks
++        case "$result" in
++            success|pending) state=$result;;
++        esac
+ 
+         get_patches "$series_id" | while read -r patch_id; do
+                 [ "$patch_id" ] || continue
+@@ -165,7 +173,7 @@ send_results() {
+                         -F "state=$state" \
+                         -F "context=$context" \
+                         -F "target_url=$target_url" \
+-                        -F "description=$result" \
++                        -F "description=$description" \
+                         "$PATCHWORK_URL/api/patches/$patch_id/checks/"
+ 
+                 [ $? -eq 0 ] || exit 1
+@@ -177,7 +185,7 @@ state)
+         set_series_state "$2" "$3"
+         ;;
+ check)
+-        send_results "$2" "$3" "$4" "$5"
++        send_results "$2" "$3" "$4" "$5" "$6"
+         ;;
+ verify)
+         verify_new_patches
 -- 
 2.49.0
 
