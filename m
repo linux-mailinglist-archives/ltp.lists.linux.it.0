@@ -1,71 +1,119 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70AAAA9CD08
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 17:31:23 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E0C9A9CCFC
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 17:30:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 41A023CB960
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 17:31:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0BCE43CB8BA
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Apr 2025 17:30:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2BB7C3CB83F
- for <ltp@lists.linux.it>; Fri, 25 Apr 2025 17:30:52 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id EF7F33CB703
+ for <ltp@lists.linux.it>; Fri, 25 Apr 2025 17:30:20 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 325E7600542
- for <ltp@lists.linux.it>; Fri, 25 Apr 2025 17:30:51 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2B13F1400DF4
+ for <ltp@lists.linux.it>; Fri, 25 Apr 2025 17:30:19 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0EDCF2116F;
- Fri, 25 Apr 2025 15:30:50 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D09AE1F38D;
+ Fri, 25 Apr 2025 15:30:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1745595018; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=T5pyOXHqJgTsOu9C7g+977MKhNGUnLCQAZrVoRd02Rg=;
+ b=X5qbF2digD3h1rKaGj556RJKjvQueuirwY1L0rkMrgaib45FnyPXmPE2fGhOUxShROvWMI
+ BG4p/DtNQA2qpOoGJkD7zh8o64Q3S8lPilcKl/OYFkWR1IUgayzg3LzFzYXsL4e+E9c5xT
+ pKHuZ/PHjSQquv9qbBh/PAFvrwT9OFw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1745595018;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=T5pyOXHqJgTsOu9C7g+977MKhNGUnLCQAZrVoRd02Rg=;
+ b=z+pAHd5f5RyhbM/5YpiBvX9L29+hq/8DIWWSQJ+ArN/HOZmuoMqnlRFvmJG7FNCxF8lj8F
+ ROQ4S0bGbNCvCbDg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Pw0nNGjL;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=jAeWYHsz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1745595017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=T5pyOXHqJgTsOu9C7g+977MKhNGUnLCQAZrVoRd02Rg=;
+ b=Pw0nNGjLX8YNz01Wx+bgxU+w+el57maGTwl/89gfNBXbAga8waEjqr7q3tzV0YmxFmzGVB
+ P6PYwj5p4EB55gF3eqJXDvUFDuUxcRvd1hAvwdTk8PfUHRVljyz7VdDyMK70+SmjF8yhLG
+ oGgsnWDvOXVzB4yyKIBmZdUCNdLe4s4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1745595017;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=T5pyOXHqJgTsOu9C7g+977MKhNGUnLCQAZrVoRd02Rg=;
+ b=jAeWYHsze9aBUPmjOk0lAlY6Fs7ue/O6v8GdhNgTjEPtJ1URjd71d8BdG9AJzdfKVSFvP0
+ R5Kp/whOHBwu5sDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D55F01388F;
- Fri, 25 Apr 2025 15:30:49 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BCE751388F;
+ Fri, 25 Apr 2025 15:30:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 6P6zMqmqC2gSdAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 25 Apr 2025 15:30:49 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 25 Apr 2025 17:30:45 +0200
-Message-ID: <20250425153046.63853-5-pvorel@suse.cz>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250425153046.63853-1-pvorel@suse.cz>
-References: <20250425153046.63853-1-pvorel@suse.cz>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id TOJPLImqC2jtcwAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Fri, 25 Apr 2025 15:30:17 +0000
+Date: Fri, 25 Apr 2025 17:30:49 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Ricardo =?iso-8859-1?Q?B=2E_Marli=E8re?= <rbm@suse.com>
+Message-ID: <aAuqqfJaul-3EI78@yuki.lan>
+References: <20250414-conversions-mknod-v3-0-e08e7463bfaa@suse.com>
+ <20250414-conversions-mknod-v3-5-e08e7463bfaa@suse.com>
 MIME-Version: 1.0
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU]
-X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 0EDCF2116F
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Disposition: inline
+In-Reply-To: <20250414-conversions-mknod-v3-5-e08e7463bfaa@suse.com>
+X-Rspamd-Queue-Id: D09AE1F38D
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_DN_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCPT_COUNT_TWO(0.00)[2]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FROM_HAS_DN(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
+ MIME_TRACE(0.00)[0:+];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MISSING_XM_UA(0.00)[];
+ ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, yuki.lan:mid, suse.cz:dkim, suse.cz:email]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -4.51
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 4/4] ci: Skip openSUSE builds on broken repositories
+Subject: Re: [LTP] [PATCH v3 5/8] syscalls/mknod05: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,59 +125,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Linux Test Project <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-opensuse/leap:latest container repos are sometimes broken:
+Hi!
+> -struct stat buf;		/* struct. to hold stat(2) o/p contents */
+> -struct passwd *user1;		/* struct. to hold getpwnam(3) o/p contents */
+> +#define MODE_RWX 0777
+> +#define MODE_SGID 2777
+                     ^
+		     There is 0 missing here.
 
-zypper --non-interactive install --force-resolution --no-recommends autoconf ...
-...
-(86/88) Installing: kernel-default-devel-6.4.0-150600.23.47.2.x86_64 [..............done]
-(87/88) Installing: libopenssl-devel-3.1.4-150600.2.1.noarch [..done]
-(88/88) Installing: clang-17-bp156.1.1.x86_64 [..done]
-Error: Process completed with exit code 106.
 
-Previous commit added an attempt to recover from it (which may help) but
-this way we get permanent failure in Patchwork (Patchwork API does not
-update results, it just adds a new result) it's better to not keep this
-as a failure.
+And the test fail because of that because the mode is not interpreted as
+octal number. I guess that this could be fixed before the push.
 
-Because patchwork does not have state "skip" use state "pending" (quite
-correct - patch has not been yet tested).
+Other than this it looks fine. With that bit fixed:
 
-TODO: automatically restart jobs with "pending" state.
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- .github/workflows/ci-docker-build.yml | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/.github/workflows/ci-docker-build.yml b/.github/workflows/ci-docker-build.yml
-index b476d993c5..09eb8bb6d4 100644
---- a/.github/workflows/ci-docker-build.yml
-+++ b/.github/workflows/ci-docker-build.yml
-@@ -131,7 +131,15 @@ jobs:
-         INSTALL=${{ matrix.container }}
-         INSTALL="${INSTALL%%:*}"
-         INSTALL="${INSTALL%%/*}"
--        ACTION="$VARIANT" ./ci/$INSTALL.sh
-+        ACTION="$VARIANT" ./ci/$INSTALL.sh || if [ $? -eq 106 ]; then
-+          echo "::warning ::Skipping job due broken repositories"
-+          ./ci/tools/patchwork.sh check \
-+            "${{ inputs.SERIES_ID }}" \
-+            "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-+            "${{ matrix.container }}" \
-+            "pending" "Skipping job due broken repositories"
-+          exit 0
-+        fi
-         if [ "$VARIANT" ]; then ./ci/$INSTALL.$VARIANT.sh; fi
- 
-     - name: Compiler version
 -- 
-2.49.0
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
