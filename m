@@ -1,74 +1,114 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47389A9F0AD
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 14:29:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 22F5DA9F3AE
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 16:44:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0BB913CBB24
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 14:29:33 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D6F0C3CBBC8
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 16:44:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EDA9C3CB6CF
- for <ltp@lists.linux.it>; Mon, 28 Apr 2025 14:29:30 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 0495A3CBBA8
+ for <ltp@lists.linux.it>; Mon, 28 Apr 2025 16:44:21 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 505491000A2C
- for <ltp@lists.linux.it>; Mon, 28 Apr 2025 14:29:29 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CD163200B75
+ for <ltp@lists.linux.it>; Mon, 28 Apr 2025 16:44:19 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 166B821210;
- Mon, 28 Apr 2025 12:29:28 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2A6DC21199;
+ Mon, 28 Apr 2025 14:44:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1745851443; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=kgyW5wr8VqX1OU9/poDNtkuYrXxD/On8i18jJeCTGe4=;
+ b=RAfNsKfnvDawERZDJ3SchDGk294qcV5aFYelkWDQQraMUVlfaCuEuWuzm0+cuWgPiEiVrs
+ 8uNM6K58JoseV4y71AyuH9W/5OcXuxlg8dU81Jf7sR318WuR2w5efdWVz6WyVu0PpGDIeW
+ MZ10N0XMJW/d4DmNJFl1GwYkcIlxFoI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1745851443;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=kgyW5wr8VqX1OU9/poDNtkuYrXxD/On8i18jJeCTGe4=;
+ b=FfP0hzjVjoeOP1s/U2XHg614q1qa4soqE/deUSoW0sptqx9W+E9+PYWhF0Z6/C1KZ5pvXS
+ 51K6CfYrxKR3qaCw==
 Authentication-Results: smtp-out1.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1745851442; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=kgyW5wr8VqX1OU9/poDNtkuYrXxD/On8i18jJeCTGe4=;
+ b=hhxRLeGZEOdoC09icdy1S1UK4o2+cUzCFajx8uGBgZYxbutFaVdYxHKy+e3FRXKN95guRj
+ Zpy9MwSA5yIZKE6ozsvU23gEJNODyB+T1z8qrAdnavJqwNTj9in4kq6OGqY9k4VX8slgGx
+ qaG3d8cInmTm/S49eQBFBBVtDezyG1k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1745851442;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=kgyW5wr8VqX1OU9/poDNtkuYrXxD/On8i18jJeCTGe4=;
+ b=hQSDogABrwyt47wGxkPt6cpmtRwhRs1NfrTGxjBa8m6X9VKM+9Uqk22gjINxj2Q1OqAl73
+ wBGMu7n4oeo765Bw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DD5821336F;
- Mon, 28 Apr 2025 12:29:27 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DFC4F13A25;
+ Mon, 28 Apr 2025 14:44:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id lq2UM6d0D2gwUAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Mon, 28 Apr 2025 12:29:27 +0000
-Date: Mon, 28 Apr 2025 14:29:25 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20250428122925.GA98442@pevik>
-References: <20250407142351.25900-1-mdoucha@suse.cz>
- <20250407142351.25900-4-mdoucha@suse.cz>
- <20250416062255.GB560513@pevik> <20250416071621.GA572828@pevik>
- <f15a8e70-b520-43be-bf65-202848c6d176@suse.cz>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 7GxTMDGUD2ioegAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Mon, 28 Apr 2025 14:44:01 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Mon, 28 Apr 2025 16:43:55 +0200
+Message-Id: <20250428-lsm-v3-0-33a4caa9aaf2@suse.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <f15a8e70-b520-43be-bf65-202848c6d176@suse.cz>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
+X-B4-Tracking: v=1; b=H4sIACuUD2gC/03NTQ7CIBAF4Ks0rMXAIE1x5T2MCwqDJbE/YZRom
+ t5dWjVx+V7mezMzwhSR2LGaWcIcKY5DCWpXMdfZ4Yo8+pIZCDhIKTS/Uc+1txBqB1aiYeVyShj
+ ic1s5X0ruIt3H9NpGs1zbr5ew+Sy54AhG2cYb40J9ogfh3o09W3mGH9Gi/PwQKKT1qhFKh6Zu3
+ R9ZluUNNCX18MgAAAA=
+X-Change-ID: 20241105-lsm-5da2f6c2a1e9
+To: ltp@lists.linux.it
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1745851441; l=2101;
+ i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
+ bh=DYU8F/R9RWNKce76PzKQwbWVo8S5OFxd9uEqtqkN5Bk=;
+ b=9cGUz5SYVd+pAvh1t1jAzw/tE5ucCxZ0Ba/VSiRdHrwVUtMvYtIq2bud4rB5FLWiifC58mZPS
+ Kgx/1o1JKSHA5cfhCx9YjcbvnlinJUangsyt2r7K6RJQKPkWVfE+Zjd
+X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
+ pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
 X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU]
-X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 166B821210
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[4]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
+ suse.com:mid]
+X-Spam-Score: -4.30
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 3/5] KVM: Simplify reading VMX control field masks
+Subject: [LTP] [PATCH v3 0/7] LSM testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,51 +120,65 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
+Testing the following syscalls which are providing support for the LSM
+communication added in kernel 6.8:
 
-> Hi!
+- lsm_get_self_attr
+- lsm_set_self_attr
+- lsm_list_modules
 
-> On 16. 04. 25 9:16, Petr Vorel wrote:
-> > Hi Martin,
+Please consider the following documentation as reference:
+https://docs.kernel.org/userspace-api/lsm.html
 
-> > > Hi Martin,
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+Changes in v3:
+- lsm_common.h cleanup
+- better overall check for supported LSM(s) when using LSM_ATTR_CURRENT
+- simplify tests using more common functions
+- use the right size for lsm_ctx
+- Link to v2: https://lore.kernel.org/r/20250110-lsm-v2-0-bd38035f86bc@suse.com
 
-> > > ...
-> > > >   	/* Configure VM execution control fields */
-> > > > -	if (kvm_rdmsr(MSR_IA32_VMX_BASIC) & IA32_VMXBASIC_USELESS_CTL_MASKS) {
-> > > > -		pinxctl = (uint32_t)kvm_rdmsr(MSR_IA32_VMX_PINX_MASK2);
-> > > > -		execctl = (uint32_t)kvm_rdmsr(MSR_IA32_VMX_EXECCTL_MASK2);
-> > > > -		exitctl = (uint32_t)kvm_rdmsr(MSR_IA32_VMX_EXITCTL_MASK2);
-> > > > -		entryctl = (uint32_t)kvm_rdmsr(MSR_IA32_VMX_ENTRYCTL_MASK2);
-> > > > -	} else {
-> > > > -		pinxctl = (uint32_t)kvm_rdmsr(MSR_IA32_VMX_PINX_MASK);
-> > > > -		execctl = (uint32_t)kvm_rdmsr(MSR_IA32_VMX_EXECCTL_MASK);
-> > > > -		exitctl = (uint32_t)kvm_rdmsr(MSR_IA32_VMX_EXITCTL_MASK);
-> > > > -		entryctl = (uint32_t)kvm_rdmsr(MSR_IA32_VMX_ENTRYCTL_MASK);
+Changes in v2:
+- correctly fallback <linux/lsm.h> include
+- Link to v1: https://lore.kernel.org/r/20241112-lsm-v1-0-e293a8d99cf6@suse.com
 
-> > The rest of the patchset merged, thank you!
+---
+Andrea Cervesato (7):
+      Add fallback definitions of LSM syscalls
+      Add lsm_get_self_attr01 test
+      Add lsm_get_self_attr02 test
+      Add lsm_get_self_attr03 test
+      Add lsm_list_modules01 test
+      Add lsm_list_modules02 test
+      Add lsm_set_self_attr01 test
 
-> > > I guess you're going to use in the future MSR_IA32_VMX_PINX_MASK2 and other
-> > > deleted masks (because now they are IMHO only in the structs).
+ configure.ac                                       |   3 +-
+ include/lapi/lsm.h                                 | 177 +++++++++++++++++++++
+ runtest/syscalls                                   |   7 +
+ testcases/kernel/syscalls/lsm/.gitignore           |   6 +
+ testcases/kernel/syscalls/lsm/Makefile             |   7 +
+ testcases/kernel/syscalls/lsm/lsm_common.h         |  91 +++++++++++
+ .../kernel/syscalls/lsm/lsm_get_self_attr01.c      |  92 +++++++++++
+ .../kernel/syscalls/lsm/lsm_get_self_attr02.c      |  45 ++++++
+ .../kernel/syscalls/lsm/lsm_get_self_attr03.c      |  68 ++++++++
+ testcases/kernel/syscalls/lsm/lsm_list_modules01.c |  75 +++++++++
+ testcases/kernel/syscalls/lsm/lsm_list_modules02.c | 153 ++++++++++++++++++
+ .../kernel/syscalls/lsm/lsm_set_self_attr01.c      | 110 +++++++++++++
+ 12 files changed, 833 insertions(+), 1 deletion(-)
+---
+base-commit: 746286c5ccf4fe3176ad636383a7235c5f1d4131
+change-id: 20241105-lsm-5da2f6c2a1e9
 
-> > If you don't need the constants in the future, please remove it in a subsequent
-> > patch.
+Best regards,
+-- 
+Andrea Cervesato <andrea.cervesato@suse.com>
 
-> Those constants are still used in kvm_vmx_read_vmctl_mask() via the static
-> lookup table in lib_x86.c. We can't remove them because the tests would
-> break on old CPUs.
-
-Good to know, thanks for info!
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
