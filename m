@@ -2,122 +2,114 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7A8BA9F3B0
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 16:44:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5252A9F3AD
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 16:44:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 980233C071B
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 16:44:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 12B1D3CBBA2
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 16:44:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 818433CBBA2
- for <ltp@lists.linux.it>; Mon, 28 Apr 2025 16:44:26 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by picard.linux.it (Postfix) with ESMTPS id C40E23C071B
+ for <ltp@lists.linux.it>; Mon, 28 Apr 2025 16:44:05 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 86A0A1000B52
- for <ltp@lists.linux.it>; Mon, 28 Apr 2025 16:44:24 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D75581000B73
+ for <ltp@lists.linux.it>; Mon, 28 Apr 2025 16:44:04 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C03412119C;
- Mon, 28 Apr 2025 14:44:03 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 047211F390;
+ Mon, 28 Apr 2025 14:44:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1745851443; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1745851444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TGat+6zXm+2VZH7I++36Dbo1bxYKefbDOWmksIITS3Y=;
- b=MNiEQOCyc+chT03KO4BWSGkerT+8OCyX/ec+9wR2EhezEGSsR27vCNxoNWbdumEUqHP7qP
- JZW8S88RHkPgMSEXJGmpvZBuVFXD54cA7xF+RQ1wQFiSNb9OpqoLoakaQYO/3LLApc+yLn
- 296yQwTUxHpOi1/ta3lZ884RN3t3hP4=
+ bh=zVeKwBC7/0+E5lh6A8Ac0uJm1OglI9CA8rzECfKokwc=;
+ b=S9Lm/eqxs2rvYorqmjE0INRJBVjK3esE9EdwXdWuiELKPsnZTAEtSKHwEMzkruQ0pke4dy
+ XbsNwvPXRNbdvA94trR2Oqh9Wji4HuqClpy+ng95zZZbsaEtbg5HhHO2BReZ1PTH/8xZgq
+ 8zzk0VpVr8CljUfL0cCyqLF4yeqZ62U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1745851443;
+ s=susede2_ed25519; t=1745851444;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TGat+6zXm+2VZH7I++36Dbo1bxYKefbDOWmksIITS3Y=;
- b=VrR+rj47e96mO65KHH69WtnQK7o5pkwei03xm1fYaaNhfdbVSr6cQbomWqDe0UzRvkxbY7
- Hl7JWmpcQ+R1D3BA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=MNiEQOCy;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=VrR+rj47
+ bh=zVeKwBC7/0+E5lh6A8Ac0uJm1OglI9CA8rzECfKokwc=;
+ b=pejb3gxACnoiINx9AHe5L2CTETde8qbb56zRHqAOrgIiV4+if+CM+ZIQdinwzIGUkTSDLJ
+ bFscB5+b0CeeXpAw==
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1745851443; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1745851444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TGat+6zXm+2VZH7I++36Dbo1bxYKefbDOWmksIITS3Y=;
- b=MNiEQOCyc+chT03KO4BWSGkerT+8OCyX/ec+9wR2EhezEGSsR27vCNxoNWbdumEUqHP7qP
- JZW8S88RHkPgMSEXJGmpvZBuVFXD54cA7xF+RQ1wQFiSNb9OpqoLoakaQYO/3LLApc+yLn
- 296yQwTUxHpOi1/ta3lZ884RN3t3hP4=
+ bh=zVeKwBC7/0+E5lh6A8Ac0uJm1OglI9CA8rzECfKokwc=;
+ b=S9Lm/eqxs2rvYorqmjE0INRJBVjK3esE9EdwXdWuiELKPsnZTAEtSKHwEMzkruQ0pke4dy
+ XbsNwvPXRNbdvA94trR2Oqh9Wji4HuqClpy+ng95zZZbsaEtbg5HhHO2BReZ1PTH/8xZgq
+ 8zzk0VpVr8CljUfL0cCyqLF4yeqZ62U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1745851443;
+ s=susede2_ed25519; t=1745851444;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TGat+6zXm+2VZH7I++36Dbo1bxYKefbDOWmksIITS3Y=;
- b=VrR+rj47e96mO65KHH69WtnQK7o5pkwei03xm1fYaaNhfdbVSr6cQbomWqDe0UzRvkxbY7
- Hl7JWmpcQ+R1D3BA==
+ bh=zVeKwBC7/0+E5lh6A8Ac0uJm1OglI9CA8rzECfKokwc=;
+ b=pejb3gxACnoiINx9AHe5L2CTETde8qbb56zRHqAOrgIiV4+if+CM+ZIQdinwzIGUkTSDLJ
+ bFscB5+b0CeeXpAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 431D413A25;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D308013AB9;
  Mon, 28 Apr 2025 14:44:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id uI26DjOUD2ioegAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oPohLzOUD2ioegAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Mon, 28 Apr 2025 14:44:03 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 28 Apr 2025 16:43:58 +0200
+Date: Mon, 28 Apr 2025 16:43:59 +0200
 MIME-Version: 1.0
-Message-Id: <20250428-lsm-v3-3-33a4caa9aaf2@suse.com>
+Message-Id: <20250428-lsm-v3-4-33a4caa9aaf2@suse.com>
 References: <20250428-lsm-v3-0-33a4caa9aaf2@suse.com>
 In-Reply-To: <20250428-lsm-v3-0-33a4caa9aaf2@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1745851441; l=2965;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1745851441; l=3179;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=SqaNpk8bpQX5S+yupz4f9YOAy3fjgAkzpL9qXA2zG0I=;
- b=nYv/OkHwsB0ZI3zTnTdG6+Kd4Zo1p0MAQs0tZ7PZLkrXW+PtE1sRKSS8GBvPb7GO3tHwFqriC
- 5ND8nQw0IG1AiNjwUPL4BI63zRc996TvbPWpXxcSY+lP+YvNb1LXHLG
+ bh=IlQsR38Iaz+C7E63V1bPIKJQ+FxvHPAOT76xJdJHZN0=;
+ b=bsqG5eYj7zt+vxoEebAjUKXWbzP3AHUs4GpLyxA3pcGyl1P/DAwz+S1F0tkdip9MQUTfZ17K9
+ 5RzYFE/B4fYCxl0RFDMg3+u4t2QSum4d2S+ejCQTjv14ML9lRG9jJdO
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Rspamd-Queue-Id: C03412119C
-X-Spam-Score: -4.51
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- ARC_NA(0.00)[]; ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
+ suse.com:mid]
+X-Spam-Score: -4.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 3/7] Add lsm_get_self_attr02 test
+Subject: [LTP] [PATCH v3 4/7] Add lsm_get_self_attr03 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,91 +128,110 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Verify that lsm_get_self_attr syscall is acting correctly when ctx
-is NULL. The syscall can behave in different ways according to the
-current system status:
-
-- if any LSM is running inside the system, the syscall will pass
-  and it will provide a size as big as the attribute
-- if no LSM(s) are running inside the system, the syscall will fail
-  with -1 return code and it will provide EOPNOTSUPP errno
+Verify that LSM_ATTR_CURRENT attribute is correctly recognizing
+the current, active security context of the process. This is done by
+checking that /proc/self/attr/current matches with the obtained value.
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
  runtest/syscalls                                   |  1 +
  testcases/kernel/syscalls/lsm/.gitignore           |  1 +
- .../kernel/syscalls/lsm/lsm_get_self_attr02.c      | 45 ++++++++++++++++++++++
- 3 files changed, 47 insertions(+)
+ .../kernel/syscalls/lsm/lsm_get_self_attr03.c      | 68 ++++++++++++++++++++++
+ 3 files changed, 70 insertions(+)
 
 diff --git a/runtest/syscalls b/runtest/syscalls
-index ba45c1945fb77b093ba578fdda3596a8d38c54b0..73b6b98c7748f5ed31ad23d7464f1ab4fbc5f42e 100644
+index 73b6b98c7748f5ed31ad23d7464f1ab4fbc5f42e..d45cda4082ed87bf674ca34d315af9c162a41fe9 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -760,6 +760,7 @@ lseek07 lseek07
- lseek11 lseek11
+@@ -761,6 +761,7 @@ lseek11 lseek11
  
  lsm_get_self_attr01 lsm_get_self_attr01
-+lsm_get_self_attr02 lsm_get_self_attr02
+ lsm_get_self_attr02 lsm_get_self_attr02
++lsm_get_self_attr03 lsm_get_self_attr03
  
  lstat01 lstat01
  lstat01_64 lstat01_64
 diff --git a/testcases/kernel/syscalls/lsm/.gitignore b/testcases/kernel/syscalls/lsm/.gitignore
-index 49f4a9263349ce633b8decb8fff1dd1d2111cf49..9f7c9b00b026a377f1b36f483ac2c1a0adba6249 100644
+index 9f7c9b00b026a377f1b36f483ac2c1a0adba6249..19956fdf8b9952b4850c3a20826e29ec67ea3560 100644
 --- a/testcases/kernel/syscalls/lsm/.gitignore
 +++ b/testcases/kernel/syscalls/lsm/.gitignore
-@@ -1 +1,2 @@
+@@ -1,2 +1,3 @@
  lsm_get_self_attr01
-+lsm_get_self_attr02
-diff --git a/testcases/kernel/syscalls/lsm/lsm_get_self_attr02.c b/testcases/kernel/syscalls/lsm/lsm_get_self_attr02.c
+ lsm_get_self_attr02
++lsm_get_self_attr03
+diff --git a/testcases/kernel/syscalls/lsm/lsm_get_self_attr03.c b/testcases/kernel/syscalls/lsm/lsm_get_self_attr03.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..889f3830fde8a5817936e67d9ee191a7513ff454
+index 0000000000000000000000000000000000000000..3b767b94c025e350b9cc83d9bf2dc3061b3c6a1c
 --- /dev/null
-+++ b/testcases/kernel/syscalls/lsm/lsm_get_self_attr02.c
-@@ -0,0 +1,45 @@
++++ b/testcases/kernel/syscalls/lsm/lsm_get_self_attr03.c
+@@ -0,0 +1,68 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
 + */
 +
 +/*\
-+ * Verify that lsm_get_self_attr syscall is acting correctly when ctx is NULL.
-+ * The syscall can behave in different ways according to the current system
-+ * status:
-+ *
-+ * - if any LSM is running inside the system, the syscall will pass and it will
-+ *   provide a size as big as the attribute
-+ * - if no LSM(s) are running inside the system, the syscall will fail with -1
-+ *   return code
++ * Verify that LSM_ATTR_CURRENT attribute is correctly recognizing
++ * the current, active security context of the process. This is done by
++ * checking that /proc/self/attr/current matches with the obtained value.
 + */
++
 +#include "lsm_common.h"
 +
++static struct lsm_ctx *ctx;
 +static uint32_t page_size;
-+static uint32_t lsm_count;
 +
 +static void run(void)
 +{
-+	uint32_t size = page_size;
++	tst_res(TINFO, "Verifying 'LSM_ATTR_CURRENT' attribute");
 +
-+	if (lsm_count) {
-+		TST_EXP_POSITIVE(lsm_get_self_attr(
-+			LSM_ATTR_CURRENT, NULL, &size, 0));
-+		TST_EXP_EXPR(size > 1);
-+	} else {
-+		TST_EXP_FAIL(lsm_get_self_attr(
-+			LSM_ATTR_CURRENT, NULL, &size, 0), EOPNOTSUPP);
++	uint32_t count;
++	uint32_t size = page_size;
++	char attr[size];
++
++	memset(attr, 0, size);
++	memset(ctx, 0, LSM_CTX_SIZE_DEFAULT);
++
++	count = TST_EXP_POSITIVE(
++		lsm_get_self_attr(LSM_ATTR_CURRENT, ctx, &size, 0));
++
++	if (TST_RET == -1)
++		return;
++
++	if (!count) {
++		tst_res(TFAIL, "Can't read any attribute");
++		return;
++	}
++
++	read_proc_attr("current", attr, page_size);
++
++	TST_EXP_EQ_STR(attr, (char *)ctx->ctx);
++
++	struct lsm_ctx *next = ctx;
++
++	for (uint32_t i = 1; i < count; i++) {
++		TST_EXP_EXPR(strcmp(attr, (char *)next->ctx) != 0,
++			"Attribute and next LSM context must be different");
++
++		next = next_ctx(next);
 +	}
 +}
 +
 +static void setup(void)
 +{
++	verify_supported_attr_current();
++
 +	page_size = SAFE_SYSCONF(_SC_PAGESIZE);
-+	lsm_count = count_supported_attr_current();
 +}
 +
 +static struct tst_test test = {
 +	.test_all = run,
 +	.setup = setup,
 +	.min_kver = "6.8",
++	.bufs = (struct tst_buffers[]) {
++		{&ctx, .size = LSM_CTX_SIZE_DEFAULT},
++		{}
++	},
 +};
 
 -- 
