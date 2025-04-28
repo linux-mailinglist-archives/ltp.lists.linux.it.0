@@ -1,114 +1,115 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22F5DA9F3AE
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 16:44:31 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 813A0A9F3BB
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 16:46:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D6F0C3CBBC8
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 16:44:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2EDAF3CBBA6
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Apr 2025 16:46:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0495A3CBBA8
- for <ltp@lists.linux.it>; Mon, 28 Apr 2025 16:44:21 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id A3B743CBBC6
+ for <ltp@lists.linux.it>; Mon, 28 Apr 2025 16:44:46 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CD163200B75
- for <ltp@lists.linux.it>; Mon, 28 Apr 2025 16:44:19 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D3422600066
+ for <ltp@lists.linux.it>; Mon, 28 Apr 2025 16:44:45 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2A6DC21199;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D74E9211AC;
  Mon, 28 Apr 2025 14:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1745851443; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=kgyW5wr8VqX1OU9/poDNtkuYrXxD/On8i18jJeCTGe4=;
- b=RAfNsKfnvDawERZDJ3SchDGk294qcV5aFYelkWDQQraMUVlfaCuEuWuzm0+cuWgPiEiVrs
- 8uNM6K58JoseV4y71AyuH9W/5OcXuxlg8dU81Jf7sR318WuR2w5efdWVz6WyVu0PpGDIeW
- MZ10N0XMJW/d4DmNJFl1GwYkcIlxFoI=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iu8b9F+Hhdc2Spnc9XhYamgigUr0FzbAUCYiwgO7hC8=;
+ b=ZSLQ3re7bKrvaLzz6ln/ImQrEQYnzjdYA5x3X2h71/OSwQWDyDCzUn6yzGDIyN49RFhfSj
+ cCRcpaR4s4JUtp/QMm0owrKmmapHNUHsb5LyXzPcKL5iM3b2AZaXnacP+JxBmK4+/LcvtQ
+ QBl5NTHFswzzP4yYvftKZhq7gcmHv6w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1745851443;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=kgyW5wr8VqX1OU9/poDNtkuYrXxD/On8i18jJeCTGe4=;
- b=FfP0hzjVjoeOP1s/U2XHg614q1qa4soqE/deUSoW0sptqx9W+E9+PYWhF0Z6/C1KZ5pvXS
- 51K6CfYrxKR3qaCw==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iu8b9F+Hhdc2Spnc9XhYamgigUr0FzbAUCYiwgO7hC8=;
+ b=dboGi+j9qEdekCtipQFdOobXTxi9KTkwVhVbqph7RJB+T/NwyCCKuhKUM/rVBZCtUjrMp4
+ zEvicf+J0SZSbbDw==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1745851442; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=kgyW5wr8VqX1OU9/poDNtkuYrXxD/On8i18jJeCTGe4=;
- b=hhxRLeGZEOdoC09icdy1S1UK4o2+cUzCFajx8uGBgZYxbutFaVdYxHKy+e3FRXKN95guRj
- Zpy9MwSA5yIZKE6ozsvU23gEJNODyB+T1z8qrAdnavJqwNTj9in4kq6OGqY9k4VX8slgGx
- qaG3d8cInmTm/S49eQBFBBVtDezyG1k=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iu8b9F+Hhdc2Spnc9XhYamgigUr0FzbAUCYiwgO7hC8=;
+ b=XK2bmUjZFSuTo6cHbBln/TM4Id0nlXoIrQDOUW1pHEZFhr/prJ/1wSsAE7ZbiEAqAqFdYb
+ k5+c1Q4ouCK0uXnOds3lxxsweKn+yUVR50qsQ0Tcd0mcLUxFsTQ2aall0K7xT+ERe0iE/s
+ XJrJe2zseDEuiD9/22gro1PkOf2Mp+c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1745851442;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=kgyW5wr8VqX1OU9/poDNtkuYrXxD/On8i18jJeCTGe4=;
- b=hQSDogABrwyt47wGxkPt6cpmtRwhRs1NfrTGxjBa8m6X9VKM+9Uqk22gjINxj2Q1OqAl73
- wBGMu7n4oeo765Bw==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iu8b9F+Hhdc2Spnc9XhYamgigUr0FzbAUCYiwgO7hC8=;
+ b=eFY9E/Otw6XwpC8FPQwCfApEw4aOoy6589KAnGjyJao6d6ZRXAcNp8KIKmof14XwSE4j1S
+ Wv3piTH1meHp12Cw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DFC4F13A25;
- Mon, 28 Apr 2025 14:44:01 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3D3BF13A6A;
+ Mon, 28 Apr 2025 14:44:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 7GxTMDGUD2ioegAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Mon, 28 Apr 2025 14:44:01 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +F5QDTKUD2ioegAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Mon, 28 Apr 2025 14:44:02 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 28 Apr 2025 16:43:55 +0200
-Message-Id: <20250428-lsm-v3-0-33a4caa9aaf2@suse.com>
+Date: Mon, 28 Apr 2025 16:43:56 +0200
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIACuUD2gC/03NTQ7CIBAF4Ks0rMXAIE1x5T2MCwqDJbE/YZRom
- t5dWjVx+V7mezMzwhSR2LGaWcIcKY5DCWpXMdfZ4Yo8+pIZCDhIKTS/Uc+1txBqB1aiYeVyShj
- ic1s5X0ruIt3H9NpGs1zbr5ew+Sy54AhG2cYb40J9ogfh3o09W3mGH9Gi/PwQKKT1qhFKh6Zu3
- R9ZluUNNCX18MgAAAA=
-X-Change-ID: 20241105-lsm-5da2f6c2a1e9
+Message-Id: <20250428-lsm-v3-1-33a4caa9aaf2@suse.com>
+References: <20250428-lsm-v3-0-33a4caa9aaf2@suse.com>
+In-Reply-To: <20250428-lsm-v3-0-33a4caa9aaf2@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1745851441; l=2101;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1745851441; l=5521;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=DYU8F/R9RWNKce76PzKQwbWVo8S5OFxd9uEqtqkN5Bk=;
- b=9cGUz5SYVd+pAvh1t1jAzw/tE5ucCxZ0Ba/VSiRdHrwVUtMvYtIq2bud4rB5FLWiifC58mZPS
- Kgx/1o1JKSHA5cfhCx9YjcbvnlinJUangsyt2r7K6RJQKPkWVfE+Zjd
+ bh=D3F8y9GQrdEHEBZUdOSkPlkmP3P+H4s6PSOM4D5iXjg=;
+ b=hICSJOq1hlvv/6VxyqJRb0eF1GAYq5ETg5FzUGon20hVoSMQlgQquaTRpBzD+xLAN/j+dGqUy
+ Qokge3v1rGvDp23/JHELdyA+B6STQCBw4Jcl/ErWORriXjO3XPB9/KI
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spam-Level: 
+X-Spam-Score: -4.30
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
  RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
  ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[4]; FROM_EQ_ENVFROM(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
- suse.com:mid]
-X-Spam-Score: -4.30
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email, suse.com:mid, suse.com:email,
+ imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 0/7] LSM testing suite
+Subject: [LTP] [PATCH v3 1/7] Add fallback definitions of LSM syscalls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,59 +126,228 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Testing the following syscalls which are providing support for the LSM
-communication added in kernel 6.8:
+From: Andrea Cervesato <andrea.cervesato@suse.com>
+
+Fallback definition for the following syscalls:
 
 - lsm_get_self_attr
 - lsm_set_self_attr
 - lsm_list_modules
 
-Please consider the following documentation as reference:
-https://docs.kernel.org/userspace-api/lsm.html
-
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-Changes in v3:
-- lsm_common.h cleanup
-- better overall check for supported LSM(s) when using LSM_ATTR_CURRENT
-- simplify tests using more common functions
-- use the right size for lsm_ctx
-- Link to v2: https://lore.kernel.org/r/20250110-lsm-v2-0-bd38035f86bc@suse.com
+ configure.ac       |   3 +-
+ include/lapi/lsm.h | 177 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 179 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- correctly fallback <linux/lsm.h> include
-- Link to v1: https://lore.kernel.org/r/20241112-lsm-v1-0-e293a8d99cf6@suse.com
+diff --git a/configure.ac b/configure.ac
+index 7f475f6b6419ee14125dada3ddd7d9ea06eb6b48..9ff098b273b9298b4d0ddcd43fb6aefdddf44f0c 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -69,6 +69,7 @@ AC_CHECK_HEADERS_ONCE([ \
+     linux/ioprio.h \
+     linux/keyctl.h \
+     linux/landlock.h \
++    linux/lsm.h \
+     linux/mempolicy.h \
+     linux/module.h \
+     linux/mount.h \
+@@ -204,7 +205,7 @@ AC_CHECK_TYPES([struct ipc64_perm],,,[#include <sys/ipcbuf.h>])
+ AC_CHECK_TYPES([struct loop_config],,,[#include <linux/loop.h>])
+ AC_CHECK_TYPES([struct landlock_path_beneath_attr],,,[#include <linux/landlock.h>])
+ AC_CHECK_TYPES([struct landlock_net_port_attr],,,[#include <linux/landlock.h>])
+-
++AC_CHECK_TYPES([struct lsm_ctx],,,[#include <linux/lsm.h>])
+ AC_CHECK_TYPES([struct mmsghdr],,,[
+ #define _GNU_SOURCE
+ #include <sys/types.h>
+diff --git a/include/lapi/lsm.h b/include/lapi/lsm.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..72ca85f784282190b1db9fac3da79a562f93f43a
+--- /dev/null
++++ b/include/lapi/lsm.h
+@@ -0,0 +1,177 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++#ifndef LAPI_LSM_H__
++#define LAPI_LSM_H__
++
++#include "config.h"
++
++#ifdef HAVE_LINUX_LSM_H
++#include <linux/lsm.h>
++#endif
++
++#include <stdint.h>
++#include "lapi/syscalls.h"
++
++#define CTX_DATA_SIZE 4096
++
++#define LSM_CTX_SIZE(x) (sizeof(struct lsm_ctx) + x)
++#define LSM_CTX_SIZE_DEFAULT LSM_CTX_SIZE(CTX_DATA_SIZE)
++
++#ifndef HAVE_STRUCT_LSM_CTX
++
++/**
++ * struct lsm_ctx - LSM context information
++ * @id: the LSM id number, see LSM_ID_XXX
++ * @flags: LSM specific flags
++ * @len: length of the lsm_ctx struct, @ctx and any other data or padding
++ * @ctx_len: the size of @ctx
++ * @ctx: the LSM context value
++ *
++ * The @len field MUST be equal to the size of the lsm_ctx struct
++ * plus any additional padding and/or data placed after @ctx.
++ *
++ * In all cases @ctx_len MUST be equal to the length of @ctx.
++ * If @ctx is a string value it should be nul terminated with
++ * @ctx_len equal to `strlen(@ctx) + 1`.  Binary values are
++ * supported.
++ *
++ * The @flags and @ctx fields SHOULD only be interpreted by the
++ * LSM specified by @id; they MUST be set to zero/0 when not used.
++ */
++struct lsm_ctx {
++	uint64_t id;
++	uint64_t flags;
++	uint64_t len;
++	uint64_t ctx_len;
++	uint8_t ctx[];
++};
++#endif
++
++/*
++ * ID tokens to identify Linux Security Modules (LSMs)
++ *
++ * These token values are used to uniquely identify specific LSMs
++ * in the kernel as well as in the kernel's LSM userspace API.
++ */
++#ifndef LSM_ID_UNDEF
++# define LSM_ID_UNDEF		0
++#endif
++
++#ifndef LSM_ID_CAPABILITY
++# define LSM_ID_CAPABILITY	100
++#endif
++
++#ifndef LSM_ID_SELINUX
++# define LSM_ID_SELINUX		101
++#endif
++
++#ifndef LSM_ID_SMACK
++# define LSM_ID_SMACK		102
++#endif
++
++#ifndef LSM_ID_TOMOYO
++# define LSM_ID_TOMOYO		103
++#endif
++
++#ifndef LSM_ID_APPARMOR
++# define LSM_ID_APPARMOR	104
++#endif
++
++#ifndef LSM_ID_YAMA
++# define LSM_ID_YAMA		105
++#endif
++
++#ifndef LSM_ID_LOADPIN
++# define LSM_ID_LOADPIN		106
++#endif
++
++#ifndef LSM_ID_SAFESETID
++# define LSM_ID_SAFESETID	107
++#endif
++
++#ifndef LSM_ID_LOCKDOWN
++# define LSM_ID_LOCKDOWN	108
++#endif
++
++#ifndef LSM_ID_BPF
++# define LSM_ID_BPF		109
++#endif
++
++#ifndef LSM_ID_LANDLOCK
++# define LSM_ID_LANDLOCK	110
++#endif
++
++#ifndef LSM_ID_IMA
++# define LSM_ID_IMA		111
++#endif
++
++#ifndef LSM_ID_EVM
++# define LSM_ID_EVM		112
++#endif
++
++#ifndef LSM_ID_IPE
++# define LSM_ID_IPE		113
++#endif
++
++/*
++ * LSM_ATTR_XXX definitions identify different LSM attributes
++ * which are used in the kernel's LSM userspace API. Support
++ * for these attributes vary across the different LSMs. None
++ * are required.
++ */
++#ifndef LSM_ATTR_UNDEF
++# define LSM_ATTR_UNDEF		0
++#endif
++
++#ifndef LSM_ATTR_CURRENT
++# define LSM_ATTR_CURRENT	100
++#endif
++
++#ifndef LSM_ATTR_EXEC
++# define LSM_ATTR_EXEC		101
++#endif
++
++#ifndef LSM_ATTR_FSCREATE
++# define LSM_ATTR_FSCREATE	102
++#endif
++
++#ifndef LSM_ATTR_KEYCREATE
++# define LSM_ATTR_KEYCREATE	103
++#endif
++
++#ifndef LSM_ATTR_PREV
++# define LSM_ATTR_PREV		104
++#endif
++
++#ifndef LSM_ATTR_SOCKCREATE
++# define LSM_ATTR_SOCKCREATE	105
++#endif
++
++/*
++ * LSM_FLAG_XXX definitions identify special handling instructions
++ * for the API.
++ */
++#ifndef LSM_FLAG_SINGLE
++# define LSM_FLAG_SINGLE	0x0001
++#endif
++
++static inline int lsm_get_self_attr(uint32_t attr, struct lsm_ctx *ctx,
++				    uint32_t *size, uint32_t flags)
++{
++	return tst_syscall(__NR_lsm_get_self_attr, attr, ctx, size, flags);
++}
++
++static inline int lsm_set_self_attr(uint32_t attr, struct lsm_ctx *ctx,
++				    uint32_t size, uint32_t flags)
++{
++	return tst_syscall(__NR_lsm_set_self_attr, attr, ctx, size, flags);
++}
++
++static inline int lsm_list_modules(uint64_t *ids, uint32_t *size, uint32_t flags)
++{
++	return tst_syscall(__NR_lsm_list_modules, ids, size, flags);
++}
++#endif
 
----
-Andrea Cervesato (7):
-      Add fallback definitions of LSM syscalls
-      Add lsm_get_self_attr01 test
-      Add lsm_get_self_attr02 test
-      Add lsm_get_self_attr03 test
-      Add lsm_list_modules01 test
-      Add lsm_list_modules02 test
-      Add lsm_set_self_attr01 test
-
- configure.ac                                       |   3 +-
- include/lapi/lsm.h                                 | 177 +++++++++++++++++++++
- runtest/syscalls                                   |   7 +
- testcases/kernel/syscalls/lsm/.gitignore           |   6 +
- testcases/kernel/syscalls/lsm/Makefile             |   7 +
- testcases/kernel/syscalls/lsm/lsm_common.h         |  91 +++++++++++
- .../kernel/syscalls/lsm/lsm_get_self_attr01.c      |  92 +++++++++++
- .../kernel/syscalls/lsm/lsm_get_self_attr02.c      |  45 ++++++
- .../kernel/syscalls/lsm/lsm_get_self_attr03.c      |  68 ++++++++
- testcases/kernel/syscalls/lsm/lsm_list_modules01.c |  75 +++++++++
- testcases/kernel/syscalls/lsm/lsm_list_modules02.c | 153 ++++++++++++++++++
- .../kernel/syscalls/lsm/lsm_set_self_attr01.c      | 110 +++++++++++++
- 12 files changed, 833 insertions(+), 1 deletion(-)
----
-base-commit: 746286c5ccf4fe3176ad636383a7235c5f1d4131
-change-id: 20241105-lsm-5da2f6c2a1e9
-
-Best regards,
 -- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+2.43.0
 
 
 -- 
