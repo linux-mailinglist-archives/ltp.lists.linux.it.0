@@ -2,69 +2,103 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F25AAA43AA
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Apr 2025 09:14:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A965AA43FD
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Apr 2025 09:29:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1745998168; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : content-transfer-encoding :
+ content-type : sender : from;
+ bh=xHP9MAcHdOcKaE+vceXrtMIJUzCnbbQI2mGMYBYTTRs=;
+ b=rNPYWKov0dbL/SNJrCmDl+4TMloSmZYMg4DbF6G9WcgDVXCnTmg/l4FvWMDM3Ifrp/2CC
+ wHWDZlTKvUzv/tf5w2agBAxqqaWAalI18ufhFDVPnTJuldUcTA9Ewo83Gr798Aw2/SZcY32
+ N37KBuF7NG2x2wmdTRUQPJS97lnPhL0=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3C74E3CBC58
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Apr 2025 09:14:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B694A3CBC3E
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Apr 2025 09:29:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E8AA73CBB40
- for <ltp@lists.linux.it>; Wed, 30 Apr 2025 09:14:14 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id E6B033CBB40
+ for <ltp@lists.linux.it>; Wed, 30 Apr 2025 09:29:26 +0200 (CEST)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6A047200777
- for <ltp@lists.linux.it>; Wed, 30 Apr 2025 09:14:13 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 22F2C1F7C3;
- Wed, 30 Apr 2025 07:14:13 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0919713A25;
- Wed, 30 Apr 2025 07:14:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id dlxbAcXNEWjldwAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Wed, 30 Apr 2025 07:14:13 +0000
-Date: Wed, 30 Apr 2025 09:14:50 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <aBHN6ozFFpoM6syX@yuki.lan>
-References: <20250429135542.19680-1-chrubis@suse.cz>
- <20250429212253.GA273859@pevik>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E3248600629
+ for <ltp@lists.linux.it>; Wed, 30 Apr 2025 09:29:24 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-39c266c2dd5so7565514f8f.3
+ for <ltp@lists.linux.it>; Wed, 30 Apr 2025 00:29:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1745998164; x=1746602964; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:cc:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=uFHm8F+kUjVfMF7dRjBJuP6dkp6o85U44yL6wzwry38=;
+ b=QyJWw6WZ2ET8ewHO5wTkPwKT3Rfjut9KSaZxvusMOx30v49OAFjK2R3rG5DG95g7L9
+ LLB6+p1Uk11R+NwKaBXaidkhsxkuqsddY5uYOs8wbd50D3MAbZp5WjZdeo7Dhf6WQGpy
+ 6xAiCB7MkC+7ipIHiayyktsfGef+l8WRC0+meG8FuHXf5NMHkSs8uloCElPVSz0OpQx3
+ MeCGcGRsD2bp62hhPT+aBpN14BdpgD4AwcGA8reWuFEPluyU89oFY/ig93qOxa/jC9ec
+ mKDutBTc0C+0cFKTNpiXWNsiL80q5RpRQgq7zlQ1wljXwfP0sSoJvB0u5MOkpOnCEkGt
+ QYTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745998164; x=1746602964;
+ h=content-transfer-encoding:in-reply-to:from:cc:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=uFHm8F+kUjVfMF7dRjBJuP6dkp6o85U44yL6wzwry38=;
+ b=bjflLQuNMT6dVng7ur2Ubod609py1r7SqmMQOIDWcV7yY/lIefM7sWg+EWREIg6ZTx
+ 5wrPMaLaEjI36rHZ1WoC9WJoFEBVobKMUtwKVwGlagylGCRzkk88VTZYM2E0lC3lJDwO
+ IMuPr3I01D6Xt3No3v8btm9CHdcHb02TnbFO5hYUEE6dUqVJVOo4vyOPjOSEDM4EVi+q
+ N39tJ8I4RIARsvm5co8A0U9CcRq/F4952woDxBvXFVcFsEa2J0ezIyT1Jc+Fdp8oCB6p
+ 48QFCiwm6av7ckNwc8+q807u9+vKFg36jrTaxlqD6erqO8cklR0Qtq4cOJD7G+pvUEbZ
+ mP5w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWAne/4iGsJ499Fz/QKtsolDtRLZ1e9NkOCvcH0dxI6gqHB5lkLHJfitiw3r31yHBPz9mk=@lists.linux.it
+X-Gm-Message-State: AOJu0YwJKL1LS9kapuBFIGf59mv9hutONN8bVeuBmRfzu7Fp+5ovl5DG
+ hLsaGSwf763Ml8q503UTHrp9oWsWDEre21CzYEE1rRO6giAevsKLvHqsCEA3Eurcebg29/+Fq8O
+ s
+X-Gm-Gg: ASbGnculkq+3HdHPGsVlNyeojfNMJIhY1WRpEh00mOxbO6oHYESPqqcemoAhI5HQDSA
+ FJmJ4SlhuTCFRp25r0xsZuvqwNlurf7DWVvrhKPh/yDjuWgTKdjmnSc9G8FGtffWeC3x+3DtNoQ
+ C843e/uVTp13XKj4if2XwFpfjm7ClbWgvZLX8KI6nm/0bMBoOo8Jq7m3W5WRQgZRns+FNmfDt3h
+ rBBEa5Abjc30QeYNod0ZpS8S42UJfmowvKBktfje/XefG9Xm4tHKMoPPki3edThRU3j4/r2Jrfm
+ w7vxba1/HmeWNGB6pwuJS2Y8R0wLdAdEVTnGiGfI3Ocu1JPXS3rS0aWJlDmEpRIJknV0HZJA/k4
+ 24PiRRuQqPF5EUF75wTC5MbkKZnr/aj6b42XSl9Tn0MlBiWhjR6CKLIYrlTKP1ZDlR867HTUl+h
+ WrEtc=
+X-Google-Smtp-Source: AGHT+IHxLAWK96Zj/TbBvgNzgyj32dU+l5at0N+bott4D8awIHzZgtXpL+vD6vxj9sKG3mldun6TCg==
+X-Received: by 2002:a05:6000:2401:b0:391:2bcc:11f2 with SMTP id
+ ffacd0b85a97d-3a08f7525b3mr1710694f8f.1.1745998164386; 
+ Wed, 30 Apr 2025 00:29:24 -0700 (PDT)
+Received: from ?IPV6:2003:ef:2f1a:ea00:b220:7501:321e:5c31?
+ (p200300ef2f1aea00b2207501321e5c31.dip0.t-ipconnect.de.
+ [2003:ef:2f1a:ea00:b220:7501:321e:5c31])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a073e5da0dsm15851418f8f.88.2025.04.30.00.29.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 30 Apr 2025 00:29:24 -0700 (PDT)
+Message-ID: <725822be-fb0a-4e6c-9497-ef84dbec3412@suse.com>
+Date: Wed, 30 Apr 2025 09:29:23 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250429212253.GA273859@pevik>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU]
-X-Spam-Score: -4.00
-X-Rspamd-Queue-Id: 22F2C1F7C3
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+User-Agent: Mozilla Thunderbird
+To: jiaying.song.cn@windriver.com, ltp@lists.linux.it
+References: <20250428073811.133441-1-jiaying.song.cn@windriver.com>
+Content-Language: en-US
+In-Reply-To: <20250428073811.133441-1-jiaying.song.cn@windriver.com>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] lib: do_setup(): Check for supported arch first
+Subject: Re: [LTP] [PATCH] syscalls/stime: Fix Time Overflow for 2038
+ Problem on 32-bit Systems
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,37 +110,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > This commit moves the check for supported architecture before the check
-> > for test function existence. This allows us do ifdef out the run
-> > function pointer initialization and properly TCONF on unsupported
-> > platform.
-> 
-> LGTM. Ideally could you also convert some test (as example which others
-> can follow - like they do for docparse fixes).
-> 
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> 
-> > Example usage:
-> 
-> >  #include "tst_test.h"
-> 
-> >  #ifdef __x86_64__
-> I would personally did not bother with #ifdef, but it's true it makes resulted
-> binary smaller (for non-intel arch).
 
-It's not about tinification, it's usually that there is inline assembly
-that cannot be compiled at all...
+I noticed that stime01 is equivalent to settimeofday01 when 
+tst_variant=2. So I'm wondering if it makes sense to keep that variant, 
+considering that it creates issues in 32bit systems. In my opinion, we 
+should probably remove the usage of settimeofday inside stime01 and to 
+keep settimeofday01 instead.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+@Petr @Cyril WDYT?
+
+Kind regards,
+Andrea Cervesato
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
