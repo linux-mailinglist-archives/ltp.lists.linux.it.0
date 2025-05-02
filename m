@@ -2,104 +2,118 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84E71AA6CEF
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 May 2025 10:51:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ED4BAA6E10
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 May 2025 11:25:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B92BB3CBE13
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 May 2025 10:51:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E7D853CBE07
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 May 2025 11:25:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CD26C3CBC2A
- for <ltp@lists.linux.it>; Fri,  2 May 2025 10:51:10 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by picard.linux.it (Postfix) with ESMTPS id C6C513CBD2F
+ for <ltp@lists.linux.it>; Fri,  2 May 2025 11:25:39 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7FF63680458
- for <ltp@lists.linux.it>; Fri,  2 May 2025 10:51:09 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 364E360004C
+ for <ltp@lists.linux.it>; Fri,  2 May 2025 11:25:37 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BA6951F388;
- Fri,  2 May 2025 08:51:07 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 841D221A0F;
+ Fri,  2 May 2025 09:25:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1746175867; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1746177936; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=zzwaCT9NB7Hv48hwjzCIsWCYDAC3l0BKodvMQV1/Io4=;
- b=AWfwCbDqecmGav1eoMD8bBWQVjvPN2IqpveTlbADCYOBRtlBLevVJ+G8jRW/xD2y1ch7WL
- LyydqTeU/5j3+tY7bMaCfusKO0kKWOsEWsj0AR5Jf9gQR7zjv02OBYbfWVqnRVCfNsNswa
- CNFc/tniuVoHNNKe4oLwAsC/urg4a9k=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=JYxVWgvpmKaqnRR89vy6mX3bUMIHT5J7KQN6wDAjdh+uaI0fv4F12hpk34UtO8A7vqo5Mq
+ XXNFQmdCQDWhUfHn5hIaxQvvh6jhtFuJI5XdcQgfHFv2e3SqIEGQcpxkEEJ2agT1yJMn6W
+ 7ojIU2RcTOzCbsrr7tD1rpphUHqiLz0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1746175867;
+ s=susede2_ed25519; t=1746177936;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=zzwaCT9NB7Hv48hwjzCIsWCYDAC3l0BKodvMQV1/Io4=;
- b=fUIc2k2zPXUdAu3znMGrxXDC89/W/rR6hotcvoZumR35yZn7N86QhrfZtCGDLls3J8bv57
- +90vmbFjVvNespBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=sLlHcEkEBCvJgR5ZI866HzUM7iUcTTQauNHxwaZ2uVeNeuRrAV3Y7SX82Pw6cEbmV+QAyT
+ XUz6Kp+rTGJfrIAQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=JYxVWgvp;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=sLlHcEkE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1746175867; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1746177936; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=zzwaCT9NB7Hv48hwjzCIsWCYDAC3l0BKodvMQV1/Io4=;
- b=AWfwCbDqecmGav1eoMD8bBWQVjvPN2IqpveTlbADCYOBRtlBLevVJ+G8jRW/xD2y1ch7WL
- LyydqTeU/5j3+tY7bMaCfusKO0kKWOsEWsj0AR5Jf9gQR7zjv02OBYbfWVqnRVCfNsNswa
- CNFc/tniuVoHNNKe4oLwAsC/urg4a9k=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=JYxVWgvpmKaqnRR89vy6mX3bUMIHT5J7KQN6wDAjdh+uaI0fv4F12hpk34UtO8A7vqo5Mq
+ XXNFQmdCQDWhUfHn5hIaxQvvh6jhtFuJI5XdcQgfHFv2e3SqIEGQcpxkEEJ2agT1yJMn6W
+ 7ojIU2RcTOzCbsrr7tD1rpphUHqiLz0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1746175867;
+ s=susede2_ed25519; t=1746177936;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=zzwaCT9NB7Hv48hwjzCIsWCYDAC3l0BKodvMQV1/Io4=;
- b=fUIc2k2zPXUdAu3znMGrxXDC89/W/rR6hotcvoZumR35yZn7N86QhrfZtCGDLls3J8bv57
- +90vmbFjVvNespBw==
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=sLlHcEkEBCvJgR5ZI866HzUM7iUcTTQauNHxwaZ2uVeNeuRrAV3Y7SX82Pw6cEbmV+QAyT
+ XUz6Kp+rTGJfrIAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A9FF713687;
- Fri,  2 May 2025 08:51:07 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6AE9813687;
+ Fri,  2 May 2025 09:25:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cZitKHuHFGgkTwAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Fri, 02 May 2025 08:51:07 +0000
-Date: Fri, 2 May 2025 10:51:46 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KzopGZCPFGiyWAAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Fri, 02 May 2025 09:25:36 +0000
+Date: Fri, 2 May 2025 11:26:14 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <aBSHoimhpmTj1l_A@yuki.lan>
+Message-ID: <aBSPtvPko426u6vM@yuki.lan>
 References: <20250430130417.43523-1-pvorel@suse.cz>
+ <20250430130417.43523-3-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250430130417.43523-1-pvorel@suse.cz>
+In-Reply-To: <20250430130417.43523-3-pvorel@suse.cz>
+X-Rspamd-Queue-Id: 841D221A0F
 X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MISSING_XM_UA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
+ MISSING_XM_UA(0.00)[]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_TWO(0.00)[2];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim,suse.cz:email,yuki.lan:mid];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email]
-X-Spam-Score: -4.30
+ DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -4.51
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2 0/4] shell loader rewrite to support TST_SETUP
+Subject: Re: [LTP] [PATCH v2 2/4] shell: Move shell code into functions
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,22 +132,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> we are getting there, but not yet finished.
-> 
-> one remaining problem - it requires *full* path in PATH. I wonder what
-> basic I'm missing.  The current change requires to use full path
-> otherwise execvpe() fails.
-> 
-> I suppose it is due change cwd due creating temporary directory - it
-> fails only with:
-> "needs_tmpdir": true
-> shell_loader_setup_cleanup.sh does not suffer this problem.
-> It's also not dash related, problem is on bash as well.
-
-That is exactly it. The test cannot run scripts that it cannot find so
-we need an absolute path to the directory the scripts are in. If you
-look at run_tests.sh we do srcdir=$(realpath $(dirname $0)) and prefix
-all the paths with that directory.
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
