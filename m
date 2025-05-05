@@ -1,114 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B758AA9CC7
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 May 2025 21:50:14 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 211C1AA9CD1
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 May 2025 21:52:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7AA903CBF5C
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 May 2025 21:50:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E0C473CB101
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 May 2025 21:52:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 861793CBEF8
- for <ltp@lists.linux.it>; Mon,  5 May 2025 21:50:10 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id E21363CB0F1
+ for <ltp@lists.linux.it>; Mon,  5 May 2025 21:52:15 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 56ACD600701
- for <ltp@lists.linux.it>; Mon,  5 May 2025 21:50:09 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 26B9E600565
+ for <ltp@lists.linux.it>; Mon,  5 May 2025 21:52:14 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3F2CD21254;
- Mon,  5 May 2025 19:50:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1746474609;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=y0YX/wN6S+pTuArcKROQ+cKUgTpo51Msi2Gii6WtAjo=;
- b=l1oXOR2WUS2wPfUW5lnM7jEZXfuzh6JAOQVKwYj+4KkrXUiQYgQ8/ce/vkLXhwkq5d8L1d
- tJFhfe6ZJAQ3YqFdbUQ5Tev6/O1YuK9vlcbZdooGDhfEDIly0JbWqxO6Y4v1DmKUGu5++P
- /5yWDu/DR2w+9BSEoromCIrM9VrUIBI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1746474609;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=y0YX/wN6S+pTuArcKROQ+cKUgTpo51Msi2Gii6WtAjo=;
- b=g3a5SzqfyhmZ8qOJOgXamwxqX13xQz6V0xplF+ZLTp/lGIvSwWXrOULvTpLI95CwStuU73
- sgmcZvuvvQMyGWDA==
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 61781216D6;
+ Mon,  5 May 2025 19:52:14 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=l1oXOR2W;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=g3a5Szqf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1746474609;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=y0YX/wN6S+pTuArcKROQ+cKUgTpo51Msi2Gii6WtAjo=;
- b=l1oXOR2WUS2wPfUW5lnM7jEZXfuzh6JAOQVKwYj+4KkrXUiQYgQ8/ce/vkLXhwkq5d8L1d
- tJFhfe6ZJAQ3YqFdbUQ5Tev6/O1YuK9vlcbZdooGDhfEDIly0JbWqxO6Y4v1DmKUGu5++P
- /5yWDu/DR2w+9BSEoromCIrM9VrUIBI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1746474609;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=y0YX/wN6S+pTuArcKROQ+cKUgTpo51Msi2Gii6WtAjo=;
- b=g3a5SzqfyhmZ8qOJOgXamwxqX13xQz6V0xplF+ZLTp/lGIvSwWXrOULvTpLI95CwStuU73
- sgmcZvuvvQMyGWDA==
+	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EE4AC13883;
- Mon,  5 May 2025 19:50:08 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1B82113883;
+ Mon,  5 May 2025 19:52:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id NrfBNnAWGWi2JAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Mon, 05 May 2025 19:50:08 +0000
-Date: Mon, 5 May 2025 21:50:03 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id jR2jBe4WGWgwJQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Mon, 05 May 2025 19:52:14 +0000
+Date: Mon, 5 May 2025 21:52:12 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20250505195003.GB137650@pevik>
-References: <20250429052247.GA144682@pevik>
- <aBSVO8uOE86UGIcp@yuki.lan>
+Message-ID: <20250505195212.GC137650@pevik>
+References: <20250429052247.GA144682@pevik> <aBSVO8uOE86UGIcp@yuki.lan>
+ <4428939d-dc71-488b-9728-030accaca3e8@suse.cz>
+ <aBh9Z4QA2YcdOFq1@rei.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aBSVO8uOE86UGIcp@yuki.lan>
-X-Rspamd-Queue-Id: 3F2CD21254
-X-Spam-Score: -3.71
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.71 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; REPLYTO_EQ_FROM(0.00)[]; ARC_NA(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; MISSING_XM_UA(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+In-Reply-To: <aBh9Z4QA2YcdOFq1@rei.lan>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Spam-Score: -4.00
+X-Rspamd-Queue-Id: 61781216D6
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 Subject: Re: [LTP] LTP in valgrind :)
 X-BeenThere: ltp@lists.linux.it
@@ -130,13 +86,22 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 > Hi!
-> Awesome :-)
+> > > It also opens some interesting questions, i.e. how do we make comparing
+> > > results from two different tests easier. Currently they grep the test
+> > > results for a summary, but maybe we can do better.
 
-> It also opens some interesting questions, i.e. how do we make comparing
-> results from two different tests easier. Currently they grep the test
-> results for a summary, but maybe we can do better.
+> > One option is to extract all TPASS/TFAIL/TWARN/TBROK/TCONF messages, 
+> > discard any message contents past the file:line header and then compare 
+> > whether the sanitized output is identical. That'll take care of random 
+> > values in the output while ensuring that the test went through the same 
+> > code paths as before. We could provide a sanitizer script for that.
 
-Kirk and compare json?
+> Maybe we can even add an option to the test library to supress the
+> messages in output, that would be fairly simple.
+
++1
+
+And Cc the authors :).
 
 Kind regards,
 Petr
