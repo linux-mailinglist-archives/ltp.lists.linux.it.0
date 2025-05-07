@@ -2,56 +2,105 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6590AAE432
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 May 2025 17:15:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5C1AAAE29F
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 May 2025 16:23:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6C48B3CBF4E
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 May 2025 17:15:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7439D3CBDFB
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 May 2025 16:23:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8F78E3CB281
- for <ltp@lists.linux.it>; Tue,  6 May 2025 03:06:36 +0200 (CEST)
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 0A0E3200962
- for <ltp@lists.linux.it>; Tue,  6 May 2025 03:06:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=Content-Type:Message-ID:Date:MIME-Version:From:
- Subject; bh=azvumEZbRxbojbfqVdXtkwbtCCX6DcOFm6CInx8Kq2A=; b=ZBHh
- +pFiWQLCsBHSXPuA/NUwfl2UgC8ZTP5ZVM6H1Oz8vVjK8OJ8r0IdI4BtUPDyOZIK
- gvKdeYcCXouJ7DhR4VPUfd9micNqnoJirN0MHXg7LMVz+PPxBwS9NQPPB9eUwDVh
- mRJvQIQdt/2NjP+LnOFPPEs3qwxgIrY5GrN4Sio=
-Received: from [192.168.109.86] (unknown [])
- by gzsmtp3 (Coremail) with SMTP id PikvCgD3l3SXYBlok3NUDg--.48878S2;
- Tue, 06 May 2025 09:06:31 +0800 (CST)
-Message-ID: <6d607471-4bae-47d5-ade9-e45d9778689f@126.com>
-Date: Tue, 6 May 2025 09:06:31 +0800
+ by picard.linux.it (Postfix) with ESMTPS id C0E8A3CBD49
+ for <ltp@lists.linux.it>; Wed,  7 May 2025 16:22:52 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3FAF2200BB9
+ for <ltp@lists.linux.it>; Wed,  7 May 2025 16:22:51 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 07CB22121E;
+ Wed,  7 May 2025 14:22:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1746627771; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9IfQSt6fP9THWhkizfyFpl9ivT444+KOe0clSrMCMQE=;
+ b=RgfFBERoIbTsRPE+JrURIBhfg8Mbw5FmaWSdo4ExVO8DM0TuBaaSMLsOOahDv86JIJDCrZ
+ k5v3qh3eO+rTsqTQggwsvDu0wFHlo1PkSPIApc8s4wdHuR2fJQckadHrYc8o7ISEWXusc0
+ jJvjePfSO5g5LLfKZNmqzJyzaV2cUow=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1746627771;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9IfQSt6fP9THWhkizfyFpl9ivT444+KOe0clSrMCMQE=;
+ b=g5pZ9KdkU51+m3tL2ILzsKk1nchP09g1s6omYRMlnnHdZttpq4G88rWspVGfSBoMcxfwkS
+ I/H6s1Tzna6ohABg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1746627770; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9IfQSt6fP9THWhkizfyFpl9ivT444+KOe0clSrMCMQE=;
+ b=Xg9pOgWTo36T3SXpCElM3/gUYqmfcT0RpJOGQNdpukeRrCmFxSiIPCS916eO2R8oMbJEQm
+ w0xm9eV/+bdourSoksqz/IZBcfrcjrcOLx+iGAbOrnwB3K41pVh2IEzeRJHIr06o1YIvL4
+ I16C26P25HJ2ahkZWP9XOocJ+tNplr8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1746627770;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9IfQSt6fP9THWhkizfyFpl9ivT444+KOe0clSrMCMQE=;
+ b=KHWQw0SXnIEtg+e9C2aEbRrVpuVr8vrglJb7eUslTMR1TL0b1gCvpne9sng7barKkcY0rh
+ Ky7oQy9o7OqO/nAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DDDB0139D9;
+ Wed,  7 May 2025 14:22:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id OAAqNrlsG2hlVQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Wed, 07 May 2025 14:22:49 +0000
+Date: Wed, 7 May 2025 16:23:30 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <aBts4kDaqLKLJUuw@yuki.lan>
+References: <20250505105310.15072-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Zhao Mengmeng <zhaomzhao@126.com>
-To: andrea.cervesato@suse.com, Petr Vorel <pvorel@suse.cz>
-References: <20241218015032.735590-1-zhaomzhao@126.com>
-In-Reply-To: <20241218015032.735590-1-zhaomzhao@126.com>
-X-CM-TRANSID: PikvCgD3l3SXYBlok3NUDg--.48878S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZry8JF4UKrW3Cr4fuw1DGFg_yoWkGFg_uw
- 18JrnrArn8CryIgF93Ar4Dtr1ayr98CrW0k3Z7K347Ga4UZr1fCFyUGr90ywn8GF4vgFWI
- vana9Fs8tw4UZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRNv387UUUUU==
-X-Originating-IP: [1.193.37.141]
-X-CM-SenderInfo: 52kd0zp2kd0qqrswhudrp/1tbiJxlFd2gZV8-OcgAAsZ
+Content-Disposition: inline
+In-Reply-To: <20250505105310.15072-1-mdoucha@suse.cz>
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MISSING_XM_UA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[yuki.lan:mid, imap1.dmz-prg2.suse.org:helo,
+ suse.cz:email]
+X-Spam-Score: -4.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Wed, 07 May 2025 17:14:16 +0200
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH v2] controllers/cpuset: Join string to dump full
- fail log
+Subject: Re: [LTP] [PATCH] memcontrol03: Account for process size in cgroup
+ allocation
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,37 +118,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi!
+> The first trunk_G allocation has 2MB safety margin to avoid triggering
+> OOM killer. However, on systems with 64K pagesize, this may not be enough.
+> Account for process size as reported by cgroup memory stats before
+> allocating memory in child processes.
 
-Hi, Andrea, this is the mail I mentioned about the V2 patch.
+Is there a reason to keep the 2MB safety after this patch?
 
-At 2024-12-18 09:50:32, "Zhao Mengmeng" <zhaomzhao@126.com> wrote:
->From: Zhao Mengmeng <zhaomengmeng@kylinos.cn>
->
->While debugging LTP cpuset_load_balance_test, when rmdir a path failed,
->it only dumps part of the log, missing the $subdir. Join string to fix
->it.
->
->Signed-off-by: Zhao Mengmeng <zhaomengmeng@kylinos.cn>
->---
-> testcases/kernel/controllers/cpuset/cpuset_funcs.sh | 3 +--
-> 1 file changed, 1 insertion(+), 2 deletions(-)
->
->diff --git a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
->index 567178e3fd52..f43518c71668 100755
->--- a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
->+++ b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
->@@ -195,8 +195,7 @@ cleanup()
-> 		done < "$subdir/tasks"
-> 		rmdir "$subdir"
-> 		if [ $? -ne 0 ]; then
->-			tst_brkm TFAIL "Couldn't remove subdir - "
->-						"$subdir in the cpuset"
->+			tst_brkm TFAIL "Couldn't remove subdir - $subdir in the cpuset"
-> 		fi
-> 	done
-> 
->-- 
->2.43.0
+Or can we do:
+
+diff --git a/testcases/kernel/controllers/memcg/memcontrol03.c b/testcases/kernel/controllers/memcg/memcontrol03.c
+index b5bbb9954..e7f126880 100644
+--- a/testcases/kernel/controllers/memcg/memcontrol03.c
++++ b/testcases/kernel/controllers/memcg/memcontrol03.c
+@@ -200,7 +200,7 @@ static void test_memcg_min(void)
+                sleep(1);
+        }
+
+-       alloc_anon_in_child(trunk_cg[G], MB(148), 0);
++       alloc_anon_in_child(trunk_cg[G], MB(150), 0);
+
+        SAFE_CG_SCANF(trunk_cg[B], "memory.current", "%ld", c);
+        TST_EXP_EXPR(values_close(c[0], MB(50), 5),
+
+> --- a/testcases/kernel/controllers/memcg/memcontrol03.c
+> +++ b/testcases/kernel/controllers/memcg/memcontrol03.c
+> @@ -94,17 +94,23 @@ static void cleanup_sub_groups(void)
+>  }
+>  
+>  static void alloc_anon_in_child(const struct tst_cg_group *const cg,
+> -				const size_t size, const int expect_oom)
+> +	size_t size, const int expect_oom)
+>  {
+>  	int status;
+>  	const pid_t pid = SAFE_FORK();
+> +	size_t cgmem;
+>  
+>  	if (!pid) {
+>  		SAFE_CG_PRINTF(cg, "cgroup.procs", "%d", getpid());
+> +		SAFE_CG_SCANF(cg, "memory.current", "%zu", &cgmem);
+> +		size = size > cgmem ? size - cgmem : 0;
+
+Here we depend on the fact that process memory has been properly
+accounted for when it starts running its code. Are you sure that we can
+rely on this or does this just happen to work?
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
