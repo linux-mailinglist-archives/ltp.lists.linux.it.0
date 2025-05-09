@@ -1,98 +1,83 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C485AB1305
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 May 2025 14:09:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C6A5FAB137A
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 May 2025 14:34:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1746792555; h=mime-version :
- references : in-reply-to : date : message-id : to : subject : list-id
- : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1746794076; h=to : date :
+ message-id : in-reply-to : references : mime-version : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : content-type :
  content-transfer-encoding : sender : from;
- bh=TFysr/bi0rM2B9V9b1IOt8Miy4iRuic4pmRHlSIPtYE=;
- b=MXnJWh7Hbedeojmq6/j0cfOedegkmg8V7gdIkmN8ypf8JFfF03Fz2WwByOgeg5UzVR215
- /0YYRSYlt4QcWXfHTxShY5gFxzAfupdB56HXGter+Dx9kygl9zx8KS2uE+g6loria1roWDL
- QBQC6ABe2umBS0/1Qc4/xBc1oD8Wl3E=
+ bh=+9f8N66LHw0CFVbR5+zlLWxmMDk7AEkgeJ2NXF+ulDs=;
+ b=Y4inIAPuSgSorcwwAc8oVnSNulUwMszYIO+VH7odFrkHKDkS3RKp9SD+M19NIeD0ar3y3
+ GVzAkotK6kI+AqzVKWBIZyVGlRkeiwsXARpTUcQhnbHOPtpj2xYWgFzlcrPmenfAwvKi8hK
+ 6Pqtkz88vVl4m5hSQrTW0+kTTGjZZlg=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 239783CC1F3
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 May 2025 14:09:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8032B3CC1EA
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 May 2025 14:34:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D4BA73CB1C2
- for <ltp@lists.linux.it>; Fri,  9 May 2025 14:09:01 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 7C7573CC181
+ for <ltp@lists.linux.it>; Fri,  9 May 2025 14:34:23 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0304B200260
- for <ltp@lists.linux.it>; Fri,  9 May 2025 14:09:00 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 446451000443
+ for <ltp@lists.linux.it>; Fri,  9 May 2025 14:34:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1746792539;
+ s=mimecast20190719; t=1746794060;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Km1E7c0KxKe5GfWr3YX8Szd5+7NzvodpwHcIntrdVzg=;
- b=WY5Oh5BIDKQ14vxGC2LuPTJMpTnwwRgKAIRE6oeKGvN299btTeJ4LFeGvW4JsF3gtFW+eu
- wtRdpt63b/F1Yv45KfFtBqOLcb3pG7tXueVB4TSEr1QIRgi4MIv4vj8uoTrmqNZNxgqsEY
- uYP075lqY5+EOCLSdpAOX5asOuIRKGI=
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-478-ExC4HukwO2ysmuxPqn-u_w-1; Fri, 09 May 2025 08:08:58 -0400
-X-MC-Unique: ExC4HukwO2ysmuxPqn-u_w-1
-X-Mimecast-MFC-AGG-ID: ExC4HukwO2ysmuxPqn-u_w_1746792537
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-22e7f041997so33073835ad.3
- for <ltp@lists.linux.it>; Fri, 09 May 2025 05:08:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746792536; x=1747397336;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Km1E7c0KxKe5GfWr3YX8Szd5+7NzvodpwHcIntrdVzg=;
- b=ZtoINKQ+2I4OuoEvYdDJkArWprRByivXiDl5mpW+3nzPMJpmAXy5GI6WaVOOEEXCzU
- Ne/Gh4ldx1m30ckWMQakTlLH1xVNiICH49qmRQXUQ2/7G+gcW1/zJ5T9kCWtRvStwoxF
- /Qx5z5maW5l/5F4vhZEey3fQXZLLEuLQ1/TDau8XvX0CH35Xq5Nc417aGO6qOONtDkOD
- PUljrXj80xS2ZWIuxNsCU8t1IGSGUSMqCIxHTlS3pUsjRfE6gjH1wIAi6Cw10VffN9qh
- A8MWxO8Rrr/lfXv+fycd5BVr5RssC7WBXPi3bdgGT7LMr+gKR63oipGa068x2fqPy1of
- yOHA==
-X-Gm-Message-State: AOJu0YwegGXc5CWiFIjuHOOI4b0calbrTsuQ06hxgjqwP/3D30TchM1o
- fQNmoNSEacd27kLnaIXsc5qWVQtua1DPtPDeUnCDFe7Gef9HCH4+DP9YgqOtPGraD7e3YSV4rbC
- m/LFXahQVjoDPdwyirFK/Kam6A7xGZWU1dNVvj6ZHQgl9H+sgmXNMYvVPD+6QNCdn/NWiGDVlVX
- 1sp9Ht+68umAH1ZPmEOHPZYGfphOd/u0EZlQ==
-X-Gm-Gg: ASbGncttdQDwt92tkPAWk8svPfY0LweHInGHjk+lz5dRSBOSsXIwBTTPQhm41uJ+ZZ3
- MOP9rZ4r6Encgt85MQFizyQ/rNKDnORdx0p8svBHQUKT3UXS5OgGJpyYOM8br4v0MoAPeLg==
-X-Received: by 2002:a17:903:2a8e:b0:224:256e:5e3f with SMTP id
- d9443c01a7336-22fc8b59827mr51101535ad.25.1746792536238; 
- Fri, 09 May 2025 05:08:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IERpGVkv3wItdXQqDEZ92VjlTqoobSO4InoUdxxDRjVPDpdCMT337L/caPPWYYACIY5/PMb2aNzgxyvlBjfPJs=
-X-Received: by 2002:a17:903:2a8e:b0:224:256e:5e3f with SMTP id
- d9443c01a7336-22fc8b59827mr51101285ad.25.1746792535941; Fri, 09 May 2025
- 05:08:55 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250509113206.59574-1-mdoucha@suse.cz>
+ bh=YngY7RP0/zMrrPxCmHSDOLRxecCLPWbVfsWqydBhlfo=;
+ b=CdL/6bCUchgy4FTqaayM4WbRyQZGCYxnYpHX2VymQL2Xn0DAedZYORd+DaWQL9zTyBXRCf
+ UpxBuYBB0Ybs5Rj+y8Ikx3iL+q8ysl6MzH/wfjVHE7mX6W1z/TG3+jGLzygDfYjZbu6mBD
+ rXoDPR6Dbya8ovTpMKZYSzDeG/a30Ww=
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-64-ivdzP3MKPAS6f4dUD7ao6g-1; Fri,
+ 09 May 2025 08:34:19 -0400
+X-MC-Unique: ivdzP3MKPAS6f4dUD7ao6g-1
+X-Mimecast-MFC-AGG-ID: ivdzP3MKPAS6f4dUD7ao6g_1746794058
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id EB326195608A; Fri,  9 May 2025 12:34:17 +0000 (UTC)
+Received: from dell-per7425-02.rhts.eng.pek2.redhat.com
+ (dell-per7425-02.rhts.eng.pek2.redhat.com [10.73.116.18])
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6979118003FD; Fri,  9 May 2025 12:34:15 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Fri,  9 May 2025 20:34:10 +0800
+Message-ID: <20250509123410.22406-1-liwang@redhat.com>
 In-Reply-To: <20250509113206.59574-1-mdoucha@suse.cz>
-Date: Fri, 9 May 2025 20:08:44 +0800
-X-Gm-Features: AX0GCFtGliBQscjXKn8zOT2zXqK7j-jHQ5a7zpQxOCEj7GCz3QKeNga0nP_A39E
-Message-ID: <CAEemH2dAyvezGCmPM_eHz0=SBuFpQVxDxEc83k5_M=jomJ=RsQ@mail.gmail.com>
-To: Martin Doucha <mdoucha@suse.cz>
+References: <20250509113206.59574-1-mdoucha@suse.cz>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: e8HIijCztE_qA_-rpsP9f7vLcFM87TqLcC3TEkMt64k_1746792537
+X-Mimecast-MFC-PROC-ID: xblT8SCOro-cG4q3LPxggTgSuu9jB6-Fi4SztkoamoY_1746794058
 X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] mmap_24-1: Change vm.max_map_count if needed
+Subject: [LTP] [PATCH] mmap_24-1: update code comments
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,65 +91,60 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 From: Li Wang via ltp <ltp@lists.linux.it>
 Reply-To: Li Wang <liwang@redhat.com>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gRnJpLCBNYXkgOSwgMjAyNSBhdCA3OjMy4oCvUE0gTWFydGluIERvdWNoYSA8bWRvdWNoYUBz
-dXNlLmN6PiB3cm90ZToKPgo+IElmIHZtLm1heF9tYXBfY291bnQgc3lzdGVtIHBhcmFtZXRlciBp
-cyB0b28gaGlnaCwgbW1hcDI0LTEgbWF5IGdldAo+IGtpbGxlZCBieSBPT00uIFNldCB0aGUgcGFy
-YW1ldGVyIHRvIGEgcmVhc29uYWJsZSBsb3cgdmFsdWUgc28gdGhhdAo+IG1tYXAoKSBxdWlja2x5
-IGZhaWxzIGFzIGV4cGVjdGVkLgo+Cj4gU2lnbmVkLW9mZi1ieTogTWFydGluIERvdWNoYSA8bWRv
-dWNoYUBzdXNlLmN6Pgo+IFJldmlld2VkLWJ5OiBQZXRyIFZvcmVsIDxwdm9yZWxAc3VzZS5jej4K
-PiBSZXZpZXdlZC1ieTogQ3lyaWwgSHJ1YmlzIDxjaHJ1YmlzQHN1c2UuY3o+Cj4gLS0tCj4KPiBD
-aGFuZ2VzIHNpbmNlIHYxOgo+IC0gUHJpbnQgd2FybmluZyBpZiBwcm9jZmlsZSBjYW5ub3QgYmUg
-b3BlbmVkCj4gLSBVc2UgZm9wZW4oLi4uLCAiciIpIGluc3RlYWQgb2YgInIrIiBpbiBtYWluKCkK
-Pgo+ICAuLi4vY29uZm9ybWFuY2UvaW50ZXJmYWNlcy9tbWFwLzI0LTEuYyAgICAgICAgfCAzNyAr
-KysrKysrKysrKysrKysrKystCj4gIDEgZmlsZSBjaGFuZ2VkLCAzNiBpbnNlcnRpb25zKCspLCAx
-IGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1
-aXRlL2NvbmZvcm1hbmNlL2ludGVyZmFjZXMvbW1hcC8yNC0xLmMgYi90ZXN0Y2FzZXMvb3Blbl9w
-b3NpeF90ZXN0c3VpdGUvY29uZm9ybWFuY2UvaW50ZXJmYWNlcy9tbWFwLzI0LTEuYwo+IGluZGV4
-IDZjYzgzNDllMS4uNDk2NzNkNjAzIDEwMDY0NAo+IC0tLSBhL3Rlc3RjYXNlcy9vcGVuX3Bvc2l4
-X3Rlc3RzdWl0ZS9jb25mb3JtYW5jZS9pbnRlcmZhY2VzL21tYXAvMjQtMS5jCj4gKysrIGIvdGVz
-dGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1aXRlL2NvbmZvcm1hbmNlL2ludGVyZmFjZXMvbW1hcC8y
-NC0xLmMKCkFzIEkgcG9pbnRlZCBpbiB0aGUgcHJldmlvdXMgdGhyZWFkLCB3ZSBzaG91bGQgdXBk
-YXRlIHRoZSBjb2RlCmNvbW1lbnRzIHRvIGV4cGxpY2l0bHkgc3RhdGUgdGhhdCB0aGUgZmFpbHVy
-ZSBpcyBjYXVzZWQgYnkgZXhjZWVkaW5nCnRoZSBtYXhpbXVtIG51bWJlciBvZiBtZW1vcnkgbWFw
-cGluZ3MgKHZtLm1heF9tYXBfY291bnQpLApyYXRoZXIgdGhhbiBvdmVyYWxsIG1lbW9yeSBleGhh
-dXN0aW9uLgoKV2l0aG91dCB0aGlzIGNsYXJpZmljYXRpb24sIHJlYWRlcnMgbWF5IGJlIG1pc2xl
-ZCBieSB0aGUgY3VycmVudCBjb21tZW50cwphbmQgbWlzdGFrZW5seSBhc3N1bWUgdGhhdCB0aGUg
-Y29kZSBpcyBpbnRlbmRlZCB0byB0ZXN0IHRvdGFsIG1lbW9yeQpleGhhdXN0aW9uLCB3aGljaCBp
-cyBub3QgdGhlIGNhc2UuCgpBbnl3YXksIHBhdGNoIGl0c2VsZiBsb29rcyBnb29kLgpBbmQgSSB2
-b3RlIGZvciBtZXJnaW5nIHRoaXMgYmVmb3JlIGEgbmV3IHJlbGVhc2UuCgpSZXZpZXdlZC1ieTog
-TGkgV2FuZyA8bGl3YW5nQHJlZGhhdC5jb20+Cgo+IEBAIC0zMSwxMiArMzEsNDIgQEAKPiAgI2lu
-Y2x1ZGUgPHN0ZGludC5oPgo+ICAjaW5jbHVkZSAicG9zaXh0ZXN0LmgiCj4KPiArI2RlZmluZSBN
-QVhfTUFQX0NPVU5UX1BBVEggIi9wcm9jL3N5cy92bS9tYXhfbWFwX2NvdW50Igo+ICsjZGVmaW5l
-IE1BUF9DT1VOVF9MSU1JVCA2NTUzMAo+ICsKPiArdm9pZCBwcm9jX3dyaXRlX3ZhbChjb25zdCBj
-aGFyICpwYXRoLCBzaXplX3QgdmFsKQo+ICt7Cj4gKyAgICAgICBGSUxFICpwcm9jZmlsZTsKPiAr
-Cj4gKyAgICAgICBwcm9jZmlsZSA9IGZvcGVuKHBhdGgsICJyKyIpOwo+ICsKPiArICAgICAgIGlm
-ICghcHJvY2ZpbGUpIHsKPiArICAgICAgICAgICAgICAgcHJpbnRmKCJXYXJuaW5nOiBDb3VsZCBu
-b3Qgb3BlbiAlc1xuIiwgcGF0aCk7Cj4gKyAgICAgICAgICAgICAgIHJldHVybjsKPiArICAgICAg
-IH0KPiArCj4gKyAgICAgICBmcHJpbnRmKHByb2NmaWxlLCAiJXp1IiwgdmFsKTsKPiArICAgICAg
-IGZjbG9zZShwcm9jZmlsZSk7Cj4gK30KPiArCj4gIGludCBtYWluKHZvaWQpCj4gIHsKPiAgICAg
-ICAgIGNoYXIgdG1wZm5hbWVbMjU2XTsKPiAgICAgICAgIHZvaWQgKnBhOwo+IC0gICAgICAgc2l6
-ZV90IGxlbjsKPiArICAgICAgIHNpemVfdCBsZW4sIG1heF9tYXBfY291bnQgPSAwOwo+ICAgICAg
-ICAgaW50IGZkOwo+ICsgICAgICAgRklMRSAqcHJvY2ZpbGU7Cj4gKwo+ICsgICAgICAgLyogQ2hh
-bmdlIHZtLm1heF9tYXBfY291bnQgdG8gYXZvaWQgT09NICovCj4gKyAgICAgICBwcm9jZmlsZSA9
-IGZvcGVuKE1BWF9NQVBfQ09VTlRfUEFUSCwgInIiKTsKPiArCj4gKyAgICAgICBpZiAocHJvY2Zp
-bGUpIHsKPiArICAgICAgICAgICAgICAgZnNjYW5mKHByb2NmaWxlLCAiJXp1IiwgJm1heF9tYXBf
-Y291bnQpOwo+ICsgICAgICAgICAgICAgICBmY2xvc2UocHJvY2ZpbGUpOwo+ICsgICAgICAgfQo+
-ICsKPiArICAgICAgIGlmIChtYXhfbWFwX2NvdW50ID4gTUFQX0NPVU5UX0xJTUlUKQo+ICsgICAg
-ICAgICAgICAgICBwcm9jX3dyaXRlX3ZhbChNQVhfTUFQX0NPVU5UX1BBVEgsIE1BUF9DT1VOVF9M
-SU1JVCk7Cj4KPiAgICAgICAgIC8qIFNpemUgb2YgdGhlIHNoYXJlZCBtZW1vcnkgb2JqZWN0ICov
-Cj4gICAgICAgICBzaXplX3Qgc2htX3NpemUgPSAxMDI0Owo+IEBAIC03OCw1ICsxMDgsMTAgQEAg
-aW50IG1haW4odm9pZCkKPgo+ICAgICAgICAgY2xvc2UoZmQpOwo+ICAgICAgICAgcHJpbnRmKCJU
-ZXN0IEZBSUxFRDogRGlkIG5vdCBnZXQgRU5PTUVNIGFzIGV4cGVjdGVkXG4iKTsKPiArCj4gKyAg
-ICAgICAvKiBSZXN0b3JlIG9yaWdpbmFsIHZtLm1heF9tYXBfY291bnQgKi8KPiArICAgICAgIGlm
-IChtYXhfbWFwX2NvdW50ID4gTUFQX0NPVU5UX0xJTUlUKQo+ICsgICAgICAgICAgICAgICBwcm9j
-X3dyaXRlX3ZhbChNQVhfTUFQX0NPVU5UX1BBVEgsIG1heF9tYXBfY291bnQpOwo+ICsKPiAgICAg
-ICAgIHJldHVybiBQVFNfRkFJTDsKPiAgfQo+IC0tCj4gMi40OS4wCj4KPgo+IC0tCj4gTWFpbGlu
-ZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCj4KCgotLSAK
-UmVnYXJkcywKTGkgV2FuZwoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5s
-aW51eC5pdC9saXN0aW5mby9sdHAK
+Follow-up: mmap_24-1: Change vm.max_map_count if needed
+Signed-off-by: Li Wang <liwang@redhat.com>
+Cc: Martin Doucha <mdoucha@suse.cz>
+---
+
+Notes:
+    This patch is based on Martin's vm.max_map_count change, to make
+    everything is clear enough from the code to comments.
+
+ .../conformance/interfaces/mmap/24-1.c        | 20 +++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/mmap/24-1.c b/testcases/open_posix_testsuite/conformance/interfaces/mmap/24-1.c
+index 49673d603..8aebdba61 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/mmap/24-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/mmap/24-1.c
+@@ -7,15 +7,23 @@
+  * source tree.
+  *
+  * The mmap() function shall fail if:
+- * [ENOMEM] MAP_FIXED was specified, and the range [addr,addr+len)
++ * [ENOMEM] MAP_FIXED was specified, and the range [addr, addr+len)
+  * exceeds that allowed for the address space of a process;
+- * or, if MAP_FIXED was not specified and
+- * there is insufficient room in the address space to effect the mapping.
++ * or, if MAP_FIXED was not specified and there is insufficient room
++ * in the address space to effect the mapping;
++ * or, if the process exceeds the maximum number of allowed memory mappings
++ * (as defined by /proc/sys/vm/max_map_count).
+  *
+  * Test Steps:
+- * 1. In a very long loop, keep mapping a shared memory object,
+- *    until there this insufficient room in the address space;
+- * 3. Should get ENOMEM.
++ * 1. In a very long loop, continuously map a shared memory object without
++ *    unmapping previous ones.
++ * 2. The loop continues until mmap() fails with ENOMEM.
++ *
++ * Note:
++ * This failure may occur due to either exhausting the process's
++ * virtual address space, or hitting the system-wide limit on
++ * the number of memory mappings (especially on systems with large RAM).
++ *
+  */
+ 
+ #include <stdio.h>
+-- 
+2.49.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
