@@ -2,101 +2,103 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAFB8AB5A98
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 May 2025 18:56:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A066AB5A9B
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 May 2025 18:57:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A8D063CC33F
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 May 2025 18:56:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3EB1B3CC352
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 May 2025 18:57:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EB5E33CB38F
- for <ltp@lists.linux.it>; Tue, 13 May 2025 18:56:51 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id B58F03CC354
+ for <ltp@lists.linux.it>; Tue, 13 May 2025 18:56:55 +0200 (CEST)
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9CE99200935
- for <ltp@lists.linux.it>; Tue, 13 May 2025 18:56:50 +0200 (CEST)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54D7hfFM019228
- for <ltp@lists.linux.it>; Tue, 13 May 2025 16:56:48 GMT
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id AC17010000FB
+ for <ltp@lists.linux.it>; Tue, 13 May 2025 18:56:54 +0200 (CEST)
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54D9F7n3030067
+ for <ltp@lists.linux.it>; Tue, 13 May 2025 16:56:53 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=pp1; bh=R2HdxYDT51wFYy7Grduszl4IkjIJd4HH8VMAQAMb9
- xQ=; b=Qn7Iw7cNJ+RgcGUKvFK2RtKm7yiKvGPvGq+ML/OWXbZE82Ph3J6WixEE8
- BKIXjXdSr8W2GuNX+j9KnptpqI1UnGtyNbT0Hehezoz7e9DSax5KV+M1iTOJ0iyV
- z7aWyCqUNEckhJ7sBnuBrdGZsqN1X0zmDU83u5RGhXRJS2RWbG9s+CzMLFcJtx4d
- kNzfeRDcZImgpwvMX8lZmUhNmGlrZkSHjRSKFlXWy6o0dwmvL91UQyML+o2w62ck
- 1x+MiE/CPleNXtv7ofh0ck0ogb5Kf6O2GKuagIR+6llF590PrkH8rOZA9NmHc3OR
- /Vdc/z1PaGmc73yEdc4t8H82tkDeA==
+ :content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=pp1; bh=M5rEpravdAJmGnn5D
+ vTDO4nz5YbNJB3z+nmUkMQQ/3o=; b=aT3ng1vxcYpp+yjiBuJf+hLQIsN6zfqda
+ ou0EeFhLxBHn34joGyHhDk6R67L4MXrvFLXmbQN93p2MchxDWQFY49LhyWuNTZRg
+ Vb1vWDqjvG+U1uAqU8jP7bZpWe2ZmkruIDxVeuG70OYq0vrmfD+dIyV6UqAjM7KZ
+ 7OznNkTLKIBBm8IzJ4dmwd2Ke7JIpF39HOSeAXUfEOtkbTOgTD6jK8+WwaASQeY0
+ Bg9HOd81oInYDWWNC2v28WAU2Wdsp3X9FXAA13Nv27F73QTGSVjqNNaa/lmGNr5A
+ LOCjH9yBopc0xYW1MMHqbz6WEfPb/Ex3Wjeyv2SwMgzMvmukh9+Rw==
 Received: from ppma21.wdc07v.mail.ibm.com
  (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 46kpp7ddk0-1
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 46m39ja8fq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <ltp@lists.linux.it>; Tue, 13 May 2025 16:56:48 +0000 (GMT)
+ for <ltp@lists.linux.it>; Tue, 13 May 2025 16:56:52 +0000 (GMT)
 Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 54DDuNpc026002
- for <ltp@lists.linux.it>; Tue, 13 May 2025 16:56:47 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
- by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 46jj4nv214-1
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 54DE9fFa025960
+ for <ltp@lists.linux.it>; Tue, 13 May 2025 16:56:52 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 46jj4nv21c-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <ltp@lists.linux.it>; Tue, 13 May 2025 16:56:47 +0000
+ for <ltp@lists.linux.it>; Tue, 13 May 2025 16:56:52 +0000
 Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com
  [10.20.54.106])
- by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 54DGuiht51577112
+ by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 54DGumjd31785484
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 13 May 2025 16:56:44 GMT
+ Tue, 13 May 2025 16:56:48 GMT
 Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E855C2008B;
- Tue, 13 May 2025 16:56:43 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 52ED820088;
+ Tue, 13 May 2025 16:56:47 +0000 (GMT)
 Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C81D220089;
- Tue, 13 May 2025 16:56:43 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 3BFCD20085;
+ Tue, 13 May 2025 16:56:47 +0000 (GMT)
 Received: from li-276bd24c-2dcc-11b2-a85c-945b6f05615c.boeblingen.de.ibm.com
  (unknown [9.155.201.149])
  by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Tue, 13 May 2025 16:56:43 +0000 (GMT)
+ Tue, 13 May 2025 16:56:47 +0000 (GMT)
 From: Jan Polensky <japo@linux.ibm.com>
 To: ltp@lists.linux.it
-Date: Tue, 13 May 2025 18:56:38 +0200
-Message-ID: <20250513165640.185122-1-japo@linux.ibm.com>
+Date: Tue, 13 May 2025 18:56:39 +0200
+Message-ID: <20250513165640.185122-2-japo@linux.ibm.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250513165640.185122-1-japo@linux.ibm.com>
+References: <20250513165640.185122-1-japo@linux.ibm.com>
 MIME-Version: 1.0
 X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: MTldJ0p93ejtRp7L_YUkgMyIJD86Myme
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTEzMDE1OCBTYWx0ZWRfX/RoMRNqpRIRU
- cZV9L1Qjk00dba7mHa+tC7t+Tojf4dZUqJfkbHerTmdpQg+dqdZRHtEgvZo+ySIc5dTd8UVx8zI
- 7jP+ahxFILks0z6H+mmC2RHPmLhTzgxadaiWhldtk5npNRgX3o9LkzIPGHV6BnqAXwkXsWJn5JO
- bmEz5caXWLosBgn5Hml8L0/D0SiimSvhW7PD62YWLmFmiHpWpcQvEwj4qtoGHoIfo4fbZ1l+NsC
- /REhvFEErO9kgYdCtjlnpIf2E8K/KoJrjrQCd6JvXze2qS8GXOhkhHS0FlNBvo9crGzzBXP+f0T
- TXOk+npRXoo1dTzrMSpPdiVOeVbhyfWPAJMrRHkQrj17n1cYk7f+8VMKxU29K3/HQpd0Vx4m9Oa
- 4eS9HDoMVruxX/zRw25ifgWjcdMK9ak1nYWxFFA2puaj6PDcVNjH78utNaW/7JDub8bovhGb
-X-Authority-Analysis: v=2.4 cv=ZY8dNtVA c=1 sm=1 tr=0 ts=682379d0 cx=c_pps
+X-Proofpoint-GUID: RYcANMvygKaGi8u5aRbM0ClBlMUdOG3f
+X-Proofpoint-ORIG-GUID: RYcANMvygKaGi8u5aRbM0ClBlMUdOG3f
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTEzMDE1OCBTYWx0ZWRfXxuJcgRiLSAa+
+ lJy0Kyo90Q4pNxzOuAa+2/7Vt/0jm1nON0xj52O4/eEHwIzNqF6BTlOwHFFq177JRw2DajydwhN
+ 8fjjCsJty/hJDcrbYCWKKGiKJOdNPP5rgj5UrbG0Y7gdLcLw+Dd6jaAjJccpKUnaY7+uyktB0VR
+ 5SP54JpJNngfMHzUN5XtQwKmB42ZcMXCsDuWojA9svhWqHUCjjRV+tC6ckS3KpfEV32gkWpV866
+ 8y7RqRHDGMa5u1DJCwWW0dQXnsObakeuVlzq1WmxwvXrd5fJjOSss1qtf9wbqvT/IOwMq7x2qwc
+ IuAf7gfpOk8yWeFwbkDPvpA9LIsBrBq0UYvRJmerxh0wReZyI9UuRqCAOJ3THlCNyWEXHowGpjK
+ bjQwXlKOVdtRW2gyvNTgkHx9IF02MtaBeMelRXCqkbUWbjvyZat1LCoBaCDODxHJ0VPcV4rW
+X-Authority-Analysis: v=2.4 cv=Sfb3duRu c=1 sm=1 tr=0 ts=682379d4 cx=c_pps
  a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=dt9VzEwgFbYA:10 a=xjfiJxQMLVGwN3IwlnAA:9
-X-Proofpoint-GUID: MTldJ0p93ejtRp7L_YUkgMyIJD86Myme
+ a=dt9VzEwgFbYA:10 a=VnNF1IyMAAAA:8 a=8aaP2mv4BmyaRo8_KN4A:9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-05-13_03,2025-05-09_01,2025-02-21_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- suspectscore=0 mlxlogscore=781 bulkscore=0 adultscore=0 malwarescore=0
- priorityscore=1501 phishscore=0 clxscore=1011 mlxscore=0 spamscore=0
- impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ mlxlogscore=979 spamscore=0
+ impostorscore=0 phishscore=0 malwarescore=0 mlxscore=0 adultscore=0
+ bulkscore=0 clxscore=1011 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
  definitions=main-2505130158
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [RFC PATCH v1 0/2] Fix NTFS-related failures in statmount02
- and
+Subject: [LTP] [RFC PATCH v1 1/2] safe_macros.c: Fix missing ro flag for
+ FUSE NTFS mounts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,19 +115,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch series addresses two issues in the LTP statmount tests related to
-incorrect assumptions about NTFS mounts via FUSE. Both issues stem from
-FUSE-based mounting behavior, where the save_mount logic does not respect the
-MS_RDONLY flag and reports the filesystem type as fuseblk instead of ntfs.
+The test incorrectly assumes that NTFS mounts are read-only, but the mount
+command does not explicitly set the read-only flag. As a result, the test fails
+when checking `sb_flags` against `MS_RDONLY`.
 
-Jan Polensky (2):
-  safe_macros.c: Fix missing ro flag for FUSE NTFS mounts
-  statmount06.c: Fix incorrect fs_type assumption NTFS->FUSEBLK
+Old behavior:
 
- lib/safe_macros.c                                 | 9 +++++++--
- testcases/kernel/syscalls/statmount/statmount06.c | 8 +++++++-
- 2 files changed, 14 insertions(+), 3 deletions(-)
+	sudo LTP_SINGLE_FS_TYPE=ntfs strace -e trace=mount,statmount -o log.log -s 128 -f ./statmount02
+	...
+	statmount02.c:47: TFAIL: st_mount->sb_flags (0) != MS_RDONLY (1)
+	...
 
+Relevant log excerpt:
+
+	3890601 mount("/dev/zero", "/tmp/mountBDSEqk", "ntfs", 0, NULL) = -1 ENOTBLK (Block device required)
+	3890608 mount("/dev/loop0", "/tmp/LTP_staTPRruR/mntpoint", "fuseblk", 0, "allow_other,blksize=4096,fd=4,rootmode=40000,user_id=0,group_id=0") = 0
+	3890607 statmount({size=24, mnt_id=0x80010957, param=STATMOUNT_SB_BASIC}, {size=512, mask=STATMOUNT_SB_BASIC, sb_dev_major=7, sb_dev_minor=0, sb_magic=FUSE_SUPER_MAGIC, sb_flags=0}, 512, 0) = 0
+
+Signed-off-by: Jan Polensky <japo@linux.ibm.com>
+---
+ lib/safe_macros.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/lib/safe_macros.c b/lib/safe_macros.c
+index 6946cc5bcb94..1270b17af8f4 100644
+--- a/lib/safe_macros.c
++++ b/lib/safe_macros.c
+@@ -942,10 +942,15 @@ int safe_mount(const char *file, const int lineno, void (*cleanup_fn)(void),
+ 	 */
+ 	if (possibly_fuse(filesystemtype)) {
+ 		char buf[1024];
++		const char* mount_fmt;
+
+ 		tst_resm_(file, lineno, TINFO, "Trying FUSE...");
+-		snprintf(buf, sizeof(buf), "mount.%s '%s' '%s'",
+-			filesystemtype, source, target);
++		if (!strcmp(filesystemtype, "ntfs") && mountflags & MS_RDONLY)
++			mount_fmt = "mount.%s -o ro '%s' '%s'";
++		else
++			mount_fmt = "mount.%s '%s' '%s'";
++		snprintf(buf, sizeof(buf), mount_fmt, filesystemtype,
++				source, target);
+
+ 		rval = tst_system(buf);
+ 		if (WIFEXITED(rval) && WEXITSTATUS(rval) == 0)
 --
 2.49.0
 
