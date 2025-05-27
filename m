@@ -1,98 +1,104 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63421AC4BC7
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 May 2025 11:50:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E9618AC4BD3
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 May 2025 11:57:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1748339452; h=mime-version :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1748339855; h=mime-version :
  references : in-reply-to : date : message-id : to : subject : list-id
  : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=YdVSPFniimMWRMmn19KQ8xVKGZDhKHs1awqOBnUH/IA=;
- b=VAsKvtfkxMxAYcp3Jnq0miOUzlnCrUQQCtOmrgYaSRF09GB96/WaYwR0X/fJ8e6HwtO3Q
- WFgCwTChLylngLSSWrqXKwFkUCdL8dzwbYT7KckKdtmvnWOH02lO222t803KSk63XmWZSSx
- pAwM/DnuB4q6IZdz2u5Mfcw/zE3ZE4I=
+ bh=FTBZOWe3/ZivrMJAKyAxx2aJGCyRGT+LH2mlNR5Vuig=;
+ b=PUt2hxP4NYYyff7R21Tv2iREv8Ac4NorCXER2wlYYLpSg6fuWKNkAdyZjx89p+2XzSbk4
+ ntwOe7uJnetngYhMZvmRkt7Ez6nRY7U6ggtDDbJK0OPXmmnufb/ZqRysJF7FD8jH5lu2Tsp
+ J0uSef3otqV5ObXdAe4uMzP/u4Xenog=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 225B53C56B2
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 May 2025 11:50:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 70D413C5584
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 May 2025 11:57:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1938F3C2C13
- for <ltp@lists.linux.it>; Tue, 27 May 2025 11:50:50 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 56F363C2C13
+ for <ltp@lists.linux.it>; Tue, 27 May 2025 11:57:32 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 783DD140032F
- for <ltp@lists.linux.it>; Tue, 27 May 2025 11:50:49 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 52C271000796
+ for <ltp@lists.linux.it>; Tue, 27 May 2025 11:57:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1748339448;
+ s=mimecast20190719; t=1748339850;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=q9o3mgEcqEJZxOE8zJaYH6rbD9e25ussMGzsDBXsbTE=;
- b=XqQCipB67Rtw2TQ2LhCgCZeEQAkWxsqn9REWMAKbGmpq33SLmwfjLwBx8iWOloWY9o+SKi
- eIBqljz/mMBAOvphsK2+K4pZ10gHHzrBGoGPs9jwdjdfjrnd9gCq+xRUtoWNGlIdN9IgAm
- 7S4UFWEhk3fJy8slZl3Nn3syx1BtCMA=
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=fnP6Q9Mirt2XZPU2RiX5+a4bDaxSKVCQP3Rg1MnaY5Q=;
+ b=Now2bHrMcASIRV44hiyLP2+bzGNHirA4XZ+D2hCDeNnNkU9oIeW3Sx0LKyrlblM/HTuvtB
+ U8BCvW1RAsYIPpgnTu85F1eKi+xseDgi2sLa/Uw166taQCKxC69F0VuJJ2TLzHLPUPBJq9
+ 0BHNML55oN/JKqyZ/TSH9Gu//L/jz68=
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-591-NE765a6tNgm_8g2MemDZbQ-1; Tue, 27 May 2025 05:50:46 -0400
-X-MC-Unique: NE765a6tNgm_8g2MemDZbQ-1
-X-Mimecast-MFC-AGG-ID: NE765a6tNgm_8g2MemDZbQ_1748339446
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-3111b16155dso4566934a91.2
- for <ltp@lists.linux.it>; Tue, 27 May 2025 02:50:46 -0700 (PDT)
+ us-mta-677-pfdbLleQM2SEu33oCcU7Yw-1; Tue, 27 May 2025 05:57:28 -0400
+X-MC-Unique: pfdbLleQM2SEu33oCcU7Yw-1
+X-Mimecast-MFC-AGG-ID: pfdbLleQM2SEu33oCcU7Yw_1748339848
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-311c5d9307eso91427a91.2
+ for <ltp@lists.linux.it>; Tue, 27 May 2025 02:57:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748339444; x=1748944244;
+ d=1e100.net; s=20230601; t=1748339847; x=1748944647;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=q9o3mgEcqEJZxOE8zJaYH6rbD9e25ussMGzsDBXsbTE=;
- b=PrsTBYcSIDkMQwxN6Z8yL2nxC4rb/RHA2/kkR6BJszqAPVJJ5Maxcsjci458zckjxO
- hRz7axd0WPv6sDhUdU39wd/bBY+kXSES8x8eZKUKY4mkCJtgUtbvtZ9bnyWwP03JqWoS
- uX1GNUQh1u9VACpWPfi/Q0Gng4uFTcZRj9AETiyFs5Jream7n8d97HentgjCi5V7BFYT
- 6e4PM5sfgSeIy24psWuhKu1zCNxHnfX4/HYcA5IgxtYd9wif/370X/390J+48NtpNlMp
- XlCEPwDo5p0Xp214GamgeOZnlwQOpJ0gDkrUWRUlf5+wQ1EXDiJmd2oOvp+HObq3W36B
- bDBQ==
-X-Gm-Message-State: AOJu0Yyr7ZK5jChIHVT8fsuNXjWJs+TrslhzErXMg3bbZkJmVersojoW
- i/p1ZznO664AbNw5faFIqhZisiSpwpPpic2y8Wp0hsGkZZHtSiI9jCgwDk8CdobnRRp7uq5z63k
- aizc+eN7loxaZBpCCoJ4p+vP1MvrtTV/gmTan0HNSW1SYthOcxXlW6B7TA3bD07QgcVL6kpEduS
- I3ASMPXr90H1LIEzi0uYdC2s+TzF3I6pIfpX8=
-X-Gm-Gg: ASbGncsqcu6P0wOIrYm6iE7mL2rP+7W1g3b1r5/02Ml5raEULBD+n5rBWbXl09Lj9F6
- nKdzxkVcAg6VvAsQ/bpQEyacM8pHMP00Dhi6uYHBcQuALga0taxU2qbhFeKmXnwaR0iSvYA==
-X-Received: by 2002:a17:90b:2b4d:b0:311:c1ec:7d05 with SMTP id
- 98e67ed59e1d1-311c1ec7f38mr680994a91.35.1748339443924; 
- Tue, 27 May 2025 02:50:43 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHdoSLgFddWjOuw0dHE+07E2iMgp4TxEfJvpl8UN9zFCH/ya9bE5zTezr7sXWmME0vKNw7eGKpdT9jSTaVD1lQ=
-X-Received: by 2002:a17:90b:2b4d:b0:311:c1ec:7d05 with SMTP id
- 98e67ed59e1d1-311c1ec7f38mr680972a91.35.1748339443621; Tue, 27 May 2025
- 02:50:43 -0700 (PDT)
+ bh=fnP6Q9Mirt2XZPU2RiX5+a4bDaxSKVCQP3Rg1MnaY5Q=;
+ b=LcrgoeJTRv2S/GUANTMDYFNpSW//pxbLhZ/Flqm4yK29tjhrdU7THUznU6PvZhityE
+ X2XlQsGFsKz2naCdvHLwaB3VbyVMmB4WCWS1hRuMGp6th2GTB3bvk1OEglF/QAS/wKDs
+ 24KNG898GKCKzrCMfZmkUmg2pE9UN0h9IXkXA67vbr1rYHGpWnZFogS3xm7n3XQnuUYd
+ LXDwIsdhpyO0OyP0/z90tBOYf55Ob6Kw9Ff/5y1fyRBxhcVwt26VspebZtLB/vUAsz+y
+ x/VO604ZMzj2iZ6Ch8UIzvU6YYKczmhknMfaLB9dLF0xxlwZTa4F+hVV+nDAT+rygJ3k
+ Iw7w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWtgevjRR5cc6qvvfdNtnfBWES7c1CFg2IssVmVhOxeZFZZLAOXK8G7LcnD+Fm4iWFIRYw=@lists.linux.it
+X-Gm-Message-State: AOJu0YzRIai8GFQEZjT9ncifMIfOObT5ZP/BmqGwX5jCPSmUcBK1Vw4e
+ oW5t6VdiiXG9Il247K1VO9lJVaE6i9juIfhD+FUN4MwcF9e+25TsYlQcAUOGJpj4m/GcqXYlYBZ
+ O1UEq0kXfVLXv2YLNHkioYSURCe6k8Dp0NfLGnECY6ZGV7hnYF1YCy2F3qb5mXH/ZGxJQbMP/Pi
+ g3bvE7o9dgS3QsbqdNY2GoagpKwas=
+X-Gm-Gg: ASbGncvnlS/2Pr4vfGwXxzzhZ/u9Xtqz7ZTYIlC/CdkEsvyto8AHgD/7XtK5aSeUHWp
+ 3OENMg55fuCOot6zPHtvK+y7bsi/pi+rLL1aDl0O1TeeD1cmggODtJSdMwFlthJwm4bke9g==
+X-Received: by 2002:a17:90b:2c8f:b0:311:c5d8:ea8b with SMTP id
+ 98e67ed59e1d1-311c5d8ed73mr322423a91.25.1748339847625; 
+ Tue, 27 May 2025 02:57:27 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFWOrSHHZU4fw2B32g5dVHQ8/cE3ry01iOVXmoX72VK+GIJdvWHk9HZH03WaAHv+QWGv++74MySSJwU7btsrNQ=
+X-Received: by 2002:a17:90b:2c8f:b0:311:c5d8:ea8b with SMTP id
+ 98e67ed59e1d1-311c5d8ed73mr322399a91.25.1748339847303; Tue, 27 May 2025
+ 02:57:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250520202429.577890-1-luizcap@redhat.com>
- <aDWIquJOzozzfHUv@yuki.lan>
-In-Reply-To: <aDWIquJOzozzfHUv@yuki.lan>
-Date: Tue, 27 May 2025 17:50:31 +0800
-X-Gm-Features: AX0GCFvwU5eLn3jDoQmuKVCYqUO8e901Is1Jyx6GLjipta2-SJgrHhZhuzu3rV0
-Message-ID: <CAEemH2fcVxSzfmmBw7k+zYf0niJ2zqG=GBNj9-y-Ow6Doi+Rvg@mail.gmail.com>
-To: LTP List <ltp@lists.linux.it>
+References: <20250526143429.22997-1-chrubis@suse.cz>
+ <20250526155132.GA151544@pevik>
+ <CAEemH2eyj5k5tUAQyo+b-JXKF5-GcLzQA5SXbP7xpqU1xU73NQ@mail.gmail.com>
+ <20250527093436.GC173684@pevik>
+In-Reply-To: <20250527093436.GC173684@pevik>
+Date: Tue, 27 May 2025 17:57:13 +0800
+X-Gm-Features: AX0GCFtCmetErUHOGROnQja0Vo4f1pBqpN2Joi6CqsA4nuO0QzoELKX4nOetIpo
+Message-ID: <CAEemH2cCL9LpBRMnfJtShmdtwKTHLMC2hQeC_sFKyh4KWwUt0Q@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: GFDBhfxxSgmKCsCS7fQaFMs419-vGXfL6efLTAa0jZE_1748339446
+X-Mimecast-MFC-PROC-ID: NrgUuD6qCzT6uT8xHkr5zZGXKZDueofU-HGqRnf8uEo_1748339848
 X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] ksm: fix segfault on s390
+Subject: Re: [LTP] [PATCH v4] lib: LTP_SINGLE_FS_TYPE and
+ LTP_FORCE_SINGLE_FS_TYPE
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,15 +112,25 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 From: Li Wang via ltp <ltp@lists.linux.it>
 Reply-To: Li Wang <liwang@redhat.com>
-Cc: Luiz Capitulino <luizcap@redhat.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Luiz, All,
+Petr Vorel <pvorel@suse.cz> wrote:
 
-Patch merged, thanks!
+>
+> > One more thing I'm a bit hesitant about, do we need to explicitly set
+> > fs_types[1] to NULL here?
+>
+> Although it looks reasonable, I suppose it's not needed because array is static,
+> therefore members are NULL, right?
+
+That's right, just confirmed with Cyril, so far we need to do nothing
+unless tst_get_supported_fs_types() is abused somewhere.
+
+Thanks for the quick reply, and feel free to merge this one.
 
 -- 
 Regards,
