@@ -2,103 +2,112 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BB14ACB9B2
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Jun 2025 18:36:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1748882167; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-transfer-encoding :
- content-type : sender : from;
- bh=CmHlkNQqj3s2takFL0255x24cOcei0LrKG4fvUWWwBI=;
- b=UHNvtLBnjf8/re/Vrb6xrVPRP2aDgY8tEm5CuRTgkI0/bR6ZPCi0NJNrE7Vlr5K4Lzwb0
- ou4jNp6K1Xk9BtMS53XUNAtvcmL0a9RmvyGYsm3pDtXrQoUAJB7lT3uoQUMDc4axOs7W08x
- 5CRm5bGVN2rO8Mh/l7owaoYmBYcysZ4=
+	by mail.lfdr.de (Postfix) with ESMTPS id C804DACB9CC
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Jun 2025 18:43:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1AB543C925B
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Jun 2025 18:36:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 421123C9DCF
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Jun 2025 18:43:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6AFE13C9904
- for <ltp@lists.linux.it>; Mon,  2 Jun 2025 18:36:04 +0200 (CEST)
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 9EAC43C9DB1
+ for <ltp@lists.linux.it>; Mon,  2 Jun 2025 18:42:20 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A2C61100094E
- for <ltp@lists.linux.it>; Mon,  2 Jun 2025 18:36:03 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-450d37d4699so21219615e9.0
- for <ltp@lists.linux.it>; Mon, 02 Jun 2025 09:36:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1748882163; x=1749486963; darn=lists.linux.it;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=1/sswzCOGmYzHjfhh9iPPxNUTzBWJI+U8Xg4HMmpv6U=;
- b=VN5eseaNeBzoeTAG6GouhOD0PExsZuucB9/rJ2WyPvWcSewIHHpAJltXllpgX7Bdrq
- dYxfcbdxXVqLBPEAk0cIeuHEzcIQWdQ0lbg610ubU1oaVSjuziskLhTlyzFx1IrrAcIj
- ftV2eHM6Fgh8F4PihvmCglk9omp7XPANYPJWTI+PNHDAJPLzt8GjCaFK8AFVF8T1J7hL
- VDg+81nC8a7AHChSLlfUawUVVMrlxwY9YXxIGhef+abIWkZV5YXe9fezX1+xSGjDp56E
- 736I5msOYyeH/go4vMbqMJ0LzM8vJsXBiWghLcvAEcBCC3JwXcYzqi6mtn7YHs+9F1r2
- HpBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748882163; x=1749486963;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1/sswzCOGmYzHjfhh9iPPxNUTzBWJI+U8Xg4HMmpv6U=;
- b=u6bLDGYnRFMAQuDahVDJG5FBt5IU8YP9iczwsdyibXm5ZrKPmt90yVCA/8o459kFA0
- 7Pv5sh5jnM3+lDK5G75ZHOOGySXu2Q+PqWpE0qgaCa++nxth1iUGvJl3dW6Fv3SD8RPp
- vVn/ROoASOaSVaOIu/gkTFtJ1btG2n/+8pT8ntGZzVzXYIuhTiwtfgvnAwJyeVkq1+FN
- KdHbh35cs577C064u4viU7uR3mokFV3tfOdDRdwFtYBQ6Zfg2f2pZKjqMEYHYKcylYVU
- 4ul3ASdUdWLl0GZ9Xe4WfTGjAn+NjMIyieEE1kfK0Jt5z58B0la34aqgu+LZo7NMQS/g
- mINQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVquTNLaWg8G8OJh43k7gJW3F8JypRZ0WBPzMod3qaNHKLjbb77MYphSQLRNcyWO5Au9Ww=@lists.linux.it
-X-Gm-Message-State: AOJu0YxwrcZ5y5vUGglL8IbB++hZ1gsfI0sVldAup/aDlWvzlpFIehYl
- nhm0soAdCtEdKyskYlfOHzKVniZHQqT9Ee0WR662yjzLIAHStaF4En3+biVUCD3Cnns=
-X-Gm-Gg: ASbGncvbBX771fuBYZ27EdfPDMB/xjjyYsxOsmekAiI+8NtMJFKuxDTCBnnPgpqO2iL
- VGhEmxwRWMyrXTS3FPHj0j4jgrF9NmGaxb9AsjMLBp2f9upouvNMpo8Y8gAVOA+R6caxL5bkYjh
- 2ZvtBXLqw100LGdId0KKWBnKCUFXQxvpPCM1+GovvOGjn6DxDzK6TcpR+8VDOQgainLcxhZ0ql4
- 9HxmlZFIVpV3IIGGkgueNDIEHE479uBHvAD3lWZpA+Dp5xlKnnrotHOiYOHym1QJbAt04WV1Hyf
- wimmXwQItIx191HdWJ+Iyc5AtY1iejvGGDh3U0J5dNVTVjggUA3gM2WdupWFOk1+JKpiAtGtCsT
- IN3h6MIauSryOw9tkxe/fPhIA26JRa/a8bDtmdhr4SZfSuoZjodsQPTQ/C2SKSYW4Z/raNGa27d
- f4wSzz2sP8qYJc3g==
-X-Google-Smtp-Source: AGHT+IEQ2EFUS5BfQMoKzTHVlkcy0QTHDWHkG/UgtJOJIaa7Z8ilEArO2bGjTFfCyTvUvlvTCc1MqA==
-X-Received: by 2002:a05:6000:25c4:b0:3a3:67bb:8f3f with SMTP id
- ffacd0b85a97d-3a4f7a7d0c4mr12026216f8f.53.1748882162902; 
- Mon, 02 Jun 2025 09:36:02 -0700 (PDT)
-Received: from ?IPV6:2003:ef:2f18:9700:bff9:d9af:e929:c0c4?
- (p200300ef2f189700bff9d9afe929c0c4.dip0.t-ipconnect.de.
- [2003:ef:2f18:9700:bff9:d9af:e929:c0c4])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23506cf93a1sm72708725ad.205.2025.06.02.09.35.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 09:36:02 -0700 (PDT)
-Message-ID: <501ca64d-10d5-46b5-967b-e76a201cb171@suse.com>
-Date: Mon, 2 Jun 2025 18:35:56 +0200
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1A3BC1A0090E
+ for <ltp@lists.linux.it>; Mon,  2 Jun 2025 18:42:19 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2416D219C8;
+ Mon,  2 Jun 2025 16:42:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1748882530; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=jJTMMDAdAUUrEb8+Nt5CxpF6a1yjX6hixu+EhHu3uA8=;
+ b=MSg1+auatlAqR1j+FihgtDp1AB/fJU/dX7zrWK45HjVOfcpyxb6AO9XibgHSLkFEGoBw3+
+ v3BHkSY4Ksyw+MyqAL2enWCPQJNx92I8BPR6mZdlyA3RUCaV0SZM6oeWyKjQP38jI1+G36
+ 8cR7Tf69jxnHFJMD16s0Kq36ojuoUTs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1748882530;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=jJTMMDAdAUUrEb8+Nt5CxpF6a1yjX6hixu+EhHu3uA8=;
+ b=Chp+0kCJ4BuydGrfS47Swo7PtLhhMo1qeB9BYqle6EifOVBIIaZDqvk5voH1LbAucIOVh0
+ MMvIh0HYBUZ1/oDw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1748882529; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=jJTMMDAdAUUrEb8+Nt5CxpF6a1yjX6hixu+EhHu3uA8=;
+ b=lvn4T6M8gHyiHA6j7LAcXqtPVHGyHI/1RhJ2DK+yPno0XHFflPMuj1pPp3XFR1BzV6G5dg
+ aXEnl8eiiMvA3A+MjCPEJfvKDx2j3zH0z/FVhh0E20M2TI8fj2SnB2Xg2PmkoKybjaiHzF
+ N4+ucKB5TY4f3+LMWasdQOt86ty+FqY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1748882529;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=jJTMMDAdAUUrEb8+Nt5CxpF6a1yjX6hixu+EhHu3uA8=;
+ b=IXCfD0VuPcg1VaVHhBfK57FSb6rTg8UEU5sKTy53NwH9Kf39zl8ZOT8NHVkyJ5ScAVKXn+
+ jVkRw4Tm7LMx6TCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E9D2E136C7;
+ Mon,  2 Jun 2025 16:42:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +LfbNmDUPWgGFwAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Mon, 02 Jun 2025 16:42:08 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Mon, 02 Jun 2025 18:41:23 +0200
+Message-Id: <20250602-lsm-v5-0-5c0dd01df3c4@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20250429-lsm-v4-0-602b7097e722@suse.com>
- <20250429-lsm-v4-4-602b7097e722@suse.com> <aD2dDODCBai0Ee-s@yuki.lan>
- <79b6bf40-b4d5-4998-af0d-4f0ba3c6fd9f@suse.com> <aD23bPyqhaAAkPXH@yuki.lan>
-Content-Language: en-US
-In-Reply-To: <aD23bPyqhaAAkPXH@yuki.lan>
+X-B4-Tracking: v=1; b=H4sIADPUPWgC/13NQQ6CMBAF0KuYrq1ppy1QV97DuBjKVJsIGKpEQ
+ 7i7BTQSl/9n3p+BReoCRbbfDKyjPsTQNimY7Ya5CzZn4qFKmYEALaUw/BprbioEnzlASZaly1t
+ HPjznleMp5UuI97Z7zaO9nNqPlzD7XnLBCazCorLW+ewQH5F2rq3ZxHv4EiPSz4VAImWlCqGML
+ 7LS/RH1IxqKhahElELtEC2ihz+i18QuRCeSCShzYXPKYU3GcXwDHHsk+C4BAAA=
+X-Change-ID: 20241105-lsm-5da2f6c2a1e9
+To: ltp@lists.linux.it
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1748882528; l=2514;
+ i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
+ bh=eg7NvS/uyxW/oCwLlbnUXBO+4tbUxXfvk6ga80zUmL8=;
+ b=IQzYlLAM0ZY6MXui9ijKA+B3nFNHtPH0yyrbTKhmykZuzBQ6T0NBksAq3jh8A1z4mXKn/i5pP
+ 8qKAu/xYvFmDmDiyBISW7IUqM7NdJM3sH2aWTF3Kb7d2gDiXdROnUcJ
+X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
+ pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[4]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email, suse.com:mid,
+ imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
+X-Spam-Score: -4.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v4 4/7] Add lsm_get_self_attr03 test
+Subject: [LTP] [PATCH v5 0/7] LSM testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,45 +119,75 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Testing the following syscalls which are providing support for the LSM
+communication added in kernel 6.8:
 
-On 6/2/25 16:38, Cyril Hrubis wrote:
-> Hi!
->>> 				next_ctx(next)
->>>
->>> Otherwise we will fail the check below.
->> Right.
-> Feel free to add my Reviewed-by: with that fixed.
-Ok
->
->>>> +	for (uint32_t i = 1; i < count; i++) {
->>>> +		TST_EXP_EXPR(strcmp(attr, (char *)next->ctx) != 0,
->>>> +			"Attribute and next LSM context must be different");
->>>> +
->>>> +		next = next_ctx(next);
->>>> +	}
->>> Have you actually tried this on a machine with more than one LSM active?
->> Fixed, also I think I we to check if "/sys/kernel/security/lsm" exists.
->> I guess it doesn't exist if no LSM are present.
-> We do call verify_supported_attr_current(); in the setup, that should be
-> enough. What I was asking for was if you ever tested this code on a
-> mach9ine where the count > 1 so that the loop actually triggered.
->
-I modify verify_supported_attr_current() in order to check if 
-/sys/kernel/security/lsm exists.
-And yes, I tested the code on a VM with 7 LSM(s).
+- lsm_get_self_attr
+- lsm_set_self_attr
+- lsm_list_modules
 
-Gonna send the next patch and then merge.
+Please consider the following documentation as reference:
+https://docs.kernel.org/userspace-api/lsm.html
 
-Thanks,
-Andrea
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+Changes in v5:
+- check if /sys/kernel/security/lsm exists before reading it
+- use next_ctx()
+- while(ptr) instead of while(ptr != NULL)
+- Link to v4: https://lore.kernel.org/r/20250429-lsm-v4-0-602b7097e722@suse.com
+
+Changes in v4:
+- fix integer index loop that should be size_t
+- correctly cast lsm_ctx pointer to char*
+- Link to v3: https://lore.kernel.org/r/20250428-lsm-v3-0-33a4caa9aaf2@suse.com
+
+Changes in v3:
+- lsm_common.h cleanup
+- better overall check for supported LSM(s) when using LSM_ATTR_CURRENT
+- simplify tests using more common functions
+- use the right size for lsm_ctx
+- Link to v2: https://lore.kernel.org/r/20250110-lsm-v2-0-bd38035f86bc@suse.com
+
+Changes in v2:
+- correctly fallback <linux/lsm.h> include
+- Link to v1: https://lore.kernel.org/r/20241112-lsm-v1-0-e293a8d99cf6@suse.com
+
+---
+Andrea Cervesato (7):
+      Add fallback definitions of LSM syscalls
+      Add lsm_get_self_attr01 test
+      Add lsm_get_self_attr02 test
+      Add lsm_get_self_attr03 test
+      Add lsm_list_modules01 test
+      Add lsm_list_modules02 test
+      Add lsm_set_self_attr01 test
+
+ configure.ac                                       |   3 +-
+ include/lapi/lsm.h                                 | 177 +++++++++++++++++++++
+ runtest/syscalls                                   |   7 +
+ testcases/kernel/syscalls/lsm/.gitignore           |   6 +
+ testcases/kernel/syscalls/lsm/Makefile             |   7 +
+ testcases/kernel/syscalls/lsm/lsm_common.h         |  96 +++++++++++
+ .../kernel/syscalls/lsm/lsm_get_self_attr01.c      |  92 +++++++++++
+ .../kernel/syscalls/lsm/lsm_get_self_attr02.c      |  45 ++++++
+ .../kernel/syscalls/lsm/lsm_get_self_attr03.c      |  68 ++++++++
+ testcases/kernel/syscalls/lsm/lsm_list_modules01.c |  75 +++++++++
+ testcases/kernel/syscalls/lsm/lsm_list_modules02.c | 156 ++++++++++++++++++
+ .../kernel/syscalls/lsm/lsm_set_self_attr01.c      | 110 +++++++++++++
+ 12 files changed, 841 insertions(+), 1 deletion(-)
+---
+base-commit: 14d8a5e93874a3fb256932930fd0a15c15f1f503
+change-id: 20241105-lsm-5da2f6c2a1e9
+
+Best regards,
+-- 
+Andrea Cervesato <andrea.cervesato@suse.com>
 
 
 -- 
