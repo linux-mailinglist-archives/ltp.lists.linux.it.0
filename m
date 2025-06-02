@@ -2,95 +2,94 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA1BAACB9CD
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Jun 2025 18:43:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEEB7ACB9C5
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Jun 2025 18:42:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6E70E3C9DED
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Jun 2025 18:43:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7568C3C987F
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Jun 2025 18:42:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 064353C9DB1
- for <ltp@lists.linux.it>; Mon,  2 Jun 2025 18:42:22 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by picard.linux.it (Postfix) with ESMTPS id 901033C9879
+ for <ltp@lists.linux.it>; Mon,  2 Jun 2025 18:42:11 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id DEF8D1000237
- for <ltp@lists.linux.it>; Mon,  2 Jun 2025 18:42:20 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F26612005F7
+ for <ltp@lists.linux.it>; Mon,  2 Jun 2025 18:42:10 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 577381F799;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8B859219C9;
  Mon,  2 Jun 2025 16:42:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1748882530; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=caFpR9v3tJu22cfrL3NyoJ8ltrFo5tmAD/Q+akkaNSI=;
- b=z+lWo8jggYUHAZwB4CxCGaew0PRlLQXs9+YzZNKuJnnDXJdxeyUjTxalb9vXVLRfwA2cC9
- +QbqO8J3qNZf1jofqOAECGmpPxB4wGkKw1xOQn4IUhZnZLEDZwulMNenfC6JS7W5srVYx/
- KJPkYSNJmPORWYjWfBADuCdpwqptY1k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1748882530;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=caFpR9v3tJu22cfrL3NyoJ8ltrFo5tmAD/Q+akkaNSI=;
- b=TIeTj296AuyUrlxj4Q6gyfmgF/PrHgt17NNHqbRI2P8jKPHqXWOZPVFSvgGVSu+qWBpSZ5
- t2CffTrCOyo8/gCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1748882529; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=caFpR9v3tJu22cfrL3NyoJ8ltrFo5tmAD/Q+akkaNSI=;
- b=fnyDwfJ0RDsXFonj5m37I585zUyJQqeMdtxLtIBgQw5VYwgS6NKHUuUMWXDRKgAMEsiq+4
- eIhOxUfgs0nNcWJufOGqYsdR9z+MwQkaCOYzXTNvHicfhQGe8T7XIPiWxPZ3gRmI9Ii19J
- hTorvalV3RjJm4sjbB67e1tU8aOMJNk=
+ bh=bJ0bUIBrdTzT+W7NLRCt+8i4zbfRQ0l+aatCC/qWiLM=;
+ b=qlGgWtrnS4u+Ign9x6Ifo2oohrFrW3zVP2T916mtvvyy5njgNpW6I1r4uTKogziPbf87fC
+ 2ufi8RVeNq5Wp+vOw7N4y/zwSqld3pfLS1hvYWhuoubtH5HO/8aoINyvFH2vPf5gy8Vq+N
+ LEmWva2/f2+E/ga47+eaFl1OoqQyctk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1748882529;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=caFpR9v3tJu22cfrL3NyoJ8ltrFo5tmAD/Q+akkaNSI=;
- b=p7iPIArGhV7N9WgjwYysaR7e77fiE3OjzQ6Qjd1DORbJj7hiNUgpLuC+mVxVsR3VJ/GPU6
- TQ9ov85rfyhBNZCA==
+ bh=bJ0bUIBrdTzT+W7NLRCt+8i4zbfRQ0l+aatCC/qWiLM=;
+ b=TVpkrYccKSpqvCK4fULJP//HAAOwcXF4TGvvKQkF3QsIve3No5huYwID2N6SBScHwjJVIT
+ QYG+JfeS1Xo4k7AQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1748882529; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bJ0bUIBrdTzT+W7NLRCt+8i4zbfRQ0l+aatCC/qWiLM=;
+ b=qlGgWtrnS4u+Ign9x6Ifo2oohrFrW3zVP2T916mtvvyy5njgNpW6I1r4uTKogziPbf87fC
+ 2ufi8RVeNq5Wp+vOw7N4y/zwSqld3pfLS1hvYWhuoubtH5HO/8aoINyvFH2vPf5gy8Vq+N
+ LEmWva2/f2+E/ga47+eaFl1OoqQyctk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1748882529;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bJ0bUIBrdTzT+W7NLRCt+8i4zbfRQ0l+aatCC/qWiLM=;
+ b=TVpkrYccKSpqvCK4fULJP//HAAOwcXF4TGvvKQkF3QsIve3No5huYwID2N6SBScHwjJVIT
+ QYG+JfeS1Xo4k7AQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 29D3413AE0;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5D41E13AE1;
  Mon,  2 Jun 2025 16:42:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 6KpGCGHUPWgGFwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id EK8SFWHUPWgGFwAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Mon, 02 Jun 2025 16:42:09 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 02 Jun 2025 18:41:24 +0200
+Date: Mon, 02 Jun 2025 18:41:25 +0200
 MIME-Version: 1.0
-Message-Id: <20250602-lsm-v5-1-5c0dd01df3c4@suse.com>
+Message-Id: <20250602-lsm-v5-2-5c0dd01df3c4@suse.com>
 References: <20250602-lsm-v5-0-5c0dd01df3c4@suse.com>
 In-Reply-To: <20250602-lsm-v5-0-5c0dd01df3c4@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1748882528; l=5566;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1748882528; l=6402;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=A9Eok+Y3FKDUOA0RJJ7NZfEENwU90yKiEYYClDQbGvk=;
- b=3xeL2KZZPX8eGePxHnDumwHPX2wQ6dp2+DYOvlG4Vc82W7rJ/57jDZ8EL/ZA0+AnmdZMuHY9Q
- kMUpcQ8cbb9AtC0rZXmskTdejG7G1gmldxVwjw8OQUtC5yY0di+/DWN
+ bh=4gN6h4Y6oNSAAkISq1/StegcHwim5O37u8pMFehVucs=;
+ b=BFesOfff62f7xuw/2luMM/1ik4KowfGYHuCukF848GHESyW2edrpxFdcov6vwOwYRa6RuSqRd
+ 25Lhns3FuB+Dot36WRepcWGIIarz15NxYAmaBAWk6bLXaQQXjOpadEE
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spam-Score: -4.30
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
@@ -100,16 +99,17 @@ X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
  RCPT_COUNT_THREE(0.00)[4]; FROM_EQ_ENVFROM(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email, imap1.dmz-prg2.suse.org:helo,
- suse.com:mid, suse.com:email]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email, suse.com:mid, suse.cz:email,
+ imap1.dmz-prg2.suse.org:helo]
 X-Spam-Level: 
+X-Spam-Score: -4.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v5 1/7] Add fallback definitions of LSM syscalls
+Subject: [LTP] [PATCH v5 2/7] Add lsm_get_self_attr01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,224 +128,253 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Fallback definition for the following syscalls:
-
-- lsm_get_self_attr
-- lsm_set_self_attr
-- lsm_list_modules
+Verify that lsm_get_self_attr syscall is raising errors when invalid
+data is provided.
 
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- configure.ac       |   3 +-
- include/lapi/lsm.h | 177 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 179 insertions(+), 1 deletion(-)
+ runtest/syscalls                                   |  2 +
+ testcases/kernel/syscalls/lsm/.gitignore           |  1 +
+ testcases/kernel/syscalls/lsm/Makefile             |  7 ++
+ testcases/kernel/syscalls/lsm/lsm_common.h         | 96 ++++++++++++++++++++++
+ .../kernel/syscalls/lsm/lsm_get_self_attr01.c      | 92 +++++++++++++++++++++
+ 5 files changed, 198 insertions(+)
 
-diff --git a/configure.ac b/configure.ac
-index 7f475f6b6419ee14125dada3ddd7d9ea06eb6b48..9ff098b273b9298b4d0ddcd43fb6aefdddf44f0c 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -69,6 +69,7 @@ AC_CHECK_HEADERS_ONCE([ \
-     linux/ioprio.h \
-     linux/keyctl.h \
-     linux/landlock.h \
-+    linux/lsm.h \
-     linux/mempolicy.h \
-     linux/module.h \
-     linux/mount.h \
-@@ -204,7 +205,7 @@ AC_CHECK_TYPES([struct ipc64_perm],,,[#include <sys/ipcbuf.h>])
- AC_CHECK_TYPES([struct loop_config],,,[#include <linux/loop.h>])
- AC_CHECK_TYPES([struct landlock_path_beneath_attr],,,[#include <linux/landlock.h>])
- AC_CHECK_TYPES([struct landlock_net_port_attr],,,[#include <linux/landlock.h>])
--
-+AC_CHECK_TYPES([struct lsm_ctx],,,[#include <linux/lsm.h>])
- AC_CHECK_TYPES([struct mmsghdr],,,[
- #define _GNU_SOURCE
- #include <sys/types.h>
-diff --git a/include/lapi/lsm.h b/include/lapi/lsm.h
+diff --git a/runtest/syscalls b/runtest/syscalls
+index e7bc7b27b604e0f0f69b6bad99955662c6c58a91..f141baa8110aa4e701a808f72a19f2bad46da2d6 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -758,6 +758,8 @@ lseek02 lseek02
+ lseek07 lseek07
+ lseek11 lseek11
+ 
++lsm_get_self_attr01 lsm_get_self_attr01
++
+ lstat01 lstat01
+ lstat01_64 lstat01_64
+ lstat02 lstat02
+diff --git a/testcases/kernel/syscalls/lsm/.gitignore b/testcases/kernel/syscalls/lsm/.gitignore
 new file mode 100644
-index 0000000000000000000000000000000000000000..72ca85f784282190b1db9fac3da79a562f93f43a
+index 0000000000000000000000000000000000000000..49f4a9263349ce633b8decb8fff1dd1d2111cf49
 --- /dev/null
-+++ b/include/lapi/lsm.h
-@@ -0,0 +1,177 @@
++++ b/testcases/kernel/syscalls/lsm/.gitignore
+@@ -0,0 +1 @@
++lsm_get_self_attr01
+diff --git a/testcases/kernel/syscalls/lsm/Makefile b/testcases/kernel/syscalls/lsm/Makefile
+new file mode 100644
+index 0000000000000000000000000000000000000000..8cf1b9024d8bdebe72408c90fef4b8b84ce9dc4b
+--- /dev/null
++++ b/testcases/kernel/syscalls/lsm/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/lsm/lsm_common.h b/testcases/kernel/syscalls/lsm/lsm_common.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..549f2d49b0b9290c4d75c87025911a81f4fa3c19
+--- /dev/null
++++ b/testcases/kernel/syscalls/lsm/lsm_common.h
+@@ -0,0 +1,96 @@
 +/* SPDX-License-Identifier: GPL-2.0-or-later */
 +/*
 + * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
 + */
 +
-+#ifndef LAPI_LSM_H__
-+#define LAPI_LSM_H__
++#ifndef LSM_GET_SELF_ATTR_H
++#define LSM_GET_SELF_ATTR_H
 +
-+#include "config.h"
++#include "tst_test.h"
++#include "lapi/lsm.h"
 +
-+#ifdef HAVE_LINUX_LSM_H
-+#include <linux/lsm.h>
++#define LSM_SYS_FILE "/sys/kernel/security/lsm"
++
++static inline struct lsm_ctx *next_ctx(struct lsm_ctx *tctx)
++{
++	return (struct lsm_ctx *)((char *)tctx + sizeof(*tctx) + tctx->ctx_len);
++}
++
++static inline void read_proc_attr(const char *attr, char *val, const size_t size)
++{
++	int fd;
++	char *ptr;
++	char path[BUFSIZ];
++
++	memset(val, 0, size);
++	memset(path, 0, BUFSIZ);
++
++	snprintf(path, BUFSIZ, "/proc/self/attr/%s", attr);
++
++	tst_res(TINFO, "Reading %s", path);
++
++	fd = SAFE_OPEN(path, O_RDONLY);
++
++	if (read(fd, val, size) > 0) {
++		ptr = strchr(val, '\n');
++		if (ptr)
++			*ptr = '\0';
++	}
++
++	SAFE_CLOSE(fd);
++}
++
++static inline int verify_enabled_lsm(const char *name)
++{
++	int fd;
++	char *ptr;
++	char data[BUFSIZ];
++
++	if (access(LSM_SYS_FILE, F_OK))
++		tst_brk(TCONF, "%s file is not present", LSM_SYS_FILE);
++
++	fd = SAFE_OPEN(LSM_SYS_FILE, O_RDONLY);
++	SAFE_READ(0, fd, data, BUFSIZ);
++	SAFE_CLOSE(fd);
++
++	ptr = strtok(data, ",");
++	while (ptr != NULL) {
++		if (!strcmp(ptr, name)) {
++			tst_res(TINFO, "%s is enabled", name);
++			return 1;
++		}
++
++		ptr = strtok(NULL, ",");
++	}
++
++	return 0;
++}
++
++static inline uint32_t count_supported_attr_current(void)
++{
++	uint32_t lsm_count = 0;
++
++	if (verify_enabled_lsm("selinux"))
++		lsm_count++;
++
++	if (verify_enabled_lsm("apparmor"))
++		lsm_count++;
++
++	if (verify_enabled_lsm("smack"))
++		lsm_count++;
++
++	return lsm_count;
++}
++
++static inline uint32_t verify_supported_attr_current(void)
++{
++	uint32_t lsm_count;
++
++	lsm_count = count_supported_attr_current();
++
++	if (!lsm_count)
++		tst_brk(TCONF, "LSM_ATTR_CURRENT is not supported by any LSM");
++
++	return lsm_count;
++}
 +#endif
-+
-+#include <stdint.h>
-+#include "lapi/syscalls.h"
-+
-+#define CTX_DATA_SIZE 4096
-+
-+#define LSM_CTX_SIZE(x) (sizeof(struct lsm_ctx) + x)
-+#define LSM_CTX_SIZE_DEFAULT LSM_CTX_SIZE(CTX_DATA_SIZE)
-+
-+#ifndef HAVE_STRUCT_LSM_CTX
-+
-+/**
-+ * struct lsm_ctx - LSM context information
-+ * @id: the LSM id number, see LSM_ID_XXX
-+ * @flags: LSM specific flags
-+ * @len: length of the lsm_ctx struct, @ctx and any other data or padding
-+ * @ctx_len: the size of @ctx
-+ * @ctx: the LSM context value
-+ *
-+ * The @len field MUST be equal to the size of the lsm_ctx struct
-+ * plus any additional padding and/or data placed after @ctx.
-+ *
-+ * In all cases @ctx_len MUST be equal to the length of @ctx.
-+ * If @ctx is a string value it should be nul terminated with
-+ * @ctx_len equal to `strlen(@ctx) + 1`.  Binary values are
-+ * supported.
-+ *
-+ * The @flags and @ctx fields SHOULD only be interpreted by the
-+ * LSM specified by @id; they MUST be set to zero/0 when not used.
+diff --git a/testcases/kernel/syscalls/lsm/lsm_get_self_attr01.c b/testcases/kernel/syscalls/lsm/lsm_get_self_attr01.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..ec272b9374e4240b6d0a0cb5b06aba112e8ea2d2
+--- /dev/null
++++ b/testcases/kernel/syscalls/lsm/lsm_get_self_attr01.c
+@@ -0,0 +1,92 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
 + */
-+struct lsm_ctx {
-+	uint64_t id;
-+	uint64_t flags;
-+	uint64_t len;
-+	uint64_t ctx_len;
-+	uint8_t ctx[];
++
++/*\
++ * Verify that lsm_get_self_attr syscall is raising errors when invalid data is
++ * provided.
++ */
++
++#include "lsm_common.h"
++
++static struct lsm_ctx *ctx;
++static uint32_t ctx_size;
++static uint32_t ctx_size_small;
++
++static struct tcase {
++	int attr;
++	struct lsm_ctx **ctx;
++	uint32_t *size;
++	uint32_t flags;
++	int exp_err;
++	char *msg;
++} tcases[] = {
++	{
++		.attr = LSM_ATTR_CURRENT,
++		.ctx = &ctx,
++		.exp_err = EINVAL,
++		.msg = "size is NULL",
++	},
++	{
++		.attr = LSM_ATTR_CURRENT,
++		.ctx = &ctx,
++		.size = &ctx_size,
++		.flags = LSM_FLAG_SINGLE | (LSM_FLAG_SINGLE << 1),
++		.exp_err = EINVAL,
++		.msg = "flags is invalid",
++	},
++	{
++		.attr = LSM_ATTR_CURRENT,
++		.ctx = &ctx,
++		.size = &ctx_size_small,
++		.exp_err = E2BIG,
++		.msg = "size is too smal",
++	},
++	{
++		.attr = LSM_ATTR_CURRENT,
++		.ctx = &ctx,
++		.size = &ctx_size,
++		.flags = LSM_FLAG_SINGLE,
++		.exp_err = EINVAL,
++		.msg = "flags force to use ctx attributes",
++	},
++	{
++		.attr = LSM_ATTR_CURRENT | LSM_ATTR_PREV,
++		.ctx = &ctx,
++		.size = &ctx_size,
++		.flags = 0,
++		.exp_err = EOPNOTSUPP,
++		.msg = "flags overset",
++	}
 +};
-+#endif
 +
-+/*
-+ * ID tokens to identify Linux Security Modules (LSMs)
-+ *
-+ * These token values are used to uniquely identify specific LSMs
-+ * in the kernel as well as in the kernel's LSM userspace API.
-+ */
-+#ifndef LSM_ID_UNDEF
-+# define LSM_ID_UNDEF		0
-+#endif
-+
-+#ifndef LSM_ID_CAPABILITY
-+# define LSM_ID_CAPABILITY	100
-+#endif
-+
-+#ifndef LSM_ID_SELINUX
-+# define LSM_ID_SELINUX		101
-+#endif
-+
-+#ifndef LSM_ID_SMACK
-+# define LSM_ID_SMACK		102
-+#endif
-+
-+#ifndef LSM_ID_TOMOYO
-+# define LSM_ID_TOMOYO		103
-+#endif
-+
-+#ifndef LSM_ID_APPARMOR
-+# define LSM_ID_APPARMOR	104
-+#endif
-+
-+#ifndef LSM_ID_YAMA
-+# define LSM_ID_YAMA		105
-+#endif
-+
-+#ifndef LSM_ID_LOADPIN
-+# define LSM_ID_LOADPIN		106
-+#endif
-+
-+#ifndef LSM_ID_SAFESETID
-+# define LSM_ID_SAFESETID	107
-+#endif
-+
-+#ifndef LSM_ID_LOCKDOWN
-+# define LSM_ID_LOCKDOWN	108
-+#endif
-+
-+#ifndef LSM_ID_BPF
-+# define LSM_ID_BPF		109
-+#endif
-+
-+#ifndef LSM_ID_LANDLOCK
-+# define LSM_ID_LANDLOCK	110
-+#endif
-+
-+#ifndef LSM_ID_IMA
-+# define LSM_ID_IMA		111
-+#endif
-+
-+#ifndef LSM_ID_EVM
-+# define LSM_ID_EVM		112
-+#endif
-+
-+#ifndef LSM_ID_IPE
-+# define LSM_ID_IPE		113
-+#endif
-+
-+/*
-+ * LSM_ATTR_XXX definitions identify different LSM attributes
-+ * which are used in the kernel's LSM userspace API. Support
-+ * for these attributes vary across the different LSMs. None
-+ * are required.
-+ */
-+#ifndef LSM_ATTR_UNDEF
-+# define LSM_ATTR_UNDEF		0
-+#endif
-+
-+#ifndef LSM_ATTR_CURRENT
-+# define LSM_ATTR_CURRENT	100
-+#endif
-+
-+#ifndef LSM_ATTR_EXEC
-+# define LSM_ATTR_EXEC		101
-+#endif
-+
-+#ifndef LSM_ATTR_FSCREATE
-+# define LSM_ATTR_FSCREATE	102
-+#endif
-+
-+#ifndef LSM_ATTR_KEYCREATE
-+# define LSM_ATTR_KEYCREATE	103
-+#endif
-+
-+#ifndef LSM_ATTR_PREV
-+# define LSM_ATTR_PREV		104
-+#endif
-+
-+#ifndef LSM_ATTR_SOCKCREATE
-+# define LSM_ATTR_SOCKCREATE	105
-+#endif
-+
-+/*
-+ * LSM_FLAG_XXX definitions identify special handling instructions
-+ * for the API.
-+ */
-+#ifndef LSM_FLAG_SINGLE
-+# define LSM_FLAG_SINGLE	0x0001
-+#endif
-+
-+static inline int lsm_get_self_attr(uint32_t attr, struct lsm_ctx *ctx,
-+				    uint32_t *size, uint32_t flags)
++static void run(unsigned int n)
 +{
-+	return tst_syscall(__NR_lsm_get_self_attr, attr, ctx, size, flags);
++	struct tcase *tc = &tcases[n];
++
++	memset(ctx, 0, LSM_CTX_SIZE_DEFAULT);
++	ctx_size = LSM_CTX_SIZE_DEFAULT;
++	ctx_size_small = 1;
++
++	TST_EXP_FAIL(lsm_get_self_attr(
++		tc->attr, *tc->ctx, tc->size, tc->flags),
++		tc->exp_err,
++		"%s", tc->msg);
 +}
 +
-+static inline int lsm_set_self_attr(uint32_t attr, struct lsm_ctx *ctx,
-+				    uint32_t size, uint32_t flags)
++static void setup(void)
 +{
-+	return tst_syscall(__NR_lsm_set_self_attr, attr, ctx, size, flags);
++	verify_supported_attr_current();
 +}
 +
-+static inline int lsm_list_modules(uint64_t *ids, uint32_t *size, uint32_t flags)
-+{
-+	return tst_syscall(__NR_lsm_list_modules, ids, size, flags);
-+}
-+#endif
++static struct tst_test test = {
++	.setup = setup,
++	.test = run,
++	.tcnt = ARRAY_SIZE(tcases),
++	.min_kver = "6.8",
++	.bufs = (struct tst_buffers[]) {
++		{&ctx, .size = LSM_CTX_SIZE_DEFAULT},
++		{}
++	},
++};
 
 -- 
 2.43.0
