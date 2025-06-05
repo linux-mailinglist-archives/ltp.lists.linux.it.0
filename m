@@ -2,91 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70538ACE856
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Jun 2025 04:30:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1749090621; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=gNsRAy73t7PRnnhfMI1tUTtlLWManOZv8hMxs0L+2m4=;
- b=IpE1Zn4XeH6naqSxjiH4LgjGJPHUrVmluci0QAtfLrobJ/fm2qzdNAyotaKYXcbrwCBmM
- 0TYZWg25lBRHvAUO4W0pJ7iq36m7K2ykVxVCnpIl3GYWcwngoZ6ASooBWh50ZDzp+gCZr0n
- oNJcj/E1xi+BtK8qUGcFAGVMh0yHKJ8=
+	by mail.lfdr.de (Postfix) with ESMTPS id E283BACEA25
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Jun 2025 08:28:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1D5563C91FB
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Jun 2025 04:30:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AF2013CA20E
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Jun 2025 08:28:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D05883C91D9
- for <ltp@lists.linux.it>; Thu,  5 Jun 2025 04:30:08 +0200 (CEST)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id DEA763C987F
+ for <ltp@lists.linux.it>; Thu,  5 Jun 2025 08:28:35 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 03C5120651D
- for <ltp@lists.linux.it>; Thu,  5 Jun 2025 04:30:07 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-450cfb790f7so3258445e9.0
- for <ltp@lists.linux.it>; Wed, 04 Jun 2025 19:30:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1749090607; x=1749695407; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=oSyZsPiDyzF8zEgI5LBNJGcS1WVxgufDl1osj34UZYU=;
- b=UGeQc09bu1hTyNUqLFEpk0AAi/ek3fjxtcqrc53XLJhzhA9XqUjfXN44bY90ooahxg
- s1JpCIjBS1T4x4DmPjicv0bKK4f9YTL48cvB7YhdjRKWrOCV5F2oWgmfzNi2YB+pScMQ
- foIHaETYQyUBsqjFVDgaKPnwISpfQ2wXQ5f/3luxC48O5EHeoxt0v2380/bWQDxD8JmT
- SwbZjk0+51QOUM7n1gwIdbhqNnqGSt106jyaST9GPOWWIapDR4/Q+Hb995KhufkBOC0w
- UOutHk9abeiDeTfqu0moOKxpWJJmyzVRw5ZivXpv2Jxnqg5B7tyJcKQjaC0F2agmfVub
- KwLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749090607; x=1749695407;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oSyZsPiDyzF8zEgI5LBNJGcS1WVxgufDl1osj34UZYU=;
- b=ZXl3i7PXjZOG4Kmw7s2Tfx8I3WWyrvEANJNqR0hzOusoxcx/uPSQiH4ld/pSSdzQS+
- gwJ/YvxTqFwA55cKk9lIC9SMbQRP/jMGk97b87ZkV6YEuHm1e7NKnLy+8wGUwrEEGZXO
- LdkI0qRfabAGpK5M9bQkDmYIUB7LW03rTnvN+PuFqOUZ8VUyHRwXSC+8PqkACCTgtEbl
- R1lZUflWM+LiS+T8x7hTZrJCWfJLIGLaX8zOBfTwkmeQVWuwMGELGPbZNkOWItk4g6uA
- RuXhqCvnFH0cebMUQAdHEugeKVKG14L2tA8AwJcKZpyj5EKblxiHYTRo4cas/sI9bmXL
- 2J0g==
-X-Gm-Message-State: AOJu0YzXsuvvrtVe74KGh0pO6qo50Lk7GifuCymHl3HGEYq8/+yclkyW
- QSGFbMDL3FujRmNidDCUj7gmUTqDJ3DjIlSh0pK18yvKFfDDM0C39+Pe+S7YBaJnekKdm9plEnJ
- wK9s=
-X-Gm-Gg: ASbGncv9ywrkBqp9OESOd1zIxO6t+Px/rbhwRzoWTpVYJJgd4apQe5hb6hDl8HvBUjA
- fIpG9yWbHSSi7Ye8hmu5+IeB8cEatkAJ2JlGmWQQFCXMWpMRZ1igJ2E6TSKxGbgmOankj040voc
- q+CMySt+v9/hbyd9Wbbb1HEX2sgNLFzzRtrROLiHF0j0b1AC4lDwlBzIQxspAcXrP1gnXwq9Ifp
- bbF+B51/8VfactAgHhOHf0KlaWkbqjWp9o8DDBjn5d6HnQRu3JsnO97iI3OKzH6eBLS0nb9GG04
- zbudfOwTNm/bArkRFiUgRp/mO/FQg71PV1Pu+0twBYg/DPsJg6w=
-X-Google-Smtp-Source: AGHT+IGRmIqYfXl8U+bxFRQOh1ygiZluxmXbDle+dZAPrBPvc2a8HGC2l+x2vC6b6+wlL+BAsvxGoA==
-X-Received: by 2002:a05:6000:2303:b0:3a4:d898:3e2d with SMTP id
- ffacd0b85a97d-3a51d92f833mr4249175f8f.24.1749090607083; 
- Wed, 04 Jun 2025 19:30:07 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
- by smtp.gmail.com with UTF8SMTPSA id
- d9443c01a7336-23506cf3c95sm110446505ad.159.2025.06.04.19.30.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Jun 2025 19:30:06 -0700 (PDT)
-To: ltp@lists.linux.it
-Date: Thu,  5 Jun 2025 10:29:40 -0400
-Message-ID: <20250605142943.229010-1-wegao@suse.com>
-X-Mailer: git-send-email 2.49.0
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3EE266000E2
+ for <ltp@lists.linux.it>; Thu,  5 Jun 2025 08:28:34 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 38F2A20E26;
+ Thu,  5 Jun 2025 06:28:34 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1BF66137FE;
+ Thu,  5 Jun 2025 06:28:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id gF6WBRI5QWj8GQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 05 Jun 2025 06:28:34 +0000
+Date: Thu, 5 Jun 2025 08:28:32 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20250605062832.GA1184316@pevik>
+References: <20250603152253.214656-1-mdoucha@suse.cz>
+ <20250603152253.214656-2-mdoucha@suse.cz>
+ <20250604063521.GA1094733@pevik>
+ <5be510c9-7bea-42f8-9232-e6e44a82aea9@suse.cz>
 MIME-Version: 1.0
-X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+Content-Disposition: inline
+In-Reply-To: <5be510c9-7bea-42f8-9232-e6e44a82aea9@suse.cz>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Queue-Id: 38F2A20E26
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Score: -4.00
+X-Spam-Status: No, score=0.0 required=7.0 tests=DMARC_MISSING,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v1] sched_rr_get_interval01.c: Put test process into
- absolute root cgroup (0::/)
+Subject: Re: [LTP] [PATCH v2 1/2] epoll_pwait: Refactor timeout to struct
+ timespec
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,51 +80,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-When the CONFIG_RT_GROUP_SCHED=y config is set, test cases like sched_rr_get_interval01
-will failed since limitation of RT processes with cgroup v2 cpu controller.
-The limitation is RT processes have to be in the root cgroup before enabling cpu controller.
-By default the shell will not running in root cgroup "0::/" since systemd will put shell
-into 0::/user.slice/user-xx.slice/session-xx.scope, so ltp case run within shell will failed.
-We can use this patch to workaround above limitation. If we agree on this patch, i will
-continue do same patch to following cases:
-sched_rr_get_interval02
-sched_rr_get_interval03
-sched_setparam02
-sched_getscheduler01
+Hi Martin,
 
-Fixes: https://github.com/linux-test-project/ltp/issues/1245
-Signed-off-by: Wei Gao <wegao@suse.com>
----
- .../sched_rr_get_interval/sched_rr_get_interval01.c         | 6 ++++++
- 1 file changed, 6 insertions(+)
+...
+> > > +++ b/testcases/kernel/syscalls/epoll_pwait/epoll_pwait_var.h
+> > > @@ -14,22 +14,22 @@
+> > >   #define NSEC_PER_MSEC (1000000L)
 
-diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
-index b4d75bdcc..55516ec89 100644
---- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
-+++ b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
-@@ -43,6 +43,12 @@ static void setup(void)
- 
- 	tp.type = tv->ts_type;
- 
-+	if (access("/sys/fs/cgroup/cgroup.controllers", F_OK) == 0) {
-+		int pid = getpid();
-+
-+		SAFE_FILE_PRINTF("/sys/fs/cgroup/cgroup.procs", "%d", pid);
-+	}
-+
- 	if ((sys_sched_setscheduler(0, SCHED_RR, &p)) == -1)
- 		tst_res(TFAIL | TERRNO, "sched_setscheduler() failed");
- 
--- 
-2.49.0
+> > >   static int do_epoll_pwait(int epfd, struct epoll_event *events, int
+> > > -	maxevents, int timeout, const sigset_t *sigmask)
+> > > +	maxevents, struct timespec *timeout, const sigset_t *sigmask)
+> > >   {
+> > > -	if (tst_variant == 0)
+> > > -		return epoll_pwait(epfd, events, maxevents, timeout, sigmask);
+> > > +	if (tst_variant == 0) {
+> > > +		int timeout_ms = -1;
 
+> > very nit: I would reverse the condition to save indent for tst_variant == 0:
+
+> Feel free to do it during merge, but it'd be better to check (tst_variant ==
+> 1) instead in case there will be epoll_pwait3() in the future.
+
+Thanks for your ack + good point, changed as tst_variant == 1.
+Patchset merged, thanks!
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
