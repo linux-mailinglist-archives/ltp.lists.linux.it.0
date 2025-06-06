@@ -2,84 +2,82 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D9F3AD0105
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Jun 2025 13:05:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F94DAD0107
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Jun 2025 13:07:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1749207958; h=to : date :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1749208022; h=to : date :
  message-id : in-reply-to : references : mime-version : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : content-type :
  content-transfer-encoding : sender : from;
- bh=PmibjY0S6epxi3IFl2ZoN+yJYaSKcF6lRT+oRF1bm0A=;
- b=MNnF3k3X7ayksw8+guzIuQA6G9XP3lZdzK7ux0CQ0FswJ6TMGByfubpnF2n45m/bZOO3y
- jOKWI7NfgDb1/d43Idsf3cYd4W8OSVQNyoqp5k+TtxmhA3WszfP9YDQ3ZFiEGJnQDqvOSFz
- X76XBPZuE6/JuLD7ZJVJ4tgBixMxA5Y=
+ bh=9HJ6Ojnid4v4RR7s4MdFqPBhiM9PjOjRj/pVpoAIJYU=;
+ b=JkFiifm16u3bj+0BUE+aJmtb98wEsokx9d/CSW3gdIq5wNAs+cN5IlmLIsrfD5FcbS+3z
+ ckmv1NqJ6Z/pcdCGE/BddgiRE9TapvpWwgNKGZMrmqjAV7z5I5FYGTzRxui5cnPEKFnDac9
+ 7FY8NyawLt+qmaadxUzfg/EBzgIgYP0=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D82B93C9B36
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Jun 2025 13:05:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 03A613C21A9
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Jun 2025 13:07:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3B5E83C1A2E
- for <ltp@lists.linux.it>; Fri,  6 Jun 2025 13:05:56 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id E05973C9B45
+ for <ltp@lists.linux.it>; Fri,  6 Jun 2025 13:05:58 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 15118601551
- for <ltp@lists.linux.it>; Fri,  6 Jun 2025 13:05:54 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CF12B2000A9
+ for <ltp@lists.linux.it>; Fri,  6 Jun 2025 13:05:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1749207953;
+ s=mimecast20190719; t=1749207956;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xegOkOTaLuDUKavpsT+gWrHG6pgN1rOzxHetR0lA+XY=;
- b=KsIhdkvWyChx2YdTajY+vTEyAioM06rp+aQuqbIASHvPeZiqxdMKYeAvM/47POnQ+t8oZ/
- 4TUJCoaoqoa3NPjz7uSBc2JBcyyhRh7JKx96Kjzv9srPJdnQ7HZkYNhK9/LucOlSXkuqod
- N/vwNJHC4uOdrUhkY+E5/tGGwEAo8gk=
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=W1rQygz7A5L+MgYeDAIta334UnBMiytOiYsCwzjut6I=;
+ b=iJQdGXZOxsyo/KwEMzAI2mA/3wAXSodDemHABt1LLuCILShdQJMwqyhIJ7ksK2wPP910nj
+ tQpLn9vbuymXq5ddMSf+OUZF+KLSdmr1L+W8ikcrrNmbfsr4FhzpP3O2eKp9Dht4+Lta8N
+ ot0V59DtnIL/z/mjTTKMM3a1x1sySqs=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-647-qdovklKaOHiAI0V-GivViw-1; Fri,
- 06 Jun 2025 07:05:52 -0400
-X-MC-Unique: qdovklKaOHiAI0V-GivViw-1
-X-Mimecast-MFC-AGG-ID: qdovklKaOHiAI0V-GivViw_1749207951
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-614-HMui0rnIMEm08jYJLchlAg-1; Fri,
+ 06 Jun 2025 07:05:54 -0400
+X-MC-Unique: HMui0rnIMEm08jYJLchlAg-1
+X-Mimecast-MFC-AGG-ID: HMui0rnIMEm08jYJLchlAg_1749207953
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 1FDE219560B2
- for <ltp@lists.linux.it>; Fri,  6 Jun 2025 11:05:51 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 4E91818002BC; Fri,  6 Jun 2025 11:05:53 +0000 (UTC)
 Received: from dell-per7425-02.rhts.eng.pek2.redhat.com
  (dell-per7425-02.rhts.eng.pek2.redhat.com [10.73.116.18])
  by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 9F4AB18002B3
- for <ltp@lists.linux.it>; Fri,  6 Jun 2025 11:05:49 +0000 (UTC)
+ id CDDDB180049D; Fri,  6 Jun 2025 11:05:51 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Fri,  6 Jun 2025 19:05:40 +0800
-Message-ID: <20250606110541.220472-2-liwang@redhat.com>
+Date: Fri,  6 Jun 2025 19:05:41 +0800
+Message-ID: <20250606110541.220472-3-liwang@redhat.com>
 In-Reply-To: <20250606110541.220472-1-liwang@redhat.com>
 References: <20250606110541.220472-1-liwang@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: e8BHjQWDAih6rx9I8UaMGUiIeL-ALzxWugBIitKUszg_1749207951
+X-Mimecast-MFC-PROC-ID: _vakZ-wtbobkgl3nHLA_274nnCWeivhNiNETk1Fxotc_1749207953
 X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 2/3] tst_atomic: Introduce tst_atomic_t and apply
- it consistently
+Subject: [LTP] [PATCH v3 3/3] lib: moves test infrastructure states into a
+ shared context structure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,373 +96,564 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch introduces a new tst_atomic_t typedef (int32_t) to replace
-direct usage of int in atomic operations across the test framework.
+This patch introduces a new struct context to consolidate various
+runtime state variables previously maintained as global variables
+in tst_test.c. The goal is to support better state sharing between
+parent and child processes particularly in scenarios that involve
+checkpointing or fork/exec patterns.
 
-The changes ensure:
+To achieve this, a new struct ipc_region is defined, which encapsulates
+three components: a magic field for validation, a context structure for
+runtime metadata, and a results structure for test result counters.
+Optionally, a futex array is appended for test checkpoint synchronization.
 
-- Consistent 32-bit atomic operations across platforms
-- Clearer intent for variables used in atomic contexts
-- Better maintainability through centralized type definition
-- Fixed declaration consistency in atomic APIs
+Test library IPC region (only one page size):
+
+        +----------------------+
+        |   Magic Number       |
+        +----------------------+
+        |   struct context     |
+        +----------------------+
+        |   struct results     |
+        +----------------------+
+        |   futexes[], or N/A  |
+        +----------------------+
+
+The shared memory region is allocated with a single page using mmap()
+and is zero-initialized with memset() to ensure a clean initial state.
+
+The patch refactors setup_ipc() and tst_reinit() to map this shared
+region and properly initialize internal pointers to the `context`,
+`results`, and `futexes` regions.
+
+Overall, this refactor reduces global state pollution, centralizes the
+runtime state management, and enables safe and efficient state sharing
+across test lifecycle phases. It also sets the foundation for future
+improvements such as multi-threaded test coordination or enhanced IPC
+mechanisms.
 
 Signed-off-by: Li Wang <liwang@redhat.com>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 ---
- include/tst_atomic.h                          | 23 +++++++++++--------
- include/tst_fuzzy_sync.h                      |  6 ++---
- lib/newlib_tests/test08.c                     |  2 +-
- lib/newlib_tests/test09.c                     |  2 +-
- lib/newlib_tests/test15.c                     |  2 +-
- lib/newlib_tests/tst_fuzzy_sync01.c           |  2 +-
- lib/newlib_tests/tst_fuzzy_sync02.c           |  2 +-
- testcases/kernel/containers/pidns/pidns32.c   |  2 +-
- .../kernel/controllers/cgroup/cgroup_core03.c |  2 +-
- testcases/kernel/fs/fs_fill/fs_fill.c         |  2 +-
- testcases/kernel/fs/read_all/read_all.c       |  4 ++--
- testcases/kernel/io/ltp-aiodio/dio_read.c     |  2 +-
- testcases/kernel/mem/mtest06/mmap1.c          |  2 +-
- testcases/kernel/mem/mtest06/mmap3.c          |  2 +-
- .../kernel/syscalls/exit_group/exit_group01.c |  2 +-
- .../syscalls/futex/futex_cmp_requeue01.c      |  4 ++--
- .../syscalls/ipc/msgstress/msgstress01.c      |  2 +-
- testcases/kernel/syscalls/writev/writev03.c   |  2 +-
- .../func/sched_football/sched_football.c      |  4 ++--
- 19 files changed, 36 insertions(+), 33 deletions(-)
+ lib/tst_test.c | 209 ++++++++++++++++++++++++++++---------------------
+ 1 file changed, 118 insertions(+), 91 deletions(-)
 
-diff --git a/include/tst_atomic.h b/include/tst_atomic.h
-index 7c320c633..57b6b6bd5 100644
---- a/include/tst_atomic.h
-+++ b/include/tst_atomic.h
-@@ -6,23 +6,26 @@
- #ifndef TST_ATOMIC_H__
- #define TST_ATOMIC_H__
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index 92dd6279d..8cb3507c9 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -52,6 +52,7 @@ const char *TCID __attribute__((weak));
+ #define CVE_DB_URL "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-"
  
-+#include <stdint.h>
- #include "config.h"
+ #define DEFAULT_TIMEOUT 30
++#define LTP_MAGIC 0x4C54504D /* Magic number is "LTPM" */
  
-+typedef int32_t tst_atomic_t;
+ struct tst_test *tst_test;
+ 
+@@ -59,36 +60,47 @@ static const char *tcid;
+ static int iterations = 1;
+ static float duration = -1;
+ static float timeout_mul = -1;
+-static int mntpoint_mounted;
+-static int ovl_mounted;
+-static struct timespec tst_start_time; /* valid only for test pid */
+-static int tdebug;
+ static int reproducible_output;
+ 
+-struct results {
+-	int passed;
+-	int skipped;
+-	int failed;
+-	int warnings;
+-	int broken;
++struct context {
++	int32_t lib_pid;
++	int32_t main_pid;
++	struct timespec start_time;
++	int32_t runtime;
++	int32_t overall_time;
+ 	/*
+ 	 * This is set by a call to tst_brk() with TBROK parameter and means
+ 	 * that the test should exit immediately.
+ 	 */
+-	int abort_flag;
+-	unsigned int runtime;
+-	unsigned int overall_time;
+-	pid_t lib_pid;
+-	pid_t main_pid;
++	tst_atomic_t abort_flag;
++	uint32_t mntpoint_mounted:1;
++	uint32_t ovl_mounted:1;
++	uint32_t tdebug:1;
+ };
+ 
+-static struct results *results;
++struct results {
++	tst_atomic_t passed;
++	tst_atomic_t skipped;
++	tst_atomic_t failed;
++	tst_atomic_t warnings;
++	tst_atomic_t broken;
++};
+ 
+-static int ipc_fd;
++struct ipc_region {
++	int32_t magic;
++	struct context context;
++	struct results results;
++	futex_t futexes[];
++};
+ 
+-extern void *tst_futexes;
++static struct ipc_region *ipc;
++static struct context *context;
++static struct results *results;
 +
- #if HAVE_ATOMIC_MEMORY_MODEL == 1
++extern volatile void *tst_futexes;
+ extern unsigned int tst_max_futexes;
  
- /* Use __atomic built-ins (GCC >= 4.7), with sequential consistency. */
++static int ipc_fd;
+ static char ipc_path[1064];
+ const char *tst_ipc_path = ipc_path;
  
--static inline int tst_atomic_add_return(int i, int *v)
-+static inline int tst_atomic_add_return(int32_t i, tst_atomic_t *v)
- {
- 	return __atomic_add_fetch(v, i, __ATOMIC_SEQ_CST);
+@@ -127,25 +139,29 @@ static void setup_ipc(void)
+ 
+ 	SAFE_FTRUNCATE(ipc_fd, size);
+ 
+-	results = SAFE_MMAP(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, ipc_fd, 0);
+-
+-	/* Checkpoints needs to be accessible from processes started by exec() */
+-	if (tst_test->needs_checkpoints || tst_test->child_needs_reinit) {
+-		sprintf(ipc_path, IPC_ENV_VAR "=%s", shm_path);
+-		putenv(ipc_path);
+-	} else {
+-		SAFE_UNLINK(shm_path);
+-	}
++	ipc = SAFE_MMAP(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, ipc_fd, 0);
+ 
+ 	SAFE_CLOSE(ipc_fd);
+ 
++	memset(ipc, 0, size);
++
++	ipc->magic = LTP_MAGIC;
++	context = &ipc->context;
++	results = &ipc->results;
++	context->lib_pid = getpid();
++
+ 	if (tst_test->needs_checkpoints) {
+-		tst_futexes = (char *)results + sizeof(struct results);
+-		tst_max_futexes = (size - sizeof(struct results))/sizeof(futex_t);
++		tst_futexes = ipc->futexes;
++		tst_max_futexes = (size - offsetof(struct ipc_region, futexes)) / sizeof(futex_t);
+ 	}
+ 
+-	memset(results, 0 , size);
+-	results->lib_pid = getpid();
++	/* Set environment variable for exec()'d children */
++	if (tst_test->needs_checkpoints || tst_test->child_needs_reinit) {
++		snprintf(ipc_path, sizeof(ipc_path), IPC_ENV_VAR "=%s", shm_path);
++		putenv(ipc_path);
++	} else {
++		SAFE_UNLINK(shm_path);
++	}
  }
  
--static inline int tst_atomic_load(int *v)
-+static inline int32_t tst_atomic_load(tst_atomic_t *v)
- {
- 	return __atomic_load_n(v, __ATOMIC_SEQ_CST);
+ static void cleanup_ipc(void)
+@@ -158,9 +174,11 @@ static void cleanup_ipc(void)
+ 	if (shm_path[0] && !access(shm_path, F_OK) && unlink(shm_path))
+ 		tst_res(TWARN | TERRNO, "unlink(%s) failed", shm_path);
+ 
+-	if (results) {
+-		msync((void *)results, size, MS_SYNC);
+-		munmap((void *)results, size);
++	if (ipc) {
++		msync((void *)ipc, size, MS_SYNC);
++		munmap((void *)ipc, size);
++		ipc = NULL;
++		context = NULL;
+ 		results = NULL;
+ 	}
+ }
+@@ -178,12 +196,21 @@ void tst_reinit(void)
+ 		tst_brk(TBROK, "File %s does not exist!", path);
+ 
+ 	fd = SAFE_OPEN(path, O_RDWR);
++	ipc = SAFE_MMAP(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
++	SAFE_CLOSE(fd);
+ 
+-	results = SAFE_MMAP(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+-	tst_futexes = (char *)results + sizeof(struct results);
+-	tst_max_futexes = (size - sizeof(struct results))/sizeof(futex_t);
++	if (ipc->magic != LTP_MAGIC)
++		tst_brk(TBROK, "Invalid shared memory region (bad magic)");
+ 
+-	SAFE_CLOSE(fd);
++	/* Restore the parent context from IPC region */
++	context = &ipc->context;
++	results = &ipc->results;
++
++	tst_futexes = ipc->futexes;
++	tst_max_futexes = (size - offsetof(struct ipc_region, futexes)) / sizeof(futex_t);
++
++	if (context->tdebug)
++		tst_res(TINFO, "tst_reinit(): restored metadata for PID %d", getpid());
  }
  
--static inline void tst_atomic_store(int i, int *v)
-+static inline void tst_atomic_store(int32_t i, tst_atomic_t *v)
+ extern char **environ;
+@@ -400,7 +427,7 @@ void tst_vbrk_(const char *file, const int lineno, int ttype, const char *fmt,
+ 	 * If tst_brk() is called from some of the C helpers even before the
+ 	 * library was initialized, just exit.
+ 	 */
+-	if (!results || !results->lib_pid)
++	if (!results || !context->lib_pid)
+ 		exit(TTYPE_RESULT(ttype));
+ 
+ 	update_results(TTYPE_RESULT(ttype));
+@@ -411,13 +438,13 @@ void tst_vbrk_(const char *file, const int lineno, int ttype, const char *fmt,
+ 	 * specified but CLONE_THREAD is not. Use direct syscall to avoid
+ 	 * cleanup running in the child.
+ 	 */
+-	if (tst_getpid() == results->main_pid)
++	if (tst_getpid() == context->main_pid)
+ 		do_test_cleanup();
+ 
+ 	/*
+ 	 * The test library process reports result statistics and exits.
+ 	 */
+-	if (getpid() == results->lib_pid)
++	if (getpid() == context->lib_pid)
+ 		do_exit(TTYPE_RESULT(ttype));
+ 
+ 	/*
+@@ -428,16 +455,16 @@ void tst_vbrk_(const char *file, const int lineno, int ttype, const char *fmt,
+ 	 */
+ 	if (TTYPE_RESULT(ttype) == TBROK) {
+ 		if (results)
+-			tst_atomic_inc(&results->abort_flag);
++			tst_atomic_inc(&context->abort_flag);
+ 
+ 		/*
+ 		 * If TBROK was called from one of the child processes we kill
+ 		 * the main test process. That in turn triggers the code that
+ 		 * kills leftover children once the main test process did exit.
+ 		 */
+-		if (results->main_pid && tst_getpid() != results->main_pid) {
++		if (context->main_pid && tst_getpid() != context->main_pid) {
+ 			tst_res(TINFO, "Child process reported TBROK killing the test");
+-			kill(results->main_pid, SIGKILL);
++			kill(context->main_pid, SIGKILL);
+ 		}
+ 	}
+ 
+@@ -449,7 +476,7 @@ void tst_res_(const char *file, const int lineno, int ttype,
  {
- 	__atomic_store_n(v, i, __ATOMIC_SEQ_CST);
+ 	va_list va;
+ 
+-	if (ttype == TDEBUG && !tdebug)
++	if (ttype == TDEBUG && context && !context->tdebug)
+ 		return;
+ 
+ 	va_start(va, fmt);
+@@ -766,7 +793,7 @@ static void parse_opts(int argc, char *argv[])
+ 		break;
+ 		case 'D':
+ 			tst_res(TINFO, "Enabling debug info");
+-			tdebug = 1;
++			context->tdebug = 1;
+ 		break;
+ 		case 'h':
+ 			print_help();
+@@ -1111,7 +1138,7 @@ static int prepare_and_mount_ro_fs(const char *dev, const char *mntpoint,
+ 		return 1;
+ 	}
+ 
+-	mntpoint_mounted = 1;
++	context->mntpoint_mounted = 1;
+ 
+ 	snprintf(buf, sizeof(buf), "%s/dir/", mntpoint);
+ 	SAFE_MKDIR(buf, 0777);
+@@ -1135,14 +1162,14 @@ static void prepare_and_mount_dev_fs(const char *mntpoint)
+ 		tst_res(TINFO, "tmpdir isn't suitable for creating devices, "
+ 			"mounting tmpfs without nodev on %s", mntpoint);
+ 		SAFE_MOUNT(NULL, mntpoint, "tmpfs", 0, NULL);
+-		mntpoint_mounted = 1;
++		context->mntpoint_mounted = 1;
+ 	}
  }
-@@ -31,14 +34,14 @@ static inline void tst_atomic_store(int i, int *v)
  
- /* Use __sync built-ins (GCC >= 4.1), with explicit memory barriers. */
- 
--static inline int tst_atomic_add_return(int i, int *v)
-+static inline int tst_atomic_add_return(int32_t i, tst_atomic_t *v)
+ static void prepare_and_mount_hugetlb_fs(void)
  {
- 	return __sync_add_and_fetch(v, i);
+ 	SAFE_MOUNT("none", tst_test->mntpoint, "hugetlbfs", 0, NULL);
+-	mntpoint_mounted = 1;
++	context->mntpoint_mounted = 1;
  }
  
--static inline int tst_atomic_load(int *v)
-+static inline int32_t tst_atomic_load(tst_atomic_t *v)
- {
--	int ret;
-+	tst_atomic_t ret;
+ int tst_creat_unlinked(const char *path, int flags, mode_t mode)
+@@ -1228,7 +1255,7 @@ static void prepare_device(struct tst_fs *fs)
  
- 	__sync_synchronize();
- 	ret = *v;
-@@ -46,7 +49,7 @@ static inline int tst_atomic_load(int *v)
+ 		SAFE_MOUNT(get_device_name(tdev.fs_type), tst_test->mntpoint,
+ 				tdev.fs_type, fs->mnt_flags, mnt_data);
+-		mntpoint_mounted = 1;
++		context->mntpoint_mounted = 1;
+ 	}
+ }
+ 
+@@ -1324,6 +1351,14 @@ static void do_setup(int argc, char *argv[])
+ 	if (tst_test->supported_archs && !tst_is_on_arch(tst_test->supported_archs))
+ 		tst_brk(TCONF, "This arch '%s' is not supported for test!", tst_arch.name);
+ 
++	if (tst_test->sample)
++		tst_test = tst_timer_test_setup(tst_test);
++
++	if (tst_test->runs_script) {
++		tst_test->child_needs_reinit = 1;
++		tst_test->forks_child = 1;
++	}
++
+ 	if (reproducible_env &&
+ 	    (!strcmp(reproducible_env, "1") || !strcmp(reproducible_env, "y")))
+ 		reproducible_output = 1;
+@@ -1332,23 +1367,15 @@ static void do_setup(int argc, char *argv[])
+ 
+ 	TCID = tcid = get_tcid(argv);
+ 
+-	if (tst_test->sample)
+-		tst_test = tst_timer_test_setup(tst_test);
++	setup_ipc();
+ 
+ 	parse_opts(argc, argv);
+ 
+ 	if (tdebug_env && (!strcmp(tdebug_env, "1") || !strcmp(tdebug_env, "y"))) {
+ 		tst_res(TINFO, "Enabling debug info");
+-		tdebug = 1;
++		context->tdebug = 1;
+ 	}
+ 
+-	if (tst_test->runs_script) {
+-		tst_test->child_needs_reinit = 1;
+-		tst_test->forks_child = 1;
+-	}
+-
+-	setup_ipc();
+-
+ 	if (tst_test->needs_kconfigs && tst_kconfig_check(tst_test->needs_kconfigs))
+ 		tst_brk(TCONF, "Aborting due to unsuitable kernel config, see above!");
+ 
+@@ -1466,7 +1493,7 @@ static void do_setup(int argc, char *argv[])
+ 	if (tst_test->needs_hugetlbfs)
+ 		prepare_and_mount_hugetlb_fs();
+ 
+-	if (tst_test->needs_device && !mntpoint_mounted) {
++	if (tst_test->needs_device && !context->mntpoint_mounted) {
+ 		tdev.dev = tst_acquire_device_(NULL, tst_test->dev_min_size);
+ 
+ 		if (!tdev.dev)
+@@ -1492,12 +1519,12 @@ static void do_setup(int argc, char *argv[])
+ 	if (tst_test->needs_overlay && !tst_test->mount_device)
+ 		tst_brk(TBROK, "tst_test->mount_device must be set");
+ 
+-	if (tst_test->needs_overlay && !mntpoint_mounted)
++	if (tst_test->needs_overlay && !context->mntpoint_mounted)
+ 		tst_brk(TBROK, "tst_test->mntpoint must be mounted");
+ 
+-	if (tst_test->needs_overlay && !ovl_mounted) {
++	if (tst_test->needs_overlay && !context->ovl_mounted) {
+ 		SAFE_MOUNT_OVERLAY();
+-		ovl_mounted = 1;
++		context->ovl_mounted = 1;
+ 	}
+ 
+ 	if (tst_test->resource_files)
+@@ -1517,7 +1544,7 @@ static void do_setup(int argc, char *argv[])
+ 
+ static void do_test_setup(void)
+ {
+-	results->main_pid = getpid();
++	context->main_pid = getpid();
+ 
+ 	if (!tst_test->all_filesystems && tst_test->skip_filesystems) {
+ 		long fs_type = tst_fs_type(".");
+@@ -1537,7 +1564,7 @@ static void do_test_setup(void)
+ 	if (tst_test->setup)
+ 		tst_test->setup();
+ 
+-	if (results->main_pid != tst_getpid())
++	if (context->main_pid != tst_getpid())
+ 		tst_brk(TBROK, "Runaway child in setup()!");
+ 
+ 	if (tst_test->caps)
+@@ -1549,10 +1576,10 @@ static void do_cleanup(void)
+ 	if (tst_test->needs_cgroup_ctrls)
+ 		tst_cg_cleanup();
+ 
+-	if (ovl_mounted)
++	if (context->ovl_mounted)
+ 		SAFE_UMOUNT(OVL_MNT);
+ 
+-	if (mntpoint_mounted)
++	if (context->mntpoint_mounted)
+ 		tst_umount(tst_test->mntpoint);
+ 
+ 	if (tst_test->needs_device && tdev.dev)
+@@ -1574,7 +1601,7 @@ static void do_cleanup(void)
+ 
+ static void heartbeat(void)
+ {
+-	if (tst_clock_gettime(CLOCK_MONOTONIC, &tst_start_time))
++	if (tst_clock_gettime(CLOCK_MONOTONIC, &context->start_time))
+ 		tst_res(TWARN | TERRNO, "tst_clock_gettime() failed");
+ 
+ 	if (getppid() == 1) {
+@@ -1600,7 +1627,7 @@ static void run_tests(void)
+ 		heartbeat();
+ 		tst_test->test_all();
+ 
+-		if (tst_getpid() != results->main_pid)
++		if (tst_getpid() != context->main_pid)
+ 			exit(0);
+ 
+ 		tst_reap_children();
+@@ -1616,7 +1643,7 @@ static void run_tests(void)
+ 		heartbeat();
+ 		tst_test->test(i);
+ 
+-		if (tst_getpid() != results->main_pid)
++		if (tst_getpid() != context->main_pid)
+ 			exit(0);
+ 
+ 		tst_reap_children();
+@@ -1716,7 +1743,7 @@ static void alarm_handler(int sig LTP_ATTRIBUTE_UNUSED)
+ 
+ static void heartbeat_handler(int sig LTP_ATTRIBUTE_UNUSED)
+ {
+-	alarm(results->overall_time);
++	alarm(context->overall_time);
+ 	sigkill_retries = 0;
+ }
+ 
+@@ -1733,15 +1760,15 @@ unsigned int tst_remaining_runtime(void)
+ 	static struct timespec now;
+ 	int elapsed;
+ 
+-	if (results->runtime == 0)
++	if (context->runtime == 0)
+ 		tst_brk(TBROK, "Runtime not set!");
+ 
+ 	if (tst_clock_gettime(CLOCK_MONOTONIC, &now))
+ 		tst_res(TWARN | TERRNO, "tst_clock_gettime() failed");
+ 
+-	elapsed = tst_timespec_diff_ms(now, tst_start_time) / 1000;
+-	if (results->runtime > (unsigned int) elapsed)
+-		return results->runtime - elapsed;
++	elapsed = tst_timespec_diff_ms(now, context->start_time) / 1000;
++	if (context->runtime > elapsed)
++		return context->runtime - elapsed;
+ 
+ 	return 0;
+ }
+@@ -1769,29 +1796,29 @@ static void set_overall_timeout(void)
+ 		return;
+ 	}
+ 
+-	results->overall_time = tst_multiply_timeout(timeout) + results->runtime;
++	context->overall_time = tst_multiply_timeout(timeout) + context->runtime;
+ 
+ 	tst_res(TINFO, "Overall timeout per run is %uh %02um %02us",
+-		results->overall_time/3600, (results->overall_time%3600)/60,
+-		results->overall_time % 60);
++		context->overall_time/3600, (context->overall_time%3600)/60,
++		context->overall_time % 60);
+ }
+ 
+ void tst_set_timeout(int timeout)
+ {
+ 	int timeout_adj = DEFAULT_TIMEOUT + timeout;
+ 
+-	results->overall_time = tst_multiply_timeout(timeout_adj) + results->runtime;
++	context->overall_time = tst_multiply_timeout(timeout_adj) + context->runtime;
+ 
+ 	tst_res(TINFO, "Overall timeout per run is %uh %02um %02us",
+-		results->overall_time/3600, (results->overall_time%3600)/60,
+-		results->overall_time % 60);
++		context->overall_time/3600, (context->overall_time%3600)/60,
++		context->overall_time % 60);
+ 
+ 	heartbeat();
+ }
+ 
+ void tst_set_runtime(int runtime)
+ {
+-	results->runtime = multiply_runtime(runtime);
++	context->runtime = multiply_runtime(runtime);
+ 	tst_res(TINFO, "Updating runtime to %uh %02um %02us",
+ 		runtime/3600, (runtime%3600)/60, runtime % 60);
+ 	set_overall_timeout();
+@@ -1805,7 +1832,7 @@ static int fork_testrun(void)
+ 	SAFE_SIGNAL(SIGINT, sigint_handler);
+ 	SAFE_SIGNAL(SIGTERM, sigint_handler);
+ 
+-	alarm(results->overall_time);
++	alarm(context->overall_time);
+ 
+ 	show_failure_hints = 1;
+ 
+@@ -1839,7 +1866,7 @@ static int fork_testrun(void)
+ 	if (WIFEXITED(status) && WEXITSTATUS(status))
+ 		tst_brk(TBROK, "Child returned with %i", WEXITSTATUS(status));
+ 
+-	if (results->abort_flag)
++	if (context->abort_flag)
+ 		return 0;
+ 
+ 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGKILL) {
+@@ -1898,9 +1925,9 @@ static int run_tcase_on_fs(struct tst_fs *fs, const char *fs_type)
+ 
+ 	ret = fork_testrun();
+ 
+-	if (mntpoint_mounted) {
++	if (context->mntpoint_mounted) {
+ 		tst_umount(tst_test->mntpoint);
+-		mntpoint_mounted = 0;
++		context->mntpoint_mounted = 0;
+ 	}
+ 
  	return ret;
- }
+@@ -1925,7 +1952,7 @@ static int run_tcases_per_fs(void)
+ 		found_valid_fs = true;
+ 		run_tcase_on_fs(fs, filesystems[i]);
  
--static inline void tst_atomic_store(int i, int *v)
-+static inline void tst_atomic_store(int32_t i, tst_atomic_t *v)
- {
- 	__sync_synchronize();
- 	*v = i;
-@@ -57,14 +60,14 @@ static inline void tst_atomic_store(int i, int *v)
- # error "Your compiler does not support atomic operations (__atomic or __sync)"
- #endif
+-		if (tst_atomic_load(&results->abort_flag))
++		if (tst_atomic_load(&context->abort_flag))
+ 			do_exit(0);
+ 	}
  
--static inline int tst_atomic_inc(int *v)
-+static inline int tst_atomic_inc(tst_atomic_t *v)
- {
- 	return tst_atomic_add_return(1, v);
- }
+@@ -1945,7 +1972,7 @@ void tst_run_tcases(int argc, char *argv[], struct tst_test *self)
+ 	tst_test = self;
  
--static inline int tst_atomic_dec(int *v)
-+static inline int tst_atomic_dec(tst_atomic_t *v)
- {
- 	return tst_atomic_add_return(-1, v);
- }
+ 	do_setup(argc, argv);
+-	tst_enable_oom_protection(results->lib_pid);
++	tst_enable_oom_protection(context->lib_pid);
  
--#endif	/* TST_ATOMIC_H__ */
-+#endif /* TST_ATOMIC_H__ */
-diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
-index bef424002..b22364cab 100644
---- a/include/tst_fuzzy_sync.h
-+++ b/include/tst_fuzzy_sync.h
-@@ -155,11 +155,11 @@ struct tst_fzsync_pair {
- 	float max_dev_ratio;
+ 	SAFE_SIGNAL(SIGALRM, alarm_handler);
+ 	SAFE_SIGNAL(SIGUSR1, heartbeat_handler);
+@@ -1956,7 +1983,7 @@ void tst_run_tcases(int argc, char *argv[], struct tst_test *self)
+ 	tst_res(TINFO, "Tested kernel: %s %s %s", uval.release, uval.version, uval.machine);
  
- 	/** Internal; Atomic counter used by fzsync_pair_wait() */
--	int a_cntr;
-+	tst_atomic_t a_cntr;
- 	/** Internal; Atomic counter used by fzsync_pair_wait() */
--	int b_cntr;
-+	tst_atomic_t b_cntr;
- 	/** Internal; Used by tst_fzsync_pair_exit() and fzsync_pair_wait() */
--	int exit;
-+	tst_atomic_t exit;
- 	/** Internal; The test time remaining on tst_fzsync_pair_reset() */
- 	float exec_time_start;
- 	/**
-diff --git a/lib/newlib_tests/test08.c b/lib/newlib_tests/test08.c
-index 5099b08d3..d48bf29ee 100644
---- a/lib/newlib_tests/test08.c
-+++ b/lib/newlib_tests/test08.c
-@@ -22,7 +22,7 @@ static void setup(void)
+ 	if (tst_test->runtime)
+-		results->runtime = multiply_runtime(tst_test->runtime);
++		context->runtime = multiply_runtime(tst_test->runtime);
  
- static void cleanup(void)
- {
--	static int flag;
-+	static tst_atomic_t flag;
+ 	set_overall_timeout();
  
- 	/* Avoid subsequent threads to enter the cleanup */
- 	if (tst_atomic_inc(&flag) != 1)
-diff --git a/lib/newlib_tests/test09.c b/lib/newlib_tests/test09.c
-index 0f42bacc6..eae258e2d 100644
---- a/lib/newlib_tests/test09.c
-+++ b/lib/newlib_tests/test09.c
-@@ -13,7 +13,7 @@
- #define THREADS 64
- #define ITERATIONS 100000
+@@ -1969,7 +1996,7 @@ void tst_run_tcases(int argc, char *argv[], struct tst_test *self)
+ 		else
+ 			fork_testrun();
  
--static int atomic;
-+static tst_atomic_t atomic;
+-		if (tst_atomic_load(&results->abort_flag))
++		if (tst_atomic_load(&context->abort_flag))
+ 			do_exit(0);
+ 	}
  
- static void *worker(void *id)
- {
-diff --git a/lib/newlib_tests/test15.c b/lib/newlib_tests/test15.c
-index 3a2ac362e..c63da18fc 100644
---- a/lib/newlib_tests/test15.c
-+++ b/lib/newlib_tests/test15.c
-@@ -39,7 +39,7 @@ struct block {
- 	intptr_t filler[FILLER];
- };
- 
--static int atomic;
-+static tst_atomic_t atomic;
- /* Instead of storing seq_n on the stack (probably next to the atomic variable
-  * above), we store it in the middle of some anonymous mapped memory and keep
-  * a pointer to it. This should decrease the probability that the value of
-diff --git a/lib/newlib_tests/tst_fuzzy_sync01.c b/lib/newlib_tests/tst_fuzzy_sync01.c
-index 6c361e8cc..b1390f460 100644
---- a/lib/newlib_tests/tst_fuzzy_sync01.c
-+++ b/lib/newlib_tests/tst_fuzzy_sync01.c
-@@ -88,7 +88,7 @@ struct race {
- 	const struct window b;
- };
- 
--static int H;
-+static tst_atomic_t H;
- static struct tst_fzsync_pair pair;
- 
- static const struct race races[] = {
-diff --git a/lib/newlib_tests/tst_fuzzy_sync02.c b/lib/newlib_tests/tst_fuzzy_sync02.c
-index 0a595b1e2..bc079f6ff 100644
---- a/lib/newlib_tests/tst_fuzzy_sync02.c
-+++ b/lib/newlib_tests/tst_fuzzy_sync02.c
-@@ -61,7 +61,7 @@ struct race {
- 	const struct window b;
- };
- 
--static int H, D;
-+static tst_atomic_t H, D;
- static struct tst_fzsync_pair pair;
- 
- /**
-diff --git a/testcases/kernel/containers/pidns/pidns32.c b/testcases/kernel/containers/pidns/pidns32.c
-index 3798f798b..a192c128d 100644
---- a/testcases/kernel/containers/pidns/pidns32.c
-+++ b/testcases/kernel/containers/pidns/pidns32.c
-@@ -21,7 +21,7 @@ static const struct tst_clone_args args = {
- 	.flags = CLONE_NEWPID,
- 	.exit_signal = SIGCHLD,
- };
--static int *level;
-+static tst_atomic_t *level;
- 
- static pid_t child_func(void)
- {
-diff --git a/testcases/kernel/controllers/cgroup/cgroup_core03.c b/testcases/kernel/controllers/cgroup/cgroup_core03.c
-index 49b8eff40..846c00f29 100644
---- a/testcases/kernel/controllers/cgroup/cgroup_core03.c
-+++ b/testcases/kernel/controllers/cgroup/cgroup_core03.c
-@@ -22,7 +22,7 @@
- #define PID_NUM MIN(MAX_PID_NUM, (tst_ncpus_available() + 1))
- #define BUF_LEN (20 * PID_NUM)
- 
--static int *data_ptr;
-+static tst_atomic_t *data_ptr;
- static char *buf;
- static struct tst_cg_group *cg_child_test_simple;
- 
-diff --git a/testcases/kernel/fs/fs_fill/fs_fill.c b/testcases/kernel/fs/fs_fill/fs_fill.c
-index 1662cdb50..131128db5 100644
---- a/testcases/kernel/fs/fs_fill/fs_fill.c
-+++ b/testcases/kernel/fs/fs_fill/fs_fill.c
-@@ -22,7 +22,7 @@
- 
- static volatile int run;
- static unsigned int nthreads;
--static int enospc_cnt;
-+static tst_atomic_t enospc_cnt;
- static struct worker *workers;
- 
- struct worker {
-diff --git a/testcases/kernel/fs/read_all/read_all.c b/testcases/kernel/fs/read_all/read_all.c
-index 14588a829..e18945a34 100644
---- a/testcases/kernel/fs/read_all/read_all.c
-+++ b/testcases/kernel/fs/read_all/read_all.c
-@@ -57,7 +57,7 @@
- 
- struct queue {
- 	sem_t sem;
--	int front;
-+	tst_atomic_t front;
- 	int back;
- 	char data[QUEUE_SIZE];
- 	char popped[BUFFER_SIZE];
-@@ -67,7 +67,7 @@ struct worker {
- 	int i;
- 	pid_t pid;
- 	struct queue *q;
--	int last_seen;
-+	tst_atomic_t last_seen;
- 	unsigned int kill_sent:1;
- };
- 
-diff --git a/testcases/kernel/io/ltp-aiodio/dio_read.c b/testcases/kernel/io/ltp-aiodio/dio_read.c
-index f9587ef3d..1c913cc2b 100644
---- a/testcases/kernel/io/ltp-aiodio/dio_read.c
-+++ b/testcases/kernel/io/ltp-aiodio/dio_read.c
-@@ -28,7 +28,7 @@ static int numchildren = 8;
- static long long writesize = 32 * 1024 * 1024;
- static long long readsize = 32 * 1024 * 1024;
- static long long filesize = 128 * 1024 * 1024;
--static int *children_completed;
-+static tst_atomic_t *children_completed;
- static char *iobuf;
- static int fd;
- 
-diff --git a/testcases/kernel/mem/mtest06/mmap1.c b/testcases/kernel/mem/mtest06/mmap1.c
-index 4e67f5fb9..5c4ffa665 100644
---- a/testcases/kernel/mem/mtest06/mmap1.c
-+++ b/testcases/kernel/mem/mtest06/mmap1.c
-@@ -55,7 +55,7 @@ static unsigned long data_matched;
- static unsigned long repeated_reads;
- 
- /* sequence id for each map/unmap performed */
--static int mapcnt, unmapcnt;
-+static tst_atomic_t mapcnt, unmapcnt;
- /* stored sequence id before making read attempt */
- static int br_map, br_unmap;
- 
-diff --git a/testcases/kernel/mem/mtest06/mmap3.c b/testcases/kernel/mem/mtest06/mmap3.c
-index 6cebc6fbe..58127ad9a 100644
---- a/testcases/kernel/mem/mtest06/mmap3.c
-+++ b/testcases/kernel/mem/mtest06/mmap3.c
-@@ -28,7 +28,7 @@ static int loops = 1000;
- static int threads = 40;
- 
- static volatile int sig_caught;
--static int threads_running;
-+static tst_atomic_t threads_running;
- 
- static int mkfile(int *size)
- {
-diff --git a/testcases/kernel/syscalls/exit_group/exit_group01.c b/testcases/kernel/syscalls/exit_group/exit_group01.c
-index 585bb7cdb..9005f4679 100644
---- a/testcases/kernel/syscalls/exit_group/exit_group01.c
-+++ b/testcases/kernel/syscalls/exit_group/exit_group01.c
-@@ -23,7 +23,7 @@ static int cpu_count;
- 
- static struct worker_data {
- 	pid_t tid;
--	int counter;
-+	tst_atomic_t counter;
- } *workers_data;
- 
- static void *worker(void *arg)
-diff --git a/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c b/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c
-index 946e4e949..51b5c6a8d 100644
---- a/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c
-+++ b/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c
-@@ -22,8 +22,8 @@
- 
- struct shared_data {
- 	futex_t futexes[2];
--	int spurious;
--	int test_done;
-+	tst_atomic_t spurious;
-+	tst_atomic_t test_done;
- };
- 
- static struct shared_data *sd;
-diff --git a/testcases/kernel/syscalls/ipc/msgstress/msgstress01.c b/testcases/kernel/syscalls/ipc/msgstress/msgstress01.c
-index 22a2c0e7a..10c9adcb0 100644
---- a/testcases/kernel/syscalls/ipc/msgstress/msgstress01.c
-+++ b/testcases/kernel/syscalls/ipc/msgstress/msgstress01.c
-@@ -49,7 +49,7 @@ static int num_messages = 1000;
- static int num_iterations = MAXNREPS;
- static volatile int *stop;
- static volatile int *fail;
--static int *finished;
-+static tst_atomic_t *finished;
- static int *flags;
- 
- static int get_used_sysvipc(void)
-diff --git a/testcases/kernel/syscalls/writev/writev03.c b/testcases/kernel/syscalls/writev/writev03.c
-index f2326095e..a0b237112 100644
---- a/testcases/kernel/syscalls/writev/writev03.c
-+++ b/testcases/kernel/syscalls/writev/writev03.c
-@@ -33,7 +33,7 @@
- 
- static unsigned char buf[BUF_SIZE], *map_ptr;
- static int mapfd = -1, writefd = -1, readfd = -1;
--static int written;
-+static tst_atomic_t written;
- static struct tst_fzsync_pair fzsync_pair;
- struct iovec iov[5];
- 
-diff --git a/testcases/realtime/func/sched_football/sched_football.c b/testcases/realtime/func/sched_football/sched_football.c
-index b89970542..1d761d43c 100644
---- a/testcases/realtime/func/sched_football/sched_football.c
-+++ b/testcases/realtime/func/sched_football/sched_football.c
-@@ -41,10 +41,10 @@
- #define SPIN_TIME_NS 200000000ULL
- #define SLEEP_TIME_NS 50000000ULL
- 
--static int the_ball;
-+static tst_atomic_t the_ball;
- static int players_per_team = 0;
- static int game_length = DEF_GAME_LENGTH;
--static int players_ready;
-+static tst_atomic_t players_ready;
- 
- static char *str_game_length;
- static char *str_players_per_team;
 -- 
 2.49.0
 
