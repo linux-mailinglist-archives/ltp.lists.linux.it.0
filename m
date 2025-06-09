@@ -2,85 +2,86 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D1E1AD1E05
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jun 2025 14:45:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BA11AD1E0C
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jun 2025 14:46:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 107933CACA5
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jun 2025 14:45:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C866D3CACD5
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jun 2025 14:46:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 34EF73CA503
- for <ltp@lists.linux.it>; Mon,  9 Jun 2025 14:45:21 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 4CB6F3CAD43
+ for <ltp@lists.linux.it>; Mon,  9 Jun 2025 14:45:37 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 240832009CC
- for <ltp@lists.linux.it>; Mon,  9 Jun 2025 14:45:18 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4E59A1A00980
+ for <ltp@lists.linux.it>; Mon,  9 Jun 2025 14:45:35 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 45E031F38F;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6C8ED2118D;
  Mon,  9 Jun 2025 12:45:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1749473118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1749473119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=aqoVci4OF19R8MFnKxrDGUF1AHJucsUHnuCnorZV3vk=;
- b=ow8x7A1bDEqEjlXBWjegBYcrex37p4h5XWmLVSlWgUg6X7Sd8qOGK6ZWLp7j9pewdIV6Ug
- 17A3vd9UQOslZAWBZJH/CFRzM7tGTlsoeYVUhE+2cVt3ZbvVWispB/zrsZiQdBS9CWggFX
- 0ytHmh0e/RqgrTEDaCkP54mjYXg0hco=
+ bh=sdoemwiunJKYJ+zdv77ZMul9W4Q3FBEJ4Mi7ndZ11jg=;
+ b=hM+O8U8S84o8hMov54nuWKhaLaSB38Gnq8T/gpO+Q4TWKl0k7rcRVYCZ9UWpJsyLwmAph6
+ FzwJF1Ug44/UjowK/L9ZwgTetB2VQiD1WZf3nvuZzr3xvfy4ShT2aXZdHNnYaLRrwePvMc
+ lxgGdSdyp1+FKINq7wKgnHkORRpDK04=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1749473118;
+ s=susede2_ed25519; t=1749473119;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=aqoVci4OF19R8MFnKxrDGUF1AHJucsUHnuCnorZV3vk=;
- b=czVWIt0AOtr27GKLW10KxBVARSCIJNY9aEnNhQzHzmq/Cic00kb5YmSWuLKQkb2/fX5jce
- F29l70FyZJnYUNAA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ow8x7A1b;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=czVWIt0A
+ bh=sdoemwiunJKYJ+zdv77ZMul9W4Q3FBEJ4Mi7ndZ11jg=;
+ b=An8AofmEQbCgo/RO0QNqAPIIA/gcoEIZ8Rarfb6l5iie9kT8Zq03XNsBYed9wMko9Jo+Zb
+ rfzsHEoFusTep+DA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Jt3zR9B7;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Jwg7VUf6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1749473118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=aqoVci4OF19R8MFnKxrDGUF1AHJucsUHnuCnorZV3vk=;
- b=ow8x7A1bDEqEjlXBWjegBYcrex37p4h5XWmLVSlWgUg6X7Sd8qOGK6ZWLp7j9pewdIV6Ug
- 17A3vd9UQOslZAWBZJH/CFRzM7tGTlsoeYVUhE+2cVt3ZbvVWispB/zrsZiQdBS9CWggFX
- 0ytHmh0e/RqgrTEDaCkP54mjYXg0hco=
+ bh=sdoemwiunJKYJ+zdv77ZMul9W4Q3FBEJ4Mi7ndZ11jg=;
+ b=Jt3zR9B785Y0AyBYRHWBJzxJMGnU2DQIPK3zheiTVNwfc3oKjv41ZpPCk7vTPW0x/+JQ4F
+ re5A2PUmJjjijCj8oiwXlvmo0T7cm0AJ1Ze+8thHvp2kv/8AILvUJfsbc39CIrUvkbhTFl
+ fcWkXL4vJLqVwU4jdVIYLK4LxvGJZQs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1749473118;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=aqoVci4OF19R8MFnKxrDGUF1AHJucsUHnuCnorZV3vk=;
- b=czVWIt0AOtr27GKLW10KxBVARSCIJNY9aEnNhQzHzmq/Cic00kb5YmSWuLKQkb2/fX5jce
- F29l70FyZJnYUNAA==
+ bh=sdoemwiunJKYJ+zdv77ZMul9W4Q3FBEJ4Mi7ndZ11jg=;
+ b=Jwg7VUf6UMhsvKcI2PlSgo0c5jpxbAao5IZQ4pr46DbJ8J88yGTEG6bghfC19gibFrY8fU
+ F+Txyql/oQ/YuJBA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1F30213AAD;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4A53E13AD9;
  Mon,  9 Jun 2025 12:45:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id SLF4Bl7XRmiQUgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id YKp7EF7XRmiQUgAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Mon, 09 Jun 2025 12:45:18 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon,  9 Jun 2025 14:45:03 +0200
-Message-ID: <20250609124506.1454420-3-pvorel@suse.cz>
+Date: Mon,  9 Jun 2025 14:45:04 +0200
+Message-ID: <20250609124506.1454420-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250609124506.1454420-1-pvorel@suse.cz>
 References: <20250609124506.1454420-1-pvorel@suse.cz>
@@ -94,26 +95,27 @@ X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  RCVD_COUNT_TWO(0.00)[2]; MIME_TRACE(0.00)[0:+];
  RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_SOME(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ TO_DN_SOME(0.00)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
  DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:mid,suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
  RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
  RCPT_COUNT_THREE(0.00)[3];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  DKIM_TRACE(0.00)[suse.cz:+]
 X-Spam-Level: 
-X-Rspamd-Queue-Id: 45E031F38F
+X-Rspamd-Queue-Id: 6C8ED2118D
 X-Rspamd-Action: no action
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Score: -3.01
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 2/4] shell: Move shell code into functions
+Subject: [LTP] [PATCH v3 3/4] shell lib: Add basic support for test setup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,377 +132,262 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is a preparation to make next changes smaller.
-No functional changes.
+Add basic support for test cleanup in shell loader.
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
+This required to:
 
-NOTE: it's important to properly quote strings when assign with local.
-Otherwise shell_loader_all_filesystems.sh fails on old dash 0.5.8-2.10 on local export:
+* Source tst_env.sh also in the tests before test/setup/cleanup functions,
+  otherwise tst_res alias would not be found:
+  tests/shell_loader_setup_cleanup.sh: 22: tst_res: not found
 
-/__w/ltp/ltp/testcases/lib/tests//shell_loader_all_filesystems.sh: 20: local: /tmp/LTP_sheiFmNGP/ltp_mntpoint: bad variable name
+* Add tst_run.sh
+* Move sourcing tst_loader.sh at the end of the test (after
+  test/setup/cleanup functions), otherwise test/setup/cleanup would not be found:
+  tests/shell_loader_setup_cleanup.sh: 19: testcases/lib/tst_loader.sh: setup: not found
+  tests/shell_loader_setup_cleanup.sh: 22: testcases/lib/tst_loader.sh: tst_test: not found
 
-Quote grep subcomand helps. While at it quote also realpath subcomand.
+This solves the problem of the order the scripts are sourced. Before it was:
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+test.sh
+  . tst_loader.sh
+    tst_run_shell test.sh
+    . tst_loader.sh
+      . tst_env.sh <- at this point in the execution it haven't even started parsing
+                      test.sh so it cannot run functions from there at all
+
+Now:
+
+test.sh
+  . tst_loader.sh
+    tst_run_shell test.sh
+    . tst_loader.sh
+      . tst_env.sh
+    . tst_run.sh
+
+There will be more improvements in the future, at least adding TST_CNT
+support (will require changes in tst_test.c to handle timeouts).
+
+Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+Co-developed-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
 Changes v2->v3:
-* quoting to fix local on old dash:
+* Create tst_run.sh (Cyril)
 
-+++ testcases/lib/tests/shell_loader_all_filesystems.sh
-
--	local mntpath=$(realpath ltp_mntpoint)
--	local mounted=$(grep $mntpath /proc/mounts)
-+	local mntpath="$(realpath ltp_mntpoint)"
-+	local mounted="$(grep $mntpath /proc/mounts)"
-
- testcases/kernel/mem/vma/vma05.sh             | 45 ++++++++++---------
- testcases/lib/tests/shell_loader.sh           | 19 +++++---
- .../lib/tests/shell_loader_all_filesystems.sh | 26 ++++++-----
- .../lib/tests/shell_loader_brk_cleanup.sh     |  7 ++-
- testcases/lib/tests/shell_loader_c_child.sh   | 15 ++++---
- testcases/lib/tests/shell_loader_cleanup.sh   |  7 ++-
- .../lib/tests/shell_loader_filesystems.sh     | 23 ++++++----
- .../lib/tests/shell_loader_invalid_block.sh   |  7 ++-
- .../tests/shell_loader_invalid_metadata.sh    |  7 ++-
- testcases/lib/tests/shell_loader_kconfigs.sh  |  7 ++-
- .../lib/tests/shell_loader_no_metadata.sh     |  7 ++-
- .../lib/tests/shell_loader_supported_archs.sh |  7 ++-
- testcases/lib/tests/shell_loader_tags.sh      |  7 ++-
- testcases/lib/tests/shell_loader_tcnt.sh      |  7 ++-
- .../lib/tests/shell_loader_wrong_metadata.sh  |  7 ++-
- 15 files changed, 137 insertions(+), 61 deletions(-)
+ testcases/kernel/mem/vma/vma05.sh                |  2 +-
+ testcases/lib/tests/shell_loader.sh              |  2 +-
+ .../lib/tests/shell_loader_all_filesystems.sh    |  2 +-
+ testcases/lib/tests/shell_loader_brk_cleanup.sh  |  2 +-
+ testcases/lib/tests/shell_loader_c_child.sh      |  2 +-
+ testcases/lib/tests/shell_loader_cleanup.sh      |  2 +-
+ testcases/lib/tests/shell_loader_filesystems.sh  |  2 +-
+ .../lib/tests/shell_loader_invalid_block.sh      |  2 +-
+ .../lib/tests/shell_loader_invalid_metadata.sh   |  2 +-
+ testcases/lib/tests/shell_loader_kconfigs.sh     |  2 +-
+ testcases/lib/tests/shell_loader_no_metadata.sh  |  2 +-
+ .../lib/tests/shell_loader_supported_archs.sh    |  2 +-
+ testcases/lib/tests/shell_loader_tags.sh         |  2 +-
+ testcases/lib/tests/shell_loader_tcnt.sh         |  2 +-
+ .../lib/tests/shell_loader_wrong_metadata.sh     |  2 +-
+ testcases/lib/tst_env.sh                         |  9 ---------
+ testcases/lib/tst_run.sh                         | 16 ++++++++++++++++
+ 17 files changed, 31 insertions(+), 24 deletions(-)
+ create mode 100644 testcases/lib/tst_run.sh
 
 diff --git a/testcases/kernel/mem/vma/vma05.sh b/testcases/kernel/mem/vma/vma05.sh
-index f4c76b7034..11d6b2ad86 100755
+index 11d6b2ad86..c560eecbcd 100755
 --- a/testcases/kernel/mem/vma/vma05.sh
 +++ b/testcases/kernel/mem/vma/vma05.sh
-@@ -41,29 +41,34 @@
- 
- . tst_loader.sh
- 
--ulimit -c unlimited
--unset DEBUGINFOD_URLS
-+tst_test()
-+{
-+	ulimit -c unlimited
-+	unset DEBUGINFOD_URLS
- 
--if [ $(uname -m) = "x86_64" ]; then
--	if LINE=$(grep "vsyscall" /proc/self/maps); then
--		RIGHT="ffffffffff600000-ffffffffff601000[[:space:]][r-]-xp"
--		if echo "$LINE" | grep -q "$RIGHT"; then
--			tst_res TPASS "[vsyscall] reported correctly"
--		else
--			tst_res TFAIL "[vsyscall] reporting wrong"
-+	if [ $(uname -m) = "x86_64" ]; then
-+		if LINE=$(grep "vsyscall" /proc/self/maps); then
-+			RIGHT="ffffffffff600000-ffffffffff601000[[:space:]][r-]-xp"
-+			if echo "$LINE" | grep -q "$RIGHT"; then
-+				tst_res TPASS "[vsyscall] reported correctly"
-+			else
-+				tst_res TFAIL "[vsyscall] reporting wrong"
-+			fi
- 		fi
+@@ -71,4 +71,4 @@ tst_test()
  	fi
--fi
+ }
  
--rm -rf core*
--{ vma05_vdso; } > /dev/null 2>&1
--[ -f core ] || tst_brk TBROK "missing core file"
-+	rm -rf core*
-+	{ vma05_vdso; } > /dev/null 2>&1
-+	[ -f core ] || tst_brk TBROK "missing core file"
- 
--TRACE=$(gdb -silent -ex="thread apply all backtrace" -ex="quit"\
--	vma05_vdso ./core* 2> /dev/null)
-+	TRACE=$(gdb -silent -ex="thread apply all backtrace" -ex="quit"\
-+		vma05_vdso ./core* 2> /dev/null)
- 
--if echo "$TRACE" | grep -qF "??"; then
--	tst_res TFAIL "[vdso] bug not patched"
--else
--	tst_res TPASS "[vdso] backtrace complete"
--fi
-+	if echo "$TRACE" | grep -qF "??"; then
-+		tst_res TFAIL "[vdso] bug not patched"
-+	else
-+		tst_res TPASS "[vdso] backtrace complete"
-+	fi
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader.sh b/testcases/lib/tests/shell_loader.sh
-index a7c5848ff5..73812c3e23 100755
+index 73812c3e23..78dba06b25 100755
 --- a/testcases/lib/tests/shell_loader.sh
 +++ b/testcases/lib/tests/shell_loader.sh
-@@ -16,10 +16,15 @@
+@@ -27,4 +27,4 @@ tst_test()
+ 	esac
+ }
  
- . tst_loader.sh
- 
--tst_res TPASS "Shell loader works fine!"
--case "$PWD" in
--	/tmp/*)
--		tst_res TPASS "We are running in temp directory in $PWD";;
--	*)
--		tst_res TFAIL "We are not running in temp directory but $PWD";;
--esac
-+tst_test()
-+{
-+	tst_res TPASS "Shell loader works fine!"
-+	case "$PWD" in
-+		/tmp/*)
-+			tst_res TPASS "We are running in temp directory in $PWD";;
-+		*)
-+			tst_res TFAIL "We are not running in temp directory but $PWD";;
-+	esac
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_all_filesystems.sh b/testcases/lib/tests/shell_loader_all_filesystems.sh
-index 91fac89fd6..8fe3809a5e 100755
+index 8fe3809a5e..3c3978f51c 100755
 --- a/testcases/lib/tests/shell_loader_all_filesystems.sh
 +++ b/testcases/lib/tests/shell_loader_all_filesystems.sh
-@@ -14,16 +14,22 @@
+@@ -32,4 +32,4 @@ tst_test()
+ 	fi
+ }
  
- . tst_loader.sh
- 
--tst_res TINFO "In shell"
-+tst_test()
-+{
-+	local mntpath="$(realpath ltp_mntpoint)"
-+	local mounted="$(grep $mntpath /proc/mounts)"
-+	local device path
- 
--mntpath=$(realpath ltp_mntpoint)
--mounted=$(grep $mntpath /proc/mounts)
-+	tst_res TINFO "In shell"
- 
--if [ -n "$mounted" ]; then
--	device=$(echo $mounted |cut -d' ' -f 1)
--	path=$(echo $mounted |cut -d' ' -f 2)
-+	if [ -n "$mounted" ]; then
-+		device=$(echo $mounted |cut -d' ' -f 1)
-+		path=$(echo $mounted |cut -d' ' -f 2)
- 
--	tst_res TPASS "$device mounted at $path"
--else
--	tst_res TFAIL "Device not mounted!"
--fi
-+		tst_res TPASS "$device mounted at $path"
-+	else
-+		tst_res TFAIL "Device not mounted!"
-+	fi
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_brk_cleanup.sh b/testcases/lib/tests/shell_loader_brk_cleanup.sh
-index 8c704a5406..ff33345ce3 100755
+index ff33345ce3..4e8ce4f737 100755
 --- a/testcases/lib/tests/shell_loader_brk_cleanup.sh
 +++ b/testcases/lib/tests/shell_loader_brk_cleanup.sh
-@@ -17,4 +17,9 @@ cleanup()
- 	tst_res TINFO "Cleanup runs"
+@@ -22,4 +22,4 @@ tst_test()
+ 	tst_brk TBROK "Test exits"
  }
  
--tst_brk TBROK "Test exits"
-+tst_test()
-+{
-+	tst_brk TBROK "Test exits"
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_c_child.sh b/testcases/lib/tests/shell_loader_c_child.sh
-index 34629e6d26..b2b8f3d057 100755
+index b2b8f3d057..13480968f9 100755
 --- a/testcases/lib/tests/shell_loader_c_child.sh
 +++ b/testcases/lib/tests/shell_loader_c_child.sh
-@@ -15,9 +15,14 @@
- 
- . tst_loader.sh
- 
--if [ -n "LTP_IPC_PATH" ]; then
--	tst_res TPASS "LTP_IPC_PATH=$LTP_IPC_PATH!"
--fi
-+tst_test()
-+{
-+	if [ -n "LTP_IPC_PATH" ]; then
-+		tst_res TPASS "LTP_IPC_PATH=$LTP_IPC_PATH!"
-+	fi
- 
--tst_res TINFO "Running C child"
--shell_c_child
-+	tst_res TINFO "Running C child"
-+	shell_c_child
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_cleanup.sh b/testcases/lib/tests/shell_loader_cleanup.sh
-index fb7bbdf5a9..684901b51f 100755
---- a/testcases/lib/tests/shell_loader_cleanup.sh
-+++ b/testcases/lib/tests/shell_loader_cleanup.sh
-@@ -17,4 +17,9 @@ do_cleanup()
- 	tst_res TINFO "Cleanup executed"
+@@ -25,4 +25,4 @@ tst_test()
+ 	shell_c_child
  }
  
--tst_res TPASS "Test is executed"
-+tst_test()
-+{
-+	tst_res TPASS "Test is executed"
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
+diff --git a/testcases/lib/tests/shell_loader_cleanup.sh b/testcases/lib/tests/shell_loader_cleanup.sh
+index 684901b51f..91071a5a75 100755
+--- a/testcases/lib/tests/shell_loader_cleanup.sh
++++ b/testcases/lib/tests/shell_loader_cleanup.sh
+@@ -22,4 +22,4 @@ tst_test()
+ 	tst_res TPASS "Test is executed"
+ }
+ 
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_filesystems.sh b/testcases/lib/tests/shell_loader_filesystems.sh
-index b7e1f9ba49..b2c9d2f7d1 100755
+index b2c9d2f7d1..d584503adb 100755
 --- a/testcases/lib/tests/shell_loader_filesystems.sh
 +++ b/testcases/lib/tests/shell_loader_filesystems.sh
-@@ -24,15 +24,20 @@
+@@ -40,4 +40,4 @@ tst_test()
+ 	fi
+ }
  
- . tst_loader.sh
- 
--tst_res TINFO "In shell"
-+tst_test()
-+{
-+	tst_res TINFO "In shell"
- 
--mntpoint=$(realpath ltp_mntpoint)
--mounted=$(grep $mntpoint /proc/mounts)
-+	mntpoint=$(realpath ltp_mntpoint)
-+	mounted=$(grep $mntpoint /proc/mounts)
- 
--if [ -n "$mounted" ]; then
--	fs=$(echo $mounted |cut -d' ' -f 3)
-+	if [ -n "$mounted" ]; then
-+		fs=$(echo $mounted |cut -d' ' -f 3)
- 
--	tst_res TPASS "Mounted device formatted with $fs"
--else
--	tst_res TFAIL "Device not mounted!"
--fi
-+		tst_res TPASS "Mounted device formatted with $fs"
-+	else
-+		tst_res TFAIL "Device not mounted!"
-+	fi
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_invalid_block.sh b/testcases/lib/tests/shell_loader_invalid_block.sh
-index 01811c971d..370c9043bc 100755
+index 370c9043bc..be45303d79 100755
 --- a/testcases/lib/tests/shell_loader_invalid_block.sh
 +++ b/testcases/lib/tests/shell_loader_invalid_block.sh
-@@ -22,4 +22,9 @@
+@@ -27,4 +27,4 @@ tst_test()
+ 	tst_res TPASS "This should pass!"
+ }
  
- . tst_loader.sh
- 
--tst_res TPASS "This should pass!"
-+tst_test()
-+{
-+	tst_res TPASS "This should pass!"
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_invalid_metadata.sh b/testcases/lib/tests/shell_loader_invalid_metadata.sh
-index aeae066841..3834f1b9ed 100755
+index 3834f1b9ed..c4c7579243 100755
 --- a/testcases/lib/tests/shell_loader_invalid_metadata.sh
 +++ b/testcases/lib/tests/shell_loader_invalid_metadata.sh
-@@ -14,4 +14,9 @@
+@@ -19,4 +19,4 @@ tst_test()
+ 	tst_res TFAIL "Shell loader should TBROK the test"
+ }
  
- . tst_loader.sh
- 
--tst_res TFAIL "Shell loader should TBROK the test"
-+tst_test()
-+{
-+	tst_res TFAIL "Shell loader should TBROK the test"
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_kconfigs.sh b/testcases/lib/tests/shell_loader_kconfigs.sh
-index b896f03ce0..e1b6187554 100755
+index e1b6187554..d03bc99cac 100755
 --- a/testcases/lib/tests/shell_loader_kconfigs.sh
 +++ b/testcases/lib/tests/shell_loader_kconfigs.sh
-@@ -11,4 +11,9 @@
+@@ -16,4 +16,4 @@ tst_test()
+ 	tst_res TPASS "Shell loader works fine!"
+ }
  
- . tst_loader.sh
- 
--tst_res TPASS "Shell loader works fine!"
-+tst_test()
-+{
-+	tst_res TPASS "Shell loader works fine!"
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_no_metadata.sh b/testcases/lib/tests/shell_loader_no_metadata.sh
-index e344327ed3..b664b48b57 100755
+index b664b48b57..2ad458ef8d 100755
 --- a/testcases/lib/tests/shell_loader_no_metadata.sh
 +++ b/testcases/lib/tests/shell_loader_no_metadata.sh
-@@ -7,4 +7,9 @@
+@@ -12,4 +12,4 @@ tst_test()
+ 	tst_res TFAIL "Shell loader should TBROK the test"
+ }
  
- . tst_loader.sh
- 
--tst_res TFAIL "Shell loader should TBROK the test"
-+tst_test()
-+{
-+	tst_res TFAIL "Shell loader should TBROK the test"
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_supported_archs.sh b/testcases/lib/tests/shell_loader_supported_archs.sh
-index 45f0b1b1c2..9ad24f9c03 100755
+index 9ad24f9c03..a45cc59b7d 100755
 --- a/testcases/lib/tests/shell_loader_supported_archs.sh
 +++ b/testcases/lib/tests/shell_loader_supported_archs.sh
-@@ -11,4 +11,9 @@
+@@ -16,4 +16,4 @@ tst_test()
+ 	tst_res TPASS "We are running on supported architecture"
+ }
  
- . tst_loader.sh
- 
--tst_res TPASS "We are running on supported architecture"
-+tst_test()
-+{
-+	tst_res TPASS "We are running on supported architecture"
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_tags.sh b/testcases/lib/tests/shell_loader_tags.sh
-index 0b9416ea9a..c780a66c57 100755
+index c780a66c57..56eadaf7a2 100755
 --- a/testcases/lib/tests/shell_loader_tags.sh
 +++ b/testcases/lib/tests/shell_loader_tags.sh
-@@ -14,4 +14,9 @@
+@@ -19,4 +19,4 @@ tst_test()
+ 	tst_res TFAIL "Fails the test so that tags are shown."
+ }
  
- . tst_loader.sh
- 
--tst_res TFAIL "Fails the test so that tags are shown."
-+tst_test()
-+{
-+	tst_res TFAIL "Fails the test so that tags are shown."
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_tcnt.sh b/testcases/lib/tests/shell_loader_tcnt.sh
-index ecf48396d6..93bd612ee2 100755
+index 93bd612ee2..cf2a0b74ec 100755
 --- a/testcases/lib/tests/shell_loader_tcnt.sh
 +++ b/testcases/lib/tests/shell_loader_tcnt.sh
-@@ -14,4 +14,9 @@
+@@ -19,4 +19,4 @@ tst_test()
+ 	tst_res TPASS "Iteration $1"
+ }
  
- . tst_loader.sh
- 
--tst_res TPASS "Iteration $1"
-+tst_test()
-+{
-+	tst_res TPASS "Iteration $1"
-+}
-+
-+tst_test
+-tst_test
++. tst_run.sh
 diff --git a/testcases/lib/tests/shell_loader_wrong_metadata.sh b/testcases/lib/tests/shell_loader_wrong_metadata.sh
-index b90b212371..8f18741100 100755
+index 8f18741100..35c535beed 100755
 --- a/testcases/lib/tests/shell_loader_wrong_metadata.sh
 +++ b/testcases/lib/tests/shell_loader_wrong_metadata.sh
-@@ -14,4 +14,9 @@
+@@ -19,4 +19,4 @@ tst_test()
+ 	tst_res TFAIL "Shell loader should TBROK the test"
+ }
  
- . tst_loader.sh
+-tst_test
++. tst_run.sh
+diff --git a/testcases/lib/tst_env.sh b/testcases/lib/tst_env.sh
+index b13bab37c3..585790a7d0 100644
+--- a/testcases/lib/tst_env.sh
++++ b/testcases/lib/tst_env.sh
+@@ -18,11 +18,6 @@ if [ -z "$LINENO" ]; then
+ 	LINENO=-1
+ fi
  
--tst_res TFAIL "Shell loader should TBROK the test"
-+tst_test()
-+{
-+	tst_res TFAIL "Shell loader should TBROK the test"
-+}
+-if [ -z "$LTP_IPC_PATH" ]; then
+-	echo "This script has to be executed from a LTP loader!"
+-	exit 1
+-fi
+-
+ tst_brk_()
+ {
+ 	tst_res_ "$@"
+@@ -35,7 +30,3 @@ tst_brk_()
+ 
+ alias tst_res="tst_res_ $tst_script_name \$LINENO"
+ alias tst_brk="tst_brk_ $tst_script_name \$LINENO"
+-
+-if [ -n "$TST_CLEANUP" ]; then
+-	trap $TST_CLEANUP EXIT
+-fi
+diff --git a/testcases/lib/tst_run.sh b/testcases/lib/tst_run.sh
+new file mode 100644
+index 0000000000..ded2cd2099
+--- /dev/null
++++ b/testcases/lib/tst_run.sh
+@@ -0,0 +1,16 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2025 Cyril Hrubis <chrubis@suse.cz>
++# Copyright (c) 2025 Petr Vorel <pvorel@suse.cz>
++
++. tst_env.sh
++
++if [ -n "$TST_CLEANUP" ]; then
++	trap $TST_CLEANUP EXIT
++fi
++
++if [ -n "$TST_SETUP" ]; then
++    $TST_SETUP
++fi
 +
 +tst_test
 -- 
