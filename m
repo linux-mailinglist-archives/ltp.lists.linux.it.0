@@ -2,107 +2,118 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE9B8AD1E04
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jun 2025 14:45:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4545CAD1E98
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jun 2025 15:17:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7D2343CACD2
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jun 2025 14:45:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EDF523CAD0A
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Jun 2025 15:17:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9D4D03CA503
- for <ltp@lists.linux.it>; Mon,  9 Jun 2025 14:45:21 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 2DC7F3CA74A
+ for <ltp@lists.linux.it>; Mon,  9 Jun 2025 15:16:56 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id DB1151A008A3
- for <ltp@lists.linux.it>; Mon,  9 Jun 2025 14:45:19 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0651560073F
+ for <ltp@lists.linux.it>; Mon,  9 Jun 2025 15:16:55 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 91EF72118E;
- Mon,  9 Jun 2025 12:45:18 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E6E8921180;
+ Mon,  9 Jun 2025 13:16:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1749473118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1749475015;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ppD6qVBY+W2hPszZHLjEEHycRJQ/Q5VRCoLKbC0RYJU=;
- b=Ftgs0KWGK5qERkmM7XFB+oi1JoRtoZp6fQgxntxLvQbTA3SQZ9xllTxW0UioHn4DJjxHXQ
- QgbaoYaA7IBonu36ZgIByFqdQQkEVNtahKzsUpTNCiRtIgXZvHOr0YQREoqtvx6xDqjKMH
- GpErcoUBspKOaYxdWDFh0F+IOtwXwok=
+ bh=+HhsFYhrujYzFhDHVD7gBaV8z+89j67dQf2O6Js2vtk=;
+ b=gAI8Yf5qd07vc0lPSTINOf16F/YaRJnY2PaTK0Otzx/oEwDeK+EWTD3ZploSTkBNMTLwOj
+ M1Cmins2jNJ6M/7rdaheFTFj8BxkWiSRWq+cDnHbHMxT9o67MJ5EUqIroFKnZRsnKcr1RN
+ +igU1tj1Cu040I1tWGM3aCbTKvu/k6s=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1749473118;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1749475015;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ppD6qVBY+W2hPszZHLjEEHycRJQ/Q5VRCoLKbC0RYJU=;
- b=6D8Ln7Z74QSNrEayXnh/1vfWd/Pc0LiCrjhZmwlT9VKpRW25+P0buieGPzj7dy5N8OOnKt
- t9M7BBiWidBWsECw==
+ bh=+HhsFYhrujYzFhDHVD7gBaV8z+89j67dQf2O6Js2vtk=;
+ b=vS8tYk0IxoLaxyLTXfr4P//Ys7pBzb+glsc8l3cFVi4ANXfSsvyi0ia2fpDQubRq6MAczN
+ iiQJGl+TNcNE6OBQ==
 Authentication-Results: smtp-out1.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=sNHRWwTz;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=DmuLbdT1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1749473118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1749475014;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ppD6qVBY+W2hPszZHLjEEHycRJQ/Q5VRCoLKbC0RYJU=;
- b=Ftgs0KWGK5qERkmM7XFB+oi1JoRtoZp6fQgxntxLvQbTA3SQZ9xllTxW0UioHn4DJjxHXQ
- QgbaoYaA7IBonu36ZgIByFqdQQkEVNtahKzsUpTNCiRtIgXZvHOr0YQREoqtvx6xDqjKMH
- GpErcoUBspKOaYxdWDFh0F+IOtwXwok=
+ bh=+HhsFYhrujYzFhDHVD7gBaV8z+89j67dQf2O6Js2vtk=;
+ b=sNHRWwTz3A/974cPGLBYXTyeFe6cACcEhlc5dX8uCmEhTNmU2NiuVDEHLJvBuSIKsFdgt/
+ OmptuQ0GzrjYhVo3j+AUGUCHaB2oxlke0C5SliznMFEiYO7H6xak1Fnd+Br8UZ5he+Myhz
+ JJ7rWJsL50dvin1+ycBLDgF+3o8PWQ0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1749473118;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1749475014;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ppD6qVBY+W2hPszZHLjEEHycRJQ/Q5VRCoLKbC0RYJU=;
- b=6D8Ln7Z74QSNrEayXnh/1vfWd/Pc0LiCrjhZmwlT9VKpRW25+P0buieGPzj7dy5N8OOnKt
- t9M7BBiWidBWsECw==
+ bh=+HhsFYhrujYzFhDHVD7gBaV8z+89j67dQf2O6Js2vtk=;
+ b=DmuLbdT1Wwr+GNjhAwQmgBqup8om89AeJ89PnCfGbMUwali9VTCbfcrGiiLjTX1doY/vQS
+ Y1O1t3wKt0iRRAAA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6DB0013AAD;
- Mon,  9 Jun 2025 12:45:18 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B6FA2137FE;
+ Mon,  9 Jun 2025 13:16:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id YKnXGV7XRmiQUgAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Mon, 09 Jun 2025 12:45:18 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id z9pXK8beRmhDWwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Mon, 09 Jun 2025 13:16:54 +0000
+Date: Mon, 9 Jun 2025 15:16:49 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon,  9 Jun 2025 14:45:05 +0200
-Message-ID: <20250609124506.1454420-5-pvorel@suse.cz>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250609124506.1454420-1-pvorel@suse.cz>
-References: <20250609124506.1454420-1-pvorel@suse.cz>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <20250609131649.GA1501165@pevik>
+References: <20250602013756.136453-1-gaoshanliukou@163.com>
+ <CAASaF6waa4CsDMxSCF=LOqKMDg4_T511eZn2wu+cAf1VjVjrgw@mail.gmail.com>
 MIME-Version: 1.0
-X-Spam-Score: -2.80
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+Content-Disposition: inline
+In-Reply-To: <CAASaF6waa4CsDMxSCF=LOqKMDg4_T511eZn2wu+cAf1VjVjrgw@mail.gmail.com>
+X-Spamd-Result: default: False [-3.71 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,suse.cz:email,imap1.dmz-prg2.suse.org:helo];
- RCVD_TLS_ALL(0.00)[]
+ FREEMAIL_ENVRCPT(0.00)[163.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_CC(0.00)[163.com,kylinos.cn,lists.linux.it];
+ DKIM_TRACE(0.00)[suse.cz:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_THREE(0.00)[4]; REPLYTO_EQ_FROM(0.00)[]
 X-Spam-Level: 
+X-Rspamd-Queue-Id: E6E8921180
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Score: -3.71
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 4/4] shell: Add shell_loader_setup_cleanup.sh test
+Subject: Re: [LTP] [PATCH LTP] open_posix: fix send_rev_2.c testcase
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,72 +125,23 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: "yang.zhang" <gaoshanliukou@163.com>, ltp@lists.linux.it,
+ "yang.zhang" <zhangyang01@kylinos.cn>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-The same as in v2.
+Hi yang.zhang, Jan,
 
- testcases/lib/run_tests.sh                    |  1 +
- .../lib/tests/shell_loader_setup_cleanup.sh   | 31 +++++++++++++++++++
- 2 files changed, 32 insertions(+)
- create mode 100755 testcases/lib/tests/shell_loader_setup_cleanup.sh
+> Subject says "send_rev_2.c", but patch is for send_rev_1.c,
+> so that's something to fix during commit.
 
-diff --git a/testcases/lib/run_tests.sh b/testcases/lib/run_tests.sh
-index 128cee3377..5c309bbeb5 100755
---- a/testcases/lib/run_tests.sh
-+++ b/testcases/lib/run_tests.sh
-@@ -10,6 +10,7 @@ shell_loader_kconfigs.sh
- shell_loader_supported_archs.sh
- shell_loader_tcnt.sh
- shell_loader_cleanup.sh
-+shell_loader_setup_cleanup.sh
- shell_test01
- shell_test02
- shell_test03
-diff --git a/testcases/lib/tests/shell_loader_setup_cleanup.sh b/testcases/lib/tests/shell_loader_setup_cleanup.sh
-new file mode 100755
-index 0000000000..8184278313
---- /dev/null
-+++ b/testcases/lib/tests/shell_loader_setup_cleanup.sh
-@@ -0,0 +1,31 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2025 Petr Vorel <pvorel@suse.cz>
-+#
-+# ---
-+# env
-+# {
-+# }
-+# ---
-+
-+TST_SETUP=setup
-+TST_CLEANUP=cleanup
-+
-+. tst_loader.sh
-+
-+setup()
-+{
-+	tst_res TINFO "setup executed"
-+}
-+
-+cleanup()
-+{
-+	tst_res TINFO "Cleanup executed"
-+}
-+
-+tst_test()
-+{
-+	tst_res TPASS "Test is executed"
-+}
-+
-+. tst_run.sh
--- 
-2.49.0
+Good point, fixed and merged.
 
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
