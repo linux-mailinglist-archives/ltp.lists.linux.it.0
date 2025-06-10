@@ -1,102 +1,96 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBA98AD33F4
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jun 2025 12:46:43 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CA0F8AD335C
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jun 2025 12:15:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1749552403; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1749550522; h=to : date :
+ message-id : in-reply-to : references : mime-version : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-transfer-encoding :
- content-type : sender : from;
- bh=zOOz/B5SCff4KRQrxf94Cifh6Zz7ZIx+n1QanCvR8v4=;
- b=fn2BwyEA2P17ikfeC0/On6szQGJjVORgrenyU6oobyp7Nao7ca4agH/vgdwCf+R4AxI/b
- VcWKjSFV1OvfAkYjz/J24xvjHLd6AIFMixn3pCJL6L2gOGJgfkTKhYiofWqViiqs17PeMiQ
- 21C/Rbx+dvEC1DmgajjJaTX3ASjzpJE=
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=6+980rx4QXyVerKY3jYGep+zfPMBFffimeErZz6UI1Q=;
+ b=aesp3LJ7oRr7hNqqPQ++cMc7S/iylbtqrBUo8McI1CsxgfWYRWGMUr0Oymi9KRw7YGDhu
+ 85Lyg43y3uSBg6wCwBlNZSwaO1Z5mcKFd7wriZZ7KpcJ8HjivIDHl94wT5/kt9pRSFF3rzV
+ YYdEvfoVXjeUkH2eIaFeKy4WMNblRBg=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AE30C3CAF64
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jun 2025 12:46:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 02E973CAEB9
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jun 2025 12:15:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 60F403CAE2C
- for <ltp@lists.linux.it>; Tue, 10 Jun 2025 12:46:30 +0200 (CEST)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
+ by picard.linux.it (Postfix) with ESMTPS id E23113CAD37
+ for <ltp@lists.linux.it>; Tue, 10 Jun 2025 12:15:19 +0200 (CEST)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 327E61A01168
- for <ltp@lists.linux.it>; Tue, 10 Jun 2025 12:46:28 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-451d7b50815so45664025e9.2
- for <ltp@lists.linux.it>; Tue, 10 Jun 2025 03:46:28 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F15BC201747
+ for <ltp@lists.linux.it>; Tue, 10 Jun 2025 12:15:18 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-450ce3a2dd5so46821685e9.3
+ for <ltp@lists.linux.it>; Tue, 10 Jun 2025 03:15:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1749552387; x=1750157187; darn=lists.linux.it;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=0WV5STcEeuBEKN0R3RWmfpxgJmej064QeqK7Gs37GFw=;
- b=JZ9/NLC4Zlml3cGGrtkiFH8FbJNNwAzOfeDj6DVZ47ewhsg15NaiIFH8ZvaXiaCRUR
- p4avrLeronNZeqaR1BGt+R7tu6ty2HE/g5L2vOjTWBECSnjBSWrMVFWyWOXWyS19xMT1
- JlM0Rtl7awzlIMsdfLpa3xaEK15H5y+QRipUphPuYkGTFYnCdhXO1cAn9diw2mhRUvit
- QzHjbiYbG0bjE5w1VoEYOn3h9vsXtAZHG/AJpvlybjk0BVXEXRnpXFPScE+FqUW6wic2
- 9/vql4wR1MGnxVTPkLxR7KDVtHSjh66+DCeaJ7ggcZxtRIyP/enAvmJGPkmBRPeW52yO
- y3kA==
+ d=suse.com; s=google; t=1749550518; x=1750155318; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3TOL+8XFqP7oQQLvxaNrFkMqy3/OWvIopaaHleQvb/E=;
+ b=aCu/wk0QW0ipLuiLNsorw4+CxqJPLCU4JYSgi2wB+es4kFosRyP0lW4UIrhImR2cSx
+ eNsf1BHqyGRolI+SR9OEgtlwS24DCqOzeh2iPfoZEn+2SFUTebJOP8SWkJr/7k3jtOYq
+ qb4lzkKf4YoLHbcw1P4qJz8ucOr/RRjQdTxlmn0nxFbIvmDGYsiCkGaz4ZF5+KYJvRPY
+ TVygTPMdZQ60fP//XI/2IWaxXokGBz5CsrnUFOBvfknBqNYDFYQui5BTAcJvOy5XEmTK
+ aIO1BEb7gflNp051E6btpjc+kW8skHiwDmYbH9hBAKhUqJURjeWVPukOMllLN/HpNJpN
+ ovww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749552387; x=1750157187;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=0WV5STcEeuBEKN0R3RWmfpxgJmej064QeqK7Gs37GFw=;
- b=wuBBfDenr0xPnPTXwJmVehcCTBlyPH2x4ERA9MTMKXp6mj1Tr5IXQCyVWVSlOrfy4R
- 2SCiEv7Sod2WgRtTnO4HPVob4vSwwHyeaSCCeS+kl1XlIeVfhQLnb9NSGQ5UpiKSOLQm
- YOxRhjRVFNrcHJmDOxCztr9ZsjQ14BM30E9l98srqUVhdFmeTxsSzjUpwLxt74hDc5hw
- ZMIq6FVr+ot/FK51gC+jQcFyp8qmWf+jsCTqpc+3aEoHRpudU/CwTMkj4AduZriqNGdS
- iavc+r/aMOkfFLgrR66ZE5SxKAGxSNTTGXw6K30YrUbfaRfH1X31Ge7JfhaqbbS9Svkn
- Rb7A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU8nBLrDYygFkzqTGC6Xxv1NXErw+kpZ86r+gEV1ItxReymgEKTQcC9pPAlITI8itRx8Ok=@lists.linux.it
-X-Gm-Message-State: AOJu0YzNb9JWRUN7Gl78yS1CXgOSH7CO9GQYfKSehrX66JpiMuWPU0ik
- I46zJ9l2eYGfWcvxLvdT3nJVV8ptwYgAxz1VHHTS2I9zA1I2CCVTY4kuzULsEFc/Sug=
-X-Gm-Gg: ASbGncum1Tzqa+OeqYXc2QpQatzKEhzMTfuE7o8XSj+XuKiS9rqhJE05tSccqzS+CQu
- 1qs1b6CsPqIri34uemhGK5bANVzGMqjJtnoTdYq0u7/ecs5u8PWkU0x23KKr+bDT7/0/7yNl89y
- 6VxljB3wKhxifHVC1i5b9ewX3tNj8LkPtk4U1KgIYlobf8Qxe8Jor0fst4YAmxRVWFLkKosY70U
- 9g8r0hnNPo6WD7/8JbIFPGAUNIffXKEmSGWGRxIjesLiRYsfASiSjyvQ/7AKjaOMkfaFkf/oVYH
- eiBB5Nrjp6VCB9IqSq7aem+GgoXhw31qhpxVnZ3cxrT6YkQG6yYMvni46vxz78NZbrRYRHFq9BO
- PXw1Ma5MjmBeugwQSofz4o4roqzb+hdyT11uRY5dDdZxC4hO2QZ4y6ks+NJ5fQ4q+dQaoQO8+KU
- zRrurOIcnHEkW0c9+4ylZZSfkN
-X-Google-Smtp-Source: AGHT+IHEVA6NyzBWQVYJxwqStXJdTzan4QIDAwdcc4PfOVp6+RBlkgQ7SRAs8ZIos5hiIRbp77Vjgw==
-X-Received: by 2002:a05:6000:240b:b0:3a4:f8fa:9c94 with SMTP id
- ffacd0b85a97d-3a531caa070mr14051465f8f.13.1749552387485; 
- Tue, 10 Jun 2025 03:46:27 -0700 (PDT)
-Received: from ?IPV6:2003:ef:2f2e:9a00:8d36:debd:d407:5caf?
- (p200300ef2f2e9a008d36debdd4075caf.dip0.t-ipconnect.de.
- [2003:ef:2f2e:9a00:8d36:debd:d407:5caf])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2363ad3492esm7823475ad.154.2025.06.10.03.46.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 03:46:27 -0700 (PDT)
-Message-ID: <0139d8be-66d6-4159-8a6e-30727769935a@suse.com>
-Date: Tue, 10 Jun 2025 12:46:19 +0200
+ d=1e100.net; s=20230601; t=1749550518; x=1750155318;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3TOL+8XFqP7oQQLvxaNrFkMqy3/OWvIopaaHleQvb/E=;
+ b=H6Bd/BCcRaSwNI7N4/7dSnFqdRSSksPxQROmw+unsrOeakZKdmc0a68UU3tOAZMpdr
+ 9jK9M62LdMZUV2PSomEUilXQmxeq8HHiUCSN6CcUX5Xz9MMjxWYjbNdcp5SzrkboMLsx
+ LLsYHlUkr2I55gB7nrWY8xpjotD2/Rkbf/KRUTE0NdD3xNGl5lkpAkQkRM67lLar0xjP
+ ZlOUHDNTxMNfuheEPh/Ljee020xnOXuLuITQl+p+5zjZuCB2w1Dg144YUfb43bMYYfTj
+ GgBcYIihbtu11isn/xAIHLMryGro7ihY7n/uCN5pKl2CWAFRlxbrNYm1IySRBbl6ghHq
+ QQ1w==
+X-Gm-Message-State: AOJu0Yz6bVVWzYbC1D8AC0Z064DbUpvL+2514qYEvTsbUCiy5xmCX6+2
+ we/UsNZbVt9kbkmcLdmemHjJ050IgQppgqABkAEys6pUHSs9OHIp0InDLEjOHtzjrect1AflkQ4
+ s2gQ=
+X-Gm-Gg: ASbGncsoBC32Y8eVghmr0rlZKaTILuJJlilPF7EXxNJNwHnwEsnhVaRfISYlqCrR764
+ zYqG42TOAmEFifvwXBURUAI27frGPr/srDcviDkJCZG6ZEQMtMFCkhLQZtf/C03cfHwnTbQS+y1
+ NYNRLKyfO4bEgBSMea08JzupGI2MY2PUpRLpSiGKdwz486GouwvuaVs2xKEOoeJ+1bG2SOZGO92
+ iG3/T/mviffo3Db/M4a0bdik1EejT6k+eHHLI7s5HXO1Fs/JJDeHrNT2gYVTUOn7+55KU/X4I32
+ V5rlvrtMW2luLGMPtoGQRI46qaxKyXxGbAN1Wu+Sn2LfEIljul4=
+X-Google-Smtp-Source: AGHT+IGYLRo3D1jvidbkRCjg9J4u7jKvMImAmZVQUK8MqlGp0OLhrO8cmpJZvQUf6gesNs4VFEo+3g==
+X-Received: by 2002:a05:6000:288f:b0:3a4:ef00:a78c with SMTP id
+ ffacd0b85a97d-3a531ceb99emr15404846f8f.55.1749550518058; 
+ Tue, 10 Jun 2025 03:15:18 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+ by smtp.gmail.com with UTF8SMTPSA id
+ d2e1a72fcca58-7482af7ac79sm7356247b3a.53.2025.06.10.03.15.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Jun 2025 03:15:17 -0700 (PDT)
+To: ltp@lists.linux.it
+Date: Tue, 10 Jun 2025 18:14:16 -0400
+Message-ID: <20250610221435.1680891-1-wegao@suse.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250605142943.229010-1-wegao@suse.com>
+References: <20250605142943.229010-1-wegao@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
-References: <20250610104538.15687-1-chrubis@suse.cz>
-Content-Language: en-US
-In-Reply-To: <20250610104538.15687-1-chrubis@suse.cz>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] doc: Add testers guide
+Subject: [LTP] [PATCH v2] tst_cgroup.c: Skip cases which testing cgroup v2
+ with CONFIG_RT_GROUP_SCHED=y
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,24 +102,141 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
+Cc: mkoutny@suse.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgQ3lyaWwsCgpPbiA2LzEwLzI1IDEyOjQ1LCBDeXJpbCBIcnViaXMgd3JvdGU6Cj4gV2hpbGUg
-d2UgaGF2ZSBhZGRlZCBhIGRvY3VtZW50YXRpb24gb24gc3VwcG9ydGVkIGtlcm5lbHMsIGNvbXBp
-bGVycywgaG93Cj4gdG8gY29tcGlsZSBhbmQgcnVuIExUUCBldGMuIFNvbWUga2luZCBvZiBhIGNv
-bXByZWhlbnNpdmUgZ3VpZGUgZm9yCj4gcGVvcGxlIG5ldyB0byBMVFAgYW5kIGtlcm5lbCB0ZXN0
-aW5nIHdhcyBtaXNzaW5nLiBUaGlzIHBhdGNoIGFkZHMgYQo+IHNob3J0IGd1aWRlIHRoYXQgdHJp
-ZXMgdG8gZXhwbGFpbiBzb21lIG9mIHRoZSBwaXRmYWxscyBvZiBrZXJuZWwKPiB0ZXN0aW5nLiBG
-ZWVsIGZyZWUgdG8gcG9pbnQgb3V0IHdoYXQgaXMgbWlzc2luZyBhbmQgc3VnZ2VzdCBhZGRpdGlv
-bmFsCj4gY2hhcHRlcnMuCj4KPiBTaWduZWQtb2ZmLWJ5OiBDeXJpbCBIcnViaXMgPGNocnViaXNA
-c3VzZS5jej4KPiBSZXZpZXdlZC1ieTogQW5kcmVhIENlcnZlc2F0byA8YW5kcmVhLmNlcnZlc2F0
-b0BzdXNlLmNvbT4KPiBSZXZpZXdlZC1ieTogUGV0ciBWb3JlbCA8cHZvcmVsQHN1c2UuY3o+Cj4g
-UmV2aWV3ZWQtYnk6IDogV2VpIEdhbyA8d2VnYW9Ac3VzZS5jb20+CgogwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBeIHJlbWVtYmVyIHRvIHJlbW92
-ZSB0aGUgY29sb24gaGVyZSBiZWZvcmUgCm1lcmdlLgoKQW5kcmVhCgoKLS0gCk1haWxpbmcgbGlz
-dCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+RT_GROUP scheduling is cgroup v1 feature as of now. So we need skip test cases
+for cgroup v2 with CONFIG_RT_GROUP_SCHED=y.
+
+Skip cases list:
+sched_rr_get_interval01
+sched_rr_get_interval02
+sched_rr_get_interval03
+sched_setparam02
+sched_getscheduler01
+
+Fixes: https://github.com/linux-test-project/ltp/issues/1245
+Signed-off-by: Wei Gao <wegao@suse.com>
+---
+ include/tst_cgroup.h                                  |  2 ++
+ lib/tst_cgroup.c                                      | 11 +++++++++++
+ .../sched_getscheduler/sched_getscheduler01.c         |  2 ++
+ .../sched_rr_get_interval/sched_rr_get_interval01.c   |  2 ++
+ .../sched_rr_get_interval/sched_rr_get_interval02.c   |  2 ++
+ .../sched_rr_get_interval/sched_rr_get_interval03.c   |  2 ++
+ .../kernel/syscalls/sched_setparam/sched_setparam02.c |  2 ++
+ 7 files changed, 23 insertions(+)
+
+diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h
+index d2b5224a0..0f0f44ec3 100644
+--- a/include/tst_cgroup.h
++++ b/include/tst_cgroup.h
+@@ -256,4 +256,6 @@ int safe_cg_occursin(const char *file, const int lineno,
+ 
+ int tst_cg_memory_recursiveprot(struct tst_cg_group *cg);
+ 
++void tst_check_rt_group_sched_support(void);
++
+ #endif /* TST_CGROUP_H */
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+index 36602402d..4ebdf701f 100644
+--- a/lib/tst_cgroup.c
++++ b/lib/tst_cgroup.c
+@@ -16,6 +16,7 @@
+ #include "lapi/fcntl.h"
+ #include "lapi/mount.h"
+ #include "tst_safe_file_at.h"
++#include "tst_kconfig.h"
+ 
+ struct cgroup_root;
+ 
+@@ -1531,3 +1532,13 @@ int tst_cg_memory_recursiveprot(struct tst_cg_group *cg)
+ 		return cg->dirs_by_ctrl[0]->dir_root->memory_recursiveprot;
+ 	return 0;
+ }
++
++void tst_check_rt_group_sched_support(void)
++{
++	static const char * const kconf[] = {"CONFIG_RT_GROUP_SCHED=y", NULL};
++
++	if ((access("/sys/fs/cgroup/cgroup.controllers", F_OK) == 0) && !tst_kconfig_check(kconf)) {
++		tst_brk(TCONF, "CONFIG_RT_GROUP_SCHED not support on cgroupv2");
++	}
++
++}
+diff --git a/testcases/kernel/syscalls/sched_getscheduler/sched_getscheduler01.c b/testcases/kernel/syscalls/sched_getscheduler/sched_getscheduler01.c
+index 7edb59481..58bbede9a 100644
+--- a/testcases/kernel/syscalls/sched_getscheduler/sched_getscheduler01.c
++++ b/testcases/kernel/syscalls/sched_getscheduler/sched_getscheduler01.c
+@@ -39,6 +39,8 @@ static void run(unsigned int n)
+ 	struct test_cases_t *tc = &tcases[n];
+ 	struct sched_param p = { .sched_priority = tc->priority };
+ 
++	tst_check_rt_group_sched_support();
++
+ 	TST_EXP_PASS_SILENT(tv->sched_setscheduler(0, tc->policy, &p));
+ 
+ 	if (!TST_PASS)
+diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
+index b4d75bdcc..6dbf5af89 100644
+--- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
++++ b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
+@@ -43,6 +43,8 @@ static void setup(void)
+ 
+ 	tp.type = tv->ts_type;
+ 
++	tst_check_rt_group_sched_support();
++
+ 	if ((sys_sched_setscheduler(0, SCHED_RR, &p)) == -1)
+ 		tst_res(TFAIL | TERRNO, "sched_setscheduler() failed");
+ 
+diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c
+index 789e5ff10..3f6f34bbc 100644
+--- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c
++++ b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c
+@@ -36,6 +36,8 @@ static void setup(void)
+ 
+ 	tp.type = tv->ts_type;
+ 
++	tst_check_rt_group_sched_support();
++
+ 	if ((sys_sched_setscheduler(0, SCHED_FIFO, &p)) == -1)
+ 		tst_res(TFAIL | TERRNO, "sched_setscheduler() failed");
+ }
+diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c
+index 5e2f4ed7e..d4b7a6f22 100644
+--- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c
++++ b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c
+@@ -59,6 +59,8 @@ static void setup(void)
+ 	bad_addr = tst_get_bad_addr(NULL);
+ 	tp.type = tv->ts_type;
+ 
++	tst_check_rt_group_sched_support();
++
+ 	if ((sys_sched_setscheduler(0, SCHED_RR, &p)) == -1)
+ 		tst_res(TFAIL | TERRNO, "sched_setscheduler() failed");
+ 
+diff --git a/testcases/kernel/syscalls/sched_setparam/sched_setparam02.c b/testcases/kernel/syscalls/sched_setparam/sched_setparam02.c
+index d71e2c6d6..99277baf6 100644
+--- a/testcases/kernel/syscalls/sched_setparam/sched_setparam02.c
++++ b/testcases/kernel/syscalls/sched_setparam/sched_setparam02.c
+@@ -36,6 +36,8 @@ static void run(unsigned int n)
+ 	struct sched_variant *tv = &sched_variants[tst_variant];
+ 	struct sched_param p = { .sched_priority = tc->param };
+ 
++	tst_check_rt_group_sched_support();
++
+ 	TST_EXP_PASS_SILENT(tv->sched_setscheduler(0, tc->policy, &p));
+ 
+ 	p.sched_priority = tc->priority;
+-- 
+2.49.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
