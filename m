@@ -1,81 +1,105 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3E5EAD2D13
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jun 2025 07:12:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1749532357; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=OZqEtVGFhPb3iJTMCr8O28AEJiA+julyGzSog+QO/LM=;
- b=CsxApRGGP0u02fjLddgiZIA9m1VE+tUTh8FPqXBcHsdhFxihF/yMq8VeHDoyimw7WA9E/
- Y0zKRILc/PzBCBaOruLGzvFrrznG/JGLI5/gyXfxwQuoCK12uTmiEvrEx5X89E/b9HMcmwM
- xYMkxKDlj2xDmSDTAqWmUjZu43GHyDQ=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5084BAD33E8
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jun 2025 12:45:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9D5CA3CADDF
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jun 2025 07:12:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 02C383CAEFB
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Jun 2025 12:45:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A4DA83C560E
- for <ltp@lists.linux.it>; Tue, 10 Jun 2025 07:12:24 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by picard.linux.it (Postfix) with ESMTPS id C8DFA3CAEAE
+ for <ltp@lists.linux.it>; Tue, 10 Jun 2025 12:45:08 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B0010600E2B
- for <ltp@lists.linux.it>; Tue, 10 Jun 2025 07:12:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1749532341;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=oz2dHTfpPLsQPUjgrGnG7KloRxQT0bZdqQH2otvlXTQ=;
- b=VSplcFvDnGQpM8N2kRWJhqvj6rlqr3jwGgNnzkrR28W/+PYDhzHqFzsjaqR5L7bKKJ8q60
- QlNPh+cmKWLY/yUWmgSOaPDryrOa2nfpb4Bj3ab0OZ43IhTF1iFpTzdWZnp5L/ddWzkbo7
- 9kFBIFdhppf3p1Bsw84a1+CnsaqZmEQ=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-533--epDlCiuMECJdf8XBCMz7w-1; Tue,
- 10 Jun 2025 01:12:19 -0400
-X-MC-Unique: -epDlCiuMECJdf8XBCMz7w-1
-X-Mimecast-MFC-AGG-ID: -epDlCiuMECJdf8XBCMz7w_1749532338
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B0C6C20118F
+ for <ltp@lists.linux.it>; Tue, 10 Jun 2025 12:45:06 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 168B11956095
- for <ltp@lists.linux.it>; Tue, 10 Jun 2025 05:12:18 +0000 (UTC)
-Received: from dell-per430-17.gsslab.pek2.redhat.com
- (dell-per430-17.gsslab.pek2.redhat.com [10.72.36.28])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 826B530001B1
- for <ltp@lists.linux.it>; Tue, 10 Jun 2025 05:12:15 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0F7581F848;
+ Tue, 10 Jun 2025 10:45:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1749552305; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=WNq47HTUN5D2i8OwmMWylfIhTx/5pyYydz9O4gACayE=;
+ b=Ve3+YTwNClC3B0ZTboNVPLUnH8vuPUoGoO57/s3IqH1IuPm5gvbuzZBVd/eINXdJMlXkVT
+ DZhn7pbyS/G6fcE7qewNsCZW/ec2qAOy6kF7f0VKwMC8rLImnWzPAA87qG0VwzLfpEWbAP
+ sANIu2IT9QpFf0uXbR8+M/2c2Mr1V70=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1749552305;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=WNq47HTUN5D2i8OwmMWylfIhTx/5pyYydz9O4gACayE=;
+ b=U7FU6JjAh6h6YcmmT38j5UDqxhCmNk5GK6rZ0ZRKqp4wcQnlcpUlyKgbIzBZxjquXVFEfM
+ J/ysgL7zM3GTKTBQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Ve3+YTwN;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=U7FU6JjA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1749552305; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=WNq47HTUN5D2i8OwmMWylfIhTx/5pyYydz9O4gACayE=;
+ b=Ve3+YTwNClC3B0ZTboNVPLUnH8vuPUoGoO57/s3IqH1IuPm5gvbuzZBVd/eINXdJMlXkVT
+ DZhn7pbyS/G6fcE7qewNsCZW/ec2qAOy6kF7f0VKwMC8rLImnWzPAA87qG0VwzLfpEWbAP
+ sANIu2IT9QpFf0uXbR8+M/2c2Mr1V70=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1749552305;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=WNq47HTUN5D2i8OwmMWylfIhTx/5pyYydz9O4gACayE=;
+ b=U7FU6JjAh6h6YcmmT38j5UDqxhCmNk5GK6rZ0ZRKqp4wcQnlcpUlyKgbIzBZxjquXVFEfM
+ J/ysgL7zM3GTKTBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F3C3C139E2;
+ Tue, 10 Jun 2025 10:45:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +CNtOrAMSGikRQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Tue, 10 Jun 2025 10:45:04 +0000
+From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 10 Jun 2025 01:12:12 -0400
-Message-ID: <20250610051212.2243309-1-chwen@redhat.com>
+Date: Tue, 10 Jun 2025 12:45:38 +0200
+Message-ID: <20250610104538.15687-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: -j8jpwVEzJUojjUKU-GGZDxZ_mZrql0xeKMr3O1WRQk_1749532338
-X-Mimecast-Originator: redhat.com
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 0F7581F848
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,suse.cz:dkim,suse.cz:email,suse.com:email];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCPT_COUNT_THREE(0.00)[4]; DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Score: -3.01
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v9] Add tls parameter and flag:CLONE_SETTLS cover for
- clone and clone3 syscall
+Subject: [LTP] [PATCH] doc: Add testers guide
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,409 +111,206 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: chunfuwen via ltp <ltp@lists.linux.it>
-Reply-To: chunfuwen <chwen@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-tls parameter and related flag:CLONE_SETTLS are missed in the testing,
-so add them into existed test case
+While we have added a documentation on supported kernels, compilers, how
+to compile and run LTP etc. Some kind of a comprehensive guide for
+people new to LTP and kernel testing was missing. This patch adds a
+short guide that tries to explain some of the pitfalls of kernel
+testing. Feel free to point out what is missing and suggest additional
+chapters.
 
-Signed-off-by: chunfuwen <chwen@redhat.com>
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+Reviewed-by: Andrea Cervesato <andrea.cervesato@suse.com>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Reviewed-by: : Wei Gao <wegao@suse.com>
 ---
-Changes in v9:
-- allow small delay by using usleep before call free_tls
-- validate ./clone10 -i 10 on aarch64 and x86_64, both pass 
 
-Changes in v8:
-- call free_tls() in touch_tls_in_child instead of cleanup
-- remove CFLAGS += -fsanitize=address in Makefile to fix memory double free
-  issue
+Changes againts the RFC:
 
-Changes in v7:
-- remove unnecessary in verify_tls()
-- add CFLAGS += -fsanitize=address in Makefile to fix memory double free
-  issue
+- fixed many typos
+- added a paragraph about filesystems
+- added links and some formatting
 
-Changes in v6:
-- update flag to effective combination
-- combine x86_64 with other arches
-- rename child function
-- remove inproper exit
-- remove unused code lines
-- remove sleep statement
+ doc/index.rst               |   1 +
+ doc/users/testers_guide.rst | 151 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 152 insertions(+)
+ create mode 100644 doc/users/testers_guide.rst
 
-Changes in v5:
-- wrap duplicate code into one single methold
-- remove duplicately malloc
-
-Changes in v4:
-- remove riscv and loongarch definition
-
-Changes in v3:
-- fix missing head file for x86
-
-Changes in v2:
-- create separate files for clone and clone3
-
----
- runtest/syscalls                            |   2 +
- testcases/kernel/syscalls/clone/.gitignore  |   1 +
- testcases/kernel/syscalls/clone/clone10.c   | 139 +++++++++++++++++
- testcases/kernel/syscalls/clone3/.gitignore |   1 +
- testcases/kernel/syscalls/clone3/clone304.c | 158 ++++++++++++++++++++
- 5 files changed, 301 insertions(+)
- create mode 100644 testcases/kernel/syscalls/clone/clone10.c
- create mode 100644 testcases/kernel/syscalls/clone3/clone304.c
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 844ae7a13..10f64270a 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -122,10 +122,12 @@ clone06 clone06
- clone07 clone07
- clone08 clone08
- clone09 clone09
-+clone10 clone10
+diff --git a/doc/index.rst b/doc/index.rst
+index c00a59d31..acd16cdbf 100644
+--- a/doc/index.rst
++++ b/doc/index.rst
+@@ -9,6 +9,7 @@
  
- clone301 clone301
- clone302 clone302
- clone303 clone303
-+clone304 clone304
- 
- close01 close01
- close02 close02
-diff --git a/testcases/kernel/syscalls/clone/.gitignore b/testcases/kernel/syscalls/clone/.gitignore
-index 900cac19c..adfb8257d 100644
---- a/testcases/kernel/syscalls/clone/.gitignore
-+++ b/testcases/kernel/syscalls/clone/.gitignore
-@@ -7,3 +7,4 @@
- /clone07
- /clone08
- /clone09
-+/clone10
-diff --git a/testcases/kernel/syscalls/clone/clone10.c b/testcases/kernel/syscalls/clone/clone10.c
+    users/quick_start
+    users/setup_tests
++   users/testers_guide
+    users/supported_systems
+    users/stats
+    users/test_catalog
+diff --git a/doc/users/testers_guide.rst b/doc/users/testers_guide.rst
 new file mode 100644
-index 000000000..50f0e41b5
+index 000000000..86f8006f9
 --- /dev/null
-+++ b/testcases/kernel/syscalls/clone/clone10.c
-@@ -0,0 +1,139 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2025 Red Hat Inc. All Rights Reserved.
-+ * Author: Chunfu Wen <chwen@redhat.com>
-+ */
++++ b/doc/users/testers_guide.rst
+@@ -0,0 +1,151 @@
++.. SPDX-License-Identifier: GPL-2.0-or-later
 +
-+/*\
-+ * Add tls parameter and flag:CLONE_SETTLS cover for clone
-+ */
++Testers guide to the Linux test project
++=======================================
 +
-+#define _GNU_SOURCE
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <errno.h>
-+#include <sched.h>
-+#include <sys/wait.h>
++While we try to make LTP work out of the box as much as possible there are
++still many things that testers need to consider before the actual testing
++starts. It's advisable to make a test plans in order to asses and formalize the
++expected test coverage or even just sit down for a while and consider different
++aspects of the problem at hand.
 +
-+#if defined(__i386__)
-+#include <asm/ldt.h>
-+#endif
 +
-+#include "tst_test.h"
-+#include "clone_platform.h"
-+#include "lapi/syscalls.h"
++Is testing even required?
++-------------------------
 +
-+#define TLS_EXP 100
-+#define TLS_SIZE 4096
-+#define TLS_ALIGN 16
++Sometimes people tend to make an argument that there is no need to test the
++Linux kernel because it's heavily tested in upstream and hence very stable.
++That may be true, or at least one can say that upstream releases are not
++terribly unstable.
 +
-+static __thread int tls_var = 0;
++However that argument holds only as long as you take the upstream sources
++verbatim, i.e. without any modifications and that includes taking the default
++`.config` options too. Once you stray away from what you consider the stable
++upstream source you introduce differences in behavior, possible bugs and
++problems into your codebase. That applies to patch backports too, it's quite
++easy to miss pre-requisites when backporting patches which may result in all
++kinds of breakages.
 +
-+static void *tls_ptr;
-+static struct user_desc *tls_desc;
-+static char *child_stack;
-+static volatile int child_done = 0;
 +
-+static int flags = CLONE_THREAD |  CLONE_VM | CLONE_FS | CLONE_FILES | CLONE_SIGHAND | CLONE_SETTLS;
++Multi dimensionality
++--------------------
 +
-+static void *allocate_tls_area(void)
-+{
-+	void *tls_area = aligned_alloc(TLS_ALIGN, TLS_SIZE);
-+	if (!tls_area)
-+		tst_brk(TBROK | TERRNO, "aligned_alloc failed");
-+	memset(tls_area, 0, TLS_SIZE);
++First of all kernel testing is a multi dimensional problem, just compiling and
++running LTP will give you some coverage but very likely not enough. There are
++several big gaps that may be easily missed.
 +
-+	return tls_area;
-+}
++For example 64bit Linux kernel provides compatibility layer for 32bit
++applications which code quality is usually a bit worse than the 64bit ABI.
++Hence recompiling LTP with `-m32` in compiler flags and running both 64bit
++and 32bit test binaries is a good start. If you try to make an argument that
++your application does not need 32bit support it's better to disable the compat
++layer completely since it's possible source of security bugs.
 +
-+static void init_tls(void)
-+{
-+#if defined(__x86_64__) || defined(__aarch64__) || defined(__s390x__)
-+	tls_ptr = allocate_tls_area();
++Another dimension is the number of architectures you need to test, for a
++general distribution testing you may end up with a couple of them. Different
++architectures have different platform code as well as differences in memory
++orderings, etc. that all means that running tests on one architecture out of
++several will give you incomplete coverage.
 +
-+#elif defined(__i386__)
-+	tls_ptr = allocate_tls_area();
-+	tls_desc = SAFE_MALLOC(sizeof(*tls_desc));
-+	memset(tls_desc, 0, sizeof(*tls_desc));
-+	tls_desc->entry_number = -1;
-+	tls_desc->base_addr = (unsigned long)tls_ptr;
-+	tls_desc->limit = TLS_SIZE;
-+	tls_desc->seg_32bit = 1;
-+	tls_desc->contents = 0;
-+	tls_desc->read_exec_only = 0;
-+	tls_desc->limit_in_pages = 0;
-+	tls_desc->seg_not_present = 0;
-+	tls_desc->useable = 1;
++Since most of the POSIX API deals with files the choise of filesystem for the
++testing changes the focus and coverage too. LTP defaults to using `/tmp/` as
++a temporary directory for the tests. If `/tmp/` is mounted as tmpfs subset of
++tests will be skipped, if that is the case it's advisable to point environment
++variable `TMPDIR` to a path with a different filesystem instead. Then there
++are tests that format a device with a filesystem. LTP defaults to `ext2` and
++loop devices for these testcases, that can be changed with environment
++variables as well. Lastly but not least a few testcases repeat the test for all
++supported filesystem, if you are interested in testing on a single filesystem
++only you can limit these tests to a single filesystem too. See the tests setup
++for a comprehensive list of the `evironment variables
++<setup_tests.html#library-environment-variables>`_.
 +
-+#else
-+	tst_brk(TCONF, "Unsupported architecture for TLS");
-+#endif
-+}
++They you also have to decide if you are going to run tests in virtual machine
++e.g. `qemu-kvm`, on bare metal or both. Testing in virtual machine will give you
++about 90% of the coverage for bare metal and vice versa.
 +
-+static void free_tls(void)
-+{
-+	printf("Begin to free tls...");
-+#if defined(__x86_64__) || defined(__aarch64__) || defined(__s390x__)
-+	if (tls_ptr) {
-+		free(tls_ptr);
-+		tls_ptr = NULL;
-+	}
-+#elif defined(__i386__)
-+	if (tls_desc) {
-+		free((void *)(uintptr_t)tls_desc->base_addr);
-+		free(tls_desc);
-+		tls_desc = NULL;
-+	}
-+#endif
++There are other options worth of consideration too, Linux kernel has many
++debugging options that are usually disabled on runtime since they incur
++significant performance penalty. Having a few more LTP testruns with different
++debug options enabled e.g. `KASAN
++<https://www.kernel.org/doc/html/latest/dev-tools/kasan.html>`_ or `KMEMLEAK
++<https://www.kernel.org/doc/html/latest/dev-tools/kmemleak.html>`_ may help
++catch bugs before they materialize in production.
 +
-+}
++In practice your test matrix may easily explode and you may end up with dozens
++of differently configured testruns based on different considerations. The hard
++task at hand is not to have too many since computing power is not an infinite
++resource and does not scale that easily. If you managed to read up to this
++point *"Don't Panic!"* things are almost never as bad as they may seem at first
++glance.
 +
-+static int touch_tls_in_child(void *arg LTP_ATTRIBUTE_UNUSED)
-+{
-+	tls_var = TLS_EXP + 1;
-+	tst_res(TINFO, "Child (PID: %d, TID: %d): TLS value set to: %d", getpid(),  gettid(), tls_var);
++It's a good idea to start small with an environment that models your
++production.  Once that works well you can try different configurations. Select
++a few interesting ones and run them for some time in order to get an idea of
++their usefulness. If you are feeling adventurous you may try to measure and
++compare actual test coverage with one of the tools such as `gcov
++<https://www.kernel.org/doc/html/latest/dev-tools/gcov.html>`_ and `lcov
++<https://github.com/linux-test-project/lcov>`. If you do so do not fall into a
++trap of attempting to have 100% line coverage. Having 100% of lines executed
++during the test does not mean that your test coverage is 100%.  Good tests
++validate much more than just how much code from the tested binary was executed.
 +
-+	child_done = 1;
-+	free_tls();
-+	return 0;
-+}
++You may need to sacrifice some coverage in order to match the tests runtime to
++the available computing power. When doing so `Pareto principle
++<https://en.wikipedia.org/wiki/Pareto_principle>`_ is your friend.
 +
-+static void verify_tls(void)
-+{
-+	tls_var = TLS_EXP;
 +
-+	TEST(ltp_clone7(flags, touch_tls_in_child, NULL, CHILD_STACK_SIZE, child_stack, NULL, tls_ptr, NULL));
++Test scope
++----------
 +
-+	if (TST_RET == -1)
-+		tst_brk(TBROK | TTERRNO, "clone() failed");
++So far we were talking about a code coverage from a point of maximizing test
++coverage while keeping our test matrix as small as possible. While that is a
++noble goal it's not the universal holy grail of testing. Different use cases
++have different considerations and scope. For a testing before a final release
++such testing is very desirable, however for a continuous integration or smoke
++testing the main requirement is that feedback loops are as short as possible.
 +
-+	while (!child_done)
-+		sched_yield();
++When a developer changes the kernel and submits the changes to be merged it's
++desirable to run some tests. Again the hard question is which tests. If we run
++all possible tests in all possible combinations it may take a day or two and
++the developer will move to a different tasks before the tests have a chance to
++finish. If you multiply that by a number of developers in the team you may end
++up in a situation where a developer will retire before tests for his patch may
++have had a chance to finish.
 +
-+	if (TLS_EXP == tls_var) {
-+		tst_res(TPASS,
-+			"Parent (PID: %d, TID: %d): TLS value correct: %d",
-+			getpid(), gettid(), tls_var);
-+	} else {
-+		tst_res(TFAIL,
-+			"Parent (PID: %d, TID: %d): TLS value mismatch: got %d, expected %d",
-+			getpid(), gettid(), tls_var, TLS_EXP);
-+	}
-+}
++In this case careful selection of tests is even more important. Having less is
++more in this context. One of the first ideas for CI is to skip tests that run
++for more than a second or so, happily this can be easily done with `kirk
++<https://github.com/linux-test-project/kirk/>`_. In the future we may want to
++explore some heuristics that would map the code changes in kernel into a subset
++of tests, which would allow for a very quick feedback.
 +
-+static void setup(void)
-+{
-+	child_stack = SAFE_MALLOC(CHILD_STACK_SIZE);
-+	init_tls();
-+}
 +
-+static void cleanup(void)
-+{
-+	free(child_stack);
-+}
++Debugging test failures
++-----------------------
 +
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = verify_tls,
-+};
-diff --git a/testcases/kernel/syscalls/clone3/.gitignore b/testcases/kernel/syscalls/clone3/.gitignore
-index 10369954b..e9b5312f4 100644
---- a/testcases/kernel/syscalls/clone3/.gitignore
-+++ b/testcases/kernel/syscalls/clone3/.gitignore
-@@ -1,3 +1,4 @@
- clone301
- clone302
- clone303
-+clone304
-diff --git a/testcases/kernel/syscalls/clone3/clone304.c b/testcases/kernel/syscalls/clone3/clone304.c
-new file mode 100644
-index 000000000..c0e815d28
---- /dev/null
-+++ b/testcases/kernel/syscalls/clone3/clone304.c
-@@ -0,0 +1,158 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2025 Red Hat Inc. All Rights Reserved.
-+ * Author: Chunfu Wen <chwen@redhat.com>
-+ */
++You may think that you will enjoy some rest once you have your test matrix
++ready and your tests are running. Unfortunately that's where the actual work
++starts. Debugging test failures is probably the hardest part of the testing
++process. In some cases failures are easily reproducible and it's not that hard
++to locate the bug, either in the test or in the kernel itself. There are
++however, quite common, cases where the test failure reproduces only in 10% or
++even 1% of the test runs. Sometimes tests are not failing in isolation, that is
++because operating system has a huge internal state and a test failure manifests
++only after running right sequence of tests. All of that does not mean that
++there is no bug, that usually means that the bug depends on more prerequisites
++that have to manifest at the right time in order to trigger the failure. Sadly
++for modern systems that are asynchronous in nature such bugs are more and more
++common.
 +
-+/*\
-+ * Add tls parameter and flag:CLONE_SETTLS cover for clone3
-+ */
++The debugging process itself is not complicated by its nature. You have to
++attempt to understand the failure by checking the logs, reading and
++understanding the source code, debugging with strace, gdb, etc. Then form a
++hypothesis and either prove or disprove it. Rinse and repeat until you end up
++with a clear description of what went wrong. Hopefully you will manage to find
++the root cause, but you should not be discouraged, if you do not. Debugging
++kernel bugs takes a lot of experience and skill one can say as much as is
++needed to write the kernel code.
 +
-+#define _GNU_SOURCE
 +
-+#include <stdlib.h>
-+#include <sys/wait.h>
-+
-+#if defined(__i386__)
-+#include <asm/ldt.h>
-+#endif
-+
-+#include "tst_test.h"
-+#include "lapi/sched.h"
-+#include "lapi/pidfd.h"
-+
-+#define TLS_EXP 100
-+#define TLS_SIZE 4096
-+#define TLS_ALIGN 16
-+#define CHILD_STACK_SIZE (1024*1024)
-+
-+static int pidfd, child_tid, parent_tid;
-+static struct clone_args *args;
-+static void *tls_ptr;
-+static struct user_desc *tls_desc;
-+static void *child_stack;
-+
-+static volatile int child_done = 0;
-+/* TLS variable to validate in child */
-+static __thread int tls_var = 0;
-+
-+static int test_flags = CLONE_THREAD |  CLONE_VM | CLONE_FS | CLONE_FILES | CLONE_SIGHAND | CLONE_SETTLS;
-+
-+static void *allocate_tls_region(void)
-+{
-+	void *tls_area = aligned_alloc(TLS_ALIGN, TLS_SIZE);
-+	if (!tls_area) {
-+		perror("aligned_alloc");
-+		exit(EXIT_FAILURE);
-+	}
-+	memset(tls_area, 0, TLS_SIZE);
-+	return tls_area;
-+}
-+
-+static void initialize_tls(void)
-+{
-+#if defined(__x86_64__) || defined(__aarch64__) || defined(__s390x__)
-+	tls_ptr = allocate_tls_region();
-+
-+#elif defined(__i386__)
-+	/* x86 32-bit: TLS is a struct user_desc */
-+	tls_ptr = allocate_tls_region();
-+	tls_desc = SAFE_MALLOC(sizeof(*tls_desc));
-+	memset(tls_desc, 0, sizeof(*tls_desc));
-+	tls_desc->entry_number = -1;
-+	tls_desc->base_addr = (unsigned long)tls_ptr;
-+	tls_desc->limit = TLS_SIZE;
-+	tls_desc->seg_32bit = 1;
-+	tls_desc->contents = 0;
-+	tls_desc->read_exec_only = 0;
-+	tls_desc->limit_in_pages = 0;
-+	tls_desc->seg_not_present = 0;
-+	tls_desc->useable = 1;
-+
-+#else
-+	tst_brk(TCONF, "This architecture does not support TLS");
-+#endif
-+}
-+
-+static void free_tls(void)
-+{
-+#if defined(__x86_64__) || defined(__aarch64__) || defined(__s390x__)
-+	if (tls_ptr) {
-+		free(tls_ptr);
-+	}
-+#elif defined(__i386__)
-+	if (tls_desc) {
-+		free((void *)(uintptr_t)tls_desc->base_addr);
-+		free(tls_desc);
-+	}
-+#endif
-+}
-+
-+static int check_tls_in_child(void)
-+{
-+	tls_var = TLS_EXP + 1;
-+	tst_res(TINFO, "Child (PID: %d, TID: %d): TLS value set to: %d", getpid(),  gettid(), tls_var);
-+
-+	child_done = 1;
-+	tst_syscall(__NR_exit, 0);
-+	return 0;
-+}
-+
-+static void run(void)
-+{
-+	pid_t pid;
-+	int status;
-+	tls_var = TLS_EXP;
-+
-+	args->flags = test_flags;
-+	args->pidfd = (uint64_t)(&pidfd);
-+	args->child_tid = (uint64_t)(&child_tid);
-+	args->parent_tid = (uint64_t)(&parent_tid);
-+	args->stack = (uint64_t)(child_stack);
-+	args->stack_size = CHILD_STACK_SIZE;
-+	args->tls = (uint64_t)tls_ptr;
-+
-+	TEST(pid = clone3(args, sizeof(*args)));
-+
-+	if (TST_RET == -1)
-+		tst_brk(TBROK | TTERRNO, "clone() failed");
-+
-+	if (!pid)
-+		check_tls_in_child();
-+
-+	while (!child_done)
-+		sched_yield();
-+
-+	if (TLS_EXP == tls_var) {
-+		tst_res(TPASS,
-+			"Parent (PID: %d, TID: %d): TLS value correct: %d",
-+			getpid(), gettid(), tls_var);
-+	} else {
-+		tst_res(TFAIL,
-+			"Parent (PID: %d, TID: %d): TLS value mismatch: got %d, expected %d",
-+			getpid(), gettid(), tls_var, TLS_EXP);
-+	}
-+}
-+
-+static void setup(void)
-+{
-+	clone3_supported_by_kernel();
-+	child_stack = SAFE_MALLOC(CHILD_STACK_SIZE);
-+	initialize_tls();
-+}
-+
-+static void cleanup(void)
-+{
-+	free(child_stack);
-+	free_tls();
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = run,
-+	.bufs = (struct tst_buffers []) {
-+		{&args, .size = sizeof(*args)},
-+		{},
-+	}
-+};
++Happy testing!
 -- 
-2.43.5
+2.49.0
 
 
 -- 
