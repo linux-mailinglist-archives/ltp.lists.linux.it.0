@@ -2,81 +2,81 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 700B9ADAD4D
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Jun 2025 12:26:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22865ADAD55
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Jun 2025 12:27:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1750069617; h=to : date :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1750069660; h=to : date :
  message-id : in-reply-to : references : mime-version : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : content-type :
  content-transfer-encoding : sender : from;
- bh=MZfGtHHawFaAvw+E7u/37zUPZGmjJ8Mu3QY5sA2qcq0=;
- b=jVHL0N9xUQCCPJO0Tjs2UfF8DM4F3uscjhOzE57chMxtPJuw08VQ0SfI0wXTQTv5JO+9N
- 2ZZJpNtV17F/T3jk/xpB95QgNIhQjTntvTnWHaDF8P/j0q2pm95y5Jx7zB7QZgoUe5rLHKm
- LHw54fvN78hT2oRTSPGrCm7FHuC9wWs=
+ bh=XhCr283YsljAocObeiO1bDjEsGIZHQcTIV7BIBMdGy8=;
+ b=dKNfs3dfxtpmGfF9ntGPKemSsbZDaPO2m7hmeF6eldOowqHIdUGkxH2yiKhdpppABokHd
+ Zrwcuf3IeH6dOa7CI33c2Jv6f5gN9KSnohHltpjj1gNkLa9tILyWsCuFxXbHM+IWRMZNJHv
+ irf4SiFeuSBcHJcbRaZljmUPYwTDxBU=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2BF103CBE94
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Jun 2025 12:26:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C6D5F3CC01D
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Jun 2025 12:27:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7F9623CC01F
- for <ltp@lists.linux.it>; Mon, 16 Jun 2025 12:26:34 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id BFAD73CC041
+ for <ltp@lists.linux.it>; Mon, 16 Jun 2025 12:26:35 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B18ED200AF7
- for <ltp@lists.linux.it>; Mon, 16 Jun 2025 12:26:33 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C57B91400C77
+ for <ltp@lists.linux.it>; Mon, 16 Jun 2025 12:26:34 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1750069592;
+ s=mimecast20190719; t=1750069593;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=gpliy1tNayD88QYBScau4I81e1O6Na0IKZeH8Imdzjo=;
- b=cduP5eJAf+AOTVOlqO95YZJDCjjHM5qiaS7j0O98F4tuws9vLozaSud8nCvf0FclDnmBVW
- 1ei2Eui+/qADHSnp34sebCZloAyVbqggpQxzl5c1jf5WVFMNgte9zjp49x7jF1tePU2Taa
- n0eLnRVDcBe3CDawrOeshJpk5hDbIjU=
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=CcIoDX9W+baALInWmVl1X+0BXBa8u3HL8C67JdBnskw=;
+ b=RCveTOaywS6vFlgrPxRGqtSXBWkKoZ4BXhNpM7LOhfx4J5jsLEce70eGmeamgG4mrxLhwU
+ bJuGm5NInjsSObAJxNPbGcsjQTnBxBRYEd9nRpLCsT7gYVunkdIbh9W2QIXKPPBxqYUJuU
+ xeRtsAUZak+sK/+SfZeEnNwZjECnjsY=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-222-a4NjaanKPfK6-epjcs5H2Q-1; Mon,
- 16 Jun 2025 06:26:29 -0400
-X-MC-Unique: a4NjaanKPfK6-epjcs5H2Q-1
-X-Mimecast-MFC-AGG-ID: a4NjaanKPfK6-epjcs5H2Q_1750069588
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-386-vpptmEN0MyGDfcLl8mcSug-1; Mon,
+ 16 Jun 2025 06:26:31 -0400
+X-MC-Unique: vpptmEN0MyGDfcLl8mcSug-1
+X-Mimecast-MFC-AGG-ID: vpptmEN0MyGDfcLl8mcSug_1750069590
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 4282019560AE; Mon, 16 Jun 2025 10:26:28 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id BE0EF18089B4; Mon, 16 Jun 2025 10:26:30 +0000 (UTC)
 Received: from fedora-laptop-x1.redhat.com (unknown [10.72.112.224])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 5699B195608F; Mon, 16 Jun 2025 10:26:25 +0000 (UTC)
+ id 40886195608F; Mon, 16 Jun 2025 10:26:28 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Mon, 16 Jun 2025 18:26:18 +0800
-Message-ID: <20250616102619.54254-3-liwang@redhat.com>
+Date: Mon, 16 Jun 2025 18:26:19 +0800
+Message-ID: <20250616102619.54254-4-liwang@redhat.com>
 In-Reply-To: <20250616102619.54254-1-liwang@redhat.com>
 References: <20250616102619.54254-1-liwang@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 5vav7VIs9xe2_2Jh7nl0zxSOsPfQAXyrg8KbajBPHMk_1750069588
+X-Mimecast-MFC-PROC-ID: 540u581ecKIoQjqROQo3FZfFS_VUpyASt9oWyjYHYqg_1750069590
 X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/3] kernel/pec: switch to new checkpoint wait/wake
- interface
+Subject: [LTP] [PATCH 3/3] tst_checkpoint: Detect and reinit shell or C
+ style checkpoint file
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,82 +95,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Some PEC tests were failing due to incorrect checkpoint reinitialization.
-This issue was introduced by commit bf9589d5bd ("lib: moves test infrastructure
-states into a shared context structure"), where the new tst_reinit() added
-magic validation and can no longer be used in a standalone process.
+Add support to distinguish whether the checkpoint file pointed to by
+$LTP_IPC_PATH was initialized by a shell-based or C-based test case.
+This ensures the correct reinit is used based on the file format.
 
-For example:
+To avoids errors when crossing between shell and C checkpoints.
 
-  cn_pec 1 TINFO: Test process events connector
-  cn_pec 1 TINFO: Testing fork event (nevents=10)
-  tst_test.c:203: TBROK: Invalid shared memory region (bad magic)
-  cn_pec 1 TBROK: tst_checkpoint wait 10000 0 failed
+  # ./shell_test05
+  shell_test05.c:14: TINFO: Waiting for shell to sleep on checkpoint!
+  shell_test05.c:18: TINFO: Waking shell child!
+  shell_test_checkpoint.sh:7: TINFO: Waiting for a checkpoint 0
+  (null)      1  TBROK  :  tst_checkpoint.c:113: Set test.needs_checkpoints = 1
+  (null)      2  TBROK  :  tst_checkpoint.c:113: Remaining cases broken
+  shell_test_checkpoint.sh:9: TPASS: Continuing after checkpoint
+  shell_test05.c:20: TBROK: tst_checkpoint_wake(0, 1, 10000) failed: ETIMEDOUT (110)
+  tst_test.c:1864: TINFO: Killed the leftover descendant processes
 
-This patch updates the PEC test components to use the new futex-based
-checkpoint mechanism via `tst_checkpoint.h`, which supports inter-process
-synchronization across exec() boundaries.
-
-Changes:
-
- - Replace legacy `tst_reinit()` with `TST_CHECKPOINT_WAIT(id)` and
-   `TST_CHECKPOINT_WAKE(0)`
- - Remove unnecessary braces
- - Add `#include "tst_checkpoint.h"`
-
-This improves robustness and aligns with the refactored checkpoint
-infrastructure based on shared futex memory.
-
-Follow-up: bf9589d5bd ("lib: moves test infrastructure states into a shared context structure")
-Reported-by: Avinesh Kumar <akumar@suse.de>
 Signed-off-by: Li Wang <liwang@redhat.com>
 ---
- testcases/kernel/connectors/pec/event_generator.c | 3 ++-
- testcases/kernel/connectors/pec/pec_listener.c    | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ testcases/lib/tst_checkpoint.c | 37 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 36 insertions(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/connectors/pec/event_generator.c b/testcases/kernel/connectors/pec/event_generator.c
-index 4945058ff..3110512ca 100644
---- a/testcases/kernel/connectors/pec/event_generator.c
-+++ b/testcases/kernel/connectors/pec/event_generator.c
-@@ -18,6 +18,7 @@
+diff --git a/testcases/lib/tst_checkpoint.c b/testcases/lib/tst_checkpoint.c
+index 35a0c0dfa..55ded7e7d 100644
+--- a/testcases/lib/tst_checkpoint.c
++++ b/testcases/lib/tst_checkpoint.c
+@@ -40,6 +40,37 @@ static int get_val(const char *name, const char *arg, unsigned int *val)
+ 	return 0;
+ }
  
- #define TST_NO_DEFAULT_MAIN
- #include "tst_test.h"
-+#include "tst_checkpoint.h"
- 
- extern struct tst_test *tst_test;
- static struct tst_test test = {
-@@ -186,7 +187,7 @@ int main(int argc, char **argv)
- 
- 	/* ready to generate events */
- 	if (checkpoint_id != -1) {
--		tst_reinit();
-+		tst_checkpoint_reinit(__FILE__, __LINE__, NULL);
- 		TST_CHECKPOINT_WAIT(checkpoint_id);
- 	}
- 
-diff --git a/testcases/kernel/connectors/pec/pec_listener.c b/testcases/kernel/connectors/pec/pec_listener.c
-index 01ee91d43..2d04b2842 100644
---- a/testcases/kernel/connectors/pec/pec_listener.c
-+++ b/testcases/kernel/connectors/pec/pec_listener.c
-@@ -19,6 +19,7 @@
- #include <signal.h>
- #include <linux/types.h>
- #include <linux/netlink.h>
++static int is_shell_checkpoint_file(void)
++{
++	int fd;
++	char magic_buf[4];
++	const char *path = getenv("LTP_IPC_PATH");
 +
- #define TST_NO_DEFAULT_MAIN
- #include "tst_test.h"
- #include "tst_checkpoint.h"
-@@ -307,7 +308,7 @@ int main(int argc, char * const argv[])
- 
- 	/* ready to receive events */
- 	if (checkpoint_id != -1) {
--		tst_reinit();
-+		tst_checkpoint_reinit(__FILE__, __LINE__, NULL);
- 		TST_CHECKPOINT_WAKE(0);
++	if (!path)
++		tst_brk(TBROK, "LTP_IPC_PATH is not set");
++
++	fd = SAFE_OPEN(path, O_RDONLY);
++	SAFE_READ(1, fd, magic_buf, 4);
++	SAFE_CLOSE(fd);
++
++	if (!memcmp(magic_buf, "LTPM", 4)) {
++		tst_res(TINFO, "Detected Shell checkpoint file (magic = LTPM)");
++		return 1;
++	} else {
++		uint32_t magic_val;
++		memcpy(&magic_val, magic_buf, sizeof(uint32_t));
++
++		if (magic_val == 0x4C54504D) {
++			tst_res(TINFO, "Detected C checkpoint file (magic = 0x4C54504D)");
++			return 0;
++		}
++
++		tst_brk(TBROK, "Unrecognized checkpoint file magic: 0x%08X", magic_val);
++	}
++
++	return -1;
++}
++
+ int main(int argc, char *argv[])
+ {
+ 	unsigned int id, timeout, nr_wake;
+@@ -78,7 +109,11 @@ int main(int argc, char *argv[])
+ 		goto help;
  	}
  
+-	tst_checkpoint_reinit(__FILE__, __LINE__, NULL);
++	/* Re-init checkpoint file based on its format (Shell or C) */
++	if (is_shell_checkpoint_file())
++		tst_checkpoint_reinit(__FILE__, __LINE__, NULL);
++	else
++		tst_reinit();
+ 
+ 	if (type == 0)
+ 		ret = tst_checkpoint_wait(id, timeout);
 -- 
 2.49.0
 
