@@ -2,66 +2,94 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D78DDADC2A0
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Jun 2025 08:56:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AF36ADC2B5
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Jun 2025 08:59:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1750143587; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-transfer-encoding :
+ content-type : sender : from;
+ bh=jJ0kYnh4LmbP6gTaiiGfPS/zgWOpnnUoYjq0R8zuXI8=;
+ b=h/xQB66MkiOhhWPPfi6EDPwqOWpgWs9iGofdX1/JEHN/ocMZnf63l5f7P2laXob7J1dO7
+ yWLQsb20W4h7i1RNgM57du2a8NqgplBfY/xqefyy7jjs7nsflr0olJ5n8/yOl5A0JCrCTiZ
+ 9uE6yw6ssr60TzTR9OT5GteE4z4TNx4=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 723353CA1EF
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Jun 2025 08:56:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 149A23CC199
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Jun 2025 08:59:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B79D73C0143
- for <ltp@lists.linux.it>; Tue, 17 Jun 2025 08:56:36 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id B21483CA644
+ for <ltp@lists.linux.it>; Tue, 17 Jun 2025 08:59:43 +0200 (CEST)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 19ED71A001CE
- for <ltp@lists.linux.it>; Tue, 17 Jun 2025 08:56:35 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 435292121A;
- Tue, 17 Jun 2025 06:56:35 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 314C5139E2;
- Tue, 17 Jun 2025 06:56:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id vkPJCqMRUWiaWAAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Tue, 17 Jun 2025 06:56:35 +0000
-Date: Tue, 17 Jun 2025 08:57:11 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <aFERx8dRidPTqsvi@yuki.lan>
-References: <20250617-ci_docs_build_fix-v1-1-7d0654f0cd7d@suse.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id DC0B160071C
+ for <ltp@lists.linux.it>; Tue, 17 Jun 2025 08:59:42 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a507e88b0aso5166340f8f.1
+ for <ltp@lists.linux.it>; Mon, 16 Jun 2025 23:59:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1750143582; x=1750748382; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=mrPsyANatyG7D+/i9QpVwrj97jdOFeZON0XtRhNoiLk=;
+ b=XwdmroLaU7c5VRMYrO1twLb7mV7lp+LoqGcG0Q7vw9//TNdg+A3YU6Eh6UtdnY0EVX
+ 3m2QOJ7swvE8roJOe5O/tSE7YCjg/hw/E62OAEnqGgYsriEGbNo4zO4VhLqoWm9fUaCz
+ WSEx0YivyngbmqU7iKdoJi8q82DzU6avCPZdUKdGjEtp60cY8yfM7dhaArLOR4nuKS2Q
+ iGZrN43AcYgz56py8hgssXCiK0BSuxLJMV9EkGAI4xYX4uOBlGNHyHCrEth1SUPoh5cy
+ gmc1RNydXwzYlTsae/E0bR0i5/McFZGirCnCornHEpDlD9RKJn3T5jBi7gz/z4bYjCxd
+ CwNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750143582; x=1750748382;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=mrPsyANatyG7D+/i9QpVwrj97jdOFeZON0XtRhNoiLk=;
+ b=qeaEx3mvNhe/VqY+CBE6I/TJpJS2KqHiYJpZL3ePK8zTRFm0aeocjV8f5st0+w4Nm/
+ uuCPRw7UY+TiYi2E+InEZomsHSmqYYvqLxHKr8OqddTSA7bpQDBqw24sLPI5YecE8Z+u
+ v/rLFrlHiKklQa0XZDDfHBim4LvEK08Xy7XAibynV9voG9CtFgx2Y1K0dPoegokiMHTP
+ XTzd82KgVrrDfJhk5Uhmj8Kq8uXOcgfTU8w7OjbKCmfIsIlAoycnVUsKVXKA7iLZuYE6
+ T0kulc6h/m/WFj5jEIOBZZgobKbGYFkD7uXwpu5MG5wNgOlgtbtEOxVNItIOynHCGkx1
+ XMQA==
+X-Gm-Message-State: AOJu0YwpPy/90FdPSEkM6BuyAT6fPpQITzseFrNT3x48Y2VhgpuN9FNT
+ QbEFW7MRlk9S7PuZvLqZ645r0GFdxUGUu+5DLXRM+xxCxWg2L4Q0o3DuoRMMHdjAbjM=
+X-Gm-Gg: ASbGncvMOaDxphE/sccraXtNhhtofH0eIvwCNTimMTnl8+5EegniTYcgksw8UAdgvcQ
+ xNOB3aA7cKepOGJSgjW6Tzs0bU9wB4eSZJAHJC93EcOP0mxfxlAcuYVLMs6ZwL5OJ4gtan0pFCp
+ f7spQXHF0Y7m9plyEGsZmNbo3Xnfac/AkGwiqqepf+LP++vuDy9Uyi4e30V9so5ZtL7RHUSBx9o
+ XG5QBC6ia3H+MNjHcWUGd3gC7jWqZlhTQhpsAoAVwmfPyxmSLT55fTtkEORsfMWygzaGZEDiRZk
+ ItirjUM124g2L2wPdbIR5Uz+u36QVug608AK9rXcOzhWz6wxaAZ7d02wewXMst5ikGLJr8ub
+X-Google-Smtp-Source: AGHT+IE5gtyNwlAkQKBuwjT85NoxBbwPhmQsdz83/vLwyws3NkW40ayBW8VDpUQF2tR/9DP2cfkK6A==
+X-Received: by 2002:a5d:5c84:0:b0:3a5:3e64:1ac4 with SMTP id
+ ffacd0b85a97d-3a5723a2742mr10223169f8f.33.1750143582205; 
+ Mon, 16 Jun 2025 23:59:42 -0700 (PDT)
+Received: from [192.168.1.91] ([151.51.139.27])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-313c1c6a80bsm9840303a91.44.2025.06.16.23.59.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Jun 2025 23:59:41 -0700 (PDT)
+Message-ID: <3f164456-7eb0-4724-846c-e345a2d09246@suse.com>
+Date: Tue, 17 Jun 2025 08:59:35 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250617-ci_docs_build_fix-v1-1-7d0654f0cd7d@suse.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 435292121A
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: -4.00
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
+User-Agent: Mozilla Thunderbird
+To: Cyril Hrubis <chrubis@suse.cz>, Andrea Cervesato <andrea.cervesato@suse.de>
+References: <20250617-ci_docs_build_fix-v1-1-7d0654f0cd7d@suse.com>
+ <aFERx8dRidPTqsvi@yuki.lan>
+Content-Language: en-US
+In-Reply-To: <aFERx8dRidPTqsvi@yuki.lan>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 Subject: Re: [LTP] [PATCH] ci: revert "Run sphinx test only when files
  changed"
@@ -76,55 +104,21 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Revert 180bc2bb9 in order to build documentation when pushing
-> to the master branch.
+Done and Merged.
 
-Maybe add a note here that the test catalog and statistics has to be
-rebuild on each push.
+- Andrea
 
-Otherwise:
-
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
-> ---
->  .github/workflows/ci-sphinx-doc.yml | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/.github/workflows/ci-sphinx-doc.yml b/.github/workflows/ci-sphinx-doc.yml
-> index e77c766871b98114417dc7d8d1cb108afe885735..457aa5a2355d1d93db243090ca31b1c634338b25 100644
-> --- a/.github/workflows/ci-sphinx-doc.yml
-> +++ b/.github/workflows/ci-sphinx-doc.yml
-> @@ -5,7 +5,8 @@ name: "Test building sphinx doc"
->  
->  on:
->    push:
-> -    paths: ['doc/**']
-> +    branches:
-> +    - master
->    pull_request:
->      paths: ['doc/**']
->  
-> 
-> ---
-> base-commit: 2bce711e96004e619d51170302bf7ce9162f1231
-> change-id: 20250617-ci_docs_build_fix-1f2f976a897d
-> 
-> Best regards,
-> -- 
-> Andrea Cervesato <andrea.cervesato@suse.com>
-> 
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+On 6/17/25 08:57, Cyril Hrubis wrote:
+> Maybe add a note here that the test catalog and statistics has to be
+> rebuild on each push.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
