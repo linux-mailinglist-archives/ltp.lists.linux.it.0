@@ -2,117 +2,80 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 265B8AE1EFD
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Jun 2025 17:43:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36FB0AE36B7
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Jun 2025 09:24:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D6CED3CC868
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Jun 2025 17:43:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AE5F33CCA6B
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Jun 2025 09:24:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 03F873CC6F3
- for <ltp@lists.linux.it>; Fri, 20 Jun 2025 17:43:12 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 789FB3C064C
+ for <ltp@lists.linux.it>; Mon, 23 Jun 2025 09:24:37 +0200 (CEST)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 726A61400247
- for <ltp@lists.linux.it>; Fri, 20 Jun 2025 17:43:12 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 088281F390;
- Fri, 20 Jun 2025 15:43:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1750434191; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=wiHHFMMb9mGzulnO3Ir+Mtjps0yUAw/C4dI195/PK/w=;
- b=lDgAR4tKFl3R5Xz413yi7tZgTDSDCajaP+HoTqrE56ybHsB/e+pTQg5wi+APmdCJUPBeA9
- gFaSvLXSONpL9L19me5mF5hqSyuGOBldK4C+hUbRS1V1WcKgFW5xYrLJbkbMnRZ+7xRfag
- EjAKMgnVJcWxLUOgy3MnSjQUg5Ew0kg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1750434191;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=wiHHFMMb9mGzulnO3Ir+Mtjps0yUAw/C4dI195/PK/w=;
- b=lTOqfgkp1OGWAZzJ/R+Nfac7hc10wa3HLPBqCzyL8e5i18yzhVIWDvcxkQ8zvYPmQLfBtv
- FSW8EZ7NOcTD+WDA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=QSp8ljGT;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=jKK+BEBz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1750434190; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=wiHHFMMb9mGzulnO3Ir+Mtjps0yUAw/C4dI195/PK/w=;
- b=QSp8ljGTN1sNnJ7LGVaAEbczqeTEgr3yQAxCogAnCXpt0rfl8SfmXi4aERSQpFkkEIuwLY
- 3ABPHYoICSh8se28AV4bKVA1r38oPUMvyCYIJ/aNtRM8vP9Vu+TrULdb0ZyE7oVCOxNGkd
- 0KKuHRboWNIz6RknQQrMlLV4RDe8oaE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1750434190;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=wiHHFMMb9mGzulnO3Ir+Mtjps0yUAw/C4dI195/PK/w=;
- b=jKK+BEBzoBIifUzZ1bOfl/+pjTCc8TnwpX3Zb2rU5kp8qoRwFc9w/42KGTOomAKFWbKmS4
- N6e4gzBcRig8rwCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EDAD813736;
- Fri, 20 Jun 2025 15:43:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CuXmOI2BVWjOYwAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Fri, 20 Jun 2025 15:43:09 +0000
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 20 Jun 2025 17:43:46 +0200
-Message-ID: <20250620154346.19864-3-chrubis@suse.cz>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250620154346.19864-1-chrubis@suse.cz>
-References: <20250620154346.19864-1-chrubis@suse.cz>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7C50D140054B
+ for <ltp@lists.linux.it>; Mon, 23 Jun 2025 09:24:36 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-ade5a0442dfso750417166b.1
+ for <ltp@lists.linux.it>; Mon, 23 Jun 2025 00:24:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1750663476; x=1751268276; darn=lists.linux.it;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jnSgO9Cld+q9sOUqcUD5sOdXYXrCthqgrIwLD/AZjfo=;
+ b=DNQnpMZ9OPqDQaWEsV0hhVlbrXdqJ0npId3lCQq3AWeZJpV60HQ+ztMycf2jN93ToC
+ yIw69WAm7KqEFGgKrOzicqEESJIkOlubg6gzNPT9NY/rH76yovoXfIWcsWADqUhUBrCc
+ KO4zepudRwV4vb7zEIkC+o52bBK8fcqszbss/zICP4Xz6V+2EZpCHBehVOW39KACzdAx
+ 8Cguudstw12ke84nxg+OXatSbro3yEkOUowHKFRTMF+VaDPmblXiV5QiD1lSpwTVeZ45
+ HRilHLELkeyckqvkSvpqM2UG7laDiyUHvM/QhHUSirHtvVu9qvZom41Ntl7pyWCUP1Ny
+ Rz0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750663476; x=1751268276;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=jnSgO9Cld+q9sOUqcUD5sOdXYXrCthqgrIwLD/AZjfo=;
+ b=O3Ke32wZ6waMfin2SsNs28rFA4wEySiRrJBSX/fzweF28WjU+y8xv+gMV9KfdBqR2v
+ hONmOkG0O+v8S1k2jJC7ASUaTwUSJay9BbN51CmGW2G6MWrVE2sAzyUM9VmXvRG/aAqj
+ ZCJo7ejJNUzTcyr5n5f7Xbj3VAWwJI19aRRcvC8TuevFIVlmrAfhHg2iMUxXF44BY4Ga
+ sirKswvdYfImZ3qGHoT3YRVzFHIJSWjoZvqr+WLfcb5RCiOZbXlKtPjEgLf1HZSQ5yEl
+ 9efGxzzE+/jRqLBgWB16MkvaPSDlOTZfxYMJrbEpoBM6loHRrrqv5bIeV49ZkzE6Sf0A
+ hqew==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW1rXMpjRCAxUxSm2k5GDUAZUrgtkL42A8O2pSFqS2PzkiEMcCtoS/pk2OMgwfG6mcv/rc=@lists.linux.it
+X-Gm-Message-State: AOJu0Yzc/45c0C6icjF5OMnyIFRgq1Vf/wj2dsmivV+ZuiWkDVODBi7z
+ HAGEgCzJpELHbAMFRPdGY42LF60egJN/G9YMfs1TQSWfAssK2B9CR5GIgIMtqQGojTzt/aksccb
+ 1x/htcMl07/SA3kKOr49UO8pJr873UPA=
+X-Gm-Gg: ASbGnculkv0PCCpjOdbC9nFLaMeXRhuPBbrlZX+PhN+axH8ameXGCuWJi2GRTYZoeKx
+ jwDMvvH+enXWsyyX4bbKj+6KZgG4X3dcZ+YRX9cAgbTx5qRaX5kEwN/F6alrHD1MeSR9t72RmdQ
+ yBpBJRY+DI3Vh07M+YQjPA5oOlSVoDmXDd54xcrECyp+s=
+X-Google-Smtp-Source: AGHT+IFHySMxYGTnSvF1XOHqn7sUVXMSvr9YT6wbbBkdGFJZp/tsb5Fhr9kchbPtoG93tX8FCoD3VdeltW7atFZClFA=
+X-Received: by 2002:a17:907:bacb:b0:adb:2f9c:34bb with SMTP id
+ a640c23a62f3a-ae057b48d54mr1006541266b.49.1750663475632; Mon, 23 Jun 2025
+ 00:24:35 -0700 (PDT)
 MIME-Version: 1.0
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 088281F390
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FROM_EQ_ENVFROM(0.00)[]; TO_DN_NONE(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_TWO(0.00)[2]; MIME_TRACE(0.00)[0:+];
- DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Score: -3.01
-X-Spam-Level: 
+References: <20250622215140.GX1880847@ZenIV>
+In-Reply-To: <20250622215140.GX1880847@ZenIV>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Mon, 23 Jun 2025 09:24:22 +0200
+X-Gm-Features: AX0GCFuFHgkwQWHNwiA3nArOxrXS2Ok-B3nI6YAvj3JxGejfwZRWtPizw2Yv2TM
+Message-ID: <CAOQ4uxioVpa3u3MKwFBibs2X0TWiqwY=uGTZnjDoPSB01kk=yQ@mail.gmail.com>
+To: Al Viro <viro@zeniv.linux.org.uk>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/2] metaparse: Map arrays with designated
- initializers to JSON objects
+Subject: Re: [LTP] interesting breakage in ltp fanotify10
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,302 +87,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-fsdevel@vger.kernel.org, LTP List <ltp@lists.linux.it>,
+ Eric Biggers <ebiggers@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The parser now scans array declarations and if it finds out that
-complete initialization is using designated initializers the result is
-mapped into a JSON object instead of an arrray.
-
-A diff snippet looks like:
-
---------------------------
-    "filesystems": [
--    [
--     ".type=btrfs"
--    ],
--    [
--     ".type=bcachefs"
--    ],
--    [
--     ".type=xfs",
--     ".min_kver=4.16",
--     ".mkfs_ver=mkfs.xfs >= 1.5.0",
--     [
-+    {
-+     "type": "btrfs"
-+    },
-+    {
-+     "type": "bcachefs"
-+    },
-+    {
-+     "type": "xfs",
-+     "min_kver": "4.16",
-+     "mkfs_ver": "mkfs.xfs >= 1.5.0",
-+     "mkfs_opts": [
-       "-m",
-       "reflink=1"
--     ],
--     ".mkfs_opts=(constchar*const[])"
--    ]
-+     ]
-+    }
-    ],
---------------------------
-
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- metadata/data_storage.h |  20 ++++++
- metadata/metaparse.c    | 134 +++++++++++++++++++++++++++++++++-------
- 2 files changed, 131 insertions(+), 23 deletions(-)
-
-diff --git a/metadata/data_storage.h b/metadata/data_storage.h
-index f837feec8..6ca5d7d90 100644
---- a/metadata/data_storage.h
-+++ b/metadata/data_storage.h
-@@ -10,6 +10,7 @@
- #include <stdio.h>
- #include <string.h>
- #include <stdlib.h>
-+#include <stdbool.h>
- 
- enum data_type {
- 	DATA_ARRAY,
-@@ -228,6 +229,13 @@ static inline struct data_node *data_node_hash_get(struct data_node *self, const
- 	return hash->elems[i].node;
- }
- 
-+static inline unsigned int data_node_hash_len(struct data_node *self)
-+{
-+	struct data_node_hash *hash = &self->hash;
-+
-+	return hash->elems_used;
-+}
-+
- static inline int data_node_array_add(struct data_node *self, struct data_node *payload)
- {
- 	if (self->type != DATA_ARRAY)
-@@ -285,6 +293,18 @@ static inline void data_print_padd(unsigned int i)
- 		putchar(' ');
- }
- 
-+static inline bool data_node_is_empty(struct data_node *self)
-+{
-+	switch (self->type) {
-+	case DATA_ARRAY:
-+		return data_node_array_len(self) == 0;
-+	case DATA_HASH:
-+		return data_node_hash_len(self) == 0;
-+	default:
-+		return false;
-+	}
-+}
-+
- static inline void data_node_print_(struct data_node *self, unsigned int padd)
- {
- 	unsigned int i;
-diff --git a/metadata/metaparse.c b/metadata/metaparse.c
-index 9723a92c2..e9e9aee10 100644
---- a/metadata/metaparse.c
-+++ b/metadata/metaparse.c
-@@ -337,15 +337,20 @@ static void try_apply_macro(char **res)
- 	*res = ret->data;
- }
- 
--static void finalize_array_entry(char **entry, struct data_node *node)
-+static void finalize_array_entry(char **val, char **id, struct data_node *node)
- {
--	if (!*entry)
-+	if (!*val)
- 		return;
- 
--	data_node_array_add(node, data_node_string(*entry));
-+	if (*id)
-+		data_node_hash_add(node, *id+1, data_node_string(*val));
-+	else
-+		data_node_array_add(node, data_node_string(*val));
- 
--	free(*entry);
--	*entry = NULL;
-+	free(*id);
-+	free(*val);
-+	*id = NULL;
-+	*val = NULL;
- }
- 
- static void str_append(char **res, char *append)
-@@ -369,24 +374,98 @@ err:
- 	exit(1);
- }
- 
--static int parse_array(FILE *f, struct data_node *node)
-+static int array_is_hash(FILE *f)
- {
-+	long pos = ftell(f);
-+	int has_ids = 1;
-+	int elem_seen = 0;
-+	int in_id = 1;
- 	char *token;
--	char *entry = NULL;
-+
-+	while ((token = next_token(f, NULL))) {
-+
-+		if (!strcmp(token, "}"))
-+			goto ret;
-+
-+		elem_seen = 1;
-+
-+		if (!strcmp(token, "{")) {
-+			if (in_id) {
-+				has_ids = 0;
-+				goto ret;
-+			}
-+
-+			int level = 1;
-+
-+			for (;;) {
-+				token = next_token(f, NULL);
-+
-+				if (!token)
-+					goto ret;
-+
-+				if (!strcmp(token, "{"))
-+					level++;
-+
-+				if (!strcmp(token, "}"))
-+					level--;
-+
-+				if (!level)
-+					break;
-+			}
-+		} else if (!strcmp(token, ",")) {
-+			if (in_id) {
-+				has_ids = 0;
-+				goto ret;
-+			}
-+
-+			in_id = 1;
-+		} else if (!strcmp(token, "=")) {
-+			in_id = 0;
-+		}
-+	}
-+
-+ret:
-+	fseek(f, pos, SEEK_SET);
-+	return elem_seen && has_ids;
-+}
-+
-+static int parse_array(FILE *f, const char *arr_id, struct data_node **ret)
-+{
-+	char *token;
-+	char *val = NULL, *id = NULL;
- 	int parent_cnt = 0;
-+	int is_hash = array_is_hash(f);
-+
-+	if (verbose)
-+		fprintf(stderr, "PARSING ARRAY (%s) is_hash = %i\n", arr_id, is_hash);
-+
-+	if (is_hash)
-+		*ret = data_node_hash();
-+	else
-+		*ret = data_node_array();
- 
- 	for (;;) {
- 		if (!(token = next_token(f, NULL)))
- 			return 1;
- 
- 		if (!strcmp(token, "{")) {
--			struct data_node *ret = data_node_array();
--			parse_array(f, ret);
-+			struct data_node *sub_ret;
- 
--			if (data_node_array_len(ret))
--				data_node_array_add(node, ret);
--			else
--				data_node_free(ret);
-+			parse_array(f, id, &sub_ret);
-+
-+			if (data_node_is_empty(sub_ret)) {
-+				data_node_free(sub_ret);
-+			} else {
-+				if (is_hash)
-+					data_node_hash_add(*ret, id+1, sub_ret);
-+				else
-+					data_node_array_add(*ret, sub_ret);
-+			}
-+
-+			free(id);
-+			id = NULL;
-+			free(val);
-+			val = NULL;
- 
- 			continue;
- 		}
-@@ -394,23 +473,33 @@ static int parse_array(FILE *f, struct data_node *node)
- 		if (!strcmp(token, "}")) {
- 			struct data_node *arr_last;
- 
--			finalize_array_entry(&entry, node);
--
-+			finalize_array_entry(&val, &id, *ret);
- 			/* Remove NULL terminating entry, if present. */
--			arr_last = data_node_array_last(node);
--			if (arr_last && arr_last->type == DATA_NULL)
--				data_node_array_last_rem(node);
-+			if (!is_hash) {
-+				arr_last = data_node_array_last(*ret);
-+				if (arr_last && arr_last->type == DATA_NULL)
-+					data_node_array_last_rem(*ret);
-+			}
- 
- 			return 0;
- 		}
- 
-+		if (is_hash && !strcmp(token, "=") && !id) {
-+			id = val;
-+			val = NULL;
-+			continue;
-+		}
-+
- 		if (!strcmp(token, ",") && parent_cnt <= 0) {
--			finalize_array_entry(&entry, node);
-+			finalize_array_entry(&val, &id, *ret);
- 			continue;
- 		}
- 
- 		if (!strcmp(token, "NULL")) {
--			data_node_array_add(node, data_node_null());
-+			if (is_hash)
-+				data_node_hash_add(*ret, id, data_node_null());
-+			else
-+				data_node_array_add(*ret, data_node_null());
- 			continue;
- 		}
- 
-@@ -421,7 +510,7 @@ static int parse_array(FILE *f, struct data_node *node)
- 			parent_cnt--;
- 
- 		try_apply_macro(&token);
--		str_append(&entry, token);
-+		str_append(&val, token);
- 	}
- 
- 	return 0;
-@@ -605,8 +694,7 @@ static int parse_test_struct(FILE *f, struct data_node *doc, struct data_node *n
- 		}
- 
- 		if (!strcmp(token, "{")) {
--			ret = data_node_array();
--			parse_array(f, ret);
-+			parse_array(f, id, &ret);
- 		} else if (!strcmp(token, "ARRAY_SIZE")) {
- 			if (parse_array_size(f, &ret))
- 				return 1;
--- 
-2.49.0
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gU3VuLCBKdW4gMjIsIDIwMjUgYXQgMTE6NTHigK9QTSBBbCBWaXJvIDx2aXJvQHplbml2Lmxp
+bnV4Lm9yZy51az4gd3JvdGU6Cj4KPiAgICAgICAgIExUUCA2NzYzYTM2NTA3MzQgInN5c2NhbGxz
+L2Zhbm90aWZ5MTA6IEFkZCB0ZXN0IGNhc2VzIGZvciBldmljdGFibGUKPiBpZ25vcmUgbWFyayIg
+aGFzIGFuIGludGVyZXN0aW5nIGVmZmVjdCBvbiBib3hlbiB3aGVyZSBGQU5PVElGWSBpcyBub3QK
+PiBlbmFibGVkLiAgVGhlIHRoaW5nIGlzLCB0c3RfYnJrKCkgZW5kcyB1cCBjYWxsaW5nIC0+Y2xl
+YW51cCgpLiAgU2VlIHRoZQo+IHByb2JsZW0/Cj4gICAgICAgICBTQUZFX0ZJTEVfUFJJTlRGKENB
+Q0hFX1BSRVNTVVJFX0ZJTEUsICIlZCIsIG9sZF9jYWNoZV9wcmVzc3VyZSk7Cj4gaXMgZXhlY3V0
+ZWQsIGV2ZW4gdGhvdWdoCj4gICAgICAgICBTQUZFX0ZJTEVfU0NBTkYoQ0FDSEVfUFJFU1NVUkVf
+RklMRSwgIiVkIiwgJm9sZF9jYWNoZV9wcmVzc3VyZSk7Cj4gICAgICAgICAvKiBTZXQgaGlnaCBw
+cmlvcml0eSBmb3IgZXZpY3RpbmcgaW5vZGVzICovCj4gICAgICAgICBTQUZFX0ZJTEVfUFJJTlRG
+KENBQ0hFX1BSRVNTVVJFX0ZJTEUsICI1MDAiKTsKPiBoYWRuJ3QgYmVlbi4KPgo+ICAgICAgICAg
+UmVzdWx0OiBmYW5vdGlmeTEwIG9uIHN1Y2gga2VybmVsIGNvbmZpZ3MgZW5kcyB1cCB6ZXJvaW5n
+Cj4gL3Byb2Mvc3lzL3ZtL3Zmc19jYWNoZV9wcmVzc3VyZS4KCm9vcHMuCnN0cmFuZ2UgZW5vdWdo
+LCBJIGNhbm5vdCByZXByb2R1Y2UgaXQgYXMgc29tZXRoaW5nIGlzIHByZXZlbnRpbmcKemVyb2lu
+ZyB2ZnNfY2FjaGVfcHJlc3N1cmU6CgpmYW5vdGlmeTIzLmM6MjMyOiBUQ09ORjogZmFub3RpZnkg
+bm90IGNvbmZpZ3VyZWQgaW4ga2VybmVsCmZhbm90aWZ5MjMuYzoyNDk6IFRXQVJOOiBGYWlsZWQg
+dG8gY2xvc2UgRklMRQonL3Byb2Mvc3lzL3ZtL3Zmc19jYWNoZV9wcmVzc3VyZSc6IEVJTlZBTCAo
+MjIpCgojIGNhdCAvcHJvYy9zeXMvdm0vdmZzX2NhY2hlX3ByZXNzdXJlCjEwMAoKQnV0IEknbGwg
+c2VuZCBhIGZpeCBhbGwgdGhlIHNhbWUuCgpUaGFua3MsCkFtaXIuCgotLSAKTWFpbGluZyBsaXN0
+IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
