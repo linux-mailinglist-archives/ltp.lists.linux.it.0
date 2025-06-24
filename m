@@ -2,96 +2,103 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49A91AE5B88
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Jun 2025 06:39:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 230A7AE5D85
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Jun 2025 09:18:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1750739954; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1750749527; h=message-id :
+ date : mime-version : to : references : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=RkN/aIXYRTryt31DRT0igahn7R0G9tUU8vfOZKKdLjw=;
- b=YgIqCmERd+O6mWUJLLHvXBXh3SVnyXnG1LhNXFcKo2zzc9rQ0yY18OovcfYOjEHcBhTPx
- B2ZS7slxO691KRYIpF1aZyQBolmS8LFuSTJMT6+q8hDqTUskGZ+WWlqpvfvCdKyHtH975Qi
- /qqcako6B5ijEriLjbZz77gNYg58iVo=
+ list-subscribe : from : reply-to : content-transfer-encoding :
+ content-type : sender : from;
+ bh=2f4vv5iDFXgK9+BYwdCBJvviJAmz2LvEFU/ftBt771o=;
+ b=NWCLb2a1Q1mjtnl+FypTDZEYL/eYmSL/LdM/4A7mXVGlEHoJPiuISW5zFKYeada5Jy4Ic
+ GKxoPHKMokckXWeTuICQGCIP84yb3uBvIPN5NuY5s6+zaPamhRyR5ITyO9cYKqM0Vvh166V
+ nL/UHKV7Lx/L/JUPPLaJ1DWLCNnsAQQ=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C5F793CCAB2
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Jun 2025 06:39:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CFA213CCAA5
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Jun 2025 09:18:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 44D603C312D
- for <ltp@lists.linux.it>; Tue, 24 Jun 2025 06:39:02 +0200 (CEST)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
+ by picard.linux.it (Postfix) with ESMTPS id 09D1A3CAB13
+ for <ltp@lists.linux.it>; Tue, 24 Jun 2025 09:18:35 +0200 (CEST)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0F7EA20116B
- for <ltp@lists.linux.it>; Tue, 24 Jun 2025 06:39:01 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a510432236so3606306f8f.0
- for <ltp@lists.linux.it>; Mon, 23 Jun 2025 21:39:01 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 37481600D0E
+ for <ltp@lists.linux.it>; Tue, 24 Jun 2025 09:18:35 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-451dbe494d6so57163105e9.1
+ for <ltp@lists.linux.it>; Tue, 24 Jun 2025 00:18:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1750739940; x=1751344740; darn=lists.linux.it;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=gr6lBMvvtIkKqbp4tYBJR1awVSxi4ZAeFzekMIQBqnA=;
- b=cZbJ+Ca5A5A2UcVzaMUcsdC2N2UEUzZ+Uj6PFqDeT3XfE2XE84yq+wrxlaNON+2aoM
- 0pkzxQo41xPFqUhVdKEpLex9cLa8HqgL4NEZZuGgNfnMw0K9w90UGAJUjkhXyPjffbkf
- 3EPsP1k+hjoqYKsDpBM0sP330mHrI9LLNnZITdcSeC6CwPsBHqcJoW7mpXz0EvWHOS7m
- U4X9hWTbbDddF1YuYqo7TvLY8IRLwv0CC9Tj3bL7AI2+iX4xJal1Ibfg9lt5vUYcIfkM
- WfT89bstIUNfUxFiZbshJV4+CM42j4STHlZoL2KsyvjzrK9/sIy33silu5XjtEHdqe7h
- HucA==
+ d=suse.com; s=google; t=1750749514; x=1751354314; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=2KZdx4f3tP6mcRmyuG/mUFGWKmAc9s9OewKlNQ8cc0c=;
+ b=b6guNeccP1JGhRBSsBFU9VRdByCB/GuE/XBAnRgMPPqGGSv2prATj7Y277uCr/HT4M
+ c2Wm3jl7CA2IuIUN7Kpzeb0w/yxsWyk81KxgnF7sCuCGQgeqiXqcW0s41ILQ8XqCx9Pu
+ jumnK2/adda03xAsT9+8gI5vG9Qu2xxjqCHILRuCtS7j9oA5ls8H9Dx+HeLrV6iyjmp3
+ a5iUT06uCvhQK1uGJMV6/hhZdAeoSe41jf2SSDqlif5L+L9uQwOKDmkhB/G6wI3nPBbC
+ iWFDPFW+RtY12iiHmjUPLc5B2XpGw3IlT96uqPhBG1InqobeLdn7EybasaUs0llxEBu1
+ aOpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750739940; x=1751344740;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gr6lBMvvtIkKqbp4tYBJR1awVSxi4ZAeFzekMIQBqnA=;
- b=UzziEut4SHpIbq4R3Mn4pDHS6ZbNq1z6ruXA+cBJ8QVJyjtHuIlr8Lg9n6/L8lSru2
- ibsxWP78C5N/LQAPJfe5sQf6y4h2rySAJQoax4gkIjVmD969QLbB/YSUR82XheWsgWm1
- oZyHtLNb7gBtNAUbOoxxtCL8N6fRw5UWeQNQOu37+8IdrrRYUIVdr9jGPreQL44sU3mY
- ItKJudwfgNObUvUPrcWJZqzECuepLTuYDQWYZlwQVFCKLjf1tS3zhHnFPxKApG2MgBif
- 0xoQhkE4jxNrDvObo+6+1kJznTW+2AmNl56klT81zAZwrt8thBPVBJ+39g6yF//KZz42
- lrZQ==
+ d=1e100.net; s=20230601; t=1750749514; x=1751354314;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2KZdx4f3tP6mcRmyuG/mUFGWKmAc9s9OewKlNQ8cc0c=;
+ b=MQiPE3yl0175FaJca9fLYaBK8L37YRrpS2tArVrRjrSfjKA5bo/CdfsfaRf+LWEN/7
+ vdWO3eUw4iOLCnAjPpcx7ygVcgdnD0+IV0k07C2Pt18dYkf9Frgrj79yxZTTSmrFcvcf
+ HLZ88otnYVFkHXhjIk5m6tXQR4TAoojZu2xBVXCZqBz6hyTvlaBEHQ3VmOmurg9Ybsz3
+ 6RKSY1Ftpp/ussqcXiVHinTsCBTcO8g9QKrFZtGJKQDvmns20rAYHRR0EAS4NjxDc3Ph
+ PXeMZmsdoia6nILB8WKNxvwQmiFwW2zN2fcmluaxnaYUYtElN+muEIGkGe1XRGsYuKhs
+ a25Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWp+quAlP5QGnUab6rLeHk53YejwhM4VA37r0A/vxk1laaD0XpbGCyQdQ5xKwn7wvM7eZs=@lists.linux.it
-X-Gm-Message-State: AOJu0YwRoszgcrunO5f9TTfuMW2MZW/7y+/gLJtD4+XL41U3JoYh55if
- GFjmRlzVpWgxh3HswnlFm9a62KJZ6DW84k8/fuvV3XLcPLZ6a9aEbD9Q+ZyQWxYDhg==
-X-Gm-Gg: ASbGncthxdU+xCZ6wuBAJRlRAq2e0ZborVoFLuUgiyAO8SwUVuf5oRGXQMrr1BZ0RLl
- grOCFN3bHB9RIuKovQLePE1PUA52hPsKrfNtE/OkAlDdeasR3488W5fZ+H6nWTxQvXyTqYURlOJ
- YKy9+uvFLA6x0JHk/+JG13k1sCGprxxQdiY79iau55raBOrfz9Z/YElwkkiZNJjl1LAP3h87A1O
- wk320KCN0hDKK9AvV5pUiU1rtzNxIUlI8w1lvr+YfeMwR5RtTV5LNhOALvBNQBsNqJaC2KeUeNu
- y7Mmho5tjdedFc3hSaUNHVEpcIAjaGQQoTlT2BZxRoCmlLvygaa3XxMtD5vD5nJoF8j/4LL/
-X-Google-Smtp-Source: AGHT+IGbImtoOIlMWFQcqQYDhUaad1M+95DIyy0UedD6sZt8tQAypba7sil8il1gMS6Y4EzV74aSWg==
-X-Received: by 2002:a05:6000:4282:b0:3a5:783f:5296 with SMTP id
- ffacd0b85a97d-3a6d13339f6mr12735192f8f.56.1750739940379; 
- Mon, 23 Jun 2025 21:39:00 -0700 (PDT)
-Received: from MiWiFi-CR6608-srv ([202.127.77.110])
+ AJvYcCV9b6djreFZ4bpeLa70LzwhpWVk1M5EyGek1d9hAr9bplvUgCdgPuRPhWj71y6pJDZF79E=@lists.linux.it
+X-Gm-Message-State: AOJu0Yx596T+2smFpyjSvHas/Si31DHw5MQEtoEu+4eo793kKgh/dRmm
+ KYpHEDVQNFRfZoEEnILZqhRPMI1czEXlfYUsM+0b27Bx8gQkIjNXaIqhNc97pM0D+C8=
+X-Gm-Gg: ASbGnctOtcnS4wjLzqHT5NlwzqFuLYBIOBKn70msosMd2F/2I/qavCKwxv05uqnYzKj
+ pwXFYCDF0D9EoWTUdvpT57xZ1ctLb7avQ8agWDxVC75yQPdf5ZhTDn/zivc84Pva78nuKFaJQQN
+ 3/4nrApct2zUnI3iaIUjZCJ71QOG/5F5NQtDl0d6j/Qlb8i6rSOqWaht+3mS8SHDFFaturXO+ew
+ Cx5duHH567dLtwzlxBCSjlPizJZDkxXIf0rcUdoSpNiqI8Vvy0WrIo7a/CC5NkHz4mt8e/FMFAU
+ NWlIEwQt6hKWqJfFnVCtIeq0CVHfaFwZwL5lVVJDBp0jz5dEKVX2QF0QMc+bANuambxbcYUUrpd
+ LoHfhnxNHjW97FkYbkI7HnbjCksvh1N5qPK4T7WgPzyoW7Dr4o0nS7GIIFJCHS/U54o9qAtlX1m
+ SUdHJi1ALocpiKOAgGB30YXHN/0A==
+X-Google-Smtp-Source: AGHT+IE2cZgsikye6P/tUShLVpOhJkw+uS5kMzvFm7jju+3xBdzmjfYwhiN6JP+Wgqg6JOxGx1WTvg==
+X-Received: by 2002:a5d:584d:0:b0:3a5:2694:d75f with SMTP id
+ ffacd0b85a97d-3a6d1331a3fmr12021312f8f.52.1750749514574; 
+ Tue, 24 Jun 2025 00:18:34 -0700 (PDT)
+Received: from ?IPV6:2003:ef:2f2e:9a00:8d36:debd:d407:5caf?
+ (p200300ef2f2e9a008d36debdd4075caf.dip0.t-ipconnect.de.
+ [2003:ef:2f2e:9a00:8d36:debd:d407:5caf])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d87182c8sm98693915ad.232.2025.06.23.21.38.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Jun 2025 21:38:59 -0700 (PDT)
-Date: Tue, 24 Jun 2025 12:38:30 -0400
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <aFrUhlpMX-MmUIDg@MiWiFi-CR6608-srv>
-References: <20250623073717.338178-1-amir73il@gmail.com>
+ d9443c01a7336-237d8695195sm102907465ad.187.2025.06.24.00.18.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Jun 2025 00:18:34 -0700 (PDT)
+Message-ID: <d4eb5139-c01c-4a16-a026-a6d2dbeb2a8f@suse.com>
+Date: Tue, 24 Jun 2025 09:18:27 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250623073717.338178-1-amir73il@gmail.com>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+User-Agent: Mozilla Thunderbird
+To: =?UTF-8?Q?Ricardo_B=2E_Marli=C3=A8re?= <rbm@suse.com>,
+ Linux Test Project <ltp@lists.linux.it>
+References: <20250623-conversions-set_thread_area-v5-1-7fb49fcf54d6@suse.com>
+Content-Language: en-US
+In-Reply-To: <20250623-conversions-set_thread_area-v5-1-7fb49fcf54d6@suse.com>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] fanotify10,
- fanotify23: fix cleanup of vfs_cache_pressure
+Subject: Re: [LTP] [PATCH v5] syscalls/set_thread_area01: Refactor into new
+ API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,118 +110,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
-Cc: Jan Kara <jack@suse.cz>, Al Viro <viro@zeniv.linux.org.uk>,
- ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, Jun 23, 2025 at 09:37:17AM +0200, Amir Goldstein wrote:
-> Avoid setting vfs_cache_pressure to zero if test was not run
-> because kernel does not support fanotify.
-> 
-> Reported-by: Al Viro <viro@zeniv.linux.org.uk>
-> Link: https://lore.kernel.org/linux-fsdevel/20250622215140.GX1880847@ZenIV/
-> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-> ---
->  testcases/kernel/syscalls/fanotify/fanotify10.c | 8 ++++----
->  testcases/kernel/syscalls/fanotify/fanotify23.c | 8 ++++----
->  2 files changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify10.c b/testcases/kernel/syscalls/fanotify/fanotify10.c
-> index ccb4f55df..2d33416f3 100644
-> --- a/testcases/kernel/syscalls/fanotify/fanotify10.c
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify10.c
-> @@ -102,7 +102,6 @@ static int ignore_mark_unsupported;
->  #define DROP_CACHES_FILE "/proc/sys/vm/drop_caches"
->  #define CACHE_PRESSURE_FILE "/proc/sys/vm/vfs_cache_pressure"
->  
-> -static int old_cache_pressure;
->  static pid_t child_pid;
->  static int bind_mount_created;
->  static unsigned int num_classes = NUM_CLASSES;
-> @@ -925,7 +924,6 @@ static void setup(void)
->  	SAFE_MKDIR(MNT2_PATH, 0755);
->  	mount_cycle();
->  
-> -	SAFE_FILE_SCANF(CACHE_PRESSURE_FILE, "%d", &old_cache_pressure);
->  	/* Set high priority for evicting inodes */
->  	SAFE_FILE_PRINTF(CACHE_PRESSURE_FILE, "500");
->  }
-> @@ -939,8 +937,6 @@ static void cleanup(void)
->  	if (bind_mount_created)
->  		SAFE_UMOUNT(MNT2_PATH);
->  
-> -	SAFE_FILE_PRINTF(CACHE_PRESSURE_FILE, "%d", old_cache_pressure);
-> -
->  	for (i = 0; i < max_file_multi; i++) {
->  		char path[PATH_MAX];
->  
-> @@ -972,6 +968,10 @@ static struct tst_test test = {
->  		TEST_APP,
->  		NULL
->  	},
-> +	.save_restore = (const struct tst_path_val[]) {
-> +		{CACHE_PRESSURE_FILE, NULL, TST_SR_TCONF},
-> +		{}
-> +	},
->  	.tags = (const struct tst_tag[]) {
->  		{"linux-git", "9bdda4e9cf2d"},
->  		{"linux-git", "2f02fd3fa13e"},
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify23.c b/testcases/kernel/syscalls/fanotify/fanotify23.c
-> index 26c9e87fb..36c7779da 100644
-> --- a/testcases/kernel/syscalls/fanotify/fanotify23.c
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify23.c
-> @@ -35,7 +35,6 @@
->  #define DROP_CACHES_FILE "/proc/sys/vm/drop_caches"
->  #define CACHE_PRESSURE_FILE "/proc/sys/vm/vfs_cache_pressure"
->  
-> -static int old_cache_pressure;
->  static int fd_notify;
->  
->  static unsigned long long event_set[EVENT_MAX];
-> @@ -234,7 +233,6 @@ static void setup(void)
->  						FAN_MARK_FILESYSTEM,
->  						FAN_ATTRIB, MOUNT_PATH);
->  
-> -	SAFE_FILE_SCANF(CACHE_PRESSURE_FILE, "%d", &old_cache_pressure);
->  	/* Set high priority for evicting inodes */
->  	SAFE_FILE_PRINTF(CACHE_PRESSURE_FILE, "500");
->  }
-> @@ -243,8 +241,6 @@ static void cleanup(void)
->  {
->  	if (fd_notify > 0)
->  		SAFE_CLOSE(fd_notify);
-> -
-> -	SAFE_FILE_PRINTF(CACHE_PRESSURE_FILE, "%d", old_cache_pressure);
->  }
->  
->  static struct tst_test test = {
-> @@ -259,6 +255,10 @@ static struct tst_test test = {
->  		{.type = "ext2"},
->  		{}
->  	},
-> +	.save_restore = (const struct tst_path_val[]) {
-> +		{CACHE_PRESSURE_FILE, NULL, TST_SR_TCONF},
-> +		{}
-> +	},
->  };
->  
->  #else
-> -- 
-> 2.43.0
+Hi!
 
-For me this patch more looks like an improvement instead of a fix.
-Thanks for your patch.
+Merged thanks.
 
-Acked-by: Wei Gao <wegao@suse.com>
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+- Andrea
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
