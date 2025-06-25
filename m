@@ -2,111 +2,94 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94026AE6A89
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Jun 2025 17:19:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81C94AE737A
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Jun 2025 01:49:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1750808992; h=date : to :
+ message-id : references : mime-version : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=Ys8VymHYHYzVxEz7UAQpo31qyA2UK/AxFUBdguwFA5c=;
+ b=ZPajNuXuENdGq3P/bBT/zww6SVH9XcBmbWk9BHswaj/uj3jPlsXh+RBEZ1Uk6csZnlkOf
+ HSeeByhBAqEjAlwfnCBdyJlQFQg1qKxXeMLdsoT2aLUMqMx548M+pKQ+UY3DZmB5kmWS9cg
+ zl5XWbTtkz5HyyrL9zIjjRVYgK2ehFI=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2578D3CCAD5
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Jun 2025 17:19:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 142003CCB0D
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Jun 2025 01:49:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B3F863CCAB6
- for <ltp@lists.linux.it>; Tue, 24 Jun 2025 17:19:27 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 293883CCA86
+ for <ltp@lists.linux.it>; Wed, 25 Jun 2025 01:49:39 +0200 (CEST)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E54B01000D86
- for <ltp@lists.linux.it>; Tue, 24 Jun 2025 17:19:24 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8EB211F444
- for <ltp@lists.linux.it>; Tue, 24 Jun 2025 15:19:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1750778362; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lqx/Ay4Vgsm8hVNk7yQA2l9KlyxMv6Ad/LzRY1iHYHk=;
- b=VMkmLOVFckwpZKJFqMU14kuq0JmrP2UZ6OO3rDfBy0Ro0GpPrQSGEgKsWJGotc+vt2f7Sv
- FB6iVxGtXQNFZmZjBdI8nB9Y6ydZNC22LkxVahJlUz8hmDT1B5FR8ADpJjIuzz21zurKEm
- F1/4n9wee1xRyGPBBQuOTz42RdRJqpc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1750778362;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lqx/Ay4Vgsm8hVNk7yQA2l9KlyxMv6Ad/LzRY1iHYHk=;
- b=k+VYjEolQpMm3VjKxqDLybHJr2T9jr7so1JqFVBul02nmdrk0KMekN5YwKTqWi/im3Qeq8
- UubHMfIIWkxgsMCw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1750778361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lqx/Ay4Vgsm8hVNk7yQA2l9KlyxMv6Ad/LzRY1iHYHk=;
- b=DT5tdqNKM21p3aMJFHrU00k9ZExCfRzkSCZ9vbdzdT4CjnS+YP1C0fIQM+RWBvzgyG39ZP
- Yp2URcF808XFcWlM2O7GbShM6hFl+TMbNPjxeUzIEEJk0qu2d9nkRgkB6zikN8MQV4FN72
- Akfy1Q50UUQgqAm6yhnhZo8VQxWPov8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1750778361;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lqx/Ay4Vgsm8hVNk7yQA2l9KlyxMv6Ad/LzRY1iHYHk=;
- b=WtOBCbfL7KQaUrWCK+YQK+jqNkajrbhpmuQCgBle1SsVDUxJ+V5KG4DPi8qDffjNELOhFQ
- QaMvvNWBTaLLg1AA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 72A3513A9C
- for <ltp@lists.linux.it>; Tue, 24 Jun 2025 15:19:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id eGwZG/nBWmh7DAAAD6G6ig
- (envelope-from <mdoucha@suse.cz>)
- for <ltp@lists.linux.it>; Tue, 24 Jun 2025 15:19:21 +0000
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 24 Jun 2025 17:19:16 +0200
-Message-ID: <20250624151918.32145-3-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250624151918.32145-1-mdoucha@suse.cz>
-References: <20250624151918.32145-1-mdoucha@suse.cz>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5BF0B10002BF
+ for <ltp@lists.linux.it>; Wed, 25 Jun 2025 01:49:38 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-453749af004so5768095e9.1
+ for <ltp@lists.linux.it>; Tue, 24 Jun 2025 16:49:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1750808977; x=1751413777; darn=lists.linux.it;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=LYXKvb4WIbtZzKogRcA6GAxGFFF18L0Ix8D86QVuX/U=;
+ b=ESyaa+sDxaoSKIIslTL2OJDoPgCjdwpGtISAdKIiW5OjMvNQGa+57ETfBzrI3rwpWX
+ EC+cnKHvhkZW6ad1AouWi+HADbPcZ8uieKkAKDi90ubKFAKlnnF5lYaCkvwxNUt1aK42
+ mmnWUlqAINyH0BAaAQkysgVwp9TWvv6yIGmdXM/O8RV1eTOP3gIEO0fZ4/94zhWzdVDH
+ tRFFVEFOVoRw27ItX/Arfx+1+iWXTmlN8DOUA0fhrPxRRa17vAxzGnNPP//VJS4B2nng
+ Hky8lqG6+B93wWBsLrxd6ATapkWBys4lFb05j1tKZb3e3a9d97uBY0eTc0WoZVVNBJYa
+ aJ8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750808977; x=1751413777;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LYXKvb4WIbtZzKogRcA6GAxGFFF18L0Ix8D86QVuX/U=;
+ b=Adp00Pxy14pRh+xb+HWyJO/W8uuFgXnWKDXnlkPRMLkbem4otYu5E2OqbWA8AVsXDf
+ +edFS8E1Q8LFQpufyRTfAVmRqeek4P89VR6u39YjcGHda+U43luUK7PREyAewWw5IcR8
+ gdP+wZbXNeJ6v+yBIIgeNXpLuP8x7sJvY3Cna0UvWwcs+FeSOM9r+JVD+vkTRzGvrulL
+ REKmTdtnUq//GynygyADeXIqIxcvGRwXYiQtfgmlJSNNFn9dbDVtFzXDdAVQiWyom33B
+ XCoe1CQMjU2gYYnjDMXLJEzbxVDBbO7N6abC2Yy+sIUreV9uEy8DCpHtdiwy5oqeBCfh
+ dUqg==
+X-Gm-Message-State: AOJu0YwksxuHdRH4LYQgdFkW5HoPLs7NkRFYLAGSjespAx6aDNqxlVbk
+ 0D49Ugk+evnoUTMunhLkHTxbqMEBvXVaCkOu2xwldioZA5OLm8e8/29PKHPAVfRZyw==
+X-Gm-Gg: ASbGnctCfEyVCVKSndSevh4garXsBHZKmftswXXgu7Qe8Zz5b9XzPC1otM5dmSsSIx6
+ LXzcL0a50LuLOsO0Wj/D6Lt7t3Yunybxj86Keb4kmgC5lgbzJlXqhEUNv4sAYCpnXwmfCFQbF7j
+ cE1qrZKrmmHK9Xz8eSOpQd1F9ZfX0/uI6YwxAl/vu2jddDYqJZhZLppuHCfQtjMt5ZKEM36wD64
+ wtR6wSywNVRhB717dw57wM3g4F6XoJ5TmFoTyvLdi0Z/X2dyn+HUQtV7Spbi8kX60IT07IdMtbL
+ cWJsoYwo3nyx2UwgMBuyNDi1DvsoA7YP7ZV0mSlJgXFtIkSievzBx8gxjj+UIQ==
+X-Google-Smtp-Source: AGHT+IERV/xR8AA2fhKi5T1dOZsaThiy3+80FiJO7u9kI6FmpT6nFkd67kg2kJid3BV7f4Il652E0Q==
+X-Received: by 2002:a05:6000:18a5:b0:3a5:1241:c1a3 with SMTP id
+ ffacd0b85a97d-3a6ed64e56bmr375345f8f.50.1750808977598; 
+ Tue, 24 Jun 2025 16:49:37 -0700 (PDT)
+Received: from MiWiFi-CR6608-srv ([202.127.77.110])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-749c8873652sm3003401b3a.177.2025.06.24.16.49.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Jun 2025 16:49:37 -0700 (PDT)
+Date: Wed, 25 Jun 2025 07:49:06 -0400
+To: Li Wang <liwang@redhat.com>
+Message-ID: <aFviMs0k__9ilhvJ@MiWiFi-CR6608-srv>
+References: <20250624131413.63830-1-liwang@redhat.com>
 MIME-Version: 1.0
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
- ARC_NA(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:mid,imap1.dmz-prg2.suse.org:helo];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
- PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
- RCVD_TLS_ALL(0.00)[]
-X-Spam-Level: 
-X-Spam-Score: -2.80
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
+Content-Disposition: inline
+In-Reply-To: <20250624131413.63830-1-liwang@redhat.com>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 3/3] open13: Verify that dup() will preserve O_PATH
- flag
+Subject: Re: [LTP] [PATCH v3] tst_test: Add min_runtime to control lower
+ bound of scaled runtime
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,67 +101,74 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Verify that calling dup() on a file descriptor opened with O_PATH
-will return another file descriptor that is not usable for standard
-I/O operations.
+On Tue, Jun 24, 2025 at 09:14:13PM +0800, Li Wang wrote:
+> When LTP_RUNTIME_MUL is set to a value < 1.0 (commonly in CI or fast test
+> modes), the effective runtime of tests may be scaled down too aggressively.
+> For some tests especially those relying on probabilistic triggers or sampling
+> (e.g., fuzzy sync, CVE stress loops, long fault injection), this can result in
+> too few iterations or missed conditions, leading to unreliable results.
+> 
+> This patch introduces a new field: .min_runtime;
+> 
+> If set, this specifies the minimum allowed runtime (in seconds) after applying
+> the LTP_RUNTIME_MUL scaling factor. The final runtime is calculated as:
+> 
+>   MAX(runtime * LTP_RUNTIME_MUL, min_runtime)
+> 
+> If min_runtime is not set, a default minimum of 1 second is enforced.
+> 
+> This approach replaces the need for special flags such as
+> TST_NO_FRAC_RUNTIME_MUL and provides a more systematic, flexible solution.
+> 
+> To validate this logic, I ran the `fuzzy_sync` tests on a Cortex-A55
+> CPU at 1.2GHz, running Linux 5.14 (aarch64), with only a single core
+> assigned using `taskset` to simulate a worst-case, single-core execution
+> scenario:
+> 
+>     time taskset -c 0 ./cve-2016-7117
+> 
+> (The test was locally modified to only perform the sampling phase.)
+> 
+> This setup allows accurate measurement of sampling duration under
+> heavily constrained CPU conditions.
+> 
+> Based on the observed sampling time, I apply the following policy
+> for setting `.min_runtime` in affected tests:
+> 
+>   1. If the sampling time is very short (< 1s), set .min_runtime = 2.
+> 
+>   2. If the sampling time is > 2s but still less than .runtime,
+>      set .min_runtime = 2 * sampling_time, and leave .runtime unchanged.
+> 
+>   3. If the sampling time exceeds .runtime, set .min_runtime = .runtime
+>      and remove .runtime.
+> 
+> This ensures that the sampling phase is not prematurely interrupted due
+> to aggressive runtime scaling, which is especially important in CI and
+> low-power platforms.
+> 
+> This change improves test reliability under constrained runtime conditions
+> without sacrificing flexibility for fast-path test execution.
+> 
+> Tested on:
+>   - Cortex-A55, 1.2GHz
+>   - Linux 5.14.0-587.536.el9iv.aarch64
+> 
+> Suggested-by: Martin Doucha <mdoucha@suse.cz>
+> Signed-off-by: Li Wang <liwang@redhat.com>
+> Cc: Ian Wienand <iwienand@redhat.com>
+> Cc: Wei Gao <wegao@suse.com>
+> ---
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
- testcases/kernel/syscalls/open/open13.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/open/open13.c b/testcases/kernel/syscalls/open/open13.c
-index e30e99ec3..0ac501913 100644
---- a/testcases/kernel/syscalls/open/open13.c
-+++ b/testcases/kernel/syscalls/open/open13.c
-@@ -31,7 +31,7 @@
- 
- #define TESTFILE	"testfile"
- 
--static int path_fd = -1;
-+static int path_fd = -1, dup_fd = -1;
- 
- static int verify_read(int fd);
- static int verify_write(int fd);
-@@ -64,6 +64,7 @@ static void setup(void)
- 	path_fd = SAFE_OPEN(TESTFILE, O_RDWR | O_CREAT, 0644);
- 	SAFE_CLOSE(path_fd);
- 	path_fd = SAFE_OPEN(TESTFILE, O_PATH);
-+	dup_fd = SAFE_DUP(path_fd);
- }
- 
- static void run(void)
-@@ -71,8 +72,10 @@ static void run(void)
- 	int i;
- 
- 	for (i = 0; testcases[i].func; i++) {
--		TST_EXP_FAIL(testcases[i].func(path_fd), EBADF, "%s()",
--			testcases[i].name);
-+		TST_EXP_FAIL(testcases[i].func(path_fd), EBADF,
-+			"%s() on original FD", testcases[i].name);
-+		TST_EXP_FAIL(testcases[i].func(dup_fd), EBADF,
-+			"%s() on duplicated FD", testcases[i].name);
- 	}
- }
- 
-@@ -129,6 +132,9 @@ static void cleanup(void)
- {
- 	if (path_fd >= 0)
- 		SAFE_CLOSE(path_fd);
-+
-+	if (dup_fd >= 0)
-+		SAFE_CLOSE(dup_fd);
- }
- 
- static struct tst_test test = {
--- 
-2.49.0
-
+Reviewed-by: Wei Gao <wegao@suse.com>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
