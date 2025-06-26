@@ -2,122 +2,114 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AE07AE9D97
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Jun 2025 14:35:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 090FCAE9D99
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Jun 2025 14:35:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D03753CAB13
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Jun 2025 14:35:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 87B383CCBAA
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Jun 2025 14:35:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 728FE3CAB13
- for <ltp@lists.linux.it>; Thu, 26 Jun 2025 14:34:52 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 76EE73CCBB8
+ for <ltp@lists.linux.it>; Thu, 26 Jun 2025 14:34:59 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 793ED6008D6
- for <ltp@lists.linux.it>; Thu, 26 Jun 2025 14:34:51 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 528E420005D
+ for <ltp@lists.linux.it>; Thu, 26 Jun 2025 14:34:56 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B5443211A7;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E6948211A8;
  Thu, 26 Jun 2025 12:34:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1750941288; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=NE0rST/CyOwyO/mzSeLD7d7ISsOE+olkk7MttQx0pak=;
- b=fqSAuQiUVqWAZ23bq3dYLCwGchyU+mCmOgEZtlSUY2qOwjUKm3k+wn8zieMEFR1bb9Lc5a
- lQ9Nu1W2YC5b01pgvkJey+PMkXCRyv1f+UL/TjMIEkgkN/7QAUBMVErpNwyA0g7qlQPJZh
- c98yr4dzx4tmZmKUiSd1ODsqdn5XbM8=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RJASK0F8w7QWGg2Sxm1RR9kqg7DDpbXa5XXWqt/UNt0=;
+ b=BxqCekL2xiO3gsPKXBVauUBdunIYOUcQJxUJZhORcyJIHYTn6S2RdJANAmVcDInPtt+KvR
+ GEtou3/yej2j57sn80TmjMyQfqs2koralzYbrUBiW3/v/j4eGHodfiu2ppHR0zdCfrM9DA
+ lR1dYqOSUYSE1L/t9Ha+mGQzMXk9wcY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1750941288;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=NE0rST/CyOwyO/mzSeLD7d7ISsOE+olkk7MttQx0pak=;
- b=mW5bwaJ0/ToTH3F5axP6vI1Yufudfsn0OfvHE6xPH6b3niBNYCuLBvft2LPV80P8D8X2Yv
- Y1qVbFMUt/DtqKBg==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RJASK0F8w7QWGg2Sxm1RR9kqg7DDpbXa5XXWqt/UNt0=;
+ b=k35aBx/6w8BAOeGtqnpZbds5hvZSgAtYY7lB/oX59T/wsMSr35eOTFzuWDz70VJxTjtRRf
+ 5lG6/7/BsZwqVBDg==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=fqSAuQiU;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=mW5bwaJ0
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1750941288; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=NE0rST/CyOwyO/mzSeLD7d7ISsOE+olkk7MttQx0pak=;
- b=fqSAuQiUVqWAZ23bq3dYLCwGchyU+mCmOgEZtlSUY2qOwjUKm3k+wn8zieMEFR1bb9Lc5a
- lQ9Nu1W2YC5b01pgvkJey+PMkXCRyv1f+UL/TjMIEkgkN/7QAUBMVErpNwyA0g7qlQPJZh
- c98yr4dzx4tmZmKUiSd1ODsqdn5XbM8=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RJASK0F8w7QWGg2Sxm1RR9kqg7DDpbXa5XXWqt/UNt0=;
+ b=BxqCekL2xiO3gsPKXBVauUBdunIYOUcQJxUJZhORcyJIHYTn6S2RdJANAmVcDInPtt+KvR
+ GEtou3/yej2j57sn80TmjMyQfqs2koralzYbrUBiW3/v/j4eGHodfiu2ppHR0zdCfrM9DA
+ lR1dYqOSUYSE1L/t9Ha+mGQzMXk9wcY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1750941288;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=NE0rST/CyOwyO/mzSeLD7d7ISsOE+olkk7MttQx0pak=;
- b=mW5bwaJ0/ToTH3F5axP6vI1Yufudfsn0OfvHE6xPH6b3niBNYCuLBvft2LPV80P8D8X2Yv
- Y1qVbFMUt/DtqKBg==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RJASK0F8w7QWGg2Sxm1RR9kqg7DDpbXa5XXWqt/UNt0=;
+ b=k35aBx/6w8BAOeGtqnpZbds5hvZSgAtYY7lB/oX59T/wsMSr35eOTFzuWDz70VJxTjtRRf
+ 5lG6/7/BsZwqVBDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56850138A7;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BEC3813A24;
  Thu, 26 Jun 2025 12:34:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id QyRoE2g+XWhJCQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KFj4LGg+XWhJCQAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Thu, 26 Jun 2025 12:34:48 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Thu, 26 Jun 2025 14:34:37 +0200
-Message-Id: <20250626-ioctl_pidfd_suite-v1-0-165b9abf0296@suse.com>
+Date: Thu, 26 Jun 2025 14:34:38 +0200
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAF0+XWgC/x3MQQqAIBBA0avIrBNsyoKuEhGiYw1EiVYE0t2Tl
- m/xf4ZEkSnBIDJEujnxsRfUlQC7mn0hya4YUKFWHXaSD3tuc2Dn3ZwuPkk2iMZg02vbIpQuRPL
- 8/M9xet8P7/ebKWMAAAA=
-X-Change-ID: 20250626-ioctl_pidfd_suite-322aa2375c42
+Message-Id: <20250626-ioctl_pidfd_suite-v1-1-165b9abf0296@suse.com>
+References: <20250626-ioctl_pidfd_suite-v1-0-165b9abf0296@suse.com>
+In-Reply-To: <20250626-ioctl_pidfd_suite-v1-0-165b9abf0296@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1750941288; l=1301;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1750941288; l=1005;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=9bGVrBxhgqTW5Cnf6DW2InZIOyPT/rMoJ07L/bx5GaQ=;
- b=51iYqBxZiXU8C++N9NgUrAcXG3JPyJSXOeiQkEn3xOWIZtNuSz2qyIq9+OI2EHbG2Ww/C4dgc
- WfikEVVvLWxCWEYP2aCo9BaLKRqlom+ywCSzlYos/B4vJD6Nam2vg6i
+ bh=O5fCVeDp/LCzEl+8eKtUbVHHODmNxjmt5GaF1KDYSog=;
+ b=/QyS5Z6aXXcBawP25ER9f3rMf2y0bTWt3l+sn/jUJeJ5QUogZFu59gSRnWIUNYH7lntmt+4qm
+ o/RV/lGo0OHBu0TCp0Q8Dv+ouGrtPlVyGp6vhrhMe57I65yGAoqas+p
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.com:mid,suse.de:dkim];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
+ suse.com:mid]
 X-Spam-Level: 
-X-Rspamd-Queue-Id: B5443211A7
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: -4.51
+X-Spam-Score: -4.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 0/6] ioctl_pidfd testing suite
+Subject: [LTP] [PATCH 1/6] Provide pidfd parameter in tst_clone_args
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,37 +126,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The testing suite has been created to cover the new feature
-PIDFD_INFO_EXIT provided by kernel 6.15.
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-Andrea Cervesato (6):
-      Provide pidfd parameter in tst_clone_args
-      Fallback PIDFD_GET_INFO related definitions
-      Add ioctl_pidfd01 test
-      Add ioctl_pidfd02 test
-      Add ioctl_pidfd03 test
-      Add ioctl_pidfd04 test
+ include/tst_clone.h | 1 +
+ lib/tst_clone.c     | 1 +
+ 2 files changed, 2 insertions(+)
 
- configure.ac                                    |  2 +
- include/lapi/pidfd.h                            | 37 ++++++++++++++
- include/tst_clone.h                             |  1 +
- lib/tst_clone.c                                 |  1 +
- runtest/syscalls                                |  5 ++
- testcases/kernel/syscalls/ioctl/.gitignore      |  4 ++
- testcases/kernel/syscalls/ioctl/ioctl_pidfd01.c | 58 +++++++++++++++++++++
- testcases/kernel/syscalls/ioctl/ioctl_pidfd02.c | 62 ++++++++++++++++++++++
- testcases/kernel/syscalls/ioctl/ioctl_pidfd03.c | 50 ++++++++++++++++++
- testcases/kernel/syscalls/ioctl/ioctl_pidfd04.c | 68 +++++++++++++++++++++++++
- 10 files changed, 288 insertions(+)
----
-base-commit: 0c99c7915f029d32de893b15b0a213ff3de210af
-change-id: 20250626-ioctl_pidfd_suite-322aa2375c42
+diff --git a/include/tst_clone.h b/include/tst_clone.h
+index a57d761ca56dc113dde81a0ed17f15e8f2e58924..a07689c78f575ae6ca87c0952b3e48b3a626012c 100644
+--- a/include/tst_clone.h
++++ b/include/tst_clone.h
+@@ -12,6 +12,7 @@
+ /* The parts of clone3's clone_args we support */
+ struct tst_clone_args {
+ 	uint64_t flags;
++	uint64_t pidfd;
+ 	uint64_t exit_signal;
+ 	uint64_t cgroup;
+ };
+diff --git a/lib/tst_clone.c b/lib/tst_clone.c
+index 2aa00beb1a191d8c4a68a96ba529fc48d3777e84..8638052e2ecac2af3a290f01106e10dc8cdc62d1 100644
+--- a/lib/tst_clone.c
++++ b/lib/tst_clone.c
+@@ -14,6 +14,7 @@ pid_t tst_clone(const struct tst_clone_args *tst_args)
+ {
+ 	struct clone_args args = {
+ 		.flags = tst_args->flags,
++		.pidfd = tst_args->pidfd,
+ 		.exit_signal = tst_args->exit_signal,
+ 		.cgroup = tst_args->cgroup,
+ 	};
 
-Best regards,
 -- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+2.50.0
 
 
 -- 
