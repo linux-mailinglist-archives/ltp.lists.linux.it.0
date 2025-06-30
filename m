@@ -2,108 +2,109 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DE83AEE1C3
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Jun 2025 17:01:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5F3BAEE284
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Jun 2025 17:31:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9B9063C5F68
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Jun 2025 17:01:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3C6613C6095
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Jun 2025 17:31:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 80E513C25D8
- for <ltp@lists.linux.it>; Mon, 30 Jun 2025 17:01:30 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 7AFE03C0433
+ for <ltp@lists.linux.it>; Mon, 30 Jun 2025 17:31:27 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C68AA1A0093A
- for <ltp@lists.linux.it>; Mon, 30 Jun 2025 17:01:29 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 906BF10009FC
+ for <ltp@lists.linux.it>; Mon, 30 Jun 2025 17:31:26 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2E44221163;
- Mon, 30 Jun 2025 15:01:18 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 24BBF2111F
+ for <ltp@lists.linux.it>; Mon, 30 Jun 2025 15:31:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1751295683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tpeuu1i0hG6oz1BNmpoZIAeZoDIey7eiOSvcRJPDZto=;
- b=2JEWzckhOdE1E3DVEm7MgC4QW6i4kzm8VlEA+w8b4VmYmNzT31BtawG+P93N1axrpsXagg
- RSS1iN4r8cJ04Pex0hf6H1wngkkHF+IPhK/qESnldh40o97eLKHj8acQ20EUPnwBJUtc1s
- Z3inV+QuRJGdXPnv971GplCZrpGNG4s=
+ t=1751297485; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Wa+LR9HzbjUWrYDlDFzrIs9PLmZIynOioo3n9JJd9aY=;
+ b=3Co/IR+HDrDupiCn3pZ9/paG23dWXQ+bdK3ku8BBq6SVqy3G2cmK7j6CeUfmgh4K6Gn3+G
+ x9nduNhfwMU3zMkCTn0d3xh4mmKhKeWte2ksbr2BZF+m5NXb8YdLXFw1KV+NLozNRxYGRW
+ O2aXfAqLxy+qlv5qFj8MvGQr/qcPWcI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1751295683;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tpeuu1i0hG6oz1BNmpoZIAeZoDIey7eiOSvcRJPDZto=;
- b=BTgyH0lbjFWi7HqieokLXz1hngVadUfk/FqaNbi6dgHfvWVWIVY+6JU5r+PbiTFVgt/v4f
- hMrtq1WwmhtBw7CA==
+ s=susede2_ed25519; t=1751297485;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Wa+LR9HzbjUWrYDlDFzrIs9PLmZIynOioo3n9JJd9aY=;
+ b=OKT8TGelbyE97yZgP2xyUQgnqMeMNAavQuv4AmtqcVV4PVxxc6g8QlX1cO0WPU466M9+58
+ NXmBl66s15b+eeAw==
 Authentication-Results: smtp-out1.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=kKMt3aNV;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Dai2yRE3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1751295678; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tpeuu1i0hG6oz1BNmpoZIAeZoDIey7eiOSvcRJPDZto=;
- b=3MgA6T8/GfISsm3Fs4Fc73fdrBxRmYFwVVbOMuCrklZHKP1Yz1ru4QastxupzOiBadJ0io
- ilyyCpsZ9sLCLbZmH7tv96Vvma/G1MPm12XLfUnOiyNzjtIe3+jzwNLm12fkeCKhEp9gR4
- 8brg9iBo4qq7Z+s1gvhVp4Rr4zwISZo=
+ t=1751297484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Wa+LR9HzbjUWrYDlDFzrIs9PLmZIynOioo3n9JJd9aY=;
+ b=kKMt3aNVP22mPW902rXOgitXovQy4nXSh9U6GqxbM0FY8gC2yoGYF3F3n2vkGMdKHYQ8ZJ
+ K8RUVsF+BK+XJTQiBLmKyw05sbEymiQJFlmj/YU9T5r3EyDZ6TS+EUj/shQL08aWprZUso
+ 6T2QNLkxAcAOjcwFAckW4+CtPnFm/N0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1751295678;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tpeuu1i0hG6oz1BNmpoZIAeZoDIey7eiOSvcRJPDZto=;
- b=otx37kRpvYYcRv7MyRq50OcVIT1KXjCRBIaNJAqaRWDOVWXZCpmA9oEa2Buy+UKWsOOlye
- ixbH87IU589WBBAQ==
+ s=susede2_ed25519; t=1751297484;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Wa+LR9HzbjUWrYDlDFzrIs9PLmZIynOioo3n9JJd9aY=;
+ b=Dai2yRE3Ab3xKXPVTkUldJ6+bBU0bCsAMUSLtirGgyuQtXE97WsSFLK8cT6gNG4CJ2UsWN
+ oTlKFKb8TULgBjCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 13C3D1399F;
- Mon, 30 Jun 2025 15:01:18 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 14AC213983
+ for <ltp@lists.linux.it>; Mon, 30 Jun 2025 15:31:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id oq12Ar6mYmhNewAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Mon, 30 Jun 2025 15:01:18 +0000
-Date: Mon, 30 Jun 2025 17:01:59 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WeB4AcytYmj4BQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>)
+ for <ltp@lists.linux.it>; Mon, 30 Jun 2025 15:31:24 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <aGKm59Zih2G8R6r9@yuki.lan>
-References: <20250624-crash02_rewrite-v2-1-c4eaeee8598f@suse.com>
- <39406791-8bbd-4447-bbcd-0b25710a55e8@suse.cz>
- <aGKiB73K8c3S4Tiu@yuki.lan>
- <602a151d-4579-4975-86f5-168fb6f49884@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon, 30 Jun 2025 17:32:04 +0200
+Message-ID: <20250630153205.19017-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <602a151d-4579-4975-86f5-168fb6f49884@suse.cz>
-X-Spamd-Result: default: False [-8.30 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ MX_GOOD(-0.01)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; RCPT_COUNT_ONE(0.00)[1];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:mid,suse.cz:email];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[3]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RSPAMD_EMAILBL_FAIL(0.00)[chrubis.suse.cz:query timed out];
- MISSING_XM_UA(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.cz:email,
- yuki.lan:mid]
+ RCVD_TLS_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.cz:+]
 X-Spam-Level: 
-X-Spam-Score: -8.30
+X-Rspamd-Queue-Id: 24BBF2111F
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Score: -3.01
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] misc: rewrite crash02 test
+Subject: [LTP] [PATCH 1/2] lib: Add is_fuse flag to SAFE_MOUNT() and
+ tst_device
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,22 +116,132 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Either one is good, but you still need to update runtime according to 
-> command line arguments.
+This allows us to adjust tests that need different expectations on FUSE
+based filesystems.
 
-Only if you want to keep ntries parameter, I would just make the test
-completely runtime controlled instead.
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ include/old/safe_macros.h |  2 +-
+ include/safe_macros_fn.h  |  2 +-
+ include/tst_device.h      |  2 ++
+ include/tst_safe_macros.h |  7 ++++++-
+ lib/safe_macros.c         | 10 ++++++++--
+ lib/tst_test.c            |  4 ++--
+ 6 files changed, 20 insertions(+), 7 deletions(-)
 
+diff --git a/include/old/safe_macros.h b/include/old/safe_macros.h
+index fb1d7a110..307843ab0 100644
+--- a/include/old/safe_macros.h
++++ b/include/old/safe_macros.h
+@@ -150,7 +150,7 @@
+ #define SAFE_MOUNT(cleanup_fn, source, target, filesystemtype, \
+ 		   mountflags, data) \
+ 	safe_mount(__FILE__, __LINE__, (cleanup_fn), (source), (target), \
+-		   (filesystemtype), (mountflags), (data))
++		   (filesystemtype), (mountflags), (data), NULL)
+ 
+ #define SAFE_UMOUNT(cleanup_fn, target) \
+ 	safe_umount(__FILE__, __LINE__, (cleanup_fn), (target))
+diff --git a/include/safe_macros_fn.h b/include/safe_macros_fn.h
+index d256091b7..b4be482c1 100644
+--- a/include/safe_macros_fn.h
++++ b/include/safe_macros_fn.h
+@@ -172,7 +172,7 @@ int safe_rename(const char *file, const int lineno, void (*cleanup_fn)(void),
+ int safe_mount(const char *file, const int lineno, void (*cleanup_fn)(void),
+ 	       const char *source, const char *target,
+ 	       const char *filesystemtype, unsigned long mountflags,
+-	       const void *data);
++	       const void *data, int *is_fuse);
+ 
+ int safe_umount(const char *file, const int lineno, void (*cleanup_fn)(void),
+ 		const char *target);
+diff --git a/include/tst_device.h b/include/tst_device.h
+index 2597fb4e2..9ca802735 100644
+--- a/include/tst_device.h
++++ b/include/tst_device.h
+@@ -15,6 +15,8 @@ struct tst_device {
+ 	const char *dev;
+ 	const char *fs_type;
+ 	uint64_t size;
++	/* If device was mounted by the test library this flag is set for fuse fileystems. */
++	int is_fuse;
+ };
+ 
+ /*
+diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
+index 19504beb5..6d53c0bbc 100644
+--- a/include/tst_safe_macros.h
++++ b/include/tst_safe_macros.h
+@@ -241,7 +241,12 @@ int safe_getgroups(const char *file, const int lineno, int size, gid_t list[]);
+ #define SAFE_MOUNT(source, target, filesystemtype, \
+ 		   mountflags, data) \
+ 	safe_mount(__FILE__, __LINE__, NULL, (source), (target), \
+-		   (filesystemtype), (mountflags), (data))
++		   (filesystemtype), (mountflags), (data), NULL)
++
++#define SAFE_MOUNT2(source, target, filesystemtype, \
++		    mountflags, data, is_fuse) \
++	safe_mount(__FILE__, __LINE__, NULL, (source), (target), \
++		   (filesystemtype), (mountflags), (data), (is_fuse))
+ 
+ #define SAFE_UMOUNT(target) \
+ 	safe_umount(__FILE__, __LINE__, NULL, (target))
+diff --git a/lib/safe_macros.c b/lib/safe_macros.c
+index 726c9ae8e..6d267522f 100644
+--- a/lib/safe_macros.c
++++ b/lib/safe_macros.c
+@@ -907,11 +907,14 @@ static int possibly_fuse(const char *fs_type)
+ int safe_mount(const char *file, const int lineno, void (*cleanup_fn)(void),
+ 	       const char *source, const char *target,
+ 	       const char *filesystemtype, unsigned long mountflags,
+-	       const void *data)
++	       const void *data, int *is_fuse)
+ {
+ 	int rval = -1;
+ 	char mpath[PATH_MAX];
+ 
++	if (is_fuse)
++		*is_fuse = 0;
++
+ 	if (realpath(target, mpath)) {
+ 		tst_resm_(file, lineno, TINFO,
+ 			"Mounting %s to %s fstyp=%s flags=%lx",
+@@ -957,8 +960,11 @@ int safe_mount(const char *file, const int lineno, void (*cleanup_fn)(void),
+ 			filesystemtype, mount_ro, source, target);
+ 
+ 		rval = tst_system(buf);
+-		if (WIFEXITED(rval) && WEXITSTATUS(rval) == 0)
++		if (WIFEXITED(rval) && WEXITSTATUS(rval) == 0) {
++			if (is_fuse)
++				*is_fuse = 1;
+ 			return 0;
++		}
+ 
+ 		tst_brkm_(file, lineno, TBROK, cleanup_fn,
+ 			"mount.%s failed with %i", filesystemtype, rval);
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index 17ce91932..2130e4be8 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -1273,8 +1273,8 @@ static void prepare_device(struct tst_fs *fs)
+ 		mnt_data = limit_tmpfs_mount_size(fs->mnt_data,
+ 				buf, sizeof(buf), tdev.fs_type);
+ 
+-		SAFE_MOUNT(get_device_name(tdev.fs_type), tst_test->mntpoint,
+-				tdev.fs_type, fs->mnt_flags, mnt_data);
++		SAFE_MOUNT2(get_device_name(tdev.fs_type), tst_test->mntpoint,
++				tdev.fs_type, fs->mnt_flags, mnt_data, &tdev.is_fuse);
+ 		context->mntpoint_mounted = 1;
+ 	}
+ }
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.49.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
