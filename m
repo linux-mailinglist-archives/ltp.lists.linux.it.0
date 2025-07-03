@@ -2,111 +2,83 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FEE0AF5AC2
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Jul 2025 16:14:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1751465655; h=date :
- mime-version : message-id : to : subject : list-id : list-unsubscribe
- : list-archive : list-post : list-help : list-subscribe : from :
- reply-to : cc : content-type : content-transfer-encoding : sender :
- from; bh=v3LshRCQ+Sm3vLIcs+t1p36pS2qAi0gHu7FD8DTjed8=;
- b=IdupHTAtmclXECR8+RQSOx5FkuQc0Gk3JM03CARtuwrcogLlVEE3LJCQc4BhRuDRmhRaI
- D5gKO+EibWzXNVyxz66g7Va124dX7ekrAiTr/o1nvayPTaBgsqo0VveaZFnHNZsQQ/5JOoQ
- lQT7ag0MXqeV38Ng43OTFzRnQT87l5Y=
+	by mail.lfdr.de (Postfix) with ESMTPS id A94F8AF6B7E
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jul 2025 09:26:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3B5183C8FF4
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Jul 2025 16:14:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3E4993C9265
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jul 2025 09:26:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5BA573C86B6
- for <ltp@lists.linux.it>; Wed,  2 Jul 2025 16:14:03 +0200 (CEST)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
+ by picard.linux.it (Postfix) with ESMTPS id 6FDB13C2BFC
+ for <ltp@lists.linux.it>; Thu,  3 Jul 2025 09:26:21 +0200 (CEST)
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6C3741A00A35
- for <ltp@lists.linux.it>; Wed,  2 Jul 2025 16:14:02 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a575a988f9so4518939f8f.0
- for <ltp@lists.linux.it>; Wed, 02 Jul 2025 07:14:02 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5398F600688
+ for <ltp@lists.linux.it>; Thu,  3 Jul 2025 09:26:20 +0200 (CEST)
+Received: by mail-pj1-x1031.google.com with SMTP id
+ 98e67ed59e1d1-3141b84bf65so7454187a91.1
+ for <ltp@lists.linux.it>; Thu, 03 Jul 2025 00:26:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1751465641; x=1752070441; darn=lists.linux.it;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ZEGObWQzCuC7kIR5fo8JU0i/aQb9F+G1YRwbDN6uZ50=;
- b=HwC0Q3QiNTFQ80tId1nw5jpngkRiqmFraE5mOs0TpjDrVJfQ3Y4BjxXexfOZsGnw4O
- TjyiT8fLtmFhTyagpTFBwLrTuaoTFOzWEaGEdI6U4c29L4qB+0fRRfgafvCtf9qtZz4t
- YE3KhaXI+3p7g7z1wPIit9rilo82sQq5IXvKILvv5nVKJmF4pofuD5e2Ja+JzB9dhK4U
- VlmGhF4vnFAIqTkSXec3n9szDP7EJhz2VY+NE89bpXRYnSbC5SMmjFnx9hFnhB+2eDT1
- kiTfP1NHJVbBeRcRlePXQYmIwZqNU2BuuPhohxhl+smrbbIONuxJncioj96maSfd8s/C
- 76qA==
+ d=linaro.org; s=google; t=1751527579; x=1752132379; darn=lists.linux.it;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=GAMKSN1cf/DpMVRo6gFlykOi6cd+hJQyMWIE0kM7p2Y=;
+ b=H66MK9gibPRyudq/eCmGkOaYhJZudPCIQXqXY+tBJZtUuWIBVBQOqzZcgSZHw/zhrT
+ 8Uwq4SM/77MK5TloC8d7MdGn8sYRscm3SgdYwPzQoFwWutVSkh6Twpuj6HvJ2YLA0lnn
+ CWqN8A3NSdy+pryy3CIdDeG0LORVr3iaap7rh6M50ozXkx20MuS/yUI/CN5asfnmoziZ
+ 2xE41UumaGYoFI7BOqAX/+Pcf/7lZily1nDUoxn6a+fDTF7JjmV9Nz86/yNefC/x6Tzu
+ U5IAJu5ZXHUDJJdFMT8hG9kQems/v7w/MJIlc/5HnyBBgCbqxQh3lfBXXJEr5l/72VIk
+ BA3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751465641; x=1752070441;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1751527579; x=1752132379;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ZEGObWQzCuC7kIR5fo8JU0i/aQb9F+G1YRwbDN6uZ50=;
- b=FsgkuIkiTM2SDDtg5zsrjhDczEaV8V9UNk3G3u7igFZAbm8t34lWxYoSnNjxfJsHh/
- aMlvQ4QFiJTJQE3RHbNRJcm3Y0hJlgy9hyZg+mwXrqtb9OOun5mipkoivh5QXRZ5Zjws
- 8v4VgYqmE2ZuxEkhJhz5Ub74nkdybPl+l9A037av7RmG4Mw6Tpw4pN21tOSPeE3lk3Pd
- 965ztnR3ZftNzM4b/2X/z1ajVbRXmloNYWfQ1aPqc84UiN7+BZixD14bp+VZ0RzvPlJN
- Eg3wQsVdYixRegtX/dBw6bX1+9nEY2gN0yqCPeFwB1elvQJbFTTpnOIBFsGPKttEeHbC
- M8ZA==
-X-Gm-Message-State: AOJu0YycanT9+V5t5N3TC9u4zDTsK+7TEOZXAtzwf8L59xteMhOJTIpN
- S+ekyaOsVeq8vBP7cTFCQaAAJ+TiMbz2guWdSBQQCmgDJSvEzlhWm2Du/oVDjlTbbm58cFVIFUT
- zFX2x
-X-Gm-Gg: ASbGncsRi1jI8wtONUZphRjKiC+T1K4LD2G91tkdtOFMeKAxB1Wo6TWzM1IY/OdIdTb
- r2Ad5If/HqbtHOFoDI5bdsenXAKTuAYx0BJiIHKJObId0fSzIEthnDpmOx3iRM/bcmbvIv/tT8g
- U0vJjCoxzYjzSztv/NJlQj6+sPluvhr4HTHP0fb4n/UkH4LQlMOpapWPwYKS15qG5DTX0bexu1h
- /Uk2+G1zFS/OjNRxpCXbbSDmcHaAzbWpXQyQZNLlwI5sGhGjjDksNeIxJ6YP3E4jMURp8fT7p/F
- AR2f9OjF7YyRzra++3V4tUspjDhTL+Qwpuhpg8/IYwxDuAaf8w==
-X-Google-Smtp-Source: AGHT+IHJg8GcJcGOjz1Je8XpxU3unJwNU6F2Pwejk63TBoqbK/AHLVr0HEQyo0ej0RXOgULIy4sFvQ==
-X-Received: by 2002:a05:6000:22c3:b0:3a4:d274:1d9b with SMTP id
- ffacd0b85a97d-3b1fec79879mr2374156f8f.25.1751465641319; 
- Wed, 02 Jul 2025 07:14:01 -0700 (PDT)
-Received: from localhost ([177.45.162.214])
- by smtp.gmail.com with UTF8SMTPSA id
- af79cd13be357-7d44321fea0sm937054985a.83.2025.07.02.07.13.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Jul 2025 07:13:59 -0700 (PDT)
-Date: Wed, 02 Jul 2025 11:13:56 -0300
+ bh=GAMKSN1cf/DpMVRo6gFlykOi6cd+hJQyMWIE0kM7p2Y=;
+ b=dQNmp2uvWa/JvtPgbgO9HCX/TdpNnFudMeOK9+xuuBE8M0PKCfE21yrtg9oO+nXnfm
+ g/lfX2GMvMRioGIAs4/tYBbP4aMOSckVGkwZuZQyRu5k9WvNiJFrATw7pNIx5aVP6fva
+ XZBEx8BJvul6NfUe1grFHzGa29wISRDg81L702xiX/A7uS0lUJuGbVn7+0Mz+BDgXUSl
+ 3IGoja3qh7iEvYue8554mDxMQbD1KA2ICx5M9p/gGy4MDRvgpaXX2J4/VTwviRYegLT3
+ sUIDAzjTZ279hPYcdbP+NJz9PL3MOMVqYbqsNKQoDiKVVwsS03Mk+2HM6lwE8/ubpSHX
+ 6vxw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU+v2q9kdK6HFflNeEmg2F4lSnI/1/WM6/46in9tBn6ewVe0JefRTYOR/sMJHpqrdFTELs=@lists.linux.it
+X-Gm-Message-State: AOJu0YwJ+8pK7kWCdIKozdfY1Jn+yckdyD5fd29T3cpC8Ro80jFFp+xX
+ 8dQpjoX33fIqJH2RMdQKWDO3VowBIiGgBrykD7/vNLf6lqKXYU5kaAGFSVjTf11mqmjv1zvwxAu
+ RuOo+YOWdGNNwKOK0W4Vq1MBlN4zZOg6eJiP0PmSHOA==
+X-Gm-Gg: ASbGncvM5Xv5pZoiy7Hngpd/287uyeLISXUAXwKIOIcw6XNSDEgsL12Kk/xs81xmqOq
+ BlchDW7rT5qEn8EAYaLuNCbGe2dWVBPbkQTZgffQayMQ2K5dw2SFE6XIT5Ydj0LQk1VWPiki0Ol
+ 8iy/gs3xXik8vVBkDq2jdqubzpF5c1e+sUeZ+OIj3nCfK2zqImdYC+xPC/n2pPX7zudw5lJVXRY
+ A12xXv8gW1Dyg==
+X-Google-Smtp-Source: AGHT+IFBtroNhRgT2smI4MTW+nF7Q1k9nWSGPUagsoi7hbtQlf2pdM4tjmPERmB0KQXgaKAhNH2kWUgg6ohVrZtxleU=
+X-Received: by 2002:a17:90a:d60c:b0:313:1a8c:c2c6 with SMTP id
+ 98e67ed59e1d1-31a90bc9850mr9100678a91.16.1751527578511; Thu, 03 Jul 2025
+ 00:26:18 -0700 (PDT)
 MIME-Version: 1.0
-Message-Id: <20250702-conversions-kill12-v1-1-4ba219bbfe52@suse.com>
-X-B4-Tracking: v=1; b=H4sIAKM+ZWgC/x3M0QqDMAyF4VeRXC9Qg91gryK7qG06w1yVREQQ3
- 311lx+c8x9grMIGz+YA5U1M5lLR3hqIYyhvRknVQI68ezjCOJeN9ZoZfmSaWkLy2VG6d4l9hnp
- clLPs/2j/qh6CMQ4aShyv1DfYygrn+QMGDT9qfQAAAA==
-X-Change-ID: 20250702-conversions-kill12-25f02d64de5f
-To: Linux Test Project <ltp@lists.linux.it>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7953; i=rbm@suse.com;
- h=from:subject:message-id; bh=cjENJHjMNyeblk+2MxP5Ee7kc/Hp+rtJ9E8CnQR931g=;
- b=owEBbQKS/ZANAwAIAckLinxjhlimAcsmYgBoZT6kqorXZ02i2hZE+iDSnJKybhQNl29P+aZME
- EujRKMAVhSJAjMEAAEIAB0WIQQDCo6eQk7jwGVXh+HJC4p8Y4ZYpgUCaGU+pAAKCRDJC4p8Y4ZY
- pjL0EACJfYm9v0ybaGIiO1l7Yw1l5M4VGCjbJJR9AeAKIQg671MkSFqxW9QUCibgKiTtTVloYfi
- x1rv/TxaE/QMYeV4ql69TOSvwt0CibPeOaylTjytDIdr50nQqKFDpsOW0MPlHrBHmEsT+K1lC1p
- z6ABJGAMoW/T4X/nIsTibAopjZfUc1/mahevOCwrxd5OAbNphLi+1LomDtQ6LxxD0D01I4T1UjA
- JI7E43dhyrf2SM9Z+PdtPTHhSImmclvNUltrNl94viFlgRZ8+SmIjWPnb4RzhUqeTtFUsHQ7/3r
- cNjs1Ia6DV5IojmeWTo1VozyIa3QaDmqBUy/9eE61I/6/qULrPyLCn5dq2m+mZwRG4A2wHCrQ0W
- Pf3en3wd3XP3ZmhsITf0kJEuAA4WVe/aT0cNimVnk5VVZqZp096Ay5jRCbxBNUX4FqnxA4T6koU
- RpiiCkoluQXuYdOm0uAjQDvBlKvW/br07SaYP0nKhsk5ZAwhvEyzUn8h6O1AfbjvXeLFPrh8ZzO
- iiBNb2LSbo6ywn/I355fzeFC7jYXVU4uwOWmzWAUbvnNdDnAMCpcSXZFrLBsw3aSA3bRWbmW6dd
- w8/GuLO1kL91VNa0HtdFQLRycQjOpDn+F56izc8ebufrH/rt/JDtSLxjuTxri3dvWhghENb7rI+
- awTv0P06sWWBhiQ==
-X-Developer-Key: i=rbm@suse.com; a=openpgp;
- fpr=030A8E9E424EE3C0655787E1C90B8A7C638658A6
+References: <CA+G9fYsyYQ3ZL4xaSg1-Tt5Evto7Zd+hgNWZEa9cQLbahA1+xg@mail.gmail.com>
+ <2dbc199b-ef22-4c22-9dbd-5e5876e9f9b4@huaweicloud.com>
+In-Reply-To: <2dbc199b-ef22-4c22-9dbd-5e5876e9f9b4@huaweicloud.com>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Thu, 3 Jul 2025 12:56:06 +0530
+X-Gm-Features: Ac12FXzBgwMwFGfOkzvJ_EzX-plndvQT1fRe69w5kV27SFg1-zbk8bDaXp-Lnc4
+Message-ID: <CA+G9fYv5zpLxeVLqYbDLLUOxmAzuXDbaZobvpCBBBuZJKLMpPQ@mail.gmail.com>
+To: Zhang Yi <yi.zhang@huaweicloud.com>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] syscalls: kill: Remove kill12
+Subject: Re: [LTP] next-20250626: WARNING fs jbd2 transaction.c
+ start_this_handle with ARM64_64K_PAGES
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,147 +90,163 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_via_ltp?= <ltp@lists.linux.it>
-Reply-To: =?utf-8?B?UmljYXJkbyBCLiBNYXJsacOocmU=?= <rbm@suse.com>
-Cc: =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re?= <rbm@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Theodore Ts'o <tytso@mit.edu>,
+ Linux Regressions <regressions@lists.linux.dev>, Arnd Bergmann <arnd@arndb.de>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ Dan Carpenter <dan.carpenter@linaro.org>, linux-fsdevel@vger.kernel.org,
+ Jan Kara <jack@suse.cz>, linux-ext4 <linux-ext4@vger.kernel.org>,
+ LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-RnJvbTogUmljYXJkbyBCLiBNYXJsacOocmUgPHJibUBzdXNlLmNvbT4KClRoZSB0ZXN0IHNjZW5h
-cmlvIGlzIGFscmVhZHkgY292ZXJlZCBpbiBraWxsMTEuCgpTaWduZWQtb2ZmLWJ5OiBSaWNhcmRv
-IEIuIE1hcmxpw6hyZSA8cmJtQHN1c2UuY29tPgotLS0KSGVsbG8sCgphZnRlciBjb252ZXJ0aW5n
-IHRoaXMgdGVzdCB0byB0aGUgbmV3IEFQSSB3ZSBoYXZlIHRoaXM6CgpzdGF0aWMgdm9pZCBydW4o
-dm9pZCkKewoJaW50IHBpZDsKCWludCBzdGF0dXM7CgoJZm9yIChpbnQgc2lnID0gMTsgc2lnIDwg
-MTQ7IHNpZysrKSB7CgkJLyogU0lHS0lMTCBhbmQgU0lHU1RPUCBjYW4ndCBiZSBjYXRjaGVkICov
-CgkJaWYgKHNpZyA9PSBTSUdLSUxMIHx8IHNpZyA9PSBTSUdTVE9QKQoJCQljb250aW51ZTsKCgkJ
-cGlkID0gU0FGRV9GT1JLKCk7CgkJaWYgKCFwaWQpIHsKCQkJU0FGRV9TSUdOQUwoc2lnLCBTSUdf
-SUdOKTsKCQkJVFNUX0NIRUNLUE9JTlRfV0FLRSgwKTsKCQkJX2V4aXQoMSk7CgkJfQoKCQlUU1Rf
-Q0hFQ0tQT0lOVF9XQUlUKDApOwoKCQlTQUZFX0tJTEwocGlkLCBzaWcpOyAvKiBjaGlsZCBzaG91
-bGQgaWdub3JlIHRoaXMgc2lnICovCgkJU0FGRV9XQUlUKCZzdGF0dXMpOwoKCQlUU1RfRVhQX0VR
-X0xJKFdURVJNU0lHKHN0YXR1cyksIDApOwoJCVRTVF9FWFBfRVFfTEkoV0lGRVhJVEVEKHN0YXR1
-cyksIDEpOwoJfQp9CgpzdGF0aWMgc3RydWN0IHRzdF90ZXN0IHRlc3QgPSB7CgkudGVzdF9hbGwg
-PSBydW4sCgkuZm9ya3NfY2hpbGQgPSAxLAoJLm5lZWRzX2NoZWNrcG9pbnRzID0gMSwKfTsKCklN
-SE8gaXQgc2hvdWxkIGJlIHJlbW92ZWQgaW4gZmF2b3Igb2Yga2lsbDExLgotLS0KIHJ1bnRlc3Qv
-c3lzY2FsbHMgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAxIC0KIHRlc3RjYXNlcy9rZXJu
-ZWwvc3lzY2FsbHMva2lsbC8uZ2l0aWdub3JlIHwgICAxIC0KIHRlc3RjYXNlcy9rZXJuZWwvc3lz
-Y2FsbHMva2lsbC9raWxsMTIuYyAgIHwgMjM2IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LQogMyBmaWxlcyBjaGFuZ2VkLCAyMzggZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvcnVudGVz
-dC9zeXNjYWxscyBiL3J1bnRlc3Qvc3lzY2FsbHMKaW5kZXggNTgyNDIyYWM5Y2E4Y2NhZTU5OGM2
-MjZhMTFjZjZlZTdjMzBmMGUzYS4uZDZjY2VkNGEwYmJkOGE2ZTFlOTlmNzFhNDI3ZWRmNDAzZWYx
-MDNiOCAxMDA2NDQKLS0tIGEvcnVudGVzdC9zeXNjYWxscworKysgYi9ydW50ZXN0L3N5c2NhbGxz
-CkBAIC03MDEsNyArNzAxLDYgQEAga2lsbDA2IGtpbGwwNgoga2lsbDA4IGtpbGwwOAoga2lsbDEw
-IGtpbGwxMAoga2lsbDExIGtpbGwxMQota2lsbDEyIGtpbGwxMgoga2lsbDEzIGtpbGwxMwogCiBs
-YW5kbG9jazAxIGxhbmRsb2NrMDEKZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2Fs
-bHMva2lsbC8uZ2l0aWdub3JlIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9raWxsLy5naXRp
-Z25vcmUKaW5kZXggZjczNjk2YjlkMDc2ZTZlOWNhZTkzNTlkZDgyNWIzMzI0MTE1ZWQ2Ny4uYmRh
-Yzk1YzE1N2M2ODVjNTk0NTIwZTcxNzc2YWVmYTY5MjVkNmQ4MSAxMDA2NDQKLS0tIGEvdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9raWxsLy5naXRpZ25vcmUKKysrIGIvdGVzdGNhc2VzL2tlcm5l
-bC9zeXNjYWxscy9raWxsLy5naXRpZ25vcmUKQEAgLTUsNSArNSw0IEBACiAva2lsbDA4CiAva2ls
-bDEwCiAva2lsbDExCi0va2lsbDEyCiAva2lsbDEzCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2Vy
-bmVsL3N5c2NhbGxzL2tpbGwva2lsbDEyLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2tp
-bGwva2lsbDEyLmMKZGVsZXRlZCBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IGY4NjRiZGNiNjU0YzU2
-M2NkNDgwOGJlYzdhNDk3OWZiMTYwODI1YzQuLjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
-MDAwMDAwMDAwMDAKLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9raWxsL2tpbGwxMi5j
-CisrKyAvZGV2L251bGwKQEAgLTEsMjM2ICswLDAgQEAKLS8qIElCTSBDb3Jwb3JhdGlvbiAqLwot
-LyogMDEvMDIvMjAwMwlQb3J0IHRvIExUUCBhdmVua2F0QHVzLmlibS5jb20gKi8KLS8qIDA2LzMw
-LzIwMDEJUG9ydCB0byBMaW51eAluc2hhcm9mZkB1cy5pYm0uY29tICovCi0KLS8qCi0gKgotICog
-ICBDb3B5cmlnaHQgKGMpIEludGVybmF0aW9uYWwgQnVzaW5lc3MgTWFjaGluZXMgIENvcnAuLCAy
-MDAyCi0gKgotICogICBUaGlzIHByb2dyYW0gaXMgZnJlZSBzb2Z0d2FyZTsgIHlvdSBjYW4gcmVk
-aXN0cmlidXRlIGl0IGFuZC9vciBtb2RpZnkKLSAqICAgaXQgdW5kZXIgdGhlIHRlcm1zIG9mIHRo
-ZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSBhcyBwdWJsaXNoZWQgYnkKLSAqICAgdGhlIEZy
-ZWUgU29mdHdhcmUgRm91bmRhdGlvbjsgZWl0aGVyIHZlcnNpb24gMiBvZiB0aGUgTGljZW5zZSwg
-b3IKLSAqICAgKGF0IHlvdXIgb3B0aW9uKSBhbnkgbGF0ZXIgdmVyc2lvbi4KLSAqCi0gKiAgIFRo
-aXMgcHJvZ3JhbSBpcyBkaXN0cmlidXRlZCBpbiB0aGUgaG9wZSB0aGF0IGl0IHdpbGwgYmUgdXNl
-ZnVsLAotICogICBidXQgV0lUSE9VVCBBTlkgV0FSUkFOVFk7ICB3aXRob3V0IGV2ZW4gdGhlIGlt
-cGxpZWQgd2FycmFudHkgb2YKLSAqICAgTUVSQ0hBTlRBQklMSVRZIG9yIEZJVE5FU1MgRk9SIEEg
-UEFSVElDVUxBUiBQVVJQT1NFLiAgU2VlCi0gKiAgIHRoZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGlj
-ZW5zZSBmb3IgbW9yZSBkZXRhaWxzLgotICoKLSAqICAgWW91IHNob3VsZCBoYXZlIHJlY2VpdmVk
-IGEgY29weSBvZiB0aGUgR05VIEdlbmVyYWwgUHVibGljIExpY2Vuc2UKLSAqICAgYWxvbmcgd2l0
-aCB0aGlzIHByb2dyYW07ICBpZiBub3QsIHdyaXRlIHRvIHRoZSBGcmVlIFNvZnR3YXJlCi0gKiAg
-IEZvdW5kYXRpb24sIEluYy4sIDUxIEZyYW5rbGluIFN0cmVldCwgRmlmdGggRmxvb3IsIEJvc3Rv
-biwgTUEgMDIxMTAtMTMwMSBVU0EKLSAqLwotCi0JCQkgICAvKmtpbGwyLmMgKi8KLS8qPT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PQotPktFWVM6ICA8IGtpbGwoKSwgd2FpdCgpLCBzaWduYWwoKQotPldIQVQ6ICA8IENo
-ZWNrIHRoYXQgd2hlbiBhIGNoaWxkIGlzIGtpbGxlZCBieSBpdHMgcGFyZW50LCBpdCByZXR1cm5z
-IHRoZQotCTwgY29ycmVjdCB2YWx1ZXMgdG8gdGhlIHdhaXRpbmcgcGFyZW50LS10aGUgY2hpbGQg
-c2V0cyBzaWduYWwgdG8KLQk8IGlnbm9yZSB0aGUga2lsbAotPkhPVzogICA8IEZvciBlYWNoIHNp
-Z25hbDogU2VuZCB0aGF0IHNpZ25hbCB0byBhIGNoaWxkIHRoYXQgaGFzIGVsZWN0ZWQKLQk8IHRv
-IGNhdGNoIHRoZSBzaWduYWwsIGNoZWNrIHRoYXQgdGhlIGNvcnJlY3Qgc3RhdHVzIHdhcyByZXR1
-cm5lZAotCTwgdG8gdGhlIHdhaXRpbmcgcGFyZW50LgotCTwgTk9URTogU2lnbmFsIDkgKGtpbGwp
-IGlzIG5vdCBjYXRjaGFibGUsIGFuZCBtdXN0IGJlIGRlYWx0IHdpdGgKLQk8IHNlcGFyYXRlbHku
-Ci0+QlVHUzogIDwgTm9uZSBrbm93bgotPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSovCi0jaWZuZGVmIF9HTlVfU09V
-UkNFCi0jZGVmaW5lIF9HTlVfU09VUkNFIDEKLSNlbmRpZgotCi0jaW5jbHVkZSA8c3RkaW8uaD4K
-LSNpbmNsdWRlIDxzeXMvdHlwZXMuaD4KLSNpbmNsdWRlIDxzaWduYWwuaD4KLSNpbmNsdWRlIDxz
-dGRsaWIuaD4KLSNpbmNsdWRlIDx1bmlzdGQuaD4KLSNpbmNsdWRlIDxzeXMvd2FpdC5oPgotI2lu
-Y2x1ZGUgPGVycm5vLmg+Ci0KLSNpbmNsdWRlICJ0ZXN0LmgiCi0jZGVmaW5lIElURVIgICAgMwot
-I2RlZmluZSBGQUlMRUQgMAotI2RlZmluZSBQQVNTRUQgMQotCi1jaGFyICpUQ0lEID0gImtpbGwx
-MiI7Ci0KLWludCBsb2NhbF9mbGFnID0gUEFTU0VEOwotaW50IGJsb2NrX251bWJlcjsKLUZJTEUg
-KnRlbXA7Ci1pbnQgVFNUX1RPVEFMID0gMTsKLXN0YXRpYyBpbnQgc2lnOwotCi1pbnQgYW55ZmFp
-bCgpOwotaW50IGJsZW50ZXIoKTsKLWludCBpbnN0cmVzcygpOwotdm9pZCBzZXR1cCgpOwotdm9p
-ZCB0ZXJyb3IoKTsKLXZvaWQgZmFpbF9leGl0KCk7Ci12b2lkIG9rX2V4aXQoKTsKLWludCBmb3Jr
-ZmFpbCgpOwotdm9pZCBkb19jaGlsZCgpOwotCi1pbnQgY2hmbGFnOwotCi1pbnQgbWFpbihpbnQg
-YXJnYywgY2hhciAqKmFyZ3YpCi17Ci0JaW50IHBpZCwgbnBpZDsKLQlpbnQgbnNpZywgZXhubywg
-bmV4bm8sIHN0YXR1czsKLQlpbnQgcmV0X3ZhbCA9IDA7Ci0JaW50IGNvcmU7Ci0Jdm9pZCBjaHNp
-ZygpOwotCi0JdHN0X3BhcnNlX29wdHMoYXJnYywgYXJndiwgTlVMTCwgTlVMTCk7Ci0KLQlzZXR1
-cCgpOwotCWJsZW50ZXIoKTsKLQotCWV4bm8gPSAxOwotCi0JaWYgKHNpZ3NldChTSUdDSExELCBj
-aHNpZykgPT0gU0lHX0VSUikgewotCQlmcHJpbnRmKHRlbXAsICJcdHNpZ3NldCBmYWlsZWQsIGVy
-cm5vID0gJWRcbiIsIGVycm5vKTsKLQkJZmFpbF9leGl0KCk7Ci0JfQotCi0JZm9yIChzaWcgPSAx
-OyBzaWcgPCAxNDsgc2lnKyspIHsKLQkJZmZsdXNoKHRlbXApOwotCQljaGZsYWcgPSAwOwotCi0J
-CXBpZCA9IHRzdF9mb3JrKCk7Ci0JCWlmIChwaWQgPCAwKSB7Ci0JCQlmb3JrZmFpbCgpOwotCQl9
-Ci0KLQkJaWYgKHBpZCA9PSAwKSB7Ci0JCQlkb19jaGlsZCgpOwotCQl9IGVsc2UgewotCQkJLy9m
-cHJpbnRmKHRlbXAsICJUZXN0aW5nIHNpZ25hbCAlZFxuIiwgc2lnKTsKLQotCQkJd2hpbGUgKCFj
-aGZsYWcpCS8qIHdhaXQgZm9yIGNoaWxkICovCi0JCQkJc2xlZXAoMSk7Ci0KLQkJCWtpbGwocGlk
-LCBzaWcpOwkvKiBjaGlsZCBzaG91bGQgaWducm9lIHRoaXMgc2lnICovCi0JCQlraWxsKHBpZCwg
-U0lHQ0hMRCk7CS8qIGNoaWxkIHNob3VsZCBleGl0ICovCi0KLSNpZmRlZiBCQ1MKLQkJCXdoaWxl
-ICgobnBpZCA9IHdhaXQoJnN0YXR1cykpICE9IHBpZAotCQkJICAgICAgIHx8IChucGlkID09IC0x
-ICYmIGVycm5vID09IEVJTlRSKSkgOwotCQkJaWYgKG5waWQgIT0gcGlkKSB7Ci0JCQkJZnByaW50
-Zih0ZW1wLAotCQkJCQkid2FpdCBlcnJvcjogd2FpdCByZXR1cm5lZCB3cm9uZyBwaWRcbiIpOwot
-CQkJCXJldF92YWwgPSAxOwotCQkJfQotI2Vsc2UKLQkJCXdoaWxlICgobnBpZCA9IHdhaXRwaWQo
-cGlkLCAmc3RhdHVzLCAwKSkgIT0gLTEKLQkJCSAgICAgICB8fCBlcnJubyA9PSBFSU5UUikgOwot
-I2VuZGlmCi0KLQkJCS8qCi0JCQkgICBuc2lnID0gc3RhdHVzICYgMDE3NzsKLQkJCSAgIGNvcmUg
-PSBzdGF0dXMgJiAwMjAwOwotCQkJICAgbmV4bm8gPSAoc3RhdHVzICYgMHhmZjAwKSA+PiA4Owot
-CQkJICovCi0JCQkvKioqKiogIExUUCBQb3J0ICAgICAgICAqKioqKi8KLQkJCW5zaWcgPSBXVEVS
-TVNJRyhzdGF0dXMpOwotI2lmZGVmIFdDT1JFRFVNUAotCQkJY29yZSA9IFdDT1JFRFVNUChzdGF0
-dXMpOwotI2VuZGlmCi0JCQluZXhubyA9IFdJRkVYSVRFRChzdGF0dXMpOwotCQkJLyoqKioqICAq
-KiAgICAgICoqICAgICAgKioqKiovCi0KLQkJCS8qIG5zaWcgaXMgdGhlIHNpZ25hbCBudW1iZXIg
-cmV0dXJuZWQgYnkgd2FpdAotCQkJICAgaXQgc2hvdWxkIGJlIDAsIGV4Y2VwdCB3aGVuIHNpZyA9
-IDkgICAgICAgICAgKi8KLQotCQkJaWYgKChzaWcgPT0gOSkgJiYgKG5zaWcgIT0gc2lnKSkgewot
-CQkJCWZwcmludGYodGVtcCwgIndhaXQgZXJyb3I6IHVuZXhwZWN0ZWQgc2lnbmFsIgotCQkJCQki
-IHJldHVybmVkIHdoZW4gdGhlIHNpZ25hbCBzZW50IHdhcyA5IgotCQkJCQkiIFRoZSBzdGF0dXMg
-b2YgdGhlIHByb2Nlc3MgaXMgJWQgXG4iLAotCQkJCQlzdGF0dXMpOwotCQkJCXJldF92YWwgPSAx
-OwotCQkJfQotCQkJaWYgKChzaWcgIT0gOSkgJiYgKG5zaWcgIT0gMCkpIHsKLQkJCQlmcHJpbnRm
-KHRlbXAsICJ3YWl0IGVycm9yOiB1bmV4cGVjdGVkIHNpZ25hbCAiCi0JCQkJCSJyZXR1cm5lZCwg
-dGhlIHN0YXR1cyBvZiB0aGUgcHJvY2VzcyBpcyAiCi0JCQkJCSIlZCAgXG4iLCBzdGF0dXMpOwot
-CQkJCXJldF92YWwgPSAxOwotCQkJfQotCi0JCQkvKiBuZXhubyBpcyB0aGUgZXhpdCBudW1iZXIg
-cmV0dXJuZWQgYnkgd2FpdAotCQkJICAgaXQgc2hvdWxkIGJlIDEsIGV4Y2VwdCB3aGVuIHNpZyA9
-IDkgICAgICAgICAgKi8KLQotCQkJaWYgKHNpZyA9PSA5KQotCQkJCWlmIChuZXhubyAhPSAwKSB7
-Ci0JCQkJCWZwcmludGYodGVtcCwgInNpZ25hbCBlcnJvcjogdW5leHBlY3RlZCIKLQkJCQkJCSIg
-ZXhpdCBudW1iZXIgcmV0dXJuZWQgd2hlbiIKLQkJCQkJCSIgc2lnbmFsIHNlbnQgd2FzIDksIHRo
-ZSBzdGF0dXMiCi0JCQkJCQkiIG9mIHRoZSBwcm9jZXNzIGlzICVkIFxuIiwKLQkJCQkJCXN0YXR1
-cyk7Ci0JCQkJCXJldF92YWwgPSAxOwotCQkJCX0gZWxzZTsKLQkJCWVsc2UgaWYgKG5leG5vICE9
-IDEpIHsKLQkJCQlmcHJpbnRmKHRlbXAsICJzaWduYWwgZXJyb3I6IHVuZXhwZWN0ZWQgZXhpdCAi
-Ci0JCQkJCSJudW1iZXIgcmV0dXJuZWQsdGhlIHN0YXR1cyBvZiB0aGUiCi0JCQkJCSIgcHJvY2Vz
-cyBpcyAlZFxuIiwgc3RhdHVzKTsKLQkJCQlyZXRfdmFsID0gMTsKLQkJCX0KLQkJfQotCX0KLQlp
-ZiAocmV0X3ZhbCkKLQkJbG9jYWxfZmxhZyA9IEZBSUxFRDsKLQotCWFueWZhaWwoKTsKLQl0c3Rf
-ZXhpdCgpOwotfQotCi12b2lkIGNoc2lnKHZvaWQpCi17Ci0JY2hmbGFnKys7Ci19Ci0KLWludCBh
-bnlmYWlsKHZvaWQpCi17Ci0JKGxvY2FsX2ZsYWcgPT0gRkFJTEVEKSA/IHRzdF9yZXNtKFRGQUlM
-LAotCQkJCQkgICJUZXN0IGZhaWxlZCIpIDogdHN0X3Jlc20oVFBBU1MsCi0JCQkJCQkJCSAgICAi
-VGVzdCBwYXNzZWQiKTsKLQl0c3RfZXhpdCgpOwotfQotCi12b2lkIGRvX2NoaWxkKHZvaWQpCi17
-Ci0JaW50IGV4bm8gPSAxOwotCi0Jc2lnc2V0KHNpZywgU0lHX0lHTik7CS8qIHNldCB0byBpZ25v
-cmUgc2lnbmFsICovCi0Ja2lsbChnZXRwcGlkKCksIFNJR0NITEQpOwkvKiB0ZWxsIHBhcmVudCB3
-ZSBhcmUgcmVhZHkgKi8KLQl3aGlsZSAoIWNoZmxhZykKLQkJc2xlZXAoMSk7CS8qIHdhaXQgZm9y
-IHBhcmVudCAqLwotCi0JZXhpdChleG5vKTsKLX0KLQotdm9pZCBzZXR1cCh2b2lkKQotewotCXRl
-bXAgPSBzdGRlcnI7Ci19Ci0KLWludCBibGVudGVyKHZvaWQpCi17Ci0JLy90c3RfcmVzbShUSU5G
-TywgIkVudGVyIGJsb2NrICVkIiwgYmxvY2tfbnVtYmVyKTsKLQlsb2NhbF9mbGFnID0gUEFTU0VE
-OwotCXJldHVybiAwOwotfQotCi12b2lkIHRlcnJvcihjaGFyICptZXNzYWdlKQotewotCXRzdF9y
-ZXNtKFRCUk9LLCAiUmVhc29uOiAlczolcyIsIG1lc3NhZ2UsIHN0cmVycm9yKGVycm5vKSk7Ci19
-Ci0KLXZvaWQgZmFpbF9leGl0KHZvaWQpCi17Ci0JbG9jYWxfZmxhZyA9IEZBSUxFRDsKLQlhbnlm
-YWlsKCk7Ci0KLX0KLQotaW50IGZvcmtmYWlsKHZvaWQpCi17Ci0JdHN0X2Jya20oVEJST0ssIE5V
-TEwsICJGT1JLIEZBSUxFRCAtIHRlcm1pbmF0aW5nIHRlc3QuIik7Ci19CgotLS0KYmFzZS1jb21t
-aXQ6IGE5MDhjZmY3MGY5Mzg5YzJkZDJiZjUzNTk3NmNiMTc5YmZhOGYzNDAKY2hhbmdlLWlkOiAy
-MDI1MDcwMi1jb252ZXJzaW9ucy1raWxsMTItMjVmMDJkNjRkZTVmCgpCZXN0IHJlZ2FyZHMsCi0t
-IApSaWNhcmRvIEIuIE1hcmxpw6hyZSA8cmJtQHN1c2UuY29tPgoKCi0tIApNYWlsaW5nIGxpc3Qg
-aW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+On Thu, 26 Jun 2025 at 19:23, Zhang Yi <yi.zhang@huaweicloud.com> wrote:
+>
+> Hi, Naresh!
+>
+> On 2025/6/26 20:31, Naresh Kamboju wrote:
+> > Regressions noticed on arm64 devices while running LTP syscalls mmap16
+> > test case on the Linux next-20250616..next-20250626 with the extra build
+> > config fragment CONFIG_ARM64_64K_PAGES=y the kernel warning noticed.
+> >
+> > Not reproducible with 4K page size.
+> >
+> > Test environments:
+> > - Dragonboard-410c
+> > - Juno-r2
+> > - rk3399-rock-pi-4b
+> > - qemu-arm64
+> >
+> > Regression Analysis:
+> > - New regression? Yes
+> > - Reproducibility? Yes
+> >
+> > Test regression: next-20250626 LTP mmap16 WARNING fs jbd2
+> > transaction.c start_this_handle
+> >
+> > Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+>
+> Thank you for the report. The block size for this test is 1 KB, so I
+> suspect this is the issue with insufficient journal credits that we
+> are going to resolve.
+
+I have applied your patch set [1] and tested and the reported
+regressions did not fix.
+Am I missing anything ?
+
+[1] https://lore.kernel.org/linux-ext4/20250611111625.1668035-1-yi.zhang@huaweicloud.com/
+
+>
+> Thanks,
+> Yi.
+
+- Naresh
+
+> >
+> > ## Test log
+> > <6>[   89.498969] loop0: detected capacity change from 0 to 614400
+> > <3>[   89.609561] operation not supported error, dev loop0, sector
+> > 20352 op 0x9:(WRITE_ZEROES) flags 0x20000800 phys_seg 0 prio class 0
+> > <6>[   89.707795] EXT4-fs (loop0): mounted filesystem
+> > 6786a191-5e0d-472b-8bce-4714e1a4fb44 r/w with ordered data mode. Quota
+> > mode: none.
+> > <3>[   90.023985] JBD2: kworker/u8:2 wants too many credits
+> > credits:416 rsv_credits:21 max:334
+> > <4>[   90.024973] ------------[ cut here ]------------
+> > <4>[ 90.025062] WARNING: fs/jbd2/transaction.c:334 at
+> > start_this_handle+0x4c0/0x4e0, CPU#0: 2/42
+> > <4>[   90.026661] Modules linked in: btrfs blake2b_generic xor
+> > xor_neon raid6_pq zstd_compress sm3_ce sha3_ce fuse drm backlight
+> > ip_tables x_tables
+> > <4>[   90.027952] CPU: 0 UID: 0 PID: 42 Comm: kworker/u8:2 Not tainted
+> > 6.16.0-rc3-next-20250626 #1 PREEMPT
+> > <4>[   90.029043] Hardware name: linux,dummy-virt (DT)
+> > <4>[   90.029524] Workqueue: writeback wb_workfn (flush-7:0)
+> > <4>[   90.030050] pstate: 63402009 (nZCv daif +PAN -UAO +TCO +DIT
+> > -SSBS BTYPE=--)
+> > <4>[ 90.030311] pc : start_this_handle (fs/jbd2/transaction.c:334
+> > (discriminator 1))
+> > <4>[ 90.030481] lr : start_this_handle (fs/jbd2/transaction.c:334
+> > (discriminator 1))
+> > <4>[   90.030656] sp : ffffc000805cb650
+> > <4>[   90.030785] x29: ffffc000805cb690 x28: fff00000dd1f5000 x27:
+> > ffffde2ec0272000
+> > <4>[   90.031097] x26: 00000000000001a0 x25: 0000000000000015 x24:
+> > 0000000000000002
+> > <4>[   90.031360] x23: 0000000000000015 x22: 0000000000000c40 x21:
+> > 0000000000000008
+> > <4>[   90.031618] x20: fff00000c231da78 x19: fff00000c231da78 x18:
+> > 0000000000000000
+> > <4>[   90.031875] x17: 0000000000000000 x16: 0000000000000000 x15:
+> > 0000000000000000
+> > <4>[   90.032859] x14: 0000000000000000 x13: 00000000ffffffff x12:
+> > 0000000000000000
+> > <4>[   90.033225] x11: 0000000000000000 x10: ffffde2ebfba8bd0 x9 :
+> > ffffde2ebd34e944
+> > <4>[   90.033607] x8 : ffffc000805cb278 x7 : 0000000000000000 x6 :
+> > 0000000000000001
+> > <4>[   90.033971] x5 : ffffde2ebfb29000 x4 : ffffde2ebfb293d0 x3 :
+> > 0000000000000000
+> > <4>[   90.034294] x2 : 0000000000000000 x1 : fff00000c04dc080 x0 :
+> > 000000000000004c
+> > <4>[   90.034772] Call trace:
+> > <4>[ 90.035068] start_this_handle (fs/jbd2/transaction.c:334
+> > (discriminator 1)) (P)
+> > <4>[ 90.035366] jbd2__journal_start (fs/jbd2/transaction.c:501)
+> > <4>[ 90.035586] __ext4_journal_start_sb (fs/ext4/ext4_jbd2.c:117)
+> > <4>[ 90.035807] ext4_do_writepages (fs/ext4/ext4_jbd2.h:242
+> > fs/ext4/inode.c:2846)
+> > <4>[ 90.036004] ext4_writepages (fs/ext4/inode.c:2953)
+> > <4>[ 90.036233] do_writepages (mm/page-writeback.c:2636)
+> > <4>[ 90.036406] __writeback_single_inode (fs/fs-writeback.c:1680)
+> > <4>[ 90.036616] writeback_sb_inodes (fs/fs-writeback.c:1978)
+> > <4>[ 90.036891] wb_writeback (fs/fs-writeback.c:2156)
+> > <4>[ 90.037122] wb_workfn (fs/fs-writeback.c:2303 (discriminator 1)
+> > fs/fs-writeback.c:2343 (discriminator 1))
+> > <4>[ 90.037318] process_one_work (kernel/workqueue.c:3244)
+> > <4>[ 90.037517] worker_thread (kernel/workqueue.c:3316 (discriminator
+> > 2) kernel/workqueue.c:3403 (discriminator 2))
+> > <4>[ 90.037752] kthread (kernel/kthread.c:463)
+> > <4>[ 90.037903] ret_from_fork (arch/arm64/kernel/entry.S:863)
+> > <4>[   90.038217] ---[ end trace 0000000000000000 ]---
+> > <2>[   90.039950] EXT4-fs (loop0): ext4_do_writepages: jbd2_start:
+> > 9223372036854775807 pages, ino 14; err -28
+> > <3>[   90.040291] JBD2: kworker/u8:2 wants too many credits
+> > credits:416 rsv_credits:21 max:334
+> > <4>[   90.040374] ------------[ cut here ]------------
+> > <4>[ 90.040386] WARNING: fs/jbd2/transaction.c:334 at
+> > start_this_handle+0x4c0/0x4e0, CPU#1: 2/42
+> >
+> >
+> > ## Source
+> > * Kernel version: 6.16.0-rc3-next-20250626
+> > * Git tree: https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next.git
+> > * Git sha: ecb259c4f70dd5c83907809f45bf4dc6869961d7
+> > * Git describe: 6.16.0-rc3-next-20250626
+> > * Project details:
+> > https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20250626/
+> > * Architectures: arm64
+> > * Toolchains: gcc-13
+> > * Kconfigs: gcc-13-lkftconfig-64k_page_size
+> >
+> > ## Build arm64
+> > * Test log: https://qa-reports.linaro.org/api/testruns/28894530/log_file/
+> > * Test LAVA log 1:
+> > https://lkft.validation.linaro.org/scheduler/job/8331353#L6841
+> > * Test LAVA log 2:
+> > https://lkft.validation.linaro.org/scheduler/job/8331352#L8854
+> > * Test details:
+> > https://regressions.linaro.org/lkft/linux-next-master/next-20250626/log-parser-test/exception-warning-fsjbd2transaction-at-start_this_handle/
+> > * Build link: https://storage.tuxsuite.com/public/linaro/lkft/builds/2z2V7LhiJecGzINkU7ObVQTwoR1/
+> > * Kernel config:
+> > https://storage.tuxsuite.com/public/linaro/lkft/builds/2z2V7LhiJecGzINkU7ObVQTwoR1/config
+> >
+> > --
+> > Linaro LKFT
+> > https://lkft.linaro.org
+> >
+>
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
