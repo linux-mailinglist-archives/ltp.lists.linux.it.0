@@ -1,75 +1,96 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36006AF7AE9
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jul 2025 17:19:21 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E6CD6AF670C
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jul 2025 03:01:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1751504466; h=date : to :
+ message-id : references : mime-version : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=LPJt+6oVkKi8zOgVozhphrV1cWHHs+YvwgGEX9wL09U=;
+ b=Qhfr1SWTbXxfzniI2xlfOGDqxTFo3ry0WSaSDW2zJkjEn+3393HJDYCk8EhSehFUNbSE7
+ XwexsIJfELWENL7dEova7/yoKBTrBlYtZlDjV5VHQ4ICwiUG8OPo8TsyHswNoqeZ4hFpxkC
+ Br+3aXqoqskegA1WwPMWx0yd7pfSWxw=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 93E7D3C9C7D
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jul 2025 17:19:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 79C073C9121
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jul 2025 03:01:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C39463C7153
- for <ltp@lists.linux.it>; Thu,  3 Jul 2025 13:34:19 +0200 (CEST)
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
- [45.249.212.51])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 2F3583C7679
+ for <ltp@lists.linux.it>; Thu,  3 Jul 2025 03:00:52 +0200 (CEST)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 29B9C200BA6
- for <ltp@lists.linux.it>; Thu,  3 Jul 2025 13:34:16 +0200 (CEST)
-Received: from mail.maildlp.com (unknown [172.19.163.235])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4bXvm31ZJHzYQvQ0
- for <ltp@lists.linux.it>; Thu,  3 Jul 2025 19:33:39 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
- by mail.maildlp.com (Postfix) with ESMTP id 177781A0D2D
- for <ltp@lists.linux.it>; Thu,  3 Jul 2025 19:33:38 +0800 (CST)
-Received: from [10.174.179.80] (unknown [10.174.179.80])
- by APP3 (Coremail) with SMTP id _Ch0CgAHaCWMamZo5y0WAg--.10583S3;
- Thu, 03 Jul 2025 19:33:33 +0800 (CST)
-Message-ID: <1c7ae5cb-61ad-404c-950a-ba1b5895e6c3@huaweicloud.com>
-Date: Thu, 3 Jul 2025 19:33:32 +0800
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D74A46001F4
+ for <ltp@lists.linux.it>; Thu,  3 Jul 2025 03:00:50 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a531fcaa05so3071211f8f.3
+ for <ltp@lists.linux.it>; Wed, 02 Jul 2025 18:00:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1751504450; x=1752109250; darn=lists.linux.it;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=xpmPs5NlAyVaD1C571Bq58KClktvsPQDawh23kU3bl4=;
+ b=NwFrfn9fHGHilKiG66/Hd8TwkeH1jH5hXE/KA5yR8Y7tF0Q1kz9JfqKjuH4a3cK5c1
+ QM1n/Wo5Dj8AnMmo0QJw43eMmZDDmyTiGU9b+36Z59/RePmRS/c4sS0FHeY1enJtoeEG
+ 1DriwakOR9UmLLeZrQYG4yXZJFKPpKFFA698uz53kdmaM3iD1FSK4LvMA6IZiHWPG66P
+ lDuxA3vXTFggpwmBNkAzqzaFV+LiHoowlJLMPkOLbD8u5P0eTTs2xGld5ic1VQup6tAw
+ PHbRQXQnSrE9TuEhQpFY+pwxf/gTuqGFkrsq1+1wFMoHMf5zWpvq6RH9CxPGy8ZE4I4R
+ 3lRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751504450; x=1752109250;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xpmPs5NlAyVaD1C571Bq58KClktvsPQDawh23kU3bl4=;
+ b=tMEXTs3PVme4gPjwIjA7+OeCjUQUcG27XX5UWR/gsWvk+qBIrLePWOjrxR3OxO/yw+
+ qtuCvYXEePTW/L4oQaeKy/YNoDxheOLIAzeLllIzP2PkOvGp50mTqFQmWk3L4r9tu4xH
+ TS1vBmXU8nMw6dmY8BcRlDD6BZ0IbSZRZfJzV7Ge9taZzMJxtgp9TRTR9g4VXSI52X/Q
+ n2FFXEYKKx/AadQNyuV8UcfillnxqgZb4ARGgeutAtHTCvnRvRloE4VHtsNULt3443xE
+ g4ngSuW1X/VyNvmRAm4YL+NKlcVDJ5Q8AJ29tS5x+7V+bCOXkJHZVcdCaIfw5tFnthHu
+ mZQA==
+X-Gm-Message-State: AOJu0Ywz/hpyFRVFraIHmTIc9HiE1AD9uBwq7V9YXrwO/UbN92YJBRIV
+ ccXvtjw8IKkZMKOvi11+G3lV9r4iPVAzp4/xL5tA1k+it/BT6idLvPZki86v/AW8nX8spX5PZ91
+ gALg=
+X-Gm-Gg: ASbGnctbaGnmxmiKRfSNcPh33GbPr0pNiCNSDshb1k3z0dG469xen/UxKPQrRF6xnem
+ fCKz/4QUmRvCztM4BBc9KzwoJt+17ascO/EW/0tuh+i6H9DR15ehVRgdUpsenl4I2IPXv++BeRr
+ /EKvt51/Zi7Hy8RlEsvsPNWFIFtZDmifxAiuE0DCKy1EQ+jJbsxSyhiCyRFFQRFR2QmCxA7OtlK
+ f/ESU3muRvN1xNjPEdbNK5+LHkyUqLgT8nomhNTnvFbUwn4t65rJZgAJU8q4L20XjjXdpvlT4sF
+ 5PtCfYTEKElnNlttzCDuY0TM+oLkj3CTd8cAIKh0w68VypveU9Z9PwW17lsRGw==
+X-Google-Smtp-Source: AGHT+IGjJlBg/X3Ng1JbnbgdngQivSC8OBd1/Ja7lFcXkys9FThLf5qEp8hcLcBD1g9og2I9GXh8Tg==
+X-Received: by 2002:a05:6000:178c:b0:3a4:f918:9db9 with SMTP id
+ ffacd0b85a97d-3b32db89402mr903680f8f.32.1751504450189; 
+ Wed, 02 Jul 2025 18:00:50 -0700 (PDT)
+Received: from MiWiFi-CR6608-srv ([202.127.77.110])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-31a9cc4a419sm854088a91.9.2025.07.02.18.00.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Jul 2025 18:00:49 -0700 (PDT)
+Date: Thu, 3 Jul 2025 09:00:13 -0400
+To: Mike Tipton <mike.tipton@oss.qualcomm.com>
+Message-ID: <aGZ-3eoDE-XDTTPs@MiWiFi-CR6608-srv>
+References: <20250630145128.1254269-1-mike.tipton@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Naresh Kamboju <naresh.kamboju@linaro.org>, Theodore Ts'o
- <tytso@mit.edu>, Jan Kara <jack@suse.cz>
-References: <CA+G9fYsyYQ3ZL4xaSg1-Tt5Evto7Zd+hgNWZEa9cQLbahA1+xg@mail.gmail.com>
- <2dbc199b-ef22-4c22-9dbd-5e5876e9f9b4@huaweicloud.com>
- <CA+G9fYv5zpLxeVLqYbDLLUOxmAzuXDbaZobvpCBBBuZJKLMpPQ@mail.gmail.com>
-Content-Language: en-US
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-In-Reply-To: <CA+G9fYv5zpLxeVLqYbDLLUOxmAzuXDbaZobvpCBBBuZJKLMpPQ@mail.gmail.com>
-X-CM-TRANSID: _Ch0CgAHaCWMamZo5y0WAg--.10583S3
-X-Coremail-Antispam: 1UD129KBjvJXoW3Jw43Zry5uF47Jry8tFWxXrb_yoWxtw17pa
- y3tF1UKrW0vr1xJrWvq3WFqryUtr1qyF97JrnFqr1rGFnFvF18JFWIgryFgF9rJ348u34x
- Zr4qy3srKr4jy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
- vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
- xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
- 0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
- 6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
- Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
- 14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
- 8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
- ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
- 0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
- Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU1
- 7KsUUUUUU==
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20250630145128.1254269-1-mike.tipton@oss.qualcomm.com>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Thu, 03 Jul 2025 17:19:11 +0200
-Subject: Re: [LTP] next-20250626: WARNING fs jbd2 transaction.c
- start_this_handle with ARM64_64K_PAGES
+Subject: Re: [LTP] [PATCH v2] device-drivers/cpufreq_boost: Don't hardcode
+ to CPU0
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,175 +102,150 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Linux Regressions <regressions@lists.linux.dev>,
- Arnd Bergmann <arnd@arndb.de>, open list <linux-kernel@vger.kernel.org>,
- lkft-triage@lists.linaro.org, Dan Carpenter <dan.carpenter@linaro.org>,
- linux-fsdevel@vger.kernel.org, linux-ext4 <linux-ext4@vger.kernel.org>,
- LTP List <ltp@lists.linux.it>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2025/7/3 15:26, Naresh Kamboju wrote:
-> On Thu, 26 Jun 2025 at 19:23, Zhang Yi <yi.zhang@huaweicloud.com> wrote:
->>
->> Hi, Naresh!
->>
->> On 2025/6/26 20:31, Naresh Kamboju wrote:
->>> Regressions noticed on arm64 devices while running LTP syscalls mmap16
->>> test case on the Linux next-20250616..next-20250626 with the extra build
->>> config fragment CONFIG_ARM64_64K_PAGES=y the kernel warning noticed.
->>>
->>> Not reproducible with 4K page size.
->>>
->>> Test environments:
->>> - Dragonboard-410c
->>> - Juno-r2
->>> - rk3399-rock-pi-4b
->>> - qemu-arm64
->>>
->>> Regression Analysis:
->>> - New regression? Yes
->>> - Reproducibility? Yes
->>>
->>> Test regression: next-20250626 LTP mmap16 WARNING fs jbd2
->>> transaction.c start_this_handle
->>>
->>> Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
->>
->> Thank you for the report. The block size for this test is 1 KB, so I
->> suspect this is the issue with insufficient journal credits that we
->> are going to resolve.
+On Mon, Jun 30, 2025 at 07:51:28AM -0700, Mike Tipton via ltp wrote:
+> Some systems don't support boost on every CPU, such as on many Qualcomm
+> chipsets. And if boost isn't supported on CPU0, then the test will fail
+> since there's no performance improvement.
 > 
-> I have applied your patch set [1] and tested and the reported
-> regressions did not fix.
-> Am I missing anything ?
+> Instead of hardcoding CPU0, find the first CPU that belongs to a cpufreq
+> policy with boost enabled.
 > 
-> [1] https://lore.kernel.org/linux-ext4/20250611111625.1668035-1-yi.zhang@huaweicloud.com/
+> Signed-off-by: Mike Tipton <mike.tipton@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Use proper maxspeed buf size in snprintf.
+> - Link to v1: https://lore.kernel.org/ltp/20250626194707.3053036-1-mike.tipton@oss.qualcomm.com/
 > 
-
-Hmm. It seems that my fix for the insufficient journal credit series
-cannot handle cases with a page size of 64k. The problem is the folio
-size can up to 128M, and the 'rsv_blocks' in ext4_do_writepages() can
-up to 1577 on 1K block size filesystems, this is too large.
-
-Therefore, at this time, I think we should disable the large folio
-support for 64K page size. Then, we may need to reserve rsv_blocks
-for one extent and implement the same journal extension logic for
-reserved credits.
-
-Ted and Jan, what do you think?
-
-Thanks,
-Yi.
-
+>  .../device-drivers/cpufreq/cpufreq_boost.c    | 58 ++++++++++++++++---
+>  1 file changed, 50 insertions(+), 8 deletions(-)
 > 
->>>
->>> ## Test log
->>> <6>[   89.498969] loop0: detected capacity change from 0 to 614400
->>> <3>[   89.609561] operation not supported error, dev loop0, sector
->>> 20352 op 0x9:(WRITE_ZEROES) flags 0x20000800 phys_seg 0 prio class 0
->>> <6>[   89.707795] EXT4-fs (loop0): mounted filesystem
->>> 6786a191-5e0d-472b-8bce-4714e1a4fb44 r/w with ordered data mode. Quota
->>> mode: none.
->>> <3>[   90.023985] JBD2: kworker/u8:2 wants too many credits
->>> credits:416 rsv_credits:21 max:334
->>> <4>[   90.024973] ------------[ cut here ]------------
->>> <4>[ 90.025062] WARNING: fs/jbd2/transaction.c:334 at
->>> start_this_handle+0x4c0/0x4e0, CPU#0: 2/42
->>> <4>[   90.026661] Modules linked in: btrfs blake2b_generic xor
->>> xor_neon raid6_pq zstd_compress sm3_ce sha3_ce fuse drm backlight
->>> ip_tables x_tables
->>> <4>[   90.027952] CPU: 0 UID: 0 PID: 42 Comm: kworker/u8:2 Not tainted
->>> 6.16.0-rc3-next-20250626 #1 PREEMPT
->>> <4>[   90.029043] Hardware name: linux,dummy-virt (DT)
->>> <4>[   90.029524] Workqueue: writeback wb_workfn (flush-7:0)
->>> <4>[   90.030050] pstate: 63402009 (nZCv daif +PAN -UAO +TCO +DIT
->>> -SSBS BTYPE=--)
->>> <4>[ 90.030311] pc : start_this_handle (fs/jbd2/transaction.c:334
->>> (discriminator 1))
->>> <4>[ 90.030481] lr : start_this_handle (fs/jbd2/transaction.c:334
->>> (discriminator 1))
->>> <4>[   90.030656] sp : ffffc000805cb650
->>> <4>[   90.030785] x29: ffffc000805cb690 x28: fff00000dd1f5000 x27:
->>> ffffde2ec0272000
->>> <4>[   90.031097] x26: 00000000000001a0 x25: 0000000000000015 x24:
->>> 0000000000000002
->>> <4>[   90.031360] x23: 0000000000000015 x22: 0000000000000c40 x21:
->>> 0000000000000008
->>> <4>[   90.031618] x20: fff00000c231da78 x19: fff00000c231da78 x18:
->>> 0000000000000000
->>> <4>[   90.031875] x17: 0000000000000000 x16: 0000000000000000 x15:
->>> 0000000000000000
->>> <4>[   90.032859] x14: 0000000000000000 x13: 00000000ffffffff x12:
->>> 0000000000000000
->>> <4>[   90.033225] x11: 0000000000000000 x10: ffffde2ebfba8bd0 x9 :
->>> ffffde2ebd34e944
->>> <4>[   90.033607] x8 : ffffc000805cb278 x7 : 0000000000000000 x6 :
->>> 0000000000000001
->>> <4>[   90.033971] x5 : ffffde2ebfb29000 x4 : ffffde2ebfb293d0 x3 :
->>> 0000000000000000
->>> <4>[   90.034294] x2 : 0000000000000000 x1 : fff00000c04dc080 x0 :
->>> 000000000000004c
->>> <4>[   90.034772] Call trace:
->>> <4>[ 90.035068] start_this_handle (fs/jbd2/transaction.c:334
->>> (discriminator 1)) (P)
->>> <4>[ 90.035366] jbd2__journal_start (fs/jbd2/transaction.c:501)
->>> <4>[ 90.035586] __ext4_journal_start_sb (fs/ext4/ext4_jbd2.c:117)
->>> <4>[ 90.035807] ext4_do_writepages (fs/ext4/ext4_jbd2.h:242
->>> fs/ext4/inode.c:2846)
->>> <4>[ 90.036004] ext4_writepages (fs/ext4/inode.c:2953)
->>> <4>[ 90.036233] do_writepages (mm/page-writeback.c:2636)
->>> <4>[ 90.036406] __writeback_single_inode (fs/fs-writeback.c:1680)
->>> <4>[ 90.036616] writeback_sb_inodes (fs/fs-writeback.c:1978)
->>> <4>[ 90.036891] wb_writeback (fs/fs-writeback.c:2156)
->>> <4>[ 90.037122] wb_workfn (fs/fs-writeback.c:2303 (discriminator 1)
->>> fs/fs-writeback.c:2343 (discriminator 1))
->>> <4>[ 90.037318] process_one_work (kernel/workqueue.c:3244)
->>> <4>[ 90.037517] worker_thread (kernel/workqueue.c:3316 (discriminator
->>> 2) kernel/workqueue.c:3403 (discriminator 2))
->>> <4>[ 90.037752] kthread (kernel/kthread.c:463)
->>> <4>[ 90.037903] ret_from_fork (arch/arm64/kernel/entry.S:863)
->>> <4>[   90.038217] ---[ end trace 0000000000000000 ]---
->>> <2>[   90.039950] EXT4-fs (loop0): ext4_do_writepages: jbd2_start:
->>> 9223372036854775807 pages, ino 14; err -28
->>> <3>[   90.040291] JBD2: kworker/u8:2 wants too many credits
->>> credits:416 rsv_credits:21 max:334
->>> <4>[   90.040374] ------------[ cut here ]------------
->>> <4>[ 90.040386] WARNING: fs/jbd2/transaction.c:334 at
->>> start_this_handle+0x4c0/0x4e0, CPU#1: 2/42
->>>
->>>
->>> ## Source
->>> * Kernel version: 6.16.0-rc3-next-20250626
->>> * Git tree: https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next.git
->>> * Git sha: ecb259c4f70dd5c83907809f45bf4dc6869961d7
->>> * Git describe: 6.16.0-rc3-next-20250626
->>> * Project details:
->>> https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20250626/
->>> * Architectures: arm64
->>> * Toolchains: gcc-13
->>> * Kconfigs: gcc-13-lkftconfig-64k_page_size
->>>
->>> ## Build arm64
->>> * Test log: https://qa-reports.linaro.org/api/testruns/28894530/log_file/
->>> * Test LAVA log 1:
->>> https://lkft.validation.linaro.org/scheduler/job/8331353#L6841
->>> * Test LAVA log 2:
->>> https://lkft.validation.linaro.org/scheduler/job/8331352#L8854
->>> * Test details:
->>> https://regressions.linaro.org/lkft/linux-next-master/next-20250626/log-parser-test/exception-warning-fsjbd2transaction-at-start_this_handle/
->>> * Build link: https://storage.tuxsuite.com/public/linaro/lkft/builds/2z2V7LhiJecGzINkU7ObVQTwoR1/
->>> * Kernel config:
->>> https://storage.tuxsuite.com/public/linaro/lkft/builds/2z2V7LhiJecGzINkU7ObVQTwoR1/config
->>>
->>> --
->>> Linaro LKFT
->>> https://lkft.linaro.org
->>>
->>
+> diff --git a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+> index 67917b3fea25..bbb5f602de4b 100644
+> --- a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+> +++ b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+> @@ -55,10 +55,14 @@ static int id = -1;
+>  
+>  static int boost_value;
+>  
+> -const char governor[]	= SYSFS_CPU_DIR "cpu0/cpufreq/scaling_governor";
+> +static int cpu;
+> +
+> +static const char _governor[] = SYSFS_CPU_DIR "cpu%d/cpufreq/scaling_governor";
+> +static char governor[64];
+>  static char governor_name[16];
+>  
+> -const char maxspeed[]	= SYSFS_CPU_DIR "cpu0/cpufreq/scaling_max_freq";
+> +static const char _maxspeed[] = SYSFS_CPU_DIR "cpu%d/cpufreq/scaling_max_freq";
+> +static char maxspeed[64];
+>  
+>  static void check_set_turbo(char *file, char *off)
+>  {
+> @@ -84,6 +88,40 @@ static void cleanup(void)
+>  		FILE_PRINTF(governor, "%s", governor_name);
+>  }
+>  
+> +static int find_boost_cpu(void)
+> +{
+> +	char buf[64];
+> +	int fd, i;
+> +
+> +	/*
+> +	 * The files we're looking for only exist for acpi_cpufreq. Continue
+> +	 * assuming CPU0 for intel_pstate.
+> +	 */
+> +	if (!strcmp(cdrv[id].name, "intel_pstate"))
+> +		return 0;
+> +
+> +	for (i = 0;; i++) {
+> +		snprintf(buf, sizeof(buf), SYSFS_CPU_DIR "cpu%d", i);
+> +		fd = open(buf, O_RDONLY);
+> +		if (fd == -1)
+> +			break;
+> +
+> +		close(fd);
+> +
+> +		snprintf(buf, sizeof(buf), SYSFS_CPU_DIR "cpu%d/cpufreq/boost", i);
+> +		fd = open(buf, O_RDONLY);
+> +		if (fd == -1)
+> +			continue;
+> +
+> +		close(fd);
+> +		tst_resm(TINFO, "found boost-capable CPU (CPU%d)", i);
+> +		return i;
+> +	}
+> +
+> +	tst_resm(TINFO, "didn't find boost-capable CPU (assuming CPU0)");
+> +	return 0;
 
+If not find any boost-capable CPU, i suppose we need give TCONF "not
+support" message? Correct me if any misunderstanding. Thanks.
+
+> +}
+> +
+>  static void setup(void)
+>  {
+>  	int fd;
+> @@ -109,6 +147,10 @@ static void setup(void)
+>  	tst_resm(TINFO, "found '%s' driver, sysfs knob '%s'",
+>  		cdrv[id].name, cdrv[id].file);
+>  
+> +	cpu = find_boost_cpu();
+> +	snprintf(governor, sizeof(governor), _governor, cpu);
+> +	snprintf(maxspeed, sizeof(maxspeed), _maxspeed, cpu);
+> +
+>  	tst_sig(FORK, DEF_HANDLER, cleanup);
+>  
+>  	SAFE_FILE_SCANF(NULL, cdrv[i].file, "%d", &boost_value);
+> @@ -120,16 +162,16 @@ static void setup(void)
+>  	if (!strcmp(cdrv[i].name, "intel_pstate") && boost_value == cdrv[i].off)
+>  		check_set_turbo(cdrv[i].file, cdrv[i].off_str);
+>  
+> -	/* change cpu0 scaling governor */
+> +	/* change cpu scaling governor */
+>  	SAFE_FILE_SCANF(NULL, governor, "%s", governor_name);
+>  	SAFE_FILE_PRINTF(cleanup, governor, "%s", "performance");
+>  
+> -	/* use only cpu0 */
+> +	/* use only a single cpu */
+>  	cpu_set_t set;
+>  	CPU_ZERO(&set);
+> -	CPU_SET(0, &set);
+> +	CPU_SET(cpu, &set);
+>  	if (sched_setaffinity(0, sizeof(cpu_set_t), &set) < 0)
+> -		tst_brkm(TBROK | TERRNO, cleanup, "failed to set CPU0");
+> +		tst_brkm(TBROK | TERRNO, cleanup, "failed to set CPU%d", cpu);
+>  
+>  	struct sched_param params;
+>  	params.sched_priority = sched_get_priority_max(SCHED_FIFO);
+> @@ -176,12 +218,12 @@ static void test_run(void)
+>  	/* Enable boost */
+>  	if (boost_value == cdrv[id].off)
+>  		SAFE_FILE_PRINTF(cleanup, cdrv[id].file, "%s", cdrv[id].on_str);
+> -	tst_resm(TINFO, "load CPU0 with boost enabled");
+> +	tst_resm(TINFO, "load CPU%d with boost enabled", cpu);
+>  	boost_time = load_cpu(max_freq_khz);
+>  
+>  	/* Disable boost */
+>  	SAFE_FILE_PRINTF(cleanup, cdrv[id].file, "%s", cdrv[id].off_str);
+> -	tst_resm(TINFO, "load CPU0 with boost disabled");
+> +	tst_resm(TINFO, "load CPU%d with boost disabled", cpu);
+>  	boost_off_time = load_cpu(max_freq_khz);
+>  
+>  	boost_off_time *= .98;
+> -- 
+> 2.34.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
