@@ -2,95 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6CD6AF670C
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jul 2025 03:01:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1751504466; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=LPJt+6oVkKi8zOgVozhphrV1cWHHs+YvwgGEX9wL09U=;
- b=Qhfr1SWTbXxfzniI2xlfOGDqxTFo3ry0WSaSDW2zJkjEn+3393HJDYCk8EhSehFUNbSE7
- XwexsIJfELWENL7dEova7/yoKBTrBlYtZlDjV5VHQ4ICwiUG8OPo8TsyHswNoqeZ4hFpxkC
- Br+3aXqoqskegA1WwPMWx0yd7pfSWxw=
+	by mail.lfdr.de (Postfix) with ESMTPS id CDEE3AF7615
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jul 2025 15:47:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 79C073C9121
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jul 2025 03:01:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 872213C9881
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jul 2025 15:47:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2F3583C7679
- for <ltp@lists.linux.it>; Thu,  3 Jul 2025 03:00:52 +0200 (CEST)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
+ by picard.linux.it (Postfix) with ESMTPS id 05D103C7679
+ for <ltp@lists.linux.it>; Thu,  3 Jul 2025 15:47:28 +0200 (CEST)
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [IPv6:2607:f8b0:4864:20::634])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D74A46001F4
- for <ltp@lists.linux.it>; Thu,  3 Jul 2025 03:00:50 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a531fcaa05so3071211f8f.3
- for <ltp@lists.linux.it>; Wed, 02 Jul 2025 18:00:50 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id AD3331400445
+ for <ltp@lists.linux.it>; Thu,  3 Jul 2025 15:47:27 +0200 (CEST)
+Received: by mail-pl1-x634.google.com with SMTP id
+ d9443c01a7336-23636167afeso53731235ad.3
+ for <ltp@lists.linux.it>; Thu, 03 Jul 2025 06:47:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1751504450; x=1752109250; darn=lists.linux.it;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=xpmPs5NlAyVaD1C571Bq58KClktvsPQDawh23kU3bl4=;
- b=NwFrfn9fHGHilKiG66/Hd8TwkeH1jH5hXE/KA5yR8Y7tF0Q1kz9JfqKjuH4a3cK5c1
- QM1n/Wo5Dj8AnMmo0QJw43eMmZDDmyTiGU9b+36Z59/RePmRS/c4sS0FHeY1enJtoeEG
- 1DriwakOR9UmLLeZrQYG4yXZJFKPpKFFA698uz53kdmaM3iD1FSK4LvMA6IZiHWPG66P
- lDuxA3vXTFggpwmBNkAzqzaFV+LiHoowlJLMPkOLbD8u5P0eTTs2xGld5ic1VQup6tAw
- PHbRQXQnSrE9TuEhQpFY+pwxf/gTuqGFkrsq1+1wFMoHMf5zWpvq6RH9CxPGy8ZE4I4R
- 3lRA==
+ d=linaro.org; s=google; t=1751550446; x=1752155246; darn=lists.linux.it;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=zNAwAKUUSnq/fgn37krSKF6pKcKmiBzRI7BF+xw0WaE=;
+ b=HSPbMTddR3dd9z6KzvIO4s0eTMwdg69YwM+JZPje8oFSooMHLJGdOp2IJnoEHRBzjx
+ 7ew0EEUlcTsDfF2xZYJ7/q8M5X3IZuP58A/ePkSpmb4rDmpfM3oNbwJJD7HQ3u7qQfwv
+ t3t6abjs5uMMhGD97KZ1QezC8lS45G/aSNU7nI3+nuaWs+yZ3moM8X0yfLmD9Q6gcZsx
+ jgr0VhybTuBZGGtMX5eZyW2/Cjz9iT2J2dRYQn/3xbXQu+zvTwDd20Qe5NYFzuWIujb/
+ R5jhsXq/5H/dTHzDMqxjxy9uk+DCFYXMrmoQDcK7ZGCHtntLo0lqIgsVF8bMdsaqz49d
+ UjMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751504450; x=1752109250;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xpmPs5NlAyVaD1C571Bq58KClktvsPQDawh23kU3bl4=;
- b=tMEXTs3PVme4gPjwIjA7+OeCjUQUcG27XX5UWR/gsWvk+qBIrLePWOjrxR3OxO/yw+
- qtuCvYXEePTW/L4oQaeKy/YNoDxheOLIAzeLllIzP2PkOvGp50mTqFQmWk3L4r9tu4xH
- TS1vBmXU8nMw6dmY8BcRlDD6BZ0IbSZRZfJzV7Ge9taZzMJxtgp9TRTR9g4VXSI52X/Q
- n2FFXEYKKx/AadQNyuV8UcfillnxqgZb4ARGgeutAtHTCvnRvRloE4VHtsNULt3443xE
- g4ngSuW1X/VyNvmRAm4YL+NKlcVDJ5Q8AJ29tS5x+7V+bCOXkJHZVcdCaIfw5tFnthHu
- mZQA==
-X-Gm-Message-State: AOJu0Ywz/hpyFRVFraIHmTIc9HiE1AD9uBwq7V9YXrwO/UbN92YJBRIV
- ccXvtjw8IKkZMKOvi11+G3lV9r4iPVAzp4/xL5tA1k+it/BT6idLvPZki86v/AW8nX8spX5PZ91
- gALg=
-X-Gm-Gg: ASbGnctbaGnmxmiKRfSNcPh33GbPr0pNiCNSDshb1k3z0dG469xen/UxKPQrRF6xnem
- fCKz/4QUmRvCztM4BBc9KzwoJt+17ascO/EW/0tuh+i6H9DR15ehVRgdUpsenl4I2IPXv++BeRr
- /EKvt51/Zi7Hy8RlEsvsPNWFIFtZDmifxAiuE0DCKy1EQ+jJbsxSyhiCyRFFQRFR2QmCxA7OtlK
- f/ESU3muRvN1xNjPEdbNK5+LHkyUqLgT8nomhNTnvFbUwn4t65rJZgAJU8q4L20XjjXdpvlT4sF
- 5PtCfYTEKElnNlttzCDuY0TM+oLkj3CTd8cAIKh0w68VypveU9Z9PwW17lsRGw==
-X-Google-Smtp-Source: AGHT+IGjJlBg/X3Ng1JbnbgdngQivSC8OBd1/Ja7lFcXkys9FThLf5qEp8hcLcBD1g9og2I9GXh8Tg==
-X-Received: by 2002:a05:6000:178c:b0:3a4:f918:9db9 with SMTP id
- ffacd0b85a97d-3b32db89402mr903680f8f.32.1751504450189; 
- Wed, 02 Jul 2025 18:00:50 -0700 (PDT)
-Received: from MiWiFi-CR6608-srv ([202.127.77.110])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31a9cc4a419sm854088a91.9.2025.07.02.18.00.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Jul 2025 18:00:49 -0700 (PDT)
-Date: Thu, 3 Jul 2025 09:00:13 -0400
-To: Mike Tipton <mike.tipton@oss.qualcomm.com>
-Message-ID: <aGZ-3eoDE-XDTTPs@MiWiFi-CR6608-srv>
-References: <20250630145128.1254269-1-mike.tipton@oss.qualcomm.com>
+ d=1e100.net; s=20230601; t=1751550446; x=1752155246;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zNAwAKUUSnq/fgn37krSKF6pKcKmiBzRI7BF+xw0WaE=;
+ b=F1xTqqY+B3wpXsEMWYcpDQEJOEeDs0B464+l5NNmO0XVlh92dQ6AqsUvzQY3yiOnVS
+ wmYvX1JBCeCP1NgP23ogVzhv47hGy7TVJEfYN6SI0QNl+WGdcXUeQgIZyKujund5KC7D
+ ul+mdCKmh8C/CwQ6GtKOwzK6kszd4Okp1r/dbp7B7qb5JE+XKH8RUQifN3uPrUTYHBAh
+ dQMmiiTiARuqV71mbiP2dpJ6A1gg1ibBWJWkzhuKOM88zJUJ85zrSz2pT2/G0/LL9eYg
+ JlgTo8pJIEsFcGVCB7V02rIjOr9UiS0YqrI8MVdvCyeCHeN2bXLkwi6Rw9vAY9KtqbsS
+ eCGQ==
+X-Gm-Message-State: AOJu0YxQ5JXqvXf5yaQbUHtrUAF3V3FZklbZ2kPaO1HfgewjaVUU1nUO
+ f08GfXLEKt8NWR062t0Jzpu8tv1YbKDBQ6z9OtS/N9o58/t3sT6ICKUecGSOWl2B7IyEMTUlJDI
+ QwAo8vFk62whG2ZmgFaa8rFWoVefj/yc53ZNcMAuBHfJkR/2KjWIY9NyIug==
+X-Gm-Gg: ASbGncudIFdtUAoPU0EeszeaBN5wWnGJsNgBl1zHs0MO3gjav8F7rvKSzUibDHzy7Cm
+ VDhKzgm4rdUe581g76mLq61g/Ep/G4ICIVr402gr23ZSUJaka9rwBjCoY6bAUEyZ8SVh02GAz8o
+ ty5mwu0ktgDEOY7F+2er4Na2rx0+uWAf6MKzIZzBj1GiTHnHU1CPD8nxTcDiN2AujCmDUx+8SHs
+ r7p
+X-Google-Smtp-Source: AGHT+IHUEXhlNkosB+s9dB8bgXeBCMiI6ZnZi91LzN17D+0f+rv731hdTBQXDcnHdjF6QrxZZv/F/SrS2k49x9IlVAI=
+X-Received: by 2002:a17:90b:4a4f:b0:311:d670:a10d with SMTP id
+ 98e67ed59e1d1-31a90becdf9mr8541210a91.26.1751550445538; Thu, 03 Jul 2025
+ 06:47:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250630145128.1254269-1-mike.tipton@oss.qualcomm.com>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,
- SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Thu, 3 Jul 2025 19:17:13 +0530
+X-Gm-Features: Ac12FXzo7Nc3aeY_LPk6VLx0lxdm_2o_RgOHnb7cSWld-ykvIKkT80YLPulKSrw
+Message-ID: <CA+G9fYvD1A12WE36NjELe5cD-LbPsmwJnH5aUAcufBZ7ndt2Hw@mail.gmail.com>
+To: LTP List <ltp@lists.linux.it>, 
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] device-drivers/cpufreq_boost: Don't hardcode
- to CPU0
+Subject: [LTP] LTP syscalls mseal02 and shmctl03 fails on compat mode 64-bit
+ kernel on 32-bit rootfs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,150 +85,96 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
-Cc: ltp@lists.linux.it
+Cc: Arnd Bergmann <arnd@arndb.de>, Dan Carpenter <dan.carpenter@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, Jun 30, 2025 at 07:51:28AM -0700, Mike Tipton via ltp wrote:
-> Some systems don't support boost on every CPU, such as on many Qualcomm
-> chipsets. And if boost isn't supported on CPU0, then the test will fail
-> since there's no performance improvement.
-> 
-> Instead of hardcoding CPU0, find the first CPU that belongs to a cpufreq
-> policy with boost enabled.
-> 
-> Signed-off-by: Mike Tipton <mike.tipton@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Use proper maxspeed buf size in snprintf.
-> - Link to v1: https://lore.kernel.org/ltp/20250626194707.3053036-1-mike.tipton@oss.qualcomm.com/
-> 
->  .../device-drivers/cpufreq/cpufreq_boost.c    | 58 ++++++++++++++++---
->  1 file changed, 50 insertions(+), 8 deletions(-)
-> 
-> diff --git a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
-> index 67917b3fea25..bbb5f602de4b 100644
-> --- a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
-> +++ b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
-> @@ -55,10 +55,14 @@ static int id = -1;
->  
->  static int boost_value;
->  
-> -const char governor[]	= SYSFS_CPU_DIR "cpu0/cpufreq/scaling_governor";
-> +static int cpu;
-> +
-> +static const char _governor[] = SYSFS_CPU_DIR "cpu%d/cpufreq/scaling_governor";
-> +static char governor[64];
->  static char governor_name[16];
->  
-> -const char maxspeed[]	= SYSFS_CPU_DIR "cpu0/cpufreq/scaling_max_freq";
-> +static const char _maxspeed[] = SYSFS_CPU_DIR "cpu%d/cpufreq/scaling_max_freq";
-> +static char maxspeed[64];
->  
->  static void check_set_turbo(char *file, char *off)
->  {
-> @@ -84,6 +88,40 @@ static void cleanup(void)
->  		FILE_PRINTF(governor, "%s", governor_name);
->  }
->  
-> +static int find_boost_cpu(void)
-> +{
-> +	char buf[64];
-> +	int fd, i;
-> +
-> +	/*
-> +	 * The files we're looking for only exist for acpi_cpufreq. Continue
-> +	 * assuming CPU0 for intel_pstate.
-> +	 */
-> +	if (!strcmp(cdrv[id].name, "intel_pstate"))
-> +		return 0;
-> +
-> +	for (i = 0;; i++) {
-> +		snprintf(buf, sizeof(buf), SYSFS_CPU_DIR "cpu%d", i);
-> +		fd = open(buf, O_RDONLY);
-> +		if (fd == -1)
-> +			break;
-> +
-> +		close(fd);
-> +
-> +		snprintf(buf, sizeof(buf), SYSFS_CPU_DIR "cpu%d/cpufreq/boost", i);
-> +		fd = open(buf, O_RDONLY);
-> +		if (fd == -1)
-> +			continue;
-> +
-> +		close(fd);
-> +		tst_resm(TINFO, "found boost-capable CPU (CPU%d)", i);
-> +		return i;
-> +	}
-> +
-> +	tst_resm(TINFO, "didn't find boost-capable CPU (assuming CPU0)");
-> +	return 0;
+The LTP syscalls mseal02 and shmctl03 failed only with compat mode testing
+with 64-bit kernel with 32-bit rootfs combination.
 
-If not find any boost-capable CPU, i suppose we need give TCONF "not
-support" message? Correct me if any misunderstanding. Thanks.
+Would it be possible to detect compat mode test environment and handle the test
+expectation in LTP test development ?
 
-> +}
-> +
->  static void setup(void)
->  {
->  	int fd;
-> @@ -109,6 +147,10 @@ static void setup(void)
->  	tst_resm(TINFO, "found '%s' driver, sysfs knob '%s'",
->  		cdrv[id].name, cdrv[id].file);
->  
-> +	cpu = find_boost_cpu();
-> +	snprintf(governor, sizeof(governor), _governor, cpu);
-> +	snprintf(maxspeed, sizeof(maxspeed), _maxspeed, cpu);
-> +
->  	tst_sig(FORK, DEF_HANDLER, cleanup);
->  
->  	SAFE_FILE_SCANF(NULL, cdrv[i].file, "%d", &boost_value);
-> @@ -120,16 +162,16 @@ static void setup(void)
->  	if (!strcmp(cdrv[i].name, "intel_pstate") && boost_value == cdrv[i].off)
->  		check_set_turbo(cdrv[i].file, cdrv[i].off_str);
->  
-> -	/* change cpu0 scaling governor */
-> +	/* change cpu scaling governor */
->  	SAFE_FILE_SCANF(NULL, governor, "%s", governor_name);
->  	SAFE_FILE_PRINTF(cleanup, governor, "%s", "performance");
->  
-> -	/* use only cpu0 */
-> +	/* use only a single cpu */
->  	cpu_set_t set;
->  	CPU_ZERO(&set);
-> -	CPU_SET(0, &set);
-> +	CPU_SET(cpu, &set);
->  	if (sched_setaffinity(0, sizeof(cpu_set_t), &set) < 0)
-> -		tst_brkm(TBROK | TERRNO, cleanup, "failed to set CPU0");
-> +		tst_brkm(TBROK | TERRNO, cleanup, "failed to set CPU%d", cpu);
->  
->  	struct sched_param params;
->  	params.sched_priority = sched_get_priority_max(SCHED_FIFO);
-> @@ -176,12 +218,12 @@ static void test_run(void)
->  	/* Enable boost */
->  	if (boost_value == cdrv[id].off)
->  		SAFE_FILE_PRINTF(cleanup, cdrv[id].file, "%s", cdrv[id].on_str);
-> -	tst_resm(TINFO, "load CPU0 with boost enabled");
-> +	tst_resm(TINFO, "load CPU%d with boost enabled", cpu);
->  	boost_time = load_cpu(max_freq_khz);
->  
->  	/* Disable boost */
->  	SAFE_FILE_PRINTF(cleanup, cdrv[id].file, "%s", cdrv[id].off_str);
-> -	tst_resm(TINFO, "load CPU0 with boost disabled");
-> +	tst_resm(TINFO, "load CPU%d with boost disabled", cpu);
->  	boost_off_time = load_cpu(max_freq_khz);
->  
->  	boost_off_time *= .98;
-> -- 
-> 2.34.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+Test case:
+ - ltp-syscalls/mseal02
+ - ltp-syscalls/shmctl03
+
+Test environments:
+ - qemu-arm64-compat
+ - qemu-x86_64-compat
+ - x86-compat
+
+Regression Analysis:
+ - New regression? Yes
+ - Reproducibility? Yes
+
+Test regression: LTP mseal02.c:45: TFAIL: mseal(0xf7a8e000,
+4294963201, 0) expected EINVAL: ENOMEM (12)
+
+Test regression: LTP shmctl03.c:33: TFAIL: /proc/sys/kernel/shmmax !=
+2147483647 got 4294967295
+
+Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+
+## Test log
+tst_test.c:1953: TINFO: LTP version: 20250530
+tst_test.c:1956: TINFO: Tested kernel: 6.16.0-rc4-next-20250701 #1 SMP
+PREEMPT @1751364932 aarch64
+tst_kconfig.c:88: TINFO: Parsing kernel config '/proc/config.gz'
+tst_kconfig.c:676: TINFO: CONFIG_TRACE_IRQFLAGS kernel option detected
+which might slow the execution
+tst_test.c:1774: TINFO: Overall timeout per run is 0h 21m 36s
+mseal02.c:45: TPASS: mseal(0xf7a8e000, 4096, 4294967295) : EINVAL (22)
+mseal02.c:45: TPASS: mseal(0xf7a8e001, 4096, 0) : EINVAL (22)
+mseal02.c:45: TFAIL: mseal(0xf7a8e000, 4294963201, 0) expected EINVAL:
+ENOMEM (12)
+mseal02.c:45: TPASS: mseal(0xf7a90000, 8192, 0) : ENOMEM (12)
+mseal02.c:45: TPASS: mseal(0xf7a8f000, 8192, 0) : ENOMEM (12)
+mseal02.c:45: TPASS: mseal(0xf7a8e000, 16384, 0) : ENOMEM (12)
+
+tst_test.c:1953: TINFO: LTP version: 20250530
+tst_test.c:1956: TINFO: Tested kernel: 6.16.0-rc3-next-20250627 #1 SMP
+PREEMPT @1751015729 aarch64
+tst_kconfig.c:88: TINFO: Parsing kernel config '/proc/config.gz'
+tst_kconfig.c:676: TINFO: CONFIG_TRACE_IRQFLAGS kernel option detected
+which might slow the execution
+tst_test.c:1774: TINFO: Overall timeout per run is 0h 21m 36s
+shmctl03.c:31: TPASS: shmmin = 1
+shmctl03.c:33: TFAIL: /proc/sys/kernel/shmmax != 2147483647 got 4294967295
+shmctl03.c:34: TPASS: /proc/sys/kernel/shmmni = 4096
+shmctl03.c:35: TFAIL: /proc/sys/kernel/shmall != 4278190079 got 4294967295
+
+
+## Source
+* Kernel version: 6.16.0-rc4-next-20250701
+* Git tree: https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next.git
+* Git sha: 3f804361f3b9af33e00b90ec9cb5afcc96831e60
+* Git describe: 6.16.0-rc4-next-20250701
+* Project details:
+https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20250701/
+* Architectures: arm64
+* Toolchains: gcc-13
+* Build name: gcc-13-lkftconfig-compat
+
+## Build arm64
+* Test log: https://qa-reports.linaro.org/api/testruns/28971382/log_file/
+* Test details 1:
+https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20250701/testrun/28971327/suite/ltp-syscalls/test/mseal02/log
+* Test details 2:
+https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20250627/testrun/28914507/suite/ltp-syscalls/test/shmctl03/log
+* Test results compare 1:
+https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20250701/testrun/28971324/suite/ltp-syscalls/test/mseal02/history/
+* Test results compare 2:
+https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20250627/testrun/28914507/suite/ltp-syscalls/test/shmctl03/history/
+* Build link: https://storage.tuxsuite.com/public/linaro/lkft/builds/2zGk12rggXwQHzqasQsWpTN3qyv/
+* Kernel config:
+https://storage.tuxsuite.com/public/linaro/lkft/builds/2zGk12rggXwQHzqasQsWpTN3qyv/config
+
+--
+Linaro LKFT
+https://lkft.linaro.org
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
