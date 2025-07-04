@@ -2,101 +2,122 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE5CEAF8CFD
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Jul 2025 10:58:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1751619512; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-transfer-encoding :
- content-type : sender : from;
- bh=S1f+BL6alcEoj78H1u5sX9QGfNLFuUBA5g1pgYmvGNk=;
- b=J+dz3dWLxT3h8hsRhx3mtwzmyZ5FkQk7FJjt3zy5vs2wm8mPzbEBFMj4yXBANtVaOIsWk
- PD0ae9XXuwD1+lmeRwFveYcy7Dbs9Xj4lL35pVunuudBd9AUDhquwo+SG/yvNaVTDIrBhCI
- +1RCDvXp79+VPTqSetW3MJ8zwJ8wxLU=
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F43CAFA1A6
+	for <lists+linux-ltp@lfdr.de>; Sat,  5 Jul 2025 22:01:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6978E3C9D93
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Jul 2025 10:58:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AE38D3CA073
+	for <lists+linux-ltp@lfdr.de>; Sat,  5 Jul 2025 22:01:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E25553C9C7D
- for <ltp@lists.linux.it>; Fri,  4 Jul 2025 10:58:20 +0200 (CEST)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 3FB343C992A
+ for <ltp@lists.linux.it>; Sat,  5 Jul 2025 22:00:55 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A9C6E600D30
- for <ltp@lists.linux.it>; Fri,  4 Jul 2025 10:58:19 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4538bc52a8dso5031325e9.2
- for <ltp@lists.linux.it>; Fri, 04 Jul 2025 01:58:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1751619499; x=1752224299; darn=lists.linux.it;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=kcJUJJeQrxTabrj3RgQ5Ul2dGB4h2YY52zo05VkDBZ0=;
- b=V9XesMS/T1neJEM39260iMITDr/Pxhfun8kHDhXoueCDhnZLBkKQIVFYdpgfzGWHaB
- kXmr/ar+VZGOFvkvtE121v1eakugoMN7LkLTboe32bA1UwlNegP8vCGWuUa0jAjI6zza
- qmCV89MIKsQzMMgPQbdLHiBZeCc8sia3Z0e+pi6YJuEP9Jg/FSn8jWEpc82YNSX4QKME
- hi9S6GyMtzUsvXSMk8D3LGzdHUyPKfWD9MhibqzVvCJHvJvCCZJqjTGdlXSqpYGFzy5f
- tXZrFKHWZMKjCuZL8LaqgDNclgL8mgx49nHQmkOAkqmbxX5nZNUTekf1yAhIGRXT8RS3
- FgrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751619499; x=1752224299;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kcJUJJeQrxTabrj3RgQ5Ul2dGB4h2YY52zo05VkDBZ0=;
- b=JSyRKAWfRryXpPWhsZNYc+eqbyAFPHllpdfDDdZmjs6gMBLoBifmC40+kni7fMe7Rz
- aW5wlJQcxrT9oXl8ZEqbuIosMLl10Stg292Ymw08WMQsXzkr+rbepxf94Upynk7ZXv1f
- sPwZWfS4QXue139S7tl2fffHFz86XxxpKpgi8tqhWS9B585BKAU44AKlkBppH/6dcqvi
- HTKk5oL62SCDtUfwtPiEQI67/S+Ugq0DyoPiDPuKd/x8KPD50gIq4zTa3KwzB71xqDX5
- TL8xNSm4m4X9DG2a8tKPi+aBN8hcn8s7bJGKKOhXgFKdHWMtO+mOkLa7Ww4Fib0SlXHO
- T6FQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW06LXn3bod9eXel0tPrZb1yxq6uAku+1HGI36gdgwvZRTP2bi0sq0baypCIfkQxs6Upkk=@lists.linux.it
-X-Gm-Message-State: AOJu0Yz7Z4kAzTefJScI6+SykL4VaaGIH5giKbJCBE2nH87Iph9ZJAlc
- zr95DhTRKJGdT+hNOs1GQefvAzlX9CqoRFm8lzFLnCFuigrxa/4T3G0Pf3wiPz3Vm/Y=
-X-Gm-Gg: ASbGncvMdoNcwQ7ZcA2fO12SkRoSDfLg2R8p0VfR7Vo2EgCoFCwj+EGA7iCWtAHTSel
- PiyhDafKWQ6cB0HfMEnVu5iL0QsQM9+rhEdOmVK90coBrioJuV2aF1aiODDc9E+hSEQ0RDxbbrC
- y7ZnDvY8cNywQHNOMzVxGnSkKd5sKgY/tqjIPcKT468M3Ryi4bPu5jwp+9Di4yLx23AWbBz4LVf
- OoFZKitIYotTLkFlVMxcIrXWrLXWMszSvDIrIRNZJz2pGHd/6/IzVi8BMRpzF30+tyRi7U3mEWv
- s4QJ6zDe80gKLYFhdcslB19Aefv5cjeijg8QjV7dJdDzXKVqEKe15MJWs/soP+uqjbuwjijRt99
- p7rcWvXjcapj03mEYfJlIz97mDJrN9vwxf8cIwKHZvnYc8u6yY9nVmp5BT4lBvkwsaxY3IQ/FmN
- XrD6yU6Vx0yubNiI/YqwUYAVsK3w==
-X-Google-Smtp-Source: AGHT+IG94jJ0rbN56pwpQKch9BwILpqt8RmGJEaxlJmd2tHA/BsqSukQbtpXPp4rm8lkIPF1mrUqdQ==
-X-Received: by 2002:a05:6000:714:b0:3a4:f663:acb9 with SMTP id
- ffacd0b85a97d-3b4964bdb54mr1389444f8f.9.1751619498844; 
- Fri, 04 Jul 2025 01:58:18 -0700 (PDT)
-Received: from ?IPV6:2003:ef:2f2e:9a00:8d36:debd:d407:5caf?
- (p200300ef2f2e9a008d36debdd4075caf.dip0.t-ipconnect.de.
- [2003:ef:2f2e:9a00:8d36:debd:d407:5caf])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74ce43d5586sm1640220b3a.172.2025.07.04.01.58.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Jul 2025 01:58:18 -0700 (PDT)
-Message-ID: <cdaf39a3-4835-4d88-9688-2a4a3db71bb0@suse.com>
-Date: Fri, 4 Jul 2025 10:58:12 +0200
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 599C91400985
+ for <ltp@lists.linux.it>; Sat,  5 Jul 2025 22:00:55 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E901D21162;
+ Sat,  5 Jul 2025 20:00:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1751745653; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6Ej3hCCfrQWrt1GFOzYcVms9XxZbLYdzP8GSAojwfQs=;
+ b=TYF/Ne+gm84Jjzu+l1y7Ng3WdT1Zbg2a/G2+meZE/naYB6PpZTtP1lTX7VcI4+YBOSetSg
+ hSbijUk41V5baToNXQUshPu0ii4yHrxxW8Orm4ZqzbRF673AkyVUhgJPFqik2l9EiM0M2c
+ dYOuyw0GudKqq/w87vQg8JelcKV8JDc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1751745653;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6Ej3hCCfrQWrt1GFOzYcVms9XxZbLYdzP8GSAojwfQs=;
+ b=J3G1lxAGXomf/SBDfTgumU9R0JnWekvLClbpJ5Ggu/aWU9UFKT6P+0TEuWvOSjS8YVaADg
+ /X+dv0uaU+v7dLCw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=mMrF3HJZ;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=nyW5d7U2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1751745651; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6Ej3hCCfrQWrt1GFOzYcVms9XxZbLYdzP8GSAojwfQs=;
+ b=mMrF3HJZ2uVVpv/4ZDdDcLlzTEKfvndTgpnQTk0mjxoshaKYrj1I7dfCGp7Fd5rlKycztA
+ BpOlwo8U8PO8TOG/r2Ns/KJV4vR3hjLj2gjo24X9K85BuwibfRuMVZMzyhiswwGbBSAIXU
+ HoMlNozXcH3C93LEyoLl4EhVZ7MdL10=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1751745651;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6Ej3hCCfrQWrt1GFOzYcVms9XxZbLYdzP8GSAojwfQs=;
+ b=nyW5d7U2IaF6rMG78ShWPMAsBIDGGXHKQ+wPcwKkhyqCNZXPb2wQx1ZpzaQRTu20lIZY69
+ 6qnlGcO9gjW4IuBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D7A7213757;
+ Sat,  5 Jul 2025 20:00:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0hikNHOEaWiaMgAAD6G6ig
+ (envelope-from <jack@suse.cz>); Sat, 05 Jul 2025 20:00:51 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id AD57CA0A31; Fri,  4 Jul 2025 13:17:02 +0200 (CEST)
+Date: Fri, 4 Jul 2025 13:17:02 +0200
+From: Jan Kara <jack@suse.cz>
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+Message-ID: <c2dvcablaximwjnwg67spegwkntxjgezu6prvyyto4vjnx6rvh@w3xgx4jjq4bb>
+References: <CA+G9fYsyYQ3ZL4xaSg1-Tt5Evto7Zd+hgNWZEa9cQLbahA1+xg@mail.gmail.com>
+ <2dbc199b-ef22-4c22-9dbd-5e5876e9f9b4@huaweicloud.com>
+ <CA+G9fYv5zpLxeVLqYbDLLUOxmAzuXDbaZobvpCBBBuZJKLMpPQ@mail.gmail.com>
+ <1c7ae5cb-61ad-404c-950a-ba1b5895e6c3@huaweicloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Avinesh Kumar <akumar@suse.de>, ltp@lists.linux.it
-References: <20250704084330.17896-1-akumar@suse.de>
-Content-Language: en-US
-In-Reply-To: <20250704084330.17896-1-akumar@suse.de>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <1c7ae5cb-61ad-404c-950a-ba1b5895e6c3@huaweicloud.com>
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ DATE_IN_PAST(1.00)[32]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_COUNT_THREE(0.00)[3];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[13]; MIME_TRACE(0.00)[0:+];
+ FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ TO_DN_SOME(0.00)[]; DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_TLS_LAST(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DKIM_TRACE(0.00)[suse.cz:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email, imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, huaweicloud.com:email, linaro.org:email]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: E901D21162
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Status: No, score=0.6 required=7.0 tests=DATE_IN_PAST_24_48, DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] crash02: remove verbose option from runtest file
+Subject: Re: [LTP] next-20250626: WARNING fs jbd2 transaction.c
+ start_this_handle with ARM64_64K_PAGES
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,36 +129,85 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: Jan Kara <jack@suse.cz>, Linux Regressions <regressions@lists.linux.dev>,
+ Arnd Bergmann <arnd@arndb.de>, open list <linux-kernel@vger.kernel.org>,
+ lkft-triage@lists.linaro.org, Dan Carpenter <dan.carpenter@linaro.org>,
+ linux-fsdevel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
+ linux-ext4 <linux-ext4@vger.kernel.org>, LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Merged thanks!
+On Thu 03-07-25 19:33:32, Zhang Yi wrote:
+> On 2025/7/3 15:26, Naresh Kamboju wrote:
+> > On Thu, 26 Jun 2025 at 19:23, Zhang Yi <yi.zhang@huaweicloud.com> wrote:
+> >> On 2025/6/26 20:31, Naresh Kamboju wrote:
+> >>> Regressions noticed on arm64 devices while running LTP syscalls mmap16
+> >>> test case on the Linux next-20250616..next-20250626 with the extra build
+> >>> config fragment CONFIG_ARM64_64K_PAGES=y the kernel warning noticed.
+> >>>
+> >>> Not reproducible with 4K page size.
+> >>>
+> >>> Test environments:
+> >>> - Dragonboard-410c
+> >>> - Juno-r2
+> >>> - rk3399-rock-pi-4b
+> >>> - qemu-arm64
+> >>>
+> >>> Regression Analysis:
+> >>> - New regression? Yes
+> >>> - Reproducibility? Yes
+> >>>
+> >>> Test regression: next-20250626 LTP mmap16 WARNING fs jbd2
+> >>> transaction.c start_this_handle
+> >>>
+> >>> Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+> >>
+> >> Thank you for the report. The block size for this test is 1 KB, so I
+> >> suspect this is the issue with insufficient journal credits that we
+> >> are going to resolve.
+> > 
+> > I have applied your patch set [1] and tested and the reported
+> > regressions did not fix.
+> > Am I missing anything ?
+> > 
+> > [1] https://lore.kernel.org/linux-ext4/20250611111625.1668035-1-yi.zhang@huaweicloud.com/
+> > 
+> 
+> Hmm. It seems that my fix for the insufficient journal credit series
+> cannot handle cases with a page size of 64k. The problem is the folio
+> size can up to 128M, and the 'rsv_blocks' in ext4_do_writepages() can
+> up to 1577 on 1K block size filesystems, this is too large.
 
-On 7/4/25 10:43 AM, Avinesh Kumar wrote:
-> we have removed support for verbose option -v in the rewrite of crash02
->
-> Fixes: 16cd67ef1 (misc: rewrite crash02 test)
-> Signed-off-by: Avinesh Kumar <akumar@suse.de>
-> ---
->   runtest/crashme | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/runtest/crashme b/runtest/crashme
-> index 7a630916b..af45d29bc 100644
-> --- a/runtest/crashme
-> +++ b/runtest/crashme
-> @@ -7,6 +7,6 @@ f00f f00f
->   crash01 crash01
->   # Generate random code and execute it. Read f00f comment,
->   # this test lockup SunOS,WindowsNT,etc. in seconds..
-> -crash02 crash02 -v 2
-> +crash02 crash02
->   # Fork as many children as possible.  On systems with lots of memory
->   # and kernels prior to 2.4.19, this can hang the system by using up all pids
+Firstly, I think that 128M folios are too big for our current approaches
+(in ext4 at least) to sensibly work. Maybe we could limit max folio order
+in ext4 mappings to max 1024 blocks per folio or something like that? For
+realistic setups with 4k blocksize this means 4M folios which is not really
+limiting for x86. Arm64 or ppc64 could do bigger but the gain for even
+larger folios is diminishingly small anyway.
+
+Secondly, I'm wondering that even with 1577 reserved blocks we shouldn't
+really overflow the journal unless you make it really small. But maybe
+that's what the test does...
+
+> Therefore, at this time, I think we should disable the large folio
+> support for 64K page size. Then, we may need to reserve rsv_blocks
+> for one extent and implement the same journal extension logic for
+> reserved credits.
+> 
+> Ted and Jan, what do you think?
+
+I wouldn't really disable it for 64K page size. I'd rather limit max folio
+order to 1024 blocks. That actually makes sense as a general limitation of
+our current implementation (linked lists of bhs in each folio don't really
+scale). We can use mapping_set_folio_order_range() for that instead of
+mapping_set_large_folios().
+
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
