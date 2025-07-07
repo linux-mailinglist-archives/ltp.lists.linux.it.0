@@ -1,72 +1,106 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 879ADAFB006
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jul 2025 11:45:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F7EAAFB201
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jul 2025 13:10:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3F5A03C75F2
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jul 2025 11:45:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 505113C9D31
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jul 2025 13:10:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4CB823C0639
- for <ltp@lists.linux.it>; Mon,  7 Jul 2025 11:45:54 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id A4ECB3C2365
+ for <ltp@lists.linux.it>; Mon,  7 Jul 2025 13:10:19 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A5B64600218
- for <ltp@lists.linux.it>; Mon,  7 Jul 2025 11:45:53 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B16C21400990
+ for <ltp@lists.linux.it>; Mon,  7 Jul 2025 13:10:18 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 20F9221167;
- Mon,  7 Jul 2025 09:45:52 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A0F601F393;
+ Mon,  7 Jul 2025 11:10:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1751886617; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=CiuTWcY9xV/BOJCNN/eyjxpc4glGOFBx+PZY9ZA24vk=;
+ b=uT1XYD2ecc3F+hCV02EfajIPBBHdJsglxmojzdlFevp9eaa+dYfYKBhgOiFvevOHg+o70/
+ qHYcwHzafF13pubshHW0z6kQfEAcpXDYE8RvEcdqIPthOl8Ev4VbU6RpHSUYy1BNNya5Y7
+ 0Z8Do206rdZ+YdcbFMDL0sVezvx/t9c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1751886617;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=CiuTWcY9xV/BOJCNN/eyjxpc4glGOFBx+PZY9ZA24vk=;
+ b=P9OUxr/wNvfCDfBCC8GrIRa8UJg0RY73opVq2+AiQU+Ak/01xMQ+OaBiXw4bv0ajBRrJY5
+ UdjbQJ2sxmVn6PBw==
+Authentication-Results: smtp-out2.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1751886617; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=CiuTWcY9xV/BOJCNN/eyjxpc4glGOFBx+PZY9ZA24vk=;
+ b=uT1XYD2ecc3F+hCV02EfajIPBBHdJsglxmojzdlFevp9eaa+dYfYKBhgOiFvevOHg+o70/
+ qHYcwHzafF13pubshHW0z6kQfEAcpXDYE8RvEcdqIPthOl8Ev4VbU6RpHSUYy1BNNya5Y7
+ 0Z8Do206rdZ+YdcbFMDL0sVezvx/t9c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1751886617;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=CiuTWcY9xV/BOJCNN/eyjxpc4glGOFBx+PZY9ZA24vk=;
+ b=P9OUxr/wNvfCDfBCC8GrIRa8UJg0RY73opVq2+AiQU+Ak/01xMQ+OaBiXw4bv0ajBRrJY5
+ UdjbQJ2sxmVn6PBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0EF5B13797;
- Mon,  7 Jul 2025 09:45:52 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 90BCC13757;
+ Mon,  7 Jul 2025 11:10:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id eiA1AlCXa2goTwAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Mon, 07 Jul 2025 09:45:52 +0000
-Date: Mon, 7 Jul 2025 11:46:29 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id ey8LIxmra2jyawAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Mon, 07 Jul 2025 11:10:17 +0000
+Date: Mon, 7 Jul 2025 13:10:55 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Wei Gao <wegao@suse.com>
-Message-ID: <aGuXdYP1fkikZzgN@yuki.lan>
-References: <20250703-xattr_bug_repr-v2-1-154e9afe2463@suse.com>
- <aGwjGgbvy4Ik2Sy5@MiWiFi-CR6608-srv>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <aGurP-pQEQkcPIy2@yuki.lan>
+References: <20250620154346.19864-1-chrubis@suse.cz>
+ <9fe4918b-431b-4ce0-9094-710385d5dd89@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aGwjGgbvy4Ik2Sy5@MiWiFi-CR6608-srv>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
+In-Reply-To: <9fe4918b-431b-4ce0-9094-710385d5dd89@suse.com>
 X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 20F9221167
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Score: -4.00
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MISSING_XM_UA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCPT_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+X-Spam-Score: -4.30
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] Add listxattr04 reproducer
+Subject: Re: [LTP] [PATCH 0/2] Two more metadata parser fixes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,65 +119,22 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > +		tst_res(TFAIL, "listxattr() failed to read attributes length: ERANGE");
-> > +		return;
-> Why ERANGE is Checked Separately?
-> Such as tst_res(TFAIL | TERRNO, "listxattr() error") will also report
-> errno.
+> Feel free to merge, I will fix kirk later on.
 
-Because with ERANGE we reproduced the bug and return TFAIL while with
-any other errno we report TBROK.
+These changes also crash doc generator since the format of the metadata
+has changed:
 
-> > +	}
-> > +
-> > +	tst_res(TPASS, "listxattr() correctly read attributes length");
-> > +}
-> > +
-> > +static void run(void)
-> > +{
-> > +	int size;
-> > +
-> > +	size = listxattr(TEST_FILE, NULL, 0);
-> > +	if (size == -1)
-> > +		tst_brk(TBROK | TERRNO, "listxattr() error");
-> > +
-> > +	verify_xattr(size);
-> > +}
-> > +
-> > +static int selinux_enabled(void)
-> > +{
-> > +	uint32_t lsm_num;
-> > +	uint64_t ids[32];
-> > +	uint32_t page_size;
-> > +	int available = 0;
-> > +
-> > +	page_size = SAFE_SYSCONF(_SC_PAGESIZE);
-> > +
-> > +	lsm_num = lsm_list_modules(ids, &page_size, 0);
-> > +	if (!lsm_num)
-> > +		return 0;
-> > +
-> > +	for (uint32_t i = 0; i < lsm_num; i++) {
-> > +		if (ids[i] == LSM_ID_SELINUX) {
-> > +			available = 1;
-> > +			break;
-> > +		}
-> > +	}
-> > +
-> > +	return available;
-> > +}
-> > +
-> > +static void setup(void)
-> > +{
-> > +	int res;
-> > +
-> > +	if (!selinux_enabled())
-> Mabye we can use is_selinux_enabled instead of self build function?
-
-That mean that we have to compile the test again one more library. I
-would rather add tst_selinux_enabled() into the test library. We already
-have tst_selinux_enforcing() there anyways. That should be as easy as
-reading another file in /sys/fs/selinux/.
+Traceback (most recent call last):
+  File "/home/metan/Work/ltp/doc/.venv/lib/python3.12/site-packages/sphinx/events.py", line 97, in emit
+    results.append(listener.handler(self.app, *args))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/metan/Work/ltp/doc/conf.py", line 517, in generate_test_catalog
+    text.extend(_generate_setup_table(conf))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/metan/Work/ltp/doc/conf.py", line 407, in _generate_setup_table
+    values.append(f'{value[0]}, {value[1]}')
+                     ~~~~~^^^
+KeyError: 0
 
 -- 
 Cyril Hrubis
