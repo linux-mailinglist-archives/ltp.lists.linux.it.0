@@ -2,73 +2,99 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAB3FAF9E9A
-	for <lists+linux-ltp@lfdr.de>; Sat,  5 Jul 2025 09:10:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0E87AFAA2D
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jul 2025 05:26:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1751858806; h=mime-version :
+ references : in-reply-to : date : message-id : to : subject : list-id
+ : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=N4VzqvPUxrb7ttViTFrhDpElzhbcll2oe82ml5B2D34=;
+ b=bnUHI2XC5adF8HiXfgBfpjOvvLZYADCsp5oH11jDxLYdPM3FXsOT/jcWQ1gn1Khwy9Esk
+ cqZGWoTd4p3st1mgV9Gv9pmpMDBcol1O0mLOj46lvPlit39esP9OoKWBCNO3NU9gqA/fcuZ
+ ebae4MYTO8ADRLK86E4u9vQg0CmbjI8=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 758553C9FCD
-	for <lists+linux-ltp@lfdr.de>; Sat,  5 Jul 2025 09:10:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 647803C6653
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jul 2025 05:26:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0CD7B3C6583
- for <ltp@lists.linux.it>; Sat,  5 Jul 2025 09:10:14 +0200 (CEST)
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
- [45.249.212.56])
+ by picard.linux.it (Postfix) with ESMTPS id 63B283C2FB8
+ for <ltp@lists.linux.it>; Mon,  7 Jul 2025 05:26:43 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 86A381400962
- for <ltp@lists.linux.it>; Sat,  5 Jul 2025 09:10:12 +0200 (CEST)
-Received: from mail.maildlp.com (unknown [172.19.163.235])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4bZ1q60YYlzKHMVm
- for <ltp@lists.linux.it>; Sat,  5 Jul 2025 15:10:10 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
- by mail.maildlp.com (Postfix) with ESMTP id 80B491A06DE
- for <ltp@lists.linux.it>; Sat,  5 Jul 2025 15:10:08 +0800 (CST)
-Received: from [10.174.179.80] (unknown [10.174.179.80])
- by APP3 (Coremail) with SMTP id _Ch0CgBnxyTKz2hoUJLWAg--.53385S3;
- Sat, 05 Jul 2025 15:10:04 +0800 (CST)
-Message-ID: <094a1420-9060-4dcf-9398-8873193f5f7b@huaweicloud.com>
-Date: Sat, 5 Jul 2025 15:10:02 +0800
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DFB1360066A
+ for <ltp@lists.linux.it>; Mon,  7 Jul 2025 05:26:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1751858798;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=h1kvWJ1vUYd3z5u/ZzakjdZn6Y9MlK/HJZcOvZ5w5ck=;
+ b=g/EvGhq40x/yz6QQD83e9WwZvudn03u0IY46uR7qYIeJHVIachLYUlx9ilQ3wxDre8tty1
+ P2aPti2EewEUXs56xtN9zw436kXelBfNTofe7jJweYaqWjtwKE000pFGDKkoZ1Y9ce7r5D
+ y52jox2AhCA/NOVuFjMBoOunETdqw0g=
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-593-mWyuB8i8MVGlmy9ZvXwb6A-1; Sun, 06 Jul 2025 23:26:36 -0400
+X-MC-Unique: mWyuB8i8MVGlmy9ZvXwb6A-1
+X-Mimecast-MFC-AGG-ID: mWyuB8i8MVGlmy9ZvXwb6A_1751858794
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-31332dc2b59so1986872a91.0
+ for <ltp@lists.linux.it>; Sun, 06 Jul 2025 20:26:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751858792; x=1752463592;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=h1kvWJ1vUYd3z5u/ZzakjdZn6Y9MlK/HJZcOvZ5w5ck=;
+ b=JUyhzhEYNEAeqpPFhKKVKdqF4WtxvwSMktBQdEkFFilJsjdR/eoo4z+NMZZr7Jakgs
+ NtwG+invXP8gCVbRh2xoWi4h5zHuNo6+Rep5OW7R3HmsZGLd/qtdRe9CR1EYPeQqB3EA
+ T/ftTrAzYtZsrmPOduWrF84PxoeDLi1KzcPrpibJ0qWT4H9LUZthVfGqlReZF+rOANxO
+ nGA43Eni6Wc9FxrhmIgqAhvj2ThRtTU/OAQ0Y0qq9mBO63yX3LrJ0xDjoXG0IRg3bes6
+ 15JsaRqeu86NaNZuBzYa5sqpF1v3/59s8vevA6RBYpb3O1T62YklO2x7/36VWQ6NfN+L
+ VwYw==
+X-Gm-Message-State: AOJu0YyoT1GoxUUXU9JQoBgPkb1ht0kTWITwXiF3S1PlpiIs4j0ZHMAo
+ rC0VqAwL+Co2c9oxDEfmGq+YANt3BFkwyaqQHmz6V+Du0SnWqkbJqwh5BdSeWercYaQ+f9Q+EjZ
+ uqRgPAZojo3FfprJubE0GwztUZwVllyxoU0/TzgECUHa7AbLhhTAh73vo+E9GvVYpLPHaWp0hV6
+ T10CGf1XwUha8liyNUPMln3Azc+HK9gsv8FyOn7A==
+X-Gm-Gg: ASbGncvm3fEdGRYmby0DOnKw7lW0Si1E2B7irNscqHsgRCpA0RQNiVVGz3QgDyYuIQp
+ b3j5v266FCJt0+nbX+6izOCyI582YqQzE7XJCTTswuOE/agiasjqW611dE8Oc0PG7QELFIi8L8m
+ mZCW/B
+X-Received: by 2002:a17:90a:c106:b0:312:ec3b:82c0 with SMTP id
+ 98e67ed59e1d1-31aba8dbbb9mr9254489a91.29.1751858792322; 
+ Sun, 06 Jul 2025 20:26:32 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFQp2TOkhvWxpNOo6nM8DynDbc34E9ExXZrYdXwat0AlklWFK67v8eXJUrr8foTUNm1fhglUh6CTs5ttFp4VxI=
+X-Received: by 2002:a17:90a:c106:b0:312:ec3b:82c0 with SMTP id
+ 98e67ed59e1d1-31aba8dbbb9mr9254459a91.29.1751858791909; Sun, 06 Jul 2025
+ 20:26:31 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Joseph Qi <jiangqi903@gmail.com>
-References: <CA+G9fYsyYQ3ZL4xaSg1-Tt5Evto7Zd+hgNWZEa9cQLbahA1+xg@mail.gmail.com>
- <2dbc199b-ef22-4c22-9dbd-5e5876e9f9b4@huaweicloud.com>
- <CA+G9fYv5zpLxeVLqYbDLLUOxmAzuXDbaZobvpCBBBuZJKLMpPQ@mail.gmail.com>
- <2ee5547a-fa11-49fb-98b7-898d20457d7e@gmail.com>
-Content-Language: en-US
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-In-Reply-To: <2ee5547a-fa11-49fb-98b7-898d20457d7e@gmail.com>
-X-CM-TRANSID: _Ch0CgBnxyTKz2hoUJLWAg--.53385S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxJry3Gr1kKrW8KF1rCryrtFb_yoW8AF4rpa
- y3Ja4DCF4UGr18JrWIqF1vqw17ta18tr48Xr9xGry5C3Z0yF1xur4SgF1j9F90vr1xuwnY
- qr4q9a4I9ayjyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
- vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7Cj
- xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
- 0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
- 6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
- Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
- 14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
- 8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
- ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
- 0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
- Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU1
- 7KsUUUUUU==
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
+References: <20250704-conversions-munmap-v2-0-bac3a0aa117b@suse.com>
+In-Reply-To: <20250704-conversions-munmap-v2-0-bac3a0aa117b@suse.com>
+Date: Mon, 7 Jul 2025 11:26:18 +0800
+X-Gm-Features: Ac12FXz66TIQaidSJSzw5BxOEgtqtPe6KluisFtZavNj-lhUZi9Kl8AOsmAONS8
+Message-ID: <CAEemH2cR77S+N4S=2X-aqVgeZEPaGQE7TWZm5wYgSpMTkd_6vw@mail.gmail.com>
+To: =?UTF-8?Q?Ricardo_B=2E_Marli=C3=A8re?= <rbm@suse.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: DFhs98pWNHsM5-94PwfaxXF9DW9PlCpROscBG_P7LXQ_1751858794
+X-Mimecast-Originator: redhat.com
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] next-20250626: WARNING fs jbd2 transaction.c
- start_this_handle with ARM64_64K_PAGES
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: Re: [LTP] [PATCH v2 0/3] syscalls: munmap: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,73 +106,21 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Theodore Ts'o <tytso@mit.edu>,
- Linux Regressions <regressions@lists.linux.dev>, Arnd Bergmann <arnd@arndb.de>,
- open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
- Dan Carpenter <dan.carpenter@linaro.org>, linux-fsdevel@vger.kernel.org,
- Jan Kara <jack@suse.cz>, linux-ext4 <linux-ext4@vger.kernel.org>,
- LTP List <ltp@lists.linux.it>
+From: Li Wang via ltp <ltp@lists.linux.it>
+Reply-To: Li Wang <liwang@redhat.com>
+Cc: Linux Test Project <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2025/7/3 18:47, Joseph Qi wrote:
-> 
-> 
-> On 2025/7/3 15:26, Naresh Kamboju wrote:
->> On Thu, 26 Jun 2025 at 19:23, Zhang Yi <yi.zhang@huaweicloud.com> wrote:
->>>
->>> Hi, Naresh!
->>>
->>> On 2025/6/26 20:31, Naresh Kamboju wrote:
->>>> Regressions noticed on arm64 devices while running LTP syscalls mmap16
->>>> test case on the Linux next-20250616..next-20250626 with the extra build
->>>> config fragment CONFIG_ARM64_64K_PAGES=y the kernel warning noticed.
->>>>
->>>> Not reproducible with 4K page size.
->>>>
->>>> Test environments:
->>>> - Dragonboard-410c
->>>> - Juno-r2
->>>> - rk3399-rock-pi-4b
->>>> - qemu-arm64
->>>>
->>>> Regression Analysis:
->>>> - New regression? Yes
->>>> - Reproducibility? Yes
->>>>
->>>> Test regression: next-20250626 LTP mmap16 WARNING fs jbd2
->>>> transaction.c start_this_handle
->>>>
->>>> Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
->>>
->>> Thank you for the report. The block size for this test is 1 KB, so I
->>> suspect this is the issue with insufficient journal credits that we
->>> are going to resolve.
->>
->> I have applied your patch set [1] and tested and the reported
->> regressions did not fix.
->> Am I missing anything ?
->>
->> [1] https://lore.kernel.org/linux-ext4/20250611111625.1668035-1-yi.zhang@huaweicloud.com/
->>
-> 
-> I can also reproduce the similar warning with xfstests generic/730 under
-> 64k page size + 4k block size.
-> 
+For patch series:
+Reviewed-by: Li Wang <liwang@redhat.com>
 
-Hi, Joseph!
 
-I cannot reproduce this issue on my machine. Theoretically, the 'rsv_credits'
-should be 113 under 64k page size + 4k block size, I don't think it would
-exceed the max user trans buffers. Could you please give more details?
-What is the configuration of your xfstests? and what does the specific error
-log look like?
-
-Thanks,
-Yi.
-
+-- 
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
