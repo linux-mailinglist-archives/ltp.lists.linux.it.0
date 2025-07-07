@@ -1,100 +1,97 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0E87AFAA2D
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jul 2025 05:26:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0667EAFA986
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jul 2025 04:13:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1751858806; h=mime-version :
- references : in-reply-to : date : message-id : to : subject : list-id
- : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1751854388; h=to : date :
+ message-id : in-reply-to : references : mime-version : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : content-type :
  content-transfer-encoding : sender : from;
- bh=N4VzqvPUxrb7ttViTFrhDpElzhbcll2oe82ml5B2D34=;
- b=bnUHI2XC5adF8HiXfgBfpjOvvLZYADCsp5oH11jDxLYdPM3FXsOT/jcWQ1gn1Khwy9Esk
- cqZGWoTd4p3st1mgV9Gv9pmpMDBcol1O0mLOj46lvPlit39esP9OoKWBCNO3NU9gqA/fcuZ
- ebae4MYTO8ADRLK86E4u9vQg0CmbjI8=
+ bh=gb0MrUtMSWav+UAFa3Ha6ze2tCL1TJ3cP8EXxxbXHTs=;
+ b=WZUhq/wjQgIdXxgr0wImZIM8B6RUtNvAotXlMyVN7ZqeLSTtOM+M5y5ASF3XfE/nSNksZ
+ yggNPlpoYdwTsYEarGz+DcWjpc7F0XqiTD67DCa5/IhVU2uaTUFO07cpqJ8TZ5rOp2/7uef
+ iU3TV3KgMMGg1C9pZvvDu5IUDOHNaek=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 647803C6653
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jul 2025 05:26:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 240723C6653
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jul 2025 04:13:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 63B283C2FB8
- for <ltp@lists.linux.it>; Mon,  7 Jul 2025 05:26:43 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 9EDBD3C4F1F
+ for <ltp@lists.linux.it>; Mon,  7 Jul 2025 04:13:05 +0200 (CEST)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DFB1360066A
- for <ltp@lists.linux.it>; Mon,  7 Jul 2025 05:26:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1751858798;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=h1kvWJ1vUYd3z5u/ZzakjdZn6Y9MlK/HJZcOvZ5w5ck=;
- b=g/EvGhq40x/yz6QQD83e9WwZvudn03u0IY46uR7qYIeJHVIachLYUlx9ilQ3wxDre8tty1
- P2aPti2EewEUXs56xtN9zw436kXelBfNTofe7jJweYaqWjtwKE000pFGDKkoZ1Y9ce7r5D
- y52jox2AhCA/NOVuFjMBoOunETdqw0g=
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-593-mWyuB8i8MVGlmy9ZvXwb6A-1; Sun, 06 Jul 2025 23:26:36 -0400
-X-MC-Unique: mWyuB8i8MVGlmy9ZvXwb6A-1
-X-Mimecast-MFC-AGG-ID: mWyuB8i8MVGlmy9ZvXwb6A_1751858794
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-31332dc2b59so1986872a91.0
- for <ltp@lists.linux.it>; Sun, 06 Jul 2025 20:26:35 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 35F191000360
+ for <ltp@lists.linux.it>; Mon,  7 Jul 2025 04:13:04 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a50956e5d3so2010684f8f.1
+ for <ltp@lists.linux.it>; Sun, 06 Jul 2025 19:13:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1751854383; x=1752459183; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ju3oSuQfL4hog3st9Dfz6OKtprgbJvju/00kEDQ9HN0=;
+ b=GaoVLih8wrI4WV0HepXqXPKxuPx+5uL7ALNfDsQs5VHTOKCk52aZEVZJBsqARu1K5x
+ Vxfwqmt/0+wHzIJdnoUAK3p2vgf4Ve2XXrXVBJj0VGQv9MyC8iCb3WbwdLN81w1mgcV5
+ pxMWYRxMB9XD+QNEVHKeI1rX1sGU+tziCQT47jrh7Ks6/P0w2VsTv1tCgtMydC4rgvLu
+ ZikuVerh8+rs1th36m1dHJZGTz01aZTuTje1CzaeaBFIIVIRPHDXMEWHyDjetrgYmxa2
+ sNjEdceX3TcisLqVvhvljUWhIYHzeAyggYTgnEcW9zbBlnq90EaIasGdpgEz3lCHuctd
+ 5skg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751858792; x=1752463592;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=h1kvWJ1vUYd3z5u/ZzakjdZn6Y9MlK/HJZcOvZ5w5ck=;
- b=JUyhzhEYNEAeqpPFhKKVKdqF4WtxvwSMktBQdEkFFilJsjdR/eoo4z+NMZZr7Jakgs
- NtwG+invXP8gCVbRh2xoWi4h5zHuNo6+Rep5OW7R3HmsZGLd/qtdRe9CR1EYPeQqB3EA
- T/ftTrAzYtZsrmPOduWrF84PxoeDLi1KzcPrpibJ0qWT4H9LUZthVfGqlReZF+rOANxO
- nGA43Eni6Wc9FxrhmIgqAhvj2ThRtTU/OAQ0Y0qq9mBO63yX3LrJ0xDjoXG0IRg3bes6
- 15JsaRqeu86NaNZuBzYa5sqpF1v3/59s8vevA6RBYpb3O1T62YklO2x7/36VWQ6NfN+L
- VwYw==
-X-Gm-Message-State: AOJu0YyoT1GoxUUXU9JQoBgPkb1ht0kTWITwXiF3S1PlpiIs4j0ZHMAo
- rC0VqAwL+Co2c9oxDEfmGq+YANt3BFkwyaqQHmz6V+Du0SnWqkbJqwh5BdSeWercYaQ+f9Q+EjZ
- uqRgPAZojo3FfprJubE0GwztUZwVllyxoU0/TzgECUHa7AbLhhTAh73vo+E9GvVYpLPHaWp0hV6
- T10CGf1XwUha8liyNUPMln3Azc+HK9gsv8FyOn7A==
-X-Gm-Gg: ASbGncvm3fEdGRYmby0DOnKw7lW0Si1E2B7irNscqHsgRCpA0RQNiVVGz3QgDyYuIQp
- b3j5v266FCJt0+nbX+6izOCyI582YqQzE7XJCTTswuOE/agiasjqW611dE8Oc0PG7QELFIi8L8m
- mZCW/B
-X-Received: by 2002:a17:90a:c106:b0:312:ec3b:82c0 with SMTP id
- 98e67ed59e1d1-31aba8dbbb9mr9254489a91.29.1751858792322; 
- Sun, 06 Jul 2025 20:26:32 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFQp2TOkhvWxpNOo6nM8DynDbc34E9ExXZrYdXwat0AlklWFK67v8eXJUrr8foTUNm1fhglUh6CTs5ttFp4VxI=
-X-Received: by 2002:a17:90a:c106:b0:312:ec3b:82c0 with SMTP id
- 98e67ed59e1d1-31aba8dbbb9mr9254459a91.29.1751858791909; Sun, 06 Jul 2025
- 20:26:31 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1751854383; x=1752459183;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Ju3oSuQfL4hog3st9Dfz6OKtprgbJvju/00kEDQ9HN0=;
+ b=WWv/5D0D0xTmfWH4EMww1PMRZIjhb3n2jiWLwCVh65wmzBnzCWDk45Hs2XU9FJh/br
+ uJ5sSJvnbHWpO2/TGEv6W5g7bRjouULglF1wI1KqrVHLxQarAcHd7LyrBLkNK+fly9+f
+ TAZLNIYfC++ZzuFuxRlGcj4wjgtKlCLRF9fVXvpItbhLRGcfN4xBAyxHFiFFLKJiJ77M
+ flg3odwyEKMvq3MrqvP7vXDSec4MpHOphoa2KgjS5EI1raJaPA13KHuYqTWVCJYYK3/4
+ tBZuvWHfO6I0tisWwGg9Gg4A6mQGJY9S8Grp9FNJY33WGBRWmOYIK6PfJSdzYZwOl8uS
+ FnDA==
+X-Gm-Message-State: AOJu0YynwRtov9+QK1UBA1mqQj4kr75WIoXPU3YZqbkrcuw65uJOIjFk
+ wvKN85sI4yGGBpUSgG2ftnAppP17p31C+KiaejIwM+JzH3A/jRE5NOaqQtEzC+zfHSwqYuK6HZh
+ 1e78=
+X-Gm-Gg: ASbGncsYRWax2zwWAdtP8L9xgGW+W37nfARnYlJt7THvA6pbS+tCk9uiOebpqTXiRcc
+ 7RG65+Sh+g65p6eKMeYnrB1oWjBtyF+d73xZ9Wy3TtlcptpXXmnBcZfJkBN/+8SXNzo+RNMzKzS
+ soTeQm2jLPf4fIL0P12kuBUv0okVcC93o9Bdcgv6/t57w6yHwtoFenhbSwst0wzr+bdGiQcz3H4
+ y58Ej1T8aJVrSPFAzklnuco20MVq7j+MdQwSJnqd8XCKr5MIFwXwVypICcuK5Ryy/29SgBE7Vjm
+ vOW9aemxhmG5ukb3pCyyBXR9q/WTbcZtPj7q/ufrkrSrQI3YEIx9oQTB6YmgbQ==
+X-Google-Smtp-Source: AGHT+IGb9Xau2r5K7RkpTD9Tx+qNR3ngVrlj1+tBNQGLTUojXIiHTOZMHvzV8O2Y0DGNsZTqVMn/mg==
+X-Received: by 2002:a05:6000:26ce:b0:3a4:f430:2547 with SMTP id
+ ffacd0b85a97d-3b49aa0ea85mr3867638f8f.6.1751854383277; 
+ Sun, 06 Jul 2025 19:13:03 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+ by smtp.gmail.com with UTF8SMTPSA id
+ d2e1a72fcca58-74ce429c138sm7582706b3a.117.2025.07.06.19.13.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 06 Jul 2025 19:13:02 -0700 (PDT)
+To: ltp@lists.linux.it
+Date: Mon,  7 Jul 2025 10:12:13 -0400
+Message-ID: <20250707141219.4161701-1-wegao@suse.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250703180201.3384905-1-wegao@suse.com>
+References: <20250703180201.3384905-1-wegao@suse.com>
 MIME-Version: 1.0
-References: <20250704-conversions-munmap-v2-0-bac3a0aa117b@suse.com>
-In-Reply-To: <20250704-conversions-munmap-v2-0-bac3a0aa117b@suse.com>
-Date: Mon, 7 Jul 2025 11:26:18 +0800
-X-Gm-Features: Ac12FXz66TIQaidSJSzw5BxOEgtqtPe6KluisFtZavNj-lhUZi9Kl8AOsmAONS8
-Message-ID: <CAEemH2cR77S+N4S=2X-aqVgeZEPaGQE7TWZm5wYgSpMTkd_6vw@mail.gmail.com>
-To: =?UTF-8?Q?Ricardo_B=2E_Marli=C3=A8re?= <rbm@suse.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: DFhs98pWNHsM5-94PwfaxXF9DW9PlCpROscBG_P7LXQ_1751858794
-X-Mimecast-Originator: redhat.com
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,HTML_MESSAGE,SPF_HELO_NONE,
+X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH v2 0/3] syscalls: munmap: Convert to new API
+Subject: [LTP] [PATCH v2] du01.sh: Read the actual filesystem blocksize
+ instead of pagesize
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,21 +103,65 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Li Wang via ltp <ltp@lists.linux.it>
-Reply-To: Li Wang <liwang@redhat.com>
-Cc: Linux Test Project <ltp@lists.linux.it>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-For patch series:
-Reviewed-by: Li Wang <liwang@redhat.com>
+On PPC systems, the page size doesn't always equal the size of a symlink.
+Therefore, we need to update the test to read the actual filesystem blocksize
+instead of assuming it's equal to the page size.
 
+Signed-off-by: Wei Gao <wegao@suse.com>
+---
+ testcases/commands/du/du01.sh | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
+diff --git a/testcases/commands/du/du01.sh b/testcases/commands/du/du01.sh
+index 7977fd461..04e9d7611 100755
+--- a/testcases/commands/du/du01.sh
++++ b/testcases/commands/du/du01.sh
+@@ -59,19 +59,17 @@ du_test()
+ 	fi
+ }
+ 
+-block_size=512
+-page_size=$(tst_getconf PAGESIZE)
+-if [ "$page_size" -lt 1024 ]; then
+-	tst_brk TBROK "Page size < 1024"
+-fi
+-page_size=$((page_size / 1024))
++block_size_default=512
++
++block_size=$(stat -f --format="%s" .)
++block_size=$((block_size / 1024))
+ 
+ # The output could be different in some systems, if we use du to
+ # estimate file space usage with the same filesystem and the same size.
+ # So we use the approximate value to check.
+ check1="^10[2-3][0-9][0-9][[:space:]]\."
+ check2="^10[2-3][0-9][0-9][[:space:]]testfile"
+-check3="^\(0\|${page_size}\)[[:space:]]\.\/testdir\/testsymlink"
++check3="^\(0\|${block_size}\)[[:space:]]\.\/testdir\/testsymlink"
+ check5="^20[4-6][0-9][0-9][[:space:]]\."
+ check7="^10[4-5][0-9][0-9]\{4\}[[:space:]]\."
+ check9="^10[2-3][0-9][0-9][[:space:]]total"
+@@ -88,8 +86,8 @@ do_test()
+ 	2) du_test "du testfile" ${check2};;
+ 	3) du_test "du -a" ${check3};;
+ 	4) du_test "du --all" ${check3};;
+-	5) du_test "du -B ${block_size}" ${check5};;
+-	6) du_test "du --block-size=${block_size}" ${check5};;
++	5) du_test "du -B ${block_size_default}" ${check5};;
++	6) du_test "du --block-size=${block_size_default}" ${check5};;
+ 	7) du_test "du -b" ${check7};;
+ 	8) du_test "du --bytes" ${check7};;
+ 	9) du_test "du -c" ${check9};;
 -- 
-Regards,
-Li Wang
+2.49.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
