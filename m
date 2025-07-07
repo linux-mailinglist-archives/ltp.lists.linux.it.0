@@ -1,101 +1,94 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB4CAAFC254
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 08:00:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1751954417; h=date : to :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=Houu2klne5N0iLa5ijgmlA+zI4HXzp7724yue3Zb/DU=;
- b=DP7q+QUQz69lT/KU3Out5araRkRjGjsI431ewKtxtChykC9iLEi/KPmeepYeJcxbb1TGX
- GtTp4mtVRy7knD4N4/oxh6+azE5LiUAMvMo+3y/WkhUDNbQIn74WXdgpxyzJz6Bc205QY4e
- uUJs9sPZlSeFoC4nqJjVKCml2MY8pAc=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CCD95AFC3E8
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 09:22:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 004853CA379
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 08:00:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B32843CA2FC
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 09:22:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D94773CA182
- for <ltp@lists.linux.it>; Tue,  8 Jul 2025 08:00:02 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 567323C0980
+ for <ltp@lists.linux.it>; Mon,  7 Jul 2025 03:43:36 +0200 (CEST)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 22F52C420D7
- for <ltp@lists.linux.it>; Tue,  8 Jul 2025 08:00:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1751954399;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type;
- bh=qnHezoufGfhoWY87g+SQ2mh9fecbRak9a4cxqsfSZ44=;
- b=LnHYdgC0mBY1YiP5o18Mxdfwf7eLLc+l2iXZImXzXuZDyc8aB2JSt6xo6ESotW2HdFKby3
- W44NBif5DHhl5iHRTSawmJ+feBVZ8LWQ2ssn3xc5qxAdtjYuvWMb5rsyXf0yjaxkmAc7QK
- bvbWYaVUKNucqyzIA2hkb18fLameYsQ=
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-371-W8JijhP-PjK2lB7J7h5lKg-1; Tue, 08 Jul 2025 01:59:57 -0400
-X-MC-Unique: W8JijhP-PjK2lB7J7h5lKg-1
-X-Mimecast-MFC-AGG-ID: W8JijhP-PjK2lB7J7h5lKg_1751954396
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-b2fb347b3e6so4805401a12.1
- for <ltp@lists.linux.it>; Mon, 07 Jul 2025 22:59:57 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A59D31000416
+ for <ltp@lists.linux.it>; Mon,  7 Jul 2025 03:43:35 +0200 (CEST)
+Received: by mail-pl1-x62a.google.com with SMTP id
+ d9443c01a7336-2363616a1a6so22594355ad.3
+ for <ltp@lists.linux.it>; Sun, 06 Jul 2025 18:43:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1751852614; x=1752457414; darn=lists.linux.it;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mQ0QVfcPqBxlG+BwXU72MLxNR3PM6YaC0rXqHjP+Erg=;
+ b=K7FE2D5tShNjEHOu9wVfRO/Mfm2mzfLcDOtnPxVs2PUAQWFvv7e4G/Udb0+mogrAGV
+ XEGI6xo+hFSiWd9zi251NcB/eCYelkj4UFdAK/YsAKFubDZY8eEptcPfDsoHhKppEua9
+ DVV7CgM0u7hLcSOLO7yMrj1NdsYVZlNEBHdY2DoAx++wGjLdPHdQ58ku2gonsvmm/HkS
+ FUbu5AFyM9BxjPKxKcFpiqlUQCupDfZ18bM1irI7uDnftnkIigciieVkvEzoTtS7uSRq
+ 1D+h0Ebbj0Fgj1GReoM1TCz6aTsdNojqjrY5wAqsQXUtm4X5va2FElTFshdXOnto2xEp
+ S01g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751954396; x=1752559196;
- h=content-disposition:mime-version:message-id:subject:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qnHezoufGfhoWY87g+SQ2mh9fecbRak9a4cxqsfSZ44=;
- b=tePrwCxowg9whSDTdTmXNn+nUtzIAtItFC6AUQdYkczpiz+P6lj0D3yKraNZv5InTt
- WITerwo93dBdhfKt2wEIvF/7UGq25UZrQlUj8vOrhtBFgoPP14eGuh6KWe5JZI9bfzm9
- SQQrS67AzsIV4awvyody3NhkvKhwj2EppGv9bKN9t3QxlG6XgTdL7mS5CYWNdGYM5ztX
- L/l7Ebip67s6W2BR+/yOY2+/jxtKaTywhnYhi3qDK26SqmLpwA5/nG5QngoCgthSG3V6
- R6vpc7ltvitXUJvwVlpsrULOrjsA1pmEd0Xy0Vjq4ZjrjAUQV/jAz3kB+aBK4uXtU+2U
- Iz8Q==
-X-Gm-Message-State: AOJu0Yx2g08gVUEVqjeOzkhS/yoC82KZadipTbveQ2NT8VsaFVhG1JyH
- TN9I6XZVrremhwJ2NAk0L4ZfcIAa3Mos+80ajwYrqEthIC/QtYn7dXUW+DXHTbo+fq9IaB62d1c
- hxUc2K25KXZjS0eEJCeK7Fh5jBBXCCC8XQsjc6xUoHLEhPp6mWTUQCAWHWCW5SbqK+nlSZ6k/Ed
- lzo01eeg/7/wqYbFVvTClYlorKDvYAYtNT
-X-Gm-Gg: ASbGncvvd/feKw16d+NlKfAGEYoDmerYk9GvIZ6i0Pa+lMwo6onAFMkRNVKCBc2YyUb
- T5wXZkVFX8Bcx72yaAIsfwQIdrBsPbriF/Wso2bVM1xozlqbxPHEUJIIpkskJfcaTvNQOgixwBn
- H/30++t9FBYtndmn74u8GFievvBVnr9GbDHIiAJBTJZv7NB0hVvIfxW55xZYhhdI/c4govAvxPt
- lbJzYUBy4U0GbwKHuH1itsga+FjI9mWwK/vzYXQkle6tKUzXw/eWWzNvM/CUUOSspaeQvQfgcew
- VWUa4yZXXF1mEG8U0wyqlDqvgWCe3OJJmI+ygOTs1GLtCBMcKQcdQGKPr9EtzyQ=
-X-Received: by 2002:a05:6a20:9153:b0:1f5:717b:46dc with SMTP id
- adf61e73a8af0-22b43bca8f0mr2888215637.27.1751954395996; 
- Mon, 07 Jul 2025 22:59:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG1WgjHrZAvLQ8LCHK5/2ji1wbse7wSNo75Jcmpq7bikCaYeK2W01UB0pnSvW9yqn8C2kbXMw==
-X-Received: by 2002:a05:6a20:9153:b0:1f5:717b:46dc with SMTP id
- adf61e73a8af0-22b43bca8f0mr2888163637.27.1751954395154; 
- Mon, 07 Jul 2025 22:59:55 -0700 (PDT)
-Received: from dell-per750-06-vm-08.rhts.eng.pek2.redhat.com ([209.132.188.88])
+ d=1e100.net; s=20230601; t=1751852614; x=1752457414;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=mQ0QVfcPqBxlG+BwXU72MLxNR3PM6YaC0rXqHjP+Erg=;
+ b=eC3oi4FrPGJUPlJ12rWQbFKAmTn/tU7BU9gIvmXh2auBOfypTcdJInOSrmIf5wEjDm
+ tdkDQaltANzmBV8OXDTUxAleBytXGoEklxdIrEpZFq5WTdutXAschWEyJ/E0H18qrFhH
+ pPxIx533zW8loK93VcSaeDB5Wfcx3uNbiEApx99mKgQsZl0R8D4iFWnZIRby1t9kEypE
+ LJigDBhl7A5Bgt5ZNjyoY7xWl5vEIEWaO+Xdnn5q9BBmGhiX7COq1t39p5FIP/E9iEd5
+ /i5mzqdjDXDbeIpSZ8Xs7wkDZ7MZLlaQQXHtkp/icX9IUxeWmIB3Vi1nuQDlifJUt3gZ
+ QN1w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUlenucqST4dPeMTwG5qp5OExT3WTTT0aeIBd3sOd4Jkl62o6FrRuvp28HhyDdB1vuTAvs=@lists.linux.it
+X-Gm-Message-State: AOJu0Yx+cuZSajD2XVDbOIHzwAk+dF5b8BXBYkV8EjRrLj8ITi6bzJNP
+ 588f1vPR4UoB2f+MkFV8ZRHk6czbwt03bo0aCm+9fX4fuP9iFQ4JrrZg
+X-Gm-Gg: ASbGncshCYnXyUuKHozH+wJnq1mIRK1T8bgpdoKOaKhMuvyqikSz9Ly4cVc6uxB+kBm
+ ur3Q+zGl+g4mnSNHRv7AiSTmjGKwB60bZ0N0SzSYx+gZAT6s1NgkooxrWyW3rIU481gHWQAfPAv
+ N2dH3kYzHnpjkykLcYUIzsnenK9BJo/s11vTharl6uS20vo/em6b0maaFzKVnmzPj/vn3cjtaQ9
+ rbpYKftFKVd2M6JCyQWszmex7DT1QRbi2HwXVSep04wPSFXejPIi4FFOhtwvcV2hD0qIrO1UtTt
+ 1XuLZjaTzOqaOmhB87/30iLhtDAeYjNAFk9tip+Z6tI16b+Qlpm/bUZs0y/Adkl930m1AzOI+lH
+ U+ro=
+X-Google-Smtp-Source: AGHT+IHNt7WBHbqYkIjNosgrP7JpZnQJUROnNvYMUGxq5civC/rNorosebcQakFdz4ycPFVURZ8NHQ==
+X-Received: by 2002:a17:903:244d:b0:235:2375:7eaa with SMTP id
+ d9443c01a7336-23c8747eb6cmr172434375ad.22.1751852613869; 
+ Sun, 06 Jul 2025 18:43:33 -0700 (PDT)
+Received: from [30.221.128.189] ([47.246.101.61])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b38ee5f5d8csm10518675a12.39.2025.07.07.22.59.53
- for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Jul 2025 22:59:54 -0700 (PDT)
-Date: Tue, 8 Jul 2025 13:59:50 +0800
-To: ltp@lists.linux.it
-Message-ID: <20250708055950.m25zfqyfr4n4qkcm@dell-per750-06-vm-08.rhts.eng.pek2.redhat.com>
+ d9443c01a7336-23c8457bea4sm77287425ad.146.2025.07.06.18.43.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 06 Jul 2025 18:43:33 -0700 (PDT)
+Message-ID: <5db1e0c2-a192-4883-9535-dd269efdff74@gmail.com>
+Date: Mon, 7 Jul 2025 09:43:29 +0800
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: tO9o5J0XILUvYWlnzQ2G3QmOh5H9mA51f4cKr5hbBZk_1751954396
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+User-Agent: Mozilla Thunderbird
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+References: <CA+G9fYsyYQ3ZL4xaSg1-Tt5Evto7Zd+hgNWZEa9cQLbahA1+xg@mail.gmail.com>
+ <2dbc199b-ef22-4c22-9dbd-5e5876e9f9b4@huaweicloud.com>
+ <CA+G9fYv5zpLxeVLqYbDLLUOxmAzuXDbaZobvpCBBBuZJKLMpPQ@mail.gmail.com>
+ <2ee5547a-fa11-49fb-98b7-898d20457d7e@gmail.com>
+ <094a1420-9060-4dcf-9398-8873193f5f7b@huaweicloud.com>
+From: Joseph Qi <jiangqi903@gmail.com>
+In-Reply-To: <094a1420-9060-4dcf-9398-8873193f5f7b@huaweicloud.com>
+X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [Bug report] kirk can't run ltp's fs_readonly
+X-Mailman-Approved-At: Tue, 08 Jul 2025 09:22:13 +0200
+Subject: Re: [LTP] next-20250626: WARNING fs jbd2 transaction.c
+ start_this_handle with ARM64_64K_PAGES
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,39 +100,103 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Zorro Lang via ltp <ltp@lists.linux.it>
-Reply-To: Zorro Lang <zlang@redhat.com>
+Cc: Theodore Ts'o <tytso@mit.edu>,
+ Linux Regressions <regressions@lists.linux.dev>, Arnd Bergmann <arnd@arndb.de>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ Dan Carpenter <dan.carpenter@linaro.org>, linux-fsdevel@vger.kernel.org,
+ Jan Kara <jack@suse.cz>, linux-ext4 <linux-ext4@vger.kernel.org>,
+ LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
 
-When I run ltp's fs_readonly command file with kirk, I always hit:
 
-  /var/lib/ltp/testcases/bin/test_robind.sh: illegal option -- W
-	usage: /var/lib/ltp/testcases/bin/test_robind.sh -c command [ext3,ext2,jfs,xfs,reiserfs,ramfs]
+On 2025/7/5 15:10, Zhang Yi wrote:
+> On 2025/7/3 18:47, Joseph Qi wrote:
+>>
+>>
+>> On 2025/7/3 15:26, Naresh Kamboju wrote:
+>>> On Thu, 26 Jun 2025 at 19:23, Zhang Yi <yi.zhang@huaweicloud.com> wrote:
+>>>>
+>>>> Hi, Naresh!
+>>>>
+>>>> On 2025/6/26 20:31, Naresh Kamboju wrote:
+>>>>> Regressions noticed on arm64 devices while running LTP syscalls mmap16
+>>>>> test case on the Linux next-20250616..next-20250626 with the extra build
+>>>>> config fragment CONFIG_ARM64_64K_PAGES=y the kernel warning noticed.
+>>>>>
+>>>>> Not reproducible with 4K page size.
+>>>>>
+>>>>> Test environments:
+>>>>> - Dragonboard-410c
+>>>>> - Juno-r2
+>>>>> - rk3399-rock-pi-4b
+>>>>> - qemu-arm64
+>>>>>
+>>>>> Regression Analysis:
+>>>>> - New regression? Yes
+>>>>> - Reproducibility? Yes
+>>>>>
+>>>>> Test regression: next-20250626 LTP mmap16 WARNING fs jbd2
+>>>>> transaction.c start_this_handle
+>>>>>
+>>>>> Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+>>>>
+>>>> Thank you for the report. The block size for this test is 1 KB, so I
+>>>> suspect this is the issue with insufficient journal credits that we
+>>>> are going to resolve.
+>>>
+>>> I have applied your patch set [1] and tested and the reported
+>>> regressions did not fix.
+>>> Am I missing anything ?
+>>>
+>>> [1] https://lore.kernel.org/linux-ext4/20250611111625.1668035-1-yi.zhang@huaweicloud.com/
+>>>
+>>
+>> I can also reproduce the similar warning with xfstests generic/730 under
+>> 64k page size + 4k block size.
+>>
+> 
+> Hi, Joseph!
+> 
+> I cannot reproduce this issue on my machine. Theoretically, the 'rsv_credits'
+> should be 113 under 64k page size + 4k block size, I don't think it would
+> exceed the max user trans buffers. Could you please give more details?
+> What is the configuration of your xfstests? and what does the specific error
+> log look like?
+> 
+I'm testing on arm 64K ECS with xfstests local.config as follows:
 
-	This script verifies ReadOnly-filesystem, by mounting block device and
-	executing the filesystem tests.
+export TEST_DEV=/dev/nvme1n1p1
+export TEST_DIR=/mnt/test
+export SCRATCH_DEV=/dev/nvme1n1p2
+export SCRATCH_MNT=/mnt/scratch
 
-	OPTIONS
-		-h    display this message and exit
-		-c    command to be executed
+Each disk part is 250G and formated with 4k block size.
 
-Looks like kirk can't treat "..." as an entirety and give it to test_robind.sh.
-Although it can be fixed by:
+The dmesg shows the following warning:
 
-  -test_robind01 test_robind.sh -c "growfiles -W gf01 -b -e 1 -u -i 0 -L 5 -w -C 1 -l -I r -T 10 glseek20 glseek20.2"
-  +test_robind01 test_robind.sh -c \"growfiles -W gf01 -b -e 1 -u -i 0 -L 5 -w -C 1 -l -I r -T 10 glseek20 glseek20.2\"
-
-but old runltp fails with that. So I'm trying to ask is there a
-better way fix this issue on kirk side.
-
-Thanks,
-Zorro
-
+[  137.174661] JBD2: kworker/u32:0 wants too many credits credits:32 rsv_credits:1577 max:2695
+...
+[  137.175544] Call trace:
+[  137.175545]  start_this_handle+0x3bc/0x3d8 (P)
+[  137.175548]  jbd2__journal_start+0x10c/0x248
+[  137.175550]  __ext4_journal_start_sb+0xe4/0x1b0
+[  137.175553]  ext4_do_writepages+0x430/0x768
+[  137.175556]  ext4_writepages+0x8c/0x118
+[  137.175558]  do_writepages+0xac/0x180
+[  137.175561]  __writeback_single_inode+0x48/0x328
+[  137.175563]  writeback_sb_inodes+0x244/0x4a0
+[  137.175564]  wb_writeback+0xec/0x3a0
+[  137.175566]  wb_do_writeback+0xc0/0x250
+[  137.175568]  wb_workfn+0x70/0x1b0
+[  137.175570]  process_one_work+0x180/0x400
+[  137.175573]  worker_thread+0x254/0x2c8
+[  137.175575]  kthread+0x124/0x130
+[  137.175577]  ret_from_fork+0x10/0x20
+...
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
