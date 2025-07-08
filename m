@@ -1,80 +1,100 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BF1CAFCB1F
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 14:58:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C2ED4AFCB77
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 15:10:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1751980226; h=mime-version :
+ references : in-reply-to : date : message-id : to : subject : list-id
+ : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=PYBTBu131s6QpV47UCrYBuH9y76wBtsQcJAddz7raIo=;
+ b=hKKnY3XJSQWcilnbcqInfyt+h48l07XAlTmINeNdt5XEpjnko1vJcfaUNYEowfvoD5wPw
+ hFQXOJWyw8APoOosJV9tTA+9Dam2vq2tOh2kYPt8ztgl6ZvTVrATc/FWTgyyrZzoYQZCYaz
+ 3OCyvI2DwBicKuYNHpfDvof+mingFm8=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4ED873CA33B
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 14:58:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 706533CA379
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 15:10:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5734A3CA1ED
- for <ltp@lists.linux.it>; Tue,  8 Jul 2025 14:58:36 +0200 (CEST)
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
- [IPv6:2607:f8b0:4864:20::52e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 1ADFF3CA27C
+ for <ltp@lists.linux.it>; Tue,  8 Jul 2025 15:10:25 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 79CDE1400DB2
- for <ltp@lists.linux.it>; Tue,  8 Jul 2025 14:58:35 +0200 (CEST)
-Received: by mail-pg1-x52e.google.com with SMTP id
- 41be03b00d2f7-b31d489a76dso3550248a12.1
- for <ltp@lists.linux.it>; Tue, 08 Jul 2025 05:58:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1751979513; x=1752584313; darn=lists.linux.it;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=+X7a8SwyNPxgnTjPQjoQvFIKm71E0lpWMhaVdYWW8Ws=;
- b=wjhBIwjtJe+1/CpwygqD8qU8eJsSbLwe3SRztH+rgo59HGG4zv2UXijOjB95azVi0O
- knia8MThN294LO6hOsLRg0tp0yAG6o8IcshDvGCYAi6uUwWBcCmVxSaZcxj/JmLI9H9I
- o30ZtcxPAxLoAkm7Mfz3r0EjCuqUnYz0oNEWGKoB43IGWin1xrDc7ZgRAoP76UYJ7GOO
- ac7WFF5Nkb0o41JFKwzSFHmm44D4cReE2r8k5xhvcQLrnX8PrVOCa0/ZxRf6Fkv3Iur/
- PQKZzn+ArZAuxijvLHL571N+8Ejjnxph9q9j/9m2JNY9h/OX19uGeFPrningIHtE3iJO
- Q7kA==
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 125EB1000780
+ for <ltp@lists.linux.it>; Tue,  8 Jul 2025 15:10:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1751980222;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=rqe9SAOtjStu0oslCOtu2pRdY7S+N/y2jTvJdUIbXHc=;
+ b=Y0HtE4lLaqh9MfhAkeLoitjkZ9sCXy/nFZryIjcXM2Ao7xP3EW2U3VKXNjxJLrL1Rvhaeg
+ hxQJBNRp1UUA/4cKnwRAMMO5D25qwSvwfDLcDIZLu4qBvxEga24WQSEtDRO4UtjXAE8XDi
+ 9hUxYZGH46f3W4xs5unpM7EbNgGmeCQ=
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-435-5GE-k2TWP3WeH-G8CrJWlA-1; Tue, 08 Jul 2025 09:10:20 -0400
+X-MC-Unique: 5GE-k2TWP3WeH-G8CrJWlA-1
+X-Mimecast-MFC-AGG-ID: 5GE-k2TWP3WeH-G8CrJWlA_1751980219
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-b2fcbd76b61so5150494a12.3
+ for <ltp@lists.linux.it>; Tue, 08 Jul 2025 06:10:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751979513; x=1752584313;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+X7a8SwyNPxgnTjPQjoQvFIKm71E0lpWMhaVdYWW8Ws=;
- b=kw/PR78hFrGAHKZzMoQ9zTM8gc6aXtbxhjtGl22RKBlyxJE6GWBYo+v4FZffqrli+5
- a8NU+MwXhZCjqQwt1pYkbUrdGnOTqEaBd7ZNIzmw9Yv7PKNe3HlZcTtnz89ptQD3W+sP
- DwohSyLHjrdpiYlj6alZNyjSnAVyrlzFswyvmFpqbLoJK/IP7VlsCLPL/9WxXVLSaUu4
- wJ4maW9qLIp4vD+Izto3LHXX/Dq2RuSUe4OB6+M0DDLJ+UbmvBf39oLNaH/2xCNjGFGk
- 6xH//6Sqfyr7kwePGr5U9IDKyy+l+OGi19EBeCdSs3NeHu9seuPddRtSPQ77VHvpwqin
- oFRQ==
-X-Gm-Message-State: AOJu0Ywjs/L5T1ADv1jUX2OucCRZTo7HeDcrR1c2Gu7UmMNfcLtVhi9j
- iajBjxcOBCryRJv6BcJS/13lGlLpzEG6PZIdXgKLbuNPHz+0ii3ctIxLrGcMeJDdVbgfObbnzvr
- KhLTydHVIoRA3TlsUCN7kHpbxonUkQl2DwV4A5NIzOCowuJGpTBymfCA=
-X-Gm-Gg: ASbGncso6/cWwqYfh0qYbh470PduWJwHpUGrKBIm0CIz8FIgtSm+/2LuFb+ffQvUOKH
- zJnUqC1GBKBGh+Rui+0qdCjCKA9fJ2PeoGQaJNn6ux07sguGjKTpAXXUzfunf/OLzWs8rvfQfKa
- gFtm33pGvLE+Uh+HXQ1sifZXOvY3gwYIElUzCAMcL+1FgwKkGrecLxFXQhYe6CzG8XiubUFClGN
- g==
-X-Google-Smtp-Source: AGHT+IEAroSV9QM2u8Khd5heAl2VGKIwbciV1NozFVDk7m9ivDnulTuum/WrPGnR1hmbsA4sVwMc5gI6C1gsYlXHc2E=
-X-Received: by 2002:a17:90b:3c8f:b0:313:1a8c:c2d3 with SMTP id
- 98e67ed59e1d1-31aadd8535fmr18954212a91.22.1751979513324; Tue, 08 Jul 2025
- 05:58:33 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1751980218; x=1752585018;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=rqe9SAOtjStu0oslCOtu2pRdY7S+N/y2jTvJdUIbXHc=;
+ b=p8HLS9L7BOQBhA2nsPOC8YbaOHrRct6Oc3d9EfPolqsErDGr7rcddi+RgzNm4AaHnx
+ pneDQ+jyJ6rMUE1WPx2vOdf0EzE7cNznl2rXFAqpVx+OG6VX/dwstYyAbeuvVJPSEt1t
+ EmQt6WKk4l2/ewZpVnr+icKKhp9iXe2hszTqkMo6PR/4LWpe9HOytTRccCAfvOaesMQh
+ EeLv6wPr8KpX2rdLK4fAOwNXC95LrTw6BuHBkmmd6OmsLKcJVSGYgilveHQp+wc5m2YO
+ gvedDeZ+O7t3gS3tKz9CtYkoko/w5Qnj+WYjkWfsRaPvwPQcN54Y6IbacWC/TBRsO6mF
+ mMRw==
+X-Gm-Message-State: AOJu0Yyzx7S2ibgR1l00OWBz7Sx18Vgz+phsxDV70FbcCkhzHi8PpV2w
+ +fIuK0DFnPP3MLahnkmrcqKm5WzPX87QyL6b1Ug9HDzuwusFPAxzIFgw++buTIxd9K435/12v2Z
+ BwMU7Z5ns+s24Tqr02uvpj/zU24J567zMJPWrtt183SUyVFh42yibuG2B8rG7KVDgEeGgLxONME
+ rZcH69HjHP1trncgRMyApFcXPoJHtwWDUwTCVWUQ==
+X-Gm-Gg: ASbGnctX3NvBltJQ+hi4blCq45X49uU/enXoyhePtG4kyXQczCji60nnrwRiIVhv2Sr
+ iVbBTQjZFdI6paLVPgTWHSeal7H1MT0DUuk8awIr423aqXq3euQ++uyn8PZzDVzjBDrjJdhPz0X
+ siU9hO
+X-Received: by 2002:a17:90b:5784:b0:31c:260e:55e9 with SMTP id
+ 98e67ed59e1d1-31c260e565amr2569000a91.24.1751980217532; 
+ Tue, 08 Jul 2025 06:10:17 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG6j2Ad7H1tcGXOY2mNTd6TMT/MK3V/9PY+heclk+aBukIYZajUwG7eVpnLS7yaV6y0/kjH0T6Ai5PK3YWyb/k=
+X-Received: by 2002:a17:90b:5784:b0:31c:260e:55e9 with SMTP id
+ 98e67ed59e1d1-31c260e565amr2568926a91.24.1751980216605; Tue, 08 Jul 2025
+ 06:10:16 -0700 (PDT)
 MIME-Version: 1.0
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Tue, 8 Jul 2025 18:28:20 +0530
-X-Gm-Features: Ac12FXwWrUCbiwerbOClJgpOYjoDYvos-PTDZgR-SJk-i4t_-gCTbszd43doxzs
-Message-ID: <CA+G9fYvk9HHE5UJ7cdJHTcY6P5JKnp+_e+sdC5U-ZQFTP9_hqQ@mail.gmail.com>
-To: LTP List <ltp@lists.linux.it>, open list <linux-kernel@vger.kernel.org>, 
- lkft-triage@lists.linaro.org, linux-fsdevel@vger.kernel.org, 
- linux-block <linux-block@vger.kernel.org>
+References: <20250708112810.3298-1-yangtiezhu@loongson.cn>
+In-Reply-To: <20250708112810.3298-1-yangtiezhu@loongson.cn>
+Date: Tue, 8 Jul 2025 21:10:03 +0800
+X-Gm-Features: Ac12FXyMzDlzgne6eqGZ3v-lgmjy_lzBA_LQ2ZvMD8bfK1a8c_XUohawQ5bnsBA
+Message-ID: <CAEemH2ejmvUVrYTgeCM-i=GAZLZ4aDStLWtGKTor2sFKgXq7mQ@mail.gmail.com>
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 5QKggR7VKp03ntEHgoG49ZjwRbvgr5ddf_tvY6sxd5c_1751980219
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] LTP: syscalls: TWARN ioctl(/dev/loop0, LOOP_SET_STATUS,
- test_dev.img) failed EOPNOTSUPP (95)
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: Re: [LTP] [PATCH v2] getrlimit/getrlimit03: Skip test if
+ __NR_getrlimit_ulong not implemented
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,213 +106,101 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, rbm@suse.com, Arnd Bergmann <arnd@arndb.de>,
- willy@infradead.org, Ben Copeland <benjamin.copeland@linaro.org>,
- Dan Carpenter <dan.carpenter@linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+From: Li Wang via ltp <ltp@lists.linux.it>
+Reply-To: Li Wang <liwang@redhat.com>
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Regressions were observed while testing LTP syscalls cachestat01 and
-other related tests on the next-20250702 Linux kernel across several devices.
-
-The issue appears to be related to the inability to configure /dev/loop0
-via the LOOP_SET_STATUS ioctl, which returned EOPNOTSUPP
-(Operation not supported). This results in a TBROK condition,
-causing the test to fail.
-
-Test environments:
-- arm64
-- qemu-x86_64
-- qemu-riscv
-
-Regression Analysis:
-- New regression? Yes
-- Reproducibility? Yes
-
-Regressions started from next-20250702 ( next-20250708)
-Good: next-20250701
-Bad: next-20250702
-
-Test regression: Linux next-20250702 TWARN ioctl(/dev/loop0,
-LOOP_SET_STATUS, test_dev.img) failed EOPNOTSUPP (95) TBROK Failed to
-acquire device
-
-Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
-
-## Test log
-tst_buffers.c:57: TINFO: Test is using guarded buffers
-tst_tmpdir.c:316: TINFO: Using /tmp/LTP_cacQ9AfS0 as tmpdir (tmpfs filesystem)
-tst_device.c:98: TINFO: Found free device 0 '/dev/loop0'
-tst_device.c:190: TWARN: ioctl(/dev/loop0, LOOP_SET_STATUS,
-test_dev.img) failed: EOPNOTSUPP (95)
-tst_device.c:362: TBROK: Failed to acquire device
-
-
-## Source
-* Kernel version: 6.16.0-rc4-next-20250702
-* Git tree: https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next.git
-* Git sha: 50c8770a42faf8b1c7abe93e7c114337f580a97d
-* Git describe: next-20250702
-* Project: https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20250704/testrun/29017637
-* Architectures: arm64, x86_64, riscv64.
-* Toolchains: gcc-13 and clang-20
-* Kconfigs: defconfig+ltp
-
-## Build
-* Test log: https://qa-reports.linaro.org/api/testruns/28986655/log_file/
-* Test details:
-https://regressions.linaro.org/lkft/linux-next-master/next-20250702/ltp-syscalls/cachestat01/
-* Test history:
-https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20250704/testrun/29017637/suite/ltp-syscalls/test/cachestat01/history/
-* Build link: https://storage.tuxsuite.com/public/linaro/lkft/builds/2zJjY2EmRMul6P0UgjdOm4Ssiqh/
-* Kernel config:
-https://storage.tuxsuite.com/public/linaro/lkft/builds/2zJjY2EmRMul6P0UgjdOm4Ssiqh/config
-
-## List of tests
-  - cachestat01
-  - cachestat04
-  - chdir01
-  - chmod09
-  - close_range01
-  - copy_file_range01
-  - copy_file_range02
-  - creat09
-  - fallocate04
-  - fallocate05
-  - fallocate06
-  - fanotify01
-  - fanotify05
-  - fanotify06
-  - fanotify10
-  - fanotify13
-  - fanotify14
-  - fanotify15
-  - fanotify16
-  - fanotify17
-  - fanotify18
-  - fanotify19
-  - fanotify20
-  - fanotify21
-  - fanotify22
-  - fanotify23
-  - fchmodat2_01
-  - fdatasync03
-  - fgetxattr01
-  - fremovexattr01
-  - fremovexattr02
-  - fsetxattr01
-  - fsmount01
-  - fsmount02
-  - fsopen01
-  - fsopen02
-  - fspick01
-  - fspick02
-  - fsskipig01
-  - fsskipig02
-  - fsskipig03
-  - fstatfs01
-  - fstatfs01_64
-  - fsync01
-  - fsync04
-  - getdents01
-  - getdents02
-  - getxattr02
-  - getxattr03
-  - inotify03
-  - ioctl04
-  - ioctl05
-  - ioctl06
-  - ioctl_ficlone02
-  - ioctl_fiemap01
-  - ioctl_loop01
-  - lchown03
-  - linkat02
-  - listmount01
-  - listmount02
-  - lremovexattr01
-  - lstat03
-  - lstat03_64
-  - mkdir09
-  - mknodat02
-  - mmap16
-  - mount01
-  - mount02
-  - mount03
-  - mount04
-  - mount05
-  - mount06
-  - mount07
-  - mount_setattr01
-  - move_mount01
-  - move_mount02
-  - msync04
-  - open_tree01
-  - open_tree02
-  - prctl06
-  - preadv03
-  - preadv03_64
-  - preadv203
-  - preadv203_64
-  - pwritev03
-  - pwritev03_64
-  - quotactl01
-  - quotactl04
-  - quotactl06
-  - quotactl08
-  - quotactl09
-  - readahead02
-  - readdir01
-  - rename01
-  - rename03
-  - rename04
-  - rename05
-  - rename06
-  - rename07
-  - rename08
-  - rename10
-  - rename11
-  - rename12
-  - rename13
-  - rename15
-  - renameat01
-  - setxattr01
-  - stat04
-  - stat04_64
-  - statfs01
-  - statfs01_64
-  - statmount01
-  - statmount02
-  - statmount04
-  - statmount05
-  - statmount06
-  - statmount07
-  - statvfs01
-  - statx06
-  - statx08
-  - statx10
-  - statx11
-  - statx12
-  - sync01
-  - syncfs01
-  - umount01
-  - umount02
-  - umount03
-  - umount2_01
-  - umount2_02
-  - unlink09
-  - utime01
-  - utime02
-  - utime03
-  - utime04
-  - utime05
-  - utimensat01
-  - writev03
-
---
-Linaro LKFT
-https://lkft.linaro.org
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gVHVlLCBKdWwgOCwgMjAyNSBhdCA3OjI44oCvUE0gVGllemh1IFlhbmcgPHlhbmd0aWV6aHVA
+bG9vbmdzb24uY24+IHdyb3RlOgoKPiBJbiB0aGUgTFRQIGNvZGUsIF9fTlJfZ2V0cmxpbWl0X3Vs
+b25nIGlzIGRlZmluZWQgYXMgX19OUl91Z2V0cmxpbWl0Cj4gb3IgX19OUl9nZXRybGltaXQuCj4K
+PiBJbiB0aGUgTGludXgga2VybmVsLCBMb29uZ0FyY2ggdXNlcyB0aGUgZ2VuZXJpYyBzeXNjYWxs
+IHRhYmxlCj4gd2hpY2ggaXMgZGVmaW5lZCBpbiBpbmNsdWRlL3VhcGkvYXNtLWdlbmVyaWMvdW5p
+c3RkLmguIFdlIGNhbgo+IHNlZSB0aGF0IF9fTlJfdWdldHJsaW1pdCBpcyBub3QgZGVmaW5lZCBp
+biB0aGUgZ2VuZXJpYyBoZWFkZXIsCj4gYW5kIGFsc28gdGhlcmUgaXMgbm8gX19BUkNIX1dBTlRf
+U0VUX0dFVF9STElNSVQgZGVmaW5pdGlvbiBpbgo+IHRoZSBhcmNoIHNwZWNpZmljIGhlYWRlciBh
+cmNoL2xvb25nYXJjaC9pbmNsdWRlL2FzbS91bmlzdGQuaCwKPiBzbyBib3RoIF9fTlJfdWdldHJs
+aW1pdCBhbmQgX19OUl9nZXRybGltaXQgYXJlIG5vdCBpbXBsZW1lbnRlZAo+IG9uIExvb25nQXJj
+aC4KPgo+IFRoYXQgaXMgdG8gc2F5LCBubyBuZWVkIHRvIGNvbXBhcmUgdGhlIHJldHVybiB2YWx1
+ZSBhbmQgZXJybm8KPiBhYm91dCB0aGUgc3lzY2FsbCBudW1iZXJzIF9fTlJfcHJsaW1pdDY0IGFu
+ZCBfX05SX3t1fWdldHJsaW1pdCwKPiBqdXN0IGNoZWNrIHRoaXMgY2FzZSBhbmQgdGhlbiBza2lw
+IHRoZSB0ZXN0Lgo+Cj4gV2hpbGUgYXQgaXQsIG1vZGlmeSB0aGUgdmFsdWUgb2YgdGVzdC50Y250
+IGFzIDEgdG8gc2tpcCBvbmx5Cj4gb25jZSBpZiB0aGUgZXJybm8gb2YgZ2V0cmxpbWl0X3Vsb25n
+KCkgb3IgZ2V0cmxpbWl0X2xvbmcoKSBpcwo+IEVOT1NZUy4KPgo+IFdpdGhvdXQgdGhpcyBwYXRj
+aDoKPgo+ICQgL29wdC9sdHAvdGVzdGNhc2VzL2Jpbi9nZXRybGltaXQwMwo+IC4uLgo+IGdldHJs
+aW1pdDAzLmM6MTAyOiBURkFJTDogX19OUl9wcmxpbWl0NjQoMCkgcmV0dXJuZWQgMCAoU1VDQ0VT
+UykgYnV0Cj4gX19OUl9nZXRybGltaXQoMCkgcmV0dXJuZWQgLTEgKEVOT1NZUykKPiBnZXRybGlt
+aXQwMy5jOjEwMjogVEZBSUw6IF9fTlJfcHJsaW1pdDY0KDEpIHJldHVybmVkIDAgKFNVQ0NFU1Mp
+IGJ1dAo+IF9fTlJfZ2V0cmxpbWl0KDEpIHJldHVybmVkIC0xIChFTk9TWVMpCj4gZ2V0cmxpbWl0
+MDMuYzoxMDI6IFRGQUlMOiBfX05SX3BybGltaXQ2NCgyKSByZXR1cm5lZCAwIChTVUNDRVNTKSBi
+dXQKPiBfX05SX2dldHJsaW1pdCgyKSByZXR1cm5lZCAtMSAoRU5PU1lTKQo+IGdldHJsaW1pdDAz
+LmM6MTAyOiBURkFJTDogX19OUl9wcmxpbWl0NjQoMykgcmV0dXJuZWQgMCAoU1VDQ0VTUykgYnV0
+Cj4gX19OUl9nZXRybGltaXQoMykgcmV0dXJuZWQgLTEgKEVOT1NZUykKPiBnZXRybGltaXQwMy5j
+OjEwMjogVEZBSUw6IF9fTlJfcHJsaW1pdDY0KDQpIHJldHVybmVkIDAgKFNVQ0NFU1MpIGJ1dAo+
+IF9fTlJfZ2V0cmxpbWl0KDQpIHJldHVybmVkIC0xIChFTk9TWVMpCj4gZ2V0cmxpbWl0MDMuYzox
+MDI6IFRGQUlMOiBfX05SX3BybGltaXQ2NCg1KSByZXR1cm5lZCAwIChTVUNDRVNTKSBidXQKPiBf
+X05SX2dldHJsaW1pdCg1KSByZXR1cm5lZCAtMSAoRU5PU1lTKQo+IGdldHJsaW1pdDAzLmM6MTAy
+OiBURkFJTDogX19OUl9wcmxpbWl0NjQoNikgcmV0dXJuZWQgMCAoU1VDQ0VTUykgYnV0Cj4gX19O
+Ul9nZXRybGltaXQoNikgcmV0dXJuZWQgLTEgKEVOT1NZUykKPiBnZXRybGltaXQwMy5jOjEwMjog
+VEZBSUw6IF9fTlJfcHJsaW1pdDY0KDcpIHJldHVybmVkIDAgKFNVQ0NFU1MpIGJ1dAo+IF9fTlJf
+Z2V0cmxpbWl0KDcpIHJldHVybmVkIC0xIChFTk9TWVMpCj4gZ2V0cmxpbWl0MDMuYzoxMDI6IFRG
+QUlMOiBfX05SX3BybGltaXQ2NCg4KSByZXR1cm5lZCAwIChTVUNDRVNTKSBidXQKPiBfX05SX2dl
+dHJsaW1pdCg4KSByZXR1cm5lZCAtMSAoRU5PU1lTKQo+IGdldHJsaW1pdDAzLmM6MTAyOiBURkFJ
+TDogX19OUl9wcmxpbWl0NjQoOSkgcmV0dXJuZWQgMCAoU1VDQ0VTUykgYnV0Cj4gX19OUl9nZXRy
+bGltaXQoOSkgcmV0dXJuZWQgLTEgKEVOT1NZUykKPiBnZXRybGltaXQwMy5jOjEwMjogVEZBSUw6
+IF9fTlJfcHJsaW1pdDY0KDEwKSByZXR1cm5lZCAwIChTVUNDRVNTKSBidXQKPiBfX05SX2dldHJs
+aW1pdCgxMCkgcmV0dXJuZWQgLTEgKEVOT1NZUykKPiBnZXRybGltaXQwMy5jOjEwMjogVEZBSUw6
+IF9fTlJfcHJsaW1pdDY0KDExKSByZXR1cm5lZCAwIChTVUNDRVNTKSBidXQKPiBfX05SX2dldHJs
+aW1pdCgxMSkgcmV0dXJuZWQgLTEgKEVOT1NZUykKPiBnZXRybGltaXQwMy5jOjEwMjogVEZBSUw6
+IF9fTlJfcHJsaW1pdDY0KDEyKSByZXR1cm5lZCAwIChTVUNDRVNTKSBidXQKPiBfX05SX2dldHJs
+aW1pdCgxMikgcmV0dXJuZWQgLTEgKEVOT1NZUykKPiBnZXRybGltaXQwMy5jOjEwMjogVEZBSUw6
+IF9fTlJfcHJsaW1pdDY0KDEzKSByZXR1cm5lZCAwIChTVUNDRVNTKSBidXQKPiBfX05SX2dldHJs
+aW1pdCgxMykgcmV0dXJuZWQgLTEgKEVOT1NZUykKPiBnZXRybGltaXQwMy5jOjEwMjogVEZBSUw6
+IF9fTlJfcHJsaW1pdDY0KDE0KSByZXR1cm5lZCAwIChTVUNDRVNTKSBidXQKPiBfX05SX2dldHJs
+aW1pdCgxNCkgcmV0dXJuZWQgLTEgKEVOT1NZUykKPiBnZXRybGltaXQwMy5jOjEwMjogVEZBSUw6
+IF9fTlJfcHJsaW1pdDY0KDE1KSByZXR1cm5lZCAwIChTVUNDRVNTKSBidXQKPiBfX05SX2dldHJs
+aW1pdCgxNSkgcmV0dXJuZWQgLTEgKEVOT1NZUykKPgo+IFN1bW1hcnk6Cj4gcGFzc2VkICAgMAo+
+IGZhaWxlZCAgIDE2Cj4gYnJva2VuICAgMAo+IHNraXBwZWQgIDAKPiB3YXJuaW5ncyAwCj4KPiBX
+aXRoIHRoaXMgcGF0Y2g6Cj4KPiAkIC9vcHQvbHRwL3Rlc3RjYXNlcy9iaW4vZ2V0cmxpbWl0MDMK
+PiAuLi4KPiBnZXRybGltaXQwMy5jOjE2NjogVENPTkY6IF9fTlJfZ2V0cmxpbWl0IG5vdCBpbXBs
+ZW1lbnRlZDogRU5PU1lTICgzOCkKPgo+IFN1bW1hcnk6Cj4gcGFzc2VkICAgMAo+IGZhaWxlZCAg
+IDAKPiBicm9rZW4gICAwCj4gc2tpcHBlZCAgMQo+IHdhcm5pbmdzIDAKPgo+IEhvdyB0byByZXBy
+b2R1Y2U6Cj4KPiBnaXQgY2xvbmUgaHR0cHM6Ly9naXRodWIuY29tL2xpbnV4LXRlc3QtcHJvamVj
+dC9sdHAuZ2l0Cj4gY2QgbHRwCj4gbWFrZSBhdXRvdG9vbHMKPiAuL2NvbmZpZ3VyZQo+IG1ha2Ug
+YWxsCj4gc3VkbyBtYWtlIGluc3RhbGwKPiAvb3B0L2x0cC90ZXN0Y2FzZXMvYmluL2dldHJsaW1p
+dDAzCj4KPiBTaWduZWQtb2ZmLWJ5OiBUaWV6aHUgWWFuZyA8eWFuZ3RpZXpodUBsb29uZ3Nvbi5j
+bj4KPiBSZXZpZXdlZC1ieTogTGkgV2FuZyA8bGl3YW5nQHJlZGhhdC5jb20+Cj4gLS0tCj4gIHRl
+c3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZ2V0cmxpbWl0L2dldHJsaW1pdDAzLmMgfCA3ICsrKysr
+KysKPiAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKQo+Cj4gZGlmZiAtLWdpdCBhL3Rl
+c3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZ2V0cmxpbWl0L2dldHJsaW1pdDAzLmMKPiBiL3Rlc3Rj
+YXNlcy9rZXJuZWwvc3lzY2FsbHMvZ2V0cmxpbWl0L2dldHJsaW1pdDAzLmMKPiBpbmRleCA2MDQw
+ODJjY2YuLmJiNjE2MGMyYiAxMDA2NDQKPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxz
+L2dldHJsaW1pdC9nZXRybGltaXQwMy5jCj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
+cy9nZXRybGltaXQvZ2V0cmxpbWl0MDMuYwo+IEBAIC0xNjIsNiArMTYyLDEyIEBAIHN0YXRpYyB2
+b2lkIHJ1bih1bnNpZ25lZCBpbnQgcmVzb3VyY2UpCj4gICAgICAgICBlcnJubyA9IDA7Cj4gICAg
+ICAgICByZXRfdWwgPSBnZXRybGltaXRfdWxvbmcocmVzb3VyY2UsICZybGltX3VsKTsKPiAgICAg
+ICAgIGVycm5vX3VsID0gZXJybm87Cj4gKyAgICAgICBpZiAoZXJybm9fdWwgPT0gRU5PU1lTKSB7
+Cj4gKyAgICAgICAgICAgICAgIHRzdF9yZXMoVENPTkYgfCBURVJSTk8sCj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgIiVzIG5vdCBpbXBsZW1lbnRlZCIsIF9fTlJfZ2V0cmxpbWl0X3Vsb25nX3N0
+cik7Cj4gKyAgICAgICAgICAgICAgIHRlc3QudGNudCA9IDE7Cj4gKyAgICAgICAgICAgICAgIHJl
+dHVybjsKPiArICAgICAgIH0KPgo+ICAgICAgICAgaWYgKGNvbXBhcmVfcmV0dmFsKHJlc291cmNl
+LCByZXRfdTY0LCBlcnJub191NjQsIHJldF91bCwgZXJybm9fdWwsCj4gICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgX19OUl9nZXRybGltaXRfdWxvbmdfc3RyKSB8fAo+IEBAIC0xODEsNiArMTg3
+LDcgQEAgc3RhdGljIHZvaWQgcnVuKHVuc2lnbmVkIGludCByZXNvdXJjZSkKPiAgICAgICAgIGlm
+IChlcnJub19sID09IEVOT1NZUykgewo+ICAgICAgICAgICAgICAgICB0c3RfcmVzKFRDT05GIHwg
+VEVSUk5PLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICJfX05SX2dldHJsaW1pdCglZCkgbm90
+IGltcGxlbWVudGVkIiwKPiBfX05SX2dldHJsaW1pdCk7Cj4KCgo+ICsgICAgICAgICAgICAgICB0
+ZXN0LnRjbnQgPSAxOwo+CgpUaGlzIHNlY29uZCB0ZXN0LnRjbnQgcmVzZXR0aW5nIGlzIHJlZHVu
+ZGFudCwgaWYgdGhlIFNJR05FRF9HRVRSTElNSVQKZ2V0IGRlZmluZWQsIHRoYXQgbWVhbnMgYm90
+aCBfX05SX2dldHJsaW1pdCBhbmQgX19OUl91Z2V0cmxpbWl0IGFyZQpkZXRlY3RlZCwKYW5kIHRo
+ZSBvbmx5IG5lZ2F0aXZlIHNpdHVhdGlvbiBpcyBnZXRybGltaXRfdWxvbmcocmVzb3VyY2UsICZy
+bGltX3VsKTsKd29ya3Mgd2VsbCwgYnV0IGdldHJsaW1pdF9sb25nKHJlc291cmNlLCAmcmxpbV9s
+KTsgcmV0dXJuIEVOT1NZUywgdG8gbWFrZQp0aGUKdGVzdCBjYW4gYmUgaW50ZXJhY3Rpb24gdGhl
+IHNlY29uZCBzaG91bGQgbm8gdGVzdC50Y250ID0gMS4KClNlZToKaHR0cHM6Ly9naXRodWIuY29t
+L2xpbnV4LXRlc3QtcHJvamVjdC9sdHAvY29tbWl0L2ZhYzc4M2I1ZDY2MzFlZmE3MGQyZWEzMjU3
+MTQyNzYzZDk0NGJhMzIKCkFueXdheSwgSSBtb2RpZmllZCB0aGUgcGF0Y2ggYW5kIG1lcmdlZCEK
+CgotLSAKUmVnYXJkcywKTGkgV2FuZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xp
+c3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
