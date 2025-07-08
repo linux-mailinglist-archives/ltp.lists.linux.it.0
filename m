@@ -1,59 +1,59 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55653AFC3E9
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 09:22:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C91DAFC3D6
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 09:17:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0D47C3CA1A7
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 09:22:33 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 25AA73CA1BE
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Jul 2025 09:17:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A6BC43CA14F
- for <ltp@lists.linux.it>; Tue,  8 Jul 2025 09:12:25 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 409063CA0F2
+ for <ltp@lists.linux.it>; Tue,  8 Jul 2025 09:17:11 +0200 (CEST)
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id A5CF82C4FE24
- for <ltp@lists.linux.it>; Tue,  8 Jul 2025 09:12:21 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 1B27C1C2ABAE
+ for <ltp@lists.linux.it>; Tue,  8 Jul 2025 09:17:09 +0200 (CEST)
 Received: from loongson.cn (unknown [113.200.148.30])
- by gateway (Coremail) with SMTP id _____8DxQK_SxGxoRzUkAQ--.43079S3;
- Tue, 08 Jul 2025 15:12:18 +0800 (CST)
+ by gateway (Coremail) with SMTP id _____8CxdXD0xWxoAjYkAQ--.36914S3;
+ Tue, 08 Jul 2025 15:17:08 +0800 (CST)
 Received: from linux.localdomain (unknown [113.200.148.30])
- by front1 (Coremail) with SMTP id qMiowJCxocLQxGxoVhIOAA--.15507S2;
- Tue, 08 Jul 2025 15:12:17 +0800 (CST)
+ by front1 (Coremail) with SMTP id qMiowJCxdOTyxWxoMxMOAA--.16021S2;
+ Tue, 08 Jul 2025 15:17:07 +0800 (CST)
 From: Tiezhu Yang <yangtiezhu@loongson.cn>
 To: ltp@lists.linux.it
-Date: Tue,  8 Jul 2025 15:12:15 +0800
-Message-ID: <20250708071215.17515-1-yangtiezhu@loongson.cn>
+Date: Tue,  8 Jul 2025 15:17:06 +0800
+Message-ID: <20250708071706.19639-1-yangtiezhu@loongson.cn>
 X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-X-CM-TRANSID: qMiowJCxocLQxGxoVhIOAA--.15507S2
+X-CM-TRANSID: qMiowJCxdOTyxWxoMxMOAA--.16021S2
 X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
 X-Coremail-Antispam: 1Uk129KBj93XoWxZFWDuw47ZrW7uryUZF1DurX_yoW7JrWkpa
  4xKa4jqay5tayjv3yxtr93Z3ySqr18Cr1aqrn8CrykZF1UGw15GF1xW3WYvw17Xr4Ykw47
- tF1DtFWvya1UArbCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+ tF1DtFWvya1UArbCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
  sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
  0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
  IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
  e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
  0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
  6rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
- 8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
+ 8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AK
  xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64
  vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
  jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1Y6r17MIIYrxkI7VAKI48JMIIF0xvE2I
  x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK
  8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
- 0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07UWHqcUUUUU=
+ 0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07UNvtZUUUUU=
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Tue, 08 Jul 2025 09:22:13 +0200
 Subject: [LTP] [PATCH] getrlimit/getrlimit03: Skip test if __NR_getrlimit
  not implemented
 X-BeenThere: ltp@lists.linux.it
