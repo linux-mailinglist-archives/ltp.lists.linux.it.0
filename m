@@ -1,98 +1,102 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57C9EAFEC18
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Jul 2025 16:36:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1752071760; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=GCJUKz2ZhRjgJarU5BusTJU9rEGGLhZaOGmcrg2lYyY=;
- b=kqYvcrtEvGCAud0za9Nwyoeklqa3vJhDp8O9UydCV7xKyg/tjxukOB+vp6sH2SKXcaOZA
- zY87A0CT3EVONUrfaNy0DKao9bNHYOGi9qhwrq0A5ubJma6s4ObVPh+WF8lWGzNPVrLHNt0
- hjxDqzJyfonT4obRO0itv44BtUHGgSw=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1425BAFEEDF
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Jul 2025 18:31:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C6F203CABF5
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Jul 2025 16:36:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A81233CAD82
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Jul 2025 18:31:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 62FBF3C8C3D
- for <ltp@lists.linux.it>; Wed,  9 Jul 2025 16:35:58 +0200 (CEST)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id D0DCA3C627B
+ for <ltp@lists.linux.it>; Wed,  9 Jul 2025 18:30:56 +0200 (CEST)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 98DF5609247
- for <ltp@lists.linux.it>; Wed,  9 Jul 2025 16:35:57 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a57ae5cb17so13074f8f.0
- for <ltp@lists.linux.it>; Wed, 09 Jul 2025 07:35:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1752071757; x=1752676557; darn=lists.linux.it;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=Z6Vc8YuJV5E5dK+UuErYRwh+Xngxbs+BHDg9LI1oXK0=;
- b=E8/9dGFQaHmD0QkUSosPEUqGEdTTuid8wBT8VVGb6NZN/hPwRpHkBo99xjRI4VGeLk
- 0+CxGT8gdzxype3voLGxes90TT9l3yS4Z2aPAOwPSPiuhig8/tKklGpCS99cT5L1E+t0
- AEYPvLwtKebwQSSDjvntzfQsJp9P/CkuUG0X1pQbKOqndN+aiHz0YpEozTU9SpeZ8lEJ
- /FTpREB5jTUjsq+zAmYSyyFgxTd8LuNVdkZyGRq0/SuKq2a/KCauNq3VLaO54/+wJWDD
- fG6J+zqCkKlXVRNy1gRxZ73+6b1AOOVlw30VLnbsKuZuV51mL0vJ0XuZ0q4IJ4pAKvUF
- PLRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752071757; x=1752676557;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Z6Vc8YuJV5E5dK+UuErYRwh+Xngxbs+BHDg9LI1oXK0=;
- b=dyHexxqaORqVcmigtrSu1E8mYFLxrQc0bbLcC9w5wXgyvU0RqAYt1N62E8/Lc0y7UH
- Xco2UCr5SKNIzH3sM5B+BkOTLWPa7DugRrTJo9bbPWaXL24eB97OOejCYkpbkbNnFEdc
- GiarR9H3tg9toih0/HHRY9unFrKEdIy5dp9bUk/F3JItyUTPWqZSwYoJFuQmLSvTgIOx
- dzyYUdYeCDFBge8TAwsJ1jB8CnnNHbvdWb3eKypnI0oO1HGNjPzn9hLnVyt4SDP8tPNI
- fqGKPiMhyw/gD6q6ahHrPQ0/JCgy1svJM1T6PalofCID5LqTMSDsxHoCMLhgWOHAxZna
- Ebjg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXL3HcFGEzupMD3XuMtXKapxuJZP/rMK1A95belWvtVLo6H0ioMrYGvqUYioEdWP4IuddE=@lists.linux.it
-X-Gm-Message-State: AOJu0YwXiqB4D09JJjRjeyidKsmOXJKNVisPsDSaHvrhWgEdPgW0KaMk
- GH2Y9140McWBOm9xJ/2aRzSD00nBag/f7OV6SaiGz8mxZ9NCv9EUD7Q6jcDFYYioIw==
-X-Gm-Gg: ASbGnct5i8qXORuvEGxnq9s6PBUYbQtyVAxNIBqniQl0Xvr5wMkXkFjLLin0ylCv5R6
- C6Voo4+qDzZZTj3sY4qFIjHo2ZOP9OIDlfqv7ON4sEBfCqKN2U3iXoXt8PUH50eo09aXvIClqNA
- fBnOnliQ2f64MBGK4Hn0Y7eS2fkW90eDsgEm6KTC5eE0HyRw2ZFjmJAhVLgnj7mo+6nY6/9wBR2
- 9Q5x/BXaTQ/PGrBRH5pDkKmvXZPk0mOyLW/SAMQkR1P1t1saD4wvUZTVyE8K1Br00mjQMpIqcpS
- n0mDRNwL/I5NNe/7CIAOZMI9Y7knkZ/rcMHse9fKh2MmfXdQShC7pODxqJMIwg==
-X-Google-Smtp-Source: AGHT+IFDNuOplHvChiEdcKKqFJEu6LoUoKePvqNCVknYzEb52ul+/f3iVPXUQ7TkFGvvbuUMMTh8aA==
-X-Received: by 2002:a05:6000:26c2:b0:3a4:f918:9db9 with SMTP id
- ffacd0b85a97d-3b5e78d7cc7mr154429f8f.32.1752071756902; 
- Wed, 09 Jul 2025 07:35:56 -0700 (PDT)
-Received: from MiWiFi-CR6608-srv ([202.127.77.110])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74ce43d67fbsm16006756b3a.178.2025.07.09.07.35.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Jul 2025 07:35:56 -0700 (PDT)
-Date: Wed, 9 Jul 2025 22:35:16 -0400
-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Message-ID: <aG8m5AiKWMNFxXyQ@MiWiFi-CR6608-srv>
-References: <20250708-conversions-mremap-v1-0-aa043b0182fc@suse.com>
- <20250708-conversions-mremap-v1-2-aa043b0182fc@suse.com>
- <456d5d63-737f-441e-bc3f-4fa012983264@suse.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 014212009F3
+ for <ltp@lists.linux.it>; Wed,  9 Jul 2025 18:30:55 +0200 (CEST)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 569BbKDO020465;
+ Wed, 9 Jul 2025 16:30:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=pp1; bh=Ko5SvHAR3EO6H1IFR8yebLQh3TYj3aczVmsWtpmUW
+ ZQ=; b=AAC6PlxwnHl1Kmf561UDhm1IhRKMtpydds5Vp8N0eSF35ZLeoa9TFvxnu
+ b4rhH9sm8y9aGwlIeBYebNbb9UjVVg1dGdrU0Yv4WzE5FTmjsfzTUc+1utprVDmW
+ yOp17nC7bejdSIv5iZxgv8Vcc+Zjho2eG41/xK+VEByTWmrRGFZEIAeM9nd1nFcT
+ Nu7PEXZV0J2RLsoZgMM+oLs+jQ3ks96SeevyrAZL3P8//QZETs8KWCUC1/ges0VH
+ HhKw3ovZctVv+lFwRxMXu3+DJkCSTwIBlo+ZAeV/TU5kON8isF2DIPchFhu8U5Po
+ VqFYi8ax/AtUVDS/lGI9qBvTC1uWA==
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 47puss7gcv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 09 Jul 2025 16:30:52 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 569FXAEp002865;
+ Wed, 9 Jul 2025 16:30:51 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 47qfvmgwtx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 09 Jul 2025 16:30:51 +0000
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com
+ [10.20.54.102])
+ by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 569GUnD658917224
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 9 Jul 2025 16:30:49 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 48AA12004B;
+ Wed,  9 Jul 2025 16:30:49 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DA42A20040;
+ Wed,  9 Jul 2025 16:30:48 +0000 (GMT)
+Received: from li-276bd24c-2dcc-11b2-a85c-945b6f05615c.ibm.com.com (unknown
+ [9.87.139.170]) by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Wed,  9 Jul 2025 16:30:48 +0000 (GMT)
+From: Jan Polensky <japo@linux.ibm.com>
+To: chrubis@suse.cz, pvorel@suse.cz
+Date: Wed,  9 Jul 2025 18:30:22 +0200
+Message-ID: <20250709163022.69985-1-japo@linux.ibm.com>
+X-Mailer: git-send-email 2.50.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <456d5d63-737f-441e-bc3f-4fa012983264@suse.com>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=Vaj3PEp9 c=1 sm=1 tr=0 ts=686e993c cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=Wb1JkmetP80A:10 a=VnNF1IyMAAAA:8 a=7xT3-tc8c4Aw8JKu47QA:9
+X-Proofpoint-GUID: qbUyt-D02nN40vJ9Ju_D17jWx6jm4Iqu
+X-Proofpoint-ORIG-GUID: qbUyt-D02nN40vJ9Ju_D17jWx6jm4Iqu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzA5MDE0NyBTYWx0ZWRfX3gORpoyU5wan
+ e8OAyoBXa4MAF07KVWpdOVbCy4/vdfTUWIXj+eWFF9qYF3fEameAPAEyjqpTk/uCUUjhckPQ8mL
+ pVboZuFapZ9wDkESEXcYanV9FGWWrC0/MMB3ceyaRfmlTVrLng7qIaJLN+LNK+vcspO0WBuHJBw
+ udWsWNRG1dk6cbCpQ58Sl5x+b74I1NLmNm0hbM7rhynqsMZZG76SigIokQSz8mbpt/VxTzkB4kB
+ t439IQdO8EUrbP5A3HHfb0WidE16OVK/RZOlflZiCdcDATYzEw0B/8AfypKsE35bwsd9Vv7rcEZ
+ VcxcCKmYRzUryqmjBZAeZM/YmXri4fKPWYJ3H5XKpmoDdoIbHceav8UpeXsJocd0Ts0/Du/Ju6e
+ Y6WU6hK0Jq6OX/hzXJ/ECFZn9F2vxIcsAIrCJW8cR29xz1XN4UPcuBPhe0O93YXUZRIC5EIW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
+ definitions=2025-07-09_03,2025-07-08_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ mlxlogscore=960 suspectscore=0 clxscore=1011 adultscore=0
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 bulkscore=0 mlxscore=0
+ spamscore=0 phishscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507090147
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/7] lib: safe_macros: Add SAFE_MREMAP
+Subject: [LTP] [RFC PATCH v1 1/1] splice07.c: Skip invalid splice() tests
+ involving memfd secret
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,73 +108,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
-Cc: Linux Test Project <ltp@lists.linux.it>,
- Ricardo =?iso-8859-1?Q?B=2E_Marli=E8re?= <rbm@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Linux Test Project <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gV2VkLCBKdWwgMDksIDIwMjUgYXQgMDM6MTY6MDJQTSArMDIwMCwgQW5kcmVhIENlcnZlc2F0
-byB2aWEgbHRwIHdyb3RlOgo+IEhpIQo+IAo+IE9uIDcvOC8yNSAxMDoxMSBQTSwgUmljYXJkbyBC
-LiBNYXJsacOocmUgdmlhIGx0cCB3cm90ZToKPiA+IEZyb206IFJpY2FyZG8gQi4gTWFybGnDqHJl
-IDxyYm1Ac3VzZS5jb20+Cj4gPiAKPiA+IFNpZ25lZC1vZmYtYnk6IFJpY2FyZG8gQi4gTWFybGnD
-qHJlIDxyYm1Ac3VzZS5jb20+Cj4gPiAtLS0KPiA+ICAgaW5jbHVkZS9zYWZlX21hY3Jvc19mbi5o
-ICB8ICAyICsrCj4gPiAgIGluY2x1ZGUvdHN0X3NhZmVfbWFjcm9zLmggfCAgNCArKysrCj4gPiAg
-IGxpYi9zYWZlX21hY3Jvcy5jICAgICAgICAgfCAxNiArKysrKysrKysrKysrKysrCj4gPiAgIDMg
-ZmlsZXMgY2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygrKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvaW5j
-bHVkZS9zYWZlX21hY3Jvc19mbi5oIGIvaW5jbHVkZS9zYWZlX21hY3Jvc19mbi5oCj4gPiBpbmRl
-eCBkMjU2MDkxYjc2YWQxMGIwNmIyOWUzZmQ1ZmFkODg1M2ZhYTE0YzA4Li40ODkyNzA2ZmEzMTFh
-ZTIzMTMxY2QxYmEzZDM2ZThlYjMyNTdkOWM0IDEwMDY0NAo+ID4gLS0tIGEvaW5jbHVkZS9zYWZl
-X21hY3Jvc19mbi5oCj4gPiArKysgYi9pbmNsdWRlL3NhZmVfbWFjcm9zX2ZuLmgKPiA+IEBAIC02
-OSw2ICs2OSw4IEBAIGludCBzYWZlX21rZGlyKGNvbnN0IGNoYXIgKmZpbGUsIGNvbnN0IGludCBs
-aW5lbm8sCj4gPiAgIGludCBzYWZlX3JtZGlyKGNvbnN0IGNoYXIgKmZpbGUsIGNvbnN0IGludCBs
-aW5lbm8sCj4gPiAgICAgICAgICAgICAgICAgIHZvaWQgKCpjbGVhbnVwX2ZuKSh2b2lkKSwgY29u
-c3QgY2hhciAqcGF0aG5hbWUpOwo+ID4gK3ZvaWQqIHNhZmVfbXJlbWFwKGNvbnN0IGNoYXIgKmZp
-bGUsIGNvbnN0IGludCBsaW5lbm8sIHZvaWQgKCpjbGVhbnVwX2ZuKSh2b2lkKSwKPiA+ICsJCXZv
-aWQgKm9sZF9hZGRyZXNzLCBzaXplX3Qgb2xkX3NpemUsIHNpemVfdCBuZXdfc2l6ZSwgaW50IGZs
-YWdzKTsKPiA+ICAgaW50IHNhZmVfbXVubWFwKGNvbnN0IGNoYXIgKmZpbGUsIGNvbnN0IGludCBs
-aW5lbm8sCj4gPiAgICAgICAgICAgICAgICAgICB2b2lkICgqY2xlYW51cF9mbikodm9pZCksIHZv
-aWQgKmFkZHIsIHNpemVfdCBsZW5ndGgpOwo+ID4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvdHN0X3Nh
-ZmVfbWFjcm9zLmggYi9pbmNsdWRlL3RzdF9zYWZlX21hY3Jvcy5oCj4gPiBpbmRleCAxOTUwNGJl
-YjU3YWQzNzljODM1YTEzZWQ1ZDM1ZmUwNmU0MmE2ZWQ2Li45Y2E3MDMxOWYwODZkZWE0Mzc0Njdj
-Nzc1ZGQ5Y2I0OGI5NTY1ODNlIDEwMDY0NAo+ID4gLS0tIGEvaW5jbHVkZS90c3Rfc2FmZV9tYWNy
-b3MuaAo+ID4gKysrIGIvaW5jbHVkZS90c3Rfc2FmZV9tYWNyb3MuaAo+ID4gQEAgLTkzLDYgKzkz
-LDEwIEBAIHZvaWQgKnNhZmVfcmVhbGxvYyhjb25zdCBjaGFyICpmaWxlLCBjb25zdCBpbnQgbGlu
-ZW5vLCB2b2lkICpwdHIsIHNpemVfdCBzaXplKTsKPiA+ICAgI2RlZmluZSBTQUZFX1JNRElSKHBh
-dGhuYW1lKSBcCj4gPiAgIAlzYWZlX3JtZGlyKF9fRklMRV9fLCBfX0xJTkVfXywgTlVMTCwgKHBh
-dGhuYW1lKSkKPiA+ICsjZGVmaW5lIFNBRkVfTVJFTUFQKG9sZF9hZGRyZXNzLCBvbGRfc2l6ZSwg
-bmV3X3NpemUsIGZsYWdzKSAgICAgICAgICAgICAgXAo+ID4gKwlzYWZlX21yZW1hcChfX0ZJTEVf
-XywgX19MSU5FX18sIE5VTEwsIChvbGRfYWRkcmVzcyksIChvbGRfc2l6ZSksIFwKPiA+ICsJCSAg
-ICAobmV3X3NpemUpLCAoZmxhZ3MpKQo+ID4gKwo+ID4gICAjZGVmaW5lIFNBRkVfTVVOTUFQKGFk
-ZHIsIGxlbmd0aCkgXAo+ID4gICAJc2FmZV9tdW5tYXAoX19GSUxFX18sIF9fTElORV9fLCBOVUxM
-LCAoYWRkciksIChsZW5ndGgpKQo+ID4gZGlmZiAtLWdpdCBhL2xpYi9zYWZlX21hY3Jvcy5jIGIv
-bGliL3NhZmVfbWFjcm9zLmMKPiA+IGluZGV4IDU3YmMwYmM3NDk3MTJmMWI4OTA1OTQxMjNiNmI5
-ZjNjYWJjZTgyMWEuLjRiYjRjNzAwZjFkMjVlOTUyMGUzZDVhMmY5OTY5YmZlY2FmZDI1Y2MgMTAw
-NjQ0Cj4gPiAtLS0gYS9saWIvc2FmZV9tYWNyb3MuYwo+ID4gKysrIGIvbGliL3NhZmVfbWFjcm9z
-LmMKPiA+IEBAIC0yMTUsNiArMjE1LDIyIEBAIGludCBzYWZlX3JtZGlyKGNvbnN0IGNoYXIgKmZp
-bGUsIGNvbnN0IGludCBsaW5lbm8sIHZvaWQgKCpjbGVhbnVwX2ZuKSAodm9pZCksCj4gPiAgIAly
-ZXR1cm4gKHJ2YWwpOwo+ID4gICB9Cj4gPiArdm9pZCAqc2FmZV9tcmVtYXAoY29uc3QgY2hhciAq
-ZmlsZSwgY29uc3QgaW50IGxpbmVubywgdm9pZCAoKmNsZWFudXBfZm4pKHZvaWQpLAo+ID4gKwkJ
-dm9pZCAqb2xkX2FkZHJlc3MsIHNpemVfdCBvbGRfc2l6ZSwgc2l6ZV90IG5ld19zaXplLCBpbnQg
-ZmxhZ3MpCj4gPiArewo+ID4gKwl2b2lkICpydmFsOwo+ID4gKwo+ID4gKwlydmFsID0gbXJlbWFw
-KG9sZF9hZGRyZXNzLCBvbGRfc2l6ZSwgbmV3X3NpemUsIGZsYWdzKTsKPiA+ICsKPiA+ICsJaWYg
-KHJ2YWwgPT0gTUFQX0ZBSUxFRCkgewo+ID4gKwkJdHN0X2Jya21fKGZpbGUsIGxpbmVubywgVEJS
-T0sgfCBURVJSTk8sIGNsZWFudXBfZm4sCj4gPiArCQkJICAibXJlbWFwKCVwLCV6dSwlenUsJWQp
-IGZhaWxlZCIsIG9sZF9hZGRyZXNzLCBvbGRfc2l6ZSwKPiA+ICsJCQkgIG5ld19zaXplLCBmbGFn
-cyk7Cj4gPiArCX0KPiBIZXJlIHdlIGNhbiBoYW5kbGUgYWxzbyB1bmV4cGVjdGVkIHJldHVybiB2
-YWx1ZXMuIFBsZWFzZSBjaGVjayBzYWZlX211bm1hcCgpCgpCYXNlIGJlbG93IG1hbiBwYWdlIG9m
-IG1yZW1hcCAsIGl0IHdpbGwgcmV0dXJuIGEgcG9pbnRlciBvciBNQVBfRkFJTEVELiBTbyBpIGd1
-ZXNzIGFib3ZlIGxvZ2ljIGNvdmVyZWQgYWxsIHNpdHVhdGlvbi4KClJFVFVSTiBWQUxVRQogICAg
-ICAgT24gc3VjY2VzcyBtcmVtYXAoKSByZXR1cm5zIGEgcG9pbnRlciB0byB0aGUgbmV3IHZpcnR1
-YWwgbWVtb3J5IGFyZWEuICBPbiBlcnJvciwgdGhlIHZhbHVlIE1BUF9GQUlMRUQgKHRoYXQgaXMs
-ICh2b2lkICopIC0xKSBpcyByZXR1cm5lZCwgYW5kIGVy4oCQCiAgICAgICBybm8gaXMgc2V0IHRv
-IGluZGljYXRlIHRoZSBlcnJvci4KCj4gPiArCj4gPiArCXJldHVybiBydmFsOwo+ID4gK30KPiA+
-ICsKPiA+ICAgaW50IHNhZmVfbXVubWFwKGNvbnN0IGNoYXIgKmZpbGUsIGNvbnN0IGludCBsaW5l
-bm8sIHZvaWQgKCpjbGVhbnVwX2ZuKSAodm9pZCksCj4gPiAgICAgICAgICAgICAgICAgICB2b2lk
-ICphZGRyLCBzaXplX3QgbGVuZ3RoKQo+ID4gICB7Cj4gPiAKPiAtIEFuZHJlYQo+IAo+IC0tIAo+
-IE1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAoK
-LS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
-cAo=
+Linux commit cbe4134ea4bc ("fs: export anon_inode_make_secure_inode() and fix
+secretmem LSM bypass") prevents any access to secret memory pages from other
+kernel subsystems.
+
+Splice operations involving memfd secret are no longer valid and return EACCES.
+These test cases are skipped accordingly.
+
+This avoids false negatives in splice07 test:
+
+    [skip]
+    splice07.c:54: TFAIL: splice() on pipe read end -> memfd secret expected EBADF, EINVAL: EACCES (13)
+    [skip]
+    splice07.c:54: TFAIL: splice() on memfd secret -> pipe write end expected EBADF, EINVAL: EACCES (13)
+    [skip]
+
+Reference: cbe4134ea4bc ("fs: export anon_inode_make_secure_inode() and fix secretmem LSM bypass")
+Signed-off-by: Jan Polensky <japo@linux.ibm.com>
+---
+ testcases/kernel/syscalls/splice/splice07.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/testcases/kernel/syscalls/splice/splice07.c b/testcases/kernel/syscalls/splice/splice07.c
+index 2228e2f269de..c750a14bf439 100644
+--- a/testcases/kernel/syscalls/splice/splice07.c
++++ b/testcases/kernel/syscalls/splice/splice07.c
+@@ -27,6 +27,7 @@ static void check_splice(struct tst_fd *fd_in, struct tst_fd *fd_out)
+ 		case TST_FD_UNIX_SOCK:
+ 		case TST_FD_INET_SOCK:
+ 		case TST_FD_MEMFD:
++		case TST_FD_MEMFD_SECRET:
+ 			return;
+ 		default:
+ 		break;
+@@ -40,6 +41,7 @@ static void check_splice(struct tst_fd *fd_in, struct tst_fd *fd_out)
+ 		case TST_FD_FILE:
+ 		case TST_FD_PROC_MAPS:
+ 		case TST_FD_MEMFD:
++		case TST_FD_MEMFD_SECRET:
+ 			return;
+ 		/* And this complains about socket not being connected */
+ 		case TST_FD_INET_SOCK:
+-- 
+2.50.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
