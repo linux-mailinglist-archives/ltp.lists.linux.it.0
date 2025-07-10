@@ -2,125 +2,93 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5C81AFF756
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Jul 2025 05:11:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D97A2AFF69B
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Jul 2025 04:10:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1752117060; h=date : to :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1752113418; h=date : to :
  message-id : references : mime-version : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=QIyhsRsPaLD13u5K1vY0qqLHmucJbZ4xR0uXvWeKdqI=;
- b=oPPz2nI5t4MNgyYBfxpPAYirM52bmsPhT8I/NfUCTfXYvGxKBG6de0VAj/6ZbgjnfHCDw
- WLlWLXeE0lJCKv/91HAGtLDa6eb031QFGzDLgTMJ5SSm8BUM+dQa189vodADtR8ClrEiH+H
- /8cjoPAGCrYTUL4Us4C7+s0DQeJjhyc=
+ bh=cbne+CKqHetgRDyR6ODYotbnexx1DZQ9cJT4WXQgdSQ=;
+ b=DNR20mFZsriU00l+GWB1TAmqtr8toS3wmTL6cHS0QElqALgsW0m2mNU1C7Fk9pjxa/1Z7
+ Plp/bxhZakXUiepqvqtbRozLHGabENv9qQRV66Nqju7HICQtJKYkl5ByYzBhPEisPrXvvCX
+ GvybrfjQNT+up93uhWSK/4VZlkE4tJQ=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 70F673CACD1
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Jul 2025 05:11:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9DC8B3CAED7
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Jul 2025 04:10:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 528AF3C73E4
- for <ltp@lists.linux.it>; Thu, 10 Jul 2025 05:10:58 +0200 (CEST)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 1705B3C4F8C
+ for <ltp@lists.linux.it>; Thu, 10 Jul 2025 04:10:05 +0200 (CEST)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 283C4600731
- for <ltp@lists.linux.it>; Thu, 10 Jul 2025 05:10:55 +0200 (CEST)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56A0uDTb014483
- for <ltp@lists.linux.it>; Thu, 10 Jul 2025 03:10:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=C8GD71NMUqyCLGNSbw7zq043
- YLRGNSn0ZiEAcpFzHjQ=; b=NWHgfOMzeG+J7Nn8DJ0IZFPJb2qXshoqa6YLW0u0
- R5MEgdCJ0T9VS2e0311NhAzPks7zuVLG3QEimOqYbBAaJmgPIXxEyYVgH0cUfsGn
- 8UDG9D6iWmFbkzf5Icoo7tBQVproDjxNHdrbcAoKPBYI2tvbY9aYYe5G47Nux/K2
- oHNg0YdNrx5PrbF8PYDYV31tB0jUoUUJNHEm7Cn70HtYzZyoAFD/aPJ+Azj991oy
- B4eI8k7rm5vh4FMcP+B1RHJrMetyo+6FFFf+s2muD57WCtwcgdxMEl52wqYijWPJ
- A77/PxBSlBLioqwo949J1K2OhYD9FdWAWEHNMAc3Qf1qDQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47r9b144x0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <ltp@lists.linux.it>; Thu, 10 Jul 2025 03:10:53 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-315af0857f2so637532a91.0
- for <ltp@lists.linux.it>; Wed, 09 Jul 2025 20:10:53 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 21A0C2000E3
+ for <ltp@lists.linux.it>; Thu, 10 Jul 2025 04:10:05 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a6d77b43c9so464584f8f.3
+ for <ltp@lists.linux.it>; Wed, 09 Jul 2025 19:10:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1752113404; x=1752718204; darn=lists.linux.it;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=jR2iQ6sDOz94TYikEuDtT9J8e6+03GmQLu6T/PHnjNA=;
+ b=c1ko8OvVXO+TsvdYyt4T0JiFScENXzWqDfvhU5z9A99Tk7lM9aEsNKrZc/OMYkWO9y
+ C4gZAQqO/CiHvb0UEGBkIEomhS7jhZ/+suqjmPWTSVYq10+p+oFKGkAEf6+lg9EJwGqh
+ Dd0E5qhdVLC9JxIWBRfyg4aP/a9uOhxM6CAXCXKFG4730Ef58iADR2cDE+Q86pEO0SPh
+ dHMLax49kTH5rzMyYecyRzzCo5gdgaANDPgFr5ssQi+Pc7eXKxWYIklmxAPZ5Z+qLF1T
+ jEgyBNTzIncFrpFTXZe9pPymtKzHWgBBYs0RELr0glfkkGNdFK+9Z4oRKIyZhMlla7b9
+ J/4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752117053; x=1752721853;
+ d=1e100.net; s=20230601; t=1752113404; x=1752718204;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=C8GD71NMUqyCLGNSbw7zq043YLRGNSn0ZiEAcpFzHjQ=;
- b=XmX8uq/f9euFxd1e1IWXkt602//XIbLSGeVA/Qwcz4lNzXSu+A1Sey7hRHrJO+5tHj
- nYUG+dpyjtK2fyztHh2hpZvvzzZqGE4Sr/q0BByxOi4ra8M9MC3vA4raczzyBMpehsPe
- CsFh/IYtyCBl8P5mTQH+B2vFHmvo8RR5e0vdPbAkx+KNrHXZxWvS+/dwMd6AwdmaUQma
- vnwvVqBMpmrBQ3m/K5sZDdkmSHr8stwWcovlhrqRtNQYrMw6gjVllEepSZc5uzR5ZC8r
- 2vjhwFKaGZzbuvEr2kIY1ZD/hExOTBVb6A53JTRQnSmNfdmJ0fSfkhTwm+GCUEbZYyE7
- cqGw==
-X-Gm-Message-State: AOJu0YwXVuPBlVEDMm7FdM/ud0UKnBjSE2fgJOym0o3Dn7dHCsNCJd7R
- jJjGOGmtUD88qnqKdja98OsJZhVFOwPKkZ/tEvzeTQkMjIX8FJxgmPB7RpnsGALgAEK64pwqAH7
- fYaZYYegETtNhlybvDEnoZZ5Q5n2xcnFzzmP29Ec5tz9sr5OdQmpbvg==
-X-Gm-Gg: ASbGncugyv/TWwuXIXPWnuZYChl4L4sBneH6ybFCsKUAzGEePPcJfj7gll/eE1P3LQf
- rK2TUJ/RdblFvek5EaHHA5dGJpO+l5H9o47x4Doe3ZiJIdzDm/DJjhym1PYUlV3lfPRQeXhspZk
- FNZk8WlATujYsYXDHu3G7C+WzEHgWZ8dvmyC+2C4d6qnA1OStU/ngvBUH3A2h3L/IAXzzEhC3TR
- rJBlmuod8ZBs2naXfcB9oV3dFd6HaiPMEZFhv0drYsFdKr9JdW8brflcDYdL+NB0BUgaGhEMQhA
- Dac4GlKmoW0ItSZ1VOh66dKG1kIwAddRzfUSbNBOiBGaqZDaEqoZLypWipZJET/FzaiNm8zLQnx
- 5
-X-Received: by 2002:a17:90b:35d1:b0:311:ba32:164f with SMTP id
- 98e67ed59e1d1-31c3ef6ff56mr1835225a91.8.1752117052575; 
- Wed, 09 Jul 2025 20:10:52 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFS8E/NJXNeqyW7kqNa+k0+ElNy9MUFKpxPT2B1Qq96r6xEs1IJ4Pf2jKzyXd3M9ENP/wKBuA==
-X-Received: by 2002:a17:90b:35d1:b0:311:ba32:164f with SMTP id
- 98e67ed59e1d1-31c3ef6ff56mr1835167a91.8.1752117052056; 
- Wed, 09 Jul 2025 20:10:52 -0700 (PDT)
-Received: from hu-mdtipton-lv.qualcomm.com (Global_NAT1.qualcomm.com.
- [129.46.96.20]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c301a8862sm3653576a91.37.2025.07.09.20.10.51
+ bh=jR2iQ6sDOz94TYikEuDtT9J8e6+03GmQLu6T/PHnjNA=;
+ b=gd3JJspNMxtICO3ni+sw/dAg/UqfwdMfbsiLiF2My8oAVQsh1s4jxdlWPtKgsIJNVV
+ jeYAFRwK4Bz4BuMVBERgYX58GKLxkSCj62XeAvBigy7TSq51V6UQpS1eNU/G9Z4oqCrq
+ uQAyH8JVbxhqcnJ4kjUxHW4ZIjPt4NxEg4NLtPTtG+eR2iY77ks4/ShzInCGzAzsJ/4D
+ xgTKARfwHEHwW4sd5dhUqyEY04v7UPnQw7bTgYgHL0njKU0C/CobD28QyLyqjnNfWzYQ
+ Vviq1Wm0RZoyr+aH2fooa2vqmz2aLBLfhho8qntpQFoEY/xIcl4Ijo8dIMR5TmnKow+Y
+ 5Vsg==
+X-Gm-Message-State: AOJu0YxblUbRxA+sW1Or0+EaSPEN5RFCRBhnbYZwcUP6Vm1eqlRxBYrY
+ jJxwdTvFxD2BevoGClY6bx2BQmt0231dXYXTxJLDKa0E/26ZooiysXajNNk6us83MalSjX2xAdR
+ JCII=
+X-Gm-Gg: ASbGncs6C0jJVPhGvO4PYOLSMU54hY1GV0y88Ji4kjiYdN2h8nPzdAAZUMvzxgCjACd
+ +1AJfvGv6a00PKZMm0w8MuoSBCpnr0YP8XO4h2zeU+pIzGIQaSdQxnSWgyQklIWVHUGKG8uF00l
+ qxSgbxI0iJozyJ16eDvSJf81liwfH5bD6nEOqGJ2D/rnFtKBivWGmeNICVQIXw1U0YMqlrJBDDD
+ rkv+r/37jtpem3VslmZk+2POObdtWC8HN2dcgYEJ4tUSmmVQIRixvmwQsrkxtRylv7NOBQzJNdG
+ e9N+rFU4rI0FJB13o5lz3B8QLxQwmYsHXyDiEQcAmpo6kDyVV0rtbBoYp3CcxQ==
+X-Google-Smtp-Source: AGHT+IEsK+Ft+bIp7Pd0u9M0Gc5pj6D6FpdVQfaQC+iSUj2A4w6RDgKCpQWVFa9JKLtbgq7Irl7sog==
+X-Received: by 2002:a05:6000:64b:b0:3a5:2ec5:35a9 with SMTP id
+ ffacd0b85a97d-3b5e788d2dcmr1776523f8f.3.1752113404471; 
+ Wed, 09 Jul 2025 19:10:04 -0700 (PDT)
+Received: from MiWiFi-CR6608-srv ([202.127.77.110])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23de4284898sm6025625ad.24.2025.07.09.19.10.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Jul 2025 20:10:51 -0700 (PDT)
-Date: Wed, 9 Jul 2025 20:10:49 -0700
-To: Wei Gao <wegao@suse.com>
-Message-ID: <aG8vOXhoS/F3IEng@hu-mdtipton-lv.qualcomm.com>
+ Wed, 09 Jul 2025 19:10:04 -0700 (PDT)
+Date: Thu, 10 Jul 2025 10:09:24 -0400
+To: Mike Tipton <mike.tipton@oss.qualcomm.com>
+Message-ID: <aG_JlPhs4DMJfVEi@MiWiFi-CR6608-srv>
 References: <20250709151439.2840206-1-mike.tipton@oss.qualcomm.com>
  <aG-1OzeP-mB2MPq1@MiWiFi-CR6608-srv>
  <aG8bYZWlls9MiJW9@hu-mdtipton-lv.qualcomm.com>
- <aG_JlPhs4DMJfVEi@MiWiFi-CR6608-srv>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aG_JlPhs4DMJfVEi@MiWiFi-CR6608-srv>
-X-Authority-Analysis: v=2.4 cv=dYuA3WXe c=1 sm=1 tr=0 ts=686f2f3d cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=Wb1JkmetP80A:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=5bnX7-EcccOwkvf7-l4A:9 a=CjuIK1q_8ugA:10 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzEwMDAyNiBTYWx0ZWRfX/O1J5uisZh1u
- Ht73/YeFbczOhlhqOxTys0AnmgBLes+GxE5nbCTj+cB/+jteMe6wHeBvUhCt2n7jKSA85fbjf0O
- N8iFaXaI6JbtkXGA7SW4tlxz/Pg7nSFiXkiDNtQ2ml5HNqjU4yOskz0bPfRMTNIetfx7EPf1LtS
- 5y/p/UER5N0wMmieOuDe0ky70npwIAnJc07mQVBWwXN6PQGQOipISZKzLaJHn0zJ+gROZJKyQPU
- lTBoDrub1LoWUzvPTWkn+ngpMCyFxFq5RpRcEqpVRzOSKcjwHmqjQl5yTM3YNXWRFD6Xgs6/rSi
- Fe07JFeAZTw82rUwiMOePjELC7/H80W/W4XmlBwKu6VSp9mvivAcqH7Ppd3TyS9atY566JC3Qw8
- nGm4AfzM5DdIY4BFNk/+hKJhjTZSZsmeVcssuTI6ToN9D1VeEdYm4oAnhUjN3VbY3cNcIjyz
-X-Proofpoint-GUID: JBVqgCr1eipzXUMxnxmM-6tmWy7FTKOb
-X-Proofpoint-ORIG-GUID: JBVqgCr1eipzXUMxnxmM-6tmWy7FTKOb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-09_05,2025-07-09_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 adultscore=0 mlxlogscore=999 malwarescore=0
- mlxscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
- definitions=main-2507100026
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DMARC_PASS,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled
- version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
+In-Reply-To: <aG8bYZWlls9MiJW9@hu-mdtipton-lv.qualcomm.com>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 Subject: Re: [LTP] [PATCH v3] device-drivers/cpufreq_boost: Don't hardcode
  to CPU0
@@ -135,107 +103,111 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Mike Tipton via ltp <ltp@lists.linux.it>
-Reply-To: Mike Tipton <mike.tipton@oss.qualcomm.com>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, Jul 10, 2025 at 10:09:24AM -0400, Wei Gao wrote:
-> On Wed, Jul 09, 2025 at 06:46:09PM -0700, Mike Tipton wrote:
-> > On Thu, Jul 10, 2025 at 08:42:35AM -0400, Wei Gao wrote:
-> > > On Wed, Jul 09, 2025 at 08:14:39AM -0700, Mike Tipton wrote:
-> > > > Some systems don't support boost on every CPU, such as on many Qualcomm
-> > > > chipsets. And if boost isn't supported on CPU0, then the test will fail
-> > > > since there's no performance improvement.
-> > > > 
-> > > > Instead of hardcoding CPU0, find the first CPU that belongs to a cpufreq
-> > > > policy with boost enabled.
-> > > > 
-> > > > Signed-off-by: Mike Tipton <mike.tipton@oss.qualcomm.com>
-> > > > ---
-> > > > Changes in v3:
-> > > > - Abort when no CPUs report supporting boost instead of assuming CPU0.
-> > > > - Link to v2: https://lore.kernel.org/ltp/20250630145128.1254269-1-mike.tipton@oss.qualcomm.com/
-> > > > 
-> > > > Changes in v2:
-> > > > - Use proper maxspeed buf size in snprintf.
-> > > > - Link to v1: https://lore.kernel.org/ltp/20250626194707.3053036-1-mike.tipton@oss.qualcomm.com/
-> > > > 
-> > > >  .../device-drivers/cpufreq/cpufreq_boost.c    | 58 ++++++++++++++++---
-> > > >  1 file changed, 50 insertions(+), 8 deletions(-)
-> > > > 
-> > > > diff --git a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
-> > > > index 67917b3fea25..17d89c0cc164 100644
-> > > > --- a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
-> > > > +++ b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
-> > > > @@ -55,10 +55,14 @@ static int id = -1;
-> > > >  
-> > > >  static int boost_value;
-> > > >  
-> > > > -const char governor[]	= SYSFS_CPU_DIR "cpu0/cpufreq/scaling_governor";
-> > > > +static int cpu;
-> > > > +
-> > > > +static const char _governor[] = SYSFS_CPU_DIR "cpu%d/cpufreq/scaling_governor";
-> > > > +static char governor[64];
-> > > >  static char governor_name[16];
-> > > >  
-> > > > -const char maxspeed[]	= SYSFS_CPU_DIR "cpu0/cpufreq/scaling_max_freq";
-> > > > +static const char _maxspeed[] = SYSFS_CPU_DIR "cpu%d/cpufreq/scaling_max_freq";
-> > > > +static char maxspeed[64];
-> > > >  
-> > > >  static void check_set_turbo(char *file, char *off)
-> > > >  {
-> > > > @@ -84,6 +88,40 @@ static void cleanup(void)
-> > > >  		FILE_PRINTF(governor, "%s", governor_name);
-> > > >  }
-> > > >  
-> > > > +static int find_boost_cpu(void)
-> > > > +{
-> > > > +	char buf[64];
-> > > > +	int fd, i;
-> > > > +
-> > > > +	/*
-> > > > +	 * The files we're looking for only exist for acpi_cpufreq. Continue
-> > > > +	 * assuming CPU0 for intel_pstate.
-> > > > +	 */
-> > > > +	if (!strcmp(cdrv[id].name, "intel_pstate"))
-> > > > +		return 0;
-> > > > +
-> > > > +	for (i = 0;; i++) {
-> > > > +		snprintf(buf, sizeof(buf), SYSFS_CPU_DIR "cpu%d", i);
-> > > > +		fd = open(buf, O_RDONLY);
-> > > > +		if (fd == -1)
-> > > > +			break;
-> > > > +
-> > > > +		close(fd);
-> > > > +
-> > > > +		snprintf(buf, sizeof(buf), SYSFS_CPU_DIR "cpu%d/cpufreq/boost", i);
-> > > > +		fd = open(buf, O_RDONLY);
-> > > > +		if (fd == -1)
-> > > > +			continue;
-> > > > +
-> > > > +		close(fd);
-> > > > +		tst_resm(TINFO, "found boost-capable CPU (CPU%d)", i);
-> > > > +		return i;
-> > > > +	}
-> > > > +
-> > > > +	tst_brkm(TCONF, NULL, "boost not supported by any CPUs");
-> > > > +	return 0;
-> > > I suppose we do not need above line since brkm will jump out of the test
-> > > directly.
+On Wed, Jul 09, 2025 at 06:46:09PM -0700, Mike Tipton wrote:
+> On Thu, Jul 10, 2025 at 08:42:35AM -0400, Wei Gao wrote:
+> > On Wed, Jul 09, 2025 at 08:14:39AM -0700, Mike Tipton wrote:
+> > > Some systems don't support boost on every CPU, such as on many Qualcomm
+> > > chipsets. And if boost isn't supported on CPU0, then the test will fail
+> > > since there's no performance improvement.
+> > > 
+> > > Instead of hardcoding CPU0, find the first CPU that belongs to a cpufreq
+> > > policy with boost enabled.
+> > > 
+> > > Signed-off-by: Mike Tipton <mike.tipton@oss.qualcomm.com>
+> > > ---
+> > > Changes in v3:
+> > > - Abort when no CPUs report supporting boost instead of assuming CPU0.
+> > > - Link to v2: https://lore.kernel.org/ltp/20250630145128.1254269-1-mike.tipton@oss.qualcomm.com/
+> > > 
+> > > Changes in v2:
+> > > - Use proper maxspeed buf size in snprintf.
+> > > - Link to v1: https://lore.kernel.org/ltp/20250626194707.3053036-1-mike.tipton@oss.qualcomm.com/
+> > > 
+> > >  .../device-drivers/cpufreq/cpufreq_boost.c    | 58 ++++++++++++++++---
+> > >  1 file changed, 50 insertions(+), 8 deletions(-)
+> > > 
+> > > diff --git a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+> > > index 67917b3fea25..17d89c0cc164 100644
+> > > --- a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+> > > +++ b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+> > > @@ -55,10 +55,14 @@ static int id = -1;
+> > >  
+> > >  static int boost_value;
+> > >  
+> > > -const char governor[]	= SYSFS_CPU_DIR "cpu0/cpufreq/scaling_governor";
+> > > +static int cpu;
+> > > +
+> > > +static const char _governor[] = SYSFS_CPU_DIR "cpu%d/cpufreq/scaling_governor";
+> > > +static char governor[64];
+> > >  static char governor_name[16];
+> > >  
+> > > -const char maxspeed[]	= SYSFS_CPU_DIR "cpu0/cpufreq/scaling_max_freq";
+> > > +static const char _maxspeed[] = SYSFS_CPU_DIR "cpu%d/cpufreq/scaling_max_freq";
+> > > +static char maxspeed[64];
+> > >  
+> > >  static void check_set_turbo(char *file, char *off)
+> > >  {
+> > > @@ -84,6 +88,40 @@ static void cleanup(void)
+> > >  		FILE_PRINTF(governor, "%s", governor_name);
+> > >  }
+> > >  
+> > > +static int find_boost_cpu(void)
+> > > +{
+> > > +	char buf[64];
+> > > +	int fd, i;
+> > > +
+> > > +	/*
+> > > +	 * The files we're looking for only exist for acpi_cpufreq. Continue
+> > > +	 * assuming CPU0 for intel_pstate.
+> > > +	 */
+> > > +	if (!strcmp(cdrv[id].name, "intel_pstate"))
+> > > +		return 0;
+> > > +
+> > > +	for (i = 0;; i++) {
+> > > +		snprintf(buf, sizeof(buf), SYSFS_CPU_DIR "cpu%d", i);
+> > > +		fd = open(buf, O_RDONLY);
+> > > +		if (fd == -1)
+> > > +			break;
+> > > +
+> > > +		close(fd);
+> > > +
+> > > +		snprintf(buf, sizeof(buf), SYSFS_CPU_DIR "cpu%d/cpufreq/boost", i);
+> > > +		fd = open(buf, O_RDONLY);
+> > > +		if (fd == -1)
+> > > +			continue;
+> > > +
+> > > +		close(fd);
+> > > +		tst_resm(TINFO, "found boost-capable CPU (CPU%d)", i);
+> > > +		return i;
+> > > +	}
+> > > +
+> > > +	tst_brkm(TCONF, NULL, "boost not supported by any CPUs");
+> > > +	return 0;
+> > I suppose we do not need above line since brkm will jump out of the test
+> > directly.
+> 
+> Yes, that's true. But it feels wrong to reach the end of a non-void
+> function without returning something. Even though in this case it'll
+> never actually reach the return statement.
+> 
+
+Or return -1 and handle error outside of the function?
+
 > > 
-> > Yes, that's true. But it feels wrong to reach the end of a non-void
-> > function without returning something. Even though in this case it'll
-> > never actually reach the return statement.
+> > Other parts LGTM, thanks for your patch.
+> > Acked-by: Wei Gao <wegao@suse.com>
 > > 
 > 
-> Or return -1 and handle error outside of the function?
-
-Yeah, could do. Makes it slightly more obvious what's happening, I
-guess.
+> Thanks!
+> Mike
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
