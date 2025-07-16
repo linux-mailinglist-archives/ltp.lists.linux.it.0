@@ -2,101 +2,96 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1E2DB06F00
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jul 2025 09:34:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDFDFB06E30
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jul 2025 08:47:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1752651275; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1752648433; h=date : to :
+ message-id : references : mime-version : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-transfer-encoding :
- content-type : sender : from;
- bh=PCuNWuAiXFk6CVe7uj/54BLIYXC+TrGfnQ2GBL8Ep94=;
- b=n6RL7+xB74nG+Zi35uUl9A9uQPxxQYWtb8TU6hWfXZs0PPSDGmD6otPAN4gzwh98HAiEN
- jG0JWAXw18vDUxaDhujg7JggPqe+sqGqFFlcWVIO+qfm2yT2pxYwHvQoUnY5/KYJDO5BCT5
- SLQ5B5yFgBfY4TCoSN6/UuqrEh4NpDE=
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=o3b8P5luhleE3JhdBb+dE0PZIWzCjKSiX+kHdlLPujY=;
+ b=c8bYcwq3SieadxG+0m5HpdHuLGT9bg9no0DuT4h68UXNRW9gB85bgsI3Chc9iPYzDmsBJ
+ x8Vt+lMFPv3/LQgMVUHERs3Y2j29xrfvSNDSJ3yeLrIa3N9h2QjYvBl1ZZ2zzurn8SjO9p4
+ lNzbEHj0e6/2BtmqLXGgmpZxcykZ11M=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 806033CBCDE
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jul 2025 09:34:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6C3E43CBCDF
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jul 2025 08:47:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0292B3C2857
- for <ltp@lists.linux.it>; Wed, 16 Jul 2025 09:34:32 +0200 (CEST)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
+ by picard.linux.it (Postfix) with ESMTPS id 3436A3C9B01
+ for <ltp@lists.linux.it>; Wed, 16 Jul 2025 08:47:00 +0200 (CEST)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3225A6001A2
- for <ltp@lists.linux.it>; Wed, 16 Jul 2025 09:34:32 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a575a988f9so3641134f8f.0
- for <ltp@lists.linux.it>; Wed, 16 Jul 2025 00:34:32 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 231621000C1F
+ for <ltp@lists.linux.it>; Wed, 16 Jul 2025 08:46:59 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4561607166aso23723055e9.2
+ for <ltp@lists.linux.it>; Tue, 15 Jul 2025 23:46:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1752651271; x=1753256071; darn=lists.linux.it;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=pOoYNFD2223g06E4MhwB94DHvlp2MMvzfNkTsPnjQnQ=;
- b=HeASgRAB6dahB09+RsDWzvPh/RRP8gW+qGd/p63NY5TL4UCxa3u2NmmD1gkjsC5ZIT
- 7gW3Meg2mWJdgslh6qwOJHJAvtoT5d9pfWPm9F1lvzwgJWhB1PwvnLp2/9MFpgQ9gJ1e
- LK6/PCeKNnCTtKsl9hdmV9P4UE1hpmSuI1tHvSzwr8uX4pqK2m2GG6Phn9R5KmPKofbo
- Tx0PdcNnwGCnvbV4e152fUq2RPxFUovPTPxxaM1NM5dtAlCmWUP6ifbzwRm7mD2NCggI
- H3o345q6WTd75BNiSclgYTpzyHqeV7160E5hqfzq8SJktBSJMNo4X6/IV0OB6Krt3TuZ
- WQ7Q==
+ d=suse.com; s=google; t=1752648418; x=1753253218; darn=lists.linux.it;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=HUg1mhAjJjs05RckNcFA81kslKLxjVX5Zzh0P1p46+A=;
+ b=XyNJSMGY/jqcmA5dl/GClBrU3tV+4Qz9FTweCCXeAERp2lebWSfZtrksh14wqauG3h
+ KN8n4QYc4CPJeltYHBnc3Ia1B8TiT7D8eX3Yn1IWO5drf58eQS4CeQwu33OuS8OmFwTf
+ x/sUIhcyIj5gtIRL79UrYuSxwH8ScnmWyWCWweDXPBSJwTn8FXspy2dQYKiqTsIBzCCG
+ NqbM1RKGaULHy17uvSrcGpFe+lu6Rq64GKRkKUh2QlO4IM5Ttbah052HT8AnB1yeDlpF
+ RMNNzcSbQ3L3/CeOB5S4WXBCd9X0UFr107QMlgIxYTaJjY/13LfkIr50d4dXhEF/Iwts
+ OEhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752651271; x=1753256071;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pOoYNFD2223g06E4MhwB94DHvlp2MMvzfNkTsPnjQnQ=;
- b=MR5JsDIl6aN9mPQUn6ZaQHYvaIWPk82kHIcW1asrWE54wj2UOw9NizlJ6oJtHwCjV5
- gkaKOZNm7b8WP0ZvLJu3e/sApL39x5mJhhLi+0yeozNqgIHAdlIcQGCm3L0963x5uLpn
- Uy6W8qleE17NpsZs3Ohs9aX1qNqbCROwjTj0fc7qF1PA1e2+8A/rxW9mbEeqlWuYEYVt
- 51gGC44z6IJfT6o+BwULQZyIKtvGXGp5wy3FFKvLCb6bUTRyuw3iIvpJQKQdXMb0c+fv
- UMv0SaCJSYKOIJTJOZE+7hNIUlFD3Ia9AlMas+THp0MoF1M0xjM+7vGfmhYnYbV4e9ab
- 7oog==
-X-Gm-Message-State: AOJu0YxngImN2zuAtfvwX5m59RfWIA9w3ulQq/Hwc7FNOPwSPXgf4p69
- v6/FxDbBL906AOHqSXzau8GM8nCshuT/KKxCycewG91+m4UtP/QKu1nnvAZ4EBYmXwk=
-X-Gm-Gg: ASbGncst0NJhLCTau/oOa7uKOzgAT4VQ5+aiN10kTJlPpR8zvGd91NhqnfscR3Ybvjz
- 8fDbojss05rXZOmw5ry6Fm/J/q3eB+PPut6q/SvxtjtYflrZNHOn54qKIgVfWrnnAcKMmTFAIMD
- /RiLGT7/wxlztW3ueD6QnDjlp7xk87riQdYK8dBb3t6XxZCOAbBKwH7SouHstI/4WDBgdwx+Bjn
- nNMS0HwUTb4ATx5IDC7MXdJp9oYYvWAmWWzIYbeTquyQkCH11E6hQmm6wWgmigEb9ImKhi6WgZZ
- of235ZvsEoBdjV7peGLdrDpP/q/367S3rYOlaRYoGdHLKbwWwsKMszeffGmHBUgKdxmY1w1DeJr
- epLue0VFcJbTBZePyQE6DlcVCEHQ1EtlDaF0Nq0uOkviu1ADscj5gfUgum4KxuG0vV4cbsg7luU
- z5iPkbwEMG117oH06IVwcA4dBmB2qvzhXeY1dVU6PhN0hHDmtxCSPGPZeUv/GTWw==
-X-Google-Smtp-Source: AGHT+IEGXnazpq/aWGDTQw0Y9/NcMMbDFOnt8DvzIXse6sd17xaqXORDgx5BJiYaYJIyYFRNAwSQMQ==
-X-Received: by 2002:a05:6000:26c2:b0:3a4:f55a:4ae2 with SMTP id
- ffacd0b85a97d-3b60dd8de28mr1264579f8f.50.1752651271568; 
- Wed, 16 Jul 2025 00:34:31 -0700 (PDT)
-Received: from ?IPV6:2003:ef:2f2e:9a00:8d36:debd:d407:5caf?
- (p200300ef2f2e9a008d36debdd4075caf.dip0.t-ipconnect.de.
- [2003:ef:2f2e:9a00:8d36:debd:d407:5caf])
+ d=1e100.net; s=20230601; t=1752648418; x=1753253218;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HUg1mhAjJjs05RckNcFA81kslKLxjVX5Zzh0P1p46+A=;
+ b=GBlRUffiT+cKihXAktZCqKRvUScyf+OyX/vxRpbzqi6ThjcJmXynyUnYc6tcn7AoEg
+ 8yq2+qXXMWuTag2xO3Ln8FW+wPqNKO4Zq+T7nUvHJN90ssrboEhu1og5EbqzpkBQnFny
+ Msk90y+kWdEzaybSJ/YjbIjg3uJlE9yl2z31koiZkhjzce07oYP3DZx0BxW82as+Qy53
+ 2SvbP8ylzIpMzL6K67qneh61QgVjJ+UUYwQApIi0X1qMKd2CLEp2YtkzRfRTIzu3jhX0
+ iMYMiUwpRMfgcTbsxLUewJCcoweF6XAll72I4MsAu/TxCwlh+Lz4qVg6FeYaHBNVFc+z
+ +vqw==
+X-Gm-Message-State: AOJu0YwNQZ3dA2pX+h/aIEPGTmn0EzWTzXny6pjSKluDWfg5zbBfmNFr
+ pRZglw0bgWEDgpP5fskAXqqoaV/YgNVXgqBqLzI8NO1ABWvIUcbqLFwNFw4h9OB8jBJfEYCh/s4
+ HJW6pIQ==
+X-Gm-Gg: ASbGnculrgH2aSMGE5l1+VlJET76w45frKJdl2alNnk8SqXQy8mK/5SI3JppLaN0GjA
+ He+b23xQDPYOncejtigM/aPabINymDRdzo/f2U7XF4sjBaTdmnUAJDLDr3XTVvVGFGq+JBqA3Qy
+ 9fwNimaZ4FqnoacKEho5p+CEVWLzEzXJjW3Bqgd8lIiAv2IejNAmrPfpnynql8aRQ472Ew1O/FT
+ H/0UE07k+Y3Q4ChUAxKnYlYwkBh6djkboQBya2DSj9w22VyN3oOoCpoMWOsvyu5vNIr8lkH1yBq
+ eOKvPCBUvbqEpxpcnoeyTBBMcJZmeYFWS5kpxNYYbxp4sRZShW589NWsUQDMf6ggFkqcLnUDlEI
+ vdtOp0VZNBOjGCammPQVFzA==
+X-Google-Smtp-Source: AGHT+IH63G7+JeXq0Z49uxLVgF1D34ufbd1TpeJeXQdSysD98l5AmVJqK03KRlyN5E23QYrg4VW3/Q==
+X-Received: by 2002:a05:6000:4305:b0:3a4:d0dc:184d with SMTP id
+ ffacd0b85a97d-3b60dd95c4dmr1325248f8f.27.1752648418431; 
+ Tue, 15 Jul 2025 23:46:58 -0700 (PDT)
+Received: from MiWiFi-CR6608-srv ([202.127.77.110])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b5e8e0d785sm17398134f8f.59.2025.07.16.00.34.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 00:34:31 -0700 (PDT)
-Message-ID: <f97ca222-fd8d-49e2-8e32-6e888d832f68@suse.com>
-Date: Wed, 16 Jul 2025 09:34:30 +0200
+ d2e1a72fcca58-74eb9f8ce06sm13588186b3a.157.2025.07.15.23.46.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Jul 2025 23:46:57 -0700 (PDT)
+Date: Wed, 16 Jul 2025 14:46:13 -0400
+To: Florian Schmaus <florian.schmaus@codasip.com>
+Message-ID: <aHfzdQIGbChfW13s@MiWiFi-CR6608-srv>
+References: <fef71466-54df-4561-a19f-e904c6f79c3b@suse.com>
+ <20250715092015.505957-1-florian.schmaus@codasip.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Wei Gao <wegao@suse.com>, Andrea Cervesato <andrea.cervesato@suse.de>
-References: <20250709-xattr_bug_repr-v3-0-379c2c291bb7@suse.com>
- <20250709-xattr_bug_repr-v3-2-379c2c291bb7@suse.com>
- <aHf839WS0BPIa5Zq@MiWiFi-CR6608-srv>
-Content-Language: en-US
-In-Reply-To: <aHf839WS0BPIa5Zq@MiWiFi-CR6608-srv>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20250715092015.505957-1-florian.schmaus@codasip.com>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v3 2/2] Add listxattr04 reproducer
+Subject: Re: [LTP] [PATCH] sigrelse01: Fix out-of-bounds read when invoking
+ write()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,25 +103,89 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
 Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gNy8xNi8yNSA5OjI2IFBNLCBXZWkgR2FvIHdyb3RlOgo+IEN1cnJlbnQgdHN0X3NlbGludXhf
-ZW5hYmxlZCB3aXRoaW4geW91ciBwYXRjaHNldCBub3QgY2hlY2sgcnVubmluZyBzdGF0ZQo+IG9m
-IHNlbGludXguIHNvIGkgZ3Vlc3MgeW91IG5lZWQgY2hlY2sgL3N5cy9mcy9zZWxpbnV4L2VuZm9y
-Y2UgdmFsdWUKPiBoZXJlLgo+IE9yIHlvdSBjYW4gdXNlIHRzdF9zZWxpbnV4X2VuZm9yY2luZy4g
-Q29ycmVjdCBtZSBpZiBhbnkKPiBtaXN1bmRlcnN0YW5kaW5nLgpJZiBTRUxpbnV4IGlzIGVuYWJs
-ZWQsIHdlIHdpbGwgaGF2ZSAvc3lzL2ZzL3NlbGludXggZm9sZGVyIGZpbGxlZCB3aXRoIApmaWxl
-cyB0aGF0IGNhbiBiZSB1c2VkIHRvIHZlcmlmeSBTRUxpbnV4IHN0YXR1cyAoc3VkbyBzZXN0YXR1
-cyAtdikuCnRzdF9zZWxpbnV4X2VuYWJsZWQoKSBpcyB1c2luZzoKCiDCoMKgwqAgYWNjZXNzKFNF
-TElOVVhfUEFUSCwgRl9PSykgPT0gMCAmJiAhdHN0X2Rpcl9pc19lbXB0eShTRUxJTlVYX1BBVEgs
-IDApCgpUaGF0IGlzIGVub3VnaCB0byBrbm93IGlmIHdlIGhhdmUgU0VMaW51eCBvciBub3QuIEFj
-Y29yZGluZyB0byBDeXJpbCB3ZSAKcHJvYmFibHkganVzdCBuZWVkOgoKIMKgwqDCoCB0c3RfaXNf
-bW91bnRlZChTRUxJTlVYX1BBVEgpCgpMaWtlIGl0IGlzIGluIGlzX3NlbGludXhfZW5hYmxlZCgp
-LgoKLSBBbmRyZWEKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXgu
-aXQvbGlzdGluZm8vbHRwCg==
+On Tue, Jul 15, 2025 at 11:20:15AM +0200, Florian Schmaus via ltp wrote:
+> The sigrelse01 test would invoke write(fd, msg, MAXMESG), where
+> MAXMESG=512. However, msg is often as short as "ready", i.e., 6
+> bytes (5 bytes + \0).
+> 
+> This mismatch causes write() to read additional bytes outside the *msg
+> buffer and write everything to the file descriptor. For example, the
+> strace output of sigrelese01 contains the following:
+> 
+>     write(6, "ready\0Unable to tell child to go"..., 512)
+> 
+> Fix the out-of-bounds read in sigrelse01 by invoking write() with the
+> correct number of bytes to (read and) write by using strlen(). There
+> is one case where sigrelese01 invoked write_pipe() not passing a
+> string: when the child sends sig_array to its parent process. We
+> convert this case from write_pipe() to write() using the proper
+> arguments. After doing so, the memcpy() of sig_array is no longer
+> required.
+> 
+> We identified this issue on a CHERI [1] system, which provides
+> fine-grained memory protection through architectural
+> capabilities. Unlike traditional MMU-based protection, which would not
+> detect this specific out-of-bounds access, CHERI precisely bounds
+> memory regions. In sigrelse01's case, CHERI correctly identified that
+> the 6-byte buffer containing "ready" was being overread. Consequently,
+> this out-of-bounds read during the write() syscall would cause the
+> Linux kernel to return -EFAULT, revealing this hidden bug.
+> 
+> 1: https://www.cl.cam.ac.uk/research/security/ctsrd/cheri/
+> 
+> Signed-off-by: Florian Schmaus <florian.schmaus@codasip.com>
+> ---
+>  testcases/kernel/syscalls/sigrelse/sigrelse01.c | 14 ++++++++------
+>  1 file changed, 8 insertions(+), 6 deletions(-)
+> 
+> diff --git a/testcases/kernel/syscalls/sigrelse/sigrelse01.c b/testcases/kernel/syscalls/sigrelse/sigrelse01.c
+> index 95754212053e..f7fdfbab3a28 100644
+> --- a/testcases/kernel/syscalls/sigrelse/sigrelse01.c
+> +++ b/testcases/kernel/syscalls/sigrelse/sigrelse01.c
+> @@ -486,12 +486,14 @@ static void child(void)
+>  	 * then PASS, otherwise FAIL.
+>  	 */
+>  
+> -	if (exit_val == EXIT_OK) {
+> -		(void)memcpy(note, (char *)sig_array, sizeof(sig_array));
+> -	}
+> -
+>  	/* send note to parent and exit */
+> -	if (write_pipe(pipe_fd[1], note) < 0) {
+> +	if (exit_val == EXIT_OK) {
+> +		if (write(pipe_fd[1], sig_array, sizeof(sig_array)) < 0) {
+> +			tst_resm(TBROK, "write() pipe failed. error:%d %s.\n", errno, strerror(errno));
+tst_resm will add "\n" at the end of string so you do not need add it.
+> +			exit(WRITE_BROK);
+> +		}
+> +	}
+> +	else if (write_pipe(pipe_fd[1], note) < 0) {
+>  		/*
+>  		 * write_pipe() failed.  Set exit value to WRITE_BROK to let
+>  		 * parent know what happened
+> @@ -622,7 +624,7 @@ static int write_pipe(int fd, char *msg)
+>  	printf("write_pipe: pid=%d, sending %s.\n", getpid(), msg);
+>  #endif
+>  
+> -	if (write(fd, msg, MAXMESG) < 0) {
+> +	if (write(fd, msg, strlen(msg) + 1) < 0) {
+>  		(void)sprintf(mesg, "write() pipe failed. error:%d %s.",
+>  			      errno, strerror(errno));
+>  
+> -- 
+> 2.49.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
