@@ -2,106 +2,116 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2720B0DA5A
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 15:00:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9041AB0DA5C
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 15:00:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 646F53CCD2A
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 15:00:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4B32C3CCCB8
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 15:00:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0EC493CCCE0
- for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:59:35 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id EAF073CCD0A
+ for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:59:39 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9D97660091B
- for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:59:34 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4C10B600B24
+ for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:59:38 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 819861F7D7;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AF5D9219D2;
  Tue, 22 Jul 2025 12:59:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1753189168; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WztjYL8p7nTGgEAUzqwtqSw7kaOKpFzo+r1Pn+/SOQI=;
- b=x+ewhZtz2/d41pGFyC/vzdqg/lsZWiAvJfpmAp3v4RceGlaMLIEzYRO43rtWeyJ5q/4EXN
- 2amWBXL7FtTTcAq/VwXp62HzsI7zZJnX+p7JoENyVKU8soTlIGkY/n/4Br5GtHjlwfbm65
- VgYdEvhYXgAhQDtwXJQ8e4SEgtWEXFI=
+ bh=vynwfAl7NKFae8EUEF6zcHJ5tfPiyJHUXstRSfZjqdI=;
+ b=p4lWVjx+g7b5pE/FBOAQDI+XawRBWbk4qwD4GBYzuhtQi8edXengxaSTAgu0QNjpBaW2yc
+ wDI943ElN02o2IQOZn7s70hzPTcQIx8zrEPzcSYiWhVkEmXItGqT0KAA/7U3N9E0VuBNOO
+ w4VNMveBON7Ga1s/+/gkT90AjcpJmHA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1753189168;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WztjYL8p7nTGgEAUzqwtqSw7kaOKpFzo+r1Pn+/SOQI=;
- b=tGipaMqOrkvcwAC1U8nxTTWlPGzMJ8wKLU/j06AmtUJxWRa8uKByaQ8AX3ShwNcxeV8M9H
- 6gLkQFco3AlaQPAA==
-Authentication-Results: smtp-out2.suse.de;
-	none
+ bh=vynwfAl7NKFae8EUEF6zcHJ5tfPiyJHUXstRSfZjqdI=;
+ b=w8aL8daglaQWPBhbbVI5Qzvtszb9sbDUXcr+qvNX7/VliQJZJPMBtRjYZ83kn7oQfKRlzP
+ AuU6wIhLt/s36gBA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=p4lWVjx+;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=w8aL8dag
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1753189168; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WztjYL8p7nTGgEAUzqwtqSw7kaOKpFzo+r1Pn+/SOQI=;
- b=x+ewhZtz2/d41pGFyC/vzdqg/lsZWiAvJfpmAp3v4RceGlaMLIEzYRO43rtWeyJ5q/4EXN
- 2amWBXL7FtTTcAq/VwXp62HzsI7zZJnX+p7JoENyVKU8soTlIGkY/n/4Br5GtHjlwfbm65
- VgYdEvhYXgAhQDtwXJQ8e4SEgtWEXFI=
+ bh=vynwfAl7NKFae8EUEF6zcHJ5tfPiyJHUXstRSfZjqdI=;
+ b=p4lWVjx+g7b5pE/FBOAQDI+XawRBWbk4qwD4GBYzuhtQi8edXengxaSTAgu0QNjpBaW2yc
+ wDI943ElN02o2IQOZn7s70hzPTcQIx8zrEPzcSYiWhVkEmXItGqT0KAA/7U3N9E0VuBNOO
+ w4VNMveBON7Ga1s/+/gkT90AjcpJmHA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1753189168;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WztjYL8p7nTGgEAUzqwtqSw7kaOKpFzo+r1Pn+/SOQI=;
- b=tGipaMqOrkvcwAC1U8nxTTWlPGzMJ8wKLU/j06AmtUJxWRa8uKByaQ8AX3ShwNcxeV8M9H
- 6gLkQFco3AlaQPAA==
+ bh=vynwfAl7NKFae8EUEF6zcHJ5tfPiyJHUXstRSfZjqdI=;
+ b=w8aL8daglaQWPBhbbVI5Qzvtszb9sbDUXcr+qvNX7/VliQJZJPMBtRjYZ83kn7oQfKRlzP
+ AuU6wIhLt/s36gBA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 584D1132EA;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8D07013A73;
  Tue, 22 Jul 2025 12:59:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id AAuVFDCLf2igZQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id EKjgIDCLf2igZQAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Tue, 22 Jul 2025 12:59:28 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 22 Jul 2025 14:59:13 +0200
-Message-ID: <20250722125916.74967-4-pvorel@suse.cz>
+Date: Tue, 22 Jul 2025 14:59:14 +0200
+Message-ID: <20250722125916.74967-5-pvorel@suse.cz>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250722125916.74967-1-pvorel@suse.cz>
 References: <20250722125916.74967-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.999];
- MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCPT_COUNT_THREE(0.00)[4]; RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -2.80
+ RCPT_COUNT_THREE(0.00)[4]; DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: AF5D9219D2
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4 3/6] tst_res_: Add support for TWARN
+Subject: [LTP] [PATCH v4 4/6] tst_res_: Print error to stderr,
+ with filename and lineno
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,40 +128,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-TWARN is standard flag in LTP API, it should be supported, otherwise we
-get:
-
-Usage: tst_{res,brk} filename lineno [TPASS|TBROK|TFAIL|TCONF|TINFO|TDEBUG] 'A short description'
+Printing to stderr, tst_res_ filename and lineno helps debugging wrong
+code. Best would be if it prints either code which invoked it or the
+original message, but at least this is an improvement.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
 * New in v4
 
- testcases/lib/tst_res_.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ testcases/lib/tst_res_.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/testcases/lib/tst_res_.c b/testcases/lib/tst_res_.c
-index fd9b8e8414..c09d689ee5 100644
+index c09d689ee5..5b255d4d54 100644
 --- a/testcases/lib/tst_res_.c
 +++ b/testcases/lib/tst_res_.c
-@@ -8,7 +8,7 @@
+@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
+ 	int type, i;
  
- static void print_help(void)
- {
--	printf("Usage: tst_{res,brk} filename lineno [TPASS|TBROK|TFAIL|TCONF|TINFO|TDEBUG] 'A short description'\n");
-+	printf("Usage: tst_{res,brk} filename lineno [TPASS|TBROK|TFAIL|TWARN|TCONF|TINFO|TDEBUG] 'A short description'\n");
- }
+ 	if (argc < 5) {
+-		printf("argc = %i expected 5\n", argc);
++		fprintf(stderr, "%s:%d: argc = %i expected 5\n", __FILE__, __LINE__, argc);
+ 		goto help;
+ 	}
  
- int main(int argc, char *argv[])
-@@ -28,6 +28,8 @@ int main(int argc, char *argv[])
- 		type = TCONF;
- 	} else if (!strcmp(argv[3], "TINFO")) {
- 		type = TINFO;
-+	} else if (!strcmp(argv[3], "TWARN")) {
-+		type = TWARN;
- 	} else if (!strcmp(argv[3], "TDEBUG")) {
- 		type = TDEBUG;
+@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
  	} else if (!strcmp(argv[3], "TBROK")) {
+ 		type = TBROK;
+ 	} else {
+-		printf("Wrong type '%s'\n", argv[3]);
++		fprintf(stderr, "%s:%d: Wrong type '%s'\n", __FILE__, __LINE__, argv[3]);
+ 		goto help;
+ 	}
+ 
 -- 
 2.50.1
 
