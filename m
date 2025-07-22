@@ -2,70 +2,105 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7A6AB0D8F1
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 14:06:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBF4EB0DA58
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 14:59:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 788D73CCCED
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 14:06:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7558B3CCCCC
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 14:59:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C68EE3CCBAA
- for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:06:38 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 4DFEF3CC9B0
+ for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:59:30 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 491CB1A00166
- for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:06:37 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0510910009A6
+ for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:59:28 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 92D891F797;
- Tue, 22 Jul 2025 12:06:37 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EF50D2199E;
+ Tue, 22 Jul 2025 12:59:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1753189168; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=c8JZiQlM0ImeqeiDNhqyhQHWbTylaKQEFYfhzGpFE8E=;
+ b=nDwfHpH7BXgOQzszO5tD+GNmR3x8zzfjeTajE+86nm/dVXdB5BL4wzGifSiDziloKtYiWM
+ hd480P6eK/DFUVaV9XI9xrlQCQ9JfkW8nUKgeOgA8EHpH9PMmnkVynEwOEuNtEv5NY5Zb9
+ uEGJVNbRwG/LkNOh9m3ImzbVaNZP7RA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1753189168;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=c8JZiQlM0ImeqeiDNhqyhQHWbTylaKQEFYfhzGpFE8E=;
+ b=u5lL4taHdWZSO2KZdWmWg2LhWCBgSf7vbQlX8N7sYMtC7NwQpAwomFCF0tDZj0QB647+Qd
+ aUPAhij485aQ3JCA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=nDwfHpH7;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=u5lL4taH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1753189168; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=c8JZiQlM0ImeqeiDNhqyhQHWbTylaKQEFYfhzGpFE8E=;
+ b=nDwfHpH7BXgOQzszO5tD+GNmR3x8zzfjeTajE+86nm/dVXdB5BL4wzGifSiDziloKtYiWM
+ hd480P6eK/DFUVaV9XI9xrlQCQ9JfkW8nUKgeOgA8EHpH9PMmnkVynEwOEuNtEv5NY5Zb9
+ uEGJVNbRwG/LkNOh9m3ImzbVaNZP7RA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1753189168;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=c8JZiQlM0ImeqeiDNhqyhQHWbTylaKQEFYfhzGpFE8E=;
+ b=u5lL4taHdWZSO2KZdWmWg2LhWCBgSf7vbQlX8N7sYMtC7NwQpAwomFCF0tDZj0QB647+Qd
+ aUPAhij485aQ3JCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C2EA13A73;
- Tue, 22 Jul 2025 12:06:37 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CF8CF132EA;
+ Tue, 22 Jul 2025 12:59:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id JplgFM1+f2j1UgAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Tue, 22 Jul 2025 12:06:37 +0000
-Date: Tue, 22 Jul 2025 14:06:35 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id mT1fMS+Lf2igZQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Tue, 22 Jul 2025 12:59:27 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <20250722120635.GB22975@pevik>
-References: <20250722-xattr_bug_repr-v4-0-4be1e52e97c6@suse.com>
- <20250722-xattr_bug_repr-v4-1-4be1e52e97c6@suse.com>
+To: ltp@lists.linux.it
+Date: Tue, 22 Jul 2025 14:59:10 +0200
+Message-ID: <20250722125916.74967-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250722-xattr_bug_repr-v4-1-4be1e52e97c6@suse.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCPT_COUNT_THREE(0.00)[4]; DKIM_TRACE(0.00)[suse.cz:+]
 X-Spam-Level: 
+X-Rspamd-Queue-Id: EF50D2199E
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
- TAGGED_RCPT(0.00)[]
-X-Rspamd-Queue-Id: 92D891F797
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Score: -4.00
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v4 1/2] core: add tst_selinux_enabled() utility
+Subject: [LTP] [PATCH v4 0/6]  shell lib: Add support for test cleanup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,53 +112,74 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Stephen Smalley <stephen.smalley.work@gmail.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Andrea, all,
+Hi,
 
-[ Cc Stephen, the fix author in case I'm wrong with reproducing on enforcing=0 ]
+v3:
+https://lore.kernel.org/ltp/20250609124506.1454420-1-pvorel@suse.cz/
+https://patchwork.ozlabs.org/project/ltp/list/?series=460106&state=*
 
-> Add tst_selinux_enabled() utility in tst_security.h in order to verify
-> if SELinux is currently up and running in the system.
-...
-> +int tst_selinux_enabled(void)
-> +{
-> +	int res = 0;
-> +
-> +	if (tst_is_mounted(SELINUX_PATH))
-> +		res = 1;
+Changes v3->v4:
+* Add checks for $TST_SETUP and $TST_CLEANUP (Li)
+NOTE: I decided to use TWARN for $TST_CLEANUP as usually test could run
+without it.
 
-I was wondering if it the test require enforcing or not therefore I retested it
-and it's really reproducible with permissive mode, i.e. with kernel command line
-security=selinux selinux=1 enforcing=0
+* New commit: "tst_res_: Add support for TWARN"
+@Cyril: you may not like it, but I would prefer TWARN either be
+supported or removed in whole LTP. Not supporting it in shell loader
+will lead sooner or later to errors:
+Wrong type 'TWARN'
+Usage: tst_{res,brk} filename lineno [TPASS|TBROK|TFAIL|TCONF|TINFO|TDEBUG] 'A short description'
 
-Because if enforcing was required, I would be for using tst_selinux_enforcing(),
-which checks /sys/fs/selinux/enforce for 1 as Wei suggested in v3:
+* New commit: "tst_res_: Print error to stderr, with filename and
+  lineno"
+Printing to stderr, tst_res_ filename and lineno helps debugging wrong
+code. Best would be if it prints either code which invoked it or the
+original message, but at least this is an improvement.
 
-https://lore.kernel.org/ltp/aHf839WS0BPIa5Zq@MiWiFi-CR6608-srv/
+Cyril Hrubis (1):
+  shell lib: Add support for test cleanup
 
-@Cyril @Andrea, just checking if /sys/fs/selinux/enforce exists would be faster
-than looping /proc/mounts (via tst_is_mounted(SELINUX_PATH)). Can we just modify
-the patch?
+Petr Vorel (5):
+  shell: Move shell code into functions
+  tst_res_: Add support for TWARN
+  tst_res_: Print error to stderr, with filename and lineno
+  shell lib: Add basic support for test setup
+  shell: Add shell_loader_setup_cleanup.sh test
 
-Kind regards,
-Petr
+ testcases/kernel/mem/vma/vma05.sh             | 45 ++++++++++---------
+ testcases/lib/run_tests.sh                    |  5 ++-
+ testcases/lib/tests/shell_loader.sh           | 19 +++++---
+ .../lib/tests/shell_loader_all_filesystems.sh | 26 ++++++-----
+ .../lib/tests/shell_loader_brk_cleanup.sh     | 25 +++++++++++
+ testcases/lib/tests/shell_loader_c_child.sh   | 15 ++++---
+ testcases/lib/tests/shell_loader_cleanup.sh   | 25 +++++++++++
+ .../lib/tests/shell_loader_filesystems.sh     | 23 ++++++----
+ .../lib/tests/shell_loader_invalid_block.sh   |  7 ++-
+ .../tests/shell_loader_invalid_metadata.sh    |  7 ++-
+ testcases/lib/tests/shell_loader_kconfigs.sh  |  7 ++-
+ .../lib/tests/shell_loader_no_metadata.sh     |  7 ++-
+ .../lib/tests/shell_loader_setup_cleanup.sh   | 31 +++++++++++++
+ .../lib/tests/shell_loader_supported_archs.sh |  7 ++-
+ testcases/lib/tests/shell_loader_tags.sh      |  7 ++-
+ testcases/lib/tests/shell_loader_tcnt.sh      |  7 ++-
+ .../lib/tests/shell_loader_wrong_metadata.sh  |  7 ++-
+ testcases/lib/tst_env.sh                      |  5 ---
+ testcases/lib/tst_res_.c                      |  8 ++--
+ testcases/lib/tst_run.sh                      | 24 ++++++++++
+ 20 files changed, 239 insertions(+), 68 deletions(-)
+ create mode 100755 testcases/lib/tests/shell_loader_brk_cleanup.sh
+ create mode 100755 testcases/lib/tests/shell_loader_cleanup.sh
+ create mode 100755 testcases/lib/tests/shell_loader_setup_cleanup.sh
+ create mode 100644 testcases/lib/tst_run.sh
 
-+++ lib/tst_security.c
-@@ -107,7 +107,7 @@ int tst_selinux_enabled(void)
- {
- 	int res = 0;
- 
--	if (tst_is_mounted(SELINUX_PATH))
-+	if (access(SELINUX_STATUS_PATH, F_OK) == 0)
- 		res = 1;
- 
- 	tst_res(TINFO, "SELinux enabled: %s", res ? "yes" : "no");
+-- 
+2.50.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
