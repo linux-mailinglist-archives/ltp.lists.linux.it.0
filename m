@@ -2,49 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65547B0DA57
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 14:59:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2720B0DA5A
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 15:00:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EC06E3CCCA6
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 14:59:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 646F53CCD2A
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 15:00:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4D4283C6CFE
- for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:59:30 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 0EC493CCCE0
+ for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:59:35 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3641D2009DC
- for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:59:28 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9D97660091B
+ for <ltp@lists.linux.it>; Tue, 22 Jul 2025 14:59:34 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 568A91F788;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 819861F7D7;
  Tue, 22 Jul 2025 12:59:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1753189168; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=M4pj+m4w0z/KZEGLLUqUfEi9tfc8XCUmVmxt/TQPRLM=;
- b=E001/QdfNYemcKm9WxTqxPHN65cO16hxtf3rRfnkBKvReHg6PNaFcw1MrPLWsKX3kggf9h
- KuZO8tmjVkFmJOu+oBD/sbeAqiWJuA9wwI3VBZjNTFFJ07o0XxVjJ6VLyE+SKxodiw0BlJ
- gM5OYQtDNJzXPfcB4OONWWs+4TDzw9I=
+ bh=WztjYL8p7nTGgEAUzqwtqSw7kaOKpFzo+r1Pn+/SOQI=;
+ b=x+ewhZtz2/d41pGFyC/vzdqg/lsZWiAvJfpmAp3v4RceGlaMLIEzYRO43rtWeyJ5q/4EXN
+ 2amWBXL7FtTTcAq/VwXp62HzsI7zZJnX+p7JoENyVKU8soTlIGkY/n/4Br5GtHjlwfbm65
+ VgYdEvhYXgAhQDtwXJQ8e4SEgtWEXFI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1753189168;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=M4pj+m4w0z/KZEGLLUqUfEi9tfc8XCUmVmxt/TQPRLM=;
- b=4vnsYBuRuOahjcCq7VdNt4ew/q3fO19CZTLLpfqMjmS+hrQxIHhBTHndcJIFXAJPr4oRyr
- J+4KWU7OXYM/qACQ==
+ bh=WztjYL8p7nTGgEAUzqwtqSw7kaOKpFzo+r1Pn+/SOQI=;
+ b=tGipaMqOrkvcwAC1U8nxTTWlPGzMJ8wKLU/j06AmtUJxWRa8uKByaQ8AX3ShwNcxeV8M9H
+ 6gLkQFco3AlaQPAA==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
@@ -52,36 +52,37 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=M4pj+m4w0z/KZEGLLUqUfEi9tfc8XCUmVmxt/TQPRLM=;
- b=E001/QdfNYemcKm9WxTqxPHN65cO16hxtf3rRfnkBKvReHg6PNaFcw1MrPLWsKX3kggf9h
- KuZO8tmjVkFmJOu+oBD/sbeAqiWJuA9wwI3VBZjNTFFJ07o0XxVjJ6VLyE+SKxodiw0BlJ
- gM5OYQtDNJzXPfcB4OONWWs+4TDzw9I=
+ bh=WztjYL8p7nTGgEAUzqwtqSw7kaOKpFzo+r1Pn+/SOQI=;
+ b=x+ewhZtz2/d41pGFyC/vzdqg/lsZWiAvJfpmAp3v4RceGlaMLIEzYRO43rtWeyJ5q/4EXN
+ 2amWBXL7FtTTcAq/VwXp62HzsI7zZJnX+p7JoENyVKU8soTlIGkY/n/4Br5GtHjlwfbm65
+ VgYdEvhYXgAhQDtwXJQ8e4SEgtWEXFI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1753189168;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=M4pj+m4w0z/KZEGLLUqUfEi9tfc8XCUmVmxt/TQPRLM=;
- b=4vnsYBuRuOahjcCq7VdNt4ew/q3fO19CZTLLpfqMjmS+hrQxIHhBTHndcJIFXAJPr4oRyr
- J+4KWU7OXYM/qACQ==
+ bh=WztjYL8p7nTGgEAUzqwtqSw7kaOKpFzo+r1Pn+/SOQI=;
+ b=tGipaMqOrkvcwAC1U8nxTTWlPGzMJ8wKLU/j06AmtUJxWRa8uKByaQ8AX3ShwNcxeV8M9H
+ 6gLkQFco3AlaQPAA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 26E1113A7E;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 584D1132EA;
  Tue, 22 Jul 2025 12:59:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yKd4CDCLf2igZQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id AAuVFDCLf2igZQAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Tue, 22 Jul 2025 12:59:28 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 22 Jul 2025 14:59:12 +0200
-Message-ID: <20250722125916.74967-3-pvorel@suse.cz>
+Date: Tue, 22 Jul 2025 14:59:13 +0200
+Message-ID: <20250722125916.74967-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250722125916.74967-1-pvorel@suse.cz>
 References: <20250722125916.74967-1-pvorel@suse.cz>
 MIME-Version: 1.0
+X-Spam-Level: 
 X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
  R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.999];
@@ -93,15 +94,14 @@ X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  RCVD_COUNT_TWO(0.00)[2]; FUZZY_RATELIMITED(0.00)[rspamd.com];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
  RCPT_COUNT_THREE(0.00)[4]; RCVD_TLS_ALL(0.00)[]
-X-Spam-Level: 
 X-Spam-Score: -2.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4 2/6] shell: Move shell code into functions
+Subject: [LTP] [PATCH v4 3/6] tst_res_: Add support for TWARN
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,372 +118,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is a preparation to make next changes smaller.
-No functional changes.
+TWARN is standard flag in LTP API, it should be supported, otherwise we
+get:
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
+Usage: tst_{res,brk} filename lineno [TPASS|TBROK|TFAIL|TCONF|TINFO|TDEBUG] 'A short description'
 
-NOTE: it's important to properly quote strings when assign with local.
-Otherwise shell_loader_all_filesystems.sh fails on old dash 0.5.8-2.10 on local export:
-
-/__w/ltp/ltp/testcases/lib/tests//shell_loader_all_filesystems.sh: 20: local: /tmp/LTP_sheiFmNGP/ltp_mntpoint: bad variable name
-
-Quote grep subcomand helps. While at it quote also realpath subcomand.
-
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-Reviewed-by: Li Wang <liwang@redhat.com>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-The same as in v3.
+* New in v4
 
- testcases/kernel/mem/vma/vma05.sh             | 45 ++++++++++---------
- testcases/lib/tests/shell_loader.sh           | 19 +++++---
- .../lib/tests/shell_loader_all_filesystems.sh | 26 ++++++-----
- .../lib/tests/shell_loader_brk_cleanup.sh     |  7 ++-
- testcases/lib/tests/shell_loader_c_child.sh   | 15 ++++---
- testcases/lib/tests/shell_loader_cleanup.sh   |  7 ++-
- .../lib/tests/shell_loader_filesystems.sh     | 23 ++++++----
- .../lib/tests/shell_loader_invalid_block.sh   |  7 ++-
- .../tests/shell_loader_invalid_metadata.sh    |  7 ++-
- testcases/lib/tests/shell_loader_kconfigs.sh  |  7 ++-
- .../lib/tests/shell_loader_no_metadata.sh     |  7 ++-
- .../lib/tests/shell_loader_supported_archs.sh |  7 ++-
- testcases/lib/tests/shell_loader_tags.sh      |  7 ++-
- testcases/lib/tests/shell_loader_tcnt.sh      |  7 ++-
- .../lib/tests/shell_loader_wrong_metadata.sh  |  7 ++-
- 15 files changed, 137 insertions(+), 61 deletions(-)
+ testcases/lib/tst_res_.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/mem/vma/vma05.sh b/testcases/kernel/mem/vma/vma05.sh
-index f4c76b7034..11d6b2ad86 100755
---- a/testcases/kernel/mem/vma/vma05.sh
-+++ b/testcases/kernel/mem/vma/vma05.sh
-@@ -41,29 +41,34 @@
+diff --git a/testcases/lib/tst_res_.c b/testcases/lib/tst_res_.c
+index fd9b8e8414..c09d689ee5 100644
+--- a/testcases/lib/tst_res_.c
++++ b/testcases/lib/tst_res_.c
+@@ -8,7 +8,7 @@
  
- . tst_loader.sh
- 
--ulimit -c unlimited
--unset DEBUGINFOD_URLS
-+tst_test()
-+{
-+	ulimit -c unlimited
-+	unset DEBUGINFOD_URLS
- 
--if [ $(uname -m) = "x86_64" ]; then
--	if LINE=$(grep "vsyscall" /proc/self/maps); then
--		RIGHT="ffffffffff600000-ffffffffff601000[[:space:]][r-]-xp"
--		if echo "$LINE" | grep -q "$RIGHT"; then
--			tst_res TPASS "[vsyscall] reported correctly"
--		else
--			tst_res TFAIL "[vsyscall] reporting wrong"
-+	if [ $(uname -m) = "x86_64" ]; then
-+		if LINE=$(grep "vsyscall" /proc/self/maps); then
-+			RIGHT="ffffffffff600000-ffffffffff601000[[:space:]][r-]-xp"
-+			if echo "$LINE" | grep -q "$RIGHT"; then
-+				tst_res TPASS "[vsyscall] reported correctly"
-+			else
-+				tst_res TFAIL "[vsyscall] reporting wrong"
-+			fi
- 		fi
- 	fi
--fi
- 
--rm -rf core*
--{ vma05_vdso; } > /dev/null 2>&1
--[ -f core ] || tst_brk TBROK "missing core file"
-+	rm -rf core*
-+	{ vma05_vdso; } > /dev/null 2>&1
-+	[ -f core ] || tst_brk TBROK "missing core file"
- 
--TRACE=$(gdb -silent -ex="thread apply all backtrace" -ex="quit"\
--	vma05_vdso ./core* 2> /dev/null)
-+	TRACE=$(gdb -silent -ex="thread apply all backtrace" -ex="quit"\
-+		vma05_vdso ./core* 2> /dev/null)
- 
--if echo "$TRACE" | grep -qF "??"; then
--	tst_res TFAIL "[vdso] bug not patched"
--else
--	tst_res TPASS "[vdso] backtrace complete"
--fi
-+	if echo "$TRACE" | grep -qF "??"; then
-+		tst_res TFAIL "[vdso] bug not patched"
-+	else
-+		tst_res TPASS "[vdso] backtrace complete"
-+	fi
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader.sh b/testcases/lib/tests/shell_loader.sh
-index a7c5848ff5..73812c3e23 100755
---- a/testcases/lib/tests/shell_loader.sh
-+++ b/testcases/lib/tests/shell_loader.sh
-@@ -16,10 +16,15 @@
- 
- . tst_loader.sh
- 
--tst_res TPASS "Shell loader works fine!"
--case "$PWD" in
--	/tmp/*)
--		tst_res TPASS "We are running in temp directory in $PWD";;
--	*)
--		tst_res TFAIL "We are not running in temp directory but $PWD";;
--esac
-+tst_test()
-+{
-+	tst_res TPASS "Shell loader works fine!"
-+	case "$PWD" in
-+		/tmp/*)
-+			tst_res TPASS "We are running in temp directory in $PWD";;
-+		*)
-+			tst_res TFAIL "We are not running in temp directory but $PWD";;
-+	esac
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_all_filesystems.sh b/testcases/lib/tests/shell_loader_all_filesystems.sh
-index 91fac89fd6..8fe3809a5e 100755
---- a/testcases/lib/tests/shell_loader_all_filesystems.sh
-+++ b/testcases/lib/tests/shell_loader_all_filesystems.sh
-@@ -14,16 +14,22 @@
- 
- . tst_loader.sh
- 
--tst_res TINFO "In shell"
-+tst_test()
-+{
-+	local mntpath="$(realpath ltp_mntpoint)"
-+	local mounted="$(grep $mntpath /proc/mounts)"
-+	local device path
- 
--mntpath=$(realpath ltp_mntpoint)
--mounted=$(grep $mntpath /proc/mounts)
-+	tst_res TINFO "In shell"
- 
--if [ -n "$mounted" ]; then
--	device=$(echo $mounted |cut -d' ' -f 1)
--	path=$(echo $mounted |cut -d' ' -f 2)
-+	if [ -n "$mounted" ]; then
-+		device=$(echo $mounted |cut -d' ' -f 1)
-+		path=$(echo $mounted |cut -d' ' -f 2)
- 
--	tst_res TPASS "$device mounted at $path"
--else
--	tst_res TFAIL "Device not mounted!"
--fi
-+		tst_res TPASS "$device mounted at $path"
-+	else
-+		tst_res TFAIL "Device not mounted!"
-+	fi
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_brk_cleanup.sh b/testcases/lib/tests/shell_loader_brk_cleanup.sh
-index 8c704a5406..ff33345ce3 100755
---- a/testcases/lib/tests/shell_loader_brk_cleanup.sh
-+++ b/testcases/lib/tests/shell_loader_brk_cleanup.sh
-@@ -17,4 +17,9 @@ cleanup()
- 	tst_res TINFO "Cleanup runs"
+ static void print_help(void)
+ {
+-	printf("Usage: tst_{res,brk} filename lineno [TPASS|TBROK|TFAIL|TCONF|TINFO|TDEBUG] 'A short description'\n");
++	printf("Usage: tst_{res,brk} filename lineno [TPASS|TBROK|TFAIL|TWARN|TCONF|TINFO|TDEBUG] 'A short description'\n");
  }
  
--tst_brk TBROK "Test exits"
-+tst_test()
-+{
-+	tst_brk TBROK "Test exits"
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_c_child.sh b/testcases/lib/tests/shell_loader_c_child.sh
-index 34629e6d26..b2b8f3d057 100755
---- a/testcases/lib/tests/shell_loader_c_child.sh
-+++ b/testcases/lib/tests/shell_loader_c_child.sh
-@@ -15,9 +15,14 @@
- 
- . tst_loader.sh
- 
--if [ -n "LTP_IPC_PATH" ]; then
--	tst_res TPASS "LTP_IPC_PATH=$LTP_IPC_PATH!"
--fi
-+tst_test()
-+{
-+	if [ -n "LTP_IPC_PATH" ]; then
-+		tst_res TPASS "LTP_IPC_PATH=$LTP_IPC_PATH!"
-+	fi
- 
--tst_res TINFO "Running C child"
--shell_c_child
-+	tst_res TINFO "Running C child"
-+	shell_c_child
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_cleanup.sh b/testcases/lib/tests/shell_loader_cleanup.sh
-index fb7bbdf5a9..684901b51f 100755
---- a/testcases/lib/tests/shell_loader_cleanup.sh
-+++ b/testcases/lib/tests/shell_loader_cleanup.sh
-@@ -17,4 +17,9 @@ do_cleanup()
- 	tst_res TINFO "Cleanup executed"
- }
- 
--tst_res TPASS "Test is executed"
-+tst_test()
-+{
-+	tst_res TPASS "Test is executed"
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_filesystems.sh b/testcases/lib/tests/shell_loader_filesystems.sh
-index b7e1f9ba49..b2c9d2f7d1 100755
---- a/testcases/lib/tests/shell_loader_filesystems.sh
-+++ b/testcases/lib/tests/shell_loader_filesystems.sh
-@@ -24,15 +24,20 @@
- 
- . tst_loader.sh
- 
--tst_res TINFO "In shell"
-+tst_test()
-+{
-+	tst_res TINFO "In shell"
- 
--mntpoint=$(realpath ltp_mntpoint)
--mounted=$(grep $mntpoint /proc/mounts)
-+	mntpoint=$(realpath ltp_mntpoint)
-+	mounted=$(grep $mntpoint /proc/mounts)
- 
--if [ -n "$mounted" ]; then
--	fs=$(echo $mounted |cut -d' ' -f 3)
-+	if [ -n "$mounted" ]; then
-+		fs=$(echo $mounted |cut -d' ' -f 3)
- 
--	tst_res TPASS "Mounted device formatted with $fs"
--else
--	tst_res TFAIL "Device not mounted!"
--fi
-+		tst_res TPASS "Mounted device formatted with $fs"
-+	else
-+		tst_res TFAIL "Device not mounted!"
-+	fi
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_invalid_block.sh b/testcases/lib/tests/shell_loader_invalid_block.sh
-index 01811c971d..370c9043bc 100755
---- a/testcases/lib/tests/shell_loader_invalid_block.sh
-+++ b/testcases/lib/tests/shell_loader_invalid_block.sh
-@@ -22,4 +22,9 @@
- 
- . tst_loader.sh
- 
--tst_res TPASS "This should pass!"
-+tst_test()
-+{
-+	tst_res TPASS "This should pass!"
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_invalid_metadata.sh b/testcases/lib/tests/shell_loader_invalid_metadata.sh
-index aeae066841..3834f1b9ed 100755
---- a/testcases/lib/tests/shell_loader_invalid_metadata.sh
-+++ b/testcases/lib/tests/shell_loader_invalid_metadata.sh
-@@ -14,4 +14,9 @@
- 
- . tst_loader.sh
- 
--tst_res TFAIL "Shell loader should TBROK the test"
-+tst_test()
-+{
-+	tst_res TFAIL "Shell loader should TBROK the test"
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_kconfigs.sh b/testcases/lib/tests/shell_loader_kconfigs.sh
-index b896f03ce0..e1b6187554 100755
---- a/testcases/lib/tests/shell_loader_kconfigs.sh
-+++ b/testcases/lib/tests/shell_loader_kconfigs.sh
-@@ -11,4 +11,9 @@
- 
- . tst_loader.sh
- 
--tst_res TPASS "Shell loader works fine!"
-+tst_test()
-+{
-+	tst_res TPASS "Shell loader works fine!"
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_no_metadata.sh b/testcases/lib/tests/shell_loader_no_metadata.sh
-index e344327ed3..b664b48b57 100755
---- a/testcases/lib/tests/shell_loader_no_metadata.sh
-+++ b/testcases/lib/tests/shell_loader_no_metadata.sh
-@@ -7,4 +7,9 @@
- 
- . tst_loader.sh
- 
--tst_res TFAIL "Shell loader should TBROK the test"
-+tst_test()
-+{
-+	tst_res TFAIL "Shell loader should TBROK the test"
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_supported_archs.sh b/testcases/lib/tests/shell_loader_supported_archs.sh
-index 45f0b1b1c2..9ad24f9c03 100755
---- a/testcases/lib/tests/shell_loader_supported_archs.sh
-+++ b/testcases/lib/tests/shell_loader_supported_archs.sh
-@@ -11,4 +11,9 @@
- 
- . tst_loader.sh
- 
--tst_res TPASS "We are running on supported architecture"
-+tst_test()
-+{
-+	tst_res TPASS "We are running on supported architecture"
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_tags.sh b/testcases/lib/tests/shell_loader_tags.sh
-index 0b9416ea9a..c780a66c57 100755
---- a/testcases/lib/tests/shell_loader_tags.sh
-+++ b/testcases/lib/tests/shell_loader_tags.sh
-@@ -14,4 +14,9 @@
- 
- . tst_loader.sh
- 
--tst_res TFAIL "Fails the test so that tags are shown."
-+tst_test()
-+{
-+	tst_res TFAIL "Fails the test so that tags are shown."
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_tcnt.sh b/testcases/lib/tests/shell_loader_tcnt.sh
-index ecf48396d6..93bd612ee2 100755
---- a/testcases/lib/tests/shell_loader_tcnt.sh
-+++ b/testcases/lib/tests/shell_loader_tcnt.sh
-@@ -14,4 +14,9 @@
- 
- . tst_loader.sh
- 
--tst_res TPASS "Iteration $1"
-+tst_test()
-+{
-+	tst_res TPASS "Iteration $1"
-+}
-+
-+tst_test
-diff --git a/testcases/lib/tests/shell_loader_wrong_metadata.sh b/testcases/lib/tests/shell_loader_wrong_metadata.sh
-index b90b212371..8f18741100 100755
---- a/testcases/lib/tests/shell_loader_wrong_metadata.sh
-+++ b/testcases/lib/tests/shell_loader_wrong_metadata.sh
-@@ -14,4 +14,9 @@
- 
- . tst_loader.sh
- 
--tst_res TFAIL "Shell loader should TBROK the test"
-+tst_test()
-+{
-+	tst_res TFAIL "Shell loader should TBROK the test"
-+}
-+
-+tst_test
+ int main(int argc, char *argv[])
+@@ -28,6 +28,8 @@ int main(int argc, char *argv[])
+ 		type = TCONF;
+ 	} else if (!strcmp(argv[3], "TINFO")) {
+ 		type = TINFO;
++	} else if (!strcmp(argv[3], "TWARN")) {
++		type = TWARN;
+ 	} else if (!strcmp(argv[3], "TDEBUG")) {
+ 		type = TDEBUG;
+ 	} else if (!strcmp(argv[3], "TBROK")) {
 -- 
 2.50.1
 
