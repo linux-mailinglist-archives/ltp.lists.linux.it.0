@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 169C7B0D238
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 08:57:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8FBAB0D413
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 10:03:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BFEBB3CCC4F
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 08:57:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 95BA43CCC74
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jul 2025 10:03:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
@@ -14,111 +14,112 @@ Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 94E4D3CCC4A
- for <ltp@lists.linux.it>; Tue, 22 Jul 2025 08:56:47 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 7514F3CB8B7
+ for <ltp@lists.linux.it>; Tue, 22 Jul 2025 10:03:29 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B27C410001FE
- for <ltp@lists.linux.it>; Tue, 22 Jul 2025 08:56:46 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A03C11000A50
+ for <ltp@lists.linux.it>; Tue, 22 Jul 2025 10:03:28 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 43FBB1F852;
- Tue, 22 Jul 2025 06:56:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1753167404; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5472A1F785;
+ Tue, 22 Jul 2025 08:03:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1753171405;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=x32f+6L53Ke/h8U6Ayc1rWud+XnWPiHtjUvZV6wYftA=;
- b=AItLTrRZsxI6SPHe11ta5O4+RB1ums2X2vUiB0436hdBVjM1NBrWJ+JRStroOkCWa32geP
- WbWCUJ55IVkbSi5BcFaHhg0xQBcRf2UGVnGuEFw+ujw+5XTiN+aeWve+ibTUzGxhaGSpUM
- XavJP+Kwp8lSsHaf5k0d1QNTSV6nmww=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1753167404;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ bh=/RW/BQs9JtOTtL8OdaMrQlI9hDp0KoAb1coznKv9LEA=;
+ b=VGhEZzJS8AZcJ7eK+rOb3C+bLI1c1LA/pFO/TPbOPU8LyEQK2xptLRV0DZMw8zmEGKxlCQ
+ wBpe2E35hq1mew4wVXuqoelevib1KBy8/Tqw5kIBbqu9p64d478WZG8Uyl8fQJ1xrmiwZb
+ PeXCggzMZR7NZqRJU5EEQfjcnd1lEXk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1753171405;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=x32f+6L53Ke/h8U6Ayc1rWud+XnWPiHtjUvZV6wYftA=;
- b=YKILRSotfYGh6qkND2nw93q6QTa8Dn4Dli7ieRAPCBrp2xXJROakFoDqWTH5JdW/mH2fKv
- 6cFTaelTNSZ2sYAA==
+ bh=/RW/BQs9JtOTtL8OdaMrQlI9hDp0KoAb1coznKv9LEA=;
+ b=IyijJCutUnfXX+M+4BQyiDoF3Sl57JxkMYllsO5xcgo2zcgXy4qu7/Oe7OPZk2JtxLYn5E
+ 7BJiLSu9gXt8HZDA==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=AItLTrRZ;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=YKILRSot
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1753167404; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=FMTV5CCE;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="/UWs8N8E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1753171404;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=x32f+6L53Ke/h8U6Ayc1rWud+XnWPiHtjUvZV6wYftA=;
- b=AItLTrRZsxI6SPHe11ta5O4+RB1ums2X2vUiB0436hdBVjM1NBrWJ+JRStroOkCWa32geP
- WbWCUJ55IVkbSi5BcFaHhg0xQBcRf2UGVnGuEFw+ujw+5XTiN+aeWve+ibTUzGxhaGSpUM
- XavJP+Kwp8lSsHaf5k0d1QNTSV6nmww=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1753167404;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ bh=/RW/BQs9JtOTtL8OdaMrQlI9hDp0KoAb1coznKv9LEA=;
+ b=FMTV5CCE/WhUub5pm3ms8wciAM5yv/VuwpnOVQSpSIQPX46D8t/YxcoQr5p6D1frIIoIpX
+ C7HKnFpS/Rp4a+6myJVXHmdGggJfdZdNv0OsY1M+/5nwnDWt53FA7Fxqutcydh7anAnIrf
+ ujM2KnxoQ3Ff9Dkp2ty+ytir9MVRcAU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1753171404;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=x32f+6L53Ke/h8U6Ayc1rWud+XnWPiHtjUvZV6wYftA=;
- b=YKILRSotfYGh6qkND2nw93q6QTa8Dn4Dli7ieRAPCBrp2xXJROakFoDqWTH5JdW/mH2fKv
- 6cFTaelTNSZ2sYAA==
+ bh=/RW/BQs9JtOTtL8OdaMrQlI9hDp0KoAb1coznKv9LEA=;
+ b=/UWs8N8EYZDS9Nm5pKEJauRe2Sppr7rnVtOCAB9OqCy2+NIGBro8fTUnz9YQgyHQlMmy0H
+ COhGjM7QfZn6wPCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 261B313A7E;
- Tue, 22 Jul 2025 06:56:44 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 212E8132EA;
+ Tue, 22 Jul 2025 08:03:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +G6bByw2f2iKcAAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Tue, 22 Jul 2025 06:56:44 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Tue, 22 Jul 2025 08:55:57 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Q0H3BsxFf2iSBgAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Tue, 22 Jul 2025 08:03:24 +0000
+Date: Tue, 22 Jul 2025 10:03:22 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>, Li Wang <liwang@redhat.com>,
+ Jan Stancek <jstancek@redhat.com>
+Message-ID: <20250722080322.GA19816@pevik>
+References: <20250718162928.71364-1-mdoucha@suse.cz>
+ <64694997-ff37-4a60-80cd-b780616bdf98@suse.com>
 MIME-Version: 1.0
-Message-Id: <20250722-xattr_bug_repr-v4-2-4be1e52e97c6@suse.com>
-References: <20250722-xattr_bug_repr-v4-0-4be1e52e97c6@suse.com>
-In-Reply-To: <20250722-xattr_bug_repr-v4-0-4be1e52e97c6@suse.com>
-To: ltp@lists.linux.it
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1753167403; l=4808;
- i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=fzXAJne7XKK1q74A8tWyrJ6QhI9x1ZQjajspIZFNgQ0=;
- b=5PAQFjE6BTp9AZYNchdMMjb5qCzNvn6PiDe2jnvM1W0rcnZ2QbHTrl4vHXXJOO22K80Cnb+cE
- t6kMNEOERhrAYfdtMYe/QvaGb6GeXjQih/n16IJJIaX8lzfIiPPwHm1
-X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
- pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:mid,suse.com:email];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
+Content-Disposition: inline
+In-Reply-To: <64694997-ff37-4a60-80cd-b780616bdf98@suse.com>
 X-Spam-Level: 
-X-Rspamd-Queue-Id: 43FBB1F852
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 5472A1F785
 X-Rspamd-Action: no action
-X-Spam-Score: -4.51
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-3.71 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; REPLYTO_EQ_FROM(0.00)[];
+ ARC_NA(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.cz:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[6];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:replyto];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ SUBJECT_HAS_QUESTION(0.00)[]
+X-Spam-Score: -3.71
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4 2/2] Add listxattr04 reproducer
+Subject: [LTP] [RFC] .all_filesystems imply .needs_root? [was Re: [PATCH]
+ open14: Rewrite to new API]
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,174 +131,80 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Hi all,
 
-Test reproducer for a bug introduced in 8b0ba61df5a1 ("fs/xattr.c: fix
-simple_xattr_list to always include security.* xattrs").
+...
+> > +static struct tst_test test = {
+> > +	.setup = setup,
+> > +	.test_all = run,
+> > +	.cleanup = cleanup,
+> > +	.mntpoint = MNTPOINT,
+> > +	.all_filesystems = 1
+> We need .needs_root if we acquire a device.
 
-Bug can be reproduced when SELinux and ACL are activated on inodes as
-following:
+We LTP library allows to run test under non-root user with rw permissions to
+/dev/loop-control:
 
-    $ touch testfile
-    $ setfacl -m u:myuser:rwx testfile
-    $ getfattr -dm. /tmp/testfile
-    Segmentation fault (core dumped)
+tst_device.c:110: TINFO: Not allowed to open /dev/loop-control. Are you root?: EACCES (13)
+tst_device.c:149: TINFO: No free devices found
+tst_device.c:362: TBROK: Failed to acquire device
 
-The reason why this happens is that simple_xattr_list() always includes
-security.* xattrs without resetting error flag after
-security_inode_listsecurity(). This results into an incorrect length of the
-returned xattr name if POSIX ACL is also applied on the inode.
+In openSUSE that would be to run tests with user which is in disk group.
+Although this should theoretically work, root is often required for something
+else:
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- testcases/kernel/syscalls/listxattr/.gitignore    |   1 +
- testcases/kernel/syscalls/listxattr/Makefile      |   2 +
- testcases/kernel/syscalls/listxattr/listxattr04.c | 108 ++++++++++++++++++++++
- 3 files changed, 111 insertions(+)
+$ open14
+...
+tst_supported_fs_types.c:49: TINFO: mkfs is not needed for tmpfs
+tst_test.c:1938: TINFO: === Testing on ext2 ===
+...
+open14.c:141: TINFO: Closing temporary files
+open14.c:146: TPASS: Multiple files test passed
+open14.c:168: TINFO: Testing linked temp files access mode
+open14.c:186: TFAIL: Unexpected access mode: 1755 != 7755
+open14.c:186: TFAIL: Unexpected access mode: 1755 != 7755
+open14.c:186: TFAIL: Unexpected access mode: 1755 != 7755
+open14.c:186: TFAIL: Unexpected access mode: 1755 != 7755
+open14.c:186: TFAIL: Unexpected access mode: 1755 != 7755
 
-diff --git a/testcases/kernel/syscalls/listxattr/.gitignore b/testcases/kernel/syscalls/listxattr/.gitignore
-index be0675a6df0080d176d53d70194442bbc9ed376c..0d672b6ea5eec03aab37ee89316c56e24356c1d9 100644
---- a/testcases/kernel/syscalls/listxattr/.gitignore
-+++ b/testcases/kernel/syscalls/listxattr/.gitignore
-@@ -1,3 +1,4 @@
- /listxattr01
- /listxattr02
- /listxattr03
-+/listxattr04
-diff --git a/testcases/kernel/syscalls/listxattr/Makefile b/testcases/kernel/syscalls/listxattr/Makefile
-index c2f84b1590fc24a7a98f890ea7706771d944aa79..e96bb3fa4c2c6b14b8d2bc8fd4c475e4789d72fe 100644
---- a/testcases/kernel/syscalls/listxattr/Makefile
-+++ b/testcases/kernel/syscalls/listxattr/Makefile
-@@ -6,4 +6,6 @@ top_srcdir		?= ../../../..
- 
- include $(top_srcdir)/include/mk/testcases.mk
- 
-+listxattr04: LDLIBS	+= $(ACL_LIBS)
-+
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/listxattr/listxattr04.c b/testcases/kernel/syscalls/listxattr/listxattr04.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..473ed45b5c2da8ff8e49c513eeb82158ec2dc066
---- /dev/null
-+++ b/testcases/kernel/syscalls/listxattr/listxattr04.c
-@@ -0,0 +1,108 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2025 Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * Test reproducer for a bug introduced in 8b0ba61df5a1 ("fs/xattr.c: fix
-+ * simple_xattr_list to always include security.* xattrs").
-+ *
-+ * Bug can be reproduced when SELinux and ACL are activated on inodes as
-+ * following:
-+ *
-+ *     $ touch testfile
-+ *     $ setfacl -m u:myuser:rwx testfile
-+ *     $ getfattr -dm. /tmp/testfile
-+ *     Segmentation fault (core dumped)
-+ *
-+ * The reason why this happens is that simple_xattr_list() always includes
-+ * security.* xattrs without resetting error flag after
-+ * security_inode_listsecurity(). This results into an incorrect length of the
-+ * returned xattr name if POSIX ACL is also applied on the inode.
-+ */
-+
-+#include "config.h"
-+#include "tst_test.h"
-+
-+#if defined(HAVE_SYS_XATTR_H) && defined(HAVE_LIBACL)
-+
-+#include <pwd.h>
-+#include <sys/acl.h>
-+#include <sys/xattr.h>
-+
-+#define ACL_PERM        "u::rw-,u:root:rwx,g::r--,o::r--,m::rwx"
-+#define TEST_FILE       "test.bin"
-+
-+static acl_t acl;
-+
-+static void verify_xattr(const int size)
-+{
-+	char buf[size];
-+
-+	memset(buf, 0, sizeof(buf));
-+
-+	if (listxattr(TEST_FILE, buf, size) == -1) {
-+		if (errno != ERANGE)
-+			tst_brk(TBROK | TERRNO, "listxattr() error");
-+
-+		tst_res(TFAIL, "listxattr() failed to read attributes length: ERANGE");
-+		return;
-+	}
-+
-+	tst_res(TPASS, "listxattr() correctly read attributes length");
-+}
-+
-+static void run(void)
-+{
-+	int size;
-+
-+	size = listxattr(TEST_FILE, NULL, 0);
-+	if (size == -1)
-+		tst_brk(TBROK | TERRNO, "listxattr() error");
-+
-+	verify_xattr(size);
-+}
-+
-+static void setup(void)
-+{
-+	int res;
-+
-+	if (!tst_selinux_enabled())
-+		tst_brk(TCONF, "SELinux is not enabled");
-+
-+	SAFE_TOUCH(TEST_FILE, 0644, NULL);
-+
-+	acl = acl_from_text(ACL_PERM);
-+	if (!acl)
-+		tst_brk(TBROK | TERRNO, "acl_from_text() failed");
-+
-+	res = acl_set_file(TEST_FILE, ACL_TYPE_ACCESS, acl);
-+	if (res == -1) {
-+		if (errno == EOPNOTSUPP)
-+			tst_brk(TCONF | TERRNO, "acl_set_file()");
-+
-+		tst_brk(TBROK | TERRNO, "acl_set_file(%s) failed", TEST_FILE);
-+	}
-+}
-+
-+static void cleanup(void)
-+{
-+	if (acl)
-+		acl_free(acl);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_root = 1,
-+	.needs_tmpdir = 1,
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "800d0b9b6a8b"},
-+		{}
-+	}
-+};
-+
-+#else /* HAVE_SYS_XATTR_H && HAVE_LIBACL */
-+	TST_TEST_TCONF("<sys/xattr.h> or <sys/acl.h> does not exist.");
-+#endif
+Obviously with root everything works:
+...
+open14.c:193: TPASS: File access modes are correct
 
--- 
-2.50.1
+Also I'm not sure if anybody would bother with configuring group for a test
+user. I suppose most of testers run LTP under root.
 
+Also, not all tests define needs_device for these tests:
+
+$ git grep -l -e needs_device -e all_filesystems testcases/ | wc -l
+121
+
+$ git grep -l needs_root $(git grep -l -e needs_device -e all_filesystems testcases/) | wc -l
+108
+
+Therefore I wonder if we should just imply .needs_root on .all_filesystems (and
+other flags). Also doc could be tweaked to show .needs_root in the test catalog
+for these tests [1].
+
+And there are other flags which effectively enforce root, e.g. .mount_device
+(mount() requires CAP_SYS_ADMIN). Here IMHO implying root makes even more sense.
+
+Kind regards,
+Petr
+
+[1] https://linux-test-project.readthedocs.io/en/latest/users/test_catalog.html
+
+> > +};
+...
+
+> - Andrea
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
