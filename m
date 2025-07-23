@@ -2,44 +2,106 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 441F0B0F0BB
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jul 2025 13:07:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C645FB0EF5E
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jul 2025 12:09:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0915F3CCD6D
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jul 2025 13:07:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 76C6A3CCD66
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jul 2025 12:09:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 713A43C4E01
- for <ltp@lists.linux.it>; Wed, 23 Jul 2025 10:07:37 +0200 (CEST)
-Received: from neil.brown.name (neil.brown.name [103.29.64.221])
+ by picard.linux.it (Postfix) with ESMTPS id 3A7BC3CAD64
+ for <ltp@lists.linux.it>; Wed, 23 Jul 2025 12:09:30 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 82FAD200AC7
- for <ltp@lists.linux.it>; Wed, 23 Jul 2025 10:07:36 +0200 (CEST)
-Received: from 196.186.233.220.static.exetel.com.au ([220.233.186.196]
- helo=home.neil.brown.name) by neil.brown.name with esmtp (Exim 4.95)
- (envelope-from <mr@neil.brown.name>) id 1ueUVR-0034tV-PL;
- Wed, 23 Jul 2025 08:07:19 +0000
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 735301A0088E
+ for <ltp@lists.linux.it>; Wed, 23 Jul 2025 12:09:29 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5650D218A8;
+ Wed, 23 Jul 2025 10:09:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1753265368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HmRWZKe2xJYKTtH2Uq8RuEsl6zNVmU6PQPkBYfkvKq0=;
+ b=wn61R9wbdDqGEiTr6BKvHl1c00fxXOCftAxIraLzkrCg5r3F/qldUFuY9zHV60EqfrqRhB
+ ihyem+jRp3ewUnzHXLF2u8lqm0NHS/mYg2zyoZ/bxqfkq8sKCXxFFAbj7B2ab9NwSjsPiG
+ qZ9BRFL8v3eSlyudQLUgIywnOkCRxk0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1753265368;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HmRWZKe2xJYKTtH2Uq8RuEsl6zNVmU6PQPkBYfkvKq0=;
+ b=o/1V1g5C6W6Q1XmuguGOACn+krPbGjZlLw3m/QUdf3VQ/5r0JNzXMsVSTP0ysJmGpqB1OQ
+ XH9Lt27oxZf13vCQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1753265367; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HmRWZKe2xJYKTtH2Uq8RuEsl6zNVmU6PQPkBYfkvKq0=;
+ b=s/Ecq5uUdhDRW1BqBEucMaPdY9WopnzBoHzELTsAOVWCZinSlT18c/rTRpbOPbElIxyDb5
+ 3KCtZf65aJM7GCPBC1D7TFMMmFv9mspQN94+4m3j/eA/1HJeUlPZcqA35cJlWyVWgop5M8
+ FkQuloZqm1IdE5U3oHYmtJ1v/9f3vbU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1753265367;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HmRWZKe2xJYKTtH2Uq8RuEsl6zNVmU6PQPkBYfkvKq0=;
+ b=kctxIaAvDNhK34z+R2BzuUCSKo5P6bEV7rrASg+wlElDbv97IDsUv3MlIRP38y64vhg4gd
+ H5QeconLfGSaSZAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 434C313ABE;
+ Wed, 23 Jul 2025 10:09:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Ks0pENe0gGgbYwAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Wed, 23 Jul 2025 10:09:27 +0000
+Date: Wed, 23 Jul 2025 12:10:11 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <aIC1A9yNXKX6QN2N@yuki.lan>
+References: <20250722125916.74967-1-pvorel@suse.cz>
+ <20250722125916.74967-5-pvorel@suse.cz>
 MIME-Version: 1.0
-From: "NeilBrown" <neil@brown.name>
-To: "Harshvardhan Jha" <harshvardhan.j.jha@oracle.com>
-In-reply-to: <ddaf94dd-30a2-4136-8dff-542b4433308c@oracle.com>
-References: <>, <ddaf94dd-30a2-4136-8dff-542b4433308c@oracle.com>
-Date: Wed, 23 Jul 2025 18:07:18 +1000
-Message-id: <175325803891.2234665.5884275341421351947@noble.neil.brown.name>
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20250722125916.74967-5-pvorel@suse.cz>
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; MISSING_XM_UA(0.00)[];
+ TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -4.30
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Wed, 23 Jul 2025 13:07:55 +0200
-Subject: Re: [LTP] [PATCH 1/2] SUNRPC: Don't allow waiting for exiting tasks
+Subject: Re: [LTP] [PATCH v4 4/6] tst_res_: Print error to stderr,
+ with filename and lineno
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,126 +113,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, Olga Kornievskaia <okorniev@redhat.com>,
- Mark Brown <broonie@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- Aishwarya.TCV@arm.com, Dai Ngo <Dai.Ngo@oracle.com>,
- Tom Talpey <tom@talpey.com>, Chuck Lever <chuck.lever@oracle.com>,
- trondmy@kernel.org, Anna Schumaker <anna@kernel.org>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, 23 Jul 2025, Harshvardhan Jha wrote:
-> On 08/04/25 4:01 PM, Mark Brown wrote:
-> > On Fri, Mar 28, 2025 at 01:40:44PM -0400, trondmy@kernel.org wrote:
-> >> From: Trond Myklebust <trond.myklebust@hammerspace.com>
-> >>
-> >> Once a task calls exit_signals() it can no longer be signalled. So do
-> >> not allow it to do killable waits.
-> > We're seeing the LTP acct02 test failing in kernels with this patch
-> > applied, testing on systems with NFS root filesystems:
-> >
-> > 10271 05:03:09.064993  tst_test.c:1900: TINFO: LTP version: 20250130-1-g60fe84aaf
-> > 10272 05:03:09.076425  tst_test.c:1904: TINFO: Tested kernel: 6.15.0-rc1 #1 SMP PREEMPT Sun Apr  6 21:18:14 UTC 2025 aarch64
-> > 10273 05:03:09.076733  tst_kconfig.c:88: TINFO: Parsing kernel config '/proc/config.gz'
-> > 10274 05:03:09.087803  tst_test.c:1722: TINFO: Overall timeout per run is 0h 01m 30s
-> > 10275 05:03:09.088107  tst_kconfig.c:88: TINFO: Parsing kernel config '/proc/config.gz'
-> > 10276 05:03:09.093097  acct02.c:63: TINFO: CONFIG_BSD_PROCESS_ACCT_V3=y
-> > 10277 05:03:09.093400  acct02.c:240: TINFO: Verifying using 'struct acct_v3'
-> > 10278 05:03:10.053504  <6>[   98.043143] Process accounting resumed
-> > 10279 05:03:10.053935  <6>[   98.043143] Process accounting resumed
-> > 10280 05:03:10.064653  acct02.c:193: TINFO: == entry 1 ==
-> > 10281 05:03:10.064953  acct02.c:84: TINFO: ac_comm != 'acct02_helper' ('acct02')
-> > 10282 05:03:10.076029  acct02.c:133: TINFO: ac_exitcode != 32768 (0)
-> > 10283 05:03:10.076331  acct02.c:141: TINFO: ac_ppid != 2466 (2461)
-
-It seems that the acct02 process got logged..
-Maybe the vfork attempt (trying to run acct02_helper) got half way an
-aborted.
-It got far enough that accounting got interested.
-It didn't get far enough to update the ppid.
-I'd be surprised if that were even possible....
-
-If you would like to help debug this, changing the
-
-+       if (unlikely(current->flags & PF_EXITING))
-
-to
-
-+       if (unlikely(WARN_ON(current->flags & PF_EXITING)))
-
-would provide stack traces so we can wee where -EINTR is actually being
-returned.  That should provide some hints.
-
-NeilBrown
-
-
-> > 10284 05:03:10.076572  acct02.c:183: TFAIL: end of file reached
-> > 10285 05:03:10.076790  
-> > 10286 05:03:10.087439  HINT: You _MAY_ be missing kernel fixes:
-> > 10287 05:03:10.087741  
-> > 10288 05:03:10.087979  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=4d9570158b626
-> > 10289 05:03:10.088201  
-> > 10290 05:03:10.088414  Summary:
-> > 10291 05:03:10.088618  passed   0
-> > 10292 05:03:10.098852  failed   1
-> > 10293 05:03:10.099212  broken   0
-> > 10294 05:03:10.099454  skipped  0
-> > 10295 05:03:10.099675  warnings 0
-> >
-> > I ran a bisect which zeroed in on this commit (log below), I didn't look
-> > into it properly but the test does start and exit a test program to
-> > verify that accounting records get created properly which does look
-> > relevant.
+Hi!
+> Printing to stderr, tst_res_ filename and lineno helps debugging wrong
+> code. Best would be if it prints either code which invoked it or the
+> original message, but at least this is an improvement.
 > 
-> Hi there,
-> I faced the same issue and reverting this patch fixed the issue.
-> Is this an issue introduced by this patch or it's due to the ltp
-> testcase being outdated?
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> * New in v4
 > 
-> Thanks & Regards,
-> Harshvardhan
+>  testcases/lib/tst_res_.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> >
-> > git bisect start
-> > # status: waiting for both good and bad commits
-> > # bad: [0af2f6be1b4281385b618cb86ad946eded089ac8] Linux 6.15-rc1
-> > git bisect bad 0af2f6be1b4281385b618cb86ad946eded089ac8
-> > # status: waiting for good commit(s), bad commit known
-> > # good: [38fec10eb60d687e30c8c6b5420d86e8149f7557] Linux 6.14
-> > git bisect good 38fec10eb60d687e30c8c6b5420d86e8149f7557
-> > # good: [fd71def6d9abc5ae362fb9995d46049b7b0ed391] Merge tag 'for-6.15-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux
-> > git bisect good fd71def6d9abc5ae362fb9995d46049b7b0ed391
-> > # good: [93d52288679e29aaa44a6f12d5a02e8a90e742c5] Merge tag 'backlight-next-6.15' of git://git.kernel.org/pub/scm/linux/kernel/git/lee/backlight
-> > git bisect good 93d52288679e29aaa44a6f12d5a02e8a90e742c5
-> > # good: [2cd5769fb0b78b8ef583ab4c0015c2c48d525dac] Merge tag 'driver-core-6.15-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core
-> > git bisect good 2cd5769fb0b78b8ef583ab4c0015c2c48d525dac
-> > # bad: [25757984d77da731922bed5001431673b6daf5ac] Merge tag 'staging-6.15-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging
-> > git bisect bad 25757984d77da731922bed5001431673b6daf5ac
-> > # good: [28a1b05678f4e88de90b0987b06e13c454ad9bd6] Merge tag 'i2c-for-6.15-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux
-> > git bisect good 28a1b05678f4e88de90b0987b06e13c454ad9bd6
-> > # good: [92b71befc349587d58fdbbe6cdd68fb67f4933a8] Merge tag 'objtool-urgent-2025-04-01' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip
-> > git bisect good 92b71befc349587d58fdbbe6cdd68fb67f4933a8
-> > # good: [5e17b5c71729d8ce936c83a579ed45f65efcb456] Merge tag 'fuse-update-6.15' of git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/fuse
-> > git bisect good 5e17b5c71729d8ce936c83a579ed45f65efcb456
-> > # good: [344a50b0f4eecc160c61d780f53d2f75586016ce] staging: gpib: lpvo_usb_gpib: struct gpib_board
-> > git bisect good 344a50b0f4eecc160c61d780f53d2f75586016ce
-> > # bad: [9e8f324bd44c1fe026b582b75213de4eccfa1163] NFSv4: Check for delegation validity in nfs_start_delegation_return_locked()
-> > git bisect bad 9e8f324bd44c1fe026b582b75213de4eccfa1163
-> > # good: [df210d9b0951d714c1668c511ca5c8ff38cf6916] sunrpc: Add a sysfs file for adding a new xprt
-> > git bisect good df210d9b0951d714c1668c511ca5c8ff38cf6916
-> > # good: [bf9be373b830a3e48117da5d89bb6145a575f880] SUNRPC: rpc_clnt_set_transport() must not change the autobind setting
-> > git bisect good bf9be373b830a3e48117da5d89bb6145a575f880
-> > # good: [c81d5bcb7b38ab0322aea93152c091451b82d3f3] NFSv4: clp->cl_cons_state < 0 signifies an invalid nfs_client
-> > git bisect good c81d5bcb7b38ab0322aea93152c091451b82d3f3
-> > # bad: [14e41b16e8cb677bb440dca2edba8b041646c742] SUNRPC: Don't allow waiting for exiting tasks
-> > git bisect bad 14e41b16e8cb677bb440dca2edba8b041646c742
-> > # good: [0af5fb5ed3d2fd9e110c6112271f022b744a849a] NFSv4: Treat ENETUNREACH errors as fatal for state recovery
-> > git bisect good 0af5fb5ed3d2fd9e110c6112271f022b744a849a
-> > # first bad commit: [14e41b16e8cb677bb440dca2edba8b041646c742] SUNRPC: Don't allow waiting for exiting tasks
+> diff --git a/testcases/lib/tst_res_.c b/testcases/lib/tst_res_.c
+> index c09d689ee5..5b255d4d54 100644
+> --- a/testcases/lib/tst_res_.c
+> +++ b/testcases/lib/tst_res_.c
+> @@ -16,7 +16,7 @@ int main(int argc, char *argv[])
+>  	int type, i;
+>  
+>  	if (argc < 5) {
+> -		printf("argc = %i expected 5\n", argc);
+> +		fprintf(stderr, "%s:%d: argc = %i expected 5\n", __FILE__, __LINE__, argc);
+>  		goto help;
+>  	}
+>  
+> @@ -35,7 +35,7 @@ int main(int argc, char *argv[])
+>  	} else if (!strcmp(argv[3], "TBROK")) {
+>  		type = TBROK;
+>  	} else {
+> -		printf("Wrong type '%s'\n", argv[3]);
+> +		fprintf(stderr, "%s:%d: Wrong type '%s'\n", __FILE__, __LINE__, argv[3]);
+
+In this case we cantually have file and line in argv[1] and argv[2] and
+we can print that as well.
+
+And possibly in the case that argc < 5 we can attempt to print argv[1]
+and argv[2] as well, but it's likely going to be wrong data since the
+number of arguments does not match in that case.
+
+>  		goto help;
+>  	}
+>  
+> -- 
+> 2.50.1
 > 
 
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
