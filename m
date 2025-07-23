@@ -2,70 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D852B0FB2C
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jul 2025 21:54:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 731DCB0FB3E
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jul 2025 22:03:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ECDC63CCDAF
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jul 2025 21:54:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 085C03CCDC0
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jul 2025 22:03:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4F21E3C20D2
- for <ltp@lists.linux.it>; Wed, 23 Jul 2025 21:54:42 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by picard.linux.it (Postfix) with ESMTPS id ECBE13CCDD5
+ for <ltp@lists.linux.it>; Wed, 23 Jul 2025 22:03:43 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 8808A1400215
- for <ltp@lists.linux.it>; Wed, 23 Jul 2025 21:54:41 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4A37B1A00E24
+ for <ltp@lists.linux.it>; Wed, 23 Jul 2025 22:03:42 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3F42A1F78C;
- Wed, 23 Jul 2025 19:54:40 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 96843218B8;
+ Wed, 23 Jul 2025 20:03:42 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 061F113ABE;
- Wed, 23 Jul 2025 19:54:39 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5B86713ABE;
+ Wed, 23 Jul 2025 20:03:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id BsYzOv89gWg8CwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Wed, 23 Jul 2025 19:54:39 +0000
-Date: Wed, 23 Jul 2025 21:54:38 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Wqj3Eh5AgWhvDQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Wed, 23 Jul 2025 20:03:42 +0000
+Date: Wed, 23 Jul 2025 22:03:36 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <20250723195438.GE162896@pevik>
+Message-ID: <20250723200336.GF162896@pevik>
 References: <20250723-xattr_bug_repr-v5-0-63183d865e97@suse.com>
- <20250723-xattr_bug_repr-v5-1-63183d865e97@suse.com>
+ <20250723-xattr_bug_repr-v5-2-63183d865e97@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250723-xattr_bug_repr-v5-1-63183d865e97@suse.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Level: 
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 3F42A1F78C
+In-Reply-To: <20250723-xattr_bug_repr-v5-2-63183d865e97@suse.com>
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Queue-Id: 96843218B8
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
 X-Spam-Score: -4.00
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v5 1/2] core: add tst_selinux_enabled() utility
+Subject: Re: [LTP] [PATCH v5 2/2] Add listxattr04 reproducer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,20 +85,114 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Andrea,
 
-> From: Andrea Cervesato <andrea.cervesato@suse.com>
+First, can you please before merge add
+listxattr04 to runtest/syscalls?
 
-> Add tst_lsm_enabled() utility in tst_security.h in order to verify
-> if a certain LSM is up and running.
+With that you may add my RBT
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Thanks for the test.
 
-LGTM, thank you!
+3 very minor notes, up to you if you change it before merge.
 
-> Reviewed-by: Wei Gao <wegao@suse.com>
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+> +#include <pwd.h>
+I guess this is now not needed, right?
+
+> +#include <sys/acl.h>
+> +#include <sys/xattr.h>
+> +
+> +#define ACL_PERM        "u::rw-,u:root:rwx,g::r--,o::r--,m::rwx"
+> +#define TEST_FILE       "test.bin"
+> +
+> +static acl_t acl;
+> +
+> +static void verify_xattr(const int size)
+> +{
+> +	char buf[size];
+> +
+> +	memset(buf, 0, sizeof(buf));
+> +
+> +	if (listxattr(TEST_FILE, buf, size) == -1) {
+> +		if (errno != ERANGE)
+> +			tst_brk(TBROK | TERRNO, "listxattr() error");
+> +
+> +		tst_res(TFAIL, "listxattr() failed to read attributes length: ERANGE");
+> +		return;
+> +	}
+> +
+> +	tst_res(TPASS, "listxattr() correctly read attributes length");
+> +}
+> +
+> +static void run(void)
+> +{
+> +	int size;
+> +
+> +	size = listxattr(TEST_FILE, NULL, 0);
+> +	if (size == -1)
+> +		tst_brk(TBROK | TERRNO, "listxattr() error");
+> +
+> +	verify_xattr(size);
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	int res;
+> +	int selinux;
+> +	int smack;
+> +
+> +	selinux = tst_lsm_enabled("selinux");
+> +	smack = tst_lsm_enabled("smack");
+> +
+> +	if (!selinux && !smack)
+very nit: up to you, but I would avoid variables and just
+
+	if (!tst_lsm_enabled("selinux") && !tst_lsm_enabled("smack"))
+		tst_brk(TCONF, "There are no LSM(s) implementing xattr");
+
+> +		tst_brk(TCONF, "There are no LSM(s) implementing xattr");
+
+> +
+> +	SAFE_TOUCH(TEST_FILE, 0644, NULL);
+> +
+> +	acl = acl_from_text(ACL_PERM);
+> +	if (!acl)
+> +		tst_brk(TBROK | TERRNO, "acl_from_text() failed");
+> +
+> +	res = acl_set_file(TEST_FILE, ACL_TYPE_ACCESS, acl);
+> +	if (res == -1) {
+> +		if (errno == EOPNOTSUPP)
+> +			tst_brk(TCONF | TERRNO, "acl_set_file()");
+> +
+> +		tst_brk(TBROK | TERRNO, "acl_set_file(%s) failed", TEST_FILE);
+> +	}
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	if (acl)
+> +		acl_free(acl);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = run,
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.needs_root = 1,
+> +	.needs_tmpdir = 1,
+> +	.tags = (const struct tst_tag[]) {
+> +		{"linux-git", "800d0b9b6a8b"},
+> +		{}
+> +	}
+> +};
+> +
+> +#else /* HAVE_SYS_XATTR_H && HAVE_LIBACL */
+> +	TST_TEST_TCONF("<sys/xattr.h> or <sys/acl.h> does not exist.");
+very very nit: please no dot in LTP messages.
 
 Kind regards,
 Petr
+
+> +#endif
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
