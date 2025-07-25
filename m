@@ -1,85 +1,86 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFE20B11E8B
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Jul 2025 14:30:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 092ADB11F2D
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Jul 2025 15:10:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A0F593CCEB2
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Jul 2025 14:30:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B168E3CCE90
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Jul 2025 15:10:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4EAEE3C20D2
- for <ltp@lists.linux.it>; Fri, 25 Jul 2025 14:30:26 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 01DCB3C7F3F
+ for <ltp@lists.linux.it>; Fri, 25 Jul 2025 15:10:40 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7AF2D1A00EA1
- for <ltp@lists.linux.it>; Fri, 25 Jul 2025 14:30:24 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E919920007F
+ for <ltp@lists.linux.it>; Fri, 25 Jul 2025 15:10:39 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AA4AB2128A;
- Fri, 25 Jul 2025 12:30:21 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0D7F1216F2;
+ Fri, 25 Jul 2025 13:10:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1753446621; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1753449039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ZxC9Iszvpvc7ixHI4FBVhNQX4nGRfcg1eU2ZHrg1jz0=;
- b=0B/KY8ljcplMjh0DtETONeLLQg3RKQ8uCNLCD+KvKe9zF7PRaRKolagfouRn7QWQzxS5Cs
- HlPiK0aKEuS8zRl1C+JJzb/jtklSz4Nj+22bI2pF4hdo3uxnZFw5o0wp205wZji6+kb7Ex
- F20X2709vukgZIk3RTgdZqSUgs9+yb8=
+ bh=Mweleo1Xpa/H0lgqCOMVq4Zj5ws7jdhY5u0xfeRkt2o=;
+ b=o0ARfyId1nKqd4/CYHNpZU5HQ8p+rFwkEkJ83S9cmK/7IMtvqo+dUPPvoPEYt4aLRQGTEx
+ d2LtYGT7NpiAROKqLEeXUn4wDrDbRnfCSP78cYWtaAQn7Wcq3SE9KqoK94ZUHFRn0+aesB
+ lcK4O076D8zjwKB60rPxmr1UR2xTgTU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1753446621;
+ s=susede2_ed25519; t=1753449039;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ZxC9Iszvpvc7ixHI4FBVhNQX4nGRfcg1eU2ZHrg1jz0=;
- b=i39XMZbVSz9qUWbt5lRhKBG9cweAxaFeNQqdVyDA98tt56gXQwHWdrN2ohiFfesDSicrS9
- xaAvnH5OzRu8JdCA==
+ bh=Mweleo1Xpa/H0lgqCOMVq4Zj5ws7jdhY5u0xfeRkt2o=;
+ b=fcT6iAqeV480/IZOrDO/3EvRhg13YJt06Rtqzm/pXoHq8e/5L6IW9vtfRHXft7jhB1xCTu
+ DKFf5/mN0Oz/BLCg==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1753446621; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1753449039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ZxC9Iszvpvc7ixHI4FBVhNQX4nGRfcg1eU2ZHrg1jz0=;
- b=0B/KY8ljcplMjh0DtETONeLLQg3RKQ8uCNLCD+KvKe9zF7PRaRKolagfouRn7QWQzxS5Cs
- HlPiK0aKEuS8zRl1C+JJzb/jtklSz4Nj+22bI2pF4hdo3uxnZFw5o0wp205wZji6+kb7Ex
- F20X2709vukgZIk3RTgdZqSUgs9+yb8=
+ bh=Mweleo1Xpa/H0lgqCOMVq4Zj5ws7jdhY5u0xfeRkt2o=;
+ b=o0ARfyId1nKqd4/CYHNpZU5HQ8p+rFwkEkJ83S9cmK/7IMtvqo+dUPPvoPEYt4aLRQGTEx
+ d2LtYGT7NpiAROKqLEeXUn4wDrDbRnfCSP78cYWtaAQn7Wcq3SE9KqoK94ZUHFRn0+aesB
+ lcK4O076D8zjwKB60rPxmr1UR2xTgTU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1753446621;
+ s=susede2_ed25519; t=1753449039;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ZxC9Iszvpvc7ixHI4FBVhNQX4nGRfcg1eU2ZHrg1jz0=;
- b=i39XMZbVSz9qUWbt5lRhKBG9cweAxaFeNQqdVyDA98tt56gXQwHWdrN2ohiFfesDSicrS9
- xaAvnH5OzRu8JdCA==
+ bh=Mweleo1Xpa/H0lgqCOMVq4Zj5ws7jdhY5u0xfeRkt2o=;
+ b=fcT6iAqeV480/IZOrDO/3EvRhg13YJt06Rtqzm/pXoHq8e/5L6IW9vtfRHXft7jhB1xCTu
+ DKFf5/mN0Oz/BLCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 962C71373A;
- Fri, 25 Jul 2025 12:30:21 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 001B5134E8;
+ Fri, 25 Jul 2025 13:10:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id e32KI914g2h7LAAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Fri, 25 Jul 2025 12:30:21 +0000
-Date: Fri, 25 Jul 2025 14:31:02 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id jWqAOk6Cg2hlOQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Fri, 25 Jul 2025 13:10:38 +0000
+Date: Fri, 25 Jul 2025 15:11:15 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Mike Tipton <mike.tipton@oss.qualcomm.com>
-Message-ID: <aIN5Btk4Sn2azE14@yuki.lan>
-References: <20250710170255.4190556-1-mike.tipton@oss.qualcomm.com>
+To: Florian Schmaus <florian.schmaus@codasip.com>
+Message-ID: <aIOCcxpB9LdcHRW1@yuki.lan>
+References: <20250716072846.600659-1-florian.schmaus@codasip.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250710170255.4190556-1-mike.tipton@oss.qualcomm.com>
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+In-Reply-To: <20250716072846.600659-1-florian.schmaus@codasip.com>
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
  ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -91,16 +92,15 @@ X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  RCVD_COUNT_TWO(0.00)[2];
  DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Level: 
 X-Spam-Score: -4.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v4] device-drivers/cpufreq_boost: Don't hardcode
- to CPU0
+Subject: Re: [LTP] [PATCH v2] sigrelse01: Fix out-of-bounds read when
+ invoking write()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,26 +119,48 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> -const char governor[]	= SYSFS_CPU_DIR "cpu0/cpufreq/scaling_governor";
-> +static int cpu;
-> +
-> +static const char _governor[] = SYSFS_CPU_DIR "cpu%d/cpufreq/scaling_governor";
-
-Identifiers starting with underscore are reserved for kernel/libc
-implementation we shouldn't use them here. I guess that this would be
-better as governor_fmt.
-
-> +static char governor[64];
->  static char governor_name[16];
+> Signed-off-by: Florian Schmaus <florian.schmaus@codasip.com>
+> ---
+> 
+> Changes in v2:
+>     - remove unnecessary '\n' in tst_resm
+> 
+>  testcases/kernel/syscalls/sigrelse/sigrelse01.c | 14 ++++++++------
+>  1 file changed, 8 insertions(+), 6 deletions(-)
+> 
+> diff --git a/testcases/kernel/syscalls/sigrelse/sigrelse01.c b/testcases/kernel/syscalls/sigrelse/sigrelse01.c
+> index 95754212053e..68d69c3ef5e7 100644
+> --- a/testcases/kernel/syscalls/sigrelse/sigrelse01.c
+> +++ b/testcases/kernel/syscalls/sigrelse/sigrelse01.c
+> @@ -486,12 +486,14 @@ static void child(void)
+>  	 * then PASS, otherwise FAIL.
+>  	 */
 >  
-> -const char maxspeed[]	= SYSFS_CPU_DIR "cpu0/cpufreq/scaling_max_freq";
-> +static const char _maxspeed[] = SYSFS_CPU_DIR "cpu%d/cpufreq/scaling_max_freq";
+> -	if (exit_val == EXIT_OK) {
+> -		(void)memcpy(note, (char *)sig_array, sizeof(sig_array));
+> -	}
+> -
+>  	/* send note to parent and exit */
+> -	if (write_pipe(pipe_fd[1], note) < 0) {
+> +	if (exit_val == EXIT_OK) {
+> +		if (write(pipe_fd[1], sig_array, sizeof(sig_array)) < 0) {
+> +			tst_resm(TBROK, "write() pipe failed. error:%d %s.", errno, strerror(errno));
+                                     ^
+				   use | TERRNO instead of printing the
+				   errno manually here.
+> +			exit(WRITE_BROK);
+> +		}
+> +	}
+> +	else if (write_pipe(pipe_fd[1], note) < 0) {
 
-Here as well.
+We follow LKML coding style so the proper way to write this is:
+
+	} else if (...) {
+		...
+	}
 
 
-Other than that it looks fine. I can push the patch with the change from
-_governor to governor_fmt and _maxspeed to maxspeed_fmt if you agree.
+Other than these two minor things the patch looks fine.
 
 -- 
 Cyril Hrubis
