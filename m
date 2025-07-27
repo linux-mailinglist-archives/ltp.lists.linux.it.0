@@ -2,83 +2,99 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF96FB131D4
-	for <lists+linux-ltp@lfdr.de>; Sun, 27 Jul 2025 22:37:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44448B1300D
+	for <lists+linux-ltp@lfdr.de>; Sun, 27 Jul 2025 17:25:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A37C83C7386
-	for <lists+linux-ltp@lfdr.de>; Sun, 27 Jul 2025 22:37:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DD4323C7ABD
+	for <lists+linux-ltp@lfdr.de>; Sun, 27 Jul 2025 17:25:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BA9063C0F39
- for <ltp@lists.linux.it>; Sun, 27 Jul 2025 07:04:58 +0200 (CEST)
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 269C83C0BCC
+ for <ltp@lists.linux.it>; Sun, 27 Jul 2025 17:25:12 +0200 (CEST)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 122B210004BD
- for <ltp@lists.linux.it>; Sun, 27 Jul 2025 07:04:58 +0200 (CEST)
-Received: by mail-pg1-x52c.google.com with SMTP id
- 41be03b00d2f7-b3bad2f99f5so2914442a12.1
- for <ltp@lists.linux.it>; Sat, 26 Jul 2025 22:04:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753592696; x=1754197496; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=sGHC/IKmsZBEaw4ybOELhghZPARSq+F5hG2wUERKcPI=;
- b=RbrPAjRgWOtROe4jFcFu7GGFVo0mGToBfVDLQmpZsKCLP2qpAm8odFUERkP4dp+yHe
- OYpjrNiicDtruTjSanHZbuY76u6L4ywj7/Y5l1QY2M3ggFIdX0QIDH1CKEYAx9Tm6ct7
- acZFylARF8E+ZmJpce/C0Yd3ZZOrDnDZytdV2+JnKWHWK3rPxtpnCHqE5MSp7WXGuoKa
- 5XiK02yVzSMcLL4RJgs3bMuemS3bmCmqWpcgh5OwsKi3mTw56iT/R3znmBOrn5E1X3qV
- j+TZkC1h54yW20XdYacXzLM2pzSR9fQn5V7IAnqsPGNtdle0yb4c1ERy012qnCaRUdrX
- VoRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753592696; x=1754197496;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=sGHC/IKmsZBEaw4ybOELhghZPARSq+F5hG2wUERKcPI=;
- b=wn4EUPo9YN5G/LpTmXXEhrEsOW3ddlEnD+6wa376g3lzfvdwC0wIfwU6FOdSsGc0LA
- kLKEJv+txoPsgYTHLuSvh+qRobwelSjD/fJ6vWRGrLVacY+wahnAG2dxky7Wo5693FG+
- 289yz7frB6O7h/kcWpgRIg9NVvPEQwhIiPkFYTr2FENHcpbQrcDJY9hdy/18QftzL3zA
- Rv40Cy72EEznLYGLpA5bt8yrUCnyeQckPlvVwD5uQdHcGmlO/NvDvXRO/eToKC2IP0S7
- fn65gA2qsvK8NCK0vYDOrB2mc6ykguf6C9E3N/ybX5V3fr6h2MzvakBtZ9Sm6XsStgxg
- j9lg==
-X-Gm-Message-State: AOJu0YwBejdgq4PiOxlslV0d57s+AUJtOYoAYT8qrCjLmwPKvJGjPHQG
- jaBo1n6UbyjK0m/+tClgDO9Bt6qdF5TIRDX9wEqfjVYYVNFrUO45NTK1Zt7xKnCL
-X-Gm-Gg: ASbGncvZ6i7v2aHpOuJRxdx1w16bsE6mF89RUMDoh/Hb28Or/9jnJdHabfc/oWqvWnE
- nZeG+4f+8yWWpTXO0X2QdsSVuM8rNvJDyEDDUfXJAhH2F7n77ZZJ9qJvgmNjo/SZkMQWQOsBT8h
- n2Vz2tsVh+5Q+2+fFCXwq0BLr6v0ocEjqksMKdv/XMW8XnFdC4y+Dl5KlrTNwR+0VB3PgL84LWI
- +F1xLIivHux6J4EPyYjCDvtwFfrIDGFTiXHQjB3Ev1vO8kNxZ5GxBSdfpd21ZRzAyCvk4Vcvdsf
- 22dZdD71T+fqJopHU3L8zbF08BxmobyaEEnSWmfepQImOKFX0fkk+cNKrFLX9DtDk4LPK7raHXn
- 4TO9yctfvns3APwAjfCDJdyqAVAAxLhidTaJGVl+aAlQGDFkFj7zEC1IKTxq5U1pc
-X-Google-Smtp-Source: AGHT+IEYIIrVm1hjvXWP2v1YB9fHqRudojnfC+LwDmpZjDZsGCoydxWlaK6QTB8eQeR33futEVB00A==
-X-Received: by 2002:a05:6a20:3d8b:b0:234:4f73:e657 with SMTP id
- adf61e73a8af0-23d5b3e126emr19671201637.0.1753592695753; 
- Sat, 26 Jul 2025 22:04:55 -0700 (PDT)
-Received: from vbox.. (softbank126093126126.bbtec.net. [126.93.126.126])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f7f58bec0sm2521505a12.17.2025.07.26.22.04.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Jul 2025 22:04:55 -0700 (PDT)
-From: Xiao Yang <iceyangxiao@gmail.com>
-To: ltp@lists.linux.it
-Date: Sun, 27 Jul 2025 14:04:50 +0900
-Message-ID: <20250727050450.104599-1-iceyangxiao@gmail.com>
-X-Mailer: git-send-email 2.48.1
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 057D91A004ED
+ for <ltp@lists.linux.it>; Sun, 27 Jul 2025 17:25:11 +0200 (CEST)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56R8VIRc008944;
+ Sun, 27 Jul 2025 15:25:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=pp1; bh=/yuhvSk4DRB6G5QkjVaOO0fc0NWXCvctGpooeeAS/
+ 4Y=; b=Pu4R6ckkFlu10XCexoMIDnuTf+6JgQPcgQHAMt5j5guTgXPDZWNv/9Vqm
+ z/tuzBl6Qod2EbtSbeqI2TCFwy+5OCNDPYt261yy4KS8cJt2rCYV3Niv9gx+m72y
+ QE+MPkuzYWFaQaoHHjosLY3609qc1GNSN6fjEozGUkrLHoSQ3ZFAZV/fH1z5lfdf
+ T1Biv6rM/x4m2bOZ0BrriUya38ibPpnBvPtE5MMTe9uWPilg87uGIPslU1jgPqzA
+ /3WRuqXLmIBjdCHbJIAg1dIcyXexxynCl9DvbzQdamVmAv7qmQwbipxPWoIQ4zQ/
+ WnSubQXZjcOdDjlKVcmulB40ZQIKQ==
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 484qfqd0vn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 27 Jul 2025 15:25:08 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 56RDWZVf015999;
+ Sun, 27 Jul 2025 15:25:07 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 485auma18b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 27 Jul 2025 15:25:07 +0000
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
+ [10.20.54.104])
+ by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 56RFP50131130110
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Sun, 27 Jul 2025 15:25:05 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B5B2B20043;
+ Sun, 27 Jul 2025 15:25:05 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5E54420040;
+ Sun, 27 Jul 2025 15:25:05 +0000 (GMT)
+Received: from li-276bd24c-2dcc-11b2-a85c-945b6f05615c.ibm.com.com (unknown
+ [9.111.6.121]) by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Sun, 27 Jul 2025 15:25:05 +0000 (GMT)
+From: Jan Polensky <japo@linux.ibm.com>
+To: ltp@lists.linux.it (Linux Test Project)
+Date: Sun, 27 Jul 2025 17:24:54 +0200
+Message-ID: <20250727152454.682633-1-japo@linux.ibm.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzI3MDEzNiBTYWx0ZWRfX8MoSNO+baG0w
+ hSUQ+HpLRjKTuZajRHs+1ie/J2BD03amVtmReeKviUf3r32eOAnv4ivA31PZYUExfBUkOQ4HQa1
+ MqQ9430Z4pKQAjbmXHxhxRpceb2/do3y67onvpJnWgsgN3I5qTTXHV1hadw+9oI4KaZmY/hRYGK
+ R4EfJF07yJmC+BhXiWm6lQNfwn58Wr8fTkKGgdXu19z0iGczDdiHU3TvF5TyPROR3lEiXToSUaC
+ +PvoySxERugQI0xs9W8gUZfxLFTAgtf0YVEAcOGa10sZ9fJq+XV30eFSBD8SCITtz8Z7YsFWn7G
+ eg/VeP6MWD4eaJtzf9y5siHFNI592Z0H0bIQp0MPrg/N6QVSwaL4SNFtyo/ltLlG3MPIX0a+OR/
+ mRvWkdEVSAOSCIE8wV0eoDeQXuOTzyup6hViZ+q51Kbwwr0UZ440O5iEb0qQqmmQ6byRmSjE
+X-Authority-Analysis: v=2.4 cv=Je28rVKV c=1 sm=1 tr=0 ts=688644d5 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=Wb1JkmetP80A:10 a=VnNF1IyMAAAA:8 a=-pjX9pRNH2A5XNyfVh0A:9
+X-Proofpoint-GUID: u9RaTtdOIxnCcbwAPz4dN9wOZn_Y_ibf
+X-Proofpoint-ORIG-GUID: u9RaTtdOIxnCcbwAPz4dN9wOZn_Y_ibf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-27_05,2025-07-24_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999 clxscore=1015 lowpriorityscore=0 spamscore=0 adultscore=0
+ suspectscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 phishscore=0
+ mlxscore=0 impostorscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507270136
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Sun, 27 Jul 2025 22:37:44 +0200
-Subject: [LTP] [PATCH] doc: Update the usage of kirk options
+Subject: [LTP] [PATCH v2 1/1] safe_macros.c: Fix missing ro flag for FUSE
+ NTFS mounts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,28 +111,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The kirk options have been changed since kirk version 2.0.
+The test incorrectly assumes that NTFS mounts are read-only, but the mount
+command does not explicitly set the read-only flag. As a result, the test fails
+when checking `sb_flags` against `MS_RDONLY`.
 
-Signed-off-by: Xiao Yang <iceyangxiao@gmail.com>
+Old behavior:
+
+    sudo LTP_SINGLE_FS_TYPE=ntfs strace -e trace=mount,statmount -o log.log -s 128 -f ./statmount02
+    ...
+    statmount02.c:47: TFAIL: st_mount->sb_flags (0) != MS_RDONLY (1)
+    ...
+
+Relevant log excerpt:
+
+    3890601 mount("/dev/zero", "/tmp/mountBDSEqk", "ntfs", 0, NULL) = -1 ENOTBLK (Block device required)
+    3890608 mount("/dev/loop0", "/tmp/LTP_staTPRruR/mntpoint", "fuseblk", 0, "allow_other,blksize=4096,fd=4,rootmode=40000,user_id=0,group_id=0") = 0
+    3890607 statmount({size=24, mnt_id=0x80010957, param=STATMOUNT_SB_BASIC}, {size=512, mask=STATMOUNT_SB_BASIC, sb_dev_major=7, sb_dev_minor=0, sb_magic=FUSE_SUPER_MAGIC, sb_flags=0}, 512, 0) = 0
+
+Signed-off-by: Jan Polensky <japo@linux.ibm.com>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 ---
- doc/users/quick_start.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Change since v1 (Thanks Cyril & thanks for the ping):
+* Removed restriction for NTFS.
 
-diff --git a/doc/users/quick_start.rst b/doc/users/quick_start.rst
-index 8a25b9129..e73175e33 100644
---- a/doc/users/quick_start.rst
-+++ b/doc/users/quick_start.rst
-@@ -87,7 +87,7 @@ To run all the test suites
-    $ cd /opt/ltp
- 
-    $ # run syscalls testing suite
--   $ ./kirk -f ltp -r syscalls
-+   $ ./kirk -U ltp -f syscalls
- 
- .. note::
- 
--- 
-2.48.1
+ lib/safe_macros.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/lib/safe_macros.c b/lib/safe_macros.c
+index 6946cc5bcb94..be04eb455d57 100644
+--- a/lib/safe_macros.c
++++ b/lib/safe_macros.c
+@@ -942,10 +942,15 @@ int safe_mount(const char *file, const int lineno, void (*cleanup_fn)(void),
+ 	 */
+ 	if (possibly_fuse(filesystemtype)) {
+ 		char buf[1024];
++		const char* mount_fmt;
+
+ 		tst_resm_(file, lineno, TINFO, "Trying FUSE...");
+-		snprintf(buf, sizeof(buf), "mount.%s '%s' '%s'",
+-			filesystemtype, source, target);
++		if (mountflags == MS_RDONLY)
++			mount_fmt = "mount.%s -o ro '%s' '%s'";
++		else
++			mount_fmt = "mount.%s '%s' '%s'";
++		snprintf(buf, sizeof(buf), mount_fmt, filesystemtype,
++				source, target);
+
+ 		rval = tst_system(buf);
+ 		if (WIFEXITED(rval) && WEXITSTATUS(rval) == 0)
+--
+2.50.1
 
 
 -- 
