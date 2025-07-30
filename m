@@ -1,98 +1,100 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DF43B1519F
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Jul 2025 18:48:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B7D1B158FD
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jul 2025 08:36:01 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1753807718; h=message-id :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1753857360; h=message-id :
  date : mime-version : to : references : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-transfer-encoding :
  content-type : sender : from;
- bh=BzdrN9IdOPJLyuzcM6qNdz+u3HITd7CgnmJ94ndBSBM=;
- b=Ai1zMp3adDbrBFAAM7iZHhl/Z4RlyuoZP+dfWu9oavIn1cVKQFrWHqR6Cr78Y9y/UlPWI
- Sg+TR3q4CGzFi5EtdlmCUNzslAERPkSVV4GpFaB5//C8jWsMw3kcqUiHFH4IbB/Oa2pSZEu
- zNIoh2GDVmoFHGDQqL1GishT364yBXo=
+ bh=y15T0BpYkhvr22ibuNh49F8JkZEZgz9Fzl2k45DsZwo=;
+ b=TQYQ7Eu3piWO26BXvjFSz7qkARWTmsWFf8n7E/Eov8BYvVHao6/Sv/B49U+vTpo7TF/2v
+ mJ2taYqGFwnhv8YD0W1lzt6jtBMskSdSbBSVRl33/CABFMN+36fhW+Dj4sCU4IdAdAk6bfw
+ 6bWF1rRXoQQ3dYktcM3pR318JGvJoLM=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CA9F33CA2B3
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Jul 2025 18:48:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B714B3CACF0
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jul 2025 08:36:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 155D03C0433
- for <ltp@lists.linux.it>; Tue, 29 Jul 2025 18:48:26 +0200 (CEST)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
+ by picard.linux.it (Postfix) with ESMTPS id 0DD7A3C0372
+ for <ltp@lists.linux.it>; Wed, 30 Jul 2025 08:35:48 +0200 (CEST)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 661511A006A1
- for <ltp@lists.linux.it>; Tue, 29 Jul 2025 18:48:25 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3b783d851e6so2848319f8f.0
- for <ltp@lists.linux.it>; Tue, 29 Jul 2025 09:48:25 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 98116140007F
+ for <ltp@lists.linux.it>; Wed, 30 Jul 2025 08:35:47 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3b780bdda21so3787141f8f.3
+ for <ltp@lists.linux.it>; Tue, 29 Jul 2025 23:35:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1753807705; x=1754412505; darn=lists.linux.it;
+ d=suse.com; s=google; t=1753857347; x=1754462147; darn=lists.linux.it;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=pLTTyp+YcUhajAq3Y6K37jjoejY19woX304AwaxVRzA=;
- b=gosdbXV6a24G571VwyLsDQGWF8s3a4PxPtb3OWdNFm1VjBcGl8UH6ybhDvFaxZxFQc
- swoXYZSPr6cimXq0tNQxzMKQYUx11IAy/XDVejswLA94RPAdsBIW6c8VCNxnh0n7CIWj
- XHIK8/3MiOvwIinjkHPdh1jcMabpumH4H3b7fc6QW652IUMJULyYg9X62YexWQnq0Av4
- ImLs+OrsxxzEgfRLhjrUJUJLpU6KLICEaqylo/fpxUWPRC4YtVWWrJcrfo4e4qYwfUvR
- nOqD4wcuUNqXmSAtLYWLSG4vNo5iS0zfHjBPBrgw4D1qO3BFjq11ENwxI4HabSFED9oL
- 4Qng==
+ bh=xIaGvtfxBKJMcBR6eaeUXw0HwbDq0DbswToCsfIYtXI=;
+ b=L7mGVnlS1vhgfcjwi8satRO1b1Ujffao9RYMqmSaQfvXj7/VwohgWhARHaSIkpJirO
+ apRB2Rxj3Z27aFcmyAVwty94b+LBQgeF6d2MkC8E9zd/Ct0ZqEQ4EGdoSh2C20np3w/9
+ eOl4iib6iJBPxL7xtIE0RRz3p/V8TcxDA8QqBHTMX5K/MfVQJJ05M50bz8jmSiSUDoTF
+ UEYxZKIgpgTGG3ifHH0BasYKWxASjkxdqfyS5jnLVALxapPO4oP5bpmT8jwkzYsWvZOi
+ nFLEaySRdybJcxpWgoGe9XX8AY1vt7y9mHomSdj76qipFZuL4VqyCHVM1pWjAjLyF6AQ
+ Cx8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753807705; x=1754412505;
+ d=1e100.net; s=20230601; t=1753857347; x=1754462147;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pLTTyp+YcUhajAq3Y6K37jjoejY19woX304AwaxVRzA=;
- b=ioilE55tZEJk3UqS7m59t6Ff3vrx+MH/y6cmvCapk+mnnKnD88xiOePt+XUJuqOzGs
- SoYSm5vfgC9aQI/x7lMNwchDoiFv+eh38O5gWLAnx83WxDDWzgkiJrFfbL07HSY4OHFY
- I5jLqMaunnaYQ+zN42ELcnnDHWdj9w01llGlrnQymdbgOnkOH1SBuMF/KU1Ik6TlNYuh
- fIavfOLcWhLtD0LqDLMDhWV0qbBCXWIAkEj72vBuqteNFvxGrdniIfov/th+1baTNwoW
- z90x8lTCk5ocFjm2zM+laejafRDbbPxd0KmyWXZePSXnzCkM8njdCZjnSDkQ9hXZ8/FT
- TpfA==
+ bh=xIaGvtfxBKJMcBR6eaeUXw0HwbDq0DbswToCsfIYtXI=;
+ b=Xy7XOpeH+9pNyxTKaEPGbxQ0qD+EB/taIJL2RBmesYpA0LwvDIhRMOJSqf9Q4GmiD3
+ WClOAZ4XI9pNxJ5OMbkuoL1IoNfjPMgZh00NFhx04IPL80VkkTi7Kau0MOBxKjiR91Ql
+ eraxzBKuHI7OjzErPFTQRXjwjNmd/mmaGe/18XoTtmhsS3DnTXYz1yHmH3c1EWAt2hhu
+ Evaqh0D527AS+TlnDzoc7r18tRsKetudryxWA6AHP0E8NMTHGXZUlZC3ONaddzPU3j8W
+ JN1Q9lXJHYASNDRFJk5AjU1t2A4ZG/PPVf7Mh6Egi5Cjxxrk0t7to44KaF649HbzwNIF
+ 1ZbQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV08ZCyK48Y7JfTqmBxDPFt3Mo71Eg7gOIIvxV15DFHv6gkNy4zDV1okApTyjS+N8xvESw=@lists.linux.it
-X-Gm-Message-State: AOJu0Yz55m0+E3K3mMXXqrjKr7VLOnFMwHC0zDGT8XZl5mvsnqHVWVkE
- wy3svs5EJa/ZNFmKmUndT9nyb267P+3qyvwEMH+I6sDOhCBEcv34vVgU+ZjCUavwK7s=
-X-Gm-Gg: ASbGncuI9S7TS2EY0Vfxm8S7jnagMFrC6KZB2c2ZFd8MZNGE1O9agcoZOyFrbyIDozd
- 4RSaEM0w+Mm3lx6emKAHFKHPKij7vwVN7uOMWfrQ0UEUJfHvdFiWymvHNn7llkmnn6taOM+UKQP
- M3sPQvqc2aHBwuV4hB0fOjA7YWfV2A0zgHC+Tx5lPjBXWVHmGbW36y8jS0WG1HhLJ0bPboT0gly
- 9TIKE22uxMZKtPLjtsONMF1r+6RQhwN0OIcIPXAPXDfa3wkBye1rfBtWDvN6pKwIFNr0Eom+EcG
- fJl3sTqtPHpMTwTl6idg9lODWYRWmBL9yn3Qua0m2jitWLzVCE3MMQl+Nvrh2otdwMoMhUT0JiY
- Xh9pVivwa5gA8oC77PkcXQGspz0V2YmTkKw==
-X-Google-Smtp-Source: AGHT+IH6/DIWjC27D8ogbLMf4Sqp+yTcXErvCJko+W81vGW/p8BlM1UYacrFeW3xGNDQx1/XF6YVAw==
-X-Received: by 2002:a05:6000:40e0:b0:3a4:f038:af76 with SMTP id
- ffacd0b85a97d-3b79501d7d5mr308802f8f.53.1753807704822; 
- Tue, 29 Jul 2025 09:48:24 -0700 (PDT)
+ AJvYcCWRk6XkGLKtZu7Sb245RuFibesPrbHeduhqDi/7Pue99+tmBj7DOrmG2HglHPhQNmNGI84=@lists.linux.it
+X-Gm-Message-State: AOJu0Ywj2T7AM8T4Z28hx6tFTj3M5UBH8Lz7XkgOdkwG5eyr6TpD6CGf
+ zMfMnUHmzqtW1shH8ET31P3KuTtv8YQcIVIZgQUKFGbW+VXl5wvSDM5EqwkBauMu9xU=
+X-Gm-Gg: ASbGncsB/NSl+DjYsmmSNxZVaYVDJzFLXl8C4aaJgYSZ1kb8XZdyXyySPhaWlSs0V+6
+ yyJ4mBcHzFVU+u1yPIhAE8DomqloZ2LiFYqjn9GyPt572zcA2bhR+OkklF4R/oijgxDbh3SYqtE
+ nxM1sxbQQ1x5KY24BL4FL1z+OSRtRgVzNY9bi9P5dbwnCQpqb9JUuFmATnM6QHkMz7Ft6x7EtgL
+ tsyAf8SbpAUw1PvQh6Tqg2vzdoBOjnkVAegjjjRW8zBk5MBR8A4xmP8kpU9rIJlqMohu9ETKVYR
+ sjCkwZLVdX9WVAvH+xvsXrFFbdVUwKxRXXakx+cF+fF3XZNVR7eloc/LJTRR4F8Oa5QP5z64+FT
+ 20cg+OEvVNDwEGKajiPDUu+bQ7WngHTtCtQ==
+X-Google-Smtp-Source: AGHT+IHPPuPS9MOoCetDcaEgBwUmnqX7x6bXFRpF2aIJloa+x8+BYWpTlYef4Z6NefHU8FFpbngBdw==
+X-Received: by 2002:a05:6000:188c:b0:3a4:f661:c3e0 with SMTP id
+ ffacd0b85a97d-3b7950089d7mr1659492f8f.45.1753857346972; 
+ Tue, 29 Jul 2025 23:35:46 -0700 (PDT)
 Received: from [192.168.1.91] ([151.71.248.226])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23fbe536e6dsm82807665ad.171.2025.07.29.09.48.19
+ 41be03b00d2f7-b3f7f6ae8bcsm8495515a12.46.2025.07.29.23.35.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jul 2025 09:48:24 -0700 (PDT)
-Message-ID: <46e5368a-71a2-4a7d-9987-a9face630f20@suse.com>
-Date: Tue, 29 Jul 2025 18:48:15 +0200
+ Tue, 29 Jul 2025 23:35:46 -0700 (PDT)
+Message-ID: <7ac1840e-098f-45d4-a783-619a1760eca6@suse.com>
+Date: Wed, 30 Jul 2025 08:35:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Cyril Hrubis <chrubis@suse.cz>, Petr Vorel <pvorel@suse.cz>
+To: Wei Gao <wegao@suse.com>
 References: <20250729-ioctl_pidfd01_selinux-v1-1-432e100a5a53@suse.com>
  <5913636.DvuYhMxLoT@thinkpad> <ea4c0dbb-c4ba-46dd-b10c-c628d6093936@suse.com>
  <20250729084720.GA13357@pevik> <aIj0Jyn9cq9JVNbI@yuki.lan>
+ <46e5368a-71a2-4a7d-9987-a9face630f20@suse.com>
+ <aIn2hOwIadEPpxz0@MiWiFi-CR6608-srv>
 Content-Language: en-US
-In-Reply-To: <aIj0Jyn9cq9JVNbI@yuki.lan>
+In-Reply-To: <aIn2hOwIadEPpxz0@MiWiFi-CR6608-srv>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 Subject: Re: [LTP] [PATCH] Disable io_uring fd in ioctl_pidfd01 for selinux
 X-BeenThere: ltp@lists.linux.it
@@ -114,18 +116,13 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 7/29/25 6:17 PM, Cyril Hrubis wrote:
-> Maybe it would make sense to inject additional errno EACESS to the
-> TST_EXP_FAIL() automatically if we detect that selinux is enforcing.
+On 7/30/25 12:40 PM, Wei Gao wrote:
+> Just FYI discussion on similar case for fanotify14 handle selinux
+> https://lists.linux.it/pipermail/ltp/2024-March/037564.html
 
-This is potentially true for every LTP test, because SELinux can be 
-customized in many ways. Technically, we should not take care about 
-SELinux inside tests if they fail because of it and to threat failures 
-according to the LSM configuration, considering that as a known issue or 
-a soft failure.
-
-At least, this was my first idea. This patch was introduced after 
-talking to other devs and I'm also not 100% sure about it.
+Thanks Wei for pointing to the fanotify14 discussion. I'm going to 
+implement the same solution we had there, even if I'm not 100% convinced 
+about it.
 
 - Andrea
 
