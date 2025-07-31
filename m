@@ -2,101 +2,116 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13F6BB1705A
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Jul 2025 13:26:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1753961208; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-transfer-encoding :
- content-type : sender : from;
- bh=DnIhjbRy5Vns4lyNhVuS7bZ2FG6SgG9l0MslrgSwWlU=;
- b=Fj8+eXEVAK9dA8sVqEXhh32CA2zuXVuSA9ohGSuTxzY7yfA6/WLkaLLkadXnIjOwqDCNx
- aaOoC5LuyGkJhfgJ2bzV1YcQf8Cjv4T3TkOu4pn+9Z5SSH82yHYvfW5SltdfHenArTO+BP7
- wFoK+bvZX5d/VXSJbyE9nJjsDVuW+tg=
+	by mail.lfdr.de (Postfix) with ESMTPS id 99A37B1708C
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Jul 2025 13:47:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C1C2F3CBE28
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Jul 2025 13:26:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5522A3CC05E
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Jul 2025 13:47:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CE9153CB93E
- for <ltp@lists.linux.it>; Thu, 31 Jul 2025 13:26:45 +0200 (CEST)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id E872A3CB1A6
+ for <ltp@lists.linux.it>; Thu, 31 Jul 2025 13:46:33 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id F34371400351
- for <ltp@lists.linux.it>; Thu, 31 Jul 2025 13:26:44 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-45600581226so8504055e9.1
- for <ltp@lists.linux.it>; Thu, 31 Jul 2025 04:26:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1753961204; x=1754566004; darn=lists.linux.it;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=cdar2TOqSWT9Vjo8xxzpSYo7dYfQVBm6UVvwHPtTRgw=;
- b=R9gtWsQ4frDtiavBybEBaBXa0YQBXdT5cI8eku/UbFCEYdtrmuKedPAcRV0PwncxJC
- jZjGPhjZEhpJNx2OlRZlDyyG/CtYZIX2fcSu5agB2mhVbkj9jXSmtSGhsYVhgCOjsH+c
- Vkrv3M9Nb/jIY2sPwRazXihpXBquVZ370wJyalP0G44icLtLwDOjD8TXKk9qgyFtRsgP
- 09aIDE8Xh4f8F7CCwbMPhVF4hWSVhj2ChU73NYhKbmO81DYETEhpWaBjz6Dq0ejIioWC
- 0MVP3i2eIwkxBOVnBO1zkiomUnh7Z3hQ/r/sD+2Oy0CRpKTOafzVNKWLjlX0cbJL0eRD
- x41Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753961204; x=1754566004;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cdar2TOqSWT9Vjo8xxzpSYo7dYfQVBm6UVvwHPtTRgw=;
- b=kUFtcUTby4/qZrXoP5BdABc3YsuJs7rl9+hOMeU0AlTCpcEZnN+Ys1rtzWlhyO3lpM
- yHQ0uqSdyJAGnekmIM/gqwBLTnPRLb8qasi2pch3CJ3zPM5HBXBTAf90v71Pt9acM9Xr
- RNeKnOGoO4ACGzx+0HZCN1N4oQpGei8a6iI5wQHd30H1XVSATf+D+DgCj21TSsZAZsuH
- aYVR0xPO5Yi6/oehpWh10WpzefMcOXEq1kPIxaY2wWi4g0vUwuhvTR3Z8dUg6WYfxqeI
- trEPGCD3ZdiYfhb+4nKwLpGyOHDxy+WJZT48rrW+forPALr/L2dV0/XhHXqi23igIKKS
- ge4w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXKUTLT36zpXBQw2jV4MCRAylilcnCd02LcrsaE2gyBQrtznvzMGfx5sIXJY12rsON7Yg8=@lists.linux.it
-X-Gm-Message-State: AOJu0YxDQrTB/K+y//xba9nmuQQvmuVRNYWVjEZhsnS1rlbFMZvMQMS/
- O3acN+1NKVL6nB0yInSTeBdE8ZuWOBG6JdSBE0KMWg26NwQDRJa3U+q336Ir1C0P1hcd4x2zW8V
- AIs4cDpQ=
-X-Gm-Gg: ASbGncvIhdfnrD6gY3h7qjdryvUdFhN7pfi8rs9uaWcUcYQGpUk8EHLWH7XmaoCcr8V
- 83bJfKlH8bNMgxtnfzzWJOiepwdtSdPHvxHw2aka5SQirbUbJBnKGTvmCgbtXXUD8hKCwl0NRS6
- qIdd2KrlzuZuYqV4H62svLrBeiEJR+pOvNT3/o8+JadMpPhMR3yxUxzLW3wgbmH+OLT/I8ISPfh
- Pxg05suuy8IgiIg7X2p2mE4MQewlbBhedRCMgiRgTNJML4gBYriC2/0WzvYbrj3lgfUP+LWWsYn
- ehquTDr8wlW83uSNSt9KwOeC4Eb/LxZPHB/62PkYY3nvVvJlIieJdv7BbueesTZ7OguHd0deT1N
- lle08JLDVmAPYNUI+8LvU30vshf++UTJrHQ==
-X-Google-Smtp-Source: AGHT+IEg9gU0WbZ2cMAdfamF+rpPwBr/swrWiZbvjDdevoM0Bo5GhJPE1qzJCNxdYeFgfiGvtWc6lg==
-X-Received: by 2002:a5d:584c:0:b0:3b6:17c0:f094 with SMTP id
- ffacd0b85a97d-3b794fecd5bmr5878386f8f.14.1753961204144; 
- Thu, 31 Jul 2025 04:26:44 -0700 (PDT)
-Received: from [192.168.1.91] ([151.51.222.116])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76bccfdf9bdsm1389394b3a.111.2025.07.31.04.26.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 04:26:43 -0700 (PDT)
-Message-ID: <53d86959-f4a0-4f75-a623-8ede62b4383b@suse.com>
-Date: Thu, 31 Jul 2025 13:26:37 +0200
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F0B60200903
+ for <ltp@lists.linux.it>; Thu, 31 Jul 2025 13:46:32 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5151A21B3A;
+ Thu, 31 Jul 2025 11:46:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1753962391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=CEkDnLOr2KADiUDqOQerjRgy0L3Ew6MXxD+DgnZUJSw=;
+ b=VhinqosKVlLE14DrayXWXEsIzU5x9xIXVgzdGzTYYZG0z13XfXQhGVESDj9lv6XalLXL9K
+ hzEIuPkH6G//+V9444ajc5jk3rVpKfmRNqB1giYxhj2FFC/ySZC2XhpNuoJQ3+dvMsKVmV
+ Y/0Dtn5fCSc42ow1ZgCEP3x5IWsetcY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1753962391;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=CEkDnLOr2KADiUDqOQerjRgy0L3Ew6MXxD+DgnZUJSw=;
+ b=fJjrKA+gJYMyn46a0zZyaLuQ/T8MtMniNyPdeb9xw6fGRYkyUMyOLUkacNqUuQJ1ZUAnYw
+ yDjwu/ToRK1b0nAQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1753962391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=CEkDnLOr2KADiUDqOQerjRgy0L3Ew6MXxD+DgnZUJSw=;
+ b=VhinqosKVlLE14DrayXWXEsIzU5x9xIXVgzdGzTYYZG0z13XfXQhGVESDj9lv6XalLXL9K
+ hzEIuPkH6G//+V9444ajc5jk3rVpKfmRNqB1giYxhj2FFC/ySZC2XhpNuoJQ3+dvMsKVmV
+ Y/0Dtn5fCSc42ow1ZgCEP3x5IWsetcY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1753962391;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=CEkDnLOr2KADiUDqOQerjRgy0L3Ew6MXxD+DgnZUJSw=;
+ b=fJjrKA+gJYMyn46a0zZyaLuQ/T8MtMniNyPdeb9xw6fGRYkyUMyOLUkacNqUuQJ1ZUAnYw
+ yDjwu/ToRK1b0nAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 29DBB13A8A;
+ Thu, 31 Jul 2025 11:46:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id tJCBB5dXi2h2SgAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Thu, 31 Jul 2025 11:46:31 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Thu, 31 Jul 2025 13:46:24 +0200
+Message-Id: <20250731-clock_nanosleep05-v5-0-0118cf6b2454@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Ricardo_B=2E_Marli=C3=A8re?= <rbm@suse.com>,
- Linux Test Project <ltp@lists.linux.it>
-References: <20250731-fixes-munmap04-v2-1-41cfdd2367e5@suse.com>
-Content-Language: en-US
-In-Reply-To: <20250731-fixes-munmap04-v2-1-41cfdd2367e5@suse.com>
+X-B4-Tracking: v=1; b=H4sIAJBXi2gC/4XOUYvCMAwH8K8ifbbSpkvn7snvIcfRZelZ9FZZt
+ dwh++52A1FkcOTpH5JfchOJh8BJfKxuYuAcUoh9CbheCTq4/ptl6EoWoACVBSXpFOn41bs+phP
+ zWaG0qjXkW4fgWZS988A+/M7m/rPkQ0iXOPzNJ7Keug+tXtCylqUM1lo1Dmird+maeEPxR0xYh
+ hfALL2TQSqpEQE6RNRk3wDzBGq9+IEpgG1M5Um7MoVvQPUvUBWg3rZkofONVf4FGMfxDqwWnrp
+ 0AQAA
+X-Change-ID: 20250620-clock_nanosleep05-60b3cfba52fe
+To: ltp@lists.linux.it
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1753962391; l=2211;
+ i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
+ bh=TWsX4D2PvReebA1juY7A99FBn0u0KCcRk+my9BWW5Ug=;
+ b=11Xm7Jqd0Fslr2orr9P80EFgj9rr1lfU96pufHjqQck/ZS0nscP/JmyzPWvziUTqZSQxJccP7
+ qFByLh3edOVCZRcLvyUM+615jt7bc6LXwR9HGvl4NocoIu1mFrBGG0Y
+X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
+ pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCPT_COUNT_TWO(0.00)[2]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
+ suse.com:mid]
+X-Spam-Score: -4.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] syscalls/munmap04: Increase target map address
- in case of EEXIST
+Subject: [LTP] [PATCH v5 0/2] Rewrite openposix clock_settime bugged tests
+ inside LTP
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,16 +123,67 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Merged! Thanks
+Both clock_settime_7-1 and clock_settime_8-1 are affected by the
+same bug which is probably related to the way tests are written.
 
-- Andrea
+sleep() is used by the parent and is not reliable. It can oversleep
+or undersleep according to system overload or signals which are
+received. And we never check for its return value. Using
+clock_nanosleep would make parent more reliable in this case.
+
+At the same time, the test is taking for granted a certain
+synchronization between child and parent, which is not always true
+in case of system overload.
+
+My suggestion is to rewrite the test using LTP, which has better
+timing handling (see tst_timer.h).
+
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+Changes in v5:
+- move back to variants for clock_settime/clock_gettime
+- Link to v4: https://lore.kernel.org/r/20250717-clock_nanosleep05-v4-0-78bc62df960f@suse.com
+
+Changes in v4:
+- change description to include REALTIME instead of MONOTONIC
+- Link to v3: https://lore.kernel.org/r/20250717-clock_nanosleep05-v3-0-6934fc1a2505@suse.com
+
+Changes in v3:
+- remove checkpoints
+- sleep with REALTIME only, but take time in MONOTONIC
+- use only clock_settime variant
+- Link to v2: https://lore.kernel.org/r/20250630-clock_nanosleep05-v2-0-15522d5551c6@suse.com
+
+Changes in v2:
+- add SAFE_CLOCK_NANOSLEEP
+- move child to MONOTONIC clock
+- simplify child_nanosleep by passing flags
+- calculate delta by checking sleep() time between beginning and ending time
+- keep variants only for child
+- Link to v1: https://lore.kernel.org/r/20250627-clock_nanosleep05-v1-1-1357109a2c81@suse.com
+
+---
+Andrea Cervesato (2):
+      Add SAFE_CLOCK_NANOSLEEP macro utility
+      Add clock_settime04 test
+
+ include/tst_safe_clocks.h                          |  23 +++
+ runtest/syscalls                                   |   1 +
+ testcases/kernel/syscalls/clock_settime/.gitignore |   1 +
+ .../syscalls/clock_settime/clock_settime04.c       | 160 +++++++++++++++++++++
+ 4 files changed, 185 insertions(+)
+---
+base-commit: 91fa413eb521fde80d57c79bd3d2fb5cbe4ad3f4
+change-id: 20250620-clock_nanosleep05-60b3cfba52fe
+
+Best regards,
+-- 
+Andrea Cervesato <andrea.cervesato@suse.com>
 
 
 -- 
