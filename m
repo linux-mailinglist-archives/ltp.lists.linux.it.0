@@ -2,97 +2,96 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3041DB17581
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Jul 2025 19:16:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90EF0B17140
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Jul 2025 14:30:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1753982209; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1753965022; h=to : date :
+ message-id : in-reply-to : references : mime-version : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-transfer-encoding :
- content-type : sender : from;
- bh=+cL61rz2AV2UQazvL23yHmIWMoXo3JTHd700/uJBsrI=;
- b=ot79ne6UpVGvJXDdBLByPB7aMOrkx9PETZI+8p86oJcKrFuM3cRzf4diX35W8nBkuNPrE
- nBsqW+5mBLxKyBjxuqjE/MfAGgIdC0tQC3U50wvF8vMOSaX5bpyYQOb3XeNB6wCmRzkfVmt
- I6J3eDcuMmpulOJemH+YgMqAnqUbRpk=
+ list-subscribe : from : reply-to : content-type :
+ content-transfer-encoding : sender : from;
+ bh=p1WHj/SDOe+h9Fothvv6IcEqGjI3rIt06epEr/C2rYQ=;
+ b=DxbrMSno99k+HLODruo00eNMV7qjrTLcku+gyDREUpU1hU835fMd+eDx0LPP3kJ3LCSbx
+ DqXcLGy5jWj0zzjH8InopEVD1tTVNEYv+JDlF9w84WdwdeJ4PU7j5q4EWO/uksy7uXuF1/E
+ lnw2vP1IfiLVRnLw7Vm5j/6AChAqi24=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D25FB3CC1BB
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Jul 2025 19:16:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 47F5B3CBFDA
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Jul 2025 14:30:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E76A33CB93E
- for <ltp@lists.linux.it>; Thu, 31 Jul 2025 19:16:37 +0200 (CEST)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
+ by picard.linux.it (Postfix) with ESMTPS id EC6573C621B
+ for <ltp@lists.linux.it>; Thu, 31 Jul 2025 14:30:20 +0200 (CEST)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9C7AA10006BD
- for <ltp@lists.linux.it>; Thu, 31 Jul 2025 19:16:36 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3b7920354f9so1102774f8f.2
- for <ltp@lists.linux.it>; Thu, 31 Jul 2025 10:16:36 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 34989200240
+ for <ltp@lists.linux.it>; Thu, 31 Jul 2025 14:30:20 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3b78d13bf10so314526f8f.1
+ for <ltp@lists.linux.it>; Thu, 31 Jul 2025 05:30:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1753982196; x=1754586996; darn=lists.linux.it;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=4QdWIMNA0YiNiHmGBYu5LwY2KomVwG3CH2pEtH+d7bA=;
- b=IM3lLsQ4LxsAJJKeqLjj5NYrvfINh4D0kJNYgn4qfpIxqhqFXGhy/QEo0FqjB3s94s
- 9tS8xwUyESto75AuiU8miquZ2hwB4Mj6PL6SDWn+WgGWdPTsvZ2Db9U+w4Pdr5hI2Y/0
- Xo1JhlkPqGqp5BspQWr4u838IMKe2K3NPFNIy6zhl6Q1MqrNj52pw/W/Wg6b/Lt7K75M
- hztF1JqBmyzpMLAwTDPIK0uUYLOBZPxHcgaDGStFh4HHRaSY2mfvgUBS8h+dh5zPKEXD
- E+NTWboXhRIYWMNbf+mJeDjvAcRj8mXkAapXiVDM0uEtHR9R78CHUeTDOBzjHGn9pFyQ
- HfRw==
+ d=suse.com; s=google; t=1753965019; x=1754569819; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7mJDmioCeGPs84RzHATuJ/C0Es0Xqy9upRIGg9ErmK0=;
+ b=LRy5s9ysYluRVO7VGkhYYG1UNCaUFTDL9dlf6WlaAVf1d3f6Cu55V5cs0XppNyhMk4
+ ec5E2O2GE+Xy9/IdbpdmYfRWgWdRTvG7b3XmMemU+tzU5QTRpTO4/qWLg4UKJDXfemzz
+ qCgIFrLuL4Cylo6Ov+u88ABP7kHfdq9TjZVGgCyJJRWfT6DA4soBV4DEYDqQ9A9avPCM
+ ajh4N0PldMutnw9hBOCIAqRaHBgjrfF9/dbrby9hUQSFX0TY6Zq9dl2OIjBcWg59gv1/
+ H4H9FKu8NuoYy9i0hi41p6sy7jJOdo+wuFGGZ8e4qngoWlNXLSssj59uYXNwqSYzZ7qp
+ rD9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753982196; x=1754586996;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4QdWIMNA0YiNiHmGBYu5LwY2KomVwG3CH2pEtH+d7bA=;
- b=ZX4GjlQiVyvFnDrSP/4PtXmAoGgdMSy5xk1FrTgaVBgnFJODbdy4f/cV6glkKxaegS
- D2nDf+pN11WNwwRxq301ZoV5O4wm/3WewEQkE/wwymFefxwufM95kwD9saYkeBKDjLRo
- wNVGVAH5DuTRSBi/RSmlyTpAV1Tc5e2XQVeYULYLta3iiNPwVzM52XL9oBGhURnt9Nzc
- LJGgQ/o5ibw0OORscPak+uIm2L4Up2kNO0z32X2wU1fquW86HJQwNmWrsEbQQuMQ9iuZ
- 2xYflxRYvd3N4bmmpo0fdg7XiFav2PDk3juWZKrtpIVxozeNrtKGpihzGPNPbWwjX4vY
- 2uow==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX4vYDElC6f7+i1Gwhc/OOjCzD74xazXXZxuVc1o9Cr+N2NYSsS7TkvDXJoYZEaShfsmT4=@lists.linux.it
-X-Gm-Message-State: AOJu0Yx661jRd1jIqz5nWG0JLu3f3MwWNg6FS+ojsbDPha1xJ6WyAvHI
- t0QnH18F7RTb0r+7/APaTHFhNwU++3uDgoRNkdl2VuCTysNvtuUqFO7jE+hJtqSA/Dg=
-X-Gm-Gg: ASbGncvlGfrRlY7Zpytg8ygYV1FF9I/L/Z5/mz8ENBOO8mlQcN6joNPrLDybeN3EKCH
- zFJw4MMkrk9Cw1r/bDGX9uq3yjH0s/CbGBE41C7hJHK9u4l3TWc9DGRH/fWks/DaaobjfGQ2Ngr
- 0aPEbPVbbB+IEZ4uj4jkOXEF/wNzNu3alBitf8Uz/yst6od7dO1iXom+N9itmDkugZjzdL2wFWt
- 17ntwoQeRCPzxmIxDSlmtuYw9T7k6ZYqmSzHCfX0NNP8gTFTh2mrREzowuMyIAbFulYQMQJ5HGg
- ofaYRSFT0w2rM1IEg3rbXbE9Gpf28CdG1LcY5d91bVKVnmw8rOFiwLj4/4PRnJPKOb8O1eC5dlh
- FJIL2LJ1rH++85V59xgO4NDeJlCVZgBvhaw==
-X-Google-Smtp-Source: AGHT+IGt2L6yf68Fne8fgJrAg06XnmPt3ujepMI+oX+anKls/ig5/Xk3RAh0B0ytz7hbo7yTLDbT3g==
-X-Received: by 2002:a05:6000:26c4:b0:3a5:2ef8:34f9 with SMTP id
- ffacd0b85a97d-3b79501ed31mr7239161f8f.27.1753982196033; 
- Thu, 31 Jul 2025 10:16:36 -0700 (PDT)
-Received: from [192.168.1.91] ([151.51.222.116])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-241e89768fcsm22994675ad.82.2025.07.31.10.16.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 10:16:35 -0700 (PDT)
-Message-ID: <4146ca31-462f-4e9b-8af2-36adf2605bdb@suse.com>
-Date: Thu, 31 Jul 2025 19:16:29 +0200
+ d=1e100.net; s=20230601; t=1753965019; x=1754569819;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7mJDmioCeGPs84RzHATuJ/C0Es0Xqy9upRIGg9ErmK0=;
+ b=G6CHyPY9kDp2pTt2t5XnZo81G5n0z9HG+zrPl8w1ZRRyEtx765S2cPrbWpvSzoP2ex
+ csT7zDScwsw6hYzvMhC91LSUSAiHk5gN2DJo7FQ67R/q6tqbgHF5WqSVYuEWPciB6JLm
+ tDN+JtN2p6N1l+eFzbOx8zdbLAKoMxJtu8vRM9ZvVTQfWBvvUwrOgtaXtiDZRhc0AKeE
+ ZHApSxuTaq4lD66MJUo166j81Gaj//BIuzLLQ0jlv1lJ1v+bS5fsxYsaJhPUklY40bVT
+ 0dGPxZNIluCw7B6RDg3ryt/baSXGTHdK5FncZlpiJEZ3EYXJjPVFJ73KFM7Lv2Rm/FHT
+ rkZQ==
+X-Gm-Message-State: AOJu0YwWVjg4epmhWw6eoHPRk8sZT41thegsWd3fYQBczhYaCeNwf3wh
+ KhfsdnrqvMe8CvnfxV/0tuBDl26iNDQnqTrege2Brh4xZXcKfjV3xdlcf9X+40Oe1RkT1XqtIEB
+ QW5k=
+X-Gm-Gg: ASbGncvC6qwd/jiAnfFQ6TwZZzgHdoc9LC1FPHj7siCfLjkIresjQjvi2mSYmm2kJbN
+ IVpnV8EMXTJgKer3fPG9qnuti8/34bj9IMpDQcOP2i8W85wPvmN7RCl6iuaDgiMdDOJY0XqrXg7
+ 672wbucv5AohVyXs0EmRs1YU9Z8NoLwroSWtSNVxnpsw1T8a8fHY4w0/VGJ4lzt4l19Q6QYzY7n
+ 595eT2P12ozegkgXwXfpEx/7qvUZzTRTz4uTeeMbGS7SycttGZJY4i+JDqXNlny57qwmYaLb3VH
+ Yk+gurdfOKXA+eDozv85gdLqgGqR4o7RNUy/i1HQCfR4Gxu0Cw2ZiJW1kLWBixu6DBgFd7eCFha
+ UEyejubt/aa0=
+X-Google-Smtp-Source: AGHT+IG2oP+AF58RfEcRdSkN7apNqOilEmRTdzDsI/crY6qsoojgJsUSVs/DTNT6hRWNm97OyRlBCw==
+X-Received: by 2002:a05:6000:2003:b0:3b7:886b:fb8d with SMTP id
+ ffacd0b85a97d-3b795026234mr5211143f8f.31.1753965019272; 
+ Thu, 31 Jul 2025 05:30:19 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 98e67ed59e1d1-3207eca6d8dsm1900036a91.24.2025.07.31.05.30.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 31 Jul 2025 05:30:18 -0700 (PDT)
+To: ltp@lists.linux.it
+Date: Thu, 31 Jul 2025 20:28:57 -0400
+Message-ID: <20250801002918.1751299-1-wegao@suse.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250731143358.1035685-1-wegao@suse.com>
+References: <20250731143358.1035685-1-wegao@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
-References: <20250731143550.777289-1-pvorel@suse.cz>
-Content-Language: en-US
-In-Reply-To: <20250731143550.777289-1-pvorel@suse.cz>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 1/1] munmap04: Fix 'base' overflow
+Subject: [LTP] [PATCH v3] mount08.c: Check EACCES error when test under
+ selinux enabled in enforce mode
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,18 +103,73 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Cc: Andrea Cervesato <andrea.cervesato@mailbox.org>,
- =?UTF-8?Q?Ricardo_B_=2E_Marli=C3=A8re?= <rbm@suse.com>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Good catch, feel free to merge.
+Test case expected ENOENT but get EACCES when selinux enabled in enforce mode.
+This patch add check errno under selinux.
 
-Reviewed-by: Andrea Cervesato <andrea.cervesato@suse.com>
+Signed-off-by: Wei Gao <wegao@suse.com>
+---
+ testcases/kernel/syscalls/mount/mount08.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/mount/mount08.c b/testcases/kernel/syscalls/mount/mount08.c
+index e2824ac55..fb2b28736 100644
+--- a/testcases/kernel/syscalls/mount/mount08.c
++++ b/testcases/kernel/syscalls/mount/mount08.c
+@@ -6,6 +6,8 @@
+ /*\
+  * Verify that mount will raise ENOENT if we try to mount on magic links
+  * under /proc/<pid>/fd/<nr>.
++ * If SELinux is enabled, the expected error also can be EACCES since
++ * SElinux plicy could be configured to block the operation.
+  */
+ 
+ #include "tst_test.h"
+@@ -16,6 +18,12 @@
+ #define FOO MNTPOINT "/foo"
+ #define BAR MNTPOINT "/bar"
+ 
++static int exp_errnos_num;
++static int exp_errnos[] = {
++	ENOENT,
++	EACCES,
++};
++
+ static void run(void)
+ {
+ 	char path[PATH_MAX];
+@@ -29,9 +37,9 @@ static void run(void)
+ 
+ 	sprintf(path, "/proc/%d/fd/%d", getpid(), proc_fd);
+ 
+-	TST_EXP_FAIL(
++	TST_EXP_FAIL_ARR(
+ 		mount(BAR, path, "", MS_BIND, 0),
+-		ENOENT,
++		exp_errnos, exp_errnos_num,
+ 		"mount(%s)", path
+ 	);
+ 
+@@ -41,6 +49,11 @@ static void run(void)
+ 
+ static void setup(void)
+ {
++	exp_errnos_num = ARRAY_SIZE(exp_errnos) - 1;
++
++	if (tst_selinux_enforcing())
++		exp_errnos_num++;
++
+ 	SAFE_TOUCH(FOO, 0777, NULL);
+ 	SAFE_TOUCH(BAR, 0777, NULL);
+ }
+-- 
+2.49.0
 
 
 -- 
