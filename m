@@ -1,96 +1,96 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87216B1A911
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:18:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0592CB1A915
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:18:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3C9E83CCFB8
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:18:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B4E4F3CCFEA
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:18:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A216A3CCDF1
- for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:17:19 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 294D03CCFD7
+ for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:17:30 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 073CE1A0021F
- for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:17:18 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 76C266EEEA7
+ for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:17:29 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D476721A22;
- Mon,  4 Aug 2025 18:17:12 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 165FD21A29;
+ Mon,  4 Aug 2025 18:17:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1754331433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=L/zxxRy+te67UWpfodzhAtWS67yvnQZcQK8uegDHhdM=;
- b=St9kwzP6Zcnd4tKtleqyJSkoNj8ZG/OGG+sSQLBqDK/RQ3zO0LzonzHPhk0p3ToVc8uFHh
- CZWNcZ5M4tg7nEZfX6wXgJOgs1vZELTrWd5tEMbkdKY2ttCpt5rDrfc2QgD1O6nYDw2WP/
- GV8+22L6kamY+d8P2YKOXhXvWWNulf8=
+ bh=iTekX8EMIAn0ksqCGFUu+u6cQL+yduotIYZbq/jOXss=;
+ b=PfwPmkxrecsInQ8BZ2K6H2UFzpKOxJ9fUIr3mVY3ejHaLwG2iU2SGvHrYNwRSClwTIdtLb
+ ExRz2aFzygBZOW+KPDqrsABHErY6ZBqC6wqBhADaKs3ulluX4VeU5NwzgUl0J/bEXsUwF7
+ lOnp9V13z07CKpTqI84kOq9XZEa+SXw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1754331433;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=L/zxxRy+te67UWpfodzhAtWS67yvnQZcQK8uegDHhdM=;
- b=0unreWjiMSkV6XNQh1Jy3mcM3xwRoBUBGXCkk3JkROIroFy5JuTCgPMJ6CqrL0PQOhIl5E
- pF4p1+8R2xoc4ZBw==
+ bh=iTekX8EMIAn0ksqCGFUu+u6cQL+yduotIYZbq/jOXss=;
+ b=Bh8WqpzOD/7CSvGJ0cNieFz1nql4NLaZiZfo7tts4L+Vz2vL01eHq8UR81O7GfBMWR7b6c
+ Wv/QzwDSribORwCQ==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=wTJ52aL3;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=kETPUSwP
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PfwPmkxr;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Bh8WqpzO
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1754331432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1754331433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=L/zxxRy+te67UWpfodzhAtWS67yvnQZcQK8uegDHhdM=;
- b=wTJ52aL3Z5D5LNKIvON0xoVUPVM7dCvQZFMp4NK7mQpMFJGV4stRRxRI4gIPIHwh5iV72k
- vXASJjH8wKFUEeaPsDe71iNJj3yrTla0wmpfEufKGqaqA9dySf5RDq9IPTSXblczA3PPvY
- 3CclY9pvks1UmqqFLayhS2E1NtFoM/4=
+ bh=iTekX8EMIAn0ksqCGFUu+u6cQL+yduotIYZbq/jOXss=;
+ b=PfwPmkxrecsInQ8BZ2K6H2UFzpKOxJ9fUIr3mVY3ejHaLwG2iU2SGvHrYNwRSClwTIdtLb
+ ExRz2aFzygBZOW+KPDqrsABHErY6ZBqC6wqBhADaKs3ulluX4VeU5NwzgUl0J/bEXsUwF7
+ lOnp9V13z07CKpTqI84kOq9XZEa+SXw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1754331432;
+ s=susede2_ed25519; t=1754331433;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=L/zxxRy+te67UWpfodzhAtWS67yvnQZcQK8uegDHhdM=;
- b=kETPUSwP8l9XxzFXir/Yb4KchAzkWdlUufYdgffoBN81k9PqnHC2VP2TTH0by7lWp5/PTv
- z9sVixiX6y0Vg5DA==
+ bh=iTekX8EMIAn0ksqCGFUu+u6cQL+yduotIYZbq/jOXss=;
+ b=Bh8WqpzOD/7CSvGJ0cNieFz1nql4NLaZiZfo7tts4L+Vz2vL01eHq8UR81O7GfBMWR7b6c
+ Wv/QzwDSribORwCQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ACB6213A87;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E1D8413A9B;
  Mon,  4 Aug 2025 18:17:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CLylJyj5kGgoKQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iHSXNCj5kGgoKQAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Mon, 04 Aug 2025 18:17:12 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 04 Aug 2025 20:17:11 +0200
+Date: Mon, 04 Aug 2025 20:17:12 +0200
 MIME-Version: 1.0
-Message-Id: <20250804-file_setattr_getattr-v2-2-651e50ec59e7@suse.com>
+Message-Id: <20250804-file_setattr_getattr-v2-3-651e50ec59e7@suse.com>
 References: <20250804-file_setattr_getattr-v2-0-651e50ec59e7@suse.com>
 In-Reply-To: <20250804-file_setattr_getattr-v2-0-651e50ec59e7@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754331432; l=1941;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754331432; l=2275;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=S3YguhUwzrBizMvTZ8+h05N1l2EG+UlBSS9H35wDFZM=;
- b=33LqkyKbi3fSqBRJRUQfU1mGSBVOP7Qf2GIrWy+qrmCR2g/trw6LbOrRP6Qf+BeHaXZXrscb0
- vWUhSGDX9B3DVxvos6CsLCTs+x8MMYK5Q94Jv/cU+Qnqr9gWEwoRHgR
+ bh=adRpvBHHf9TOhPzTFtI8Zq7CbwBsz+LxEjQEwaBKhwQ=;
+ b=xTw1DB8EUEhJjxh75JSz/4rn28Hl/c40g5+abT1AAJ0cWeSfQMXGrxQ8k23BWEWnIOxml+wkT
+ aROXHfz6OMdA7Y02bM+ep5pizBEggU2xSkmdlW1VOaoObx8ltUq/c3g
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
 X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
@@ -108,20 +108,21 @@ X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,configure.ac:url,suse.de:dkim];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[configure.ac:url,suse.com:mid,suse.com:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
  DKIM_TRACE(0.00)[suse.de:+]
 X-Spam-Level: 
-X-Rspamd-Queue-Id: D476721A22
+X-Rspamd-Queue-Id: 165FD21A29
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Rspamd-Action: no action
 X-Spam-Score: -4.51
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 2/6] fs: add struct fsxattr fallback definitions
+Subject: [LTP] [PATCH v2 3/6] fs: add file_setattr/file_getattr fallback
+ definitions
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,70 +141,76 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Add strut fsxattr fallback, as well as FS_IOC_FSGETFLAGS and
-FS_IOC_FSSETFLAGS.
-
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- configure.ac      |  2 ++
- include/lapi/fs.h | 20 ++++++++++++++++++++
- 2 files changed, 22 insertions(+)
+ configure.ac      |  1 +
+ include/lapi/fs.h | 32 ++++++++++++++++++++++++++++++++
+ 2 files changed, 33 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 12025be51c865719b68c06ec3c286210dafbfa43..9bd139f602b9f174e5314171f8f03338c06f3df4 100644
+index 9bd139f602b9f174e5314171f8f03338c06f3df4..3ddea62b57270662fe8f24d52d697874ee8768ef 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -264,6 +264,8 @@ AC_CHECK_TYPES([struct statmount],,,[#include <sys/mount.h>])
+@@ -263,6 +263,7 @@ AC_CHECK_TYPES([struct mnt_id_req],,,[#include <sys/mount.h>])
+ AC_CHECK_TYPES([struct statmount],,,[#include <sys/mount.h>])
  
  AC_CHECK_TYPES([struct pidfd_info],,,[#include <sys/pidfd.h>])
++AC_CHECK_TYPES([struct file_attr],,,[#include <linux/fs.h>])
  
-+AC_CHECK_TYPES([struct fsxattr],,,[#include <linux/fs.h>])
-+
- # Tools knobs
+ AC_CHECK_TYPES([struct fsxattr],,,[#include <linux/fs.h>])
  
- # Bash
 diff --git a/include/lapi/fs.h b/include/lapi/fs.h
-index 8261ca41dab7d01ea5e7dc9d65e3d5604013cd46..261f9fd016eaa39e3072d9fb48742616b0c5f571 100644
+index 261f9fd016eaa39e3072d9fb48742616b0c5f571..ebd7ebcbc95fff9f46eb5ba871854c66e39e1606 100644
 --- a/include/lapi/fs.h
 +++ b/include/lapi/fs.h
-@@ -14,10 +14,22 @@
+@@ -14,10 +14,13 @@
  # include <linux/fs.h>
  #endif
  
-+#include <stdint.h>
++#include <stddef.h>
+ #include <stdint.h>
  #include <sys/user.h>
  #include <limits.h>
++#include "tst_test.h"
  #include "lapi/abisize.h"
++#include "lapi/syscalls.h"
  
-+#ifndef HAVE_STRUCT_FSXATTR
-+struct fsxattr {
-+	uint32_t fsx_xflags;	        /* xflags field value (get/set) */
-+	uint32_t fsx_extsize;	        /* extsize field value (get/set)*/
-+	uint32_t fsx_nextents;	        /* nextents field value (get)	*/
-+	uint32_t fsx_projid;            /* project identifier (get/set) */
-+	uint32_t fsx_cowextsize;	/* CoW extsize field value (get/set)*/
-+	unsigned char fsx_pad[8];
+ #ifndef HAVE_STRUCT_FSXATTR
+ struct fsxattr {
+@@ -88,4 +91,33 @@ static inline long long tst_max_lfs_filesize(void)
+ #endif
+ }
+ 
++#ifndef HAVE_STRUCT_FILE_ATTR
++struct file_attr {
++	uint64_t fa_xflags;	/* xflags field value (get/set) */
++	uint32_t fa_extsize;	/* extsize field value (get/set)*/
++	uint32_t fa_nextents;	/* nextents field value (get)   */
++	uint32_t fa_projid;	/* project identifier (get/set) */
++	uint32_t fa_cowextsize;	/* CoW extsize field value (get/set) */
 +};
 +#endif
 +
- #ifndef FS_IOC_GETFLAGS
- # define	FS_IOC_GETFLAGS	_IOR('f', 1, long)
- #endif
-@@ -26,6 +38,14 @@
- # define	FS_IOC_SETFLAGS	_IOW('f', 2, long)
- #endif
- 
-+#ifndef FS_IOC_FSGETXATTR
-+# define FS_IOC_FSGETXATTR _IOR('X', 31, struct fsxattr)
-+#endif
++#define FILE_ATTR_SIZE_VER0 24
++#define FILE_ATTR_SIZE_LATEST FILE_ATTR_SIZE_VER0
 +
-+#ifndef FS_IOC_FSSETXATTR
-+# define FS_IOC_FSSETXATTR _IOW('X', 32, struct fsxattr)
-+#endif
++static inline int file_getattr(int dfd, const char *filename,
++			    struct file_attr *ufattr, size_t usize,
++			    unsigned int at_flags)
++{
++	return tst_syscall(__NR_file_getattr, dfd, filename, ufattr, usize,
++		    at_flags);
++}
 +
- #ifndef FS_COMPR_FL
- # define	FS_COMPR_FL        0x00000004 /* Compress file */
- #endif
++static inline int file_setattr(int dfd, const char *filename,
++			    struct file_attr *ufattr, size_t usize,
++			    unsigned int at_flags)
++{
++	return tst_syscall(__NR_file_setattr, dfd, filename, ufattr, usize,
++		    at_flags);
++}
++
+ #endif /* LAPI_FS_H__ */
 
 -- 
 2.50.1
