@@ -2,127 +2,114 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0592CB1A915
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:18:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CED0B1A90E
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:17:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B4E4F3CCFEA
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:18:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 365A33C8D08
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:17:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 294D03CCFD7
- for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:17:30 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 01B043C81CB
+ for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:17:14 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 76C266EEEA7
- for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:17:29 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 41502200746
+ for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:17:13 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 165FD21A29;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4C97821A30;
  Mon,  4 Aug 2025 18:17:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1754331433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=iTekX8EMIAn0ksqCGFUu+u6cQL+yduotIYZbq/jOXss=;
- b=PfwPmkxrecsInQ8BZ2K6H2UFzpKOxJ9fUIr3mVY3ejHaLwG2iU2SGvHrYNwRSClwTIdtLb
- ExRz2aFzygBZOW+KPDqrsABHErY6ZBqC6wqBhADaKs3ulluX4VeU5NwzgUl0J/bEXsUwF7
- lOnp9V13z07CKpTqI84kOq9XZEa+SXw=
+ bh=jos8lbi/GbQ7/xHvShBEl/dnkYXiLy80forz9XQDal4=;
+ b=VX5wgEVV4xpEVis5NgpuvBN0irct5aOdNWIKU7fdxwE9QXZ84C1+GpV26+HO1DXYHD15Xd
+ jC43a4cnUBPldMdQuTAQxUy1L168TyjqvM2e1dg8pItnWLAoLS2SBxvK5lrL5B6FCgfte7
+ VgiNnuRQLvMMwkg9+i734AIVFKCuF2I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1754331433;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=iTekX8EMIAn0ksqCGFUu+u6cQL+yduotIYZbq/jOXss=;
- b=Bh8WqpzOD/7CSvGJ0cNieFz1nql4NLaZiZfo7tts4L+Vz2vL01eHq8UR81O7GfBMWR7b6c
- Wv/QzwDSribORwCQ==
+ bh=jos8lbi/GbQ7/xHvShBEl/dnkYXiLy80forz9XQDal4=;
+ b=iElDXUphWfyQ/SFGaaJhVQ3+gimn5tauJdMMzGVSGbImLOeGLmPr3ogtT8618mGTc1FUvM
+ M3U9OQG9dvb7QRDA==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PfwPmkxr;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Bh8WqpzO
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1754331433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=iTekX8EMIAn0ksqCGFUu+u6cQL+yduotIYZbq/jOXss=;
- b=PfwPmkxrecsInQ8BZ2K6H2UFzpKOxJ9fUIr3mVY3ejHaLwG2iU2SGvHrYNwRSClwTIdtLb
- ExRz2aFzygBZOW+KPDqrsABHErY6ZBqC6wqBhADaKs3ulluX4VeU5NwzgUl0J/bEXsUwF7
- lOnp9V13z07CKpTqI84kOq9XZEa+SXw=
+ bh=jos8lbi/GbQ7/xHvShBEl/dnkYXiLy80forz9XQDal4=;
+ b=VX5wgEVV4xpEVis5NgpuvBN0irct5aOdNWIKU7fdxwE9QXZ84C1+GpV26+HO1DXYHD15Xd
+ jC43a4cnUBPldMdQuTAQxUy1L168TyjqvM2e1dg8pItnWLAoLS2SBxvK5lrL5B6FCgfte7
+ VgiNnuRQLvMMwkg9+i734AIVFKCuF2I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1754331433;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=iTekX8EMIAn0ksqCGFUu+u6cQL+yduotIYZbq/jOXss=;
- b=Bh8WqpzOD/7CSvGJ0cNieFz1nql4NLaZiZfo7tts4L+Vz2vL01eHq8UR81O7GfBMWR7b6c
- Wv/QzwDSribORwCQ==
+ bh=jos8lbi/GbQ7/xHvShBEl/dnkYXiLy80forz9XQDal4=;
+ b=iElDXUphWfyQ/SFGaaJhVQ3+gimn5tauJdMMzGVSGbImLOeGLmPr3ogtT8618mGTc1FUvM
+ M3U9OQG9dvb7QRDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E1D8413A9B;
- Mon,  4 Aug 2025 18:17:12 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2307213A9D;
+ Mon,  4 Aug 2025 18:17:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iHSXNCj5kGgoKQAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Mon, 04 Aug 2025 18:17:12 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id cBbxBSn5kGgoKQAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Mon, 04 Aug 2025 18:17:13 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 04 Aug 2025 20:17:12 +0200
+Date: Mon, 04 Aug 2025 20:17:13 +0200
 MIME-Version: 1.0
-Message-Id: <20250804-file_setattr_getattr-v2-3-651e50ec59e7@suse.com>
+Message-Id: <20250804-file_setattr_getattr-v2-4-651e50ec59e7@suse.com>
 References: <20250804-file_setattr_getattr-v2-0-651e50ec59e7@suse.com>
 In-Reply-To: <20250804-file_setattr_getattr-v2-0-651e50ec59e7@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754331432; l=2275;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754331432; l=6431;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=adRpvBHHf9TOhPzTFtI8Zq7CbwBsz+LxEjQEwaBKhwQ=;
- b=xTw1DB8EUEhJjxh75JSz/4rn28Hl/c40g5+abT1AAJ0cWeSfQMXGrxQ8k23BWEWnIOxml+wkT
- aROXHfz6OMdA7Y02bM+ep5pizBEggU2xSkmdlW1VOaoObx8ltUq/c3g
+ bh=mzYa9rjkwHSHpQgnOEmYqjpQQTbtaCeBtwCXylyx7r8=;
+ b=uqUNBBLx/WolXekroJwGamjIV7RsfpkAQaQPgGJlmtCJc9P/sHOS7OjJqL+qSAMpgYIUXFPFx
+ gzRyUNpDfcXDqQGv+WztNcA5duEGPald4lsP6ZWroXS+j+pVIRPrnNa
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_TWO(0.00)[2];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[configure.ac:url,suse.com:mid,suse.com:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- DKIM_TRACE(0.00)[suse.de:+]
 X-Spam-Level: 
-X-Rspamd-Queue-Id: 165FD21A29
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email, suse.com:mid,
+ imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -4.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 3/6] fs: add file_setattr/file_getattr fallback
- definitions
+Subject: [LTP] [PATCH v2 4/6] Add file_attr01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,76 +128,236 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
+Verify that `file_getattr` and `file_setattr` syscalls are raising the
+correct errors according to the invalid input arguments. In particular:
+
+- EBADFD: Invalid file descriptor.
+- ENOENT: File doesn't exist
+- EFAULT: File name is NULL
+- EFAULT: File attributes is NULL
+- EINVAL: File attributes size is zero
+- E2BIG: File attributes size is too big
+- EINVAL: Invalid AT flags
+
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- configure.ac      |  1 +
- include/lapi/fs.h | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 33 insertions(+)
+ runtest/syscalls                                  |   2 +
+ testcases/kernel/syscalls/file_attr/.gitignore    |   1 +
+ testcases/kernel/syscalls/file_attr/Makefile      |   8 +
+ testcases/kernel/syscalls/file_attr/file_attr01.c | 171 ++++++++++++++++++++++
+ 4 files changed, 182 insertions(+)
 
-diff --git a/configure.ac b/configure.ac
-index 9bd139f602b9f174e5314171f8f03338c06f3df4..3ddea62b57270662fe8f24d52d697874ee8768ef 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -263,6 +263,7 @@ AC_CHECK_TYPES([struct mnt_id_req],,,[#include <sys/mount.h>])
- AC_CHECK_TYPES([struct statmount],,,[#include <sys/mount.h>])
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 6a17a34f8b5fc1289947d4504b7a146f3d022f1c..fed17a38baf0586ec886876b58c04158fa11e8e0 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -246,6 +246,8 @@ fallocate06 fallocate06
+ fsetxattr01 fsetxattr01
+ fsetxattr02 fsetxattr02
  
- AC_CHECK_TYPES([struct pidfd_info],,,[#include <sys/pidfd.h>])
-+AC_CHECK_TYPES([struct file_attr],,,[#include <linux/fs.h>])
- 
- AC_CHECK_TYPES([struct fsxattr],,,[#include <linux/fs.h>])
- 
-diff --git a/include/lapi/fs.h b/include/lapi/fs.h
-index 261f9fd016eaa39e3072d9fb48742616b0c5f571..ebd7ebcbc95fff9f46eb5ba871854c66e39e1606 100644
---- a/include/lapi/fs.h
-+++ b/include/lapi/fs.h
-@@ -14,10 +14,13 @@
- # include <linux/fs.h>
- #endif
- 
-+#include <stddef.h>
- #include <stdint.h>
- #include <sys/user.h>
- #include <limits.h>
++file_attr01 file_attr01
++
+ #posix_fadvise test cases
+ posix_fadvise01                      posix_fadvise01
+ posix_fadvise01_64                posix_fadvise01_64
+diff --git a/testcases/kernel/syscalls/file_attr/.gitignore b/testcases/kernel/syscalls/file_attr/.gitignore
+new file mode 100644
+index 0000000000000000000000000000000000000000..de06f204d34be482a6401f2a5e7931caa5e3ab12
+--- /dev/null
++++ b/testcases/kernel/syscalls/file_attr/.gitignore
+@@ -0,0 +1 @@
++file_attr01
+diff --git a/testcases/kernel/syscalls/file_attr/Makefile b/testcases/kernel/syscalls/file_attr/Makefile
+new file mode 100644
+index 0000000000000000000000000000000000000000..3b19b0ce6be00839038c405eea027b0102761e45
+--- /dev/null
++++ b/testcases/kernel/syscalls/file_attr/Makefile
+@@ -0,0 +1,8 @@
++# Copyright (c) 2025 - Linaro Limited. All rights reserved.
++# SPDX-License-Identifier: GPL-2.0-or-later
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/file_attr/file_attr01.c b/testcases/kernel/syscalls/file_attr/file_attr01.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..597ce31fbb11c47754a264eba394be3c233c8663
+--- /dev/null
++++ b/testcases/kernel/syscalls/file_attr/file_attr01.c
+@@ -0,0 +1,171 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2025 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/*\
++ * Verify that `file_getattr` and `file_setattr` syscalls are raising the
++ * correct errors according to the invalid input arguments. In particular:
++ *
++ * - EBADFD: Invalid file descriptor.
++ * - ENOENT: File doesn't exist
++ * - EFAULT: File name is NULL
++ * - EFAULT: File attributes is NULL
++ * - EINVAL: File attributes size is zero
++ * - E2BIG: File attributes size is too big
++ * - EINVAL: Invalid AT flags
++ */
++
++#include <string.h>
 +#include "tst_test.h"
- #include "lapi/abisize.h"
-+#include "lapi/syscalls.h"
- 
- #ifndef HAVE_STRUCT_FSXATTR
- struct fsxattr {
-@@ -88,4 +91,33 @@ static inline long long tst_max_lfs_filesize(void)
- #endif
- }
- 
-+#ifndef HAVE_STRUCT_FILE_ATTR
-+struct file_attr {
-+	uint64_t fa_xflags;	/* xflags field value (get/set) */
-+	uint32_t fa_extsize;	/* extsize field value (get/set)*/
-+	uint32_t fa_nextents;	/* nextents field value (get)   */
-+	uint32_t fa_projid;	/* project identifier (get/set) */
-+	uint32_t fa_cowextsize;	/* CoW extsize field value (get/set) */
++#include "lapi/fs.h"
++#include "lapi/fcntl.h"
++
++#define MNTPOINT "mntpoint"
++#define FILENAME "ltp_file"
++#define NO_FILENAME "ltp_file_doesnt_exist"
++
++static int valid_dfd = -1;
++static int invalid_dfd = -1;
++static char *valid_filename;
++static char *invalid_filename;
++static char *null_ptr;
++static size_t zero;
++static size_t valid_usize;
++static size_t big_usize;
++static struct file_attr *valid_file_attr;
++
++static struct tcase {
++	int *dfd;
++	char **filename;
++	struct file_attr **ufattr;
++	size_t *usize;
++	int at_flags;
++	int exp_errno;
++	char *msg;
++} tcases[] = {
++	{
++		.dfd = &invalid_dfd,
++		.filename = &valid_filename,
++		.ufattr = &valid_file_attr,
++		.usize = &valid_usize,
++		.exp_errno = EBADF,
++		.msg = "Invalid file descriptor",
++	},
++	{
++		.dfd = &valid_dfd,
++		.filename = &invalid_filename,
++		.ufattr = &valid_file_attr,
++		.usize = &valid_usize,
++		.exp_errno = ENOENT,
++		.msg = "File doesn't exist",
++	},
++	{
++		.dfd = &valid_dfd,
++		.filename = &null_ptr,
++		.ufattr = &valid_file_attr,
++		.usize = &valid_usize,
++		.exp_errno = EFAULT,
++		.msg = "Filename is NULL",
++	},
++	{
++		.dfd = &valid_dfd,
++		.filename = &valid_filename,
++		.ufattr = (struct file_attr **)(&null_ptr),
++		.usize = &valid_usize,
++		.exp_errno = EFAULT,
++		.msg = "File attributes is NULL",
++	},
++	{
++		.dfd = &valid_dfd,
++		.filename = &valid_filename,
++		.ufattr = &valid_file_attr,
++		.usize = &zero,
++		.exp_errno = EINVAL,
++		.msg = "File attributes size is zero",
++	},
++	{
++		.dfd = &valid_dfd,
++		.filename = &valid_filename,
++		.ufattr = &valid_file_attr,
++		.usize = &big_usize,
++		.exp_errno = E2BIG,
++		.msg = "File attributes size is too big",
++	},
++	{
++		.dfd = &valid_dfd,
++		.filename = &valid_filename,
++		.ufattr = &valid_file_attr,
++		.usize = &valid_usize,
++		.at_flags = -1,
++		.exp_errno = EINVAL,
++		.msg = "Invalid AT flags",
++	},
 +};
-+#endif
 +
-+#define FILE_ATTR_SIZE_VER0 24
-+#define FILE_ATTR_SIZE_LATEST FILE_ATTR_SIZE_VER0
-+
-+static inline int file_getattr(int dfd, const char *filename,
-+			    struct file_attr *ufattr, size_t usize,
-+			    unsigned int at_flags)
++static void run(unsigned int i)
 +{
-+	return tst_syscall(__NR_file_getattr, dfd, filename, ufattr, usize,
-+		    at_flags);
++	struct tcase *tc = &tcases[i];
++
++	if (tst_variant) {
++		TST_EXP_FAIL(file_getattr(
++			*tc->dfd, *tc->filename,
++			*tc->ufattr, *tc->usize,
++			tc->at_flags),
++			tc->exp_errno,
++			"%s", tc->msg);
++	} else {
++		TST_EXP_FAIL(file_setattr(
++			*tc->dfd, *tc->filename,
++			*tc->ufattr, *tc->usize,
++			tc->at_flags),
++			tc->exp_errno,
++			"%s", tc->msg);
++	}
 +}
 +
-+static inline int file_setattr(int dfd, const char *filename,
-+			    struct file_attr *ufattr, size_t usize,
-+			    unsigned int at_flags)
++static void setup(void)
 +{
-+	return tst_syscall(__NR_file_setattr, dfd, filename, ufattr, usize,
-+		    at_flags);
++	valid_dfd = SAFE_OPEN(MNTPOINT, O_RDONLY);
++
++	SAFE_CHDIR(MNTPOINT);
++	SAFE_TOUCH(FILENAME, 0777, NULL);
++	SAFE_CHDIR("..");
++
++	memcpy(valid_filename, FILENAME, strlen(FILENAME));
++	memcpy(invalid_filename, NO_FILENAME, strlen(NO_FILENAME));
++
++	valid_usize = FILE_ATTR_SIZE_LATEST;
++	big_usize = sysconf(_SC_PAGESIZE) + 100;
 +}
 +
- #endif /* LAPI_FS_H__ */
++static void cleanup(void)
++{
++	if (valid_dfd != -1)
++		SAFE_CLOSE(valid_dfd);
++}
++
++static struct tst_test test = {
++	.test = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.tcnt = ARRAY_SIZE(tcases),
++	.mntpoint = MNTPOINT,
++	.needs_root = 1,
++	.mount_device = 1,
++	.all_filesystems = 1,
++	.test_variants = 2,
++	.skip_filesystems = (const char *const []) {
++		"fuse",
++		"ntfs",
++		"vfat",
++		"exfat",
++		NULL
++	},
++	.bufs = (struct tst_buffers []) {
++		{&valid_filename, .size = 32},
++		{&invalid_filename, .size = 32},
++		{&valid_file_attr, .size = sizeof(struct file_attr)},
++		{}
++	}
++};
 
 -- 
 2.50.1
