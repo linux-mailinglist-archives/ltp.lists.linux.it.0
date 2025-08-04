@@ -1,116 +1,125 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A01AB1A8F3
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:09:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D729B1A8F7
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:10:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 30DBA3CCFCC
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:09:33 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 291F03CCFCC
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Aug 2025 20:10:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EA8543C8EB8
- for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:09:29 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id DD93F3CCFDA
+ for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:09:33 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BF48B60054F
- for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:09:28 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 52C04140098E
+ for <ltp@lists.linux.it>; Mon,  4 Aug 2025 20:09:32 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DC9841F74A;
- Mon,  4 Aug 2025 18:09:27 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1FA441F74B;
+ Mon,  4 Aug 2025 18:09:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1754330967; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1754330968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PSYoblK/upDucpofZekKDuxlI3gYmc/YXMgEWAVk3lI=;
- b=lsoOc6DiVeDXEHkqbp70h7S44+kgYuB9HLMnYNgLxSy4BmTo7/yC5nyuvSqXmZR0Owi05C
- qu7NoZB6xp1ic0Jepag9QGXrsSIaYWXV12cPsiaXZp3Hx9DG/x0Z8gq++FIT0z9s4iWdZT
- 1vslV0op18VSEJX+K051wgYSIIc6gBk=
+ bh=O+eGQDhwNMJlt5lTWedaQVwgwNEaPCKjvFp5XaoSD2w=;
+ b=qo1/pUl7RbPFeRE2gQfPXRXpzBGHTt+COO4zJeBULBeRwFouC3seWmjlk1lJxeKti4/Esb
+ QxX0s6VPE+qGNLisq0WQTHB+LYEh99Ry0wp5K+3YUkxUC4WwMbL2SyTa9xn+mjpUSbVVO+
+ UTbbJXBaiM7QqWgjDnpA6DXJdzePYaQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1754330967;
+ s=susede2_ed25519; t=1754330968;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PSYoblK/upDucpofZekKDuxlI3gYmc/YXMgEWAVk3lI=;
- b=mfJgb7y+3jMLtR9OBm9fkbIzxc9B4j/oliZZ3B/LiAcnwF2e6v/rT8JEfCJDtzHbi4NpkR
- 5dqxoHyKUExUHADg==
+ bh=O+eGQDhwNMJlt5lTWedaQVwgwNEaPCKjvFp5XaoSD2w=;
+ b=3MMuC6r9q2kdqf4OYDTEVWLqBv8jJ4CEZvjXCpZEIUf0+cm1uBz73Xo7rGTGgM9kspbDui
+ ona87NBAu6VPmiBw==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="qo1/pUl7";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3MMuC6r9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1754330967; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1754330968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PSYoblK/upDucpofZekKDuxlI3gYmc/YXMgEWAVk3lI=;
- b=lsoOc6DiVeDXEHkqbp70h7S44+kgYuB9HLMnYNgLxSy4BmTo7/yC5nyuvSqXmZR0Owi05C
- qu7NoZB6xp1ic0Jepag9QGXrsSIaYWXV12cPsiaXZp3Hx9DG/x0Z8gq++FIT0z9s4iWdZT
- 1vslV0op18VSEJX+K051wgYSIIc6gBk=
+ bh=O+eGQDhwNMJlt5lTWedaQVwgwNEaPCKjvFp5XaoSD2w=;
+ b=qo1/pUl7RbPFeRE2gQfPXRXpzBGHTt+COO4zJeBULBeRwFouC3seWmjlk1lJxeKti4/Esb
+ QxX0s6VPE+qGNLisq0WQTHB+LYEh99Ry0wp5K+3YUkxUC4WwMbL2SyTa9xn+mjpUSbVVO+
+ UTbbJXBaiM7QqWgjDnpA6DXJdzePYaQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1754330967;
+ s=susede2_ed25519; t=1754330968;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PSYoblK/upDucpofZekKDuxlI3gYmc/YXMgEWAVk3lI=;
- b=mfJgb7y+3jMLtR9OBm9fkbIzxc9B4j/oliZZ3B/LiAcnwF2e6v/rT8JEfCJDtzHbi4NpkR
- 5dqxoHyKUExUHADg==
+ bh=O+eGQDhwNMJlt5lTWedaQVwgwNEaPCKjvFp5XaoSD2w=;
+ b=3MMuC6r9q2kdqf4OYDTEVWLqBv8jJ4CEZvjXCpZEIUf0+cm1uBz73Xo7rGTGgM9kspbDui
+ ona87NBAu6VPmiBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AE92D13A83;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EA948133D1;
  Mon,  4 Aug 2025 18:09:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ADnCJ1f3kGjyJgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id EIKMNlf3kGjyJgAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Mon, 04 Aug 2025 18:09:27 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Mon, 04 Aug 2025 20:09:19 +0200
+Date: Mon, 04 Aug 2025 20:09:20 +0200
 MIME-Version: 1.0
-Message-Id: <20250804-file_setattr_getattr-v1-1-6a43c3962c87@suse.com>
+Message-Id: <20250804-file_setattr_getattr-v1-2-6a43c3962c87@suse.com>
 References: <20250804-file_setattr_getattr-v1-0-6a43c3962c87@suse.com>
 In-Reply-To: <20250804-file_setattr_getattr-v1-0-6a43c3962c87@suse.com>
 To: ltp@lists.linux.it
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754330967; l=9465;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754330967; l=1941;
  i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
- bh=4NsCX1Gsmeax6GGB2wDu9e4BjhWlWP9ynEBj7cWb12k=;
- b=EOm0zoaoyCyZFRCp+25Cawx7rI8hWRY3ItWP/9btS7yTI7aR5c2YQQiE7Cx67k3fj0eU8YwDL
- 7xY35+Z6NoMCaKTohtsmBmfqO+kJASdxau5UCQ1Lf26gmxjDyac6/Hj
+ bh=RaqhgI9CKyIWyqA/mk4k5DhjMAz8BCkzUcFzuySHVWU=;
+ b=YBDg7KnJTnNgZgAT0gQstqNL1wapqD0HPlFeBAnxOVIFNkUW45nIaSd0kCBnQ2Cu4rAYV6dbL
+ tIm+MIQ1CICB2cM6ugGu8+qa4xd8N+TEcTWbrDOK0kO5sWwLv+SSaWm
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_TWO(0.00)[2];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email, suse.com:mid,
- imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -4.30
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 1FA441F74B
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -4.51
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/6] Update LTP to the latest syscalls
+Subject: [LTP] [PATCH 2/6] fs: add struct fsxattr fallback definitions
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,292 +138,70 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Add the following syscalls:
-
-- setxattrat
-- getxattrat
-- listxattrat
-- removexattrat
-- open_tree_attr
-- file_getattr
-- file_setattr
+Add strut fsxattr fallback, as well as FS_IOC_FSGETFLAGS and
+FS_IOC_FSSETFLAGS.
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- include/lapi/syscalls/arc.in         | 7 +++++++
- include/lapi/syscalls/arm.in         | 7 +++++++
- include/lapi/syscalls/arm64.in       | 7 +++++++
- include/lapi/syscalls/i386.in        | 7 +++++++
- include/lapi/syscalls/loongarch64.in | 7 +++++++
- include/lapi/syscalls/mips64.in      | 7 +++++++
- include/lapi/syscalls/mips64n32.in   | 7 +++++++
- include/lapi/syscalls/mipso32.in     | 7 +++++++
- include/lapi/syscalls/parisc.in      | 7 +++++++
- include/lapi/syscalls/powerpc.in     | 7 +++++++
- include/lapi/syscalls/powerpc64.in   | 7 +++++++
- include/lapi/syscalls/s390.in        | 7 +++++++
- include/lapi/syscalls/s390x.in       | 7 +++++++
- include/lapi/syscalls/sh.in          | 7 +++++++
- include/lapi/syscalls/sparc.in       | 7 +++++++
- include/lapi/syscalls/sparc64.in     | 7 +++++++
- include/lapi/syscalls/x86_64.in      | 7 +++++++
- 17 files changed, 119 insertions(+)
+ configure.ac      |  2 ++
+ include/lapi/fs.h | 20 ++++++++++++++++++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/include/lapi/syscalls/arc.in b/include/lapi/syscalls/arc.in
-index f680d4119c10f73e2f1b8938c3be4a7254965ed0..0f0fbef6be74d06abbf4f1bbf77eeaf72a1e6b71 100644
---- a/include/lapi/syscalls/arc.in
-+++ b/include/lapi/syscalls/arc.in
-@@ -340,3 +340,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/arm.in b/include/lapi/syscalls/arm.in
-index 32e48b2151afbf55a19e493518395e4265c670a0..d0238dec5ecbf3849dff3b2c91ec88866dfb440c 100644
---- a/include/lapi/syscalls/arm.in
-+++ b/include/lapi/syscalls/arm.in
-@@ -413,3 +413,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/arm64.in b/include/lapi/syscalls/arm64.in
-index be7e9df6480c065ff63345d55082b1a6b2532760..c76930e20df02905c9c640a749b4ec2df421c665 100644
---- a/include/lapi/syscalls/arm64.in
-+++ b/include/lapi/syscalls/arm64.in
-@@ -316,3 +316,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/i386.in b/include/lapi/syscalls/i386.in
-index 13f72e7950ded9393e665cb1a44fe955343f820c..38ea71fb282d9dc69914b863cba352349fd1c9b9 100644
---- a/include/lapi/syscalls/i386.in
-+++ b/include/lapi/syscalls/i386.in
-@@ -447,3 +447,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/loongarch64.in b/include/lapi/syscalls/loongarch64.in
-index 2c1ecd7aeeb2fa4f38999bad144cfceee39a4a54..5407b86eaf738354f645f894bd95900ff614b3e1 100644
---- a/include/lapi/syscalls/loongarch64.in
-+++ b/include/lapi/syscalls/loongarch64.in
-@@ -312,3 +312,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/mips64.in b/include/lapi/syscalls/mips64.in
-index 8be734158fb7840b7757a012b6ed823f29eb7ab9..436d5c681c21f32623d779268b9c3daaaac5b5e0 100644
---- a/include/lapi/syscalls/mips64.in
-+++ b/include/lapi/syscalls/mips64.in
-@@ -362,3 +362,10 @@ lsm_get_self_attr 5459
- lsm_set_self_attr 5460
- lsm_list_modules 5461
- mseal 5462
-+setxattrat 5463
-+getxattrat 5464
-+listxattrat 5465
-+removexattrat 5466
-+open_tree_attr 5467
-+file_getattr 5468
-+file_setattr 5469
-diff --git a/include/lapi/syscalls/mips64n32.in b/include/lapi/syscalls/mips64n32.in
-index 153fe50bf9a7c62978e458e1cb7225aa63b9edda..860a19c8b62866aeaf5b03c5c45ef5d6d58cab0f 100644
---- a/include/lapi/syscalls/mips64n32.in
-+++ b/include/lapi/syscalls/mips64n32.in
-@@ -386,3 +386,10 @@ lsm_get_self_attr 6459
- lsm_set_self_attr 6460
- lsm_list_modules 6461
- mseal 6462
-+setxattrat 6463
-+getxattrat 6464
-+listxattrat 6465
-+removexattrat 6466
-+open_tree_attr 6467
-+file_getattr 6468
-+file_setattr 6469
-diff --git a/include/lapi/syscalls/mipso32.in b/include/lapi/syscalls/mipso32.in
-index 1ed74c1ecf281a3d208eded4a0dbd35fcc57e45f..5e53e46ce1e47c4618ceeeda03130cbdd621b180 100644
---- a/include/lapi/syscalls/mipso32.in
-+++ b/include/lapi/syscalls/mipso32.in
-@@ -426,3 +426,10 @@ lsm_get_self_attr 4459
- lsm_set_self_attr 4460
- lsm_list_modules 4461
- mseal 4462
-+setxattrat 4463
-+getxattrat 4464
-+listxattrat 4465
-+removexattrat 4466
-+open_tree_attr 4467
-+file_getattr 4468
-+file_setattr 4469
-diff --git a/include/lapi/syscalls/parisc.in b/include/lapi/syscalls/parisc.in
-index 662bfea4428cf3b090b03632f2087251aaf3b513..238756694d9a03bcb063c21d3644aaa2af47f3fc 100644
---- a/include/lapi/syscalls/parisc.in
-+++ b/include/lapi/syscalls/parisc.in
-@@ -395,3 +395,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/powerpc.in b/include/lapi/syscalls/powerpc.in
-index faaa75883a7d2a0b70ca0e8064b6c91dae21d20c..6911f9af96247739a1ba7020aa3df77ef70ef55a 100644
---- a/include/lapi/syscalls/powerpc.in
-+++ b/include/lapi/syscalls/powerpc.in
-@@ -437,3 +437,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
-index 23b65e7840869c0cc08559324271b3b0d865ac01..98190ba266a1c7a6c3dbca1346e9d5e55783e271 100644
---- a/include/lapi/syscalls/powerpc64.in
-+++ b/include/lapi/syscalls/powerpc64.in
-@@ -409,3 +409,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/s390.in b/include/lapi/syscalls/s390.in
-index 69d7408b7bdf0d9019d3c319cd52ff48022aca39..a6cb85da805bec2540433783be9445645ab913ab 100644
---- a/include/lapi/syscalls/s390.in
-+++ b/include/lapi/syscalls/s390.in
-@@ -430,3 +430,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/s390x.in b/include/lapi/syscalls/s390x.in
-index fa98054c732787b62528c71f60b04de490b98958..31f3ec5532c8c3017188b60907f7666b41f44102 100644
---- a/include/lapi/syscalls/s390x.in
-+++ b/include/lapi/syscalls/s390x.in
-@@ -378,3 +378,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/sh.in b/include/lapi/syscalls/sh.in
-index 2e584253c61d51b140c3b2f586e3c49e5740e7af..ac281acf81ffe6770fa0d941d406714fbdce1bbd 100644
---- a/include/lapi/syscalls/sh.in
-+++ b/include/lapi/syscalls/sh.in
-@@ -424,3 +424,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/sparc.in b/include/lapi/syscalls/sparc.in
-index fcdb9b812ee6844d4981550f3eeed7ff081852f8..ffc0d9f7abdaa8873ec73ed1a5e0ec98b5f8b1d7 100644
---- a/include/lapi/syscalls/sparc.in
-+++ b/include/lapi/syscalls/sparc.in
-@@ -428,3 +428,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/sparc64.in b/include/lapi/syscalls/sparc64.in
-index 4256aaf77674ed0c00bbd092d7c715038e52f1c3..992bd307deb07d50ff814c603406842b5aedb431 100644
---- a/include/lapi/syscalls/sparc64.in
-+++ b/include/lapi/syscalls/sparc64.in
-@@ -391,3 +391,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
-diff --git a/include/lapi/syscalls/x86_64.in b/include/lapi/syscalls/x86_64.in
-index e6c0a3b4047d60e0e372c023c8f6a9bab76697af..e9c0d0599e25e3fa408686544c5d80c5a3e876d7 100644
---- a/include/lapi/syscalls/x86_64.in
-+++ b/include/lapi/syscalls/x86_64.in
-@@ -373,3 +373,10 @@ lsm_get_self_attr 459
- lsm_set_self_attr 460
- lsm_list_modules 461
- mseal 462
-+setxattrat 463
-+getxattrat 464
-+listxattrat 465
-+removexattrat 466
-+open_tree_attr 467
-+file_getattr 468
-+file_setattr 469
+diff --git a/configure.ac b/configure.ac
+index 12025be51c865719b68c06ec3c286210dafbfa43..9bd139f602b9f174e5314171f8f03338c06f3df4 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -264,6 +264,8 @@ AC_CHECK_TYPES([struct statmount],,,[#include <sys/mount.h>])
+ 
+ AC_CHECK_TYPES([struct pidfd_info],,,[#include <sys/pidfd.h>])
+ 
++AC_CHECK_TYPES([struct fsxattr],,,[#include <linux/fs.h>])
++
+ # Tools knobs
+ 
+ # Bash
+diff --git a/include/lapi/fs.h b/include/lapi/fs.h
+index 8261ca41dab7d01ea5e7dc9d65e3d5604013cd46..23b58edf9621726f94727cc6286b9b4b67226035 100644
+--- a/include/lapi/fs.h
++++ b/include/lapi/fs.h
+@@ -14,10 +14,22 @@
+ # include <linux/fs.h>
+ #endif
+ 
++#include <stdint.h>
+ #include <sys/user.h>
+ #include <limits.h>
+ #include "lapi/abisize.h"
+ 
++#ifndef HAVE_STRUCT_FSXATTR
++struct fsxattr {
++	uint32_t fsx_xflags;	        /* xflags field value (get/set) */
++	uint32_t fsx_extsize;	        /* extsize field value (get/set)*/
++	uint32_t fsx_nextents;	        /* nextents field value (get)	*/
++	uint32_t fsx_projid;            /* project identifier (get/set) */
++	uint32_t fsx_cowextsize;	/* CoW extsize field value (get/set)*/
++	unsigned char fsx_pad[8];
++};
++#endif
++
+ #ifndef FS_IOC_GETFLAGS
+ # define	FS_IOC_GETFLAGS	_IOR('f', 1, long)
+ #endif
+@@ -26,6 +38,14 @@
+ # define	FS_IOC_SETFLAGS	_IOW('f', 2, long)
+ #endif
+ 
++#ifndef FS_IOC_FSGETFLAGS
++# define FS_IOC_FSGETXATTR _IOR('X', 31, struct fsxattr)
++#endif
++
++#ifndef FS_IOC_FSSETFLAGS
++# define FS_IOC_FSSETXATTR _IOW('X', 32, struct fsxattr)
++#endif
++
+ #ifndef FS_COMPR_FL
+ # define	FS_COMPR_FL        0x00000004 /* Compress file */
+ #endif
 
 -- 
 2.50.1
