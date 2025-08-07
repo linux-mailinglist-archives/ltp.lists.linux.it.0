@@ -1,110 +1,115 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41FD0B1D27A
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Aug 2025 08:30:05 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 92889B1D293
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Aug 2025 08:39:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 41D7F3C8F74
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Aug 2025 08:30:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 41BB73C8FDF
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Aug 2025 08:39:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B81A13C9205
- for <ltp@lists.linux.it>; Thu,  7 Aug 2025 08:29:49 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 66BC13C8FFC
+ for <ltp@lists.linux.it>; Thu,  7 Aug 2025 08:39:34 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 33C2F140007D
- for <ltp@lists.linux.it>; Thu,  7 Aug 2025 08:29:48 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id BAE7E10007EF
+ for <ltp@lists.linux.it>; Thu,  7 Aug 2025 08:39:33 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2F2891F804;
- Thu,  7 Aug 2025 06:29:44 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E48D01F7F7;
+ Thu,  7 Aug 2025 06:39:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1754548184; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1754548773;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OxobGhxsde/JAt586PtgAb+gXh3GUxUm5UfgJyExXFo=;
- b=d968GhJE58UGw9yxUQ6cPG5hUrw9zSjN5G4rHvJ+7QHR7hBTD6qeH5phR7wkdwEJRhQRJ3
- WrmrWu9zsygYoS7vZOguVmEcabQHvAouyWW7Zqm67aXUzID678Gh8VO684pHecEuFLx+3w
- 81rsMViN/vtSFnk4vH7Sbe0pVMoqYrI=
+ bh=o0tjV72QnlYyWcqQQ7nsmggYhqCavqY1y7WxHZIYx6Y=;
+ b=pT92xkGpHdHZJLlZ+tXrGQ9CGsZUZlu3GinXRKU9YT2sx0aNTcPnK+gzZYmY8S3gOUgW1E
+ 9LQgRlBNXB9EmvQIXNj+YtRg1zbo9Va9JnGkCD8maARHRcH4jAEv8BnAeMJ1HRyA5HWVgu
+ ui15GeJ4DXTZp0cpnafXkzqSpGw45Is=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1754548184;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1754548773;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OxobGhxsde/JAt586PtgAb+gXh3GUxUm5UfgJyExXFo=;
- b=+ocU9LtkEnu1FS8IhN+zMvZ+kVtMiEQJu4Qb67+nqCsfuNjqo03xbC+gMm4C0Qic/C5wLo
- dUD7Dv6w3gas/PAA==
+ bh=o0tjV72QnlYyWcqQQ7nsmggYhqCavqY1y7WxHZIYx6Y=;
+ b=Mja7L85uWsu61x75U98drHJ9SiflTPRfvAIAPABr3RzCGYY2VRstn+eHLb9Pp6VTEJl8gu
+ mocowvr/hQXBb2Dg==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=DurMLdd0;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=0by92y1+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1754548184; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1754548772;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OxobGhxsde/JAt586PtgAb+gXh3GUxUm5UfgJyExXFo=;
- b=d968GhJE58UGw9yxUQ6cPG5hUrw9zSjN5G4rHvJ+7QHR7hBTD6qeH5phR7wkdwEJRhQRJ3
- WrmrWu9zsygYoS7vZOguVmEcabQHvAouyWW7Zqm67aXUzID678Gh8VO684pHecEuFLx+3w
- 81rsMViN/vtSFnk4vH7Sbe0pVMoqYrI=
+ bh=o0tjV72QnlYyWcqQQ7nsmggYhqCavqY1y7WxHZIYx6Y=;
+ b=DurMLdd0RcD2TFb9SvHQGbM8HGu0gD0bSKx7tk6x1mNt6agS6cNX75OfqDf+Mu+yu6oS6E
+ FDx/jp9/szJvh2Z5WzZ/NtDj8e3whkHY5m6UukcIB62/wvLIKCX8O4vEEYlYNhmacwk2Oy
+ cZgv9XiFGrlKHWjob0zowHXRMWkOb1Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1754548184;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1754548772;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OxobGhxsde/JAt586PtgAb+gXh3GUxUm5UfgJyExXFo=;
- b=+ocU9LtkEnu1FS8IhN+zMvZ+kVtMiEQJu4Qb67+nqCsfuNjqo03xbC+gMm4C0Qic/C5wLo
- dUD7Dv6w3gas/PAA==
+ bh=o0tjV72QnlYyWcqQQ7nsmggYhqCavqY1y7WxHZIYx6Y=;
+ b=0by92y1+wArBEGzP+FcKJ3QyXKlSaaYjizym3viRWPzQLaBJkj9I+4FRXiX/PQwI9fmktJ
+ DirrD+1D8OV9MvCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F3AA513969;
- Thu,  7 Aug 2025 06:29:43 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ACAD6136DC;
+ Thu,  7 Aug 2025 06:39:32 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id UEUwOtdHlGjoBAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 07 Aug 2025 06:29:43 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id QoIGKSRKlGgnCAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 07 Aug 2025 06:39:32 +0000
+Date: Thu, 7 Aug 2025 08:39:16 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu,  7 Aug 2025 08:29:41 +0200
-Message-ID: <20250807062941.348971-2-pvorel@suse.cz>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250807062941.348971-1-pvorel@suse.cz>
-References: <20250807062941.348971-1-pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20250807063916.GA349310@pevik>
+References: <20250630122719.12948-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Spam-Level: 
-X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_COUNT_TWO(0.00)[2]; FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_EQ_ENVFROM(0.00)[];
+Content-Disposition: inline
+In-Reply-To: <20250630122719.12948-1-chrubis@suse.cz>
+X-Spamd-Result: default: False [-3.71 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_DN_SOME(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ REPLYTO_EQ_FROM(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; RCPT_COUNT_FIVE(0.00)[5];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:mid];
- RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -6.80
+ RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: E48D01F7F7
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -3.71
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4 2/2] modules.mk: Add FORCE_MODULES=1 to fail on
- error
+Subject: Re: [LTP] [PATCH] SAFE_MOUNT: Fix mountflags handling for FUSE
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,129 +121,88 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Kernel modules deliberately not fail on error due kABI
-(Linux Kernel Driver Interface) not being stable [1].
+Hi all,
 
-But that also silently hides modules not being build due change
-(LTP module needs to be updated) or distro bug.
+> - abort tests on FUSE when particular mount flag is not implemented
+> - implement MS_RDONLY for FUSE
+> - enable statmount02 that failed previously because of missing MS_RDONLY
+I would personally split the change but understand why you want to keep it
+together (it's related) and I'm ok with it. Anyway, it's important that you
+remember to enable it.
 
-Introduce FORCE_MODULES=1 variable for make to force fail on error.
-This can happen if
-* package for building kernel modules is not installed
-* LTP kernel module error mentioned above
+> Reported-by: Signed-off-by: Jan Polensky <japo@linux.ibm.com>
+very nit: I haven't seen joining tags on single line. That will break stat
+scripts. And that might be the reason why Jan was noc Cc when sending with git
+send-email.
 
-$ make modules FORCE_MODULES=1
-Build testcases/kernel/syscalls/finit_module
- Check that package for building kernel modules for 6.6.15-amd64 is installed and try again.
- * openSUSE/SLES: kernel-default-devel
- * Fedora/RHEL: kernel-devel/kernel-headers
- * Debian/Ubuntu: linux-kbuild
- You can build anyway by omitting FORCE_MODULES=1.  Stop.
-...
+Maybe change before merge:
+Reported-by: Jan Polensky <japo@linux.ibm.com>
+Signed-off-by: Jan Polensky <japo@linux.ibm.com>
 
-NOTE: previously added 'modules' make target keeps trying to build all
-modules (don't stop on first error).
+or to:
+Reported-by: Jan Polensky <japo@linux.ibm.com>
+Co-developed-by: Jan Polensky <japo@linux.ibm.com>
 
-[1] https://docs.kernel.org/process/stable-api-nonsense.html
+> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+> ---
+>  lib/safe_macros.c                                 | 13 +++++++++++--
+>  testcases/kernel/syscalls/statmount/statmount02.c |  1 -
+>  2 files changed, 11 insertions(+), 3 deletions(-)
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Changes v3->v4:
-* Fix build on `make modules FORCE_MODULES=1` (Li)
+> diff --git a/lib/safe_macros.c b/lib/safe_macros.c
+> index 6946cc5bc..726c9ae8e 100644
+> --- a/lib/safe_macros.c
+> +++ b/lib/safe_macros.c
+> @@ -942,10 +942,19 @@ int safe_mount(const char *file, const int lineno, void (*cleanup_fn)(void),
+>  	 */
+>  	if (possibly_fuse(filesystemtype)) {
+>  		char buf[1024];
+> +		const char *mount_ro = "";
+> +
+> +		if (mountflags & MS_RDONLY)
+> +			mount_ro = "-o ro";
 
-Link to v3:
-https://patchwork.ozlabs.org/project/ltp/patch/20250806211420.445452-2-pvorel@suse.cz/
+Your version is slightly better than Jan's as it avoids duplicity.
+Let's merge this one. Maybe add
 
- INSTALL              |  6 ++++++
- include/mk/module.mk | 24 +++++++++++++++++++++++-
- 2 files changed, 29 insertions(+), 1 deletion(-)
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-diff --git a/INSTALL b/INSTALL
-index 10c19d4105..7c25c23347 100644
---- a/INSTALL
-+++ b/INSTALL
-@@ -172,9 +172,15 @@ LTP contains few kernel modules and tests which are using them.
- These require to be built with the same kernel headers as the running kernel (SUT).
- Sometimes the best way to achieve this is to compile them on the SUT.
- 
-+Due Linux Kernel Driver Interface unstability [1], error during building kernel
-+modules does not break the build. Make errors fatal can be done by FORCE_MODULES=1
-+make variable.
-+
- 'modules', 'modules-clean' and 'modules-install' make targets are shortcuts
- to build just these modules and tests.
- 
-+[1] https://docs.kernel.org/process/stable-api-nonsense.html)
-+
- Android Users
- -------------
- 
-diff --git a/include/mk/module.mk b/include/mk/module.mk
-index c3cbf9c21f..3e97f01289 100644
---- a/include/mk/module.mk
-+++ b/include/mk/module.mk
-@@ -1,14 +1,22 @@
- # SPDX-License-Identifier: GPL-2.0-or-later
- # Copyright (c) 2013 Oracle and/or its affiliates. All Rights Reserved.
--# Copyright (c) Linux Test Project, 2014-2021
-+# Copyright (c) Linux Test Project, 2014-2025
- # Author: Alexey Kodanev <alexey.kodanev@oracle.com>
- #
- # Include it to build kernel modules.
- # REQ_VERSION_MAJOR and REQ_VERSION_PATCH must be defined beforehand.
-+#
-+# FORCE_MODULES=1: Forcing to fail on error or missing kernel headers (e.g. for CI)).
- 
- $(if $(REQ_VERSION_MAJOR),,$(error You must define REQ_VERSION_MAJOR))
- $(if $(REQ_VERSION_PATCH),,$(error You must define REQ_VERSION_PATCH))
- 
-+define newline
-+
-+
-+endef
-+n := $(newline)
-+
- ifeq ($(WITH_MODULES),no)
- SKIP := 1
- else
-@@ -22,8 +30,18 @@ SKIP ?= $(shell \
- endif
- endif
- 
-+$(info skip: $(SKIP), FORCE_MODULES: $(FORCE_MODULES))
- ifneq ($(SKIP),0)
- MAKE_TARGETS := $(filter-out %.ko, $(MAKE_TARGETS))
-+ifeq ($(FORCE_MODULES),1)
-+$(error Kernel modules not built!$(n)\
-+Check that package for building kernel modules for $(LINUX_VERSION)\
-+is installed and try again.$(n)\
-+* openSUSE/SLES: kernel-default-devel$(n)\
-+* Fedora/RHEL: kernel-devel/kernel-headers$(n)\
-+* Debian/Ubuntu: linux-kbuild$(n)\
-+You can build anyway by omitting FORCE_MODULES=1)
-+endif
- endif
- 
- ifneq ($(filter install clean,$(MAKECMDGOALS)),)
-@@ -45,6 +63,10 @@ MODULE_SOURCES := $(patsubst %.ko,%.c,$(filter %.ko, $(MAKE_TARGETS)))
- 
- .dep_modules: $(MODULE_SOURCES)
- 	@echo "Building modules: $(MODULE_SOURCES)"
-+ifneq ($(FORCE_MODULES),1)
- 	-$(MAKE) -C $(LINUX_DIR) M=$(abs_srcdir)
-+else
-+	$(MAKE) -C $(LINUX_DIR) M=$(abs_srcdir)
-+endif
- 	rm -rf *.mod.c *.o *.ko.unsigned modules.order .tmp* .*.ko .*.cmd Module.symvers
- 	@touch .dep_modules
--- 
-2.50.1
+Kind regards,
+Petr
 
+> +
+> +		if (mountflags & (~MS_RDONLY)) {
+> +			tst_brkm_(file, lineno, TBROK, cleanup_fn,
+> +			          "FUSE mount flag(s) not implemented!");
+> +		}
+
+>  		tst_resm_(file, lineno, TINFO, "Trying FUSE...");
+> -		snprintf(buf, sizeof(buf), "mount.%s '%s' '%s'",
+> -			filesystemtype, source, target);
+> +		snprintf(buf, sizeof(buf), "mount.%s %s '%s' '%s'",
+> +			filesystemtype, mount_ro, source, target);
+
+>  		rval = tst_system(buf);
+>  		if (WIFEXITED(rval) && WEXITSTATUS(rval) == 0)
+> diff --git a/testcases/kernel/syscalls/statmount/statmount02.c b/testcases/kernel/syscalls/statmount/statmount02.c
+> index 07f877e04..f322fe930 100644
+> --- a/testcases/kernel/syscalls/statmount/statmount02.c
+> +++ b/testcases/kernel/syscalls/statmount/statmount02.c
+> @@ -68,7 +68,6 @@ static struct tst_test test = {
+>  	.format_device = 1,
+>  	.all_filesystems = 1,
+>  	.skip_filesystems = (const char *const []) {
+> -		"fuse",
+>  		"btrfs",
+>  		NULL
+>  	},
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
