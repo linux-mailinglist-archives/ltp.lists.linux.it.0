@@ -1,93 +1,121 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1094B1D073
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Aug 2025 03:49:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1754531375; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=25ZCLhzBLE4PLk58JZGFurvNJJVNAncYfxXp55uIcIE=;
- b=U24IJJCxDOfU/fXPRP0+86WFhnN3o8TaJiFyUnqCvPQ+iD93ZvLjbasHUSa8F5SW5Al2N
- fOo2AMB5qin6dYxmlitUUX0Kp6sVdS0tQo0yXMi2hTCVQn05MXXCXeZRMqiWzBHO2ElxRpL
- Gj+QCS/UQAuvtqYeJ6rUI+PeoDc9rRU=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EDB3B1E2F5
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Aug 2025 09:17:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 968973C8FDF
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Aug 2025 03:49:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2E5733CA434
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Aug 2025 09:16:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E441E3C6DE0
- for <ltp@lists.linux.it>; Thu,  7 Aug 2025 03:49:23 +0200 (CEST)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id EA7A63C0294
+ for <ltp@lists.linux.it>; Fri,  8 Aug 2025 09:16:47 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DFA70140004E
- for <ltp@lists.linux.it>; Thu,  7 Aug 2025 03:49:22 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3b788feab29so213036f8f.2
- for <ltp@lists.linux.it>; Wed, 06 Aug 2025 18:49:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1754531362; x=1755136162; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=1rGiK67nWATkVU1OlJXHJqE3TEUGXPUoT4eNSP2nfac=;
- b=UVd5Uou6pIq3PmFRCmafqe+FQtVolDRq+SqTbbeitYAHWb3qOuqucNEBPKCyXvO0V1
- PSIg7L2ersSXTrFTWs+Mzpa6f+0fa/i+kur3T4xs5ceqQWcjvEFAdMFAMw63kY3Rzccu
- Je6PfXxSZCogKjbHLa6ILqfZAh06UEFMtCqrD3apKPIDkdZ95HU7qcFcIxteypN/w7C8
- 6h0sTW6ZBDuajeWhwEuV+hJUYeZFDFRQ3NbS/gabaxJZ7Ft38zbEb/BC0bvGLHttvA0v
- VSW9LtHwen1Gl7AExjeEdINB5+2R8jp5JJ7kJdvAs+3f/54iQceNNZffbiOfkL9XmuzJ
- IIlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754531362; x=1755136162;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1rGiK67nWATkVU1OlJXHJqE3TEUGXPUoT4eNSP2nfac=;
- b=UymrIMKr0JBiOQDbNjrjq9tZJ5cmsgfjcRde7tuIsMIsMwHZTON1XtWwhj/7gMfiFa
- GujhYx/qOEMI7AMHyAJt4j4PhgtR+U3PMWHcGGz0PX1yis3bQQ4eJr4KAZPNkMVg2JQl
- zBYBwZkubkEua1vLlealiDbXXH2Z6kscsK7D0p/eM3yvn02miUTkGMnoINFSq61j6v2d
- NSWaL9qbAXaqBaGxWbmE3rZqW84Nfmcm2YqoJKpiAIoLeZjs6V1y1iWIj4LLCoO08PTJ
- LkEPG4BSgGX0VCTTTsRhb1tEZYAxPHH6gAszmp8HmH1N5C4Xb9wnm043D6pXc/YfcTVQ
- g/5Q==
-X-Gm-Message-State: AOJu0YwPyb15qCq9waMWCjd9KYwNeW8G1iZtuFbei5e9PydUv0YojhAu
- h2r3gjuqnAVQFF74Rk184j1fQRHAl/2vTyptGNTqt6y8KfhVfHl73HPDFPXn3qirzGyw37pgx8i
- sm4dHPg==
-X-Gm-Gg: ASbGncveAu3opVonpsT/YQxdRX+F1EwOO6vnzx2bLERKlj5O8rdEZXb2Fmf7C/EyTdw
- Az9h+l7yp0EtRdmrGBEfeIwcO2Fdg7XiPngL3u4vXTut6Fy8pW2LRFu2aomVZhIva/hUuBchmyA
- 0GajU33IW76G0+K4hJDu+5k6YuuFLEKVpJA2g1iwRz1pbbcINt01csEivwUdZEod8vxGMpzo+C2
- tQxiYasKLZR2ooYctdQNDONu27fkIxdqr5hleZAEFGyzkCTz1Y/4mCzbT7KmWQlocvhZ1TqeT8J
- SfGbiWqzigZmTCWbWIhmz/L9IT4BvWHwUaKw2ft9bP5uNfCEghKx5G0B9KLu9waMY7IzgMyim8X
- lXqKmw/KOOXI=
-X-Google-Smtp-Source: AGHT+IF8LzPaeKtYNqp+nlMulMSLrs4WALWJDxbiyWstgAuCV52dty9TdNJ7NWS/w1OKz2VtnZJ7DQ==
-X-Received: by 2002:a5d:5849:0:b0:3b7:82a3:fe0d with SMTP id
- ffacd0b85a97d-3b8f41c7de3mr4071083f8f.32.1754531361918; 
- Wed, 06 Aug 2025 18:49:21 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
- by smtp.gmail.com with UTF8SMTPSA id
- 41be03b00d2f7-b428f4c8639sm567183a12.43.2025.08.06.18.49.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Aug 2025 18:49:21 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4C465140044C
+ for <ltp@lists.linux.it>; Fri,  8 Aug 2025 09:16:44 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C5DCC5BDB8;
+ Fri,  8 Aug 2025 07:16:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1754637403;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=St0Eh41srmPo5Myog46kRVAv2peqCfbBZggyHocAocw=;
+ b=k7bBY8xL+Kr4ECaQ5f/3I8Kizo2JMds238KUeeBUC/f5mu2QDiB9s0DRrbVVX9DEEYi8/U
+ GJ/mmfGww5pEvaTqeYyt0btSKosdnYFZvThMNOMCzAPEwKk5SW2b58YqvtCmlt9Jyh2/Gf
+ hx3f1bcqp8f0Lm/6L0FLpnfUc0InX+0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1754637403;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=St0Eh41srmPo5Myog46kRVAv2peqCfbBZggyHocAocw=;
+ b=K7sB95iAmVh/48NcKZwsIZCE2rzmXIpjT6YJw0xkTUhARSx0vmOu29cV4lCh7R6cMG8t+p
+ Awdw8RESjTprCLBA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=k7bBY8xL;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=K7sB95iA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1754637403;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=St0Eh41srmPo5Myog46kRVAv2peqCfbBZggyHocAocw=;
+ b=k7bBY8xL+Kr4ECaQ5f/3I8Kizo2JMds238KUeeBUC/f5mu2QDiB9s0DRrbVVX9DEEYi8/U
+ GJ/mmfGww5pEvaTqeYyt0btSKosdnYFZvThMNOMCzAPEwKk5SW2b58YqvtCmlt9Jyh2/Gf
+ hx3f1bcqp8f0Lm/6L0FLpnfUc0InX+0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1754637403;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=St0Eh41srmPo5Myog46kRVAv2peqCfbBZggyHocAocw=;
+ b=K7sB95iAmVh/48NcKZwsIZCE2rzmXIpjT6YJw0xkTUhARSx0vmOu29cV4lCh7R6cMG8t+p
+ Awdw8RESjTprCLBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8531113A7E;
+ Fri,  8 Aug 2025 07:16:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id t5/PHVuklWhnKwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 08 Aug 2025 07:16:43 +0000
+Date: Fri, 8 Aug 2025 09:16:32 +0200
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  7 Aug 2025 09:48:58 -0400
-Message-ID: <20250807134900.517339-1-wegao@suse.com>
-X-Mailer: git-send-email 2.49.0
+Message-ID: <20250808071632.GA406350@pevik>
+References: <20250425125057.38992-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+Content-Disposition: inline
+In-Reply-To: <20250425125057.38992-1-pvorel@suse.cz>
+X-Spam-Level: 
+X-Rspamd-Queue-Id: C5DCC5BDB8
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-2.21 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FREEMAIL_CC(0.00)[linux.ibm.com,paul-moore.com,vger.kernel.org,linux.microsoft.com,gmail.com];
+ DKIM_TRACE(0.00)[suse.cz:+]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_SEVEN(0.00)[7];
+ TAGGED_RCPT(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ REPLYTO_EQ_FROM(0.00)[]
+X-Spam-Score: -2.21
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v1] iocl11.c: New case check PROCMAP_QUERY ioctl()
- errnos
+Subject: Re: [LTP] [PATCH] tst_security.sh: Use the same value for
+ checkreqprot
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,237 +127,69 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Paul Moore <paul@paul-moore.com>, selinux@vger.kernel.org,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
+ linux-integrity@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Wei Gao <wegao@suse.com>
----
- runtest/syscalls                           |   1 +
- testcases/kernel/syscalls/ioctl/.gitignore |   1 +
- testcases/kernel/syscalls/ioctl/ioctl11.c  | 183 +++++++++++++++++++++
- 3 files changed, 185 insertions(+)
- create mode 100644 testcases/kernel/syscalls/ioctl/ioctl11.c
+Hi all,
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 6a17a34f8..8bc7f60d2 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -588,6 +588,7 @@ ioctl07      ioctl07
- ioctl08      ioctl08
- ioctl09      ioctl09
- ioctl10      ioctl10
-+ioctl11      ioctl11
- 
- ioctl_loop01 ioctl_loop01
- ioctl_loop02 ioctl_loop02
-diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
-index dac4583fa..54685e916 100644
---- a/testcases/kernel/syscalls/ioctl/.gitignore
-+++ b/testcases/kernel/syscalls/ioctl/.gitignore
-@@ -8,6 +8,7 @@
- /ioctl08
- /ioctl09
- /ioctl10
-+/ioctl11
- /ioctl_loop01
- /ioctl_loop02
- /ioctl_loop03
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl11.c b/testcases/kernel/syscalls/ioctl/ioctl11.c
-new file mode 100644
-index 000000000..aef2105cc
---- /dev/null
-+++ b/testcases/kernel/syscalls/ioctl/ioctl11.c
-@@ -0,0 +1,183 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2024 Wei Gao <wegao@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Test PROCMAP_QUERY ioctl() errnos:
-+ *
-+ * - EINVAL if q->size is too small
-+ * - E2BIG if q->size is larger than page size
-+ * - EINVAL on invalid q->flags
-+ * - EINVAL if only one of q->vma_name_size and q->vma_name_addr is set
-+ * - EINVAL if only one of q->build_id_size and q->build_id_addr is set
-+ * - ENAMETOOLONG if build_id_size or name_buf_size is too small
-+ */
-+
-+#include "config.h"
-+#include <stdlib.h>
-+#include <sys/ioctl.h>
-+#include <errno.h>
-+#include <fnmatch.h>
-+#include "tst_test.h"
-+#include "tst_safe_stdio.h"
-+#include <sys/sysmacros.h>
-+#include <linux/fs.h>
-+#include "lapi/ioctl.h"
-+
-+#define PROC_MAP_PATH "/proc/self/maps"
-+
-+struct procmap_query *q;
-+static int fd = -1;
-+static char buf[PATH_MAX];
-+static char small_buf[1];
-+
-+static void setup_normal(void);
-+static void setup_big_size(void);
-+
-+static struct tcase {
-+	uint64_t size;
-+	uint64_t query_addr;
-+	uint64_t query_flags;
-+	uint64_t vma_name_addr;
-+	uint32_t vma_name_size;
-+	uint64_t build_id_addr;
-+	uint32_t build_id_size;
-+	int exp_errno;
-+	void (*setup)(void);
-+} tcases[] = {
-+	{
-+		.size = 1,
-+		.exp_errno = EINVAL,
-+		.setup = setup_normal
-+	},
-+	{
-+		.exp_errno = E2BIG,
-+		.setup = setup_big_size
-+	},
-+	{
-+		.query_flags = -1,
-+		.exp_errno = EINVAL,
-+		.setup = setup_normal
-+	},
-+	{
-+		.vma_name_size = sizeof(buf),
-+		.exp_errno = EINVAL,
-+		.setup = setup_normal
-+	},
-+	{
-+		.vma_name_addr = (uint64_t)(unsigned long)buf,
-+		.exp_errno = EINVAL,
-+		.setup = setup_normal
-+	},
-+	{
-+		.build_id_size = sizeof(buf),
-+		.exp_errno = EINVAL,
-+		.setup = setup_normal
-+	},
-+	{
-+		.build_id_addr = (uint64_t)(unsigned long)buf,
-+		.exp_errno = EINVAL,
-+		.setup = setup_normal
-+	},
-+	{
-+		.vma_name_addr = (uint64_t)(unsigned long)small_buf,
-+		.vma_name_size = sizeof(small_buf),
-+		.exp_errno = ENAMETOOLONG,
-+		.setup = setup_normal
-+	},
-+	{
-+		.build_id_addr = (uint64_t)(unsigned long)small_buf,
-+		.build_id_size = sizeof(small_buf),
-+		.exp_errno = ENAMETOOLONG,
-+		.setup = setup_normal
-+	},
-+};
-+
-+static unsigned long get_vm_start(void)
-+{
-+	FILE *fp = SAFE_FOPEN(PROC_MAP_PATH, "r");
-+	char line[1024];
-+	unsigned long start_addr = 0;
-+
-+	if (fgets(line, sizeof(line), fp) != NULL) {
-+		if (sscanf(line, "%lx-", &start_addr) != 1)
-+			tst_brk(TFAIL, "parse maps file /proc/self/maps failed");
-+		return start_addr;
-+	}
-+
-+	SAFE_FCLOSE(fp);
-+	tst_brk(TFAIL, "parse maps file /proc/self/maps failed");
-+}
-+
-+static void setup_normal(void)
-+{
-+	q->size = sizeof(*q);
-+	q->query_addr = (uint64_t)get_vm_start();
-+	q->query_flags = 0;
-+}
-+
-+static void setup_big_size(void)
-+{
-+	setup_normal();
-+	q->size = getpagesize() + 1;
-+}
-+
-+static void run(unsigned int n)
-+{
-+	struct tcase *tc = &tcases[n];
-+
-+	memset(q, 0, sizeof(*q));
-+
-+	tc->setup();
-+
-+	if (tc->size != 0)
-+		q->size = tc->size;
-+	if (tc->query_flags != 0)
-+		q->query_flags = tc->query_flags;
-+	if (tc->vma_name_addr != 0)
-+		q->vma_name_addr = tc->vma_name_addr;
-+	if (tc->vma_name_size != 0)
-+		q->vma_name_size = tc->vma_name_size;
-+	if (tc->build_id_addr != 0)
-+		q->build_id_addr = tc->build_id_addr;
-+	if (tc->build_id_size != 0)
-+		q->build_id_size = tc->build_id_size;
-+
-+	TST_EXP_FAIL(ioctl(fd, PROCMAP_QUERY, q), tc->exp_errno);
-+}
-+
-+static void setup(void)
-+{
-+	struct procmap_query q = {};
-+
-+	fd = SAFE_OPEN(PROC_MAP_PATH, O_RDONLY);
-+
-+	if (tst_kvercmp(6, 11, 0) < 0) {
-+		TEST(ioctl(fd, PROCMAP_QUERY, q));
-+
-+		if ((TST_RET == -1) && (TST_ERR == ENOTTY))
-+			tst_brk(TCONF,
-+				"This system does not provide support for ioctl(PROCMAP_QUERY)");
-+	}
-+
-+}
-+
-+static void cleanup(void)
-+{
-+	if (fd != -1)
-+		SAFE_CLOSE(fd);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.cleanup = cleanup,
-+	.bufs = (struct tst_buffers []) {
-+		{&q, .size = sizeof(*q)},
-+		{}
-+	}
-+};
--- 
-2.49.0
+FYI patch merged.
 
+Kind regards,
+Petr
+
+> kernel commit e9c38f9fc2cc ("Documentation,selinux: deprecate setting
+> checkreqprot to 1") from v5.10-rc1 deprecated checkreqprot value 1
+> (emit warning in dmesg). Code is used only in ima_selinux.sh
+> which requires 5.12. Touching /sys/fs/selinux/checkreqprot is required
+> to trigger the measurement via selinux_ima_measure_state().
+
+> Using the same value (0 by default) works on recent 6.14, it should be
+> safe changing to use the same value. This way misleading warning is
+> avoided and hopefully kept working in the future.
+
+> Also, this way it does not modify SUT setting (don't influence other
+> tests), which is always better.
+
+> Fixes: 36c695e497 ("tst_security.sh: Add helper tst_update_selinux_state()")
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> @SELinux developers: FYI tst_security.sh is used in LTP test in
+> ima_selinux.sh [1] test.
+
+> Kind regards,
+> Petr
+
+> [1] https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/security/integrity/ima/tests/ima_selinux.sh
+
+>  testcases/lib/tst_security.sh | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+
+> diff --git a/testcases/lib/tst_security.sh b/testcases/lib/tst_security.sh
+> index 4e2d34ca98..820736c723 100644
+> --- a/testcases/lib/tst_security.sh
+> +++ b/testcases/lib/tst_security.sh
+> @@ -142,11 +142,10 @@ tst_get_enforce()
+
+>  tst_update_selinux_state()
+>  {
+> -	local cur_val new_val
+> +	local val
+>  	local dir=$(tst_get_selinux_dir)
+>  	[ -n "$dir" ] || return 1
+
+> -	cur_val=$(cat $dir/checkreqprot)
+> -	[ $cur_val = 1 ] && new_val=0 || new_val=1
+> -	echo $new_val > $dir/checkreqprot
+> +	val=$(cat $dir/checkreqprot)
+> +	echo $val > $dir/checkreqprot
+>  }
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
