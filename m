@@ -1,98 +1,153 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AC54B1E141
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Aug 2025 06:31:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 90D0FB1ED0F
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Aug 2025 18:35:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1754627482; h=to : date :
- message-id : in-reply-to : references : mime-version : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-type :
- content-transfer-encoding : sender : from;
- bh=tZJg6kujpY7pSFzupjOctR+vDhuNmejpLWXEMDfpXrE=;
- b=oOJpj3LHJbW1i2UpCuAz1x/wB8JmV8BQSvIK6u7wAX/4nz/xIA4EHcA4j3bwSaCCRUQR9
- md13z5yNtm085RKuZRlq8/UnfFxFm2JwhcDcPZTblepJsQM/ne2MGSb8z08H92NEMVUZZfG
- itRZ2IcTDL9FHlZFyTJEqIXg/H8hmPU=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1754670905; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-type : content-transfer-encoding : sender : from;
+ bh=4Ox2UVrHsbABuQB3znuOwDouGacCCywbhtSwGQnusV4=;
+ b=hTi/SgM2X0aRuZGV5RgCk1upMQ3gK3OHcnkKqdetZC0rjWXiHMk9hyk6u+qXjX68+/PiJ
+ 59iX41gTi0bPWYmLRlolF6LdryoQNzHMugKW7JNB0LOXKSS0MctNhNBkKe4TW2YIh65KncF
+ sRT6BGREjLx6UANv7aCKlOcZKRF5Xos=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 677173CA165
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Aug 2025 06:31:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3C1C13CA75E
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Aug 2025 18:35:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DC61E3C23EC
- for <ltp@lists.linux.it>; Fri,  8 Aug 2025 06:31:05 +0200 (CEST)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 218466008A2
- for <ltp@lists.linux.it>; Fri,  8 Aug 2025 06:31:04 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3b8d0f1fb49so991831f8f.2
- for <ltp@lists.linux.it>; Thu, 07 Aug 2025 21:31:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1754627463; x=1755232263; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=t14H47WkuvMjlA7Q/vS0Q9khToxMmn3bdIS2K/qyy0Q=;
- b=O+wQ/eUK5Ei9frImNHjFaDw+2W8a6f7bQ5cE5bM53qmYMdFJ2eWTSEsjLidc917BrA
- aIKxkaXVVOCyUhWX24/kIspEudi4gsz1kQHBKDz/V57ITL+mgCxANMkOuEP5nsiJtetD
- HaAAKRriVJbTmtcO8Zhc+LYhSKERKFAKyVH7nS9yJB4ftORRolytJjgkjhpNnk5NSYro
- LwoMKKBoi3uGtWv5b5YQzG8BFeB6uQf41/JMroj7lSn7HnuLR3IeAuEZPqwLDK1I9irt
- 3TkOfnmnHDFtEUFhFpcN2zBKA+NyFYv5Z4T0wGJfZgjmMmM9JuND2bDcizxGIbkyfZhL
- 7HaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754627463; x=1755232263;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=t14H47WkuvMjlA7Q/vS0Q9khToxMmn3bdIS2K/qyy0Q=;
- b=jvZ0//lBqBcBoR1UZCrouuVjwFPFqvwR17KjwU+XGqD5bmcToxohEckvLnP0OjDQ8a
- 5gyZIDyILETBnKfaN6V8HqcUylppA1jnxCKb4jUomMOOX0p0h7KLUu8NwKDOmv8QX5it
- asUGNq/GRIt9xWjiVvSI2B4fef+P5b508Pd4+4FjvD66RNOgiviWtSi6B0kOMJNcFztj
- 0oUaF001uZOWJakVntYIa30/8p9O7AWv8rlrMODfdRsJSkVBeqkxeWMsQeIKHLh4VO8r
- 6gfWNqpXLaH0NzBRAZ7E8oPiw9J2G08hxUVEsJfaScFMfXLoqvkDgE/ep1EZxroqUu46
- 8jNg==
-X-Gm-Message-State: AOJu0YyhftPCPr7mrP9Rl5DWLCj114G/HhGLswXND3sErPV3rQmlC/x6
- JgD3E/nStx3xwaw3O218UymGD/3tzb+BG7KIvMHd7LEh3rRU5jf33s2k9y4tH0Pg96DFQUM1wey
- a3/matA==
-X-Gm-Gg: ASbGnctbIwGwvEhU7jTJm4LK2UIBegxiBeFmI7gUGO/c7wnNqN+VVybwS/TIQX18Brp
- S/xjJb1YcKhNab1DneKJAmTvPH3uKhxjNu1vHVXS311iikvtb0BhJfh7zeuY21lD+b0m9U0u6hZ
- SYxEFXvChqzolA3U+64ZHa2AIHgmr+HhjXQnVR+TZd07iTFfrDUt85mC95tCYP09KT4DrMZnh25
- 6LzKiV7XTMbuSlg67DMfZz6cuIOXgtRsA9NdR5ccDxQi2uGo6d6EF7f/Bmm4c3MRigqxvPScj+N
- c2kH9GWf3HSXxspJq2dR4h9YymKWeUmZlg3WhOao1qwAqH7+BHsdsMArstNVG7zwzAEj9dzbpyf
- h/2dT9UDzyEY=
-X-Google-Smtp-Source: AGHT+IG9aWFyRsqS5ytkASTymX2zB1delbONIJo4JkyLuS1ckrDvD1mkub+eMs+/cbFYdQKimaFCLQ==
-X-Received: by 2002:a05:6000:220c:b0:3a6:d93e:5282 with SMTP id
- ffacd0b85a97d-3b900b56117mr967241f8f.59.1754627463252; 
- Thu, 07 Aug 2025 21:31:03 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
- by smtp.gmail.com with UTF8SMTPSA id
- d9443c01a7336-241afb7037asm200205985ad.0.2025.08.07.21.31.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Aug 2025 21:31:02 -0700 (PDT)
+ by picard.linux.it (Postfix) with ESMTPS id 2B9843CA699
+ for <ltp@lists.linux.it>; Fri,  8 Aug 2025 18:35:03 +0200 (CEST)
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ (mail-am7eur03on20714.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:260e::714])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (secp384r1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 73DE820091E
+ for <ltp@lists.linux.it>; Fri,  8 Aug 2025 18:35:02 +0200 (CEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ylkyZ+7V/wY4zJ5gJQIkVR+C2EmvNihQXxjoEvgAXxTwgcnhs6IXykW0aqcEZ09Jwzj1828Mb6GNuBVZVWBirY/3L8V79rcddwDUhKJ2qnj5YI9x3QSWCkcgSwvy1+pZBJ5o9Lt9DGMzGS5v/6rM8eC/pzQqO5Aa5PMzoVkM/aZIYT/WeT1Jeb+D97/zPIVyC9dGcR0eMtZBf652pQH4NKFZjNN1sjLdLrGho1caKGDbcdXGXfMjKwoa00D+H7n5mGsIe0Kk5nn+jPsqXxCzGiA3HWXwMPzESn+L7nmPDHOJYLXbxgqzxiVir6A8A33BW2vVQh4LyuFRPAKhXhdryw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z9Rgh7OyBlNldAkU8v6HtC9a+UAAv82GRHWOVgyMfC0=;
+ b=mB3aJBsvdsLwJijdLSFoo6kBmaLdSHTGDQDBQk3lnyFHK4jhtVH79NW1qOl7HPTFEnJVa4SKxhjFPU/3yiu69Gjt0XI7dFaCybcRX9SF+kwg7DGyoJmWrXv8CCA/jubgkhdKeUnl7X4mZsV/n06qYqH5u4lmtgT7XvCHjueSNcQa/TjMK3xl3XwwilFcTTwCr2FnAN54JuK++GwLCuaL5+41w9+VgKj9l0jnuobA5/SrIg0/ZdrfQlVQY19Kcm8WWZJQAAPNG8Q3bbwsc6QyiHBJ8OYY4rtl/MG4EdTZPUjErJFg4k1pvnY82YERpFgLTVYmQxwfreFRCRZ22Iy04A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=codasip.com; dmarc=pass action=none header.from=codasip.com;
+ dkim=pass header.d=codasip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codasip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z9Rgh7OyBlNldAkU8v6HtC9a+UAAv82GRHWOVgyMfC0=;
+ b=qIQnGilu8TW+1I/FZBOfk3COcb+LUoAFwZHDsBylMo/IYX7BPsy+v7bfBa3U37eIV8rLhutPm4bEZFk/QtDHNn6opT7oc1Nwlsg2GPwO2G/leKmCQvMS2lvG2w3uI7k1t6TlNrzeLRJX3gwwE80w4wfSqLfZdgA2GRWtZuXhH70ZpJkMxYFCPY9Z5Ar3Sp4iJ+R2eIBAKSoKyOviM3WrPTEOtAoYxv10CaG1XIjkgOwkXBlA/VrBWdh/t4r6AygNlPEySyX/tdS4XmbmfCG+Ccbx3EYLcpbl7Ra1Zl56RqJtdZtOlGtZSZOASZ3bapQB+l0bfWfyN0NRaiXKnCSVhQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=codasip.com;
+Received: from AM9P192MB0983.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:1f4::5)
+ by DU0P192MB1615.EURP192.PROD.OUTLOOK.COM (2603:10a6:10:34e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.16; Fri, 8 Aug
+ 2025 16:35:00 +0000
+Received: from AM9P192MB0983.EURP192.PROD.OUTLOOK.COM
+ ([fe80::dda0:cbaf:a692:8443]) by AM9P192MB0983.EURP192.PROD.OUTLOOK.COM
+ ([fe80::dda0:cbaf:a692:8443%5]) with mapi id 15.20.9009.013; Fri, 8 Aug 2025
+ 16:34:59 +0000
 To: ltp@lists.linux.it
-Date: Fri,  8 Aug 2025 12:30:24 -0400
-Message-ID: <20250808163045.2033518-1-wegao@suse.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250807134900.517339-1-wegao@suse.com>
-References: <20250807134900.517339-1-wegao@suse.com>
+Date: Fri,  8 Aug 2025 18:34:57 +0200
+Message-ID: <20250808163457.1685958-1-florian.schmaus@codasip.com>
+X-Mailer: git-send-email 2.49.1
+X-ClientProxiedBy: FR3P281CA0035.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::8) To AM9P192MB0983.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:20b:1f4::5)
 MIME-Version: 1.0
-X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,
- SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9P192MB0983:EE_|DU0P192MB1615:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3876454d-849c-47ec-9d74-08ddd699848c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0; ARA:13230040|376014|10070799003|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?g6EX9rJScNzAac09LGcuNleDvsCtexSa1qnVe0Hf1r1QGSuXrf+3pHDbVNDW?=
+ =?us-ascii?Q?uNdSw4rbA7ySSBplRjsCTrMuGqrDVoNs6FGe+xQ9xeUd1at7LFb+k1ln4sbt?=
+ =?us-ascii?Q?FNmAPYDn/vLw/Lx+RN3LY228mFXa4xDkAuqH5hs2ux8loM/LePVhLf9vctZ1?=
+ =?us-ascii?Q?1SPCf1S3REu1mYzkCFhdjSpgbIKRuyItQHh6Sahn2xDyRJ1HedahFSHWmdAB?=
+ =?us-ascii?Q?Yw1wwrd6ZBAKl8yd4mqIj0qKMqhkGOTfnsILCUmwMV1JNRJLefuzBB0Gc8OS?=
+ =?us-ascii?Q?vC3Eik+PYgVdp0iL88edDYeouHHEJFRQtLnUtZ21wbmOFvZeop+RuxLvC8oA?=
+ =?us-ascii?Q?pV4t9vwj+MUs556EhYiYudzhBAsurC2a5O4AMkKE+JjuAImIYysOyX01lp8Y?=
+ =?us-ascii?Q?z+boY5N3Dm+surm9CreakYWagcmc1i1EHaq6Nt5gveRK3XI3CJPuk1HjdCDL?=
+ =?us-ascii?Q?NZBxvZJvKMHKQ6k8hgbBk/+givnDYr0f/whZuutt+WTlxl7wFYPyQ24arLBG?=
+ =?us-ascii?Q?siv03GC0acOLeRmw7kxsGJkFjALJFhxtQzvlC94BkJf9PtFJXakxaWuKly0B?=
+ =?us-ascii?Q?ciq7tD/6vBfJpcWILJ1MGDGhjIbn3vcsZXmlSkXdQoAWLrne2NaeAnurBf9A?=
+ =?us-ascii?Q?Y0Fbyi7hKsdUUVJu2LXQqR9J2r93GxhR6LUlOaw3TpVNoapMZAS7kLd1k3pB?=
+ =?us-ascii?Q?HO5/BttPOYu5U2s3lkPOGlGOPSLQ2oM3ap8LDj2myn8jAnWE9QZXX3iD3ARz?=
+ =?us-ascii?Q?SWg1Eobh25n5UJ/4iorY+phrrY7hzo81W8AQZNgvLURejWPULMa/QYUd9adD?=
+ =?us-ascii?Q?/xLz2+2eRJkizL+WJO6VkhC1/zQ41sECgMgMFh0qr9UCLZf4smExyw8FdAa+?=
+ =?us-ascii?Q?i4PWI3Rgue+KBVZkvnkaABy69KAaYs40VQKkrtEmnEPfwa3xI8hCbBC3byfT?=
+ =?us-ascii?Q?oDKHK5b+dgS6XwfCRM6LGE56TCAXGoumPPIDWiFSKUgT0eLB2pMKs7nr6QDY?=
+ =?us-ascii?Q?N7EgyjCLZyDMwARQySJV+V4bWAWAbfb/lIucmD6LNPQVqcfIxLhdcQA4PSDi?=
+ =?us-ascii?Q?bhWkgKFRVxwJ8PtaJ6VdyNib0B83JPOd3gplcNcsvSH1Th06iVYHUBJfMbi9?=
+ =?us-ascii?Q?nL0CPTyvmh6lbCjanI6iXBTpnk/nv56MaGmUm8ISnTBlgn5TPaWPRSBRC5DR?=
+ =?us-ascii?Q?VRndQCW6wuhIhmZBg30/9K0qGLzdnFTl7/giQcL7M2YfMqN8e7Xhk08RzGpY?=
+ =?us-ascii?Q?b3ADZJoe6mGOi4a1SzEkz2df520Ej9ErCV7DlN0nPTw+QAQXj5JKk+NhIYZ1?=
+ =?us-ascii?Q?XNIQjPYv9ZaG7B6GCSJQyXZZ9ujO60sP+tCqRN69SBi4BlUioLAsk/lpn1L0?=
+ =?us-ascii?Q?TSK7ZP1Xf52zvFryHse3Ra6alHgSI5UKFUFNKJCSn5lBUlMMUzqDy0OSff39?=
+ =?us-ascii?Q?47jQQPekI4k=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM9P192MB0983.EURP192.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(10070799003)(1800799024)(366016); DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?BmIPpW/3VSMiI2qTnSpdBrMQDQiatknTLXhFMMp8Kc7S5FRZXMxobsTssMdR?=
+ =?us-ascii?Q?s541jXS8S7qDrOtVFuBSuxaZF66BCICME7B2bnGQ1kSQLVII3kl+rCz0dshB?=
+ =?us-ascii?Q?YyoZ0Ko2QqjBFdCt+1u9p+gXX+PNnRcUOoNowM5f0h4WQUDF8mUwTglixYtE?=
+ =?us-ascii?Q?YWOTrywujIf0i3hYjNDqhVsavhYJ/OLj17KRhGqu4kcmkJ6Iq2MgZyEkLOZF?=
+ =?us-ascii?Q?yBl1AHoE944L6wmLN+P7w1tR90Eqryfg/BJhnDTrIpi8CV8NuPMFgnC9igCF?=
+ =?us-ascii?Q?Z5811Z929694p1rmP1XxRPeeAfS6fRIUqbWnE5/oRV3eyvUV68YHefzZ3aMP?=
+ =?us-ascii?Q?K2hW0Xr2NDNH/fSt4eULZy9tgjP9GNJGtestWz0ePHf0HlfgtwZDyjL4Xq7E?=
+ =?us-ascii?Q?+VNQTB5kxu0z5chjeTbMaqS4N3j5VQToEMB9AbD0pbio5aQj1yrUJLj+5I/J?=
+ =?us-ascii?Q?umm0Xy/X6hrnj6jVO9Rr/GL2Aov8Sk6SYFDNQwPIr9TdI3paqYg2sHrpjENu?=
+ =?us-ascii?Q?HRgghiJ79JUle9SsYUSadTOIQ6a7Gx/a7aBSsCmx55wvpjg32f2yGKaXJPT2?=
+ =?us-ascii?Q?mzvyQSt4/vLDlQuGUY2Cm/PiOliKv8wAtDLxDWKP9zl5CbNfBqRes/Zqtf+v?=
+ =?us-ascii?Q?F4lUu2f65NQHSMIv0OerHG/O2UhQNJ8ufUJHSMC2dQ7YK5dWiBp5TpawyDs4?=
+ =?us-ascii?Q?HM9cn73nQfEpcAzpZKHPCkCOKQCifFebPVpvzvto2+WU/U/oBzZKnWAKtXed?=
+ =?us-ascii?Q?2DmPUfqGRgXHzXjG7YqOE9o3tpjQytTQNtcuO76D974vynzt9P6vcBLdXn5C?=
+ =?us-ascii?Q?osRv1hXFzW08ZbwBMEYLvevW6wKhQJjpCzMxB+6LythKMfECCFJNbrHCriwh?=
+ =?us-ascii?Q?7HTYe02uCr8FWjnlV/AF07iNcrvMkw9Z2k2j+e1iuJk7ex6CRVbcBmTbny+4?=
+ =?us-ascii?Q?7GuJMdprryq+PP4Hi0KcRQYqMXgsuu/GowasJXni+22lCTLPZ5idu3gvMZsv?=
+ =?us-ascii?Q?IM/+fSgxKqYnzr7Lr/GzGFUCR7l74UzeEQxijwpJXDwVgYOZ5UcnujCzflfd?=
+ =?us-ascii?Q?3/771NdS/bgwnERDmUTYS369LtosYj8VTPCdyKJdkqwBceYRY+QVVeA/LJrW?=
+ =?us-ascii?Q?pDsrs1I+dEkJmMqcRi80ZD0zc5/0jLfU7qYmWmcsmKGZq0PlhJDGy7FVWzcl?=
+ =?us-ascii?Q?2ZFGXha6B3tYrYtrH3pNkZImNT22fJkI9RW5h2PEQ0JWvmcSKsYZ9r8Of+b3?=
+ =?us-ascii?Q?jUUNXyabHPMTwKmdjwKDo8xkSbLkHXXxQAWP0r8Bqm+D3WU7v9EUgayjdAYV?=
+ =?us-ascii?Q?tTrs7hsOay96Mq7+MZdcrMsPi25LR8pnoeYOa7EPwxexhhtulRCaWucKrFQb?=
+ =?us-ascii?Q?Ex1iwAKBGXanb4d3//GAeW3oY3/Wm9e703Pgq8PeqomJSCa1Z8BS3NLz5bq+?=
+ =?us-ascii?Q?SmqMDYcqR2HYIZOngMuN69V9dqsr1yn5xtkfqr9/bM0/2bvKjF+g/TyJqBze?=
+ =?us-ascii?Q?CDPo5bj/1863l8QuOVU7ej0WedFl3F9cQ1yuMkp/h+WGk1zu9q6Yo2wTqILh?=
+ =?us-ascii?Q?J0iiAAzWSn4Tx/ZXq5O2iPF7s2CRekq7Ru1NXhzSWbG/BTaI7NmvEAJ2ojwA?=
+ =?us-ascii?Q?Lt2TZ94csS7XWIprsM64a5kM+DtNHVveif8dc6mvp4qMBMwBDAvFivLtnnRv?=
+ =?us-ascii?Q?i02tNg=3D=3D?=
+X-OriginatorOrg: codasip.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3876454d-849c-47ec-9d74-08ddd699848c
+X-MS-Exchange-CrossTenant-AuthSource: AM9P192MB0983.EURP192.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2025 16:34:59.9470 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0d91ffef-bb81-4cbd-b9b8-552583685f20
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PkmnTmR4orxzbWIZbMGhDS4c/vICo+DPCSt/z66NLy76kzP22VCpczo8xYrwqZBjh+3LkvXitPk4A68Mqoil1Stwhbbr1h2y/wIBPe3UNxU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0P192MB1615
+X-Spam-Status: No, score=0.1 required=7.0 tests=ARC_SIGNED,ARC_VALID,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2] ioctl11.c: New case check PROCMAP_QUERY ioctl()
- errnos
+Subject: [LTP] [PATCH v2] sigrelse01: Check if signal 34 is available for
+ musl compat
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,236 +159,87 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
+From: Florian Schmaus via ltp <ltp@lists.linux.it>
+Reply-To: Florian Schmaus <florian.schmaus@codasip.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Wei Gao <wegao@suse.com>
----
- runtest/syscalls                           |   1 +
- testcases/kernel/syscalls/ioctl/.gitignore |   1 +
- testcases/kernel/syscalls/ioctl/ioctl11.c  | 183 +++++++++++++++++++++
- 3 files changed, 185 insertions(+)
- create mode 100644 testcases/kernel/syscalls/ioctl/ioctl11.c
+Do not select signal 34 when the test is run using musl. Signal 34 is
+used internally by musl as SIGSYNCCALL. Consequently, musl's signal()
+will return with an error status and errno set to EINVAL when trying
+to setup a signal handler for signal 34, causing the sigrelse01 test
+to fail.
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 6a17a34f8..8bc7f60d2 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -588,6 +588,7 @@ ioctl07      ioctl07
- ioctl08      ioctl08
- ioctl09      ioctl09
- ioctl10      ioctl10
-+ioctl11      ioctl11
+Since musl provides no preprocessor macro, we check for the
+availability of signal 34 by attempting to setup a signal handler. If
+signal() returns SIG_ERR with errno set to EINVAL then we assume the
+signal is unavailable. Knowing signal 34 is available with glibc, we
+perform this check only if __GLIBC__ is not defined.
+
+Signed-off-by: Florian Schmaus <florian.schmaus@codasip.com>
+---
+
+Changes since v1:
+    - do not declare _GNU_SOURCE, as a result signal() returns void*
+    - do not use stdbool
+
+ .../kernel/syscalls/sigrelse/sigrelse01.c     | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/testcases/kernel/syscalls/sigrelse/sigrelse01.c b/testcases/kernel/syscalls/sigrelse/sigrelse01.c
+index d1ed9d53a4dc..d38479a7e590 100644
+--- a/testcases/kernel/syscalls/sigrelse/sigrelse01.c
++++ b/testcases/kernel/syscalls/sigrelse/sigrelse01.c
+@@ -177,6 +177,8 @@ static int sig_caught;		/* flag TRUE if signal caught */
+ /* array of counters for signals caught by handler() */
+ static int sig_array[NUMSIGS];
  
- ioctl_loop01 ioctl_loop01
- ioctl_loop02 ioctl_loop02
-diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
-index dac4583fa..54685e916 100644
---- a/testcases/kernel/syscalls/ioctl/.gitignore
-+++ b/testcases/kernel/syscalls/ioctl/.gitignore
-@@ -8,6 +8,7 @@
- /ioctl08
- /ioctl09
- /ioctl10
-+/ioctl11
- /ioctl_loop01
- /ioctl_loop02
- /ioctl_loop03
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl11.c b/testcases/kernel/syscalls/ioctl/ioctl11.c
-new file mode 100644
-index 000000000..86dc56bbe
---- /dev/null
-+++ b/testcases/kernel/syscalls/ioctl/ioctl11.c
-@@ -0,0 +1,183 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2025 Wei Gao <wegao@suse.com>
-+ */
++static int sig34_available = TRUE; /* Signal 34 is unavailable on e.g., musl */
 +
-+/*\
-+ * [Description]
-+ *
-+ * Test PROCMAP_QUERY ioctl() errnos:
-+ *
-+ * - EINVAL if q->size is too small
-+ * - E2BIG if q->size is larger than page size
-+ * - EINVAL on invalid q->flags
-+ * - EINVAL if only one of q->vma_name_size and q->vma_name_addr is set
-+ * - EINVAL if only one of q->build_id_size and q->build_id_addr is set
-+ * - ENAMETOOLONG if build_id_size or name_buf_size is too small
-+ *
-+ *   [1] https://kernelnewbies.org/Linux_6.11#Memory_management
-+ *   [2] https://kernelnewbies.org/Linux_6.11#Binary_interface_for_.2Fproc.2F.3Cpid.3E.2Fmaps
-+ *   [3] https://lore.kernel.org/all/20240627170900.1672542-1-andrii@kernel.org/
-+ *       ed5d583a88a9 ("fs/procfs: implement efficient VMA querying API for /proc/<pid>/maps")
-+ */
+ /***********************************************************************
+  *   M A I N
+  ***********************************************************************/
+@@ -736,6 +738,8 @@ int choose_sig(int sig)
+ 	case SIGSWAP:
+ #endif
+ 		return 0;
++	case 34:
++		return sig34_available;
+ 
+ 	}
+ 
+@@ -773,6 +777,27 @@ void setup(void)
+ 	if (fcntl(pipe_fd2[0], F_SETFL, O_NONBLOCK) == -1)
+ 		tst_brkm(TBROK | TERRNO, cleanup,
+ 			 "fcntl(Fds[0], F_SETFL, O_NONBLOCK) failed");
 +
-+#include <errno.h>
-+#include <linux/fs.h>
-+#include "config.h"
-+#include "tst_test.h"
-+#include "tst_safe_stdio.h"
-+#include "lapi/ioctl.h"
-+
-+#define PROC_MAP_PATH "/proc/self/maps"
-+
-+static struct procmap_query *q;
-+static int fd = -1;
-+static char buf[PATH_MAX];
-+static char small_buf[1];
-+static unsigned long vm_start_addr;
-+
-+static void setup_normal(void);
-+static void setup_big_size(void);
-+
-+static struct tcase {
-+	uint64_t size;
-+	uint64_t query_addr;
-+	uint64_t query_flags;
-+	uint64_t vma_name_addr;
-+	uint32_t vma_name_size;
-+	uint64_t build_id_addr;
-+	uint32_t build_id_size;
-+	int exp_errno;
-+	void (*setup)(void);
-+} tcases[] = {
-+	{
-+		.size = 1,
-+		.exp_errno = EINVAL,
-+	},
-+	{
-+		.exp_errno = E2BIG,
-+		.setup = setup_big_size
-+	},
-+	{
-+		.query_flags = -1,
-+		.exp_errno = EINVAL,
-+	},
-+	{
-+		.vma_name_size = sizeof(buf),
-+		.exp_errno = EINVAL,
-+	},
-+	{
-+		.vma_name_addr = (uint64_t)(unsigned long)buf,
-+		.exp_errno = EINVAL,
-+	},
-+	{
-+		.build_id_size = sizeof(buf),
-+		.exp_errno = EINVAL,
-+	},
-+	{
-+		.build_id_addr = (uint64_t)(unsigned long)buf,
-+		.exp_errno = EINVAL,
-+	},
-+	{
-+		.vma_name_addr = (uint64_t)(unsigned long)small_buf,
-+		.vma_name_size = sizeof(small_buf),
-+		.exp_errno = ENAMETOOLONG,
-+	},
-+	{
-+		.build_id_addr = (uint64_t)(unsigned long)small_buf,
-+		.build_id_size = sizeof(small_buf),
-+		.exp_errno = ENAMETOOLONG,
-+	},
-+};
-+
-+static void get_vm_start(void)
-+{
-+	FILE *fp = SAFE_FOPEN(PROC_MAP_PATH, "r");
-+	char line[1024];
-+
-+	if (fgets(line, sizeof(line), fp) != NULL) {
-+		if (sscanf(line, "%lx-", &vm_start_addr) != 1)
-+			tst_brk(TFAIL, "maps not found in %s", PROC_MAP_PATH);
++#ifndef __GLIBC__
++	/*
++	 * Check if signal 34 is available. Some libc implementations do
++	 * not support signal 34. For example, musl uses signal 34 as
++	 * internal signal (SIGSYNCCALL).
++	 */
++	void *previous = signal(34, handler);
++	if (previous == SIG_ERR) {
++		if (errno == EINVAL)
++			sig34_available = FALSE;
++		else
++			tst_brkm(TBROK | TERRNO, cleanup,
++				 "signal(34, handler) failed");
 +	} else {
-+		tst_brk(TFAIL, "maps not found in %s", PROC_MAP_PATH);
++		/* Restore the original handler */
++		if (signal(34, previous) == SIG_ERR)
++			tst_brkm(TBROK | TERRNO, cleanup,
++					 "signal(34, handler) failed");
 +	}
-+
-+	SAFE_FCLOSE(fp);
-+}
-+
-+static void setup_normal(void)
-+{
-+	q->size = sizeof(*q);
-+	q->query_addr = (uint64_t)vm_start_addr;
-+	q->query_flags = 0;
-+}
-+
-+static void setup_big_size(void)
-+{
-+	q->size = getpagesize() + 1;
-+}
-+
-+static void run(unsigned int n)
-+{
-+	struct tcase *tc = &tcases[n];
-+
-+	memset(q, 0, sizeof(*q));
-+
-+	setup_normal();
-+	if (tc->setup)
-+		tc->setup();
-+
-+	if (tc->size != 0)
-+		q->size = tc->size;
-+
-+	if (tc->query_flags != 0)
-+		q->query_flags = tc->query_flags;
-+
-+	if (tc->vma_name_addr != 0)
-+		q->vma_name_addr = tc->vma_name_addr;
-+
-+	if (tc->vma_name_size != 0)
-+		q->vma_name_size = tc->vma_name_size;
-+
-+	if (tc->build_id_addr != 0)
-+		q->build_id_addr = tc->build_id_addr;
-+
-+	if (tc->build_id_size != 0)
-+		q->build_id_size = tc->build_id_size;
-+
-+	TST_EXP_FAIL(ioctl(fd, PROCMAP_QUERY, q), tc->exp_errno);
-+}
-+
-+static void setup(void)
-+{
-+	struct procmap_query q = {};
-+
-+	fd = SAFE_OPEN(PROC_MAP_PATH, O_RDONLY);
-+
-+	if (tst_kvercmp(6, 11, 0) < 0)
-+		return;
-+
-+	TEST(ioctl(fd, PROCMAP_QUERY, q));
-+	if ((TST_RET == -1) && (TST_ERR == ENOTTY))
-+		tst_brk(TCONF,
-+				"This system does not provide support for ioctl(PROCMAP_QUERY)");
-+
-+	get_vm_start();
-+}
-+
-+static void cleanup(void)
-+{
-+	if (fd != -1)
-+		SAFE_CLOSE(fd);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.cleanup = cleanup,
-+	.bufs = (struct tst_buffers []) {
-+		{&q, .size = sizeof(*q)},
-+		{}
-+	}
-+};
++#endif
+ }
+ 
+ void cleanup(void)
 -- 
-2.49.0
+2.49.1
 
 
 -- 
