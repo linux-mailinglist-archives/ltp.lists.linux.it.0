@@ -1,93 +1,108 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23A3BB253A9
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Aug 2025 21:09:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A884B25069
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Aug 2025 18:59:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CD7CA3CB932
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Aug 2025 21:09:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 84A813CBA30
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Aug 2025 18:59:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 004C53C0296
- for <ltp@lists.linux.it>; Wed, 13 Aug 2025 17:58:54 +0200 (CEST)
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id B32BA3CB7C1
+ for <ltp@lists.linux.it>; Wed, 13 Aug 2025 18:59:34 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3D8FF20008B
- for <ltp@lists.linux.it>; Wed, 13 Aug 2025 17:58:54 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3b783d851e6so5735080f8f.0
- for <ltp@lists.linux.it>; Wed, 13 Aug 2025 08:58:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755100733; x=1755705533; darn=lists.linux.it;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Cp6XeG0MyOuXPRX2EUNgzHzmYyd18LTitGQ6mKDCv5k=;
- b=YhI6qqpFAwET1315tqXLFki3Ofig7ofxMzuj/ovrYNanaa0hKrQEQjifhTUcWrKqVu
- pUHMvJLAZ5ua/Tom2iSUbzoZCM1Wq+f328ENnMQQ4s27DdhlMO9pWKwBCI9XgdOOtyxd
- UyZFMUXp+E0Ow/TMVR6BtI/yNGYl/erGQcnc0h7DYyrGMNUwetYAwoUl/H5CmcJph5a0
- PqwVtdP/ZL9VCQTlcZt6LYziF2KdOOLF46o/Lx2iLScrZsQzoLMNVaA9vsi/kB65xYtJ
- qAseWLb8PIErSduqMsPOXQw60dheF5mURgB+2gvsw9ememwSReQupE9aXpcrDLBWtCd1
- PAvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755100733; x=1755705533;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Cp6XeG0MyOuXPRX2EUNgzHzmYyd18LTitGQ6mKDCv5k=;
- b=O2xsIsC6wntTOcuitrStgYHxfsi8t2UxhcRlUZWmsmrqU6HLRU0sfLBvJ6jNNCOB1Q
- D1aWiCT0JIaWcXpicaAF49bxRzRyVgu6Rler6INTeNWhC5opwUNbVEjUKoNthK9goa6j
- igybyi49Vp6Pbv79q+a7bWXOF7p0gH9TNOmuKU+aJriNUD+aQuUi+FOfzubwkofqo/5i
- olRvABKrNioCkA/1vztocakdSS0WX0qWgVlUocj/7N8PoaJTokNj/NIMJIktpU7G/J5B
- jtfTqHMAOw/hFV6ST4nVOTnSwXA0Wdnf8UpQc+Mf9f03e86BvdcVWOzJ/C+2bXDyJdyr
- EUzA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU2Vji5ar23bQ7kOoaFEEhitY6cjdwsMNHTo4ifYbc/5zL0XNHrrYlsH3EswXXU+7yFCiQ=@lists.linux.it
-X-Gm-Message-State: AOJu0YzadtwulEdHFOnUjwItCkClO60V3uMK3kTAa7CpMDH6pYst6MiX
- EGB+oK7Wdg83chJTphxLvQSJLkIYPnIZU6MegmS2/Mwhn/+wu/KoUe6kW9PCEMW9Lvg=
-X-Gm-Gg: ASbGnctq3bv3pHl4zQi70/c4Ljgleh9W28/2HprO/+sTpHpTvSgQpJ6i+Kjkqqqhs6V
- YQC/bwNkZbf1KXcGq6ty0xpMrljfsdieyXnTplhPwFDdZbViv378MMmlkJ+kCaGEWyzUvUhjRP2
- A9y59srzqPe7NE1plCT1ebPOgfmmevYkk8EmqN2L12zI/9SNmUlbG30keD0IlE8xfCTQ6WBuaiQ
- wOm9ZI/dEG9Yi9Pq3xSLA1SHi4eVsnXPX8DyHH3+kGBKAdY/mtQ6WxZbHjfcN3I9dmiQiA4zKcu
- AZ7M6IxKcmAR2LhdBK2OW0iK5MACK2TsAfRN31HEPdEW5MZFa1BMuC9kufxYENvfEP8f5e3X5Y2
- FLmbmK8Iv/2TYv9UbzCXIf2OIqsO/DvdzAq12wBNCvsM=
-X-Google-Smtp-Source: AGHT+IFmDnHCSl5CKkyh/D1IvMDkhgbQzh6CQ86Hu6D5gyD/dtG5m2liXMYcw3pmw6tZ+PFrvCebxA==
-X-Received: by 2002:a5d:5f95:0:b0:3b7:8dd7:55ad with SMTP id
- ffacd0b85a97d-3b917f14804mr2882432f8f.39.1755100733462; 
- Wed, 13 Aug 2025 08:58:53 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3b91b05b28fsm1789186f8f.21.2025.08.13.08.58.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Aug 2025 08:58:53 -0700 (PDT)
-Date: Wed, 13 Aug 2025 18:58:49 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <aJy2OVhg4RUYbHHR@stanley.mountain>
-References: <20250812173419.303046420@linuxfoundation.org>
- <CA+G9fYtBnCSa2zkaCn-oZKYz8jz5FZj0HS7DjSfMeamq3AXqNg@mail.gmail.com>
- <2025081300-frown-sketch-f5bd@gregkh>
- <CA+G9fYuEb7Y__CVHxZ8VkWGqfA4imWzXsBhPdn05GhOandg0Yw@mail.gmail.com>
- <2025081311-purifier-reviver-aeb2@gregkh>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1D4176002B5
+ for <ltp@lists.linux.it>; Wed, 13 Aug 2025 18:59:31 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 681521F7BE;
+ Wed, 13 Aug 2025 16:59:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1755104371; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1/0Oq5C8GUEGkymoPk2YM92RLxtXLV+e/H0T0v8a830=;
+ b=rylycwuxcvr9X06raZMVi/V5A5abdOGaAgePYwXwFfY7gCAKOBsdARoE0EviksazZzjcls
+ eIO0HXaQV04L37b6uFmfqFFpA8UzRmNeOqfL/maxNmAkONFGdCmH5ex1Zli28GbmNnojBa
+ jwgTvSWqp0wvocKxxv8bWG1XASWNQGQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1755104371;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1/0Oq5C8GUEGkymoPk2YM92RLxtXLV+e/H0T0v8a830=;
+ b=EQEO0Y+5iLRtC6q5KXdDkiiVYj1bjyXctUvcNNZi5UgkIlHSj4TH/9oPGZOBvJAyKaord9
+ ns+GPvgTKHwCyEBg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1755104371; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1/0Oq5C8GUEGkymoPk2YM92RLxtXLV+e/H0T0v8a830=;
+ b=rylycwuxcvr9X06raZMVi/V5A5abdOGaAgePYwXwFfY7gCAKOBsdARoE0EviksazZzjcls
+ eIO0HXaQV04L37b6uFmfqFFpA8UzRmNeOqfL/maxNmAkONFGdCmH5ex1Zli28GbmNnojBa
+ jwgTvSWqp0wvocKxxv8bWG1XASWNQGQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1755104371;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1/0Oq5C8GUEGkymoPk2YM92RLxtXLV+e/H0T0v8a830=;
+ b=EQEO0Y+5iLRtC6q5KXdDkiiVYj1bjyXctUvcNNZi5UgkIlHSj4TH/9oPGZOBvJAyKaord9
+ ns+GPvgTKHwCyEBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5554513479;
+ Wed, 13 Aug 2025 16:59:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id dwbKE3PEnGi1GwAAD6G6ig
+ (envelope-from <akumar@suse.de>); Wed, 13 Aug 2025 16:59:31 +0000
+From: Avinesh Kumar <akumar@suse.de>
+To: Jan Stancek <jstancek@redhat.com>
+Date: Wed, 13 Aug 2025 18:59:30 +0200
+Message-ID: <5912512.DvuYhMxLoT@thinkpad>
+In-Reply-To: <39ee7abdee12e22074b40d46775d69d37725b932.1754386027.git.jstancek@redhat.com>
+References: <39ee7abdee12e22074b40d46775d69d37725b932.1754386027.git.jstancek@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <2025081311-purifier-reviver-aeb2@gregkh>
+X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ CTE_CASE(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; MISSING_XM_UA(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
+X-Spam-Score: -3.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Wed, 13 Aug 2025 21:09:06 +0200
-Subject: Re: [LTP] [PATCH 6.16 000/627] 6.16.1-rc1 review
+Subject: Re: [LTP] [PATCH] syscalls/epoll_ctl04: add ELOOP to expected errnos
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,82 +114,67 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Ian Rogers <irogers@google.com>, Jan Kara <jack@suse.cz>,
- Zhang Yi <yi.zhang@huawei.com>, qemu-devel@nongnu.org,
- lkft-triage@lists.linaro.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, hargar@microsoft.com, f.fainelli@gmail.com,
- shuah@kernel.org, jonathanh@nvidia.com, Joseph Qi <jiangqi903@gmail.com>,
- patches@kernelci.org, linux-ext4 <linux-ext4@vger.kernel.org>,
- linux@roeck-us.net, Arnd Bergmann <arnd@arndb.de>, srw@sladewatkins.net,
- broonie@kernel.org, Ben Copeland <benjamin.copeland@linaro.org>,
- LTP List <ltp@lists.linux.it>, Theodore Ts'o <tytso@mit.edu>, rwarsow@gmx.de,
- pavel@denx.de, patches@lists.linux.dev, conor@kernel.org,
- linux-perf-users@vger.kernel.org, Zhang Yi <yi.zhang@huaweicloud.com>,
- achill@achill.org, linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- torvalds@linux-foundation.org, sudipm.mukherjee@gmail.com
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, Aug 13, 2025 at 04:53:37PM +0200, Greg Kroah-Hartman wrote:
-> On Wed, Aug 13, 2025 at 08:01:51PM +0530, Naresh Kamboju wrote:
-> > Hi Greg,
-> > 
-> > > > 2)
-> > > >
-> > > > The following list of LTP syscalls failure noticed on qemu-arm64 with
-> > > > stable-rc 6.16.1-rc1 with CONFIG_ARM64_64K_PAGES=y build configuration.
-> > > >
-> > > > Most failures report ENOSPC (28) or mkswap errors, which may be related
-> > > > to disk space handling in the 64K page configuration on qemu-arm64.
-> > > >
-> > > > The issue is reproducible on multiple runs.
-> > > >
-> > > > * qemu-arm64, ltp-syscalls - 64K page size test failures list,
-> > > >
-> > > >   - fallocate04
-> > > >   - fallocate05
-> > > >   - fdatasync03
-> > > >   - fsync01
-> > > >   - fsync04
-> > > >   - ioctl_fiemap01
-> > > >   - swapoff01
-> > > >   - swapoff02
-> > > >   - swapon01
-> > > >   - swapon02
-> > > >   - swapon03
-> > > >   - sync01
-> > > >   - sync_file_range02
-> > > >   - syncfs01
-> > > >
-> > > > Reproducibility:
-> > > >  - 64K config above listed test fails
-> > > >  - 4K config above listed test pass.
-> > > >
-> > > > Regression Analysis:
-> > > > - New regression? yes
-> > >
-> > > Regression from 6.16?  Or just from 6.15.y?
-> > 
-> > Based on available data, the issue is not present in v6.16 or v6.15.
-> > 
-> > Anders, bisected this regression and found,
-> > 
-> >   ext4: correct the reserved credits for extent conversion
-> >     [ Upstream commit 95ad8ee45cdbc321c135a2db895d48b374ef0f87 ]
-> > 
-> > Report lore link,
-> > 
-> > https://lore.kernel.org/stable/CA+G9fYtBnCSa2zkaCn-oZKYz8jz5FZj0HS7DjSfMeamq3AXqNg@mail.gmail.com/
+Hi,
+
+Reviewed-by: Avinesh Kumar <akumar@suse.de>
+Tested-by: Avinesh Kumar <akumar@suse.de>
+
+tst_test.c:2007: TINFO: Tested kernel: 6.17.0-rc1-1-default+ #11 SMP PREEMPT_DYNAMIC Wed Aug 13 16:42:23 CEST 2025 x86_64
+tst_kconfig.c:88: TINFO: Parsing kernel config '/proc/config.gz'
+tst_kconfig.c:676: TINFO: CONFIG_FAULT_INJECTION kernel option detected which might slow the execution
+tst_test.c:1825: TINFO: Overall timeout per run is 0h 02m 00s
+epoll_ctl04.c:61: TPASS: epoll_ctl(..., EPOLL_CTL_ADD, ...) with number of nesting is 5 : ELOOP (40)
+
+
+Thank you,
+Avinesh
+
+
+On Tuesday, August 5, 2025 11:27:23 AM CEST Jan Stancek via ltp wrote:
+> Kernel commit f2e467a48287 ("eventpoll: Fix semi-unbounded recursion")
+> added an extra checks for determining the maximum depth of an upwards walk,
+> which startign with 6.17-rc kernels now hits ELOOP before EINVAL.
 > 
-> Great, and that's also affecting 6.17-rc1 so we are "bug compatible"?
-> :)
+> Add ELOOP to list of expected errnos.
+> 
+> Signed-off-by: Jan Stancek <jstancek@redhat.com>
+> ---
+>  testcases/kernel/syscalls/epoll_ctl/epoll_ctl04.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/testcases/kernel/syscalls/epoll_ctl/epoll_ctl04.c b/testcases/kernel/syscalls/epoll_ctl/epoll_ctl04.c
+> index 955959b6b266..feb49623b15e 100644
+> --- a/testcases/kernel/syscalls/epoll_ctl/epoll_ctl04.c
+> +++ b/testcases/kernel/syscalls/epoll_ctl/epoll_ctl04.c
+> @@ -51,13 +51,16 @@ static void cleanup(void)
+>  
+>  static void verify_epoll_ctl(void)
+>  {
+> +	const int exp_errnos[] = {EINVAL, ELOOP};
+> +
+>  	new_epfd = epoll_create(1);
+>  	if (new_epfd == -1)
+>  		tst_brk(TBROK | TERRNO, "fail to create epoll instance");
+>  
+>  	events.data.fd = epfd;
+> -	TST_EXP_FAIL(epoll_ctl(new_epfd, EPOLL_CTL_ADD, epfd, &events), EINVAL,
+> -		     "epoll_ctl(..., EPOLL_CTL_ADD, ...) with number of nesting is 5");
+> +	TST_EXP_FAIL2_ARR(epoll_ctl(new_epfd, EPOLL_CTL_ADD, epfd, &events),
+> +		exp_errnos, ARRAY_SIZE(exp_errnos),
+> +		"epoll_ctl(..., EPOLL_CTL_ADD, ...) with number of nesting is 5");
+>  	SAFE_CLOSE(new_epfd);
+>  }
+>  
+> 
 
-Lol.
 
-regards,
-dan carpenter
+
 
 
 -- 
