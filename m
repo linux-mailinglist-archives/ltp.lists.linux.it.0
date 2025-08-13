@@ -2,57 +2,106 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82B28B24CF6
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Aug 2025 17:14:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E700B253A6
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Aug 2025 21:09:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3FF6D3CB903
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Aug 2025 17:14:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 755913CB95B
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Aug 2025 21:09:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 756333C63E1
- for <ltp@lists.linux.it>; Wed, 13 Aug 2025 16:53:44 +0200 (CEST)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by picard.linux.it (Postfix) with ESMTPS id 3FD573CB7F9
+ for <ltp@lists.linux.it>; Wed, 13 Aug 2025 17:26:30 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C8B141400429
- for <ltp@lists.linux.it>; Wed, 13 Aug 2025 16:53:42 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 81448A57250;
- Wed, 13 Aug 2025 14:53:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933ADC4CEEB;
- Wed, 13 Aug 2025 14:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1755096820;
- bh=qsIzK3FQVmuwp376IvkIc7QaQl0+eKfxluiwZGuycJo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=h9Z1b9DhPWIV6cS+bkMlZk/eNbU+HdGphYtWJcvDnCd4mHNW6LGz0PAzq4S3sz/bQ
- Qu6Q/zr1uSLN9QG07lhIO8zKvSK3b5B2d7wMCY+FxzL+PtVIheklfnv+CxHDBiqwKK
- HH28jaOUNKO4S5N8tA/MsLvV3/5lSRVuQ5L0TQBQ=
-Date: Wed, 13 Aug 2025 16:53:37 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Naresh Kamboju <naresh.kamboju@linaro.org>
-Message-ID: <2025081311-purifier-reviver-aeb2@gregkh>
-References: <20250812173419.303046420@linuxfoundation.org>
- <CA+G9fYtBnCSa2zkaCn-oZKYz8jz5FZj0HS7DjSfMeamq3AXqNg@mail.gmail.com>
- <2025081300-frown-sketch-f5bd@gregkh>
- <CA+G9fYuEb7Y__CVHxZ8VkWGqfA4imWzXsBhPdn05GhOandg0Yw@mail.gmail.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A80802002D0
+ for <ltp@lists.linux.it>; Wed, 13 Aug 2025 17:26:29 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6400021ACD;
+ Wed, 13 Aug 2025 15:26:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1755098786; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ggKq5RvBFKqS4ENPBnWhYuKx0e/+34rBVaUakqCdZU0=;
+ b=G+Q2P8Jr74CEv+Tq3vau8Neu3YNNlGUr3SGDuS/taU6mcn1neJpxexx+0oyEjXqVFa1UDI
+ MDQvc+tJs0f3DJefYs+RXmL2NIKEQFI0txRqWcg3UFSXPBPbzVKK2FS6AUP4wfmkYQvQ7a
+ mkQWLt0zPPmxvtr02ZcfXyb/IL79NM8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1755098786;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ggKq5RvBFKqS4ENPBnWhYuKx0e/+34rBVaUakqCdZU0=;
+ b=YPNSbyQVUhwebONRXVP+9itLLBqyC9dVWW0WoZRZIaSW1CJTg9X7WNlVdvoNeyVf1xcHVV
+ ZgjJ5BW7VIJUfZDw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1755098786; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ggKq5RvBFKqS4ENPBnWhYuKx0e/+34rBVaUakqCdZU0=;
+ b=G+Q2P8Jr74CEv+Tq3vau8Neu3YNNlGUr3SGDuS/taU6mcn1neJpxexx+0oyEjXqVFa1UDI
+ MDQvc+tJs0f3DJefYs+RXmL2NIKEQFI0txRqWcg3UFSXPBPbzVKK2FS6AUP4wfmkYQvQ7a
+ mkQWLt0zPPmxvtr02ZcfXyb/IL79NM8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1755098786;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ggKq5RvBFKqS4ENPBnWhYuKx0e/+34rBVaUakqCdZU0=;
+ b=YPNSbyQVUhwebONRXVP+9itLLBqyC9dVWW0WoZRZIaSW1CJTg9X7WNlVdvoNeyVf1xcHVV
+ ZgjJ5BW7VIJUfZDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2055713479;
+ Wed, 13 Aug 2025 15:26:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id HNNpBKKunGi0fwAAD6G6ig
+ (envelope-from <pfalcato@suse.de>); Wed, 13 Aug 2025 15:26:26 +0000
+Date: Wed, 13 Aug 2025 16:26:24 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Florian Schmaus <florian.schmaus@codasip.com>
+Message-ID: <24huvlw5wphgka5j6uwrweetmpa2tyi2rnrwp3gqymrpvcx2i6@zmepzxfsiiie>
+References: <20250808163457.1685958-1-florian.schmaus@codasip.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CA+G9fYuEb7Y__CVHxZ8VkWGqfA4imWzXsBhPdn05GhOandg0Yw@mail.gmail.com>
+In-Reply-To: <20250808163457.1685958-1-florian.schmaus@codasip.com>
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MISSING_XM_UA(0.00)[]; RCPT_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo];
+ MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_DN_SOME(0.00)[]
+X-Spam-Score: -3.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Wed, 13 Aug 2025 17:14:17 +0200
-Subject: Re: [LTP] [PATCH 6.16 000/627] 6.16.1-rc1 review
+X-Mailman-Approved-At: Wed, 13 Aug 2025 21:09:06 +0200
+Subject: Re: [LTP] [PATCH v2] sigrelse01: Check if signal 34 is available
+ for musl compat
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,81 +113,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Ian Rogers <irogers@google.com>, Jan Kara <jack@suse.cz>,
- Zhang Yi <yi.zhang@huawei.com>, qemu-devel@nongnu.org,
- lkft-triage@lists.linaro.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, hargar@microsoft.com,
- Dan Carpenter <dan.carpenter@linaro.org>, f.fainelli@gmail.com,
- shuah@kernel.org, jonathanh@nvidia.com, Joseph Qi <jiangqi903@gmail.com>,
- patches@kernelci.org, linux-ext4 <linux-ext4@vger.kernel.org>,
- linux@roeck-us.net, Arnd Bergmann <arnd@arndb.de>, srw@sladewatkins.net,
- broonie@kernel.org, Ben Copeland <benjamin.copeland@linaro.org>,
- LTP List <ltp@lists.linux.it>, Theodore Ts'o <tytso@mit.edu>, rwarsow@gmx.de,
- pavel@denx.de, patches@lists.linux.dev, conor@kernel.org,
- linux-perf-users@vger.kernel.org, Zhang Yi <yi.zhang@huaweicloud.com>,
- achill@achill.org, linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- torvalds@linux-foundation.org, sudipm.mukherjee@gmail.com
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, Aug 13, 2025 at 08:01:51PM +0530, Naresh Kamboju wrote:
-> Hi Greg,
+On Fri, Aug 08, 2025 at 06:34:57PM +0200, Florian Schmaus via ltp wrote:
+> Do not select signal 34 when the test is run using musl. Signal 34 is
+> used internally by musl as SIGSYNCCALL. Consequently, musl's signal()
+> will return with an error status and errno set to EINVAL when trying
+> to setup a signal handler for signal 34, causing the sigrelse01 test
+> to fail.
 > 
-> > > 2)
-> > >
-> > > The following list of LTP syscalls failure noticed on qemu-arm64 with
-> > > stable-rc 6.16.1-rc1 with CONFIG_ARM64_64K_PAGES=y build configuration.
-> > >
-> > > Most failures report ENOSPC (28) or mkswap errors, which may be related
-> > > to disk space handling in the 64K page configuration on qemu-arm64.
-> > >
-> > > The issue is reproducible on multiple runs.
-> > >
-> > > * qemu-arm64, ltp-syscalls - 64K page size test failures list,
-> > >
-> > >   - fallocate04
-> > >   - fallocate05
-> > >   - fdatasync03
-> > >   - fsync01
-> > >   - fsync04
-> > >   - ioctl_fiemap01
-> > >   - swapoff01
-> > >   - swapoff02
-> > >   - swapon01
-> > >   - swapon02
-> > >   - swapon03
-> > >   - sync01
-> > >   - sync_file_range02
-> > >   - syncfs01
-> > >
-> > > Reproducibility:
-> > >  - 64K config above listed test fails
-> > >  - 4K config above listed test pass.
-> > >
-> > > Regression Analysis:
-> > > - New regression? yes
-> >
-> > Regression from 6.16?  Or just from 6.15.y?
-> 
-> Based on available data, the issue is not present in v6.16 or v6.15.
-> 
-> Anders, bisected this regression and found,
-> 
->   ext4: correct the reserved credits for extent conversion
->     [ Upstream commit 95ad8ee45cdbc321c135a2db895d48b374ef0f87 ]
-> 
-> Report lore link,
-> 
-> https://lore.kernel.org/stable/CA+G9fYtBnCSa2zkaCn-oZKYz8jz5FZj0HS7DjSfMeamq3AXqNg@mail.gmail.com/
+> Since musl provides no preprocessor macro, we check for the
+> availability of signal 34 by attempting to setup a signal handler. If
+> signal() returns SIG_ERR with errno set to EINVAL then we assume the
+> signal is unavailable. Knowing signal 34 is available with glibc, we
+> perform this check only if __GLIBC__ is not defined.
+>
 
-Great, and that's also affecting 6.17-rc1 so we are "bug compatible"?
-:)
+This is wrong, the libc can use whatever (RT) signals it wants, and you're
+supposed to check for their availability using SIGRTMIN. This applies for
+both musl *and* glibc. The only difference is that glibc only needs 32 and 33,
+whereas musl also needs 34 (for now).
 
-thanks
+So, the correct fix would be to exclude all signals outside of [SIGRTMIN, SIGRTMAX]
 
-greg k-h
+-- 
+Pedro
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
