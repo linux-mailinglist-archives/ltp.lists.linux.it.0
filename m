@@ -1,107 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17D11B250C5
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Aug 2025 19:03:18 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89992B25A63
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Aug 2025 06:15:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A1B2F3CBA0A
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Aug 2025 19:03:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3185A3CBA40
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Aug 2025 06:15:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 59B273C79F9
- for <ltp@lists.linux.it>; Wed, 13 Aug 2025 19:03:09 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 4269D3C06B5
+ for <ltp@lists.linux.it>; Thu, 14 Aug 2025 03:28:01 +0200 (CEST)
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
+ [45.249.212.56])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A5E92600718
- for <ltp@lists.linux.it>; Wed, 13 Aug 2025 19:03:08 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F26931F7C2;
- Wed, 13 Aug 2025 17:03:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1755104588; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1yixl5Xxh7DpDLGqIMAWAZ83naf+zDv6kzPtZmTKH44=;
- b=P92RGS6eQDmjXCt045UXQSsv2TKCipAfmBDXosmf2d0n5UYMiQPLMdv1UahLlII9oZWU64
- dREzo4xRCcOpyx3Izp7LlFwHTQRjYA42SGYE8mXvH4YCXijXbXiU1zFzmoxa9V5+F/tiFe
- vwQg85d3Tuy3vLW2l3tS9pK6M1l3gms=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1755104588;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1yixl5Xxh7DpDLGqIMAWAZ83naf+zDv6kzPtZmTKH44=;
- b=6FP3cFt/CR6CY8faxpE8RJlmsQJx/Mz3iqc1dPaS5YGs4t/6t3VewfXLxREAbi4vUZkVhA
- wPntW4hNbT/jSfCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1755104587; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1yixl5Xxh7DpDLGqIMAWAZ83naf+zDv6kzPtZmTKH44=;
- b=gUZBvJk1z1F3X60OhovE8aT2NhRPYPKdd8I1mHyWR09l+waYTrpklLdgz0o32+qk+4myQh
- P1GVmcyDmmwGdYC8gNp4Z9T7OWuwVUH6bQiptWL2ED0QsTtX7YIm1iKbArrHcSLeJDJu8X
- 2vMFCtuSUZvfjFzW2Ta7vNqK/95ZelI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1755104587;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1yixl5Xxh7DpDLGqIMAWAZ83naf+zDv6kzPtZmTKH44=;
- b=GTFPdnYnRcJtyReE/UEWckx39YQxLlNf3bnWH7OnJHLmA9K0s5owp977EIDBWz29KM4d4N
- fsgLbjCKuqffaSDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E17E113479;
- Wed, 13 Aug 2025 17:03:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id GE+2NUvFnGgTHQAAD6G6ig
- (envelope-from <akumar@suse.de>); Wed, 13 Aug 2025 17:03:07 +0000
-From: Avinesh Kumar <akumar@suse.de>
-To: Jan Stancek <jstancek@redhat.com>
-Date: Wed, 13 Aug 2025 19:03:07 +0200
-Message-ID: <5032022.31r3eYUQgx@thinkpad>
-In-Reply-To: <39ee7abdee12e22074b40d46775d69d37725b932.1754386027.git.jstancek@redhat.com>
-References: <39ee7abdee12e22074b40d46775d69d37725b932.1754386027.git.jstancek@redhat.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 760C31400332
+ for <ltp@lists.linux.it>; Thu, 14 Aug 2025 03:27:58 +0200 (CEST)
+Received: from mail.maildlp.com (unknown [172.19.93.142])
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4c2SKk5Z7xzKHMV2
+ for <ltp@lists.linux.it>; Thu, 14 Aug 2025 09:27:54 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+ by mail.maildlp.com (Postfix) with ESMTP id 0F8D51A018D
+ for <ltp@lists.linux.it>; Thu, 14 Aug 2025 09:27:54 +0800 (CST)
+Received: from [10.174.179.80] (unknown [10.174.179.80])
+ by APP4 (Coremail) with SMTP id gCh0CgAHgxOVO51oPzBtDg--.8664S3;
+ Thu, 14 Aug 2025 09:27:52 +0800 (CST)
+Message-ID: <42aace87-1b89-4b17-96f1-3efbabc4acf3@huaweicloud.com>
+Date: Thu, 14 Aug 2025 09:27:49 +0800
 MIME-Version: 1.0
-X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- CTE_CASE(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; MISSING_XM_UA(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Level: 
-X-Spam-Score: -3.30
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+User-Agent: Mozilla Thunderbird
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Naresh Kamboju <naresh.kamboju@linaro.org>
+References: <20250812173419.303046420@linuxfoundation.org>
+ <CA+G9fYtBnCSa2zkaCn-oZKYz8jz5FZj0HS7DjSfMeamq3AXqNg@mail.gmail.com>
+ <2025081300-frown-sketch-f5bd@gregkh>
+ <CA+G9fYuEb7Y__CVHxZ8VkWGqfA4imWzXsBhPdn05GhOandg0Yw@mail.gmail.com>
+ <2025081311-purifier-reviver-aeb2@gregkh>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <2025081311-purifier-reviver-aeb2@gregkh>
+X-CM-TRANSID: gCh0CgAHgxOVO51oPzBtDg--.8664S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7KF1fAFW7tF4UtrWrWr1DGFg_yoW8Zw4xpF
+ WrCF98tr45X345ArsFvw4IgFyUtrZ8Krn5Wr1rtw17C39IkryDZF4SgF1Y9F97Jr4DCFyr
+ ZrsFv3sIyryDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+ 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+ vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
+ xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
+ 0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+ 6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
+ Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
+ 14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+ 8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8
+ Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
+ CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
+ 6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07
+ j6a0PUUUUU=
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] syscalls/epoll_ctl04: add ELOOP to expected errnos
+X-Mailman-Approved-At: Thu, 14 Aug 2025 06:15:42 +0200
+Subject: Re: [LTP] [PATCH 6.16 000/627] 6.16.1-rc1 review
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,60 +81,95 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Ian Rogers <irogers@google.com>, Jan Kara <jack@suse.cz>,
+ Zhang Yi <yi.zhang@huawei.com>, qemu-devel@nongnu.org,
+ lkft-triage@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, hargar@microsoft.com,
+ Dan Carpenter <dan.carpenter@linaro.org>, f.fainelli@gmail.com,
+ shuah@kernel.org, jonathanh@nvidia.com, Joseph Qi <jiangqi903@gmail.com>,
+ patches@kernelci.org, linux-ext4 <linux-ext4@vger.kernel.org>,
+ linux@roeck-us.net, Arnd Bergmann <arnd@arndb.de>, srw@sladewatkins.net,
+ broonie@kernel.org, Ben Copeland <benjamin.copeland@linaro.org>,
+ LTP List <ltp@lists.linux.it>, Theodore Ts'o <tytso@mit.edu>, rwarsow@gmx.de,
+ pavel@denx.de, patches@lists.linux.dev, conor@kernel.org,
+ linux-perf-users@vger.kernel.org, achill@achill.org,
+ linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
+ torvalds@linux-foundation.org, sudipm.mukherjee@gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+On 2025/8/13 22:53, Greg Kroah-Hartman wrote:
+> On Wed, Aug 13, 2025 at 08:01:51PM +0530, Naresh Kamboju wrote:
+>> Hi Greg,
+>>
+>>>> 2)
+>>>>
+>>>> The following list of LTP syscalls failure noticed on qemu-arm64 with
+>>>> stable-rc 6.16.1-rc1 with CONFIG_ARM64_64K_PAGES=y build configuration.
+>>>>
+>>>> Most failures report ENOSPC (28) or mkswap errors, which may be related
+>>>> to disk space handling in the 64K page configuration on qemu-arm64.
+>>>>
+>>>> The issue is reproducible on multiple runs.
+>>>>
+>>>> * qemu-arm64, ltp-syscalls - 64K page size test failures list,
+>>>>
+>>>>   - fallocate04
+>>>>   - fallocate05
+>>>>   - fdatasync03
+>>>>   - fsync01
+>>>>   - fsync04
+>>>>   - ioctl_fiemap01
+>>>>   - swapoff01
+>>>>   - swapoff02
+>>>>   - swapon01
+>>>>   - swapon02
+>>>>   - swapon03
+>>>>   - sync01
+>>>>   - sync_file_range02
+>>>>   - syncfs01
+>>>>
+>>>> Reproducibility:
+>>>>  - 64K config above listed test fails
+>>>>  - 4K config above listed test pass.
+>>>>
+>>>> Regression Analysis:
+>>>> - New regression? yes
+>>>
+>>> Regression from 6.16?  Or just from 6.15.y?
+>>
+>> Based on available data, the issue is not present in v6.16 or v6.15.
+>>
+>> Anders, bisected this regression and found,
+>>
+>>   ext4: correct the reserved credits for extent conversion
+>>     [ Upstream commit 95ad8ee45cdbc321c135a2db895d48b374ef0f87 ]
+>>
+>> Report lore link,
+>>
+>> https://lore.kernel.org/stable/CA+G9fYtBnCSa2zkaCn-oZKYz8jz5FZj0HS7DjSfMeamq3AXqNg@mail.gmail.com/
+> 
+> Great, and that's also affecting 6.17-rc1 so we are "bug compatible"?
+> :)
+> 
+
 Hi,
-Also below typo fix in commit message.
 
-Thanks!
+This issue has already fixed in 6.17-rc1 through this series:
 
-
-On Tuesday, August 5, 2025 11:27:23 AM CEST Jan Stancek via ltp wrote:
-> Kernel commit f2e467a48287 ("eventpoll: Fix semi-unbounded recursion")
-> added an extra checks for determining the maximum depth of an upwards walk,
-> which startign with 6.17-rc kernels now hits ELOOP before EINVAL.
-s/startign/starting
+https://lore.kernel.org/linux-ext4/20250707140814.542883-1-yi.zhang@huaweicloud.com/
 
 
-> 
-> Add ELOOP to list of expected errnos.
-> 
-> Signed-off-by: Jan Stancek <jstancek@redhat.com>
-> ---
->  testcases/kernel/syscalls/epoll_ctl/epoll_ctl04.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/testcases/kernel/syscalls/epoll_ctl/epoll_ctl04.c b/testcases/kernel/syscalls/epoll_ctl/epoll_ctl04.c
-> index 955959b6b266..feb49623b15e 100644
-> --- a/testcases/kernel/syscalls/epoll_ctl/epoll_ctl04.c
-> +++ b/testcases/kernel/syscalls/epoll_ctl/epoll_ctl04.c
-> @@ -51,13 +51,16 @@ static void cleanup(void)
->  
->  static void verify_epoll_ctl(void)
->  {
-> +	const int exp_errnos[] = {EINVAL, ELOOP};
-> +
->  	new_epfd = epoll_create(1);
->  	if (new_epfd == -1)
->  		tst_brk(TBROK | TERRNO, "fail to create epoll instance");
->  
->  	events.data.fd = epfd;
-> -	TST_EXP_FAIL(epoll_ctl(new_epfd, EPOLL_CTL_ADD, epfd, &events), EINVAL,
-> -		     "epoll_ctl(..., EPOLL_CTL_ADD, ...) with number of nesting is 5");
-> +	TST_EXP_FAIL2_ARR(epoll_ctl(new_epfd, EPOLL_CTL_ADD, epfd, &events),
-> +		exp_errnos, ARRAY_SIZE(exp_errnos),
-> +		"epoll_ctl(..., EPOLL_CTL_ADD, ...) with number of nesting is 5");
->  	SAFE_CLOSE(new_epfd);
->  }
->  
-> 
+To fix this issue in 6.16, it's necessary to backport the whole series
+instead of just pick 5137d6c8906b ("ext4: fix insufficient credits
+calculation in ext4_meta_trans_blocks()") and 95ad8ee45cdb {"ext4: correct
+the reserved credits for extent conversion").  Otherwise, this will make
+the problem more likely to occur.
 
-
-
+Thanks,
+Yi.
 
 
 -- 
