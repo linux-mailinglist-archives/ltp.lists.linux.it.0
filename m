@@ -1,124 +1,58 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5F05B2785E
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Aug 2025 07:22:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A16DBB299AE
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Aug 2025 08:30:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 71D6E3CB932
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Aug 2025 07:22:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 56D753CC8BE
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Aug 2025 08:30:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8B9283C8564
- for <ltp@lists.linux.it>; Fri, 15 Aug 2025 07:22:40 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by picard.linux.it (Postfix) with ESMTPS id 0F31C3C8564
+ for <ltp@lists.linux.it>; Fri, 15 Aug 2025 07:33:52 +0200 (CEST)
+Received: from sea.source.kernel.org (sea.source.kernel.org
+ [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E6A151400771
- for <ltp@lists.linux.it>; Fri, 15 Aug 2025 07:22:39 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 694981F835;
- Fri, 15 Aug 2025 05:22:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1755235357;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UFgtI/x40ylrWzLwXNw1E+cwBJnR7ZWRk1UT/w1OfGE=;
- b=NOtkr5dBqVfDUPgkKN7VrHloFHgtn6tkHY0CqpFyUsHc2FOHxXSPGweLbvoPZW/Sta21OH
- bDzEpRjy1TcsLo5COEl1jSz1DrWNChFCx9v8hRnmx5jMMVj3ukliz6QdrB43QgiaYCE1F8
- 1tlpS/khEVphm35T162xFqcFWjjDjgY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1755235357;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UFgtI/x40ylrWzLwXNw1E+cwBJnR7ZWRk1UT/w1OfGE=;
- b=3HUxOB7zeQOm2hTBXFodse3AXVNXC/6vUUvMa4ImYeLwTg95luP9JtGz5VGTf7ARaS1DHH
- L8dJEiTsAGT1TjBA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=NOtkr5dB;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=3HUxOB7z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1755235357;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UFgtI/x40ylrWzLwXNw1E+cwBJnR7ZWRk1UT/w1OfGE=;
- b=NOtkr5dBqVfDUPgkKN7VrHloFHgtn6tkHY0CqpFyUsHc2FOHxXSPGweLbvoPZW/Sta21OH
- bDzEpRjy1TcsLo5COEl1jSz1DrWNChFCx9v8hRnmx5jMMVj3ukliz6QdrB43QgiaYCE1F8
- 1tlpS/khEVphm35T162xFqcFWjjDjgY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1755235357;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UFgtI/x40ylrWzLwXNw1E+cwBJnR7ZWRk1UT/w1OfGE=;
- b=3HUxOB7zeQOm2hTBXFodse3AXVNXC/6vUUvMa4ImYeLwTg95luP9JtGz5VGTf7ARaS1DHH
- L8dJEiTsAGT1TjBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 41D161368C;
- Fri, 15 Aug 2025 05:22:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cKXRDh3EnmidaAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 15 Aug 2025 05:22:37 +0000
-Date: Fri, 15 Aug 2025 07:22:31 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20250815052231.GA32490@pevik>
-References: <20250812141709.33540-1-liwang@redhat.com>
- <20250814130629.GA575710@pevik>
- <CAEemH2fgnJH201_fvDvPRbAFrfdEz4v_cEg-LXudWje-+w68VA@mail.gmail.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EEA2C100044B
+ for <ltp@lists.linux.it>; Fri, 15 Aug 2025 07:33:49 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5D52B4593C;
+ Fri, 15 Aug 2025 05:33:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923C0C4CEF4;
+ Fri, 15 Aug 2025 05:33:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1755236026;
+ bh=5pmEnpk4P+ndbonyan2VBiYanHohRCT0mNUzn8ef6Jw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=1acX8gnFQCkziGbYVwXTdj9BgkJt06DgtflG9KQNRnqNIt+UE43nvvq7RtqS8j+TO
+ DIT37U+VhXVk1Tmo2KjQJ/IaQC3QxZHPJnNumrOKk9NIFQf1jf3eWt9D8ct/fb16Pq
+ xhXRyIEUjs6wiBS4B4K5vjigRUpIaLwvw1zT2g0k=
+Date: Fri, 15 Aug 2025 07:33:41 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Message-ID: <2025081536-resonate-wafer-6699@gregkh>
+References: <20250812173419.303046420@linuxfoundation.org>
+ <CA+G9fYtBnCSa2zkaCn-oZKYz8jz5FZj0HS7DjSfMeamq3AXqNg@mail.gmail.com>
+ <2025081300-frown-sketch-f5bd@gregkh> <aJ5EupUV9t0jToY3@google.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2fgnJH201_fvDvPRbAFrfdEz4v_cEg-LXudWje-+w68VA@mail.gmail.com>
-X-Spamd-Result: default: False [-3.71 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_THREE(0.00)[4]; MISSING_XM_UA(0.00)[];
- REPLYTO_EQ_FROM(0.00)[]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 694981F835
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.71
+In-Reply-To: <aJ5EupUV9t0jToY3@google.com>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] tst_mkfs: print short hint when mkfs fails in
- device busy
+X-Mailman-Approved-At: Mon, 18 Aug 2025 08:29:56 +0200
+Subject: Re: [LTP] [PATCH 6.16 000/627] 6.16.1-rc1 review
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,76 +64,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: rafael.tinoco@linaro.org, ltp@lists.linux.it
+Cc: Ian Rogers <irogers@google.com>, Jan Kara <jack@suse.cz>,
+ qemu-devel@nongnu.org, lkft-triage@lists.linaro.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, hargar@microsoft.com,
+ Dan Carpenter <dan.carpenter@linaro.org>, f.fainelli@gmail.com,
+ shuah@kernel.org, jonathanh@nvidia.com, Joseph Qi <jiangqi903@gmail.com>,
+ patches@kernelci.org, linux-ext4 <linux-ext4@vger.kernel.org>,
+ linux@roeck-us.net, Arnd Bergmann <arnd@arndb.de>, srw@sladewatkins.net,
+ broonie@kernel.org, Ben Copeland <benjamin.copeland@linaro.org>,
+ LTP List <ltp@lists.linux.it>, rwarsow@gmx.de, pavel@denx.de,
+ patches@lists.linux.dev, conor@kernel.org, linux-perf-users@vger.kernel.org,
+ Zhang Yi <yi.zhang@huaweicloud.com>, achill@achill.org,
+ linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
+ torvalds@linux-foundation.org, sudipm.mukherjee@gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Petr Vorel <pvorel@suse.cz> wrote:
+On Thu, Aug 14, 2025 at 01:19:06PM -0700, Namhyung Kim wrote:
+> Hello,
+> 
+> Thanks for the report!
+> 
+> On Wed, Aug 13, 2025 at 02:50:49PM +0200, Greg Kroah-Hartman wrote:
+> > On Wed, Aug 13, 2025 at 05:46:26PM +0530, Naresh Kamboju wrote:
+> > > Long story:
+> > > 1)
+> > > The perf gcc-13 build failed on x86_64 and i386.
+> > > 
+> > > Build regression: qemu-arm64 ARM64_64K_PAGES ltp syscalls swap fsync
+> > > fallocate failed.
+> > > 
+> > > > Ian Rogers <irogers@google.com>
+> > > >     perf topdown: Use attribute to see an event is a topdown metic or slots
+> > > 
+> > > Build error:
+> > > 
+> > > arch/x86/tests/topdown.c: In function 'event_cb':
+> > > arch/x86/tests/topdown.c:53:25: error: implicit declaration of
+> > > function 'pr_debug' [-Werror=implicit-function-declaration]
+> > >    53 |                         pr_debug("Broken topdown information
+> > > for '%s'\n", evsel__name(evsel));
+> > >       |                         ^~~~~~~~
+> > > cc1: all warnings being treated as errors
+> > 
+> > Already fixed.
+> 
+> Are you sure?  I'm not seeing the fix.  Can you share the commit id?
 
-> > > diff --git a/lib/tst_mkfs.c b/lib/tst_mkfs.c
-> > > index 736324f04..dfec06a21 100644
-> > > --- a/lib/tst_mkfs.c
-> > > +++ b/lib/tst_mkfs.c
-> > > @@ -107,6 +107,10 @@ void tst_mkfs_(const char *file, const int lineno, void (cleanup_fn)(void),
-> > >                       "%s not found in $PATH", mkfs);
-> > >       break;
-> > >       default:
-> > > +             tst_resm_(file, lineno, TWARN,
-> > > +                     "Check if mkfs failed with the (loop) device busy. "
-> > > +                     "Background probing (e.g., udisks2) can cause this. \n"
-> > When 2 lines are needed, could it be without trailing space?
-> >                         "Background probing (e.g., udisks2) can cause this.\n"
+I dropped the offending perf patch:
+	https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git/commit/?id=4199b872a5585e025f62886724f4f9ae80e014ae
 
-> > nit: I don't like LTP messages are split on more lines, but this is indeed too
-> > long.
+Did that not work for you?
 
-> +1
+thanks,
 
-> > > +                     "Consider temporarily stopping udisks2 during the test.");
-
-> > We already have suggestion about some process running in tst_umount()
-> > in lib/tst_device.c:
-
-> >                         tst_resm(TINFO, "Likely gvfsd-trash is probing newly "
-> >                                  "mounted fs, kill it to speed up tests.");
-
-> This is a good example, thanks!!
-
-> (The debugging work exhausted my energy this week, and I felt like my
-> brain was stuck there, unable to write a simple printed message.)
-
-Understand :).
-
-> So what about:
-
->  tst_resm_(file, lineno, TWARN,
->     "mkfs may have failed because the device is busy (e.g., udisks2 probing). "
->     "Consider disabling background probing services.");
-
-+1
-
-> > Would you agree to have a library function which would parse
-> > /proc/*/comm to check if particular process is running?
-> > (I would do it as a separate effort).
-
-> Yes, that would be helpful to confirm some special damon is running,
-> if something you were mean:
-
-> if (tst_proc_comm_running("udisksd", NULL) ||
->     tst_proc_comm_running("gvfsd-trash", NULL)) {
->     tst_resm_(file, lineno, TINFO,
->               "Likely udisksd/gvfsd-trash is probing newly mounted fs
-> in backgroud... ");
-> }
-
-Yes, something like this. It can be done as a separate effort to not block this
-simple patch.
-
-Kind regards,
-Petr
+greg k-h
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
