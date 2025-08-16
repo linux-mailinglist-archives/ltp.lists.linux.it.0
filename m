@@ -2,96 +2,92 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E45A4B289D4
-	for <lists+linux-ltp@lfdr.de>; Sat, 16 Aug 2025 04:18:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 806BDB299B6
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Aug 2025 08:31:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1755310709; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1755498692; h=mime-version :
+ references : in-reply-to : date : message-id : to : subject : list-id
+ : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=Eig0hU1GegKsB41VYZ4CS19vO8DYX981FsCXDG0Yj4I=;
- b=oXwK1ycrtJsNAkLMcRsz5sHIhrdzsSbTR8XR+F+u5K5Oivr2TZWflNqtynx9YUikOvqSI
- jC6r9LBmLSQqzibUK1b40o8o27I9Fb3E1iYACFBVr33dEsNU/aRIBQz+HpEbG56nG5LSUCi
- YyiFPVXQmGEPj82Aqg0+43lTdeDlHYk=
+ bh=gl51tP1FjKiwJC+hkaf5HUm79hbardiBKLJxhMj0Uj8=;
+ b=BHbW+25ufzAasSlrSMphHkRsCfP+96ByjJkKyKVpwXBe1dtETPAHFhjooCJYs9MW5KnR4
+ prIlYtdIP2IbZDRQyAiiKGKOB3WG4p72zW7rn8p57zB6KlKnqVzHPATb+/WuX3HfVXBN0Wy
+ m9ZOwbecM1MKDSx2L3QfxXImsUFbiUU=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 808A13CC1EE
-	for <lists+linux-ltp@lfdr.de>; Sat, 16 Aug 2025 04:18:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 332C33CC6C9
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Aug 2025 08:31:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 742F83C6B54
- for <ltp@lists.linux.it>; Sat, 16 Aug 2025 04:18:26 +0200 (CEST)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
+ by picard.linux.it (Postfix) with ESMTPS id 2CCE93C8564
+ for <ltp@lists.linux.it>; Sat, 16 Aug 2025 04:35:25 +0200 (CEST)
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CEDEC140019F
- for <ltp@lists.linux.it>; Sat, 16 Aug 2025 04:18:24 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-61868d83059so5939811a12.0
- for <ltp@lists.linux.it>; Fri, 15 Aug 2025 19:18:24 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 809C26168CE
+ for <ltp@lists.linux.it>; Sat, 16 Aug 2025 04:35:24 +0200 (CEST)
+Received: by mail-pl1-x633.google.com with SMTP id
+ d9443c01a7336-24458194d83so17629685ad.2
+ for <ltp@lists.linux.it>; Fri, 15 Aug 2025 19:35:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1755310704; x=1755915504; darn=lists.linux.it;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=bwsXpXXIuYQCL/FW90IpYibOz6Dfp82j0b3aRU8rwPo=;
- b=NzQ+peLBmQS1qYveixlaXiLZsVr4nb5bXwaAujD3BC4KxfJqLSFf55P5mpf0aNBQtL
- 5u7FJuHcp9jm7aMSJvGb7YkoAjZRFVdMyd6cyvqTumFaM//VbMIsOQ8MsjIQe4ZK/ENX
- si5DfgEFknzH+uo+/jXwBsNkY13WIq/pW+Wq9j/M2H/PHopGbZ666GtO0jY7vqkRZD1a
- XQdN/sAoIfILObwFY9F/WPBYN0gDEGybA7mGHpjWisJG8OnUbDy4j0R8JADaIKC2eUYa
- jtt9tygKg17W7yuxjqNG7ODwWvjeBkZeLA7bhwt4BLHMdXzACNyak9Nm0HJsA6RstX+/
- 6arw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755310704; x=1755915504;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=google.com; s=20230601; t=1755311723; x=1755916523; darn=lists.linux.it;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bwsXpXXIuYQCL/FW90IpYibOz6Dfp82j0b3aRU8rwPo=;
- b=DF37ZbFOFmA0gQK/NB8JL+eMbr9HWwinCYW5lDxr/2YuZ3BZXM7lH0ip9XPhM1YphY
- KTJQThVbO8YSOVHHvujw9lw+pYejYdcIFA5kuKKmjEirJqe9UY0gAPj1iV3ZZrG0Gjkt
- gQC0aTwxYP1SgOMc38t7s6gzSaB3ocshSKPhcQwcW0p0qHT27nscxWZXbgZr2t3KQ7PG
- hAboglyMUy0kUg3sivbxjIC4dzEPO/Hhbd8ALdHdM7/YZvYpm7hd93FjLAp+e9w7uUjY
- DvNEu9TmTk1/gck9y2/iRnzUnrEJBaE6dA6u8gYvUCqcumcmCvbfTzNbBA2h4W85byKK
- pZEg==
+ bh=GYSYnsAnc4+Pe25joGiiZuFU50uPj3OZL8WRBpyuG54=;
+ b=wBE0o9Ln91H/xvIiRUa4YVnd8cuj/fjDMIQInAQy9TwU6DlH++lJ+ux1kDc4LN7kUu
+ R6skGQDltmIkkC1GlroTDg1DV33GAxbkHxYWbwUpTN7Wx0BPL3DvESg67HwFsaITdzGi
+ EQjO3unk0WlmGcHCjljJOYPm2gSs7P2b9bjs9EcNkr5Kvt/C0X9j1peA//CVh6//qgAU
+ EiaHEDHYv68J1uSIUt/trbqICctBSxLLEwuULz8/g92KNQCKDIOLTppTWxub2L/Yhx4v
+ EaTjwjFDksflEJSaaCkStkMYFEVJ2BeG1qLrxLjvjmIcJv76Cuv0n7gjjOXKSdZcK/d7
+ 803g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755311723; x=1755916523;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=GYSYnsAnc4+Pe25joGiiZuFU50uPj3OZL8WRBpyuG54=;
+ b=YgogFroCqIb0Tk+9Io498HR5bRZvrXFwdrLMP+Enw8WrvBTjgHgd+wD3jgC5hWDAoG
+ Ctgw+Bvjc2vH2rQdDttQOf8o7ER2ePZyxlD6BnwP6y83bmPxXAStqEynDFaItMpyO1B0
+ 7m6QdwSvbqkig8+4Yx+vvlxUAcFBwxrNedgWt0HD0eELi9N0042eC7nICadb1oU/x4hR
+ Q9Fdkcbibd8PJsgmQOv5HW67iUv+aRHqj92RS6weS/UOheYQ3ssG1GVlaBBmdBG1FcoL
+ H1FWUQ06B9gE9Gz/lOOpqavRxUkhFVcQlKY0ICJ5WU9QKt4k+sgB1cKDkJJZDGxhXeRg
+ eESQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUTrOf6MloMtl9s6nFfzLHdsPKunjf6EEuOchwmzjIk4BFIrtT1NrMCAXCcNs5qB0gZ0+E=@lists.linux.it
-X-Gm-Message-State: AOJu0YxH26LhyTERXd5xrFRy/1kVUuNVCFCuCFMoY+M6YPh2A4V7UzCt
- ui1cGgXAr0aMie4Dk6ARV8zJdzz2BNOgVxWE7ogfJlhkS44s1nVPARKGhYRRUO0GlA==
-X-Gm-Gg: ASbGncvqgHzeTLIUJwF6qnKu+TYLCumOqhVzzUx4hZBVQPor8ekj1I5udUPFSAXwC9X
- J0o+u6UJ8PQKet9x0s0p+gYggln3Wj1dkQf4WD4PBfB9/kDz5J8Ak15hRGvb9blbNpzrpvRtwoU
- XC/g0fYvHfoth6d64+Su6gc4k+0QK0sPzutDpIMfA41P1NpKbHVRV87qytdTxUOl9k+hrZjA4Kl
- 7M8fSZSClUWaR1qvSmbKqc0CECa7S1e3pYgoNQglJR6Up6jvvbE5Uf5DuV5GCumH8EiEyfsOJMQ
- PxJ3MUINDemZ7VIpWPSIll1ZPgAe0GygJHTpcXKK9vkwoHJTL3605XUu14MSzK9UxIO3Swskgz1
- YlLRG9kRGIAHwDzu5SJtINQ==
-X-Google-Smtp-Source: AGHT+IHNk8PBKUNrSPx10ifAUYOJvFnn2Jc4DOTuWB3OZc7DjYdpAwzxQ0MKpk/V8JZvySJfquvRNQ==
-X-Received: by 2002:a17:907:7f09:b0:ae3:5185:5416 with SMTP id
- a640c23a62f3a-afcdb1a2e5amr388545866b.13.1755310704049; 
- Fri, 15 Aug 2025 19:18:24 -0700 (PDT)
-Received: from localhost ([2a07:de40:b240:0:2ad6:ed42:2ad6:ed42])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdd01168csm262745266b.91.2025.08.15.19.18.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Aug 2025 19:18:23 -0700 (PDT)
-Date: Sat, 16 Aug 2025 02:18:21 +0000
-To: kernel test robot <oliver.sang@intel.com>
-Message-ID: <aJ_qbZDvDJwVoZGA@localhost>
-References: <20250801090949.129941-1-dongml2@chinatelecom.cn>
- <202508110750.a66a4225-lkp@intel.com>
+ AJvYcCUAGOq8ACj44htxE1Ra253Wm66U13O7w3fR0GYNbgnzRUzdvcgevsjdNG00h5ckOosHO24=@lists.linux.it
+X-Gm-Message-State: AOJu0YyzC5BlsYxAr+o1x83famDCkxbgZsrdbEOkUUuiz/NU19hbgUnQ
+ Ro1JlbY58MZBEruiemHKsklYSdZFJJzPKbGrjKIr/kpeCRjrWNl4tq8aba2KuTP2iQUygqYZR5W
+ TfiYHoYdFdpC2+MrW3b+vO3ToG1lV+Zc2Unh7e7Ja
+X-Gm-Gg: ASbGncu16vIAtCgmdMytb/VPBW9+tEEL8WB6VqyZY8aAvwfVVPAbipxYLno4A0sc2Ai
+ Z692eIUlaxVIEeAwiGbh/qNrkN+ZsskF5uyJ1HX12T6O+rzTupG4Fiv5thxuK0jDSJW6qASM9FH
+ S4DNMp6u0gZ/kyvCbMPAdiFa7PC5UsvosjA2KTai2c+vfGlIgGrUQPAP6YD0X6VD50zP/iey517
+ Ea5xUId0FPeI3oGdSDfYLVXnYj2BEX5qKnIEeZ5j79U6xw=
+X-Google-Smtp-Source: AGHT+IEoa6K5VPw7SESWJcyry0r0EAmnREWUavxXpMAeN45Ss7wHcLf9j0oo8tGG9DPZYtegphKPTtIWix2PRHyIVkg=
+X-Received: by 2002:a17:903:1967:b0:242:a0b0:3c12 with SMTP id
+ d9443c01a7336-2446d9c534amr60239055ad.52.1755311722577; Fri, 15 Aug 2025
+ 19:35:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <202508110750.a66a4225-lkp@intel.com>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
+References: <20250801090949.129941-1-dongml2@chinatelecom.cn>
+ <202508110750.a66a4225-lkp@intel.com> <aJ_qbZDvDJwVoZGA@localhost>
+In-Reply-To: <aJ_qbZDvDJwVoZGA@localhost>
+Date: Fri, 15 Aug 2025 19:35:10 -0700
+X-Gm-Features: Ac12FXxRtAJ-Rrz7HjZK8VbUPj4MqgpSheT6l3cFeoFUPq4dJKBOPfSiUKanWVU
+Message-ID: <CAAVpQUCEGiRjoobf69Jd5M9vnZyi0N6crNUgSBpDTGNfrap1cA@mail.gmail.com>
+To: Wei Gao <wegao@suse.com>
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,ENV_AND_HDR_SPF_MATCH,
+ SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Mailman-Approved-At: Mon, 18 Aug 2025 08:29:56 +0200
 Subject: Re: [LTP] [PATCH net v2] net: ip: order the reuseport socket in
  __inet_hash
 X-BeenThere: ltp@lists.linux.it
@@ -105,98 +101,78 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
-Cc: kuniyu@google.com, kraig@google.com, lkp@intel.com, netdev@vger.kernel.org,
- dsahern@kernel.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
- edumazet@google.com, horms@kernel.org, oe-lkp@lists.linux.dev, kuba@kernel.org,
+From: Kuniyuki Iwashima via ltp <ltp@lists.linux.it>
+Reply-To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: kraig@google.com, lkp@intel.com, netdev@vger.kernel.org, dsahern@kernel.org,
+ linux-kernel@vger.kernel.org, rcu@vger.kernel.org, edumazet@google.com,
+ kernel test robot <oliver.sang@intel.com>, horms@kernel.org,
+ oe-lkp@lists.linux.dev, kuba@kernel.org,
  Menglong Dong <menglong8.dong@gmail.com>, pabeni@redhat.com,
  ncardwell@google.com, davem@davemloft.net, ltp@lists.linux.it,
  Menglong Dong <dongml2@chinatelecom.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, Aug 11, 2025 at 01:27:12PM +0800, kernel test robot wrote:
-> 
-> 
-> Hello,
-> 
-> kernel test robot noticed "BUG:KASAN:slab-use-after-free_in__inet_hash" on:
-> 
-> commit: 859ca60b71ef223e210d3d003a225d9ca70879fd ("[PATCH net v2] net: ip: order the reuseport socket in __inet_hash")
-> url: https://github.com/intel-lab-lkp/linux/commits/Menglong-Dong/net-ip-order-the-reuseport-socket-in-__inet_hash/20250801-171131
-> base: https://git.kernel.org/cgit/linux/kernel/git/davem/net.git 01051012887329ea78eaca19b1d2eac4c9f601b5
-> patch link: https://lore.kernel.org/all/20250801090949.129941-1-dongml2@chinatelecom.cn/
-> patch subject: [PATCH net v2] net: ip: order the reuseport socket in __inet_hash
-> 
-> in testcase: ltp
-> version: ltp-x86_64-6505f9e29-1_20250802
-> with following parameters:
-> 
-> 	disk: 1HDD
-> 	fs: ext4
-> 	test: fs_perms_simple
-> 
-> 
-> 
-> config: x86_64-rhel-9.4-ltp
-> compiler: gcc-12
-> test machine: 4 threads 1 sockets Intel(R) Core(TM) i3-3220 CPU @ 3.30GHz (Ivy Bridge) with 8G memory
-> 
-> (please refer to attached dmesg/kmsg for entire log/backtrace)
-> 
-> 
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <oliver.sang@intel.com>
-> | Closes: https://lore.kernel.org/oe-lkp/202508110750.a66a4225-lkp@intel.com
-> 
-> 
-> kern :err : [  128.186735] BUG: KASAN: slab-use-after-free in __inet_hash (net/ipv4/inet_hashtables.c:749 net/ipv4/inet_hashtables.c:800) 
-
-This kasan error not related with LTP case, i guess it triggered by network
-related process such as bind etc. I try to give following patch to fix
-kasan error, correct me if any mistake, thanks.
-
-From: Wei Gao <wegao@suse.com>
-Date: Sat, 16 Aug 2025 09:32:56 +0800
-Subject: [PATCH v1] net: Fix BUG:KASAN:slab-use-after-free_in__inet_hash
-
-Reported-by: kernel test robot <oliver.sang@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202508110750.a66a4225-lkp@intel.com
-Signed-off-by: Wei Gao <wegao@suse.com>
----
- include/linux/rculist_nulls.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/rculist_nulls.h b/include/linux/rculist_nulls.h
-index da500f4ae142..5def9009c507 100644
---- a/include/linux/rculist_nulls.h
-+++ b/include/linux/rculist_nulls.h
-@@ -57,7 +57,7 @@ static inline void hlist_nulls_del_init_rcu(struct hlist_nulls_node *n)
-  * @node: element of the list.
-  */
- #define hlist_nulls_pprev_rcu(node) \
--       (*((struct hlist_nulls_node __rcu __force **)&(node)->pprev))
-+       (*((struct hlist_nulls_node __rcu __force **)(node)->pprev))
-
- /**
-  * hlist_nulls_del_rcu - deletes entry from hash list without re-initialization
-@@ -175,7 +175,7 @@ static inline void hlist_nulls_add_before_rcu(struct hlist_nulls_node *n,
- {
-        WRITE_ONCE(n->pprev, next->pprev);
-        n->next = next;
--       rcu_assign_pointer(hlist_nulls_pprev_rcu(n), n);
-+       rcu_assign_pointer(hlist_nulls_pprev_rcu(next), n);
-        WRITE_ONCE(next->pprev, &n->next);
- }
-
---
-2.43.0
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gRnJpLCBBdWcgMTUsIDIwMjUgYXQgNzoxOOKAr1BNIFdlaSBHYW8gPHdlZ2FvQHN1c2UuY29t
+PiB3cm90ZToKPgo+IE9uIE1vbiwgQXVnIDExLCAyMDI1IGF0IDAxOjI3OjEyUE0gKzA4MDAsIGtl
+cm5lbCB0ZXN0IHJvYm90IHdyb3RlOgo+ID4KPiA+Cj4gPiBIZWxsbywKPiA+Cj4gPiBrZXJuZWwg
+dGVzdCByb2JvdCBub3RpY2VkICJCVUc6S0FTQU46c2xhYi11c2UtYWZ0ZXItZnJlZV9pbl9faW5l
+dF9oYXNoIiBvbjoKPiA+Cj4gPiBjb21taXQ6IDg1OWNhNjBiNzFlZjIyM2UyMTBkM2QwMDNhMjI1
+ZDljYTcwODc5ZmQgKCJbUEFUQ0ggbmV0IHYyXSBuZXQ6IGlwOiBvcmRlciB0aGUgcmV1c2Vwb3J0
+IHNvY2tldCBpbiBfX2luZXRfaGFzaCIpCj4gPiB1cmw6IGh0dHBzOi8vZ2l0aHViLmNvbS9pbnRl
+bC1sYWItbGtwL2xpbnV4L2NvbW1pdHMvTWVuZ2xvbmctRG9uZy9uZXQtaXAtb3JkZXItdGhlLXJl
+dXNlcG9ydC1zb2NrZXQtaW4tX19pbmV0X2hhc2gvMjAyNTA4MDEtMTcxMTMxCj4gPiBiYXNlOiBo
+dHRwczovL2dpdC5rZXJuZWwub3JnL2NnaXQvbGludXgva2VybmVsL2dpdC9kYXZlbS9uZXQuZ2l0
+IDAxMDUxMDEyODg3MzI5ZWE3OGVhY2ExOWIxZDJlYWM0YzlmNjAxYjUKPiA+IHBhdGNoIGxpbms6
+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI1MDgwMTA5MDk0OS4xMjk5NDEtMS1kb25n
+bWwyQGNoaW5hdGVsZWNvbS5jbi8KPiA+IHBhdGNoIHN1YmplY3Q6IFtQQVRDSCBuZXQgdjJdIG5l
+dDogaXA6IG9yZGVyIHRoZSByZXVzZXBvcnQgc29ja2V0IGluIF9faW5ldF9oYXNoCj4gPgo+ID4g
+aW4gdGVzdGNhc2U6IGx0cAo+ID4gdmVyc2lvbjogbHRwLXg4Nl82NC02NTA1ZjllMjktMV8yMDI1
+MDgwMgo+ID4gd2l0aCBmb2xsb3dpbmcgcGFyYW1ldGVyczoKPiA+Cj4gPiAgICAgICBkaXNrOiAx
+SERECj4gPiAgICAgICBmczogZXh0NAo+ID4gICAgICAgdGVzdDogZnNfcGVybXNfc2ltcGxlCj4g
+Pgo+ID4KPiA+Cj4gPiBjb25maWc6IHg4Nl82NC1yaGVsLTkuNC1sdHAKPiA+IGNvbXBpbGVyOiBn
+Y2MtMTIKPiA+IHRlc3QgbWFjaGluZTogNCB0aHJlYWRzIDEgc29ja2V0cyBJbnRlbChSKSBDb3Jl
+KFRNKSBpMy0zMjIwIENQVSBAIDMuMzBHSHogKEl2eSBCcmlkZ2UpIHdpdGggOEcgbWVtb3J5Cj4g
+Pgo+ID4gKHBsZWFzZSByZWZlciB0byBhdHRhY2hlZCBkbWVzZy9rbXNnIGZvciBlbnRpcmUgbG9n
+L2JhY2t0cmFjZSkKPiA+Cj4gPgo+ID4KPiA+IElmIHlvdSBmaXggdGhlIGlzc3VlIGluIGEgc2Vw
+YXJhdGUgcGF0Y2gvY29tbWl0IChpLmUuIG5vdCBqdXN0IGEgbmV3IHZlcnNpb24gb2YKPiA+IHRo
+ZSBzYW1lIHBhdGNoL2NvbW1pdCksIGtpbmRseSBhZGQgZm9sbG93aW5nIHRhZ3MKPiA+IHwgUmVw
+b3J0ZWQtYnk6IGtlcm5lbCB0ZXN0IHJvYm90IDxvbGl2ZXIuc2FuZ0BpbnRlbC5jb20+Cj4gPiB8
+IENsb3NlczogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvb2UtbGtwLzIwMjUwODExMDc1MC5hNjZh
+NDIyNS1sa3BAaW50ZWwuY29tCj4gPgo+ID4KPiA+IGtlcm4gOmVyciA6IFsgIDEyOC4xODY3MzVd
+IEJVRzogS0FTQU46IHNsYWItdXNlLWFmdGVyLWZyZWUgaW4gX19pbmV0X2hhc2ggKG5ldC9pcHY0
+L2luZXRfaGFzaHRhYmxlcy5jOjc0OSBuZXQvaXB2NC9pbmV0X2hhc2h0YWJsZXMuYzo4MDApCj4K
+PiBUaGlzIGthc2FuIGVycm9yIG5vdCByZWxhdGVkIHdpdGggTFRQIGNhc2UsIGkgZ3Vlc3MgaXQg
+dHJpZ2dlcmVkIGJ5IG5ldHdvcmsKPiByZWxhdGVkIHByb2Nlc3Mgc3VjaCBhcyBiaW5kIGV0Yy4g
+SSB0cnkgdG8gZ2l2ZSBmb2xsb3dpbmcgcGF0Y2ggdG8gZml4Cj4ga2FzYW4gZXJyb3IsIGNvcnJl
+Y3QgbWUgaWYgYW55IG1pc3Rha2UsIHRoYW5rcy4KCk5vdGUgdGhhdCB0aGUgcmVwb3J0IHdhcyBm
+b3IgdGhlIHBhdGNoIGluIHRoZSBtYWlsaW5nIGxpc3QKYW5kIHRoZSBwYXRjaCB3YXMgbm90IGFw
+cGxpZWQgdG8gbmV0LW5leHQuZ2l0IG5vciBuZXQuZ2l0LgoKCj4KPiBGcm9tOiBXZWkgR2FvIDx3
+ZWdhb0BzdXNlLmNvbT4KPiBEYXRlOiBTYXQsIDE2IEF1ZyAyMDI1IDA5OjMyOjU2ICswODAwCj4g
+U3ViamVjdDogW1BBVENIIHYxXSBuZXQ6IEZpeCBCVUc6S0FTQU46c2xhYi11c2UtYWZ0ZXItZnJl
+ZV9pbl9faW5ldF9oYXNoCj4KPiBSZXBvcnRlZC1ieToga2VybmVsIHRlc3Qgcm9ib3QgPG9saXZl
+ci5zYW5nQGludGVsLmNvbT4KPiBDbG9zZXM6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL29lLWxr
+cC8yMDI1MDgxMTA3NTAuYTY2YTQyMjUtbGtwQGludGVsLmNvbQo+IFNpZ25lZC1vZmYtYnk6IFdl
+aSBHYW8gPHdlZ2FvQHN1c2UuY29tPgo+IC0tLQo+ICBpbmNsdWRlL2xpbnV4L3JjdWxpc3RfbnVs
+bHMuaCB8IDQgKystLQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0
+aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvcmN1bGlzdF9udWxscy5oIGIv
+aW5jbHVkZS9saW51eC9yY3VsaXN0X251bGxzLmgKPiBpbmRleCBkYTUwMGY0YWUxNDIuLjVkZWY5
+MDA5YzUwNyAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2xpbnV4L3JjdWxpc3RfbnVsbHMuaAo+ICsr
+KyBiL2luY2x1ZGUvbGludXgvcmN1bGlzdF9udWxscy5oCj4gQEAgLTU3LDcgKzU3LDcgQEAgc3Rh
+dGljIGlubGluZSB2b2lkIGhsaXN0X251bGxzX2RlbF9pbml0X3JjdShzdHJ1Y3QgaGxpc3RfbnVs
+bHNfbm9kZSAqbikKPiAgICogQG5vZGU6IGVsZW1lbnQgb2YgdGhlIGxpc3QuCj4gICAqLwo+ICAj
+ZGVmaW5lIGhsaXN0X251bGxzX3BwcmV2X3JjdShub2RlKSBcCj4gLSAgICAgICAoKigoc3RydWN0
+IGhsaXN0X251bGxzX25vZGUgX19yY3UgX19mb3JjZSAqKikmKG5vZGUpLT5wcHJldikpCj4gKyAg
+ICAgICAoKigoc3RydWN0IGhsaXN0X251bGxzX25vZGUgX19yY3UgX19mb3JjZSAqKikobm9kZSkt
+PnBwcmV2KSkKPgo+ICAvKioKPiAgICogaGxpc3RfbnVsbHNfZGVsX3JjdSAtIGRlbGV0ZXMgZW50
+cnkgZnJvbSBoYXNoIGxpc3Qgd2l0aG91dCByZS1pbml0aWFsaXphdGlvbgo+IEBAIC0xNzUsNyAr
+MTc1LDcgQEAgc3RhdGljIGlubGluZSB2b2lkIGhsaXN0X251bGxzX2FkZF9iZWZvcmVfcmN1KHN0
+cnVjdCBobGlzdF9udWxsc19ub2RlICpuLAo+ICB7Cj4gICAgICAgICBXUklURV9PTkNFKG4tPnBw
+cmV2LCBuZXh0LT5wcHJldik7Cj4gICAgICAgICBuLT5uZXh0ID0gbmV4dDsKPiAtICAgICAgIHJj
+dV9hc3NpZ25fcG9pbnRlcihobGlzdF9udWxsc19wcHJldl9yY3UobiksIG4pOwo+ICsgICAgICAg
+cmN1X2Fzc2lnbl9wb2ludGVyKGhsaXN0X251bGxzX3BwcmV2X3JjdShuZXh0KSwgbik7Cj4gICAg
+ICAgICBXUklURV9PTkNFKG5leHQtPnBwcmV2LCAmbi0+bmV4dCk7Cj4gIH0KPgo+IC0tCj4gMi40
+My4wCj4KCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0
+aW5mby9sdHAK
