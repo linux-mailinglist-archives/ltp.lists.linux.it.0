@@ -2,69 +2,103 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8123EB299B4
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Aug 2025 08:31:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0B8BB289A7
+	for <lists+linux-ltp@lfdr.de>; Sat, 16 Aug 2025 03:38:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1755498679; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1755308328; h=mime-version :
+ references : in-reply-to : date : message-id : to : subject : list-id
+ : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=2RFDvd1vXgjzmeLiwAkeVDHC5lQzOBFqo/ytBUoMJoE=;
- b=VyTzFKAAksmCcXUDyzkLJYe4YUM4E7qOqAmv8Tn7J47whdwQkL20qLdNdcrmSafC3CWNF
- QZ/BSeEpm2n9ghjBdvECf4G2YiZKocmeJ++5mpRgKwULv4BA7TIVc4WEVDLtgwUV7YsE+sT
- 5kNuV/I5AWEuCth0tFGFcVtaB0N0u0g=
+ bh=SeC0HRNXzzKO4CXrte4V8VFGTkPurLjVYqBPetsdSFw=;
+ b=TMIiN2VDIAxU2l0kMq5jW5CHMbHnjX+j0nkFMDnKHRNLDwU/61XgZq887Jf5ttIYRQB5M
+ q6pR3j0RHrrHyXbVMzHq7ZdjtxpFLLG+aRVHPjbhPvbZ8CjA0HGzymH8dzKA9qI1ttX8F1y
+ b3NfKFdD7Ekbv1m6lHA5CfSN2DTCnQE=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3564D3CC93F
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Aug 2025 08:31:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6FC083CC1EE
+	for <lists+linux-ltp@lfdr.de>; Sat, 16 Aug 2025 03:38:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 002A13C9F6C
- for <ltp@lists.linux.it>; Fri, 15 Aug 2025 18:24:09 +0200 (CEST)
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+ by picard.linux.it (Postfix) with ESMTPS id 5070F3C23EC
+ for <ltp@lists.linux.it>; Sat, 16 Aug 2025 03:38:44 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3D0EE6002CF
- for <ltp@lists.linux.it>; Fri, 15 Aug 2025 18:24:08 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 212E1419C9;
- Fri, 15 Aug 2025 16:24:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1B60C4CEEB;
- Fri, 15 Aug 2025 16:24:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755275045;
- bh=4W3MexmDLIj0LLuVBsUoXVIfys/oLMGtURiFQUEH13U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=nUphFxrWKV+6n7KpkD3VVRbo27xzyyN/vWebfUiwoAS3RvQSWcpYef5mbG32vq0xD
- Hj0/e3bePcSFamI9nK1ma1Z1tJgmnKrGZNeX7nNEd7c2k/TECv6Usta5G6k2J1kTXq
- LsLm0KSBqNf5NIpDJGBe/pMGF4IRBd7RfiQ0AFAHXmAiB/AdFCFFEAZWTG5KJ1UEeH
- gx7uzJLw+iJTkPJ6nbo75iUvpli22kP4Ea4eVzyFa0QL+rwrRi3uUMsyrZOzUynbnX
- vzx4mQ8pLbKA4C23C8MVuQVsKobT/zIxnc9HN1TNS3GmfWQ6VfTQjsBHkx+jBmRUuP
- bmqcMI4Wr142Q==
-Date: Fri, 15 Aug 2025 09:24:01 -0700
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <aJ9fIUkM04HhRgSR@google.com>
-References: <20250812173419.303046420@linuxfoundation.org>
- <CA+G9fYtBnCSa2zkaCn-oZKYz8jz5FZj0HS7DjSfMeamq3AXqNg@mail.gmail.com>
- <2025081300-frown-sketch-f5bd@gregkh> <aJ5EupUV9t0jToY3@google.com>
- <2025081536-resonate-wafer-6699@gregkh>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5D3DF2003B5
+ for <ltp@lists.linux.it>; Sat, 16 Aug 2025 03:38:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1755308321;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ee4tTGd8cl4NO0LXIEBka0wD6u+8xWDzQCJ5xZQbi+8=;
+ b=H420KuIsJeLYnypAfuAPzEj2g9Jj92Z1h7gBsz3A/5TwTW/q9ghNcR+u60MBue6QJkaVrg
+ 5SDNq1mCxMZMJyMhpmeHrFZdwicmiS27AsPPQ4aKFAwZzpvjLXXU/5iQgMkJBp1KxKkt10
+ uBD+RPEP4ZXLeDGWlwfetRF3PQ0zuaU=
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-295-wod-N2YIMIuQ0hkI2XawKA-1; Fri, 15 Aug 2025 21:38:40 -0400
+X-MC-Unique: wod-N2YIMIuQ0hkI2XawKA-1
+X-Mimecast-MFC-AGG-ID: wod-N2YIMIuQ0hkI2XawKA_1755308319
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-244581950a1so27809875ad.2
+ for <ltp@lists.linux.it>; Fri, 15 Aug 2025 18:38:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755308319; x=1755913119;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Ee4tTGd8cl4NO0LXIEBka0wD6u+8xWDzQCJ5xZQbi+8=;
+ b=AGnjvSGijkZRjZ2X40w5lZfJ+TPY8iDqhISR9tfr4ubK42vISvJEXokaQIkrddvKQT
+ xrZDLOSqaqHhzqh8c62TGZNI7FNmleAj2Qft7embmL4CpERJ1xmn+KFKkJQt1kj+zhTU
+ fkvrmGSRPXvJcxROEa2YRl6zj3/aSdUpWSr+H8HKsrvww2q94rEaTDuqgQjxBujgMhuM
+ EpPNLH7IFtRqpkJFMO6MEB9j/dghskpW/WpTVTHCYxf3pvURFmDhQ+zmhSm+rTSMymDA
+ WSgoOZtk7grWHrYrVTCSKGg0Sdkg0abK0b+0b/puQ1EfI8b/0lGup9nVJHrevmEdfboe
+ iB2A==
+X-Gm-Message-State: AOJu0YzffzTKBs2xpPni2c0qEJJupb8MYneKdzP0Astia7TXB707znhH
+ 6NOhSFkXycdI6osDBVjz1za3WPYGeDjDP1dzLHmS0PoDvQyss3YtKsgWp0joLS45sH/236Ue6iS
+ ZYxFzllVRqZQhJaoySZd0XDhl4+/bx+wbnkyYgBd3qnu0leMEOOVUmxCphilBeEfQOCn4qXKG2u
+ 1RVQrWvP3n1SdpzAxCe2jeRv44MZw=
+X-Gm-Gg: ASbGncuYMCQ4qSojP0Ksb3NJME/+YAWhQIHeVK/JIep0+PFm53h75eKFnSaq0pglLSr
+ PNyFHlFCp3G7W5OJwk1ep+ZflVpg5F+o+5ENSuXI4hdyK3yn/cZQ5c9IzgZaP+JU4ICGFXUcKyy
+ LD7EkSpyKUuT3fuUX5qOinqw==
+X-Received: by 2002:a17:903:3bc6:b0:240:1f19:d35c with SMTP id
+ d9443c01a7336-2446d8f0fc8mr61571285ad.39.1755308319079; 
+ Fri, 15 Aug 2025 18:38:39 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH1k/RFtuk+q/5yhljE+JrY6fYsLUNZCsV6jzFQJq6FKyrsiYqgduGCIuHNBgm5p9Csrv5sy7txxq/nri0blZ4=
+X-Received: by 2002:a17:903:3bc6:b0:240:1f19:d35c with SMTP id
+ d9443c01a7336-2446d8f0fc8mr61570925ad.39.1755308318618; Fri, 15 Aug 2025
+ 18:38:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <2025081536-resonate-wafer-6699@gregkh>
+References: <20250812141709.33540-1-liwang@redhat.com>
+ <20250814130629.GA575710@pevik>
+ <CAEemH2fgnJH201_fvDvPRbAFrfdEz4v_cEg-LXudWje-+w68VA@mail.gmail.com>
+ <20250815052231.GA32490@pevik>
+In-Reply-To: <20250815052231.GA32490@pevik>
+Date: Sat, 16 Aug 2025 09:38:26 +0800
+X-Gm-Features: Ac12FXxBmJX5WW8V4Xi53VUZdQRIsXWJz2HHEozyHKnf_8C_Fsf_GT11cdfgVbE
+Message-ID: <CAEemH2fJO8a4cEZcdLkCGMjSRQSprs4ZLM+1930qVZaiu7TO_w@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: QElsA6gHLwHEOcVBzhzIyRQw3RecyXDX4LUYbmD_2wc_1755308319
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Mon, 18 Aug 2025 08:29:56 +0200
-Subject: Re: [LTP] [PATCH 6.16 000/627] 6.16.1-rc1 review
+Subject: Re: [LTP] [PATCH v2] tst_mkfs: print short hint when mkfs fails in
+ device busy
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,68 +110,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Namhyung Kim via ltp <ltp@lists.linux.it>
-Reply-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, Jan Kara <jack@suse.cz>,
- qemu-devel@nongnu.org, lkft-triage@lists.linaro.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, hargar@microsoft.com,
- Dan Carpenter <dan.carpenter@linaro.org>, f.fainelli@gmail.com,
- shuah@kernel.org, jonathanh@nvidia.com, Joseph Qi <jiangqi903@gmail.com>,
- patches@kernelci.org, linux-ext4 <linux-ext4@vger.kernel.org>,
- linux@roeck-us.net, Arnd Bergmann <arnd@arndb.de>, srw@sladewatkins.net,
- broonie@kernel.org, Ben Copeland <benjamin.copeland@linaro.org>,
- LTP List <ltp@lists.linux.it>, rwarsow@gmx.de, pavel@denx.de,
- patches@lists.linux.dev, conor@kernel.org, linux-perf-users@vger.kernel.org,
- Zhang Yi <yi.zhang@huaweicloud.com>, achill@achill.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- torvalds@linux-foundation.org, sudipm.mukherjee@gmail.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+From: Li Wang via ltp <ltp@lists.linux.it>
+Reply-To: Li Wang <liwang@redhat.com>
+Cc: rafael.tinoco@linaro.org, ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, Aug 15, 2025 at 07:33:41AM +0200, Greg Kroah-Hartman wrote:
-> On Thu, Aug 14, 2025 at 01:19:06PM -0700, Namhyung Kim wrote:
-> > Hello,
-> > 
-> > Thanks for the report!
-> > 
-> > On Wed, Aug 13, 2025 at 02:50:49PM +0200, Greg Kroah-Hartman wrote:
-> > > On Wed, Aug 13, 2025 at 05:46:26PM +0530, Naresh Kamboju wrote:
-> > > > Long story:
-> > > > 1)
-> > > > The perf gcc-13 build failed on x86_64 and i386.
-> > > > 
-> > > > Build regression: qemu-arm64 ARM64_64K_PAGES ltp syscalls swap fsync
-> > > > fallocate failed.
-> > > > 
-> > > > > Ian Rogers <irogers@google.com>
-> > > > >     perf topdown: Use attribute to see an event is a topdown metic or slots
-> > > > 
-> > > > Build error:
-> > > > 
-> > > > arch/x86/tests/topdown.c: In function 'event_cb':
-> > > > arch/x86/tests/topdown.c:53:25: error: implicit declaration of
-> > > > function 'pr_debug' [-Werror=implicit-function-declaration]
-> > > >    53 |                         pr_debug("Broken topdown information
-> > > > for '%s'\n", evsel__name(evsel));
-> > > >       |                         ^~~~~~~~
-> > > > cc1: all warnings being treated as errors
-> > > 
-> > > Already fixed.
-> > 
-> > Are you sure?  I'm not seeing the fix.  Can you share the commit id?
-> 
-> I dropped the offending perf patch:
-> 	https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git/commit/?id=4199b872a5585e025f62886724f4f9ae80e014ae
-> 
-> Did that not work for you?
-
-Oh sorry, I misunderstood you.  I thought you have a fix.
-
-Thanks,
-Namhyung
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gRnJpLCBBdWcgMTUsIDIwMjUgYXQgMToyMuKAr1BNIFBldHIgVm9yZWwgPHB2b3JlbEBzdXNl
+LmN6PiB3cm90ZToKCj4gPiBTbyB3aGF0IGFib3V0Ogo+Cj4gPiAgdHN0X3Jlc21fKGZpbGUsIGxp
+bmVubywgVFdBUk4sCj4gPiAgICAgIm1rZnMgbWF5IGhhdmUgZmFpbGVkIGJlY2F1c2UgdGhlIGRl
+dmljZSBpcyBidXN5IChlLmcuLCB1ZGlza3MyIHByb2JpbmcpLiAiCj4gPiAgICAgIkNvbnNpZGVy
+IGRpc2FibGluZyBiYWNrZ3JvdW5kIHByb2Jpbmcgc2VydmljZXMuIik7CgpQYXRjaCBtZXJnZWQg
+d2l0aCB0aGlzIHJlZmluZW1lbnQuCgotLSAKUmVnYXJkcywKTGkgV2FuZwoKCi0tIApNYWlsaW5n
+IGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
