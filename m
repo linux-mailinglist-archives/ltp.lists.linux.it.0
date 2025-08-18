@@ -2,111 +2,107 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B29C0B29960
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Aug 2025 08:08:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2784EB29B57
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Aug 2025 09:55:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7BB963CC6E1
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Aug 2025 08:08:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3BDAB3CC699
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Aug 2025 09:54:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E85473CA131
- for <ltp@lists.linux.it>; Mon, 18 Aug 2025 08:08:24 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id C976E3C0639
+ for <ltp@lists.linux.it>; Mon, 18 Aug 2025 09:54:44 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EF45310007C6
- for <ltp@lists.linux.it>; Mon, 18 Aug 2025 08:08:23 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7AA8D600731
+ for <ltp@lists.linux.it>; Mon, 18 Aug 2025 09:54:42 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3F3C321261;
- Mon, 18 Aug 2025 06:08:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2D6411F749;
+ Mon, 18 Aug 2025 07:54:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1755497301;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tSJOfDL8wBpIBvsW82OVP8Mk6lRSqzW34m7PyaQ3Ok8=;
- b=MxoX1RXU9m+LAAOdh9+8RAhm97sLxwx/RNAMhG2P6r1dWfgQfRqBD8ODENOdpvttg7fv99
- GgRyNYjUy9q/2J7KhBZ7596p9p8CXHVTpFsSeknuwj/uBe6HDUW4Xp0WZOulaSNrfA+2yA
- dJ06boplURFytPtAPbz9kC9DFHeIiGg=
+ t=1755503682; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=33Q2gPacfSDasS5Hx8ffEWoqwHBBZ4oTHWuJL/npu8Q=;
+ b=Ejl7pGUVBEnJhWBmaK7J/8z3GOoVWm5zyTNJQHQ1MwSbpcBDbaB14x2ZjU+i1DhP/KEEqI
+ bja0M/kmCifP+x23W/jUy89qlDR97HB6GdbNor/SOirOtm9uoG8ZNxQu16leardKcxF833
+ jUthEijBuAfE8YRQ/CQvh9Mmfv971Bg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1755497301;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tSJOfDL8wBpIBvsW82OVP8Mk6lRSqzW34m7PyaQ3Ok8=;
- b=uJvZdAMeIEs+sMZ6zqfoPaMb09B0cDEP01IDGFoM0XI1xy45gyAENuY8zPmaaVOff71556
- TD9JKVXXsisVPeAw==
-Authentication-Results: smtp-out1.suse.de;
-	none
+ s=susede2_ed25519; t=1755503682;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=33Q2gPacfSDasS5Hx8ffEWoqwHBBZ4oTHWuJL/npu8Q=;
+ b=nUhda3B6d9us0ukkdCrVo4rLwFtYPy6sqhbS8JuFGHPET/ztZRwxGNX8Dx2bcRY/w2DY8C
+ Nx5zkmhsbuQJ0uDg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Ejl7pGUV;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=nUhda3B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1755497301;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tSJOfDL8wBpIBvsW82OVP8Mk6lRSqzW34m7PyaQ3Ok8=;
- b=MxoX1RXU9m+LAAOdh9+8RAhm97sLxwx/RNAMhG2P6r1dWfgQfRqBD8ODENOdpvttg7fv99
- GgRyNYjUy9q/2J7KhBZ7596p9p8CXHVTpFsSeknuwj/uBe6HDUW4Xp0WZOulaSNrfA+2yA
- dJ06boplURFytPtAPbz9kC9DFHeIiGg=
+ t=1755503682; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=33Q2gPacfSDasS5Hx8ffEWoqwHBBZ4oTHWuJL/npu8Q=;
+ b=Ejl7pGUVBEnJhWBmaK7J/8z3GOoVWm5zyTNJQHQ1MwSbpcBDbaB14x2ZjU+i1DhP/KEEqI
+ bja0M/kmCifP+x23W/jUy89qlDR97HB6GdbNor/SOirOtm9uoG8ZNxQu16leardKcxF833
+ jUthEijBuAfE8YRQ/CQvh9Mmfv971Bg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1755497301;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tSJOfDL8wBpIBvsW82OVP8Mk6lRSqzW34m7PyaQ3Ok8=;
- b=uJvZdAMeIEs+sMZ6zqfoPaMb09B0cDEP01IDGFoM0XI1xy45gyAENuY8zPmaaVOff71556
- TD9JKVXXsisVPeAw==
+ s=susede2_ed25519; t=1755503682;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=33Q2gPacfSDasS5Hx8ffEWoqwHBBZ4oTHWuJL/npu8Q=;
+ b=nUhda3B6d9us0ukkdCrVo4rLwFtYPy6sqhbS8JuFGHPET/ztZRwxGNX8Dx2bcRY/w2DY8C
+ Nx5zkmhsbuQJ0uDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0F31713686;
- Mon, 18 Aug 2025 06:08:21 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 04F1613A55;
+ Mon, 18 Aug 2025 07:54:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 5rrLAlXDomjIeQAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Mon, 18 Aug 2025 06:08:21 +0000
-Date: Mon, 18 Aug 2025 08:08:19 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id vNcbOkHcomh4HAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Mon, 18 Aug 2025 07:54:41 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20250818060819.GA133791@pevik>
-References: <20250812-cve_2025_38236-v1-1-e3617ada69c6@suse.com>
- <20250812101237.GA835467@pevik> <aJsg11G8hOAqoGkw@yuki.lan>
- <20250812114540.GC843668@pevik> <aJsu4qw72EZiKnSP@yuki.lan>
+To: ltp@lists.linux.it
+Date: Mon, 18 Aug 2025 09:54:38 +0200
+Message-ID: <20250818075438.151407-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aJsu4qw72EZiKnSP@yuki.lan>
-X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TO_DN_SOME(0.00)[]; MISSING_XM_UA(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
- REPLYTO_EQ_FROM(0.00)[]
 X-Spam-Level: 
-X-Spam-Score: -3.50
+X-Rspamd-Queue-Id: 2D6411F749
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[ozlabs.org:url,suse.cz:dkim,suse.cz:mid,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCPT_COUNT_THREE(0.00)[3]; DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Score: -3.01
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [doc,
- runtest] [was: Re:  [PATCH] cve: add CVE-2025-38236 test]
+Subject: [LTP] [PATCH v5 1/1] tst_res_: Print error to stderr,
+ with filename and lineno
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,72 +114,84 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril, all,
+Print not only tst_res_.c filename and lineno but also script which
+invoked tst_res_.c (if available). That helps find wrong tst_res_.c
+invocation:
 
-> Hi!
-> > This problem happen on all runtest files, fixing just one does not fix the
-> > problem.
+    tst_res_.c:42: Wrong type 'TPASS_EE' (invoked by shell_loader.sh:-1)
+    Usage: tst_{res,brk} filename lineno [TPASS|TBROK|TFAIL|TWARN|TCONF|TINFO|TDEBUG] 'A short description'
 
-> Well we can do that for any runtest file that has clear definition of
-> which tests belongs there. For CVE it's crystal clear, tests that have
-> cve tag should be there. For the rest of the runtest files, it's not so
-> much. Maybe for syscalls we may be able to do so.
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Changes v4->v5:
+* Use argv[1] and argv[2] (Cyril)
+https://lore.kernel.org/ltp/aIC1A9yNXKX6QN2N@yuki.lan/
+https://lore.kernel.org/ltp/aIIHh2CYcraAJHqG@yuki.lan/
 
-> The main thing is that we have to start somewhere got eventually get
-> there. I just quickly looked at the cve runtest file and figured out
-> that we have to add tests variants somewhere into the metadata. I.e.
-> quite a few of the CVE tests have command line options in the runtest
-> file which has to be stored somewhere else.
+Link to v4:
+https://patchwork.ozlabs.org/project/ltp/patch/20250722125916.74967-5-pvorel@suse.cz/
+https://lore.kernel.org/ltp/20250722125916.74967-5-pvorel@suse.cz/
 
-Thanks for analysis. I put your investigation into an issue:
+ testcases/lib/tst_res_.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-https://github.com/linux-test-project/ltp/issues/1253
+diff --git a/testcases/lib/tst_res_.c b/testcases/lib/tst_res_.c
+index c09d689ee5..2cc31e740f 100644
+--- a/testcases/lib/tst_res_.c
++++ b/testcases/lib/tst_res_.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2024 Cyril Hrubis <chrubis@suse.cz>
++ * Copyright (c) Linux Test Project, 2025
+  */
+ 
+ #define TST_NO_DEFAULT_MAIN
+@@ -13,13 +14,15 @@ static void print_help(void)
+ 
+ int main(int argc, char *argv[])
+ {
+-	int type, i;
++	int i, lineno, type;
+ 
+ 	if (argc < 5) {
+-		printf("argc = %i expected 5\n", argc);
++		fprintf(stderr, "%s:%d: argc = %i expected 5\n", __FILE__, __LINE__, argc);
+ 		goto help;
+ 	}
+ 
++	lineno = atoi(argv[2]);
++
+ 	if (!strcmp(argv[3], "TPASS")) {
+ 		type = TPASS;
+ 	} else if (!strcmp(argv[3], "TFAIL")) {
+@@ -35,7 +38,8 @@ int main(int argc, char *argv[])
+ 	} else if (!strcmp(argv[3], "TBROK")) {
+ 		type = TBROK;
+ 	} else {
+-		printf("Wrong type '%s'\n", argv[3]);
++		fprintf(stderr, "%s:%d: Wrong type '%s' (invoked by %s:%d)\n", __FILE__,
++				__LINE__, argv[3], argv[1], lineno);
+ 		goto help;
+ 	}
+ 
+@@ -57,7 +61,7 @@ int main(int argc, char *argv[])
+ 
+ 	tst_reinit();
+ 
+-	tst_res_(argv[1], atoi(argv[2]), type, "%s", msg);
++	tst_res_(argv[1], lineno, type, "%s", msg);
+ 
+ 	return 0;
+ help:
+-- 
+2.50.1
 
-> > Sure, it'd be possible to generate runtest/cve from metadata. Do we really want
-> > to implement it? (I can create a ticket). I guess we would use C and ujson to
-> > not require json-c or python3 for building LTP.
-
-> Or we can hook it up directly into the metadata parser, instead of
-> parsing the resulting JSON we can act on the data while they are in the
-> memory. Matching some tags and writing a test name into a file could be
-> easily done.
-
-> > I would be more interested to have section "CVE reproducers" in Statistics page [1].
-> > While the same tool could be used to do both goals, when only doc page
-> > implemented, it could be easily done in python3 (doc/conf.py already parses
-> > ltp.json).
-
-> > When we are at Statistics page, also generating list of reproducers (based on
-> > kernel fixes) would be also nice. Because this was implemented in the previous
-> > asciidoctor implementation. How about having these lists Statistics, where are
-> > other tables already (and linking each test to "Test Catalog")?
-
-> > Also I find "Statistics" name confusing. It says nothing about the content. I
-> > wonder if people curiously click on the page or just ignore the page (if they
-> > don't like math :)). Maybe "Kernel coverage" or something like that would be
-> > more informative.
-
-> I would put the list of reproducers and list of CVE reproducers into a
-> separate page that would be have "reproducers" in the name.
-
-https://github.com/linux-test-project/ltp/issues/1254
-
-> And statistics is probably okayish name, since coverage may mislead
-> people even more. For example we have a lot of tests for a write()
-> syscall yet coverage for all the possible write handlers in kernel is
-> very poor and not likely to improve.
-
-Fair enough.
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
