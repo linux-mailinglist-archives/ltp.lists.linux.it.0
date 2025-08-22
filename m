@@ -2,96 +2,100 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44DBFB30CB9
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Aug 2025 05:42:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AE38B30CDB
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Aug 2025 05:48:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1755834170; h=to : date :
- message-id : in-reply-to : references : mime-version : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : content-type :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1755834489; h=mime-version :
+ references : in-reply-to : date : message-id : to : subject : list-id
+ : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=Glz9QhDkqwq/jS6NCDD6A6kiLl6KcB7vAVsOexjjdpg=;
- b=cWNNdDx1uIDM13jEuz2vwtTVBQdL0yyAhQC3trwub5tEgq9QezJHvXqeM7S9zuA0bzp+S
- dCfv/VpxUvefANxe1yMMc3kTgTL6q3MjiesxqdZRPKlzNBxhA5OySy4MiMDeBLn99+SSKMg
- i/jqfCVqQXp2kyfUPBOUcDQ5rKB+8ac=
+ bh=7hL5DNztuNzHnBNGyTiASs8PCfKUqEXWSY+W7CkErXY=;
+ b=ansy/AEGD6a/5A8nFa4qRetNXpwpbFZhv7F/Y5pA9vCh8Encdfca5xxWbXfDDXKCJavqG
+ zr8JwaCMaY7s6G9NyVSDLJpJPmKLYKpQSGBR6Zf3VQAL3LWs8KU/o7ppZqEfWp+6sURYkFP
+ XcAFOAcqUnLMr3Xle3EerF9148F+NkQ=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F2C923CCC51
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Aug 2025 05:42:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9C13D3CCBCC
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Aug 2025 05:48:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3F7223CCBB7
- for <ltp@lists.linux.it>; Fri, 22 Aug 2025 05:42:28 +0200 (CEST)
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 973553C2E97
+ for <ltp@lists.linux.it>; Fri, 22 Aug 2025 05:48:07 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 859101000138
- for <ltp@lists.linux.it>; Fri, 22 Aug 2025 05:42:27 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-afcb73621fcso226090666b.0
- for <ltp@lists.linux.it>; Thu, 21 Aug 2025 20:42:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1755834147; x=1756438947; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=AKtsabEGTukf8WLbzWDvZ8ITb6jbhAUF9vQoSgo1ATs=;
- b=I6PBMTrqUZSWBiNcYzw32M7IBqQbLfUQDZZXegPk6KY+gUUShzUBJPVpGFvcw7cb5H
- OnvVPvT4oODd5A64naw4+E3tV3lhZIGc+FcZzRrJ4aRCmJY2MqbjcJN58fqBEOXAJjUs
- d++QXdbuAiTHigqE+j/kfqS4Ac0MEJoU14bGC43HOU2znIw/7lxQN+RNOFD1zBB3APSl
- 8kb+tf3fHqAMb/3fh0ubFxVz09szVEJDzrqefu/apCwdgjXx0yFlz3U7DwLI3wDaJH7A
- 9yZI9QPfni/ABl3ZA7v88pKBB/XL6C8rgbMEpIrRlNzHJNj50P2P3h95SCsYpm24e221
- DVvQ==
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 725716002EC
+ for <ltp@lists.linux.it>; Fri, 22 Aug 2025 05:48:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1755834479;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZXCt71hON9Axf0jwB8Ch28E1UaGtCJ0kJ9d+tmDMpsY=;
+ b=eUTz5gvRhCWuVf9bb6FYjVWJALqlkkuKd2kzRI7JvA3Cr789cgnpFY24l4UZmcNosh9fDJ
+ 15a3CnS3X4Td5OSZtoPL92btLAjYLaBWiKUXJ6ozk/d1QgcnqnOeW7G3mz674Rz3hHK7Oj
+ wQ7q4Nbnsx5CtBZHkK96GDSNg0eHRbI=
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-155-mszKhzTHNnyiJ44AuYmFtQ-1; Thu, 21 Aug 2025 23:47:57 -0400
+X-MC-Unique: mszKhzTHNnyiJ44AuYmFtQ-1
+X-Mimecast-MFC-AGG-ID: mszKhzTHNnyiJ44AuYmFtQ_1755834476
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-24640dae139so2256665ad.1
+ for <ltp@lists.linux.it>; Thu, 21 Aug 2025 20:47:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755834147; x=1756438947;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=AKtsabEGTukf8WLbzWDvZ8ITb6jbhAUF9vQoSgo1ATs=;
- b=upLEutPw6HHnytKBOtrZla1Li6fdNQKmeETDy5JxqkNlZRwNHuOaiAVSbjtrW57WBS
- OGIRWrVE/Nm4DP1XRNXLDis0iFMGYzAF5RiOKbnPyL599MHBLdSDbHszwyM0fN/a1jwN
- yTiwsUv567BlZ3mVo+SGGowR0JrViHpmBHdWKRjghj//MHKyw0cipuCnHulDm58pyxzE
- 80H+/DQiIDZP2jXeYesYOWjYP3GKOEYJK71rlcwP+3ooCcX3DAdGwY1mzVvdQPqVpN3y
- Wvoab/QMXHGxNeEUfsvngqRT0Oe3cVmD5Cryk6XD1eUyb3bW5ylqJemMJlS0FVnJwUWA
- EhkQ==
-X-Gm-Message-State: AOJu0YwSK2kj9SslLpjzfyKbgQjdeRUJFxu7zdsgm+VIxYAjXoV1x5oi
- AE9wod2xlj6Bmm+iXAJtMCOCShkrHKo3C598giKo4el6crx8wrj0+jfArgNUryhlzHA39EVYLrk
- Ni9s=
-X-Gm-Gg: ASbGncuwelz+hiq2OnGzQ0ton8GDlj6RMW12AWMLTC/ecJMvgpc3WMEss0agqWuaK8p
- Uq7S9lkiYUNNxWUhOqCgUJlJUGQEZEx/XhyihAQqECJhejuWQ3QEF1T0knG8MQOfxc6sJrFmBWs
- h706plOXrB/jKwEYmg6+HEkvEwYVcnaUzaywVifbWcw6Z8Wcn85nbkilVI/BDUhj76VpZotdiwH
- RuDbJWHXDDsr5eDYT1aRcoVIgJj4e509P+r748Q4IOqIRKerEoZT4Vpk1t8WafImHhvti0yWOjH
- 3nwkY++F178P+04dXNe+kusajiZzHZMiO7KnxDY1bUV0vPtZBaBGzy9jBCDuCyalV0UM88FP+ke
- tqiFFfOIbLK+X8jFkbiJQILxXXeqcXOMLDBeTjhs794Q=
-X-Google-Smtp-Source: AGHT+IGA0kTwZ8PbCTZXmCgGS1uIWdKUXgV/RF5KyXoV0MKoH6Dmr3J+cHUFzqBNTCL35JpuQbzQ3w==
-X-Received: by 2002:a17:906:d54e:b0:af9:36b3:d695 with SMTP id
- a640c23a62f3a-afe29637bfbmr124274766b.43.1755834146588; 
- Thu, 21 Aug 2025 20:42:26 -0700 (PDT)
-Received: from localhost ([2a07:de40:b240:0:2ad6:ed42:2ad6:ed42])
- by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-afded539c13sm510209866b.116.2025.08.21.20.42.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Aug 2025 20:42:26 -0700 (PDT)
-To: ltp@lists.linux.it
-Date: Fri, 22 Aug 2025 03:41:40 +0000
-Message-ID: <20250822034215.28533-3-wegao@suse.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250822034215.28533-1-wegao@suse.com>
+ d=1e100.net; s=20230601; t=1755834475; x=1756439275;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZXCt71hON9Axf0jwB8Ch28E1UaGtCJ0kJ9d+tmDMpsY=;
+ b=K3pOw2d3eoDecvDO0EnC0b2hJ0UH1OE56fMoWwXvx5fStatA6ttzF4MJFAZ+TsIU2C
+ 5eg1KLLrXUCB9WtfFBDkfMgS6AUw1pgnO6wqSVgn2qI7SyMo0AQ7gvvOUuCynHp3DI1G
+ XbomhCOmGa+Tw4BOPOfmrHlLTjfx5lXT/MS/Mtx/mFmjduYc0gHfoMRhHrZ8fzly4jYv
+ aVP2VnVF4qUGp3y/blTTEe22pgyxk3sgzVw3jr7ynWXBLzWJmNYvQ5LapxV8I8JVc1T4
+ rYSSsQOCGzO9qP/ts4hG8w6TV2rykKoUXgqYIG7KQoOEkJo+X8G0JtFJjrvOateiJ3AU
+ iUSQ==
+X-Gm-Message-State: AOJu0YymJqI6/vf3rk8vcb292PxunjYT6TKwTA19X+E8iKZcEWnqD19/
+ g/jm78zFJbXs2cLi+malnzQlCqnrqCnz7Sp/olkP6dvW/AXqz8VmSCQ6AZmZ7ImkO/ootQFB9sG
+ paS70O9SceEY1eSjYjPE7e4eYhyQ/H5+AhBPZNacWj0BgwND7aG1N58eToFufquA3Q/M29WoA3a
+ aBq0Bjk3chi5mfITOghpY8+atOIcBCeymVQz7Fh31a
+X-Gm-Gg: ASbGnctpZjQt7Knyz+mRii2dgUGxcP5X/hrm/CjwzcHkWXwD03HKpr7Pjb44VYu4QaY
+ KDoj9rpZ7qURsxWvLv/eF8Qa6V4WBEkmu3yXHGfnW0E3HrGaIw3Ki8Iy2ZA+9SUxpAb/ilgZZsQ
+ x0GZIzwwhs9D/gqGshC61Yxw==
+X-Received: by 2002:a17:903:2ac8:b0:234:986c:66bf with SMTP id
+ d9443c01a7336-2462edd7d39mr16751485ad.11.1755834475271; 
+ Thu, 21 Aug 2025 20:47:55 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGgGh51A3zHqBuxk3+AEbq30kSQ0UWqoNO7TN/245Fe9Kcj76Dn+Bud+PUDYfrlaxFMexunqMYvV3Ek79IqZyc=
+X-Received: by 2002:a17:903:2ac8:b0:234:986c:66bf with SMTP id
+ d9443c01a7336-2462edd7d39mr16751365ad.11.1755834474884; Thu, 21 Aug 2025
+ 20:47:54 -0700 (PDT)
+MIME-Version: 1.0
 References: <20250820002556.26865-1-wegao@suse.com>
  <20250822034215.28533-1-wegao@suse.com>
-MIME-Version: 1.0
+ <20250822034215.28533-3-wegao@suse.com>
+In-Reply-To: <20250822034215.28533-3-wegao@suse.com>
+Date: Fri, 22 Aug 2025 11:47:42 +0800
+X-Gm-Features: Ac12FXyjDN862KeC7-TZNwaj9wRxlxA7qoHpD_a2A9zUY_bJOjCoF6JArYffnX4
+Message-ID: <CAEemH2cZWrcOXfcbFJbjamJM1JAFShD+6=JkXCvsAgCUJZwVWg@mail.gmail.com>
+To: Wei Gao <wegao@suse.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: rZ29ftnezhhvkbmQFWIB3g7aSJID-O-6DP2fC423Rtg_1755834476
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 2/2] fspick01.c: Check mount point was really
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: Re: [LTP] [PATCH v2 2/2] fspick01.c: Check mount point was really
  remounted read only
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -104,274 +108,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+From: Li Wang via ltp <ltp@lists.linux.it>
+Reply-To: Li Wang <liwang@redhat.com>
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fixes: #1171
-The fspick01 test does not test if FSCONFIG_CMD_RECONFIGURE really
-reconfigures the mount point, e.g. if the mount point was really
-remounted read only.
-
-Signed-off-by: Wei Gao <wegao@suse.com>
----
- testcases/kernel/syscalls/fspick/fspick01.c |  23 ++-
- ver_linux                                   | 191 --------------------
- 2 files changed, 22 insertions(+), 192 deletions(-)
- delete mode 100755 ver_linux
-
-diff --git a/testcases/kernel/syscalls/fspick/fspick01.c b/testcases/kernel/syscalls/fspick/fspick01.c
-index d03cacd3d..8cb2d3669 100644
---- a/testcases/kernel/syscalls/fspick/fspick01.c
-+++ b/testcases/kernel/syscalls/fspick/fspick01.c
-@@ -6,6 +6,7 @@
-  */
- #include "tst_test.h"
- #include "lapi/fsmount.h"
-+#include "tst_safe_stdio.h"
- 
- #define MNTPOINT		"mntpoint"
- #define TCASE_ENTRY(_flags)	{.name = "Flag " #_flags, .flags = _flags}
-@@ -24,6 +25,12 @@ static void run(unsigned int n)
- {
- 	struct tcase *tc = &tcases[n];
- 	int fspick_fd;
-+	char abspath[PATH_MAX];
-+	char *tmpdir = tst_tmpdir_path();
-+
-+	snprintf(abspath, sizeof(abspath), "%s/%s", tmpdir, MNTPOINT);
-+
-+	TST_EXP_VAL(tst_is_mounted_rw(abspath), 1);
- 
- 	TEST(fspick_fd = fspick(AT_FDCWD, MNTPOINT, tc->flags));
- 	if (fspick_fd == -1) {
-@@ -49,8 +56,22 @@ static void run(unsigned int n)
- 		goto out;
- 	}
- 
--	tst_res(TPASS, "%s: fspick() passed", tc->name);
-+	TST_EXP_VAL(tst_is_mounted_ro(abspath), 1);
-+
-+	TEST(fsconfig(fspick_fd, FSCONFIG_SET_FLAG, "rw", NULL, 0));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "fsconfig(FSCONFIG_SET_FLAG) failed");
-+		goto out;
-+	}
- 
-+	TEST(fsconfig(fspick_fd, FSCONFIG_CMD_RECONFIGURE, NULL, NULL, 0));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "fsconfig(FSCONFIG_CMD_RECONFIGURE) failed");
-+		goto out;
-+	}
-+
-+	TST_EXP_VAL(tst_is_mounted_rw(abspath), 1);
-+	tst_res(TPASS, "%s: fspick() passed", tc->name);
- out:
- 	SAFE_CLOSE(fspick_fd);
- }
-diff --git a/ver_linux b/ver_linux
-deleted file mode 100755
-index 4333575d3..000000000
---- a/ver_linux
-+++ /dev/null
-@@ -1,191 +0,0 @@
--#!/bin/sh
--# Before running this script please ensure that your PATH is
--# typical as you use for compilation/istallation. I use
--# /bin /sbin /usr/bin /usr/sbin /usr/local/bin, but it may
--# differ on your system.
--
--PATH=/sbin:/usr/sbin:/bin:/usr/bin:$PATH
--
--tst_cmd_available()
--{
--	if type command > /dev/null 2>&1; then
--		command -v $1 > /dev/null 2>&1 || return 1
--	else
--		which $1 > /dev/null 2>&1
--		if [ $? -eq 0 ]; then
--			return 0
--		else
--			return 1
--		fi
--	fi
--}
--
--tst_cmd_run()
--{
--	local cmd="$1"
--	shift
--	tst_cmd_available $cmd && eval "$cmd $@"
--}
--
--is_enabled()
--{
--	[ -f "$1" ] && [ "$(cat $1)" = "Y" -o "$(cat $1)" = "1" ]
--}
--
--echo 'If some fields are empty or look unusual you may have an old version.'
--echo 'Compare to the current minimal requirements in Documentation/Changes.'
--
--echo
--echo "`ls /etc/*release 2> /dev/null`"
--cat /etc/*release 2> /dev/null
--if [ $? = 1 ]; then
--   echo "`ls /usr/lib/*release 2> /dev/null`"
--   cat /usr/lib/*release 2> /dev/null
--fi
--if [ $? = 1 ]; then
--   echo '/etc/issue:'
--   cat /etc/issue 2> /dev/null
--fi
--if [ $? = 1 ]; then
--	echo 'lsb_release -a'
--	lsb_release -a 2> /dev/null
--fi
--
--echo
--echo 'uname:'
--uname -a
--
--echo
--echo '/proc/cmdline'
--cat /proc/cmdline
--
--echo
--
--echo "Gnu C                 " `gcc --version 2>/dev/null | head -n 1`
--echo "Clang                 " `clang --version 2>/dev/null | head -n 1`
--
--make --version 2>&1 | awk -F, '{print $1}' | awk \
--      '/GNU Make/{print "Gnu make              ",$NF}'
--
--ld -v 2>&1 | awk -F\) '{print $1}' | awk \
--      '/BFD/{print "binutils              ",$NF}'
--
--mkswap -V 2>&1 | awk '{print "util-linux            ", $NF}'
--
--mount --version 2>&1 | awk '{$1=$2=""; print "mount               ", $0}'
--
--insmod -V  2>&1 | awk 'NR==1 {print "modutils              ",$NF}'
--
--bcachefs version 2>&1 | grep "^[0-9]"  | awk \
--'NR==1 {print "bcachefs              ", $1}'
--
--mkfs.btrfs -V 2>&1 | grep "^mkfs.btrfs" | sed 's/,//' | awk \
--'NR==1 {print "btrfs                 ", $5}'
--
--tune2fs 2>&1 | grep "^tune2fs" | sed 's/,//' | awk \
--'NR==1 {print "e2fsprogs             ", $2}'
--
--mkfs.exfat -V 2>&1 | grep "^exfatprogs" | sed 's/,//' | awk \
--'NR==1 {print "exfat                 ", $4}'
--
--mkfs.ntfs -V 2>&1 | grep "^mkntfs" | sed 's/,//' | awk \
--'NR==1 {$1="";print "ntfs                 ", $0}'
--
--mkfs.vfat 2>&1 | grep "^mkfs\." | sed 's/,//' | awk \
--'NR==1 {print "vfat                  ", $2}'
--
--mkfs.xfs -V 2>&1 | grep "^mkfs.xfs" | sed 's/,//' | awk \
--'NR==1 {print "xfs                   ", $3}'
--
--cardmgr -V 2>&1| grep version | awk \
--'NR==1{print "pcmcia-cs             ", $3}'
--
--isdnctrl 2>&1 | grep version | awk \
--'NR==1{print "isdn4k-utils          ", $NF}'
--
--printf "Linux C Library        $($(ldd /bin/sh | \
--awk '/libc/{print $3}') 2>&1 | \
--grep -i -e libc.*version -e musl.*libc -e ^version)\n"
--
--ldd -v > /dev/null 2>&1 && ldd -v || ldd --version |head -n 1 | awk \
--'NR==1{print "Dynamic linker (ldd)  ", $NF}'
--
--ls -l /usr/lib/lib{g,stdc}++.so  2>/dev/null | awk -F. \
--       '{print "Linux C++ Library      " $4"."$5"."$6}'
--
--ps --version 2>&1 | awk 'NR==1{print "Procps                ", $NF}'
--
--ifconfig --version 2>&1 | grep tools | awk \
--'NR==1{print "Net-tools             ", $NF}'
--
--ip -V 2>&1 | awk \
--'NR==1{print "iproute2              ", $NF}'
--
--ping -V 2>&1 | awk \
--'NR==1{print "iputils               ", $NF}'
--
--ethtool --version | grep version 2>&1 | awk \
--'NR==1{print "ethtool               ", $NF}'
--
--# Kbd needs 'loadkeys -h',
--loadkeys -h 2>&1 | awk \
--'(NR==1 && ($3 !~ /option/)) {print "Kbd                   ", $3}'
--
--# while console-tools needs 'loadkeys -V'.
--loadkeys -V 2>&1 | awk \
--'(NR==1 && ($2 ~ /console-tools/)) {print "Console-tools         ", $3}'
--
--expr --v 2>&1 | awk 'NR==1{print "Sh-utils              ", $NF}'
--
--echo
--if [ -e /proc/modules ]; then
--    X=`cat /proc/modules | sed -e "s/ .*$//"`
--    echo "Modules Loaded         "$X
--fi
--
--echo
--echo 'cpuinfo:'
--tst_cmd_run lscpu || cat /proc/cpuinfo
--
--echo
--echo 'free reports:'
--free
--
--echo
--echo 'memory (/proc/meminfo):'
--cat /proc/meminfo
--
--echo
--echo 'available filesystems:'
--echo $(cut -f2 /proc/filesystems | sort -u)
--
--echo
--echo 'mounted filesystems (/proc/mounts):'
--cat /proc/mounts
--
--echo
--echo 'mounted filesystems (df):'
--if `df -hT >/dev/null 2>/dev/null`; then
--	df -hT
--else
--	df
--fi
--
--echo
--echo 'tainted (/proc/sys/kernel/tainted):'
--cat /proc/sys/kernel/tainted
--
--echo
--if is_enabled /sys/module/apparmor/parameters/enabled; then
--	echo 'AppArmor enabled'
--	tst_cmd_run aa-status
--else
--	echo 'AppArmor disabled'
--fi
--
--echo
--
--if ! tst_cmd_run sestatus; then
--	printf 'SELinux mode: '
--	tst_cmd_run getenforce || echo 'unknown'
--fi
--- 
-2.43.0
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gRnJpLCBBdWcgMjIsIDIwMjUgYXQgMTE6NDLigK9BTSBXZWkgR2FvIDx3ZWdhb0BzdXNlLmNv
+bT4gd3JvdGU6Cgo+IEZpeGVzOiAjMTE3MQo+IFRoZSBmc3BpY2swMSB0ZXN0IGRvZXMgbm90IHRl
+c3QgaWYgRlNDT05GSUdfQ01EX1JFQ09ORklHVVJFIHJlYWxseQo+IHJlY29uZmlndXJlcyB0aGUg
+bW91bnQgcG9pbnQsIGUuZy4gaWYgdGhlIG1vdW50IHBvaW50IHdhcyByZWFsbHkKPiByZW1vdW50
+ZWQgcmVhZCBvbmx5Lgo+Cj4gU2lnbmVkLW9mZi1ieTogV2VpIEdhbyA8d2VnYW9Ac3VzZS5jb20+
+Cj4gLS0tCj4gIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZnNwaWNrL2ZzcGljazAxLmMgfCAg
+MjMgKystCj4gIHZlcl9saW51eCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAx
+OTEgLS0tLS0tLS0tLS0tLS0tLS0tLS0KPgoKSSBndWVzcyB0aGUgZGVsZXRpb24gb2YgdmVyX2xp
+bnV4IHdhcyBhIGNhcmVsZXNzIG1pc3Rha2U/CgpPdGhlcndpc2UgbG9va3MgZ29vZC4KCgotLSAK
+UmVnYXJkcywKTGkgV2FuZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxp
+bnV4Lml0L2xpc3RpbmZvL2x0cAo=
