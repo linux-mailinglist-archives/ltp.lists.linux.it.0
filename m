@@ -2,116 +2,106 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03B44B3BB4B
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Aug 2025 14:30:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ECFAB3BBC6
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Aug 2025 14:56:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AEF833CD149
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Aug 2025 14:30:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DC0333CD14A
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Aug 2025 14:56:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1E2423CA2FC
- for <ltp@lists.linux.it>; Fri, 29 Aug 2025 14:30:19 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 45FEB3CCD37
+ for <ltp@lists.linux.it>; Fri, 29 Aug 2025 14:56:04 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8F9AF200986
- for <ltp@lists.linux.it>; Fri, 29 Aug 2025 14:30:18 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A8FFF1A00445
+ for <ltp@lists.linux.it>; Fri, 29 Aug 2025 14:56:02 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 007555C15A;
- Fri, 29 Aug 2025 12:30:18 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 27B5420830;
+ Fri, 29 Aug 2025 12:56:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1756470618; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1756472162; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=+SVSUVcJPXH2G9CgcsLqEXI34vRd8mODuUNA/ZZc2RQ=;
- b=kFAUl5Z9hIbwI/JKRuMKEPJoHmPhD8KpFqQfnTgzQu7EXuCp5aR4c8QzNvB/SSJNRyK8z5
- 0KEQq2rHgGcg/wy+oAK/aAjb3pnCWDdBpNC5Tn3efQuKFr1l1AxnoRrqOXHlZq9GMpMpJG
- s7lycLx9UeDPIuy5pAI+fKQbOdaFM+M=
+ bh=vTgeuQTH9eUOFJ7XeJivosU/kZ4ntYA6fKQHNLeMFJM=;
+ b=bAjveNQdD9ZNbuT+S5Y95oHQx8FTVGF7r3jjMYANIqxrqjYZJeHr0liiQlt8+poF+A0VFy
+ CJdq87sWOKhjHwMIW8DCBeGywgtqk2ch+Rd7UjKTJUUiPpo2hmCnGs9Zxq/2eUZR9MaXLk
+ QoSxHa18VFTEEQmq72A8iWFSuPuqAf0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1756470618;
+ s=susede2_ed25519; t=1756472162;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=+SVSUVcJPXH2G9CgcsLqEXI34vRd8mODuUNA/ZZc2RQ=;
- b=yvEc1NhYgm7zglFnpcng78muk7VWspGqeIXxMBrYZxeid/iEXF/J0zt6oKmIHIajkPqaWt
- im8ztPK1lVwBnVCw==
+ bh=vTgeuQTH9eUOFJ7XeJivosU/kZ4ntYA6fKQHNLeMFJM=;
+ b=AKiTf6YUIoraLJNL6k3/tVR7ZUQT4yk2VzfWqCytNuprlunnzR7IlBbVivT7kDMCn38rI2
+ HmHTej3f0A4Ij2Cg==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=kFAUl5Z9;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=yvEc1NhY
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1756470618; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1756472162; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=+SVSUVcJPXH2G9CgcsLqEXI34vRd8mODuUNA/ZZc2RQ=;
- b=kFAUl5Z9hIbwI/JKRuMKEPJoHmPhD8KpFqQfnTgzQu7EXuCp5aR4c8QzNvB/SSJNRyK8z5
- 0KEQq2rHgGcg/wy+oAK/aAjb3pnCWDdBpNC5Tn3efQuKFr1l1AxnoRrqOXHlZq9GMpMpJG
- s7lycLx9UeDPIuy5pAI+fKQbOdaFM+M=
+ bh=vTgeuQTH9eUOFJ7XeJivosU/kZ4ntYA6fKQHNLeMFJM=;
+ b=bAjveNQdD9ZNbuT+S5Y95oHQx8FTVGF7r3jjMYANIqxrqjYZJeHr0liiQlt8+poF+A0VFy
+ CJdq87sWOKhjHwMIW8DCBeGywgtqk2ch+Rd7UjKTJUUiPpo2hmCnGs9Zxq/2eUZR9MaXLk
+ QoSxHa18VFTEEQmq72A8iWFSuPuqAf0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1756470618;
+ s=susede2_ed25519; t=1756472162;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=+SVSUVcJPXH2G9CgcsLqEXI34vRd8mODuUNA/ZZc2RQ=;
- b=yvEc1NhYgm7zglFnpcng78muk7VWspGqeIXxMBrYZxeid/iEXF/J0zt6oKmIHIajkPqaWt
- im8ztPK1lVwBnVCw==
+ bh=vTgeuQTH9eUOFJ7XeJivosU/kZ4ntYA6fKQHNLeMFJM=;
+ b=AKiTf6YUIoraLJNL6k3/tVR7ZUQT4yk2VzfWqCytNuprlunnzR7IlBbVivT7kDMCn38rI2
+ HmHTej3f0A4Ij2Cg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D5C1113A3E;
- Fri, 29 Aug 2025 12:30:17 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1694E13326;
+ Fri, 29 Aug 2025 12:56:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 3CXYMlmdsWhFbAAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Fri, 29 Aug 2025 12:30:17 +0000
-Date: Fri, 29 Aug 2025 14:30:16 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id YmgtA2KjsWjrdAAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Fri, 29 Aug 2025 12:56:02 +0000
+Date: Fri, 29 Aug 2025 14:55:56 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <aLGdWMyihjYsuiCk@rei.lan>
-References: <20250829095635.193116-1-liwang@redhat.com>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <aLGjXEcSFhzqLiUd@rei.lan>
+References: <20250828-open_tree_attr-v1-0-f339a0e51e22@suse.com>
+ <20250828-open_tree_attr-v1-2-f339a0e51e22@suse.com>
+ <aLDhgFRA8ppAmYlH@localhost> <aLFzZ6xGsZh3CO64@yuki.lan>
+ <9f626db7-5bf0-4376-8b4a-a643569f41ab@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250829095635.193116-1-liwang@redhat.com>
+In-Reply-To: <9f626db7-5bf0-4376-8b4a-a643569f41ab@suse.com>
 X-Spam-Level: 
-X-Rspamd-Queue-Id: 007555C15A
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[]; MISSING_XM_UA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_TWO(0.00)[2];
+X-Spamd-Result: default: False [-8.30 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; MISSING_XM_UA(0.00)[];
+ TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:email];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Score: -4.51
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -8.30
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] sched_football: synchronize start with barrier
- and add proper game stop
+Subject: Re: [LTP] [PATCH 2/2] mount_setattr01: add open_tree_attr variant
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,9 +120,18 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Looks good to me:
+> > The tst_variant was implemented exactly for the case where we have
+> > different syscalls doing the same job. In this case a shortcut was added
+> > that does open_tree + mount_setattr in a single syscall, so using
+> > variants is very reasonable choice.
+> 
+> Is it a free for all to merge the patch?
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+And does it work correctly on kernels older than 6.15? I do not see any
+checks for the open_tree_attr() syscall availability.
+
+Apart from that there are a few minor things to fix, I will do a proper
+review.
 
 -- 
 Cyril Hrubis
