@@ -1,109 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53B4DB43781
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Sep 2025 11:48:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D2216B437A0
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Sep 2025 11:52:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E22423CD427
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Sep 2025 11:48:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7ED683CC058
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Sep 2025 11:52:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E12D53CD42B
- for <ltp@lists.linux.it>; Thu,  4 Sep 2025 11:48:46 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by picard.linux.it (Postfix) with ESMTPS id 2B8F03C5705
+ for <ltp@lists.linux.it>; Thu,  4 Sep 2025 11:52:33 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CEEC7600795
- for <ltp@lists.linux.it>; Thu,  4 Sep 2025 11:48:45 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 322806007B7
+ for <ltp@lists.linux.it>; Thu,  4 Sep 2025 11:52:32 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1ED5E3429D;
- Thu,  4 Sep 2025 09:48:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1756979325;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tzwkGxmwyG73Emaxo8nlVUnFMV+eAmMebqnDb9YMltI=;
- b=dyYuJzc8Z+//mLoczNoViEeW8hHIWFobx5Y/QU5o+i6adlxHR0B1/ZSXHnMO1lCXgEYz5S
- Cypu0SDWLOCmsvOD8Qpc0yKkCWO35Hw0a4hrbxkVzur9QXg41XNOLdQc9xb7U7CvwOM144
- iHIOUkfvrqRwQJrjsPLYTAJdxqO3GAA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1756979325;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tzwkGxmwyG73Emaxo8nlVUnFMV+eAmMebqnDb9YMltI=;
- b=boWzus0o1rxFNe8WEawtOk+DQRy5DqCQSIZrPN59u6YhBKDVjISXLtY63wlEBlUj/tezKI
- 2pg4TZgSPWEfB6CQ==
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2C3DF342EA;
+ Thu,  4 Sep 2025 09:52:31 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1756979325;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tzwkGxmwyG73Emaxo8nlVUnFMV+eAmMebqnDb9YMltI=;
- b=dyYuJzc8Z+//mLoczNoViEeW8hHIWFobx5Y/QU5o+i6adlxHR0B1/ZSXHnMO1lCXgEYz5S
- Cypu0SDWLOCmsvOD8Qpc0yKkCWO35Hw0a4hrbxkVzur9QXg41XNOLdQc9xb7U7CvwOM144
- iHIOUkfvrqRwQJrjsPLYTAJdxqO3GAA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1756979325;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tzwkGxmwyG73Emaxo8nlVUnFMV+eAmMebqnDb9YMltI=;
- b=boWzus0o1rxFNe8WEawtOk+DQRy5DqCQSIZrPN59u6YhBKDVjISXLtY63wlEBlUj/tezKI
- 2pg4TZgSPWEfB6CQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7EC9413AA0;
- Thu,  4 Sep 2025 09:48:44 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1EB6113AA0;
+ Thu,  4 Sep 2025 09:52:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id f2t8F3xguWgkIgAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 04 Sep 2025 09:48:44 +0000
-Date: Thu, 4 Sep 2025 11:48:42 +0200
-From: Petr Vorel <pvorel@suse.cz>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id LbaKBl9huWg+IwAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Thu, 04 Sep 2025 09:52:31 +0000
+Date: Thu, 4 Sep 2025 11:53:08 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
 To: Li Wang <liwang@redhat.com>
-Message-ID: <20250904094842.GA52619@pevik>
-References: <20250904064126.125661-1-liwang@redhat.com>
+Message-ID: <aLlhhJcdbx7mPQX_@yuki.lan>
+References: <aLVzVyaVhr4IHkyd@yuki.lan>
+ <f014f48a-294c-4205-b147-e20074a8da48@suse.com>
+ <aLgxmUJ7e05X1seP@yuki.lan> <aLhAj_-gzjmzvOoX@yuki.lan>
+ <CAEemH2dzju5n1FZ8TyG0=YBJY-A80VD7Sv1PLJZuj_AYNERYvg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250904064126.125661-1-liwang@redhat.com>
-X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TO_DN_SOME(0.00)[]; MISSING_XM_UA(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_FIVE(0.00)[5];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.cz:email,imap1.dmz-prg2.suse.org:helo];
- REPLYTO_EQ_FROM(0.00)[]
+In-Reply-To: <CAEemH2dzju5n1FZ8TyG0=YBJY-A80VD7Sv1PLJZuj_AYNERYvg@mail.gmail.com>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
 X-Spam-Level: 
-X-Spam-Score: -3.50
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Queue-Id: 2C3DF342EA
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spam-Score: -4.00
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] sched_football: synchronize with kickoff flag to
- reduce skew
+Subject: Re: [LTP] LTP Release preparations
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,36 +79,93 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Hi!
+> This makes sense! However, from my extensive testing, I still see
+> occasional fails on KVM/Debug platforms.
+> 
+> I suspect the existing barriers ensure all threads are created before
+> the game starts, but small scheduler skews can still allow the attacking
+> thread to run for a few cycles before the defending thread migrates,
+> especially on debug/RT kernels.
 
-...
->  static void do_setup(void)
+I guess that there is no defined order in which the threads are woken up
+after the sleep on the barrier. Hence if we wake up the low prio thread
+by a chance before all the high prio threads are awake they manage to do
+a few cycles.
+
+> So, based on this improve, we might need additional spin for all player
+> threads (offense, defense, fans) wait at the barrier and then spin until
+> the referee kicks off the ball.
+> 
+> --- a/testcases/realtime/func/sched_football/sched_football.c
+> +++ b/testcases/realtime/func/sched_football/sched_football.c
+> @@ -44,6 +44,7 @@
+>  static tst_atomic_t the_ball;
+>  static int players_per_team = 0;
+>  static int game_length = DEF_GAME_LENGTH;
+> +static tst_atomic_t kickoff_flag;
+>  static tst_atomic_t game_over;
+> 
+>  static char *str_game_length;
+> @@ -55,6 +56,9 @@ void *thread_fan(void *arg LTP_ATTRIBUTE_UNUSED)
 >  {
-> +	if (!tst_check_preempt_rt())
-> +		tst_brk(TCONF, "Test requires real-time kernel");
+>         prctl(PR_SET_NAME, "crazy_fan", 0, 0, 0);
+>         pthread_barrier_wait(&start_barrier);
+> +       while (!tst_atomic_load(&kickoff_flag))
+> +               ;
+> +
+>         /*occasionally wake up and run across the field */
+>         while (!tst_atomic_load(&game_over)) {
+>                 struct timespec start, stop;
+> @@ -80,6 +84,9 @@ void *thread_defense(void *arg LTP_ATTRIBUTE_UNUSED)
+>  {
+>         prctl(PR_SET_NAME, "defense", 0, 0, 0);
+>         pthread_barrier_wait(&start_barrier);
+> +       while (!tst_atomic_load(&kickoff_flag))
+> +               ;
+> +
+>         /*keep the ball from being moved */
+>         while (!tst_atomic_load(&game_over)) {
+>         }
+> @@ -92,6 +99,9 @@ void *thread_offense(void *arg LTP_ATTRIBUTE_UNUSED)
+>  {
+>         prctl(PR_SET_NAME, "offense", 0, 0, 0);
+>         pthread_barrier_wait(&start_barrier);
+> +       while (!tst_atomic_load(&kickoff_flag))
+> +               ;
+> +
+>         while (!tst_atomic_load(&game_over)) {
+>                 tst_atomic_add_return(1, &the_ball); /* move the ball ahead
+> one yard */
+>         }
+> @@ -115,9 +125,10 @@ void referee(int game_length)
+>         now = start;
+> 
+>         /* Start the game! */
+> -       tst_atomic_store(0, &the_ball);
+> -       pthread_barrier_wait(&start_barrier);
+>         atrace_marker_write("sched_football", "Game_started!");
+> +       pthread_barrier_wait(&start_barrier);
+> +       tst_atomic_store(0, &the_ball);
+> +       tst_atomic_store(1, &kickoff_flag);
 
-I guess this itself fix many false positives :). I'm ok with requesting RT
-kernel, but just to remind the claim originated from Cyril [1] "sched_football
-is useful not only for testing realtime". So was Cyril wrong?
+Is this really 100% buletproof? Now the threads are going to wait for
+the referee for the kick off but if the referee is the first thread to
+be woken up after the barrier the order is stil not guaranteed.
 
-(I'm ok to keep the test in runtest/sched even requesting RT kernel, because
-runtest/sched and other LTP tests are run on both RT and non-RT.
+Maybe we can just do a short sleep here in order to make sure that the
+scheduller kicks in and redistributes the threads. I would say something
+as 20ms (since with CONFIG_HZ=100 we have scheduller ticks every 10ms).
 
-The rest LGTM, thanks for stabilising the test.
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
-Kind regards,
-Petr
-
-[1] https://github.com/linux-test-project/ltp/commit/3a8e38fc2c46c886525bbb708dff462c6b633d32
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
