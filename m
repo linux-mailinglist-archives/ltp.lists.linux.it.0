@@ -2,95 +2,80 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76485B7D139
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Sep 2025 14:17:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61649B7E57D
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Sep 2025 14:47:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1758108793; h=mime-version :
- references : in-reply-to : date : message-id : to : subject : list-id
- : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=AXxwT31aMxnZQPBBftPHnP4dkBscJt9aFR4IL7kfMks=;
- b=h1ktAB0KCcRSc9A9NbZbV9rKGh+9nQQshY9s10EZWuZO/ltm985hudDDxsCpPpBJjuTcq
- FPsEriV9MijCMeow5Sa2X4jA9gPo37Lu5rc6gx6ijfCjTzxfHwVmHXhuqZCx5QrBX/sMe42
- GdjDqCwJ393ftD3/+Fuz0UB1XzutTWM=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1758095872; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-type : content-transfer-encoding : sender : from;
+ bh=8tfNbdFVrEh/ocpjCk7qwDdb5igrndazspZC4eQ08Vo=;
+ b=UIfweULPidAjJQpPcLjgKQ4xOLz1d43Ukd6xFau2mHPNukFoADXgmWuzjkkncS+Atazxf
+ 6+EwviiKm/tHYChE7Q0PP+DgotZsrGvCoq/wGEDCRBEsqEbcMe6qGaEdyRWhedc+mgKY+Dc
+ ENagK7HcZxCOcV3SVCZDYhbDgsVeiCw=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 524B33CDC27
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Sep 2025 13:33:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 678FA3CDBF1
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Sep 2025 09:57:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DF11B3C8069
- for <ltp@lists.linux.it>; Wed, 17 Sep 2025 09:03:42 +0200 (CEST)
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
- [IPv6:2607:f8b0:4864:20::52f])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 1CE0B3CD858
+ for <ltp@lists.linux.it>; Wed, 17 Sep 2025 09:57:39 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 572891400C67
+ for <ltp@lists.linux.it>; Wed, 17 Sep 2025 09:57:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1758095856;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Ny8zjO7w54/u5MkHhTGTHxgrkzVQTR77iuLzzDDmRiA=;
+ b=CEUf2aPnprffWcd747hkucdGkx1Ne8FsfuleAyjdqC/79NR8tHjRDZM9ILOZyNq/eAZQkT
+ GWU3sLjt31SO7iEzGJEz2UI+fcWH47/9kAWMuUoLnM3zTV3ZtZO7ILlyP1jPpgR3zUlP4P
+ zwBltsttwZXhRyT8Vg108wvuJ+W0Xho=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-131-7S_O64xbPWaATnUHZE3zxA-1; Wed,
+ 17 Sep 2025 03:57:34 -0400
+X-MC-Unique: 7S_O64xbPWaATnUHZE3zxA-1
+X-Mimecast-MFC-AGG-ID: 7S_O64xbPWaATnUHZE3zxA_1758095853
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EE085600A3D
- for <ltp@lists.linux.it>; Wed, 17 Sep 2025 09:03:41 +0200 (CEST)
-Received: by mail-pg1-x52f.google.com with SMTP id
- 41be03b00d2f7-b4c1fc383eeso4256074a12.1
- for <ltp@lists.linux.it>; Wed, 17 Sep 2025 00:03:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1758092620; x=1758697420; darn=lists.linux.it;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5J1YBD35YzME4fUnRREYzYzV7J9Xh5Amzs6Qryaeq1c=;
- b=Gw6Iycq3vDLUh7+OmlXqHGIgWG/zf0gkZTRUHN+LLtx7DLtMOIbcK2qBJb5MTll26k
- PucvUvZYLzBaEwa2CvPHOVLQyRG0Qu4TtXDQ8ql2gzx/a/BS8/rewhVqjSSKdVYqTayd
- kucC6Rd4CAw2HGCxMwkfQmkDtq+rP0eunJ5UFMqvZzOa/hqxjXVai3fLG5dflnP38qMs
- FirJJCcAEDqD2G006Ms99RB6zLlhurw0Xsr/Fw5LvzM1srY9IKMo5NQgh67p+ohZUaTE
- fSK75Z0k3d7bsQmmXx+rV5zZlDLQWCq+0tvUlzzXJMYUeHOdEFHNbvtaa7X+PFhmoyOq
- 2xmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758092620; x=1758697420;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5J1YBD35YzME4fUnRREYzYzV7J9Xh5Amzs6Qryaeq1c=;
- b=uqHhpjCOVx40AtJzbiop83Hw7ZMx94tko5+mc7ytKvhkfEVdh3nmEy/S5Ku1vRp2cb
- 8HVq5d9ZmM2WZIyCnC1vUcW9tXfgf903x96ux5bUzadFEGr+rao36OTzDtNCNpj0ep3O
- JNSVhGUiYOx7J5YOICYAZeGJq4myKubtpYBEuYqNdzZt+cfdpJblIyqgFEHaGtZ8K1/7
- EyOmV89oseCg0Kd1LouQBo8wckwxjExnp0iImOTLREM+uJlH9vxltfo6j3gstUMUg1Kz
- iwwoPtQdZ0y9fZu0I/3+1+DcrroBeDHavS1zlMyQUzB9C/dA0f8bpwYjju3YOamH4fUU
- uGDQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWJArPW/VP02glzeSfceSllHF1UJqKCTZOKZmVvtriW8l2RjqYaqi8N7YOmG2X2Eb+W9b0=@lists.linux.it
-X-Gm-Message-State: AOJu0YxGTJ1XNSo6B7P8m2+AASdhXw3rqo2Y58lOEQBwb+wwAgWWmwFy
- rZsSqgUQYQHYFvEXzHDbD7mHHcaolCrtYJxWEPuIwqcL5LqYUgUqcyKB7c1CqPRq81w5BUl3QFK
- uJpkUf9dAIfO5IdqN8QvKiTV+ztWwCCGWOiVo4yFv
-X-Gm-Gg: ASbGnct7PtaXsB8yJxPi8XFlXXK1J3zyVGlbCYEOnENbUuOQZlpq3szyLSse8z3OJp8
- SK4+T/2SXr9WtEvnfRdzD4o/GrYkg9OUHzCVhAJ10x0uDce06BeCAhhDFnYpXAIPLaw2NfdASYr
- 3OnlDWUOxWW2rNB1gKJtbmPlwhPLj/3zbCrHPLxAuVo93UBarwZtQh59oUpDPlI0sF1cVMawVh+
- Ad2Tax7C+jbwm6RGue0FECCPbYoNuS9l4WR8sqmfUlfCsbvbdzODs9vkB5scxZnXXs=
-X-Google-Smtp-Source: AGHT+IFHqqSb0iZeLJZY85eRucnrDK2myNCsnrye3aGyc3jn1Chr0LEkdru+rbzxnAqB29LvtQoRAz7rfDOuHcs9NJY=
-X-Received: by 2002:a17:902:dac4:b0:248:f84f:fd3c with SMTP id
- d9443c01a7336-26812166d0cmr13573895ad.13.1758092619855; Wed, 17 Sep 2025
- 00:03:39 -0700 (PDT)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 5F8F618004D8
+ for <ltp@lists.linux.it>; Wed, 17 Sep 2025 07:57:33 +0000 (UTC)
+Received: from fedora-laptop-x1.redhat.com (unknown [10.72.112.245])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 3C44119560BA
+ for <ltp@lists.linux.it>; Wed, 17 Sep 2025 07:57:31 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Wed, 17 Sep 2025 15:57:29 +0800
+Message-ID: <20250917075729.30093-1-liwang@redhat.com>
 MIME-Version: 1.0
-References: <20250910192057.1045711-2-kuniyu@google.com>
- <202509171359.658ddb38-lkp@intel.com>
-In-Reply-To: <202509171359.658ddb38-lkp@intel.com>
-Date: Wed, 17 Sep 2025 00:03:28 -0700
-X-Gm-Features: AS18NWCDLFhRi5V-YAZb1sP659_dYtJBp3pw_GvlN50RKdZinoKi4N8ZdQCAG4E
-Message-ID: <CAAVpQUBZT4dX9hU8h6s8ew5BYX9C6yBPaRODP4zM3F-=BB4Dtw@mail.gmail.com>
-To: kernel test robot <oliver.sang@intel.com>
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,ENV_AND_HDR_SPF_MATCH,
- SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-2.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: PMwZUxw6aHSlX7-tuhhCQv4vqqVWySL6t2TA3KE4Y90_1758095853
+X-Mimecast-Originator: redhat.com
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Wed, 17 Sep 2025 13:32:53 +0200
-Subject: Re: [LTP] [PATCH v8 bpf-next/net 1/6] tcp: Save lock_sock() for
- memcg in inet_csk_accept().
+Subject: [LTP] [PATCH] mmap22: Improve MAP_DROPPABLE test stability using
+ mincore()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,60 +87,189 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Kuniyuki Iwashima via ltp <ltp@lists.linux.it>
-Reply-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>,
- Alexei Starovoitov <ast@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>,
- Mina Almasry <almasrymina@google.com>, lkp@intel.com,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- Stanislav Fomichev <sdf@fomichev.me>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Kuniyuki Iwashima <kuni1840@gmail.com>,
- Shakeel Butt <shakeel.butt@linux.dev>, ltp@lists.linux.it,
- Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org,
- Johannes Weiner <hannes@cmpxchg.org>, oe-lkp@lists.linux.dev,
- bpf@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>,
- "David S. Miller" <davem@davemloft.net>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: Li Wang via ltp <ltp@lists.linux.it>
+Reply-To: Li Wang <liwang@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVHVlLCBTZXAgMTYsIDIwMjUgYXQgMTE6MzfigK9QTSBrZXJuZWwgdGVzdCByb2JvdAo8b2xp
-dmVyLnNhbmdAaW50ZWwuY29tPiB3cm90ZToKPgo+Cj4gSGVsbG8sCj4KPiBrZXJuZWwgdGVzdCBy
-b2JvdCBub3RpY2VkICJCVUc6S0FTQU46c2xhYi1vdXQtb2YtYm91bmRzX2luX19pbmV0X2FjY2Vw
-dCIgb246Cj4KPiBjb21taXQ6IGQ0NjVhYTA5OTQyODI1ZDkzYTM3N2MzNzE1YzQ2NGU4ZjY4Mjdm
-MTMgKCJbUEFUQ0ggdjggYnBmLW5leHQvbmV0IDEvNl0gdGNwOiBTYXZlIGxvY2tfc29jaygpIGZv
-ciBtZW1jZyBpbiBpbmV0X2Nza19hY2NlcHQoKS4iKQo+IHVybDogaHR0cHM6Ly9naXRodWIuY29t
-L2ludGVsLWxhYi1sa3AvbGludXgvY29tbWl0cy9LdW5peXVraS1Jd2FzaGltYS90Y3AtU2F2ZS1s
-b2NrX3NvY2stZm9yLW1lbWNnLWluLWluZXRfY3NrX2FjY2VwdC8yMDI1MDkxMS0wMzIzMTIKPiBi
-YXNlOiBodHRwczovL2dpdC5rZXJuZWwub3JnL2NnaXQvbGludXgva2VybmVsL2dpdC9icGYvYnBm
-LW5leHQuZ2l0IG5ldAo+IHBhdGNoIGxpbms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8y
-MDI1MDkxMDE5MjA1Ny4xMDQ1NzExLTIta3VuaXl1QGdvb2dsZS5jb20vCj4gcGF0Y2ggc3ViamVj
-dDogW1BBVENIIHY4IGJwZi1uZXh0L25ldCAxLzZdIHRjcDogU2F2ZSBsb2NrX3NvY2soKSBmb3Ig
-bWVtY2cgaW4gaW5ldF9jc2tfYWNjZXB0KCkuCj4KPiBpbiB0ZXN0Y2FzZTogbHRwCj4gdmVyc2lv
-bjogbHRwLXg4Nl82NC1jNjY2MGEzZTAtMV8yMDI1MDkxMwo+IHdpdGggZm9sbG93aW5nIHBhcmFt
-ZXRlcnM6Cj4KPiAgICAgICAgIHRlc3Q6IG5ldC5mZWF0dXJlcwo+Cj4KPgo+IGNvbmZpZzogeDg2
-XzY0LXJoZWwtOS40LWx0cAo+IGNvbXBpbGVyOiBnY2MtMTQKPiB0ZXN0IG1hY2hpbmU6IDggdGhy
-ZWFkcyAxIHNvY2tldHMgSW50ZWwoUikgQ29yZShUTSkgaTctNDc5MFQgQ1BVIEAgMi43MEdIeiAo
-SGFzd2VsbCkgd2l0aCAxNkcgbWVtb3J5Cj4KPiAocGxlYXNlIHJlZmVyIHRvIGF0dGFjaGVkIGRt
-ZXNnL2ttc2cgZm9yIGVudGlyZSBsb2cvYmFja3RyYWNlKQo+Cj4KPiBJZiB5b3UgZml4IHRoZSBp
-c3N1ZSBpbiBhIHNlcGFyYXRlIHBhdGNoL2NvbW1pdCAoaS5lLiBub3QganVzdCBhIG5ldyB2ZXJz
-aW9uIG9mCj4gdGhlIHNhbWUgcGF0Y2gvY29tbWl0KSwga2luZGx5IGFkZCBmb2xsb3dpbmcgdGFn
-cwo+IHwgUmVwb3J0ZWQtYnk6IGtlcm5lbCB0ZXN0IHJvYm90IDxvbGl2ZXIuc2FuZ0BpbnRlbC5j
-b20+Cj4gfCBDbG9zZXM6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL29lLWxrcC8yMDI1MDkxNzEz
-NTkuNjU4ZGRiMzgtbGtwQGludGVsLmNvbQo+Cj4KPiBUaGUga2VybmVsIGNvbmZpZyBhbmQgbWF0
-ZXJpYWxzIHRvIHJlcHJvZHVjZSBhcmUgYXZhaWxhYmxlIGF0Ogo+IGh0dHBzOi8vZG93bmxvYWQu
-MDEub3JnLzBkYXktY2kvYXJjaGl2ZS8yMDI1MDkxNy8yMDI1MDkxNzEzNTkuNjU4ZGRiMzgtbGtw
-QGludGVsLmNvbQo+Cj4KPiB3ZSBzYXcgYSBsb3Qgb2YgIkJVRzpLQVNBTjpzbGFiLW91dC1vZi1i
-b3VuZHNfaW5fX2luZXRfYWNjZXB0IiBpc3N1ZSBpbiBkbWVzZwo+IHVwbG9hZGVkIHRvIGFib3Zl
-IGxpbmssIGJlbG93IGlzIGp1c3Qgb25lIGV4YW1wbGU6Cj4KPgo+IFsgIDQ2OC45ODQyOTFdW1Qz
-MDE4MF0gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09Cj4gWyAgNDY4Ljk5Mjc1M11bVDMwMTgwXSBCVUc6IEtBU0FOOiBzbGFi
-LW91dC1vZi1ib3VuZHMgaW4gX19pbmV0X2FjY2VwdCsweDVjNi8weDY0MAoKT2ggSSBtaXN1c2Vk
-IHNrX2lzX21wdGNwKCkgd2hpY2ggYXNzdW1lcyB0aGF0IHNrX2lzX3RjcCgpCmlzIGFsd2F5cyB0
-cnVlIGFuZCBzaG91bGQgbm90IGJlIHVzZWQgaWYgc2tfaXNfdGNwKCkgaXMgZmFsc2UgZm9yClND
-VFAsIHNvIHNrX2lzX21wdGNwKCkgdGVzdCB3YXMgdW5uZWNlc3NhcnkKCkknbGwgcmVtb3ZlIGl0
-LCB0aGFua3MhCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQv
-bGlzdGluZm8vbHRwCg==
+The current mmap22 test validates MAP_DROPPABLE by writing to the
+allocated memory and checking for zero-filled pages under memory
+pressure. However, this approach is unreliable because:
+
+  - Child process memory pressure (malloc + single writes) may not
+    reliably trigger cgroup memory reclaim.
+  - Checking memory content (alloc[i] == 0) is insufficient to
+    confirm kernel reclamation, as pages may remain resident but not
+    overwritten.
+  - Race conditions during child cleanup could leave residual cgroup
+    processes.
+
+Error logs:
+
+   command: mmap22
+   tst_tmpdir.c:316: TINFO: Using /tmp/LTP_mmaxrtyKb as tmpdir (xfs filesystem)
+   tst_test.c:1953: TINFO: LTP version: 20250530
+   tst_kconfig.c:88: TINFO: Parsing kernel config '/lib/modules/6.12.0-130.1445_2041086229.el10.x86_64+rt/build/.config'
+   tst_test.c:1774: TINFO: Overall timeout per run is 0h 05m 54s
+   tst_test.c:1837: TINFO: Killed the leftover descendant processes
+   tst_test.c:1846: TINFO: If you are running on slow machine, try exporting LTP_TIMEOUT_MUL > 1
+   tst_test.c:1848: TBROK: Test killed! (timeout?)
+   tst_cgroup.c:1043: TBROK: unlinkat(5</sys/fs/cgroup/ltp>, 'test-92902', AT_REMOVEDIR): EBUSY (16)
+   ...
+
+This patch improves the test in the following ways:
+
+  * Use mincore() to precisely detect if MAP_DROPPABLE pages have
+    been reclaimed by the kernel.
+  * Replace the old child loop with a stronger memory pressure loop
+    (malloc + memset), ensuring cgroup limits are hit quickly.
+  * Use SAFE_KILL + SAFE_WAITPID for robust child cleanup.
+  * Extend runtime and add short sleeps to reduce busy looping and
+    stabilize test results.
+  * Record page size during setup for consistent use across functions.
+
+As a result, the test becomes more stable, deterministic, and easier
+to reproduce under different kernels and configurations.
+
+Signed-off-by: Li Wang <liwang@redhat.com>
+---
+ testcases/kernel/syscalls/mmap/mmap22.c | 78 ++++++++++++++++---------
+ 1 file changed, 52 insertions(+), 26 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/mmap/mmap22.c b/testcases/kernel/syscalls/mmap/mmap22.c
+index 1507fdfa7..b9db8e1b6 100644
+--- a/testcases/kernel/syscalls/mmap/mmap22.c
++++ b/testcases/kernel/syscalls/mmap/mmap22.c
+@@ -9,12 +9,19 @@
+  * Test mmap(2) with MAP_DROPPABLE flag.
+  *
+  * Test base on kernel selftests/mm/droppable.c
++ *
++ * Ensure that memory allocated with MAP_DROPPABLE can be reclaimed
++ * under memory pressure within a cgroup.
+  */
+ 
+ #define _GNU_SOURCE
+ #include <errno.h>
+ #include <stdio.h>
+ #include <sys/types.h>
++#include <sys/mman.h>
++#include <unistd.h>
++#include <signal.h>
++#include <sys/wait.h>
+ #include "tst_test.h"
+ #include "lapi/mmap.h"
+ 
+@@ -22,13 +29,24 @@
+ #define ALLOC_SIZE (128 * TST_MB)
+ 
+ static struct tst_cg_group *cg_child;
++static pid_t child;
++static int page_size;
++
++static void stress_child(void)
++{
++	for (;;) {
++		char *buf = malloc(page_size);
++		if (!buf)
++			exit(1);
++		memset(buf, 'B', page_size);
++	}
++}
+ 
+ static void test_mmap(void)
+ {
+-	size_t alloc_size = ALLOC_SIZE;
+-	size_t page_size = getpagesize();
+ 	char *alloc;
+-	pid_t child;
++	unsigned char *vec;
++	size_t npages = ALLOC_SIZE / page_size;
+ 
+ 	cg_child = tst_cg_group_mk(tst_cg, "child");
+ 	SAFE_CG_PRINTF(tst_cg, "memory.max", "%d", MEM_LIMIT);
+@@ -38,38 +56,45 @@ static void test_mmap(void)
+ 		SAFE_CG_PRINTF(tst_cg, "memory.swap.max", "%d", MEM_LIMIT);
+ 	SAFE_CG_PRINTF(cg_child, "cgroup.procs", "%d", getpid());
+ 
+-	alloc = SAFE_MMAP(0, alloc_size, PROT_READ | PROT_WRITE,
++	alloc = SAFE_MMAP(0, ALLOC_SIZE, PROT_READ | PROT_WRITE,
+ 			MAP_ANONYMOUS | MAP_DROPPABLE, -1, 0);
+ 
+-	memset(alloc, 'A', alloc_size);
+-	for (size_t i = 0; i < alloc_size; i += page_size) {
+-		if (alloc[i]  != 'A')
+-			tst_res(TFAIL, "memset failed");
+-	}
++	memset(alloc, 'A', ALLOC_SIZE);
++
++	vec = SAFE_MALLOC(npages);
+ 
+ 	child = SAFE_FORK();
+-	if (!child) {
+-		for (;;)
+-			*(char *)malloc(page_size) = 'B';
+-	}
++	if (!child)
++		stress_child();
+ 
+-	while (1) {
+-		for (size_t i = 0; i < alloc_size; i += page_size) {
+-			if (!tst_remaining_runtime()) {
+-				tst_res(TFAIL, "MAP_DROPPABLE did not drop memory within the timeout period.");
+-				goto kill_child;
+-			}
+-			if (!alloc[i]) {
+-				tst_res(TPASS, "MAP_DROPPABLE test pass.");
+-				goto kill_child;
++	for (;;) {
++		if (!tst_remaining_runtime()) {
++			tst_res(TFAIL, "MAP_DROPPABLE did not drop pages within timeout");
++			goto cleanup;
++		}
++
++		if (mincore(alloc, ALLOC_SIZE, vec) == -1)
++			tst_brk(TBROK | TERRNO, "mincore failed");
++
++		for (size_t i = 0; i < npages; i++) {
++			if (!(vec[i] & 1)) {
++				tst_res(TPASS, "MAP_DROPPABLE page reclaimed by kernel");
++				goto cleanup;
+ 			}
+ 		}
++
++		usleep(100000);
+ 	}
+ 
+-kill_child:
+-	SAFE_KILL(child, SIGKILL);
+-	SAFE_WAITPID(child, NULL, 0);
+-	SAFE_MUNMAP(alloc, alloc_size);
++cleanup:
++	if (child > 0) {
++		SAFE_KILL(child, SIGKILL);
++		SAFE_WAITPID(child, NULL, 0);
++	}
++	SAFE_MUNMAP(alloc, ALLOC_SIZE);
++	free(vec);
++	SAFE_CG_PRINTF(tst_cg_drain, "cgroup.procs", "%d", getpid());
++	cg_child = tst_cg_group_rm(cg_child);
+ }
+ 
+ static void setup(void)
+@@ -84,6 +109,7 @@ static void setup(void)
+ 		tst_brk(TBROK | TERRNO, "mmap() MAP_DROPPABLE failed");
+ 
+ 	SAFE_MUNMAP(addr, 1);
++	page_size = getpagesize();
+ }
+ 
+ static void cleanup(void)
+-- 
+2.51.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
