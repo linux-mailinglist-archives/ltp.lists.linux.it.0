@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47B2DB9EFA3
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Sep 2025 13:46:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FB8EB9F25F
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Sep 2025 14:15:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0DA643CDE22
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Sep 2025 13:46:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 32C683CDE37
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Sep 2025 14:15:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
@@ -14,93 +14,55 @@ Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A3F283CDC95
- for <ltp@lists.linux.it>; Thu, 25 Sep 2025 13:46:09 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 3B0703CDA74
+ for <ltp@lists.linux.it>; Thu, 25 Sep 2025 14:15:39 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C97282009CD
- for <ltp@lists.linux.it>; Thu, 25 Sep 2025 13:46:08 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6D1162009CD
+ for <ltp@lists.linux.it>; Thu, 25 Sep 2025 14:15:39 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8F0706AB0A;
- Thu, 25 Sep 2025 11:46:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1758800766;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=m0Z2+aLmAE8rQ6Fz6wdFPdiXOOqisU3qEbdGJgqbI70=;
- b=HyHkA3Xn8spvZUfSg6tLuz1OU/CsjKUo5s/8yYE7dWIneoM3m80t9YQUAD3I8CSf7igvt2
- n6ryibkaYeQmFwHBS1/VYe8ngzaqGy/t3rCOaIAmdtbDinqsBxyoT8B/nLaIvlIyBqleF6
- 3faPJIiVgCXZQe1qu/kGWnu40gUBFUQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1758800766;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=m0Z2+aLmAE8rQ6Fz6wdFPdiXOOqisU3qEbdGJgqbI70=;
- b=ezOpaKjLvGun1uU0RfOmkyh1+j6imFueo8NzdqJGImFCIoBBGtcsgzqeSDsRZbtVUfpM/D
- fOH9ni7shUgkxMBg==
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 435526AE07;
+ Thu, 25 Sep 2025 12:15:38 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1758800766;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=m0Z2+aLmAE8rQ6Fz6wdFPdiXOOqisU3qEbdGJgqbI70=;
- b=HyHkA3Xn8spvZUfSg6tLuz1OU/CsjKUo5s/8yYE7dWIneoM3m80t9YQUAD3I8CSf7igvt2
- n6ryibkaYeQmFwHBS1/VYe8ngzaqGy/t3rCOaIAmdtbDinqsBxyoT8B/nLaIvlIyBqleF6
- 3faPJIiVgCXZQe1qu/kGWnu40gUBFUQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1758800766;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=m0Z2+aLmAE8rQ6Fz6wdFPdiXOOqisU3qEbdGJgqbI70=;
- b=ezOpaKjLvGun1uU0RfOmkyh1+j6imFueo8NzdqJGImFCIoBBGtcsgzqeSDsRZbtVUfpM/D
- fOH9ni7shUgkxMBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 07C1B13869;
- Thu, 25 Sep 2025 11:46:05 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B8BD413869;
+ Thu, 25 Sep 2025 12:15:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 9OgHOH0r1WhzCwAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 25 Sep 2025 11:46:05 +0000
-Date: Thu, 25 Sep 2025 13:45:55 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 07w3K2ky1WgwFQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 25 Sep 2025 12:15:37 +0000
+Date: Thu, 25 Sep 2025 14:15:32 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Avinesh Kumar <akumar@suse.de>
-Message-ID: <20250925114555.GA112008@pevik>
+Message-ID: <20250925121532.GA117845@pevik>
 References: <CAEemH2f8EjTe-uX1zm5h6L1kUFcxy72Br7bvBe5btr7i6PB1BQ@mail.gmail.com>
  <20250925081912.14822-1-akumar@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20250925081912.14822-1-akumar@suse.de>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
 X-Spam-Level: 
-X-Spamd-Result: default: False [-7.50 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:replyto];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- REPLYTO_EQ_FROM(0.00)[]
-X-Spam-Score: -7.50
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Queue-Id: 435526AE07
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spam-Score: -4.00
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -124,45 +86,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Avinesh,
+Hi all,
 
-...
-> +static inline int ioctl_pidfd_get_info_supported(void)
-
-nit: I liked more the previous version v4, where 'bool' was used.
-Actually both functions could use 'bool', but I'm perfectly ok with 'int'.
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Fix merged, thank you!
 
 Kind regards,
 Petr
-
-> +{
-> +	pid_t pid;
-> +	int pidfd, ret;
-> +	int supported = 0;
-> +	struct pidfd_info info;
-> +
-> +	if (tst_kvercmp(6, 13, 0) >= 0)
-> +		return 1;
-> +
-> +	memset(&info, 0, sizeof(struct pidfd_info));
-> +
-> +	pid = SAFE_FORK();
-> +	if (!pid)
-> +		exit(100);
-> +
-> +	pidfd = SAFE_PIDFD_OPEN(pid, 0);
-> +
-> +	ret = ioctl(pidfd, PIDFD_GET_INFO, &info);
-> +	SAFE_WAITPID(pid, NULL, 0);
-> +
-> +	if (ret != -1)
-> +		supported = 1;
-> +
-> +	SAFE_CLOSE(pidfd);
-> +	return supported;
-> +}
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
