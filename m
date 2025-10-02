@@ -1,68 +1,98 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E615BB11E1
-	for <lists+linux-ltp@lfdr.de>; Wed, 01 Oct 2025 17:39:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1759333181; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=7hlvbvp9N0BoR7JP0MdpVXjMaoRw/1QJ9CvGjcRSj1o=;
- b=DuKyhnJ5oqVvGDOjwMr4qN/XE3Rs214/4CvpGwgGRi2tWDpNgiBvxRIkGvsGP6T0389FS
- wKbytPSgEnhYCGLNUOP580CZRfFC8Mcy4GVMQi0iThRwkdQ1O41G3pKaBZ3xknrauoaY6JF
- xICg6jUpgmXTMR/DpUdEwQkklH8PoRM=
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D530DBB332F
+	for <lists+linux-ltp@lfdr.de>; Thu, 02 Oct 2025 10:37:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DB3053CE3B9
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Oct 2025 17:39:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 840C13CE41A
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Oct 2025 10:37:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EB0BB3CE37A
- for <ltp@lists.linux.it>; Wed,  1 Oct 2025 17:39:38 +0200 (CEST)
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+ by picard.linux.it (Postfix) with ESMTPS id 6A85A3CE438
+ for <ltp@lists.linux.it>; Thu,  2 Oct 2025 10:37:14 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 435621A009AD
- for <ltp@lists.linux.it>; Wed,  1 Oct 2025 17:39:37 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D76944177A;
- Wed,  1 Oct 2025 15:39:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C530C4CEF5;
- Wed,  1 Oct 2025 15:39:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1759333173;
- bh=WtEVlB/YEbSlFvYtNBcdguT+bm4fsIj2BYpq1A7Iniw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XgnMXPctSvRuwYy/18hRVob5/ZdSKRwjcttZoPJW9cvfReYnVs79jLDqVP9p3UlUp
- lgCO02MmMfh8AbPYGs1FFj5Wez195JQWlCDMlsq3nDR9k4CrCgd3gyVf5mK+VAnWWr
- piJ5zMQSkHv8zmJKBBMBk44Bkg4ZDdTxK/H3befI6YE0ZPDu+GYeXOjwEN7/JeuRON
- bM3IF8JBEjFWdzAIirezKoDlCWJ5XQzzhJrAEIBG4PmTffoxfkmKVlkdexk9feEiJ2
- XX//65JSYAdjxaOMRs31yBiKgQFk6+2dd0YWgt8uw9VbiZbIeYUwUtZXkLK3+34XI2
- p3tr0APudIlNg==
-Date: Wed, 1 Oct 2025 15:39:31 +0000
-To: Mateusz Guzik <mjguzik@gmail.com>
-Message-ID: <aN1LM3C3Dc1TrQTq@google.com>
-References: <202509301450.138b448f-lkp@intel.com>
- <20250930232957.14361-1-mjguzik@gmail.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DAD5F14000EE
+ for <ltp@lists.linux.it>; Thu,  2 Oct 2025 10:37:13 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5659533846;
+ Thu,  2 Oct 2025 08:37:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1759394224; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=KNwNW8+GpdP3RkB0MEUHO+PnqhML7d+AlfzTXFBKkg8=;
+ b=25uo8ZTH1Vv1zGjuCO56kaP1O/s3yRgRCnsiuhAbG8yff4+kXIVLqbSYp3gbA26ezhks3k
+ U1MPr/1V8r1Lp2k6XjCBHBU9JgFHbYEVPwaYN0HiOY0i3JQ2Mmf1w5/FjCUm5/xgUK6tPZ
+ 77keuw0sU/W3Tn0IwqOVb1bKUga6BKk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1759394224;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=KNwNW8+GpdP3RkB0MEUHO+PnqhML7d+AlfzTXFBKkg8=;
+ b=5SJ61uoTMBoGzXQNiFA3T820IXhLLWbPTf99U9C9bOV4rBFdDIEydgVFBw/7MJvN8/7A14
+ UuAsYDUDrqaaTYBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1759394224; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=KNwNW8+GpdP3RkB0MEUHO+PnqhML7d+AlfzTXFBKkg8=;
+ b=25uo8ZTH1Vv1zGjuCO56kaP1O/s3yRgRCnsiuhAbG8yff4+kXIVLqbSYp3gbA26ezhks3k
+ U1MPr/1V8r1Lp2k6XjCBHBU9JgFHbYEVPwaYN0HiOY0i3JQ2Mmf1w5/FjCUm5/xgUK6tPZ
+ 77keuw0sU/W3Tn0IwqOVb1bKUga6BKk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1759394224;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=KNwNW8+GpdP3RkB0MEUHO+PnqhML7d+AlfzTXFBKkg8=;
+ b=5SJ61uoTMBoGzXQNiFA3T820IXhLLWbPTf99U9C9bOV4rBFdDIEydgVFBw/7MJvN8/7A14
+ UuAsYDUDrqaaTYBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D79B213990;
+ Thu,  2 Oct 2025 08:37:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 2JM9MK853miCWQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 02 Oct 2025 08:37:03 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu,  2 Oct 2025 10:36:57 +0200
+Message-ID: <20251002083701.315334-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250930232957.14361-1-mjguzik@gmail.com>
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.999];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:mid];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCPT_COUNT_FIVE(0.00)[6]; RCVD_TLS_ALL(0.00)[]
+X-Spam-Level: 
+X-Spam-Score: -2.80
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] f2fs: don't call iput() from f2fs_drop_inode()
+Subject: [LTP] [PATCH 0/4] ima_{conditionals,measurements}.sh enhancements
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,55 +104,28 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Jaegeuk Kim via ltp <ltp@lists.linux.it>
-Reply-To: Jaegeuk Kim <jaegeuk@kernel.org>
-Cc: brauner@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, oe-lkp@lists.linux.dev,
- oliver.sang@intel.com, linux-fsdevel@vger.kernel.org, josef@toxicpanda.com,
- ltp@lists.linux.it
+Cc: linux-integrity@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 10/01, Mateusz Guzik wrote:
-> iput() calls the problematic routine, which does a ->i_count inc/dec
-> cycle. Undoing it with iput() recurses into the problem.
-> 
-> Note f2fs should not be playing games with the refcount to begin with,
-> but that will be handled later. Right now solve the immediate
-> regression.
-> 
-> Fixes: bc986b1d756482a ("fs: stop accessing ->i_count directly in f2fs and gfs2")
-> Reported-by: kernel test robot <oliver.sang@intel.com>
-> Closes: https://lore.kernel.org/oe-lkp/202509301450.138b448f-lkp@intel.com
-> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
-> ---
->  fs/f2fs/super.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index 2619cbbd7d2d..26ec31eb8c80 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -1769,7 +1769,7 @@ static int f2fs_drop_inode(struct inode *inode)
->  			sb_end_intwrite(inode->i_sb);
->  
->  			spin_lock(&inode->i_lock);
-> -			iput(inode);
-> +			atomic_dec(&inode->i_count);
 
-It seems this was applied by Josef [1], added in 6.18-rc1. Let me apply this fix
-after my f2fs pull request, since I don't have this issue in my -next tree yet.
+Petr Vorel (4):
+  ima_{conditionals,measurements}.sh: Add temporary user
+  ima_conditionals.sh: Split test by request
+  ima_conditionals.sh: Use 'sg' without 'sudo'
+  ima_{conditionals,measurements}.sh: Use 'su' instead of 'sudo'
 
-[1] https://lore.kernel.org/all/b8e6eb8a3e690ce082828d3580415bf70dfa93aa.1755806649.git.josef@toxicpanda.com/
+ runtest/ima                                   |  5 +-
+ .../integrity/ima/tests/ima_conditionals.sh   | 81 ++++++++++++-------
+ .../integrity/ima/tests/ima_measurements.sh   | 15 ++--
+ .../security/integrity/ima/tests/ima_setup.sh | 12 +++
+ 4 files changed, 71 insertions(+), 42 deletions(-)
 
->  		}
->  		trace_f2fs_drop_inode(inode, 0);
->  		return 0;
-> -- 
-> 2.43.0
-> 
+-- 
+2.51.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
