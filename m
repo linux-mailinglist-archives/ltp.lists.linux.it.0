@@ -2,70 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDAD3BB333B
-	for <lists+linux-ltp@lfdr.de>; Thu, 02 Oct 2025 10:38:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8548ABB3326
+	for <lists+linux-ltp@lfdr.de>; Thu, 02 Oct 2025 10:37:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 75C343CE41F
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Oct 2025 10:38:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2CF503CE45D
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Oct 2025 10:37:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9A1523CE447
- for <ltp@lists.linux.it>; Thu,  2 Oct 2025 10:37:18 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 80B9E3CE06B
+ for <ltp@lists.linux.it>; Thu,  2 Oct 2025 10:37:10 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1E1F910006B8
- for <ltp@lists.linux.it>; Thu,  2 Oct 2025 10:37:17 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1C045600783
+ for <ltp@lists.linux.it>; Thu,  2 Oct 2025 10:37:09 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AEF0833826;
- Thu,  2 Oct 2025 08:37:05 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 142FC33812;
+ Thu,  2 Oct 2025 08:37:06 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1F3AE13AA1;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B882E13990;
  Thu,  2 Oct 2025 08:37:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iBadBbE53miCWQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iIKnKrE53miCWQAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Thu, 02 Oct 2025 08:37:05 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  2 Oct 2025 10:36:59 +0200
-Message-ID: <20251002083701.315334-3-pvorel@suse.cz>
+Date: Thu,  2 Oct 2025 10:37:00 +0200
+Message-ID: <20251002083701.315334-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251002083701.315334-1-pvorel@suse.cz>
 References: <20251002083701.315334-1-pvorel@suse.cz>
 MIME-Version: 1.0
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
+X-Rspamd-Action: no action
 X-Spam-Level: 
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: AEF0833826
+X-Rspamd-Queue-Id: 142FC33812
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Rspamd-Action: no action
 X-Spam-Score: -4.00
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/4] ima_conditionals.sh: Split test by request
+Subject: [LTP] [PATCH 3/4] ima_conditionals.sh: Use 'sg' without 'sudo'
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,140 +82,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This helps to run all testcases on systems without CONFIG_IMA_WRITE_POLICY=y
-(disabled by default in mainline, therefore disabled for some distros,
-e.g. openSUSE Tumbleweed), if SUT reboots.
+We run as root, therefore 'sg' can be run without 'sudo'.
 
-The downside is creating user account 4x instead just once.
-
+Fixes: 5734da5f11 ("IMA: Add tests for uid, gid, fowner, and fgroup options")
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- runtest/ima                                   |  5 +-
- .../integrity/ima/tests/ima_conditionals.sh   | 67 ++++++++++++-------
- 2 files changed, 47 insertions(+), 25 deletions(-)
+ .../kernel/security/integrity/ima/tests/ima_conditionals.sh     | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/runtest/ima b/runtest/ima
-index 01942eefa3..c8d0c6801e 100644
---- a/runtest/ima
-+++ b/runtest/ima
-@@ -6,5 +6,8 @@ ima_violations ima_violations.sh
- ima_keys ima_keys.sh
- ima_kexec ima_kexec.sh
- ima_selinux ima_selinux.sh
--ima_conditionals ima_conditionals.sh
-+ima_conditionals_uid ima_conditionals.sh -r uid
-+ima_conditionals_fowner ima_conditionals.sh -r fowner
-+ima_conditionals_gid ima_conditionals.sh -r gid
-+ima_conditionals_fgroup ima_conditionals.sh -r fgroup
- evm_overlay evm_overlay.sh
 diff --git a/testcases/kernel/security/integrity/ima/tests/ima_conditionals.sh b/testcases/kernel/security/integrity/ima/tests/ima_conditionals.sh
-index a8b2e1015a..afa2ae05da 100755
+index afa2ae05da..f4ee79b2bc 100755
 --- a/testcases/kernel/security/integrity/ima/tests/ima_conditionals.sh
 +++ b/testcases/kernel/security/integrity/ima/tests/ima_conditionals.sh
-@@ -11,35 +11,68 @@
- 
- TST_NEEDS_CMDS="cat chgrp chown id sg sudo useradd userdel"
- TST_SETUP="setup"
--TST_CNT=1
-+TST_TESTFUNC="test"
- REQUIRE_TMP_USER=1
-+TST_OPTS="r:"
-+TST_USAGE="usage"
-+TST_PARSE_ARGS="parse_args"
-+REQUEST="uid"
-+
-+parse_args()
-+{
-+	REQUEST="$2"
-+}
-+
-+usage()
-+{
-+	cat << EOF
-+usage: $0 [-r <uid|fowner|gid|fgroup>]
-+
-+OPTIONS
-+-r	Specify the request to be measured. One of:
-+	uid, fowner, gid, fgroup
-+	Default: uid
-+EOF
-+}
- 
- setup()
- {
-+	case "$REQUEST" in
-+	fgroup|fowner|gid|uid)
-+		tst_res TINFO "request '$REQUEST'"
-+		;;
-+	*) tst_brk TBROK "Invalid -r '$REQUEST', use: -r <uid|fowner|gid|fgroup>";;
-+	esac
-+
- 	if check_need_signed_policy; then
- 		tst_brk TCONF "policy have to be signed"
- 	fi
- }
- 
--verify_measurement()
-+test()
- {
-+	# needs to be checked each run (not in setup)
-+	require_policy_writable
-+
- 	local request="$1"
- 	local test_file="$PWD/test.txt"
- 	local cmd="cat $test_file > /dev/null"
--
- 	local value="$(id -u $IMA_USER)"
--	[ "$request" = 'gid' -o "$request" = 'fgroup' ] && value="$(id -g $IMA_USER)"
- 
--	# needs to be checked each run (not in setup)
--	require_policy_writable
-+	if [ "$REQUEST" = 'gid' -o "$REQUEST" = 'fgroup' ]; then
-+		if tst_kvcmp -lt 5.16; then
-+			tst_brk TCONF "gid and fgroup options require kernel 5.16 or newer"
-+		fi
-+		value="$(id -g $IMA_USER)"
-+	fi
- 
- 	ROD rm -f $test_file
- 
--	tst_res TINFO "verify measuring user files when requested via $request"
--	ROD echo "measure $request=$value" \> $IMA_POLICY
--	ROD echo "$(cat /proc/uptime) $request test" \> $test_file
-+	tst_res TINFO "verify measuring user files when requested via $REQUEST"
-+	ROD echo "measure $REQUEST=$value" \> $IMA_POLICY
-+	ROD echo "$(cat /proc/uptime) $REQUEST test" \> $test_file
- 
--	case "$request" in
-+	case "$REQUEST" in
- 	fgroup)
- 		chgrp $IMA_USER $test_file
+@@ -81,7 +81,7 @@ test()
+ 		chown $IMA_USER $test_file
  		sh -c "$cmd"
-@@ -50,24 +83,10 @@ verify_measurement()
  		;;
- 	gid) sudo sg $IMA_USER "sh -c '$cmd'";;
+-	gid) sudo sg $IMA_USER "sh -c '$cmd'";;
++	gid) sg $IMA_USER "sh -c '$cmd'";;
  	uid) sudo -n -u $IMA_USER sh -c "$cmd";;
--	*) tst_brk TBROK "Invalid res type '$1'";;
  	esac
  
- 	ima_check $test_file
- }
- 
--test1()
--{
--	verify_measurement uid
--	verify_measurement fowner
--
--	if tst_kvcmp -lt 5.16; then
--		tst_brk TCONF "gid and fgroup options require kernel 5.16 or newer"
--	fi
--
--	verify_measurement gid
--	verify_measurement fgroup
--}
--
- . ima_setup.sh
- tst_run
 -- 
 2.51.0
 
