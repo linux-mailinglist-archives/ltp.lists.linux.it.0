@@ -2,68 +2,102 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD6ABBD2B8B
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Oct 2025 13:07:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29D9CBD2A00
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Oct 2025 12:49:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1760353661; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-transfer-encoding :
- content-type : sender : from;
- bh=/xI2nKWPvQJIXXpeGO3VmfIFC8LZk1t6QaUHiSolIVw=;
- b=KKqrBFg5B2n939Rk0f61HYldkGi7RY0q0rULcvICm65N3k8ashG5UF0MkTB0s7CsMfhMk
- Ra6SJWJFU+FuReGOZvEeWFl8qub65FdlQRrNLQB6YcDcpIAtZPYYbL6QTLH7BqJJCgTUapK
- KAKyJ/70CDCAX6zJOt/SqpAkOog9sgY=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1760352549; h=mime-version :
+ date : message-id : to : references : in-reply-to : subject : list-id
+ : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=eL5Yn//LuzhovkhItEBIuh6nlspUj4oh0Qk4/Qkoo5E=;
+ b=CZQqc7bvQIZdyZuCaLlLpsfEXDfeiUs/I7UGkVv9rlisRPdQy3EjNPOL/J+A+8fJje9+h
+ UieLyp/QtUxOD5tLGOVDdr8reP+6JAc5ZJXMCjLjnx5lXgFl5Y7I7+7w+aP00un8o9zdmPI
+ Y+3wrWKtOGNZRD0ZP14h+VEUidvskGM=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 998203CEB82
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Oct 2025 13:07:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DB0EC3CEB6F
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Oct 2025 12:49:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BF4E23CE321
- for <ltp@lists.linux.it>; Thu,  9 Oct 2025 05:34:37 +0200 (CEST)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 471D83CB3AF
+ for <ltp@lists.linux.it>; Mon, 13 Oct 2025 12:49:06 +0200 (CEST)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2552D600479
- for <ltp@lists.linux.it>; Thu,  9 Oct 2025 05:34:36 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2413C611E9;
- Thu,  9 Oct 2025 03:34:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0ECBC4CEE7;
- Thu,  9 Oct 2025 03:34:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1759980874;
- bh=zQySicJyzHQVgMUqKbwHP7OwMs25Xmyd6FMcON63clo=;
- h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
- b=RH6h/V4LzvAFQvOGHVQ2ReUSAztcIIgNnTZI6HgBtL0oY+CicvyhuIYatvy14xFwk
- P8GGaviitDQx6U9ns/eFTL9bVRAO/XRdBj8Zy5mk78UQO+37ZJAiH5f6Rd8gsWNxVI
- JhyUe/KdUPA1EoitSXFo1DWJGzJ7tPdVk5Mo3lKgzS3U7FZ6kYHCRxaK8cD0DgkJOe
- Q72WWEZuGiS3QzAmDQgxX8/9Y5MXwPvNppIckVU8/pCIyTozmyF5IbD2gDwj4MLfFa
- rusQJx87owxAw7+zASR5N84tZG/hgmInIH75Yv3bHxIGsKAVw+YrMEAft510JQM1H5
- 65UG6A9ZmxYdg==
-Message-ID: <e6feb193-0d3d-4cbc-857b-7576db25e929@kernel.org>
-Date: Thu, 9 Oct 2025 11:34:31 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Mateusz Guzik <mjguzik@gmail.com>, brauner@kernel.org
-References: <202509301450.138b448f-lkp@intel.com>
- <20250930232957.14361-1-mjguzik@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20250930232957.14361-1-mjguzik@gmail.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5A3A020093E
+ for <ltp@lists.linux.it>; Mon, 13 Oct 2025 12:49:06 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-46e61ebddd6so43270065e9.0
+ for <ltp@lists.linux.it>; Mon, 13 Oct 2025 03:49:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1760352546; x=1760957346; darn=lists.linux.it;
+ h=in-reply-to:references:from:subject:cc:to:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bei74OfFQYGpCBPpOkQzbbuB9Lb3NTE134qe8alQbG4=;
+ b=LuZEuedUz1drr/16IUEioNVQBtzx9WgAit+3aRNUXU3HJk4eu2uWRsE8hYFViNZ6/z
+ djQLfUeYbx44ahicQpueS35cL/S5uGDqfT+CQ8AYhtN+n+TUR1cGeQgNqh0uuz9dvek1
+ j0go2o2LkEpueFqyWmMvMeHZb4DSzFOxCH9d/XAn3LgJDSNaMQXYPar59JDKjUpGxNUX
+ NG6vOd/tFdnisxP1oMMAQBE+p83x35gNgzvc/QN4UsG8XixqjKk66Xw8Q902J2xV4na/
+ /klzaXVJzASZVF7K3tj/Mh9dh4zEw4zwNNUClND2e2WUztda0CGi0xDulh74ilNOFPDT
+ V/vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760352546; x=1760957346;
+ h=in-reply-to:references:from:subject:cc:to:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=bei74OfFQYGpCBPpOkQzbbuB9Lb3NTE134qe8alQbG4=;
+ b=Z9r35wmxCyj86w0YimTkioufaLGnadpN+QV/GMmMKvdDwEHP0On6fNRobCa6BNgd4T
+ FJxlBWwfcqZNOsWGWeolylS2gJCAU883O1TTV/C5bFgYjJW6LFWkm4ZM4pzpWH5FV1WT
+ qNqybHwOjPULBNUmd1yoONlQrPGbb4peHhMi7joqNkImdwrWSx4vuEfQrMqDny4CGbJ3
+ F4tffA/YJNoFxP68it687VcULTNQZ0qGmmZ0Ll1R+mQHRyCm7w1dvBM/v8ji2mxpyENz
+ O12jtcEan0LJsqa+x/IBZpwQTRzRcODoDNuLVdKo4jOv/7JNMH7XVg15Hl2X1JyrUt5B
+ jcPw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXKJyef0t98h9L65j8KoWMQK7yhxo6hfSnpoFyCEiWoObx/ZiY4HyNDAC/VBrM2U9FHp/k=@lists.linux.it
+X-Gm-Message-State: AOJu0YxL5dtvWbm1caepsHJ7xti2nrMNy9cbJAmubKgNxD0c+cBxiHQv
+ D0phCiVXfn3FXmbXwgcg+hWYRB2qxmDiC2zwCYEfzRhz5v5FqdxxT2zHQZRP+fRR5NGqptPT1Aj
+ pQgST7I8=
+X-Gm-Gg: ASbGncuapME3kqZNwDSKW28kn0rlTtA6kds5vM8Lko1D2T+W59KWctygTqkRnO28fh2
+ ieLJMhWxumhIc0/eWxd2OlBTK10Air3Zl4xEF8fT1bm3nqLDELq5W8lchHbQSp1Eecg8CxqsdF0
+ vCbZ0jMcilO3ta1adxjWaP0VwBE9v6w9G1i7rgZjRwPk/GmII0RT/7qdhlLIb3WzS0cyX0mCZDt
+ 4+jHM7d385R0Xnu4+BbGvOXhLzaNZfwl+v/8Xa9dG6QgJzNHTvUHPHgmdcqnA6D70j19ksIDmpi
+ nZvkM+mcAuh3l5HSdCiYxT7eeXYWJ5wG+ZX8vWjL7I8S470HU65fGT/Zj05hTOF6vhZ+8LZ855l
+ ENZQmkG1T4hrRer7GRniTNfGE6M3aJvcsVtJIqc/NzLf4Fl0RCaNFJEghzv3qs+w+jmSRp0SJhN
+ AH6GqyW8/cgZ7TsVQRXzPIpFDlyyKe5LGRRzZFy6/TDe9inoH9Rf3wn+O1
+X-Google-Smtp-Source: AGHT+IFw8IBEt03FL32Fvfg/MNPHxmMcLoQnEGqYereGyFW/n2F4T2MAJ9QG9hJp3vw5KQK6Hw9aMg==
+X-Received: by 2002:a05:600c:6212:b0:46e:27f7:80ce with SMTP id
+ 5b1f17b1804b1-46fa9af8f39mr140943665e9.23.1760352545509; 
+ Mon, 13 Oct 2025 03:49:05 -0700 (PDT)
+Received: from localhost
+ (p200300ef2f176d00961bd2614569b9c8.dip0.t-ipconnect.de.
+ [2003:ef:2f17:6d00:961b:d261:4569:b9c8])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-46fb49d0307sm178503995e9.18.2025.10.13.03.49.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Oct 2025 03:49:05 -0700 (PDT)
+Mime-Version: 1.0
+Date: Mon, 13 Oct 2025 12:49:04 +0200
+Message-Id: <DDH4WAW0M111.1XZ3UJKV8QQTO@suse.com>
+To: "chunfuwen" <chwen@redhat.com>, <ltp@lists.linux.it>
+X-Mailer: aerc 0.21.0
+References: <20250826044129.946421-1-chwen@redhat.com>
+In-Reply-To: <20250826044129.946421-1-chwen@redhat.com>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.7 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.7 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Mon, 13 Oct 2025 13:07:28 +0200
-Subject: Re: [LTP] [f2fs-dev] [PATCH] f2fs: don't call iput() from
- f2fs_drop_inode()
+Subject: Re: [LTP] [PATCH v14] Add tls parameter and flag:CLONE_SETTLS cover
+ for clone and clone3 syscall
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,33 +109,27 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Chao Yu via ltp <ltp@lists.linux.it>
-Reply-To: Chao Yu <chao@kernel.org>
-Cc: chao@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
- oliver.sang@intel.com, oe-lkp@lists.linux.dev, josef@toxicpanda.com,
- ltp@lists.linux.it
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: ltp <ltp-bounces+andrea.cervesato=suse.com@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 10/1/2025 7:29 AM, Mateusz Guzik wrote:
-> iput() calls the problematic routine, which does a ->i_count inc/dec
-> cycle. Undoing it with iput() recurses into the problem.
-> 
-> Note f2fs should not be playing games with the refcount to begin with,
-> but that will be handled later. Right now solve the immediate
-> regression.
-> 
-> Fixes: bc986b1d756482a ("fs: stop accessing ->i_count directly in f2fs and gfs2")
-> Reported-by: kernel test robot <oliver.sang@intel.com>
-> Closes: https://lore.kernel.org/oe-lkp/202509301450.138b448f-lkp@intel.com
-> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+Hi!
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+Can you please check the CI? The patch-set is not compiling in both
+opensuse/archive:42.2 and ubuntu:bionic
 
-Thanks,
+https://github.com/linux-test-project/ltp/actions/runs/16932202541/job/47980182839
+
+
+-- 
+Andrea Cervesato
+SUSE QE Automation Engineer Linux
+andrea.cervesato@suse.com
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
