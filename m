@@ -2,73 +2,124 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBD92C240EB
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 Oct 2025 10:14:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFF5EC24263
+	for <lists+linux-ltp@lfdr.de>; Fri, 31 Oct 2025 10:27:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8C8DD3CC93F
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 Oct 2025 10:14:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 59DFA3CC9E7
+	for <lists+linux-ltp@lfdr.de>; Fri, 31 Oct 2025 10:27:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 39FA83CA9AF
- for <ltp@lists.linux.it>; Fri, 31 Oct 2025 10:14:02 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 9EC683CC9E0
+ for <ltp@lists.linux.it>; Fri, 31 Oct 2025 10:27:18 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8C448600D52
- for <ltp@lists.linux.it>; Fri, 31 Oct 2025 10:14:01 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 31ACC1400DC0
+ for <ltp@lists.linux.it>; Fri, 31 Oct 2025 10:27:17 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4389A227ED;
- Fri, 31 Oct 2025 09:14:00 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B630D22027;
+ Fri, 31 Oct 2025 09:27:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1761902834; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=qzVhNPcmwM9EIGVLiUc7khV2bUyuZQtmySgn8ZGsHsk=;
+ b=VYU7VhJ07entq4cDubGXCAvRfjt95Uvv9oO/sNiZLEJYyqQsmqW4FUifATHAweA6Tp22BD
+ 9up1eFJRVQuS0zSqqyvpMsdQKPmKdh6JjC2sor+tJL5xPE/RJtOMxm3PMgco3KZfeXFV69
+ ie8b/STYnPZ3TQD6PW4T2tMlKT1RuFA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1761902834;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=qzVhNPcmwM9EIGVLiUc7khV2bUyuZQtmySgn8ZGsHsk=;
+ b=0sPnj5dk5HVrN52nmCuYQuCtAIi+6erdbVuEgV4VLnrW8M/Hg9giG/5EPF4ovMJ7DaVORh
+ ZUqCxusGV0hMP4AQ==
 Authentication-Results: smtp-out1.suse.de;
-	none
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=VYU7VhJ0;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=0sPnj5dk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1761902834; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=qzVhNPcmwM9EIGVLiUc7khV2bUyuZQtmySgn8ZGsHsk=;
+ b=VYU7VhJ07entq4cDubGXCAvRfjt95Uvv9oO/sNiZLEJYyqQsmqW4FUifATHAweA6Tp22BD
+ 9up1eFJRVQuS0zSqqyvpMsdQKPmKdh6JjC2sor+tJL5xPE/RJtOMxm3PMgco3KZfeXFV69
+ ie8b/STYnPZ3TQD6PW4T2tMlKT1RuFA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1761902834;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=qzVhNPcmwM9EIGVLiUc7khV2bUyuZQtmySgn8ZGsHsk=;
+ b=0sPnj5dk5HVrN52nmCuYQuCtAIi+6erdbVuEgV4VLnrW8M/Hg9giG/5EPF4ovMJ7DaVORh
+ ZUqCxusGV0hMP4AQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2D56713393;
- Fri, 31 Oct 2025 09:14:00 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9C1B213393;
+ Fri, 31 Oct 2025 09:27:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id fokICth9BGmoTAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 31 Oct 2025 09:14:00 +0000
-Date: Fri, 31 Oct 2025 10:13:58 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Wei Gao <wegao@suse.com>
-Message-ID: <20251031091358.GA804220@pevik>
-References: <20250529105156.2564268-1-wegao@suse.com>
- <20250924084223.20597-1-wegao@suse.com>
- <20251030201734.GC753947@pevik>
- <aQRYS25XIjU6TfNY@autotest-wegao.qe.prg2.suse.org>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id bzJqJPKABGk8WQAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Fri, 31 Oct 2025 09:27:14 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Fri, 31 Oct 2025 10:27:08 +0100
+Message-Id: <20251031-kirk_move_submodule-v1-0-3cad4270a0b5@suse.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aQRYS25XIjU6TfNY@autotest-wegao.qe.prg2.suse.org>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
+X-B4-Tracking: v=1; b=H4sIAO2ABGkC/x3MTQqAIBBA4avIrBPUclFXiZDKqYZ+DCUJxLsnL
+ b/FewkCesIAHUvgMVIgdxXIisG8jdeKnGwxKKG0FLXkO/ndnC6iCc90OvscyLXUbaMmbS22UMr
+ b40Lvf+2HnD+JcxKtZQAAAA==
+X-Change-ID: 20251031-kirk_move_submodule-515942b5dde9
+To: ltp@lists.linux.it
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1761902834; l=715;
+ i=andrea.cervesato@suse.com; s=20250922; h=from:subject:message-id;
+ bh=9pnl+WtO2A66dZkBlseZ/XWLKuElyXlx5wkj6ITH0Dg=;
+ b=8dcHEyb/5s9QyzfpKJpAtqqc4Bs73uuQNxDEjMpwLD2raVYHILDAvnbemBkDVCMvhBBVSKM6j
+ nNJ2TaGV7PMC6l2Xwfu130t7H4yV4LdMe0NZckkgJFTvPGeZf1CHSs+
+X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
+ pk=+8M3XgViLdcdNBM+Jdd90m3pV4jCw2tNsGCy5Rd+qHk=
 X-Spam-Level: 
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 4389A227ED
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
+X-Rspamd-Queue-Id: B630D22027
 X-Rspamd-Action: no action
-X-Spam-Score: -4.00
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_TWO(0.00)[2]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:email,suse.com:mid];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -4.51
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] tst_filesystems01.c: Add test for .filesystems
+Subject: [LTP] [PATCH 0/2] Move kirk sources from tools/kirk to
+ tools/kirk/kirk-src
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,63 +131,32 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-...
-> > Alpine: e2fsprogs-extra
-> > Debian, openSUSE, Fedora (hopefully): e2fsprogs
-> when i add following diff another CI error triggered on alpine, it
-> seems /dev/not mounted.
-> further check.
+This is the current standard for LTP and it permits to remove Makefile
+from the kirk mainline, that is strictly related to LTP install.
 
-> diff --git a/ci/alpine.sh b/ci/alpine.sh
-> index f3a1bf528..254f4aaec 100755
-> --- a/ci/alpine.sh
-> +++ b/ci/alpine.sh
-> @@ -25,7 +25,6 @@ apk add \
->         musl-dev \
->         numactl-dev \
->         openssl-dev \
-> -       e2fsprogs-extra \
->         pkgconfig
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+Andrea Cervesato (2):
+      kirk: remove submodule before moving it
+      kirk: move kirk source code inside tools/kirk/kirk-src
 
-> https://github.com/coolgw/ltp/actions/runs/18960845023/job/54148138737
+ .gitmodules                   |  6 +++---
+ tools/kirk/Makefile           | 22 ++++++++++++++++++++++
+ tools/{kirk => kirk/kirk-src} |  0
+ 3 files changed, 25 insertions(+), 3 deletions(-)
+---
+base-commit: 64de9f928970dacfc3ea2acefc407dbc25e539cf
+change-id: 20251031-kirk_move_submodule-515942b5dde9
 
-> 2025-10-31T02:50:14.5257746Z runtest TINFO: * shell/tst_format_device.sh
-> 2025-10-31T02:50:14.5260052Z tst_format_device 1 TINFO: Running: tst_format_device.sh
-> 2025-10-31T02:50:14.5268691Z tst_format_device 1 TINFO: Tested kernel: Linux 0ba9f024d6b7 6.11.0-1018-azure #18~24.04.1-Ubuntu SMP Sat Jun 28 04:46:03 UTC 2025 x86_64 Linux
-> 2025-10-31T02:50:14.5329045Z tst_format_device 1 TINFO: Using /tmp/LTP_tst_format_device.XXXXOajpgN as tmpdir (UNKNOWN filesystem)
-> 2025-10-31T02:50:14.5352954Z tst_device.c:98: TINFO: Found free device 0 '/dev/loop0'
-> 2025-10-31T02:50:14.5491591Z tst_format_device 1 TINFO: Formatting ext2 with opts='-b 1024 /dev/loop0 5m'
-> 2025-10-31T02:50:14.5555250Z tst_format_device 1 TINFO: timeout per run is 0h 5m 0s
-> 2025-10-31T02:50:14.5571366Z tst_format_device 1 TPASS: device formatted
-> 2025-10-31T02:50:14.5594507Z df: /dev/loop0: can't find mount point  <<
-> 2025-10-31T02:50:14.5598211Z tst_format_device 2 TFAIL: df /dev/loop0 | grep -q /dev failed unexpectedly
-> 2025-10-31T02:50:14.6127085Z tst_format_device 3 TINFO: AppArmor enabled, this may affect test results
-> 2025-10-31T02:50:14.6128036Z tst_format_device 3 TINFO: it can be disabled with TST_DISABLE_APPARMOR=1 (requires super/root)
-> 2025-10-31T02:50:14.6128824Z tst_format_device 3 TINFO: loaded AppArmor profiles: none
+Best regards,
+-- 
+Andrea Cervesato <andrea.cervesato@suse.com>
 
-Strange, because previous shell/tst_mount_device.sh works:
-runtest TINFO: * shell/tst_mount_device.sh
-tst_mount_device 1 TINFO: Running: tst_mount_device.sh
-tst_mount_device 1 TINFO: Tested kernel: Linux 0ba9f024d6b7 6.11.0-1018-azure #18~24.04.1-Ubuntu SMP Sat Jun 28 04:46:03 UTC 2025 x86_64 Linux
-tst_mount_device 1 TINFO: Using /tmp/LTP_tst_mount_device.XXXXmbKhac as tmpdir (UNKNOWN filesystem)
-tst_device.c:98: TINFO: Found free device 0 '/dev/loop0'
-tst_mount_device 1 TINFO: Formatting ext4 with opts='/dev/loop0'
-tst_mount_device 1 TINFO: Mounting device: mount -t ext4 /dev/loop0 /tmp/LTP_tst_mount_device.XXXXmbKhac/mntpoint
-tst_mount_device 1 TINFO: timeout per run is 0h 5m 0s
-tst_mount_device 1 TPASS: cd /tmp/LTP_tst_mount_device.XXXXmbKhac/mntpoint passed as expected
-
-Kind regards,
-Petr
-
-> > Kind regards,
-> > Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
