@@ -2,126 +2,95 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14B28C24254
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 Oct 2025 10:27:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16F02C27542
+	for <lists+linux-ltp@lfdr.de>; Sat, 01 Nov 2025 02:23:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1761960219; h=to : date :
+ message-id : in-reply-to : references : mime-version : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : content-type :
+ content-transfer-encoding : sender : from;
+ bh=eD0zhiacbrQDMFPtz9WZcX/3iHFcGq+4I2z0vPuNu4A=;
+ b=Wl9HDGFM5MjwdN1E4IfSENZPeB3+jbwPpIuVTmpc/LgWOCt4VaDILkIGXiSmG4d8ICXQK
+ gh04HlqWQ0E2cHe8xnUtL6VIp8oW7MFwwmzCVXDO+OClDI6J3/lxTqdiRem/ruQRdPCIH+y
+ CwWZDQunu6fzY+FbWg0I/38303m6jYg=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9AE6A3CC8E6
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 Oct 2025 10:27:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BFEAD3CB46C
+	for <lists+linux-ltp@lfdr.de>; Sat,  1 Nov 2025 02:23:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F39903CC8BE
- for <ltp@lists.linux.it>; Fri, 31 Oct 2025 10:27:16 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id E0C2F3C85EB
+ for <ltp@lists.linux.it>; Sat,  1 Nov 2025 02:23:26 +0100 (CET)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6D59E200746
- for <ltp@lists.linux.it>; Fri, 31 Oct 2025 10:27:16 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0D4721F461;
- Fri, 31 Oct 2025 09:27:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1761902835; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8D+MIJidXnQ6NFihiV6Hh81nlsjQhIMK0uvsrj0K2Os=;
- b=zHkHAdEaUPHKL4PnHi4fVDbU74BjXsG9Ph1JljzMho3Vkm1iNyh0g2+rcpfPRCBnbnZW6r
- rx9K/7/CltlKOFbe0+YVrA2gdHbXTaTx9JT6wB2EmrqLOceC4IFQ38dZ46R1PW/VFnT4Rd
- z7VigiIFKi/rSOyVJu1Mk9G/nVR/8pE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1761902835;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8D+MIJidXnQ6NFihiV6Hh81nlsjQhIMK0uvsrj0K2Os=;
- b=vweQDp0usvwpYHwfYnmt7qweshukjhvKYreTjmVOe8Fl+2DmXoBZ9GxnNsUMQtjwsw5mkX
- 2OtWBLFhvwDAjCAA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=zHkHAdEa;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vweQDp0u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1761902835; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8D+MIJidXnQ6NFihiV6Hh81nlsjQhIMK0uvsrj0K2Os=;
- b=zHkHAdEaUPHKL4PnHi4fVDbU74BjXsG9Ph1JljzMho3Vkm1iNyh0g2+rcpfPRCBnbnZW6r
- rx9K/7/CltlKOFbe0+YVrA2gdHbXTaTx9JT6wB2EmrqLOceC4IFQ38dZ46R1PW/VFnT4Rd
- z7VigiIFKi/rSOyVJu1Mk9G/nVR/8pE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1761902835;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8D+MIJidXnQ6NFihiV6Hh81nlsjQhIMK0uvsrj0K2Os=;
- b=vweQDp0usvwpYHwfYnmt7qweshukjhvKYreTjmVOe8Fl+2DmXoBZ9GxnNsUMQtjwsw5mkX
- 2OtWBLFhvwDAjCAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E454213B04;
- Fri, 31 Oct 2025 09:27:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4HcSNvKABGk8WQAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Fri, 31 Oct 2025 09:27:14 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Fri, 31 Oct 2025 10:27:10 +0100
-MIME-Version: 1.0
-Message-Id: <20251031-kirk_move_submodule-v1-2-3cad4270a0b5@suse.com>
-References: <20251031-kirk_move_submodule-v1-0-3cad4270a0b5@suse.com>
-In-Reply-To: <20251031-kirk_move_submodule-v1-0-3cad4270a0b5@suse.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 35A6510005DC
+ for <ltp@lists.linux.it>; Sat,  1 Nov 2025 02:23:25 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-63c21467e5bso5995767a12.0
+ for <ltp@lists.linux.it>; Fri, 31 Oct 2025 18:23:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1761960204; x=1762565004; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=spWMNe0bcQme2AOU+9IqqoNrbO1XgjMwbGM4Rp1EUXY=;
+ b=f42X+Tywa+OO6gpIfsI+UHOIE/z2m95cGBtmNJAi+ECIqGK9VuOKFRpscoBhOi1BDq
+ ianT3io2WY7cbV0uGdL0j5TWAQoEm+Gld97/vqY0Gu6emvHRTAN5lIO5WcxXhfMz3yAn
+ RQcoReALm8uqUNcb8PN4SbLK+UPYwxzi9dkkoBxFpMXnoN1usLwdGrwBLz+hG/40cOXb
+ obsSzOtshnX3bK5eKBtRNksqc1ifuuEI4kBLnsT2VSwUr5ts8RYdqaL0fmXgG/qNbJ+p
+ 2SCFcIWBl5v0RQGJ1qXGZkPOkpXjUoBbF9SNVayonqNLygYw6KMfr2DSYzIYsJhupM+O
+ Jrsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761960204; x=1762565004;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=spWMNe0bcQme2AOU+9IqqoNrbO1XgjMwbGM4Rp1EUXY=;
+ b=bNo6+sH2Tphw1PsxBJ6Qt73KY1EchHNXiG018VIoHtPwHh4HRuX3o31lkXMqEwDS8r
+ /62R4qqrahtvJV53RLNxnbGBCJ7DUQ0kifNO6m7XbNn8zODj2pp+OS5bQMM+LaQrfIJP
+ kd1V006zPtwvQNkycD9FSOKKdwTvX78smoRZrORNKWTzC0FtcwIL7da4Rhl0W/YNo1rq
+ rkm3NJ7Wbpbg89YE4UF+UlDDXlqGqEfYRWH7FHpwWVJDRYUMUaD8wQfJXwSocM795o6q
+ 6EVcUAv5R2Tcx79zbWHzH28vBjPg9Qb/I0KQsIlSuvjwecE0whnbJlc6J3uj9bmbDqYF
+ X28Q==
+X-Gm-Message-State: AOJu0YxzrfjMN8AVeA50hTHsrRI7U3KwzqAjKzAxdkOEXkNqw3OyBWdc
+ fM0VPSfM1W/JYCnq4yBBlUMi4ssuayFkRYd2MfRzXTKp3ZmDm3LFApvdCJ6Kv6d3NokHTAQqy2I
+ ny8A=
+X-Gm-Gg: ASbGncuN0xr3I0kVkPKDzRnk8l44jD8IZJ9VuxNoBwb121AFM0nCHmS8YBD9+putW6X
+ cdhsbWLj9lqby2g/PFkGLNLu3wo9qQQ5VFUqnc133NM0+c4xdZxTNhazgvkOanri6Yu6UQt6n/2
+ EKmrb5snnTeBKyHjZys5+c6IIt+/5q7eW8r70w2mVeHw1oSJjgVuFr0mEPNAeLJB3TtyQvZnLGO
+ Obqimu/DeU9i2PmBOnssXGKFuopvU+4GYzYuBaocE+HxI+n76t9hcU5fSqSHziYsvXkN9EGz1Wk
+ ONt6vMhGvG+tGh+E+dWIIToQmeE/4xtQvutHTHULOaWHiRISzdAbo6NSihoqY9TE8cF8GsmJi3Q
+ 7Yan1XMDkrlHxAp/YBhupsEXDpyTwRAGwMJRRz5ltB82s6ymS8v4nHLBupW+R+zFm
+X-Google-Smtp-Source: AGHT+IGxEqv48IF3kuSg5+5ff5FaVrujPthdv+cEC1f6Zi/H8F3KDE058ASdsmgUu/WtPtbdRCfN9w==
+X-Received: by 2002:a05:6402:5347:10b0:633:7017:fcc1 with SMTP id
+ 4fb4d7f45d1cf-6407704fd5dmr3638999a12.14.1761960204273; 
+ Fri, 31 Oct 2025 18:23:24 -0700 (PDT)
+Received: from localhost ([2a07:de40:b240:0:2ad6:ed42:2ad6:ed42])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 4fb4d7f45d1cf-6407b392d5dsm3013990a12.15.2025.10.31.18.23.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Oct 2025 18:23:24 -0700 (PDT)
 To: ltp@lists.linux.it
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1761902834; l=1733;
- i=andrea.cervesato@suse.com; s=20250922; h=from:subject:message-id;
- bh=M4ZkYUBc+XpBrotJ7o82NKeuTLuJ7cic15p5g31VMRg=;
- b=pPWmg+kg9HadYVzznbcQQg3bij5qRPbk30P4bPPXo1awKCt5cCskiJE2d0IZyZwR8vQhzJfc/
- PlG1zrKR8V3CdHzeewG6imiOrsADhuvymKGcBjQxhKYaFqK8/5YbEGy
-X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
- pk=+8M3XgViLdcdNBM+Jdd90m3pV4jCw2tNsGCy5Rd+qHk=
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 0D4721F461
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.de:dkim];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -4.51
+Date: Sat,  1 Nov 2025 01:20:20 +0000
+Message-ID: <20251101012320.24972-1-wegao@suse.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250924084223.20597-1-wegao@suse.com>
+References: <20250924084223.20597-1-wegao@suse.com>
+MIME-Version: 1.0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/2] kirk: move kirk source code inside
- tools/kirk/kirk-src
+Subject: [LTP] [PATCH v3 0/2] tst_filesystems01.c: Add test for .filesystems
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,69 +102,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+v2->v3: add e2fsprogs for CI check
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- .gitmodules         |  3 +++
- tools/kirk/Makefile | 22 ++++++++++++++++++++++
- tools/kirk/kirk-src |  1 +
- 3 files changed, 26 insertions(+)
+Wei Gao (2):
+  tst_filesystems01.c: Add test for .filesystems
+  tst_format_device.sh: Add e2fsprogs package for CI test
 
-diff --git a/.gitmodules b/.gitmodules
-index 8f081decc..a1ac4b1b8 100644
---- a/.gitmodules
-+++ b/.gitmodules
-@@ -7,3 +7,6 @@
- [submodule "tools/ltx/ltx-src"]
- 	path = tools/ltx/ltx-src
- 	url = https://github.com/linux-test-project/ltx.git
-+[submodule "tools/kirk/kirk-src"]
-+	path = tools/kirk/kirk-src
-+	url = https://github.com/linux-test-project/kirk.git
-diff --git a/tools/kirk/Makefile b/tools/kirk/Makefile
-new file mode 100644
-index 000000000..1a09c43ce
---- /dev/null
-+++ b/tools/kirk/Makefile
-@@ -0,0 +1,22 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2023 SUSE LLC <andrea.cervesato@suse.com>
-+#
-+# Install script for Linux Testing Project
-+
-+top_srcdir		?= ../..
-+
-+include $(top_srcdir)/include/mk/env_pre.mk
-+
-+BASE_DIR		:= $(abspath $(DESTDIR)/$(prefix))
-+
-+install:
-+	mkdir -p $(BASE_DIR)/libkirk
-+	mkdir -p $(BASE_DIR)/libkirk/channels
-+
-+	install -m 00644 $(top_srcdir)/tools/kirk/kirk-src/libkirk/*.py $(BASE_DIR)/libkirk
-+	install -m 00644 $(top_srcdir)/tools/kirk/kirk-src/libkirk/channels/*.py $(BASE_DIR)/libkirk/channels
-+	install -m 00775 $(top_srcdir)/tools/kirk/kirk-src/kirk $(BASE_DIR)/kirk
-+
-+	cd $(BASE_DIR) && ln -sf kirk runltp-ng
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/tools/kirk/kirk-src b/tools/kirk/kirk-src
-new file mode 160000
-index 000000000..e0ef9f28b
---- /dev/null
-+++ b/tools/kirk/kirk-src
-@@ -0,0 +1 @@
-+Subproject commit e0ef9f28bcf15d00cf8a03915df894bb38a5d8ea
+ ci/alpine.sh                                |   1 +
+ ci/debian.sh                                |   1 +
+ ci/fedora.sh                                |   1 +
+ ci/tumbleweed.sh                            |   1 +
+ lib/newlib_tests/runtest.sh                 |   1 +
+ lib/newlib_tests/shell/tst_format_device.sh |   1 +
+ lib/newlib_tests/tst_filesystems01.c        | 104 ++++++++++++++++++++
+ 7 files changed, 110 insertions(+)
+ create mode 100644 lib/newlib_tests/tst_filesystems01.c
 
 -- 
-2.51.1
+2.51.0
 
 
 -- 
