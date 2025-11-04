@@ -1,97 +1,106 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6640CC348A1
-	for <lists+linux-ltp@lfdr.de>; Wed, 05 Nov 2025 09:46:18 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D9D0C353A7
+	for <lists+linux-ltp@lfdr.de>; Wed, 05 Nov 2025 11:52:21 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1762332377; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=bNaL8nF6w6L9YCCwa19Z2hnHcDy3k317B5a8W5VI5xA=;
- b=krd9b053/N+im0cnZEA1N7yQg0RvdzzeDPP4uzgnvYIPtgbnXuTPj/tjFEqQzUr8ysGVF
- r6HDXr1bNhNHLs0PhCwgut728Wikwo7PAdPmFpeLCe86FLoImvA1BEhQ+0Zt3EwwOiFHu6C
- KII/DIQY7pEmt1Fl7/WbpzF30SBoAaU=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1762339940; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : cc : content-type : content-transfer-encoding : sender :
+ from; bh=mShCdVp6PBwYbF07ruyT8Six9kg8sX64tDfhbCr1vbM=;
+ b=el6RdMe4MlcWWsXAngRwmXl7AnB2nrj79FZcqD7NkA//mwnY0fAWmW3SM7qCbSS6nCagk
+ UyAwqaQc7gkqDmUDItGtACe3joqSNwO214fK49Upz66e8fsVaK6e/yuSgorPxkkgrQVO5go
+ wngTwPpiqNMDd8yldFQte2cdzOGmbpY=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 58CE03CE442
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Nov 2025 09:46:17 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C979A3CE3DF
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Nov 2025 11:52:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2EBA93CAE86
- for <ltp@lists.linux.it>; Wed,  5 Nov 2025 09:46:04 +0100 (CET)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 3A9893CE1A4
+ for <ltp@lists.linux.it>; Tue,  4 Nov 2025 20:39:54 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1D5022009FF
- for <ltp@lists.linux.it>; Wed,  5 Nov 2025 09:46:04 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-b710601e659so475724966b.1
- for <ltp@lists.linux.it>; Wed, 05 Nov 2025 00:46:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1762332363; x=1762937163; darn=lists.linux.it;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=l4Jxt3KxCDJDqkfOOcQAd1rMnC171FIhdIFVZ8oInhM=;
- b=E6zOv8q93DkAmM8QTkVnZFiWhbSDVBAMs7uqWNwd2DQVObIQn0P26A1miJM60LpqFQ
- I8UoOjFn+MC7w0vkRcRdWwTdBNubkB5a7JiN/oDQ/9Iw/LFnLwH4/YBHlvhc3M3MFhsR
- PSIz6lcgRv/l0kq/GC4RkyLublH6pPGy2Mq2jFs903jmdxDbFHJGnjGbnu3SONYJugwq
- lI0/xeZ5etmbQiNktugVrfU8JWp+w3Q1ba3sXcDZ+zRAW4ysPxFifVDcn1w/f0p9/C+w
- T5M84p6n43t/PQR6o7xgBWs+vb5fazeUdklmY4Va3gp/CbgfpVuZ99Flu581wR4vlThM
- mNrQ==
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 68B47600197
+ for <ltp@lists.linux.it>; Tue,  4 Nov 2025 20:39:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1762285190;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=GCmlhMaf10pHSqZzUdn6i9UYT0SAVRYH0KCcKCV/lyc=;
+ b=LqmEXFiXHslQLO47lC4qfIB7vTEFghcXMtGOUMOREDEVn4PV+VSwv/hpJ4uqaBp22ZAeCL
+ Evjvvi+ULUAzX0RrFvGzhsL5FMikxLktktDgfTrf6wJVEr29H4wwkFx6Y0Cq6RU3SAxM9Z
+ hsophlicPE4mSKRLH42ezGgsyb6xfG0=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-137-jJYm_MjSPPqYt_6Vj2TSGw-1; Tue, 04 Nov 2025 14:39:47 -0500
+X-MC-Unique: jJYm_MjSPPqYt_6Vj2TSGw-1
+X-Mimecast-MFC-AGG-ID: jJYm_MjSPPqYt_6Vj2TSGw_1762285187
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-8803b5dc9b8so181646906d6.1
+ for <ltp@lists.linux.it>; Tue, 04 Nov 2025 11:39:47 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762332363; x=1762937163;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=l4Jxt3KxCDJDqkfOOcQAd1rMnC171FIhdIFVZ8oInhM=;
- b=Hp5SPwnwhxSI6TWxhEifrmeSQ8KlhweR+Jn3qK8CR30rX1Kl+EyMadFbt4wU6o+wea
- Eskc5nKdHqUtdjlx3uef3VDFxainPyC+bE+vpmvaqQAaJC+nohx3OXOGD8hx79fFz3C0
- UM7TJ/c52QDgqf0x+fonF3572J6chFyW9LRvGYoDnwAQunLU/yuVccf36cz3Um89NVaY
- qcP1lRMO1p8rOAJEG0pEgbO5v9kN2PjFUn+OSDQ1b5EI0xgFyRbZcsfHVPn6UwRmh/uk
- UcTXCw3yKmN4+tTeFV/5ccePFc4pBtSH0Vg69RNEHS3PoP1EccoQ8RPjd1eQxhjF9oHU
- njjw==
-X-Gm-Message-State: AOJu0YwjXa7tBZHtMYK63Egaes14JjtirrJiOMLafKdhlT1c31xXaAuf
- zOrz0r9o0Ui78YAEywsxlQKeN9suaigfdh3DnaFhnrh5bjDCclKSmnmocI04vcN+Vg==
-X-Gm-Gg: ASbGnctjciUmFKTX3eixPVns6a618M3r2mdzcwKYSBE1tKyb+raBRKsCe5YDHgHRJSU
- LCSvregYSsLlVGFj+/pBONIreFuo8GwmyVwLxdJ8WLFSqsogx/P+TVjwSQHHhtzAL4Aaz4+okY/
- iGGPw7WnFNHjOwVgGOQSVzfHAXvZofGeFwmv3PC2ijO7EODipfCgfOCwCxF8oKwJW157R4P73kK
- z/vJE1PQEJ5muZxKAjCvGUOv1aU4o+bROIZJeiSyea8ZhKOAOtwM8ZVLU3LFWB6xV9KvM+QtyaA
- Ts+RgAuAr0MVq9ZDjJIUntTvFQ1nFGq0mZSIvXEF63Phr7G60KglvKfPtio4sIqKjGEp3UwiFev
- jfPv4BkHfYbkduNYL6clRFEJMTeYDTMMKKSDvMkMfJ+qWlVk7LF9UTsqGhuQeJcpQoENFi821Y8
- MM2Xkmiwh2YxTOoR6hAg==
-X-Google-Smtp-Source: AGHT+IHYiwQ0dYwGD7tG2LjiUkUGbFmn3uGJ3nIFk3sd7GUAk5w1ZEnDXXKy8m+03ZRckaWO90yjVg==
-X-Received: by 2002:a17:907:3d44:b0:b71:b4a1:b29d with SMTP id
- a640c23a62f3a-b72655b7438mr175174566b.64.1762332363358; 
- Wed, 05 Nov 2025 00:46:03 -0800 (PST)
-Received: from autotest-wegao.qe.prg2.suse.org
- ([2a07:de40:b240:0:2ad6:ed42:2ad6:ed42])
+ d=1e100.net; s=20230601; t=1762285186; x=1762889986;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GCmlhMaf10pHSqZzUdn6i9UYT0SAVRYH0KCcKCV/lyc=;
+ b=ljP8AWVuQY/Knmp4rxkYOdy/IBgD7JKZf6w+4D9JWRsvUWrOieiMOGwsimqE3dEPay
+ v5+sBBvx36rYkbuX5VCk3IZBE1W3rgpYrDiYfzez37CcP+OmvDt2v5vfWir3CT/OQEH8
+ 6cWmD8nuHrUGb8mgP4Ow9rrAcVPfimHmUHwGdzX+WE7oYq2zXRKRyt8kvAsRqqnUSjYO
+ M2CAbijP7ig3ZfZRAFIGyVOIPOP1k5xc9XsG01Ai+j7P+Zy/UqLu30fNjBjHESZ2wbIM
+ 2TwyngQAoBg3AdPVaeMD5riBvwu1c8JU+Y7l3MhDrqHxpq8urqikZ8ifl4G7lgJrTK/k
+ QyYg==
+X-Gm-Message-State: AOJu0YwXVDXPbr8RWJH0TCD87JiLAIm4vL0YQ4bbuPIn4ry+W2Tyt10q
+ Pu3+1k8Wg6k3hTqar3HflMEC+OB0XUpw6EXXYDWWRV4Rvx/K2gNr1xZJQsGRwX1v9nJmNcTBUKM
+ GExn6zRGO0Vl7bXakvJQeaUPtSbN0lYG/Bkx08xYTNH7hXEINKBv167C/nkQN9wjJb2UHANK0FD
+ kDNYd1+QWr5SsEeOF1a8da1+L8f/n4E+PuTuf9
+X-Gm-Gg: ASbGncsam7CfE3LctxvaOEL580Bl132Nt9WodwMA4Dlnn9xNr7Z3l6wKmk8cE+pH1Ce
+ KmHuVWHVqbY7FthsewgpPi4Ztyitc+o5lgTYZF/ULwxB+gv4x3qxjaPkJi35UtiWiRTIqaJKNCy
+ YAGO/MnOd6aD6p25oQvnxmV+KWA922IDysCbA4UUd9oacrvtHGGMp4DvQp7V/GiDInh5dg103UV
+ IQFehRhylRGrSNb8Pvo0vRhoGVgAnL+9tdqDZO1/7flNLPIlTN3kfKMukNK2X6HF2wmx8VGrLpy
+ lwFMt7F+xfRZ1bZ6SXWYWbSFSu22Q9kZYo9SyM0ostURsl9wBPf7wbXNF3ntzWd/rDCsIaGQZsd
+ U5h+voQ1TD+8Vrs4+ryBieJz2
+X-Received: by 2002:a05:6214:250a:b0:880:6539:2b27 with SMTP id
+ 6a1803df08f44-8807112a2a8mr11387736d6.4.1762285186704; 
+ Tue, 04 Nov 2025 11:39:46 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGYKT3m660fDGuka9TIlI2D90gECcfAdqeUziZDZcScXsbBznqFBdoaburgmJ1LqMCwkHkQLQ==
+X-Received: by 2002:a05:6214:250a:b0:880:6539:2b27 with SMTP id
+ 6a1803df08f44-8807112a2a8mr11387496d6.4.1762285186290; 
+ Tue, 04 Nov 2025 11:39:46 -0800 (PST)
+Received: from sbertram-thinkpadp1gen5.bos.com ([144.121.52.162])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b723d3a3d79sm429217966b.10.2025.11.05.00.46.02
+ 6a1803df08f44-88060dedb3fsm26324956d6.23.2025.11.04.11.39.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Nov 2025 00:46:03 -0800 (PST)
-Date: Wed, 5 Nov 2025 08:46:01 +0000
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <aQsOybjYzImfJopq@autotest-wegao.qe.prg2.suse.org>
-References: <20251030192543.761804-1-pvorel@suse.cz>
+ Tue, 04 Nov 2025 11:39:46 -0800 (PST)
+To: ltp@lists.linux.it
+Date: Tue,  4 Nov 2025 14:39:40 -0500
+Message-ID: <20251104193942.4080083-1-sbertram@redhat.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20251030192543.761804-1-pvorel@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 5EPJT81VJc_tSSX2HfcSSelR01GoKkNuq3qZD-ldjaY_1762285187
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 1/1] lib: dirtyc0w_shmem: userfaultfd01: Add
- safe_userfaultfd()
+X-Mailman-Approved-At: Wed, 05 Nov 2025 11:52:07 +0100
+Subject: [LTP] [PATCH v1] Add config check for systems that do not support
+ CONFIG_XFS_FS.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,152 +112,52 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
-Cc: ltp@lists.linux.it
+From: Stephen Bertram via ltp <ltp@lists.linux.it>
+Reply-To: Stephen Bertram <sbertram@redhat.com>
+Cc: Stephen Bertram <sbertram@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, Oct 30, 2025 at 08:25:43PM +0100, Petr Vorel wrote:
-> Use TINFO in tst_res() followed by tst_brk(TBROK, ...).
-> 
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
-> NOTE: SAFE_USERFAULTFD() could be used also in Wei's mremap07.c
-> https://patchwork.ozlabs.org/project/ltp/patch/20251030054029.23511-1-wegao@suse.com/
-> 
->  include/lapi/userfaultfd.h                    | 33 +++++++++++++++++++
->  .../dirtyc0w_shmem/dirtyc0w_shmem_child.c     | 15 +--------
->  .../syscalls/userfaultfd/userfaultfd01.c      | 18 +---------
->  3 files changed, 35 insertions(+), 31 deletions(-)
-> 
-> diff --git a/include/lapi/userfaultfd.h b/include/lapi/userfaultfd.h
-> index 4d52b7c4bb..8c9482c3d1 100644
-> --- a/include/lapi/userfaultfd.h
-> +++ b/include/lapi/userfaultfd.h
-> @@ -2,6 +2,7 @@
->  /*
->   * Copyright (C) 2007 Davide Libenzi <davidel@xmailserver.org>
->   * Copyright (C) 2015,2022 Red Hat, Inc.
-> + * Copyright (c) Linux Test Project, 2025
->   *
->   * Mostly copied/adapted from <linux/userfaultfd.h>
->   */
-> @@ -9,6 +10,7 @@
->  #ifndef LAPI_USERFAULTFD_H__
->  #define LAPI_USERFAULTFD_H__
->  
-> +#include <stdbool.h>
->  #include <unistd.h>
->  #include <sys/types.h>
->  #include "lapi/syscalls.h"
-> @@ -187,4 +189,35 @@ struct uffdio_continue {
->  #define UFFD_FEATURE_MINOR_SHMEM		(1<<10)
->  #endif /* UFFD_FEATURE_MINOR_SHMEM */
->  
-> +#define SAFE_USERFAULTFD(flags, retry) \
-> +	safe_userfaultfd(__FILE__, __LINE__, (flags), (retry))
-> +
-> +static inline int safe_userfaultfd(const char *file, const int lineno, int
-> +				   flags, bool retry)
-> +{
-> +	int ret;
-> +
-> +retry:
-> +	ret = tst_syscall(__NR_userfaultfd, flags);
-> +	if (ret == -1) {
-> +		if (errno == EPERM) {
-> +			if (retry && !(flags & UFFD_USER_MODE_ONLY)) {
-> +				flags |= UFFD_USER_MODE_ONLY;
-> +				goto retry;
-> +			}
-> +			tst_res_(file, lineno, TINFO,
-> +				 "Hint: check /proc/sys/vm/unprivileged_userfaultfd");
-> +			tst_brk_(file, lineno, TCONF | TERRNO,
-> +				"userfaultfd() requires CAP_SYS_PTRACE on this system");
-> +		}
-> +		tst_brk_(file, lineno, TBROK | TERRNO,
-> +				 "syscall(__NR_userfaultfd, %d) failed", flags);
-> +	} else if (ret < 0) {
-> +		tst_brk_(file, lineno, TBROK | TERRNO,
-> +			 "Invalid syscall(__NR_userfaultfd, %d) return value %d", flags, ret);
-> +	}
-I suppose main error handle if (ret == -1) already cover standard syscall
-error, why still need check ret < 0 ?
-> +
-> +	return ret;
-> +}
-> +
->  #endif /* LAPI_USERFAULTFD_H__ */
-> diff --git a/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem_child.c b/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem_child.c
-> index 2a982347c5..9c60fbfa34 100644
-> --- a/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem_child.c
-> +++ b/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem_child.c
-> @@ -128,21 +128,8 @@ static void setup_uffd(void)
->  {
->  	struct uffdio_register uffdio_register;
->  	struct uffdio_api uffdio_api;
-> -	int flags = O_CLOEXEC | O_NONBLOCK;
->  
-> -retry:
-> -	TEST(tst_syscall(__NR_userfaultfd, flags));
-> -	if (TST_RET < 0) {
-> -		if (TST_ERR == EPERM) {
-> -			if (!(flags & UFFD_USER_MODE_ONLY)) {
-> -				flags |= UFFD_USER_MODE_ONLY;
-> -				goto retry;
-> -			}
-> -		}
-> -		tst_brk(TBROK | TTERRNO,
-> -			"Could not create userfault file descriptor");
-> -	}
-> -	uffd = TST_RET;
-> +	uffd = SAFE_USERFAULTFD(O_CLOEXEC | O_NONBLOCK, true);
->  
->  	uffdio_api.api = UFFD_API;
->  	uffdio_api.features = UFFD_FEATURE_MINOR_SHMEM;
-> diff --git a/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c b/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c
-> index c2c684d2b8..5a973ad8e9 100644
-> --- a/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c
-> +++ b/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c
-> @@ -23,11 +23,6 @@ static char *page;
->  static void *copy_page;
->  static int uffd;
->  
-> -static int sys_userfaultfd(int flags)
-> -{
-> -	return tst_syscall(__NR_userfaultfd, flags);
-> -}
-> -
->  static void set_pages(void)
->  {
->  	page_size = sysconf(_SC_PAGE_SIZE);
-> @@ -80,19 +75,8 @@ static void run(void)
->  
->  	set_pages();
->  
-> -	TEST(sys_userfaultfd(O_CLOEXEC | O_NONBLOCK));
-> -
-> -	if (TST_RET == -1) {
-> -		if (TST_ERR == EPERM) {
-> -			tst_res(TCONF, "Hint: check /proc/sys/vm/unprivileged_userfaultfd");
-> -			tst_brk(TCONF | TTERRNO,
-> -				"userfaultfd() requires CAP_SYS_PTRACE on this system");
-> -		} else
-> -			tst_brk(TBROK | TTERRNO,
-> -				"Could not create userfault file descriptor");
-> -	}
-> +	uffd = SAFE_USERFAULTFD(O_CLOEXEC | O_NONBLOCK, false);
->  
-> -	uffd = TST_RET;
->  	uffdio_api.api = UFFD_API;
->  	uffdio_api.features = 0;
->  	SAFE_IOCTL(uffd, UFFDIO_API, &uffdio_api);
-> -- 
-> 2.51.0
-> 
+---
+ testcases/kernel/syscalls/file_attr/file_attr02.c | 4 ++++
+ testcases/kernel/syscalls/file_attr/file_attr03.c | 4 ++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/testcases/kernel/syscalls/file_attr/file_attr02.c b/testcases/kernel/syscalls/file_attr/file_attr02.c
+index f6625985a..a1c459d30 100644
+--- a/testcases/kernel/syscalls/file_attr/file_attr02.c
++++ b/testcases/kernel/syscalls/file_attr/file_attr02.c
+@@ -102,6 +102,10 @@ static struct tst_test test = {
+ 		},
+ 		{}
+ 	},
++	.needs_kconfigs = (const char *[]) {
++		"CONFIG_XFS_FS",
++		NULL
++	},
+ 	.bufs = (struct tst_buffers []) {
+ 		{&attr, .size = sizeof(struct file_attr)},
+ 		{}
+diff --git a/testcases/kernel/syscalls/file_attr/file_attr03.c b/testcases/kernel/syscalls/file_attr/file_attr03.c
+index 9ad779041..19a8e298d 100644
+--- a/testcases/kernel/syscalls/file_attr/file_attr03.c
++++ b/testcases/kernel/syscalls/file_attr/file_attr03.c
+@@ -69,6 +69,10 @@ static struct tst_test test = {
+ 		{.type = "xfs"},
+ 		{}
+ 	},
++	.needs_kconfigs = (const char *[]) {
++		"CONFIG_XFS_FS",
++		NULL
++	},
+ 	.bufs = (struct tst_buffers []) {
+ 		{&attr, .size = sizeof(struct file_attr)},
+ 		{}
+-- 
+2.49.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
