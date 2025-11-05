@@ -2,71 +2,104 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4480C3518D
-	for <lists+linux-ltp@lfdr.de>; Wed, 05 Nov 2025 11:29:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16411C353E7
+	for <lists+linux-ltp@lfdr.de>; Wed, 05 Nov 2025 11:54:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6863B3CE4AF
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Nov 2025 11:29:43 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AA6F33CE4B0
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Nov 2025 11:54:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7562F3CD09B
- for <ltp@lists.linux.it>; Wed,  5 Nov 2025 11:29:34 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by picard.linux.it (Postfix) with ESMTPS id 718A23C2026
+ for <ltp@lists.linux.it>; Wed,  5 Nov 2025 11:54:33 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EA3D01A002E2
- for <ltp@lists.linux.it>; Wed,  5 Nov 2025 11:29:33 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E34096002B0
+ for <ltp@lists.linux.it>; Wed,  5 Nov 2025 11:54:32 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 23D5421125;
- Wed,  5 Nov 2025 10:29:33 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5F0C221182;
+ Wed,  5 Nov 2025 10:54:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1762340071; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ys4YcbJAfG9yUtzwSZ7NCrBPGSak6kYLyj60C8bFTPs=;
+ b=X3pnJjHzIJdwb11JfjaeTQNR/GbL95UbfPWoLY1DpvWzmyIipsTqGwEHHW1OyorQDGcn4F
+ uqBqSAEZZ/7Ge9uLAr2FMG4f7//AX5vzFhn2exmeU5k0VMkep4QQ7g2rkqsjhpI1Gx/UIM
+ FvmzciGEDJNbscT1vPnOEc8mdtgLLhs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1762340071;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ys4YcbJAfG9yUtzwSZ7NCrBPGSak6kYLyj60C8bFTPs=;
+ b=c/UaT7lKrHTFaPWHY3TIeNIV/52ySCqxiSqcp7MBTRoub24KpzpOnynf6CY2KEAIGr3Aqa
+ HcmQR4q1W+UftmDA==
 Authentication-Results: smtp-out1.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1762340070; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ys4YcbJAfG9yUtzwSZ7NCrBPGSak6kYLyj60C8bFTPs=;
+ b=PhO2x6G1wf/8rPDqyNyObNhDwAqY8YOK5NV51FRrpIfkMJCWff8ITNeCMZVSQ1PhYXnZwi
+ prrT/iPSAAnw5SzkLcB6em/WDFK1b/L88ErJwVxf5rUOa65PtOHLjr8ZKrV4vAcA39jEbL
+ CIhM/AX5t7yqpdyrPCxAf1bm9xQicmA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1762340070;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ys4YcbJAfG9yUtzwSZ7NCrBPGSak6kYLyj60C8bFTPs=;
+ b=ChD/683InUeIWreUhqYLDZzpYHjojCboHUpJP6JvxVsS1FG50XR0V9GdQrc3wFSwKQlrff
+ QJS7RzgJJl6nQUBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0450C13699;
- Wed,  5 Nov 2025 10:29:32 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 48963132DD;
+ Wed,  5 Nov 2025 10:54:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 1ccZOwwnC2mEWAAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Wed, 05 Nov 2025 10:29:32 +0000
-Date: Wed, 5 Nov 2025 11:30:19 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id w//MEOYsC2mCcQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Wed, 05 Nov 2025 10:54:30 +0000
+Date: Wed, 5 Nov 2025 11:55:16 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Wei Gao <wegao@suse.com>
-Message-ID: <aQsnO8YaLLt01WAy@yuki.lan>
-References: <20251030192543.761804-1-pvorel@suse.cz>
- <aQsOybjYzImfJopq@autotest-wegao.qe.prg2.suse.org>
+To: Stephen Bertram <sbertram@redhat.com>
+Message-ID: <aQstFByWQ6Zkz6ZP@yuki.lan>
+References: <20251104193942.4080083-1-sbertram@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aQsOybjYzImfJopq@autotest-wegao.qe.prg2.suse.org>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Queue-Id: 23D5421125
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Spam-Score: -4.00
+In-Reply-To: <20251104193942.4080083-1-sbertram@redhat.com>
 X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
+X-Spamd-Result: default: False [-8.30 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWO(0.00)[2]; ARC_NA(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -8.30
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 1/1] lib: dirtyc0w_shmem: userfaultfd01: Add
- safe_userfaultfd()
+Subject: Re: [LTP] [PATCH v1] Add config check for systems that do not
+ support CONFIG_XFS_FS.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,17 +118,15 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > +	} else if (ret < 0) {
-> > +		tst_brk_(file, lineno, TBROK | TERRNO,
-> > +			 "Invalid syscall(__NR_userfaultfd, %d) return value %d", flags, ret);
-> > +	}
-> I suppose main error handle if (ret == -1) already cover standard syscall
-> error, why still need check ret < 0 ?
+There was a bug in the test library filesystem availability check,
+should have been fixed by:
 
-We are testing kernel and we have to check for situation that are
-impossible under normal operation. There have been cases when a bug in a
-kernel patch caused the syscall to return invalid return values, so we
-are making extra sure that this does not happen.
+commit 5e1e0e2d81e564df09542b7caa2a66928c05dd3a
+Author: Cyril Hrubis <chrubis@suse.cz>
+Date:   Mon Oct 27 16:09:24 2025 +0100
+
+    lib/tst_test: Fix FS kernel supported check
+
 
 -- 
 Cyril Hrubis
