@@ -1,71 +1,107 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3953DC3F71F
-	for <lists+linux-ltp@lfdr.de>; Fri, 07 Nov 2025 11:30:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 198D9C3F746
+	for <lists+linux-ltp@lfdr.de>; Fri, 07 Nov 2025 11:31:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E6F9A3CF005
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Nov 2025 11:30:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B86EF3CD279
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Nov 2025 11:31:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 78FCA3CEF03
- for <ltp@lists.linux.it>; Fri,  7 Nov 2025 11:29:48 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id E55E73CEFAD
+ for <ltp@lists.linux.it>; Fri,  7 Nov 2025 11:29:55 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 39C65200C7E
- for <ltp@lists.linux.it>; Fri,  7 Nov 2025 11:29:47 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5FFF8600F08
+ for <ltp@lists.linux.it>; Fri,  7 Nov 2025 11:29:55 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0BEB1211D4;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 738F31F45B;
  Fri,  7 Nov 2025 10:29:44 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1762511384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vzQ1blI7FWOqomm7ei0RckwJeSRm9U96y55XxRMB04w=;
+ b=ioJiOOnD2KMqMxCYrDdHZZyFqjxGVgWqc5d+3GPkL1B3bBnHqNbWmJuuHvAtmp49rwCl3U
+ 1FgeftA1h9aoOWsYUAtVh/sPfrPXTt68gSwfYECCsRnjevY/IW/sX2TRzQwCJApbXyEs+p
+ +JPekl1q7wnUxRbjcCEvbZhjrg4c8Xs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1762511384;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vzQ1blI7FWOqomm7ei0RckwJeSRm9U96y55XxRMB04w=;
+ b=TyYbXY92gOxyARiG4/bww+YXd9eQ8dEaFVtdaHocfwAyYwJiNYbU7be33XS5RvWUly6eeo
+ UlqkbN5JyQIZdODA==
+Authentication-Results: smtp-out2.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1762511384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vzQ1blI7FWOqomm7ei0RckwJeSRm9U96y55XxRMB04w=;
+ b=ioJiOOnD2KMqMxCYrDdHZZyFqjxGVgWqc5d+3GPkL1B3bBnHqNbWmJuuHvAtmp49rwCl3U
+ 1FgeftA1h9aoOWsYUAtVh/sPfrPXTt68gSwfYECCsRnjevY/IW/sX2TRzQwCJApbXyEs+p
+ +JPekl1q7wnUxRbjcCEvbZhjrg4c8Xs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1762511384;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vzQ1blI7FWOqomm7ei0RckwJeSRm9U96y55XxRMB04w=;
+ b=TyYbXY92gOxyARiG4/bww+YXd9eQ8dEaFVtdaHocfwAyYwJiNYbU7be33XS5RvWUly6eeo
+ UlqkbN5JyQIZdODA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BF512132DD;
- Fri,  7 Nov 2025 10:29:43 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2FD1E132DD;
+ Fri,  7 Nov 2025 10:29:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id SPe4KhfKDWlKQQAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 07 Nov 2025 10:29:43 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id GEu6BRjKDWlKQQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 07 Nov 2025 10:29:44 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri,  7 Nov 2025 11:29:34 +0100
-Message-ID: <20251107102939.1111074-4-pvorel@suse.cz>
+Date: Fri,  7 Nov 2025 11:29:35 +0100
+Message-ID: <20251107102939.1111074-5-pvorel@suse.cz>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251107102939.1111074-1-pvorel@suse.cz>
 References: <20251107102939.1111074-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Queue-Id: 0BEB1211D4
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Spam-Score: -4.00
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-0.986]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_COUNT_TWO(0.00)[2]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCPT_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -6.80
 X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 3/8] tst_test.c: Change check_kver() return type to
+Subject: [LTP] [PATCH 4/8] tst_test.c: Change results_equal() return type to
  bool
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -83,56 +119,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Also change the value (0 becomes true), add docs (don't use kerneldoc as
-this is a internal function which does not need to be in LTP online doc).
-
-While at it, add missing static.
+Also add doc (don't use kerneldoc as this is a internal function which
+does not need to be in LTP online doc).
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- lib/tst_test.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ lib/tst_test.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
 diff --git a/lib/tst_test.c b/lib/tst_test.c
-index bda66c4672..1725844b54 100644
+index 1725844b54..449ddb6ba5 100644
 --- a/lib/tst_test.c
 +++ b/lib/tst_test.c
-@@ -1056,7 +1056,12 @@ static void do_exit(int ret)
- 	exit(ret);
+@@ -1086,21 +1086,26 @@ static bool check_kver(const char *min_kver, const int brk_nosupp)
+ 	return true;
  }
  
--int check_kver(const char *min_kver, const int brk_nosupp)
+-static int results_equal(struct results *a, struct results *b)
 +/*
-+ * Check for the required kernel version.
++ * Checks if the struct results values are equal.
 + *
-+ * return: true if the kernel version is high enough, false otherwise.
++ * return: true if results are equal, false otherwise.
 + */
-+static bool check_kver(const char *min_kver, const int brk_nosupp)
++static bool results_equal(struct results *a, struct results *b)
  {
- 	char *msg;
- 	int v1, v2, v3;
-@@ -1075,10 +1080,10 @@ int check_kver(const char *min_kver, const int brk_nosupp)
- 		else
- 			tst_res(TCONF, msg, min_kver);
- 
--		return 1;
+ 	if (a->passed != b->passed)
+-		return 0;
 +		return false;
- 	}
  
--	return 0;
+ 	if (a->failed != b->failed)
+-		return 0;
++		return false;
+ 
+ 	if (a->skipped != b->skipped)
+-		return 0;
++		return false;
+ 
+ 	if (a->broken != b->broken)
+-		return 0;
++		return false;
+ 
+-	return 1;
 +	return true;
  }
  
- static int results_equal(struct results *a, struct results *b)
-@@ -1963,7 +1968,7 @@ static int run_tcase_on_fs(struct tst_fs *fs, const char *fs_type)
- 	if (fs->mkfs_ver && !tst_check_cmd(fs->mkfs_ver, 0))
- 		return TCONF;
- 
--	if (fs->min_kver && check_kver(fs->min_kver, 0))
-+	if (fs->min_kver && !check_kver(fs->min_kver, 0))
- 		return TCONF;
- 
- 	prepare_device(fs);
+ static int needs_tmpdir(void)
 -- 
 2.51.0
 
