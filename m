@@ -2,85 +2,86 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 931E2C44CBD
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Nov 2025 03:48:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 511C3C44CC3
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Nov 2025 03:49:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1762742915; h=to : date :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1762742966; h=to : date :
  message-id : in-reply-to : references : mime-version : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : content-type :
  content-transfer-encoding : sender : from;
- bh=04qzmUtT3c8AYX/ze0O3Sa6mCgI8o/Yj9CtsjfU4AT8=;
- b=dHK3K4Qb+89EsgjJ8Y31o9Nsk9xgmitZC647I3sjLqPmTxZ6GHZvxzMsdnz/QejqHIw41
- VT8sQ+rGa4YlpfGPGExhzkf2hDRlgYkHZYQt+tGA2Pfd1kJas2nFeKbqgXRICLCxbjbzPxN
- bJGDLhV27kgKyp7uGhSeV4dVsv2wpsM=
+ bh=51MxOHFPQMIggKZAXA/NeMymS9i6p8m+Edv8jhgrTz0=;
+ b=FS80y2ZC/isQmk83hMuE2ageYjhvX2xK/raKszFqfVwptdaUaD2C9kkbj7pSPbM3HOrU6
+ LY9x62vwc/zPGeghTliMs1MjEITXSdSjHRnh6Xj2d2eza1DHqznZs9IBeuZyQrMnu53F+uf
+ 123UdFab/kvp3eSq62wERCuG8uoCLIo=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D04B83CF52D
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Nov 2025 03:48:35 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id F1FBA3CF52E
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Nov 2025 03:49:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EF51A3CF533
- for <ltp@lists.linux.it>; Mon, 10 Nov 2025 03:48:13 +0100 (CET)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
+ by picard.linux.it (Postfix) with ESMTPS id 354AE3CF553
+ for <ltp@lists.linux.it>; Mon, 10 Nov 2025 03:48:16 +0100 (CET)
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6346D2002D2
- for <ltp@lists.linux.it>; Mon, 10 Nov 2025 03:48:13 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-b725ead5800so325940766b.1
- for <ltp@lists.linux.it>; Sun, 09 Nov 2025 18:48:13 -0800 (PST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CDE8A2002BA
+ for <ltp@lists.linux.it>; Mon, 10 Nov 2025 03:48:15 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-64074f01a6eso4616086a12.2
+ for <ltp@lists.linux.it>; Sun, 09 Nov 2025 18:48:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1762742892; x=1763347692; darn=lists.linux.it;
+ d=suse.com; s=google; t=1762742895; x=1763347695; darn=lists.linux.it;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=LD3b7LD7U/NPinQf99NpVEDFiYzU7aKLEaJ3xF9R2p4=;
- b=LIX1PyLfsAKuq+sP7ngakBDQQqLDYhAV9dbGhd7Z2TR7jgiyT4eDxyuJt5PPJpiPTw
- Zjpob3HhF2t5Psy8YDS503cWbnkhWwtHKpANYwGEYnUDXl1BmBuf4mfCU0LrM1fhFbFo
- mkT+1524pKtnkNe7F49ywj7J0YH4lXJJ6vk7eo+s6pIHcXjG+idkcibTrMt0T3OMIawn
- nHtTwk2WU1LYZQYE+Ngg+e4c7Dkq/o8S+L+P2GsUdx8UiPp8Ni4m/fSCIE1SigAFpDra
- 1rdHnsVOl5DRCNhWMlxiAoINTXGwMPIcyc/Cm5xRWH9AX/qhLdSEJSfa2Nx+3SduOEuf
- 8EMA==
+ bh=xo3y0vAoUjG5+Qu4Cq8WtsL+vEQ8PrW1DluMpvtjk9Q=;
+ b=LfGcIn0x5BYVygtafh0lTEwS0277wpPXX40SQFSuUJf+3UQpv0qoKBOr7p6CgVPdxe
+ jCgynny4xXXlNpirrlROorPhMeh1fVTf2T2ytfjVHs2Z3zkpG87MdZNSj59MK8JgmVFj
+ RDpNODBuxStKBtChsmw7TEePPEZw/XwTZMn4KfFcw2UxjIoadnz7fUhvri7WxNlDggsK
+ utKUSisnOY8v3F8y5TU4aMs0YzUNzIAvDpKHeSxrXmO95BN/4ELpxkq+KrUcXoADkVtO
+ UgWclBmza6tkeAgWlciVI52HJGNAX9LvR49x5Mk8shIFKNoAFzDRcKs3cgSVz6vIbQea
+ g5rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762742892; x=1763347692;
+ d=1e100.net; s=20230601; t=1762742895; x=1763347695;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=LD3b7LD7U/NPinQf99NpVEDFiYzU7aKLEaJ3xF9R2p4=;
- b=WtM/iGkQ5bxYEZtrD0vbQgPOfzU9uMNsvl1yuyRqiFemhKebrMnfw8xN87YGg8RmtA
- qTg4PwcHgQ6ttM+QKInAX/Lj4hcKYSKPatGF2rZcmKOJvq/0m70wmz4wllMEEk5sA0fR
- gb32F0bNTN2dexYox7qlHtz7yRFohsVZRBkgWfHi6lTO+BadDeyzXa2RzPHBCsL6MKqv
- 034CTjJRo8lmsDFR9nG0Ko7LMQ/Lql7a9f19nbtnwIJ9LPlifDSh/1sjvYnae86slInx
- aFyMpGL8SMqA4PIxRYot9sU5I4Zky97Vd6PKTIi3gFO8l95olGgy2e1iDX/Fq1cHJHLt
- C8Yg==
-X-Gm-Message-State: AOJu0YzW71W9EfdgPp2/ryGkH8NgrgiQ0pNpAMhldd3GuTjHII+WoK3c
- JmsetC0osRsSIYE4HiNS/ZPmOB5FPvLbTcsU8zEPiWAf/S01ICDpyX5MiZihscKS9y9wcwBoJ32
- oEMM=
-X-Gm-Gg: ASbGnct10KrUAuJ1Tcih1aIM10wNDrgLjsNJSUJi0juiDH9jXfJkKence/71Aqbw1ZQ
- E7YRApaXWKSUQS1Wd2f6xpTDqmF2SlYFwy17xEadd19VrMcyqMh/osxdJ+hoLsj+eZSvC6HigAq
- 2zJRqlCR4AlH6LuNvdoYKLAaZiJfjXOiv2HB8985TxDAR3CPH8GKGVuiq/6oTzj5bvcNdKVEG8N
- ng5Ea7xUXcfTSL2QrYj839OYw7lSGRmz9pkuZ33n+gQXWpExFsFTduRrx/WU9fuETyWDIUFE/Bf
- KFrforRpBdb41Dgp5aKOxBRzpUV8C6HuFFqSkabu201/Bu55IIyx0OIqH8Q9Y3WaXIbzkGTnlZk
- mqawdKRzV+Fh63GIsINPPyNuNVpNLeugzOVEMzl8ENaXFLeH5aWym6tiZW3UYyuxR3MbVcTRIkH
- w=
-X-Google-Smtp-Source: AGHT+IFI9sZKnQxQNTF8zeFnX/3LO7SuhGvVmLH0fVp1tWPad8UlJLz9eCGdHcEX3qxVXsEN1+JU+A==
-X-Received: by 2002:a17:906:6a07:b0:b6d:608c:838b with SMTP id
- a640c23a62f3a-b72e049121bmr635479766b.45.1762742892590; 
- Sun, 09 Nov 2025 18:48:12 -0800 (PST)
+ bh=xo3y0vAoUjG5+Qu4Cq8WtsL+vEQ8PrW1DluMpvtjk9Q=;
+ b=BqV/lyMqNp8zioyOQrJB/VwgDtZ8HYFV1TA8bd/f9bDMw0tCu3szKlT7xLcMi3TsAu
+ x8VtY/VovFNZS6iZKkA4snZbpdfjMNlBVTr9oGv+FIYI4K6Cjy3r54PpTZ99x8WV0XFH
+ VXuOcA589PeqsftndG4kUQFmzP/tUgN9ReEdX/fioYwJfXYOg3Lqddh7ftVD9tk3jmV8
+ wquXAl9Xu8Q0pKUQpxRbSPx/u37JzKhgbkD/oWboU8kiUBNlmtVKt786m5Y9ZjVO97fW
+ zBJOW1A/BSR+kLGRvGIqhSF6Iueo6q5RzzEobjBRzVosTZ4mBnJm+OVEWE3yz/czZJOe
+ gcRQ==
+X-Gm-Message-State: AOJu0YyInJmIr2wpQ/IWrs5Y4NolXGFjkdemaba7ex0i+0P4zLEYr5nF
+ iz9kXUgQPGDmvHquHLYxL3nOxDQ4rjYHeykl1RNkIuaAUghgssjKe5DQ0ZF1AJNstxdjiewrn9i
+ mHX0=
+X-Gm-Gg: ASbGnct0l/zV9l5RB+hIRD0qUyfrQpp2Z2F3QS+1ZdQ1tvd9b1KuL3mtBt6q3b9hhhS
+ ktE7vTaB/jPqvoLvr8GkZJE3wGKDJ7QeJUC1OkQ9D9YXrjyRsILTZyiYZWydnv7Fy960Zg6+OdI
+ ve6c8u8T0dkEOl7iIwXKtP5Od8ADuvoDDB6ErWcNu9x24XdYXKqPCEzp7PdNZm2Xk92gYGfGtEk
+ EQgVsMJ1R9AsdyCO38cQE+NB5O2taaNsKXsIxhJDcLYuQXC9tfUTRFq6MetyvsRD4GjFsHKaF0P
+ H3XFEOuCAO/nr0ExDoc7MMRHA7JGrI1YPF2hdTjbpxIdXS0DIuLA/dg+hWurRZLc2h2gmwxP+L5
+ 85zCnkrEEu2k6aJh4kvB17XO/W4oRx1ybJgLz/QUa8txHub/h4K3dDNTAwRsWvm1TvFuPIg+eDC
+ A=
+X-Google-Smtp-Source: AGHT+IEE2z3tP+keWASkwxTd3f8ywyXCZtntOWgyXGrXrHjnG4M3Az1DUOfcCoiykbEI3zUYu1eknw==
+X-Received: by 2002:a17:906:730e:b0:b70:b7f8:868f with SMTP id
+ a640c23a62f3a-b72e036bbebmr708394066b.27.1762742895050; 
+ Sun, 09 Nov 2025 18:48:15 -0800 (PST)
 Received: from localhost ([2a07:de40:b240:0:2ad6:ed42:2ad6:ed42])
  by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-b72bf4fbda2sm956236466b.28.2025.11.09.18.48.12
+ a640c23a62f3a-b72bf31286esm955701566b.21.2025.11.09.18.48.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Nov 2025 18:48:12 -0800 (PST)
+ Sun, 09 Nov 2025 18:48:14 -0800 (PST)
 To: ltp@lists.linux.it
-Date: Mon, 10 Nov 2025 02:47:54 +0000
-Message-ID: <20251110024805.31070-3-wegao@suse.com>
+Date: Mon, 10 Nov 2025 02:47:55 +0000
+Message-ID: <20251110024805.31070-4-wegao@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251110024805.31070-1-wegao@suse.com>
 References: <20251107003041.28929-1-wegao@suse.com>
@@ -92,7 +93,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v5 2/3] ioctl_loop01.c: Add new support .needs_cmds
+Subject: [LTP] [PATCH v5 3/3] shell_loader_cmd.sh: New test case check
+ needs_cmds
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,73 +113,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Suggested-by: Petr Vorel <pvorel@suse.cz>
 Signed-off-by: Wei Gao <wegao@suse.com>
 ---
- .../kernel/syscalls/ioctl/ioctl_loop01.c      | 34 +++++++++----------
- 1 file changed, 17 insertions(+), 17 deletions(-)
+ testcases/lib/run_tests.sh              |  1 +
+ testcases/lib/tests/shell_loader_cmd.sh | 28 +++++++++++++++++++++++++
+ 2 files changed, 29 insertions(+)
+ create mode 100755 testcases/lib/tests/shell_loader_cmd.sh
 
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
-index 4ecc93b1e..a8a9305c8 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
-@@ -78,23 +78,6 @@ static void check_loop_value(int set_flag, int get_flag, int autoclear_field)
- 
- static void verify_ioctl_loop(void)
- {
--	int ret;
--	const char *const cmd_parted[] = {"parted", "-s", dev_path, "mklabel", "msdos", "mkpart",
--					"primary", "ext4", "1M", "10M", NULL};
--
--	tst_fill_file("test.img", 0, 1024 * 1024, 10);
--	tst_attach_device(dev_path, "test.img");
--
--	ret = tst_cmd(cmd_parted, NULL, NULL, TST_CMD_PASS_RETVAL);
--	if (!ret)
--		parted_sup = 1;
--	else if (ret == 255)
--		tst_res(TCONF, "parted binary not installed or failed");
--	else
--		tst_res(TCONF, "parted exited with %i", ret);
--
--	attach_flag = 1;
--
- 	TST_ASSERT_INT(partscan_path, 0);
- 	TST_ASSERT_INT(autoclear_path, 0);
- 	TST_ASSERT_STR(backing_path, backing_file_path);
-@@ -113,10 +96,23 @@ static void verify_ioctl_loop(void)
- 
- static void setup(void)
- {
-+	parted_sup = tst_cmd_present("parted");
+diff --git a/testcases/lib/run_tests.sh b/testcases/lib/run_tests.sh
+index 5c309bbeb..24ac81a44 100755
+--- a/testcases/lib/run_tests.sh
++++ b/testcases/lib/run_tests.sh
+@@ -6,6 +6,7 @@ shell_loader.sh
+ shell_loader_all_filesystems.sh
+ shell_loader_c_child.sh
+ shell_loader_filesystems.sh
++shell_loader_cmd.sh
+ shell_loader_kconfigs.sh
+ shell_loader_supported_archs.sh
+ shell_loader_tcnt.sh
+diff --git a/testcases/lib/tests/shell_loader_cmd.sh b/testcases/lib/tests/shell_loader_cmd.sh
+new file mode 100755
+index 000000000..4e8e61eb6
+--- /dev/null
++++ b/testcases/lib/tests/shell_loader_cmd.sh
+@@ -0,0 +1,28 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2025 Wei Gao <wegao@suse.cz>
++#
++# ---
++# env
++# {
++#  "needs_cmds": [
++#   {
++#    "cmd": "ls",
++#    "optional": 1
++#   },
++#   {
++#    "cmd": "mkfs.ext4 >= 1.0.0",
++#    "optional": 1
++#   }
++#  ]
++# }
++# ---
 +
-+	const char *const cmd_parted[] = {"parted", "-s", dev_path, "mklabel", "msdos", "mkpart",
-+	                                  "primary", "ext4", "1M", "10M", NULL};
++. tst_loader.sh
 +
- 	dev_num = tst_find_free_loopdev(dev_path, sizeof(dev_path));
- 	if (dev_num < 0)
- 		tst_brk(TBROK, "Failed to find free loop device");
- 
-+	tst_fill_file("test.img", 0, 1024 * 1024, 10);
++tst_test()
++{
++	tst_res TPASS "We are running with needs_cmds"
++}
 +
-+	tst_attach_device(dev_path, "test.img");
-+	attach_flag = 1;
-+
-+	if (parted_sup)
-+		SAFE_CMD(cmd_parted, NULL, NULL);
-+
- 	sprintf(partscan_path, "/sys/block/loop%d/loop/partscan", dev_num);
- 	sprintf(autoclear_path, "/sys/block/loop%d/loop/autoclear", dev_num);
- 	sprintf(backing_path, "/sys/block/loop%d/loop/backing_file", dev_num);
-@@ -148,5 +144,9 @@ static struct tst_test test = {
- 		{"linux-git", "6ac92fb5cdff"},
- 		{}
- 	},
-+	.needs_cmds = (struct tst_cmd[]) {
-+		{.cmd = "parted", .optional = 1},
-+		{}
-+	},
- 	.needs_tmpdir = 1,
- };
++. tst_run.sh
 -- 
 2.51.0
 
