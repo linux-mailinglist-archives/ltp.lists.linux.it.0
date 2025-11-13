@@ -2,63 +2,96 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30379C58ACD
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Nov 2025 17:22:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D33AC59581
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Nov 2025 19:04:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1763050952; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : content-type : content-transfer-encoding : sender : from;
- bh=PXFmjoVLwRYelA5DM7YhL+lklXzwR/1ZuZI+jF4zTAk=;
- b=Gcw/U0r5IIF7GMH1xecp1+tF0xh5F5b7ioDUcx979yV7jGDbqmwGi5y0HWl5WG5QwOVgT
- sqqY0sOL3SqJst9ryRT1TgU5eC23Kz0VcAXCsoKv5NdiHIRKAD+2EEcZZz6qZVlO34mX9/p
- NAyQQGfhRvjqXajLKzCVsvFiTEkFHhM=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1763057062; h=date : to :
+ message-id : references : mime-version : in-reply-to : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=LCQWiQY+xqMs1J8abX120Umzsf3jt3pRHMuRbvBec+M=;
+ b=qczTn//llpGVCE+5n8vCgnFHAvj2Qz0ZrxGOLU5HIfT+jXUBBSZ7arFibL5NNdpQH/7Dv
+ zkAD+OrryLC+5jJbpdnn2esfj0IwPgBgaDtvpTAs600jEjnQumen7pe97DS72MAWVM4SHq/
+ AEh+JkwtQN6l9ND/LK+4SbtpsEnB+LM=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CFF123CF809
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Nov 2025 17:22:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 058F53CF801
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Nov 2025 19:04:22 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B3A933CF7FF
- for <ltp@lists.linux.it>; Thu, 13 Nov 2025 17:22:30 +0100 (CET)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 56AE43CE325
+ for <ltp@lists.linux.it>; Thu, 13 Nov 2025 19:04:20 +0100 (CET)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CE3DE1401106
- for <ltp@lists.linux.it>; Thu, 13 Nov 2025 17:22:29 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C290E402E5
- for <ltp@lists.linux.it>; Thu, 13 Nov 2025 16:22:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E04C4CEF5
- for <ltp@lists.linux.it>; Thu, 13 Nov 2025 16:22:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1763050945;
- bh=P9GFooM6XEt5FZB3whjILro4u6qgOGuoj+ns38itepY=;
- h=From:To:Subject:Date:From;
- b=qIycZSji16Aao7JXT0SlbzyiH+d+krlCD1Qns2CEmj8CCI5Im6RYKwAicaI7xUq5c
- ZKcfHguZYFgcTR3FttdvjTSymCU9bQ8wuwR9GhlOZ+cFnerGECd4VL8OB/4XsqQnin
- AdkJsYq6cF6rgzlArhTclfrfO32fOF2m3DxWOtTGvIDcoA/ff8ps1UU7g3Fkqrqzp6
- NQf3lB9W+OBgnuUogofgI4aPorpsH8k41Ni6B6v6XSBnm0u8K51kkXqG7oxz1dspTb
- bbC6BoD5UcQ9rzwJs9WNkPUDvyv967EvIR1D4aBaIrYA+k+hEWpk5T9Di2nVqtLI6K
- ECLXyoto7luHQ==
-To: ltp@lists.linux.it
-Date: Fri, 14 Nov 2025 00:22:17 +0800
-Message-ID: <20251113162217.1077332-1-zlang@kernel.org>
-X-Mailer: git-send-email 2.51.0
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 83500600A5E
+ for <ltp@lists.linux.it>; Thu, 13 Nov 2025 19:04:19 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-47755a7652eso8199525e9.0
+ for <ltp@lists.linux.it>; Thu, 13 Nov 2025 10:04:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1763057059; x=1763661859; darn=lists.linux.it;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=h8GFF9Y/QWEfWjwfUYKesoKM1oWJH5rSmuxhaxjX00w=;
+ b=W9rKkEU95OWL3+Sx0x9pxx/jt2wYYz5XwdS6Wf6qpKF3hXNz771iMohTo7VlMjWqSJ
+ fQHNzhuNzGF+pSgHiUB/rQBWy6IfEIS2Z8vaDTlmIKFhNm+IC/TEwy65k7En/yor4TVI
+ aVxn+oBTvQV0kHGMnNMhDwWFmeC1T0ye/XE+Qfw02SQ2opdMSUaggr/UKRkps8RVQyHE
+ 5cfaqbfaafKG1ip5D0momYVjpIbM5tp2TaFFvAVUabQ17UU1eGxjPXEqww4l9mkGSawC
+ nBK6yReXS2jMlxc65dNs8Q8efJd0dGfEpS0dwUHB19fDkgXy0BQDC6JRHu7F+yUOMqwM
+ SF5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763057059; x=1763661859;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=h8GFF9Y/QWEfWjwfUYKesoKM1oWJH5rSmuxhaxjX00w=;
+ b=SnlSq1a6nov1pGoSVWmP6F+bXmelbp1EDrLWzB7b+AlFEXAzoaJ3mOgSfwvnKC7ZbD
+ owxZoWFvjfFox+uGghSXOsOHCsm0qUp45p1ax8uxS3EGAhT7i1FAtarRWz9a9vOKna6n
+ b/0DdjKKyULg/ojvO5tlXik2q2JKn5s0WOr1O2Nn6YXQKyiul7syfA/1FEwFR9mMYh3n
+ e+It6yc/PRK+BeWh5g1fO9Hq07/j2q5RMz9qsEAKpZvTdw8qNmKDDA0jY6FZCkKMdLPK
+ uOIz5+WRC1LhxPJslPGn4ElD7o7+w+9kGjbZJR/zYcK+iUPg0GUAA/q+RxFWc4Bio83/
+ 0hbg==
+X-Gm-Message-State: AOJu0Yw5Y2Q9NzqHF8dEKqjQYG0cNcFsuo9lWaU2lXRaxYSNm/mXCkB6
+ 9VdirDKwy31O59UsKTgix0S0lRX/sVQf1Mi5WCRNnfKLJNxwyxs6ZaEJsUGAhAFwz1k=
+X-Gm-Gg: ASbGncuYp353v0abBHlLnwIrnHxHQ8xTytteTKTa9YlwbDkQEZuP0m9FNARgzUA60+s
+ 6X84IypyXgdy33q+1UidMiVonj7cF4XhywQW4nxUZo7vCplYEZCBO9fbsXbSWRuB5ThFktSCAd0
+ GN2P6jQEbj0+kqVJeVu2qClsHO7k9BTOZUPTAk0EmZChOMdu7B/9zPn95HNK/IdCKFp6QY5ftTr
+ zHFBTSE1sQ9Em83R9rXrV1BUQBNSfrIVDzHud64rqpF9qEMxYDln79sw/QNGYA85q1Xo1oLB6ZK
+ IYnrmGiAav623p9qPgsQ0x+EEcm9gEpxifTfadvQbQMkkS5LFKH4uKZNlMyqjxEKvWgPZaEI+iI
+ O3I54KXH7pMRyTx0RfSs4y8aFBbgWUfJg27gaVOYhyKkz6QjncweSkCxikRYXN0pDcw9/0sCqWi
+ MMLeEz+yaxHq7ekLfoUOVS
+X-Google-Smtp-Source: AGHT+IEcUY1JB/4G5OLV4PPrqXebxpgf4yLvLQnX3djkeeI/mZhxeJl7s5BgNRLZ27pLSr9UX5KtIw==
+X-Received: by 2002:a05:600c:a05:b0:477:54cd:2029 with SMTP id
+ 5b1f17b1804b1-4778fe4fa23mr4075475e9.4.1763057058883; 
+ Thu, 13 Nov 2025 10:04:18 -0800 (PST)
+Received: from blackdock.suse.cz (nat2.prg.suse.com. [195.250.132.146])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47789ffea1esm79744825e9.13.2025.11.13.10.04.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Nov 2025 10:04:18 -0800 (PST)
+Date: Thu, 13 Nov 2025 19:04:17 +0100
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <x6dptvv4poqcxzrwlcznxlpczxa4ysdwide7kzxg2ujd3dbwh3@hb6xomm3o2zd>
+References: <20251111-b4-memcg_stress_rewrite-v3-1-a56a0e0cb887@suse.com>
+ <g6kd2n247qvdsl4w5zdfqzp3b4bmuzixhpgj3g53gecqhuwt7z@kjybzlrjxag2>
+ <DE7K8F9TLAEB.YEV47QRMXPTL@suse.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <DE7K8F9TLAEB.YEV47QRMXPTL@suse.com>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2] syscalls/stat04&lstat03: remove fs block size
- related code
+Subject: Re: [LTP] [PATCH v3] memory: rewrite memcg_stress_test into C API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,115 +103,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Zorro Lang via ltp <ltp@lists.linux.it>
-Reply-To: Zorro Lang <zlang@kernel.org>
+From: =?utf-8?q?Michal_Koutn=C3=BD_via_ltp?= <ltp@lists.linux.it>
+Reply-To: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The st_blksize isn't equivalent to the filesystem block size. The
-stat(3) manual describe st_blksize as:
+On Thu, Nov 13, 2025 at 01:19:30PM +0100, Andrea Cervesato <andrea.cervesato@suse.com> wrote:
+> I'm not sure about this, because system might have other applications
+> running which are (de)allocating memory there and there, and
+> "MemAvailable" would change accordingly.
 
-  "This field gives the "preferred" block size for efficient filesystem I/O."
+So the environemtn isn't sadly a good opportunity for such test :-/
 
-So the st_blksize is the "preferred" block size for "efficient" fs
-I/O, extN might think the "preferred" block size is fs block size.
-But not all filesystems think same with extN. For example, xfs thinks
-the "preferred" block size is:
+> Also I was thinking that maybe we should mlock() memory pages to ensure
+> we are not going to touch swap memory. WDYT?
 
-  max_t(uint32_t, PAGE_SIZE, mp->m_sb.sb_blocksize)
+As I wrote in [1], I'd start with the rewrite into the renewed infra
+that mimics what the original stress test was supposed to do. (But I
+admit it was neither a good stress nor test in my eyes.)
 
-So you might get st_blksize=4096, no matter on 1k blocksize xfs or 4k
-blocksize xfs. We shouldn't expect to use a different blocksize mkfs
-option to get a different st_blksize. This part of code is useless,
-except causing unexpected test failures on other filesystems (e.g.
-xfs, btrfs and so on).
+I'm not sure what would be the objective of avoiding swap and mlocking?
 
-Signed-off-by: Zorro Lang <zlang@kernel.org>
----
-
-Hi,
-
-I tried to fix the mkfs problem last year:
-  https://lists.linux.it/pipermail/ltp/2024-December/041038.html
-
-Now I got a chance to look back this test failure, I think it's not a mkfs
-option problem, but the test case misunderstood the st_blksize.
-
-Except we limit this test only run on extN, or we don't need to make
-fs with a different block size, especially shouldn't expect to get
-a different st_blksize from that.
+Neverthless, as a followup to the rewrite above, try converting the test
+into something more useful (where it verifies something and won't
+produce too many false positives). And that in a separate commit(s) with
+reasoning, maybe not necessarily touching memcg_stess_test. I'd
+personally still try pursuing something like a) and b) from that mail
+[1] (striving to run and measure it in isolation, e.g. all in one
+encompassing memcg). Of course this idea may inspire you to something
+even better :-)
 
 Thanks,
-Zorro
+Michal
 
- testcases/kernel/syscalls/lstat/lstat03.c | 12 +-----------
- testcases/kernel/syscalls/stat/stat04.c   | 11 +----------
- 2 files changed, 2 insertions(+), 21 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/lstat/lstat03.c b/testcases/kernel/syscalls/lstat/lstat03.c
-index 9438e2920..7d9d01ad1 100644
---- a/testcases/kernel/syscalls/lstat/lstat03.c
-+++ b/testcases/kernel/syscalls/lstat/lstat03.c
-@@ -34,7 +34,6 @@ static void run(void)
- 	TST_EXP_EXPR(file_stat->st_gid != symb_stat->st_gid);
- 	TST_EXP_EXPR(file_stat->st_size != symb_stat->st_size);
- 	TST_EXP_EXPR(file_stat->st_blocks != symb_stat->st_blocks);
--	TST_EXP_EXPR(file_stat->st_blksize != symb_stat->st_blksize);
- 	TST_EXP_EXPR(file_stat->st_atime != symb_stat->st_atime);
- 	TST_EXP_EXPR(file_stat->st_mtime != symb_stat->st_mtime);
- 	TST_EXP_EXPR(file_stat->st_ctime != symb_stat->st_ctime);
-@@ -42,18 +41,9 @@ static void run(void)
- 
- static void setup(void)
- {
--	char opt_bsize[32];
--	const char *const fs_opts[] = {opt_bsize, NULL};
--	struct stat sb;
--	int pagesize;
- 	int fd;
- 
--	/* change st_blksize / st_dev */
--	SAFE_STAT(".", &sb);
--	pagesize = sb.st_blksize == 4096 ? 1024 : 4096;
--
--	snprintf(opt_bsize, sizeof(opt_bsize), "-b %i", pagesize);
--	SAFE_MKFS(tst_device->dev, tst_device->fs_type, fs_opts, NULL);
-+	SAFE_MKFS(tst_device->dev, tst_device->fs_type, NULL, NULL);
- 	SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, 0);
- 
- 	SAFE_TOUCH(FILENAME, 0777, NULL);
-diff --git a/testcases/kernel/syscalls/stat/stat04.c b/testcases/kernel/syscalls/stat/stat04.c
-index 09a9a6823..3c233df51 100644
---- a/testcases/kernel/syscalls/stat/stat04.c
-+++ b/testcases/kernel/syscalls/stat/stat04.c
-@@ -41,21 +41,12 @@ static void run(void)
- 
- static void setup(void)
- {
--	char opt_bsize[32];
--	const char *const fs_opts[] = {opt_bsize, NULL};
--	struct stat sb;
--	int pagesize;
- 	int fd;
- 
- 	file_path = tst_tmpdir_genpath(FILENAME);
- 	symb_path = tst_tmpdir_genpath(SYMBNAME);
- 
--	/* change st_blksize / st_dev */
--	SAFE_STAT(".", &sb);
--	pagesize = sb.st_blksize == 4096 ? 1024 : 4096;
--
--	snprintf(opt_bsize, sizeof(opt_bsize), "-b %i", pagesize);
--	SAFE_MKFS(tst_device->dev, tst_device->fs_type, fs_opts, NULL);
-+	SAFE_MKFS(tst_device->dev, tst_device->fs_type, NULL, NULL);
- 	SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, 0);
- 
- 	SAFE_TOUCH(FILENAME, 0777, NULL);
--- 
-2.51.0
-
+[1] https://lore.kernel.org/ltp/cvvobn3ncapngynjplotpft3vbbfzg6me2gq3omnclzgwdoqli@ga7vc5e6f5t3/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
