@@ -2,85 +2,103 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00B62C6B10B
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Nov 2025 18:57:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2712C66D18
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Nov 2025 02:18:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1763488638; h=date :
- mime-version : message-id : to : subject : list-id : list-unsubscribe
- : list-archive : list-post : list-help : list-subscribe : from :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1763428710; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
  reply-to : cc : content-type : content-transfer-encoding : sender :
- from; bh=p63TiTz4/+Ai+Oyhbk1qnKNcqINnxayhhbflOGGP6FQ=;
- b=KdwVqemzUJi6dcI1WElxVogv0GMrGWI9EeSs+imrvFfn4WiTzSnZ6XzZaiyduLFVZIKdG
- ORVIWqioYKUzZdygjcN2ssrL0yxaZ0V0+FwLvMvER4+HQ7GNTa5afs/OmouO5LifkAstg+r
- ln99kzOPrPSyZmqg86TIpNOohZYKM2g=
+ from; bh=1bzTRG+ztWmkuzi4AC1rAej3eCyZhW5nj6yxkcIl4s4=;
+ b=imBF5tjfQfeY/Igcy+YMbFWz8NlrthEF7awCr8JKdMRnrNcu3mv9QarXZZI676e/IIdPV
+ GKm2yFTbGBz562b6bfGZJ1vPV1zEiAwfqeKNwCMBFjaZ/gh52YiR7+385MmW+C7CKM0hH8x
+ cvxfUSlrZs6mXaGZmzcptx9/lRoKO44=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AA6D03CF75C
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Nov 2025 18:57:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DFFA23C859A
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Nov 2025 02:18:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E8B4A3CDF19
- for <ltp@lists.linux.it>; Mon, 17 Nov 2025 04:40:31 +0100 (CET)
-Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
- [IPv6:2607:f8b0:4864:20::64a])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 4384F3C00CF
+ for <ltp@lists.linux.it>; Tue, 18 Nov 2025 02:18:18 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5409F200089
- for <ltp@lists.linux.it>; Mon, 17 Nov 2025 04:40:31 +0100 (CET)
-Received: by mail-pl1-x64a.google.com with SMTP id
- d9443c01a7336-295592eb5dbso4200055ad.0
- for <ltp@lists.linux.it>; Sun, 16 Nov 2025 19:40:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1763350830; x=1763955630; darn=lists.linux.it;
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=pkL6q9iOuTZhT66k91w3h6fjmbki3J6c/DZyo7EbGvw=;
- b=YBL1meZccrm1XoKb/6FLore5/HVhCM8E1zGI+gfKXeRanEIkPPgEzs/2mMCMvI0rC+
- 9L3nA1h79zIi8B2DfAPtQhKPMkns3YMgipu3RxdtCXaP8WWjSABdISmq3xyiXejQBWts
- lvrUL+w9F3+/UaFb4dbkXuxXJ9jk9/zjAotS+p+9tL85TiRLqVfbvRGOkbejRG156GMf
- +XE4AkKUPNWayFAffVvzw9sPe3yrRBX6taN0D6NH5lroVVFaVnUpeucKl3au+NcQjCB5
- yHtXK7LSwM90zWZBACH2zE4BFGSE7OVw4hN4rZ0kt70snq4cI1oz+krCkNhMtGusT/pg
- IayA==
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6F53B600043
+ for <ltp@lists.linux.it>; Tue, 18 Nov 2025 02:18:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1763428695;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gD2ewhs7IuI3EqFB8IsekOVrLx2EK+p3v5ozl7pWJx8=;
+ b=VgfzjAFOnquRnYNItzT0WeSefWsZb5Jf+ERywJ9VIaQEBapEgX0GkizeQ55mey5+Q+gLh2
+ RNz5a4uzLLdmLb4NzpwIwsPACPXruKFVujWEXqqMgXNus0Kv57mRpM7o1OUrTH7pwigBI5
+ K3EdpuIobqo29aVnF4xxlbKJm8I6/zk=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-443-tJSPUoE9OLWhKaLn8rDROA-1; Mon, 17 Nov 2025 20:18:13 -0500
+X-MC-Unique: tJSPUoE9OLWhKaLn8rDROA-1
+X-Mimecast-MFC-AGG-ID: tJSPUoE9OLWhKaLn8rDROA_1763428693
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-8b1d8f56e24so1366136285a.2
+ for <ltp@lists.linux.it>; Mon, 17 Nov 2025 17:18:13 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763350830; x=1763955630;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=pkL6q9iOuTZhT66k91w3h6fjmbki3J6c/DZyo7EbGvw=;
- b=aqt6g9sZVaWnTsaYxZB6NSk8U5K2uhJTekeBtg2ohLFJnGH7V5IWbtUAsEtVSF77tW
- NA3ThawROONRmCfU3IjkghW+bOLOXN9hisV/nwc6LI4pIUb0paNSBbrnXMeDJEZbWE3u
- 2xzYVXeTpBBB31nLPbeezf6niMFraCuZ+fcgVaO+Ne23aCFrkvsy3zBGgB71S/MaETQZ
- xyc5aBGzknwzrXxXNaNTyi2Ll2yp4SWyVGKWrg77XO0GARes+BRRZNyuCHh0VKMOO2Cn
- JTDeuL3swyyDlRRv3NT6yqkRN2+W8DdA3tKJ04jHWSpQmmFEtuGFCso1yyRsHdTnRcRK
- pGtw==
-X-Gm-Message-State: AOJu0Yxa1GbkPsIAeI4RxbA8epi1TIoziUKTuyNurTukET1IX3nDA5Fh
- ASJJFSF3RsdGu1yEcK4ODrGnA8VzFbf6vgLvJzjhvQ30MoQz2YS8jgk2af4WhRAzs10pOJ4yhOh
- Bn7foB9T0fimaegggwBPWq6MJImC7wboORiWc3M7LXL7Vcojv8fCbONw3ZEA6TyyfXyBXKlgben
- RKwYtiGyyYMcCEIIKSVhIhZc/ugA==
-X-Google-Smtp-Source: AGHT+IHEP+Na+apSQ3Jzg1PjVM0Tdqk9iG3/7lioQWcw1gODPZUYhoaAyaZEYJSV0jyskLBhGKiZUFO84w==
-X-Received: from plpg11.prod.google.com ([2002:a17:902:934b:b0:298:1181:af51])
- (user=wakel job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:2f0e:b0:24c:965a:f94d
- with SMTP id d9443c01a7336-2986a741b6cmr117855755ad.46.1763350829376; Sun, 16
- Nov 2025 19:40:29 -0800 (PST)
-Date: Mon, 17 Nov 2025 11:40:23 +0800
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.52.0.rc1.455.g30608eb744-goog
-Message-ID: <20251117034023.415246-1-wakel@google.com>
+ d=1e100.net; s=20230601; t=1763428693; x=1764033493;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gD2ewhs7IuI3EqFB8IsekOVrLx2EK+p3v5ozl7pWJx8=;
+ b=SpNjU7C1Yqia0H6ti9i4aqdkWSrLHAvT0ITrF9Tc3ormkuPimyLDO+LgKY1iyIIxk8
+ fLaEd2SALRL7mMgz/RRDdCUhSQseY0RshMk20rb+jEoRAvj/7tbCdAXRfBNlDzjduaLz
+ EEHyJlG5Rt8yVPk7Ow2wlyTbh2VCmgS99Ee5+dntv5NbW7an6UTtjIr8pE19Zo/SvBso
+ vSTfWOap4qkc8VJjUWhYr7WZbZc05Yfo8J1WiA02PwTqG3lKBjgBIQTzumyaS1b9Rf2a
+ pFpCzOynnE3JoQ/6YOgGDbGxZtS8b5QjREhbllPnIVVR5KqxqojC1HRqj1qMCpQgi5ey
+ lcWg==
+X-Gm-Message-State: AOJu0YyN9j+RQu8IuwNSMIh7NQj6rB/X1jwupkjBdlgcwmDnMl5Zi/bj
+ bnMQR7vyjxNp5EG1ifrLMpGiBYkWi9jYbrnQe1TTIya78+0eGBid1sG7uIwfz5d9ge+ebgCLLMN
+ NtovoA94D+ehrCYNwBMPECgPhh2c00GOgdlQBVziXNOTSYG906LzPdGGZVg7JO0yAAYMCCqFCvI
+ 3FHTsOlLEQfiFtTNaCoOtlZG8svMDOHE3IE0Bn
+X-Gm-Gg: ASbGncsGgwAcBoS4pHC/kV4cQhYTw5zIFxUeH1NHA5zKcp74jfAR6dhY8wcnuBhRf5y
+ rU+sdudpeF6xGKEb5mVy3L5YLz8UhBUtAKLXWu0UvbP5n+qKo7Y3/DcRClaHXU67qJq3zpVIL6Z
+ 0cjTlikieIo5A7+ob6hY+/HsZjWTw5H/t57SCmK3O8pTw8PqQDLwlOwDehQamrkKFJtXQ5dWFxG
+ nEzIWVUnBzx9NOcBmoHxXcBUPnhkhqUMZIKGU2nhPkvcKCjvQH5zJ91e/kPNZ57xTymViLtgKqO
+ sjv4SOIwQMJnv8ZNQqRTCPV6QkTrxJs7gGUCxGtr6jJxooNpqHqKsfZSzten1C32sbgN8pNRX8M
+ JEBvg3juS84NxVQeFz0hJcy0Tr2fYOcXdO+Afbw==
+X-Received: by 2002:a05:620a:c41:b0:8b2:7558:409c with SMTP id
+ af79cd13be357-8b2c3162bb8mr1993173585a.36.1763428693163; 
+ Mon, 17 Nov 2025 17:18:13 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFxwuOVnkzzMNqtiayViai85bDXET6BEptDpT0lJuDrywaUkqxiaN6gDe2vf6WmDmI2jjWLRA==
+X-Received: by 2002:a05:620a:c41:b0:8b2:7558:409c with SMTP id
+ af79cd13be357-8b2c3162bb8mr1993169985a.36.1763428692577; 
+ Mon, 17 Nov 2025 17:18:12 -0800 (PST)
+Received: from sbertram-thinkpadp1gen5.bos.com ([172.56.196.44])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8b2aeecb087sm1102601785a.26.2025.11.17.17.18.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Nov 2025 17:18:12 -0800 (PST)
 To: ltp@lists.linux.it
-X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+Date: Mon, 17 Nov 2025 20:18:01 -0500
+Message-ID: <20251118011802.1174010-1-sbertram@redhat.com>
+X-Mailer: git-send-email 2.49.0
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 7aOpJJuLah9dg7lLWCr9eo6wqJhCHvFZ9jt-FdJCf0Q_1763428693
+X-Mimecast-Originator: redhat.com
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Tue, 18 Nov 2025 18:56:53 +0100
-Subject: [LTP] [PATCH] Ignore cve-2022-2590_64bit CVE for Kernel versions
- below 5.16+
+Subject: [LTP] [PATCH v5] Add EPERM test for clone and clone3
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,63 +110,240 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wake Liu via ltp <ltp@lists.linux.it>
-Reply-To: Wake Liu <wakel@google.com>
-Cc: Wake Liu <wakel@google.com>,
- Kodanda Rami Reddy V <quic_kreddyv@quicinc.com>
+From: Stephen Bertram via ltp <ltp@lists.linux.it>
+Reply-To: Stephen Bertram <sbertram@redhat.com>
+Cc: Stephen Bertram <sbertram@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Kodanda Rami Reddy V <quic_kreddyv@quicinc.com>
+Confirming EPERM is returned when CAP_SYS_ADMIN is
+removed from clone and clone3.
+And for clone3 the set_tid_size is greater than 0.
 
-CVE 2022-2590_64bit is applicable only for kernel versions 5.16 onwards.
-Add kernel version check to skip/Ignore the test case.
-Test Module: vts_ltp_test_arm_64
-Test Case: cve.cve-2022-2590_64bit#cve.cve-2022-2590_64bit
-GBUG: 418679607
-
-Change-Id: Ibbb18a168b727725faab2beb6841640e034fc468
+Signed-off-by: Stephen Bertram <sbertram@redhat.com>
 ---
- testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ runtest/syscalls                            |  2 +
+ testcases/kernel/syscalls/clone/.gitignore  |  1 +
+ testcases/kernel/syscalls/clone/clone11.c   | 74 +++++++++++++++++
+ testcases/kernel/syscalls/clone3/.gitignore |  1 +
+ testcases/kernel/syscalls/clone3/clone304.c | 88 +++++++++++++++++++++
+ 5 files changed, 166 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/clone/clone11.c
+ create mode 100644 testcases/kernel/syscalls/clone3/clone304.c
 
-diff --git a/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem.c b/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem.c
-index 2c7ad00f2..0651ae122 100644
---- a/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem.c
-+++ b/testcases/kernel/security/dirtyc0w_shmem/dirtyc0w_shmem.c
-@@ -19,6 +19,7 @@
- #include <stdbool.h>
- #include <pwd.h>
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 54d94c0ca..a1ef7548b 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -124,10 +124,12 @@ clone07 clone07
+ clone08 clone08
+ clone09 clone09
+ clone10 clone10
++clone11 clone11
  
-+#include "tst_kvercmp.h"
- #include "tst_test.h"
+ clone301 clone301
+ clone302 clone302
+ clone303 clone303
++clone304 clone304
  
- #define TMP_DIR "tmp_dirtyc0w_shmem"
-@@ -41,6 +42,9 @@ static void sighandler(int sig)
- 
- static void setup(void)
- {
-+	if (tst_kvercmp(5, 16, 0) < 0) {
-+		tst_brk(TCONF, "Test requires kernel 5.16.0 or newer for CVE-2022-2590 fix");
+ close01 close01
+ close02 close02
+diff --git a/testcases/kernel/syscalls/clone/.gitignore b/testcases/kernel/syscalls/clone/.gitignore
+index adfb8257d..0edcfef5d 100644
+--- a/testcases/kernel/syscalls/clone/.gitignore
++++ b/testcases/kernel/syscalls/clone/.gitignore
+@@ -8,3 +8,4 @@
+ /clone08
+ /clone09
+ /clone10
++/clone11
+diff --git a/testcases/kernel/syscalls/clone/clone11.c b/testcases/kernel/syscalls/clone/clone11.c
+new file mode 100644
+index 000000000..6fb9e5346
+--- /dev/null
++++ b/testcases/kernel/syscalls/clone/clone11.c
+@@ -0,0 +1,74 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2025 Stephen Bertram <sbertram@redhat.com>
++ */
++
++/*\
++ * This test verifies that :man2:`clone` fails with EPERM when CAP_SYS_ADMIN
++ * has been dropped.
++ */
++
++#define _GNU_SOURCE
++#define DESC(x) .flags = x, .sflags = #x
++
++#include "tst_test.h"
++#include "clone_platform.h"
++#include "lapi/sched.h"
++
++static void *child_stack;
++static int *child_pid;
++
++static struct tcase {
++	uint64_t flags;
++	char *sflags;
++} tcases[] = {
++	{ DESC(CLONE_NEWPID) },
++	{ DESC(CLONE_NEWCGROUP) },
++	{ DESC(CLONE_NEWIPC) },
++	{ DESC(CLONE_NEWNET) },
++	{ DESC(CLONE_NEWNS) },
++	{ DESC(CLONE_NEWUTS) },
++};
++
++static int child_fn(void *arg LTP_ATTRIBUTE_UNUSED)
++{
++	*child_pid = getpid();
++	exit(0);
++}
++
++static void run(unsigned int n)
++{
++	struct tcase *tc = &tcases[n];
++
++	TST_EXP_FAIL(ltp_clone(tc->flags, child_fn, NULL, CHILD_STACK_SIZE,
++			child_stack), EPERM, "clone(%s) should fail with EPERM"
++			, tc->sflags);
++}
++
++static void setup(void)
++{
++	child_pid = SAFE_MMAP(NULL, sizeof(*child_pid), PROT_READ | PROT_WRITE,
++		MAP_SHARED | MAP_ANONYMOUS, -1, 0);
++}
++
++static void cleanup(void)
++{
++	if (child_pid)
++		SAFE_MUNMAP(child_pid, sizeof(*child_pid));
++}
++
++static struct tst_test test = {
++	.tcnt = ARRAY_SIZE(tcases),
++	.setup = setup,
++	.test = run,
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.caps = (struct tst_cap []) {
++			TST_CAP(TST_CAP_DROP, CAP_SYS_ADMIN),
++			{},
++	},
++	.bufs = (struct tst_buffers []) {
++			{&child_stack, .size = CHILD_STACK_SIZE},
++			{},
++	},
++};
+diff --git a/testcases/kernel/syscalls/clone3/.gitignore b/testcases/kernel/syscalls/clone3/.gitignore
+index 10369954b..e9b5312f4 100644
+--- a/testcases/kernel/syscalls/clone3/.gitignore
++++ b/testcases/kernel/syscalls/clone3/.gitignore
+@@ -1,3 +1,4 @@
+ clone301
+ clone302
+ clone303
++clone304
+diff --git a/testcases/kernel/syscalls/clone3/clone304.c b/testcases/kernel/syscalls/clone3/clone304.c
+new file mode 100644
+index 000000000..75ceaa065
+--- /dev/null
++++ b/testcases/kernel/syscalls/clone3/clone304.c
+@@ -0,0 +1,88 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2025 Stephen Bertram <sbertram@redhat.com>
++ */
++
++/*\
++ * This test verifies that :man2:`clone3` fails with EPERM when CAP_SYS_ADMIN
++ * has been dropped and ``clone_args.set_tid_size`` is greater than zero.
++ */
++
++#define _GNU_SOURCE
++#define DESC(x) .flags = x, .sflags = #x
++
++#include "tst_test.h"
++#include "lapi/sched.h"
++
++enum case_type {
++	K_SET_TID,	/* flags = 0 || CLONE_NEW*, set_tid_size > 0 => EPERM */
++	K_NAMESPACE_ONLY,  /* flags = CLONE_NEW*, set_tid_size = 0 => EPERM */
++};
++
++static struct clone_args args = {0};
++static pid_t tid_array[1] = {1};
++
++static struct tcase {
++	uint64_t flags;
++	char *sflags;
++	enum case_type type;
++	const char *desc;
++} tcases[] = {
++	{ DESC(CLONE_NEWPID), K_NAMESPACE_ONLY, "set_tid_size=0" },
++	{ DESC(CLONE_NEWCGROUP), K_NAMESPACE_ONLY, "set_tid_size=0" },
++	{ DESC(CLONE_NEWIPC), K_NAMESPACE_ONLY, "set_tid_size=0" },
++	{ DESC(CLONE_NEWNET), K_NAMESPACE_ONLY, "set_tid_size=0" },
++	{ DESC(CLONE_NEWNS), K_NAMESPACE_ONLY, "set_tid_size=0" },
++	{ DESC(CLONE_NEWUTS), K_NAMESPACE_ONLY, "set_tid_size=0" },
++
++	{ DESC(CLONE_NEWPID), K_SET_TID, "set_tid_size>0" },
++	{ DESC(CLONE_NEWCGROUP), K_SET_TID, "set_tid_size>0" },
++	{ DESC(CLONE_NEWIPC), K_SET_TID, "set_tid_size>0" },
++	{ DESC(CLONE_NEWNET), K_SET_TID, "set_tid_size>0" },
++	{ DESC(CLONE_NEWNS), K_SET_TID, "set_tid_size>0" },
++	{ DESC(CLONE_NEWUTS), K_SET_TID, "set_tid_size>0" },
++
++	{ DESC(0), K_SET_TID, "set_tid_size>0" },
++};
++
++static void run(unsigned int n)
++{
++	struct tcase *tc = &tcases[n];
++
++	args.flags = tc->flags;
++
++	if (tc->type == K_NAMESPACE_ONLY) {
++		args.set_tid = 0;
++		args.set_tid_size = 0;
++	} else {
++		args.set_tid = (uint64_t)(uintptr_t)tid_array;
++		args.set_tid_size = 1;
 +	}
- 	struct passwd *pw;
- 
- 	umask(0);
-@@ -99,7 +103,9 @@ static void dirtyc0w_shmem_test(void)
- 
- static void cleanup(void)
- {
--	SAFE_UMOUNT(TMP_DIR);
-+	if (tst_kvercmp(5, 16, 0) >= 0) {
-+		SAFE_UMOUNT(TMP_DIR);
-+	}
- }
- 
- static struct tst_test test = {
++	if (!tc->flags)
++		SAFE_UNSHARE(CLONE_NEWUSER | CLONE_NEWNS);
++
++	TST_EXP_FAIL(clone3(&args, sizeof(args)), EPERM, "clone3(%s), should fail when %s (set_tid_size=%ld)"
++			, tc->sflags, tc->desc, args.set_tid_size);
++}
++
++static void setup(void)
++{
++	clone3_supported_by_kernel();
++
++	memset(&args, 0, sizeof(args));
++}
++
++static struct tst_test test = {
++	.tcnt = ARRAY_SIZE(tcases),
++	.setup = setup,
++	.test = run,
++	.needs_root = 1,
++	.caps = (struct tst_cap []) {
++			TST_CAP(TST_CAP_DROP, CAP_SYS_ADMIN),
++			{},
++	},
++	.bufs = (struct tst_buffers []) {
++			{&args, .size = sizeof(struct clone_args)},
++			{},
++	},
++};
 -- 
-2.52.0.rc1.455.g30608eb744-goog
+2.49.0
 
 
 -- 
