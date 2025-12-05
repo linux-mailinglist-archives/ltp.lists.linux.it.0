@@ -2,55 +2,53 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88B39CB07C6
-	for <lists+linux-ltp@lfdr.de>; Tue, 09 Dec 2025 17:01:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4929ACA5FB1
+	for <lists+linux-ltp@lfdr.de>; Fri, 05 Dec 2025 04:17:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 111B53D02FC
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Dec 2025 17:01:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 686D13CF0CC
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Dec 2025 04:17:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C9E343CE710
- for <ltp@lists.linux.it>; Fri,  5 Dec 2025 04:00:26 +0100 (CET)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+ by picard.linux.it (Postfix) with ESMTPS id 02AE23CED10
+ for <ltp@lists.linux.it>; Fri,  5 Dec 2025 04:17:25 +0100 (CET)
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3B5C610005D5
- for <ltp@lists.linux.it>; Fri,  5 Dec 2025 04:00:25 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6E6AE2000D5
+ for <ltp@lists.linux.it>; Fri,  5 Dec 2025 04:17:24 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
  s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=8c
- odGuIDJ5vWiVLXHzSD6+LW3mT47hbLiiyQdgB+6LE=; b=iLUzG3H4eVcPcNlcYW
- MW++7OAQFZ6whwCcFDjv96boh6hnhweKBeyqYmfLQEda3d8Z/IUz3Eb6WmNimP79
- 7kN0ABWWqr61wBzUOHoVYooP14+5LEdZzLOoQmtVCX3Ct/mbLRjG7W9ZjEoRhQjj
- Zppzb/n/r5JSmvA7yWQvlw12s=
+ odGuIDJ5vWiVLXHzSD6+LW3mT47hbLiiyQdgB+6LE=; b=VeRKiC4EV1KhlZcCOq
+ Wc4Wq2UNc92MtDMyIpEwZzs8CWNIr8UMS9PHkwZFBRfBrhcOWl48bCENXDgPJLkL
+ 6VcfH1jlCHtYXA48WJvHiNu3QjrpiHf5AnmE5SzHSM/ktPxgsHEt02WiKhSLi5mJ
+ uyRyz//5IgSv+feNA+gtmHfUE=
 Received: from localhost (unknown [])
- by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
- _____wDn9+zFSjJpI2BDFA--.1905S2; 
- Fri, 05 Dec 2025 11:00:22 +0800 (CST)
+ by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wBXPG+_TjJpljkDEA--.314S2;
+ Fri, 05 Dec 2025 11:17:21 +0800 (CST)
 From: simplemessager@163.com
 To: ltp@lists.linux.it
-Date: Fri,  5 Dec 2025 11:00:21 +0800
-Message-ID: <20251205030021.48813-1-simplemessager@163.com>
+Date: Fri,  5 Dec 2025 11:17:19 +0800
+Message-ID: <20251205031719.53914-1-simplemessager@163.com>
 X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
-X-CM-TRANSID: _____wDn9+zFSjJpI2BDFA--.1905S2
+X-CM-TRANSID: _____wBXPG+_TjJpljkDEA--.314S2
 X-Coremail-Antispam: 1Uf129KBjvJXoW7Zr13Jw4fKFyfAF47GF47XFb_yoW8Ar45pw
  1xJr45Zw48trsYv347Jw1kWr95uas5GFW7KwsIkF1kurZFq345JrWvqr9rWryruFZ8Xa90
  9a18JF4xCw4DJrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jDL05UUUUU=
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jqc_-UUUUU=
 X-Originating-IP: [36.111.64.84]
-X-CM-SenderInfo: hvlp1z5hph22hdjh2qqrwthudrp/xtbCzgaqQmkySsaqzAAA3R
+X-CM-SenderInfo: hvlp1z5hph22hdjh2qqrwthudrp/xtbCzgGqQmkyTsE-CwAA3H
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Tue, 09 Dec 2025 17:01:25 +0100
 Subject: [LTP] [PATCH 1/1] Skip wqueue testcases when KEY_NOTIFICATIONS not
  enabled.
 X-BeenThere: ltp@lists.linux.it
