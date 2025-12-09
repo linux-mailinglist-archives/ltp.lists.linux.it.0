@@ -1,12 +1,21 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 684F6CB0781
-	for <lists+linux-ltp@lfdr.de>; Tue, 09 Dec 2025 16:52:19 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F57DCB07C9
+	for <lists+linux-ltp@lfdr.de>; Tue, 09 Dec 2025 17:01:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1765296114; h=to : date :
+ message-id : mime-version : subject : list-id : list-unsubscribe :
+ list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : content-type : content-transfer-encoding : sender : from;
+ bh=0ildQcgiT5DkOsWDN0jOAy381APWb6yGpV9KFYwsnPg=;
+ b=JHo1xRbWyDJK5r/yi90TWuegVHPxIAWSjS2qEvSdHF5jOa6um8p0QFudrq7/4SoOtslgs
+ 88yqjtzVY6nYhP5TKW1EyTQFs5NtgkW6kCxQfjbBq7rDcy9Vq44IO+hymBrYykfhgA9iSPX
+ XS9CxeYez2RtgfXF5RCIVy4r/4uOxU4=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E20013D031D
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Dec 2025 16:52:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B93463D0330
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Dec 2025 17:01:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
@@ -14,60 +23,90 @@ Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CFE2F3D0295
- for <ltp@lists.linux.it>; Tue,  9 Dec 2025 16:52:10 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 8C1573CF72E
+ for <ltp@lists.linux.it>; Tue,  9 Dec 2025 16:57:35 +0100 (CET)
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3470F6003CA
- for <ltp@lists.linux.it>; Tue,  9 Dec 2025 16:52:09 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E343B600448
+ for <ltp@lists.linux.it>; Tue,  9 Dec 2025 16:57:34 +0100 (CET)
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7D67A5BE32;
- Tue,  9 Dec 2025 15:52:09 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6C2433EA63;
- Tue,  9 Dec 2025 15:52:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4f4WGalFOGkmIgAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Tue, 09 Dec 2025 15:52:09 +0000
-Date: Tue, 9 Dec 2025 16:53:08 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <aThF5PMjWqsLZsnp@yuki.lan>
-References: <20251127143959.9416-1-wegao@suse.com>
- <20251209004242.31774-1-wegao@suse.com>
- <20251209111725.GA756311@pevik>
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 06F773F2BE
+ for <ltp@lists.linux.it>; Tue,  9 Dec 2025 15:57:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20251003; t=1765295853;
+ bh=/DAR/fwsFub/c1NabREmktbJ12NBxv+ZrbQ9IcfgWyo=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=QoBWto3wjVnBaDrlNZ6jNNxkMyDkodKktRSj1HcSmQbFRjOMogVklucgtedadIZiL
+ lHemUGjHNGno54EZWtSPSLjOYjn9aeMRrxaTObg6ySJkVl0WPwIWEAUHbG2V886s0B
+ +8yFm+u8pzlc7qQrqq+X7EQ38eX14oB3KeQDA+BUaqR7sNuOxhrlMJiJr3tzy1/TPN
+ FcC/phgxURORdoDmDieSOus0sTuimwDJGj8vJM15zkZowDfYf+bLSJCoucyekT5orK
+ 9AQlT7fDEnTrhyAPxBVeVjygySHI+OxQMDb8fHN0bUakShkrqKBCBh7RaVqFhp1TJy
+ s+rg0CIjnVUpeGCwyJk2H9isORV7SNpciVAWoUJTPROy4DMz64ia+2oci7FsFXBbwQ
+ h7CFV0wl0kiVI5R1919gV20zhMtO9IdagbLZs2rbQUWi6k92W+5D/F81DMi+sF44GS
+ HYzvccxUZmvxTg/pQrKb0AaeFrLDKuL57tPl+upWHbqY4Xq4cKf+PN5K8XaXTl2MNI
+ UmzIprPcC5QSPlLlafPUfc/dH2jcP5frIXmckAm2BlYgdWZrC+xruWBiQAoiigC1pB
+ dFzlUaMBvHxrZVUVJx16Vc3St8ep0QEGBm+uGFjDYHBl9nor6H8LQY6AYOwEarX6L7
+ G1vpc0G6/9BIiv2OudbYjybY=
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-b79f8f988faso564352266b.2
+ for <ltp@lists.linux.it>; Tue, 09 Dec 2025 07:57:33 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765295852; x=1765900652;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/DAR/fwsFub/c1NabREmktbJ12NBxv+ZrbQ9IcfgWyo=;
+ b=ZJpZld1642vEaROqJfBOY5IXJUJM9g2O6UXdlMpbA5lfQ5Mqat7HyDAmApHZuZW0Q9
+ FnrRUfzC7kgtYM2SlOb824aCZBahMurRSOVqZz+sI2Zk7Wh3Y94hhbeju83yP2wm2wdB
+ VeSsmCYHpPiow6Olz2q6uLNaHAuA528RL61X+2mhJwDDoTll/G1NbLjRmmcnGvmQWo75
+ K8W8o9IwFGmBq3+a+/Janj6iI4Yi6j0di7viTkscX/hRg1zVB78iIZFd/415sVsHNamJ
+ aL/wzqGH39ua4b4lAlgoeDu3MsWM5b1uvcp+Uucc4hEezMMyF1XkW/kMfXK60cy372xE
+ rAOw==
+X-Gm-Message-State: AOJu0YyjnoUqhQ6C6uqP593emmS8NH8JfQrG6OsqSR79Zc0GUyjaRQ6V
+ yqlzhztLmZI/rJeH44pRZErakq6xdIjBLhqrn6clsDMq+PItdoO9AB/hzTpJs6SwHFHk7i4TgUI
+ 6FJPLnlgDiz4da7jJ6oPHN9vX/+ifsEXAftIVAavzD1z/ANOF0bktuPsJTsmcP8hjO+HxRmKtjJ
+ Yv
+X-Gm-Gg: ASbGncsXyLqMNVvUUgO0B2z4R9TZzrUmPCNGuVpYH01arTvUXlKcdM82FkHxJV6hugh
+ WE77rjxr4oQdiz4NIYTyCOQGkyarNJRGYFAqmed082b2Ha2hDgTXDdxQxR7VAUJ+dnFwrJIIz2X
+ nbCfpRMY1MR8fzBFQnDnmZhL93c6KR9So/1U0+VwaepptzETwidm6wUPIz0T/Q5PYGuc2kJTryf
+ 2ljspe24BnJ0AIfbXqIERp9HnqHxXneLZeW7uY/Qs5CTE+qPICpdYw/qSWYbIMC1YjQgU9r3LlC
+ XLhIkZoe/09TrXsYkUXZfb8xF4dlFOXgLt7jEcrFVvjv1TIw5kt0xyKo2iJKfee0do04KO5hIVz
+ T3ddwdilXQvonrOkoGaWuu/fZZ5E+cJJA6byywFBdIKX4IuIOUTU07hcAmVXAWm956OpwpbgGBQ
+ G2hAbppF1wck4=
+X-Received: by 2002:a17:907:3d8e:b0:b3d:200a:bd6e with SMTP id
+ a640c23a62f3a-b7a2451e911mr1121361366b.47.1765295851868; 
+ Tue, 09 Dec 2025 07:57:31 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFEoBcom38icUPX0SznczDAlGsAhOE1ORC5dfkdDQwS4J3GgMGt7JktS+Gxp1ODl8j5Q3fFlg==
+X-Received: by 2002:a17:907:3d8e:b0:b3d:200a:bd6e with SMTP id
+ a640c23a62f3a-b7a2451e911mr1121359166b.47.1765295851451; 
+ Tue, 09 Dec 2025 07:57:31 -0800 (PST)
+Received: from localhost (151-243-191-194.pool.dsl-net.ch. [194.191.243.151])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 4fb4d7f45d1cf-647b412dd8csm14257880a12.33.2025.12.09.07.57.31
+ for <ltp@lists.linux.it>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Dec 2025 07:57:31 -0800 (PST)
+To: ltp@lists.linux.it
+Date: Tue,  9 Dec 2025 16:57:23 +0100
+Message-ID: <20251209155726.519179-1-juerg.haefliger@canonical.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20251209111725.GA756311@pevik>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 7D67A5BE32
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Status: No, score=0.0 required=7.0 tests=DMARC_MISSING,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] listmount04.c: Update case support
- mnt_id_req.mnt_ns_fd
+X-Mailman-Approved-At: Tue, 09 Dec 2025 17:01:25 +0100
+Subject: [LTP] [PATCH] mkdir_tests.sh: Handle error message from mkdir from
+ rust coreutils
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,50 +118,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+From: Juerg Haefliger via ltp <ltp@lists.linux.it>
+Reply-To: Juerg Haefliger <juerg.haefliger@canonical.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > +	uint32_t mnt_ns_fd;
-> > +#else
-> >  	uint32_t spare;
-> > +#endif
-> >  	uint64_t mnt_id;
-> >  	uint64_t param;
-> >  	uint64_t *mnt_ids;
-> > @@ -73,12 +77,21 @@ static struct tcase {
-> >  	{
-> >  		.req_usage = 1,
-> >  		.size = MNT_ID_REQ_SIZE_VER0,
-> > +#ifdef HAVE_STRUCT_MNT_ID_REQ_MNT_NS_FD
-> > +		.mnt_ns_fd = -1,
-> > +#else
-> >  		.spare = -1,
-> > +#endif
-> >  		.mnt_id = LSMT_ROOT,
-> >  		.mnt_ids = mnt_ids,
-> >  		.nr_mnt_ids = MNT_SIZE,
-> > +#ifdef HAVE_STRUCT_MNT_ID_REQ_MNT_NS_FD
-> > +		.exp_errno = EBADF,
-> > +		.msg = "invalid mnt_id_req.mnt_ns_fd bad file descriptor",
-> > +#else
-> >  		.exp_errno = EINVAL,
-> >  		.msg = "invalid mnt_id_req.spare",
-> > +#endif
+mkdir from rust coreutils doesn't print the directory path. Account for
+that.
 
-This is never going to work, how kernel interprets the value depends on
-solely on the running kernel verision not on headers that were present
-during the compilation.
+Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
+---
+ testcases/commands/mkdir/mkdir_tests.sh | 3 +++
+ 1 file changed, 3 insertions(+)
 
-What we need to do is to differentiate the expected errno based on
-running kernel version.
-
+diff --git a/testcases/commands/mkdir/mkdir_tests.sh b/testcases/commands/mkdir/mkdir_tests.sh
+index c0a570e5c0e6..3bafbfdda7ba 100755
+--- a/testcases/commands/mkdir/mkdir_tests.sh
++++ b/testcases/commands/mkdir/mkdir_tests.sh
+@@ -34,6 +34,9 @@ test2()
+ 
+ 	if grep -q "$LONG_PATH.*No such file or directory" mkdir.out; then
+ 		tst_res TPASS "Got correct error message"
++	elif grep -q "mkdir: No such file or directory" mkdir.out; then
++		# mkdir from rust coreutils doesn't print the directory path
++		tst_res TPASS "Got correct error message"
+ 	else
+ 		tst_res TFAIL "Got wrong error message"
+ 		cat mkdir.out
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.51.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
