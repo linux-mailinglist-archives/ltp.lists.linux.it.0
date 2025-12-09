@@ -2,110 +2,89 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCE30CB0F87
-	for <lists+linux-ltp@lfdr.de>; Tue, 09 Dec 2025 20:53:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40115CB8980
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Dec 2025 11:14:52 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4EDD03CAA5A
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Dec 2025 20:53:39 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D51523C7330
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Dec 2025 11:14:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BCD6F3CA1ED
- for <ltp@lists.linux.it>; Tue,  9 Dec 2025 20:53:36 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id EEF1A3CA1ED
+ for <ltp@lists.linux.it>; Tue,  9 Dec 2025 22:16:47 +0100 (CET)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2A1771000617
- for <ltp@lists.linux.it>; Tue,  9 Dec 2025 20:53:35 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D61355BEBA;
- Tue,  9 Dec 2025 19:53:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1765310015;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=G3UsBbOjwYMCMrJA5smWheTKPI1Vfj7YDa2/4vO2zhE=;
- b=uP77WNiZrBpHQ52JqEPeLYiC0/Rm5HWQa9mMl1bK3/pg9Ykl9sMwdev1DAmvrTJGPn9cdZ
- fhoatbs3cADDQ5zM2lgRgQ9MYuIuHZQHMjJ5JjFVYdQ+h4mm6L8g7RrceU3T/2ZyIb8jGT
- cuCi9ZexobOXS92eZ9Iher3BXntZixc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1765310015;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=G3UsBbOjwYMCMrJA5smWheTKPI1Vfj7YDa2/4vO2zhE=;
- b=i6Z5kuJOu4JxMRaEtC1s8HuAv9jwPxGau3Kq61tjBu9RzHsr5HuDVYZHuPSP8WN1YUvaOT
- P0UzggcvxDcqv8Bw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1765310014;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=G3UsBbOjwYMCMrJA5smWheTKPI1Vfj7YDa2/4vO2zhE=;
- b=n+GKgq41/a9SYzrSWmltu3hxX6LpER++KIv/tTOz5dh6VJM7Efmu2mV9kk1NzcBOg+F2Kc
- 7Tu5+1kBeASVhqS1WEl31O0HZXeQi/M9zO/AkOMziIqQ2NyWw8JiXGPmqvPiSprwtdTwiz
- kuvFgbERofwnZ+BDvXTaQgjetjfTHvI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1765310014;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=G3UsBbOjwYMCMrJA5smWheTKPI1Vfj7YDa2/4vO2zhE=;
- b=8ShugDiU5jKGy2dxGEdPQL40TOpIH9TNEV027xRugzLu4N0qzS1D7KvbHYq8DZbLfmYQVw
- inys7/moIb8dLdBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7D6753EA63;
- Tue,  9 Dec 2025 19:53:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id DaYqHD5+OGl5ewAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Tue, 09 Dec 2025 19:53:34 +0000
-Date: Tue, 9 Dec 2025 20:53:28 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: simplemessager@163.com
-Message-ID: <20251209195328.GB24146@pevik>
-References: <20251208150542.704006-1-pvorel@suse.cz>
- <20251209124041.216542-1-simplemessager@163.com>
- <20251209124041.216542-2-simplemessager@163.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8EDA36001EA
+ for <ltp@lists.linux.it>; Tue,  9 Dec 2025 22:16:46 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-477770019e4so64831035e9.3
+ for <ltp@lists.linux.it>; Tue, 09 Dec 2025 13:16:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1765315006; x=1765919806; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=d194iwSwIeBt7GDaEw6OZdonCBVJV/vjddg15uxLP5g=;
+ b=Tz0XzL21KHrAJmenJCifix62x+ScSsa/k5jyX1+LRJkVuBqQzN8kthPSV2fYsFo46+
+ SFiJCX8zXFjaF8ypfd6Qq1wi1GQ61xVsSIPgF+5VqyHUiN01AC7tTbKpvAN95e4mq4qi
+ 2s1xAFnF3KL7SFdOTE1P0rDdoI/0vx2cGR8XpYzTq4yofgjOwv0EYzpYrTXj6GvOiWe9
+ YlsjmWF76IiCA/R87gjDE2p4BLRlxbmT7dp/QLvB9wtgQPX0RvW2UbaF5avHyc/Xn5X9
+ 6DEJxbMdtRPgLiitrlWNz4sLneMtV3W5vPgnc/ps83IAHONQIABcYEGYJ+u+Z1dxhjGZ
+ FC2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765315006; x=1765919806;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=d194iwSwIeBt7GDaEw6OZdonCBVJV/vjddg15uxLP5g=;
+ b=VzKCzlGFLw6KtyIBHULQRUnb0XbYCUhcH1wLE2zrfMjRrDKIBS7C2SkJGosuYSDVaZ
+ vjEUKKXgr3B1WnQ5Wk1TWM0r1ucUQ9ozTC+MDLR+1Yx51LvsB4QSIa6xomHPGGiXkgRf
+ Bb29yTHebMEDWOfuoK4KahqmDn0TMImb6rbjzqiqK/4o+7Ja45C1CgfKcWGxgyq5sNuP
+ dpbNsDrgUbK7z6no1fooc1wZl4s63mVNkJ92a9yhoCVl2A13VoFB3oZHR3sqc51NEPG5
+ noR1UqKVxy839n6CtJYcxuJKTFeb7phCT/0mDGvCAWfSX/MssBIMNbmgsGGIpN9WVdxW
+ WxRA==
+X-Gm-Message-State: AOJu0YyRDlkl1cC7omyWXl01Q/X3dCRLxXL1r8X3VWOvG4TRrmRj56O1
+ faWjZ+iVR3RAPb84LdghyZpmXdrixsAOkb0gTe5whS6rfIgIfi/TfZu1YIS/pP7q40G1z/hJib1
+ Sl/gX
+X-Gm-Gg: ASbGncsY6xawdx60Dp8Kjxyx7wZvYMzEcM2t6AKVaes5loboH2fzD/kGANsXN8qbn+M
+ KJQ03521cqol/KPj6tBaxwH9DEVhNrexfmpR/lwXyGawiNSzOH4LuNg1KbUSAqVOoJ3J7/zyL6N
+ b6a38EM37tbCs/4TRu5F5aB4NZoHnOlal8VHG6Yjyqu06k+bBRp371Olrqvzkw9xOM89gJ5PI6b
+ r+Y9CsgQNW1ji3KC1NnW5j71/u6ZssQKy8wzhLoFV+millBnnXzXLPLnb69lW/kAqVeUxYN9mCX
+ HDnlLbBY9ZwactEG9g734Ik+9iW454RhFv2ZCX/cLNki/8BlzDSSU/yWDYTDDMSRk4JAu3u+IBD
+ zub1bislFe3qTW2WDeScIwZfk8flCbOiaY5hlfnBqvIDq+eXUdjpY1YeDRVIh3lcaMgXCq3spdK
+ 0vfd+JXJxt3XqsVHpHEzY/Zg765lwiuOJv0q1Vz1XfH2labG43LX2hkIKw95EuGZO0uGAyBxUAR
+ Ri2/ZCjq+z/30SyJCI9zfcW8/hnzrw=
+X-Google-Smtp-Source: AGHT+IGW2tLjb06WrAwu7FNSnmbJHProu7bkjThArFVC9tWYAm0CuosBiKW+GcRmGXGJGrJ91eZE0g==
+X-Received: by 2002:a05:600c:1909:b0:471:115e:87bd with SMTP id
+ 5b1f17b1804b1-47a8384cfa1mr1997475e9.26.1765315005523; 
+ Tue, 09 Dec 2025 13:16:45 -0800 (PST)
+Received: from Dev.cable.virginm.net
+ (nail-04-b2-v4wan-166353-cust693.vm26.cable.virginm.net. [82.35.130.182])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a82d127a0sm9360175e9.3.2025.12.09.13.16.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Dec 2025 13:16:45 -0800 (PST)
+From: Terry Tritton <terry.tritton@linaro.org>
+To: ltp@lists.linux.it
+Date: Tue,  9 Dec 2025 21:16:29 +0000
+Message-ID: <20251209211629.95436-1-terry.tritton@linaro.org>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20251209124041.216542-2-simplemessager@163.com>
-X-Spam-Score: -3.50
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- NEURAL_HAM_SHORT(-0.20)[-0.996]; MIME_GOOD(-0.10)[text/plain];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[163.com]; RCPT_COUNT_TWO(0.00)[2];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_TO(0.00)[163.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MISSING_XM_UA(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:replyto,ozlabs.org:url];
- TO_DN_NONE(0.00)[]; REPLYTO_EQ_FROM(0.00)[]
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] safe_keyctl: Skip with TCONF on EOPNOTSUPP
+X-Mailman-Approved-At: Fri, 12 Dec 2025 11:14:49 +0100
+Subject: [LTP] [PATCH] ioctl_pidfd02-06: Add CONFIG_USER_NS and
+ CONFIG_PID_NS to needs_kconfigs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,23 +96,103 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: Terry Tritton <terry.tritton@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+The flags CLONE_NEWUSER and CLONE_NEWPID require specific namespace support.
+Add CONFIG_USER_NS and CONFIG_PID_NS to needs_kconfigs so these tests return
+TCONF instead of failing.
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Terry Tritton <terry.tritton@linaro.org>
+---
+ testcases/kernel/syscalls/ioctl/ioctl_pidfd02.c | 5 +++++
+ testcases/kernel/syscalls/ioctl/ioctl_pidfd03.c | 5 +++++
+ testcases/kernel/syscalls/ioctl/ioctl_pidfd04.c | 5 +++++
+ testcases/kernel/syscalls/ioctl/ioctl_pidfd05.c | 5 +++++
+ testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c | 5 +++++
+ 5 files changed, 25 insertions(+)
 
-This replaces my previous attempt:
-https://patchwork.ozlabs.org/project/ltp/patch/20251208150542.704006-2-pvorel@suse.cz/
-https://lore.kernel.org/ltp/20251208150542.704006-2-pvorel@suse.cz/
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_pidfd02.c b/testcases/kernel/syscalls/ioctl/ioctl_pidfd02.c
+index 7eb60e7fc..6983259e4 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_pidfd02.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_pidfd02.c
+@@ -81,5 +81,10 @@ static struct tst_test test = {
+ 		{&info0, .size = sizeof(*info0)},
+ 		{&info1, .size = sizeof(*info1)},
+ 		{}
++	},
++	.needs_kconfigs = (const char *[]) {
++		"CONFIG_USER_NS",
++		"CONFIG_PID_NS",
++		NULL
+ 	}
+ };
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_pidfd03.c b/testcases/kernel/syscalls/ioctl/ioctl_pidfd03.c
+index 8f2779be2..5ea64a9bd 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_pidfd03.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_pidfd03.c
+@@ -60,5 +60,10 @@ static struct tst_test test = {
+ 		{&args, .size = sizeof(*args)},
+ 		{&info, .size = sizeof(*info)},
+ 		{}
++	},
++	.needs_kconfigs = (const char *[]) {
++		"CONFIG_USER_NS",
++		"CONFIG_PID_NS",
++		NULL
+ 	}
+ };
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_pidfd04.c b/testcases/kernel/syscalls/ioctl/ioctl_pidfd04.c
+index cf8393dec..d4a1a1ea3 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_pidfd04.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_pidfd04.c
+@@ -67,5 +67,10 @@ static struct tst_test test = {
+ 		{&args, .size = sizeof(*args)},
+ 		{&info, .size = sizeof(*info)},
+ 		{}
++	},
++	.needs_kconfigs = (const char *[]) {
++		"CONFIG_USER_NS",
++		"CONFIG_PID_NS",
++		NULL
+ 	}
+ };
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_pidfd05.c b/testcases/kernel/syscalls/ioctl/ioctl_pidfd05.c
+index 31439f0b7..3a5bc7592 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_pidfd05.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_pidfd05.c
+@@ -71,5 +71,10 @@ static struct tst_test test = {
+ 		{&args, .size = sizeof(*args)},
+ 		{&info_invalid, .size = sizeof(*info_invalid)},
+ 		{}
++	},
++	.needs_kconfigs = (const char *[]) {
++		"CONFIG_USER_NS",
++		"CONFIG_PID_NS",
++		NULL
+ 	}
+ };
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c b/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c
+index 2a8bc1432..386a1e235 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c
+@@ -62,5 +62,10 @@ static struct tst_test test = {
+ 		{&args, .size = sizeof(*args)},
+ 		{&info, .size = sizeof(*info)},
+ 		{}
++	},
++	.needs_kconfigs = (const char *[]) {
++		"CONFIG_USER_NS",
++		"CONFIG_PID_NS",
++		NULL
+ 	}
+ };
+-- 
+2.47.3
 
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
