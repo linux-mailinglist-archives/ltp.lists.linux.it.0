@@ -1,72 +1,111 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6705CB07A2
-	for <lists+linux-ltp@lfdr.de>; Tue, 09 Dec 2025 16:57:47 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B1CB7CB0C5C
+	for <lists+linux-ltp@lfdr.de>; Tue, 09 Dec 2025 18:49:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E79133D02EF
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Dec 2025 16:57:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4F5003D02FD
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Dec 2025 18:49:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4D1183CF72E
- for <ltp@lists.linux.it>; Tue,  9 Dec 2025 16:57:37 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 543AC3CBFDA
+ for <ltp@lists.linux.it>; Tue,  9 Dec 2025 18:49:11 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B5B16200ADB
- for <ltp@lists.linux.it>; Tue,  9 Dec 2025 16:57:36 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CFFDA1000937
+ for <ltp@lists.linux.it>; Tue,  9 Dec 2025 18:49:10 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8F3BD3373D;
- Tue,  9 Dec 2025 15:57:35 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5BBAC337E8;
+ Tue,  9 Dec 2025 17:49:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1765302549;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6aB1rt+VpW+uhD7mfJ+QdI/CPPpCBXx0h+npxvGxdm4=;
+ b=qs7kjXxIIkBcP4Z29TPYPzRu15diY4NXzoNwARNy7+pryifTtWLevF/dq1dOV+w8wOlZK9
+ h/xQdf4r6QuZqc1IKeg3AcLuVU6gRrC+EqwWA6wokpC8JyeJHPJRjS+4D+Dav0hoORKn4j
+ o99O5IR3vzF45yNAUnmk2Bn5W4/hZic=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1765302549;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6aB1rt+VpW+uhD7mfJ+QdI/CPPpCBXx0h+npxvGxdm4=;
+ b=IBSZPnBobVoFyn4bTFdlpjJVj+qKrlyj2i5sw53CWmSqno0ZR93EJw2+4HjEA9rYM971tn
+ yKauSMOleO9lIYBQ==
 Authentication-Results: smtp-out1.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1765302549;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6aB1rt+VpW+uhD7mfJ+QdI/CPPpCBXx0h+npxvGxdm4=;
+ b=qs7kjXxIIkBcP4Z29TPYPzRu15diY4NXzoNwARNy7+pryifTtWLevF/dq1dOV+w8wOlZK9
+ h/xQdf4r6QuZqc1IKeg3AcLuVU6gRrC+EqwWA6wokpC8JyeJHPJRjS+4D+Dav0hoORKn4j
+ o99O5IR3vzF45yNAUnmk2Bn5W4/hZic=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1765302549;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6aB1rt+VpW+uhD7mfJ+QdI/CPPpCBXx0h+npxvGxdm4=;
+ b=IBSZPnBobVoFyn4bTFdlpjJVj+qKrlyj2i5sw53CWmSqno0ZR93EJw2+4HjEA9rYM971tn
+ yKauSMOleO9lIYBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7C8A73EA63;
- Tue,  9 Dec 2025 15:57:35 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 307233EA63;
+ Tue,  9 Dec 2025 17:49:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gIsGHe9GOGnpJgAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Tue, 09 Dec 2025 15:57:35 +0000
-Date: Tue, 9 Dec 2025 16:58:34 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <aThHKguxntl-ZJBb@yuki.lan>
-References: <20251209120246.18435-1-chrubis@suse.cz>
- <CAASaF6yCjh6i9bm5WU4p7TmW4xNSD9+QkB=BfMWSbm_4Hvgptw@mail.gmail.com>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id bGbOCRVhOGmJDQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Tue, 09 Dec 2025 17:49:09 +0000
+Date: Tue, 9 Dec 2025 18:49:07 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20251209174907.GA9500@pevik>
+References: <20251127143959.9416-1-wegao@suse.com>
+ <20251209004242.31774-1-wegao@suse.com>
+ <20251209111725.GA756311@pevik> <aThF5PMjWqsLZsnp@yuki.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAASaF6yCjh6i9bm5WU4p7TmW4xNSD9+QkB=BfMWSbm_4Hvgptw@mail.gmail.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 8F3BD3373D
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Score: -4.00
+In-Reply-To: <aThF5PMjWqsLZsnp@yuki.lan>
+X-Spam-Score: -7.50
 X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+X-Spamd-Result: default: False [-7.50 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ NEURAL_HAM_SHORT(-0.20)[-0.992]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:replyto]; 
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ REPLYTO_EQ_FROM(0.00)[]
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] doc: Add ground rules page
+Subject: Re: [LTP] [PATCH v2] listmount04.c: Update case support
+ mnt_id_req.mnt_ns_fd
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,36 +117,57 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> I don't recall if we have it mentioned already, but we also used to say that
-> changes introduced in early kernel -rc  builds were low priority for acceptance
-> and we favored behavior that is in a released kernel (or at least in last -rcs).
+> Hi!
+> > > +	uint32_t mnt_ns_fd;
+> > > +#else
+> > >  	uint32_t spare;
+> > > +#endif
+> > >  	uint64_t mnt_id;
+> > >  	uint64_t param;
+> > >  	uint64_t *mnt_ids;
+> > > @@ -73,12 +77,21 @@ static struct tcase {
+> > >  	{
+> > >  		.req_usage = 1,
+> > >  		.size = MNT_ID_REQ_SIZE_VER0,
+> > > +#ifdef HAVE_STRUCT_MNT_ID_REQ_MNT_NS_FD
+> > > +		.mnt_ns_fd = -1,
+> > > +#else
+> > >  		.spare = -1,
+> > > +#endif
+> > >  		.mnt_id = LSMT_ROOT,
+> > >  		.mnt_ids = mnt_ids,
+> > >  		.nr_mnt_ids = MNT_SIZE,
+> > > +#ifdef HAVE_STRUCT_MNT_ID_REQ_MNT_NS_FD
+> > > +		.exp_errno = EBADF,
+> > > +		.msg = "invalid mnt_id_req.mnt_ns_fd bad file descriptor",
+> > > +#else
+> > >  		.exp_errno = EINVAL,
+> > >  		.msg = "invalid mnt_id_req.spare",
+> > > +#endif
 
-Sounds good.
+> This is never going to work, how kernel interprets the value depends on
+> solely on the running kernel verision not on headers that were present
+> during the compilation.
 
-Also we probably need something along the lines:
++1, I realized that myself as well.
 
-Use runtime checks for kernel features
-======================================
+> What we need to do is to differentiate the expected errno based on
+> running kernel version.
 
-What is and what isn't supported by kernel is determined by the version
-and configuration of the kernel the systems is currently running on.
-That especially means that any checks done during the compilation cannot
-be used to assume features supported by the kernel the tests end up
-running on. The compile time checks, done by configure script, are only
-useful for enabling fallback kernel API definitions when missing, as we
-do in lapi/ directory.
+Other option would be just accept both errnos (as kernel developers seem to be
+not forcing us to be pedantic on kernel internals - recent swapon03.c rewrite
+requirement). But lets use tst_kvercmp() to not delay the fix with more
+discussion.
 
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
