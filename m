@@ -2,89 +2,97 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40115CB8980
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Dec 2025 11:14:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F2E1CB20F2
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Dec 2025 07:20:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1765347616; h=to : date :
+ message-id : in-reply-to : references : mime-version : subject :
+ list-id : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : content-type :
+ content-transfer-encoding : sender : from;
+ bh=tdOrRPIYnByuo5Uaro7GqRACUEfNUrYbyE/haeLOG54=;
+ b=e7+xcz9pCTpbXtY2Grc2iPtdxRcN1zxD0iz4iU5lQXAyAEyXUDcNzMjGossTskIba2mMG
+ Nq70ZEymWRLN4aJN3TNBlo+O59NQn47U1YxPKBam/nFArbTD8GKKrMt+UeaTYEvGQa7500R
+ AweAcNkTWgapnG/g4MV/XD9i9Udisto=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D51523C7330
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Dec 2025 11:14:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 98EA03CD223
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Dec 2025 07:20:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EEF1A3CA1ED
- for <ltp@lists.linux.it>; Tue,  9 Dec 2025 22:16:47 +0100 (CET)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
+ by picard.linux.it (Postfix) with ESMTPS id 8C07F3C9A3C
+ for <ltp@lists.linux.it>; Wed, 10 Dec 2025 07:20:04 +0100 (CET)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8EDA36001EA
- for <ltp@lists.linux.it>; Tue,  9 Dec 2025 22:16:46 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-477770019e4so64831035e9.3
- for <ltp@lists.linux.it>; Tue, 09 Dec 2025 13:16:46 -0800 (PST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 740F3140024C
+ for <ltp@lists.linux.it>; Wed, 10 Dec 2025 07:20:03 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-47a8195e515so8976815e9.0
+ for <ltp@lists.linux.it>; Tue, 09 Dec 2025 22:20:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1765315006; x=1765919806; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=d194iwSwIeBt7GDaEw6OZdonCBVJV/vjddg15uxLP5g=;
- b=Tz0XzL21KHrAJmenJCifix62x+ScSsa/k5jyX1+LRJkVuBqQzN8kthPSV2fYsFo46+
- SFiJCX8zXFjaF8ypfd6Qq1wi1GQ61xVsSIPgF+5VqyHUiN01AC7tTbKpvAN95e4mq4qi
- 2s1xAFnF3KL7SFdOTE1P0rDdoI/0vx2cGR8XpYzTq4yofgjOwv0EYzpYrTXj6GvOiWe9
- YlsjmWF76IiCA/R87gjDE2p4BLRlxbmT7dp/QLvB9wtgQPX0RvW2UbaF5avHyc/Xn5X9
- 6DEJxbMdtRPgLiitrlWNz4sLneMtV3W5vPgnc/ps83IAHONQIABcYEGYJ+u+Z1dxhjGZ
- FC2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765315006; x=1765919806;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=suse.com; s=google; t=1765347602; x=1765952402; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=d194iwSwIeBt7GDaEw6OZdonCBVJV/vjddg15uxLP5g=;
- b=VzKCzlGFLw6KtyIBHULQRUnb0XbYCUhcH1wLE2zrfMjRrDKIBS7C2SkJGosuYSDVaZ
- vjEUKKXgr3B1WnQ5Wk1TWM0r1ucUQ9ozTC+MDLR+1Yx51LvsB4QSIa6xomHPGGiXkgRf
- Bb29yTHebMEDWOfuoK4KahqmDn0TMImb6rbjzqiqK/4o+7Ja45C1CgfKcWGxgyq5sNuP
- dpbNsDrgUbK7z6no1fooc1wZl4s63mVNkJ92a9yhoCVl2A13VoFB3oZHR3sqc51NEPG5
- noR1UqKVxy839n6CtJYcxuJKTFeb7phCT/0mDGvCAWfSX/MssBIMNbmgsGGIpN9WVdxW
- WxRA==
-X-Gm-Message-State: AOJu0YyRDlkl1cC7omyWXl01Q/X3dCRLxXL1r8X3VWOvG4TRrmRj56O1
- faWjZ+iVR3RAPb84LdghyZpmXdrixsAOkb0gTe5whS6rfIgIfi/TfZu1YIS/pP7q40G1z/hJib1
- Sl/gX
-X-Gm-Gg: ASbGncsY6xawdx60Dp8Kjxyx7wZvYMzEcM2t6AKVaes5loboH2fzD/kGANsXN8qbn+M
- KJQ03521cqol/KPj6tBaxwH9DEVhNrexfmpR/lwXyGawiNSzOH4LuNg1KbUSAqVOoJ3J7/zyL6N
- b6a38EM37tbCs/4TRu5F5aB4NZoHnOlal8VHG6Yjyqu06k+bBRp371Olrqvzkw9xOM89gJ5PI6b
- r+Y9CsgQNW1ji3KC1NnW5j71/u6ZssQKy8wzhLoFV+millBnnXzXLPLnb69lW/kAqVeUxYN9mCX
- HDnlLbBY9ZwactEG9g734Ik+9iW454RhFv2ZCX/cLNki/8BlzDSSU/yWDYTDDMSRk4JAu3u+IBD
- zub1bislFe3qTW2WDeScIwZfk8flCbOiaY5hlfnBqvIDq+eXUdjpY1YeDRVIh3lcaMgXCq3spdK
- 0vfd+JXJxt3XqsVHpHEzY/Zg765lwiuOJv0q1Vz1XfH2labG43LX2hkIKw95EuGZO0uGAyBxUAR
- Ri2/ZCjq+z/30SyJCI9zfcW8/hnzrw=
-X-Google-Smtp-Source: AGHT+IGW2tLjb06WrAwu7FNSnmbJHProu7bkjThArFVC9tWYAm0CuosBiKW+GcRmGXGJGrJ91eZE0g==
-X-Received: by 2002:a05:600c:1909:b0:471:115e:87bd with SMTP id
- 5b1f17b1804b1-47a8384cfa1mr1997475e9.26.1765315005523; 
- Tue, 09 Dec 2025 13:16:45 -0800 (PST)
-Received: from Dev.cable.virginm.net
- (nail-04-b2-v4wan-166353-cust693.vm26.cable.virginm.net. [82.35.130.182])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a82d127a0sm9360175e9.3.2025.12.09.13.16.44
+ bh=+9I2vvJ0akeDQtTiVTIthHBJMXpof3IJaOK2JF3PFUQ=;
+ b=ekAUpm8US5f3LE2KPeGKPdrfvpa2SNYs/7JE45XSh6/d+ZzwNy8D6wDcAl0GHzCvsv
+ EG/MxgsoHuhl7nUfgnX2fel3ctual3/7MrHxX2vQ7lLlEjsFkvCNCDvZKHXkXr7jfHDE
+ +8YhaOSr3nY0D72rJKhA1LkBF2Od3fERfc4s9eKflUtIZZSRxI4OgY6FG0sQCifFx4y0
+ 8fEa5S/lPVebj1OXn81m5gvqWY8qwIQ3cJqKbbBtpJTrhGNk1f4Zjh0XmGboCsCfWA1g
+ tB8D92C/D337RXMTLUnvD8YyG/OmM0i9xoJs2ixRUJ7+nUWNygb3OkBAvXa7Seadqy+w
+ Nw3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765347602; x=1765952402;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=+9I2vvJ0akeDQtTiVTIthHBJMXpof3IJaOK2JF3PFUQ=;
+ b=MOrmCryUw6tPZwKMJDXPN+p9Qx5fB6wLbQiNX4ENXSfw37pL5SfkWg8N+KOeVp2fSX
+ jjJo3NT5VK3DmcBSsEdMz6SLS2bz5eK0fkiVpkFm+quLUXgsDbJxkxrnn0D4eduARyA7
+ /bsuFqfaZx9g9nTVCzbZrEuFFuXNT8mcqCW6G9JETXBlxDfM9VC0fJjfRBkkvl3egeUy
+ TuLLEn+y4xaLhb1FzYE6FzuFFdFi4WjWOhOyqXNQn3ybQd5oH9tmJi6Xyw9p0mwevMW7
+ R8tlMYUZhpmqhMYfN89P5XVY9zD0S1AqxWRqj+Kqm4G43/He0Jy7SKhurhHNVzJLGvcA
+ bk+A==
+X-Gm-Message-State: AOJu0YyX9vnRiBs8YJuFxwC1tKSc54NHTBliVH+BbytmSbvZdsBf6+KG
+ OO/d5nlK4G7wyyXQwu9/Sf4rKB2RQTMMUNlnEjH1zO9liJhhE5u1r5E+yntDbmMdNFn0uOWzvFr
+ vNEU=
+X-Gm-Gg: ASbGnct4CoHIziihzlReCMxl2laHh4lF3lDyfSm/kBeHscl8UoxD7YHQFi4gVzjwcpF
+ W2sU6yMQyWbZFlOQRIodg8tQxfCMtADDZLV07ORRJLCU9UqqRHunQfP/9F75YfKMfhnsYxnIFJ9
+ ByZSwWddWwxk5GBjEP3XKJgYaVGd8LpZ7TuOh0G+AI5PnT1XVXVYpCBzHicLpbr81CoTsKcK/5M
+ EGV56wYHMIcrXH2u6rNgTYUSWBUE0m6cKprw5488uXObbjaGNCKl1BenE3Ii4j1YWiiD2S4gFSE
+ CKLuwBAizdrVR2ZkUDguA8fZ1Shir2TuHlKqG7IACYT9AbA8ChVQWklw7/j6UhqlEpcbSBdYVN1
+ d80LLSNfS0aRI621Ye8sD4HQKiX0Fh4MSuAg54Fir9dCmZw6s4i14mDvdIIrZi3M/07nuRTmrNt
+ s=
+X-Google-Smtp-Source: AGHT+IHvxblbjfsCj0NChsevuTvN8QlHhpcDeUU3wKJQ9Rp0GE8MpS0tPZ7d7VKx6chgKDzy9NOjTQ==
+X-Received: by 2002:a05:600c:8709:b0:477:582e:7a81 with SMTP id
+ 5b1f17b1804b1-47a837fcb2fmr11875485e9.4.1765347602611; 
+ Tue, 09 Dec 2025 22:20:02 -0800 (PST)
+Received: from localhost ([2a07:de40:b240:0:2ad6:ed42:2ad6:ed42])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-47a82cb0a09sm25712025e9.0.2025.12.09.22.20.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Dec 2025 13:16:45 -0800 (PST)
-From: Terry Tritton <terry.tritton@linaro.org>
+ Tue, 09 Dec 2025 22:20:02 -0800 (PST)
 To: ltp@lists.linux.it
-Date: Tue,  9 Dec 2025 21:16:29 +0000
-Message-ID: <20251209211629.95436-1-terry.tritton@linaro.org>
-X-Mailer: git-send-email 2.47.3
+Date: Wed, 10 Dec 2025 06:19:41 +0000
+Message-ID: <20251210061957.32631-1-wegao@suse.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20251209004242.31774-1-wegao@suse.com>
+References: <20251209004242.31774-1-wegao@suse.com>
 MIME-Version: 1.0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Fri, 12 Dec 2025 11:14:49 +0100
-Subject: [LTP] [PATCH] ioctl_pidfd02-06: Add CONFIG_USER_NS and
- CONFIG_PID_NS to needs_kconfigs
+Subject: [LTP] [PATCH v3] listmount04.c: Update case support
+ mnt_id_req.mnt_ns_fd
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,102 +104,105 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Terry Tritton <terry.tritton@linaro.org>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The flags CLONE_NEWUSER and CLONE_NEWPID require specific namespace support.
-Add CONFIG_USER_NS and CONFIG_PID_NS to needs_kconfigs so these tests return
-TCONF instead of failing.
+Kernel change from v6.18-rc7 lead test case failure with following error message:
+listmount04.c:128: TFAIL: invalid mnt_id_req.spare expected EINVAL: EBADF (9)
 
-Signed-off-by: Terry Tritton <terry.tritton@linaro.org>
+Detail of new kernel commit:
+commit: 78f0e33cd6c939a555aa80dbed2fec6b333a7660
+fs/namespace: correctly handle errors returned by grab_requested_mnt_ns
+
+Signed-off-by: Wei Gao <wegao@suse.com>
 ---
- testcases/kernel/syscalls/ioctl/ioctl_pidfd02.c | 5 +++++
- testcases/kernel/syscalls/ioctl/ioctl_pidfd03.c | 5 +++++
- testcases/kernel/syscalls/ioctl/ioctl_pidfd04.c | 5 +++++
- testcases/kernel/syscalls/ioctl/ioctl_pidfd05.c | 5 +++++
- testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c | 5 +++++
- 5 files changed, 25 insertions(+)
+ configure.ac                                  |  1 +
+ .../kernel/syscalls/listmount/listmount04.c   | 26 ++++++++++++++++++-
+ 2 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_pidfd02.c b/testcases/kernel/syscalls/ioctl/ioctl_pidfd02.c
-index 7eb60e7fc..6983259e4 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_pidfd02.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_pidfd02.c
-@@ -81,5 +81,10 @@ static struct tst_test test = {
- 		{&info0, .size = sizeof(*info0)},
- 		{&info1, .size = sizeof(*info1)},
- 		{}
-+	},
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_USER_NS",
-+		"CONFIG_PID_NS",
-+		NULL
+diff --git a/configure.ac b/configure.ac
+index 0480f46ca..fcff90799 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -263,6 +263,7 @@ AC_CHECK_TYPES([struct cachestat],,,[#include <sys/mman.h>])
+ 
+ # Defined in <linux/mount.h>, but include/lapi/mount.h includes <sys/mount.h> */
+ AC_CHECK_TYPES([struct mnt_id_req],,,[#include <sys/mount.h>])
++AC_CHECK_MEMBERS([struct mnt_id_req.mnt_ns_fd],,,[#include <sys/mount.h>])
+ AC_CHECK_TYPES([struct statmount],,,[#include <sys/mount.h>])
+ AC_CHECK_MEMBERS([struct statmount.mnt_ns_id],,,[#include <unistd.h>
+ #include <linux/mount.h>])
+diff --git a/testcases/kernel/syscalls/listmount/listmount04.c b/testcases/kernel/syscalls/listmount/listmount04.c
+index a6921a249..973b472f6 100644
+--- a/testcases/kernel/syscalls/listmount/listmount04.c
++++ b/testcases/kernel/syscalls/listmount/listmount04.c
+@@ -14,6 +14,7 @@
+ 
+ #define _GNU_SOURCE
+ 
++#include "config.h"
+ #include "tst_test.h"
+ #include "lapi/mount.h"
+ #include "lapi/syscalls.h"
+@@ -26,7 +27,11 @@ static uint64_t mnt_ids[MNT_SIZE];
+ static struct tcase {
+ 	int req_usage;
+ 	uint32_t size;
++#ifdef HAVE_STRUCT_MNT_ID_REQ_MNT_NS_FD
++	uint32_t mnt_ns_fd;
++#else
+ 	uint32_t spare;
++#endif
+ 	uint64_t mnt_id;
+ 	uint64_t param;
+ 	uint64_t *mnt_ids;
+@@ -73,12 +78,21 @@ static struct tcase {
+ 	{
+ 		.req_usage = 1,
+ 		.size = MNT_ID_REQ_SIZE_VER0,
++#ifdef HAVE_STRUCT_MNT_ID_REQ_MNT_NS_FD
++		.mnt_ns_fd = -1,
++#else
+ 		.spare = -1,
++#endif
+ 		.mnt_id = LSMT_ROOT,
+ 		.mnt_ids = mnt_ids,
+ 		.nr_mnt_ids = MNT_SIZE,
++#ifdef HAVE_STRUCT_MNT_ID_REQ_MNT_NS_FD
++		.exp_errno = EBADF,
++		.msg = "invalid mnt_id_req.mnt_ns_fd bad file descriptor",
++#else
+ 		.exp_errno = EINVAL,
+ 		.msg = "invalid mnt_id_req.spare",
++#endif
+ 	},
+ 	{
+ 		.req_usage = 1,
+@@ -122,7 +136,17 @@ static void run(unsigned int n)
+ 		req->mnt_id = tc->mnt_id;
+ 		req->param = tc->param;
+ 		req->size = tc->size;
+-		req->spare = tc->spare;
++#ifdef HAVE_STRUCT_MNT_ID_REQ_MNT_NS_FD
++		if ((tst_kvercmp(6, 18, 0)) >= 0)
++			req->mnt_ns_fd = tc->mnt_ns_fd;
++		else
++			tst_brk(TCONF, "Skipping test, kernel version should > 6.18");
++#else
++		if ((tst_kvercmp(6, 18, 0)) >= 0)
++			tst_brk(TCONF, "Skipping test, kernel version should < 6.18");
++		else
++			req->spare = tc->spare;
++#endif
  	}
- };
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_pidfd03.c b/testcases/kernel/syscalls/ioctl/ioctl_pidfd03.c
-index 8f2779be2..5ea64a9bd 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_pidfd03.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_pidfd03.c
-@@ -60,5 +60,10 @@ static struct tst_test test = {
- 		{&args, .size = sizeof(*args)},
- 		{&info, .size = sizeof(*info)},
- 		{}
-+	},
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_USER_NS",
-+		"CONFIG_PID_NS",
-+		NULL
- 	}
- };
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_pidfd04.c b/testcases/kernel/syscalls/ioctl/ioctl_pidfd04.c
-index cf8393dec..d4a1a1ea3 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_pidfd04.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_pidfd04.c
-@@ -67,5 +67,10 @@ static struct tst_test test = {
- 		{&args, .size = sizeof(*args)},
- 		{&info, .size = sizeof(*info)},
- 		{}
-+	},
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_USER_NS",
-+		"CONFIG_PID_NS",
-+		NULL
- 	}
- };
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_pidfd05.c b/testcases/kernel/syscalls/ioctl/ioctl_pidfd05.c
-index 31439f0b7..3a5bc7592 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_pidfd05.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_pidfd05.c
-@@ -71,5 +71,10 @@ static struct tst_test test = {
- 		{&args, .size = sizeof(*args)},
- 		{&info_invalid, .size = sizeof(*info_invalid)},
- 		{}
-+	},
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_USER_NS",
-+		"CONFIG_PID_NS",
-+		NULL
- 	}
- };
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c b/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c
-index 2a8bc1432..386a1e235 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c
-@@ -62,5 +62,10 @@ static struct tst_test test = {
- 		{&args, .size = sizeof(*args)},
- 		{&info, .size = sizeof(*info)},
- 		{}
-+	},
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_USER_NS",
-+		"CONFIG_PID_NS",
-+		NULL
- 	}
- };
+ 
+ 	TST_EXP_FAIL(tst_syscall(__NR_listmount, req, tc->mnt_ids,
 -- 
-2.47.3
+2.51.0
 
 
 -- 
