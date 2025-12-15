@@ -1,110 +1,101 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EDA9CBDDC5
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Dec 2025 13:43:15 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A4BB4CBE151
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Dec 2025 14:32:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1765805568; h=mime-version :
+ references : in-reply-to : date : message-id : to : subject : list-id
+ : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=f9Zd7NewNWIFqMPIgKEv1vLQB3sy04Q/mxaE83LXxbY=;
+ b=oToqs4t1UB+Yq1UieUPbBMxvqVrGIEyBbMe21apH7JHBQ5Youa3pZ4jYD5OG/t+zX1ITg
+ MDfAELxIoro1pjhnU07WtYbxg3yHzvdZRQmUuzIIihksaqtr0COpbQuP1v31Yoj4JxoQCwC
+ hjX8h7JkjCDcjzdcVjyYJfxlUv35Dd0=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CB5DF3D00B7
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Dec 2025 13:43:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3B22A3D00F9
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Dec 2025 14:32:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 762943C9A3E
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 13:43:12 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 6C6403C9A3E
+ for <ltp@lists.linux.it>; Mon, 15 Dec 2025 14:32:46 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E52B860067B
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 13:43:07 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 75A9A337DB
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 12:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1765802586; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DEF7A140017C
+ for <ltp@lists.linux.it>; Mon, 15 Dec 2025 14:32:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1765805562;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ntb9OjiTTcvZiSYjMeXXOZshOr+40wptg0pj+sOlPc4=;
- b=Po7byTBVrOdHuBcCfcZ4OCYzu8NxD0UZxvnAMEFEPmiZhduQfskPD/e4hk4wTXmH2uHDGb
- t8Ea3ONRIGOEd8G5ZtiduV7AFxw5Q2gDPa7hNpGYMbL5bXwdnMM/9thn8TSQBan/TBIY1j
- iFobATZZe+ubAcGEuAyWX9wxX1H+kHw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1765802586;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ntb9OjiTTcvZiSYjMeXXOZshOr+40wptg0pj+sOlPc4=;
- b=jYjw+tFZaJwervq2G2FN3KUdsZ0LRCugMpTj46HrbLkDvzrityBsvUUzbWXgoBqtfUxOKV
- NLu4pc/OoSkkIqCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1765802586; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ntb9OjiTTcvZiSYjMeXXOZshOr+40wptg0pj+sOlPc4=;
- b=Po7byTBVrOdHuBcCfcZ4OCYzu8NxD0UZxvnAMEFEPmiZhduQfskPD/e4hk4wTXmH2uHDGb
- t8Ea3ONRIGOEd8G5ZtiduV7AFxw5Q2gDPa7hNpGYMbL5bXwdnMM/9thn8TSQBan/TBIY1j
- iFobATZZe+ubAcGEuAyWX9wxX1H+kHw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1765802586;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ntb9OjiTTcvZiSYjMeXXOZshOr+40wptg0pj+sOlPc4=;
- b=jYjw+tFZaJwervq2G2FN3KUdsZ0LRCugMpTj46HrbLkDvzrityBsvUUzbWXgoBqtfUxOKV
- NLu4pc/OoSkkIqCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 671523EA65
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 12:43:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id t+PnF1oCQGnyPgAAD6G6ig
- (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 12:43:06 +0000
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 15 Dec 2025 13:44:04 +0100
-Message-ID: <20251215124404.16395-2-chrubis@suse.cz>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20251215124404.16395-1-chrubis@suse.cz>
-References: <20251215124404.16395-1-chrubis@suse.cz>
+ bh=8Edk3qmEyA6gd563TpdeJ5hCJLHtLuga62F48gTXppE=;
+ b=Q8A9KTOkGrShlHMzgd27q6vn/o7HQ9owghzBL0WDnQdSHzQ9fUvjrN58RHJ5awlDESAaWn
+ MYCesmro4rSl+1w0D1enrmQQM6HLstrD+ko9MuIK7udryT6aT4AqwsVd1iKZz4Szep9l3c
+ 9y4FsDEt1bkmo+uJvgNtwzpq6Y8Za7g=
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-473-jMx1v0iiNxuPSPzrJdzGLA-1; Mon, 15 Dec 2025 08:32:41 -0500
+X-MC-Unique: jMx1v0iiNxuPSPzrJdzGLA-1
+X-Mimecast-MFC-AGG-ID: jMx1v0iiNxuPSPzrJdzGLA_1765805560
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-bdced916ad0so6157873a12.0
+ for <ltp@lists.linux.it>; Mon, 15 Dec 2025 05:32:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765805559; x=1766410359;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8Edk3qmEyA6gd563TpdeJ5hCJLHtLuga62F48gTXppE=;
+ b=awXwQAGJhGd0D+47xHHwzS/who9oVQO0htRkbqwAMLoMLNQ9/q7SQSRXPKMD0JGKFL
+ 7wj5qvR2HCwFZrLiHfn5kPzBA3Q7Yn09YiwRErWhlGyvzLHJKweg9FRlKIhkJ/y19b71
+ J0+j4I0adDyM90f23pUmvrmz/tAF8rx/foGzrhdBXFLZ86sepf9CFmwHk6jHFE5vhMuI
+ sS1XF0+/yz2Qdty8OuGRmcYfyQvIisWAD+LXPQJXcZ99R3MfQCEpkNlDPXvingSU3WN7
+ hNGEXduGS8NWNiNNJUZJLYw2fo0H/m3byrqj/VGpKPlflHww8cMWP0dUSbVmvG9Yl1SU
+ 2HOg==
+X-Gm-Message-State: AOJu0YyORBPnCVjuVj+BNY83FrRZWhs8MUgUEnVxu7L6U9GeJqbxp9fz
+ q63CBUAPBimpuCzCcFHqzAiRe+X0M0mnZtuLmtu2aYfvSJa9gOTYWplxt4+OCE+0vocwEkHGiop
+ 3yQP5PsJYZIIU2y91xQ3CmmE6aAVsU0yrtpLgK24fSk4Jna4Bg5tEtiKOcX/3E63HnSt5pKDHxu
+ CdDoNpubh1bbrkcacN8qfr5oq/m6Q+TUgHZLUf1yjF
+X-Gm-Gg: AY/fxX61lr6jZ77KghE2vmhvkKCo5pTgkZSNLsk/xAinHXkAcJgkMuwV6+SdmeEAja7
+ gLT5XAddRC02kVy2L8M1ei+a1S+wfKSi7Y/nN+XdhrujkQd1E/Ai+qiWjrLK/MfD+/PZLlmnEMz
+ Y1B/m0vMqSMidefstOLplBk1DTCPtv47dq4EJZ1qo4qkOabXkoLizQ6O9JJSvoiYRGlI8=
+X-Received: by 2002:a05:7300:ff43:b0:2ac:19a3:c51c with SMTP id
+ 5a478bee46e88-2ac2f8b1af5mr7488292eec.18.1765805559308; 
+ Mon, 15 Dec 2025 05:32:39 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHmpjSnIXkmav5HIPh9YNDjaLAnSwsoqlR+WCkYK3aWAyFWPo/OSYQ/kBC+YnGv4RbrdCZ91vX+Cmr2KG5qyb8=
+X-Received: by 2002:a05:7300:ff43:b0:2ac:19a3:c51c with SMTP id
+ 5a478bee46e88-2ac2f8b1af5mr7488260eec.18.1765805558694; Mon, 15 Dec 2025
+ 05:32:38 -0800 (PST)
 MIME-Version: 1.0
-X-Spamd-Result: default: False [-2.69 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[]; MIME_GOOD(-0.10)[text/plain];
- NEURAL_HAM_SHORT(-0.09)[-0.475]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TO_DN_NONE(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- ARC_NA(0.00)[]; RCPT_COUNT_ONE(0.00)[1];
- RCVD_COUNT_TWO(0.00)[2]; FROM_HAS_DN(0.00)[];
- MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FROM_EQ_ENVFROM(0.00)[];
- PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]
-X-Spam-Level: 
-X-Spam-Score: -2.69
+References: <20251215124404.16395-1-chrubis@suse.cz>
+ <20251215124404.16395-2-chrubis@suse.cz>
+In-Reply-To: <20251215124404.16395-2-chrubis@suse.cz>
+Date: Mon, 15 Dec 2025 21:32:26 +0800
+X-Gm-Features: AQt7F2oToIdTT2kRiUSnrGHNZSa9TxRsFzSX6xHiuUq3UzvS-_ATYommiJaVMaI
+Message-ID: <CAEemH2eDJf1OAF1q6WEegF4ZpSVjerYa2O7hp8hfd+7q=75gQQ@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: TaLKJQeM5bRM2g6sEYxu9YviO1wehvYLJAgPw6ypUd4_1765805560
+X-Mimecast-Originator: redhat.com
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 2/2] doc: Add ground rules page
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Subject: Re: [LTP] [PATCH v2 2/2] doc: Add ground rules page
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,138 +107,131 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+From: Li Wang via ltp <ltp@lists.linux.it>
+Reply-To: Li Wang <liwang@redhat.com>
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is a continued effort to write down the unwritten rules we have in
-the project. Feel free to suggest more topics for the page.
-
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- doc/developers/ground_rules.rst | 91 +++++++++++++++++++++++++++++++++
- doc/index.rst                   |  1 +
- 2 files changed, 92 insertions(+)
- create mode 100644 doc/developers/ground_rules.rst
-
-Changes in v2:
-
-- added two more rules
-- fixes and typos as pointed out by Peter
-
-diff --git a/doc/developers/ground_rules.rst b/doc/developers/ground_rules.rst
-new file mode 100644
-index 000000000..2bef426aa
---- /dev/null
-+++ b/doc/developers/ground_rules.rst
-@@ -0,0 +1,91 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
-+
-+Ground Rules
-+============
-+
-+Do not work around kernel bugs
-+------------------------------
-+
-+We have decided what we will not work around bugs in upstream LTP sources. If a
-+test fails on your system for a good reason, e.g. patch wasn't backported and
-+the bug is present, work around for this will not be accepted upstream. The
-+main reason for this decision is that this masks the failure for everyone else.
-+
-+
-+Do not synchronize by sleep
-+---------------------------
-+
-+Why is sleep in tests bad then?
-+```````````````````````````````
-+
-+The first problem is that it will likely introduce very rare test failures,
-+that means somebody has to spend time looking into these, which is a wasted
-+effort. Nobody likes tests that will fail rarely for no good reason. Even more
-+so you cannot run such tests with a background load to ensure that everything
-+works correctly on a busy system, because that will increase the likehood of a
-+failure.
-+
-+The second problem is that this wastes resources and slows down a test run. If
-+you think that adding a sleep to a test is not a big deal, lets have a look at
-+the bigger perspective. There is about 1600 syscall tests in Linux Test
-+Project, if 7.5% of them would sleep just for one second, we would end up with
-+two minutes of wasted time per testrun. In practice most of the test, that
-+historically misused sleep for synchronization, waited for much longer just to
-+be sure that things will works even on slower hardware. With sleeps between 2
-+and 5 seconds that puts us somewhere between 4 and 10 minutes which is between
-+13% and 33% of the syscall runtime on an outdated thinkpad, where the run
-+finishes in a bit less than half an hour. It's even worse on newer hardware,
-+because this slowdown will not change no matter how fast your machine is, which
-+is maybe the reason why this was acceptable twenty years ago but it's not now.
-+
-+
-+What to do instead?
-+```````````````````
-+
-+Use proper synchronization.
-+
-+There are different problems and different solutions. Most often test needs to
-+synchronize between child and parent proces.
-+
-+The easiest case is that parent needs to wait for a child to finish, that can
-+be fixed just be adding a :man2:`waitpid` in the parent which ensures that child is
-+finished before parent runs.
-+
-+Commonly child has to execute certain piece of code before parent can continue.
-+For that LTP library implements checkpoints with simple
-+:c:func:`TST_CHECKPOINT_WAIT()` and :c:func:`TST_CHECKPOINT_WAKE()` functions based
-+on futexes on a piece of shared memory set up by the test library.
-+
-+Another common case is where child must sleep in a syscall before parent can
-+continue, for which we have a :c:func:`TST_PROCESS_STATE_WAIT()` helper that
-+polls `/proc/$PID/stat`.
-+
-+Less often test needs to wait for an action that is done asynchronously, or a
-+kernel resource deallocation is deferred to a later time. In such cases the
-+best we can do is to poll. In LTP we ended up with a macro that polls by
-+calling a piece of code in a loop with exponentially increasing sleeps between
-+retries until it succeeds. Which means that instead of sleeping for a maximal
-+time event can possibly take the sleep is capped by twice of the optimal
-+sleeping time while we avoid polling too aggressively.
-+
-+
-+Use runtime checks for kernel features
-+======================================
-+
-+What is and what isn't supported by kernel is determined by the version
-+and configuration of the kernel the systems is currently running on.
-+That especially means that any checks done during the compilation cannot
-+be used to assume features supported by the kernel the tests end up
-+running on. The compile time checks, done by configure script, are only
-+useful for enabling fallback kernel API definitions when missing, as we
-+do in lapi/ directory.
-+
-+
-+Kernel features and RCs
-+=======================
-+
-+LTP tests or fixes for kernel changes that were not released yet can be posted
-+to the LTP list for a review but will not be be accepted until respective
-+kernel changes are released. Review of such changes is also considered to be
-+lower priority than rest of the changes. This is because kernel changes
-+especially in the early RC phase are volatile and could be changed or reverted.
-diff --git a/doc/index.rst b/doc/index.rst
-index 06b75616f..659549cc3 100644
---- a/doc/index.rst
-+++ b/doc/index.rst
-@@ -19,6 +19,7 @@
-    :hidden:
-    :caption: For developers
- 
-+   developers/ground_rules
-    developers/setup_mailinglist
-    developers/writing_tests
-    developers/test_case_tutorial
--- 
-2.51.2
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gTW9uLCBEZWMgMTUsIDIwMjUgYXQgODo0M+KAr1BNIEN5cmlsIEhydWJpcyA8Y2hydWJpc0Bz
+dXNlLmN6PiB3cm90ZToKCj4gVGhpcyBpcyBhIGNvbnRpbnVlZCBlZmZvcnQgdG8gd3JpdGUgZG93
+biB0aGUgdW53cml0dGVuIHJ1bGVzIHdlIGhhdmUgaW4KPiB0aGUgcHJvamVjdC4gRmVlbCBmcmVl
+IHRvIHN1Z2dlc3QgbW9yZSB0b3BpY3MgZm9yIHRoZSBwYWdlLgo+Cj4gU2lnbmVkLW9mZi1ieTog
+Q3lyaWwgSHJ1YmlzIDxjaHJ1YmlzQHN1c2UuY3o+Cj4gLS0tCj4gIGRvYy9kZXZlbG9wZXJzL2dy
+b3VuZF9ydWxlcy5yc3QgfCA5MSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPiAg
+ZG9jL2luZGV4LnJzdCAgICAgICAgICAgICAgICAgICB8ICAxICsKPiAgMiBmaWxlcyBjaGFuZ2Vk
+LCA5MiBpbnNlcnRpb25zKCspCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkb2MvZGV2ZWxvcGVycy9n
+cm91bmRfcnVsZXMucnN0Cj4KPiBDaGFuZ2VzIGluIHYyOgo+Cj4gLSBhZGRlZCB0d28gbW9yZSBy
+dWxlcwo+IC0gZml4ZXMgYW5kIHR5cG9zIGFzIHBvaW50ZWQgb3V0IGJ5IFBldGVyCj4KPiBkaWZm
+IC0tZ2l0IGEvZG9jL2RldmVsb3BlcnMvZ3JvdW5kX3J1bGVzLnJzdAo+IGIvZG9jL2RldmVsb3Bl
+cnMvZ3JvdW5kX3J1bGVzLnJzdAo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXggMDAwMDAw
+MDAwLi4yYmVmNDI2YWEKPiAtLS0gL2Rldi9udWxsCj4gKysrIGIvZG9jL2RldmVsb3BlcnMvZ3Jv
+dW5kX3J1bGVzLnJzdAo+IEBAIC0wLDAgKzEsOTEgQEAKPiArLi4gU1BEWC1MaWNlbnNlLUlkZW50
+aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPiArCj4gK0dyb3VuZCBSdWxlcwo+ICs9PT09PT09PT09
+PT0KPiArCj4gK0RvIG5vdCB3b3JrIGFyb3VuZCBrZXJuZWwgYnVncwo+ICstLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0KPiArCj4gK1dlIGhhdmUgZGVjaWRlZCB3aGF0IHdlIHdpbGwgbm90
+IHdvcmsgYXJvdW5kIGJ1Z3MgaW4gdXBzdHJlYW0gTFRQCj4gc291cmNlcy4gSWYgYQo+ICt0ZXN0
+IGZhaWxzIG9uIHlvdXIgc3lzdGVtIGZvciBhIGdvb2QgcmVhc29uLCBlLmcuIHBhdGNoIHdhc24n
+dCBiYWNrcG9ydGVkCj4gYW5kCj4gK3RoZSBidWcgaXMgcHJlc2VudCwgd29yayBhcm91bmQgZm9y
+IHRoaXMgd2lsbCBub3QgYmUgYWNjZXB0ZWQgdXBzdHJlYW0uCj4gVGhlCj4gK21haW4gcmVhc29u
+IGZvciB0aGlzIGRlY2lzaW9uIGlzIHRoYXQgdGhpcyBtYXNrcyB0aGUgZmFpbHVyZSBmb3IgZXZl
+cnlvbmUKPiBlbHNlLgo+ICsKPiArCj4gK0RvIG5vdCBzeW5jaHJvbml6ZSBieSBzbGVlcAo+ICst
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiArCj4gK1doeSBpcyBzbGVlcCBpbiB0ZXN0cyBi
+YWQgdGhlbj8KPiArYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYAo+ICsKPiArVGhlIGZp
+cnN0IHByb2JsZW0gaXMgdGhhdCBpdCB3aWxsIGxpa2VseSBpbnRyb2R1Y2UgdmVyeSByYXJlIHRl
+c3QKPiBmYWlsdXJlcywKPiArdGhhdCBtZWFucyBzb21lYm9keSBoYXMgdG8gc3BlbmQgdGltZSBs
+b29raW5nIGludG8gdGhlc2UsIHdoaWNoIGlzIGEKPiB3YXN0ZWQKPiArZWZmb3J0LiBOb2JvZHkg
+bGlrZXMgdGVzdHMgdGhhdCB3aWxsIGZhaWwgcmFyZWx5IGZvciBubyBnb29kIHJlYXNvbi4gRXZl
+bgo+IG1vcmUKPiArc28geW91IGNhbm5vdCBydW4gc3VjaCB0ZXN0cyB3aXRoIGEgYmFja2dyb3Vu
+ZCBsb2FkIHRvIGVuc3VyZSB0aGF0Cj4gZXZlcnl0aGluZwo+ICt3b3JrcyBjb3JyZWN0bHkgb24g
+YSBidXN5IHN5c3RlbSwgYmVjYXVzZSB0aGF0IHdpbGwgaW5jcmVhc2UgdGhlIGxpa2Vob29kCj4g
+b2YgYQo+ICtmYWlsdXJlLgo+ICsKPiArVGhlIHNlY29uZCBwcm9ibGVtIGlzIHRoYXQgdGhpcyB3
+YXN0ZXMgcmVzb3VyY2VzIGFuZCBzbG93cyBkb3duIGEgdGVzdAo+IHJ1bi4gSWYKPiAreW91IHRo
+aW5rIHRoYXQgYWRkaW5nIGEgc2xlZXAgdG8gYSB0ZXN0IGlzIG5vdCBhIGJpZyBkZWFsLCBsZXRz
+IGhhdmUgYQo+IGxvb2sgYXQKPiArdGhlIGJpZ2dlciBwZXJzcGVjdGl2ZS4gVGhlcmUgaXMgYWJv
+dXQgMTYwMCBzeXNjYWxsIHRlc3RzIGluIExpbnV4IFRlc3QKPiArUHJvamVjdCwgaWYgNy41JSBv
+ZiB0aGVtIHdvdWxkIHNsZWVwIGp1c3QgZm9yIG9uZSBzZWNvbmQsIHdlIHdvdWxkIGVuZCB1cAo+
+IHdpdGgKPiArdHdvIG1pbnV0ZXMgb2Ygd2FzdGVkIHRpbWUgcGVyIHRlc3RydW4uIEluIHByYWN0
+aWNlIG1vc3Qgb2YgdGhlIHRlc3QsIHRoYXQKPiAraGlzdG9yaWNhbGx5IG1pc3VzZWQgc2xlZXAg
+Zm9yIHN5bmNocm9uaXphdGlvbiwgd2FpdGVkIGZvciBtdWNoIGxvbmdlcgo+IGp1c3QgdG8KPiAr
+YmUgc3VyZSB0aGF0IHRoaW5ncyB3aWxsIHdvcmtzIGV2ZW4gb24gc2xvd2VyIGhhcmR3YXJlLiBX
+aXRoIHNsZWVwcwo+IGJldHdlZW4gMgo+ICthbmQgNSBzZWNvbmRzIHRoYXQgcHV0cyB1cyBzb21l
+d2hlcmUgYmV0d2VlbiA0IGFuZCAxMCBtaW51dGVzIHdoaWNoIGlzCj4gYmV0d2Vlbgo+ICsxMyUg
+YW5kIDMzJSBvZiB0aGUgc3lzY2FsbCBydW50aW1lIG9uIGFuIG91dGRhdGVkIHRoaW5rcGFkLCB3
+aGVyZSB0aGUgcnVuCj4gK2ZpbmlzaGVzIGluIGEgYml0IGxlc3MgdGhhbiBoYWxmIGFuIGhvdXIu
+IEl0J3MgZXZlbiB3b3JzZSBvbiBuZXdlcgo+IGhhcmR3YXJlLAo+ICtiZWNhdXNlIHRoaXMgc2xv
+d2Rvd24gd2lsbCBub3QgY2hhbmdlIG5vIG1hdHRlciBob3cgZmFzdCB5b3VyIG1hY2hpbmUgaXMs
+Cj4gd2hpY2gKPiAraXMgbWF5YmUgdGhlIHJlYXNvbiB3aHkgdGhpcyB3YXMgYWNjZXB0YWJsZSB0
+d2VudHkgeWVhcnMgYWdvIGJ1dCBpdCdzIG5vdAo+IG5vdy4KPiArCj4gKwo+ICtXaGF0IHRvIGRv
+IGluc3RlYWQ/Cj4gK2BgYGBgYGBgYGBgYGBgYGBgYGAKPiArCj4gK1VzZSBwcm9wZXIgc3luY2hy
+b25pemF0aW9uLgo+ICsKPiArVGhlcmUgYXJlIGRpZmZlcmVudCBwcm9ibGVtcyBhbmQgZGlmZmVy
+ZW50IHNvbHV0aW9ucy4gTW9zdCBvZnRlbiB0ZXN0Cj4gbmVlZHMgdG8KPiArc3luY2hyb25pemUg
+YmV0d2VlbiBjaGlsZCBhbmQgcGFyZW50IHByb2Nlcy4KPiArCj4gK1RoZSBlYXNpZXN0IGNhc2Ug
+aXMgdGhhdCBwYXJlbnQgbmVlZHMgdG8gd2FpdCBmb3IgYSBjaGlsZCB0byBmaW5pc2gsIHRoYXQK
+PiBjYW4KPiArYmUgZml4ZWQganVzdCBiZSBhZGRpbmcgYSA6bWFuMjpgd2FpdHBpZGAgaW4gdGhl
+IHBhcmVudCB3aGljaCBlbnN1cmVzCj4gdGhhdCBjaGlsZCBpcwo+ICtmaW5pc2hlZCBiZWZvcmUg
+cGFyZW50IHJ1bnMuCj4gKwo+ICtDb21tb25seSBjaGlsZCBoYXMgdG8gZXhlY3V0ZSBjZXJ0YWlu
+IHBpZWNlIG9mIGNvZGUgYmVmb3JlIHBhcmVudCBjYW4KPiBjb250aW51ZS4KPiArRm9yIHRoYXQg
+TFRQIGxpYnJhcnkgaW1wbGVtZW50cyBjaGVja3BvaW50cyB3aXRoIHNpbXBsZQo+ICs6YzpmdW5j
+OmBUU1RfQ0hFQ0tQT0lOVF9XQUlUKClgIGFuZCA6YzpmdW5jOmBUU1RfQ0hFQ0tQT0lOVF9XQUtF
+KClgCj4gZnVuY3Rpb25zIGJhc2VkCj4gK29uIGZ1dGV4ZXMgb24gYSBwaWVjZSBvZiBzaGFyZWQg
+bWVtb3J5IHNldCB1cCBieSB0aGUgdGVzdCBsaWJyYXJ5Lgo+ICsKPiArQW5vdGhlciBjb21tb24g
+Y2FzZSBpcyB3aGVyZSBjaGlsZCBtdXN0IHNsZWVwIGluIGEgc3lzY2FsbCBiZWZvcmUgcGFyZW50
+Cj4gY2FuCj4gK2NvbnRpbnVlLCBmb3Igd2hpY2ggd2UgaGF2ZSBhIDpjOmZ1bmM6YFRTVF9QUk9D
+RVNTX1NUQVRFX1dBSVQoKWAgaGVscGVyCj4gdGhhdAo+ICtwb2xscyBgL3Byb2MvJFBJRC9zdGF0
+YC4KPiArCj4gK0xlc3Mgb2Z0ZW4gdGVzdCBuZWVkcyB0byB3YWl0IGZvciBhbiBhY3Rpb24gdGhh
+dCBpcyBkb25lIGFzeW5jaHJvbm91c2x5LAo+IG9yIGEKPiAra2VybmVsIHJlc291cmNlIGRlYWxs
+b2NhdGlvbiBpcyBkZWZlcnJlZCB0byBhIGxhdGVyIHRpbWUuIEluIHN1Y2ggY2FzZXMKPiB0aGUK
+PiArYmVzdCB3ZSBjYW4gZG8gaXMgdG8gcG9sbC4gSW4gTFRQIHdlIGVuZGVkIHVwIHdpdGggYSBt
+YWNybyB0aGF0IHBvbGxzIGJ5Cj4gK2NhbGxpbmcgYSBwaWVjZSBvZiBjb2RlIGluIGEgbG9vcCB3
+aXRoIGV4cG9uZW50aWFsbHkgaW5jcmVhc2luZyBzbGVlcHMKPiBiZXR3ZWVuCj4gK3JldHJpZXMg
+dW50aWwgaXQgc3VjY2VlZHMuIFdoaWNoIG1lYW5zIHRoYXQgaW5zdGVhZCBvZiBzbGVlcGluZyBm
+b3IgYQo+IG1heGltYWwKPiArdGltZSBldmVudCBjYW4gcG9zc2libHkgdGFrZSB0aGUgc2xlZXAg
+aXMgY2FwcGVkIGJ5IHR3aWNlIG9mIHRoZSBvcHRpbWFsCj4gK3NsZWVwaW5nIHRpbWUgd2hpbGUg
+d2UgYXZvaWQgcG9sbGluZyB0b28gYWdncmVzc2l2ZWx5Lgo+ICsKPiArCj4gK1VzZSBydW50aW1l
+IGNoZWNrcyBmb3Iga2VybmVsIGZlYXR1cmVzCj4gKz09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09Cj4gKwo+ICtXaGF0IGlzIGFuZCB3aGF0IGlzbid0IHN1cHBvcnRlZCBieSBr
+ZXJuZWwgaXMgZGV0ZXJtaW5lZCBieSB0aGUgdmVyc2lvbgo+ICthbmQgY29uZmlndXJhdGlvbiBv
+ZiB0aGUga2VybmVsIHRoZSBzeXN0ZW1zIGlzIGN1cnJlbnRseSBydW5uaW5nIG9uLgo+ICtUaGF0
+IGVzcGVjaWFsbHkgbWVhbnMgdGhhdCBhbnkgY2hlY2tzIGRvbmUgZHVyaW5nIHRoZSBjb21waWxh
+dGlvbiBjYW5ub3QKPiArYmUgdXNlZCB0byBhc3N1bWUgZmVhdHVyZXMgc3VwcG9ydGVkIGJ5IHRo
+ZSBrZXJuZWwgdGhlIHRlc3RzIGVuZCB1cAo+ICtydW5uaW5nIG9uLiBUaGUgY29tcGlsZSB0aW1l
+IGNoZWNrcywgZG9uZSBieSBjb25maWd1cmUgc2NyaXB0LCBhcmUgb25seQo+ICt1c2VmdWwgZm9y
+IGVuYWJsaW5nIGZhbGxiYWNrIGtlcm5lbCBBUEkgZGVmaW5pdGlvbnMgd2hlbiBtaXNzaW5nLCBh
+cyB3ZQo+ICtkbyBpbiBsYXBpLyBkaXJlY3RvcnkuCj4gKwo+ICsKPiArS2VybmVsIGZlYXR1cmVz
+IGFuZCBSQ3MKPiArPT09PT09PT09PT09PT09PT09PT09PT0KPiArCj4gK0xUUCB0ZXN0cyBvciBm
+aXhlcyBmb3Iga2VybmVsIGNoYW5nZXMgdGhhdCB3ZXJlIG5vdCByZWxlYXNlZCB5ZXQgY2FuIGJl
+Cj4gcG9zdGVkCj4gK3RvIHRoZSBMVFAgbGlzdCBmb3IgYSByZXZpZXcgYnV0IHdpbGwgbm90IGJl
+IGJlIGFjY2VwdGVkIHVudGlsIHJlc3BlY3RpdmUKPiAra2VybmVsIGNoYW5nZXMgYXJlIHJlbGVh
+c2VkLiBSZXZpZXcgb2Ygc3VjaCBjaGFuZ2VzIGlzIGFsc28gY29uc2lkZXJlZCB0bwo+IGJlCj4g
+K2xvd2VyIHByaW9yaXR5IHRoYW4gcmVzdCBvZiB0aGUgY2hhbmdlcy4gVGhpcyBpcyBiZWNhdXNl
+IGtlcm5lbCBjaGFuZ2VzCj4gK2VzcGVjaWFsbHkgaW4gdGhlIGVhcmx5IFJDIHBoYXNlIGFyZSB2
+b2xhdGlsZSBhbmQgY291bGQgYmUgY2hhbmdlZCBvcgo+IHJldmVydGVkLgo+CgoKSXQncyByZWFs
+bHkgZ29vZCB0byB3cml0ZSB0aGVzZSBydWxlcyBkb3duLCBlc3BlY2lhbGx5IHNpbmNlIG1haW50
+YWluZXJzCmNhbiByZXVzZSB0aGVtIGluIHBhdGNoIHJldmlld3MgdG8gY29tbWVudCBvbiBpc3N1
+ZXMgYW5kIGF2b2lkIHJlcGVhdGVkbHkKcmVzcG9uZGluZyB0byB0aGUgc2FtZSBxdWVzdGlvbnMu
+IEJlbG93IGFyZSB3aGF0IEkgY2FuIHRoaW5rIG9mOgoKRG9u4oCZdCByZXF1aXJlIHJvb3QgdW5s
+ZXNzIGl04oCZcyBlc3NlbnRpYWwKPT09PT09PT09PT09PT09PT09PT09PT09PT09PQpJZiByb290
+L2NhcHMgYXJlIG5lZWRlZCwgc2F5IHdoeSBpbiB0aGUgdGVzdCBvdXRwdXQuIERyb3AgcHJpdmls
+ZWdlcyBmb3IKdGhlIHBhcnQgdGhhdCBkb2VzbuKAmXQgbmVlZCB0aGVtIChhbmQgYXZvaWQgcnVu
+bmluZyB0aGUgd2hvbGUgdGVzdCBhcwpyb290IOKAnGJlY2F1c2UgaXTigJlzIGVhc2llcuKAnSku
+CgoKQWx3YXlzIGNsZWFuIHVwLCBldmVuIG9uIGZhaWx1cmUKPT09PT09PT09PT09PT09PT09PT09
+PT09PT0KRXZlcnkgdGVzdCBzaG91bGQgbGVhdmUgdGhlIHN5c3RlbSBhcyBpdCBmb3VuZCBpdDog
+dW5tb3VudCwgcmVzdG9yZSBzeXNjdGxzLApkZWxldGUgdGVtcCBmaWxlcy9kaXJzLCBraWxsIHNw
+YXduZWQgcHJvY2Vzc2VzLCByZW1vdmUgY2dyb3Vwcy9uYW1lc3BhY2VzLApkZXRhY2ggbG9vcCBk
+ZXZpY2VzLCByZXN0b3JlIHVsaW1pdHMsIGV0Yy4gQ2xlYW51cCBtdXN0IHJ1biBvbiBlYXJseS1l
+eGl0CnBhdGhzIHRvby4KCgpSZXNwZWN0IExUUCBwb3J0YWJpbGl0eSBnb2Fscwo9PT09PT09PT09
+PT09PT09PT09PT09PT09PT0KQXZvaWQgbm9uc3RhbmRhcmQgbGliYyBBUElzIHdoZW4gYSBwb3J0
+YWJsZSBlcXVpdmFsZW50IGV4aXN0czsgZG9u4oCZdCBhc3N1bWUKNjQtYml0LApwYWdlIHNpemUs
+IGVuZGlhbm5lc3MsIG9yIHBhcnRpY3VsYXIgdG9vbCB2ZXJzaW9ucy4KCgpkaWZmIC0tZ2l0IGEv
+ZG9jL2luZGV4LnJzdCBiL2RvYy9pbmRleC5yc3QKPiBpbmRleCAwNmI3NTYxNmYuLjY1OTU0OWNj
+MyAxMDA2NDQKPiAtLS0gYS9kb2MvaW5kZXgucnN0Cj4gKysrIGIvZG9jL2luZGV4LnJzdAo+IEBA
+IC0xOSw2ICsxOSw3IEBACj4gICAgIDpoaWRkZW46Cj4gICAgIDpjYXB0aW9uOiBGb3IgZGV2ZWxv
+cGVycwo+Cj4gKyAgIGRldmVsb3BlcnMvZ3JvdW5kX3J1bGVzCj4gICAgIGRldmVsb3BlcnMvc2V0
+dXBfbWFpbGluZ2xpc3QKPiAgICAgZGV2ZWxvcGVycy93cml0aW5nX3Rlc3RzCj4gICAgIGRldmVs
+b3BlcnMvdGVzdF9jYXNlX3R1dG9yaWFsCj4gLS0KPiAyLjUxLjIKPgo+Cj4gLS0KPiBNYWlsaW5n
+IGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAKPgo+CgotLSAK
+UmVnYXJkcywKTGkgV2FuZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxp
+bnV4Lml0L2xpc3RpbmZvL2x0cAo=
