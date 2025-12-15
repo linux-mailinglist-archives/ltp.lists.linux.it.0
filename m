@@ -1,104 +1,109 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4F44CBD6D2
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Dec 2025 12:00:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1765796412; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=O6NVY2eX8jr7bdlB+GWUgBt+d7sQJ3IcmHCTSqbDL6A=;
- b=fO9YQzNFjpXEwCJsbJjuoq4qO+CDwCDBq6AYMdQYZDzM+gVIr1uAtUJSK07teWbUV0bn5
- 2ebJYzyeh+K0VuH6tdnIwjx2Wng6OlFP93rRP8TOvs4n9gEweCJ3avtUtTLuH0kaPvQeFjv
- psKtyV8kXkf1rIfCSH9yMt28JAvLnH8=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id AEBF8CBDDC8
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Dec 2025 13:43:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6A4963D014A
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Dec 2025 12:00:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 00F833C9A3E
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Dec 2025 13:43:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 009EC3CF55B
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 11:59:58 +0100 (CET)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id D576F3D0091
+ for <ltp@lists.linux.it>; Mon, 15 Dec 2025 13:43:17 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C80FF10005DE
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 11:59:54 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-42f9ece6387so1308149f8f.0
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 02:59:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1765796394; x=1766401194; darn=lists.linux.it;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=lCos3moOFD+nauiFzttlcH+p8qH4TS0BMlErTbtXbuA=;
- b=Qxl9YTWPRo0OzghZvfq1yeE1wuuQU7K/F6syR9GhzsZh+y2SXlZ4eEuojOSFGVXt5u
- h3EjWkUz1PtlZYgPSBfYiP9VMYxJZ0IPDe0vSq6NG/ddQqXChl1FtNavYgzUfo5nTncT
- bguvtJuW2sRUEcOHdWyspTkPpZEZMQb/tdP4llgoj2jsm+84k6t+Ar1XUH/FfhxCNhLR
- ZH8+Rb7XDXVAvPvYslsVI5HrVL1mYY3zGLnBt/fg9HWnNcJYisT+jfwOgCa6qEz9xYyd
- bPh6PcOa56CuJdJrRZkNZIRRmJ6L1fgNh2e/IEuLkxgnL3MUNNjNHH20zQM7ymvfkfJO
- mHDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765796394; x=1766401194;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lCos3moOFD+nauiFzttlcH+p8qH4TS0BMlErTbtXbuA=;
- b=sbXjkMi4aekMDctcT5vBoTGaYzzu5VKk8aKtkohwlkcrVRBxmLYppEnV3tiniyGX60
- oQqJR20wwQ4sXAiYMMczk9OoC3ghTox0bC3+8e3aB/fy6GiYP5gQ8ieYGmm0GW7WuX60
- aX7eBskrOGtPmi8PXtzrhlTwYn74vJN78g0AN8t0T1cXHOHZjyhSD7RcEHxRl5fkuy2c
- 9Xzcfy97c21Q67ZCJcsID7NbzHAAj0pSVAYsjInUHyfemjHRTV7qxaVtN5f5W5KyV8o2
- ZwsNnONncGOInDxrvdlr+CjV2STAuKKmF+vPxR6kguGJ7phHTaoZIjPBsXflIEUao0Qo
- nF1A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXzHRS7xBtKZfrNaXCHMEauqreR3qBGLRCDJ2pAzDQwUhlFW3/nX873e6Eb+EXLnHSU1qg=@lists.linux.it
-X-Gm-Message-State: AOJu0YzFvVamqxmMdNWCPPrFFrHvq+p7Ux8qIdbhtjmj6Vgitrys9JCx
- WGxZ37b2Gz1RGscnk1yrcTsnBxFXopzDJRQlE5XpatLvjLbJxNXAQWv87sHrnQBGSDhGxEDXIIa
- S/d8=
-X-Gm-Gg: AY/fxX4m+vCoVVRISMPnzu1amt/BzIaS5ar9WuuP7Mv8jxV7s2xeF1i9yTu/RlfsgbR
- jh7xQ7kLL25qlO/tuadtC+73IeDRZK5PaNvRGNDnLxk0EzePabbdI9utS+HhqI95VcuZnVqi8he
- /eh2CRHT1exw1V9OpCVpTEpabM6yasTaOjsgRFZXrICKm9kCKGQCyRtg34SGBTIZQ2t7ygmRSvj
- f9uoN1l8Byanbvo9C59v+qSu5weGj4mzX+9jphcMilVHIjH9pwM8ZIO3Qgj268gUogDsNLgGkvo
- rLNCRyiG9ONXHCw9xK04/Yhq6TBKeN2ulFkwZ0Ry/xUzEcq7Cb21/L/JdhuoXjPQhzMBsAX5Bsg
- bEONH/nZ9nvYbwC9jh0pnTjwjwZIYhydPtOdRD+BnFZgudx+VV1I/cSwNfR9HsQlRpovnnSpZ7z
- nmW/6DAhuQj1jZy0joSpdhNDAjyzu9
-X-Google-Smtp-Source: AGHT+IG8lWbyvJcD447F3y1V9ZaIuuzNTJLoL2FIMTQ94KZMiKbMseo96xqC1O6rN17o+pf+2+aLTg==
-X-Received: by 2002:a05:6000:2083:b0:430:fc3a:fbce with SMTP id
- ffacd0b85a97d-430fc3afd23mr4441983f8f.15.1765796394006; 
- Mon, 15 Dec 2025 02:59:54 -0800 (PST)
-Received: from autotest-wegao.qe.prg2.suse.org
- ([2a07:de40:b240:0:2ad6:ed42:2ad6:ed42])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42fa8b9b26fsm30904945f8f.40.2025.12.15.02.59.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Dec 2025 02:59:53 -0800 (PST)
-Date: Mon, 15 Dec 2025 10:59:52 +0000
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <aT_qF7YR65J9PbEg@autotest-wegao.qe.prg2.suse.org>
-References: <20251107003041.28929-1-wegao@suse.com>
- <20251110024805.31070-1-wegao@suse.com>
- <20251110024805.31070-2-wegao@suse.com> <aTvu4GJBC_G5kSNi@yuki.lan>
- <20251212111618.GA125889@pevik>
- <aT-5tkQkM_g2VZ35@autotest-wegao.qe.prg2.suse.org>
- <20251215093639.GA236929@pevik>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 667691A001D8
+ for <ltp@lists.linux.it>; Mon, 15 Dec 2025 13:43:15 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 151A8337D7
+ for <ltp@lists.linux.it>; Mon, 15 Dec 2025 12:43:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1765802587; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Dp0k/R78KeCzlmc2kQh7ZGa69C31lh73s3LMqXssAHA=;
+ b=N8yER6Rkd85b50EsEqiIwZMY/ik6llwydUX2R7deNfzOMfjiMSrF2lBbYJXVleqXAV76rG
+ drh0ThDslqTAqR6VblV6eqwEKCIc1xLu/Qm+qwm2KTs1Bqm8sCbHj+Jk9ygpZmXZRZ7Dbd
+ Sxy+uWL6/vW0nqn1w69tFbPHW7zEuIg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1765802587;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Dp0k/R78KeCzlmc2kQh7ZGa69C31lh73s3LMqXssAHA=;
+ b=xWha9Rz36pzEiWrnBsWw9UtaZX6OmMM0gdPXyS1j43Nw7zLcblewLnjwc4QLW19UgwP0bT
+ ORDWZa2c6u7rPKAA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Fg05jkKv;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=MfH1o082
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1765802586; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Dp0k/R78KeCzlmc2kQh7ZGa69C31lh73s3LMqXssAHA=;
+ b=Fg05jkKvqM43kV3wcUppRDEo7Km1kAXtqsoPY44UWrwC+8oeW0rtEz3Lyn1gDlpvdJz6TT
+ rBl24AB/8FS2akv0fhnYLQuTVV005Ccts1MRCiEEV3ENs3mZ16lYSgg7sAw/yF5pyifPe2
+ pyyCwQnTMbU18+ybgHq8Z4z/uLJ+e4s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1765802586;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Dp0k/R78KeCzlmc2kQh7ZGa69C31lh73s3LMqXssAHA=;
+ b=MfH1o08242+uKxoxWO5ZoTwN+aWtj34JW0JS2rOzkQyT4jVhtrNnRvME9NG50g+7cFYMP6
+ m2y4LbUgQDCj89BA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 054283EA63
+ for <ltp@lists.linux.it>; Mon, 15 Dec 2025 12:43:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id vHFkAFoCQGntPgAAD6G6ig
+ (envelope-from <chrubis@suse.cz>)
+ for <ltp@lists.linux.it>; Mon, 15 Dec 2025 12:43:06 +0000
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon, 15 Dec 2025 13:44:03 +0100
+Message-ID: <20251215124404.16395-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20251215093639.GA236929@pevik>
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-0.994]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCPT_COUNT_ONE(0.00)[1];
+ MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
+ PREVIOUSLY_DELIVERED(0.00)[ltp@lists.linux.it];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 151A8337D7
+X-Spam-Score: -3.01
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v5 1/3] lib: Add support option for .needs_cmds
+Subject: [LTP] [PATCH v2 1/2] doc: Document process_state
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,71 +115,117 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, Dec 15, 2025 at 10:36:39AM +0100, Petr Vorel wrote:
-> Hi Wei,
-> 
-> ...
-> > > Also, strictly speaking tst_cmd_present() is only defined, not used. The commit
-> > > is about changing .needs_cmds from char array (string) to struct tst_cmd.
-> > > Therefore it could be in a separate commit. We don't have to be too strict, but
-> > > given how many tests needed to be adapted adding tst_cmd_present() is somehow
-> > > buried with other changes.
-> 
-> > Thanks all for detail feedback. Let's me give some explaination why skip
-> > tst_brk in above function:
-> > tst_cmd_present will be used in latest ioctl_loop01.c and it should not
-> > use tst_brk otherwise we will brk out of test in setup() too early.
-> > The new support needs_cmds.optional in current patch is used for support 
-> > tst_cmd_present scenario in ioctl_loop01.c.
-> > Correct me if any mistake.
-> 
-> Sure, I noticed tst_cmd_present() usage in a later commit :).
-> 
-> My point was (while this patchset is also about ideal feature change split into
-> commits) that if you touch many files with struct tst_cmd change, adding
-> unrelated change (tst_cmd_present()) will hide this change. I would personally
-> move adding tst_cmd_present() to a separate commit. It's not that important,
-> just to make review easier.
-Thanks, i get your point now.
-@Petr @Cyril
-If we have are agree with following changes then i can sent next patch:
-1) Just move the declaration and definition of tst_cmd_present to a separate commit without any functional content changes.
-2) Modify function comments such as add ref:`...`
-> 
-> The rules (which I've tried to explain on this patchset) are
-> * each commit must compile (even temporarily break build is not acceptable)
-> * split changes into small logical parts
-> 
-> People talk about atomic changes: "As small as possible, but complete" so that
-> they don't break CI.
-> https://dev.to/samuelfaure/how-atomic-git-commits-dramatically-increased-my-productivity-and-will-increase-yours-too-4a84
-Nice link:)
-> 
-> Kind regards,
-> Petr
-> 
-> > ioctl_loop01.c code:
-> > static void setup(void)
-> > {
-> >         parted_sup = tst_cmd_present("parted");  <=====
-> 
-> > .....
-> >         if (parted_sup)
-> >                 SAFE_CMD(cmd_parted, NULL, NULL);  <===
-> 
-> >         sprintf(partscan_path, "/sys/block/loop%d/loop/partscan", dev_num);
-> > }
-> 
-> > > Kind regards,
-> > > Petr
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ doc/developers/api_c_tests.rst |  5 ++++
+ include/tst_process_state.h    | 55 +++++++++++++++++++++-------------
+ 2 files changed, 40 insertions(+), 20 deletions(-)
+
+New in v2.
+
+diff --git a/doc/developers/api_c_tests.rst b/doc/developers/api_c_tests.rst
+index 2ca0f0464..13fc8651b 100644
+--- a/doc/developers/api_c_tests.rst
++++ b/doc/developers/api_c_tests.rst
+@@ -43,6 +43,11 @@ Kernel
+ .. kernel-doc:: ../../include/tst_kernel.h
+ .. kernel-doc:: ../../include/tst_kvercmp.h
+ 
++Process state
++-------------
++
++.. kernel-doc:: ../../include/tst_process_state.h
++
+ NUMA
+ ----
+ .. kernel-doc:: ../../include/tst_numa.h
+diff --git a/include/tst_process_state.h b/include/tst_process_state.h
+index b1d83e109..3691bba7a 100644
+--- a/include/tst_process_state.h
++++ b/include/tst_process_state.h
+@@ -15,39 +15,54 @@
+ 
+ #ifdef TST_TEST_H__
+ 
+-/*
+- * Waits for process state change.
++/**
++ * TST_PROCESS_STATE_WAIT() - Waits for a process state change.
++ *
++ * Polls `/proc/$PID/state` for a process state changes.
+  *
+- * The state is one of the following:
++ * @pid: A process pid.
++ * @state: A state to wait for.
++ * @msec_timeout: A timeout for the wait.
+  *
+- * R - process is running
+- * S - process is sleeping
+- * D - process sleeping uninterruptibly
+- * Z - zombie process
+- * T - process is traced
++ * Possible process states:
++ *
++ * - **R** Process is running.
++ * - **S** Process is sleeping.
++ * - **D** Process sleeping uninterruptibly.
++ * - **Z** Zombie process.
++ * - **T** Process is traced.
++ * - **t** Tracing stopped.
++ * - **X** Process id dead.
+  */
+ #define TST_PROCESS_STATE_WAIT(pid, state, msec_timeout) \
+ 	tst_process_state_wait(__FILE__, __LINE__, NULL, \
+ 			(pid), (state), (msec_timeout))
+ 
+-/*
+- * Check that a given pid is present on the system
++/**
++ * TST_PROCESS_EXIT_WAIT() - Waits while pid is present on the system.
++ *
++ * Loops until `kill($PID, 0)` succeds or timeout is reached.
++ *
++ * @pid A process pid.
++ * @msec_timeout: A timeout for the wait.
+  */
+ #define TST_PROCESS_EXIT_WAIT(pid, msec_timeout) \
+ 	tst_process_exit_wait((pid), (msec_timeout))
+ 
+-/*
+- * Waits for thread state change.
++/**
++ * TST_THREAD_STATE_WAIT() - Waits for a thread state change.
++ *
++ * Polls `/proc/self/task/$TID/state` for a thread state change.
+  *
+- * The state is one of the following:
++ * Possible thread states:
+  *
+- * R - running
+- * S - sleeping
+- * D - disk sleep
+- * T - stopped
+- * t - tracing stopped
+- * Z - zombie
+- * X - dead
++ * - **R** Process is running.
++ * - **S** Process is sleeping.
++ * - **D** Process sleeping uninterruptibly.
++ * - **Z** Zombie process.
++ * - **T** Process is traced.
++ * - **t** Tracing stopped.
++ * - **X** Process id dead.
+  */
+ #define TST_THREAD_STATE_WAIT(tid, state, msec_timeout) \
+ 	tst_thread_state_wait((tid), (state), (msec_timeout))
+-- 
+2.51.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
