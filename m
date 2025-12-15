@@ -1,115 +1,104 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36700CD0162
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Dec 2025 14:37:19 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E4F44CBD6D2
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Dec 2025 12:00:12 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1766151438; h=message-id :
- date : mime-version : to : references : in-reply-to : subject :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1765796412; h=date : to :
+ message-id : references : mime-version : in-reply-to : subject :
  list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-transfer-encoding :
- content-type : sender : from;
- bh=/Q9arvI40BEY+LePR9MLWX596deEp8EgvoZIkQ0Kfag=;
- b=T7gBD4kYV+XqEMsN5tSPmO8A7zvTna6DY2ZBNo+zMsRqsOFzPi1/+8jvE7SHrnVKmoxD9
- A1H0DCyWfi+yMySNdLQ5XI/giWY2OCMEaIVSAJJNZnNvsUljszS+Cv99zp/d4X8eHK0g3H8
- OELzbGBPyf36A99jFTjJKCHZ97pL/2g=
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=O6NVY2eX8jr7bdlB+GWUgBt+d7sQJ3IcmHCTSqbDL6A=;
+ b=fO9YQzNFjpXEwCJsbJjuoq4qO+CDwCDBq6AYMdQYZDzM+gVIr1uAtUJSK07teWbUV0bn5
+ 2ebJYzyeh+K0VuH6tdnIwjx2Wng6OlFP93rRP8TOvs4n9gEweCJ3avtUtTLuH0kaPvQeFjv
+ psKtyV8kXkf1rIfCSH9yMt28JAvLnH8=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D12223D0534
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Dec 2025 14:37:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6A4963D014A
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Dec 2025 12:00:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EF57F3CA9BB
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 11:21:54 +0100 (CET)
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 009EC3CF55B
+ for <ltp@lists.linux.it>; Mon, 15 Dec 2025 11:59:58 +0100 (CET)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 72BAE1A005E2
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 11:21:52 +0100 (CET)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id A63F43FC34
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 10:21:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1765794071;
- bh=VqaKlQYb9lrbrkbA0Dvula2Fs3i4EdFYVsp2r60G/yc=;
- h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To;
- b=EKinB9BINOscWNWpSDmGlvfDbrqPjSPoKuHCDGv8XqG/QLbs08VMJkCVv9Tc9e3P2
- Bh250n6Qthj872Nm0PXtG1XmQIZqSArb6PXl5qy16i3QHUi/nwKOUOug5RqM/WM015
- JYja1Ix62snJGkBQG9YjBBgY95ni6HfcPDPzc1fR/tefX5IkNJGRK9JBa9Od+a4BdX
- cHSDyKVSW4gXd0EbryIYrJbojC6OghHJd50NdiPSs2UYlhpwcrI/FheCTTMQW9hb4W
- ZHObOBeywqzO1MHMHzSeLJY7hfCuzQb7rstbDxHk3uCRalhKNLBILSg+RqOfI1iGoZ
- UQk8+fVYUdH2dY3awd1jEYDnU84P7S5PY60KOzKmpJyTEltlckin9xkWNGZ4WRjHwt
- wFpVAEedomjfOdLWZ6nz/yGJMKeffV3zah1+Z+oNDNVa3IBm3CRwtABaQbP52m3b/y
- bq9tIIJS7ep4hhkmQROSi3/7wU/bCgcJMdeHh5pshJNCQ2lwnJ6hRTWno+gBGd07Bz
- 1s/iBUGQA1dK3CD89X4eq0f+bIKipUWz2nRGIjDL/5PZ8mcKeRALJN4MeDNpZtgUCa
- xwntXQxW4ItcjlEHbm6paL6M5IfcseiKh8EqIJOKvBdQOg9r+CeuEOakcLAbxpmeaC
- fQrMQ/LytbLehbIobudGB7R4=
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-477964c22e0so22533915e9.0
- for <ltp@lists.linux.it>; Mon, 15 Dec 2025 02:21:11 -0800 (PST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C80FF10005DE
+ for <ltp@lists.linux.it>; Mon, 15 Dec 2025 11:59:54 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-42f9ece6387so1308149f8f.0
+ for <ltp@lists.linux.it>; Mon, 15 Dec 2025 02:59:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1765796394; x=1766401194; darn=lists.linux.it;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=lCos3moOFD+nauiFzttlcH+p8qH4TS0BMlErTbtXbuA=;
+ b=Qxl9YTWPRo0OzghZvfq1yeE1wuuQU7K/F6syR9GhzsZh+y2SXlZ4eEuojOSFGVXt5u
+ h3EjWkUz1PtlZYgPSBfYiP9VMYxJZ0IPDe0vSq6NG/ddQqXChl1FtNavYgzUfo5nTncT
+ bguvtJuW2sRUEcOHdWyspTkPpZEZMQb/tdP4llgoj2jsm+84k6t+Ar1XUH/FfhxCNhLR
+ ZH8+Rb7XDXVAvPvYslsVI5HrVL1mYY3zGLnBt/fg9HWnNcJYisT+jfwOgCa6qEz9xYyd
+ bPh6PcOa56CuJdJrRZkNZIRRmJ6L1fgNh2e/IEuLkxgnL3MUNNjNHH20zQM7ymvfkfJO
+ mHDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765794031; x=1766398831;
- h=in-reply-to:from:content-language:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=VqaKlQYb9lrbrkbA0Dvula2Fs3i4EdFYVsp2r60G/yc=;
- b=pL2IzU3n/+oXQ35eAPJpT6xRx1jiuQsIGUEewN9nS9RygaZjpiPp9B01hwZxVimrTe
- 52VtYtRvVXP6HYcDk5bo2gLamvPUBIkavxezlRF1LV9TLQRbnOL2T1sjySqLSVDVl0/v
- xwZXLWK24I0ztUHBWdXaBWneBe4reQTRPpm69lYjUyzAU2ypR7LjKYjqHLKam8/wo6Pz
- nr1Uby7VYVesMbHA6QIl6J5noPpNPrVwkXbMiQyqA6kspyXNyASmsTTTNJqIR3sE2K7K
- W2C7KPlusA9R73MgeCvwBe9ziNSQBUxgKVfHf4nltBil6fJDzkm6cQwQvLLwm1/FfboR
- rjJw==
-X-Gm-Message-State: AOJu0YyLZuKQRkMNA9X9hz39wswjOiUF/ea4yM0EoFY6a9535f3/17UK
- dDn92xXTNrvzMCjO3UNibv/A1t3V6vEAxA1MCgiI6Ac/4SQHr5UZ6CIlf+XW9tX2MesEeC0a4Oi
- aHJj1qK3pyNYT+4th0MHdEmmRh7phDLeEcxNZ7BVCyzhexMkQatItxhTY+gbCiLMlOnA/
-X-Gm-Gg: AY/fxX4rxTaCyQ9l50dfyL09U/k4PuZaWqrprXOuCA/JGX+FoLXIGfhJkDhBJb42/Ln
- twtbRhRQZd1C2JzhvQD54hVk/RJEcG1D+wlI0BFgSeZ6+1cuurCrOPDHqqd4iTR082pzIcZVi7J
- 65ttQKdoIUmBJ7MO7dCrz2ZDZylvvcFPDrCbRFhGJICkOsHczcoAWrJPQtAvNeJiv72bIRLxqgo
- hLT7Zw9oYGSVu+St6iVSo7zEya7g/PRh883etod1axnikHryOKU7DD/Ynv5HleRbTSi8oxG+BDg
- wsLgbktV/Z91wHu/W7myVUwtnh8aR+c705aOJxcYG9gm/8ZEII+UN6j3Wg35yAz7q4LHtmoOcwc
- r6SLtENglxY94MUicbWGORZqMRAUXPX6xO8FmweU=
-X-Received: by 2002:a05:600c:c168:b0:479:1348:c63e with SMTP id
- 5b1f17b1804b1-47a8f1c217cmr114374345e9.9.1765794030927; 
- Mon, 15 Dec 2025 02:20:30 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGJvNt0rdWFmHWJLpNHWkEo3aMpxwfN5FQ5g0nfP25UJJeRkjUBG3jTBXIGfPppUe+EjhrJjQ==
-X-Received: by 2002:a05:600c:c168:b0:479:1348:c63e with SMTP id
- 5b1f17b1804b1-47a8f1c217cmr114373875e9.9.1765794030136; 
- Mon, 15 Dec 2025 02:20:30 -0800 (PST)
-Received: from ?IPV6:2001:67c:1560:8007::aac:c224?
- ([2001:67c:1560:8007::aac:c224]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a8f6f118esm69247365e9.3.2025.12.15.02.20.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Dec 2025 02:20:29 -0800 (PST)
-Message-ID: <c8ec1f73-1593-4ab1-9bb0-e72be0c18a6b@canonical.com>
-Date: Mon, 15 Dec 2025 21:20:23 +1100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ d=1e100.net; s=20230601; t=1765796394; x=1766401194;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=lCos3moOFD+nauiFzttlcH+p8qH4TS0BMlErTbtXbuA=;
+ b=sbXjkMi4aekMDctcT5vBoTGaYzzu5VKk8aKtkohwlkcrVRBxmLYppEnV3tiniyGX60
+ oQqJR20wwQ4sXAiYMMczk9OoC3ghTox0bC3+8e3aB/fy6GiYP5gQ8ieYGmm0GW7WuX60
+ aX7eBskrOGtPmi8PXtzrhlTwYn74vJN78g0AN8t0T1cXHOHZjyhSD7RcEHxRl5fkuy2c
+ 9Xzcfy97c21Q67ZCJcsID7NbzHAAj0pSVAYsjInUHyfemjHRTV7qxaVtN5f5W5KyV8o2
+ ZwsNnONncGOInDxrvdlr+CjV2STAuKKmF+vPxR6kguGJ7phHTaoZIjPBsXflIEUao0Qo
+ nF1A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXzHRS7xBtKZfrNaXCHMEauqreR3qBGLRCDJ2pAzDQwUhlFW3/nX873e6Eb+EXLnHSU1qg=@lists.linux.it
+X-Gm-Message-State: AOJu0YzFvVamqxmMdNWCPPrFFrHvq+p7Ux8qIdbhtjmj6Vgitrys9JCx
+ WGxZ37b2Gz1RGscnk1yrcTsnBxFXopzDJRQlE5XpatLvjLbJxNXAQWv87sHrnQBGSDhGxEDXIIa
+ S/d8=
+X-Gm-Gg: AY/fxX4m+vCoVVRISMPnzu1amt/BzIaS5ar9WuuP7Mv8jxV7s2xeF1i9yTu/RlfsgbR
+ jh7xQ7kLL25qlO/tuadtC+73IeDRZK5PaNvRGNDnLxk0EzePabbdI9utS+HhqI95VcuZnVqi8he
+ /eh2CRHT1exw1V9OpCVpTEpabM6yasTaOjsgRFZXrICKm9kCKGQCyRtg34SGBTIZQ2t7ygmRSvj
+ f9uoN1l8Byanbvo9C59v+qSu5weGj4mzX+9jphcMilVHIjH9pwM8ZIO3Qgj268gUogDsNLgGkvo
+ rLNCRyiG9ONXHCw9xK04/Yhq6TBKeN2ulFkwZ0Ry/xUzEcq7Cb21/L/JdhuoXjPQhzMBsAX5Bsg
+ bEONH/nZ9nvYbwC9jh0pnTjwjwZIYhydPtOdRD+BnFZgudx+VV1I/cSwNfR9HsQlRpovnnSpZ7z
+ nmW/6DAhuQj1jZy0joSpdhNDAjyzu9
+X-Google-Smtp-Source: AGHT+IG8lWbyvJcD447F3y1V9ZaIuuzNTJLoL2FIMTQ94KZMiKbMseo96xqC1O6rN17o+pf+2+aLTg==
+X-Received: by 2002:a05:6000:2083:b0:430:fc3a:fbce with SMTP id
+ ffacd0b85a97d-430fc3afd23mr4441983f8f.15.1765796394006; 
+ Mon, 15 Dec 2025 02:59:54 -0800 (PST)
+Received: from autotest-wegao.qe.prg2.suse.org
+ ([2a07:de40:b240:0:2ad6:ed42:2ad6:ed42])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42fa8b9b26fsm30904945f8f.40.2025.12.15.02.59.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Dec 2025 02:59:53 -0800 (PST)
+Date: Mon, 15 Dec 2025 10:59:52 +0000
 To: Petr Vorel <pvorel@suse.cz>
-References: <20251214060640.41555-1-changwei.zou@canonical.com>
- <20251215075922.GA233529@pevik>
-Content-Language: en-US
-In-Reply-To: <20251215075922.GA233529@pevik>
+Message-ID: <aT_qF7YR65J9PbEg@autotest-wegao.qe.prg2.suse.org>
+References: <20251107003041.28929-1-wegao@suse.com>
+ <20251110024805.31070-1-wegao@suse.com>
+ <20251110024805.31070-2-wegao@suse.com> <aTvu4GJBC_G5kSNi@yuki.lan>
+ <20251212111618.GA125889@pevik>
+ <aT-5tkQkM_g2VZ35@autotest-wegao.qe.prg2.suse.org>
+ <20251215093639.GA236929@pevik>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20251215093639.GA236929@pevik>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
- WEIRD_PORT shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Mailman-Approved-At: Fri, 19 Dec 2025 14:36:46 +0100
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
-Subject: Re: [LTP] [PATCH] splice07: require kernel version 5.10
+Subject: Re: [LTP] [PATCH v5 1/3] lib: Add support option for .needs_cmds
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,68 +110,71 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Changwei Zou via ltp <ltp@lists.linux.it>
-Reply-To: Changwei Zou <changwei.zou@canonical.com>
+From: Wei Gao via ltp <ltp@lists.linux.it>
+Reply-To: Wei Gao <wegao@suse.com>
 Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgUGV0ciwKVGhlIGZpeCB3YXMgaW50ZW5kZWQgdG8gYXZvaWQgcnVubmluZyBzcGxpY2UwNyBv
-biBvbGRlciBrZXJuZWxzLgpIb3dldmVyLCB5b3UgYXJlIHJpZ2h0IOKAlCB0aGF0IHdvdWxkIGhp
-ZGUgdGhlIGZhY3QgdGhhdCB0aG9zZSBrZXJuZWxzIGFyZSAKYnVnZ3kuCkkgY291bGRu4oCZdCBh
-Z3JlZSB3aXRoIHlvdSBtb3JlLgpUaGFuayB5b3UgdmVyeSBtdWNoIGZvciB0aGUgZGV0YWlsZWQg
-aW5mb3JtYXRpb24uCktpbmQgcmVnYXJkcywKQ2hhbmd3ZWkKCgpPbiAxMi8xNS8yNSAxODo1OSwg
-UGV0ciBWb3JlbCB3cm90ZToKPiBIaSBDaGFuZ3dlaSwKPgo+PiBPbiBMaW51eCBrZXJuZWwgNS45
-LCB0aGUgc3BsaWNlMDcgdGVzdCBmYWlscyBhcyBmb2xsb3dzOgo+PiAgICBSdW5uaW5nIHRlc3Rz
-Li4uLi4uLgo+PiAgICB0c3RfZmQuYzoyNjA6IFRDT05GOiBTa2lwcGluZyBtZW1mZCBzZWNyZXQ6
-IEVOT1NZUyAoMzgpCj4+ICAgIHNwbGljZTA3LmM6NjQ6IFRJTkZPOiBkaXJlY3RvcnkgLT4gLi4u
-Cj4+ICAgIHNwbGljZTA3LmM6NTY6IFRQQVNTOiBzcGxpY2UoKSBvbiBkaXJlY3RvcnkgLT4gZmls
-ZSA6IEVJTlZBTCAoMjIpCj4+ICAgIHNwbGljZTA3LmM6NTY6IFRQQVNTOiBzcGxpY2UoKSBvbiBk
-aXJlY3RvcnkgLT4gT19QQVRIIGZpbGUgOiBFQkFERiAoOSkKPj4gICAgc3BsaWNlMDcuYzo1Njog
-VFBBU1M6IHNwbGljZSgpIG9uIGRpcmVjdG9yeSAtPiBkaXJlY3RvcnkgOiBFQkFERiAoOSkKPj4g
-ICAgc3BsaWNlMDcuYzo1NjogVFBBU1M6IHNwbGljZSgpIG9uIGRpcmVjdG9yeSAtPiAvZGV2L3pl
-cm8gOiBFQkFERiAoOSkKPj4gICAgc3BsaWNlMDcuYzo1NjogVFBBU1M6IHNwbGljZSgpIG9uIGRp
-cmVjdG9yeSAtPiAvcHJvYy9zZWxmL21hcHMgOiBFQkFERiAoOSkKPj4gICAgc3BsaWNlMDcuYzo1
-NjogVFBBU1M6IHNwbGljZSgpIG9uIGRpcmVjdG9yeSAtPiBwaXBlIHJlYWQgZW5kIDogRUJBREYg
-KDkpCj4+ICAgIHNwbGljZTA3LmM6NTY6IFRGQUlMOiBzcGxpY2UoKSBvbiBkaXJlY3RvcnkgLT4g
-cGlwZSB3cml0ZSBlbmQgZXhwZWN0ZWQgRUJBREYsIEVJTlZBTDogRUlTRElSICgyMSkKPj4gICAg
-Li4uCj4+ICAgIHNwbGljZTA3LmM6NjQ6IFRJTkZPOiBwaXBlIHJlYWQgZW5kIC0+IC4uLgo+PiAg
-ICBzcGxpY2UwNy5jOjU2OiBUUEFTUzogc3BsaWNlKCkgb24gcGlwZSByZWFkIGVuZCAtPiBPX1BB
-VEggZmlsZSA6IEVCQURGICg5KQo+PiAgICBzcGxpY2UwNy5jOjU2OiBUUEFTUzogc3BsaWNlKCkg
-b24gcGlwZSByZWFkIGVuZCAtPiBkaXJlY3RvcnkgOiBFQkFERiAoOSkKPj4gICAgc3BsaWNlMDcu
-Yzo1NjogVFBBU1M6IHNwbGljZSgpIG9uIHBpcGUgcmVhZCBlbmQgLT4gL2Rldi96ZXJvIDogRUJB
-REYgKDkpCj4+ICAgIHNwbGljZTA3LmM6NTY6IFRQQVNTOiBzcGxpY2UoKSBvbiBwaXBlIHJlYWQg
-ZW5kIC0+IC9wcm9jL3NlbGYvbWFwcyA6IEVCQURGICg5KQo+PiAgICBzcGxpY2UwNy5jOjU2OiBU
-UEFTUzogc3BsaWNlKCkgb24gcGlwZSByZWFkIGVuZCAtPiBwaXBlIHJlYWQgZW5kIDogRUJBREYg
-KDkpCj4+ICAgIFRlc3QgdGltZW91dGVkLCBzZW5kaW5nIFNJR0tJTEwhCj4+ICAgIHRzdF90ZXN0
-LmM6MTkxODogVElORk86IElmIHlvdSBhcmUgcnVubmluZyBvbiBzbG93IG1hY2hpbmUsIHRyeSBl
-eHBvcnRpbmcgTFRQX1RJTUVPVVRfTVVMID4gMQo+PiAgICB0c3RfdGVzdC5jOjE5MjA6IFRCUk9L
-OiBUZXN0IGtpbGxlZCEgKHRpbWVvdXQ/KQo+PiAgICBTdW1tYXJ5Ogo+PiAgICBwYXNzZWQgICAx
-MjEKPj4gICAgZmFpbGVkICAgMQo+PiAgICBicm9rZW4gICAxCj4+ICAgIHNraXBwZWQgIDUKPj4g
-ICAgd2FybmluZ3MgMAo+PiAgICBJTkZPOiBsdHAtcGFuIHJlcG9ydGVkIHNvbWUgdGVzdHMgRkFJ
-TAo+PiAgICBMVFAgVmVyc2lvbjogMjAyNTA5MzAtNjAtZ2I0NDZkZDRlZAo+PiBUaGlzIHRlc3Qg
-cGFzc2VzIG9uIGtlcm5lbCB2ZXJzaW9ucyA1LjEwIGFuZCBsYXRlci4KPiBJTUhPIHRoaXMgaXMg
-d3JvbmcuIE9sZGVyIGtlcm5lbHMgYXJlIGJyb2tlbiwgYW5kIHRoaXMgd291bGQgaGlkZSB0aGV5
-IGFyZQo+IGJ1Z2d5LiBUaGF0J3MgdGhlIHJlYXNvbiB3aHkgdGhlIHJlbGF0ZWQgaXNzdWUgd2Fz
-IGNsb3NlZCBbMV0uCj4gVGhlIGNvcnJlY3Qgd2F5IGluIGlkZWFsIHdvcmxkIHdvdWxkIGJlIHRv
-IGZpeCB0aGUga2VybmVsIChidXQgdGhhdCB3b3VsZAo+IHJlcXVpcmUgbm9udHJpdmlhbCBiYWNr
-cG9ydHMpLgo+Cj4gRllJIHdlIGhhdmUgcnVsZSAiRG8gbm90IHdvcmsgYXJvdW5kIGtlcm5lbCBi
-dWdzIiAodGhlIGRvYyBpcyBub3QgeWV0Cj4gbWVyZ2VkIFsyXSwgYnV0IHdpbGwgYmUgc29vbiB0
-byBiZSB2aXNpYmxlIGluIGRvY3MgWzNdKSBhbmQgdGhpcyB3b3VsZCB2aW9sYXRlCj4gaXQuCj4K
-PiBLaW5kIHJlZ2FyZHMsCj4gUGV0cgo+Cj4gWzFdaHR0cHM6Ly9naXRodWIuY29tL2xpbnV4LXRl
-c3QtcHJvamVjdC9sdHAvaXNzdWVzLzExNTYKPiBbMl1odHRwczovL2xvcmUua2VybmVsLm9yZy9s
-dHAvMjAyNTEyMDkxMjAyNDYuMTg0MzUtMS1jaHJ1YmlzQHN1c2UuY3ovCj4gWzNdaHR0cHM6Ly9s
-aW51eC10ZXN0LXByb2plY3QucmVhZHRoZWRvY3MuaW8vCj4KPj4gU2lnbmVkLW9mZi1ieTogQ2hh
-bmd3ZWkgWm91PGNoYW5nd2VpLnpvdUBjYW5vbmljYWwuY29tPgo+PiAtLS0KPj4gICB0ZXN0Y2Fz
-ZXMva2VybmVsL3N5c2NhbGxzL3NwbGljZS9zcGxpY2UwNy5jIHwgMSArCj4+ICAgMSBmaWxlIGNo
-YW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5
-c2NhbGxzL3NwbGljZS9zcGxpY2UwNy5jIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zcGxp
-Y2Uvc3BsaWNlMDcuYwo+PiBpbmRleCBjNzUwYTE0YmYuLjEwMjA2NTE0ZiAxMDA2NDQKPj4gLS0t
-IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zcGxpY2Uvc3BsaWNlMDcuYwo+PiArKysgYi90
-ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3NwbGljZS9zcGxpY2UwNy5jCj4+IEBAIC02OSw0ICs2
-OSw1IEBAIHN0YXRpYyB2b2lkIHZlcmlmeV9zcGxpY2Uodm9pZCkKPj4gICBzdGF0aWMgc3RydWN0
-IHRzdF90ZXN0IHRlc3QgPSB7Cj4+ICAgCS50ZXN0X2FsbCA9IHZlcmlmeV9zcGxpY2UsCj4+ICsJ
-Lm1pbl9rdmVyID0gIjUuMTAiLAo+PiAgIH07CgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBz
-Oi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+On Mon, Dec 15, 2025 at 10:36:39AM +0100, Petr Vorel wrote:
+> Hi Wei,
+> 
+> ...
+> > > Also, strictly speaking tst_cmd_present() is only defined, not used. The commit
+> > > is about changing .needs_cmds from char array (string) to struct tst_cmd.
+> > > Therefore it could be in a separate commit. We don't have to be too strict, but
+> > > given how many tests needed to be adapted adding tst_cmd_present() is somehow
+> > > buried with other changes.
+> 
+> > Thanks all for detail feedback. Let's me give some explaination why skip
+> > tst_brk in above function:
+> > tst_cmd_present will be used in latest ioctl_loop01.c and it should not
+> > use tst_brk otherwise we will brk out of test in setup() too early.
+> > The new support needs_cmds.optional in current patch is used for support 
+> > tst_cmd_present scenario in ioctl_loop01.c.
+> > Correct me if any mistake.
+> 
+> Sure, I noticed tst_cmd_present() usage in a later commit :).
+> 
+> My point was (while this patchset is also about ideal feature change split into
+> commits) that if you touch many files with struct tst_cmd change, adding
+> unrelated change (tst_cmd_present()) will hide this change. I would personally
+> move adding tst_cmd_present() to a separate commit. It's not that important,
+> just to make review easier.
+Thanks, i get your point now.
+@Petr @Cyril
+If we have are agree with following changes then i can sent next patch:
+1) Just move the declaration and definition of tst_cmd_present to a separate commit without any functional content changes.
+2) Modify function comments such as add ref:`...`
+> 
+> The rules (which I've tried to explain on this patchset) are
+> * each commit must compile (even temporarily break build is not acceptable)
+> * split changes into small logical parts
+> 
+> People talk about atomic changes: "As small as possible, but complete" so that
+> they don't break CI.
+> https://dev.to/samuelfaure/how-atomic-git-commits-dramatically-increased-my-productivity-and-will-increase-yours-too-4a84
+Nice link:)
+> 
+> Kind regards,
+> Petr
+> 
+> > ioctl_loop01.c code:
+> > static void setup(void)
+> > {
+> >         parted_sup = tst_cmd_present("parted");  <=====
+> 
+> > .....
+> >         if (parted_sup)
+> >                 SAFE_CMD(cmd_parted, NULL, NULL);  <===
+> 
+> >         sprintf(partscan_path, "/sys/block/loop%d/loop/partscan", dev_num);
+> > }
+> 
+> > > Kind regards,
+> > > Petr
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
