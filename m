@@ -2,105 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6517BCC1FF4
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Dec 2025 11:42:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1765881752; h=mime-version :
- references : in-reply-to : date : message-id : to : subject : list-id
- : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=lVVzOyZ3jlLSfFknyZcDGmpTY4qWzifKlGVpkPe2ilM=;
- b=jR+YsWNic5hGybUANg/9NdHaRjUO3hkk/r6iG9hrpqtMAutcyPbdiS/wLZX3Za3q14LnT
- YX6d5w6w2rnnK1jgLUZVc1WWCR0kt1U4uG6RwxNMyH9PEwJsXNfk3McEJS9WA3ehq7FaYFh
- udc2VhHFlyLLnVXPp7+hY8ZPA9+WLNU=
+	by mail.lfdr.de (Postfix) with ESMTPS id 5216ECC2086
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Dec 2025 11:54:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F3A543D033E
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Dec 2025 11:42:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0CFEC3D035C
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Dec 2025 11:54:43 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 905253C01E9
- for <ltp@lists.linux.it>; Tue, 16 Dec 2025 11:42:20 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id 0CBAB3C1817
+ for <ltp@lists.linux.it>; Tue, 16 Dec 2025 11:54:31 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 87CEC64787C
- for <ltp@lists.linux.it>; Tue, 16 Dec 2025 11:42:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1765881737;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3ZapbzppVOwYodN9Vx7ucqDqp8e2ykIMY6S+NNKvpaY=;
- b=LL/3HguswUVdniQOB5vosQx92Ufj/TWVzAG/PRSL5IKmAZJG0w5a0Kx9f/ZOgkww3QbQrQ
- HOz8kQNAGwiZuWF4fgAI5XFHHaIGx6BYCELfmKFkjXZuUW6da5g0SGVjjCVEZ1/amIuyiG
- JXAAD6Ko9Qv2ezpmzxX4P3zMi+NIHeQ=
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-18-zd_Lm_YyOJyusulSMwjM5w-1; Tue, 16 Dec 2025 05:42:15 -0500
-X-MC-Unique: zd_Lm_YyOJyusulSMwjM5w-1
-X-Mimecast-MFC-AGG-ID: zd_Lm_YyOJyusulSMwjM5w_1765881735
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-bf493d248baso7805397a12.2
- for <ltp@lists.linux.it>; Tue, 16 Dec 2025 02:42:15 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765881735; x=1766486535;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3ZapbzppVOwYodN9Vx7ucqDqp8e2ykIMY6S+NNKvpaY=;
- b=gBWEfjCKD+sEFzVbw2stc0R/wy5/FAAaDQmrOGFE2JBBuCPkzEGy3EFnDviPGGSnQR
- vQj6UMT1YUkqFBn1Q6rYzrfOL9Sa3UQIwcS/DrZJ0pNdnZEoCGDBcjPG6CD5zX1HtLA5
- EVAdVKFNcqDniRf7B6uV89Cc8WbC320BabH3ZU5WACiFzn7m2JFVFZZbTAHZv2tY9hHj
- f7aTevEv/he0RzgYKnTDMiIzEGFHUlGgUsgwlGZGdkhHOy1Ocw4Ecs7gmxGmzYHy0gwb
- hEuyr2FWrGkhTGwP8QfUAuacfFBtqqw8DXMG/3bHnrFCN27F6GnSdemp085EBxeMXx2U
- yvzQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVZAO8Eo/TfskjVPOUjBrJ+ABWbVmU0iY5fQzRnHamI3/EGtozrXqDmw5Qh3czptXJEpVI=@lists.linux.it
-X-Gm-Message-State: AOJu0YxIs3HK9AOAY3h6mr9BKm/iD/zdqbqwrIQki6OqNGZFYbMgXFL+
- QXKLeQQFzkipSc1Rmgb7tjMbkIgenaw4UgTVv1fpyA0YrcQTNvEYB42KvWzt2jPvSaio6x8obJV
- RMikjzFpmQ4QYgcFlmU3V6imbAG/J1B8uPhmb7NZYRPFWYgKunqgQpXzOWh3E+QR712oWWLc5rv
- jR5WqIv0iMyHEpRAvemzc6Itkmj3g=
-X-Gm-Gg: AY/fxX6iWdqQu46dR3sDN874vl4C9UH8pqNxN1imCT3/xhiQTxmqNuU8BJcTFf44mY+
- V3WFt60MALNBnI10oziXU9zUOVB5r/OXTtTs4UYLQEfl8QHqr2Z8H2jlTrMl/jEJGwG8HM8H4tB
- /N3A3IoPK8PZ5Igi2XzWXdQIHDpeMlINxlWpjnZVX6YdQXorWCPZyUc07gHYMT5obeOxg=
-X-Received: by 2002:a05:693c:6213:b0:2a4:3594:d551 with SMTP id
- 5a478bee46e88-2ac3012ba9cmr9177063eec.30.1765881734705; 
- Tue, 16 Dec 2025 02:42:14 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFYT1n0heMsHRrJpRW1wC7aE/YHT4X00fMyV2O1Wwu1OfWbfYexnJRu4M1E4KjZY8Pp+ct0JK+49gLHoUN1CMA=
-X-Received: by 2002:a05:693c:6213:b0:2a4:3594:d551 with SMTP id
- 5a478bee46e88-2ac3012ba9cmr9177046eec.30.1765881734205; Tue, 16 Dec 2025
- 02:42:14 -0800 (PST)
-MIME-Version: 1.0
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7286D600486
+ for <ltp@lists.linux.it>; Tue, 16 Dec 2025 11:54:25 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A5A365BCC3;
+ Tue, 16 Dec 2025 10:54:24 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9099B3EA63;
+ Tue, 16 Dec 2025 10:54:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 2NxUImA6QWlOBwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Tue, 16 Dec 2025 10:54:24 +0000
+Date: Tue, 16 Dec 2025 11:54:23 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20251216105423.GA307257@pevik>
 References: <20251215124404.16395-1-chrubis@suse.cz>
  <20251215124404.16395-2-chrubis@suse.cz>
- <CAEemH2eDJf1OAF1q6WEegF4ZpSVjerYa2O7hp8hfd+7q=75gQQ@mail.gmail.com>
- <CAEemH2eoJ9v88TE63ScjZB2xw73_hgZF90BPDQq72_HX4OobLw@mail.gmail.com>
- <20251215143048.GA267467@pevik>
- <CAEemH2cmuxr7jKBA32eXQHOwQLvq4tPMDsmcen_9C7di=eSpDQ@mail.gmail.com>
- <20251216101117.GA295306@pevik>
-In-Reply-To: <20251216101117.GA295306@pevik>
-Date: Tue, 16 Dec 2025 18:42:02 +0800
-X-Gm-Features: AQt7F2pB82YAJ6t5zCoW6kyCZxCj39LS6tR6ALCDfkc3gu_50PF2zWP9PBXk-nY
-Message-ID: <CAEemH2dyDmwz=bCMAUCgma5P7dYbfeD16Cey-anLrVxyFRmg4w@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: fnWwAjEI3_D13nMfDxHLVyNlcoDMr1zR3ItplJtmXqs_1765881735
-X-Mimecast-Originator: redhat.com
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,HTML_MESSAGE,SPF_HELO_PASS,
- SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20251215124404.16395-2-chrubis@suse.cz>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Spam-Score: -4.00
+X-Rspamd-Queue-Id: A5A365BCC3
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 Subject: Re: [LTP] [PATCH v2 2/2] doc: Add ground rules page
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -113,54 +77,127 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Li Wang via ltp <ltp@lists.linux.it>
-Reply-To: Li Wang <liwang@redhat.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVHVlLCBEZWMgMTYsIDIwMjUgYXQgNjoxMeKAr1BNIFBldHIgVm9yZWwgPHB2b3JlbEBzdXNl
-LmN6PiB3cm90ZToKCj4gLi4uCj4gPiA+IFsxXQo+ID4gPgo+IGh0dHBzOi8vbG9yZS5rZXJuZWwu
-b3JnL2FsbC8xYmQwNGNlMS04N2MwLTRlMjMtYjE1NS04NGY3MjM1ZjYwNzJAcmVkaGF0LmNvbS8K
-Pgo+Cj4gPiBXaGF0IGEgY29pbmNpZGVuY2UhIEkganVzdCBzcG9rZSBmYWNlLXRvLWZhY2Ugd2l0
-aCBEYXZpZCBIaWxkZW5icmFuZAo+ID4gYXQgTFBDIGxhc3QgRnJpZGF5LiBIZSBleHByZXNzZWQg
-Y29uY2VybnMgYWJvdXQgdGhlIGluY3JlYXNpbmcgYW1vdW50Cj4gPiBvZiBBSS1nZW5lcmF0ZWQg
-Y29kZSBiZWluZyBzZW50IHRvIHRoZSBMS01MLCBwb2ludGluZyBvdXQgdGhhdCBpdCBkb2VzCj4g
-PiBpbmRlZWQgcGxhY2UgYSBjb25zaWRlcmFibGUgcmV2aWV3IGJ1cmRlbiBvbiBtYWludGFpbmVy
-cy4gTW9yZW92ZXIsCj4gPiBoZSBoaW1zZWxmIHJhcmVseSB1c2VzIEFJLgo+Cj4gTmljZSA6KS4K
-Pgo+ICJEb1Mga2VybmVsIG1haW50YWluZXJzIHdpdGggQUkgc2xvcCIgaXMgYSByZWFsIGRhbmdl
-ci4KPgo+ID4gRnVydGhlcm1vcmUsIHNvbWUgZXhwZXJ0cyBhdCBIdWF3ZWkgdG9sZCBtZSB0aGF0
-IHRoZXkgb25seSBhbGxvdyBwYXRjaAo+ID4gc2VuZGVycyB0byByZXZpZXcgcGF0Y2hlcyBiZWZv
-cmUgc2VuZGluZyB0aGVtLCBidXQgZG8gbm90IHBlcm1pdCB0aGUKPiA+IHVzZSBvZiBBSS1nZW5l
-cmF0ZWQgY29kZS4KPgo+ICsxLiBJcyB0aGF0IGR1ZSAiQUkgc2xvcCIgb3IgbGVnYWwgaXNzdWVz
-Pwo+CgpEdWUgIkFJIHNsb3AiLCBjdXogbW9zdGx5IG5vd2FkYXlzIEFJIGlzIHVuYWJsZSB0byBw
-ZXJmZWN0bHkgZ2VuZXJhdGUKc3VpdGFibGUKY29kZSBmb3IgY29tcGxleCBwcm9qZWN0cyBzdWNo
-IGFzIGtlcm5lbHMuIFRoZXkgb25seSB1c2VkIGl0IGluIHRoZSBmaXJzdApyb3VuZApvZiBwYXRj
-aCByZXZpZXcuCgoKPiBXaGlsZSBJIGFsc28gc2hhcmUgdGhlIGZlYXIgb2YgIkFJIHNsb3AiLCBJ
-IHdhcyBzdXJwcmlzZWQgdGhhdCBRRU1VIHJlYWxseQo+IHN0cmljdGx5IGJhbnMgQUkgZ2VuZXJh
-dGVkIGNvZGUgZHVlIGxlZ2FsIGlzc3Vlcy4gSSB3b25kZXIgaWYga2VybmVsIGVuZHVwCj4gdGhl
-Cj4gc2FtZSBhcyB3ZWxsLgo+Cj4KPiBodHRwczovL3d3dy5xZW11Lm9yZy9kb2NzL21hc3Rlci9k
-ZXZlbC9jb2RlLXByb3ZlbmFuY2UuaHRtbCN1c2Utb2YtYWktZ2VuZXJhdGVkLWNvbnRlbnQKPgo+
-ID4gQW5kLCBvZiBjb3Vyc2UsIGNsZWFybHkgZmxhZ2dpbmcgY29udGVudCBhcyBBSS1nZW5lcmF0
-ZWQgY29kZSBpbiB0aGUKPiBwYXRjaAo+ID4gbWlnaHQgaGVscC4KPgo+ICsxLgo+Cj4gSU1ITyB1
-c2luZyBBSSBmb3IgaGVscCB3aXRoIG1hbnVhbCB3b3JrLCBlLmcuIGNvbnZlcnRpbmcgZG9jcyBm
-cm9tIGFzY2lpZG9jCj4KClllcy4KCnRvIFJTVCBmb3JtYXQgaXMgb2suIEZvciBtZSB0aGUgcXVl
-c3Rpb24gaXMgd2hldGhlciBpdCBjYW4gYmUgdXNlZCBmb3IKPiBnZW5lcmF0aW5nIGEgdGVzdCBj
-b2RlIChuZXcgdGVzdHMgZnJvbSBzY3JhdGNoLCByZXdyaXRlIGludG8gaW50byBuZXcgQVBJCj4g
-d2hpY2gKPiBpcyBvZnRlbiBjbGVhcmVyIHdyaXRlIGZyb20gc2NyYXRjaCkuCj4KCkkgZG9uJ3Qg
-dGhpbmsgQUkgY2FuIHdyaXRlIGJldHRlciBjb2RlIHRoYW4gbWFua2luZCBmb3IgdGhlIHdob2xl
-IHRlc3QsCml0IG1pZ2h0IG9mZmVyIHN1Z2dlc3Rpb25zIGZvciBhIHBpZWNlIG9mIGZ1bmN0aW9u
-LgoKSnVzdCBsaWtlIFlpbmcgSHVhbmcgKEZyb20gQWxpYmFiYSkgc3Bva2UgdG8gbWU6CiJJIGZv
-dW5kIHRoYXQgQUkgcGVyZm9ybXMgYmV0dGVyIG9ubHkgd2hlbiBJIGJyZWFrIHRoZSB3b3JrIGRv
-d24gaW50bwphdG9taWMgdW5pdHMuIgoKVGhlcmVmb3JlLCBpdCdzIGVzcGVjaWFsbHkgaW1wb3J0
-YW50IHRvIHJlbHkgb24gZW5naW5lZXJzJyBleHBlcmllbmNlIHRvCmNsZWFybHkgdW5kZXJzdGFu
-ZCB3aGF0IHByb2JsZW1zIGFyZSBoaW5kZXJpbmcgdGhlbSBhbmQgaG93IHRvCmNvbW11bmljYXRl
-IHdpdGggQUkuCgoKCj4KPiBBbnl3YXksIGJlY2F1c2Ugd2UgYWxyZWFkeSBoYWQgc29tZSBBSSBn
-ZW5lcmF0ZWQgcGF0Y2hlcyBpdCdkIGJlIGdvb2QgdG8KPiBoYXZlIGFuCj4gQUkgcG9saWN5LiAg
-QnV0IEkgd291bGQgbGlrZSBub3QgdG8gYmxvY2sgdGhpcyBwYXRjaHNldCBpdCAoaXQnZCBiZSBu
-aWNlCj4gdG8gZ2V0Cj4gdGhlIHBhdGNoc2V0IG1lcmdlZCBiZWZvcmUgQ2hyaXN0bWFzIGFuZCBz
-b2x2ZSBBSSBwb2xpY3kgYWZ0ZXJ3YXJkcykuCj4KCisxCgoKLS0gClJlZ2FyZHMsCkxpIFdhbmcK
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
+Hi Cyril,
+
+Thanks, very nice doc!
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+Few more style/typo/grammar notes below. Found by chatgpt, I picked just few of
+them which looked to me significant (obviously AI would improve the style, but
+lets ignore that).  Feel free to ignore, otherwise just amend before merge.
+Labels "typo:" or "grammar:" should probably be fixed.
+
+AI also suggests to use often articles, e.g. for "parent" and "child" (mostly "the",
+sometimes "a"), but let's ignore that.
+
+> +We have decided what we will not work around bugs in upstream LTP sources. If a
+decided what => decided that
+
+...
+> +Why is sleep in tests bad then?
+Missing "using", also maybe more formal (it's not a blog post but official doc):
+Why is using sleep in tests bad?
+> +```````````````````````````````
+
+...
+> +The second problem is that this wastes resources and slows down a test run. If
+> +you think that adding a sleep to a test is not a big deal, lets have a look at
+> +the bigger perspective. There is about 1600 syscall tests in Linux Test
+
+grammar (plural): There is about 1600 => There are about 1600
+(You have it wrong also in your blog post.)
+
+> +Project, if 7.5% of them would sleep just for one second, we would end up with
+> +two minutes of wasted time per testrun. In practice most of the test, that
+> +historically misused sleep for synchronization, waited for much longer just to
+> +be sure that things will works even on slower hardware. With sleeps between 2
+> +and 5 seconds that puts us somewhere between 4 and 10 minutes which is between
+And here "sleeps" is plural, maybe: puts => put.
+Or maybe just use "sleep"?
+
+> +13% and 33% of the syscall runtime on an outdated thinkpad, where the run
+> +finishes in a bit less than half an hour. It's even worse on newer hardware,
+> +because this slowdown will not change no matter how fast your machine is, which
+> +is maybe the reason why this was acceptable twenty years ago but it's not now.
+> +
+> +
+> +What to do instead?
+> +```````````````````
+> +
+> +Use proper synchronization.
+> +
+> +There are different problems and different solutions. Most often test needs to
+> +synchronize between child and parent proces.
+
+typo: proces => process
+
+> +
+> +The easiest case is that parent needs to wait for a child to finish, that can
+
+that parent => when parent
+
+> +be fixed just be adding a :man2:`waitpid` in the parent which ensures that child is
+> +finished before parent runs.
+"child is finished" => "child finished" (or "child has finished")
+
+> +
+> +Commonly child has to execute certain piece of code before parent can continue.
+> +For that LTP library implements checkpoints with simple
+> +:c:func:`TST_CHECKPOINT_WAIT()` and :c:func:`TST_CHECKPOINT_WAKE()` functions based
+> +on futexes on a piece of shared memory set up by the test library.
+> +
+> +Another common case is where child must sleep in a syscall before parent can
+"where child" => "when child"
+
+> +continue, for which we have a :c:func:`TST_PROCESS_STATE_WAIT()` helper that
+> +polls `/proc/$PID/stat`.
+> +
+> +Less often test needs to wait for an action that is done asynchronously, or a
+> +kernel resource deallocation is deferred to a later time. In such cases the
+
+"a kernel resource deallocation is deferred to a later time"
+Maybe:
+"for kernel resource deallocation that is deferred to a later time"
+
+> +best we can do is to poll. In LTP we ended up with a macro that polls by
+> +calling a piece of code in a loop with exponentially increasing sleeps between
+> +retries until it succeeds. Which means that instead of sleeping for a maximal
+> +time event can possibly take the sleep is capped by twice of the optimal
+> +sleeping time while we avoid polling too aggressively.
+> +
+> +
+> +Use runtime checks for kernel features
+> +======================================
+> +
+> +What is and what isn't supported by kernel is determined by the version
+> +and configuration of the kernel the systems is currently running on.
+grammar (singular): "systems is ... running on." => "system is ... running."
+
+> +That especially means that any checks done during the compilation cannot
+> +be used to assume features supported by the kernel the tests end up
+> +running on. The compile time checks, done by configure script, are only
+> +useful for enabling fallback kernel API definitions when missing, as we
+> +do in lapi/ directory.
+> +
+> +
+> +Kernel features and RCs
+> +=======================
+> +
+> +LTP tests or fixes for kernel changes that were not released yet can be posted
+grammar (present perfect): "were not released yet can" => "have not yet been released may"
+
+> +to the LTP list for a review but will not be be accepted until respective
+"review but will" => "review but they will"
+
+Kind regards,
+Petr
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
