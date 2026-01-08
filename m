@@ -1,71 +1,109 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E7DED044F7
-	for <lists+linux-ltp@lfdr.de>; Thu, 08 Jan 2026 17:22:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1767889348; h=to : date :
- message-id : mime-version : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : cc : content-type : content-transfer-encoding : sender :
- from; bh=DsDtPq7fgEIN+twDsjZgwd4ZXV6cHeUOdrBV0SbKdg4=;
- b=aqqok/lDJQ/rJ0FEAHNcKtZIudoqnilju1qGcZDT+ZfbQy0l87jJtEZwbAOoI2pCB4jeA
- PO2O31prqc7IeNnJURXpo7QL+fq9JmkKQ5f8NoC0YQxpQpQX0njsO5jr8FFScCBob1DfRJ8
- LEo79K8YAn2D3eJgCU8qvxaT2sji7Cc=
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E36EBD04B64
+	for <lists+linux-ltp@lfdr.de>; Thu, 08 Jan 2026 18:08:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 059493C6594
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jan 2026 17:22:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5EBFE3C6633
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jan 2026 18:08:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A1ACD3C2789
- for <ltp@lists.linux.it>; Thu,  8 Jan 2026 17:22:24 +0100 (CET)
-Received: from smtp-relay-canonical-0.canonical.com
- (smtp-relay-canonical-0.canonical.com [185.125.188.120])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E436A1000923
- for <ltp@lists.linux.it>; Thu,  8 Jan 2026 17:22:23 +0100 (CET)
-Received: from localhost.localdomain (2.general.phlin.uk.vpn [10.172.194.39])
+ by picard.linux.it (Postfix) with ESMTPS id 3C7E03C0EB3
+ for <ltp@lists.linux.it>; Thu,  8 Jan 2026 18:08:10 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 14F3E409DF; 
- Thu,  8 Jan 2026 16:22:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1767889343;
- bh=f3uRwE5F2gF7BWLAAGN8WOtEe65hXKSPqjjuBKj4ScU=;
- h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
- b=hbLGOiOXGRLX9VwW90VaMJsywe3DuXYPaR/3iAigvLOoP19aS3gsMeLjV+/kwPHt7
- Suy3BUFkuN98S7NOf42uLbML3p/ulUaIhC0S6Av9yBgwUNgoLIT7/BocgPZofJLKo/
- A8q+9NjorfJV8/YwgkACweXKW2EhQKekUmd92KMboEUB5N6gRXtPTjyWnIraCjyYH2
- ebXS3G+PNpbo1KfYd/J0b3O3g0XBXb/HSzwpfpynhvK0+yZP4RkWOTb3L7Qsf/p60U
- +wijp2xefPgqjy4Nax73QBY1eVHvcDe/BXbpTJG+XZbimqM4Xu01tss/xBjdlQCDCV
- CMJ7PKD8IEHrYH5IadMFHK3DX2r2Ol6Dg1kzy0RH9aJd3cVQnlv/LU2zTGDHMMANPB
- p9UKMYzzPJX/c+jBw2Eid13dFDCBxO5aujsdgmd1q/yvdMQjI/0DUBVTn7nKrYGzMb
- gLvdFec2XjRSapClfPsN/HAEAOi4yy5tPoTCBMSbGBlyG4zmEoC5wQsuIchnGS25DA
- jdjIy5sM/AUakn7d1uj5WQN36CK2nvu4uLisLQpHfyL7CLPM8eXWwD9MOGDk0s5yOj
- vux2xjJKxTFY5Hcxwet2DJIb/gZUFSkJC/N6aDzYaa46xTijFn37diwx40t5wHuE/x
- oM8cxtyS28ngC9SpMfLKiRUc=
-To: ltp@lists.linux.it
-Date: Fri,  9 Jan 2026 00:21:52 +0800
-Message-ID: <20260108162152.104192-1-po-hsu.lin@canonical.com>
-X-Mailer: git-send-email 2.43.0
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 92FFD6008D9
+ for <ltp@lists.linux.it>; Thu,  8 Jan 2026 18:08:09 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6C4B733686;
+ Thu,  8 Jan 2026 17:08:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1767892088;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FgLzqD/Rm5S4DDHvxhSNlj5YpzeaL0pxg3ZZy9jiZ4g=;
+ b=mYBxJWNb1aKi7wy611dIuHkPcgu6Jc9CVOSv4WKmQIt3zw8XR7iFb6uVqR6r+tjOR0s8n1
+ Ejm1lxrzxnbpWpt9Q9ta7Z2PvjxxpW5FGyHjRSsxxwGSxmJyY4Vlqejaw+IH1+X2Nimi34
+ FOZxe8uFPsCRsqvZK4GpM/ocXLd6WOU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1767892088;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FgLzqD/Rm5S4DDHvxhSNlj5YpzeaL0pxg3ZZy9jiZ4g=;
+ b=UcyOI7mFjCHGXrP7yaE5Yy+TS/5zgVccIbz2Gadwt9fX4XwpyZv2em8WovAx8JPs66Qkyb
+ PmafyfqqoagHmOAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1767892088;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FgLzqD/Rm5S4DDHvxhSNlj5YpzeaL0pxg3ZZy9jiZ4g=;
+ b=mYBxJWNb1aKi7wy611dIuHkPcgu6Jc9CVOSv4WKmQIt3zw8XR7iFb6uVqR6r+tjOR0s8n1
+ Ejm1lxrzxnbpWpt9Q9ta7Z2PvjxxpW5FGyHjRSsxxwGSxmJyY4Vlqejaw+IH1+X2Nimi34
+ FOZxe8uFPsCRsqvZK4GpM/ocXLd6WOU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1767892088;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FgLzqD/Rm5S4DDHvxhSNlj5YpzeaL0pxg3ZZy9jiZ4g=;
+ b=UcyOI7mFjCHGXrP7yaE5Yy+TS/5zgVccIbz2Gadwt9fX4XwpyZv2em8WovAx8JPs66Qkyb
+ PmafyfqqoagHmOAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3ACAA3EA63;
+ Thu,  8 Jan 2026 17:08:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id R+tmDHjkX2nPYwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 08 Jan 2026 17:08:08 +0000
+Date: Thu, 8 Jan 2026 18:08:05 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Avinesh Kumar <avinesh.kumar@suse.com>
+Message-ID: <20260108170805.GA29827@pevik>
+References: <20260108130002.256854-1-avinesh.kumar@suse.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20260108130002.256854-1-avinesh.kumar@suse.com>
+X-Spam-Score: -7.50
+X-Spamd-Result: default: False [-7.50 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; SINGLE_SHORT_PART(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MISSING_XM_UA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,imap1.dmz-prg2.suse.org:helo]; 
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ REPLYTO_EQ_FROM(0.00)[]
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCHv4] listmount04.c: update struct mnt_id_req support to
- kernel >= 6.17.9
+Subject: Re: [LTP] [PATCH] uaccess.c: Skip on Lockdown/Secure Boot
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,94 +115,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Po-Hsu Lin via ltp <ltp@lists.linux.it>
-Reply-To: Po-Hsu Lin <po-hsu.lin@canonical.com>
-Cc: po-hsu.lin@canonical.com
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The kernel change 78f0e33cd6c93 ("fs/namespace: correctly handle errors
-returned by grab_requested_mnt_ns") from 6.18 has been ported to upstream
-6.17.9 [1][2].
+Hi Avinesh,
 
-Therefore change the expectation from >= 6.18 to >= 6.17 accodingly.
+thanks, merged!
 
-[1] https://lwn.net/Articles/1047684/
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=v6.17.9&id=8ff97ade
-
-v2: add comments for this change into the code.
-v3: correct the RST syntax and move comment as suggested by Petr Vorel.
-v4: correct the patch title.
-
-Signed-off-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
----
- .../kernel/syscalls/listmount/listmount04.c   | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/listmount/listmount04.c b/testcases/kernel/syscalls/listmount/listmount04.c
-index 2b8b49101..919f4c854 100644
---- a/testcases/kernel/syscalls/listmount/listmount04.c
-+++ b/testcases/kernel/syscalls/listmount/listmount04.c
-@@ -7,6 +7,7 @@
-  * Verify that listmount() raises the correct errors according with
-  * invalid data:
-  *
-+ * - EBADF: invalid mnt_ns_fd
-  * - EFAULT: req or mnt_id are unaccessible memories
-  * - EINVAL: invalid flags or mnt_id request
-  * - ENOENT: non-existent mount point
-@@ -20,8 +21,12 @@
- #include "lapi/syscalls.h"
- 
- #define MNT_SIZE 32
--#define BEFORE_6_18 1
--#define AFTER_6_18 2
-+/*
-+ * For commit 78f0e33cd6c9 ("fs/namespace: correctly handle errors returned
-+ * by grab_requested_mnt_ns") from v6.18-rc7 backported to v6.17.9.
-+ */
-+#define BEFORE_6_17_9 1
-+#define AFTER_6_17_9 2
- 
- static mnt_id_req *request;
- static uint64_t mnt_ids[MNT_SIZE];
-@@ -84,7 +89,7 @@ static struct tcase {
- 		.nr_mnt_ids = MNT_SIZE,
- 		.exp_errno = EINVAL,
- 		.msg = "invalid mnt_id_req.spare",
--		.kver = BEFORE_6_18,
-+		.kver = BEFORE_6_17_9,
- 	},
- 	{
- 		.req_usage = 1,
-@@ -95,7 +100,7 @@ static struct tcase {
- 		.nr_mnt_ids = MNT_SIZE,
- 		.exp_errno = EBADF,
- 		.msg = "invalid mnt_id_req.mnt_ns_fd",
--		.kver = AFTER_6_18,
-+		.kver = AFTER_6_17_9,
- 	},
- 	{
- 		.req_usage = 1,
-@@ -154,10 +159,10 @@ static void run(unsigned int n)
- 
- static void setup(void)
- {
--	if (tst_kvercmp(6, 18, 0) >= 0)
--		kver = AFTER_6_18;
-+	if (tst_kvercmp(6, 17, 9) >= 0)
-+		kver = AFTER_6_17_9;
- 	else
--		kver = BEFORE_6_18;
-+		kver = BEFORE_6_17_9;
- }
- 
- static struct tst_test test = {
--- 
-2.43.0
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
