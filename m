@@ -1,72 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 966C0D0C064
-	for <lists+linux-ltp@lfdr.de>; Fri, 09 Jan 2026 20:15:16 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DFC3D0C07D
+	for <lists+linux-ltp@lfdr.de>; Fri, 09 Jan 2026 20:17:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1226A3C6F9D
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Jan 2026 20:15:06 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 52F543C6F9D
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Jan 2026 20:17:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 996023C682F
- for <ltp@lists.linux.it>; Fri,  9 Jan 2026 20:15:03 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id CBE813C682F
+ for <ltp@lists.linux.it>; Fri,  9 Jan 2026 20:17:10 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0BE2160084B
- for <ltp@lists.linux.it>; Fri,  9 Jan 2026 20:15:02 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8DB266008FD
+ for <ltp@lists.linux.it>; Fri,  9 Jan 2026 20:17:10 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D232333BB2;
- Fri,  9 Jan 2026 19:15:01 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 19CC25C013;
+ Fri,  9 Jan 2026 19:17:10 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B13823EA63;
- Fri,  9 Jan 2026 19:15:01 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E71343EA63;
+ Fri,  9 Jan 2026 19:17:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 0G+nKbVTYWlORAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 09 Jan 2026 19:15:01 +0000
-Date: Fri, 9 Jan 2026 20:15:00 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id b8f/NjVUYWlJRgAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 09 Jan 2026 19:17:09 +0000
+Date: Fri, 9 Jan 2026 20:17:04 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Wei Gao <wegao@suse.com>
-Message-ID: <20260109191500.GA129283@pevik>
+Message-ID: <20260109191704.GB129283@pevik>
 References: <20251223020836.9439-1-wegao@suse.com>
  <20260109061716.20258-1-wegao@suse.com>
- <20260109061716.20258-2-wegao@suse.com>
+ <20260109061716.20258-3-wegao@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260109061716.20258-2-wegao@suse.com>
+In-Reply-To: <20260109061716.20258-3-wegao@suse.com>
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Spam-Score: -4.00
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: D232333BB2
+X-Rspamd-Queue-Id: 19CC25C013
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=DMARC_MISSING,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v7 1/4] lib: Add support option for .needs_cmds
+Subject: Re: [LTP] [PATCH v7 2/4] tst_test.c: Add tst_cmd_present check if a
+ command is present
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,19 +87,39 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Wei,
 
-I'm sorry, I merged old patch which unfortunately touched the files you
-modified. Therefore CI fails.  OTOH the basic rule is always rebase to the
-current master before sending a patch. Please remember this for next time.
+...
+> +++ b/lib/tst_test.c
+> @@ -1375,6 +1375,24 @@ static const char *default_fs_type(void)
+>  	return tst_dev_fs_type();
+>  }
 
-For now, my fork has your branch rebased: wei/needs_cmds.v7.rebased
-https://github.com/pevik/ltp/tree/wei/needs_cmds.v7.rebased
-
-Thanks for removing present attribute.
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> +bool tst_cmd_present(const char *cmd)
+> +{
+> +	struct tst_cmd *pcmd = tst_test->needs_cmds;
+> +
+> +	if (!cmd || cmd[0] == '\0')
+> +		tst_brk(TBROK, "Invalid cmd");
+I'd still prefer tst_brk_() as I described at v6, but that can be done as a
+separate change. I keep my RBT :).
 
 Kind regards,
 Petr
+
+> +
+> +	while (pcmd->cmd) {
+> +		if (!strcmp(pcmd->cmd, cmd))
+> +			return pcmd->present;
+> +
+> +		pcmd++;
+> +	}
+> +
+> +	tst_brk(TBROK, "'%s' not checked", cmd);
+> +	return false;
+> +}
+> +
+>  static void do_setup(int argc, char *argv[])
+>  {
+>  	char *tdebug_env = getenv("LTP_ENABLE_DEBUG");
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
