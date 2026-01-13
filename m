@@ -1,100 +1,86 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE3ABD1F82C
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jan 2026 15:38:19 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4998FD20459
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jan 2026 17:44:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1768401499; h=mime-version :
- date : message-id : to : references : in-reply-to : subject : list-id
- : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=nKrV8dKoaPa89XW/HwTyzIEvaQtgLz2lcSd+2fzwqE4=;
- b=EY3vcb6Zq8W1NUtsdsSFon4bU0FFQGhgSDVCAbpjI26p2L/GVl8cdD4yWKX3xjScQ0Yco
- sBpzmUSfK9ihxE4uYPdSg8DJYDrjtM/oFiH967b5dTv0XyBXIUDtAz1GIo5GyK5pR+MqT0J
- i9bOIeJpDNWKqXp2frQ2efQCpWRjtTA=
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1768409053; h=date :
+ mime-version : message-id : to : subject : list-id : list-unsubscribe
+ : list-archive : list-post : list-help : list-subscribe : from :
+ reply-to : cc : content-type : content-transfer-encoding : sender :
+ from; bh=JpaZ4fuTwHsijOiKqfZl0zPR4mM8Ml2zwGkvqRcAMAE=;
+ b=fwU7IJqRRs7EAwb6vMG8Dm4FO9EVZ0k16Qm9d3jT74nbMKt0bI05NW8xE6WVNEXZRHKWD
+ 2BaBXTn6K3KakOreDmDYz4/5pbYuPlbN7KsNCdUzIxVbipxvgxoLcFfV415fTevP8Lo78N/
+ In9O+LHC5Y95sE00GAEIlCgNurAJn6g=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9FE913C9D26
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jan 2026 15:38:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0EB713C9EE1
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jan 2026 17:44:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BD1353C60CB
- for <ltp@lists.linux.it>; Wed, 14 Jan 2026 15:38:07 +0100 (CET)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 662423C29FC
+ for <ltp@lists.linux.it>; Tue, 13 Jan 2026 04:23:02 +0100 (CET)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 483066008C8
- for <ltp@lists.linux.it>; Wed, 14 Jan 2026 15:38:07 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-47bdbc90dcaso59675065e9.1
- for <ltp@lists.linux.it>; Wed, 14 Jan 2026 06:38:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1768401487; x=1769006287; darn=lists.linux.it;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xXuxpCB+C200gDac6NFfMYpeaCyypHjDHET7hpKl7Hg=;
- b=T/77y9TkW6uNV48lDk4QDE7KSImI8uHFrrEaWeZg+AqJvF0yOM1wImGQ5QBjALUMLu
- c5+9eWrL0vamCLQWnyIxWrxJWZSXx89E3aSo1qdUxngvEUdBpzjtQr9ghW8MvsHkxGth
- Og9MVBOq6xXSSwplh7EmXCgyt7z+ehSER2hK3uQ8NP9Dij4RjJtziz3iOwMsT49MYkA7
- Y/bljwUX+dVyPx8qOpjq1Ig/J3jtVkFbG5TG/x9dAxz642/RUbiwV7q5RPBoq0iisqYC
- 9GYqwvV921EBrq8q4ONQFLUGR/UcqIuc14MIyUrIPDVzsfLEM/hD9BDDpSzLiAQHf2sq
- jrDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768401487; x=1769006287;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=xXuxpCB+C200gDac6NFfMYpeaCyypHjDHET7hpKl7Hg=;
- b=BGjdFRyL39bK2efovtkvW5Ah0z+xNFlwcC78McffjVDTHnHWpIKHJmUK9WdKEVB7Wb
- ZC+TTxKN4tJzuGxP7SNGdgduTIngBHvUmWFs46VuDSnVdzeUitPH9PxmQyUlQ1rJZrl8
- cHb78mt74ZGuVqvrav6CcFcSieSlpF88t6q0bVXAZvjGZ4SIjGK4jKIHhEiAHQb1rmUJ
- n+KTiIWEVEOihKUrHGKwOiYzK5cpB70pFn+XtUTjpE4qxOevEBwUxqI1SODKl8EtmSa4
- PfAVXQ1F0movWZowoTNRE6TjhuHl/NCa1k911ZRYoid4rkTqLw7Cd5gzA1LwJwfdsN70
- mYXw==
-X-Gm-Message-State: AOJu0Yw/eZO7BYIzRQEKdkq73fsfDk4a2+CxEWV4XFj+RvBam8UwVGuk
- TDmPfK+gY776NdWFS+ZoQcUmo94iwdKAdovJ4CtFqvKkV4xWkxunp8oj6Mb7ETNp2i8=
-X-Gm-Gg: AY/fxX7RBQZtTp/erhWF72ttL7ZQK778btecaWJnOWBVgFH/YyMLl0yhn3IS3ZKIx1H
- qHV/m9cqSCikuDnOCoI/G+iV+tT+Aw2dEGlDjf5NNr7ExRkiQO1WBqg/2IDTbUaYLcbwA3BFSg5
- xHsubJ1YiCCraOPf12L7o0UztxvEH04rXyNsbiZzd+/77ODHw94WU/A5DSb6onFMlSp+GjoXL/Y
- WISyQvuF8Ht5HsT4CWQnTTjpWbHsf/CPq9HPS6jcw4izBbibEDAhrrszDhGrx0TWCZOdCdWLkCv
- zvwdRXcGRiNuiYts6peLnYaxEsUfq/6EA/O3XLWSdko5u7qqImD73x5KkzqYrBwOIgi+zVmSGIE
- mQWYfhK8HsjUjlRlMEVrRLB2tY/GnnCzs8g/ajpk4oWItccZbzzw6kffthnXwDumXH4sBP5Yoxt
- XY8JgXoz1bbmgRYp8+nn6xHrnIEd1TjpdkW0m09EY2NDmPndPExBK7q80dMsW4YzNQkmplYQsO4
- VKe
-X-Received: by 2002:a05:600d:17:b0:47e:e8de:7420 with SMTP id
- 5b1f17b1804b1-47ee8de7443mr9820425e9.22.1768401486562; 
- Wed, 14 Jan 2026 06:38:06 -0800 (PST)
-Received: from localhost
- (p200300ff0f0b7b017e458f16f8082810.dip0.t-ipconnect.de.
- [2003:ff:f0b:7b01:7e45:8f16:f808:2810])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47ee2a5e48asm20271865e9.20.2026.01.14.06.38.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 06:38:06 -0800 (PST)
-Mime-Version: 1.0
-Date: Wed, 14 Jan 2026 15:38:05 +0100
-Message-Id: <DFOE0BC22OI4.1TO4CKB63W9M0@suse.com>
-To: "Al Viro" <viro@zeniv.linux.org.uk>
-X-Mailer: aerc 0.18.2
-References: <20260113194936.GQ3634291@ZenIV>
- <DFO6AXBPYYE4.2BD108FK6ACXE@suse.com> <20260114143021.GU3634291@ZenIV>
-In-Reply-To: <20260114143021.GU3634291@ZenIV>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 51BEE1A00269
+ for <ltp@lists.linux.it>; Tue, 13 Jan 2026 04:23:00 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id AFBB66000A;
+ Tue, 13 Jan 2026 03:22:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6324CC116D0;
+ Tue, 13 Jan 2026 03:22:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1768274578;
+ bh=qBpGhliMx0mgkoSIcLVrnkmna3UupRTRq4CYtRgHij4=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=uZmzN8am7TsNtjl1J8Tbisho/1vcJZo0S6VCCtTl6DjCIPsn2NZOYTQBUxc2JHgWg
+ t990mLwwkR8k5nzcBM+oUW7sFOBiRvQiAYtu1k6qZ6yFTylSm1vH3gkYjjD2Oct6Nj
+ WlVr4+e1oo6P2ORGSxAFUkQr49oMOIa70Ij4eHt0JD2dagek0Ue+XKD4BsG33ozVkQ
+ LeE96XU+ezVv+9k9w52uaDx56Ca3SwiQY1evybkPFfx5Xzo9ubhxY0K1Y15JXSdjoW
+ qGEN61Nwx15Tz30zmDOT8S5oHiEB/awMLRwOaxI269xqNG7z9ofidele9DK0+IYoLX
+ YLNUCNTHwZ1qw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 4D96ED29DC7;
+ Tue, 13 Jan 2026 03:22:58 +0000 (UTC)
+Date: Tue, 13 Jan 2026 11:22:52 +0800
+MIME-Version: 1.0
+Message-Id: <20260113-checkpatch-v2-1-5dfe8b9f4d90@uniontech.com>
+X-B4-Tracking: v=1; b=H4sIAIu6ZWkC/3WOPQ+CMBiE/4rpbE0/sKVODrI66GgYSvvWNkYgg
+ ERD+O8WRpHx7vLc3YBaaAK06LAZUAN9aENVRsG2G2S8Lu+Ag40aMcL2RFGFjQfzqHVnPCZMCpl
+ KKFwBKAJ1Ay6857IbumTX7HxCefR9aLuq+cwbPZ3Tf3U9xRTbNFVKcsWZ08dXGd90YPzOVM9pY
+ cIoIUus0I6AoEmhxCrG+AJzTnKwMZJWrGCUkuVJqUHZRGguf7F8HMcvDt71blUBAAA=
+X-Change-ID: 20250919-checkpatch-0276787ebfbe
+To: Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, 
+ Dwaipayan Ray <dwaipayanray1@gmail.com>, 
+ Lukas Bulwahn <lukas.bulwahn@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1768274577; l=1809;
+ i=cryolitia@uniontech.com; s=20250730; h=from:subject:message-id;
+ bh=VE6TM5bOD2xrus3PUyCCcDFeowc5jbcfaHJXtjNJP6E=;
+ b=H/KmEQriZzSu52B7ZrKMnqG2miNglsyHC9jPS9DFPtDDyHeRknjMSTjUw8oeg5JAuFoPIVG8m
+ kMABb8g9rLOCjvhDqFxcPKtvNRnyqmmB3yJsoNFtH9tMhlOJovsCtNo
+X-Developer-Key: i=cryolitia@uniontech.com; a=ed25519;
+ pk=tZ+U+kQkT45GRGewbMSB4VPmvpD+KkHC/Wv3rMOn/PU=
+X-Endpoint-Received: by B4 Relay for cryolitia@uniontech.com/20250730 with
+ auth_id=474
+X-Original-From: Cryolitia PukNgae <cryolitia@uniontech.com>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] lack of ENAMETOOLONG testcases for pathnames
- longer than PATH_MAX
+X-Mailman-Approved-At: Wed, 14 Jan 2026 17:43:59 +0100
+Subject: [LTP] [PATCH RESEND v2] checkpatch: Suppress warnings when
+ Reported-by: is followed by Link:
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,40 +92,62 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Cc: linux-fsdevel@vger.kernel.org, ltp@lists.linux.it
+From: Cryolitia PukNgae via B4 Relay via ltp <ltp@lists.linux.it>
+Reply-To: cryolitia@uniontech.com
+Cc: Cryolitia PukNgae via B4 Relay
+ <devnull+cryolitia.uniontech.com@kernel.org>, linux-doc@vger.kernel.org,
+ Cryolitia PukNgae <cryolitia@uniontech.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, workflows@vger.kernel.org, niecheng1@uniontech.com,
+ ltp@lists.linux.it, zhanjun@uniontech.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
->
-> Er...  Intent was to verify two things: that anything longer than PATH_MAX triggers
-> ENAMETOOLONG, but anything up to PATH_MAX does not.  Having a pathname of exactly
-> 4095 '/' (or interleaved . and / in the same amount, etc.) be rejected with ENAMETOOLONG
-> is just as much of a failure as not triggering ENAMETOOLONG on anything longer...
+From: Cryolitia PukNgae <cryolitia@uniontech.com>
 
-In this case we need a new test verifying that PATH_MAX is actually
-handled well, as Cyril suggested. But in this test we should only
-verifying errors.
+> The tag should be followed by a Closes: tag pointing to the report,
+> unless the report is not available on the web. The Link: tag can be
+> used instead of Closes: if the patch fixes a part of the issue(s)
+> being reported.
 
->
-> FWIW, I considered something like
-> 	mkdir("subdirectory", 0700);
-> concatenating enough copies of "subdirectory/../" to get just under PATH_MAX and appending
-> "././././././././" to the end, so that truncation to PATH_MAX and to PATH_MAX-1 would
-> both be otherwise valid paths; decided that it's better to keep it simpler - a pile of
-> slashes is easier to produce and would resolve to a valid directory if not for the
-> total length restrictions.
+Accroding to Documentation/process/submitting-patches.rst , Link: is
+also acceptable to followed a Reported-by:
 
-It's up to you how you create the string that will trigger the error.
-Also, you probably need to take a look at tst_test.needs_tmpdir.
+Signed-off-by: Cryolitia PukNgae <cryolitia@uniontech.com>
+---
+Link to previous: https://lore.kernel.org/r/20251023-checkpatch-v1-1-ff73ed1027d6@uniontech.com
+---
+ scripts/checkpatch.pl | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index c0250244cf7a..dac9d98133c6 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -3209,10 +3209,10 @@ sub process {
+ 			if ($sign_off =~ /^reported(?:|-and-tested)-by:$/i) {
+ 				if (!defined $lines[$linenr]) {
+ 					WARN("BAD_REPORTED_BY_LINK",
+-					     "Reported-by: should be immediately followed by Closes: with a URL to the report\n" . $herecurr . "\n");
+-				} elsif ($rawlines[$linenr] !~ /^closes:\s*/i) {
++					     "Reported-by: should be immediately followed by Closes: or Link: with a URL to the report\n" . $herecurr . "\n");
++				} elsif ($rawlines[$linenr] !~ /^(closes|link):\s*/i) {
+ 					WARN("BAD_REPORTED_BY_LINK",
+-					     "Reported-by: should be immediately followed by Closes: with a URL to the report\n" . $herecurr . $rawlines[$linenr] . "\n");
++					     "Reported-by: should be immediately followed by Closes: or Link: with a URL to the report\n" . $herecurr . $rawlines[$linenr] . "\n");
+ 				}
+ 			}
+ 		}
+
+---
+base-commit: 9448598b22c50c8a5bb77a9103e2d49f134c9578
+change-id: 20250919-checkpatch-0276787ebfbe
+
+Best regards,
 -- 
-Andrea Cervesato
-SUSE QE Automation Engineer Linux
-andrea.cervesato@suse.com
+Cryolitia PukNgae <cryolitia@uniontech.com>
+
 
 
 -- 
