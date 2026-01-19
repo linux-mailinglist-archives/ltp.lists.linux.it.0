@@ -1,100 +1,101 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5AFBD3AA27
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jan 2026 14:20:32 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 05CFBD3AB13
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jan 2026 15:03:19 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1768828832; h=mime-version :
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1768831398; h=mime-version :
  date : message-id : to : references : in-reply-to : subject : list-id
  : list-unsubscribe : list-archive : list-post : list-help :
  list-subscribe : from : reply-to : cc : content-type :
  content-transfer-encoding : sender : from;
- bh=kY1U0rehu0PTdf/3R/0fcvqTjADaUmyvqGO3ldm7+bg=;
- b=rugo9gFAk/JFRYALd4ohWsSBxtJ8jdbZDgRlY2Hj3unFBy0iVr9afQs6v6AWm9EN+FV4+
- vAE0EeRCVIoOgO/IE31wvChcLgCZam1Zeip0HqIZlJOZgBB4s8mBBu0roRU91DfvM8H4XVr
- b0jKoEwS/I2jotTRORYblCrhAL7MiYw=
+ bh=0o8Bk+Tf7ITbJqEaaiWwZY6xrAbZPI/X66HGW3j5KyM=;
+ b=Mo7SVsVeI4/G+PQg06SIObTx5uWVYhTLK++8XxO+10fECLs2ughW1th2zFEVRGasiY9KG
+ ApppI/9y2Hvs/+QLYiM3Y4mo+1X2+EbpdWYUY8/Cff78RpFKiz9NUHHAdbcGQu5I76ASh50
+ uJdhTaspICEgJRDcegDXwhFLntGS7qs=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 800243C9424
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jan 2026 14:20:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 96E393C9948
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jan 2026 15:03:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8C3453C61A8
- for <ltp@lists.linux.it>; Mon, 19 Jan 2026 14:20:29 +0100 (CET)
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
+ by picard.linux.it (Postfix) with ESMTPS id C3C753C7C2C
+ for <ltp@lists.linux.it>; Mon, 19 Jan 2026 15:03:14 +0100 (CET)
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9EAF3140006A
- for <ltp@lists.linux.it>; Mon, 19 Jan 2026 14:20:28 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-432d256c2e6so3687466f8f.3
- for <ltp@lists.linux.it>; Mon, 19 Jan 2026 05:20:28 -0800 (PST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 096021A006F3
+ for <ltp@lists.linux.it>; Mon, 19 Jan 2026 15:03:13 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-47f5c2283b6so28031745e9.1
+ for <ltp@lists.linux.it>; Mon, 19 Jan 2026 06:03:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1768828828; x=1769433628; darn=lists.linux.it;
+ d=suse.com; s=google; t=1768831393; x=1769436193; darn=lists.linux.it;
  h=in-reply-to:references:to:from:subject:cc:message-id:date
  :content-transfer-encoding:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=M8ZJB9RoWmTssadqw4zwjJDkx0MheJ2sfBgvPUoobWE=;
- b=N0TA2bGtBon5ggbANTo3SH5nNIJ7bsRHwnB/fOslb0U+V55STrlxyuETiVQyqgT+U7
- pH8E8mHdepKIo4YWIjiJcP4OY5cxdRER5Hz7cleBYFdMPABnsyvdVzZieQiTAX4FooUp
- QXjnhhfVasj6yPb8fHsJ0dzbBhjkexuto0pzESxZadUSlWfOev0k1IE5lRAx+Iv/GVm7
- 0NKc/p+wbBCdRPZuGz3ZAQdKH3Hlf9GwGGh2wof5Nx3y1pbfuymatHLYmI7Xy20Oebnh
- IWMOj/hp+E0m0fNDrWV9j43OVY5PLVp5Vzp/5NvmNkJOyw5rrard/xapSV2GUGtsaqdS
- pQZg==
+ bh=xSR0vcQ5fBbfjuYMjXE6l3V8m/Oj/egoG5dIlA9gmz0=;
+ b=P8eZKYvc61ItlzjZ/LtUuxOfF4qcwFH60y5EUC4+2HJsUivIQZ7fHGB2qg2Tq/ZFl3
+ 3Ei9TBxUvQHovtZIIGgE0qltBMZkAsrhtZpY4xXAE9cif6VKUeyW7DckXT2fJcWhXbIq
+ BBMdlNBomXw4cearo4iKidq6spNwlwDSugNLoJ3Zo9LVMd6wLkPIlNVv24CrFRBjdW+f
+ 4Cw3wiR6MNCTpirlOFWhdb86I6fqNggKKruoKjhQceVyMTTXkhU9309jH8fmO83ESq/j
+ fW3Dou25sLDxFpbE+f3ag4LFd/3yVa1L05xkWTpTWr75+wFOlEMgDT2Zs5IP6RarAeFD
+ FC2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768828828; x=1769433628;
+ d=1e100.net; s=20230601; t=1768831393; x=1769436193;
  h=in-reply-to:references:to:from:subject:cc:message-id:date
  :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=M8ZJB9RoWmTssadqw4zwjJDkx0MheJ2sfBgvPUoobWE=;
- b=J8S4P1FoLVcF5+/Xw562HvZRZEXeQhZ8n4CcsmjjnW7VVS16AvewdsDLGkb1tVkjON
- dxge2QjVmO4gcQ1TX7MIaaoMgnVrqafa0r2oVtqzwUUDhKPxLXxRK8h4SoQu/8547f8L
- Un2SG2Y0bvAFxuu/TRI39TtFkNGEECXiLVucsUFijwZAN8lTPvRyegdt9JsHbdhUWlKK
- 9ht5ow83UiEECg9eO9GqcW6t3QmoKPD8hFTHcss4hZ3mVqzfmq5Sz5WZAO+68MCLBWEa
- IMRXDeiP/PpLSMFnba9rtO8U3a0EezQDDz7fnZpCHz+CA4/uDNuScWaIpYwOP+7Chfve
- YyHQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX/JayPvARCCIhM8sM4mhGglVaRp4twFDKegvteAhwitRlt+yFBrONfJVjKCknEfDgZt2Y=@lists.linux.it
-X-Gm-Message-State: AOJu0YwR0ZMr7lUtobiy0Y7uDpjyJYTYMHYM5l+Om7zyOOvHwoICzSpt
- 0FVpe4Vnwdl+aw9iIF4m1L2nfub3sptwEHdbVtGq/UbHWzgQPKdGCmK8R/LmDrpzfMI=
-X-Gm-Gg: AZuq6aIy3Rsk037GoI7oSnnYqjjXfaVH6k2SuS8UkTReaSfHEMOGKXtIP70XFfMHuD4
- NBFXgaH6yks6tzca7S7WP2LkCrsS1nrtvespit7gw3rHn3aRnYjGH2nZDbnZmVV80LCbKNuTcwe
- HxXc6H3v0XvsflivHphFjLF3qGsMBuyd9w12VHdMHswnMBWACDA7EBdijNbKglTX+9bPY2cHtEx
- McpnhMY4X9JhnQV/SCQ6+e8n7aOcHsekK/sPMlvCnLcd7XgtBftWPfY5cdwSLorPm+7bfam6th0
- +Myyh0mMAKSirH9QUCAcd6q5UbdPr9PfdLn+uguTftbpKDItlZcNFz67IJLY1PBPqcDy7sOjnLy
- XWvW0xXY7jr4DtvTMARlDj9/44Gfvi9xTkHrWiUFcytd/do2K44mIGHVFBUv1NoJhI2b+jWitWR
- Xg7xvkYC1yio7imUEeu//GxWBeY0TavWBKzUt8MDWUvRyN/cQ+edvHFfM5JRu3INj6h3e7/8Zhg
- sJD
-X-Received: by 2002:a5d:64e9:0:b0:432:5bf9:cf22 with SMTP id
- ffacd0b85a97d-435699709f8mr15581580f8f.3.1768828827921; 
- Mon, 19 Jan 2026 05:20:27 -0800 (PST)
+ bh=xSR0vcQ5fBbfjuYMjXE6l3V8m/Oj/egoG5dIlA9gmz0=;
+ b=k0rPC0QEUMjiTWmuNMgLlEUIAbIObL5U+VQpYV8RZc0j90wXINGwFfyW8dZGflIMlx
+ mdvPebaQ4TvLpKdNq18YQxID2FLfFSEbU4Zl6prb3X8s2nfhMEa4156WKE25h8peT9za
+ FTG3nU6nRogfidg1YIjmo1w5E8JcHI9jLWjY/OJQsPwM7KvVFz3SLxL0ahVNc1S1a2TQ
+ YzV5cbXZKR+OqPBF6IAFQkU+M5Ic0P/qlxJDoegN8/TQiA7cnJsCYMLIW9qqx6NiBVV5
+ UX38BUZIU29N+nxBWDVQ+/j6XoBDjHQpKKv797i3RzHIViOOujn6Dq3hEjA14y69CCSk
+ gwtg==
+X-Gm-Message-State: AOJu0Yzl9hLAwmAxWkGROVukOGax30wKx1DNTSuycscx5XSX+fSBsJjE
+ xstxDQy99GFbU0ACwtJiauNLeQLq3mTUxC7R69Sm+DU1Fl8hr7zW3A/NPI3xeHSepbM=
+X-Gm-Gg: AY/fxX6wANhY9Uhzw3R2BDluhzcuuRuiOpMwQioZ1awWvG35+O62LMkS4KszPC67B8s
+ BToS9LYBwc/z9vTUz2YBn2rnfg+U/1QnS2YEQqpDGqvvc8gbXhz0sQW3BrVAqlzhEsGvtA0k+M8
+ dT4X0NGfwiK1ZWK+sNCZ5NVimz9bP1CXQ9zkIDempDbxXUbgP8MUAuWbe7BPTA+QpYJK7RkcLPG
+ gZi/sbH+wyXzb3JOlM8t4Lu5OiIgofx8sSTr26WovEmZCPDhuxJSVgboaNDCSvTCwR5txb3sVPQ
+ U36Fb9qkzivxhE7OIbNqF7q6NFAwnawKDS3jXO/TWUrNSpUlV00feaCX0AHDITXIQfq26ZEvd2Y
+ u3WA12g1SXMdjDNtV1x5p4QGdyBYndVyTyR75Ro4Q5n3og3Usb4F7pRMMq0JVMscAPBgKmkwT3L
+ YgEpshl/0EfQyO4JbS3DSjBwG3FEg+uWULxR4NnqaDfaVnM9WyNAeRKVNhRnMHL+tm0mPLKoeUY
+ /R2
+X-Received: by 2002:a05:600c:1990:b0:47e:e712:aa88 with SMTP id
+ 5b1f17b1804b1-4801e34cd36mr147584065e9.31.1768831393210; 
+ Mon, 19 Jan 2026 06:03:13 -0800 (PST)
 Received: from localhost
  (p200300ff0f0b7b017e458f16f8082810.dip0.t-ipconnect.de.
  [2003:ff:f0b:7b01:7e45:8f16:f808:2810])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4356996cf33sm23887120f8f.25.2026.01.19.05.20.26
+ 5b1f17b1804b1-4801e879542sm202341255e9.4.2026.01.19.06.03.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Jan 2026 05:20:27 -0800 (PST)
+ Mon, 19 Jan 2026 06:03:12 -0800 (PST)
 Mime-Version: 1.0
-Date: Mon, 19 Jan 2026 14:20:26 +0100
-Message-Id: <DFSLHKV3EDAP.3TBQI2S9THZ64@suse.com>
-To: "Piotr Kubaj" <piotr.kubaj@intel.com>, <ltp@lists.linux.it>
+Date: Mon, 19 Jan 2026 15:03:12 +0100
+Message-Id: <DFSMEBM9PYDT.3TJXEU3C8W31R@suse.com>
+To: "Cyril Hrubis" <chrubis@suse.cz>, "Andrea Cervesato"
+ <andrea.cervesato@suse.de>
 X-Mailer: aerc 0.18.2
-References: <20260119085129.165080-1-piotr.kubaj@intel.com>
-In-Reply-To: <20260119085129.165080-1-piotr.kubaj@intel.com>
+References: <20251014-file_attr_eopnotsupp-v2-1-c9827c8d8127@suse.com>
+ <aW4mDAH6pVh_VyC2@yuki.lan>
+In-Reply-To: <aW4mDAH6pVh_VyC2@yuki.lan>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] thermal: add new test group
+Subject: Re: [LTP] [PATCH v2] syscalls: add file_attr05 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,8 +109,7 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 From: Andrea Cervesato via ltp <ltp@lists.linux.it>
 Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Cc: tomasz.ossowski@intel.com, helena.anna.dubel@intel.com,
- rafael.j.wysocki@intel.com, daniel.niestepski@intel.com
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -117,50 +117,26 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
 
-There are a few issues with this code. We need to clean it up
-before proceeding with the proper review. In LTP we have a strict policy
-when it comes to writing new tests and that can be read in the following
-links:
+On Mon Jan 19, 2026 at 1:39 PM CET, Cyril Hrubis wrote:
+> Hi!
+> > +	.filesystems = (struct tst_fs []) {
+> > +		{.type = "vfat"},
+>
+> I wonder if we can add more filesystems here, just to make sure that we
+> run the test even when vfat is not compiled in the kernel. Does ext2
+> implement the file_set/getattr calls?
+>
+> > +		{}
+> > +	},
+>
+> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
-https://linux-test-project.readthedocs.io/en/latest/developers/ground_rules.html
-https://linux-test-project.readthedocs.io/en/latest/developers/writing_tests.html
-https://linux-test-project.readthedocs.io/en/latest/developers/test_case_tutorial.html
-
-Documentation is away from being perfect, but it needs to be read before
-proceeding, since some technical aspects are covered only in there and
-inside some of our reviews, especially the ones from maintainers with
-the highest expertise (@Cyril, @Petr and @Li in particular).
-
-A few points below:
-
-* run `make check` locally inside the test folder and verify errors
-  inside the test code
-
-* run github CI by pushing your commits inside a forked LTP project.
-  The patch is not passing in any of our tested platforms (I'm sorry if
-  CI report is not working in patchwork yet, but that has been fixed
-  today)
-
-* please verify that all you need has not been implemented inside the
-  LTP library already. For instance, we already have `tst_ncpus()` and
-  _SC_NPROCESSORS_ONLN is not needed
-
-* please avoid as much as possible unsafe memory operations over strings.
-  we dont really want to use strcpy(), strcat(), etc. In most of the
-  cases, snprint() and asprintf() are the right choice
-
-* why using regexp for something as easy as finding a substring inside a
-  string, without any particular substring rule over data?
-
-In general, we need to create a code that is working as good as possible,
-since debugging test failures can be really complex inside kernel. Test
-has to provide very little friction with the kernel in order to reduce
-test maintenance.
-
-Let's start from this, we will continue the review when these points are
-first achieved.
-
-Kind regards,
+vfat and ntfs are the only ones which don't support both file_setattr()
+and file_getattr(), while ext family, tmpfs and btrfs don't raise
+EOPNOTSUPP for file_getattr() only. I'm wondering if that's a bug, since
+xfs is our reference for this implementation, or this has been
+introduced in 6.18-rc2 by 7ea30958b3054f5e488fa0b33c352723f7ab3a2a
+commit.
 
 -- 
 Andrea Cervesato
