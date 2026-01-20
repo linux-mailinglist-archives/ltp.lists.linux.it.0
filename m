@@ -1,103 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
-X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E7A1D3C640
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jan 2026 11:55:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1768906533; h=mime-version :
- date : message-id : to : references : in-reply-to : subject : list-id
- : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=puaUwGUs5dzavj52Fbf/Z17vuP6CMBm1vc0Z4vc0cng=;
- b=m0oIITHa8+kN3AxaaiMLhE73t+BsGn2jom49wkEtzhmYDinouu6kcLl5WMM/yIxrLUNs2
- 2ZB0Nc+Tfb/sK8+Foj8YDJQ4qrzawx8Fg4WF8d31nYy2VLUejvfZmrySDXXia/Hy/4+MprJ
- X9apJ/WXNBjWLURTUjUCw38NHgAEWFo=
+Received: from mail.lfdr.de
+	by lfdr with LMTP
+	id KBx/LcGjb2l7DgAAu9opvQ
+	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jan 2026 16:48:17 +0100
+X-Original-To: lists+linux-ltp@lfdr.de
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63D9446AD3
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jan 2026 16:48:17 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 074A33CAD3E
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jan 2026 11:55:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 872D53CAF5C
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jan 2026 13:43:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 613713C4F45
- for <ltp@lists.linux.it>; Tue, 20 Jan 2026 11:55:18 +0100 (CET)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 1C1173CAA5A
+ for <ltp@lists.linux.it>; Tue, 20 Jan 2026 13:43:26 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CBD3A200AE0
- for <ltp@lists.linux.it>; Tue, 20 Jan 2026 11:55:17 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-b870732cce2so795965066b.3
- for <ltp@lists.linux.it>; Tue, 20 Jan 2026 02:55:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1768906517; x=1769511317; darn=lists.linux.it;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JOsjtUlGGfAUpObFZiCPBc6TjB47TGsF8gJkslSxnL4=;
- b=IyoyiHEqFYDu5CP3C6QVDPMPvVbBo9eYu+WhAgnUEXiBEnjzlkWW+NgkdyeAlV/lnO
- ayULSP5CIzmJEl/YZeTOtIv+P6uKeMG2U+aqdLZgT7DTiMNMVjieReI6QR5HPbpZ3p2M
- M+OHLlQsSzOi7QEEcr68Dh0Iyv6IFP/WiWlw7gUOIr6T758HcYiXYkdLesiNlvZly5pj
- 3XPxVqrAzutY7D/qLsXPOlMbmGw6re6cQhy9hgo1aUWKXT24B5EEBrAwDHPduCKFrXB9
- ISnDwx+vUkVFc/MlmeqFo0OsoN8BXknPiAscmgYZDDzlkCVywMXCqTUQotwj4NxwXp6j
- 4LYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768906517; x=1769511317;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=JOsjtUlGGfAUpObFZiCPBc6TjB47TGsF8gJkslSxnL4=;
- b=waUL1bAgjT0aIrK1BkcTKOIRKuZfGUYGSEUFqAFbv86b3sDppCF/7S2j0rAivMi8fe
- fKOSYycdme+N/iG3F8b9Ai5T9FABOd4z4Q2u9rQOWZp3QdFcy7qbybjvbRIUrKhz6Tn4
- SzKyLXEq00N6t1AKCahbfnYNqSsXSZVXPbYIABjSYU8M1sVbkYBPZQXwcCybM6B3HbUY
- r9Uopp1QYB2goyy9uO4RHxdLYd75WYvt5BhOGpWsHw7jIXLHvov9iJKnaoZcWfjoHbtc
- V1mS6oWMG9pEALoLEs3eB/Pgl+eIgJI+TSx1sKPc8DVss+8YHotTgSWw8CEGh1/eFj0W
- zGKQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWWGsku1ZKJdzR4+kUJ0iHn56U9XXa8Xd+TRYDeCW583pTTum8wv9f0x1jY0QDNDh9PsqI=@lists.linux.it
-X-Gm-Message-State: AOJu0YxwBUxaXnHqJwpOqtze6d3bVp05uBs6pr4rWEksxHK8DwEnvAVE
- 1RQ7LlcTGLNu4UONzpEs3cVDmNA/RtpIc4FxNNKJw4Ri4dufnsIRdeJPBhn8qQms1I4=
-X-Gm-Gg: AZuq6aL+NHR1J5dsRMCCsiWM5MiD41xXDSnM4trtBWztrNUOPSCyRyDyoPAmmRXwrSi
- 7Bwm58KWOwhgnrCzL9TD3yj/CywfOJwVVwq4LD4AvjhrMjWDY833aMm8bdNKj/2kFiNwCU3Ng8m
- Ntb2mszcM9m5Y854lbmtu3oupUmrvtgxFAi3r3MjYPkRllUgEtecKmaNfj+smFlUzqMXkCPI4CX
- gEykNvUcoE+nM5sgvgkP+/CLKCi8bQkmgJ1oTbDPSAZs3Acoi/v+KtCgR0bR2FeKjXK4ohkOZEQ
- 5ara4C8IIFC9LHzLI8kceSK5R54rGS+MwY7MygAtzXlE5XhHKUUjiKiYqNWqOA3vtoxbHYGOySk
- gdgrMerRl8E32nvuQ6091SJA3a2eD1J2cvBjR7Es1tQUWFhznY64mpRWPlp0qtZS7VaouKo8sNJ
- b9DAgSb2gDZkBL62R+cudEE0ToRSxetJdBzIejsB1Vk+R+VhMh8nBjRqfqLNQhFD7/aW4I3RvK3
- uZw
-X-Received: by 2002:a17:907:c19:b0:b87:1741:a494 with SMTP id
- a640c23a62f3a-b87968f5a60mr1060310466b.17.1768906517137; 
- Tue, 20 Jan 2026 02:55:17 -0800 (PST)
-Received: from localhost
- (p200300ff0f0b7b017e458f16f8082810.dip0.t-ipconnect.de.
- [2003:ff:f0b:7b01:7e45:8f16:f808:2810])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b87959fa4f3sm1346554966b.50.2026.01.20.02.55.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Jan 2026 02:55:16 -0800 (PST)
-Mime-Version: 1.0
-Date: Tue, 20 Jan 2026 11:55:16 +0100
-Message-Id: <DFTD0Z8ASCRC.ZENSGYXPZ4DA@suse.com>
-To: "Andrea Cervesato" <andrea.cervesato@suse.com>, "Petr Vorel"
- <pvorel@suse.cz>
-X-Mailer: aerc 0.18.2
-References: <20251014-file_attr_eopnotsupp-v2-1-c9827c8d8127@suse.com>
- <aW4mDAH6pVh_VyC2@yuki.lan> <DFSMEBM9PYDT.3TJXEU3C8W31R@suse.com>
- <20260120095945.GA27808@pevik> <DFTCS1EEBMDD.21X779ISM0MTF@suse.com>
-In-Reply-To: <DFTCS1EEBMDD.21X779ISM0MTF@suse.com>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8F7DF6009AE
+ for <ltp@lists.linux.it>; Tue, 20 Jan 2026 13:43:25 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 068C23381A;
+ Tue, 20 Jan 2026 12:43:25 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C855F3EA63;
+ Tue, 20 Jan 2026 12:43:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id XBYnLmx4b2k3dQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Tue, 20 Jan 2026 12:43:24 +0000
+Date: Tue, 20 Jan 2026 13:43:23 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Message-ID: <20260120124323.GA39038@pevik>
+References: <20260120-file_attr05-v3-1-c3fd9fc0fcce@suse.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20260120-file_attr05-v3-1-c3fd9fc0fcce@suse.com>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spam-Score: -4.00
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] syscalls: add file_attr05 test
+Subject: Re: [LTP] [PATCH v3] syscalls: add file_attr05 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,28 +75,134 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Linux Test Project <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
+X-Spamd-Result: default: False [-0.01 / 15.00];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:c];
+	MAILLIST(-0.20)[mailman];
+	MIME_GOOD(-0.10)[text/plain];
+	HAS_LIST_UNSUB(-0.01)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_TLS_LAST(0.00)[];
+	DMARC_NA(0.00)[suse.cz];
+	REPLYTO_EQ_FROM(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_ALL(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
+	MISSING_XM_UA(0.00)[];
+	HAS_REPLYTO(0.00)[pvorel@suse.cz];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[pvorel@suse.cz,ltp-bounces@lists.linux.it];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	R_DKIM_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-ltp];
+	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,linux.it:url,suse.com:email]
+X-Rspamd-Queue-Id: 63D9446AD3
+X-Rspamd-Action: no action
+X-Rspamd-Server: lfdr
 
-> I think my approach is wrong, because the test is not really
-> verifying if FSX features are tested or not, but verifying that vfat is
-> not implementing file_setattr/file_getattr. Hence I will change this
-> test, verifying file_setattr() syscall only, including all filesystems
-> and checking that XFS features are triggering EOPNOTSUPP, except for
+Hi Andrea,
 
-Typo: here I meant "checking that FSX features are triggering EOPNOTSUPP".
+> From: Andrea Cervesato <andrea.cervesato@suse.com>
 
+> Verify that `file_setattr` is correctly raising EOPNOTSUPP when
+> filesystem doesn't support FSX operations.
 
--- 
-Andrea Cervesato
-SUSE QE Automation Engineer Linux
-andrea.cervesato@suse.com
+> Regression test for "474b155adf39 - fs: make vfs_fileattr_[get|set]
+> return -EOPNOTSUPP".
 
+Reason for changing approach in v3:
+https://lore.kernel.org/ltp/DFTCS1EEBMDD.21X779ISM0MTF@suse.com/
+
+> +++ b/testcases/kernel/syscalls/file_attr/file_attr05.c
+> @@ -0,0 +1,63 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2025 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+> + */
+> +
+> +/*\
+> + * Verify that `file_setattr` is correctly raising EOPNOTSUPP when filesystem
+> + * doesn't support FSX operations.
+> + *
+> + * Regression test for "474b155adf39 - fs: make vfs_fileattr_[get|set] return
+> + * -EOPNOTSUPP".
+Why not added into .tags?
+nit: Also the usual way of referring commits is:
+474b155adf392 ("fs: make vfs_fileattr_[get|set] return -EOPNOTSUPP")
+
+> + */
+> +
+> +#include "tst_test.h"
+> +#include "lapi/fs.h"
+> +
+> +#define MNTPOINT "mntpoint"
+> +#define FILEPATH (MNTPOINT "/ltp_file")
+> +#define BLOCKS 128
+> +#define PROJID 16
+> +
+> +static struct file_attr *attr_set;
+> +
+> +static void run(void)
+> +{
+> +	TST_EXP_FAIL(file_setattr(AT_FDCWD, FILEPATH,
+> +			   attr_set, FILE_ATTR_SIZE_LATEST, 0), EOPNOTSUPP);
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	struct stat statbuf;
+> +
+> +	SAFE_TOUCH(FILEPATH, 0777, NULL);
+> +
+> +	SAFE_STAT(MNTPOINT, &statbuf);
+> +
+> +	attr_set->fa_xflags |= FS_XFLAG_EXTSIZE;
+> +	attr_set->fa_xflags |= FS_XFLAG_COWEXTSIZE;
+> +	attr_set->fa_extsize = BLOCKS * statbuf.st_blksize;
+> +	attr_set->fa_cowextsize = BLOCKS * statbuf.st_blksize;
+> +	attr_set->fa_projid = PROJID;
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = run,
+> +	.setup = setup,
+> +	.mntpoint = MNTPOINT,
+> +	.needs_root = 1,
+> +	.mount_device = 1,
+> +	.all_filesystems = 1,
+> +	.format_device = 1,
+> +	.skip_filesystems = (const char *const []) {
+> +		"xfs",
+> +		"fuse", /* EINVAL is raised before EOPNOTSUPP */
+> +		"vfat", /* vfat is not implementing file_[set|get]attr */
+
+Hm, funny, vfat not implementing also raises EOPNOTSUPP. I wonder if we should
+keep it as well.
+
+> +		NULL,
+> +	},
+> +	.bufs = (struct tst_buffers []) {
+> +		{&attr_set, .size = sizeof(struct file_attr)},
+Again, I'd put 474b155adf392 into tags. It's IMHO enough (no need for mentioning
+it in the docs.
+
+Kind regards,
+Petr
+
+> +		{}
+> +	}
+> +};
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
