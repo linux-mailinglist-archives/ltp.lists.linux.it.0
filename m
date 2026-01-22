@@ -2,93 +2,103 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OHQWEJpacmkpiwAAu9opvQ
+	id kL4LFK1acmkpiwAAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 18:12:58 +0100
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 18:13:17 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D8BA6AEC5
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 18:12:53 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D79FF6AEED
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 18:13:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 44C1B3CB91D
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 18:12:53 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8FF293CB93A
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 18:13:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C70A33CB041
- for <ltp@lists.linux.it>; Thu, 22 Jan 2026 18:12:51 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by picard.linux.it (Postfix) with ESMTPS id 76DEA3CB964
+ for <ltp@lists.linux.it>; Thu, 22 Jan 2026 18:13:01 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4D4291000658
- for <ltp@lists.linux.it>; Thu, 22 Jan 2026 18:12:51 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E5ECD1A00F77
+ for <ltp@lists.linux.it>; Thu, 22 Jan 2026 18:13:00 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8C3BD3368B
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 93140336C9
  for <ltp@lists.linux.it>; Thu, 22 Jan 2026 17:12:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1769101970; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=6YXZb590lemvgTElR1Y0zIC5IidUa5mMehhJl8HXoLA=;
- b=HjtxpCNj5S5KOF13JO7ZD6CW2CTzVetHOmvQnqMn86v7t/+nBLkcHN0tZd1fNmtYLrW+3a
- BClNzwyQmN02/1w3UrF8jfNifwWJa0fSPYIdYbjd8qLlM1vjloGP8H2Nrtjcp3shTUG3hr
- 2iLFc3TXD2RPaCLgB7IX9UzKiCpeAFQ=
+ t=1769101971; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mZuTfbZolnJvtL8SrnI0IeI49Y4mXDsssRTaXXuZR98=;
+ b=K6dqAxJMEiI0a8H3Ic0B+qE214jGubb5Fw6yB5D6D3I6qiieKj8eP7wdO8r9beG85Okact
+ 6dn/uOuOCXkUbISngkpwl4U6RMs8DCB+01dicPaPFx5R/VRoAM1beh1wt4LKiK0uuwPN1P
+ x06jx4CDdSb2IY6HCm3SjivsWhQENw4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1769101970;
+ s=susede2_ed25519; t=1769101971;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=6YXZb590lemvgTElR1Y0zIC5IidUa5mMehhJl8HXoLA=;
- b=jSasbU7AHon212REojFsG9hZ2AB6IUMwCieqDApJLJq4Qi5ut9b1VkcU1zcPQrtoXPHHsT
- XdDzleVX7MpYxNDA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mZuTfbZolnJvtL8SrnI0IeI49Y4mXDsssRTaXXuZR98=;
+ b=z2Atz189FBuPqmOgblMVKe4dZF5bI+JWG+TLdzABmz+v/2EBhLQI2EQdmFGi+xM+79f+25
+ rgggI8DO/Z+tqZBQ==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=HjtxpCNj;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=jSasbU7A
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1769101970; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=6YXZb590lemvgTElR1Y0zIC5IidUa5mMehhJl8HXoLA=;
- b=HjtxpCNj5S5KOF13JO7ZD6CW2CTzVetHOmvQnqMn86v7t/+nBLkcHN0tZd1fNmtYLrW+3a
- BClNzwyQmN02/1w3UrF8jfNifwWJa0fSPYIdYbjd8qLlM1vjloGP8H2Nrtjcp3shTUG3hr
- 2iLFc3TXD2RPaCLgB7IX9UzKiCpeAFQ=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mZuTfbZolnJvtL8SrnI0IeI49Y4mXDsssRTaXXuZR98=;
+ b=oYH6iIm3/aya4vI8d2tq7p4FPR4ZEJXq3wyifrIi9fDJAl1hyqbGAYyevXJ2NA1XEsQW+k
+ mbTgdVZzcW/JpyUK3GUR0R2FDbYHAggEmLogUrqHTPZjkxqeVA5dWvcr2AyhATgGTVH3bW
+ i9AGsBVei+3MmdfKMMDuJa6jSId+1tg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1769101970;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=6YXZb590lemvgTElR1Y0zIC5IidUa5mMehhJl8HXoLA=;
- b=jSasbU7AHon212REojFsG9hZ2AB6IUMwCieqDApJLJq4Qi5ut9b1VkcU1zcPQrtoXPHHsT
- XdDzleVX7MpYxNDA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mZuTfbZolnJvtL8SrnI0IeI49Y4mXDsssRTaXXuZR98=;
+ b=lmJgEx2BaAYfoLzDsjg8FY7W+7Ui8aFMXhFYzT+C6tLjfpC13mxNYO99dbqskjvnTsAlb5
+ ICoWcvuqTuJL7ADw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 75C4B1395E
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8188C139BB
  for <ltp@lists.linux.it>; Thu, 22 Jan 2026 17:12:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 8DyLHJJacmnWRgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id UKluH5JacmnWRgAAD6G6ig
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Thu, 22 Jan 2026 17:12:50 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 22 Jan 2026 18:12:32 +0100
-Message-ID: <20260122171249.31590-1-mdoucha@suse.cz>
+Date: Thu, 22 Jan 2026 18:12:33 +0100
+Message-ID: <20260122171249.31590-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260122171249.31590-1-mdoucha@suse.cz>
+References: <20260122171249.31590-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: -3.01
+X-Spam-Score: -2.80
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/2] ioctl_sg01: Allow using USB device again
+Subject: [LTP] [PATCH 2/2] ioctl_sg01: Add git reference to USB data leak fix
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,114 +118,60 @@ X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.49 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+a];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	RCPT_COUNT_ONE(0.00)[1];
-	TAGGED_RCPT(0.00)[linux-ltp];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	DMARC_NA(0.00)[suse.cz];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mdoucha@suse.cz,ltp-bounces@lists.linux.it];
 	FROM_HAS_DN(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,suse.cz:email,picard.linux.it:helo,picard.linux.it:rdns];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_ONE(0.00)[1];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[linux-ltp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns,suse.cz:mid,suse.cz:email,linux.it:url];
+	DMARC_NA(0.00)[suse.cz];
 	RCVD_COUNT_FIVE(0.00)[6];
-	RCVD_TLS_LAST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mdoucha@suse.cz,ltp-bounces@lists.linux.it];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	TO_DN_NONE(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	DKIM_TRACE(0.00)[suse.cz:-]
-X-Rspamd-Queue-Id: 7D8BA6AEC5
+X-Rspamd-Queue-Id: D79FF6AEED
 X-Rspamd-Action: no action
-
-The failures when the ioctl_sg01 test tried to query a USB device
-turned out to be another data leak. Allow using USB devices again
-but keep the improved device lookup algorithm.
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
-
-Tested on kernels v4.4 and v6.12.
-
- testcases/kernel/syscalls/ioctl/ioctl_sg01.c | 29 ++++++--------------
- 1 file changed, 8 insertions(+), 21 deletions(-)
+ testcases/kernel/syscalls/ioctl/ioctl_sg01.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/testcases/kernel/syscalls/ioctl/ioctl_sg01.c b/testcases/kernel/syscalls/ioctl/ioctl_sg01.c
-index dada174e0..9862d7324 100644
+index 9862d7324..3a8e0cf42 100644
 --- a/testcases/kernel/syscalls/ioctl/ioctl_sg01.c
 +++ b/testcases/kernel/syscalls/ioctl/ioctl_sg01.c
-@@ -30,7 +30,7 @@
- #include "tst_memutils.h"
+@@ -16,6 +16,12 @@
+  *  Date:   Fri May 18 16:23:18 2018 +0200
+  *
+  *  scsi: sg: allocate with __GFP_ZERO in sg_build_indirect()
++ *
++ *  commit 41e99fe2005182139b1058db71f0d241f8f0078c
++ *  Author: Desnes Nunes <desnesn@redhat.com>
++ *  Date:   Fri Oct 31 01:34:36 2025 -0300
++ *
++ *  usb: storage: Fix memory leak in USB bulk transport
+  */
  
- #define SYSDIR "/sys/block"
--#define BLOCKDIR "/sys/block/%s/device"
-+#define BLOCKDIR "/sys/block/%s/device/generic"
- 
- #define BUF_SIZE (128 * 4096)
- #define CMD_SIZE 6
-@@ -41,14 +41,14 @@ static unsigned char command[CMD_SIZE];
- static struct sg_io_hdr query;
- 
- /* TODO: split this off to a separate SCSI library? */
--static const char *find_generic_scsi_device(int access_flags, int skip_usb)
-+static const char *find_generic_scsi_device(int access_flags)
- {
- 	DIR *sysdir;
- 	struct dirent *ent;
- 	int tmpfd;
- 	ssize_t length;
- 	char *filename;
--	static char devpath[PATH_MAX], syspath[PATH_MAX];
-+	static char devpath[PATH_MAX], genpath[PATH_MAX];
- 
- 	sysdir = opendir(SYSDIR);
- 
-@@ -60,28 +60,15 @@ static const char *find_generic_scsi_device(int access_flags, int skip_usb)
- 		if (ent->d_name[0] == '.')
- 			continue;
- 
--		snprintf(syspath, PATH_MAX, BLOCKDIR, ent->d_name);
--		syspath[PATH_MAX - 1] = '\0';
--
--		/* Real device path matches the physical HW bus path */
--		if (!realpath(syspath, devpath))
--			continue;
--
--		strncat(devpath, "/generic", PATH_MAX - strlen(devpath) - 1);
-+		snprintf(devpath, PATH_MAX, BLOCKDIR, ent->d_name);
- 		devpath[PATH_MAX - 1] = '\0';
--		length = readlink(devpath, syspath, PATH_MAX - 1);
-+		length = readlink(devpath, genpath, PATH_MAX - 1);
- 
- 		if (length < 0)
- 			continue;
- 
--		syspath[length] = '\0';
--		filename = basename(syspath);
--
--		/* USB devices often return HW info in SG_IO response buffer */
--		if (skip_usb && strstr(devpath, "/usb")) {
--			tst_res(TINFO, "Skipping USB device %s", filename);
--			continue;
--		}
-+		genpath[length] = '\0';
-+		filename = basename(genpath);
- 
- 		snprintf(devpath, PATH_MAX, "/dev/%s", filename);
- 		/* access() makes incorrect assumptions about block devices */
-@@ -121,7 +108,7 @@ static void dump_hex(const char *str, size_t size)
- 
- static void setup(void)
- {
--	const char *devpath = find_generic_scsi_device(O_RDONLY, 1);
-+	const char *devpath = find_generic_scsi_device(O_RDONLY);
- 
- 	if (!devpath)
- 		tst_brk(TCONF, "Could not find any usable SCSI device");
+ #include <sys/types.h>
+@@ -167,6 +173,7 @@ static struct tst_test test = {
+ 	.timeout = 3600,
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "a45b599ad808"},
++		{"linux-git", "41e99fe20051"},
+ 		{"CVE", "2018-1000204"},
+ 		{}
+ 	}
 -- 
 2.52.0
 
