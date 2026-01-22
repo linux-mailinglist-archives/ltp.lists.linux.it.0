@@ -2,102 +2,93 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cIWwLMEzcmkiewAAu9opvQ
+	id 6N2NGn08cmnTfAAAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 15:27:13 +0100
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 16:04:29 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D43567EA6
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 15:27:13 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D83FF68515
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 16:04:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B5AE23CB7F6
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 15:27:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 154223CB84A
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 16:04:28 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1E2E83CB6E9
- for <ltp@lists.linux.it>; Thu, 22 Jan 2026 15:27:09 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by picard.linux.it (Postfix) with ESMTPS id 70A4A3CB5A1
+ for <ltp@lists.linux.it>; Thu, 22 Jan 2026 16:04:24 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A39DA20023A
- for <ltp@lists.linux.it>; Thu, 22 Jan 2026 15:27:08 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D90BE600CD1
+ for <ltp@lists.linux.it>; Thu, 22 Jan 2026 16:04:23 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 845B55BD11;
- Thu, 22 Jan 2026 14:27:07 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 382E55BCD2;
+ Thu, 22 Jan 2026 15:04:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1769092027;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9xlLBOrLVfibtZFLc3UEofOEEQJCmagehXsnKh8RZNw=;
- b=IWRoLOTV3cFtGAzc9m+HayCmXPbnGbu03E2t5R7/yOlB/BVNZzOHK5Mk1N+oIr6FNWqVy6
- 1oBAlwW3CP6k9QHglG07baXd2Evk1bzZ6plxcsm4GnHU2OyiFQr3PlyICk5rp0OnSyZlwO
- 0ba8E85gaHldeDcKQyBHHe4IW189XeM=
+ t=1769094263; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=8DlhoHmcL5U5LxF5x+uEDPIUJULKjddP+pUcCqNqJW8=;
+ b=Usryd3nJg9v6Uwr0YU0AWAgFVryCi0qbDcx8ctGT0i8m40gB4PT6prZgXUl3wLcZAgpCSK
+ 30qc39PFnvsTkaWHLmeR2J1flT4iVbAvFXks+Fan47l1bPrtiVsGJFGYWzsjVae/7TU2h/
+ OHShjPtJzZ9nh0UVPP0oLiuKhrr1/0A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1769092027;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9xlLBOrLVfibtZFLc3UEofOEEQJCmagehXsnKh8RZNw=;
- b=yI3nVxlhODPI0UZ+pRk4QZhq0WJpHMVTTF/vFUMroynqSTYggBqO5rpMfoG7BqeYpw9bii
- SzLwLwD+Q1oyD3AA==
+ s=susede2_ed25519; t=1769094263;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=8DlhoHmcL5U5LxF5x+uEDPIUJULKjddP+pUcCqNqJW8=;
+ b=dkkdqNTAZLBoYum7LJRj6TaecdWj1uXbEmYWbqlhzafNuXs6oZtCXMmimv1001feOfj+6F
+ lRbxeNau7HF+c2Dw==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Usryd3nJ;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=dkkdqNTA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1769092027;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9xlLBOrLVfibtZFLc3UEofOEEQJCmagehXsnKh8RZNw=;
- b=IWRoLOTV3cFtGAzc9m+HayCmXPbnGbu03E2t5R7/yOlB/BVNZzOHK5Mk1N+oIr6FNWqVy6
- 1oBAlwW3CP6k9QHglG07baXd2Evk1bzZ6plxcsm4GnHU2OyiFQr3PlyICk5rp0OnSyZlwO
- 0ba8E85gaHldeDcKQyBHHe4IW189XeM=
+ t=1769094263; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=8DlhoHmcL5U5LxF5x+uEDPIUJULKjddP+pUcCqNqJW8=;
+ b=Usryd3nJg9v6Uwr0YU0AWAgFVryCi0qbDcx8ctGT0i8m40gB4PT6prZgXUl3wLcZAgpCSK
+ 30qc39PFnvsTkaWHLmeR2J1flT4iVbAvFXks+Fan47l1bPrtiVsGJFGYWzsjVae/7TU2h/
+ OHShjPtJzZ9nh0UVPP0oLiuKhrr1/0A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1769092027;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9xlLBOrLVfibtZFLc3UEofOEEQJCmagehXsnKh8RZNw=;
- b=yI3nVxlhODPI0UZ+pRk4QZhq0WJpHMVTTF/vFUMroynqSTYggBqO5rpMfoG7BqeYpw9bii
- SzLwLwD+Q1oyD3AA==
+ s=susede2_ed25519; t=1769094263;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=8DlhoHmcL5U5LxF5x+uEDPIUJULKjddP+pUcCqNqJW8=;
+ b=dkkdqNTAZLBoYum7LJRj6TaecdWj1uXbEmYWbqlhzafNuXs6oZtCXMmimv1001feOfj+6F
+ lRbxeNau7HF+c2Dw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 22CF6139AC;
- Thu, 22 Jan 2026 14:27:07 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1DC5313533;
+ Thu, 22 Jan 2026 15:04:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id C+a3A7szcmlxJQAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 22 Jan 2026 14:27:07 +0000
-Date: Thu, 22 Jan 2026 15:27:01 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: "Kubaj, Piotr" <piotr.kubaj@intel.com>
-Message-ID: <20260122142701.GA78350@pevik>
-References: <20260120144626.231614-2-piotr.kubaj@intel.com>
- <20260120193851.GB65442@pevik>
- <4dd67d8bf040715bf5a6456bb4270f08dba3986b.camel@intel.com>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WSwgBnc8cmldSQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Thu, 22 Jan 2026 15:04:23 +0000
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu, 22 Jan 2026 16:05:40 +0100
+Message-ID: <20260122150540.28343-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4dd67d8bf040715bf5a6456bb4270f08dba3986b.camel@intel.com>
-X-Spam-Score: -3.50
+X-Spam-Score: -3.01
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] thermal: add new test group
+Subject: [LTP] [PATCH] syscalls: chdir02: Add test for valid buffer lenghts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,98 +100,118 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: "Wysocki, Rafael J" <rafael.j.wysocki@intel.com>, "Ossowski,
- Tomasz" <tomasz.ossowski@intel.com>, "Dubel,
- Helena Anna" <helena.anna.dubel@intel.com>, "Niestepski,
- Daniel" <daniel.niestepski@intel.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.99 / 15.00];
+X-Spamd-Result: default: False [1.49 / 15.00];
 	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MID_RHS_NOT_FQDN(0.50)[];
-	MAILLIST(-0.20)[mailman];
+	MID_CONTAINS_FROM(1.00)[];
 	R_SPF_ALLOW(-0.20)[+a:c];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
-	DMARC_NA(0.00)[suse.cz];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.org.uk:email,picard.linux.it:helo,picard.linux.it:rdns];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
 	ARC_NA(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:-];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	HAS_REPLYTO(0.00)[pvorel@suse.cz];
-	FROM_NEQ_ENVFROM(0.00)[pvorel@suse.cz,ltp-bounces@lists.linux.it];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[linux-ltp];
+	DMARC_NA(0.00)[suse.cz];
+	RCPT_COUNT_TWO(0.00)[2];
+	FROM_NEQ_ENVFROM(0.00)[chrubis@suse.cz,ltp-bounces@lists.linux.it];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[6];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-ltp];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	REPLYTO_EQ_FROM(0.00)[]
-X-Rspamd-Queue-Id: 2D43567EA6
+	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
+	DKIM_TRACE(0.00)[suse.cz:-]
+X-Rspamd-Queue-Id: D83FF68515
 X-Rspamd-Action: no action
 
-Hi Piotr,
-...
-> > > +	bool interrupts_found = 0;
-> > > +	char line[8192];
-> > very nit: IMHO 1024 would be more than enough, but whatever.
-> And I wasn't even sure 8192 would be enough. The reason is that, since
-> it's a string, every digit is a single array element. With new 2S or 4S
-> systems with hundreds of cores and each interrupt being up to 2^64,
-> even 8192 might not be enough.
+This test tests all buffer lenghts shorter than PATH_MAX and expect the
+chdir() syscall to succeed.
 
-OK.
+Suggested-by: Al Viro <viro@zeniv.linux.org.uk>
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ runtest/syscalls                           |  1 +
+ testcases/kernel/syscalls/chdir/.gitignore |  1 +
+ testcases/kernel/syscalls/chdir/chdir02.c  | 38 ++++++++++++++++++++++
+ 3 files changed, 40 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/chdir/chdir02.c
 
-> > > +
-> > > +	memset(interrupt_array, 0, nproc *
-> > > sizeof(*interrupt_array));
-> > > +	FILE *fp = SAFE_FOPEN("/proc/interrupts", "r");
-> > > +
-> > > +	while (fgets(line, sizeof(line), fp)) {
-> > > +		if (strstr(line, "Thermal event interrupts")) {
-> > Can't we use FILE_LINES_SCANF() or SAFE_FILE_LINES_SCANF() to instead
-> > of whole
-> > while() block to simplify?
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 05bb3ceb1..2f629e4e4 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -68,6 +68,7 @@ cachestat03 cachestat03
+ cachestat04 cachestat04
+ 
+ chdir01 chdir01
++chdir02 chdir02
+ chdir04 chdir04
+ 
+ chmod01 chmod01
+diff --git a/testcases/kernel/syscalls/chdir/.gitignore b/testcases/kernel/syscalls/chdir/.gitignore
+index 1b15eb6b9..3475c5e54 100644
+--- a/testcases/kernel/syscalls/chdir/.gitignore
++++ b/testcases/kernel/syscalls/chdir/.gitignore
+@@ -1,2 +1,3 @@
+ /chdir01
++/chdir02
+ /chdir04
+diff --git a/testcases/kernel/syscalls/chdir/chdir02.c b/testcases/kernel/syscalls/chdir/chdir02.c
+new file mode 100644
+index 000000000..fc1f80136
+--- /dev/null
++++ b/testcases/kernel/syscalls/chdir/chdir02.c
+@@ -0,0 +1,38 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2026 Cyril Hrubis <chrubis@suse.cz>
++ */
++
++/*\
++ * Tests that all paths shorter than PATH_MAX work fine.
++ */
++
++#include "tst_test.h"
++
++static char *path;
++
++static void verify_chdir(void)
++{
++	int i, fails = 0;
++
++	memset(path, 0, PATH_MAX);
++
++	for (i = 1; i < PATH_MAX; i++) {
++		memset(path, '/', i);
++
++		TST_EXP_PASS_SILENT(chdir(path), "chdir('/' * %i)", i);
++
++		fails += !TST_PASS;
++	}
++
++	if (!fails)
++		tst_res(TPASS, "Path lenghts <1,%i> worked correctly", PATH_MAX);
++}
++
++static struct tst_test test = {
++	.test_all = verify_chdir,
++	.bufs = (struct tst_buffers []) {
++		{&path, .size = PATH_MAX},
++		{}
++	}
++};
+-- 
+2.52.0
 
-> > See example code
-> > https://github.com/linux-test-project/ltp/tree/master/lib/newlib_tests/tst_safe_fileops.c
-> It's quite unclear to me. SAFE_FILE_LINES_SCANF() seems fine for
-> reading a single interrupt number or even multiple, but only when well
-> known how many cores we have. Here the number of elements in the array
-> is equal to the number of logical cores the system has, in my case
-> it's:
->  TRM:       7795       7795       7795       7795       7800       7800
-> 7797       7797       7795       7795       7886       7886       7860
-> 7860       7863       7863       7795       7795       7795       7795
-> 7795       7795       7795       7795   Thermal event interrupts
-
-> I tried:
-> SAFE_FILE_LINES_SCANF("/proc/interrupts", " TRM:%sThermal event
-> interrupts", line);
-
-> to fit all the numbers in "line" string and then later parse them, but
-> only the 1st number is read. Here we need to have all of them.
-
-I'm sorry, I was wrong here. Yes, you right SAFE_FILE_LINES_SCANF() scans whole
-file at once. With generic pattern it can cumulate the results (otherwise with
-specific enough it finds only single place). Anyway, not suitable for you.
-
-But you could process each line with SAFE_SSCANF(), that would help to avoid
-strtok() (simplify code a lot).
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
