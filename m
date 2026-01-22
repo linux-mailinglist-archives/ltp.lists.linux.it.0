@@ -2,105 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aO3UDAEdcmnrbwAAu9opvQ
+	id uM9sLuggcmmPdQAAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 13:50:09 +0100
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 14:06:48 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D61B266D78
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 13:50:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1769086208; h=mime-version :
- references : in-reply-to : date : message-id : to : subject : list-id
- : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=i2mqC+nMt1ZVtwHsw0Qp3Z5pvWqH1JnfCBtAqXG6VPc=;
- b=aHQaJVx1CefLQrXVu1bhL878ikwD3AiZ1IoEpF6SiURKrA7lu/N7QlHDIe517QGb3rsMf
- +865BsmZhtLLNmhvTUzPNuRQz640VyAG1iO7MuowcUkJGuetD7h+/qo3jimWUrgwBtrKgdJ
- i3WGGkP0+XtxvWcskGaj/TxO5jjNgmo=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45D0E67080
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 14:06:48 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7E7823CB4EC
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 13:50:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BCC403CB5C8
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jan 2026 14:06:47 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D3A1C3CB4C4
- for <ltp@lists.linux.it>; Thu, 22 Jan 2026 13:50:05 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id EF3D33CB3B1
+ for <ltp@lists.linux.it>; Thu, 22 Jan 2026 14:06:44 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0E349600A45
- for <ltp@lists.linux.it>; Thu, 22 Jan 2026 13:50:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1769086203;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=qaUNCy+TjhUXzQbuguJ7X7Ge6Wubu92KfiKe29BVyqw=;
- b=O0nKYdGLNbvkQgaxbvOtoVBCvYPD9cbGr/HDejw9rPASSvD7ekulux33KnJcvHVz6SGtlW
- yawQ04IrFpCOTKxdfQgh0iYLHgVS3BzOVj93K76oAKJiRcaZvW26HFJ43PVdh+ap9B0xZa
- jyYB6wQgTFSGq/egmgXliCX49jRB3gs=
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-622-Qoo-djuUMR67NpwCv1k7Ng-1; Thu, 22 Jan 2026 07:50:02 -0500
-X-MC-Unique: Qoo-djuUMR67NpwCv1k7Ng-1
-X-Mimecast-MFC-AGG-ID: Qoo-djuUMR67NpwCv1k7Ng_1769086201
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-2b6a8afb513so1235472eec.0
- for <ltp@lists.linux.it>; Thu, 22 Jan 2026 04:50:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769086200; x=1769691000;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qaUNCy+TjhUXzQbuguJ7X7Ge6Wubu92KfiKe29BVyqw=;
- b=Jp/ae1auaeK2I0XBl9dB6X0dSkrkCA4n+KhlYp4IULVoC2PeU3+EOXopqHXZr4JBjK
- QpfufaQKreHNSOTHTn9As0ThxQZ+ca0SZE1n5vAtDU+cRcodinScEhf0LOTIqCbNrtiL
- FIkLdkEYiufTEDvNnaLd8PdMXpBna67EWVys2hh8/udJZpLlUk0Mh8W6PEjo8qYkHjQi
- 03D7LKoNGQsI6R11DRPW1Rr0r25voPn5znzvW9fCiS9IvJbllLLtQcPCi9wCiumzyhd5
- yn7FlHqjKIpA0S9yUtZQ4CU2Yg9i9e5FL0kS6aQc4yLckUVxip9b1kI5KWWNCrIfi7LX
- 5rhQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXpMl2GP+lY0udCbJYbh/lKYSc+SM9Q6kuDE4JZ89lzL2UqtjYo4Ct70TmypL3qD6CDsKc=@lists.linux.it
-X-Gm-Message-State: AOJu0Yw52QOSM4d4Fi13kx1AFlXExrhq/DhcGTjAP5cg+jf50nO0kdfG
- HaLA9ZZDMf2soWmFJWlSPvBKpTFHU0UQzv86bs35seOMlcJZdnkjmNLYEc/AQO74PWiURja7VPb
- j8eFmYw3wrm/ymyNx47Nr0ipmx+FY+8qEWfPhk3pxISNrMnM3oQOJB12KV/gFHnhzZH6avOiOdt
- +gPTky5y9dPtKA39EP83aYS4Rw9a/l7o6fP5A=
-X-Gm-Gg: AZuq6aKdzqjxbaanZQ0il80LjS0RZXmigX/0DdwpvRKXZh5EFNn+pyYDCoGqEqNA3H9
- eMZXS+vEqPtjTYZjBhh1s4FPTd7pX8D/Qb67Gl/2SR1FDPog3dQmO6Hze1mpJcKPyt8PAJO8IuK
- BX1jl2vRRrivwbBzbd0ZPYkTOXOyDu0OZK4wgs5AEe4MX08KdXealwa7njAYvcfNfDvxs=
-X-Received: by 2002:a05:7301:3d0d:b0:2a4:3593:dde0 with SMTP id
- 5a478bee46e88-2b6b46e7cf6mr13946133eec.13.1769086200171; 
- Thu, 22 Jan 2026 04:50:00 -0800 (PST)
-X-Received: by 2002:a05:7301:3d0d:b0:2a4:3593:dde0 with SMTP id
- 5a478bee46e88-2b6b46e7cf6mr13946117eec.13.1769086199750; Thu, 22 Jan 2026
- 04:49:59 -0800 (PST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4A7211A00A54
+ for <ltp@lists.linux.it>; Thu, 22 Jan 2026 14:06:43 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 72090336D7;
+ Thu, 22 Jan 2026 13:06:43 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2881913533;
+ Thu, 22 Jan 2026 13:06:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id ISD5A+IgcmlILQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 22 Jan 2026 13:06:42 +0000
+Date: Thu, 22 Jan 2026 14:06:34 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20260122130634.GA71214@pevik>
+References: <20260122102606.87754-1-liwang@redhat.com>
+ <CAASaF6w3S2STiyS9LvOsK_uVEvRoO6uq=XNMG-cMNheC0k1RHg@mail.gmail.com>
+ <20260122123154.GC64562@pevik>
+ <CAEemH2c8+X85Ac-oPtsOND=OW=YHvx1R_TNctTThfskKhgOP9Q@mail.gmail.com>
 MIME-Version: 1.0
-References: <20260122111810.91411-1-liwang@redhat.com>
- <20260122120604.GA64562@pevik>
- <aXIVnsZ54238nLbs@autotest-wegao.qe.prg2.suse.org>
-In-Reply-To: <aXIVnsZ54238nLbs@autotest-wegao.qe.prg2.suse.org>
-Date: Thu, 22 Jan 2026 20:49:47 +0800
-X-Gm-Features: AZwV_QgeAWY27svD9veQbLZrjRyBFzlwD6slJ_fkDjDYBq0yKdsBEATaW3At4G0
-Message-ID: <CAEemH2dXVHp6netAWA2LFBh1uH3q0NoeXBmDJ=WmZGRTf0sqYw@mail.gmail.com>
-To: Wei Gao <wegao@suse.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: D45Zw0o5puNTLSC4HhwuzcPNJa3Vj7ogz9qmMgc3dYc_1769086201
-X-Mimecast-Originator: redhat.com
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_PASS,SPF_PASS
+Content-Disposition: inline
+In-Reply-To: <CAEemH2c8+X85Ac-oPtsOND=OW=YHvx1R_TNctTThfskKhgOP9Q@mail.gmail.com>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spam-Score: -4.00
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] vma05: fix the needs_cmds format
+Subject: Re: [LTP] [PATCH] clone10: add support archs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,55 +78,93 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Li Wang via ltp <ltp@lists.linux.it>
-Reply-To: Li Wang <liwang@redhat.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.21 / 15.00];
-	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
+X-Spamd-Result: default: False [-0.01 / 15.00];
+	MID_RHS_NOT_FQDN(0.50)[];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[lists.linux.it:s=picard];
 	R_SPF_ALLOW(-0.20)[+a:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DKIM_MIXED(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	DMARC_NA(0.00)[suse.cz];
 	RCPT_COUNT_TWO(0.00)[2];
-	FROM_HAS_DN(0.00)[];
-	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
+	REPLYTO_EQ_FROM(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	DKIM_TRACE(0.00)[lists.linux.it:+,redhat.com:-];
-	DMARC_POLICY_ALLOW(0.00)[lists.linux.it,none];
-	TAGGED_RCPT(0.00)[linux-ltp];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[ltp@lists.linux.it,ltp-bounces@lists.linux.it];
-	R_DKIM_REJECT(0.00)[redhat.com:s=mimecast20190719];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	MISSING_XM_UA(0.00)[];
-	HAS_REPLYTO(0.00)[liwang@redhat.com];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url,mail.gmail.com:mid]
-X-Rspamd-Queue-Id: D61B266D78
+	HAS_REPLYTO(0.00)[pvorel@suse.cz];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[pvorel@suse.cz,ltp-bounces@lists.linux.it];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	R_DKIM_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-ltp];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.cz:email,linux.it:url]
+X-Rspamd-Queue-Id: 45D0E67080
 X-Rspamd-Action: no action
 
-Thanks Petr, Wei.
+> Petr Vorel <pvorel@suse.cz> wrote:
 
-Merged.
+> > > Acked-by: Jan Stancek <jstancek@redhat.com>
 
+> > LGTM. Indeed only these 3 archs don't TCONF.
+> > Acked-by: Petr Vorel <pvorel@suse.cz>
 
--- 
-Regards,
-Li Wang
+> > Out of curiosity, where is the support defined in kernel?
+> > "if (clone_flags & CLONE_SETTLS)" is in many archs:
 
+> Not based on this, the clone10.c test was written and gets tested
+> only on the known archs (x86_64, s390x, aarch64) by now.
+
+> And in case that other archs (not tested) have different behavior like i386,
+> so we are limited to the know/tested archs.
+
+> If we can get another arch to verified we can add it to the
+> .supported_archs as well.
+
+> $ cat -n ltp/include/lapi/tls.h
+>     ...
+>     53 static inline void init_tls(void)
+>     54 {
+>     55     #if defined(__x86_64__) || defined(__aarch64__) || defined(__s390x__)
+>     56     tls_ptr = allocate_tls_area();
+>     57 #else
+>     ...
+
+include/lapi/tls.h
+
+static inline void init_tls(void)
+{
+#if defined(__x86_64__) || defined(__aarch64__) || defined(__s390x__)
+	tls_ptr = allocate_tls_area();
+#else
+	tst_brk(TCONF, "Unsupported architecture for TLS");
+#endif
+
+I see. First IMHO the message in include/lapi/tls.h is pretty misleading. It
+does not look to me as a test limitation, but as a missing arch support in
+kernel.  IMHO the message should have been something like:
+
+tst_brk(TCONF, "Test not supported only architecture");
+
+(i.e. to mention "test")
+
+Also having arch listed in the test and also in tls.h is redundant.
+IMHO it should be only on a single place.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
