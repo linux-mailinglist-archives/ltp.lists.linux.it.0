@@ -2,98 +2,99 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gDF2BbGfc2muxgAAu9opvQ
+	id kHWMBHWfc2mXxgAAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Jan 2026 17:20:01 +0100
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Jan 2026 17:19:01 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2BBD78610
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Jan 2026 17:20:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B234785BF
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Jan 2026 17:19:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6800E3CB8AA
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Jan 2026 17:20:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id F378F3C59A7
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Jan 2026 17:18:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C81333CB844
- for <ltp@lists.linux.it>; Fri, 23 Jan 2026 17:19:02 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 30D323C0F41
+ for <ltp@lists.linux.it>; Fri, 23 Jan 2026 17:18:57 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 00D341A0064C
- for <ltp@lists.linux.it>; Fri, 23 Jan 2026 17:19:01 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 224291400519
+ for <ltp@lists.linux.it>; Fri, 23 Jan 2026 17:18:56 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 120FC5BCCF;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 309BD5BCD0;
  Fri, 23 Jan 2026 16:18:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1769185134; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=amTQxDqZphZCvxHwaSsQb0+sZxltdYLJwuFf0ArPuXQ=;
- b=dh1r06qyIeWWM0khDxOuFuC1uQbpMPfJu4xsOBBCv2Oxpj3MOik91/9DzhD5JONrbvUFEG
- VeZ3EQxT1uyKRWryrCWRLnLSfs3jenZHIuK9GYiKEXzX/Nh0+LzkDDZ4dAEyLEUkI2O1jt
- kkJ32wcepft4n0Y/4b3ws6H7Nh7mL6s=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=CyUXwa3YNK8Tfuf1HRN4gezx9k6VDSr+AVLG4wyTACM=;
+ b=Nif2fzXszO/DDWJR7HNGfD0X+i1qPNnmMKHP9ovs4Sr+L21IjuqqgDJulY0ceHOy+kUiog
+ jUqMhnEwkRLtjaRF2X9/lCiFv9DhFslM7dT/Qe27g0lzQVW0f2sSJmAHf0NvOPN1BB4Er6
+ JNPHBdtZUjCPFr5Amf1YxYLRpk3RfrI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1769185134;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=amTQxDqZphZCvxHwaSsQb0+sZxltdYLJwuFf0ArPuXQ=;
- b=nQrRVcdVIFvlJ1H3g7L8Zl08KlWKOS/fYsquHUk34eGuroW2To4xDHg/YRnkHBqIfRaBvh
- 4kCKNzVmPWShtYBQ==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=CyUXwa3YNK8Tfuf1HRN4gezx9k6VDSr+AVLG4wyTACM=;
+ b=hFnBVFcl1zxCUjPHkKt+4g91zqnwnJf8X6KyQnXuc23QCGVFxJyRAkL47RDgICH3VdDElb
+ TsPLovuCSsJ1AMCw==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="SUnb/+Vo";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Ex9X08Kt
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=GmtbVbLc;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=beNhzreF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1769185133; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=amTQxDqZphZCvxHwaSsQb0+sZxltdYLJwuFf0ArPuXQ=;
- b=SUnb/+VoXk3s1Cn8h2U8bzSD06t98lUtJxx97nOeNRj7gAoebD97+YfFwBUW9EwNIthzDC
- XgXcAMzBOqO3OtoOn815db4xi8pjSgeNsm7PVCDBeKFYW6h+MHjZ9SAw+3WjJHTVM91KNL
- /pt0IfXrOG5AEch3YY76iYvDqwhkdi0=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=CyUXwa3YNK8Tfuf1HRN4gezx9k6VDSr+AVLG4wyTACM=;
+ b=GmtbVbLcdYhIqHCpUa0yKQExLKJ9uJqNy0iXthBQ4Xc/AbvhZVbyyi6T0V3f7mixJB+ORr
+ xBeeKUdb53tyAp9hQmjLRYv5Xwmsbo1B8hbkBNsJ58fEjLknNubF/HP/SyYjpKR8fWkZ/1
+ bYb9e5ycMbuV6kzgBYjTV8w0Q8WAfak=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1769185133;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=amTQxDqZphZCvxHwaSsQb0+sZxltdYLJwuFf0ArPuXQ=;
- b=Ex9X08Kt7ko8orqZpOgAEUQGDj9oO/0lJVLos72aJJPK37roL68/tN+j8lV44tPBZppCbf
- w4zwFB0nn/fTXYBQ==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=CyUXwa3YNK8Tfuf1HRN4gezx9k6VDSr+AVLG4wyTACM=;
+ b=beNhzreFki/we/GjHGmfliy04QpvX2cqifDenJkId1vpkXiHlh3cT9YjjQ7h/kNXOPPb1A
+ +rdN8iGsDCjBpdDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF0161395E;
- Fri, 23 Jan 2026 16:18:52 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 10A4B139E8;
+ Fri, 23 Jan 2026 16:18:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id szfaNGyfc2n1GQAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Fri, 23 Jan 2026 16:18:52 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id IDuJAm2fc2n1GQAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Fri, 23 Jan 2026 16:18:53 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Fri, 23 Jan 2026 17:18:50 +0100
-Message-Id: <20260123-stream_refactoring-v1-0-281b85f6ab02@suse.com>
+Date: Fri, 23 Jan 2026 17:18:51 +0100
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAGqfc2kC/x2MWwqAIBAArxL7nWDSg7pKRGy52X5ksUoE0t2TP
- odhJkEgYQowFAmEbg58+gxVWcC6o3ek2GYGo02rK6NViEJ4zEIbrvEU9k7VS4Mt9Vaj7SCHV5b
- 8/NNxet8P329ZcmQAAAA=
-X-Change-ID: 20260120-stream_refactoring-4b5a6e9d0ad7
+Message-Id: <20260123-stream_refactoring-v1-1-281b85f6ab02@suse.com>
+References: <20260123-stream_refactoring-v1-0-281b85f6ab02@suse.com>
+In-Reply-To: <20260123-stream_refactoring-v1-0-281b85f6ab02@suse.com>
 To: Linux Test Project <ltp@lists.linux.it>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1769185132; l=1383;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1769185132; l=4930;
  i=andrea.cervesato@suse.com; s=20251210; h=from:subject:message-id;
- bh=CieqHjO/Ju79eOTgx9S/90uD7fTkGZGIHJ/GqAQqNcA=;
- b=Dj3WBCKRWoeUewXayD49HCrGTRIJC8lF6fjIYXaNeRJk8kjYfdkf8aWjH1krvlRMlphLk6Nhj
- ieEuuzPLoPtAlTtd1EbLonk03534/pzpp/2D7tYOxtZ+GgE5zBHuRvG
+ bh=VxDz8roTqF2T9HoL79fokai3pWu7XVP9SNuqcykfUN8=;
+ b=fAYg2VXmWPANISGu+SGUUkQv1QZVoqcEqkdOYsiA3znV1BTF8IDrny4gRIVqAXTRQ4NWdSh6C
+ ITf+rFZpr9oBdZFFdZpMydEwZZKC4ygmtSibdpXzxU3gcB+yse+rFhU
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=zKY+6GCauOiuHNZ//d8PQ/UL4jFCTKbXrzXAOQSLevI=
 X-Spam-Score: -4.51
@@ -101,10 +102,10 @@ X-Spam-Level:
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 0/6] Rewrite fs stream testing suite
+Subject: [LTP] [PATCH 1/6] Add safe macros for stream testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,62 +124,201 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.59 / 15.00];
 	R_DKIM_REJECT(1.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	R_SPF_ALLOW(-0.20)[+a];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+a:c];
-	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[suse.de : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	RCPT_COUNT_ONE(0.00)[1];
-	NEURAL_HAM(-0.00)[-0.542];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url,suse.com:mid,suse.com:email,picard.linux.it:helo,picard.linux.it:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[andrea.cervesato@suse.de,ltp-bounces@lists.linux.it];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	RCPT_COUNT_ONE(0.00)[1];
+	NEURAL_HAM(-0.00)[-0.624];
+	MIME_TRACE(0.00)[0:+];
 	TAGGED_RCPT(0.00)[linux-ltp];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrea.cervesato@suse.de,ltp-bounces@lists.linux.it];
+	FROM_HAS_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url];
+	RCVD_COUNT_FIVE(0.00)[6];
+	TO_DN_ALL(0.00)[];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
 	DKIM_TRACE(0.00)[suse.de:-]
-X-Rspamd-Queue-Id: B2BBD78610
+X-Rspamd-Queue-Id: 9B234785BF
 X-Rspamd-Action: no action
 
-All tests are now using the new LTP API. The stream05 has been deleted
-because I think it was a bit messy and it didn't have a proper testing
-focus. I replaced it with a new test that is just verifying that fd
-returned by `fileno()` can be used for basic operations on fd.
+From: Andrea Cervesato <andrea.cervesato@suse.com>
+
+Introduce the following SAFE_* macros for stream file testing:
+
+- SAFE_FREAD
+- SAFE_FWRITE
+- SAFE_FREOPEN
+- SAFE_FSEEK
+- SAFE_FTELL
+- SAFE_FILENO
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-Andrea Cervesato (6):
-      Add safe macros for stream testing suite
-      fs: rewrite stream01 test using new API
-      fs: rewrite stream02 test using new API
-      fs: rewrite stream03 test using new API
-      fs: rewrite stream04 test using new API
-      fs: rewrite stream05 test using new API
+ include/safe_stdio_fn.h  | 18 ++++++++++
+ include/tst_safe_stdio.h | 18 ++++++++++
+ lib/safe_stdio.c         | 87 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 123 insertions(+)
 
- include/safe_stdio_fn.h               |  18 ++
- include/tst_safe_stdio.h              |  18 ++
- lib/safe_stdio.c                      |  87 +++++++++
- testcases/kernel/fs/stream/stream01.c | 153 +++++-----------
- testcases/kernel/fs/stream/stream02.c | 133 +++-----------
- testcases/kernel/fs/stream/stream03.c | 326 ++++++----------------------------
- testcases/kernel/fs/stream/stream04.c | 147 +++++----------
- testcases/kernel/fs/stream/stream05.c | 256 +++++---------------------
- 8 files changed, 332 insertions(+), 806 deletions(-)
----
-base-commit: c47ab95d5fe077133e598ac7762387450a87cb2b
-change-id: 20260120-stream_refactoring-4b5a6e9d0ad7
+diff --git a/include/safe_stdio_fn.h b/include/safe_stdio_fn.h
+index 3818a86571a6d9bc63fcf432c93683bb3298e5b2..79c08080fd16489ea5bd1606083ae900ba3b294f 100644
+--- a/include/safe_stdio_fn.h
++++ b/include/safe_stdio_fn.h
+@@ -32,4 +32,22 @@ int safe_asprintf(const char *file, const int lineno, void (cleanup_fn)(void),
+ FILE *safe_popen(const char *file, const int lineno, void (cleanup_fn)(void),
+ 		 const char *command, const char *type);
+ 
++size_t safe_fread(const char *file, const int lineno, void (cleanup_fn)(void),
++		  void *ptr, size_t size, size_t n, FILE *stream);
++
++size_t safe_fwrite(const char *file, const int lineno, void (cleanup_fn)(void),
++		   const void *ptr, size_t size, size_t n, FILE *stream);
++
++FILE *safe_freopen(const char *file, const int lineno, void (cleanup_fn)(void),
++		   const char *path, const char *mode, FILE *stream);
++
++int safe_fseek(const char *file, const int lineno, void (cleanup_fn)(void),
++	       FILE *f, long offset, int whence);
++
++long safe_ftell(const char *file, const int lineno, void (cleanup_fn)(void),
++		FILE *f);
++
++int safe_fileno(const char *file, const int lineno, void (cleanup_fn)(void),
++		FILE *stream);
++
+ #endif /* SAFE_STDIO_FN_H__ */
+diff --git a/include/tst_safe_stdio.h b/include/tst_safe_stdio.h
+index e4bff34da15c9116809fcf851cbf544a51e384ef..b757b7e36db69190df45b3af1f39058e24221379 100644
+--- a/include/tst_safe_stdio.h
++++ b/include/tst_safe_stdio.h
+@@ -21,4 +21,22 @@
+ #define SAFE_POPEN(command, type) \
+ 	safe_popen(__FILE__, __LINE__, NULL, command, type)
+ 
++#define SAFE_FREAD(ptr, size, n, stream) \
++	safe_fread(__FILE__, __LINE__, NULL, ptr, size, n, stream)
++
++#define SAFE_FWRITE(ptr, size, n, stream) \
++	safe_fwrite(__FILE__, __LINE__, NULL, ptr, size, n, stream)
++
++#define SAFE_FREOPEN(path, mode, stream) \
++	safe_freopen(__FILE__, __LINE__, NULL, path, mode, stream)
++
++#define SAFE_FSEEK(f, offset, whence) \
++	safe_fseek(__FILE__, __LINE__, NULL, f, offset, whence)
++
++#define SAFE_FTELL(f) \
++	safe_ftell(__FILE__, __LINE__, NULL, f)
++
++#define SAFE_FILENO(f) \
++	safe_fileno(__FILE__, __LINE__, NULL, f)
++
+ #endif /* TST_SAFE_STDIO_H__ */
+diff --git a/lib/safe_stdio.c b/lib/safe_stdio.c
+index ab23e43bb0835cdca5eaa015bc873fd23f9a8408..fc7b11781e5e6a45963d20ef4146aa82084cd6b8 100644
+--- a/lib/safe_stdio.c
++++ b/lib/safe_stdio.c
+@@ -99,3 +99,90 @@ FILE *safe_popen(const char *file, const int lineno, void (cleanup_fn)(void),
+ 
+ 	return stream;
+ }
++
++size_t safe_fread(const char *file, const int lineno, void (cleanup_fn)(void),
++	void *ptr, size_t size, size_t n, FILE *stream)
++{
++	size_t ret;
++
++	ret = fread(ptr, size, n, stream);
++	if (ret != n) {
++		tst_brkm_(file, lineno, TBROK, cleanup_fn,
++			"fread(%p, %lu, %lu, %p) read %lu bytes",
++			ptr, size, n, stream, ret);
++	}
++
++	return ret;
++}
++
++size_t safe_fwrite(const char *file, const int lineno, void (cleanup_fn)(void),
++	const void *ptr, size_t size, size_t n, FILE *stream)
++{
++	size_t ret;
++
++	ret = fwrite(ptr, size, n, stream);
++	if (ret != n) {
++		tst_brkm_(file, lineno, TBROK, cleanup_fn,
++			"fwrite(%p, %lu, %lu, %p) written %lu bytes",
++			ptr, size, n, stream, ret);
++	}
++
++	return ret;
++}
++
++FILE *safe_freopen(const char *file, const int lineno, void (cleanup_fn)(void),
++	       const char *path, const char *mode, FILE *stream)
++{
++	FILE *f = freopen(path, mode, stream);
++
++	if (f == NULL) {
++		tst_brkm_(file, lineno, TBROK | TERRNO, cleanup_fn,
++			"freopen(%s,%s,%p) failed", path, mode, stream);
++	}
++
++	return f;
++}
++
++int safe_fseek(const char *file, const int lineno, void (cleanup_fn)(void),
++		   FILE *f, long offset, int whence)
++{
++	int ret;
++
++	errno = 0;
++	ret = fseek(f, offset, whence);
++
++	if (ret == -1) {
++		tst_brkm_(file, lineno, TBROK | TERRNO, cleanup_fn,
++			"fseek(%p, %ld, %d)", f, offset, whence);
++	}
++
++	return ret;
++}
++
++long safe_ftell(const char *file, const int lineno, void (cleanup_fn)(void),
++	       FILE *f)
++{
++	long ret;
++
++	errno = 0;
++	ret = ftell(f);
++
++	if (ret == -1)
++		tst_brkm_(file, lineno, TBROK | TERRNO, cleanup_fn, "ftell(%p)", f);
++
++	return ret;
++}
++
++int safe_fileno(const char *file, const int lineno, void (cleanup_fn)(void),
++		FILE *f)
++{
++	int ret;
++
++	errno = 0;
++	ret = fileno(f);
++
++	if (ret == -1)
++		tst_brkm_(file, lineno, TBROK | TERRNO, cleanup_fn, "fileno(%p)", f);
++
++	return ret;
++}
 
-Best regards,
 -- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+2.51.0
 
 
 -- 
