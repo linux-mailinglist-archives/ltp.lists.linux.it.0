@@ -2,93 +2,100 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GObTAFi6eGmcsgEAu9opvQ
+	id qxgULUm6eGmcsgEAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 14:15:04 +0100
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 14:14:49 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B99E994B9D
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 14:15:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5213B94B8F
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 14:14:49 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6B0F03CAFD9
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 14:15:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CE0623CACFD
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 14:14:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EC4BF3CB23A
- for <ltp@lists.linux.it>; Tue, 27 Jan 2026 14:14:44 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 045153CAC2E
+ for <ltp@lists.linux.it>; Tue, 27 Jan 2026 14:14:38 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5711C140027B
- for <ltp@lists.linux.it>; Tue, 27 Jan 2026 14:14:43 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 696E610009B6
+ for <ltp@lists.linux.it>; Tue, 27 Jan 2026 14:14:38 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9EF5A3372E;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C8BC25BCC2;
  Tue, 27 Jan 2026 13:14:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1769519677; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=RUTL0N7s6eAxEt9wyIgTQuWS7PlI8PNNelec0tThRMk=;
- b=YGL09SUC72Xkal9ywt1kdaGAKTZIOLV3iYT9XO+o3Duj1TZFAmy8zvJ/OUobxOGL/yTqXE
- Q5dRxSyms6orMglVC4SxUdJtR9W3GAmiOw4Dp8VCiHCEzqwQTPmU+sg9R53Q3fCMXSqpAi
- LUAzPoK+vr4nSiC5eQt1a0H1b6qCcBo=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RGUa67E37/IbP/DdZGCmNducjr5ArOxWMrq5MAclV/o=;
+ b=m1BhqRtx28gc0ys0hJcIN9aKYOVA7UxbPLrR8aQ4C5++znGZhmoDPByZo58q2nXeaAcwUt
+ jvJKjQdCotU+l4ObfcpMUaAD5PHBxk4hmShW/LQMlwxgHKhIyyOt/DGzqjL+zKQ9efxfIh
+ crRL7Ijr6/PP6gUC9dvfWb31VHljpZo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1769519677;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=RUTL0N7s6eAxEt9wyIgTQuWS7PlI8PNNelec0tThRMk=;
- b=ts3pVVvcrQgHYtACs4uI6vpBdmF42tabKrqn4SE+rqRf/BwI/lJrrBJH1dKlxIqwq+cuXC
- 30tWb/dGsxL1ytAg==
-Authentication-Results: smtp-out1.suse.de;
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RGUa67E37/IbP/DdZGCmNducjr5ArOxWMrq5MAclV/o=;
+ b=Ps63FXTlafAtVRVnQT8Ye6nufJxK6g1+PayWFxTJhP4qjq17/qhZbfBWF4V5d3KN49RgTp
+ ySLmAO6nQcdmY/Aw==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1769519676; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=RUTL0N7s6eAxEt9wyIgTQuWS7PlI8PNNelec0tThRMk=;
- b=MB5y6jRPJObDLGp3G2azFA+BnLgLZh8FjxwcTFPFEU+n4ChEfwsBoVegCqubYv4jscbx9f
- hr7eJ9+FC/o1tQEcaFYMS7LMNXHlShIACcvt2eBep0xhvmfSX0UezuDO4YrmPLtFwQeAtO
- 36QxfLr7bPJHfl0METrKuLDIOKEWums=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RGUa67E37/IbP/DdZGCmNducjr5ArOxWMrq5MAclV/o=;
+ b=TlJZveBpncLV85b2m76+HRWsT7wBXXiWrtA/5x8d7y9mFfpktshM2DDY3p76mzG2VIiqJ1
+ /SyMRy5JN0YgibRcX+tQ7WyBlzyIhmmYuyJZg/i+QjbanabOyF3klmWs7fLFH9d2Q028Ag
+ zlkPdwA+P/hTj544I9jQ3b9Ulu9ylqg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1769519676;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=RUTL0N7s6eAxEt9wyIgTQuWS7PlI8PNNelec0tThRMk=;
- b=UGuC+sb44EL2SS5ATtYupr2qAVUTjNP8LI49ueVLZutEk186iaoNpZe1k8BL2/KzQ67mmH
- V+MRe5wxeN8DuPAg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RGUa67E37/IbP/DdZGCmNducjr5ArOxWMrq5MAclV/o=;
+ b=haquyeXaL/vGJ4cppD+pxsmVufUX2UVP3Z4KmMEvvMbDlShsgXLXjpE2jxlEcLeL6pMmvq
+ sp/RWKLpOVz0caBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7042C3EA61;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9B3273EA62;
  Tue, 27 Jan 2026 13:14:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Um90Gjy6eGnbewAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0Dj/JDy6eGnbewAAD6G6ig
  (envelope-from <pvorel@suse.cz>); Tue, 27 Jan 2026 13:14:36 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 27 Jan 2026 14:14:25 +0100
-Message-ID: <20260127131427.146592-1-pvorel@suse.cz>
+Date: Tue, 27 Jan 2026 14:14:26 +0100
+Message-ID: <20260127131427.146592-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260127131427.146592-1-pvorel@suse.cz>
+References: <20260127131427.146592-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: -2.80
+X-Spam-Score: -6.80
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/2] tst_net.sh: Print netstress.c logs on unexpected
- error
+Subject: [LTP] [PATCH 2/2] tst_net.sh: Fix tst_brk() use in tst_netload_brk()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,60 +134,53 @@ X-Spamd-Result: default: False [1.49 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_NONE(0.00)[];
 	TAGGED_RCPT(0.00)[linux-ltp];
-	NEURAL_HAM(-0.00)[-0.970];
+	NEURAL_HAM(-0.00)[-0.975];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns,suse.cz:mid,suse.cz:email]
-X-Rspamd-Queue-Id: B99E994B9D
+X-Rspamd-Queue-Id: 5213B94B8F
 X-Rspamd-Action: no action
 
-When there is an unexpected error, logs should be printed as well to
-know the reason:
+Since 1878502f63 ("tst_test.sh/tst_brk(): Allow only TBROK and TCONF")
+it's not possible to use tst_brk() with TFAIL. Call tst_res() followed
+by tst_brk() for TFAIL/TWARN.
 
-    tcp_fastopen_run 1 TINFO: run server 'netstress -t 0 -d ltp_ns_veth1 -R 3 \
-	-B /tmp/LTP_tcp_fastopen_run.TpwSlSogBJ'
-    tcp_fastopen_run 1 TINFO: run client 'netstress -l -t 0 -H 10.0.0.1 -d ltp_ns_veth2 \
-	-a 2 -r 2000 -c /tmp/LTP_tcp_fastopen_run.TpwSlSogBJ/tst_netload.res' 5 times
-    tcp_fastopen_run 1 TWARN: netstress failed, ret: 6
-    tcp_fastopen_run 1 TPASS: netstress passed, median time 123 ms, data: 118 124 122 125
+Also convert failure on missing file to TBROK.
 
-While at it, factor out logging code into new function
-tst_netload_print_log().
-
-Fixes: da16b664e7 ("lib/tst_net: calc mean in tst_netload()")
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/lib/tst_net.sh | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Alternative would be to revert 1878502f63.
+
+ testcases/lib/tst_net.sh | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
-index ec49f5fab9..20f669f56e 100644
+index 20f669f56e..76f6b20e31 100644
 --- a/testcases/lib/tst_net.sh
 +++ b/testcases/lib/tst_net.sh
-@@ -732,10 +732,15 @@ tst_wait_ipv6_dad()
- 	done
- }
- 
--tst_netload_brk()
-+tst_netload_print_log()
+@@ -741,7 +741,12 @@ tst_netload_print_log()
+ tst_netload_brk()
  {
- 	tst_rhost_run -c "cat $TST_TMPDIR/netstress.log"
- 	cat tst_netload.log
-+}
-+
-+tst_netload_brk()
-+{
-+	tst_netload_print_log
- 	tst_brk_ $1 $2
+ 	tst_netload_print_log
+-	tst_brk_ $1 $2
++	if [ "$1" != TBROK -a "$1" != TCONF ]; then
++		tst_res_ $1 $2
++		tst_brk_ TBROK "quit due previous failures"
++	else
++		tst_brk_ $1 $2
++	fi
  }
  
-@@ -853,6 +858,7 @@ tst_netload()
- 				tst_netload_brk TFAIL "expected '$expect_res' but ret: '$ret'"
- 
- 			tst_res_ TWARN "netstress failed, ret: $ret"
-+			tst_netload_print_log
- 			was_failure=1
+ # Run network load test, see 'netstress -h' for option description
+@@ -863,8 +868,7 @@ tst_netload()
  			continue
  		fi
+ 
+-		[ ! -f $rfile ] && \
+-			tst_netload_brk TFAIL "can't read $rfile"
++		[ ! -f $rfile ] && tst_netload_brk TBROK "can't read $rfile"
+ 
+ 		results="$results $(cat $rfile)"
+ 		passed=$((passed + 1))
 -- 
 2.51.0
 
