@@ -2,109 +2,109 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uGXwFMi0eGlzsQEAu9opvQ
+	id eH8lFaC0eGlzsQEAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 13:51:20 +0100
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 13:50:40 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0790394827
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 13:51:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BBC894803
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 13:50:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5F1D73CAFF7
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 13:51:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id ABE3E3CA509
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Jan 2026 13:50:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D7BED3CA152
- for <ltp@lists.linux.it>; Tue, 27 Jan 2026 13:50:21 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id D6E753C93D2
+ for <ltp@lists.linux.it>; Tue, 27 Jan 2026 13:50:12 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2FFE3600824
- for <ltp@lists.linux.it>; Tue, 27 Jan 2026 13:50:20 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6AC851400DB9
+ for <ltp@lists.linux.it>; Tue, 27 Jan 2026 13:50:11 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CC91B5BCFD;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EDCB5337D4;
  Tue, 27 Jan 2026 12:50:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1769518210; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1769518211; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cJb5ugxX2f9GUxMgh7zNbSUkCEOTeRFUyFWZkp3SI/8=;
- b=u+yMx5Oflr8NHHTkFyaxz7z0F1NNe1ez0wuRSCanhBtQmy5zYwi6UT5Q03r8phnq/LDO61
- s3urz1VsWymKuOs9/27u6xL8MQUHoNNtiplEo5t4yFki0uGRXG6+cZXW6QirMaiq26PCBS
- o9WC18DwMJVg+478E5SVFXvhSiuxpuM=
+ bh=rQPJNOmyvcGs7px7KNymnRCsHkHsV4mRfPv/pI84UdQ=;
+ b=XHFVNi4+gOZoTrm5XPVNLRQ18nd6v9bAezyPQnE9CWUjBNhNH4F6uX9gKzWpo+03t1mR+Z
+ 3fynSsE6tUL4mIf9C2RKBIjvJThHPuVeSUGYiNgB3pY6OghA6ffrx8SvGG2sJUs74pEM9m
+ NRPZ6ow+SdfYufa+jfeP5cdu/U4JfVM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1769518210;
+ s=susede2_ed25519; t=1769518211;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cJb5ugxX2f9GUxMgh7zNbSUkCEOTeRFUyFWZkp3SI/8=;
- b=ldHi7xzQBrhjUmYv/o/Tf3emi5pr2uNVIZ6CazSj0LwD7LDR+HwQFj4bWEb7FBJAjWi1QZ
- skmTCPOfxK1207Cw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=u+yMx5Of;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ldHi7xzQ
+ bh=rQPJNOmyvcGs7px7KNymnRCsHkHsV4mRfPv/pI84UdQ=;
+ b=AYv9q8FbdFHCpLm1uWAT66WlOy4fCIED1xtkuQfU8IkC+76wr+Vm2kM8TQzO6OPcHLdroH
+ CwCfR8eR22bKRbCg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qm60mTnt;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=7DwGgWyk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1769518210; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cJb5ugxX2f9GUxMgh7zNbSUkCEOTeRFUyFWZkp3SI/8=;
- b=u+yMx5Oflr8NHHTkFyaxz7z0F1NNe1ez0wuRSCanhBtQmy5zYwi6UT5Q03r8phnq/LDO61
- s3urz1VsWymKuOs9/27u6xL8MQUHoNNtiplEo5t4yFki0uGRXG6+cZXW6QirMaiq26PCBS
- o9WC18DwMJVg+478E5SVFXvhSiuxpuM=
+ bh=rQPJNOmyvcGs7px7KNymnRCsHkHsV4mRfPv/pI84UdQ=;
+ b=qm60mTntpxqZz+ykTEJn2RdabqCWrfITDwk0oCywnfbjkG96tJNGQd1oYml2rBEG89zHw9
+ FUbc2nB18d2XEjcWb2KPPW6qUK7uB6FM4+SM3Q9acQu9uE3aI6W4sHVfi23Qw+TMtEL8xf
+ z0b+6PgnSf4/sSGoYzaaJl7ZBKIUrwY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1769518210;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cJb5ugxX2f9GUxMgh7zNbSUkCEOTeRFUyFWZkp3SI/8=;
- b=ldHi7xzQBrhjUmYv/o/Tf3emi5pr2uNVIZ6CazSj0LwD7LDR+HwQFj4bWEb7FBJAjWi1QZ
- skmTCPOfxK1207Cw==
+ bh=rQPJNOmyvcGs7px7KNymnRCsHkHsV4mRfPv/pI84UdQ=;
+ b=7DwGgWyk6cDY4KCMfBfUtiHo5pj1ilR3sl7uhTXH/zgSmYsz3dDWbFZ9mFVuENi44XUhwD
+ V7cy2ZkVxlld1nDw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A77D83EA61;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CA6C03EA62;
  Tue, 27 Jan 2026 12:50:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4NJIJ4K0eGmaYwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yJjJL4K0eGmaYwAAD6G6ig
  (envelope-from <andrea.cervesato@suse.de>); Tue, 27 Jan 2026 12:50:10 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Tue, 27 Jan 2026 13:50:10 +0100
+Date: Tue, 27 Jan 2026 13:50:11 +0100
 MIME-Version: 1.0
-Message-Id: <20260127-fork_refactoring-v1-2-e3e21ff1a4f7@suse.com>
+Message-Id: <20260127-fork_refactoring-v1-3-e3e21ff1a4f7@suse.com>
 References: <20260127-fork_refactoring-v1-0-e3e21ff1a4f7@suse.com>
 In-Reply-To: <20260127-fork_refactoring-v1-0-e3e21ff1a4f7@suse.com>
 To: Linux Test Project <ltp@lists.linux.it>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1769518210; l=12050;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1769518210; l=7776;
  i=andrea.cervesato@suse.com; s=20251210; h=from:subject:message-id;
- bh=pdQlt3ZIBFC3mH72zFg6YUMPMGJlNy6xlMOVEF0EFu4=;
- b=dLEi16itIeZ3Gbc45fh9DiXCnVXUfc9XNnD9p7sgUhuVH2teTGNpqs8uub5FsxghManYSchEY
- c8Pb6YdTlJNB7B1SJc7lZv7u+sGgjC6vc9jwC4ZPrX/yLr0plFNBfYk
+ bh=IMIFYnf/g3KpVzFfgHL8re8ojOU5V5YLzOKP8CFCKv4=;
+ b=KH7TPv7mkMoj/y1rqGnJSA1pyDvkoriKSnBKdbTagtxUsYhHhMzjZf4Jv4UoUhzM42v0RFlRf
+ 35fbAxa9XuFBx1Sy3E4icTxW7pwGLyu4nROK0QzgBpddKEDlK5ySJtW
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=zKY+6GCauOiuHNZ//d8PQ/UL4jFCTKbXrzXAOQSLevI=
 X-Spam-Score: -4.51
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/3] syscalls: refactor vfork01 using new API
+Subject: [LTP] [PATCH 3/3] syscalls: refactor vfork02 using new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,9 +134,9 @@ X-Spamd-Result: default: False [0.59 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
 	RCPT_COUNT_ONE(0.00)[1];
-	NEURAL_HAM(-0.00)[-0.966];
+	NEURAL_HAM(-0.00)[-0.969];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns,linux.it:url,suse.com:mid,suse.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns,linux.it:url];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[6];
 	FROM_NEQ_ENVFROM(0.00)[andrea.cervesato@suse.de,ltp-bounces@lists.linux.it];
@@ -145,21 +145,24 @@ X-Spamd-Result: default: False [0.59 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	TO_DN_ALL(0.00)[];
 	DKIM_TRACE(0.00)[suse.de:-]
-X-Rspamd-Queue-Id: 0790394827
+X-Rspamd-Queue-Id: 0BBC894803
 X-Rspamd-Action: no action
 
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
+Replace the deprecated sigrelse/sighold usage and replace them with
+sigaction.
+
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/syscalls/vfork/vfork01.c | 374 ++++--------------------------
- 1 file changed, 45 insertions(+), 329 deletions(-)
+ testcases/kernel/syscalls/vfork/vfork02.c | 230 +++---------------------------
+ 1 file changed, 23 insertions(+), 207 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/vfork/vfork01.c b/testcases/kernel/syscalls/vfork/vfork01.c
-index b050776b7982e568f59b31547a6ebf72a1dba880..a681abe37b8cac7b6fdee4e2387db12cd548c698 100644
---- a/testcases/kernel/syscalls/vfork/vfork01.c
-+++ b/testcases/kernel/syscalls/vfork/vfork01.c
-@@ -1,352 +1,68 @@
+diff --git a/testcases/kernel/syscalls/vfork/vfork02.c b/testcases/kernel/syscalls/vfork/vfork02.c
+index efa70d0bef325a77e345448fc88d3fb721a8d39d..507666c5f2c59f2d74f2efcd4c0e088a9818ed05 100644
+--- a/testcases/kernel/syscalls/vfork/vfork02.c
++++ b/testcases/kernel/syscalls/vfork/vfork02.c
+@@ -1,229 +1,45 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
 - *
@@ -183,18 +186,16 @@ index b050776b7982e568f59b31547a6ebf72a1dba880..a681abe37b8cac7b6fdee4e2387db12c
   */
  
 -/*
-- * Name: vfork01
+- * Test Name: vfork02
 - *
 - * Test Description:
-- *  Fork a process using vfork() and verify that, the attribute values like
-- *  euid, ruid, suid, egid, rgid, sgid, umask, inode and device number of
-- *  root and current working directories are same as that of the parent
-- *  process.
++/*\
+  *  Fork a process using vfork() and verify that, the pending signals in
+  *  the parent are not pending in the child process.
 - * $
 - * Expected Result:
-- *  The attribute values like euid, ruid, suid, egid, rgid, sgid, umask, inode
-- *  and device number of root and current working directory of the parent and
-- *  child processes should be equal.
+- *  The signal which is pending in the parent should not be pending in the
+- *  child process.
 - *
 - * Algorithm:
 - *  Setup:
@@ -216,14 +217,14 @@ index b050776b7982e568f59b31547a6ebf72a1dba880..a681abe37b8cac7b6fdee4e2387db12c
 - *   Print errno log and/or timing stats if options given
 - *
 - * Usage:  <for command-line>
-- *  vfork01 [-c n] [-e] [-f] [-i n] [-I x] [-p x] [-t]
-- *	where,	-c n : Run n copies concurrently.
-- *		-e   : Turn on errno logging.
-- *		-f   : Turn off functionality Testing.
-- *		-i n : Execute test n times.
-- *		-I x : Execute test for x seconds.
-- *		-P x : Pause for x seconds between iterations.
-- *		-t   : Turn on syscall timing.
+- *  vfork02 [-c n] [-e] [-f] [-i n] [-I x] [-p x] [-t]
+- *     where,  -c n : Run n copies concurrently.
+- *             -e   : Turn on errno logging.
+- *             -f   : Turn off functionality Testing.
+- *	       -i n : Execute test n times.
+- *	       -I x : Execute test for x seconds.
+- *	       -P x : Pause for x seconds between iterations.
+- *	       -t   : Turn on syscall timing.
 - *
 - * History
 - *	07/2001 John George
@@ -232,14 +233,9 @@ index b050776b7982e568f59b31547a6ebf72a1dba880..a681abe37b8cac7b6fdee4e2387db12c
 - * Restrictions:
 - *  None.
 - *
-+/*\
-+ * Fork a process using `vfork()` and verify that the attribute values like
-+ * euid, ruid, suid, egid, rgid, sgid, umask, inode and device number of
-+ * root and current working directories are the same of the parent
-+ * process ones.
   */
- 
 -#define _GNU_SOURCE 1
+-
 -#include <stdio.h>
 -#include <sys/types.h>
 -#include <errno.h>
@@ -247,211 +243,60 @@ index b050776b7982e568f59b31547a6ebf72a1dba880..a681abe37b8cac7b6fdee4e2387db12c
 -#include <fcntl.h>
 -#include <string.h>
 -#include <signal.h>
--#include <unistd.h>
 -#include <sys/stat.h>
 -#include <sys/wait.h>
 -
 -#include "test.h"
+-#include "safe_macros.h"
 -
--char *TCID = "vfork01";
+-char *TCID = "vfork02";
 -int TST_TOTAL = 1;
 -
--/* Variables to hold parent/child eff/real/saved uid/gid values */
--uid_t Peuid, Ceuid, Csuid, Psuid, Pruid, Cruid;
--gid_t Pegid, Cegid, Psgid, Csgid, Prgid, Crgid;
--mode_t Pumask, Cumask;
--
--char *Pcwd, *Ccwd;		/*
--				 * pathname of working directory of
--				 * child/parent process.
--				 */
--/* stat structure to hold directory/inode information for parent/child */
--struct stat StatPbuf;
--struct stat StatCbuf;
--struct stat Stat_cwd_Pbuf;
--struct stat Stat_cwd_Cbuf;
-+#include "tst_test.h"
-+#include "tst_uid.h"
- 
 -void setup();			/* Main setup function of test */
 -void cleanup();			/* cleanup function for the test */
+-void sig_handler();		/* signal catching function */
 -
 -int main(int ac, char **av)
-+static void run(void)
- {
+-{
 -	int lc;
 -	pid_t cpid;		/* process id of the child process */
 -	int exit_status;	/* exit status of child process */
+-	sigset_t PendSig;	/* variable to hold pending signal */
 -
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
 -	setup();
 -
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-+	char *p_cwd, *c_cwd;
-+	mode_t p_mask, c_mask;
-+	static uid_t p_ruid, p_euid, p_suid;
-+	static gid_t p_rgid, p_egid, p_sgid;
-+	struct stat p_cwd_stat, c_cwd_stat;
-+	struct stat p_root_stat, c_root_stat;
- 
+-
 -		tst_count = 0;
-+	p_mask = umask(0);
-+	umask(p_mask);
- 
+-
 -		/*
 -		 * Call vfork(2) to create a child process without
 -		 * fully copying the address space of parent.
 -		 */
 -		TEST(vfork());
-+	p_cwd = getcwd(NULL, BUFSIZ);
- 
+-
 -		if ((cpid = TEST_RETURN) == -1) {
 -			tst_resm(TFAIL, "vfork() Failed, errno=%d : %s",
 -				 TEST_ERRNO, strerror(TEST_ERRNO));
 -		} else if (cpid == 0) {	/* Child process */
 -			/*
--			 * Get the euid, ruid, egid, rgid, umask value
--			 * and the current working directory of the
--			 * child process
+-			 * Check whether the pending signal SIGUSR1
+-			 * in the parent is also pending in the child
+-			 * process by storing it in a variable.
 -			 */
--			if (getresuid(&Cruid, &Ceuid, &Csuid) < 0) {
--				tst_resm(TFAIL, "getresuid() fails to "
--					 "get real/eff./saved uid of "
--					 "child process");
+-			if (sigpending(&PendSig) == -1) {
+-				tst_resm(TFAIL, "sigpending function "
+-					 "failed in child");
 -				_exit(1);
 -			}
-+	SAFE_GETRESUID(&p_ruid, &p_euid, &p_suid);
-+	SAFE_GETRESGID(&p_rgid, &p_egid, &p_sgid);
- 
--			if (getresgid(&Crgid, &Cegid, &Csgid) < 0) {
--				tst_resm(TFAIL, "getresgid() fails to "
--					 "get real/eff./saved gid of "
--					 "child process");
+-
+-			/* Check if SIGUSR1 is pending in child */
+-			if (sigismember(&PendSig, SIGUSR1) != 0) {
+-				tst_resm(TFAIL, "SIGUSR1 also pending "
+-					 "in child process");
 -				_exit(1);
--			}
-+	SAFE_STAT(p_cwd, &p_cwd_stat);
-+	SAFE_STAT("/", &p_root_stat);
- 
--			/*
--			 * Get the file mode creation mask value of
--			 * child process by setting value zero and
--			 * restore the previous mask value.
--			 */
--			Cumask = umask(0);
-+	if (!vfork()) {
-+		c_mask = umask(0);
-+		umask(c_mask);
- 
--			/*
--			 * Restore the process mask of child to
--			 * previous value.
--			 */
--			umask(Cumask);
-+		TST_EXP_EQ_LI(p_mask, c_mask);
- 
--			/*
--			 * Get the pathname of current working
--			 * directory for the child process.
--			 */
--			if ((Ccwd = (char *)getcwd(NULL,
--						   BUFSIZ)) == NULL) {
--				tst_resm(TFAIL, "getcwd failed for the "
--					 "child process");
--				_exit(1);
--			}
-+		c_cwd = getcwd(NULL, BUFSIZ);
-+		SAFE_STAT(c_cwd, &c_cwd_stat);
- 
--			/*
--			 * Get the device number and the inode
--			 * number of "/" directory for the child
--			 * process.
--			 */
--			if (stat("/", &StatCbuf) < 0) {
--				tst_resm(TFAIL, "stat(2) failed to get "
--					 "info. of'/' in the child "
--					 "process");
--				_exit(1);
--			}
-+		TST_EXP_EQ_STR(p_cwd, c_cwd);
-+		TST_EXP_EQ_LI(p_cwd_stat.st_ino, c_cwd_stat.st_ino);
-+		TST_EXP_EQ_LI(p_cwd_stat.st_dev, c_cwd_stat.st_dev);
- 
--			/*
--			 * Get the device/inode number of "."
--			 * (working directory) for the child process.
--			 */
--			if (stat(Ccwd, &Stat_cwd_Cbuf) < 0) {
--				tst_resm(TFAIL, "stat(2) failed to get "
--					 "info. of working irectory in "
--					 "the child");
--				_exit(1);
--			}
-+		SAFE_STAT("/", &c_root_stat);
- 
--			/* Now, do the actual comparision */
--			if (Peuid != Ceuid || Pegid != Cegid ||
--			    Psuid != Csuid || Psgid != Csgid ||
--			    Pruid != Cruid || Prgid != Crgid ||
--			    Pumask != Cumask) {
--				tst_resm(TFAIL, "Attribute values of "
--					 "parent and child don't match");
--				_exit(1);
--			} else {
--				tst_resm(TINFO, "Attribute values of "
--					 "parent and child match");
--			}
-+		TST_EXP_EQ_LI(p_root_stat.st_ino, c_root_stat.st_ino);
-+		TST_EXP_EQ_LI(p_root_stat.st_dev, c_root_stat.st_dev);
- 
--			/* Check for the same working directories */
--			if (strcmp(Pcwd, Ccwd) != 0) {
--				tst_resm(TFAIL, "Working directories "
--					 "of parent and child don't "
--					 "match");
--				_exit(1);
--			} else {
--				tst_resm(TINFO, "Working directories "
--					 "of parent and child match");
--			}
-+		if (tst_check_resuid("resuid()", p_ruid, p_euid, p_suid))
-+			tst_res(TPASS, "Parent and child UID are matching");
- 
--			/*
--			 * Check for the same device/inode number of
--			 * '/' directory.
--			 */
--			if ((StatPbuf.st_ino != StatCbuf.st_ino) ||
--			    (StatPbuf.st_dev != StatCbuf.st_dev)) {
--				tst_resm(TFAIL, "Device/inode number "
--					 "of parent and childs '/' "
--					 " don't match");
--				_exit(1);
--			} else {
--				tst_resm(TINFO, "Device/inode number "
--					 "of parent and childs '/' "
--					 "match");
--			}
-+		if (tst_check_resgid("resgid()", p_rgid, p_egid, p_sgid))
-+			tst_res(TPASS, "Parent and child GID are matching");
- 
--			/*
--			 * Check for the same device and inode number
--			 *  of "." (current working directory.
--			 */
--			if ((Stat_cwd_Pbuf.st_ino !=
--			     Stat_cwd_Cbuf.st_ino) ||
--			    (Stat_cwd_Pbuf.st_dev !=
--			     Stat_cwd_Cbuf.st_dev)) {
--				tst_resm(TFAIL, "Device/inode number "
--					 "of parent and childs '.' "
--					 "don't match");
--				_exit(1);
--			} else {
--				tst_resm(TINFO, "Device/inode number "
--					 "of parent and childs '.' "
--					 "don't match");
 -			}
 -
 -			/*
@@ -459,7 +304,6 @@ index b050776b7982e568f59b31547a6ebf72a1dba880..a681abe37b8cac7b6fdee4e2387db12c
 -			 * fine
 -			 */
 -			_exit(0);
--
 -		} else {	/* parent process */
 -			/*
 -			 * Let the parent process wait till child completes
@@ -469,93 +313,107 @@ index b050776b7982e568f59b31547a6ebf72a1dba880..a681abe37b8cac7b6fdee4e2387db12c
 -
 -			/* Check for the exit status of child process */
 -			if (WEXITSTATUS(exit_status) == 0) {
--				tst_resm(TPASS, "Call of vfork() successful");
+-				tst_resm(TPASS, "Call to vfork() "
+-					 "successful");
 -			} else if (WEXITSTATUS(exit_status) == 1) {
 -				tst_resm(TFAIL,
 -					 "Child process exited abnormally");
 -			}
 -		}
 -		tst_count++;	/* incr. TEST_LOOP counter */
-+		exit(0);
- 	}
--
+-	}
+ 
 -	cleanup();
 -	tst_exit();
++#include "tst_test.h"
+ 
+-}
+-
+-/*
+- * void
+- * setup() - performs all ONE TIME setup for this test.
+- *   This function installs signal handler for SIGUSR1, puts signal SIGUSR1
+- *   on hold and then sends the signal SIGUSR1 to itself so that it is in
+- *   pending state.
+- */
+-void setup(void)
++static void run(void)
+ {
+-	sigset_t PendSig;	/* variable to hold pending signal */
+-
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
++	if (!vfork()) {
++		sigset_t signal;
+ 
+-	TEST_PAUSE;
+-
+-	/* Install the signal handler */
+-	if (signal(SIGUSR1, sig_handler) == SIG_ERR) {
+-		tst_brkm(TBROK, cleanup, "Fails to catch the signal SIGUSR1");
+-	}
+-
+-	/* Hold the signal SIGUSR1 */
+-	if (sighold(SIGUSR1) == -1) {
+-		tst_brkm(TBROK, cleanup,
+-			 "sighold failed to hold the signal SIGUSR1");
+-	}
++		if (sigpending(&signal) == -1)
++			tst_brk(TBROK | TERRNO, "sigpending() error");
+ 
+-	/* Send the signal SIGUSR1 to itself so that SIGUSR1 is pending */
+-	SAFE_KILL(cleanup, getpid(), SIGUSR1);
++		TST_EXP_EQ_LI(sigismember(&signal, SIGUSR1), 0);
+ 
+-	/* If SIGUSR1 is not pending in the parent, fail */
+-	if (sigpending(&PendSig) == -1) {
+-		tst_brkm(TBROK, cleanup,
+-			 "sigpending function failed in parent");
+-	}
+-
+-	/* Check if SIGUSR1 is pending in parent */
+-	if (sigismember(&PendSig, SIGUSR1) != 1) {
+-		tst_brkm(TBROK, cleanup,
+-			 "SIGUSR1 signal is not pending in parent");
++		exit(0);
+ 	}
  }
  
 -/*
 - * void
-- * setup() - performs all ONE TIME setup for this test.
-- *  This function gets real/effective/saved uid/gid, umask, the device/inode
-- *  number of '/' and current working directory for the parent process.
+- * sig_handler() - signal catching function for 'SIGUSR1' signal.
+- *		 $
+- *   This is a null function and used only to catch the above signal
+- *   generated in parent process.
 - */
--void setup(void)
--{
--
--	tst_sig(FORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--
--	/*
--	 * Get the euid, ruid, egid, rgid, umask value
--	 * and the current working directory of the parent process.
--	 */
--	if (getresuid(&Pruid, &Peuid, &Psuid) < 0) {
--		tst_brkm(TFAIL, cleanup, "getresuid() fails to get "
--			 "real/eff./saved uid of parent");
--	}
--
--	if (getresgid(&Prgid, &Pegid, &Psgid) < 0) {
--		tst_brkm(TFAIL, cleanup, "getresgid() fails to get "
--			 "real/eff./saved gid of parent");
--	}
--
--	/* Get the process file mode creation mask by setting value 0 */
--	Pumask = umask(0);
--	umask(Pumask);		/*
--				 * Restore the mask value of the
--				 * process.
--				 */
--	/*
--	 * Get the pathname of current working directory of the parent
--	 * process.
--	 */
--	if ((Pcwd = (char *)getcwd(NULL, BUFSIZ)) == NULL) {
--		tst_brkm(TFAIL, cleanup,
--			 "getcwd failed for the parent process");
--	}
--
--	/*
--	 * Get the device and inode number of root directory for the
--	 * parent process.
--	 */
--	if (stat("/", &StatPbuf) == -1) {
--		tst_brkm(TFAIL, cleanup, "stat(2) failed to get info. of '/' "
--			 "in parent process");
--	}
--
--	/*
--	 * Get the device number and the inode number of "." (current-
--	 * working directory) for the parent process.
--	 */
--	if (stat(Pcwd, &Stat_cwd_Pbuf) < 0) {
--		tst_brkm(TFAIL, cleanup, "stat(2) failed to get info. of "
--			 "working directory in parent process");
--	}
--}
--
+-void sig_handler(void)
++static void sig_handler(LTP_ATTRIBUTE_UNUSED int signo)
+ {
+ }
+ 
 -/*
 - * void
 - * cleanup() - performs all ONE TIME cleanup for this test at
 - *             completion or premature exit.
+- *  Release the signal 'SIGUSR1'  if still in pending state.
 - */
 -void cleanup(void)
--{
--
--}
++static void setup(void)
+ {
++	struct sigaction action;
+ 
+-	/* Release the signal 'SIGUSR1' if in pending state */
+-	if (sigrelse(SIGUSR1) == -1) {
+-		tst_brkm(TBROK, NULL, "Failed to release 'SIGUSR1' in cleanup");
+-	}
++	memset(&action, 0, sizeof(action));
++	action.sa_handler = sig_handler;
+ 
++	SAFE_SIGACTION(SIGUSR1, &action, NULL);
+ }
++
 +static struct tst_test test = {
 +	.test_all = run,
-+	.forks_child = 1,
++	.setup = setup,
 +};
 
 -- 
