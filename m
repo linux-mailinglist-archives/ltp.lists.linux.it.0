@@ -2,92 +2,108 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KNHdAB4Iemn11wEAu9opvQ
+	id 0PtkLrFSemnk5AEAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jan 2026 13:59:10 +0100
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jan 2026 19:17:21 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDF5CA1B02
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jan 2026 13:59:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53F01A7A5A
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jan 2026 19:17:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1E9FB3CB604
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jan 2026 13:59:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D250B3CBE01
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jan 2026 19:17:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 30B863CB3FE
- for <ltp@lists.linux.it>; Wed, 28 Jan 2026 13:59:02 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 636633CAF03
+ for <ltp@lists.linux.it>; Wed, 28 Jan 2026 19:17:18 +0100 (CET)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B96B91A0066F
- for <ltp@lists.linux.it>; Wed, 28 Jan 2026 13:59:01 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8B3A033BEA;
- Wed, 28 Jan 2026 12:58:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1769605140; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=UspdA0A08w4otm7D1cndDmOsbCC3uMdiAcTOIUW1tpk=;
- b=3IZ79f0L6oJRG5Th0PZLduMMgYBsKSZmwj64PoYyXc+adHGr7sjmd0EZwYHA+tnJsseDyb
- FbF8woU54XU1/xuR690kZURIobHFo1GM1Zgc94Y0MpiIhLtP1x4E/SpRlqcqV1qKO9My6A
- 6YGKKVF8byKn3joLFx+iVGtBoq4VBEA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1769605140;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=UspdA0A08w4otm7D1cndDmOsbCC3uMdiAcTOIUW1tpk=;
- b=3RMdmFDxsKScUKqDSBGDj4SWXmwe1svURvl4vYH7cARXFJ+uVsjqiOGqGtCN3kJeuIZrP+
- tJvalz0AtmbQaxDg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="yT6N/Twy";
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=7k7MQHIR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1769605139; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=UspdA0A08w4otm7D1cndDmOsbCC3uMdiAcTOIUW1tpk=;
- b=yT6N/TwytGzRrknNKMO7CCddMEQhGesqmhgL37TQxy+i3EBQUT5TUv8lOkkrgpC83F0lKO
- tkphlNHi5YjBJmGAV2jhEVSFupeiI6xO4hD3Qu7nVPSxpQ/5NwAqTIwPVTMvJI+7L26PxP
- /cDTGWZUqSYaD8+evGIGzqIsMeso0po=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1769605139;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=UspdA0A08w4otm7D1cndDmOsbCC3uMdiAcTOIUW1tpk=;
- b=7k7MQHIRVqrl/v/4aHN72zjuDRV6rkOwT2dCDUWYfUYtiWd4dqf7b8YrpqIvW6yZ7OWrei
- 0UFFlntuucdhZuBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0F1B73EA61;
- Wed, 28 Jan 2026 12:58:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id LNb2ARMIemkNJQAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Wed, 28 Jan 2026 12:58:59 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 28 Jan 2026 13:58:52 +0100
-Message-ID: <20260128125852.37411-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.51.0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3C0B31000991
+ for <ltp@lists.linux.it>; Wed, 28 Jan 2026 19:17:17 +0100 (CET)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 60S9kqbn003816;
+ Wed, 28 Jan 2026 18:17:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=eRXuKq
+ RFz2WiWmwABW14vT9HmUAACDs+EATLssEMjuk=; b=OhZzhdo7scdsogVkWYpgYY
+ LO6y2TLPUQr/+Tte9FmBIc84EvjCk4UAmY+sR8AenLnvRKOSNkpG1aayWD1Mkmaj
+ 7mpWfYvyvOmLZnsGS3AeqNuaBF5Lf+jK3KtCRtdai2bAgE2hIjEG5x0JPcb3RK99
+ gyWb67LggdTGTQBcM9UDtuw6lGH68tSvOeRF8M+riSdB2c5vqKlXxOroWDCJThdS
+ 5t2yr9wxa8eV2z9ny2A3uMz8SDxk9n8D3r6jYEXzMOhEvYg8quDJ//uinfo/CY9s
+ evLeGg9PAwzlKJQYONsIhOfzX1MSsrQpSKywZK9Cb2+J2sU/tZAE/+VoTLF//SFA
+ ==
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4bvmgg2rky-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Jan 2026 18:17:16 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 60SFXPhx006692;
+ Wed, 28 Jan 2026 18:17:15 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4bw8syenth-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Jan 2026 18:17:15 +0000
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com
+ [10.39.53.233])
+ by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 60SIHE8n18612960
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 28 Jan 2026 18:17:14 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8CB3658062;
+ Wed, 28 Jan 2026 18:17:14 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6E04758055;
+ Wed, 28 Jan 2026 18:17:14 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown
+ [9.31.96.173]) by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Wed, 28 Jan 2026 18:17:14 +0000 (GMT)
+Message-ID: <daf396f955b3aec1802fc99a464b94a947a7c1d0.camel@linux.ibm.com>
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+In-Reply-To: <20260128125852.37411-1-pvorel@suse.cz>
+References: <20260128125852.37411-1-pvorel@suse.cz>
+Date: Wed, 28 Jan 2026 13:17:14 -0500
 MIME-Version: 1.0
-X-Spam-Score: -3.01
-X-Spam-Level: 
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=Z4vh3XRA c=1 sm=1 tr=0 ts=697a52ac cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VnNF1IyMAAAA:8 a=gZqqgoKqdoXuXVtkYhUA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 23YsqnmL4T6uTZCjkmE3Y8fvpn5Jl3A4
+X-Proofpoint-ORIG-GUID: 23YsqnmL4T6uTZCjkmE3Y8fvpn5Jl3A4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDE1MSBTYWx0ZWRfX34TOdnR5d5AM
+ KVUZyi4eDsvlob6T3OUVEbRqq9Z0sZPy39qUvS3c2UA9QTVbYI4VpFCgHJe9FoKPRy37StbnIO7
+ oX96IzSHXVUTCXN+lkTbUITsN3zGIb7u84j45jgZzy/RgtCTNziGOojlzLMiFK4UHgYVIq6tbWi
+ 88gNlx6MLAQ+qA9bmnMIBLtgElpwICqYq3DyqQ/rRfCRCluYcNAFlCxGKN3uSZg4y0a5mf2OLbm
+ M9sWK6B6U5nuj4r8kK8vf6HviC994+CYsnD0CoNNg3Sh16RSsUCjKQ22md8dBVMvDD5Y+vcsJZp
+ RoG0XlvzPtdhay2d8IsbHPP8PQvfKKeD4sXvVygjH3b2w/4Eu123uafY7qkj+Lg0N3492LQkWAE
+ 5m0U43/xRB1+uNOT1s9ezmt/5F621uqw/JIAoiG1nORXy56dM7DRs6I4/Grv3Jj8FIeElHmMZoM
+ 680tl2q3K/XhpddZZMQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-01-28_04,2026-01-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 clxscore=1011 lowpriorityscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2601150000 definitions=main-2601280151
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] ima_setup.sh: Fix signed policy requirement check
+Subject: Re: [LTP] [PATCH] ima_setup.sh: Fix signed policy requirement check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,65 +121,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.49 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	R_SPF_ALLOW(-0.20)[+a:c];
+X-Spamd-Result: default: False [0.59 / 15.00];
+	R_DKIM_REJECT(1.00)[ibm.com:s=pp1];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+a];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[ibm.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
-	SURBL_MULTI_FAIL(0.00)[picard.linux.it:query timed out];
-	RCPT_COUNT_TWO(0.00)[2];
-	DMARC_NA(0.00)[suse.cz];
-	MIME_TRACE(0.00)[0:+];
+	NEURAL_HAM(-0.00)[-0.997];
 	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:-];
-	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[pvorel@suse.cz,ltp-bounces@lists.linux.it];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_NONE(0.00)[];
 	TAGGED_RCPT(0.00)[linux-ltp];
-	NEURAL_HAM(-0.00)[-0.981];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns,linux.it:url,suse.cz:mid,suse.cz:email,ima_policy.sh:url]
-X-Rspamd-Queue-Id: DDF5CA1B02
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[ibm.com:-];
+	RCVD_TLS_LAST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[zohar@linux.ibm.com,ltp-bounces@lists.linux.it];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[11]
+X-Rspamd-Queue-Id: 53F01A7A5A
 X-Rspamd-Action: no action
 
-tst_require_kconfigs() quits testing with tst_brk TCONF, but that first
-hides the explanation in ima_conditionals.sh (which also calls tst_brk
-TCONF) but also quits testing in ima_policy.sh (which calls tst_res
-TCONF). Therefore use tst_check_kconfigs binary instead.
+On Wed, 2026-01-28 at 13:58 +0100, Petr Vorel wrote:
+> tst_require_kconfigs() quits testing with tst_brk TCONF, but that first
+> hides the explanation in ima_conditionals.sh (which also calls tst_brk
+> TCONF) but also quits testing in ima_policy.sh (which calls tst_res
+> TCONF). Therefore use tst_check_kconfigs binary instead.
+> 
+> Fixes: c38b528783 ("ima_{conditionals, policy}: Handle policy required to be signed")
+> Reported-by: Mimi Zohar <zohar@linux.ibm.com>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> FYI Fix needed before the release.
 
-Fixes: c38b528783 ("ima_{conditionals, policy}: Handle policy required to be signed")
-Reported-by: Mimi Zohar <zohar@linux.ibm.com>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-FYI Fix needed before the release.
+Thanks, Petr!
 
- testcases/kernel/security/integrity/ima/tests/ima_setup.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Tested-by: Mimi Zohar <zohar@linux.ibm.com>
 
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-index df0b8d1532..b69d7c31d9 100644
---- a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-@@ -469,7 +469,7 @@ require_evmctl()
- # d958083a8f640 ("x86/ima: define arch_get_ima_policy() for x86") # v5.0
- check_need_signed_policy()
- {
--	tst_secureboot_enabled && tst_kvcmp -ge '6.5' && tst_require_kconfigs \
-+	tst_secureboot_enabled && tst_kvcmp -ge '6.5' && tst_check_kconfigs \
- 		'CONFIG_IMA_KEYRINGS_PERMIT_SIGNED_BY_BUILTIN_OR_SECONDARY,CONFIG_IMA_ARCH_POLICY'
- }
- 
--- 
-2.51.0
-
+> 
+>  testcases/kernel/security/integrity/ima/tests/ima_setup.sh | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+> index df0b8d1532..b69d7c31d9 100644
+> --- a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+> +++ b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+> @@ -469,7 +469,7 @@ require_evmctl()
+>  # d958083a8f640 ("x86/ima: define arch_get_ima_policy() for x86") # v5.0
+>  check_need_signed_policy()
+>  {
+> -	tst_secureboot_enabled && tst_kvcmp -ge '6.5' && tst_require_kconfigs \
+> +	tst_secureboot_enabled && tst_kvcmp -ge '6.5' && tst_check_kconfigs \
+>  		'CONFIG_IMA_KEYRINGS_PERMIT_SIGNED_BY_BUILTIN_OR_SECONDARY,CONFIG_IMA_ARCH_POLICY'
+>  }
+>  
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
