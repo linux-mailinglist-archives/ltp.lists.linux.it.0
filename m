@@ -2,104 +2,104 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +K/8N1nvgWlAMwMAu9opvQ
+	id GEE3KTLvgWlAMwMAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Tue, 03 Feb 2026 13:51:37 +0100
+	for <lists+linux-ltp@lfdr.de>; Tue, 03 Feb 2026 13:50:58 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E50BD95E7
-	for <lists+linux-ltp@lfdr.de>; Tue, 03 Feb 2026 13:51:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53705D956D
+	for <lists+linux-ltp@lfdr.de>; Tue, 03 Feb 2026 13:50:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2DADC3CD2AE
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Feb 2026 13:51:37 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D708A3CD0E9
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Feb 2026 13:50:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E758A3CD33A
- for <ltp@lists.linux.it>; Tue,  3 Feb 2026 13:50:40 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id E12833CD28F
+ for <ltp@lists.linux.it>; Tue,  3 Feb 2026 13:50:35 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 434EA1A002D9
- for <ltp@lists.linux.it>; Tue,  3 Feb 2026 13:50:39 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5306A1000946
+ for <ltp@lists.linux.it>; Tue,  3 Feb 2026 13:50:35 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AC5535BCC6
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B63F65BCC7
  for <ltp@lists.linux.it>; Tue,  3 Feb 2026 12:50:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1770123029; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uZbKHT4MUnT3l77+bE/Iv8KP/CiPtz68Xw9OR9Ck8lw=;
- b=eflgRLQd0SKoxXDvcaW3sj+I4P/DrzuU8JuzudXgr1cXS+vsMuzZuawQWt0wK5u3/2h0hH
- b9znhJ5kqBXjG5x8IY96J697I+zJEO9NPoPofUjBz8vQeCUoLbC86lv+l9vQLqwGb7BmAt
- EjPuXGUZwlDIoqZxrjEFdWokcgyzufs=
+ bh=fdpivvdZPCWK/chmI2Smvs6jTl5hpnfBX2AYqBfwsQQ=;
+ b=d6+EJvFADC3LSGVw25rYGxvHDQpZMeHvTORh97bQGZi4AdqTP5KHEsKHWphll0CZNY8pox
+ fN2pfaIgisW1yWAoQCmYePXL9GtmaW72UosaqS44rcOEsKlJslpoO2VdhXbumSH35/tE/n
+ nxc3zMOXjuD+tCj+KQjzumhx4nldyjI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1770123029;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uZbKHT4MUnT3l77+bE/Iv8KP/CiPtz68Xw9OR9Ck8lw=;
- b=FBLtOre/HHjGsaOt6ckQMBOIqd3oQgaXZmZ6cncaTxqrtyhku/1XNHg7RU0yDtdpE8CHi7
- TgFET11s/zG3vbCw==
+ bh=fdpivvdZPCWK/chmI2Smvs6jTl5hpnfBX2AYqBfwsQQ=;
+ b=2GStFPPb7tm8zkG6xBCBiWeLakmMj+uSG6yri4n1UQraet2+0SHIOZwQcX7IdNN3LNuDUW
+ ox5k1V9yvMy+wDBA==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=eflgRLQd;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="FBLtOre/"
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1770123029; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uZbKHT4MUnT3l77+bE/Iv8KP/CiPtz68Xw9OR9Ck8lw=;
- b=eflgRLQd0SKoxXDvcaW3sj+I4P/DrzuU8JuzudXgr1cXS+vsMuzZuawQWt0wK5u3/2h0hH
- b9znhJ5kqBXjG5x8IY96J697I+zJEO9NPoPofUjBz8vQeCUoLbC86lv+l9vQLqwGb7BmAt
- EjPuXGUZwlDIoqZxrjEFdWokcgyzufs=
+ bh=fdpivvdZPCWK/chmI2Smvs6jTl5hpnfBX2AYqBfwsQQ=;
+ b=d6+EJvFADC3LSGVw25rYGxvHDQpZMeHvTORh97bQGZi4AdqTP5KHEsKHWphll0CZNY8pox
+ fN2pfaIgisW1yWAoQCmYePXL9GtmaW72UosaqS44rcOEsKlJslpoO2VdhXbumSH35/tE/n
+ nxc3zMOXjuD+tCj+KQjzumhx4nldyjI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1770123029;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uZbKHT4MUnT3l77+bE/Iv8KP/CiPtz68Xw9OR9Ck8lw=;
- b=FBLtOre/HHjGsaOt6ckQMBOIqd3oQgaXZmZ6cncaTxqrtyhku/1XNHg7RU0yDtdpE8CHi7
- TgFET11s/zG3vbCw==
+ bh=fdpivvdZPCWK/chmI2Smvs6jTl5hpnfBX2AYqBfwsQQ=;
+ b=2GStFPPb7tm8zkG6xBCBiWeLakmMj+uSG6yri4n1UQraet2+0SHIOZwQcX7IdNN3LNuDUW
+ ox5k1V9yvMy+wDBA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 997E63EA63
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9EFFB3EA64
  for <ltp@lists.linux.it>; Tue,  3 Feb 2026 12:50:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id oHhJJRXvgWkNcgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id gJauJhXvgWkNcgAAD6G6ig
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Tue, 03 Feb 2026 12:50:29 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  3 Feb 2026 13:50:24 +0100
-Message-ID: <20260203125029.15413-2-mdoucha@suse.cz>
+Date: Tue,  3 Feb 2026 13:50:25 +0100
+Message-ID: <20260203125029.15413-3-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260203125029.15413-1-mdoucha@suse.cz>
 References: <20260203125029.15413-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: -3.01
+X-Spam-Score: -2.80
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/3] openposix/aio_cancel: Add helper functions for
- setup and cleanup
+Subject: [LTP] [PATCH 2/3] openposix/aio_cancel: Use setup helper functions
+ in tests 5 and 7
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,121 +140,340 @@ X-Spamd-Result: default: False [1.49 / 15.00];
 	TAGGED_RCPT(0.00)[linux-ltp];
 	NEURAL_HAM(-0.00)[-0.996];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,suse.cz:email,picard.linux.it:helo,picard.linux.it:rdns,linux.it:url]
-X-Rspamd-Queue-Id: 8E50BD95E7
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,suse.cz:email,linux.it:url]
+X-Rspamd-Queue-Id: 53705D956D
 X-Rspamd-Action: no action
 
-Add helper functions for setting up and cleaning up boilerplate
-aio requests to a socket pair. The socket pair approach is useful
-for tests which need some requests to block in order to prevent
-race conditions.
+Simplify setup and cleanup in recently rewritten tests.
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- .../open_posix_testsuite/include/aio_test.h   | 94 +++++++++++++++++++
- 1 file changed, 94 insertions(+)
- create mode 100644 testcases/open_posix_testsuite/include/aio_test.h
+ .../conformance/interfaces/aio_cancel/5-1.c   | 79 +++----------------
+ .../conformance/interfaces/aio_cancel/7-1.c   | 79 +++----------------
+ 2 files changed, 23 insertions(+), 135 deletions(-)
 
-diff --git a/testcases/open_posix_testsuite/include/aio_test.h b/testcases/open_posix_testsuite/include/aio_test.h
-new file mode 100644
-index 000000000..9de0a4d93
---- /dev/null
-+++ b/testcases/open_posix_testsuite/include/aio_test.h
-@@ -0,0 +1,94 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * Copyright (C) 2024 SUSE LLC <mdoucha@suse.cz>
-+ */
-+
-+#include <stdio.h>
-+#include <string.h>
-+#include <stdlib.h>
-+#include <errno.h>
-+#include <aio.h>
-+#include <sys/socket.h>
-+
-+static int setup_aio(const char *testname, int fd_pair[2], struct aiocb *reqs,
-+	unsigned int count)
-+{
-+	unsigned int i;
-+	int ret;
-+	int bufsize;
-+	socklen_t argsize = sizeof(bufsize);
-+
-+	/* Open anonymous sockets */
-+	ret = socketpair(AF_UNIX, SOCK_DGRAM, 0, fd_pair);
-+
-+	if (ret) {
-+		printf("%s Error creating sockets(): %s\n", testname,
-+			strerror(errno));
-+		return -1;
-+	}
-+
-+	ret = getsockopt(fd_pair[0], SOL_SOCKET, SO_SNDBUF, &bufsize, &argsize);
-+	if (ret) {
-+		printf("%s Error reading socket buffer size: %s\n", testname,
-+			strerror(errno));
-+		close(fd_pair[0]);
-+		close(fd_pair[1]);
-+		return -1;
-+	}
-+
-+	/* Socket buffer size is twice the maximum message size */
-+	bufsize /= 2;
-+	memset(reqs, 0, sizeof(struct aiocb) * count);
-+
-+	/* Setup basic AIO requests */
-+	for (i = 0; i < count; i++) {
-+		reqs[i].aio_fildes = fd_pair[0];
-+		reqs[i].aio_buf = malloc(bufsize);
-+
-+		if (!reqs[i].aio_buf) {
-+			ret = errno;
-+			break;
-+		}
-+
-+		reqs[i].aio_nbytes = bufsize;
-+		reqs[i].aio_sigevent.sigev_notify = SIGEV_NONE;
-+		memset((void *)reqs[i].aio_buf, 0xaa, bufsize);
-+	}
-+
-+	/* Setup successful */
-+	if (i >= count)
-+		return 0;
-+
-+	/* malloc() failed above */
-+	for (i = 0; i < count; i++)
-+		free((void *)reqs[i].aio_buf);
-+
-+	printf("%s malloc() failed: %s\n", testname, strerror(ret));
-+	close(fd_pair[0]);
-+	close(fd_pair[1]);
-+	return -1;
-+}
-+
-+static void cleanup_aio(int fd_pair[2], struct aiocb *reqs, unsigned int count)
-+{
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < count; i++) {
-+		if (!reqs[i].aio_buf)
-+			break;
-+
-+		ret = aio_error(reqs + i);
-+
-+		/* flush written data from the socket */
-+		if (ret == 0 || ret == EINPROGRESS) {
-+			read(fd_pair[1], (void *)reqs[i].aio_buf,
-+				reqs[i].aio_nbytes);
-+		}
-+
-+		free((void *)reqs[i].aio_buf);
-+	}
-+
-+	close(fd_pair[0]);
-+	close(fd_pair[1]);
-+}
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/5-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/5-1.c
+index 559625b13..e7dfca124 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/5-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/5-1.c
+@@ -25,18 +25,13 @@
+  *
+  */
+ 
+-#include <stdio.h>
+ #include <sys/types.h>
+ #include <unistd.h>
+ #include <sys/stat.h>
+-#include <string.h>
+-#include <errno.h>
+-#include <stdlib.h>
+ #include <time.h>
+-#include <aio.h>
+-#include <sys/socket.h>
+ 
+ #include "posixtest.h"
++#include "aio_test.h"
+ 
+ #define TNAME "aio_cancel/5-1.c"
+ 
+@@ -46,29 +41,6 @@
+ static int fds[2];
+ static struct aiocb aiocb[BUF_NB];
+ 
+-static void cleanup(void)
+-{
+-	int i, ret;
+-
+-	for (i = 0; i < BUF_NB; i++) {
+-		if (!aiocb[i].aio_buf)
+-			break;
+-
+-		ret = aio_error(&aiocb[i]);
+-
+-		/* flush written data from the socket */
+-		if (ret == 0 || ret == EINPROGRESS) {
+-			read(fds[1], (void *)aiocb[i].aio_buf,
+-				aiocb[i].aio_nbytes);
+-		}
+-
+-		free((void *)aiocb[i].aio_buf);
+-	}
+-
+-	close(fds[0]);
+-	close(fds[1]);
+-}
+-
+ int main(void)
+ {
+ 	char *buf[BUF_NB];
+@@ -76,49 +48,24 @@ int main(void)
+ 	int ret;
+ 	int bufsize;
+ 	int exp_ret;
+-	socklen_t argsize = sizeof(bufsize);
+ 	const struct timespec sleep_ts = { .tv_sec = 0, .tv_nsec = 10000000 };
+ 
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		return PTS_UNSUPPORTED;
+ 
+-	ret = socketpair(AF_UNIX, SOCK_DGRAM, 0, fds);
+-	if (ret == -1) {
+-		printf(TNAME " Error creating sockets(): %s\n",
+-			strerror(errno));
++	if (setup_aio(TNAME, fds, aiocb, BUF_NB))
+ 		return PTS_UNRESOLVED;
+-	}
+ 
+-	ret = getsockopt(fds[0], SOL_SOCKET, SO_SNDBUF, &bufsize, &argsize);
+-	if (ret == -1) {
+-		printf(TNAME " Error reading socket buffer size: %s\n",
+-			strerror(errno));
+-		cleanup();
+-		return PTS_UNRESOLVED;
+-	}
++	bufsize = aiocb[0].aio_nbytes;
+ 
+-	/* Socket buffer size is twice the maximum message size */
+-	bufsize /= 2;
+-
+-	/* create AIO req */
++	/* submit AIO req */
+ 	for (i = 0; i < BUF_NB; i++) {
+-		buf[i] = malloc(bufsize);
+-		if (buf[i] == NULL) {
+-			printf(TNAME " Error at malloc(): %s\n",
+-				strerror(errno));
+-			cleanup();
+-			return PTS_UNRESOLVED;
+-		}
+-		aiocb[i].aio_fildes = fds[0];
+-		aiocb[i].aio_buf = buf[i];
+-		aiocb[i].aio_nbytes = bufsize;
+-		aiocb[i].aio_offset = 0;
+-		aiocb[i].aio_sigevent.sigev_notify = SIGEV_NONE;
++		buf[i] = (char *)aiocb[i].aio_buf;
+ 
+ 		if (aio_write(&aiocb[i]) == -1) {
+ 			printf(TNAME " loop %d: Error at aio_write(): %s\n",
+ 				i, strerror(errno));
+-			cleanup();
++			cleanup_aio(fds, aiocb, BUF_NB);
+ 			return PTS_FAIL;
+ 		}
+ 	}
+@@ -135,7 +82,7 @@ int main(void)
+ 	if (ret) {
+ 		printf(TNAME " Task #%d failed to complete: %s\n",
+ 			BLOCKED_TASK - 1, strerror(ret == -1 ? errno : ret));
+-		cleanup();
++		cleanup_aio(fds, aiocb, BUF_NB);
+ 		return PTS_FAIL;
+ 	}
+ 
+@@ -143,14 +90,14 @@ int main(void)
+ 	ret = aio_cancel(fds[0], NULL);
+ 	if (ret == -1) {
+ 		printf(TNAME " Error at aio_cancel(): %s\n", strerror(errno));
+-		cleanup();
++		cleanup_aio(fds, aiocb, BUF_NB);
+ 		return PTS_FAIL;
+ 	}
+ 
+ 	if (ret != AIO_NOTCANCELED) {
+ 		printf(TNAME " Unexpected aio_cancel() return value: %s\n",
+ 			strerror(ret));
+-		cleanup();
++		cleanup_aio(fds, aiocb, BUF_NB);
+ 		return PTS_FAIL;
+ 	}
+ 
+@@ -162,7 +109,7 @@ int main(void)
+ 				printf(TNAME " Bad task #%d result: %s "
+ 					"(expected EINPROGRESS)\n",
+ 					i, strerror(ret));
+-				cleanup();
++				cleanup_aio(fds, aiocb, BUF_NB);
+ 				return PTS_FAIL;
+ 			}
+ 
+@@ -175,7 +122,7 @@ int main(void)
+ 				SIGEV_NONE)) {
+ 
+ 				printf(TNAME " aiocbp modified\n");
+-				cleanup();
++				cleanup_aio(fds, aiocb, BUF_NB);
+ 				return PTS_FAIL;
+ 			}
+ 
+@@ -186,12 +133,12 @@ int main(void)
+ 		if (ret != exp_ret) {
+ 			printf(TNAME " Bad task #%d result: %s (expected %s)\n",
+ 				i, strerror(ret), strerror(exp_ret));
+-			cleanup();
++			cleanup_aio(fds, aiocb, BUF_NB);
+ 			return PTS_FAIL;
+ 		}
+ 	}
+ 
+-	cleanup();
++	cleanup_aio(fds, aiocb, BUF_NB);
+ 	printf("Test PASSED\n");
+ 	return PTS_PASS;
+ }
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/7-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/7-1.c
+index 75cd838a3..9fb584656 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/7-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/7-1.c
+@@ -27,16 +27,11 @@
+  *	Otherwise pass.
+  */
+ 
+-#include <stdio.h>
+ #include <unistd.h>
+-#include <string.h>
+-#include <errno.h>
+-#include <stdlib.h>
+ #include <time.h>
+-#include <aio.h>
+-#include <sys/socket.h>
+ 
+ #include "posixtest.h"
++#include "aio_test.h"
+ 
+ #define TNAME "aio_cancel/7-1.c"
+ 
+@@ -46,79 +41,25 @@
+ static int fds[2];
+ static struct aiocb aiocb[BUF_NB];
+ 
+-static void cleanup(void)
+-{
+-	int i, ret;
+-
+-	for (i = 0; i < BUF_NB; i++) {
+-		if (!aiocb[i].aio_buf)
+-			break;
+-
+-		ret = aio_error(&aiocb[i]);
+-
+-		/* flush written data from the socket */
+-		if (ret == 0 || ret == EINPROGRESS) {
+-			read(fds[1], (void *)aiocb[i].aio_buf,
+-				aiocb[i].aio_nbytes);
+-		}
+-
+-		free((void *)aiocb[i].aio_buf);
+-	}
+-
+-	close(fds[0]);
+-	close(fds[1]);
+-}
+-
+ int main(void)
+ {
+ 	int i;
+ 	int gret;
+-	int bufsize;
+ 	int exp_ret;
+-	socklen_t argsize = sizeof(bufsize);
+ 	const struct timespec sleep_ts = { .tv_sec = 0, .tv_nsec = 10000000 };
+ 
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		return PTS_UNSUPPORTED;
+ 
+-	gret = socketpair(AF_UNIX, SOCK_DGRAM, 0, fds);
+-	if (gret == -1) {
+-		printf(TNAME " Error creating sockets(): %s\n",
+-			strerror(errno));
++	if (setup_aio(TNAME, fds, aiocb, BUF_NB))
+ 		return PTS_UNRESOLVED;
+-	}
+ 
+-	gret = getsockopt(fds[0], SOL_SOCKET, SO_SNDBUF, &bufsize, &argsize);
+-	if (gret == -1) {
+-		printf(TNAME " Error reading socket buffer size: %s\n",
+-			strerror(errno));
+-		cleanup();
+-		return PTS_UNRESOLVED;
+-	}
+-
+-	/* Socket buffer size is twice the maximum message size */
+-	bufsize /= 2;
+-
+-	/* create AIO req */
++	/* submit AIO req */
+ 	for (i = 0; i < BUF_NB; i++) {
+-		aiocb[i].aio_fildes = fds[0];
+-		aiocb[i].aio_buf = malloc(bufsize);
+-
+-		if (aiocb[i].aio_buf == NULL) {
+-			printf(TNAME " Error at malloc(): %s\n",
+-			       strerror(errno));
+-			cleanup();
+-			return PTS_UNRESOLVED;
+-		}
+-
+-		aiocb[i].aio_nbytes = bufsize;
+-		aiocb[i].aio_offset = 0;
+-		aiocb[i].aio_sigevent.sigev_notify = SIGEV_NONE;
+-
+ 		if (aio_write(&aiocb[i]) == -1) {
+ 			printf(TNAME " loop %d: Error at aio_write(): %s\n",
+ 			       i, strerror(errno));
+-			cleanup();
++			cleanup_aio(fds, aiocb, BUF_NB);
+ 			return PTS_FAIL;
+ 		}
+ 	}
+@@ -135,7 +76,7 @@ int main(void)
+ 	if (gret) {
+ 		printf(TNAME " Task #%d failed to complete: %s\n",
+ 			BLOCKED_TASK - 1, strerror(gret == -1 ? errno : gret));
+-		cleanup();
++		cleanup_aio(fds, aiocb, BUF_NB);
+ 		return PTS_FAIL;
+ 	}
+ 
+@@ -143,14 +84,14 @@ int main(void)
+ 	gret = aio_cancel(fds[0], NULL);
+ 	if (gret == -1) {
+ 		printf(TNAME " Error at aio_cancel(): %s\n", strerror(errno));
+-		cleanup();
++		cleanup_aio(fds, aiocb, BUF_NB);
+ 		return PTS_FAIL;
+ 	}
+ 
+ 	if (gret != AIO_NOTCANCELED) {
+ 		printf(TNAME " Unexpected aio_cancel() return value: %s\n",
+ 			strerror(gret));
+-		cleanup();
++		cleanup_aio(fds, aiocb, BUF_NB);
+ 		return PTS_FAIL;
+ 	}
+ 
+@@ -172,19 +113,19 @@ int main(void)
+ 			printf(TNAME " Bad task #%d result: %s "
+ 				"(expected EINPROGRESS)\n",
+ 				i, strerror(ret));
+-			cleanup();
++			cleanup_aio(fds, aiocb, BUF_NB);
+ 			return PTS_FAIL;
+ 		}
+ 
+ 		if (ret != exp_ret) {
+ 			printf(TNAME " Bad task #%d result: %s (expected %s)\n",
+ 				i, strerror(ret), strerror(exp_ret));
+-			cleanup();
++			cleanup_aio(fds, aiocb, BUF_NB);
+ 			return PTS_FAIL;
+ 		}
+ 	}
+ 
+-	cleanup();
++	cleanup_aio(fds, aiocb, BUF_NB);
+ 	printf("Test PASSED\n");
+ 	return PTS_PASS;
+ }
 -- 
 2.52.0
 
