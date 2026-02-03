@@ -2,93 +2,104 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8DPtESLvgWlAMwMAu9opvQ
+	id +K/8N1nvgWlAMwMAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Tue, 03 Feb 2026 13:50:42 +0100
+	for <lists+linux-ltp@lfdr.de>; Tue, 03 Feb 2026 13:51:37 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D390BD954E
-	for <lists+linux-ltp@lfdr.de>; Tue, 03 Feb 2026 13:50:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E50BD95E7
+	for <lists+linux-ltp@lfdr.de>; Tue, 03 Feb 2026 13:51:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5BDBA3CD216
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Feb 2026 13:50:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2DADC3CD2AE
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Feb 2026 13:51:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C62D33CC099
- for <ltp@lists.linux.it>; Tue,  3 Feb 2026 13:50:31 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+ by picard.linux.it (Postfix) with ESMTPS id E758A3CD33A
+ for <ltp@lists.linux.it>; Tue,  3 Feb 2026 13:50:40 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 45DB660067A
- for <ltp@lists.linux.it>; Tue,  3 Feb 2026 13:50:30 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 434EA1A002D9
+ for <ltp@lists.linux.it>; Tue,  3 Feb 2026 13:50:39 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A5A495BCC3
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AC5535BCC6
  for <ltp@lists.linux.it>; Tue,  3 Feb 2026 12:50:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1770123029; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=x4v6+e7TtwZkDaoT/reF+O7qAiOc4uceNVl2BYKNSwA=;
- b=ICNBqeAfzPFETawwloWObWgctC/7dP5RgJV0+RFJ3ZmCw0TWt0Hu9AVIYMIiscrhzkt/y0
- edVzTo3v422Pf8u0MGOj65FY64SoD+URXAL4ksTWQh9kZZAEYWxaQzQIeBkTKq/R6vBQ4C
- vavbqQkeEb9HHEOvdq9nlONC7Q5jAr8=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uZbKHT4MUnT3l77+bE/Iv8KP/CiPtz68Xw9OR9Ck8lw=;
+ b=eflgRLQd0SKoxXDvcaW3sj+I4P/DrzuU8JuzudXgr1cXS+vsMuzZuawQWt0wK5u3/2h0hH
+ b9znhJ5kqBXjG5x8IY96J697I+zJEO9NPoPofUjBz8vQeCUoLbC86lv+l9vQLqwGb7BmAt
+ EjPuXGUZwlDIoqZxrjEFdWokcgyzufs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1770123029;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=x4v6+e7TtwZkDaoT/reF+O7qAiOc4uceNVl2BYKNSwA=;
- b=RyQQ/jZaUlg2zl++3jukBM/kR+1Jr9flArN+jEpQajZsOWE2hzRB7dHvX1hP2D4qjasmkz
- zOREwErfW+xBl6DA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uZbKHT4MUnT3l77+bE/Iv8KP/CiPtz68Xw9OR9Ck8lw=;
+ b=FBLtOre/HHjGsaOt6ckQMBOIqd3oQgaXZmZ6cncaTxqrtyhku/1XNHg7RU0yDtdpE8CHi7
+ TgFET11s/zG3vbCw==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=eflgRLQd;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="FBLtOre/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1770123029; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=x4v6+e7TtwZkDaoT/reF+O7qAiOc4uceNVl2BYKNSwA=;
- b=ICNBqeAfzPFETawwloWObWgctC/7dP5RgJV0+RFJ3ZmCw0TWt0Hu9AVIYMIiscrhzkt/y0
- edVzTo3v422Pf8u0MGOj65FY64SoD+URXAL4ksTWQh9kZZAEYWxaQzQIeBkTKq/R6vBQ4C
- vavbqQkeEb9HHEOvdq9nlONC7Q5jAr8=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uZbKHT4MUnT3l77+bE/Iv8KP/CiPtz68Xw9OR9Ck8lw=;
+ b=eflgRLQd0SKoxXDvcaW3sj+I4P/DrzuU8JuzudXgr1cXS+vsMuzZuawQWt0wK5u3/2h0hH
+ b9znhJ5kqBXjG5x8IY96J697I+zJEO9NPoPofUjBz8vQeCUoLbC86lv+l9vQLqwGb7BmAt
+ EjPuXGUZwlDIoqZxrjEFdWokcgyzufs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1770123029;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=x4v6+e7TtwZkDaoT/reF+O7qAiOc4uceNVl2BYKNSwA=;
- b=RyQQ/jZaUlg2zl++3jukBM/kR+1Jr9flArN+jEpQajZsOWE2hzRB7dHvX1hP2D4qjasmkz
- zOREwErfW+xBl6DA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uZbKHT4MUnT3l77+bE/Iv8KP/CiPtz68Xw9OR9Ck8lw=;
+ b=FBLtOre/HHjGsaOt6ckQMBOIqd3oQgaXZmZ6cncaTxqrtyhku/1XNHg7RU0yDtdpE8CHi7
+ TgFET11s/zG3vbCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8AC5A3EA62
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 997E63EA63
  for <ltp@lists.linux.it>; Tue,  3 Feb 2026 12:50:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id zcGuIRXvgWkNcgAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oHhJJRXvgWkNcgAAD6G6ig
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Tue, 03 Feb 2026 12:50:29 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  3 Feb 2026 13:50:23 +0100
-Message-ID: <20260203125029.15413-1-mdoucha@suse.cz>
+Date: Tue,  3 Feb 2026 13:50:24 +0100
+Message-ID: <20260203125029.15413-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260203125029.15413-1-mdoucha@suse.cz>
+References: <20260203125029.15413-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: -2.80
+X-Spam-Score: -3.01
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 0/3] Rewrite aio_cancel_2-1
+Subject: [LTP] [PATCH 1/3] openposix/aio_cancel: Add helper functions for
+ setup and cleanup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,47 +120,141 @@ X-Spamd-Result: default: False [1.49 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+a];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	DMARC_NA(0.00)[suse.cz];
-	RCPT_COUNT_ONE(0.00)[1];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	DMARC_NA(0.00)[suse.cz];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	DKIM_TRACE(0.00)[suse.cz:-];
 	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_ONE(0.00)[1];
 	RCVD_COUNT_FIVE(0.00)[6];
 	FROM_NEQ_ENVFROM(0.00)[mdoucha@suse.cz,ltp-bounces@lists.linux.it];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_NONE(0.00)[];
 	TAGGED_RCPT(0.00)[linux-ltp];
-	NEURAL_HAM(-0.00)[-0.997];
+	NEURAL_HAM(-0.00)[-0.996];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,linux.it:url]
-X-Rspamd-Queue-Id: D390BD954E
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,suse.cz:email,picard.linux.it:helo,picard.linux.it:rdns,linux.it:url]
+X-Rspamd-Queue-Id: 8E50BD95E7
 X-Rspamd-Action: no action
 
-Rewrite another aio_cancel() test which hopes it can win a race
-against unblocked writes into a file. Also add shared setup and
-cleanup helper functions for AIO writes into a socket pair and
-use them in the two already rewritten tests.
+Add helper functions for setting up and cleaning up boilerplate
+aio requests to a socket pair. The socket pair approach is useful
+for tests which need some requests to block in order to prevent
+race conditions.
 
-Martin Doucha (3):
-  openposix/aio_cancel: Add helper functions for setup and cleanup
-  openposix/aio_cancel: Use setup helper functions in tests 5 and 7
-  aio_cancel_2-1: Rewrite test
-
- .../conformance/interfaces/aio_cancel/2-1.c   | 86 +++++++++--------
- .../conformance/interfaces/aio_cancel/5-1.c   | 79 +++-------------
- .../conformance/interfaces/aio_cancel/7-1.c   | 79 ++--------------
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
  .../open_posix_testsuite/include/aio_test.h   | 94 +++++++++++++++++++
- 4 files changed, 163 insertions(+), 175 deletions(-)
+ 1 file changed, 94 insertions(+)
  create mode 100644 testcases/open_posix_testsuite/include/aio_test.h
 
+diff --git a/testcases/open_posix_testsuite/include/aio_test.h b/testcases/open_posix_testsuite/include/aio_test.h
+new file mode 100644
+index 000000000..9de0a4d93
+--- /dev/null
++++ b/testcases/open_posix_testsuite/include/aio_test.h
+@@ -0,0 +1,94 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (C) 2024 SUSE LLC <mdoucha@suse.cz>
++ */
++
++#include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
++#include <errno.h>
++#include <aio.h>
++#include <sys/socket.h>
++
++static int setup_aio(const char *testname, int fd_pair[2], struct aiocb *reqs,
++	unsigned int count)
++{
++	unsigned int i;
++	int ret;
++	int bufsize;
++	socklen_t argsize = sizeof(bufsize);
++
++	/* Open anonymous sockets */
++	ret = socketpair(AF_UNIX, SOCK_DGRAM, 0, fd_pair);
++
++	if (ret) {
++		printf("%s Error creating sockets(): %s\n", testname,
++			strerror(errno));
++		return -1;
++	}
++
++	ret = getsockopt(fd_pair[0], SOL_SOCKET, SO_SNDBUF, &bufsize, &argsize);
++	if (ret) {
++		printf("%s Error reading socket buffer size: %s\n", testname,
++			strerror(errno));
++		close(fd_pair[0]);
++		close(fd_pair[1]);
++		return -1;
++	}
++
++	/* Socket buffer size is twice the maximum message size */
++	bufsize /= 2;
++	memset(reqs, 0, sizeof(struct aiocb) * count);
++
++	/* Setup basic AIO requests */
++	for (i = 0; i < count; i++) {
++		reqs[i].aio_fildes = fd_pair[0];
++		reqs[i].aio_buf = malloc(bufsize);
++
++		if (!reqs[i].aio_buf) {
++			ret = errno;
++			break;
++		}
++
++		reqs[i].aio_nbytes = bufsize;
++		reqs[i].aio_sigevent.sigev_notify = SIGEV_NONE;
++		memset((void *)reqs[i].aio_buf, 0xaa, bufsize);
++	}
++
++	/* Setup successful */
++	if (i >= count)
++		return 0;
++
++	/* malloc() failed above */
++	for (i = 0; i < count; i++)
++		free((void *)reqs[i].aio_buf);
++
++	printf("%s malloc() failed: %s\n", testname, strerror(ret));
++	close(fd_pair[0]);
++	close(fd_pair[1]);
++	return -1;
++}
++
++static void cleanup_aio(int fd_pair[2], struct aiocb *reqs, unsigned int count)
++{
++	unsigned int i;
++	int ret;
++
++	for (i = 0; i < count; i++) {
++		if (!reqs[i].aio_buf)
++			break;
++
++		ret = aio_error(reqs + i);
++
++		/* flush written data from the socket */
++		if (ret == 0 || ret == EINPROGRESS) {
++			read(fd_pair[1], (void *)reqs[i].aio_buf,
++				reqs[i].aio_nbytes);
++		}
++
++		free((void *)reqs[i].aio_buf);
++	}
++
++	close(fd_pair[0]);
++	close(fd_pair[1]);
++}
 -- 
 2.52.0
 
