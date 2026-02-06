@@ -2,99 +2,101 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KMeiGPX7hWmzIwQAu9opvQ
+	id sOxAE3b8hWnUIwQAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Fri, 06 Feb 2026 15:34:29 +0100
+	for <lists+linux-ltp@lfdr.de>; Fri, 06 Feb 2026 15:36:38 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE280FF041
-	for <lists+linux-ltp@lfdr.de>; Fri, 06 Feb 2026 15:34:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7877FF0DE
+	for <lists+linux-ltp@lfdr.de>; Fri, 06 Feb 2026 15:36:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A1F1C3CDE70
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Feb 2026 15:34:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 04DB73CC89E
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Feb 2026 15:36:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 786313CC816
- for <ltp@lists.linux.it>; Fri,  6 Feb 2026 15:34:17 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id E3A393CC816
+ for <ltp@lists.linux.it>; Fri,  6 Feb 2026 15:36:26 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7D8ED601DB8
- for <ltp@lists.linux.it>; Fri,  6 Feb 2026 15:34:11 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7958260076A
+ for <ltp@lists.linux.it>; Fri,  6 Feb 2026 15:36:26 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B54C45BCC9;
- Fri,  6 Feb 2026 14:34:10 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2DA8E3E6D4;
+ Fri,  6 Feb 2026 14:36:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1770388450;
+ t=1770388585;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8UrhZG5qkFm42B2ayPaa1WVSIoK8OTLkO40O7t7ZxQg=;
- b=rAAnLd+S29utom1TgkSKKD9n1sIAFkebAuEYJfrhMGIMABAIJTmAh6kNZ86qI9ipnJKhc5
- +YbJ6dilGGG2sukD/cz+JwsODdc3hndK4ENSGUXLE3iihqrGPOx9ajYnHy3/kq7GMGd3lU
- 9hAAV8JQIVhO+b1Tbex52k4J2nOF9iI=
+ bh=kT7Ll/h4LOFlZcL6naszhkDRxPoL+7Or41mhoC6rkZM=;
+ b=nB2oC8jVTrycqwK6A7DdLiHMid4v2H0nA2vHAa1o6V3MVqlksulsi2MBe1UJwuKyPlY7pU
+ TOtN10vY6QJmtFk7T8aXMyAS3aAkyqpfOUSiMTpwWDZWwT5TNeKPxEWRmtpAOQpLOpyCUh
+ nkPS8UNJVINhbS8mmHnv69g6oi4ZcB8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1770388450;
+ s=susede2_ed25519; t=1770388585;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8UrhZG5qkFm42B2ayPaa1WVSIoK8OTLkO40O7t7ZxQg=;
- b=jESxVEnVeHSD4EIv8XEMzbvJoJvVsAyvsexGuBIA86V01xHIa7zqbXGHPnhUYwzVmNMQJC
- YstsfiLTqUvW6+Ag==
-Authentication-Results: smtp-out2.suse.de;
+ bh=kT7Ll/h4LOFlZcL6naszhkDRxPoL+7Or41mhoC6rkZM=;
+ b=FD65yJBduKJQvYwz8PZ5NgXev0meXiLm5AJZvrJAh/5CdZy4dhV9mA9uHh27CmZ5IWJ0r5
+ bx8b+g5vmoEFLNBg==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1770388450;
+ t=1770388585;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8UrhZG5qkFm42B2ayPaa1WVSIoK8OTLkO40O7t7ZxQg=;
- b=rAAnLd+S29utom1TgkSKKD9n1sIAFkebAuEYJfrhMGIMABAIJTmAh6kNZ86qI9ipnJKhc5
- +YbJ6dilGGG2sukD/cz+JwsODdc3hndK4ENSGUXLE3iihqrGPOx9ajYnHy3/kq7GMGd3lU
- 9hAAV8JQIVhO+b1Tbex52k4J2nOF9iI=
+ bh=kT7Ll/h4LOFlZcL6naszhkDRxPoL+7Or41mhoC6rkZM=;
+ b=nB2oC8jVTrycqwK6A7DdLiHMid4v2H0nA2vHAa1o6V3MVqlksulsi2MBe1UJwuKyPlY7pU
+ TOtN10vY6QJmtFk7T8aXMyAS3aAkyqpfOUSiMTpwWDZWwT5TNeKPxEWRmtpAOQpLOpyCUh
+ nkPS8UNJVINhbS8mmHnv69g6oi4ZcB8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1770388450;
+ s=susede2_ed25519; t=1770388585;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8UrhZG5qkFm42B2ayPaa1WVSIoK8OTLkO40O7t7ZxQg=;
- b=jESxVEnVeHSD4EIv8XEMzbvJoJvVsAyvsexGuBIA86V01xHIa7zqbXGHPnhUYwzVmNMQJC
- YstsfiLTqUvW6+Ag==
+ bh=kT7Ll/h4LOFlZcL6naszhkDRxPoL+7Or41mhoC6rkZM=;
+ b=FD65yJBduKJQvYwz8PZ5NgXev0meXiLm5AJZvrJAh/5CdZy4dhV9mA9uHh27CmZ5IWJ0r5
+ bx8b+g5vmoEFLNBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6EFA13EA63;
- Fri,  6 Feb 2026 14:34:10 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B8DF63EA63;
+ Fri,  6 Feb 2026 14:36:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cusZGOL7hWnEKAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 06 Feb 2026 14:34:10 +0000
-Date: Fri, 6 Feb 2026 15:34:08 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id IZINJ2j8hWkjTAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Fri, 06 Feb 2026 14:36:24 +0000
+Date: Fri, 6 Feb 2026 15:36:22 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Vasileios Almpanis <vasileios.almpanis@virtuozzo.com>
-Message-ID: <20260206143408.GA402479@pevik>
+Message-ID: <20260206143622.GB402479@pevik>
 References: <20260206125818.319190-1-vasileios.almpanis@virtuozzo.com>
- <20260206125818.319190-2-vasileios.almpanis@virtuozzo.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260206125818.319190-2-vasileios.almpanis@virtuozzo.com>
+In-Reply-To: <20260206125818.319190-1-vasileios.almpanis@virtuozzo.com>
 X-Spam-Score: -7.50
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 1/2] add ETH_P_CAN compat macro to LAPI headers
+Subject: Re: [LTP] [PATCH 0/2] pty: use correct protocol in pty04 based on
+ line discipline
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,7 +118,7 @@ X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.99 / 15.00];
 	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -128,53 +130,62 @@ X-Spamd-Result: default: False [0.99 / 15.00];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url,suse.cz:replyto,linux-test-project.readthedocs.io:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,linux.it:url];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	HAS_REPLYTO(0.00)[pvorel@suse.cz];
 	RCVD_COUNT_FIVE(0.00)[6];
 	FROM_NEQ_ENVFROM(0.00)[pvorel@suse.cz,ltp-bounces@lists.linux.it];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[suse.cz:-];
-	NEURAL_HAM(-0.00)[-0.998];
+	NEURAL_HAM(-0.00)[-0.999];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-ltp];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
 	REPLYTO_EQ_FROM(0.00)[]
-X-Rspamd-Queue-Id: EE280FF041
+X-Rspamd-Queue-Id: D7877FF0DE
 X-Rspamd-Action: no action
 
 Hi Vasileios,
 
->  include/lapi/if_ether.h | 4 ++++
->  1 file changed, 4 insertions(+)
+> Hi,
 
-> diff --git a/include/lapi/if_ether.h b/include/lapi/if_ether.h
-> index 536d1863a..423341c57 100644
-> --- a/include/lapi/if_ether.h
-> +++ b/include/lapi/if_ether.h
-> @@ -16,4 +16,8 @@
->  # define ETH_P_ALL 0x0003
->  #endif
+> during testing of the LTP pty test pty04, we observed intermittent
+> failures caused by unexpected IPv6 packets being received.
 
-> +#ifndef ETH_P_CAN
-> +# define ETH_P_CAN 0x000C
-> +#endif
+> The test currently filters packets using ETH_P_ALL. As a result,
+> packets with protocols other than the expected one (e.g. IPv6) may be
+> received, leading to data corruption reports such as:
 
-This is not needed, because it was added to kernel's
-include/uapi/linux/if_ether.h before UAPI creation in v3.7-rc1.
-And we now expect kernel >= 4.4 [1].
+> TFAIL: Corrupt data (max 64 of 8191 bytes shown): data[0..64] =
+> TFAIL: 60 00 00 00 00 24 00 01 00 00 00 00 00 00 00 00
+> TFAIL: 00 00 00 00 00 00 00 00 ff 02 00 00 00 00 00 00
+> TFAIL: 00 00 00 00 00 00 00 16 3a 00 05 02 00 00 01 00
+> TFAIL: 8f 00 6e 8a 00 00 00 01 04 00 00 00 ff 02 00 00
 
-FYI the fallback was originally added in 2017 in
-db141701dd ("Add test for CVE-2017-7308 on a raw socket's ring buffer"),
-the supported systems required it back then, but now whole include/lapi/if_ether.h,
-could be deleted (as an separate effort). For now it'd be enough just to ignore
-this commit (not add it).
+nit: IMHO useful info, it'd be nice to have it in the commit itself (otherwise
+it will be lost). But no need to repost.
 
 Kind regards,
 Petr
 
-[1] https://linux-test-project.readthedocs.io/en/latest/users/supported_systems.html
+> This patch series addresses the issue by selecting the protocol based
+> on the configured line discipline.
+
+> Patch 1 adds a compatibility definition for ETH_P_CAN to the LAPI
+> headers. Patch 2 updates pty04 to choose the appropriate protocol,
+> avoiding reception of unrelated packets.
+
+> Signed-off-by: Vasileios Almpanis <vasileios.almpanis@virtuozzo.com>
+
+> Vasileios Almpanis (2):
+>   add ETH_P_CAN compat macro to LAPI headers
+>   pty04: use the correct protocol per line discipline to avoid extra
+>     packets
+
+>  include/lapi/if_ether.h      |  4 ++++
+>  testcases/kernel/pty/pty04.c | 15 ++++++++++++++-
+>  2 files changed, 18 insertions(+), 1 deletion(-)
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
