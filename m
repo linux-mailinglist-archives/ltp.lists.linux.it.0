@@ -2,89 +2,99 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id xLZHJD9xh2lkYAQAu9opvQ
+	id wBcRDSSSiWlz+wQAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Sat, 07 Feb 2026 18:07:11 +0100
+	for <lists+linux-ltp@lfdr.de>; Mon, 09 Feb 2026 08:52:04 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 142E91069C2
-	for <lists+linux-ltp@lfdr.de>; Sat, 07 Feb 2026 18:07:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4A0C10CA15
+	for <lists+linux-ltp@lfdr.de>; Mon, 09 Feb 2026 08:52:03 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 763B13CECD0
-	for <lists+linux-ltp@lfdr.de>; Sat,  7 Feb 2026 18:07:09 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C42FE3C9284
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Feb 2026 08:52:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4CA193C32DD
- for <ltp@lists.linux.it>; Sat,  7 Feb 2026 18:06:59 +0100 (CET)
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 6150F3C7A53
+ for <ltp@lists.linux.it>; Mon,  9 Feb 2026 08:52:00 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 9245A1A0065B
- for <ltp@lists.linux.it>; Sat,  7 Feb 2026 18:06:58 +0100 (CET)
-Received: by mail-pj1-x1042.google.com with SMTP id
- 98e67ed59e1d1-352c5bd2769so1885816a91.1
- for <ltp@lists.linux.it>; Sat, 07 Feb 2026 09:06:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770484017; x=1771088817; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=VzURdAcHTCWCVIyYZWtE+33tLHabYNnSf8xY1sheooU=;
- b=iUCEPnLFu7WP7q8m4FLl5mTh41E/ZhbrSM5n57F8JZDNv1iVf7++L7cGmOlqhOsYTq
- OC2iUHIvyILSlQ8ypD4Lo35bBmWuM3cepDhkWxmsdEUswlboIcJrx6mOhk9ZVA19k+49
- 5Fywczo6X9BEBMdKe90nAJ5ZFi2uI0fsZ/QjxSyhYKjwncK5x2qYCo5ArKQlSqCAM1g2
- 7/u87FdOIrWhAZDaggi7NmTW32esAlC8APe8v2Q7uuaDxiOa8H3ow+JHG5jjevGOUHmi
- mV1SNEn5y9vRst7pMr2uk8ERGB0Gkx48sZJh/6Qms9m4dios6de4bp876Tx6v/gGILmf
- LTmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770484017; x=1771088817;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=VzURdAcHTCWCVIyYZWtE+33tLHabYNnSf8xY1sheooU=;
- b=RZw3hQfIrfO2mDhsG34OQQ5BRaP0V4BSEzXWUyNZpZHxFRTfx/SdLVCRxEuUCUweZ3
- CEb6W32odQ0na/GvIozzi2/+ZBCi67sOBeu568QdOSAcnb5Ak5SMn38bT3Q3KQqQyOFF
- 69PYeBTbEKfjWw1/bmtfbKfne9NS9t0x9USv4y8Ur3Y8FFehE/mO+aQ6Tt5U1NhBdD8M
- j5L109VB86F+RvewWerfGH4P2yPT87nwjDdVF2lx3TpcsDo97kT9Vj0UaaS9X/Swaj8g
- RZoeu+JOGhaflecVcwlmydbZZckyn+jyTIgMRBbj6ul4ijfSToyHHf2r0Iy7jc6UksLI
- oWYg==
-X-Gm-Message-State: AOJu0YxPT3Px8eptAOon2rVbMOmHkfcfseSibjSgvXvPA9UgLaZDzx6u
- Dj8zAfy4StNClRPAwlyl7lNIYEi5tlhTY4p9WZUuArkwDMaLAWYX+TZe9Jy50Ma4qA==
-X-Gm-Gg: AZuq6aKhBSuTHELcmF7Gg9Fv2AzYSXn8SejKlapzcG/VZmWwjhBrHZJe32lkmDTcuXp
- 54TR/gj8HeaH35f99uMkCiQletgZpm7YguuyR6Ec/EE18S/HvEKyi6oKr2S0UqLPpxr2oeJlqNb
- 99cdZ643yxyK/eynB5oMwxQ25M/bqavSPuV0PM5jeZ5dVAzFolOkq/dIOkpDr4CD12NUK6yhIsc
- j90kJlqedb//j5UB1QGYhqbTi71k4gVpeCdGN2DUgdb7gOtbS4URjZfuHsyAJbMUW/yVACtUhIg
- vMZF1N6iTqI0mNfb/mwsLuW+wjouzTjCxAaaJKl52z4ua01851ZsiBSzEEevsLtXLcss8xK/NnD
- +Ttlp6dnnEaNSzfVawofomWisDK6VJ8F/PFgS1TvQL3Zm9AwOVh+2/jfr7LSUCm0yx1P/A15CPx
- 7kNFtUS/HxBIuEqUfq3wh95jU0pSsVtA==
-X-Received: by 2002:a17:90b:4b0c:b0:341:315:f4ec with SMTP id
- 98e67ed59e1d1-354b3c41415mr5774392a91.7.1770484016515; 
- Sat, 07 Feb 2026 09:06:56 -0800 (PST)
-Received: from localhost.localdomain ([59.16.109.172])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-354b21fb723sm5497450a91.10.2026.02.07.09.06.55
- for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Feb 2026 09:06:56 -0800 (PST)
-From: Jinseok Kim <always.starving0@gmail.com>
-To: ltp@lists.linux.it
-Date: Sun,  8 Feb 2026 02:06:29 +0900
-Message-ID: <20260207170632.2795-1-always.starving0@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3E410200067
+ for <ltp@lists.linux.it>; Mon,  9 Feb 2026 08:51:56 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 98DBA3E6C5;
+ Mon,  9 Feb 2026 07:51:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1770623515;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hogLijAxhNYD9wgbaQ6bGYnle4tmh9V03PWM7Y+w71I=;
+ b=YnoTb+vRN79ELoNIygVuS1yfGAtjdve6WOsVRCs8sLL1wqA3REhO9d6gN1Eo7napH2fzC8
+ j4tEeFEbLhIBbyv4GCLb4sv/Fx/3sfWq65eM5ku5CAb+h0/tJxWqymVD1Z7Nh4p44x5ize
+ Jigach705GJG/NoiwUqNRn0hL7c+H2o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1770623515;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hogLijAxhNYD9wgbaQ6bGYnle4tmh9V03PWM7Y+w71I=;
+ b=6NbwwqE84xEtALjeKmwTQL3WllexWpgVVDnfNzeRyROX+jKMiS3rZk9f7S5iHwj8iCu87r
+ 2s4Opw3Trjkv5eCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1770623515;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hogLijAxhNYD9wgbaQ6bGYnle4tmh9V03PWM7Y+w71I=;
+ b=YnoTb+vRN79ELoNIygVuS1yfGAtjdve6WOsVRCs8sLL1wqA3REhO9d6gN1Eo7napH2fzC8
+ j4tEeFEbLhIBbyv4GCLb4sv/Fx/3sfWq65eM5ku5CAb+h0/tJxWqymVD1Z7Nh4p44x5ize
+ Jigach705GJG/NoiwUqNRn0hL7c+H2o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1770623515;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hogLijAxhNYD9wgbaQ6bGYnle4tmh9V03PWM7Y+w71I=;
+ b=6NbwwqE84xEtALjeKmwTQL3WllexWpgVVDnfNzeRyROX+jKMiS3rZk9f7S5iHwj8iCu87r
+ 2s4Opw3Trjkv5eCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6861D3EA63;
+ Mon,  9 Feb 2026 07:51:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yKzrFxuSiWl3YQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Mon, 09 Feb 2026 07:51:55 +0000
+Date: Mon, 9 Feb 2026 08:51:46 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Changwei Zou <changwei.zou@canonical.com>
+Message-ID: <20260209075146.GA450151@pevik>
+References: <20260207145942.299366-1-changwei.zou@canonical.com>
 MIME-Version: 1.0
-X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20260207145942.299366-1-changwei.zou@canonical.com>
+X-Spam-Score: -3.50
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] inotify: modernize with SAFE_ wrappers and fix minor
- style issues
+Subject: Re: [LTP] [PATCH] lapi/tls: reserve pre-TCB space to avoid
+ undefined behavior in clone10.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,104 +106,135 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.59 / 15.00];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
-	MAILLIST(-0.20)[mailman];
+X-Spamd-Result: default: False [0.99 / 15.00];
+	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MID_RHS_NOT_FQDN(0.50)[];
 	R_SPF_ALLOW(-0.20)[+a];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
+	DMARC_NA(0.00)[suse.cz];
+	RCPT_COUNT_TWO(0.00)[2];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_ONE(0.00)[1];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[canonical.com:email,linux.it:url,suse.cz:replyto,suse.cz:email,picard.linux.it:helo,picard.linux.it:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[alwaysstarving0@gmail.com,ltp-bounces@lists.linux.it];
+	HAS_REPLYTO(0.00)[pvorel@suse.cz];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[pvorel@suse.cz,ltp-bounces@lists.linux.it];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
-	TO_DN_NONE(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.996];
+	DKIM_TRACE(0.00)[suse.cz:-];
+	NEURAL_HAM(-0.00)[-0.999];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-ltp];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns]
-X-Rspamd-Queue-Id: 142E91069C2
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	REPLYTO_EQ_FROM(0.00)[]
+X-Rspamd-Queue-Id: C4A0C10CA15
 X-Rspamd-Action: no action
 
-These are small cleanups to align with current LTP style:
-- Use SAFE_ wrappers instead of manual calls
-- Remove trailing comma in tst_res() for cleaner logs
+Hi Changwei,
 
-Signed-off-by: Jinseok Kim <always.starving0@gmail.com>
----
- testcases/kernel/syscalls/inotify/inotify02.c | 21 ++++---------------
- 1 file changed, 4 insertions(+), 17 deletions(-)
+> Allocate extra space before the TLS area to hold a struct pthread, ensuring
+> THREAD_SELF->cancelhandling is initialized to 0. This prevents undefined
+> behavior in __pthread_disable_asynccancel(), which is called at thread
+> cancellation points such as write().
 
-diff --git a/testcases/kernel/syscalls/inotify/inotify02.c b/testcases/kernel/syscalls/inotify/inotify02.c
-index 709a92830..314c1bd49 100644
---- a/testcases/kernel/syscalls/inotify/inotify02.c
-+++ b/testcases/kernel/syscalls/inotify/inotify02.c
-@@ -64,11 +64,7 @@ void verify_inotify(void)
- 	strcpy(event_set[test_cnt].name, "");
- 	test_cnt++;
+> Without this, touch_tls_in_child() could get stuck in tst_res().
 
--	if ((fd = creat(FILE_NAME1, 0755)) == -1) {
--		tst_brk(TBROK | TERRNO,
--			"creat(\"%s\", 755) failed", FILE_NAME1);
--	}
--
-+	fd = SAFE_CREAT(FILE_NAME1, 0755);
- 	event_set[test_cnt].mask = IN_CREATE;
- 	strcpy(event_set[test_cnt].name, FILE_NAME1);
- 	test_cnt++;
-@@ -89,11 +85,7 @@ void verify_inotify(void)
- 	strcpy(event_set[test_cnt].name, FILE_NAME2);
- 	test_cnt++;
+LGTM, but I'd prefer others had a look on it.
+Acked-by: Petr Vorel <pvorel@suse.cz>
 
--	if (getcwd(fname1, BUF_SIZE) == NULL) {
--		tst_brk(TBROK | TERRNO,
--			"getcwd(%p, %d) failed", fname1, BUF_SIZE);
--	}
--
-+	SAFE_GETCWD(fname1, BUF_SIZE);
- 	snprintf(fname2, BUF_SIZE, "%s.rename1", fname1);
- 	SAFE_RENAME(fname1, fname2);
- 	event_set[test_cnt].mask = IN_MOVE_SELF;
-@@ -120,12 +112,7 @@ void verify_inotify(void)
- 	test_cnt++;
+BTW clone10.c segfaults w/a the patch when run with more iterations:
 
- 	int len, i = 0, test_num = 0;
--	if ((len = read(fd_notify, event_buf, EVENT_BUF_LEN)) == -1) {
--		tst_brk(TBROK | TERRNO,
--			"read(%d, buf, %zu) failed",
--			fd_notify, EVENT_BUF_LEN);
--
--	}
-+	len = SAFE_READ(0, fd_notify, event_buf, EVENT_BUF_LEN);
+./clone10 -i200
+clone10.c:48: TINFO: Child (PID: 4271, TID: 4285): TLS value set to: 101
+clone10.c:68: TPASS: Parent (PID: 4271, TID: 4271): TLS value correct: 100
+clone10.c:48: TINFO: Child (PID: 4271, TID: 4286): TLS value set to: 101
+clone10.c:68: TPASS: Parent (PID: 4271, TID: 4271): TLS value correct: 100
+tst_test.c:1953: TBROK: Test killed by SIGSEGV!
 
- 	while (i < len) {
- 		struct inotify_event *event;
-@@ -208,7 +195,7 @@ static void cleanup(void)
- {
- 	if (reap_wd && myinotify_rm_watch(fd_notify, wd) < 0) {
- 		tst_res(TWARN,
--			"inotify_rm_watch (%d, %d) failed,", fd_notify, wd);
-+			"inotify_rm_watch (%d, %d) failed", fd_notify, wd);
- 	}
+Summary:
+passed   15
+failed   0
+broken   1
+skipped  0
+warnings 0
 
- 	if (fd_notify > 0)
---
-2.43.0
+Kind regards,
+Petr
+
+> (gdb) bt
+>   0  futex_wait () at ../sysdeps/nptl/futex-internal.h:141
+>   1  futex_wait_simple () at ../sysdeps/nptl/futex-internal.h:172
+>   2  __libc_disable_asynccancel () at ../nptl/cancellation.c:100
+>   3  __GI___libc_write () at ../sysdeps/unix/sysv/linux/write.c:26
+>   4  __GI___libc_write () at ../sysdeps/unix/sysv/linux/write.c:24
+>   5  print_result ()  at tst_test.c:387
+>   6  tst_vres_ () at tst_test.c:401
+>   7  tst_res_ () at tst_test.c:512
+>   8  touch_tls_in_child (arg=<optimized out>) at clone10.c:48
+>   9  thread_start () at ../sysdeps/unix/sysv/linux/aarch64/clone.S:78
+
+> Signed-off-by: Changwei Zou <changwei.zou@canonical.com>
+> ---
+>  include/lapi/tls.h | 16 +++++++++++++---
+>  1 file changed, 13 insertions(+), 3 deletions(-)
+
+> diff --git a/include/lapi/tls.h b/include/lapi/tls.h
+> index 468fe3086..7f2fa18a1 100644
+> --- a/include/lapi/tls.h
+> +++ b/include/lapi/tls.h
+> @@ -22,6 +22,15 @@
+>  #define TLS_SIZE 4096
+>  #define TLS_ALIGN 16
+
+> +/*
+> + * Space allocated large enough to hold a struct pthread.
+> + *
+> + * Zero-initialized to ensure THREAD_SELF->cancelhandling starts at 0,
+> + * avoiding undefined behavior (e.g., in clone10.c) in __pthread_disable_asynccancel(),
+> + * which is called at thread cancellation points such as write().
+> + */
+> +#define TLS_PRE_TCB_SIZE (TLS_ALIGN * 256)
+> +
+>  #if defined(__x86_64__)
+>  typedef struct {
+>  	void *tcb;
+> @@ -36,10 +45,11 @@ extern void *tls_ptr;
+
+>  static inline void *allocate_tls_area(void)
+>  {
+> -	void *tls_area = aligned_alloc(TLS_ALIGN, TLS_SIZE);
+> +	char *tls_area = aligned_alloc(TLS_ALIGN, TLS_PRE_TCB_SIZE + TLS_SIZE);
+>  	if (!tls_area)
+>  		tst_brk(TBROK | TERRNO, "aligned_alloc failed");
+> -	memset(tls_area, 0, TLS_SIZE);
+> +	memset(tls_area, 0, TLS_PRE_TCB_SIZE + TLS_SIZE);
+> +	tls_area += TLS_PRE_TCB_SIZE;
+
+>  #if defined(__x86_64__)
+>  	tcb_t *tcb = (tcb_t *)tls_area;
+> @@ -59,7 +69,7 @@ static inline void free_tls(void)
+>  {
+>  	usleep(10000);
+>  	if (tls_ptr) {
+> -		free(tls_ptr);
+> +		free(((char *)tls_ptr) - TLS_PRE_TCB_SIZE);
+>  		tls_ptr = NULL;
+>  	}
+>  }
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
