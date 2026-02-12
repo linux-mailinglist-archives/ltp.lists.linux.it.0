@@ -2,102 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sK8RIPGWjWkG5AAAu9opvQ
+	id 4BlXO1uejWmD5QAAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Feb 2026 10:01:37 +0100
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Feb 2026 10:33:15 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A9B312BA27
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Feb 2026 10:01:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1770886880; h=mime-version :
- date : message-id : to : references : in-reply-to : subject : list-id
- : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=DZrSlaSbJHm+C04Ic9qhx9fFyWrPc4ZRJlQE9Ukly8w=;
- b=C9OkS1SY2juQfFIBZoIuhNpdwoP5LFsaKhIVFYF64u0l0pf6dwawTVcEVk3hTcDehD6o5
- OdPCZIRSyCwoynoATiPlkS4VEHCKjrumIFi0pdNKPxN1dZUJIJcwTkfBtKFIW2uvdVdoIeB
- Sw28WozuuObcwRo7PYxjtuylj54CLcQ=
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 892BF12BE4A
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Feb 2026 10:33:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D4DFE3CF1A7
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Feb 2026 10:01:20 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9B2EB3CF2A8
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Feb 2026 10:33:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2EC963C4F59
- for <ltp@lists.linux.it>; Thu, 12 Feb 2026 10:01:17 +0100 (CET)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id C36413CF1A7
+ for <ltp@lists.linux.it>; Thu, 12 Feb 2026 10:33:05 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EFA471A003C3
- for <ltp@lists.linux.it>; Thu, 12 Feb 2026 10:01:15 +0100 (CET)
-Received: by mail-wm1-x343.google.com with SMTP id
- 5b1f17b1804b1-4801d7c72a5so48861465e9.0
- for <ltp@lists.linux.it>; Thu, 12 Feb 2026 01:01:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1770886875; x=1771491675; darn=lists.linux.it;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eOB2zg41iTrO5AF2FykLcqcrlEGGPFweAzuVTJPXE88=;
- b=cggBaNcrBEhHg/9ixytH2wLDNnpSAdPsROld2sz75EfRO180Uj3PFEt1mYiO6//T72
- dt8vl1FiSldRfSRIuOQqq/JmAQqzUEywiHyiWFA0TB+54V7dHWZB3F6Dt38ycWbpNYSS
- 1pw++HWvPLT+yvpCsHgXu5sEaNxN12RCsBcic3AYyPG+/T8QvmDcbzQ6lGQtm4x9V9fa
- 6prMSgMW2xTnrWANNve+ChyV4h2d5UPJIXSgNRyyDW8JwIHb2Oenw1k6L4Y2CGyuqldG
- L5GnctlAOhoagDLajR2aourN3akpcjBXc0plfxAazRy6/wVEqX/4rduRRs1kECwL+uNV
- zE/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770886875; x=1771491675;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=eOB2zg41iTrO5AF2FykLcqcrlEGGPFweAzuVTJPXE88=;
- b=vcroN4pgzJvHLFNflgpW0wS9HwlpzMvc1L4juhyrTU60nuxJ+65YdsN2Ms1jJ7Yoz9
- LALfYbTByyMK0DjUvQrvvzMRnoCKK8VhsTXI+KGF9ckEQUQYyUwMdVBR0vjK7zsz7UUP
- zktQoI9ScYXYjV5Im3tXl97hsN/Iz4bSVCbs8JxSnAS1zNEMxgCPhmAGu7W4ocalTvOb
- I14s1qTUfSImR1/nOTKmBLqEAKZR7MjjRuomyGxFXGCCzbaQN8j4hh7DGzD2BeWeZMx/
- AOxpUin8CV0QMCzwZp8CdYr0KILh43oMiG+viOCeuBcBfZFBnNIK94gNsBcAODt6alvf
- lQng==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUG+vI4K4b6uX1H81EOSS7xkbn1/XwwdpNawoTlTtzfl9bb0IZp/vAPXWwwtoDfpevwAqI=@lists.linux.it
-X-Gm-Message-State: AOJu0Yyaym9up15Nh5swKcOuNsuAOZnxZ5I96TdcTVb+Q2R/WKlfC1H1
- 78UQ0h9a8xe/bNbCIYXPjPNJZeONkKWCas4LuSdap/3P1giHKJnB/CTzsQYNDK7rFds=
-X-Gm-Gg: AZuq6aLDylnjdVsdE3PMql25VwEIFDmK1KJUukJL+2VNxESzne+0g48t9S4znNppi9A
- FApLs9ZiQqgCeh8ykPwEbYF+2hzoOfxSXNoo3R2q0SpjkrCRO/S4DPWEfV2Pgkhz92HN4KMWPIe
- hZVfLYH/OnhnRz91BYSmJqG5j/jxIOKXIAUgk/4cNhn2JGY15LL2AA70FhAq+KUtSO2rrBpSE30
- tMsdIbnB4daFjkscJuNvuvzGwcco1t4me0xby8PF9L7R4aHG20avDk0IIzO0RxRdtBKxA2HU14E
- 4gv1cXYBU3eeSgz97BUkuT6EziomlD+F59wxyK1+mIO8G0vgcRpZUjPhgkBqzcFIEb+reaJbR9o
- vn35S2dXZzJlszy8fid3sG6s355Kjv43KIkipwsFSuI9F77l5pDSxe/nRQrd/cPQSMNCFA0iYPY
- M2IruJ6a1RsIpvwxqgaiQ2s36C98wS5sEywwkelLe4XQ==
-X-Received: by 2002:a05:600c:540f:b0:47e:e20e:bba3 with SMTP id
- 5b1f17b1804b1-483656aba84mr31674205e9.7.1770886875076; 
- Thu, 12 Feb 2026 01:01:15 -0800 (PST)
-Received: from localhost ([2a02:a31b:84a1:b780:6f4e:21d6:82d2:5333])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4835ba69255sm37087445e9.10.2026.02.12.01.01.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Feb 2026 01:01:14 -0800 (PST)
-Mime-Version: 1.0
-Date: Thu, 12 Feb 2026 10:01:13 +0100
-Message-Id: <DGCV06VWH5W4.2S96MUIO5X4ZL@suse.com>
-To: "Petr Vorel" <pvorel@suse.cz>, "Andrea Cervesato"
- <andrea.cervesato@suse.de>
-X-Mailer: aerc 0.18.2
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 327D11400511
+ for <ltp@lists.linux.it>; Thu, 12 Feb 2026 10:33:04 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C4D563E6D5;
+ Thu, 12 Feb 2026 09:33:03 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 450913EA62;
+ Thu, 12 Feb 2026 09:33:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id RfaPD0+ejWnKJQAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 12 Feb 2026 09:33:03 +0000
+Date: Thu, 12 Feb 2026 10:32:57 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <20260212093257.GA8902@pevik>
 References: <20260211-fix_doc_build-v1-1-42897785e0c7@suse.com>
  <aYyrcqnGWKhsIUej@yuki.lan> <20260212084804.GA5659@pevik>
-In-Reply-To: <20260212084804.GA5659@pevik>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
+ <DGCV06VWH5W4.2S96MUIO5X4ZL@suse.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <DGCV06VWH5W4.2S96MUIO5X4ZL@suse.com>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spam-Score: -4.00
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 Subject: Re: [LTP] [PATCH] doc: fix documentation build with latest
  setuptools
@@ -112,77 +79,75 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: Linux Test Project <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.71 / 15.00];
-	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
-	MV_CASE(0.50)[];
-	R_DKIM_ALLOW(-0.20)[lists.linux.it:s=picard];
-	R_SPF_ALLOW(-0.20)[+a:c];
+X-Spamd-Result: default: False [-0.01 / 15.00];
+	MID_RHS_NOT_FQDN(0.50)[];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DKIM_MIXED(0.00)[];
+	DMARC_NA(0.00)[suse.cz];
+	RCPT_COUNT_TWO(0.00)[2];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	ARC_NA(0.00)[];
-	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RSPAMD_URIBL_FAIL(0.00)[linux.it:query timed out,suse.com:query timed out,lists.linux.it:query timed out,suse.cz:query timed out];
-	ASN_FAIL(0.00)[146.12.254.213.asn.rspamd.com:query timed out];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[lists.linux.it:+,suse.com:-];
-	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	R_DKIM_REJECT(0.00)[suse.com:s=google];
-	TAGGED_RCPT(0.00)[linux-ltp];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[ltp@lists.linux.it,ltp-bounces@lists.linux.it];
+	TO_DN_ALL(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
+	MISSING_XM_UA(0.00)[];
+	HAS_REPLYTO(0.00)[pvorel@suse.cz];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[pvorel@suse.cz,ltp-bounces@lists.linux.it];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RSPAMD_EMAILBL_FAIL(0.00)[andrea.cervesato.suse.com:query timed out];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	HAS_REPLYTO(0.00)[andrea.cervesato@suse.com];
-	DMARC_POLICY_ALLOW(0.00)[lists.linux.it,none];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns,suse.com:mid,suse.com:email,suse.com:replyto]
-X-Rspamd-Queue-Id: 5A9B312BA27
+	R_DKIM_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-ltp];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	REPLYTO_EQ_FROM(0.00)[]
+X-Rspamd-Queue-Id: 892BF12BE4A
 X-Rspamd-Action: no action
 
-On Thu Feb 12, 2026 at 9:48 AM CET, Petr Vorel wrote:
-> Hi Andrea,
->
-> > Hi!
-> > > Force setuptools to version 81.0.0, which is the last one where linuxdoc
-> > > still can be installed. Also, from python 3.12 setuptools is not
-> > > available anymore when creating a new virtualenv, so we need to force
-> > > its installation to ensure that documentation will be built.
->
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
->
-> +1, higher setuptools version is probably better as it's still working on the
-> oldest distros (than 68 version I added in my patchset). IMHO it'd be good to
-> add (before merge) a comment to requirements.txt that it's just a temporary
-> workaround (once linuxdoc is released I'd upgrade it and remove the dependency).
->
-> Kind regards,
-> Petr
+> On Thu Feb 12, 2026 at 9:48 AM CET, Petr Vorel wrote:
+> > Hi Andrea,
 
-It's not a workaround, we need it because python 3.12 removed it from
-virtualenv. It explained in the git commit message in my patch.
+> > > Hi!
+> > > > Force setuptools to version 81.0.0, which is the last one where linuxdoc
+> > > > still can be installed. Also, from python 3.12 setuptools is not
+> > > > available anymore when creating a new virtualenv, so we need to force
+> > > > its installation to ensure that documentation will be built.
 
--- 
-Andrea Cervesato
-SUSE QE Automation Engineer Linux
-andrea.cervesato@suse.com
+> > Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
+> > +1, higher setuptools version is probably better as it's still working on the
+> > oldest distros (than 68 version I added in my patchset). IMHO it'd be good to
+> > add (before merge) a comment to requirements.txt that it's just a temporary
+> > workaround (once linuxdoc is released I'd upgrade it and remove the dependency).
+
+> > Kind regards,
+> > Petr
+
+> It's not a workaround, we need it because python 3.12 removed it from
+> virtualenv. It explained in the git commit message in my patch.
+
+It is a workaround in a sense because new linuxdoc master thanks to my fix [1]
+will not need setuptools any more (which I explained in my patch). Normally we
+would update, but upstream does not have time to release.
+
+Also, new release will use hatch, we'll need to use pyproject.toml instead of
+requirements.txt.
+
+Kind regards,
+Petr
+
+[1] https://github.com/return42/linuxdoc/commit/19f5e5cbe8fec100d9135cfb7d3f183fa9dc0642
+[2] https://hatch.pypa.io/latest/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
