@@ -2,100 +2,98 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id jg32DdoQk2lw1QEAu9opvQ
+	id YFMQBaAWk2nD1QEAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Feb 2026 13:43:06 +0100
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Feb 2026 14:07:44 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC84A1436AC
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Feb 2026 13:43:05 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A09AD143AE8
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Feb 2026 14:07:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2C58D3D052D
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Feb 2026 13:43:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D98333D051B
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Feb 2026 14:07:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9D9623D0413
- for <ltp@lists.linux.it>; Mon, 16 Feb 2026 13:42:55 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 454773CB91D
+ for <ltp@lists.linux.it>; Mon, 16 Feb 2026 14:07:40 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 09CB5200931
- for <ltp@lists.linux.it>; Mon, 16 Feb 2026 13:42:54 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9565310007CC
+ for <ltp@lists.linux.it>; Mon, 16 Feb 2026 14:07:39 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 47B1A5BDB1;
- Mon, 16 Feb 2026 12:42:54 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0907A5BE63;
+ Mon, 16 Feb 2026 13:07:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1771245774; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1771247258; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=I8FQ8H3k+NxJQfoZIt4TJz8swOtFpvbhmvFt7ydtlhk=;
- b=DaodfzLzZzgwTdPyragthNbeht9CFQ5F942KVbUmYt+HhqJGLhPc8XV7vruLbnJJQleMN8
- pqy0+9dFT47jnrLQk3dxUl52i6BjGXWd8VrnORFaPM6LRBX+AsUGR27Q1yTzcxn4n+rbAC
- b/l3aPXJ1MvioYZNeWaU6DyGNtgR6/8=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=oYRzNi7X64+L1aKvAgMpEVUeYnfAolhCRjto4KcuxdsYrIvu7SlAZgZCeGGwflfLhxgebH
+ pK0Ycd2IGcVY1yM8QRwaJCzYz2ARhvdLCUT0Eoo6zzDeWOaDID94+1j33ydfcgjuL0JN24
+ J4v5SQmlQxuJqV4KWoinEQKBoQqv2x4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1771245774;
+ s=susede2_ed25519; t=1771247258;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=I8FQ8H3k+NxJQfoZIt4TJz8swOtFpvbhmvFt7ydtlhk=;
- b=tGhIz6cZF6/a+jD6efxb+U+VyQvRKXf19Y2MJ5IuDlqFZhT34OFDjv6kzJKs2OqwQIKF6t
- HySFFP/vTmURb7Aw==
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=BNn3ZTYaPdkhpkiipC6KB6g0yrM4qY95G56DJruoGnA40sOrrDAGKDEuJ30z+nEA1WdF23
+ 5xnFymdMEqaublBQ==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=DaodfzLz;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=tGhIz6cZ
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1771245774; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1771247258; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=I8FQ8H3k+NxJQfoZIt4TJz8swOtFpvbhmvFt7ydtlhk=;
- b=DaodfzLzZzgwTdPyragthNbeht9CFQ5F942KVbUmYt+HhqJGLhPc8XV7vruLbnJJQleMN8
- pqy0+9dFT47jnrLQk3dxUl52i6BjGXWd8VrnORFaPM6LRBX+AsUGR27Q1yTzcxn4n+rbAC
- b/l3aPXJ1MvioYZNeWaU6DyGNtgR6/8=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=oYRzNi7X64+L1aKvAgMpEVUeYnfAolhCRjto4KcuxdsYrIvu7SlAZgZCeGGwflfLhxgebH
+ pK0Ycd2IGcVY1yM8QRwaJCzYz2ARhvdLCUT0Eoo6zzDeWOaDID94+1j33ydfcgjuL0JN24
+ J4v5SQmlQxuJqV4KWoinEQKBoQqv2x4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1771245774;
+ s=susede2_ed25519; t=1771247258;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=I8FQ8H3k+NxJQfoZIt4TJz8swOtFpvbhmvFt7ydtlhk=;
- b=tGhIz6cZF6/a+jD6efxb+U+VyQvRKXf19Y2MJ5IuDlqFZhT34OFDjv6kzJKs2OqwQIKF6t
- HySFFP/vTmURb7Aw==
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=BNn3ZTYaPdkhpkiipC6KB6g0yrM4qY95G56DJruoGnA40sOrrDAGKDEuJ30z+nEA1WdF23
+ 5xnFymdMEqaublBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ECF383EA62;
- Mon, 16 Feb 2026 12:42:53 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B172C3EA62;
+ Mon, 16 Feb 2026 13:07:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yNzYOc0Qk2liPgAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Mon, 16 Feb 2026 12:42:53 +0000
-Date: Mon, 16 Feb 2026 13:42:56 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id N7zWN5kWk2lcVwAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Mon, 16 Feb 2026 13:07:37 +0000
+Date: Mon, 16 Feb 2026 14:07:36 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <aZMQ0N_VyyOqGhrS@yuki.lan>
+Message-ID: <aZMWmK6laJUO009O@yuki.lan>
 References: <20260127-fork_refactoring-v1-0-e3e21ff1a4f7@suse.com>
- <20260127-fork_refactoring-v1-1-e3e21ff1a4f7@suse.com>
+ <20260127-fork_refactoring-v1-2-e3e21ff1a4f7@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260127-fork_refactoring-v1-1-e3e21ff1a4f7@suse.com>
-X-Spam-Score: -4.51
+In-Reply-To: <20260127-fork_refactoring-v1-2-e3e21ff1a4f7@suse.com>
+X-Spam-Score: -4.30
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 1/3] syscalls: refactor fork09 using new API
+Subject: Re: [LTP] [PATCH 2/3] syscalls: refactor vfork01 using new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,16 +114,16 @@ X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.49 / 15.00];
 	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+a];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,linux.it:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url,picard.linux.it:helo,picard.linux.it:rdns];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
 	TAGGED_RCPT(0.00)[linux-ltp];
 	RCPT_COUNT_TWO(0.00)[2];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -137,242 +135,11 @@ X-Spamd-Result: default: False [0.49 / 15.00];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	DKIM_TRACE(0.00)[suse.cz:-]
-X-Rspamd-Queue-Id: BC84A1436AC
+X-Rspamd-Queue-Id: A09AD143AE8
 X-Rspamd-Action: no action
 
 Hi!
-> +// SPDX-License-Identifier: GPL-2.0-or-later
->  /*
-> - *   Copyright (c) International Business Machines  Corp., 2001
-
-Unless it's a rewritten from scratch this copyright should stay.
-
-> - *   This program is free software;  you can redistribute it and/or modify
-> - *   it under the terms of the GNU General Public License as published by
-> - *   the Free Software Foundation; either version 2 of the License, or
-> - *   (at your option) any later version.
-> - *
-> - *   This program is distributed in the hope that it will be useful,
-> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-> - *   the GNU General Public License for more details.
-> - *
-> - *   You should have received a copy of the GNU General Public License
-> - *   along with this program;  if not, write to the Free Software
-> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> - *
-> - * NAME
-> - *	fork09.c
-> - *
-> - * DESCRIPTION
-> - *	Check that child has access to a full set of files.
-> - *
-> - * ALGORITHM
-> - *	Parent opens a maximum number of files
-> - *	Child closes one and attempts to open another, it should be
-> - *	available
-> - *
-> - * USAGE
-> - *	fork09
-> - *
-> - * HISTORY
-> - *	07/2001 Ported by Wayne Boyer
-> - *
-> - *	10/2008 Suzuki K P <suzuki@in.ibm.com>
-> - *		Fix maximum number of files open logic.
-> - *
-> - * RESTRICTIONS
-> - *	None
-> + * Copyright (C) 2026 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
->   */
->  
-> -#include <sys/types.h>
-> -#include <sys/wait.h>
-> -#include <sys/stat.h>
-> -#include <fcntl.h>
-> -#include <stdio.h>
-> -#include <errno.h>
-> -#include <unistd.h>		/* for _SC_OPEN_MAX */
-> -#include "test.h"
-> -#include "safe_macros.h"
-> -
-> -char *TCID = "fork09";
-> -int TST_TOTAL = 1;
-> +/*\
-> + * Verify that a forked child can close all the files which have been open by
-> + * the parent process.
-> + */
->  
-> -static void setup(void);
-> -static void cleanup(void);
-> +#include "tst_test.h"
-> +#include "tst_safe_stdio.h"
->  
-> -static char filname[40], childfile[40];
-> -static int first;
-> -static FILE **fildeses;		/* file streams */
-> -static int mypid, nfiles;
-> +#define FILE_PREFIX "ltp_file"
->  
-> -#define OPEN_MAX (sysconf(_SC_OPEN_MAX))
-> +static FILE **open_files;
-> +static long file_open_max;
->  
-> -int main(int ac, char **av)
-> +static void run(void)
->  {
-> -	int pid, status, nf;
-> -
-> -	int lc;
-> -
-> -	tst_parse_opts(ac, av, NULL, NULL);
-> -
-> -	setup();
-> -
-> -	fildeses = malloc((OPEN_MAX + 10) * sizeof(FILE *));
-> -	if (fildeses == NULL)
-> -		tst_brkm(TBROK, cleanup, "malloc failed");
-> -
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> -		tst_count = 0;
-> -		mypid = getpid();
-> -
-> -		tst_resm(TINFO, "OPEN_MAX is %ld", OPEN_MAX);
-> -
-> -		/* establish first free file */
-> -		sprintf(filname, "fork09.%d", mypid);
-> -		first = SAFE_CREAT(cleanup, filname, 0660);
-> -		close(first);
-> -
-> -		tst_resm(TINFO, "first file descriptor is %d ", first);
-> -
-> -		SAFE_UNLINK(cleanup, filname);
-> -
-> -		/*
-> -		 * now open all the files for the test
-> -		 */
-> -		for (nfiles = first; nfiles < OPEN_MAX; nfiles++) {
-> -			sprintf(filname, "file%d.%d", nfiles, mypid);
-> -			fildeses[nfiles] = fopen(filname, "a");
-> -			if (fildeses[nfiles] == NULL) {
-> -				/* Did we already reach OPEN_MAX ? */
-> -				if (errno == EMFILE)
-> -					break;
-> -				tst_brkm(TBROK, cleanup, "Parent: cannot open "
-> -					 "file %d %s errno = %d", nfiles,
-> -					 filname, errno);
-> -			}
-> -#ifdef DEBUG
-> -			tst_resm(TINFO, "filname: %s", filname);
-> -#endif
-> -		}
-> +	FILE *f;
-> +	long nfiles;
-> +	long totfiles;
-> +	char name[PATH_MAX];
->  
-> -		tst_resm(TINFO, "Parent reporting %d files open", nfiles - 1);
-> -
-> -		pid = fork();
-> -		if (pid == -1)
-> -			tst_brkm(TBROK, cleanup, "Fork failed");
-> -
-> -		if (pid == 0) {	/* child */
-> -			nfiles--;
-> -			if (fclose(fildeses[nfiles]) == -1) {
-> -				tst_resm(TINFO, "Child could not close file "
-> -					 "#%d, errno = %d", nfiles, errno);
-> -				exit(1);
-> -			} else {
-> -				sprintf(childfile, "cfile.%d", getpid());
-> -				fildeses[nfiles] = fopen(childfile, "a");
-> -				if (fildeses[nfiles] == NULL) {
-> -					tst_resm(TINFO, "Child could not open "
-> -						 "file %s, errno = %d",
-> -						 childfile, errno);
-> -					exit(1);
-> -				} else {
-> -					tst_resm(TINFO, "Child opened new "
-> -						 "file #%d", nfiles);
-> -					unlink(childfile);
-> -					exit(0);
-> -				}
-> -			}
-> -		} else {	/* parent */
-> -			wait(&status);
-> -			if (status >> 8 != 0)
-> -				tst_resm(TFAIL, "test 1 FAILED");
-> -			else
-> -				tst_resm(TPASS, "test 1 PASSED");
-> -		}
-> +	tst_res(TINFO, "Opening files from parent");
-> +
-> +	for (nfiles = 0; nfiles < file_open_max; nfiles++) {
-> +		memset(name, 0, PATH_MAX);
-> +		snprintf(name, PATH_MAX, "%s%lu", FILE_PREFIX, nfiles);
->  
-> -		/* clean up things in case we are looping */
-> -		for (nf = first; nf < nfiles; nf++) {
-> -			fclose(fildeses[nf]);
-> -			sprintf(filname, "file%d.%d", nf, mypid);
-> -			unlink(filname);
-> +		f = fopen(name, "a");
-> +		if (!f) {
-> +			if (errno == EMFILE)
-> +				break;
-> +
-> +			tst_brk(TBROK | TERRNO, "fopen() error");
->  		}
-> +
-> +		open_files[nfiles] = f;
-> +	}
-> +
-> +	totfiles = nfiles;
-> +
-> +	if (!totfiles)
-> +		tst_brk(TBROK, "Parent couldn't open any file");
-> +
-> +	tst_res(TINFO, "Closing %lu files from child", totfiles);
-> +
-> +	if (!SAFE_FORK()) {
-> +		for (nfiles = nfiles - 1; nfiles >= 0; nfiles--)
-> +			SAFE_FCLOSE(open_files[nfiles]);
-> +
-> +		exit(0);
->  	}
->  
-> -	cleanup();
-> -	tst_exit();
-> +	tst_reap_children();
-> +
-> +	tst_res(TPASS, "Child closed all parent's files");
-> +
-> +	for (nfiles = 0; nfiles < totfiles; nfiles++) {
-> +		memset(name, 0, PATH_MAX);
-> +		snprintf(name, PATH_MAX, "%s%lu", FILE_PREFIX, nfiles);
-> +
-> +		SAFE_FCLOSE(open_files[nfiles]);
-> +		SAFE_UNLINK(name);
-> +	}
->  }
->  
->  static void setup(void)
->  {
-> -	tst_sig(FORK, DEF_HANDLER, cleanup);
-> -	umask(0);
-> +	file_open_max = sysconf(_SC_OPEN_MAX);
->  
-> -	TEST_PAUSE;
-> -	tst_tmpdir();
-> +	open_files = SAFE_MMAP(NULL, sizeof(FILE *) * file_open_max,
-> +			PROT_READ | PROT_WRITE,
-> +			MAP_ANONYMOUS | MAP_SHARED,
-> +			-1, 0);
-
-Do we need to put this into a shared memory? We do not modify that in
-the child process so there is no reason for changes to be propagated to
-the parent...
-
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
