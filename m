@@ -2,69 +2,103 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mLxDDUFtl2nxyQIAu9opvQ
+	id gGVrNsBwl2nUygIAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Feb 2026 21:06:25 +0100
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Feb 2026 21:21:20 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFEF016237C
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Feb 2026 21:06:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64455162472
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Feb 2026 21:21:20 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1548F3D0740
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Feb 2026 21:06:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DC0FE3D074E
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Feb 2026 21:21:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 636023CAC50
- for <ltp@lists.linux.it>; Thu, 19 Feb 2026 21:06:21 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id D81BC3CAC50
+ for <ltp@lists.linux.it>; Thu, 19 Feb 2026 21:21:18 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id EBED82002A1
- for <ltp@lists.linux.it>; Thu, 19 Feb 2026 21:06:20 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id ED219600A64
+ for <ltp@lists.linux.it>; Thu, 19 Feb 2026 21:21:13 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5FD5F5BD0F;
- Thu, 19 Feb 2026 20:06:20 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0A24B3E72D;
+ Thu, 19 Feb 2026 20:21:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1771532473;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+xtJ2CCGt6dJ+55GzyfclNSIYRUbh54EliWbE2YgAgo=;
+ b=eC4QQA7hNZZw+lRd9YK73UxHuMXQ68OclKGguqflrFtbXhkyNVkHGA4fr2WYexgBV8U0Oo
+ qT5ICyYjOYgWVB6qYGLUvgzFcEdWeHf+p7x09+QwahZuCQt6qPCXDY1egpDg4mXvjDCJnc
+ G9UrTWC52FBZqlOgao+k1SBVw/U2OeM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1771532473;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+xtJ2CCGt6dJ+55GzyfclNSIYRUbh54EliWbE2YgAgo=;
+ b=ymLf1Bfg+KKtjX1sBFlgu0fyIo4lGrY+cIbM6DlzSZLgYF+E1VIzhtK4yPzNOdhQ0gO8mJ
+ QDnODRmiD6/4WODg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="Gvr5/N4R";
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=SrFFLg1g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1771532472;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+xtJ2CCGt6dJ+55GzyfclNSIYRUbh54EliWbE2YgAgo=;
+ b=Gvr5/N4R3a4k0uP3iEJC/CeSVUGpLOze6TXU+5Ml8MTBePN5Bxqs+9X6GIZMg3Ndmgk2n9
+ WU1wj05F0fGkKyB7OhAwh5lupwYd44jQGrXr9ViI/uIf/VtLeQrKmhgBi8HtMzETfxASsW
+ BYoP1feVlnruZh7qDFO0+j8zzJy/oos=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1771532472;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+xtJ2CCGt6dJ+55GzyfclNSIYRUbh54EliWbE2YgAgo=;
+ b=SrFFLg1gt0Y86lJgaXD0El1XxWoI0jlJYM8v/Ce7gP1esM6aOEElRMWYS5vZqglr4WczjQ
+ ptf07JsubvdW1uDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 90F683EA65;
- Thu, 19 Feb 2026 20:06:19 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3EAC03EA65;
+ Thu, 19 Feb 2026 20:21:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id izTNHDttl2mmTQAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Thu, 19 Feb 2026 20:06:19 +0000
-Date: Thu, 19 Feb 2026 21:06:02 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oHFvOrRwl2kzXAAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 19 Feb 2026 20:21:08 +0000
+Date: Thu, 19 Feb 2026 21:20:51 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Jan Polensky <japo@linux.ibm.com>
-Message-ID: <20260219200602.GA341772@pevik>
-References: <20260219163030.69022-1-japo@linux.ibm.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20260219202051.GB341772@pevik>
+References: <20260205121540.329921-1-pvorel@suse.cz>
+ <20260205121540.329921-2-pvorel@suse.cz>
+ <aZQytH7k6pVXqdsz@yuki.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260219163030.69022-1-japo@linux.ibm.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Score: -4.00
+In-Reply-To: <aZQytH7k6pVXqdsz@yuki.lan>
+X-Spam-Score: -3.71
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_MISSING,SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2 1/1] [STAGING] ioctl_pidfd06: accept
- EREMOTE/ESRCH for PIDFD_GET_INFO across pidns
+Subject: Re: [LTP] [PATCH v2 1/6] doc: INSTALL: dma_thread_diotest.c: Remove
+ runltp from doc
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,83 +111,147 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Linux Test Project <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it, automated-testing@lists.yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.01 / 15.00];
+X-Spamd-Result: default: False [0.99 / 15.00];
+	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+a];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DMARC_NA(0.00)[suse.cz];
-	TO_DN_ALL(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	REPLYTO_EQ_FROM(0.00)[];
-	ARC_NA(0.00)[];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.cz:email,linux.it:url];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	DMARC_NA(0.00)[suse.cz];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	RCPT_COUNT_THREE(0.00)[3];
 	HAS_REPLYTO(0.00)[pvorel@suse.cz];
 	RCVD_COUNT_FIVE(0.00)[6];
 	FROM_NEQ_ENVFROM(0.00)[pvorel@suse.cz,ltp-bounces@lists.linux.it];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.993];
-	TAGGED_RCPT(0.00)[linux-ltp];
-	R_DKIM_NA(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:-];
+	NEURAL_HAM(-0.00)[-0.997];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.cz:email]
-X-Rspamd-Queue-Id: BFEF016237C
+	TAGGED_RCPT(0.00)[linux-ltp];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	REPLYTO_EQ_FROM(0.00)[]
+X-Rspamd-Queue-Id: 64455162472
 X-Rspamd-Action: no action
 
-Hi Jan,
+> Hi!
+> > Remove runltp from all doc, replace it with kirk.
+> > Also replace the old runltp-ng with kirk.
 
-> PIDFD_GET_INFO semantics changed for pidfds referring to tasks without a PID
-> in the caller's current pid namespace (commit ab89060fbc92e ("pidfs: return
-> -EREMOTE when PIDFD_GET_INFO is called on another ns")).
+> > Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> > ---
+> >  INSTALL                                            |  4 +++-
+> >  doc/developers/test_case_tutorial.rst              |  6 +++---
+> >  doc/developers/todo.rst                            | 10 ----------
+> >  metadata/README.md                                 |  2 +-
+> >  testcases/kernel/fs/fs_readonly/test_robind.sh     |  2 +-
+> >  testcases/kernel/io/direct_io/dma_thread_diotest.c |  3 +--
+> >  testcases/kernel/security/smack/README             |  2 +-
+> >  testcases/network/can/filter-tests/INSTALL         |  2 +-
+> >  testcases/network/rpc/rpc-tirpc/README             |  2 +-
+> >  testscripts/Readme_ROBind                          |  4 ++--
+> >  10 files changed, 14 insertions(+), 23 deletions(-)
 
-> Accept both errnos to keep the test working on kernels with and without the
-> change (including backports).
+> > diff --git a/INSTALL b/INSTALL
+> > index c44bb4e660..9ef929a971 100644
+> > --- a/INSTALL
+> > +++ b/INSTALL
+> > @@ -105,9 +105,9 @@ Quick Start
+> >  	$ ./configure
+> >  	$ make all
+> >  	# make install
+>         ^
+> 	This should be $ (not caused by this patch but worth fixing)
 
-LGTM, thanks!
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+I can change it, but IMHO for creating /opt/ltp is needed to run it as root
+for a first time. Or one must chmod/chown /opt/ltp under root.
+
+> > -	$ /opt/ltp/runltp
+
+> >  *NOTE:
+> > +- For running tests use kirk [1], individual test you can run directly.
+>                                                     ^
+> 					 This sentece has wrong order of words.
+
+> And also oversimplifies things, there is no mention of setting correct
+> PATH that needs to be done in order to run these tests.
+
+> I would just drop that and leave only the first sentence.
+
+Sure, I can remove it:
+
++++ INSTALL
+@@ -107,7 +107,7 @@ Quick Start
+ 	# make install
+ 
+ *NOTE:
+-- For running tests use kirk [1], individual test you can run directly.
++- For running tests use kirk [1].
+ - LTP assumes the existence of the nobody, bin, and daemon users and their
+ groups.  If these IDs do not exist, certain tests will fail. The respective
+ user and group IDs should be the same, i.e. if `nobody's' user ID is 99, then
+---
+If I'm correct this is likely the only change. Can you add your RBT and I modify
+before merge?
+
+And I see Andrea already removed '-U ltp' kirk usage.
+
+Anyway, I can wait little longer, but I got already quite a lot of ack to merge
+whole patchset.
 
 Kind regards,
 Petr
 
-> Signed-off-by: Jan Polensky <japo@linux.ibm.com>
-> ---
->  testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
 
-> diff --git a/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c b/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c
-> index 751281bacb74..6b4bc3191e37 100644
-> --- a/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c
-> +++ b/testcases/kernel/syscalls/ioctl/ioctl_pidfd06.c
-> @@ -14,6 +14,7 @@
+> >  - LTP assumes the existence of the nobody, bin, and daemon users and their
+> >  groups.  If these IDs do not exist, certain tests will fail. The respective
+> >  user and group IDs should be the same, i.e. if `nobody's' user ID is 99, then
+> > @@ -117,6 +117,8 @@ its group ID should also be 99. The names of the groups are irrelevant.
+> >  DESTDIR= is also honored for install and will install into $DESTDIR/$prefix,
+> >  if you want to install into a chroot or a rootfs for instance.
 
->  static struct tst_clone_args *args;
->  static struct pidfd_info *info;
-> +static const int exp_errnos[] = {EREMOTE, ESRCH};
+> > +[1] https://github.com/linux-test-project/kirk
+> > +
+> >  Detailed Installation
+> >  ---------------------
 
->  static void run(void)
->  {
-> @@ -41,7 +42,8 @@ static void run(void)
->  	args->exit_signal = SIGCHLD;
+> > diff --git a/doc/developers/test_case_tutorial.rst b/doc/developers/test_case_tutorial.rst
+> > index 08bd1b1519..240897e36b 100644
+> > --- a/doc/developers/test_case_tutorial.rst
+> > +++ b/doc/developers/test_case_tutorial.rst
+> > @@ -205,9 +205,9 @@ please do:
 
->  	if (!SAFE_CLONE(args)) {
-> -		TST_EXP_FAIL(ioctl(pidfd, PIDFD_GET_INFO, info), ESRCH);
-> +		TST_EXP_FAIL_ARR(ioctl(pidfd, PIDFD_GET_INFO, info), exp_errnos,
-> +				ARRAY_SIZE(exp_errnos));
->  		exit(0);
->  	}
+> >  This should build the test and then run it. However, even though the test is
+> >  in :master:`testcases/kernel/syscalls` directory it won't be automatically ran
+> > -as part of the syscalls test group (e.g. not run via ``kirk -r math`` or
+> > -``./runltp -f syscalls``). For this we need to add it to the runtest file. So
+> > -open :master:`runtest/syscalls` and add the lines starting with a ``+``.
+> > +as part of the syscalls test group (e.g. not run via ``kirk -r math``.  For
+>                                                                         ^
+> 									missing
+> 									closing
+> 									)
+
+> Also the path to syscalls is missing after the change.
+
+> > +this we need to add it to the runtest file. So open :master:`runtest/syscalls`
+> > +and add the lines starting with a ``+``.
+
+> >  .. code-block::
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
