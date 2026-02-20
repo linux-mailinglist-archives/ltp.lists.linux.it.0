@@ -2,94 +2,106 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2NAYEbaTl2mL1AIAu9opvQ
+	id sOnRL5QXmGki/wIAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Feb 2026 23:50:30 +0100
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Feb 2026 09:13:08 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBB9316361F
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Feb 2026 23:50:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 367B41658B6
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Feb 2026 09:13:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1771575187; h=mime-version :
+ date : message-id : to : references : in-reply-to : subject : list-id
+ : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : cc : content-type :
+ content-transfer-encoding : sender : from;
+ bh=F3r//9Y6Jan+CWzxHlsBr2Xp9gWPevzprHLes+xPmcg=;
+ b=N7izcoEIitTcqvvgKysFfKjYTC2pX3i62/X2v4OxqGr2GoR3ntYpeJPrxdyi3RtIgLv9P
+ VUWw0MgPZNnQ6tGzJDudyxLWRhg4yP4DcwuEuolCAB67/VNJRPTD4oaMMwxr1bVKxQzAkzW
+ rkugUzEJmm9O6x7CMZECmKOLrieYTpw=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EECB13D0784
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Feb 2026 23:50:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 99E413D07F3
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Feb 2026 09:13:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DB5193D074E
- for <ltp@lists.linux.it>; Thu, 19 Feb 2026 23:50:24 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 85A183D02E7
+ for <ltp@lists.linux.it>; Fri, 20 Feb 2026 09:13:05 +0100 (CET)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3C1D860072A
- for <ltp@lists.linux.it>; Thu, 19 Feb 2026 23:50:23 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A265C5BCEC;
- Thu, 19 Feb 2026 22:50:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1771541422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=aN1/WW3QUhte1HCjsXcLZkmT/XC9da+jtY+cXkVEGDs=;
- b=F8txdJV+HSxacB7Bq09WWeCj9/limcYp/7NNKtiPI7cUTZ9rMkaQcNAo8HU2+zLL54ZUh6
- FYJ0uODjoOb+2s4uxrMe+0W9/5SqNGN1E/8kz/c8n31FJXI717Xg0X/LzaDakzRteQWisf
- 2Jadca/PTY18xJyTvkUgFi6t4oBkxp4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1771541422;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=aN1/WW3QUhte1HCjsXcLZkmT/XC9da+jtY+cXkVEGDs=;
- b=yJDESl9y/oHgh5+8+9fMXKug5TAdUv//lLMFIFpOY9F76dDfzRQFlkuQ32BFSuFUkgwEN2
- lr7yIsHltDZJtkDw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=F8txdJV+;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=yJDESl9y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1771541422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=aN1/WW3QUhte1HCjsXcLZkmT/XC9da+jtY+cXkVEGDs=;
- b=F8txdJV+HSxacB7Bq09WWeCj9/limcYp/7NNKtiPI7cUTZ9rMkaQcNAo8HU2+zLL54ZUh6
- FYJ0uODjoOb+2s4uxrMe+0W9/5SqNGN1E/8kz/c8n31FJXI717Xg0X/LzaDakzRteQWisf
- 2Jadca/PTY18xJyTvkUgFi6t4oBkxp4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1771541422;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=aN1/WW3QUhte1HCjsXcLZkmT/XC9da+jtY+cXkVEGDs=;
- b=yJDESl9y/oHgh5+8+9fMXKug5TAdUv//lLMFIFpOY9F76dDfzRQFlkuQ32BFSuFUkgwEN2
- lr7yIsHltDZJtkDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3CBD53EA65;
- Thu, 19 Feb 2026 22:50:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id tDmYDK6Tl2n/bwAAD6G6ig
- (envelope-from <rbranco@suse.de>); Thu, 19 Feb 2026 22:50:22 +0000
-From: Ricardo Branco <rbranco@suse.de>
-To: ltp@lists.linux.it
-Date: Thu, 19 Feb 2026 23:50:06 +0100
-Message-ID: <20260219225007.218697-1-rbranco@suse.de>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-X-Spam-Score: -3.01
-X-Spam-Level: 
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DA503200AD0
+ for <ltp@lists.linux.it>; Fri, 20 Feb 2026 09:12:59 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-48373a4bca3so10615935e9.0
+ for <ltp@lists.linux.it>; Fri, 20 Feb 2026 00:12:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1771575179; x=1772179979; darn=lists.linux.it;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Yyq+9zi7zICtRc9D6CanQaSzuE38KaPKA0jtPXLijdo=;
+ b=KUj82b3UHXCOlSVXLRgx2kL4b7+j61vrFDa/a8JVjNJQOiML7oDMjQX/mHYufevPFQ
+ sTS0L2OLVYy1SKoXNsusr37vjDUQHSwQMHYlnqPWGNVgoM53jict7XHOXuXo9Rpn1JHg
+ 6L45g1zu4GiBMl+ToLHnJ2xeFj2J1TA2rsG5t4x7rY88PnYaYX6U0+i2qHnHmjw2r3IM
+ 8MmJ4+ikGGefkjWvC738IEVH/gmNSneB2FBADVreL2aanvbe1ppt7GV4fH9kqaPd3u6g
+ RHV+jvNrZhdX7hjzGJUr7SeFm0IqfOA1Uf0Y+mo7OKVIgQ9AniDoOV2qWwLCvtoa5l7J
+ pP3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771575179; x=1772179979;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Yyq+9zi7zICtRc9D6CanQaSzuE38KaPKA0jtPXLijdo=;
+ b=HkNr4Pfx7VUpBPLOfL+sNxK2P5KpJMtkvzgbqlIeIKQBNW47n/NkDengs5qy+inHuS
+ io3zM36lPQrrL5j7omCmWWdoXykTgZAsNxQput7SmZ2t8+1qhklpQmrDOo6sNZUrbvQg
+ nStj/oTR74DTpBy6rtlIfjssRlu2ItMVtSfFgNJJVcd2OyX62btwv3xBOOAGN6V0cUZc
+ YaqYor/NnofX74Q11PK0p8VFfBow0xwTaKAcuk895IWelGGhFS3bglC9fyE1PoPyhPcW
+ 0FiJa7bjuAuFuWF75P7DOSqYp4EaUB+LvHCgm6RdgH50I7yySMwxTUihXzLydFG7FvUG
+ nfmg==
+X-Gm-Message-State: AOJu0YycyMvfT+XZurgHpdPuclqIpDO4PiN50romb7RHMY1GYsS1UpDC
+ cOOD44Si8+e8Mjtk0TxN9RAF1J+/8MDwndx8qBHQ+fzOZTxqLCyoSU+zACFKcWJ79QA=
+X-Gm-Gg: AZuq6aL0zPMugqUSLJadXIJ9ik4fjQ/WVcoEsFIhczrs4jg9UlmWVgbB2WMnlRXuqVj
+ 8wnu60+fFVJrKC4bvhMpVPCgXwbtsie5+QdJlAjCZBZsOvzn80BsKyAPOTJ2UBbnLwzxXjKPSed
+ l9dubpaDD77LY2IzYnKc0JUfrJOYZV/64dE3KRO5y5r3Pc1ctfLpDn42EmgHPGv+3ZREa5WLqHa
+ OWVXJtTnGB06Zr4ExYXXtCXz4HRgV5SQDH3//vAxfEbKUnkQQkvUmvLaJAJOzJ7KY3y33bahwKq
+ hIAWHV2IwsI+LTHFZ1Q4+Laxm8P6KMpttPpeiVhQYeJUlzUNJP8KBxczCMO5XP2/gHH2YedfzL8
+ g/sLSSw4SnoxLz7ZK6BUNg1zTxHtLFu7MYzfmVmKwgb1d3LNHT3t2Lxtm/5/gnpFEiGnKu2kMoI
+ 6lL5C5GMaPLdnXB7sRXboRNv36DSn/gxiKFEujyuRwgR2iH1BF6m3qYzWhFB8p9ZqnYQDYo99GE
+ qKRkVdX1+7vLtqItwM=
+X-Received: by 2002:a05:600c:4eca:b0:483:6d4a:7e6d with SMTP id
+ 5b1f17b1804b1-48379be60camr296679605e9.30.1771575179182; 
+ Fri, 20 Feb 2026 00:12:59 -0800 (PST)
+Received: from localhost
+ (p200300ef2f4fc9009ff26ae1d4042002.dip0.t-ipconnect.de.
+ [2003:ef:2f4f:c900:9ff2:6ae1:d404:2002])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-483a3e01b0fsm16241775e9.8.2026.02.20.00.12.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 20 Feb 2026 00:12:58 -0800 (PST)
+Mime-Version: 1.0
+Date: Fri, 20 Feb 2026 09:12:57 +0100
+Message-Id: <DGJMZLFK3YJY.EUUQNSIBR2PU@suse.com>
+To: "Petr Vorel" <pvorel@suse.cz>, "Cyril Hrubis" <chrubis@suse.cz>
+X-Mailer: aerc 0.18.2
+References: <20260205121540.329921-1-pvorel@suse.cz>
+ <20260205121540.329921-2-pvorel@suse.cz> <aZQytH7k6pVXqdsz@yuki.lan>
+ <20260219202051.GB341772@pevik>
+In-Reply-To: <20260219202051.GB341772@pevik>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4] userfaultfd: Add test using UFFDIO_POISON
+Subject: Re: [LTP] [PATCH v2 1/6] doc: INSTALL: dma_thread_diotest.c: Remove
+ runltp from doc
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,248 +113,65 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: ltp@lists.linux.it, automated-testing@lists.yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.59 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	R_SPF_ALLOW(-0.20)[+a];
+X-Spamd-Result: default: False [-0.71 / 15.00];
+	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
+	MV_CASE(0.50)[];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[suse.de : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+a];
+	R_DKIM_ALLOW(-0.20)[lists.linux.it:s=picard];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DKIM_MIXED(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_ONE(0.00)[1];
-	DKIM_TRACE(0.00)[suse.de:-];
-	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[rbranco@suse.de,ltp-bounces@lists.linux.it];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_NONE(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DMARC_POLICY_ALLOW(0.00)[lists.linux.it,none];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[linux-ltp];
-	NEURAL_HAM(-0.00)[-0.992];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[ltp@lists.linux.it,ltp-bounces@lists.linux.it];
+	R_DKIM_REJECT(0.00)[suse.com:s=google];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,suse.com:email]
-X-Rspamd-Queue-Id: CBB9316361F
+	RCPT_COUNT_THREE(0.00)[4];
+	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
+	HAS_REPLYTO(0.00)[andrea.cervesato@suse.com];
+	DKIM_TRACE(0.00)[lists.linux.it:+,suse.com:-];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url,suse.com:mid,suse.com:email,suse.com:replyto,lists.linux.it:dkim,picard.linux.it:helo,picard.linux.it:rdns]
+X-Rspamd-Queue-Id: 367B41658B6
 X-Rspamd-Action: no action
 
-Signed-off-by: Ricardo Branco <rbranco@suse.de>
----
- configure.ac                                  |   1 +
- include/lapi/userfaultfd.h                    |  13 ++
- .../kernel/syscalls/userfaultfd/.gitignore    |   1 +
- .../kernel/syscalls/userfaultfd/Makefile      |   1 +
- .../syscalls/userfaultfd/userfaultfd06.c      | 137 ++++++++++++++++++
- 5 files changed, 153 insertions(+)
- create mode 100644 testcases/kernel/syscalls/userfaultfd/userfaultfd06.c
+> Anyway, I can wait little longer, but I got already quite a lot of ack to merge
+> whole patchset.
+>
+> Kind regards,
+> Petr
 
-diff --git a/configure.ac b/configure.ac
-index 7fa614dcb..94bcbcc98 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -278,6 +278,7 @@ AC_CHECK_TYPES([struct sockaddr_vm],,,[
- ])
- 
- AC_CHECK_TYPES([struct uffdio_move],,,[#include <linux/userfaultfd.h>])
-+AC_CHECK_TYPES([struct uffdio_poison],,,[#include <linux/userfaultfd.h>])
- AC_CHECK_TYPES([struct uffdio_writeprotect],,,[#include <linux/userfaultfd.h>])
- 
- # Tools knobs
-diff --git a/include/lapi/userfaultfd.h b/include/lapi/userfaultfd.h
-index 0c9e34c84..aab3890b7 100644
---- a/include/lapi/userfaultfd.h
-+++ b/include/lapi/userfaultfd.h
-@@ -233,6 +233,19 @@ struct uffdio_writeprotect {
- };
- #endif	/* HAVE_STRUCT_UFFDIO_WRITEPROTECT */
- 
-+#ifndef HAVE_STRUCT_UFFDIO_POISON
-+#define UFFD_FEATURE_POISON			(1<<14)
-+#define _UFFDIO_POISON				(0x08)
-+#define UFFDIO_POISON		_IOWR(UFFDIO, _UFFDIO_POISON, \
-+				      struct uffdio_poison)
-+struct uffdio_poison {
-+        struct uffdio_range range;
-+#define UFFDIO_POISON_MODE_DONTWAKE		((__u64)1<<0)
-+        __u64 mode;
-+        __s64 updated;
-+};
-+#endif	/* HAVE_STRUCT_UFFDIO_POISON */
-+
- #define SAFE_USERFAULTFD(flags, retry) \
- 	safe_userfaultfd(__FILE__, __LINE__, (flags), (retry))
- 
-diff --git a/testcases/kernel/syscalls/userfaultfd/.gitignore b/testcases/kernel/syscalls/userfaultfd/.gitignore
-index fb2ae243b..bc32fdf3b 100644
---- a/testcases/kernel/syscalls/userfaultfd/.gitignore
-+++ b/testcases/kernel/syscalls/userfaultfd/.gitignore
-@@ -3,3 +3,4 @@
- /userfaultfd03
- /userfaultfd04
- /userfaultfd05
-+/userfaultfd06
-diff --git a/testcases/kernel/syscalls/userfaultfd/Makefile b/testcases/kernel/syscalls/userfaultfd/Makefile
-index 96650a65a..3252e47df 100644
---- a/testcases/kernel/syscalls/userfaultfd/Makefile
-+++ b/testcases/kernel/syscalls/userfaultfd/Makefile
-@@ -16,3 +16,4 @@ userfaultfd02: CFLAGS += -pthread
- userfaultfd03: CFLAGS += -pthread
- userfaultfd04: CFLAGS += -pthread
- userfaultfd05: CFLAGS += -pthread
-+userfaultfd06: CFLAGS += -pthread
-diff --git a/testcases/kernel/syscalls/userfaultfd/userfaultfd06.c b/testcases/kernel/syscalls/userfaultfd/userfaultfd06.c
-new file mode 100644
-index 000000000..1f132d4d5
---- /dev/null
-+++ b/testcases/kernel/syscalls/userfaultfd/userfaultfd06.c
-@@ -0,0 +1,137 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2026 SUSE LLC
-+ * Author: Ricardo Branco <rbranco@suse.com>
-+ */
-+
-+/*\
-+ * Force a pagefault event and handle it using :manpage:`userfaultfd(2)`
-+ * from a different thread testing UFFDIO_POISON.
-+ */
-+
-+#include "config.h"
-+#include <poll.h>
-+#include <setjmp.h>
-+#include <signal.h>
-+#include <unistd.h>
-+#include "tst_test.h"
-+#include "tst_safe_macros.h"
-+#include "tst_safe_pthread.h"
-+#include "lapi/userfaultfd.h"
-+
-+static int page_size;
-+static char *page;
-+static int uffd;
-+static int poison_fault_seen;
-+static volatile int sigbus_seen;
-+static sigjmp_buf jmpbuf;
-+
-+static void sigbus_handler(int sig)
-+{
-+	if (sig == SIGBUS) {
-+		sigbus_seen = 1;
-+		siglongjmp(jmpbuf, 1);
-+	}
-+}
-+
-+static void set_pages(void)
-+{
-+	page_size = sysconf(_SC_PAGE_SIZE);
-+	page = SAFE_MMAP(NULL, page_size, PROT_READ | PROT_WRITE,
-+			MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (page) {
-+		SAFE_MUNMAP(page, page_size);
-+		page = NULL;
-+	}
-+}
-+
-+static void *handle_thread(void)
-+{
-+	static struct uffd_msg msg;
-+	struct uffdio_poison uffdio_poison = {};
-+	struct pollfd pollfd;
-+	int nready;
-+
-+	pollfd.fd = uffd;
-+	pollfd.events = POLLIN;
-+	nready = poll(&pollfd, 1, -1);
-+	if (nready == -1)
-+		tst_brk(TBROK | TERRNO, "Error on poll");
-+
-+	SAFE_READ(1, uffd, &msg, sizeof(msg));
-+
-+	if (msg.event != UFFD_EVENT_PAGEFAULT)
-+		tst_brk(TFAIL, "Received unexpected UFFD_EVENT %d", msg.event);
-+
-+	tst_atomic_store(1, &poison_fault_seen);
-+
-+	/* Poison the page that triggered the fault */
-+	uffdio_poison.range.start = msg.arg.pagefault.address & ~(page_size - 1);
-+	uffdio_poison.range.len = page_size;
-+
-+	SAFE_IOCTL(uffd, UFFDIO_POISON, &uffdio_poison);
-+
-+	close(uffd);
-+	return NULL;
-+}
-+
-+static void run(void)
-+{
-+	pthread_t thr;
-+	struct uffdio_api uffdio_api = {};
-+	struct uffdio_register uffdio_register;
-+	struct sigaction sa = {};
-+	volatile char dummy;
-+
-+	sa.sa_handler = sigbus_handler;
-+	sigemptyset(&sa.sa_mask);
-+	SAFE_SIGACTION(SIGBUS, &sa, NULL);
-+
-+	set_pages();
-+
-+	uffd = SAFE_USERFAULTFD(O_CLOEXEC | O_NONBLOCK, false);
-+
-+	uffdio_api.api = UFFD_API;
-+	uffdio_api.features = UFFD_FEATURE_POISON;
-+
-+	SAFE_IOCTL(uffd, UFFDIO_API, &uffdio_api);
-+
-+	if (!(uffdio_api.features & UFFD_FEATURE_POISON))
-+		tst_brk(TCONF, "UFFD_FEATURE_POISON not supported");
-+
-+	uffdio_register.range.start = (unsigned long) page;
-+	uffdio_register.range.len = page_size;
-+	uffdio_register.mode = UFFDIO_REGISTER_MODE_MISSING;
-+
-+	SAFE_IOCTL(uffd, UFFDIO_REGISTER, &uffdio_register);
-+
-+	SAFE_PTHREAD_CREATE(&thr, NULL, (void *) handle_thread, NULL);
-+
-+	/* Try to read from the page: should trigger fault, get poisoned, then SIGBUS */
-+	if (sigsetjmp(jmpbuf, 1) == 0) {
-+		dummy = page[0];
-+		(void)dummy;
-+	}
-+
-+	SAFE_PTHREAD_JOIN(thr, NULL);
-+
-+	int poisoned = tst_atomic_load(&poison_fault_seen);
-+
-+	if (poisoned && sigbus_seen)
-+		tst_res(TPASS, "POISON successfully triggered SIGBUS");
-+	else if (poison_fault_seen && !sigbus_seen)
-+		tst_res(TFAIL, "POISON fault seen but no SIGBUS received");
-+	else if (!poison_fault_seen && sigbus_seen)
-+		tst_res(TFAIL, "SIGBUS received but no poison fault seen");
-+	else
-+		tst_res(TFAIL, "No poison fault or SIGBUS observed");
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.cleanup = cleanup,
-+};
+I agree, let's finish this PR and make a new release.
+https://github.com/linux-test-project/kirk/pull/92
+
+Then upgrade kirk in the LTP upstream and remove runltp one for all :)
+
+
 -- 
-2.53.0
+Andrea Cervesato
+SUSE QE Automation Engineer Linux
+andrea.cervesato@suse.com
 
 
 -- 
