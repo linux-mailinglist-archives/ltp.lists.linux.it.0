@@ -2,94 +2,89 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gEF5C/K1mWk8WQMAu9opvQ
+	id pX+fI2e5mWmVWQMAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:41:06 +0100
+	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:55:51 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF57916CF0C
-	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:41:05 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BA8516CF49
+	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:55:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 586343D084D
-	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:41:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 949F43D04CC
+	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:55:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1BAF33CB3E5
- for <ltp@lists.linux.it>; Sat, 21 Feb 2026 14:40:39 +0100 (CET)
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+ by picard.linux.it (Postfix) with ESMTPS id A05833C2B16
+ for <ltp@lists.linux.it>; Sat, 21 Feb 2026 14:55:49 +0100 (CET)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8D808600101
- for <ltp@lists.linux.it>; Sat, 21 Feb 2026 14:40:39 +0100 (CET)
-Received: by mail-pg1-x541.google.com with SMTP id
- 41be03b00d2f7-c6e191c4b8fso1106947a12.0
- for <ltp@lists.linux.it>; Sat, 21 Feb 2026 05:40:39 -0800 (PST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DCE8914001FD
+ for <ltp@lists.linux.it>; Sat, 21 Feb 2026 14:55:48 +0100 (CET)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-59e62834439so3148164e87.1
+ for <ltp@lists.linux.it>; Sat, 21 Feb 2026 05:55:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771681238; x=1772286038; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=yC5XwUgf8bR0Qyvbdcq4VsNXTAuX9326syTsTPvZwf0=;
- b=L2aHpZuMB/yKBLoqJ7Ygi43W8TWWkA32CRtZpJzEmpRvJaxs06pXk5S7E+k5pUI1Fn
- AYC4iQQ4+TbtgsD2AAQHfM+QPUrKyUsfVYyzQo1tbjWc/sW/ZTA4pIdY2c6onhLZQR23
- GF6bkyuqkZ6FZl4aLRC6au26EQJQUF6NeWOhtnB0hvjoIeWQu5QjMSnjom1bz5nrh11+
- UmH8NxDJd9YBBd7Tg4e/zBmOiSyaOil/hRKl3OOa06RPqtQIKnLzgFGbsR3+D70wueAV
- uSzv+9rfVyyGnJqIrKDcV6w78ip1z3wTJdVe8jHfY7AMV0KbUqNd4lfDGONmxSMgVoCO
- QDRw==
+ d=gmail.com; s=20230601; t=1771682148; x=1772286948; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=9mXPcdBo2QP10EJSEr6SLjVbIyCJMXwufguxMVfJCX0=;
+ b=S13DeCJrtdNrzHWiqZdH4TQ70U5Lf51Zf3OIpDK2j309PY/3LFEbOzBtw7xdCLkzEE
+ vl1K2kgdwgrA3GmULx106pgOCnsnm2T23RLwduaNkgULrfs8vl9JSmELlXkcxAPlpGzD
+ YN6OMjRvuMe4wRwSvVhe700MWvQP4BFzU0ochb3AIyxiPm6lkUepY7ESeyVWwhL+cUnd
+ 6oUC4a3diVFh5fvIDSGJHAXnwqZCv877QWz2dwbWGksJC9JhaR/Q0NC77FhU0EOuxKVH
+ MHzfeITzrLXZNyI1EsKx4avm+GX0WSAvWWJECZbXjbNsun7u8FTsWJ6loz51+h3IvI89
+ M6uQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771681238; x=1772286038;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=yC5XwUgf8bR0Qyvbdcq4VsNXTAuX9326syTsTPvZwf0=;
- b=oC+IUyKty8TGH9mS/ENhHW9lDc5r4VBouOHAk8OgGppjBcTOpeeycgti1X3CUU7mwU
- rqRduaz8yb/AWfVb6ccrJSFaFTZsIznmX8IpxdY1uI/SJBIjqyF37c+ytvzXUGUIR8gE
- 7B4mtbSvl1Wfzm06ynTU8kxhawrHfiLpIwmP8/r48tzkiVUqOktPPReFm5F8/y5Il675
- EXpj4oRM5R+lYgT+X1aFgObd/andVKK2TYvDcrcId1GkvzaGFJL7i9UM29F6bn2qa6Hb
- nBBd8gL+VTghZ3M2ISlArVFDmYhPkaSLSsvOSnWp62GV+mNJZrhrVpHWoURW2+Fsn6aO
- whBg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUyg4R9Us19OwwEReAGsfUPGnanttm7ncWYVH+5Mql7Nr5P5A1ZyNe/M7bjRRvraJsU4K0=@lists.linux.it
-X-Gm-Message-State: AOJu0YyfaKjUtJ7H2NVB6QG2kJC+wy3o+sfU7bNxJ5gwG3YN6bJ8bj86
- u1Nbi971DyzHyvA2PQVKZOZ3FC4w76KTVDLVXalRv61p5DZl2slegfEh1R9eu5w=
-X-Gm-Gg: AZuq6aJ6ucYAETW+v6UNR4z0npXmNxWJppLXK2BuMUKe5RHRGjACh5scmLVYxpNTjfv
- 3tRHVWtOGg0xpPj6KAzx2mskystL4+3sLZX/X4mxzuy2A6pcMgILBI3hxi2nDXtfgemyXaCHy+S
- Q/2jHaYV6GcYk+RJdBoNN+h4e4vvK9DE7k6v5AaEyM66gHmppg0YPG5BbMCbrY+QaWMGbu0HuKO
- rujZOGRfCEJwlCCuADLMmN5cnpMW55xterrtFPBxlKTZdskoIsUGID10oxK4vzIZfEzgbkDltAv
- RRo2Rg34YMAK2bQ4+R0MmF4VKftsGUof6LVTfhnzSkLp9M4zmBexpOeNEXkjgq5Bj6IrSfVg0TH
- 2281HZQtMzp91XKN0tnWRczQCydYhU29+0mc+UhiRiFLoioZY83Gd/q5uY7h1TxM5PfhQDtFS7z
- SQwMfp1VOjxZHoHQDOkQl2hoGOQjXJlLuzYMZR0YFC2A==
-X-Received: by 2002:a17:902:f611:b0:2ab:3cba:42eb with SMTP id
- d9443c01a7336-2ad7449c9f4mr30272335ad.15.1771681237913; 
- Sat, 21 Feb 2026 05:40:37 -0800 (PST)
-Received: from localhost.localdomain ([59.16.109.172])
+ d=1e100.net; s=20230601; t=1771682148; x=1772286948;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9mXPcdBo2QP10EJSEr6SLjVbIyCJMXwufguxMVfJCX0=;
+ b=CnwmmbkOZT43xgF0NCNthjCY6iRyVNAfGvCufjvhhaL9DPZl6qxNsdsJkeheKTbyLS
+ xT2GcrGeWgwaptOHPu6GayWz7+qbg240McWP1tVNgduLD35QHScSkZGwvHgcURad37gw
+ M34HtBXa1bDAqeXZs47+bqishXNBxiO4+l6yb+X80eYzudGnCK+99fi/UQ8F+UD0TXqa
+ 2GTj0GdHUOW/Gni1cQ0JJ6ezZqcFIbDxqxZZnsayC55PGKZUzQD/dy1OOxy+mgSW78zH
+ pZ/+kTi9ZVM9YHGwLz1U7WlCA0rRrtKoiE+7AOJnrc/LY0++rQnv0SECO4jvCmXuerje
+ RUug==
+X-Gm-Message-State: AOJu0Yw1s40NsdvpZrIaBHAw7kjUZ2b8u/CuWJ/s4bwuyrSCO5rPjG3R
+ OHZLL0HThFJ+mdICQyDngCefLETAZXXBYyMR0IbeEuJ3xYxGGIrFJ7L6kuxxcA==
+X-Gm-Gg: AZuq6aJgVAlSAGE42M4QzFQVbhpJp2J27DAnVBmkzprvgK22Kt/Vi6ty2zbtQvqjyUr
+ zLOOBahPI4+9q4p55KpgZGIJ7aggVbqeI65Ws+Yf5sAeOUXK5dR+il2FklKo9IRrpbMjLkK3/gE
+ mqpqW06at7AFD/e3Rf7rmMXzJ9U16YUf1Dg9islbSyP24E6DvbS9fOwnMrdFLUjHPeqeFygZJyS
+ wuXcH+/seLDwaVuB7n44TSIMN76Q3OBqL++x7m41yythbib9kxK8oAnUqfvPnyEdfhdBy7K5EGv
+ WYAoPi+nCcTaLvtjv+bL2cEzcAF1ZRYWtNCSZ6DkUVfq+J4c3Jdt744EpAY+sudEmzX0VbMzimr
+ WEw0xzxKdb0FEShJikKY7Zf5E8N9RtDGFx9dfhL0bmsZm5rMWLXzBf1YAwIAFzJAGZ2sMOfQ/cv
+ +mqfO6UUNo72lRflPQJlsajj4t6J3wzJXVyujs+JH5eJZVEe7Edr37jVCVR8h4q2xhFEg=
+X-Received: by 2002:ac2:4bcd:0:b0:59f:907b:23d4 with SMTP id
+ 2adb3069b0e04-5a0ed882709mr1007094e87.20.1771682147496; 
+ Sat, 21 Feb 2026 05:55:47 -0800 (PST)
+Received: from localhost.suse.org ([37.109.160.5])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ad75173903sm21624945ad.81.2026.02.21.05.40.36
+ 2adb3069b0e04-5a0eeb45ba7sm467639e87.70.2026.02.21.05.55.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 21 Feb 2026 05:40:37 -0800 (PST)
-From: Jinseok Kim <always.starving0@gmail.com>
-To: chrubis@suse.cz,
-	ltp@lists.linux.it
-Date: Sat, 21 Feb 2026 22:40:08 +0900
-Message-ID: <20260221134014.37652-2-always.starving0@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260221134014.37652-1-always.starving0@gmail.com>
-References: <aZgx0rp0MRHn4mMT@yuki.lan>
- <20260221134014.37652-1-always.starving0@gmail.com>
+ Sat, 21 Feb 2026 05:55:47 -0800 (PST)
+From: Sebastian Chlad <sebastianchlad@gmail.com>
+X-Google-Original-From: Sebastian Chlad <sebastian.chlad@suse.com>
+To: ltp@lists.linux.it
+Date: Sat, 21 Feb 2026 14:53:39 +0100
+Message-ID: <20260221135338.26236-2-sebastian.chlad@suse.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
+X-Spam-Status: No, score=1.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FORGED_GMAIL_RCVD,FREEMAIL_FROM,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 2/2] poll: add test for POLLNVAL on invalid fd
+Subject: [LTP] [PATCH] nfs: Adapt the lib to allow to test in 2-host mode
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,6 +96,7 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Sebastian Chlad <sebastian.chlad@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -108,120 +104,86 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.59 / 15.00];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+a:c];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	FREEMAIL_FROM(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[alwaysstarving0@gmail.com,ltp-bounces@lists.linux.it];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[sebastianchlad@gmail.com,ltp-bounces@lists.linux.it];
+	DKIM_TRACE(0.00)[gmail.com:-];
 	NEURAL_HAM(-0.00)[-0.999];
-	TAGGED_RCPT(0.00)[linux-ltp];
-	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-ltp];
+	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url,picard.linux.it:helo,picard.linux.it:rdns]
-X-Rspamd-Queue-Id: CF57916CF0C
+X-Rspamd-Queue-Id: 1BA8516CF49
 X-Rspamd-Action: no action
 
-Add a poll() test to verify that POLLNVAL is reported for invalid file
-descriptors.
+nfs_lib.sh checked key server_side prerequisites on the system under test.
+In 2_host setup this incorrectly required server_side tools on lhost.
+This patch keep netns behavior unchanged, but in true 2-host mode run
+server-side checks on rhost via tst_rhost_run().
 
-The test closes one end of a pipe and passes the closed descriptor to
-poll(). poll() is expected to return successfully and set POLLNVAL in
-revents.
-
-This verifies poll() handling of invalid file descriptors without
-triggering an error return.
-
-Signed-off-by: Jinseok Kim <always.starving0@gmail.com>
+Signed-off-by: Sebastian Chlad <sebastian.chlad@suse.com>
 ---
- testcases/kernel/syscalls/poll/poll04.c | 63 +++++++++++++++++++++++++
- 1 file changed, 63 insertions(+)
- create mode 100644 testcases/kernel/syscalls/poll/poll04.c
+ testcases/network/nfs/nfs_stress/nfs_lib.sh | 22 +++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/poll/poll04.c b/testcases/kernel/syscalls/poll/poll04.c
-new file mode 100644
-index 000000000..7645459b5
---- /dev/null
-+++ b/testcases/kernel/syscalls/poll/poll04.c
-@@ -0,0 +1,63 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2026 Jinseok Kim <always.starving0@gmail.com>
-+ */
+diff --git a/testcases/network/nfs/nfs_stress/nfs_lib.sh b/testcases/network/nfs/nfs_stress/nfs_lib.sh
+index 1ac8bd657..e52f96a5a 100644
+--- a/testcases/network/nfs/nfs_stress/nfs_lib.sh
++++ b/testcases/network/nfs/nfs_stress/nfs_lib.sh
+@@ -45,7 +45,7 @@ TST_SKIP_FILESYSTEMS="exfat,ext2,ext3,fuse,ntfs,vfat,tmpfs"
+ TST_MOUNT_DEVICE=1
+ TST_FORMAT_DEVICE=1
+ TST_NEEDS_ROOT=1
+-TST_NEEDS_CMDS="$TST_NEEDS_CMDS mount exportfs mount.nfs"
++TST_NEEDS_CMDS="$TST_NEEDS_CMDS mount mount.nfs"
+ TST_SETUP="${TST_SETUP:-nfs_setup}"
+ TST_CLEANUP="${TST_CLEANUP:-nfs_cleanup}"
+ TST_NEEDS_DRIVERS="nfsd"
+@@ -186,10 +186,24 @@ nfs_setup()
+ 		tst_brk TCONF "Cannot run nfs-stress test on mounted NFS"
+ 	fi
+ 
++	if tst_net_use_netns; then
++		tst_cmd_available exportfs || tst_brk TCONF "'exportfs' not found"
++	else
++		tst_rhost_run -c "command -v exportfs >/dev/null" || tst_brk TCONF "'exportfs' not found on rhost"
++	fi
 +
-+/*\
-+ * Check that poll() reports POLLNVAL for invalid file descriptors.
-+ */
-+#include <unistd.h>
-+#include <errno.h>
-+#include <sys/poll.h>
-+
-+#include "tst_test.h"
-+
-+static int fds[2];
-+static int invalid_fd;
-+
-+void verify_pollnval(void)
-+{
-+	struct pollfd pfd = {
-+		.fd = invalid_fd, .events = POLLIN,
-+	};
-+
-+	TEST(poll(&pfd, 1, 0));
-+
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "poll() failed");
-+		return;
-+	}
-+
-+	if (TST_RET != 1) {
-+		tst_res(TFAIL, "Unexpected poll() return value %ld", TST_RET);
-+		return;
-+	}
-+
-+	TST_EXP_EXPR(pfd.revents & POLLNVAL);
-+	TST_EXP_EXPR((pfd.revents & ~POLLNVAL) == 0);
-+
-+	tst_res(TPASS, "poll() reported POLLNVAL");
-+}
-+
-+static void setup(void)
-+{
-+	SAFE_PIPE(fds);
-+
-+	invalid_fd = fds[0];
-+	SAFE_CLOSE(fds[0]);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (fds[0] > 0)
-+		SAFE_CLOSE(fds[0]);
-+
-+	if (fds[1] > 0)
-+		SAFE_CLOSE(fds[1]);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = verify_pollnval,
-+};
---
-2.43.0
+ 	if tst_cmd_available pgrep; then
+-		for i in rpc.mountd rpc.statd; do
+-			pgrep $i > /dev/null || tst_brk TCONF "$i not running"
+-		done
++		if tst_net_use_netns; then
++			tst_res TINFO "checking rpc.mountd/rpc.statd on lhost (netns mode)"
++			for i in rpc.mountd rpc.statd; do
++				pgrep $i > /dev/null || tst_brk TCONF "$i not running"
++			done
++		else
++			tst_res TINFO "checking rpc.mountd/rpc.statd on rhost (2-host mode)"
++			for i in rpc.mountd rpc.statd; do
++				tst_rhost_run -c "pgrep $i > /dev/null" || tst_brk TCONF "$i not running on rhost"
++			done
++		fi
+ 	fi
+ 
+ 	tst_res TINFO "$(mount.nfs -V)"
+-- 
+2.51.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
