@@ -2,81 +2,82 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id vWBRJ1q0mWkgWQMAu9opvQ
+	id 6GJ6K9q1mWk8WQMAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:34:18 +0100
+	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:40:42 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25B7C16CEAD
-	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:34:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A4BA16CEFE
+	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:40:42 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DAE913D0476
-	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:34:16 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EB8623D0476
+	for <lists+linux-ltp@lfdr.de>; Sat, 21 Feb 2026 14:40:41 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1613C3C196B
- for <ltp@lists.linux.it>; Sat, 21 Feb 2026 14:34:13 +0100 (CET)
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
+ by picard.linux.it (Postfix) with ESMTPS id EEFC73C2C46
+ for <ltp@lists.linux.it>; Sat, 21 Feb 2026 14:40:38 +0100 (CET)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9AFBC20021C
- for <ltp@lists.linux.it>; Sat, 21 Feb 2026 14:34:13 +0100 (CET)
-Received: by mail-pl1-x643.google.com with SMTP id
- d9443c01a7336-2a79ded11a2so19630755ad.3
- for <ltp@lists.linux.it>; Sat, 21 Feb 2026 05:34:13 -0800 (PST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 77BD91000150
+ for <ltp@lists.linux.it>; Sat, 21 Feb 2026 14:40:38 +0100 (CET)
+Received: by mail-pl1-x644.google.com with SMTP id
+ d9443c01a7336-2a7bced39cfso31985615ad.1
+ for <ltp@lists.linux.it>; Sat, 21 Feb 2026 05:40:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771680852; x=1772285652; darn=lists.linux.it;
+ d=gmail.com; s=20230601; t=1771681237; x=1772286037; darn=lists.linux.it;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=81/ND89N/LbpM5zvFcNLXKtmJijbR/eYJVFrf4NjFe4=;
- b=FLYZVvxPU8nHH2gv1N6XNLqwUWT7FQUnZy5LBBpyzXNJMoDNYPTh+yDiDzocFcuGTg
- RbZMLzqzlVj3OryufWMYh4vgqXxzyj6yeUz0m1iOph3jCig2ER9+ILCVw61L4sjBuU7w
- +m3Uh9s/09CwrxKDykDHa+nsoRJQmSgJKGreaJxumrJQFxD8GgT1HeqfouLiISywdAIb
- +j4ShlJ7C8/8Cv3E454XwMFbMnGZSy7wOhdmtDChwjdyWAD40OoABPFkKf2nZ8QSCWiA
- D/dJ4Vcjr8u/YTenyDZa+ek924o+mresH+ejGY+Y8uG+dEpqGowcKbbV6S279hFRgdvr
- SjQA==
+ :reply-to; bh=mBvjaWoDMNLXhUZZ21KNQjylDnbB1FAnE8Sfemvv6zg=;
+ b=SLZssiiT2UZeV51YPCQ1Jhj2GzxYBbAs3Dr/8AxhXfkc/Hf/P4HkGYuNiMECnWyCE7
+ HQ3IcEsS/wCw0vwOJLwYsS4uGq1OImohBdqqZCMAu4JI5qXLLeAn+fRJ80oSyiTMAG6d
+ lpCQFZLj8haMz2LbD2leIcgNXTrow7oHBlU77K6OgATy72uK9+CUi6agd2vNAzsQ/R0A
+ DwWiGAlteUbnMmLXDSit3lhkYUsKPsOUyYEyqrRv0eo1h6cXGqcDmOCH1ac2NPvjTWGx
+ F+g5ImHyf2+kh/17zf4IExU16tSNfvGoGpfoeRRnV8BcAi/bCFasp3WSIV3ymGskMzlg
+ 5Ajw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771680852; x=1772285652;
+ d=1e100.net; s=20230601; t=1771681237; x=1772286037;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=81/ND89N/LbpM5zvFcNLXKtmJijbR/eYJVFrf4NjFe4=;
- b=rvaYEMz+lZfB8dJ6+BwvT3EkgI4IMpI/tZnwiEbNduVjJrW+TnWDOf+FivKgPwP4qM
- oi0w0Ix1uYQ4Q0zNAgUlBR9CnQDNXKTfW+fkmqL1fncsDTVoiPuR/8fKXxtkMGiSwXui
- EkfF3q8rnoqoIwPjJQNsioGlPiIy4p2h+muRDnjOf3K7WAu4mOEh66nBMkldExACdlk6
- izcANzR/7qsbnrVvP3J2HWtZPKcMzEwqD3q9XsLb/N9FReWXDecx1nWvJtFWWMQ3Ie80
- wfuyEQ6cpNzGK+IF/cH6Y9riE7xEy5Er28OdAYMC6KHeMdw1XLI75x6VTH5UCBfTbaFL
- CIPQ==
+ bh=mBvjaWoDMNLXhUZZ21KNQjylDnbB1FAnE8Sfemvv6zg=;
+ b=gqcrejGGUHj7xSLXvwK4cZt8uPzvsU0vz2VhWRIDEmSVqfM8umK76lDijqjkloKfS3
+ IzhHTH8biJJvv9FVjp+qNA5pLQuNjbX6gACc3/fywb192cdoNdhkAlILFRH99wRsmp9t
+ 71fkVtqwWdxjI5GYhDOWhB8NYe+lL6a8ybhaBa9TBT6sgG6sG17CPO+jNLeeUYO5PY+y
+ a5uNMqsJkd+qfDSfNLkgMXJ4QbPXP5ke/ffdryPmamcUT92kIHuWCKlesjZf7DyaPHfe
+ OX/ciFu0qyxOWliFoGfmz4RqlbjgriHyDMq9afSh9nM5WqWX/Dcwifk2bEY6KJdYNCbw
+ JVSw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUA3FAeEal3oZyyT4RwcVm87MfiAgUhCo9AehdMPNYKOz3KO4Ef/l3xlLPMdomJft4L6y4=@lists.linux.it
-X-Gm-Message-State: AOJu0Yy14qjlEpddgHnN1F1y0F8iR22evptFxqZT4DjlFTY5X9ScLYxl
- ZW7d+AA8rS7/qv2+ApllsSVsgMIy7lhASPQx5zornqqpNYu7wjAlWARIyIAvlsk=
-X-Gm-Gg: AZuq6aLafKWt0pgWjgAEtddv0ZErFy3sos6HuieBONXcQ4RFI37w1HG2flz7jjA220+
- vu6hNGSkqI7BKbhziTIDGacDugK6InD6QL7QoZwYUyH98VxRX2PA3H4CZyxjgctE95hPihV3JWn
- tEL8/qjiJxXjzxygI2FbvkDAS2MmH8q7C0ybChd4tshwEZxTgJOCspFh+vrCE386OK3Vht7x2rI
- umWtyL+1GTTkTpG6ljv96p+ad/Q308n4swRpZBfKfF49B7GaOVUdvTN9OyHRk/s+BUefpNjJ+XJ
- vjdQz9muqU926s13B8QQ+ILSZF3KEAIbgzcpn5enc+b6OtQg7FbNXuV0hcXLQ7wvYjN72GEkS77
- 4dGIqUhU77AW6iyYmkDXWn8nKebDayBhDShkRXGm5WPkyHlGIMKX1iFZRIe1+LbT8HhL5CZWWHD
- GBMgqmzguopngV6oXAG0u1VX5H4Om3Wn9u2BVDqB8NRg==
-X-Received: by 2002:a17:903:32cb:b0:296:2b7a:90cd with SMTP id
- d9443c01a7336-2ad744edc14mr31648325ad.32.1771680851862; 
- Sat, 21 Feb 2026 05:34:11 -0800 (PST)
+ AJvYcCWTbGhtRLD9nLBhrnljeyqaskNc5NoZV+MaBpdU0gTCbnebuJIOyfYOiZVI0my3apvcO4I=@lists.linux.it
+X-Gm-Message-State: AOJu0YxUa55muIgqr3fxK7M+pTeEL+yTHvQlO+TCrxZ/r0iyQn+ALRIi
+ qIyXbVsN69qeU6NS8sBFxr5A1JCjFoZez6YoGANxrdAGrG/lttgG65nilucwo1c=
+X-Gm-Gg: AZuq6aLAFTcFe5MxZx7YlqSvjp/d003Yw4cJfzqmFpf8mY3nDmwLsOORd0hcT1MYfDQ
+ SZa/5IGCxvy050pcrBbeDWM/pqT3CiXyEq/EyzhF4XDPsUlUjbBSFy2gdobz3UHyAqAvy/JFta+
+ NwH0DgYCMASqe4m6EV+wZ5+vqYkuGVuhBWLLBnS+Q+oJFLTMh1pPU7pr5lGEQiYRCCnCHNA0tFB
+ 3nB90NyEqxpteWe9TZhnyBUWYW2OGMzuZUqD64r/331h8ErkA19zfqwko+4EfMY22sd+IEmwYbF
+ BLfDoy4ODjD6sdmv+GjIaQNmPPCmrPf8Tvk0/9/m1Lm6ISYf5O4d8YgZXwLqT3kk2SeT607FXYn
+ eAGIWNbVoyUIHdCA0cmvMuzVCi9EAxll71VLhKPGb425sJvRMkPO+Qkzjb9q6ZTOMC0/M8RWrU1
+ 16N8IexvnIdjSNsIX+dnXQSra18ZP5AAfXmMbg8G7+mQ==
+X-Received: by 2002:a17:903:4b30:b0:2a7:5171:9222 with SMTP id
+ d9443c01a7336-2ad7454a2femr27212745ad.49.1771681236786; 
+ Sat, 21 Feb 2026 05:40:36 -0800 (PST)
 Received: from localhost.localdomain ([59.16.109.172])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ad74f770b9sm22021225ad.41.2026.02.21.05.34.10
+ d9443c01a7336-2ad75173903sm21624945ad.81.2026.02.21.05.40.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 21 Feb 2026 05:34:11 -0800 (PST)
+ Sat, 21 Feb 2026 05:40:36 -0800 (PST)
 From: Jinseok Kim <always.starving0@gmail.com>
 To: chrubis@suse.cz,
 	ltp@lists.linux.it
-Date: Sat, 21 Feb 2026 22:33:46 +0900
-Message-ID: <20260221133347.37595-1-always.starving0@gmail.com>
+Date: Sat, 21 Feb 2026 22:40:07 +0900
+Message-ID: <20260221134014.37652-1-always.starving0@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <aZgx0rp0MRHn4mMT@yuki.lan>
 References: <aZgx0rp0MRHn4mMT@yuki.lan>
@@ -84,8 +85,8 @@ MIME-Version: 1.0
 X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
  SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 Subject: [LTP] [PATCH v2 1/2] poll: add basic POLLHUP semantics test
 X-BeenThere: ltp@lists.linux.it
@@ -106,7 +107,7 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.59 / 15.00];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+a];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
@@ -129,24 +130,96 @@ X-Spamd-Result: default: False [0.59 / 15.00];
 	TAGGED_RCPT(0.00)[linux-ltp];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns]
-X-Rspamd-Queue-Id: 25B7C16CEAD
+	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns,linux.it:url]
+X-Rspamd-Queue-Id: 5A4BA16CEFE
 X-Rspamd-Action: no action
 
-Hi,
+Add a basic poll() test to verify that POLLHUP is reported when the
+peer end of a pipe is closed.
 
-Thanks for the review.
+The test creates a pipe, closes the write end, and polls the read end
+for POLLIN events. poll() is expected to return successfully and set
+POLLHUP in revents.
 
-I've added the return value check as suggested. Since TST_RET is a long,
-I used %ld in the message to match the type and avoid format warnings.
+This covers basic poll() lifecycle semantics that were not previously
+tested.
 
-The suggestion about closing the fd while poll() is sleeping in the
-kernel makes sense as well. I'll keep this in mind and consider adding
-such a scenario as a follow-up test using the thread helpers you
-mentioned.
+Signed-off-by: Jinseok Kim <always.starving0@gmail.com>
+---
+ testcases/kernel/syscalls/poll/poll03.c | 62 +++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/poll/poll03.c
 
-Best regards,
-Jinseok.
+diff --git a/testcases/kernel/syscalls/poll/poll03.c b/testcases/kernel/syscalls/poll/poll03.c
+new file mode 100644
+index 000000000..da90b2945
+--- /dev/null
++++ b/testcases/kernel/syscalls/poll/poll03.c
+@@ -0,0 +1,62 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2026 Jinseok Kim <always.starving0@gmail.com>
++ */
++
++/*\
++ * Check that poll() reports POLLHUP on a pipe read end
++ * after the write end has been closed.
++ */
++#include <unistd.h>
++#include <errno.h>
++#include <sys/poll.h>
++
++#include "tst_test.h"
++
++static int fds[2];
++
++void verify_pollhup(void)
++{
++	struct pollfd pfd = {
++		.fd = fds[0], .events = POLLIN,
++	};
++
++	SAFE_CLOSE(fds[1]);
++
++	TEST(poll(&pfd, 1, -1));
++
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO, "poll() failed");
++		return;
++	}
++
++	if (TST_RET != 1) {
++		tst_res(TFAIL, "Unexpected poll() return value %ld", TST_RET);
++		return;
++	}
++
++	TST_EXP_EXPR(pfd.revents & POLLHUP);
++	TST_EXP_EXPR((pfd.revents & ~POLLHUP) == 0);
++
++	tst_res(TPASS, "poll() reported POLLHUP");
++}
++
++static void setup(void)
++{
++	SAFE_PIPE(fds);
++}
++
++static void cleanup(void)
++{
++	if (fds[0] > 0)
++		SAFE_CLOSE(fds[0]);
++
++	if (fds[1] > 0)
++		SAFE_CLOSE(fds[1]);
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = verify_pollhup,
++};
+--
+2.43.0
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
