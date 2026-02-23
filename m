@@ -2,100 +2,100 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QErjFLGAnGmLIgQAu9opvQ
+	id OJxKIuGCnGlwIwQAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:30:41 +0100
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:40:01 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E11C9179CE3
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:30:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37AA3179F67
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:40:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 450F33D0F4A
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:30:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 851913CAEC3
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:40:00 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E1C033D0EA8
- for <ltp@lists.linux.it>; Mon, 23 Feb 2026 17:30:28 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 584163CAEC3
+ for <ltp@lists.linux.it>; Mon, 23 Feb 2026 17:39:49 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 230921400996
- for <ltp@lists.linux.it>; Mon, 23 Feb 2026 17:30:27 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DB54E200900
+ for <ltp@lists.linux.it>; Mon, 23 Feb 2026 17:39:48 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2434A3ECFA;
- Mon, 23 Feb 2026 16:30:26 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 66ABD3EC6B;
+ Mon, 23 Feb 2026 16:39:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1771864226; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1771864787; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=JVWn1buFM5QbWnAke+2Lt1lJZYJ/UxZThLVF5UjZmlU=;
- b=sjVoZ5H3xjke8veixkX2A/CtLc8DxeQmVERYq/+YAuNooOriz5eT3Gcu+AgqrlNtWk3ZwL
- akIeKjmXM81DtiPtdLQzLYC48Gsg9XgGiJAJk5zDYbURhfeeY9gMNej/op6oeZO89qjAf6
- HW3/hFiDONaUzC2M1/YWsY5+0UwWtd4=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=LYeDrm60svH+CkvqGqDhQEj+827uS04YrsuJnDQ4i2qAFlPU1d1WFjkMxf2QjCfVWNATb0
+ syNa7Z00mqQPZnPLLzGCWoIzAXZzXYd1/fd9k9wQ2pNFUzbRDTXjN3qvRn1L55gEFc+2NI
+ AIsez5K5611GbNGH0dkKBbADYy568hU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1771864226;
+ s=susede2_ed25519; t=1771864787;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=JVWn1buFM5QbWnAke+2Lt1lJZYJ/UxZThLVF5UjZmlU=;
- b=PQcAHGiEaLfchxiO1jqMM+aT+Ks6MZDKuZEubfn9XVEZAmL9RYpX2ZGUUFk915DvqqWCB4
- nCUVfbDWWxK4xLBg==
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=kPPRcbS9Y1+jcTIxqFpnTRDdhzFDlf+Dknq/9gPP2U2SPjAUuJ4LYfY/GwnBUW9R+xJLE4
+ Ai2qYbZoDpL9FnBw==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1771864226; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1771864786; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=JVWn1buFM5QbWnAke+2Lt1lJZYJ/UxZThLVF5UjZmlU=;
- b=sjVoZ5H3xjke8veixkX2A/CtLc8DxeQmVERYq/+YAuNooOriz5eT3Gcu+AgqrlNtWk3ZwL
- akIeKjmXM81DtiPtdLQzLYC48Gsg9XgGiJAJk5zDYbURhfeeY9gMNej/op6oeZO89qjAf6
- HW3/hFiDONaUzC2M1/YWsY5+0UwWtd4=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=mt+5ThbMwLkedNGzIFg9LPDif2NkD6TeFS0vjdHYko9PiuKGBjkCtgAM4acoTzZbTIjODG
+ OHgaBlDwYv6DHi+9afgS0jFIfTBwHdQPvQeAmMjLeXJD9oL1G9d0eaiIRCQfpqzlF91RoJ
+ LriaAyf1hDlMl+jdJoCbgNd183nlUiU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1771864226;
+ s=susede2_ed25519; t=1771864786;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=JVWn1buFM5QbWnAke+2Lt1lJZYJ/UxZThLVF5UjZmlU=;
- b=PQcAHGiEaLfchxiO1jqMM+aT+Ks6MZDKuZEubfn9XVEZAmL9RYpX2ZGUUFk915DvqqWCB4
- nCUVfbDWWxK4xLBg==
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=kH1VixZcSj410mVEP/WoW2J+ceLDcD2abmNwRDvHMOgzoTUcI3cgbErWxQQcXXtpoB8l4/
+ hLIJSA5N2h/Ww3DQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 06D993EA68;
- Mon, 23 Feb 2026 16:30:25 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 469593EA68;
+ Mon, 23 Feb 2026 16:39:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id stGCO6GAnGnfdAAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Mon, 23 Feb 2026 16:30:25 +0000
-Date: Mon, 23 Feb 2026 17:30:28 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id I4REENKCnGlJfwAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Mon, 23 Feb 2026 16:39:46 +0000
+Date: Mon, 23 Feb 2026 17:39:49 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <aZyApOha4WN9Y1lw@yuki.lan>
-References: <20260220154742.54150-1-mdoucha@suse.cz>
- <20260220154742.54150-3-mdoucha@suse.cz>
+To: Guixiong Wei <weiguixiong@bytedance.com>
+Message-ID: <aZyC1UEKW1F12HWQ@yuki.lan>
+References: <20260223031903.4037526-1-weiguixiong@bytedance.com>
+ <20260223031903.4037526-2-weiguixiong@bytedance.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260220154742.54150-3-mdoucha@suse.cz>
-X-Spam-Score: -4.30
+In-Reply-To: <20260223031903.4037526-2-weiguixiong@bytedance.com>
+X-Spam-Score: -8.30
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/2] Add test for fanotify monitoring of tracing
- filesystem
+Subject: Re: [LTP] [PATCH 1/4] syscalls/ipc: shmctl04: Parse
+ /proc/sysvipc/shm size as unsigned long
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,8 +107,7 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>, ppavlu@suse.cz,
- Amir Goldstein <amir73il@gmail.com>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -116,7 +115,7 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.49 / 15.00];
 	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	R_SPF_ALLOW(-0.20)[+a];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -124,213 +123,26 @@ X-Spamd-Result: default: False [0.49 / 15.00];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,gmail.com,lists.linux.it];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	NEURAL_HAM(-0.00)[-0.998];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[suse.cz:-];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[6];
 	FROM_NEQ_ENVFROM(0.00)[chrubis@suse.cz,ltp-bounces@lists.linux.it];
-	DKIM_TRACE(0.00)[suse.cz:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.996];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-ltp];
 	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ftrace_stress_test.sh:url,yuki.lan:mid,ftrace_regression02.sh:url,dynamic_debug01.sh:url,suse.cz:email]
-X-Rspamd-Queue-Id: E11C9179CE3
+	DBL_BLOCKED_OPENRESOLVER(0.00)[yuki.lan:mid,suse.cz:email,linux.it:url,picard.linux.it:helo,picard.linux.it:rdns]
+X-Rspamd-Queue-Id: 37AA3179F67
 X-Rspamd-Action: no action
 
 Hi!
-CCing Jan and Amir.
-
-> Add a test that will start monitoring the kernel tracing filesystem,
-> write new configuration into tracing sysfiles and then verify
-> that the writes triggered fanotify events.
-> 
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-> ---
->  runtest/syscalls                              |   1 +
->  runtest/tracing                               |   1 +
->  testcases/kernel/syscalls/fanotify/.gitignore |   1 +
->  .../kernel/syscalls/fanotify/fanotify25.c     | 126 ++++++++++++++++++
->  4 files changed, 129 insertions(+)
->  create mode 100644 testcases/kernel/syscalls/fanotify/fanotify25.c
-> 
-> diff --git a/runtest/syscalls b/runtest/syscalls
-> index 2f629e4e4..30224f5b4 100644
-> --- a/runtest/syscalls
-> +++ b/runtest/syscalls
-> @@ -671,6 +671,7 @@ fanotify21 fanotify21
->  fanotify22 fanotify22
->  fanotify23 fanotify23
->  fanotify24 fanotify24
-> +fanotify25 fanotify25
->  
->  ioperm01 ioperm01
->  ioperm02 ioperm02
-> diff --git a/runtest/tracing b/runtest/tracing
-> index d2700ca57..674e2ad97 100644
-> --- a/runtest/tracing
-> +++ b/runtest/tracing
-> @@ -3,6 +3,7 @@ ftrace_regression01	ftrace_regression01.sh
->  ftrace_regression02	ftrace_regression02.sh
->  ftrace-stress-test	ftrace_stress_test.sh 90
->  dynamic_debug01		dynamic_debug01.sh
-> +fanotify25 fanotify25
->  pt_full_trace_basic pt_test
->  pt_snapshot_trace_basic pt_test -m
->  pt_ex_user pt_test -e user
-> diff --git a/testcases/kernel/syscalls/fanotify/.gitignore b/testcases/kernel/syscalls/fanotify/.gitignore
-> index 16af3db85..d6d0599f1 100644
-> --- a/testcases/kernel/syscalls/fanotify/.gitignore
-> +++ b/testcases/kernel/syscalls/fanotify/.gitignore
-> @@ -22,4 +22,5 @@
->  /fanotify22
->  /fanotify23
->  /fanotify24
-> +/fanotify25
->  /fanotify_child
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify25.c b/testcases/kernel/syscalls/fanotify/fanotify25.c
-> new file mode 100644
-> index 000000000..c982f3225
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify25.c
-> @@ -0,0 +1,126 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2026 SUSE LLC
-> + * Author: Petr Pavlu <ppavlu@suse.cz>
-> + * LTP port: Martin Doucha <mdoucha@suse.cz>
-> + */
-> +
-> +/*\
-> + * Verify that fanotify monitoring can be applied to the tracing filesystem
-> + * and write events will be correctly delivered.
-> + */
-> +
-> +#define _GNU_SOURCE
-> +#include "tst_test.h"
-> +#include "lapi/mount.h"
-> +
-> +#ifdef HAVE_SYS_FANOTIFY_H
-> +#include "fanotify.h"
-> +
-> +#define MNTPOINT "/sys/kernel/tracing"
-> +#define EVENTS_SYSFILE MNTPOINT "/kprobe_events"
-> +
-> +static const struct traceconfig {
-> +	const char *filename;
-> +	const char *wdata;
-> +} trace_cmds[] = {
-> +	{EVENTS_SYSFILE, "p:ltp_load_module_0 load_module"},
-> +	{MNTPOINT "/events/kprobes/ltp_load_module_0/enable", "1"},
-> +	{MNTPOINT "/events/kprobes/ltp_load_module_0/enable", "0"},
-> +	{EVENTS_SYSFILE, "-:ltp_load_module_0"},
-> +	{}
-> +};
-> +
-> +static int fan_fd = -1;
-> +static int unmount_needed;
-> +
-> +static void setup(void)
-> +{
-> +	if (tst_fs_type(MNTPOINT) != TST_TRACEFS_MAGIC) {
-> +		SAFE_MOUNT("tracefs", MNTPOINT, "tracefs",
-> +			MS_NODEV | MS_NOEXEC | MS_NOSUID, NULL);
-> +		unmount_needed = 1;
-> +	}
-> +
-> +	if (access(EVENTS_SYSFILE, F_OK))
-> +		tst_brk(TCONF, "Kprobe events not supported by kernel");
-> +
-> +	fan_fd = SAFE_FANOTIFY_INIT(FAN_CLASS_NOTIF | FAN_NONBLOCK, O_RDONLY);
-> +	SAFE_FANOTIFY_MARK(fan_fd, FAN_MARK_ADD | FAN_MARK_MOUNT, FAN_MODIFY,
-> +		-1, MNTPOINT);
-> +}
-> +
-> +static void do_child(void)
-> +{
-> +	int i, fd, events, ret;
-> +	pid_t pid = getpid();
-> +	struct fanotify_event_metadata buf;
-> +
-> +	for (i = 0, events = 0; trace_cmds[i].filename; i++) {
-> +		fd = SAFE_OPEN(trace_cmds[i].filename, O_WRONLY, 0644);
-> +		SAFE_WRITE(1, fd, trace_cmds[i].wdata,
-> +			strlen(trace_cmds[i].wdata));
-> +		SAFE_CLOSE(fd);
-> +
-> +		while ((ret = read(fan_fd, &buf, sizeof(buf))) > 0) {
-> +			if (buf.pid != pid)
-> +				continue;
-> +
-> +			if (!(buf.mask & FAN_MODIFY)) {
-> +				tst_res(TFAIL, "Unexpected event %llx",
-> +					buf.mask);
-> +				continue;
-> +			}
-> +
-> +			events++;
-> +		}
-> +
-> +		if (ret < 0 && errno != EAGAIN)
-> +			tst_res(TFAIL | TERRNO, "fanotify read() failed");
-> +	}
-> +
-> +	if (events == i)
-> +		tst_res(TPASS, "Received %d events", events);
-> +	else
-> +		tst_res(TFAIL, "Received %d events, expected %d", events, i);
-> +}
-> +
-> +static void run(void)
-> +{
-> +	/*
-> +	 * Fork a child to do the actual trace writes, otherwise tracefs
-> +	 * would be busy until the current process exits and it would become
-> +	 * impossible to unmount in cleanup().
-> +	 */
-> +	if (!SAFE_FORK()) {
-> +		do_child();
-> +		SAFE_CLOSE(fan_fd);
-> +		exit(0);
-> +	}
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +	if (fan_fd >= 0)
-> +		SAFE_CLOSE(fan_fd);
-> +
-> +	if (unmount_needed)
-> +		SAFE_UMOUNT(MNTPOINT);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test_all = run,
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.needs_root = 1,
-> +	.forks_child = 1,
-> +	.taint_check = TST_TAINT_W | TST_TAINT_D,
-> +	.needs_kconfigs = (const char *[]) {
-> +		"CONFIG_TRACING",
-> +		NULL
-> +	}
-> +};
-> +
-> +#else
-> +	TST_TEST_TCONF("system doesn't have required fanotify support");
-> +#endif
-> -- 
-> 2.52.0
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
