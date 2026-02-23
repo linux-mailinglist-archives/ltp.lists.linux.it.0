@@ -2,16 +2,16 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OJxKIuGCnGlwIwQAu9opvQ
+	id EOANEfKCnGkKIwQAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:40:01 +0100
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:40:18 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37AA3179F67
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:40:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CB41D179F76
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:40:17 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 851913CAEC3
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:40:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CF8353D0F7A
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Feb 2026 17:40:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
@@ -19,73 +19,72 @@ Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 584163CAEC3
- for <ltp@lists.linux.it>; Mon, 23 Feb 2026 17:39:49 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 4765D3D0F73
+ for <ltp@lists.linux.it>; Mon, 23 Feb 2026 17:40:07 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DB54E200900
- for <ltp@lists.linux.it>; Mon, 23 Feb 2026 17:39:48 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E68FB2000EF
+ for <ltp@lists.linux.it>; Mon, 23 Feb 2026 17:40:06 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 66ABD3EC6B;
- Mon, 23 Feb 2026 16:39:46 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 66A9C5BE67;
+ Mon, 23 Feb 2026 16:40:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1771864787; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1771864806; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
  bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
- b=LYeDrm60svH+CkvqGqDhQEj+827uS04YrsuJnDQ4i2qAFlPU1d1WFjkMxf2QjCfVWNATb0
- syNa7Z00mqQPZnPLLzGCWoIzAXZzXYd1/fd9k9wQ2pNFUzbRDTXjN3qvRn1L55gEFc+2NI
- AIsez5K5611GbNGH0dkKBbADYy568hU=
+ b=JbozoXhPDNyTF6FTbp07ZPoQy8gR80lkp3UQRs/zu0KpvenfSc/hF8TPQxnRZCGTiN6b/O
+ Ww/RLBBiHi7b18fa7zZUPINki08MqRbJVz6e4e/XsgE9ZJN3wJMpcp1yQg/TkgyEAOfUbP
+ aIuU13PEPB/VrpsylHq4kMsH832n4aM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1771864787;
+ s=susede2_ed25519; t=1771864806;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
  bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
- b=kPPRcbS9Y1+jcTIxqFpnTRDdhzFDlf+Dknq/9gPP2U2SPjAUuJ4LYfY/GwnBUW9R+xJLE4
- Ai2qYbZoDpL9FnBw==
-Authentication-Results: smtp-out1.suse.de;
+ b=fT19ASXvTEzeQdjG964o/mBHgyXcg2aDLQr9BvH/8aBSALUTRiJHOcyebqP2FN/AfUhV/H
+ x/Cs5DjWLFlduLBw==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1771864786; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1771864806; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
  bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
- b=mt+5ThbMwLkedNGzIFg9LPDif2NkD6TeFS0vjdHYko9PiuKGBjkCtgAM4acoTzZbTIjODG
- OHgaBlDwYv6DHi+9afgS0jFIfTBwHdQPvQeAmMjLeXJD9oL1G9d0eaiIRCQfpqzlF91RoJ
- LriaAyf1hDlMl+jdJoCbgNd183nlUiU=
+ b=JbozoXhPDNyTF6FTbp07ZPoQy8gR80lkp3UQRs/zu0KpvenfSc/hF8TPQxnRZCGTiN6b/O
+ Ww/RLBBiHi7b18fa7zZUPINki08MqRbJVz6e4e/XsgE9ZJN3wJMpcp1yQg/TkgyEAOfUbP
+ aIuU13PEPB/VrpsylHq4kMsH832n4aM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1771864786;
+ s=susede2_ed25519; t=1771864806;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
  bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
- b=kH1VixZcSj410mVEP/WoW2J+ceLDcD2abmNwRDvHMOgzoTUcI3cgbErWxQQcXXtpoB8l4/
- hLIJSA5N2h/Ww3DQ==
+ b=fT19ASXvTEzeQdjG964o/mBHgyXcg2aDLQr9BvH/8aBSALUTRiJHOcyebqP2FN/AfUhV/H
+ x/Cs5DjWLFlduLBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 469593EA68;
- Mon, 23 Feb 2026 16:39:46 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3AD283EA68;
+ Mon, 23 Feb 2026 16:40:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id I4REENKCnGlJfwAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Mon, 23 Feb 2026 16:39:46 +0000
-Date: Mon, 23 Feb 2026 17:39:49 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Ha+hDOaCnGlpfwAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Mon, 23 Feb 2026 16:40:06 +0000
+Date: Mon, 23 Feb 2026 17:40:13 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Guixiong Wei <weiguixiong@bytedance.com>
-Message-ID: <aZyC1UEKW1F12HWQ@yuki.lan>
+Message-ID: <aZyC7UzzE-ho2zmB@yuki.lan>
 References: <20260223031903.4037526-1-weiguixiong@bytedance.com>
- <20260223031903.4037526-2-weiguixiong@bytedance.com>
+ <20260223031903.4037526-3-weiguixiong@bytedance.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260223031903.4037526-2-weiguixiong@bytedance.com>
+In-Reply-To: <20260223031903.4037526-3-weiguixiong@bytedance.com>
 X-Spam-Score: -8.30
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -94,8 +93,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 1/4] syscalls/ipc: shmctl04: Parse
- /proc/sysvipc/shm size as unsigned long
+Subject: Re: [LTP] [PATCH 2/4] syscalls/ipc: shmctl04: Require full fscanf
+ match
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,9 +135,9 @@ X-Spamd-Result: default: False [0.49 / 15.00];
 	NEURAL_HAM(-0.00)[-0.996];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-ltp];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[yuki.lan:mid,suse.cz:email,linux.it:url,picard.linux.it:helo,picard.linux.it:rdns]
-X-Rspamd-Queue-Id: 37AA3179F67
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[yuki.lan:mid,picard.linux.it:helo,picard.linux.it:rdns,suse.cz:email,linux.it:url]
+X-Rspamd-Queue-Id: CB41D179F76
 X-Rspamd-Action: no action
 
 Hi!
