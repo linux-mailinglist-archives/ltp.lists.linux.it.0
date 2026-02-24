@@ -2,69 +2,100 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UOnaJ+hgnWkDPAQAu9opvQ
+	id CChsBKhhnWksPQQAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:27:20 +0100
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:30:32 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D902183A69
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:27:20 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id AB5E7183B1B
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:30:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E461F3D0F8E
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:27:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2E9F13D0F8E
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:30:31 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AFC883CB958
- for <ltp@lists.linux.it>; Tue, 24 Feb 2026 09:27:10 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 0A57B3CB958
+ for <ltp@lists.linux.it>; Tue, 24 Feb 2026 09:30:20 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D5E621400B93
- for <ltp@lists.linux.it>; Tue, 24 Feb 2026 09:27:09 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 74730140074A
+ for <ltp@lists.linux.it>; Tue, 24 Feb 2026 09:30:20 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5F0D03F107;
- Tue, 24 Feb 2026 08:27:03 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4E79E5BCD5;
+ Tue, 24 Feb 2026 08:30:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1771921819;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=0EVdBdYF/zlw7EMj60sU7IMdmeBmheNozYiPcYDlYJ0=;
+ b=1d7XWdtXySXk467BVQfFMr85gTsPTeydA5xWci+eXwfd4bEu4YI32qly/SfJcqRYavVJuX
+ zUiweQdpZ8vUIyJcNC/N7xhklGu5x8wvU8Xaq0dczHDDvxUpzm6hzecAZe8VQ+9rbOI590
+ Qhi1MIx/6bHip68MUBtQRu9I+Qj9LiI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1771921819;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=0EVdBdYF/zlw7EMj60sU7IMdmeBmheNozYiPcYDlYJ0=;
+ b=ihDIJKHKt8sIErQrPpoOfugyUxPu5ZoT2qLbUmYYXecsnnGQGzt3C9tpSEmgv7V8+286rb
+ NVHhcbZZi7Z94DCg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=1d7XWdtX;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=ihDIJKHK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1771921819;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=0EVdBdYF/zlw7EMj60sU7IMdmeBmheNozYiPcYDlYJ0=;
+ b=1d7XWdtXySXk467BVQfFMr85gTsPTeydA5xWci+eXwfd4bEu4YI32qly/SfJcqRYavVJuX
+ zUiweQdpZ8vUIyJcNC/N7xhklGu5x8wvU8Xaq0dczHDDvxUpzm6hzecAZe8VQ+9rbOI590
+ Qhi1MIx/6bHip68MUBtQRu9I+Qj9LiI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1771921819;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=0EVdBdYF/zlw7EMj60sU7IMdmeBmheNozYiPcYDlYJ0=;
+ b=ihDIJKHKt8sIErQrPpoOfugyUxPu5ZoT2qLbUmYYXecsnnGQGzt3C9tpSEmgv7V8+286rb
+ NVHhcbZZi7Z94DCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 106D63EA6E;
- Tue, 24 Feb 2026 08:27:03 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 149783EA68;
+ Tue, 24 Feb 2026 08:30:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id QGk2AddgnWngQAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Tue, 24 Feb 2026 08:27:03 +0000
-Date: Tue, 24 Feb 2026 09:27:01 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uxFHApthnWnvQwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Tue, 24 Feb 2026 08:30:19 +0000
+Date: Tue, 24 Feb 2026 09:30:17 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <20260224082701.GA28159@pevik>
-References: <20260224-kirk_4-v1-1-6f706363fc4d@suse.com>
+Message-ID: <20260224083017.GB28159@pevik>
+References: <20260224-remove_runltp-v2-1-f38862a85b97@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260224-kirk_4-v1-1-6f706363fc4d@suse.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Score: -4.00
+In-Reply-To: <20260224-remove_runltp-v2-1-f38862a85b97@suse.com>
+X-Spam-Score: -3.71
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] kirk: version 4.0.0
+Subject: Re: [LTP] [PATCH v2] Remove runltp `scenario_groups` leftovers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,66 +114,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.01 / 15.00];
+X-Spamd-Result: default: False [0.99 / 15.00];
+	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	MID_RHS_NOT_FQDN(0.50)[];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+a:c];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	DMARC_NA(0.00)[suse.cz];
 	TO_DN_ALL(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	REPLYTO_EQ_FROM(0.00)[];
 	ARC_NA(0.00)[];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns,suse.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
 	HAS_REPLYTO(0.00)[pvorel@suse.cz];
 	RCVD_COUNT_FIVE(0.00)[6];
 	FROM_NEQ_ENVFROM(0.00)[pvorel@suse.cz,ltp-bounces@lists.linux.it];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.993];
-	TAGGED_RCPT(0.00)[linux-ltp];
-	R_DKIM_NA(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:-];
+	NEURAL_HAM(-0.00)[-0.995];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns,suse.com:email,linux.it:url]
-X-Rspamd-Queue-Id: 4D902183A69
+	TAGGED_RCPT(0.00)[linux-ltp];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	REPLYTO_EQ_FROM(0.00)[]
+X-Rspamd-Queue-Id: AB5E7183B1B
 X-Rspamd-Action: no action
 
 Hi Andrea,
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+> ---
+> Changes in v2:
+> - forgot to keep runltp script
+> - Link to v1: https://lore.kernel.org/r/20260224-remove_runltp-v1-1-7baa79b65acd@suse.com
+> ---
+>  scenario_groups/Makefile | 38 --------------------------------------
+>  scenario_groups/default  | 28 ----------------------------
+>  scenario_groups/network  | 20 --------------------
 
-IMHO safe to update, just let's Li to ack it.
+I thought people are using scenario_groups as kind of list of runtest files.
+But maybe I'm wrong.
+
+Also, you need to modify top level Makefile, otherwise make install/clean fails.
+=> v3 or don't forget to fix before merge.
 
 Kind regards,
 Petr
 
-> From: Andrea Cervesato <andrea.cervesato@suse.com>
-
-> - Remove --env option
-> - pyproject: include sub-packages in pip package
-> - libkirk: Print /proc/cmdline
-> - ui: simplify repor
-> - many bugs fixes and code optimizations
-
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
-> Link: https://github.com/linux-test-project/kirk/releases/tag/v4.0.0
-> ---
->  tools/kirk/kirk-src | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-
-> diff --git a/tools/kirk/kirk-src b/tools/kirk/kirk-src
-> index 6ac2644e6e469b7bc7ddf35a6b10bf1994ca0929..6b0f87c6df90b87a8c32648c94169a83b4e58024 160000
-> --- a/tools/kirk/kirk-src
-> +++ b/tools/kirk/kirk-src
-> @@ -1 +1 @@
-> -Subproject commit 6ac2644e6e469b7bc7ddf35a6b10bf1994ca0929
-> +Subproject commit 6b0f87c6df90b87a8c32648c94169a83b4e58024
+>  3 files changed, 86 deletions(-)
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
