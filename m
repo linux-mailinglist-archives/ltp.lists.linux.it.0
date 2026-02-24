@@ -2,106 +2,107 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kEMDOANenWmxOgQAu9opvQ
+	id GJ2gDrpenWmxOgQAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:14:59 +0100
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:18:02 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F3B4183795
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:14:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2B92183808
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:18:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1771921081; h=mime-version :
+ date : message-id : to : references : in-reply-to : subject : list-id
+ : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : content-type :
+ content-transfer-encoding : sender : from;
+ bh=F/Ts/EOoYmQ63Y4EcjG7uYSiBKttSf2ZxoWtK1jeZ0g=;
+ b=rWXH+TFw7easkJHGFVQXqEy9hdHEVSDHJb54ZFEcbJzecEyreGsvMs+L2UFPytAVpB/nd
+ uW5aNxm5Hvqu87RZIveoJNfvZyfTVlktFfvf/ljw455nfUptABQ/yGvWpLFVKxLpz68sAdh
+ gej0VQYFPxBqpjE+YojgjwEm9Yv1FJU=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AD1AD3D0F8A
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:14:58 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 411043D0F74
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Feb 2026 09:18:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3A8503C2C22
- for <ltp@lists.linux.it>; Tue, 24 Feb 2026 09:14:48 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 35AB93C2C22
+ for <ltp@lists.linux.it>; Tue, 24 Feb 2026 09:17:47 +0100 (CET)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A55D11000447
- for <ltp@lists.linux.it>; Tue, 24 Feb 2026 09:14:47 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5259E5BCD5;
- Tue, 24 Feb 2026 08:14:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1771920886; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=LbfdYJPvLYJSiJfxr2xLrCK1gQk6hKKPfCtxlHtxP84=;
- b=lasYYJppLG4NBTQY1BHi6vs/+RQFCBiygIqnB8BZYaYTwWZf9JmmrjRABhkpcLBzISZsAi
- upi1SjI3f3T6gPaC13unlTKE0EsUhCzwUhqinzOXXe4r2gp4wfoHrfdHORjy40w0/tcMau
- TBZJsuidAgT+r3YF6bt5y7WR6H+zdeU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1771920886;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=LbfdYJPvLYJSiJfxr2xLrCK1gQk6hKKPfCtxlHtxP84=;
- b=jL/RB6YiudtMHgJn/G3HHP8oiDi34UZ3duLGHx8SRyYNMfwm9LdiFXyaT5v5nLQyl8vZ8F
- k1m+K2a2F19wA8AQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1771920886; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=LbfdYJPvLYJSiJfxr2xLrCK1gQk6hKKPfCtxlHtxP84=;
- b=lasYYJppLG4NBTQY1BHi6vs/+RQFCBiygIqnB8BZYaYTwWZf9JmmrjRABhkpcLBzISZsAi
- upi1SjI3f3T6gPaC13unlTKE0EsUhCzwUhqinzOXXe4r2gp4wfoHrfdHORjy40w0/tcMau
- TBZJsuidAgT+r3YF6bt5y7WR6H+zdeU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1771920886;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=LbfdYJPvLYJSiJfxr2xLrCK1gQk6hKKPfCtxlHtxP84=;
- b=jL/RB6YiudtMHgJn/G3HHP8oiDi34UZ3duLGHx8SRyYNMfwm9LdiFXyaT5v5nLQyl8vZ8F
- k1m+K2a2F19wA8AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2BD3C3EA68;
- Tue, 24 Feb 2026 08:14:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id QhveCPZdnWlMNQAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Tue, 24 Feb 2026 08:14:46 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Tue, 24 Feb 2026 09:14:45 +0100
-MIME-Version: 1.0
-Message-Id: <20260224-remove_runltp-v1-1-7baa79b65acd@suse.com>
-X-B4-Tracking: v=1; b=H4sIAPRdnWkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDIyMT3aLU3Pyy1Pii0ryckgLd1ERzI5OkNENTg5QkJaCegqLUtMwKsHn
- RsbW1AJ8O4IZfAAAA
-X-Change-ID: 20260224-remove_runltp-ea724bf150db
-To: Linux Test Project <ltp@lists.linux.it>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1771920886; l=3722;
- i=andrea.cervesato@suse.com; s=20251210; h=from:subject:message-id;
- bh=FEuYvGVtHoL8dKG+XO9a79o0PcNIFnpjaiDfnZZdlmM=;
- b=dB5coSHOpThR0/hQr8dDSfdhshm0sWFr62IlFUo/0SsZln7r2m++6k3s+QEWPiMSI4D1uu9fj
- gfiKnHCFZyYB8tvj3VnxEiv6iuxBn28W0ozG3cCqj0nk4Ohm9/RbXpv
-X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
- pk=zKY+6GCauOiuHNZ//d8PQ/UL4jFCTKbXrzXAOQSLevI=
-X-Spam-Score: -4.30
-X-Spam-Level: 
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 12DE41A00808
+ for <ltp@lists.linux.it>; Tue, 24 Feb 2026 09:17:46 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-436e87589e8so4922529f8f.3
+ for <ltp@lists.linux.it>; Tue, 24 Feb 2026 00:17:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1771921065; x=1772525865; darn=lists.linux.it;
+ h=in-reply-to:references:from:subject:to:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sMJhfe8bLoOGGGRHn0B8LSXBRpxLGbIzyGz7T0liZOY=;
+ b=eZUtIRT6xfz6AfTRXoiVxsAOcwZBou85bY605w/7X1NxAd9Y2snJmoH7TygZdMpx3C
+ 8HFF6TbLbjH7b/WM9wCu8ojptLKDijVofYZgWKHmovwwFZYDskuXjalDR5QVo27emDgu
+ EmXrZxbmda+s4Ds33wBrbByIUl6iJsUVBjucc5K3oNAcS1vvLaq9+pC+6kAj3iAXW/Kr
+ T3GGER4dFHT2P+dmlXnCo52pi8JIrPAKSvCXOmvkA65hsm5FVNzlg8q0h9KlIAUi07by
+ GY9ETGCNSKoj7TCy6U4wKOLQdJXs3QkUBU3d/eQts6fw9Vk5hTFmCnGM2GwzjZ4KPaBB
+ DFdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771921065; x=1772525865;
+ h=in-reply-to:references:from:subject:to:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=sMJhfe8bLoOGGGRHn0B8LSXBRpxLGbIzyGz7T0liZOY=;
+ b=SH8+jHWln7idcrc+Obdd35adiJ/RiBcaq5ZkPbwTd7wmGDbpAey6ory9cVKQWdn5C/
+ L+uBPzeSxuj6MggHliL8ZW2NPq8Jiva9fpVQkqDf+fCPBQfT3T/HJ3vSeps/ayIqK6nc
+ xd5bukxXAf1qnfAPw0w3gxWwNbfpGmCT7G5f05jL9JR00hHbyG3Xw9BCtnG22fgWrcb9
+ nUT7ih2A3foXsHIVrSikyf2RqRzJloPhFXYF4qSVNIEKjrKGRiXMr5g53V6ICc/aRyGQ
+ FdVW9F9e4z+ihKOhGuC/3ScJjszngDsyrLBWW+Xdu5g6E29sYCaRrjBceamrStJkHmPW
+ eQjg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXHKyHOA3qXZkLnwJEwcNJDsqLE4fOdHd7B9r1+EwULBNGqAY6VFv7KtVyvQ4NkRUFyPNY=@lists.linux.it
+X-Gm-Message-State: AOJu0YySiFy40XjP4fefJnb27lOI6i8ZZIWnNv6Y0jSRFPNwL0GeOQLt
+ DC4WKoOWnO4yppmm68CJy5+7e1T8c5/YZz7przq0w49jAQ1GXgd6Y87GzWalT9UBD9I=
+X-Gm-Gg: ATEYQzyBPI2OMcBqq1JMfMvroggR9RmgjLP1CFfvBmiWJksYs/fX0v0fTPNSOdU7UNT
+ uoUGMGCR7yme37bCuqbjCUQ95HA2dI8TXrHId3t8xQoC8J5RMv3nWLsuTCOGtcSGzEV6jJMlNcH
+ AhGsYK3utYIxPdk+XF5AVUGFJatcK3OstvqPe0PckZDI/Er5UdNi1r4NCzGuv9+LCV7f4Kfq4fY
+ NNJbRsbolH5b3WdUhus6gCx1xjcpw+HgeGaJQvKCU5VOJ05w8ePlOXMj8ih1rMomrbANjDXgefW
+ lgL0JA1REZ4F6v0z8rm4je2iDMq+s8Ff1gnkbecYRWVFw2dzLUrNbsKIJsQK3VKBNPb47/3BWob
+ OSoebJneAU0jbMDo06TBEkg6YIQ9dLwadg+8QhOJRCPd7GKxuyLaBSlXYQLpl6oWzsAkYTn/jHJ
+ cAaSzRgb3MV5F7V2J1jr1J9wQvQPZfcX0dhCo7NTcqLk5BUOMaNwQv0vlHi9x9RBrceNZ1XeUrj
+ mYI48a+J+1kmjz+qKI=
+X-Received: by 2002:a05:6000:24c9:b0:439:8913:baa with SMTP id
+ ffacd0b85a97d-43989130cc2mr1091537f8f.53.1771921065348; 
+ Tue, 24 Feb 2026 00:17:45 -0800 (PST)
+Received: from localhost
+ (p200300ef2f4fc9009ff26ae1d4042002.dip0.t-ipconnect.de.
+ [2003:ef:2f4f:c900:9ff2:6ae1:d404:2002])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43986aa2f84sm2547445f8f.7.2026.02.24.00.17.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Feb 2026 00:17:45 -0800 (PST)
+Mime-Version: 1.0
+Date: Tue, 24 Feb 2026 09:17:44 +0100
+Message-Id: <DGN1LFH0ULK0.3D30H8MFVV9GM@suse.com>
+To: "Jinseok Kim" <always.starving0@gmail.com>, <chrubis@suse.cz>,
+ <ltp@lists.linux.it>
+X-Mailer: aerc 0.18.2
+References: <aZg8NDoUFezK-WTE@yuki.lan>
+ <20260224073734.34802-1-always.starving0@gmail.com>
+In-Reply-To: <20260224073734.34802-1-always.starving0@gmail.com>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] Remove runltp leftovers
+Subject: Re: [LTP] [PATCH 1/2] open: remove O_DIRECTORY case (move to fstat
+ test)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,179 +114,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.59 / 15.00];
-	R_DKIM_REJECT(1.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MAILLIST(-0.20)[mailman];
+X-Spamd-Result: default: False [-0.71 / 15.00];
+	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
+	MV_CASE(0.50)[];
+	R_DKIM_ALLOW(-0.20)[lists.linux.it:s=picard];
 	R_SPF_ALLOW(-0.20)[+a:c];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[suse.de : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
+	DKIM_MIXED(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,suse.cz,lists.linux.it];
+	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
-	RCPT_COUNT_ONE(0.00)[1];
-	NEURAL_HAM(-0.00)[-0.993];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url,suse.com:mid,suse.com:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[andrea.cervesato@suse.de,ltp-bounces@lists.linux.it];
+	DMARC_POLICY_ALLOW(0.00)[lists.linux.it,none];
+	DKIM_TRACE(0.00)[lists.linux.it:+,suse.com:-];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[linux-ltp];
-	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:-]
-X-Rspamd-Queue-Id: 6F3B4183795
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[ltp@lists.linux.it,ltp-bounces@lists.linux.it];
+	R_DKIM_REJECT(0.00)[suse.com:s=google];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	HAS_REPLYTO(0.00)[andrea.cervesato@suse.com];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ozlabs.org:url,suse.com:mid,suse.com:email,suse.com:replyto,linux.it:url,lists.linux.it:dkim]
+X-Rspamd-Queue-Id: D2B92183808
 X-Rspamd-Action: no action
 
-From: Andrea Cervesato <andrea.cervesato@suse.com>
+Hi!
 
-Delete `runltp` script and `scenario_groups` folder.
+The patch is not compiling. Please verify that patch is applicable
+before sending it:
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- runltp                   | 11 -----------
- scenario_groups/Makefile | 38 --------------------------------------
- scenario_groups/default  | 28 ----------------------------
- scenario_groups/network  | 20 --------------------
- 4 files changed, 97 deletions(-)
+https://patchwork.ozlabs.org/project/ltp/list/?series=493107&state=*
+https://linux-test-project.readthedocs.io/en/latest/developers/writing_tests.html#testing-builds-with-github-actions
 
-diff --git a/runltp b/runltp
-deleted file mode 100755
-index 62b9367faae04d9787bc0b1f6b641c2db19b0137..0000000000000000000000000000000000000000
---- a/runltp
-+++ /dev/null
-@@ -1,11 +0,0 @@
--#!/bin/sh
--# SPDX-License-Identifier: GPL-2.0-or-later
--# Copyright (c) Linux Test Project, 2026
--
--cat >&2 << EOF
--runltp was removed from LTP use kirk instead
--https://github.com/linux-test-project/kirk
--https://kirk.readthedocs.io/
--EOF
--
--exit 1
-diff --git a/scenario_groups/Makefile b/scenario_groups/Makefile
-deleted file mode 100644
-index fcbc9270829e2e496ef8bcc0fb69e558a0bb81ed..0000000000000000000000000000000000000000
---- a/scenario_groups/Makefile
-+++ /dev/null
-@@ -1,38 +0,0 @@
--#
--#    scenario-groups Makefile.
--#
--#    Copyright (C) 2010, Linux Test Project.
--#
--#    This program is free software; you can redistribute it and/or modify
--#    it under the terms of the GNU General Public License as published by
--#    the Free Software Foundation; either version 2 of the License, or
--#    (at your option) any later version.
--#
--#    This program is distributed in the hope that it will be useful,
--#    but WITHOUT ANY WARRANTY; without even the implied warranty of
--#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--#    GNU General Public License for more details.
--#
--#    You should have received a copy of the GNU General Public License along
--#    with this program; if not, write to the Free Software Foundation, Inc.,
--#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
--#
--# Ngie Cooper, November 2010
--#
--
--top_srcdir		?= ..
--
--include $(top_srcdir)/include/mk/env_pre.mk
--
--INSTALL_DIR		:= scenario_groups
--
--# Don't copy over the Makefile
--UNWANTED_FILES		:= Makefile
--
--INSTALL_MODE		:= 00644
--
--INSTALL_TARGETS		:= $(filter-out $(UNWANTED_FILES),$(notdir $(patsubst $(abs_srcdir)/%,%,$(sort $(wildcard $(abs_srcdir)/*)))))
--
--MAKE_TARGETS		:=
--
--include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/scenario_groups/default b/scenario_groups/default
-deleted file mode 100644
-index 0e76b2bee11c937e878ddf77c94f695129d98dbf..0000000000000000000000000000000000000000
---- a/scenario_groups/default
-+++ /dev/null
-@@ -1,28 +0,0 @@
--syscalls
--fs
--fs_perms_simple
--dio
--mm
--ipc
--irq
--sched
--math
--nptl
--pty
--containers
--fs_bind
--controllers
--fcntl-locktests
--power_management_tests
--hugetlb
--commands
--hyperthreading
--can
--cpuhotplug
--net.ipv6_lib
--input
--cve
--crypto
--kernel_misc
--uevent
--watchqueue
-diff --git a/scenario_groups/network b/scenario_groups/network
-deleted file mode 100644
-index 974b9fc58317912d194334af28278fa9a22eef65..0000000000000000000000000000000000000000
---- a/scenario_groups/network
-+++ /dev/null
-@@ -1,20 +0,0 @@
--can
--net.features
--net.ipv6
--net.ipv6_lib
--net.tcp_cmds
--net.multicast
--net.nfs
--net.rpc_tests
--net.tirpc_tests
--net.sctp
--net_stress.appl
--net_stress.broken_ip
--net_stress.interface
--net_stress.ipsec_dccp
--net_stress.ipsec_icmp
--net_stress.ipsec_sctp
--net_stress.ipsec_tcp
--net_stress.ipsec_udp
--net_stress.multicast
--net_stress.route
-
----
-base-commit: f062b34785db121c841f2faed8233b0943cdff27
-change-id: 20260224-remove_runltp-ea724bf150db
-
-Best regards,
 -- 
-Andrea Cervesato <andrea.cervesato@suse.com>
+Andrea Cervesato
+SUSE QE Automation Engineer Linux
+andrea.cervesato@suse.com
 
 
 -- 
