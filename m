@@ -2,90 +2,100 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iO2wKR0In2neYgQAu9opvQ
+	id 2GHmETQan2n3YwQAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 15:33:01 +0100
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 16:50:12 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43EC4198C91
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 15:33:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9822199F89
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 16:50:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
+ i=@lists.linux.it; q=dns/txt; s=picard; t=1772034610; h=mime-version :
+ date : message-id : to : references : in-reply-to : subject : list-id
+ : list-unsubscribe : list-archive : list-post : list-help :
+ list-subscribe : from : reply-to : content-type :
+ content-transfer-encoding : sender : from;
+ bh=m7n/4YSNFv6KcaG4l5EqXp1LmfQHvXzpqjvHbT4f5s0=;
+ b=Sv+iOFnLOK9R3IGvjbSLrM7lCfUY9glU1vsmuJbFKtfKlHFBfhBTBnArHD0gp322mwnEY
+ 853V+58F7zsHL6DWcoejXVtEydrMKkrX1BCq61Bjo545rwLPwFDLfap2Do1z+dWuYSbNuI2
+ 2xFXj+qBDKYqfzQpaESHVqVDnrJQ13k=
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A1AC73C9967
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 15:33:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E0D9F3CA085
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 16:50:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D52813C536F
- for <ltp@lists.linux.it>; Wed, 25 Feb 2026 15:32:49 +0100 (CET)
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
+ by picard.linux.it (Postfix) with ESMTPS id 060A73C7B03
+ for <ltp@lists.linux.it>; Wed, 25 Feb 2026 16:49:58 +0100 (CET)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9BF206008F0
- for <ltp@lists.linux.it>; Wed, 25 Feb 2026 15:32:48 +0100 (CET)
-Received: by mail-pl1-x641.google.com with SMTP id
- d9443c01a7336-2ad21f437eeso7534035ad.0
- for <ltp@lists.linux.it>; Wed, 25 Feb 2026 06:32:48 -0800 (PST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7E4E810007B8
+ for <ltp@lists.linux.it>; Wed, 25 Feb 2026 16:49:58 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4837907f535so62370085e9.3
+ for <ltp@lists.linux.it>; Wed, 25 Feb 2026 07:49:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772029967; x=1772634767; darn=lists.linux.it;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=NOvHeN0tYZnuicUtjJQsGfGdMRET47P/ULg6bz1GqyE=;
- b=KKzRJm/u7jasWItZQRnzB0NraosjCvD9FS7dWh86iYVwOt65v2RLgQEbtvJK8hyY+O
- jU1YogAwhVpjWRzAar2JaXUCDtIzM6eLrHj2Kr+F1aHb4Az2L3DUgsdcqrSXYtX82R9a
- asjFWam8XJzgoH+i5FlIFQe5bGgSROemeCMrX50erTfA04asNE2F4qdBR6xA/Swppah7
- v2wr9QY/YZqaA94572HQpfcFkIKtu7XBqBUU+qEZvIvc19Y/omwVGQmpYvmAhXbyfkdk
- 9mMMHt2CQPBcpzI/13QbMyjIkjZQlp3yn/kc4qSp5F5ofaxiJBfDrRrgzFsemuVOrDXm
- xBBw==
+ d=suse.com; s=google; t=1772034598; x=1772639398; darn=lists.linux.it;
+ h=in-reply-to:references:to:from:subject:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cAqtJor5hRJopK+4TLeaGAjFM8/ZtARpLxP4Jp8AkCE=;
+ b=Z2EKzkQgvcf7yyelpGjuzZzjlcSRPjDoqGKwfllRxNJmmbcSsIApSBXUZgSbJGpiAS
+ wWaFPJQqMaiCjAC+VDN6g23SIMh6+NMwa/K2HIixf6BejQxcUFJU9sIXahPGLtC6Cmwa
+ SLdyrvVNqW514XovPbS/Vy1QXntKymljKnRmHbGBCIJTQtZnx+Kamr6z80oHU3S5dsHM
+ ZWYh1J6UEvHQVmpNVE/kRLi+UyzULBLsQ1ZdwTN2Y3MG3d2q7vek7ZhDCxiepbBmbMFI
+ yWE2Dso8zZUg1+3mfEAb9JqZ3rA/YlK4jrWT7LMIISe3VGE/0hFUcJ8oqo9OzOyzvSH/
+ 9bnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772029967; x=1772634767;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=NOvHeN0tYZnuicUtjJQsGfGdMRET47P/ULg6bz1GqyE=;
- b=m3gG6iM+UsNQzsmxviCkfePFsnZbDNXb7ExrAQ2c2Bjz4iOKZTYd1Ha8UtBi9KGa9D
- lVm/83i0GgWP0QZ/B/PeZ4aFRLOXiVnPCVXEz1pr83KBcdXt65IvaKXRcJAIlFC4txZz
- EcSUi14bAjgg30e9eTvWUPmPs7LQBIEgU0senHojMD24zjIMFMuPuvpoqr5FYWXxEHIC
- HCM0mKanRlp7d//kVfnlWtlAK4BpKFreX6tbh/ptwOFgwaZVvfQ6TpeZXCucLoAeLyYR
- 7PCNmnWdxNyd7KE4d503A0H3E8Sv8EPD1JtqONM+rLZ9WEF/M+tp1eKQQLv1F6fTF+Fu
- Lagg==
-X-Gm-Message-State: AOJu0Yy4miqGpiKJkrPorOJaL3LvvLuTBC/kdz0glpPTG1PcZh5YDooF
- tDk4Td+gHZSRnddZ1NSdQ+G5OtL38RppkgOSPwx63LJzE5syWASQoZ9v9+Fd0nkFGg==
-X-Gm-Gg: ATEYQzwZoJn5f/l13mtRvLRRjWHEca6XTPtiLpHcFen8IonppKXbNCTDy1rp4aokFps
- SOD7npZcwhRfHkOH5KjIoHQdwRzurQe4vcgbvvxyTSDE1vCzoeosGvrzWpOQX/d6c6JJPokwj9J
- w6NMEw67An5Euvz5AJElsMUVg08ePfdCaT3YKdB0QFPCqJGFvw20/QficIoGWqR9UdaAzT+/okp
- /UH4Cub6VctKN9k6/ruzzGBlXY6Nz+xvAYR2eJLMcva6WiBrJ5Q8U0+D9u/47xOArg1CktbHjXF
- 8QKeTJJtRTXySamBdXZw5mrHwMYqlvLSSZNYj9WP+z++uOTkpiabj3Qch75hoATvcNiNI2beTxn
- fXvegiqpeXG4ydEy+a+ApAYdRBGT3Uvr+CySKwb9tQtkUVrTMC3EXqKQOcmvpKyhH+I70p2ktiU
- GwpIv/tKW9J3lXylnRkJY2/qU53zrwc4aLMRJqxcDeeZuD3z9Nh3QD
-X-Received: by 2002:a17:903:f83:b0:2a0:fb1c:144e with SMTP id
- d9443c01a7336-2adbdc3f5d7mr35547005ad.7.1772029966733; 
- Wed, 25 Feb 2026 06:32:46 -0800 (PST)
-Received: from localhost.localdomain ([59.16.109.172])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ad74e3425dsm134015635ad.16.2026.02.25.06.32.45
- for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Feb 2026 06:32:46 -0800 (PST)
-From: Jinseok Kim <always.starving0@gmail.com>
-To: ltp@lists.linux.it
-Date: Wed, 25 Feb 2026 23:32:04 +0900
-Message-ID: <20260225143205.36806-1-always.starving0@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ d=1e100.net; s=20230601; t=1772034598; x=1772639398;
+ h=in-reply-to:references:to:from:subject:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=cAqtJor5hRJopK+4TLeaGAjFM8/ZtARpLxP4Jp8AkCE=;
+ b=RfmU2VxuBXKuS4aPPyPIhePF4q/9v9zcEQHizL7W9bcEidp23Q9v2ZflHc1YSBjdL0
+ gQ0qp7JKCdlPz0usJFPBMFX2TGrHFKuE+SrO5hS7qSW+gWtw7x+FBl0NMihawIHekZsD
+ X258h1xKrnbFnYbcz28weoXSwsXSbkb7Njx7toVRUSbTgDTa4Is6ZsZPgtOzH5UuVjQW
+ TS/JOzoWdNB5MOAgBtv0W32+bbD/pMP9fsd8QOvgUhvwLyQBMqyiFCXF2M/W9AA6dv5a
+ 0fDT/TUwmduNuqEQein77Lu48QB4VoTICKYtSJFuo51aMSHopVCrDH5ymyYF2yqb2b+Q
+ 5qXg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWe25SbQrAkGOyKcMfK/dywafhS3giOBDHmjFdaV23nCoBoe/u2zvaqRfXeVB0oHnY/nRw=@lists.linux.it
+X-Gm-Message-State: AOJu0YxrolT0i8hd+MSWm30++Cv1kw991Pty9ZBiNOaGK1Pev3LxeRGm
+ ewnSGWndhIjShfixYwpZGS2F62Vrm3w4dg56/haDVRP86GLAcODlvaJh94JqOH1oHpo=
+X-Gm-Gg: ATEYQzxfN/HlNSHCvNrQlpelHpYOfrkZxVKGKamGC+vukVvHoBULuN/7jN+mARoS1PN
+ 1hIW1os33SuVzSWDFto7IBiFtNLLxqw9sQGtmX2ulI2Wb2wMu9IUsBO3p8vkGU80F365v8JW5XI
+ 4ZI50KFGtWD6UJJ3/hygYtiTYW+jplSzbkO+hb9sLZMW1DuiPy+sXVF5vV7ZBoLmLS8IRGYCl8U
+ qxWHxDMYLupJ1E+bPAFPpfwTa0Y8Dv23qLQQHPB75rTL1UzfbNK0waBNcdQQW2nKrmeoyNKVRfy
+ FETF+p1r4lhLtSj6pjN49jSvoZotZmiAv72NVqR6UmiKSJhN40P6+mT3fik0BEBEB0ra0QdrLZ6
+ nPftdJMYzzSTessuCDNtgZ2pv61OpL6Kp20JmKit7jxwsPa7QCaZ0JxvBsChEKthe/pyUtIyvSu
+ jpF36FFDoZbJWQxC7VnfCjYboc
+X-Received: by 2002:a05:600c:a085:b0:47a:81b7:9a20 with SMTP id
+ 5b1f17b1804b1-483c216f3dcmr15026985e9.9.1772034597718; 
+ Wed, 25 Feb 2026 07:49:57 -0800 (PST)
+Received: from localhost ([88.128.90.40]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-483bfb987b0sm13820145e9.13.2026.02.25.07.49.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Feb 2026 07:49:57 -0800 (PST)
+Mime-Version: 1.0
+Date: Wed, 25 Feb 2026 16:49:56 +0100
+Message-Id: <DGO5U7CVA15A.1TGO497R7HODK@suse.com>
+To: "Martin Doucha" <mdoucha@suse.cz>, <ltp@lists.linux.it>
+References: <20260224162726.28933-1-mdoucha@suse.cz>
+In-Reply-To: <20260224162726.28933-1-mdoucha@suse.cz>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] poll: fix LTP check warnings and improve poll01
- validation
+Subject: Re: [LTP] [PATCH] aio_cancel_3-1: Rewrite test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,138 +107,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.59 / 15.00];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
+X-Spamd-Result: default: False [-0.71 / 15.00];
+	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
+	MV_CASE(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a];
+	R_DKIM_ALLOW(-0.20)[lists.linux.it:s=picard];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+a:c];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DKIM_MIXED(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_ONE(0.00)[1];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[alwaysstarving0@gmail.com,ltp-bounces@lists.linux.it];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	TO_DN_NONE(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
+	DMARC_POLICY_ALLOW(0.00)[lists.linux.it,none];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	R_DKIM_REJECT(0.00)[suse.com:s=google];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	DKIM_TRACE(0.00)[lists.linux.it:+,suse.com:-];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[linux-ltp];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url,picard.linux.it:helo,picard.linux.it:rdns]
-X-Rspamd-Queue-Id: 43EC4198C91
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[ltp@lists.linux.it,ltp-bounces@lists.linux.it];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
+	HAS_REPLYTO(0.00)[andrea.cervesato@suse.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,suse.com:replyto,picard.linux.it:helo,picard.linux.it:rdns,linux.it:url]
+X-Rspamd-Queue-Id: D9822199F89
 X-Rspamd-Action: no action
 
-Remove extra blank lines, mark helper functions as static, and fix
-documentation comments starting with '/*\'.
+Hi!
 
-Add explicit checks for poll() return value and validate that no
-unexpected revents bits are set for POLLIN and POLLOUT cases.
+Acked-by: Andrea Cervesato <andrea.cervesato@suse.com>
 
-Signed-off-by: Jinseok Kim <always.starving0@gmail.com>
----
- testcases/kernel/syscalls/poll/poll01.c | 24 ++++++++++++++++++------
- testcases/kernel/syscalls/poll/poll02.c |  4 ++--
- 2 files changed, 20 insertions(+), 8 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/poll/poll01.c b/testcases/kernel/syscalls/poll/poll01.c
-index b05e809ab..ca68ec9c4 100644
---- a/testcases/kernel/syscalls/poll/poll01.c
-+++ b/testcases/kernel/syscalls/poll/poll01.c
-@@ -5,7 +5,7 @@
-  * Copyright (C) 2015 Cyril Hrubis <chrubis@suse.cz>
-  */
-
--/*
-+/*\
-  * Check that poll() works for POLLOUT and POLLIN and that revents is set
-  * correctly.
-  */
-@@ -34,11 +34,14 @@ static void verify_pollout(void)
- 		return;
- 	}
-
--	if (outfds[0].revents != POLLOUT) {
--		tst_res(TFAIL | TTERRNO, "poll() failed to set POLLOUT");
-+	if (TST_RET != 1) {
-+		tst_res(TFAIL, "Unexpected poll() return value %ld in POLLOUT", TST_RET);
- 		return;
- 	}
-
-+	TST_EXP_EXPR(outfds[0].revents & POLLOUT);
-+	TST_EXP_EXPR((outfds[0].revents & ~POLLOUT) == 0);
-+
- 	tst_res(TPASS, "poll() POLLOUT");
- }
-
-@@ -60,11 +63,20 @@ static void verify_pollin(void)
- 		goto end;
- 	}
-
--	if (infds[0].revents != POLLIN) {
--		tst_res(TFAIL, "poll() failed to set POLLIN");
-+	if (TST_RET != 1) {
-+		tst_res(TFAIL, "Unexpected poll() return value %ld in POLLIN", TST_RET);
- 		goto end;
- 	}
-
-+	if (!(infds[0].revents & POLLIN)) {
-+		tst_res(TFAIL, "infds[0].revents & POLLIN");
-+		goto end;
-+	}
-+
-+	if (!((infds[0].revents & ~POLLIN) == 0)) {
-+		tst_res(TFAIL, "infds[0].revents & ~POLLIN) == 0");
-+		goto end;
-+	}
-
- 	tst_res(TPASS, "poll() POLLIN");
-
-@@ -72,7 +84,7 @@ end:
- 	SAFE_READ(1, fildes[0], read_buf, sizeof(write_buf));
- }
-
--void verify_poll(unsigned int n)
-+static void verify_poll(unsigned int n)
- {
- 	switch (n) {
- 	case 0:
-diff --git a/testcases/kernel/syscalls/poll/poll02.c b/testcases/kernel/syscalls/poll/poll02.c
-index c0665927b..47e323451 100644
---- a/testcases/kernel/syscalls/poll/poll02.c
-+++ b/testcases/kernel/syscalls/poll/poll02.c
-@@ -3,7 +3,7 @@
-  * Copyright (C) 2015-2017 Cyril Hrubis <chrubis@suse.cz>
-  */
-
--/*
-+/*\
-  * Check that poll() timeouts correctly.
-  */
- #include <errno.h>
-@@ -15,7 +15,7 @@
-
- static int fds[2];
-
--int sample_fn(int clk_id, long long usec)
-+static int sample_fn(int clk_id, long long usec)
- {
- 	unsigned int sleep_ms = usec / 1000;
-
---
-2.43.0
+-- 
+Andrea Cervesato
+SUSE QE Automation Engineer Linux
+andrea.cervesato@suse.com
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
