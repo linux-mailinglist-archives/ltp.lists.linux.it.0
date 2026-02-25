@@ -2,98 +2,90 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +LfZDOzVnmkTXgQAu9opvQ
+	id KEteCyTdnmkTXgQAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 11:58:52 +0100
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 12:29:40 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D473A1961FD
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 11:58:51 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C1FA0196807
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 12:29:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3899A3C7B0D
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 11:58:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C3C6B3C7B87
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Feb 2026 12:29:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A3F533C61A8
- for <ltp@lists.linux.it>; Wed, 25 Feb 2026 11:58:48 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 723043C2C9C
+ for <ltp@lists.linux.it>; Wed, 25 Feb 2026 12:29:29 +0100 (CET)
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 027612009D1
- for <ltp@lists.linux.it>; Wed, 25 Feb 2026 11:58:47 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5A0F73F837;
- Wed, 25 Feb 2026 10:58:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1772017126; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ldOODVtuThp2rITcLuPJUxegTwInUyRRGVr5BwUC49M=;
- b=OBI/600wBLTr7KSbhMlreDK4hBqP2epvFIY5seE5zY/TOuqrx/D/lGn3Sifs6jT+oxe4pU
- +UZr4Nj9gSiaR8Yhh874N2qf8Pqwi9N7aGAwjku1zqJ1BA5Sx6Qd/xTfABPY+gM4xZ9KPP
- xturOsoov2hNR+ATmrdr4otVgIPTduw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1772017126;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ldOODVtuThp2rITcLuPJUxegTwInUyRRGVr5BwUC49M=;
- b=s1pOY79eJ5IkNYkblmSzs/6gowuCAM3asBPT6J35GVUh97/ohC6HBlNvjD024StcmFSuUu
- wIjP4Dw7235F4mBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1772017126; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ldOODVtuThp2rITcLuPJUxegTwInUyRRGVr5BwUC49M=;
- b=OBI/600wBLTr7KSbhMlreDK4hBqP2epvFIY5seE5zY/TOuqrx/D/lGn3Sifs6jT+oxe4pU
- +UZr4Nj9gSiaR8Yhh874N2qf8Pqwi9N7aGAwjku1zqJ1BA5Sx6Qd/xTfABPY+gM4xZ9KPP
- xturOsoov2hNR+ATmrdr4otVgIPTduw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1772017126;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ldOODVtuThp2rITcLuPJUxegTwInUyRRGVr5BwUC49M=;
- b=s1pOY79eJ5IkNYkblmSzs/6gowuCAM3asBPT6J35GVUh97/ohC6HBlNvjD024StcmFSuUu
- wIjP4Dw7235F4mBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 400F03EA65;
- Wed, 25 Feb 2026 10:58:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 7U4yDubVnmlxeQAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Wed, 25 Feb 2026 10:58:46 +0000
-Date: Wed, 25 Feb 2026 11:58:53 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Wei Gao <wegao@suse.com>
-Message-ID: <aZ7V7XD6LIiZ4m0e@yuki.lan>
-References: <20251125044057.20922-1-wegao@suse.com>
- <20260225015044.19233-1-wegao@suse.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 083D76002AD
+ for <ltp@lists.linux.it>; Wed, 25 Feb 2026 12:29:29 +0100 (CET)
+Received: by mail-pl1-x643.google.com with SMTP id
+ d9443c01a7336-2add623cb27so4441985ad.3
+ for <ltp@lists.linux.it>; Wed, 25 Feb 2026 03:29:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772018967; x=1772623767; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fyu+lUPwQFXe39ID+QtlN8Qen38QYDWmyu7tONBDAEg=;
+ b=VhxNW02uvCuq1Pa54dIQ4+EGsFw858z5iUogjFsAKTxMzgGURfYoVT0mkJJ6S/DlIi
+ uhVnlOj/4LyrHgbTeh3xFbw59Dn1A8hziSxdDKCs4KiKi6i64D5iVhaXfzX8pyXZDrLi
+ uqJDWrVwRWUJTirJEfEhlnJcZLbaIpgXvQG7gXHy3F0uvZXQZ1ZVykII6KW1P29c3+gD
+ 5M8vBMCt8W9kP/pNh+agTxQex8DWSBFScaM96eEdL3HjIIsarFZlkhJ7PgkwFU6xi47Q
+ gGO7LQ2ZrHK7Q0tlFdYTNwF2wOPlfjl0++UT8LvzyCDhK5DvuQnBU6BXxm9ysJMtBjgZ
+ PIcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772018967; x=1772623767;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=fyu+lUPwQFXe39ID+QtlN8Qen38QYDWmyu7tONBDAEg=;
+ b=Nu0XpbqnEmm0g73eKlVGmZVoOjzOvAmbxhsBx2AagvHq/XJD526JPWQoYOk3dk4ZuK
+ Hak4tacOfWr2rrj+eERpcUysD+ROM3n/Hb+R+H/42pznJHE7jjwvvcj5y5yGa3jxulha
+ p5b7M/GwFluXnU4TWlk/HnFxq/dGSfz4MesxUoU4akop+A9lw4m829D57p20kirzz1/D
+ LhRNaebjv/lyHnmMsGcmw5uMASpZJ0jUqJMk5HUotMUTw3M9B3WaqN24CalfEXM3BDpV
+ 2Vj2yT6MZs0WoomSGJQBZZfEmst/FsFTG1wxxgVKFl8wfHkTbExtKTD1HPuKuSOmz4/Q
+ /zlQ==
+X-Gm-Message-State: AOJu0YzVx7kioANlVPjjWtRfoGdjKxRscz5efG72z7Qfw2HjiynkFpK0
+ QOW1448/NlGNQVlTe/9ivkM/2meSl4QaTgx4cDbGgMzkFYcCJjJzEsg=
+X-Gm-Gg: ATEYQzzfxTJycV8rkwIfn4CiAUwDBmkWJGpFHC4w0VJyoDqZaWJUh/Wa7g1irf7M/iS
+ DTa/uRLKhpQGpa/QKuojgm8JeeQPkNh1TkjF9P4qfMPqmdsXbD26CaHygp+BUojGCOungs3c/yB
+ ggUHNpFJb5C4D8JRU2zpVqe+4PzyUu7TeUwh+6T39JQUP+yZwkmk2N98rnXGPIxDkfW2nfujyKO
+ IqRorc/1zfJosrP6iC3DkOgtLrpvcWkbKplfTD7hV6ioNY+ZmHHhapWpEkBGuFQaAeZlHY7mTQ6
+ 0mAqHCuv7dd/ffTZagjIkDanxgJCL0DRBR+IFneFHKWDEDjgHo8BIQ/qHfb4uS1PrhkWRcaXnsD
+ 0FSjzN20I47eZVJPYT4eYcT622AbWd701a9mXYSs/dIJxMxUmhZjq4CTkPE/SwVFNgEUJdNFmQ+
+ Q/bKR1mj5GKuyF0ldY0NMlOV9qWaE8FhTer6+40a/Pkw==
+X-Received: by 2002:a17:903:11d2:b0:2aa:e6c8:2c6e with SMTP id
+ d9443c01a7336-2ad7457a8c8mr134519425ad.56.1772018967261; 
+ Wed, 25 Feb 2026 03:29:27 -0800 (PST)
+Received: from localhost.localdomain ([59.16.109.172])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2addc7a9032sm12113415ad.27.2026.02.25.03.29.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Feb 2026 03:29:26 -0800 (PST)
+From: Jinseok Kim <always.starving0@gmail.com>
+To: chrubis@suse.cz
+Date: Wed, 25 Feb 2026 20:28:58 +0900
+Message-ID: <20260225112903.1978-1-always.starving0@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <aZ7Q-PB-_LV2K1xK@yuki.lan>
+References: <aZ7Q-PB-_LV2K1xK@yuki.lan>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260225015044.19233-1-wegao@suse.com>
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v4] tst_tmpdir: Fix buffer overflow in tst_tmpdir.c
+Subject: [LTP] [PATCH v4 1/2] poll: add basic POLLHUP semantics test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,57 +103,142 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.49 / 15.00];
-	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+X-Spamd-Result: default: False [0.59 / 15.00];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	R_SPF_ALLOW(-0.20)[+a:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	DMARC_NA(0.00)[suse.cz];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.cz:-];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[chrubis@suse.cz,ltp-bounces@lists.linux.it];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[alwaysstarving0@gmail.com,ltp-bounces@lists.linux.it];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.996];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.997];
 	TAGGED_RCPT(0.00)[linux-ltp];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,picard.linux.it:helo,picard.linux.it:rdns,linux.it:url,yuki.lan:mid]
-X-Rspamd-Queue-Id: D473A1961FD
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url]
+X-Rspamd-Queue-Id: C1FA0196807
 X-Rspamd-Action: no action
 
-Hi!
-> @@ -183,8 +186,7 @@ static int purge_dir(const char *path, char **errptr)
->  			continue;
->  
->  		/* Recursively remove the current entry */
-> -		sprintf(dirobj, "%s/%s", path, dir_ent->d_name);
-> -		if (rmobj(dirobj, errptr) != 0)
-> +		if (rmobjat(subdir_fd, dir_ent->d_name, errptr) != 0)
->  			ret_val = -1;
->  	}
+Add a basic poll() test to verify that POLLHUP is reported when the
+peer end of a pipe is closed.
 
-Shouldn't we close(subdir_fd) here as well?
+The test creates a pipe, closes the write end, and polls the read end
+for POLLIN events. poll() is expected to return successfully and set
+POLLHUP in revents.
 
-> @@ -192,63 +194,53 @@ static int purge_dir(const char *path, char **errptr)
->  	return ret_val;
->  }
->  
+This covers basic poll() lifecycle semantics that were not previously
+tested.
 
-The rest seems to be fine.
+Signed-off-by: Jinseok Kim <always.starving0@gmail.com>
+---
+ runtest/syscalls                          |  1 +
+ testcases/kernel/syscalls/poll/.gitignore |  1 +
+ testcases/kernel/syscalls/poll/poll03.c   | 61 +++++++++++++++++++++++
+ 3 files changed, 63 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/poll/poll03.c
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 05bb3ceb1..15df7c414 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1092,6 +1092,7 @@ pivot_root01 pivot_root01
+
+ poll01 poll01
+ poll02 poll02
++poll03 poll03
+
+ ppoll01 ppoll01
+
+diff --git a/testcases/kernel/syscalls/poll/.gitignore b/testcases/kernel/syscalls/poll/.gitignore
+index 83be0ddf8..e3f66f4e6 100644
+--- a/testcases/kernel/syscalls/poll/.gitignore
++++ b/testcases/kernel/syscalls/poll/.gitignore
+@@ -1,2 +1,3 @@
+ /poll01
+ /poll02
++/poll03
+diff --git a/testcases/kernel/syscalls/poll/poll03.c b/testcases/kernel/syscalls/poll/poll03.c
+new file mode 100644
+index 000000000..182d8bd3c
+--- /dev/null
++++ b/testcases/kernel/syscalls/poll/poll03.c
+@@ -0,0 +1,61 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2026 Jinseok Kim <always.starving0@gmail.com>
++ */
++
++/*\
++ * Check that poll() reports POLLHUP on a pipe read end
++ * after the write end has been closed.
++ */
++#include <unistd.h>
++#include <errno.h>
++#include <sys/poll.h>
++
++#include "tst_test.h"
++
++static int fds[2];
++
++static void verify_pollhup(void)
++{
++	struct pollfd pfd = {
++		.fd = fds[0], .events = POLLIN,
++	};
++
++	TEST(poll(&pfd, 1, -1));
++
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO, "poll() failed");
++		return;
++	}
++
++	if (TST_RET != 1) {
++		tst_res(TFAIL, "Unexpected poll() return value %ld", TST_RET);
++		return;
++	}
++
++	TST_EXP_EXPR(pfd.revents & POLLHUP);
++	TST_EXP_EXPR((pfd.revents & ~POLLHUP) == 0);
++
++	tst_res(TPASS, "poll() reported POLLHUP");
++}
++
++static void setup(void)
++{
++	SAFE_PIPE(fds);
++	SAFE_CLOSE(fds[1]);
++}
++
++static void cleanup(void)
++{
++	if (fds[0] > 0)
++		SAFE_CLOSE(fds[0]);
++
++	if (fds[1] > 0)
++		SAFE_CLOSE(fds[1]);
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = verify_pollhup,
++};
+--
+2.43.0
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
