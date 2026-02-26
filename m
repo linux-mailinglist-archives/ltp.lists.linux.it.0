@@ -2,101 +2,88 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sKjnAGNqoGk3jgQAu9opvQ
+	id kLFiMwZuoGkHjwQAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Feb 2026 16:44:35 +0100
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Feb 2026 17:00:06 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 804E41A9059
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Feb 2026 16:44:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1772120674; h=mime-version :
- date : message-id : to : references : in-reply-to : subject : list-id
- : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=kw46yVcHBujsTkQCrm8+QIqxzJqZhaajaogUAIvm+Yo=;
- b=SsfIE2wuW0vsfeqyihrph3/2gBzjKK8YVuOnQ08dON78+dE8zO6vMdCKxMqR7tUmIDVIp
- cseI17j+H/ObNrj4/3RiCti1rWa5JOQ6cKhs+EQOV/50Cf9RbnWYppVAQtERIsdKJErubo9
- nlnz4Rmu+og1XHiIDOJX/llR+yn2AAQ=
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D6CD1A95DA
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Feb 2026 17:00:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 269083CBE28
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Feb 2026 16:44:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 190453CC026
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Feb 2026 17:00:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0A4423CB7A6
- for <ltp@lists.linux.it>; Thu, 26 Feb 2026 16:44:22 +0100 (CET)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
+ by picard.linux.it (Postfix) with ESMTPS id 6E5763CB962
+ for <ltp@lists.linux.it>; Thu, 26 Feb 2026 16:59:56 +0100 (CET)
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 627381400C7B
- for <ltp@lists.linux.it>; Thu, 26 Feb 2026 16:44:21 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-4398d1f06caso950387f8f.0
- for <ltp@lists.linux.it>; Thu, 26 Feb 2026 07:44:21 -0800 (PST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 98D1D1400C74
+ for <ltp@lists.linux.it>; Thu, 26 Feb 2026 16:59:55 +0100 (CET)
+Received: by mail-pg1-x542.google.com with SMTP id
+ 41be03b00d2f7-c70bfef17a4so575740a12.2
+ for <ltp@lists.linux.it>; Thu, 26 Feb 2026 07:59:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1772120661; x=1772725461; darn=lists.linux.it;
- h=in-reply-to:references:cc:to:from:subject:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jb8k6yC2pMRfEE/1Kd/ieRFSJW7jNQ1zM/ACwubKEyg=;
- b=Vlo2k9MrvvN/86pJ85iiCtfUrv1Wg3kYaTyKZR6KvzRROpO4bLgMoUGltx5v6Q1mHG
- k4f5ZIAicaizaxv0NIkrcsuQrTL+XrmDEe/H/GLXnDX9gMmQaERQn/3/c5A1/+0e09+u
- +2Uy5A4P3BSxnhr6BYnCiNIxrkeu2cNZF2oxxW1auLTjtUn016NcZtZ1tVtYqKVhfHmG
- pU3p9hoiTG1jZkO/Z8eqOoUIL00/OM6MqFgaOg2tthAouLRUi8lOqrFfJxQu2H5/s3xE
- GTuX/FrSor4DKYov4MXzBqmeCDScZJoe+1Ifu6f7ASa+81qMM64WFCfA4LrH1VQQ++sq
- WRZA==
+ d=gmail.com; s=20230601; t=1772121594; x=1772726394; darn=lists.linux.it;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=GPM0vIXpGnqLN0wcOhRaapuyrMeVwp3dDNiGfGq+0Uk=;
+ b=HhvFWTBHQ/6gpPqPsOGg/Pk8r2JCx9nNzpzBJg1YhBxtIDTCWPlUTJvEWueH0l+hRw
+ IJsiSbatp8PejODkgmZXJqRaj2BhfnJm2gsEgoywr9ojPVn6wMsqhR/w5q/qASuvZAN6
+ G8f5zGJvKj08RYJaJJnkGRsyDOe3Nx2mQKbuVai1vqlXu9F7+f/+r1c7yd9yU4qhV02C
+ M3hkFPzzAZsQEXbGq8GXN10pu3O5iYNxQU8dmNmZJsjYIgRviilEfNUctgYcdXo6dO61
+ uqHu2JyOLgHTNYWYtdxoba0BY8l4Ol4z8FQhfyLWXnwwhF9iRAN2ZFYmE06fLMIBfUTS
+ rQDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772120661; x=1772725461;
- h=in-reply-to:references:cc:to:from:subject:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=jb8k6yC2pMRfEE/1Kd/ieRFSJW7jNQ1zM/ACwubKEyg=;
- b=Q/kX9sTdorWDCKYgnew13O0JB1yMrt1lxkuiFJU3Jyr3VfC+Mglw4e88ra6ybDg3XG
- bRM4x198YTVwnhc+o8sTSeysDMPEsbItVpF7NoaDXfmms2qmGJu3GoIbq+R+c96vXh5B
- 2wyi2KmfRPNXxavnwR4CJnyzWokCnvAruDAYo74/9tClNy/aiZXKS0JMHlP5AWxKj5Wv
- cuYUgUw2Vfq8c84VMX8MLAuvivzrcEYwKRdlp54dSirUeEJr2mJNbvjY24DU2JqZ8+oa
- zCdvq/U2HRv45C07gtexT/FZO5aIRQmThZW7sbrlhrueY0811UWKGSB47qhjlNFg3s2P
- ZA6w==
-X-Gm-Message-State: AOJu0YxTC8vCYerDfmC8bfmPoUK7spMq4ISRd8FIqnikIT+qu2WPqKZ1
- 4rbjaYI5B4AfxaRL7iRSq4T9B/c4vJMb7s237x2sSqYMhgYDVT2w+XMR61JNOz8cdkM=
-X-Gm-Gg: ATEYQzwk1swN3Vs50/CR3n6Jg9oH91/xC/slIKeKhHVTfSfmOJhqOCu2MtvoHO1+X4d
- xc0OJqlXDhdJ0sHlRcf6IpPfdooREvSB7xBC8q6DPYDLLX0AgVvVP9rpuIJWZKVMGBUers/Tt2C
- y3TT/jkTLqacvjiNRaHibrrHsQ8ULxnydZCk2GLY6KktfRnVyvmQUzZVKFeTPR9/gWAji/rAATO
- 4pTddpWPxNOpJF1UXA/lAR3by2QlxrUcIg+1OmumFy0xo2Lkq/f5gCIF5ZKq6x6yCpgBVWifnIU
- oNTtzJwLaLk59Cw5gCTTfA1N8pJ9v/kBSOM3dqlwTtqYhUdqB769/xlMTj9MPtmIA9YF5Is1iul
- f/3hKdYCNasmWUuDXHgzYQlhsjSbR0CvBo8NZ3YAQstntL41uy3j395P0K+2IyuTwdMFdfhJLqU
- ApId5ST1AwBwU4RnjAnIbDBXBq
-X-Received: by 2002:adf:ef8b:0:b0:439:95fb:d8e1 with SMTP id
- ffacd0b85a97d-43995fbd964mr5446703f8f.16.1772120660550; 
- Thu, 26 Feb 2026 07:44:20 -0800 (PST)
-Received: from localhost ([88.128.90.35]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4399c765b6esm364704f8f.33.2026.02.26.07.44.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Feb 2026 07:44:20 -0800 (PST)
-Mime-Version: 1.0
-Date: Thu, 26 Feb 2026 16:44:19 +0100
-Message-Id: <DGP0CG3J3QK9.1M9KCELAS054F@suse.com>
-To: "Jinseok Kim" <always.starving0@gmail.com>
-X-Mailer: aerc 0.18.2
-References: <DGO4558ZMLNH.3U00SNOHLUVXJ@suse.com>
- <20260226153231.1513-1-always.starving0@gmail.com>
-In-Reply-To: <20260226153231.1513-1-always.starving0@gmail.com>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
+ d=1e100.net; s=20230601; t=1772121594; x=1772726394;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GPM0vIXpGnqLN0wcOhRaapuyrMeVwp3dDNiGfGq+0Uk=;
+ b=oa16rPt+MIDjdht2gihbf9QwbD/CalnbzG5YnEQP3Y42Xl0Ks7UB1QrmvQjhxyOJAg
+ eBJBmldFo1pBAZEW41eJ99SX3jfBrIzOA1joXJTiLpqVF5Tz2PTQoj6MTWIctrbRJcub
+ 31kXiHfhPEqxH9XJYgDlBrgjFaYTMIUITe0yEs0AbEqnIcLeu1PZQLvy/Ia0Rd0PR+4D
+ zMGUsilCJNBQnuObHIXj7gb/cIhg5DD5lSWnUwUGZ4t2BeyKjXCufU2HKmgswVAQVG8E
+ mJsS+v3wd3qH4Oq53j6xHynOmvwKnTmysWSNybHMgqw0b24iZbUQtqL2g7y+JcI8RJNW
+ GXVg==
+X-Gm-Message-State: AOJu0YyLmTEurtFmu0ffvBVL+H9k/a02OpJIOpdUgalB+WtUc2m5UEGm
+ Y8ERAGkagvoQUiRHz/UY7HH2aLC5cIPcYDEvvgRyJ2YJG3t/L/taK4Br3nTUdMeViw==
+X-Gm-Gg: ATEYQzzlrHX/cCOJgF8qfC6W376karLDF5tv7arZSTaqNY/8R0Ga8vwMRgLqV7Hd0KI
+ NivOMXs8AqOgu6ckbLqcUa3L9EQJjAQ8vtAkVoxLHkajWMthZENWqiVe0TgsEw5qiIMGDMP4sT9
+ Iq6uNl9djbHGARfFq222Z6kGuKSi/y7x5vDQld7JUylXGzPnBwm8aVZY0h43ybAuu6msYPp/YKx
+ w/aRdh5bNUfKLknTf5cLJQHbEPrMGrWMlkk/noD6RS0p+8eo9pEOhxsdO4jEwPGQTwksa8iPl7f
+ xBL4uPcXN6oFutCTnlm6LaSTof+FfMVPukozQYtQ3lSMCcrh5Y0AWr/H+xcIBwZ3I1kI4E0V/40
+ 56qhoLZVrqkiCs2RvQzug6DI/nYKaIWispMD/aY1nnsGL38Hoi1rNDDV/3izxp1bdsQ3WhT9J3r
+ e1fBh9bEreLxXJG2ryDwjBzQAr2vl+JqLeHtWsox/Qug==
+X-Received: by 2002:a17:90b:288a:b0:335:2eef:4ca8 with SMTP id
+ 98e67ed59e1d1-35928c34f6bmr4487201a91.33.1772121593589; 
+ Thu, 26 Feb 2026 07:59:53 -0800 (PST)
+Received: from localhost.localdomain ([59.16.109.172])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35912ff8a92sm2607430a91.6.2026.02.26.07.59.52
+ for <ltp@lists.linux.it>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Feb 2026 07:59:53 -0800 (PST)
+From: Jinseok Kim <always.starving0@gmail.com>
+To: ltp@lists.linux.it
+Date: Fri, 27 Feb 2026 00:59:27 +0900
+Message-ID: <20260226155929.3500-1-always.starving0@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v3 2/2] fstat: add test for multiple file types
- using fstat
+Subject: [LTP] [PATCH] open: clean up make check findings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,79 +95,152 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.71 / 15.00];
-	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
-	MV_CASE(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:c];
-	R_DKIM_ALLOW(-0.20)[lists.linux.it:s=picard];
+X-Spamd-Result: default: False [0.59 / 15.00];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+a:c];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
-	RCPT_COUNT_TWO(0.00)[2];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
+	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_MIXED(0.00)[];
-	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	DMARC_POLICY_ALLOW(0.00)[lists.linux.it,none];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	TAGGED_RCPT(0.00)[linux-ltp];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[ltp@lists.linux.it,ltp-bounces@lists.linux.it];
-	R_DKIM_REJECT(0.00)[suse.com:s=google];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_ONE(0.00)[1];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[alwaysstarving0@gmail.com,ltp-bounces@lists.linux.it];
+	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	HAS_REPLYTO(0.00)[andrea.cervesato@suse.com];
-	DKIM_TRACE(0.00)[lists.linux.it:+,suse.com:-];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,suse.com:replyto,picard.linux.it:helo,picard.linux.it:rdns,linux.it:url,lists.linux.it:dkim]
-X-Rspamd-Queue-Id: 804E41A9059
+	TO_DN_NONE(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-0.997];
+	TAGGED_RCPT(0.00)[linux-ltp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:helo,picard.linux.it:rdns,linux.it:url,fujitsu.com:email]
+X-Rspamd-Queue-Id: 7D6CD1A95DA
 X-Rspamd-Action: no action
 
-Hi,
+Fix various issues reported by `make check` in open syscall tests:
 
-On Thu Feb 26, 2026 at 4:32 PM CET, Jinseok Kim wrote:
-> Hi,
->
-> Thank you for the review.
->
-> If we switch to using lstat() only, this test would no longer exercise
-> fstat() at all, which changes the original intent of the test.
->
-> In that case, should we consider renaming the test from fstat to lstat?
->
-> Jinseok.
+- Replace space indentation with tabs
+- Remove extra blank lines
+- Mark setup/cleanup helpers as static
+- Add missing SPDX-License-Identifier
+- Fix typo in error message
+- Fix documentation comments
 
-Sorry for the confusion...of course. The point is if we want to test
-inode macros or fstat(), and of course we want to test fstat().
-According to that, we should correctly use the syscall. For instance,
-when using fstat():
+Signed-off-by: Jinseok Kim <always.starving0@gmail.com>
+---
+ testcases/kernel/syscalls/open/open01.c       | 2 +-
+ testcases/kernel/syscalls/open/open02.c       | 6 +++---
+ testcases/kernel/syscalls/open/open03.c       | 2 --
+ testcases/kernel/syscalls/open/open11.c       | 4 ++--
+ testcases/kernel/syscalls/open/open12_child.c | 1 +
+ testcases/kernel/syscalls/open/open14.c       | 2 +-
+ 6 files changed, 8 insertions(+), 9 deletions(-)
 
-fstat04.c:63: TFAIL: symbolic link: S_IFLNK() macro does NOT match
-fstat04.c:45: TBROK: open(chrdev,2048,0000) failed: EACCES (13)
+diff --git a/testcases/kernel/syscalls/open/open01.c b/testcases/kernel/syscalls/open/open01.c
+index 3ae1b269b..e5e598e56 100644
+--- a/testcases/kernel/syscalls/open/open01.c
++++ b/testcases/kernel/syscalls/open/open01.c
+@@ -5,7 +5,7 @@
+  *    06/2017 Modified by Guangwen Feng <fenggw-fnst@cn.fujitsu.com>
+  */
 
-And this has to be fixed of course.
+-/*
++/*\
+  * DESCRIPTION
+  *	Open a file with oflag = O_CREAT set, does it set the sticky bit off?
+  *
+diff --git a/testcases/kernel/syscalls/open/open02.c b/testcases/kernel/syscalls/open/open02.c
+index e1c5cc5dc..30b129019 100644
+--- a/testcases/kernel/syscalls/open/open02.c
++++ b/testcases/kernel/syscalls/open/open02.c
+@@ -29,7 +29,7 @@ static struct tcase {
+ 	{TEST_FILE2, O_RDONLY | O_NOATIME, EPERM, "unprivileged O_RDONLY | O_NOATIME"},
+ };
 
--- 
-Andrea Cervesato
-SUSE QE Automation Engineer Linux
-andrea.cervesato@suse.com
+-void setup(void)
++static void setup(void)
+ {
+ 	struct passwd *ltpuser;
 
+@@ -45,10 +45,10 @@ static void verify_open(unsigned int n)
+ 	struct tcase *tc = &tcases[n];
+
+ 	TST_EXP_FAIL2(open(tc->filename, tc->flag, 0444),
+-	             tc->exp_errno, "open() %s", tc->desc);
++			tc->exp_errno, "open() %s", tc->desc);
+ }
+
+-void cleanup(void)
++static void cleanup(void)
+ {
+ 	SAFE_SETEUID(0);
+ }
+diff --git a/testcases/kernel/syscalls/open/open03.c b/testcases/kernel/syscalls/open/open03.c
+index 275ca84f0..53baf1028 100644
+--- a/testcases/kernel/syscalls/open/open03.c
++++ b/testcases/kernel/syscalls/open/open03.c
+@@ -19,8 +19,6 @@ static void verify_open(void)
+ 	SAFE_UNLINK(TEST_FILE);
+ }
+
+-
+-
+ static struct tst_test test = {
+ 	.needs_tmpdir = 1,
+ 	.test_all = verify_open,
+diff --git a/testcases/kernel/syscalls/open/open11.c b/testcases/kernel/syscalls/open/open11.c
+index 6f89d558d..2d4b4e821 100644
+--- a/testcases/kernel/syscalls/open/open11.c
++++ b/testcases/kernel/syscalls/open/open11.c
+@@ -269,10 +269,10 @@ static void verify_open(unsigned int n)
+ {
+ 	if (tc[n].err > 0) {
+ 		TST_EXP_FAIL2(open(tc[n].path, tc[n].flags, tc[n].mode),
+-		             tc[n].err, "%s", tc[n].desc);
++				tc[n].err, "%s", tc[n].desc);
+ 	} else if (tc[n].err == 0) {
+ 		TST_EXP_FD(open(tc[n].path, tc[n].flags, tc[n].mode),
+-		           "%s", tc[n].desc);
++				"%s", tc[n].desc);
+ 	} else {
+ 		TEST(open(tc[n].path, tc[n].flags, tc[n].mode));
+ 		tst_res(TPASS, "%s", tc[n].desc);
+diff --git a/testcases/kernel/syscalls/open/open12_child.c b/testcases/kernel/syscalls/open/open12_child.c
+index a6dabd5d2..2c3411426 100644
+--- a/testcases/kernel/syscalls/open/open12_child.c
++++ b/testcases/kernel/syscalls/open/open12_child.c
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2014 Fujitsu Ltd.
+  * Author: Zeng Linggang <zenglg.jy@cn.fujitsu.com>
+diff --git a/testcases/kernel/syscalls/open/open14.c b/testcases/kernel/syscalls/open/open14.c
+index a3c7d38a2..7f3babda3 100644
+--- a/testcases/kernel/syscalls/open/open14.c
++++ b/testcases/kernel/syscalls/open/open14.c
+@@ -108,7 +108,7 @@ static int read_file(int fd)
+ 		SAFE_READ(0, fd, tmp, size);
+
+ 		if (memcmp(buf, tmp, size)) {
+-			tst_res(TFAIL, "got unexepected data");
++			tst_res(TFAIL, "got unexpected data");
+ 			return 1;
+ 		}
+ 	}
+--
+2.43.0
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
