@@ -2,91 +2,91 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ADBRBg/jpmlAYgAAu9opvQ
+	id ANFnKyDjpmlAYgAAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Tue, 03 Mar 2026 14:33:03 +0100
+	for <lists+linux-ltp@lfdr.de>; Tue, 03 Mar 2026 14:33:20 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A81F01F04EB
-	for <lists+linux-ltp@lfdr.de>; Tue, 03 Mar 2026 14:33:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 584411F050B
+	for <lists+linux-ltp@lfdr.de>; Tue, 03 Mar 2026 14:33:20 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5BF3C3D8FCC
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2026 14:33:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7BEC23DAC1D
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2026 14:33:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0BDA03D8FCC
- for <ltp@lists.linux.it>; Tue,  3 Mar 2026 14:32:53 +0100 (CET)
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
+ by picard.linux.it (Postfix) with ESMTPS id 1D00E3DA363
+ for <ltp@lists.linux.it>; Tue,  3 Mar 2026 14:32:54 +0100 (CET)
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 968E12003BA
- for <ltp@lists.linux.it>; Tue,  3 Mar 2026 14:32:52 +0100 (CET)
-Received: by mail-pl1-x644.google.com with SMTP id
- d9443c01a7336-2ae4988e039so16211375ad.1
- for <ltp@lists.linux.it>; Tue, 03 Mar 2026 05:32:52 -0800 (PST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 830A5600902
+ for <ltp@lists.linux.it>; Tue,  3 Mar 2026 14:32:54 +0100 (CET)
+Received: by mail-pl1-x642.google.com with SMTP id
+ d9443c01a7336-2ab077e3f32so24860435ad.3
+ for <ltp@lists.linux.it>; Tue, 03 Mar 2026 05:32:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772544771; x=1773149571; darn=lists.linux.it;
+ d=gmail.com; s=20230601; t=1772544773; x=1773149573; darn=lists.linux.it;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=4OcF16yLSa8KDOkzTiaFlU0YjYIn4oAiG1dhbqEwH7s=;
- b=F0SOap0PkKzPqZpWB6CXSVxoXeKKApoEjzCmnaJA3W0osnWDxXP9s5rPQQB3aOxpOh
- iVuFL6RsFlNCxKtuzZ6qz6cTV4qmS5BpLdoZ+7qtO8FOZ5z88+KgdLDYKm4TZ4SB7FZ9
- q3Cl1n5OwyVukbDoIjEnO6/VNQDJgafpT+w5p7q/cAhppwtHp/86ykl8MQ8uP0cR5sZO
- h3JnQdjN3UGZjKS+SLk+I2Le8M36PYs4BnaZaodrZe42ofuvrAfCTIBmowFDz3QHCsGZ
- hnZ3rWaxuvOnP3zPs3cYfRji4pInRmJF0sIPJk4AQKdLx4hvaZ5efkGYwxWuy+d7N+b6
- TFmg==
+ :reply-to; bh=GR4NLaeKTTO3kA+1PyEuftDX9rO8loLhABPurzHOECo=;
+ b=ZcLqj/raaUHRQ39j5mHhLKfV29AgO2XZ+0AgZe9ZRrSa2320b1i8vOvQzQoK0YZNAg
+ SCkSYnig5LYz3m8ZqWYwU4UDg8nKdCiTVTVUWHXee0koJn5fu8+CbqIQIW5zui6UVOjN
+ vO6LfIo2dF3LYEKJry6PIrOjfuqlZ1JTjF+M0wvvoMCKGH9VclIKxQtrlspXzPHrG4c5
+ zhefP7DqOMS94tEH+m0crb6xGrk8Ip4C4fqCEUH2nELAiaDg75MSbO7lMk58h/wQKDS4
+ rHJ8VeBFzNw6ABny/ZChWA/gzrkEhx+itfEKGeNzfLA90PZU/cPgbRsG7r46qqVQnJoY
+ tbQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772544771; x=1773149571;
+ d=1e100.net; s=20230601; t=1772544773; x=1773149573;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=4OcF16yLSa8KDOkzTiaFlU0YjYIn4oAiG1dhbqEwH7s=;
- b=cl/v2p1oXvZRZzYhXMiHgDJ2pPSvA9A0mM58S3Cc1HDpcKjQN5Z+j51P5hjFeKPPGX
- qtRkr/AiBtG/GcWwy/WC3hSysPZpiDd8BSEqdUdjgCu9HJgV13I7L4ZjsK9ojgqVyOTY
- PMDCPZpEiVMR+WghebKaiXRnV9tvqgimcYkCnI5xOuq2Vb/fclQBi7iVs/s/HSKCqJY1
- FgWx4/u2m5H4r5PZHGFdmOb2h6SQAaBHvxBQMN8wmdcaZWjOTZraLcOdR/QvZvGH+jtJ
- 6AjgaektgE6dHuE0iYsfSd/vFm1VMuKQWtfeCPSbZHU7321CzZAS12rMB2Jx2TV892zp
- SWpg==
-X-Gm-Message-State: AOJu0Yw1HXwtl5iuhtKT3oHd1eF/ped2qxsKGwaXCQGePmWd36Kmktof
- UiLcBq6eMaSYrOtVG8KPlrgs5Dozw3iDrDnuC1Q7bGCY5CqkxTZgRbkzIjsYdCU=
-X-Gm-Gg: ATEYQzy86PUIHH3uY4HjJuOTG/ApKocca9PVrAFZxmYYLjGPRTR1elPYmiz7PPDojoR
- AybGZqs+GmWH99hbDBvKufGnsmxsTHquRGOaxEvfEsvv6o51/4rL4fq1W1o5Iku6RsH0ttlpVxc
- QSmCRMjVTW1m05zgpMoCQHyag4szBWb0epaMIgviFk4u8mmCWJPqFPogG8GmW2K+YmYH/AWH/dO
- SgF3jwyvNK5Fn5nLWpCAc2zzu8YFVRHJuGVip+wm/UoqZmw/iM7FOfaGoI/WAOkq+VNznd8jiY4
- MQnX8wtCJigFR+2BFQhQwzgbXR9rj6YAVSctVyBeIBSDU/GrGx3NNjExT2I5q5l+GBVm9ubDdgw
- sJMCRy+0a0OKhZ1o9o4EE1aKjxJb5WsYcK/BmU6cwWpOa5bva8SZycnn1V2PwXKMQWBuZiaJXb8
- iktZOhKMS1vpyPMbX0/w==
-X-Received: by 2002:a17:902:f681:b0:2aa:dad4:dfa2 with SMTP id
- d9443c01a7336-2ae60d54590mr23735285ad.18.1772544770603; 
- Tue, 03 Mar 2026 05:32:50 -0800 (PST)
+ bh=GR4NLaeKTTO3kA+1PyEuftDX9rO8loLhABPurzHOECo=;
+ b=cp+1MEDj3/iK1vjhD6Lq/YWNPn6VG4Z7psfbWqvQlhhJStYzQj+cUVySgm68SGWhG6
+ RdNE5r6kVV22bo++0OjQl8DktbZSl7WRx59kyNdLhyQok12PjeEBNZdjweKeJGAVGS7y
+ uJTNEy3qW69+XtjI+JPebHaoqQbc2HXC3LD/1x+DAfyCRoIVXSjsUe9T6QnTDcDEZpY5
+ Qa+Qo8fBx+fuSNyg71iHfSN7OjdzY3taCW6vJXFP8HM99MlKkAQCswBHP2atR2t/FJI9
+ OS7n8NPGpIgyhKXb3jJW0GBSyl0E4G7yAgo5jlbvZCQFNiPF3GOAMmOQa7J9TfWo9s8z
+ IO6Q==
+X-Gm-Message-State: AOJu0YwJiytFAuUz6z3m4O4Lh5J3b7CKl5ixqda+EOAkpocEdQIpd9d+
+ nWoq9/iHmDCRVAn3x2doBEOkMnfFn+W/8BFO/hCF82wSddEHmkHUeZzfUSfciVs=
+X-Gm-Gg: ATEYQzymBLmNxhT03Pm6Ecwt40yVvBOigYEWRHuuPtIp3WZLAgBCJMfKDy9CLdWbQz+
+ e9RsoxsDntvKaAfzeN2uuozvDcNT+alX3M2RQNe4XKGc2cTBY7LKv7rzqcmisNjsyCmhos4BV+r
+ qVGV1DuCOMtc61RKo75NqkvLDrs2qrxbC1maIGLBf2dHqKDlqWLKfM9z7VYvMFOtLm6BMAw+1Y9
+ crkQlxX570oTS20xDuCRg471ap1vKHCTDxcYfhyGi2e2Pztao8VvpYbihqLhLsrhyGXadvlV911
+ DNN7CZIt0P6H1NLkGPpyDdeltzu0ps0yj/GjRNJioIftfoQVLoqzTxR3mG4CPBRgAcCXpDKJgBr
+ BULNJ1IMMTOFxve66dc2Z1oeA1dsZV0xFU4RbeAxZ0FSz1ItcHq/+PDcwBzOqEt+hGYEznKkTKP
+ AS6OPm8Ddu2DuIgMjUvA==
+X-Received: by 2002:a17:903:1a4d:b0:2ae:5e23:1fa6 with SMTP id
+ d9443c01a7336-2ae5e2320dcmr32480805ad.27.1772544772634; 
+ Tue, 03 Mar 2026 05:32:52 -0800 (PST)
 Received: from JS.lan ([171.3.84.26]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2adfb69f9c2sm174400575ad.51.2026.03.03.05.32.48
+ d9443c01a7336-2adfb69f9c2sm174400575ad.51.2026.03.03.05.32.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Mar 2026 05:32:49 -0800 (PST)
+ Tue, 03 Mar 2026 05:32:52 -0800 (PST)
 From: Jinseok Kim <always.starving0@gmail.com>
 To: ltp@lists.linux.it,
 	andrea.cervesato@suse.com
-Date: Tue,  3 Mar 2026 22:32:36 +0900
-Message-ID: <20260303133243.66845-1-always.starving0@gmail.com>
+Date: Tue,  3 Mar 2026 22:32:37 +0900
+Message-ID: <20260303133243.66845-2-always.starving0@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <DGP0CG3J3QK9.1M9KCELAS054F@suse.com>
+In-Reply-To: <20260303133243.66845-1-always.starving0@gmail.com>
 References: <DGP0CG3J3QK9.1M9KCELAS054F@suse.com>
+ <20260303133243.66845-1-always.starving0@gmail.com>
 MIME-Version: 1.0
 X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
  SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4 1/2] open: remove O_DIRECTORY case (move to fstat
- test)
+Subject: [LTP] [PATCH v4 2/2] fstat: add test for multiple file types using
+ fstat
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,113 +102,196 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
-X-Rspamd-Queue-Id: A81F01F04EB
+X-Rspamd-Queue-Id: 584411F050B
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.59 / 15.00];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+a];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_NONE(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
 	FROM_NEQ_ENVFROM(0.00)[alwaysstarving0@gmail.com,ltp-bounces@lists.linux.it];
-	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
-	TO_DN_NONE(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.996];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.997];
 	TAGGED_RCPT(0.00)[linux-ltp];
-	ARC_NA(0.00)[]
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url,picard.linux.it:rdns,picard.linux.it:helo]
 X-Rspamd-Action: no action
 
-The O_DIRECTORY test case was mostly verifying fstat() behavior on an
-existing directory rather than testing any specific open() behavior.
-
-Following review suggestion, remove it from open01.c. A separate fstat
-test will be added in a follow-up patch to cover file type checks
-(S_ISDIR, etc.) more comprehensively.
+Following review feedback, create a dedicated fstat test that verifies
+S_ISREG(), S_ISDIR(), S_ISFIFO(), S_ISLNK(), S_ISCHR(), S_ISBLK()
+on different file types.
 
 Signed-off-by: Jinseok Kim <always.starving0@gmail.com>
 ---
- testcases/kernel/syscalls/open/open01.c | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
+ runtest/syscalls                           |   2 +
+ testcases/kernel/syscalls/fstat/.gitignore |   2 +
+ testcases/kernel/syscalls/fstat/fstat04.c  | 119 +++++++++++++++++++++
+ 3 files changed, 123 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/fstat/fstat04.c
 
-diff --git a/testcases/kernel/syscalls/open/open01.c b/testcases/kernel/syscalls/open/open01.c
-index baf73ab11..3ae1b269b 100644
---- a/testcases/kernel/syscalls/open/open01.c
-+++ b/testcases/kernel/syscalls/open/open01.c
-@@ -8,16 +8,12 @@
- /*
-  * DESCRIPTION
-  *	Open a file with oflag = O_CREAT set, does it set the sticky bit off?
-- *	Open a dir with O_DIRECTORY, does it set the S_IFDIR bit on?
-  *
-  * ALGORITHM
-  *	1. open a new file with O_CREAT, fstat.st_mode should not have the
-  *	   01000 bit on. In Linux, the save text bit is *NOT* cleared.
-- *	2. open a new dir with O_DIRECTORY, fstat.st_mode should have the
-- *	   040000 bit on.
-  */
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 05bb3ceb1..5b34e6bdc 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -435,6 +435,8 @@ fstat02 fstat02
+ fstat02_64 fstat02_64
+ fstat03 fstat03
+ fstat03_64 fstat03_64
++fstat04 fstat04
++fstat04_64 fstat04_64
 
--#define _GNU_SOURCE		/* for O_DIRECTORY */
- #include <sys/types.h>
- #include <sys/stat.h>
- #include <fcntl.h>
-@@ -25,7 +21,6 @@
- #include "tst_test.h"
-
- #define TEST_FILE	"testfile"
--#define TEST_DIR	"testdir"
-
- static int fd;
-
-@@ -37,7 +32,6 @@ static struct tcase {
- 	char *desc;
- } tcases[] = {
- 	{TEST_FILE, O_RDWR | O_CREAT, 01444, S_ISVTX, "sticky bit"},
--	{TEST_DIR, O_DIRECTORY, 0, S_IFDIR, "sirectory bit"}
- };
-
- static void verify_open(unsigned int n)
-@@ -46,7 +40,7 @@ static void verify_open(unsigned int n)
- 	struct stat buf;
-
- 	TST_EXP_FD_SILENT(open(tc->filename, tc->flag, tc->mode),
--	           "open() with %s", tc->desc);
-+				"open() with %s", tc->desc);
- 	if (!TST_PASS)
- 		return;
-
-@@ -63,11 +57,6 @@ static void verify_open(unsigned int n)
- 		SAFE_UNLINK(tc->filename);
- }
-
--static void setup(void)
--{
--	SAFE_MKDIR(TEST_DIR, 0755);
--}
--
- static void cleanup(void)
- {
- 	if (fd > 0)
-@@ -77,7 +66,6 @@ static void cleanup(void)
- static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.needs_tmpdir = 1,
--	.setup = setup,
- 	.cleanup = cleanup,
- 	.test = verify_open,
- };
+ #fstatat64/newfstatat test cases
+ fstatat01 fstatat01
+diff --git a/testcases/kernel/syscalls/fstat/.gitignore b/testcases/kernel/syscalls/fstat/.gitignore
+index 9b1089438..a1f538f7e 100644
+--- a/testcases/kernel/syscalls/fstat/.gitignore
++++ b/testcases/kernel/syscalls/fstat/.gitignore
+@@ -2,3 +2,5 @@
+ /fstat02_64
+ /fstat03
+ /fstat03_64
++/fstat04
++/fstat04_64
+diff --git a/testcases/kernel/syscalls/fstat/fstat04.c b/testcases/kernel/syscalls/fstat/fstat04.c
+new file mode 100644
+index 000000000..a7f2302f6
+--- /dev/null
++++ b/testcases/kernel/syscalls/fstat/fstat04.c
+@@ -0,0 +1,119 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2026 Jinseok Kim <always.starving0@gmail.com>
++ */
++/*\
++ * Verify that fstat correctly identifies various file types
++ */
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <sys/sysmacros.h>
++#include "tst_test.h"
++
++#define REG_FILE    "regfile"
++#define DIR_FILE    "dirfile"
++#define FIFO_FILE   "fifofile"
++#define SYMLINK     "symlink"
++#define CHR_DEV     "chrdev"
++#define BLK_DEV     "blkdev"
++
++static struct tcase {
++	const char *desc;
++	const char *path;
++	mode_t exp_type;
++} tcases[] = {
++	{ "S_IFREG",	REG_FILE,	S_IFREG },
++	{ "S_IFDIR",	DIR_FILE,	S_IFDIR },
++	{ "S_IFIFO",	FIFO_FILE,	S_IFIFO },
++	{ "S_IFLNK",	SYMLINK,	S_IFLNK },
++	{ "S_IFCHR",	CHR_DEV,	S_IFCHR },
++	{ "S_IFBLK",	BLK_DEV,	S_IFBLK },
++};
++
++static void verify_fstat(unsigned int i)
++{
++	struct tcase *tc = &tcases[i];
++	struct stat buf;
++
++	int flags = O_RDONLY | O_NONBLOCK;
++
++	if (tc->exp_type == S_IFDIR)
++		flags |= O_DIRECTORY;
++
++	int fd = open(tc->path, flags);
++
++	if (fd < 0) {
++		tst_res(TCONF | TERRNO, "cannot open %s, skipping", tc->desc);
++		return;
++	}
++
++	SAFE_FSTAT(fd, &buf);
++	SAFE_CLOSE(fd);
++
++	switch (tc->exp_type) {
++	case S_IFREG:
++		TST_EXP_EXPR(S_ISREG(buf.st_mode), "%s macro matches", tc->desc);
++		break;
++	case S_IFDIR:
++		TST_EXP_EXPR(S_ISDIR(buf.st_mode), "%s macro matches", tc->desc);
++		break;
++	case S_IFIFO:
++		TST_EXP_EXPR(S_ISFIFO(buf.st_mode), "%s macro matches", tc->desc);
++		break;
++	case S_IFLNK:
++		tst_res(TCONF, "Symbolic Link not available in this environment");
++		break;
++	case S_IFCHR:
++		TST_EXP_EXPR(S_ISCHR(buf.st_mode), "%s macro matches", tc->desc);
++		break;
++	case S_IFBLK:
++		if (S_ISBLK(buf.st_mode))
++			tst_res(TPASS, "%s macro matches", tc->desc);
++		else
++			tst_res(TCONF, "Block device not available in this environment");
++		break;
++	}
++}
++
++static void setup(void)
++{
++	SAFE_TOUCH(REG_FILE, 0644, NULL);
++
++	SAFE_MKDIR(DIR_FILE, 0755);
++	SAFE_SYMLINK(REG_FILE, SYMLINK);
++
++	SAFE_MKNOD(FIFO_FILE, S_IFIFO | 0777, 0);
++	SAFE_MKNOD(CHR_DEV, S_IFCHR | 0777, makedev(1, 3));
++	SAFE_MKNOD(BLK_DEV, S_IFBLK | 0777, makedev(7, 3));
++}
++
++static void cleanup(void)
++{
++	if (!access(SYMLINK, F_OK))
++		SAFE_UNLINK(SYMLINK);
++
++	if (!access(REG_FILE, F_OK))
++		SAFE_UNLINK(REG_FILE);
++
++	if (!access(DIR_FILE,  F_OK))
++		SAFE_RMDIR(DIR_FILE);
++
++	if (!access(FIFO_FILE, F_OK))
++		SAFE_UNLINK(FIFO_FILE);
++
++	if (!access(CHR_DEV, F_OK))
++		SAFE_UNLINK(CHR_DEV);
++
++	if (!access(BLK_DEV, F_OK))
++		SAFE_UNLINK(BLK_DEV);
++}
++
++static struct tst_test test = {
++	.tcnt = ARRAY_SIZE(tcases),
++	.setup = setup,
++	.cleanup = cleanup,
++	.test = verify_fstat,
++	.needs_tmpdir = 1,
++	.needs_root = 1,
++};
++
 --
 2.43.0
 
