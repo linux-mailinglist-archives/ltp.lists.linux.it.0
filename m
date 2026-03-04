@@ -2,108 +2,111 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2N0GJS4zqGl2pwAAu9opvQ
+	id 8BdPOkozqGl2pwAAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Wed, 04 Mar 2026 14:27:10 +0100
+	for <lists+linux-ltp@lfdr.de>; Wed, 04 Mar 2026 14:27:38 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D033200654
-	for <lists+linux-ltp@lfdr.de>; Wed, 04 Mar 2026 14:27:09 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 95BE7200683
+	for <lists+linux-ltp@lfdr.de>; Wed, 04 Mar 2026 14:27:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A4E513DB426
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2026 14:27:09 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 336063DB1FD
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2026 14:27:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BAF4E3DB4AE
- for <ltp@lists.linux.it>; Wed,  4 Mar 2026 14:26:00 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id E7A693DB2CD
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2026 14:26:04 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
  [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D6112600AFC
- for <ltp@lists.linux.it>; Wed,  4 Mar 2026 14:25:59 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 380E36002DE
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2026 14:26:04 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 280B73F848;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5DCE43F859;
  Wed,  4 Mar 2026 13:25:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1772630755; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bLYGKC9XcgcCvCU7SembhihsVHoDOzKLiMiiS6g6E1k=;
- b=S38ypbS1IZA7W5Qa2rF5hm7rBwmpVmk2APSZWj1CFyKnTSywyo/h3k4LDYTYvfrQUvU10G
- YK6UDyx3CkDW2VkYjKic2HoKul9+vPWWWI9RnUKNwc21Zm79vGGrXAC4pPBrqo1lyLz1T3
- x80CfKozXLqYIw36PpdOcVC2MCnpJeE=
+ bh=bEfy+S8pOBDigYgHcr4GWaujjFJTNmBIwZfBp2S0rTQ=;
+ b=ETEqwUePkOUiV3liR2aByRdFGjUw4NdgBxpzV1pa76263wk3H0QRvY0j2hVLSc4xuhRzcH
+ QyfWywBnZ+HHyYd4NtmCBkUFyaWnuJfEdY9VHsS3ru1BcVJ03HjsY1Lbzzl5u8DtSnbA6G
+ wixqlKsa/VypUjmsis7TpZDBdtOIWyU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1772630755;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bLYGKC9XcgcCvCU7SembhihsVHoDOzKLiMiiS6g6E1k=;
- b=KaPaQ9Rzqow+eX3y0vcwn2cBRkYlgvOhuYHEzWYJDosqk07TvzBZzilVcj+xAwvStF+NsT
- vF15yuPS6nt+sKCA==
+ bh=bEfy+S8pOBDigYgHcr4GWaujjFJTNmBIwZfBp2S0rTQ=;
+ b=Au4x38aczqW8MW/NxY+IXdTIKamwIbNh4s3dYLKTnCvK+JdJ4mATFiCfVfsr2mr2H/7WZm
+ NPA7CQQ2Jr9bxUBA==
 Authentication-Results: smtp-out1.suse.de;
-	none
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ETEqwUeP;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Au4x38ac
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1772630755; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bLYGKC9XcgcCvCU7SembhihsVHoDOzKLiMiiS6g6E1k=;
- b=S38ypbS1IZA7W5Qa2rF5hm7rBwmpVmk2APSZWj1CFyKnTSywyo/h3k4LDYTYvfrQUvU10G
- YK6UDyx3CkDW2VkYjKic2HoKul9+vPWWWI9RnUKNwc21Zm79vGGrXAC4pPBrqo1lyLz1T3
- x80CfKozXLqYIw36PpdOcVC2MCnpJeE=
+ bh=bEfy+S8pOBDigYgHcr4GWaujjFJTNmBIwZfBp2S0rTQ=;
+ b=ETEqwUePkOUiV3liR2aByRdFGjUw4NdgBxpzV1pa76263wk3H0QRvY0j2hVLSc4xuhRzcH
+ QyfWywBnZ+HHyYd4NtmCBkUFyaWnuJfEdY9VHsS3ru1BcVJ03HjsY1Lbzzl5u8DtSnbA6G
+ wixqlKsa/VypUjmsis7TpZDBdtOIWyU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1772630755;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bLYGKC9XcgcCvCU7SembhihsVHoDOzKLiMiiS6g6E1k=;
- b=KaPaQ9Rzqow+eX3y0vcwn2cBRkYlgvOhuYHEzWYJDosqk07TvzBZzilVcj+xAwvStF+NsT
- vF15yuPS6nt+sKCA==
+ bh=bEfy+S8pOBDigYgHcr4GWaujjFJTNmBIwZfBp2S0rTQ=;
+ b=Au4x38aczqW8MW/NxY+IXdTIKamwIbNh4s3dYLKTnCvK+JdJ4mATFiCfVfsr2mr2H/7WZm
+ NPA7CQQ2Jr9bxUBA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F38963EA69;
- Wed,  4 Mar 2026 13:25:54 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 34DE93EA6C;
+ Wed,  4 Mar 2026 13:25:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id mPZVOeIyqGlBTgAAD6G6ig
- (envelope-from <andrea.cervesato@suse.de>); Wed, 04 Mar 2026 13:25:54 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id QCTSCuMyqGlBTgAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Wed, 04 Mar 2026 13:25:55 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
-Date: Wed, 04 Mar 2026 14:25:42 +0100
+Date: Wed, 04 Mar 2026 14:25:43 +0100
 MIME-Version: 1.0
-Message-Id: <20260304-stream_refactoring-v2-4-3e48ada8ff1a@suse.com>
+Message-Id: <20260304-stream_refactoring-v2-5-3e48ada8ff1a@suse.com>
 References: <20260304-stream_refactoring-v2-0-3e48ada8ff1a@suse.com>
 In-Reply-To: <20260304-stream_refactoring-v2-0-3e48ada8ff1a@suse.com>
 To: Linux Test Project <ltp@lists.linux.it>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1772630754; l=9806;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1772630754; l=5649;
  i=andrea.cervesato@suse.com; s=20251210; h=from:subject:message-id;
- bh=IBsYqZkHI73guZesUqB7FSfiVuOmIy3eCmB6zQd52gY=;
- b=dXPkaAHvseO79PbAxRctUknlywUqoXvkCn0R+o4se92tSG0Rtz3jXVm6z0tH4OQWgti9Ptin7
- OB8xNCrUl8EDfl/3hTaIuNNfpD5pDU88Fi3IgU+UK1tnRal9Vb2jMWO
+ bh=mZ07EP3ekQ3jRSN65SnG8TCwNcO8TqMteiOcUhVfM28=;
+ b=xSFEsCvFpqWGBjtt2yD0H4Hr4dLuENp/8Eh5FDkI1kbjg/pSusIc3YSEe1wp1d5yKvGLaGxHB
+ L+hlH+z2amuCgO7gCkaT38prpow86fFHpdwXJJqH9/e3OCcTJS2Dj5P
 X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
  pk=zKY+6GCauOiuHNZ//d8PQ/UL4jFCTKbXrzXAOQSLevI=
-X-Spam-Score: -4.30
+X-Spam-Score: -4.51
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,DMARC_PASS,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 4/6] fs: rewrite stream03 test using new API
+Subject: [LTP] [PATCH v2 5/6] fs: rewrite stream04 test using new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,7 +122,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
-X-Rspamd-Queue-Id: 3D033200654
+X-Rspamd-Queue-Id: 95BE7200683
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.59 / 15.00];
 	R_DKIM_REJECT(1.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
@@ -132,8 +135,8 @@ X-Spamd-Result: default: False [0.59 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	NEURAL_SPAM(0.00)[0.189];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	NEURAL_SPAM(0.00)[0.194];
 	RCPT_COUNT_ONE(0.00)[1];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:mid,suse.com:email,linux.it:url,picard.linux.it:rdns,picard.linux.it:helo];
@@ -152,18 +155,18 @@ From: Andrea Cervesato <andrea.cervesato@suse.com>
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/fs/stream/stream03.c | 326 ++++++----------------------------
- 1 file changed, 50 insertions(+), 276 deletions(-)
+ testcases/kernel/fs/stream/stream04.c | 147 +++++++++-------------------------
+ 1 file changed, 40 insertions(+), 107 deletions(-)
 
-diff --git a/testcases/kernel/fs/stream/stream03.c b/testcases/kernel/fs/stream/stream03.c
-index 31715f740a070d01aec1087981e092b361e656da..24928c5e1a15cc4a5b17b22bcfb907519ed9b4e4 100644
---- a/testcases/kernel/fs/stream/stream03.c
-+++ b/testcases/kernel/fs/stream/stream03.c
-@@ -1,297 +1,71 @@
+diff --git a/testcases/kernel/fs/stream/stream04.c b/testcases/kernel/fs/stream/stream04.c
+index 3dc679151a6a81aab8c713605c258fae2c2b3adf..560792f062f3bbb0fcb9164ffd9095803fe6c4fe 100644
+--- a/testcases/kernel/fs/stream/stream04.c
++++ b/testcases/kernel/fs/stream/stream04.c
+@@ -1,124 +1,57 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
 + * Copyright (c) International Business Machines  Corp., 2002
-+ *	ported from SPIE, section2/filesuite/stream3.c, by Airong Zhang
++ *	ported from SPIE, section2/filesuite/stream4.c, by Airong Zhang
   *
 - *   Copyright (c) International Business Machines  Corp., 2002
 - *
@@ -183,327 +186,144 @@ index 31715f740a070d01aec1087981e092b361e656da..24928c5e1a15cc4a5b17b22bcfb90751
 + * Copyright (c) 2026 Andrea Cervesato <andrea.cervesato@suse.com>
   */
  
--/* ported from SPIE, section2/filesuite/stream3.c, by Airong Zhang */
+-/* Ported from SPIE, section2/iosuite/stream4.c, by Airong Zhang */
 -
 -/*======================================================================
 -	=================== TESTPLAN SEGMENT ===================
-->KEYS:  < fseek() ftell()
-->WHAT:  < 1) Ensure ftell reports the correct current byte offset.
-->HOW:   < 1) Open a file, write to it, reposition the file pointer and
--	     check it.
+->KEYS:  < fwrite() fread()
+->WHAT:  < 1) Ensure fwrite appends data to stream.
+-	< 2) Ensure fread and fwrite return values are valid.
+->HOW:   < 1) Open a file, write to it, and then check it.
+-	< 2) Fwrite a know quanity, check return value.
+-	<    Fread a know quanity, check return value.
 ->BUGS:  <
 -======================================================================*/
--#define _XOPEN_SOURCE 500
+-
 -#include <stdio.h>
 -#include <errno.h>
 -#include <fcntl.h>
 -#include <sys/types.h>
 -#include <sys/stat.h>
--#include <inttypes.h>
 -#include "test.h"
-+/*\
-+ * Verify that `ftell()` reports the correct current byte offset after
-+ * moving it.
-+ */
- 
--char *TCID = "stream03";
+-
+-char *TCID = "stream04";
 -int TST_TOTAL = 1;
 -int local_flag;
-+#include "tst_test.h"
-+#include "tst_rand_data.h"
-+#include "tst_safe_stdio.h"
++/*\
++ * Ensure that `fwrite()` is appending data to stream and `fread()`
++ * `fwrite()` are returning the right data.
++ */
  
 -#define PASSED 1
 -#define FAILED 0
-+#define FILENAME "ltp_file"
-+#define DATASIZE 30
-+#define BUFFSIZE 10
++#include "tst_test.h"
++#include "tst_safe_stdio.h"
  
--char progname[] = "stream03()";
+-char progname[] = "stream04()";
 -char tempfile1[40] = "";
+-long ftell();
++#define FILENAME "ltp_file"
++#define DATA "abcdefghijklmnopqrstuvwxyz"
++#define DATASIZE sizeof(DATA)
+ 
+-/* XXX: add setup and cleanup */
 +static char *data;
 +static char *buff;
  
+-/*--------------------------------------------------------------------*/
 -int main(int ac, char *av[])
 +static void run(void)
  {
  	FILE *stream;
--	char buf[30];
 -	char *junk = "abcdefghijklmnopqrstuvwxyz";
--	long pos;
--	off_t opos;
+-	char *inbuf;
+-	int ret;
+ 
 -	int lc;
--
++	memset(buff, 0, DATASIZE);
+ 
 -	/*
 -	 * parse standard options
 -	 */
 -	tst_parse_opts(ac, av, NULL, NULL);
--
--	local_flag = PASSED;
 -	tst_tmpdir();
--
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
--		sprintf(tempfile1, "stream03.%d", getpid());
--	/*--------------------------------------------------------------------*/
--		//block0:
--
--		if ((stream = fopen(tempfile1, "a+")) == NULL) {
--			tst_brkm(TBROK, NULL, "fopen(%s) a+ failed: %s",
--				 tempfile1,
--				 strerror(errno));
--		}
--
--		/* make sure offset of zero at start */
--		pos = ftell(stream);
--
--		if (pos != 0) {
--			tst_resm(TFAIL, "file pointer descrepancy 1");
--			local_flag = FAILED;
--		}
--
--		/* write something and check */
--		if (fwrite(junk, sizeof(*junk), strlen(junk), stream) == 0) {
--			tst_brkm(TFAIL, NULL, "fwrite failed: %s",
--				 strerror(errno));
--		}
--
--		pos = ftell(stream);
--
--		if (pos != strlen(junk)) {
--			tst_resm(TFAIL,
--				 "strlen(junk)=%zi: file pointer descrepancy 2 (pos=%li)",
--				 strlen(junk), pos);
--			local_flag = FAILED;
--		}
--
--		/* rewind and check */
--		rewind(stream);
--		pos = ftell(stream);
--
--		if (pos != 0) {
--			tst_resm(TFAIL,
--				 "file pointer descrepancy 3 (pos=%li, wanted pos=0)",
--				 pos);
--			local_flag = FAILED;
--		}
--
--		/* seek from current position and then check */
--		if (fseek(stream, strlen(junk), 1) != 0) {
--			tst_brkm(TFAIL, NULL, "fseek failed: %s",
--				 strerror(errno));
--		}
--
--		pos = ftell(stream);
--
--		if (pos != strlen(junk)) {
--			tst_resm(TFAIL,
--				 "strlen(junk)=%zi: file pointer descrepancy 4 (pos=%li)",
--				 strlen(junk), pos);
--			local_flag = FAILED;
--		}
--
--		/* seek from end of file and then check */
--		if (fseek(stream, 0, 2) != 0) {
--			tst_brkm(TFAIL, NULL, "fseek failed: %s",
--				 strerror(errno));
--		}
--
--		pos = ftell(stream);
--
--		if (pos != strlen(junk)) {
--			tst_resm(TFAIL,
--				 "strlen(junk)=%zi: file pointer descrepancy 5 (pos=%li)",
--				 strlen(junk), pos);
--			local_flag = FAILED;
--		}
--
--		/* rewind with seek and then check */
--		if (fseek(stream, 0, 0) != 0) {
--			tst_brkm(TFAIL, NULL, "fseek failed: %s",
--				 strerror(errno));
--		}
- 
--		pos = ftell(stream);
-+	memset(buff, 0, BUFFSIZE);
- 
--		if (pos != 0) {
--			tst_resm(TFAIL,
--				 "file pointer descrepancy 6 (pos=%li, wanted pos=0)",
--				 pos);
--			local_flag = FAILED;
--		}
 +	stream = SAFE_FOPEN(FILENAME, "a+");
-+	TST_EXP_EQ_LI(SAFE_FTELL(stream), 0);
- 
--		/* read till EOF, do getc and then check ftell */
--		while (fgets(buf, sizeof(buf), stream)) ;
--		pos = ftell(stream);
--		getc(stream);
--		pos = ftell(stream);
-+	SAFE_FWRITE(data, 1, DATASIZE, stream);
-+	TST_EXP_EQ_LI(SAFE_FTELL(stream), DATASIZE);
- 
--		if (pos != strlen(junk)) {
--			tst_resm(TFAIL,
--				 "strlen(junk)=%zi: file pointer descrepancy 7 (pos=%li)",
--				 strlen(junk), pos);
--			local_flag = FAILED;
--		}
-+	rewind(stream);
-+	TST_EXP_EQ_LI(SAFE_FTELL(stream), SEEK_SET);
- 
--		fclose(stream);
-+	SAFE_FSEEK(stream, 10, SEEK_CUR);
-+	TST_EXP_EQ_LI(SAFE_FTELL(stream), 10);
- 
--		if (local_flag == PASSED) {
--			tst_resm(TPASS, "Test passed in block0.");
--		} else {
--			tst_resm(TFAIL, "Test failed in block0.");
--		}
-+	SAFE_FSEEK(stream, 0, SEEK_END);
-+	TST_EXP_EQ_LI(SAFE_FTELL(stream), DATASIZE);
++	TST_EXP_EQ_LI(fwrite(data, 1, DATASIZE, stream), DATASIZE);
++	SAFE_FCLOSE(stream);
  
 -		local_flag = PASSED;
-+	SAFE_FSEEK(stream, 0, SEEK_SET);
-+	TST_EXP_EQ_LI(SAFE_FTELL(stream), 0);
- 
--		unlink(tempfile1);
--	/*--------------------------------------------------------------------*/
--		//block1:
--		if ((stream = fopen(tempfile1, "a+")) == NULL) {
--			tst_brkm(TFAIL, NULL, "fopen(%s) a+ failed: %s",
--				 tempfile1,
--				 strerror(errno));
--		}
-+	while (fgets(buff, BUFFSIZE, stream))
-+		;
-+	TST_EXP_EQ_LI(SAFE_FTELL(stream), DATASIZE);
- 
--		/* make sure offset of zero at start */
--		opos = ftello(stream);
--
--		if (opos != 0) {
--			tst_resm(TFAIL,
--				 "file pointer descrepancy 1 (opos=%" PRId64
--				 ", wanted opos=0)", (int64_t) opos);
--			local_flag = FAILED;
--		}
--
--		/* write something and check */
--		if (fwrite(junk, sizeof(*junk), strlen(junk), stream) == 0) {
--			tst_brkm(TFAIL, NULL, "fwrite failed: %s",
--				 strerror(errno));
--		}
--
--		opos = ftello(stream);
--
--		if (opos != strlen(junk)) {
--			tst_resm(TFAIL,
--				 "strlen(junk)=%zi: file pointer descrepancy 2 (opos=%"
--				 PRId64 ")", strlen(junk), (int64_t) opos);
--			local_flag = FAILED;
--		}
--
--		/* rewind and check */
--		rewind(stream);
--		opos = ftello(stream);
--
--		if (opos != 0) {
--			tst_resm(TFAIL,
--				 "file pointer descrepancy 3 (opos=%" PRId64
--				 ", wanted opos=0)", (int64_t) opos);
--			local_flag = FAILED;
--		}
--
--		/* seek from current position and then check */
--		if (fseeko(stream, strlen(junk), 1) != 0) {
--			tst_brkm(TFAIL, NULL, "fseeko failed: %s",
--				 strerror(errno));
--		}
--
--		opos = ftello(stream);
--
--		if (opos != strlen(junk)) {
--			tst_resm(TFAIL,
--				 "strlen(junk)=%zi: file pointer descrepancy 4 (opos=%"
--				 PRId64 ")", strlen(junk), (int64_t) opos);
--			local_flag = FAILED;
--		}
--
--		/* seek from end of file and then check */
--		if (fseeko(stream, 0, 2) != 0) {
--			tst_brkm(TFAIL, NULL, "fseeko failed: %s",
--				 strerror(errno));
--		}
--
--		opos = ftello(stream);
--
--		if (opos != strlen(junk)) {
--			tst_resm(TFAIL,
--				 "strlen(junk)=%zi: file pointer descrepancy 5 (opos=%"
--				 PRId64 ")", strlen(junk), (int64_t) opos);
--			local_flag = FAILED;
--		}
--
--		/* rewind with seek and then check */
--		if (fseeko(stream, 0, 0) != 0) {
--			tst_brkm(TFAIL, NULL, "fseeko failed: %s",
--				 strerror(errno));
--		}
--
--		opos = ftello(stream);
--
--		if (opos != 0) {
--			tst_resm(TFAIL,
--				 "file pointer descrepancy 6 (opos=%" PRId64
--				 ", wanted opos=0)", (int64_t) opos);
--			local_flag = FAILED;
--		}
--
--		/* read till EOF, do getc and then check ftello */
--		while (fgets(buf, sizeof(buf), stream)) ;
--
--		opos = ftello(stream);
--		getc(stream);
--		opos = ftello(stream);
--
--		if (opos != strlen(junk)) {
--			tst_resm(TFAIL,
--				 "strlen(junk)=%zi: file pointer descrepancy 7 (opos=%li)",
--				 strlen(junk), opos);
--			local_flag = FAILED;
--		}
--
--		fclose(stream);
--
--		if (local_flag == PASSED) {
--			tst_resm(TPASS, "Test passed in block1.");
--		} else {
--			tst_resm(TFAIL, "Test failed in block1.");
--		}
--
--		unlink(tempfile1);
--	}
++	stream = SAFE_FOPEN(FILENAME, "r+");
++	TST_EXP_EQ_LI(fread(buff, 1, DATASIZE, stream), DATASIZE);
 +	SAFE_FCLOSE(stream);
+ 
+-		sprintf(tempfile1, "stream04.%d", getpid());
+-	/*--------------------------------------------------------------------*/
+-		//block0:
+-		if ((stream = fopen(tempfile1, "a+")) == NULL) {
+-			tst_brkm(TFAIL | TERRNO, tst_rmdir, "fopen(%s) a+ failed",
+-				 tempfile1);
+-		}
+-		/* write something and check */
+-		if ((ret =
+-		     fwrite(junk, sizeof(*junk), strlen(junk), stream)) == 0) {
+-			tst_brkm(TFAIL, tst_rmdir, "fwrite failed: %s",
+-				 strerror(errno));
+-		}
 +	SAFE_UNLINK(FILENAME);
+ 
+-		if ((size_t) ret != strlen(junk)) {
+-			tst_resm(TFAIL,
+-				 "strlen(junk) = %zi != return value from fwrite = %zi",
+-				 strlen(junk), ret);
+-			local_flag = FAILED;
+-		}
++	TST_EXP_EQ_STRN(data, buff, DATASIZE);
 +}
  
+-		fclose(stream);
+-		if ((stream = fopen(tempfile1, "r+")) == NULL) {
+-			tst_brkm(TFAIL, tst_rmdir, "fopen(%s) r+ failed: %s", tempfile1,
+-				 strerror(errno));
+-		}
+-		if ((inbuf = malloc(strlen(junk))) == 0) {
+-			tst_brkm(TBROK, tst_rmdir, "test failed because of malloc: %s",
+-				 strerror(errno));
+-		}
+-		if ((ret =
+-		     fread(inbuf, sizeof(*junk), strlen(junk), stream)) == 0) {
+-			tst_brkm(TFAIL, tst_rmdir, "fread failed: %s",
+-				 strerror(errno));
+-		}
+-		if ((size_t) ret != strlen(junk)) {
+-			tst_resm(TFAIL,
+-				 "strlen(junk) = %zi != return value from fread = %zi",
+-				 strlen(junk), ret);
+-			local_flag = FAILED;
+-		}
+-		fclose(stream);
+-		if (local_flag == PASSED) {
+-			tst_resm(TPASS, "Test passed.");
+-		} else {
+-			tst_resm(TFAIL, "Test failed.");
+-		}
+-	/*--------------------------------------------------------------------*/
+-		unlink(tempfile1);
+-	}			/* end for */
 -	tst_rmdir();
 -	tst_exit();
 +static void setup(void)
 +{
-+	memcpy(data, tst_rand_data, DATASIZE);
++	memcpy(data, DATA, DATASIZE);
  }
 +
 +static struct tst_test test = {
 +	.test_all = run,
 +	.setup = setup,
 +	.needs_tmpdir = 1,
-+	.bufs = (struct tst_buffers[]) {
++	.bufs = (struct tst_buffers []) {
 +		{&data, .size = DATASIZE},
-+		{&buff, .size = BUFFSIZE},
++		{&buff, .size = DATASIZE},
 +		{},
 +	},
 +};
