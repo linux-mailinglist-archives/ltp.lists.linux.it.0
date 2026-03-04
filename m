@@ -2,101 +2,105 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gGwnFNY9qGl6rQAAu9opvQ
+	id yCgfCfg9qGl6rQAAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Wed, 04 Mar 2026 15:12:38 +0100
+	for <lists+linux-ltp@lfdr.de>; Wed, 04 Mar 2026 15:13:12 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF9C7201133
-	for <lists+linux-ltp@lfdr.de>; Wed, 04 Mar 2026 15:12:37 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C37792011A1
+	for <lists+linux-ltp@lfdr.de>; Wed, 04 Mar 2026 15:13:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6B5373DCD30
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2026 15:12:37 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6D4E03DC86E
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2026 15:13:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5A1AC3CD1F8
- for <ltp@lists.linux.it>; Wed,  4 Mar 2026 15:12:28 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 079E63DC86E
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2026 15:12:33 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D9E48600B31
- for <ltp@lists.linux.it>; Wed,  4 Mar 2026 15:12:27 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 57AB52009FA
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2026 15:12:32 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0D2395BD65
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6F30E5BE15
  for <ltp@lists.linux.it>; Wed,  4 Mar 2026 14:12:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1772633547; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KiKRts17DDBpAMTWVvdXlEllrTCGPDo9paX0t94W0Po=;
- b=e15QbsoO3ot2neV4+pCFGTLlyC41/LPZjqEI071zYRyYJ2HBXbUiOjPITL9qYmkmnTwURW
- ASzUsUBCPw5KktoLhRIhDFlwM4nccOgq9enjRWoSb2Cqm90F6oKaDKh2cK+1OcTZFYwlLJ
- LWD7c7c6O9HgOi5U7hjL3kl0xviWgtM=
+ bh=KokNK34COWL19GnoouV/xkPZ1hXqH/koPPMirLcfgps=;
+ b=jhP1lDYEWz2oi+RQHcMHsSJ9L59Wyl6r2xlse8lCx4Rp+ePIV1bL64yRLI7PgbBy3mLnHm
+ cbRZ63+a9GaW626Qi29JOq8xZcz/HDAYFNkB/YfF73pg1EounYZj9ZS1HJ/A5klSIHJzFI
+ 9F/P241EKtb7Wp75j5cNgMNBhFptj1Q=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1772633547;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KiKRts17DDBpAMTWVvdXlEllrTCGPDo9paX0t94W0Po=;
- b=ZdVZNZN/iqo4aAxyi+qz9dAIuw5266CsHLv9R5z9FAV1Sh3TQTiLnbThNkWfb4G5HEsvjK
- UNWGS1rW1xZNxKBg==
+ bh=KokNK34COWL19GnoouV/xkPZ1hXqH/koPPMirLcfgps=;
+ b=+fU3SxTg55yN+ukg/R5UravrNggPKyUrFmI5n23Rft+2MW2ZhZrk54N9fAgseBDFJrgTZX
+ KgwyK53eHXt3ffCA==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=jhP1lDYE;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=+fU3SxTg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1772633547; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KiKRts17DDBpAMTWVvdXlEllrTCGPDo9paX0t94W0Po=;
- b=e15QbsoO3ot2neV4+pCFGTLlyC41/LPZjqEI071zYRyYJ2HBXbUiOjPITL9qYmkmnTwURW
- ASzUsUBCPw5KktoLhRIhDFlwM4nccOgq9enjRWoSb2Cqm90F6oKaDKh2cK+1OcTZFYwlLJ
- LWD7c7c6O9HgOi5U7hjL3kl0xviWgtM=
+ bh=KokNK34COWL19GnoouV/xkPZ1hXqH/koPPMirLcfgps=;
+ b=jhP1lDYEWz2oi+RQHcMHsSJ9L59Wyl6r2xlse8lCx4Rp+ePIV1bL64yRLI7PgbBy3mLnHm
+ cbRZ63+a9GaW626Qi29JOq8xZcz/HDAYFNkB/YfF73pg1EounYZj9ZS1HJ/A5klSIHJzFI
+ 9F/P241EKtb7Wp75j5cNgMNBhFptj1Q=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1772633547;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KiKRts17DDBpAMTWVvdXlEllrTCGPDo9paX0t94W0Po=;
- b=ZdVZNZN/iqo4aAxyi+qz9dAIuw5266CsHLv9R5z9FAV1Sh3TQTiLnbThNkWfb4G5HEsvjK
- UNWGS1rW1xZNxKBg==
+ bh=KokNK34COWL19GnoouV/xkPZ1hXqH/koPPMirLcfgps=;
+ b=+fU3SxTg55yN+ukg/R5UravrNggPKyUrFmI5n23Rft+2MW2ZhZrk54N9fAgseBDFJrgTZX
+ KgwyK53eHXt3ffCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EE1553EA69
- for <ltp@lists.linux.it>; Wed,  4 Mar 2026 14:12:26 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 601B73EA69
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2026 14:12:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id NPTvOMo9qGl1fwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id eQKGFss9qGl3fwAAD6G6ig
  (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Wed, 04 Mar 2026 14:12:26 +0000
+ for <ltp@lists.linux.it>; Wed, 04 Mar 2026 14:12:27 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed,  4 Mar 2026 15:12:34 +0100
-Message-ID: <20260304141236.9080-2-chrubis@suse.cz>
+Date: Wed,  4 Mar 2026 15:12:35 +0100
+Message-ID: <20260304141236.9080-3-chrubis@suse.cz>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260304141236.9080-1-chrubis@suse.cz>
 References: <20260304141236.9080-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Spam-Score: -2.80
+X-Spam-Score: -3.01
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/3] tst_test_macros: Add TST_EXP_LE_LU*()
+Subject: [LTP] [PATCH 2/3] syscalls: sysinfo01: Rewrite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,7 +116,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
-X-Rspamd-Queue-Id: DF9C7201133
+X-Rspamd-Queue-Id: C37792011A1
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.49 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -129,7 +133,7 @@ X-Spamd-Result: default: False [1.49 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	DKIM_TRACE(0.00)[suse.cz:-];
-	NEURAL_SPAM(0.00)[0.344];
+	NEURAL_SPAM(0.00)[0.200];
 	RCPT_COUNT_ONE(0.00)[1];
 	RCVD_COUNT_FIVE(0.00)[6];
 	FROM_NEQ_ENVFROM(0.00)[chrubis@suse.cz,ltp-bounces@lists.linux.it];
@@ -137,73 +141,258 @@ X-Spamd-Result: default: False [1.49 / 15.00];
 	TO_DN_NONE(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-ltp];
-	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url]
+	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url,picard.linux.it:rdns,picard.linux.it:helo]
 X-Rspamd-Action: no action
 
-For less or equal comparsions.
+Rewrite sysinfo01 into a proper syscall test. Now the test asserts that
+the values we get in the sysinfo buffer make sense.
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- include/tst_test_macros.h | 45 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+ testcases/kernel/syscalls/sysinfo/sysinfo01.c | 218 +++++-------------
+ 1 file changed, 59 insertions(+), 159 deletions(-)
 
-diff --git a/include/tst_test_macros.h b/include/tst_test_macros.h
-index ee6599df2..3d2287753 100644
---- a/include/tst_test_macros.h
-+++ b/include/tst_test_macros.h
-@@ -693,6 +693,51 @@ const char *tst_errno_names(char *buf, const int *exp_errs, int exp_errs_cnt);
- 	}                                                                      \
- } while (0)
+diff --git a/testcases/kernel/syscalls/sysinfo/sysinfo01.c b/testcases/kernel/syscalls/sysinfo/sysinfo01.c
+index 2ea44a2be..9e7ff4ad6 100644
+--- a/testcases/kernel/syscalls/sysinfo/sysinfo01.c
++++ b/testcases/kernel/syscalls/sysinfo/sysinfo01.c
+@@ -1,176 +1,76 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- *   Copyright (c) International Business Machines  Corp., 2001
+- *
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ * Copyright (c) International Business Machines  Corp., 2001
++ * Copyright (c) 2026 Cyril Hrubis <chrubis@suse.cz>
+  */
  
-+#define TST_EXP_LE_SILENT_(VAL_A, SVAL_A, VAL_B, SVAL_B, TYPE, PFS) do {       \
-+	TYPE tst_tmp_a__ = VAL_A;                                              \
-+	TYPE tst_tmp_b__ = VAL_B;                                              \
-+                                                                               \
-+	TST_PASS = 0;                                                          \
-+                                                                               \
-+	if (tst_tmp_a__ > tst_tmp_b__) {                                       \
-+		tst_res_(__FILE__, __LINE__, TFAIL,                            \
-+			SVAL_A " (" PFS ") > " SVAL_B " (" PFS ")",            \
-+			tst_tmp_a__, tst_tmp_b__);                             \
-+	} else {                                                               \
-+		TST_PASS = 1;                                                  \
-+	}                                                                      \
-+} while (0)
+-/*
+- * Test Name :	sysinfo01
+- *
+- * Test description
+- *  Verify that sysinfo() succeeds to get the system information and fills
+- *  the structure passed.
+- *
+- * Expected Result :
+- *  sysinfo() returns value 0 on success and the sysinfo structure should
+- *  be filled with the system information.
+- *
+- * Algorithm:
+- *  Setup :
+- *   Setup for signal handling.
+- *   Create temporary directory.
+- *   Pause for SIGUSR1 if option specified.
+- * Test:
+- *  Loop if the proper option is given.
+- *  Execute the system call.
+- *  Check return code, if system call failed (return=-1)
+- *	Log the errno and Issue a FAIL message.
+- *  Otherwise,
+- *	if we are being called by another sysinfo test.
+- *		Print the infomation that was returned for use by the calling
+- *		test.
+- *	otherwise,
+- *		Report success.
+- * Cleanup:
+- *  Print errno log and/or timing stats if options given
+- *  Delete the temporary directory created.
+- *
+- * USAGE:  <for command-line>
+- *	sysinfo01 [-c n] [-i n] [-I x] [-P x] [-t]
+- *	where,  -c n : Run n copies concurrently.
+- *		-i n : Execute test n times.
+- *		-I x : Execute test for x seconds.
+- *		-P x : Pause for x seconds between iterations.
+- *		-t   : Turn on syscall timing.
+- * History
+- *	07/2001 John George
+- *		-Ported
+- *
+- * Restrictions:
+- *  None
+- *
++/*\
++ * Verify that sysinfo() succeeds to get the system information and fills the
++ * structure passed. We do sanity checks on the returned values, either
++ * comparing it againts values from /proc/ files or by checking that the values
++ * are in sane e.g. free RAM <= total RAM.
+  */
+ 
+-#include <stdio.h>
+-#include <errno.h>
+-#include <string.h>
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <sys/signal.h>
++#include <stdlib.h>
++#include <math.h>
+ #include <sys/sysinfo.h>
++#include "tst_test.h"
+ 
+-#include "test.h"
+-
+-void setup();
+-void cleanup();
+-
+-char *TCID = "sysinfo01";
+-int TST_TOTAL = 1;
++static struct sysinfo *sys_buf;
+ 
+-int main(int ac, char **av)
++static void run(void)
+ {
+-	struct sysinfo *sys_buf;
+-	int lc;
+-	float l1, l2, l3;
+-	unsigned long l1_up, l2_up, l3_up;
+-
+-	sys_buf = malloc(sizeof(struct sysinfo));
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();		/* Global setup */
+-
+-	/* The following loop checks looping state if -i option given */
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		/* reset tst_count in case we are looping */
+-		tst_count = 0;
+-
+-		TEST(sysinfo(sys_buf));
+-		/* check return code */
+-		if (TEST_RETURN == -1) {
+-			/* To gather stats on errnos returned, log the errno */
+-			tst_brkm(TFAIL, cleanup, "sysinfo() Failed, errno=%d"
+-				 " : %s", TEST_ERRNO, strerror(TEST_ERRNO));
+-		} else {
+-			/* Test succeeded */
+-
+-			/* This portion of the code generates information
+-			 * used by sysinfo03 to test the functionality of
+-			 * sysinfo.
+-			 */
+-
+-			if (ac == 2 && !strncmp(av[1], "TEST3", 5)) {
+-				tst_resm(TINFO, "Generating info for "
+-					 "sysinfo03");
+-				l1 = sys_buf->loads[0] / 60000.0;
+-				l2 = sys_buf->loads[1] / 60000.0;
+-				l3 = sys_buf->loads[2] / 60000.0;
+-				l1_up = l1 * 100;
+-				l2_up = l2 * 100;
+-				l3_up = l3 * 100;
+-				sys_buf->loads[0] = sys_buf->loads[0] / 10;
+-				sys_buf->loads[1] = sys_buf->loads[1] / 10;
+-				sys_buf->loads[2] = sys_buf->loads[2] / 10;
+-				printf("uptime %lu\n", sys_buf->uptime);
+-				printf("load1 %lu\n", sys_buf->loads[0]);
+-				printf("load2 %lu\n", sys_buf->loads[1]);
+-				printf("load3 %lu\n", sys_buf->loads[2]);
+-				printf("l1 %lu\n", l1_up);
+-				printf("l2 %lu\n", l2_up);
+-				printf("l3 %lu\n", l3_up);
+-				printf("totalram %lu\n", sys_buf->totalram);
+-				printf("freeram  %lu\n", sys_buf->freeram);
+-				printf("sharedram %lu\n", sys_buf->sharedram);
+-				printf("bufferram %lu\n", sys_buf->bufferram);
+-				printf("totalswap %lu\n",
+-				       sys_buf->totalswap / (1024 * 1024));
+-				printf("freeswap %lu\n", sys_buf->freeswap);
+-				printf("procs %lu\n",
+-				       (unsigned long)sys_buf->procs);
+-			} else {
+-				tst_resm(TPASS,
+-					 "Test to check the return code PASSED");
+-			}
+-		}
++	long uptime;
++	float load1, load5, load15;
++	float sys_load1, sys_load5, sys_load15;
++	unsigned long totalswap, totalswap_kb;
++	unsigned long totalram, totalram_kb;
 +
-+/**
-+ * TST_EXP_LE_LU() - Compare two unsigned long long values, expect A <= B.
-+ *
-+ * @VAL_A: unsigned long long value A.
-+ * @VAL_B: unsigned long long value B.
-+ *
-+ * Reports a pass if A <= B and a fail otherwise.
-+ */
-+#define TST_EXP_LE_LU(VAL_A, VAL_B) do {                                              \
-+	TST_EXP_LE_SILENT_(VAL_A, #VAL_A, VAL_B, #VAL_B, unsigned long long, "%llu"); \
-+									              \
-+	if (TST_PASS) {                                                               \
-+		tst_res_(__FILE__, __LINE__, TPASS,                                   \
-+			#VAL_A " <= " #VAL_B " (%llu <= %llu)",                       \
-+			(unsigned long long)VAL_A, (unsigned long long)VAL_B);        \
-+	}                                                                             \
-+} while (0)
++	TST_EXP_PASS(sysinfo(sys_buf));
 +
-+/**
-+ * TST_EXP_LE_LU_SILENT() - Compare two unsigned long long values, silent variant.
-+ *
-+ * @VAL_A: unsigned long long value A.
-+ * @VAL_B: unsigned long long value B.
-+ *
-+ * Unlike TST_EXP_LE_LU() does not print :c:enum:`TPASS <tst_res_flags>` on
-+ * success, only prints :c:enum:`TFAIL <tst_res_flags>` on failure.
-+ */
-+#define TST_EXP_LE_LU_SILENT(VAL_A, VAL_B) \
-+	TST_EXP_LE_SILENT_(VAL_A, #VAL_A, VAL_B, #VAL_B, unsigned long long, "%llu")
++	if (!TST_PASS)
++		return;
 +
- /**
-  * TST_EXP_EQ_LI() - Compare two long long values.
-  *
++	SAFE_FILE_SCANF("/proc/uptime", "%ld", &uptime);
++	SAFE_FILE_SCANF("/proc/loadavg", "%f %f %f", &load1, &load5, &load15);
++	totalram = SAFE_READ_MEMINFO("MemTotal:");
++	totalswap = SAFE_READ_MEMINFO("SwapTotal:");
++
++	if (sys_buf->uptime < uptime || sys_buf->uptime - uptime > 2) {
++		tst_res(TFAIL, "uptime: %ld, expected between %ld and %ld",
++			sys_buf->uptime, uptime, uptime + 2);
++	} else {
++		tst_res(TPASS, "uptime: %ld (>= %ld)", sys_buf->uptime, uptime);
+ 	}
+ 
+-	cleanup();
+-	tst_exit();
++	sys_load1 = sys_buf->loads[0] / 65536.0;
++	sys_load5 = sys_buf->loads[1] / 65536.0;
++	sys_load15 = sys_buf->loads[2] / 65536.0;
+ 
+-}
+-
+-/*
+- * setup()
+- *	performs one time setup
+- *
+- */
+-void setup(void)
+-{
++	/* Compare loads with tolerance */
++	if (fabs(sys_load1 - load1) > 0.1 || fabs(sys_load5 - load5) > 0.1 || fabs(sys_load15 - load15) > 0.1) {
++		tst_res(TFAIL, "loadavg: %.2f %.2f %.2f, expected ~%.2f %.2f %.2f",
++			sys_load1, sys_load5, sys_load15, load1, load5, load15);
++	} else {
++		tst_res(TPASS, "loadavg: %.2f %.2f %.2f", sys_load1, sys_load5, sys_load15);
++	}
+ 
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
++	totalram_kb = ((unsigned long long)sys_buf->totalram * sys_buf->mem_unit) / 1024;
++	totalswap_kb = ((unsigned long long)sys_buf->totalswap * sys_buf->mem_unit) / 1024;
+ 
+-	umask(0);
++	TST_EXP_EQ_LU(totalram_kb, totalram);
++	TST_EXP_EQ_LU(totalswap_kb, totalswap);
+ 
+-	TEST_PAUSE;
++	TST_EXP_LE_LU(sys_buf->freeram, sys_buf->totalram);
++	TST_EXP_LE_LU(sys_buf->sharedram, sys_buf->totalram);
++	TST_EXP_LE_LU(sys_buf->bufferram, sys_buf->totalram);
++	TST_EXP_LE_LU(sys_buf->freeswap, sys_buf->totalswap);
+ }
+ 
+-/*
+- * cleanup()
+- *
+- */
+-void cleanup(void)
+-{
+-}
++static struct tst_test test = {
++	.test_all = run,
++	.bufs = (struct tst_buffers[]) {
++		{&sys_buf, .size = sizeof(*sys_buf)},
++		{}
++	}
++};
 -- 
 2.52.0
 
