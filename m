@@ -2,103 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id APpAH48JqWlc0gAAu9opvQ
+	id MLlwI5JOqWk14AAAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Thu, 05 Mar 2026 05:41:51 +0100
+	for <lists+linux-ltp@lfdr.de>; Thu, 05 Mar 2026 10:36:18 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F8AA20ADF4
-	for <lists+linux-ltp@lfdr.de>; Thu, 05 Mar 2026 05:41:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1772685710; h=date : to :
- message-id : references : mime-version : in-reply-to : subject :
- list-id : list-unsubscribe : list-archive : list-post : list-help :
- list-subscribe : from : reply-to : cc : content-type :
- content-transfer-encoding : sender : from;
- bh=z2pdeqSXZJQz1Q4McUwHRuirvPdEKam+DFiXixrIQkA=;
- b=EbL0MxvPV3M/ax2LiVWwFM6quzHm8wgO1X38Z0NPzwTv+h3iCHV3iAeWgIomYIK4jSEeR
- wPFKmoH2N4eECkOQIeuvFa+mLO+fhFycVoTaO/PCp3CpYXTvWeTYeTOVYQIt3p1iUqDNjqk
- /Ii7DZrRiu+H2lPa2Rcm5RK84gGs6vE=
+	by mail.lfdr.de (Postfix) with ESMTPS id 2825B20E942
+	for <lists+linux-ltp@lfdr.de>; Thu, 05 Mar 2026 10:36:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B84D23CC968
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2026 05:41:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 34CB53CF520
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2026 10:36:17 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 50DE23C7831
- for <ltp@lists.linux.it>; Thu,  5 Mar 2026 05:41:47 +0100 (CET)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 1A8E83CB408
+ for <ltp@lists.linux.it>; Thu,  5 Mar 2026 10:36:06 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5F7241400E5D
- for <ltp@lists.linux.it>; Thu,  5 Mar 2026 05:41:46 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-439b8a3f2bcso3141263f8f.3
- for <ltp@lists.linux.it>; Wed, 04 Mar 2026 20:41:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1772685706; x=1773290506; darn=lists.linux.it;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zv6wQZ6xhEwfY5ox3q88l7kLB4KZDIr3jjq3kERuvGo=;
- b=GdgFA/o03ELZ5W0aKo/qo/37b6nH/zXr8d40qMqcmVvYcCbPlx9LvwtHhHgKCsO3KX
- zdoogH/4SIrOUHG+915lVMbvOUmxOZD2t+nYYpiOe4nTEASvLsE18tDlHxgMrrertDl3
- /KW9n0WFAEXRoEuIbPb4VBRYggios/ZcGCYUuH/dTyEAXrU169B3iAVQux6eis2nKcDb
- 768X2xMWwYmZDZAWchrkjPMGjKG1Db5soLExRMXppAAFxfrzOb9e/JEMPkjHCX4eIDlQ
- LbT2U9DYg/2a2ghLC+rviKJjYgPv7q68Y5TemHr4zZDUDp8q26ykAW3rNRZ3Ff/1vML1
- Sirg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772685706; x=1773290506;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zv6wQZ6xhEwfY5ox3q88l7kLB4KZDIr3jjq3kERuvGo=;
- b=eTKTjGEcUVcYHX8tx3PforPLt3QQnnTRlTDEzqnanQg+JN7YjTt9CtVXRUosOBwAgE
- NX5exfLVMVeUCdRCXZPoXeUwoPf+7vj7SErj560bge561kKUZu72imxLOFSwfcLKrcWn
- Y9cHkejZJHczgjU5G2PJmtQ7z7es5dTxxQ9gC3ICNmDgsuaPUuaTY7q58dIN9bTYFsq8
- wvUuyPaWS/+D7d68dW1CmveflymbqTtrcR1Y0KGV2R345lTQ4yH1JGZdKHf1fQe6Fj81
- 6JapqiFajokFywgXTbQQJ4t5Y9pzLO5eCp2mUznk+nRSyjbdWNaS+iYdG5avNHO+ERBX
- sOrA==
-X-Gm-Message-State: AOJu0YzAhnlVSs4iHAcoQYa6lsHqE9u9M1WCHp8dC+2FWOZHqw736myi
- 7fcjBytB/6Rrw+PrKqmlSOkc4WZH3zz6FxexcrX8Ykozrkt/gcPinZ/QlfN0iR0V6NSCLbeGZ+M
- MQlk=
-X-Gm-Gg: ATEYQzw9090mP7bKFgTVPPe9HDuRdL5O5638ZGo3Oh6dR52Ge1puOH+nPEJXX7D+1Sg
- ne25eyTC/PWG4pKXdD9t7En1zMQ5DyGp2XV+jAKn1Dc9OTbxI2cun6HHZeNKkWrI/HEmBC77hyZ
- +MlZY4TuItKYjvqt0UX7dhN/A3ytpmNeYCkaf0z4kkZK3UOjzi8tEv9boneXa4CD5kMKAwfrZWj
- FnppIzO3mi6HmcOkEMtAm1Bt3/1FzvgJCOLSqSLDYw5QMptqD0cT8xwWZ4Wa2YdMBR3shGsCuBv
- tGlQowCvmAbJz6QwrBN6HtcWhwMQ9cIPn3vmsKrJ1qSpEAM2jNOJgw9GMFqgGAAGSN4ZDIRpCaa
- kL9VmmIg+jv3fJDG2vrSv/G321n7wgIIsh+vwdVB1+QyROlPp2H+4pO8v3ZPybQLwNpeqiYfnxD
- Xfl52znJCxoY5yt3xAibYUlK7Sg/0cbngoshmht0al
-X-Received: by 2002:a05:6000:144f:b0:439:afd8:621c with SMTP id
- ffacd0b85a97d-439c801fb47mr7592322f8f.55.1772685705666; 
- Wed, 04 Mar 2026 20:41:45 -0800 (PST)
-Received: from autotest-wegao.qe.prg2.suse.org
- ([2a07:de40:b240:0:2ad6:ed42:2ad6:ed42])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439b503425asm30388712f8f.25.2026.03.04.20.41.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Mar 2026 20:41:45 -0800 (PST)
-Date: Thu, 5 Mar 2026 04:41:43 +0000
-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Message-ID: <aakJh4g-gq0PZ4Vc@autotest-wegao.qe.prg2.suse.org>
-References: <20251224085004.10267-1-wegao@suse.com>
- <20260107061008.18971-1-wegao@suse.com>
- <DGI3103QL3WD.19RTIBPXXCGXI@suse.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 19B2320007B
+ for <ltp@lists.linux.it>; Thu,  5 Mar 2026 10:36:05 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5D46C5BCCB;
+ Thu,  5 Mar 2026 09:36:05 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 532C23EA68;
+ Thu,  5 Mar 2026 09:36:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id QxdHFIVOqWl6NQAAD6G6ig
+ (envelope-from <jack@suse.cz>); Thu, 05 Mar 2026 09:36:05 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 04ED1A0AB1; Thu,  5 Mar 2026 10:36:04 +0100 (CET)
+Date: Thu, 5 Mar 2026 10:36:04 +0100
+From: Jan Kara <jack@suse.cz>
+To: Wei Gao <wegao@suse.com>
+Message-ID: <vkxlr754g4xhqhypya7ybullssszqvduqvvisy4e5dzmxwupqr@2qobtjcvvjuy>
+References: <20260304133810.24585-1-wegao@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <DGI3103QL3WD.19RTIBPXXCGXI@suse.com>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
+In-Reply-To: <20260304133810.24585-1-wegao@suse.com>
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v4] io_submit04: Add test case for RWF_NOWAIT flag
+Subject: Re: [LTP] [PATCH v1] fanotify22.c: handle multiple asynchronous
+ error events
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,241 +79,143 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Wei Gao via ltp <ltp@lists.linux.it>
-Reply-To: Wei Gao <wegao@suse.com>
-Cc: ltp@lists.linux.it
+Cc: kernel test robot <oliver.sang@intel.com>, Jan Kara <jack@suse.cz>,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
-X-Rspamd-Queue-Id: 0F8AA20ADF4
+X-Rspamd-Queue-Id: 2825B20E942
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.21 / 15.00];
-	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
-	R_SPF_ALLOW(-0.20)[+a];
-	R_DKIM_ALLOW(-0.20)[lists.linux.it:s=picard];
+X-Spamd-Result: default: False [-0.01 / 15.00];
+	MID_RHS_NOT_FQDN(0.50)[];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+a];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	REPLYTO_DOM_EQ_TO_DOM(0.00)[];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_MIXED(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	DMARC_NA(0.00)[suse.cz];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	R_DKIM_REJECT(0.00)[suse.com:s=google];
-	DKIM_TRACE(0.00)[lists.linux.it:+,suse.com:-];
-	DMARC_POLICY_ALLOW(0.00)[lists.linux.it,none];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[linux-ltp];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[ltp@lists.linux.it,ltp-bounces@lists.linux.it];
-	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
-	HAS_REPLYTO(0.00)[wegao@suse.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ozlabs.org:url,picard.linux.it:rdns,picard.linux.it:helo,lists.linux.it:dkim]
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
+	ARC_NA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jack@suse.cz,ltp-bounces@lists.linux.it];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	NEURAL_HAM(-0.00)[-0.996];
+	TAGGED_RCPT(0.00)[linux-ltp];
+	R_DKIM_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,suse.com:email,picard.linux.it:rdns,picard.linux.it:helo]
 X-Rspamd-Action: no action
 
-On Wed, Feb 18, 2026 at 01:21:46PM +0100, Andrea Cervesato wrote:
-> Hi!
+On Wed 04-03-26 13:38:07, Wei Gao wrote:
+> Since the introduction of the asynchronous fserror reporting framework
+> (kernel commit 81d2e13a57c9), fanotify22 has encountered sporadic failures
+> due to the non-deterministic nature of event delivery and merging:
 > 
-> On Wed Jan 7, 2026 at 7:10 AM CET, Wei Gao wrote:
-> > Fixes: #467
-> > Signed-off-by: Wei Gao <wegao@suse.com>
-> > ---
-> 
-> > +
-> > +#ifndef HAVE_STRUCT_IOCB_AIO_RW_FLAGS
-> > +typedef struct iocb_fallback iocb;
-> 
-> Why not just define here the iocb, instead of having iocb_fallback
-> defined before?
-This way can avoid complie failure on old system such as:
-https://github.com/coolgw/ltp/actions/runs/22699554704/job/65813365426
-make[4]: *** [io_submit04] Error 1
-make[4]: *** Waiting for unfinished jobs....
-../../../../include/mk/rules.mk:48: recipe for target 'io_submit04' failed
-CC testcases/kernel/syscalls/io_submit/io_submit01
-CC testcases/kernel/syscalls/io_submit/io_submit02
-CC testcases/kernel/syscalls/io_submit/io_submit03
-make[3]: *** [all] Error 2
-../../../include/mk/generic_trunk_target.inc:92: recipe for target 'all' failed
-make[2]: *** [all] Error 2
-../../include/mk/generic_trunk_target.inc:92: recipe for target 'all' failed
-make[1]: *** [all] Error 2
-../include/mk/generic_trunk_target.inc:92: recipe for target 'all' failed
-make[1]: Leaving directory '/__w/ltp/ltp/testcases'
-Makefile:85: recipe for target 'testcases-all' failed
-make: *** [testcases-all] Error 2
-Error: Process completed with exit code 2
+> 1) tcase3 failure: A race condition occurs when the test reads the
+>    notification fd between two events. Adding a short delay
+>    (usleep) ensures all events are dispatched and ready before the
+>    read() call.
 
-This kind of fallback also mentioned/used in following patch:
-https://patchwork.ozlabs.org/project/ltp/patch/20251211015915.1086-1-wegao@suse.com/
+OK, but please add a comment in the code why this is needed.
+
+> 2) tcase4 failure: The kernel may deliver errors as independent events
+>    instead of a single merged event, The test logic is updated to
+>    validate the expected error_count by either a single merged event
+>    or the accumulation of multiple independent events in the buffer.
+
+Did you investigate why the events didn't get merged in the kernel? If they
+are against the same filesystem they should get merged AFAICS.
+
+								Honza
 
 > 
-> > +#else
-> > +typedef struct iocb iocb;
+> Reported-by: kernel test robot <oliver.sang@intel.com>
+> Closes: https://lore.kernel.org/oe-lkp/202602042124.87bd00e3-lkp@intel.com
+> Signed-off-by: Wei Gao <wegao@suse.com>
+> ---
+>  .../kernel/syscalls/fanotify/fanotify22.c     | 32 ++++++++++++++++---
+>  1 file changed, 28 insertions(+), 4 deletions(-)
 > 
-> And this would not be needed then.
-> 
-> > +#endif
-> > +
-> > +#endif /* LAPI_AIO_ABI_H__ */
-> > diff --git a/runtest/syscalls b/runtest/syscalls
-> > index a1ef7548b..18182a2d6 100644
-> > --- a/runtest/syscalls
-> > +++ b/runtest/syscalls
-> > @@ -696,6 +696,7 @@ io_setup02 io_setup02
-> >  io_submit01 io_submit01
-> >  io_submit02 io_submit02
-> >  io_submit03 io_submit03
-> > +io_submit04 io_submit04
-> >  
-> >  keyctl01 keyctl01
-> >  keyctl02 keyctl02
-> > diff --git a/testcases/kernel/syscalls/io_submit/.gitignore b/testcases/kernel/syscalls/io_submit/.gitignore
-> > index 60b07970a..abe962e1c 100644
-> > --- a/testcases/kernel/syscalls/io_submit/.gitignore
-> > +++ b/testcases/kernel/syscalls/io_submit/.gitignore
-> > @@ -1,3 +1,4 @@
-> >  /io_submit01
-> >  /io_submit02
-> >  /io_submit03
-> > +/io_submit04
-> > diff --git a/testcases/kernel/syscalls/io_submit/io_submit04.c b/testcases/kernel/syscalls/io_submit/io_submit04.c
-> > new file mode 100644
-> > index 000000000..d085d3238
-> > --- /dev/null
-> > +++ b/testcases/kernel/syscalls/io_submit/io_submit04.c
-> > @@ -0,0 +1,94 @@
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +/*
-> > + * Copyright (c) 2025 Wei Gao <wegao@suse.com>
-> > + */
-> > +
-> > +/*\
-> > + * Test RWF_NOWAIT support in io_submit(), verifying that an
-> > + * asynchronous read operation on a blocking resource (empty pipe)
-> > + * will cause -EAGAIN. This is done by checking that io_getevents()
-> > + * syscall returns immediately and io_event.res is equal to -EAGAIN.
-> > + */
-> > +
-> > +#include "config.h"
-> > +#include "tst_test.h"
-> > +#include "lapi/syscalls.h"
-> > +#include "lapi/aio_abi.h"
-> > +
-> > +
-> 
-> nit: double blank-line is not needed.
-> 
-> > +#define BUF_SIZE 100
-> > +
-> > +static int fd[2];
-> 
-> fd should be initialized to -1 and compared to this value in the
-> cleanup() before closing. zero is a valid value for file descriptors
-> (stdin).
-> 
-> > +
-> > +static aio_context_t ctx;
-> > +static char *buf;
-> > +static iocb *cb;
-> > +static iocb **iocbs;
-> > +
-> > +static void setup(void)
-> > +{
-> > +	TST_EXP_PASS_SILENT(tst_syscall(__NR_io_setup, 1, &ctx));
-> 
-> We need to break the test here if io_setup fails. Silently failing it
-> will keep test running.
-> 
-> > +	SAFE_PIPE(fd);
-> > +
-> > +	cb->aio_fildes = fd[0];
-> > +	cb->aio_lio_opcode = IOCB_CMD_PREAD;
-> > +	cb->aio_buf = (uint64_t)buf;
-> > +	cb->aio_offset = 0;
-> > +	cb->aio_nbytes = BUF_SIZE;
-> > +	cb->aio_rw_flags = RWF_NOWAIT;
-> > +
-> > +	iocbs[0] = cb;
-> > +}
-> > +
-> > +static void cleanup(void)
-> > +{
-> > +	if (fd[0])
-> > +		SAFE_CLOSE(fd[0]);
-> > +
-> > +	if (fd[1])
-> > +		SAFE_CLOSE(fd[1]);
-> > +
-> > +	if (ctx)
-> > +		if (tst_syscall(__NR_io_destroy, ctx))
-> > +			tst_brk(TBROK | TERRNO, "io_destroy() failed");
-> > +}
-> > +
-> > +static void run(void)
-> > +{
-> > +	struct io_event evbuf;
-> > +	struct timespec timeout = { .tv_sec = 1 };
-> > +	long nr = 1;
-> > +
-> > +	TEST(tst_syscall(__NR_io_submit, ctx, nr, iocbs));
-> > +
-> > +	if (TST_RET == -1 && errno == EOPNOTSUPP) {
-> > +		tst_brk(TCONF, "RWF_NOWAIT not supported by kernel");
-> > +	} else if (TST_RET != nr) {
-> > +		tst_brk(TBROK | TTERRNO, "io_submit() returns %ld, expected %ld",
-> > +				TST_RET, nr);
-> > +	}
-> > +
-> > +	tst_syscall(__NR_io_getevents, ctx, 1, 1, &evbuf, &timeout);
-> 
-> Return value is ignored.
-> 
-> > +
-> > +	if (evbuf.res == -EAGAIN)
-> > +		tst_res(TPASS, "io_getevents() returned EAGAIN on read event");
-> > +	else
-> > +		tst_res(TFAIL | TTERRNO, "io_getevents() returned with %s instead of EAGAIN",
-> 
-> TTERRNO is not needed.
-> 
-> > +			strerror(-evbuf.res));
-> > +}
-> > +
-> > +static struct tst_test test = {
-> > +	.test_all = run,
-> > +	.setup = setup,
-> > +	.cleanup = cleanup,
-> > +	.needs_kconfigs = (const char *[]) {
-> > +		"CONFIG_AIO=y",
-> > +		NULL
-> > +	},
-> > +	.bufs = (struct tst_buffers []) {
-> > +		{&buf, .size = BUF_SIZE},
-> > +		{&cb, .size = sizeof(iocb)},
-> > +		{&iocbs, .size = sizeof(iocb *)},
-> > +		{},
-> > +	}
-> > +};
-> 
-> 
-> 
-> 
-> -- 
-> Andrea Cervesato
-> SUSE QE Automation Engineer Linux
-> andrea.cervesato@suse.com
-> 
+> diff --git a/testcases/kernel/syscalls/fanotify/fanotify22.c b/testcases/kernel/syscalls/fanotify/fanotify22.c
+> index 6578474a7..82eed7ba9 100644
+> --- a/testcases/kernel/syscalls/fanotify/fanotify22.c
+> +++ b/testcases/kernel/syscalls/fanotify/fanotify22.c
+> @@ -53,6 +53,8 @@ static struct fanotify_fid_t null_fid;
+>  static struct fanotify_fid_t bad_file_fid;
+>  static struct fanotify_fid_t bad_link_fid;
+>  
+> +static int event_count;
+> +
+>  static void trigger_fs_abort(void)
+>  {
+>  	SAFE_MOUNT(tst_device->dev, MOUNT_PATH, tst_device->fs_type,
+> @@ -88,7 +90,6 @@ static void trigger_bad_link_lookup(void)
+>  			ret, BAD_LINK, errno, EUCLEAN);
+>  }
+>  
+> -
+>  static void tcase3_trigger(void)
+>  {
+>  	trigger_bad_link_lookup();
+> @@ -176,9 +177,10 @@ static int check_error_event_info_error(struct fanotify_event_info_error *info_e
+>  {
+>  	int fail = 0;
+>  
+> -	if (info_error->error_count != ex->error_count) {
+> -		tst_res(TFAIL, "%s: Unexpected error_count (%d!=%d)",
+> -			ex->name, info_error->error_count, ex->error_count);
+> +	if (info_error->error_count != ex->error_count && event_count != ex->error_count) {
+> +		tst_res(TFAIL, "%s: Unexpected error_count (%d!=%d && %d!=%d)",
+> +			ex->name, info_error->error_count, ex->error_count,
+> +			event_count, ex->error_count);
+>  		fail++;
+>  	}
+>  
+> @@ -255,8 +257,30 @@ static void do_test(unsigned int i)
+>  
+>  	tcase->trigger_error();
+>  
+> +	usleep(100000);
+> +
+
+OK, but can you please add a comment why the sleep is here.
+
+>  	read_len = SAFE_READ(0, fd_notify, event_buf, BUF_SIZE);
+>  
+> +	struct fanotify_event_metadata *metadata;
+> +	size_t len = read_len;
+> +
+> +	event_count = 0;
+> +
+> +	for (metadata = (struct fanotify_event_metadata *)event_buf;
+> +			FAN_EVENT_OK(metadata, len);
+> +			metadata = FAN_EVENT_NEXT(metadata, len)) {
+> +		event_count++;
+> +		struct fanotify_event_info_error *info_error = get_event_info_error(metadata);
+> +
+> +		if (info_error) {
+> +			tst_res(TINFO, "Event [%d]: errno=%d (expected %d), error_count=%d (expected total %d)",
+> +					event_count, info_error->error, tcase->error,
+> +					info_error->error_count, tcase->error_count);
+> +		} else {
+> +			tst_res(TINFO, "Event [%d]: No error info record found", event_count);
+> +		}
+> +	}
+> +
+
+This looks too lax to me. I think
+
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
