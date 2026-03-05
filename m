@@ -2,70 +2,100 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WNOZEoeOqWni/gAAu9opvQ
+	id mMrOLWOSqWkqAQEAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Thu, 05 Mar 2026 15:09:11 +0100
+	for <lists+linux-ltp@lfdr.de>; Thu, 05 Mar 2026 15:25:39 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE0BA21308B
-	for <lists+linux-ltp@lfdr.de>; Thu, 05 Mar 2026 15:09:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 554472134CB
+	for <lists+linux-ltp@lfdr.de>; Thu, 05 Mar 2026 15:25:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6ED463D0F85
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2026 15:09:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C78993D816B
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2026 15:25:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 614923C2CC6
- for <ltp@lists.linux.it>; Thu,  5 Mar 2026 15:09:08 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+ by picard.linux.it (Postfix) with ESMTPS id 1C5183C2EA3
+ for <ltp@lists.linux.it>; Thu,  5 Mar 2026 15:25:35 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B53A01A00A41
- for <ltp@lists.linux.it>; Thu,  5 Mar 2026 15:09:06 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7A2AF14001F4
+ for <ltp@lists.linux.it>; Thu,  5 Mar 2026 15:25:34 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 23B4F216CF;
- Thu,  5 Mar 2026 14:09:04 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 65FC83F9D0;
+ Thu,  5 Mar 2026 14:25:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1772720734; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=8c/x4ZODDF8JWAgrS/fK2pqid6y8dDAiDUweBmjrPFw=;
+ b=nl8NcjM88o9Ps6FEVYHycdXYTjQ69Po5yjg1iNKKsQC+BW1iO7bv1QfPK6miZ7n56dD/Kd
+ sfc4hMyoZ3k/NccsQsAjbnTJarfOoxk2wB72VKrOhEY7d2U/CI+rlQyh4xw8Hf5GVH5iIM
+ +ewVke8zdafzsaqNxU0Bt1A/aX9P5X8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1772720734;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=8c/x4ZODDF8JWAgrS/fK2pqid6y8dDAiDUweBmjrPFw=;
+ b=xpBnyKYNOEHSO9bWNzjJYTHxxq2C0emkOQ3qwBBEU030B+KfHNU3alWZ66I++kWMoa0GOn
+ kUuEsLNDPMsf/YCA==
 Authentication-Results: smtp-out1.suse.de;
-	none
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=nl8NcjM8;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=xpBnyKYN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1772720734; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=8c/x4ZODDF8JWAgrS/fK2pqid6y8dDAiDUweBmjrPFw=;
+ b=nl8NcjM88o9Ps6FEVYHycdXYTjQ69Po5yjg1iNKKsQC+BW1iO7bv1QfPK6miZ7n56dD/Kd
+ sfc4hMyoZ3k/NccsQsAjbnTJarfOoxk2wB72VKrOhEY7d2U/CI+rlQyh4xw8Hf5GVH5iIM
+ +ewVke8zdafzsaqNxU0Bt1A/aX9P5X8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1772720734;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=8c/x4ZODDF8JWAgrS/fK2pqid6y8dDAiDUweBmjrPFw=;
+ b=xpBnyKYNOEHSO9bWNzjJYTHxxq2C0emkOQ3qwBBEU030B+KfHNU3alWZ66I++kWMoa0GOn
+ kUuEsLNDPMsf/YCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 133583EA68;
- Thu,  5 Mar 2026 14:09:04 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56D7E3EA68;
+ Thu,  5 Mar 2026 14:25:34 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id NnjNA4COqWnfXwAAD6G6ig
- (envelope-from <chrubis@suse.cz>); Thu, 05 Mar 2026 14:09:04 +0000
-Date: Thu, 5 Mar 2026 15:09:14 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id FKSjFF6SqWl0cQAAD6G6ig
+ (envelope-from <chrubis@suse.cz>); Thu, 05 Mar 2026 14:25:34 +0000
+Date: Thu, 5 Mar 2026 15:25:44 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <aamOijT3cpbg89yj@yuki.lan>
-References: <20260304-fork_refactoring-v2-0-016c47c90bc1@suse.com>
- <20260304-fork_refactoring-v2-1-016c47c90bc1@suse.com>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <aamSaHica1WmVDIT@yuki.lan>
+References: <20260304161425.12461-1-chrubis@suse.cz>
+ <aajhsZYkb9WqTho2@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260304-fork_refactoring-v2-1-016c47c90bc1@suse.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Score: -4.00
+In-Reply-To: <aajhsZYkb9WqTho2@redhat.com>
+X-Spam-Score: -4.51
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2 1/3] syscalls: refactor fork09 using new API
+Subject: Re: [LTP] [PATCH] syscalls: newuname01: Convert to the new library.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,78 +107,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Linux Test Project <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
-X-Rspamd-Queue-Id: DE0BA21308B
+X-Rspamd-Queue-Id: 554472134CB
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.51 / 15.00];
-	R_SPF_ALLOW(-0.20)[+a];
+X-Spamd-Result: default: False [0.49 / 15.00];
+	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_RCPT(0.00)[linux-ltp];
-	DMARC_NA(0.00)[suse.cz];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	ARC_NA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.987];
-	R_DKIM_NA(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
+	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[linux-ltp];
+	NEURAL_HAM(-0.00)[-0.650];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[chrubis@suse.cz,ltp-bounces@lists.linux.it];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DMARC_NA(0.00)[suse.cz];
 	RCVD_COUNT_FIVE(0.00)[6];
-	TO_DN_ALL(0.00)[];
-	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,yuki.lan:mid,picard.linux.it:rdns,picard.linux.it:helo,linux.it:url]
+	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
+	RCPT_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[suse.cz:-]
 X-Rspamd-Action: no action
 
-Hi!
-> - * ALGORITHM
-> - *	Parent opens a maximum number of files
-> - *	Child closes one and attempts to open another, it should be
-> - *	available
+Hi!1
+> > +	SAFE_FILE_SCANF("/proc/sys/kernel/hostname", "%1023[^\n]", proc_val);
+> > +	TST_EXP_EQ_STR(name->nodename, proc_val);
+> >  
+> > -	tst_parse_opts(ac, av, NULL, NULL);
+> > +	SAFE_FILE_SCANF("/proc/sys/kernel/osrelease", "%1023[^\n]", proc_val);
+> > +	TST_EXP_EQ_STR(name->release, proc_val);
+> >  
+> > -	setup();
+> > +	SAFE_FILE_SCANF("/proc/sys/kernel/version", "%1023[^\n]", proc_val);
+> > +	TST_EXP_EQ_STR(name->version, proc_val);
+> 
+> We'd better clear proc_val between reads:
+> 
+>   proc_val[0] = '\0';
 
-This is different description than the new one below.
-
-> -#include <sys/types.h>
-> -#include <sys/wait.h>
-> -#include <sys/stat.h>
-> -#include <fcntl.h>
-> -#include <stdio.h>
-> -#include <errno.h>
-> -#include <unistd.h>		/* for _SC_OPEN_MAX */
-> -#include "test.h"
-> -#include "tso_safe_macros.h"
-> -
-> -char *TCID = "fork09";
-> -int TST_TOTAL = 1;
-> +/*\
-> + * Verify that a forked child can close all the files which have been open by
-> + * the parent process.
-> + */
-
-Which is a different assertion from what the test did before.
-
-I would keep the code we have after the conversion but we should close a
-file in the child and ten open another one before we attemp to close all
-the files in the child.
-
-> +	tst_res(TINFO, "Opening files from parent");
-> +
-> +	for (nfiles = 0; nfiles < file_open_max; nfiles++) {
-> +		memset(name, 0, PATH_MAX);
-
-I wonder what is this memset() needed for?
-
-snprintf() always terminates the string
+I'm looking at safe_file_scanf() code and it calls tst_brkm_() in any
+case that no conversion was done. So the buffer should be either be
+filled with new data or the test should exit with an error. Do I miss
+something?
 
 -- 
 Cyril Hrubis
