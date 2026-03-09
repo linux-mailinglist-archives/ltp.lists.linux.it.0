@@ -2,101 +2,109 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +FMrEFqgrmm2GwIAu9opvQ
+	id EHujIc6krmkFHQIAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 11:26:34 +0100
+	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 11:45:34 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8C92237051
-	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 11:26:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lists.linux.it;
- i=@lists.linux.it; q=dns/txt; s=picard; t=1773051992; h=message-id :
- to : in-reply-to : date : subject : list-id : list-unsubscribe :
- list-archive : list-post : list-help : list-subscribe : from :
- reply-to : cc : mime-version : content-type :
- content-transfer-encoding : sender : from;
- bh=MFIECUjmIMiGQfvInZCkjmL9s/7hQsIWKGKHWFxuWYM=;
- b=NIgRpVYXY3Lqw/XSE6YbIdgzjiShtFMf56x4zLnNnQ/fVBwa8aW0b5nfREFWg9M6gE18O
- VQIHYJlwbrSrWLjxNb+Oluzglj1ay+ABVVxGTp0RAHVAEKmEcmu4FIFHEoA9ca/h47YSeXd
- TzOoy+c7BFY1v3VZ5UT/RAbdvt25OoU=
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A17F2374BD
+	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 11:45:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DADE03DD83B
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2026 11:26:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 95CF03DD6B7
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2026 11:45:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 21C683C56FF
- for <ltp@lists.linux.it>; Mon,  9 Mar 2026 11:26:19 +0100 (CET)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 7E69E3C9D7D
+ for <ltp@lists.linux.it>; Mon,  9 Mar 2026 11:45:13 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 629C36007A0
- for <ltp@lists.linux.it>; Mon,  9 Mar 2026 11:26:19 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4852b81c73aso17349465e9.3
- for <ltp@lists.linux.it>; Mon, 09 Mar 2026 03:26:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1773051978; x=1773656778; darn=lists.linux.it;
- h=date:content-transfer-encoding:subject:in-reply-to:cc:to:from
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=AxGz6bn3e6hJNO2txmdmgToHU2g/fJJ3PsFhrhmSt9s=;
- b=f+HumSK1ETvxCVopXyu4PAok3DJj2jrz8l+BTXN6WYgtfo8BYyL+ieNPOy5DVGDh0x
- /MB3zfM9xtJy1ujsSeLNeYehDXX86IbEmZ2nVE989olhnflH0QK1qqVzUnb3yRiax+cd
- uCDMae0H3MfPdFzIXLD5C+uPad9xaqKz0fVHzzZdoUtfi1Pp9vFczEEgkPMJ8IwwmPSn
- USbMe30UtF6ZW8kTxBiBN09HCxKSN3GsmQ2nj/xKarMX2qUhkmSpgpitbz4joNKdrodC
- +Kzqb2tkm6rO+CXWByG/jBmN1DXnbbPSHk5U3Zy/xCwguQRCBlG63J+hV8vVvbG8AzeB
- guVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773051978; x=1773656778;
- h=date:content-transfer-encoding:subject:in-reply-to:cc:to:from
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=AxGz6bn3e6hJNO2txmdmgToHU2g/fJJ3PsFhrhmSt9s=;
- b=xBdr6a6Lxtu8XxhqDgjpu0DXdbgjFa3CWLPFIvOZChAULeq3R8pLvKIOsKfpPa+NCI
- C4zv8GwfNaD1A1P83MRslMdC5Fzx2iSOWEVwpvvamwKEUp4bULEqi+bSNZHX2/oJJHez
- bIZ9YbIQreu/bIM8vx0NU8UUe39Agrk0u8fcqFACO/Glwnok31ESd/CMcyARPKw3tHfS
- 8BTlAMgBh/i/DcEQ93aADrmY1gVaTUK8Kh7HXHUoBFHC4EHn7bGxT+E0torOIJ1fEKyB
- bm+3e1hwVi+Do4pYd30QlHfCSqiqhf6pE8GdjoSj7z89PU9Tsf4nDPMyLFIjdDdbyupE
- LM2Q==
-X-Gm-Message-State: AOJu0YyoSnxsdrEgk1SSBtN/OBy9tnkZdsccWf7Jt8CCsA4Q1C7w7/sK
- rJESZR4EcEtMV+W3octCSnNaedi7Gi7wULFWiqec8NNraBb6N0OLLPotsqaTsV/HSy0FKafbCBs
- mKj4FY7w=
-X-Gm-Gg: ATEYQzxaHWt2B19Bq5GrVfFl29ZA+LxmIDmAM48QBRL0mMOkDXtmCFjJlgqicScjgPc
- ZBb2ZsyyKaZNE/0lyxu2kupe3vEd4NMyXds0naFy6v54YOK81bmMptyK1pT1k/LAaPiz/154x0K
- tg/beOvKkxhdfmwuLiBLdkgVz0tw97YDMp5Ce2j1pF3rpdqvcyjjwt7tNJyL7jdoXKrnvScqJA9
- 4ZtuI2OGD6FJxIpeG8LZ/WebS9Jl5IcV3iSLs3UO7eEnFfsyBtpOddbwUcUsSsJuwvjJSQuVLzW
- 8Z4KbSbhBuV4/l7BujExjzUFVH1/kP20p8hzLw5H4buG2C92cmsjP+2Fsbl3GzHHdD1tNLj4eeu
- aZPTADgA467N3C6Wnmdq/ncZpgfT0A6hSsTxt0d97J6S+hM9aQJjbsRWUl9ZVkJJRep/1cEMXDS
- MCehH6zU73ZNPf6dkcHIAvWJ+BXptJ+kU2op3cy+hpuO9xbqK86yzLg5jHL1jdxtKnhiVyqgQ1b
- PODKHQUXNIVuHj7b7lFFr3RvbTJzusb7ci1HhRwU2jOmab/ROHlYRlaYDa8mC6K57OFeP/MIWmf
- Xg==
-X-Received: by 2002:a05:600c:83c4:b0:485:3ff1:d5ed with SMTP id
- 5b1f17b1804b1-4853ff1d86emr10221015e9.1.1773051978199; 
- Mon, 09 Mar 2026 03:26:18 -0700 (PDT)
-Received: from p200300ef2f4fc90095b004155bc2c2d8.dip0.t-ipconnect.de
- (p200300ef2f4fc9009ff26ae1d4042002.dip0.t-ipconnect.de.
- [2003:ef:2f4f:c900:9ff2:6ae1:d404:2002])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-485276b0adasm232747835e9.10.2026.03.09.03.26.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Mar 2026 03:26:17 -0700 (PDT)
-Message-ID: <69aea049.050a0220.6a40f.4138@mx.google.com>
-To: "Wei Gao via ltp" <ltp@lists.linux.it>
-In-Reply-To: <20260309075946.28119-1-wegao@suse.com>
-Date: Mon, 09 Mar 2026 10:26:17 +0000
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1EC4A600807
+ for <ltp@lists.linux.it>; Mon,  9 Mar 2026 11:45:12 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C021C4D226;
+ Mon,  9 Mar 2026 10:45:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773053111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=7rMo+rieoy8wq5h/Fn1DBKuyDuH9I0yunZLPnXuGQXE=;
+ b=1UEzVGRbjKZcJtH/xYbC7EPMuS2eyJnz2WSrBBhjF7+bYB0ow0XlxMVM0fxBT9/0S8xfLU
+ qMyTFrt/Q3TcDEQGkENJl/NHoRItGvgt/CUH51qiUSsDgt8DcmzTWfmeXwxzfGAkdyvGGN
+ m90fO3W5oaR5r4K/jD6v2jDrdiapOGQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773053111;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=7rMo+rieoy8wq5h/Fn1DBKuyDuH9I0yunZLPnXuGQXE=;
+ b=NBewOtEvcC13P0uMuGUBIjgg9F0OYz8AJlzDzqUBRkmUGk5SOnlX8H1LDWJlFgzi23DHo8
+ af44XGA8xE9cFHAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773053111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=7rMo+rieoy8wq5h/Fn1DBKuyDuH9I0yunZLPnXuGQXE=;
+ b=1UEzVGRbjKZcJtH/xYbC7EPMuS2eyJnz2WSrBBhjF7+bYB0ow0XlxMVM0fxBT9/0S8xfLU
+ qMyTFrt/Q3TcDEQGkENJl/NHoRItGvgt/CUH51qiUSsDgt8DcmzTWfmeXwxzfGAkdyvGGN
+ m90fO3W5oaR5r4K/jD6v2jDrdiapOGQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773053111;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=7rMo+rieoy8wq5h/Fn1DBKuyDuH9I0yunZLPnXuGQXE=;
+ b=NBewOtEvcC13P0uMuGUBIjgg9F0OYz8AJlzDzqUBRkmUGk5SOnlX8H1LDWJlFgzi23DHo8
+ af44XGA8xE9cFHAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 966833EE65;
+ Mon,  9 Mar 2026 10:45:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id SNMHI7ekrmlcTQAAD6G6ig
+ (envelope-from <andrea.cervesato@suse.de>); Mon, 09 Mar 2026 10:45:11 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+Date: Mon, 09 Mar 2026 11:45:09 +0100
+Message-Id: <20260309-fork_refactoring-v3-0-8a645d7e00db@suse.com>
+MIME-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIALWkrmkC/22N2wrCMAxAf2Xk2UpvtNMn/0NEtppuQVyl1aKM/
+ bvdQBT08SQ5JyMkjIQJttUIETMlCkMBtarA9c3QIaNTYZBcGi6kYT7E8zGib9wtRBo6VnNjfa2
+ 1r1sDRbuWJT2W5P5QuKdULp/Lhyzm6Ttmf2NZMM5QoRTei0Z7u0v3hGsXLjC3svz4ius/viw+F
+ 8Zp6za8deLLn6bpBT/rdAbvAAAA
+X-Change-ID: 20260126-fork_refactoring-8067f844f8b6
+To: Linux Test Project <ltp@lists.linux.it>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773053111; l=1254;
+ i=andrea.cervesato@suse.com; s=20251210; h=from:subject:message-id;
+ bh=erIxUISo9IpokWabu/KNSmAShOks950ActDZYnVOVzc=;
+ b=022rqaksTNpFd3X1OtxMtDvaMfgPV4UITcE0Ylq2X7eYYL2zi/+5f/LESXj/QmeoBUq/v6Ve2
+ vQjr/bd1ZN/DHugX+MwgMKs7yYRE3T+3kTg1apUB72tuzOmfamcIPfS
+X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
+ pk=zKY+6GCauOiuHNZ//d8PQ/UL4jFCTKbXrzXAOQSLevI=
+X-Spam-Score: -4.30
+X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
  autolearn=disabled version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] fanotify22.c: handle multiple asynchronous
- error events
+Subject: [LTP] [PATCH v3 0/3] Refactor tests which are verifying fork/vfork
+ functionalities
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,72 +116,73 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Cc: kernel test robot <oliver.sang@intel.com>, Jan Kara <jack@suse.cz>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
-X-Rspamd-Queue-Id: C8C92237051
+X-Rspamd-Queue-Id: 0A17F2374BD
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.21 / 15.00];
-	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
-	R_SPF_ALLOW(-0.20)[+a];
+X-Spamd-Result: default: False [0.59 / 15.00];
+	R_DKIM_REJECT(1.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[lists.linux.it:s=picard];
+	R_SPF_ALLOW(-0.20)[+a:c];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[suse.de : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
+	NEURAL_SPAM(0.00)[0.175];
+	RCPT_COUNT_ONE(0.00)[1];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[andrea.cervesato@suse.de,ltp-bounces@lists.linux.it];
+	TAGGED_RCPT(0.00)[linux-ltp];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_MIXED(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[lists.linux.it,none];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	R_DKIM_REJECT(0.00)[suse.com:s=google];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	DKIM_TRACE(0.00)[lists.linux.it:+,suse.com:-];
-	NEURAL_HAM(-0.00)[-0.952];
-	TAGGED_RCPT(0.00)[linux-ltp];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[ltp@lists.linux.it,ltp-bounces@lists.linux.it];
-	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
-	HAS_REPLYTO(0.00)[andrea.cervesato@suse.com];
-	RCPT_COUNT_THREE(0.00)[3];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:replyto,suse.com:email,linux-test-project.readthedocs.io:url]
+	TO_DN_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:-]
 X-Rspamd-Action: no action
 
-Hi!
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+Changes in v3:
+- fix fork09 not following the original idea
+- don't check for NULL when free()
+- Link to v2: https://lore.kernel.org/r/20260304-fork_refactoring-v2-0-016c47c90bc1@suse.com
 
-> +	/* Wait for asynchronous kworker threads to dispatch events */
-> +	usleep(100000);
-> +
->  	read_len = SAFE_READ(0, fd_notify, event_buf, BUF_SIZE);
-> +	read_len = consolidate_events(event_buf, read_len);
+Changes in v2:
+- _exit(0) to avoid undefind behavior after fork/vfork
+- finished uncompleted vfork02
+- release getcwd() memory
+- use SAFE_MALLOC() instead of SAFE_MMAP() to share between parent and
+  child
+- missing fork_child in vfork01
+- fix missing copyright
+- Link to v1: https://lore.kernel.org/r/20260127-fork_refactoring-v1-0-e3e21ff1a4f7@suse.com
 
-This doesn't sound correct. Instead of usleep() and "guessing" if data
-is coming or not, we should poll() over the fd_notify and collect data
-until BUF_SIZE. If data doesn't arrive, it means events were not
-dispatched and test fails.
+---
+Andrea Cervesato (3):
+      syscalls: refactor fork09 using new API
+      syscalls: refactor vfork01 using new API
+      syscalls: refactor vfork02 using new API
 
-Remember that (in general) sleep operations hide test faults or bugs, as
-it's explained in the ground rules guide:
+ testcases/kernel/syscalls/fork/fork09.c   | 221 ++++++------------
+ testcases/kernel/syscalls/vfork/vfork01.c | 374 ++++--------------------------
+ testcases/kernel/syscalls/vfork/vfork02.c | 248 ++++----------------
+ 3 files changed, 170 insertions(+), 673 deletions(-)
+---
+base-commit: e434de62b487441bcd3d6d6fb763ba58ca9e5eef
+change-id: 20260126-fork_refactoring-8067f844f8b6
 
-https://linux-test-project.readthedocs.io/en/latest/developers/ground_rules.html#why-is-sleep-in-tests-bad-then
+Best regards,
+-- 
+Andrea Cervesato <andrea.cervesato@suse.com>
 
-Kind regards,
---
-Andrea Cervesato
-SUSE QE Automation Engineer Linux
-andrea.cervesato@suse.com
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
