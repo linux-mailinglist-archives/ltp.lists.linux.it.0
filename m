@@ -2,110 +2,110 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iMy0CrwBr2lmLgIAu9opvQ
+	id WGyCMecBr2lmLgIAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 18:22:04 +0100
+	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 18:22:47 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC34423D92D
-	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 18:22:03 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6084523D97E
+	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 18:22:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A263E3DF184
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2026 18:22:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7E0DE3DEAE5
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2026 18:22:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A515B3DD46B
- for <ltp@lists.linux.it>; Mon,  9 Mar 2026 18:21:44 +0100 (CET)
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ by picard.linux.it (Postfix) with ESMTPS id D47CA3DEAE5
+ for <ltp@lists.linux.it>; Mon,  9 Mar 2026 18:21:45 +0100 (CET)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 092AB1A006F0
- for <ltp@lists.linux.it>; Mon,  9 Mar 2026 18:21:42 +0100 (CET)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 147E4600859
+ for <ltp@lists.linux.it>; Mon,  9 Mar 2026 18:21:44 +0100 (CET)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 629ELCre1177331; Mon, 9 Mar 2026 17:21:41 GMT
+ 629EC9T41342364; Mon, 9 Mar 2026 17:21:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
  :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=v+xOB+Fda0nfJB3wS
- s/PJIsmjQlYO8hS1ZmcwvZZrfE=; b=KclBmVC28goRfEfE5ebGaEKXsx5ne+HyR
- 32bgsBr73aD/tUue/L9vblOCiWDyhEW5ULDJsAcYFa3BrcS6j2glnKWKows4X0zk
- hwxm5EPavtVRSBqA4PxHbILyoWE8m6xsfw4LMauwnT78xWU4MTUXWykarV+sIUKA
- fL2nrj6/40L1SogHUUmqbOTmsai+jT9RpT4LBVkSF5Z/zUJ2OsXFusJCejhU1l+7
- qNKYLtVB/+QmBgY6ALsWVp1fD6kxodH2sSArrRB5wNfMYKCA5Vdx/nX7LPynhK4+
- lJmYPz04Pzd+yFNDMlB1PktQFH6VmtrDaeqLj0jy6Ry3109e+/f7w==
-Received: from ppma12.dal12v.mail.ibm.com
- (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4crcvr7f1t-1
+ :mime-version:references:subject:to; s=pp1; bh=6qUYEDCzXO2x79sJO
+ UKsyjlRmepmqS4bg+Rjzb2XlPU=; b=FVkyDM7dZ431iSXD5Z/TRVHvHutek+9ER
+ ClgQ6zGmvPUvnCqS7343ofnxsmmyR9nthVMhaOT0605ga7FbRfm2x4cGqB+KYidn
+ g+gM0LGab2WIVca/zHCbOgQx9ddmDR7hZVmYDUuPGfrNVlvLYq3WutKn9xDaJoj4
+ nLEHJS0XAUIlX7tpblvZ4pjy1oFcSxxZWqfGWwAHpZ5ZIDeTxxpS3w/xF/qZt7vo
+ UZhcwfqrrY3QY6FG02/yYVu5ZZ+Fb86sl+zG3MVl8scafNa2r1h3Qyn7ymPUpsHf
+ /K9C+6vfjUHpQm4THx8GpkrX2hBTKPsVlm6+r1dAXEM5FdQkj+MKw==
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4crcvm7pwf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 Mar 2026 17:21:41 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
- by ppma12.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 629EBi2k021150;
- Mon, 9 Mar 2026 17:21:40 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
- by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4crxbsp1g7-1
+ Mon, 09 Mar 2026 17:21:42 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 629Dd6iV029850;
+ Mon, 9 Mar 2026 17:21:41 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4csp6ujh6n-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 Mar 2026 17:21:40 +0000
+ Mon, 09 Mar 2026 17:21:41 +0000
 Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
  [10.20.54.100])
- by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 629HLcZ029688426
+ by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 629HLdRi43450802
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 9 Mar 2026 17:21:38 GMT
+ Mon, 9 Mar 2026 17:21:39 GMT
 Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BDB8B20043;
- Mon,  9 Mar 2026 17:21:38 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 3742920043;
+ Mon,  9 Mar 2026 17:21:39 +0000 (GMT)
 Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 63BEA20040;
+ by IMSVA (Postfix) with ESMTP id D34F420040;
  Mon,  9 Mar 2026 17:21:38 +0000 (GMT)
 Received: from li-276bd24c-2dcc-11b2-a85c-945b6f05615c.ibm.com.com (unknown
  [9.87.155.142]) by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
  Mon,  9 Mar 2026 17:21:38 +0000 (GMT)
 From: Jan Polensky <japo@linux.ibm.com>
 To: chrubis@suse.cz, pvorel@suse.cz
-Date: Mon,  9 Mar 2026 18:20:56 +0100
-Message-ID: <20260309172057.272946-3-japo@linux.ibm.com>
+Date: Mon,  9 Mar 2026 18:20:57 +0100
+Message-ID: <20260309172057.272946-4-japo@linux.ibm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260309172057.272946-1-japo@linux.ibm.com>
 References: <20260309172057.272946-1-japo@linux.ibm.com>
 MIME-Version: 1.0
 X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA5MDE1MyBTYWx0ZWRfX7EWr7fmpeTmz
- ZsbUZFel84SfQOPZDv7TW703RaPRASNkvXkl0GN8jyWs/flOC2MOjNol6r7zrlkXi9F3SSon4xp
- rWgp8ucGsg5JB4BNtWPQHZcQwQR+8QC6e3C9wf/izO2IRpxicBDxaPw0hrPRa8haH4S5VYlKT+D
- cKILPYaDcjEa4K5H3FHNjzOnQTVvYAHto6OT+k6tJuGCT6FSMUYKUcpDfkxLkANMEyRQI3MIwSy
- bYdZOgQ1ndlJwopU/v+g6XzIbWG2IcXAetGghJZ2LT6RiTeCq8e83Nv8psjiRoP7L0XJdKA30DU
- x8EHVfyegwV442D1+jxADg7Eir6NJJrJqKdYcmJHWYmfmxcMhSXYyvYHeh8dZldtnPahCxdPBUB
- S3z0cacBmHs8p5MAWG5at5muYvnAQfGZwu8Z76D0sF4lkkGCWB1Edspshyu3LICLl3doRDEpeHJ
- 1XdqRS6GJFXwVvo67XA==
-X-Proofpoint-GUID: vI-UlYgU5vZvn3-T3DReJOmMRidIe5Zn
-X-Proofpoint-ORIG-GUID: vI-UlYgU5vZvn3-T3DReJOmMRidIe5Zn
-X-Authority-Analysis: v=2.4 cv=QoFTHFyd c=1 sm=1 tr=0 ts=69af01a5 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+X-Proofpoint-GUID: BygiNug3vsEhEMxpUTCOKNK56m2ODCCk
+X-Proofpoint-ORIG-GUID: BygiNug3vsEhEMxpUTCOKNK56m2ODCCk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA5MDE1MyBTYWx0ZWRfX8oZQIAb4LILG
+ MtTHht1sYHsvEAYaB5wLAFwVm3fTfdcEj3VwNYp0/Or9T4GnU3MsT55tT6Dj/ZkNs0iFfz/uLUD
+ Z4BfSiPCCUkrpgFCAUhu0yivn4nRvEKHPNZiePsfDwwL6qk2mqzCkekkD+RoJ9xfnAAzFAfwzzc
+ 2HpdbRg2tMpBthnbRKfSiNMb9/13xR+kDuUzTWlr3Gr2EJTgHZ18CA0DrJU1dIE+bOsjPPxT4Zu
+ AYoUFs599BiJWXbw1wSFOS6QMEefRWJn99YSKIGykGHrduR8OQ9W01S5Z4vIyU5m5lCHrQIX/WK
+ cOK1I/TZt72n8rms7J6zmbZ2v3sW5YKDL2PFljtj1Yy3CQcIA0qgPJNEA82of/8eO0gDR3y2/ps
+ i9/7OOhYeZ+QJYP9dnDGi0zxMOmH7kg7kegj5LBzhZ5Zl3yZ99f8V2olbNzeLotw3dgzMFTq3FL
+ wZmi219KJiWdheOrLTA==
+X-Authority-Analysis: v=2.4 cv=B5q0EetM c=1 sm=1 tr=0 ts=69af01a6 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
  a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=D8qa3E3ZBTQVZeoaTDYA:9
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=znzk5KmSAAAA:8 a=VnNF1IyMAAAA:8
+ a=g7BrdTIJrStfstmviRwA:9 a=lVJ2Zv5zgJvBeU6Kyhb9:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-09_04,2026-03-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 priorityscore=1501 phishscore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0 suspectscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2602130000
- definitions=main-2603090153
+ malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603090153
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v1 2/3] setxattr02: Adapt test for kernel 7.0+ socket
- xattr support
+Subject: [LTP] [PATCH v1 3/3] editorconfig: add consistent formatting rules
+ for LTP
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,7 +122,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
-X-Rspamd-Queue-Id: EC34423D92D
+X-Rspamd-Queue-Id: 6084523D97E
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.59 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -137,47 +137,70 @@ X-Spamd-Result: default: False [1.59 / 15.00];
 	TAGGED_RCPT(0.00)[linux-ltp];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
+	ASN(0.00)[asn:12779, ipnet:2001:1418::/29, country:IT];
 	RCVD_COUNT_SEVEN(0.00)[11];
 	RCPT_COUNT_THREE(0.00)[3];
 	FROM_NEQ_ENVFROM(0.00)[japo@linux.ibm.com,ltp-bounces@lists.linux.it];
 	FROM_HAS_DN(0.00)[];
-	NEURAL_HAM(-0.00)[-0.650];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[picard.linux.it:rdns,picard.linux.it:helo];
+	NEURAL_HAM(-0.00)[-0.600];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.it:url,picard.linux.it:rdns,picard.linux.it:helo,linux.ibm.com:mid,editorconfig.org:url];
 	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[ibm.com:-]
 X-Rspamd-Action: no action
 
-Starting with kernel 7.0.0, sockets support extended attributes in the
-user.* namespace. This behavior was enabled by dc0876b9846d ("xattr:
-support extended attributes on sockets"), which permits user.* xattrs on
-S_IFSOCK inodes (previously rejected with -EPERM).
-
-Adapts the test to expect success (exp_err = 0) instead of EPERM when
-testing setxattr(2) on sockets with kernel 7.0+.
+Introduce .editorconfig to keep indentation and whitespace consistent across
+editors, preventing accidental reformatting and noisy diffs.
 
 Signed-off-by: Jan Polensky <japo@linux.ibm.com>
 ---
- testcases/kernel/syscalls/setxattr/setxattr02.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .editorconfig | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
+ create mode 100644 .editorconfig
 
-diff --git a/testcases/kernel/syscalls/setxattr/setxattr02.c b/testcases/kernel/syscalls/setxattr/setxattr02.c
-index 9f5f998da9ba..ac2ad8678d31 100644
---- a/testcases/kernel/syscalls/setxattr/setxattr02.c
-+++ b/testcases/kernel/syscalls/setxattr/setxattr02.c
-@@ -132,6 +132,10 @@ static void verify_setxattr(unsigned int i)
- 	if (TST_RET == -1 && TST_ERR == EOPNOTSUPP)
- 		tst_brk(TCONF, "setxattr(2) not supported");
- 
-+	/* consider newer kernels */
-+	if ((tst_kvercmp(7, 0, 0) >= 0) && (strncmp(tc[i].fname, SOCK, strlen(SOCK)) == 0))
-+		tc[i].exp_err = 0;
+diff --git a/.editorconfig b/.editorconfig
+new file mode 100644
+index 000000000000..ee9f49516e53
+--- /dev/null
++++ b/.editorconfig
+@@ -0,0 +1,36 @@
++# SPDX-License-Identifier: GPL-2.0-only
 +
- 	/* success */
- 
- 	if (!tc[i].exp_err) {
++# EditorConfig configuration for LTP
++# https://editorconfig.org/
++
++root = true
++
++[*]
++charset = utf-8
++end_of_line = lf
++insert_final_newline = true
++trim_trailing_whitespace = true
++
++# C/Assembly source files, headers, and Makefiles use tabs
++[*.{c,h,mk,S,sh,awk}]
++indent_style = tab
++indent_size = 8
++
++[{Makefile,Makefile.*}]
++indent_style = tab
++indent_size = 8
++
++# Python and Perl scripts use spaces
++[*.{py,pl}]
++indent_style = space
++indent_size = 4
++
++# Documentation files
++[*.{rst,md}]
++indent_style = space
++indent_size = 3
++
++# JSON files
++[*.json]
++indent_style = space
++indent_size = 4
 -- 
 2.53.0
 
