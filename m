@@ -2,72 +2,104 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wG/eGS6vrmkSHwIAu9opvQ
+	id IP1sOWvDrmmRIgIAu9opvQ
 	(envelope-from <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>)
-	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 12:29:50 +0100
+	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 13:56:11 +0100
 X-Original-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBBD7237F0E
-	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 12:29:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EE8A239432
+	for <lists+linux-ltp@lfdr.de>; Mon, 09 Mar 2026 13:56:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DD63E3DD473
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2026 12:29:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 939D73DD46D
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2026 13:56:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1))
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 936B33C4EC6
- for <ltp@lists.linux.it>; Mon,  9 Mar 2026 12:29:45 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by picard.linux.it (Postfix) with ESMTPS id 2921B3C4C11
+ for <ltp@lists.linux.it>; Mon,  9 Mar 2026 13:56:06 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 26F0010007DC
- for <ltp@lists.linux.it>; Mon,  9 Mar 2026 12:29:44 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E925F600827
+ for <ltp@lists.linux.it>; Mon,  9 Mar 2026 13:56:05 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 992575BDC7;
- Mon,  9 Mar 2026 11:29:44 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 471DD4D218;
+ Mon,  9 Mar 2026 12:56:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1773060964;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9ndGW2T/BLpHXtHFlijrKPFNRu9rtyYWAOAcZOkQhkA=;
+ b=bAUXJ+5TIEzccygc+7TNIs+KUncvrzZoOUMwmmVhDWaKqOZOIvS7ohc3Jt3pUCB++acWwN
+ 6hJ6soYKr18e4vM1HG4VHZK+mi385voE2RUC/j4uWzcrNjZK5Prk5AiSzkzVaG0tae1XFS
+ 6vEu3yN6TtBZFEz0pmfiVCsQ2RTuNdc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1773060964;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9ndGW2T/BLpHXtHFlijrKPFNRu9rtyYWAOAcZOkQhkA=;
+ b=A6OUUvXe0lG+TPpdVLkR0lJt04zxXw2e6tSXk1XXXlrbDmbpZsccqy+zDiKDz1rGgDGR5O
+ 4sT0eHi9T3Agm5Cw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=bAUXJ+5T;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=A6OUUvXe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1773060964;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9ndGW2T/BLpHXtHFlijrKPFNRu9rtyYWAOAcZOkQhkA=;
+ b=bAUXJ+5TIEzccygc+7TNIs+KUncvrzZoOUMwmmVhDWaKqOZOIvS7ohc3Jt3pUCB++acWwN
+ 6hJ6soYKr18e4vM1HG4VHZK+mi385voE2RUC/j4uWzcrNjZK5Prk5AiSzkzVaG0tae1XFS
+ 6vEu3yN6TtBZFEz0pmfiVCsQ2RTuNdc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1773060964;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9ndGW2T/BLpHXtHFlijrKPFNRu9rtyYWAOAcZOkQhkA=;
+ b=A6OUUvXe0lG+TPpdVLkR0lJt04zxXw2e6tSXk1XXXlrbDmbpZsccqy+zDiKDz1rGgDGR5O
+ 4sT0eHi9T3Agm5Cw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 906F83EE92;
- Mon,  9 Mar 2026 11:29:44 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F21DB3EEE8;
+ Mon,  9 Mar 2026 12:56:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id E6I7IyivrmmtfAAAD6G6ig
- (envelope-from <jack@suse.cz>); Mon, 09 Mar 2026 11:29:44 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 32CD5A09A4; Mon,  9 Mar 2026 12:29:36 +0100 (CET)
-Date: Mon, 9 Mar 2026 12:29:36 +0100
-From: Jan Kara <jack@suse.cz>
-To: Wei Gao <wegao@suse.com>
-Message-ID: <k7qmbhtdldeaikatdnr3y4zzbmguf6sz6t656zl4ohfwwab462@6g5l2uu7ewn7>
-References: <20260304133810.24585-1-wegao@suse.com>
- <20260309075946.28119-1-wegao@suse.com>
+ by imap1.dmz-prg2.suse.org with ESMTPSA id JRb3OGPDrmnmYwAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Mon, 09 Mar 2026 12:56:03 +0000
+Date: Mon, 9 Mar 2026 13:56:02 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Jan Kara <jack@suse.cz>
+Message-ID: <20260309125602.GA13435@pevik>
+References: <20260303105510.14305-1-mdoucha@suse.cz>
+ <20260306121336.GA519430@pevik>
+ <t4o7qgmw3rpcslrj7gmxsqg3ugk5kwoyis7lg4fwr42kf7sfn4@26l4i43m7zbc>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260309075946.28119-1-wegao@suse.com>
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spam-Score: -4.00
+In-Reply-To: <t4o7qgmw3rpcslrj7gmxsqg3ugk5kwoyis7lg4fwr42kf7sfn4@26l4i43m7zbc>
+X-Spam-Score: -3.71
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=disabled version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 1.0.9 at in-4.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=disabled version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-25) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 1.0.9 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2] fanotify22.c: handle multiple asynchronous
- error events
+Subject: Re: [LTP] [PATCH] fanotify25: Trace oom_kill_process() instead of
+ load_module()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,124 +111,51 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>, kernel test robot <oliver.sang@intel.com>,
- ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Amir Goldstein <amir73il@gmail.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
-X-Rspamd-Queue-Id: CBBD7237F0E
+X-Rspamd-Queue-Id: 8EE8A239432
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.01 / 15.00];
+X-Spamd-Result: default: False [0.99 / 15.00];
+	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	MID_RHS_NOT_FQDN(0.50)[];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+a:c];
+	R_SPF_ALLOW(-0.20)[+a];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	TAGGED_FROM(0.00)[lists,linux-ltp=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	DMARC_NA(0.00)[suse.cz];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,linux.it:url];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DMARC_NA(0.00)[suse.cz];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jack@suse.cz,ltp-bounces@lists.linux.it];
+	FREEMAIL_CC(0.00)[gmail.com,lists.linux.it];
+	RCPT_COUNT_THREE(0.00)[3];
+	HAS_REPLYTO(0.00)[pvorel@suse.cz];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[pvorel@suse.cz,ltp-bounces@lists.linux.it];
 	FROM_HAS_DN(0.00)[];
-	NEURAL_SPAM(0.00)[0.391];
-	R_DKIM_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:-];
 	TAGGED_RCPT(0.00)[linux-ltp];
 	ASN(0.00)[asn:12779, ipnet:213.254.0.0/19, country:IT];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,intel.com:email]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_SPAM(0.00)[0.218];
+	MISSING_XM_UA(0.00)[];
+	REPLYTO_EQ_FROM(0.00)[]
 X-Rspamd-Action: no action
 
-On Mon 09-03-26 07:59:42, Wei Gao wrote:
-> Since the introduction of the asynchronous fserror reporting framework
-> (kernel commit 81d2e13a57c9), fanotify22 has encountered sporadic failures
-> due to the non-deterministic nature of event delivery and merging:
-> 
-> 1) tcase3 failure: A race condition occurs when the test reads the
->    notification fd between two events. Adding a short delay
->    (usleep) ensures all events are dispatched and ready before the
->    read() call.
-> 
-> 2) tcase4 failure: The kernel may deliver errors as independent events
->    instead of a single merged event, since different worker kthread can
->    end up generating each event so they won't be merged. As suggested by
->    Jan Kara, this patch introduces a consolidate_events() helper. It iterates
->    through the event buffer, accumulates the error_count from all independent
->    events, and updates the first event's count in-place.
-> 
-> Reported-by: kernel test robot <oliver.sang@intel.com>
-> Closes: https://lore.kernel.org/oe-lkp/202602042124.87bd00e3-lkp@intel.com
-> Suggested-by: Jan Kara <jack@suse.cz>
-> Signed-off-by: Wei Gao <wegao@suse.com>
-...
-> +static size_t consolidate_events(char *buf, size_t len)
-> +{
-> +	struct fanotify_event_metadata *metadata, *first = NULL;
-> +	struct fanotify_event_info_error *first_info = NULL;
-> +	unsigned int total_count = 0;
-> +	int event_num = 0;
-> +
-> +	for (metadata = (struct fanotify_event_metadata *)buf;
-> +			FAN_EVENT_OK(metadata, len);
-> +			metadata = FAN_EVENT_NEXT(metadata, len)) {
-> +
-> +		event_num++;
-> +		struct fanotify_event_info_error *info = get_event_info_error(metadata);
-> +
-> +		if (info) {
-> +			if (!first) {
-> +				first = metadata;
-> +				first_info = info;
-> +			}
-> +			total_count += info->error_count;
+Hi all,
 
-Please verify the 'error' field in the info matches before merging the
-count and fail the test if it does not. Also if we get event without error
-info I think we should fail the test as it currently shouldn't happen for
-any of the tests.
+patch merged, thanks!
 
-								Honza
-
-> +
-> +			tst_res(TINFO, "Event [%d]: errno=%d, error_count=%d",
-> +					event_num, info->error, info->error_count);
-> +		}
-> +	}
-> +
-> +	if (first_info)
-> +		first_info->error_count = total_count;
-> +
-> +	return (first) ? first->event_len : 0;
-> +}
-> +
->  static int check_error_event_info_fid(struct fanotify_event_info_fid *fid,
->  				 const struct test_case *ex)
->  {
-> @@ -255,7 +286,11 @@ static void do_test(unsigned int i)
->  
->  	tcase->trigger_error();
->  
-> +	/* Wait for asynchronous kworker threads to dispatch events */
-> +	usleep(100000);
-> +
->  	read_len = SAFE_READ(0, fd_notify, event_buf, BUF_SIZE);
-> +	read_len = consolidate_events(event_buf, read_len);
->  
->  	SAFE_FANOTIFY_MARK(fd_notify, FAN_MARK_REMOVE|FAN_MARK_FILESYSTEM,
->  			   FAN_FS_ERROR, AT_FDCWD, MOUNT_PATH);
-> -- 
-> 2.52.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
